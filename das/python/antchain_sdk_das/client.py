@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.53',
+                    'sdk_version': '1.1.54',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.53',
+                    'sdk_version': '1.1.54',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -1551,6 +1551,62 @@ class Client:
         return TeaCore.from_map(
             das_models.UploadServiceAuthfileResponse(),
             await self.do_request_async('1.0', 'antchain.das.service.authfile.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_domestictrademark_extensioninfo(
+        self,
+        request: das_models.QueryDomestictrademarkExtensioninfoRequest,
+    ) -> das_models.QueryDomestictrademarkExtensioninfoResponse:
+        """
+        Description: 查询国内商标扩展信息
+        Summary: 查询国内商标扩展信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_domestictrademark_extensioninfo_ex(request, headers, runtime)
+
+    async def query_domestictrademark_extensioninfo_async(
+        self,
+        request: das_models.QueryDomestictrademarkExtensioninfoRequest,
+    ) -> das_models.QueryDomestictrademarkExtensioninfoResponse:
+        """
+        Description: 查询国内商标扩展信息
+        Summary: 查询国内商标扩展信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_domestictrademark_extensioninfo_ex_async(request, headers, runtime)
+
+    def query_domestictrademark_extensioninfo_ex(
+        self,
+        request: das_models.QueryDomestictrademarkExtensioninfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryDomestictrademarkExtensioninfoResponse:
+        """
+        Description: 查询国内商标扩展信息
+        Summary: 查询国内商标扩展信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryDomestictrademarkExtensioninfoResponse(),
+            self.do_request('1.0', 'antchain.das.domestictrademark.extensioninfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_domestictrademark_extensioninfo_ex_async(
+        self,
+        request: das_models.QueryDomestictrademarkExtensioninfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryDomestictrademarkExtensioninfoResponse:
+        """
+        Description: 查询国内商标扩展信息
+        Summary: 查询国内商标扩展信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryDomestictrademarkExtensioninfoResponse(),
+            await self.do_request_async('1.0', 'antchain.das.domestictrademark.extensioninfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_das_link(

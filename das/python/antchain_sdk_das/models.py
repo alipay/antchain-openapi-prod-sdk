@@ -594,6 +594,41 @@ class DataSourceInterface(TeaModel):
         return self
 
 
+class DomesticTmGoodsInfo(TeaModel):
+    def __init__(
+        self,
+        goods_cn_name: str = None,
+        similar_code: str = None,
+    ):
+        # 商品中文名称
+        self.goods_cn_name = goods_cn_name
+        # 类似群编码
+        self.similar_code = similar_code
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.goods_cn_name is not None:
+            result['goods_cn_name'] = self.goods_cn_name
+        if self.similar_code is not None:
+            result['similar_code'] = self.similar_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('goods_cn_name') is not None:
+            self.goods_cn_name = m.get('goods_cn_name')
+        if m.get('similar_code') is not None:
+            self.similar_code = m.get('similar_code')
+        return self
+
+
 class WorkExperiencesInfo(TeaModel):
     def __init__(
         self,
@@ -1562,6 +1597,49 @@ class DetailCarInfo(TeaModel):
             self.fuel_type = m.get('fuel_type')
         if m.get('displacement') is not None:
             self.displacement = m.get('displacement')
+        return self
+
+
+class DomesticTmExtensionInfo(TeaModel):
+    def __init__(
+        self,
+        tm_logo_url: str = None,
+        goods_info: List[DomesticTmGoodsInfo] = None,
+    ):
+        # 商标logo URL地址
+        self.tm_logo_url = tm_logo_url
+        # 商品与服务信息列表
+        self.goods_info = goods_info
+
+    def validate(self):
+        if self.goods_info:
+            for k in self.goods_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tm_logo_url is not None:
+            result['tm_logo_url'] = self.tm_logo_url
+        result['goods_info'] = []
+        if self.goods_info is not None:
+            for k in self.goods_info:
+                result['goods_info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('tm_logo_url') is not None:
+            self.tm_logo_url = m.get('tm_logo_url')
+        self.goods_info = []
+        if m.get('goods_info') is not None:
+            for k in m.get('goods_info'):
+                temp_model = DomesticTmGoodsInfo()
+                self.goods_info.append(temp_model.from_map(k))
         return self
 
 
@@ -4801,6 +4879,112 @@ class UploadServiceAuthfileResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('file_index') is not None:
             self.file_index = m.get('file_index')
+        return self
+
+
+class QueryDomestictrademarkExtensioninfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        data_set_id: str = None,
+        tid: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 数据集ID
+        self.data_set_id = data_set_id
+        # 商标唯一标识号
+        self.tid = tid
+
+    def validate(self):
+        self.validate_required(self.data_set_id, 'data_set_id')
+        self.validate_required(self.tid, 'tid')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.data_set_id is not None:
+            result['data_set_id'] = self.data_set_id
+        if self.tid is not None:
+            result['tid'] = self.tid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('data_set_id') is not None:
+            self.data_set_id = m.get('data_set_id')
+        if m.get('tid') is not None:
+            self.tid = m.get('tid')
+        return self
+
+
+class QueryDomestictrademarkExtensioninfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[DomesticTmGoodsInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 商标扩展商品与服务信息
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = DomesticTmGoodsInfo()
+                self.data.append(temp_model.from_map(k))
         return self
 
 
