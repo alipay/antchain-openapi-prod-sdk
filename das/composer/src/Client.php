@@ -55,6 +55,8 @@ use AntChain\DAS\Models\QueryDasDatasourceRequest;
 use AntChain\DAS\Models\QueryDasDatasourceResponse;
 use AntChain\DAS\Models\QueryDetailcarinfoPesonandlicRequest;
 use AntChain\DAS\Models\QueryDetailcarinfoPesonandlicResponse;
+use AntChain\DAS\Models\QueryDomestictrademarkExtensioninfoRequest;
+use AntChain\DAS\Models\QueryDomestictrademarkExtensioninfoResponse;
 use AntChain\DAS\Models\QueryDomesticTrademarkRequest;
 use AntChain\DAS\Models\QueryDomesticTrademarkResponse;
 use AntChain\DAS\Models\QueryEncryptEnterpriseinfoRequest;
@@ -228,7 +230,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.53',
+                    'sdk_version'      => '1.1.54',
                     '_prod_code'       => 'DAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1021,6 +1023,39 @@ class Client
         Utils::validateModel($request);
 
         return UploadServiceAuthfileResponse::fromMap($this->doRequest('1.0', 'antchain.das.service.authfile.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询国内商标扩展信息
+     * Summary: 查询国内商标扩展信息.
+     *
+     * @param QueryDomestictrademarkExtensioninfoRequest $request
+     *
+     * @return QueryDomestictrademarkExtensioninfoResponse
+     */
+    public function queryDomestictrademarkExtensioninfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDomestictrademarkExtensioninfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询国内商标扩展信息
+     * Summary: 查询国内商标扩展信息.
+     *
+     * @param QueryDomestictrademarkExtensioninfoRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return QueryDomestictrademarkExtensioninfoResponse
+     */
+    public function queryDomestictrademarkExtensioninfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDomestictrademarkExtensioninfoResponse::fromMap($this->doRequest('1.0', 'antchain.das.domestictrademark.extensioninfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
