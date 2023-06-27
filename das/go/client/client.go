@@ -485,6 +485,32 @@ func (s *DataSourceInterface) SetInterfaceOutput(v []*InterfaceOutput) *DataSour
 	return s
 }
 
+// 国内商标对应商品信息
+type DomesticTmGoodsInfo struct {
+	// 商品中文名称
+	GoodsCnName *string `json:"goods_cn_name,omitempty" xml:"goods_cn_name,omitempty"`
+	// 类似群编码
+	SimilarCode *string `json:"similar_code,omitempty" xml:"similar_code,omitempty"`
+}
+
+func (s DomesticTmGoodsInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DomesticTmGoodsInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DomesticTmGoodsInfo) SetGoodsCnName(v string) *DomesticTmGoodsInfo {
+	s.GoodsCnName = &v
+	return s
+}
+
+func (s *DomesticTmGoodsInfo) SetSimilarCode(v string) *DomesticTmGoodsInfo {
+	s.SimilarCode = &v
+	return s
+}
+
 // 工作经历信息
 type WorkExperiencesInfo struct {
 	// 工作开始日期
@@ -1291,6 +1317,32 @@ func (s *DetailCarInfo) SetFuelType(v string) *DetailCarInfo {
 
 func (s *DetailCarInfo) SetDisplacement(v string) *DetailCarInfo {
 	s.Displacement = &v
+	return s
+}
+
+// 国内商标扩展信息
+type DomesticTmExtensionInfo struct {
+	// 商标logo URL地址
+	TmLogoUrl *string `json:"tm_logo_url,omitempty" xml:"tm_logo_url,omitempty"`
+	// 商品与服务信息列表
+	GoodsInfo []*DomesticTmGoodsInfo `json:"goods_info,omitempty" xml:"goods_info,omitempty" type:"Repeated"`
+}
+
+func (s DomesticTmExtensionInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DomesticTmExtensionInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DomesticTmExtensionInfo) SetTmLogoUrl(v string) *DomesticTmExtensionInfo {
+	s.TmLogoUrl = &v
+	return s
+}
+
+func (s *DomesticTmExtensionInfo) SetGoodsInfo(v []*DomesticTmGoodsInfo) *DomesticTmExtensionInfo {
+	s.GoodsInfo = v
 	return s
 }
 
@@ -3866,6 +3918,83 @@ func (s *UploadServiceAuthfileResponse) SetFileIndex(v string) *UploadServiceAut
 	return s
 }
 
+type QueryDomestictrademarkExtensioninfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据集ID
+	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty" require:"true"`
+	// 商标唯一标识号
+	Tid *string `json:"tid,omitempty" xml:"tid,omitempty" require:"true"`
+}
+
+func (s QueryDomestictrademarkExtensioninfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDomestictrademarkExtensioninfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDomestictrademarkExtensioninfoRequest) SetAuthToken(v string) *QueryDomestictrademarkExtensioninfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDomestictrademarkExtensioninfoRequest) SetProductInstanceId(v string) *QueryDomestictrademarkExtensioninfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDomestictrademarkExtensioninfoRequest) SetDataSetId(v string) *QueryDomestictrademarkExtensioninfoRequest {
+	s.DataSetId = &v
+	return s
+}
+
+func (s *QueryDomestictrademarkExtensioninfoRequest) SetTid(v string) *QueryDomestictrademarkExtensioninfoRequest {
+	s.Tid = &v
+	return s
+}
+
+type QueryDomestictrademarkExtensioninfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商标扩展商品与服务信息
+	Data []*DomesticTmGoodsInfo `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryDomestictrademarkExtensioninfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDomestictrademarkExtensioninfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDomestictrademarkExtensioninfoResponse) SetReqMsgId(v string) *QueryDomestictrademarkExtensioninfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDomestictrademarkExtensioninfoResponse) SetResultCode(v string) *QueryDomestictrademarkExtensioninfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDomestictrademarkExtensioninfoResponse) SetResultMsg(v string) *QueryDomestictrademarkExtensioninfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDomestictrademarkExtensioninfoResponse) SetData(v []*DomesticTmGoodsInfo) *QueryDomestictrademarkExtensioninfoResponse {
+	s.Data = v
+	return s
+}
+
 type GetDasLinkRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5242,7 +5371,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.53"),
+				"sdk_version":      tea.String("1.1.54"),
 				"_prod_code":       tea.String("DAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6094,6 +6223,40 @@ func (client *Client) UploadServiceAuthfileEx(request *UploadServiceAuthfileRequ
 	}
 	_result = &UploadServiceAuthfileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.service.authfile.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询国内商标扩展信息
+ * Summary: 查询国内商标扩展信息
+ */
+func (client *Client) QueryDomestictrademarkExtensioninfo(request *QueryDomestictrademarkExtensioninfoRequest) (_result *QueryDomestictrademarkExtensioninfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDomestictrademarkExtensioninfoResponse{}
+	_body, _err := client.QueryDomestictrademarkExtensioninfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询国内商标扩展信息
+ * Summary: 查询国内商标扩展信息
+ */
+func (client *Client) QueryDomestictrademarkExtensioninfoEx(request *QueryDomestictrademarkExtensioninfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDomestictrademarkExtensioninfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDomestictrademarkExtensioninfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.domestictrademark.extensioninfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
