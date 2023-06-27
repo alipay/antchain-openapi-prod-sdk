@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.53',
+    sdk_version = '1.1.54',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -259,6 +259,14 @@ model DataSourceInterface {
   interfaceInput?: [ InterfaceInput ](name='interface_input', example=''),
   // 数据源接口出参列表
   interfaceOutput?: [ InterfaceOutput ](name='interface_output', example=''),
+}
+
+// 国内商标对应商品信息
+model DomesticTmGoodsInfo {
+  // 商品中文名称
+  goodsCnName?: string(name='goods_cn_name', example='汽车'),
+  // 类似群编码
+  similarCode?: string(name='similar_code', example='1210'),
 }
 
 // 工作经历信息
@@ -499,6 +507,14 @@ model DetailCarInfo {
   fuelType: string(name='fuel_type', example='10'),
   // 排量，数字
   displacement: string(name='displacement', example='10'),
+}
+
+// 国内商标扩展信息
+model DomesticTmExtensionInfo {
+  // 商标logo URL地址
+  tmLogoUrl?: string(name='tm_logo_url', example='http://logo.png'),
+  // 商品与服务信息列表
+  goodsInfo?: [ DomesticTmGoodsInfo ](name='goods_info', example=''),
 }
 
 // 简历技能信息
@@ -1683,6 +1699,46 @@ async function uploadServiceAuthfileEx(request: UploadServiceAuthfileRequest, he
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.das.service.authfile.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDomestictrademarkExtensioninfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集ID
+  dataSetId: string(name='data_set_id'),
+  // 商标唯一标识号
+  tid: string(name='tid'),
+}
+
+model QueryDomestictrademarkExtensioninfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商标扩展商品与服务信息
+  data?: [ DomesticTmGoodsInfo ](name='data'),
+}
+
+/**
+ * Description: 查询国内商标扩展信息
+ * Summary: 查询国内商标扩展信息
+ */
+async function queryDomestictrademarkExtensioninfo(request: QueryDomestictrademarkExtensioninfoRequest): QueryDomestictrademarkExtensioninfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDomestictrademarkExtensioninfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询国内商标扩展信息
+ * Summary: 查询国内商标扩展信息
+ */
+async function queryDomestictrademarkExtensioninfoEx(request: QueryDomestictrademarkExtensioninfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDomestictrademarkExtensioninfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.domestictrademark.extensioninfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model GetDasLinkRequest = {
