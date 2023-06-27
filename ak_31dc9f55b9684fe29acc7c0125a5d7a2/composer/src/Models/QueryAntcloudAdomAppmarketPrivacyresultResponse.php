@@ -37,12 +37,19 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse extends Model
      * @var string
      */
     public $resultUrl;
+
+    // 失败的原因
+    /**
+     * @var string
+     */
+    public $failedReason;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'status'     => 'status',
-        'resultUrl'  => 'result_url',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'status'       => 'status',
+        'resultUrl'    => 'result_url',
+        'failedReason' => 'failed_reason',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse extends Model
         }
         if (null !== $this->resultUrl) {
             $res['result_url'] = $this->resultUrl;
+        }
+        if (null !== $this->failedReason) {
+            $res['failed_reason'] = $this->failedReason;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse extends Model
         }
         if (isset($map['result_url'])) {
             $model->resultUrl = $map['result_url'];
+        }
+        if (isset($map['failed_reason'])) {
+            $model->failedReason = $map['failed_reason'];
         }
 
         return $model;
