@@ -24,6 +24,10 @@ public class QueryAntcloudAdomAppmarketPrivacyresultResponse extends TeaModel {
     @NameInMap("result_url")
     public String resultUrl;
 
+    // 失败的原因
+    @NameInMap("failed_reason")
+    public String failedReason;
+
     public static QueryAntcloudAdomAppmarketPrivacyresultResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAntcloudAdomAppmarketPrivacyresultResponse self = new QueryAntcloudAdomAppmarketPrivacyresultResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class QueryAntcloudAdomAppmarketPrivacyresultResponse extends TeaModel {
     }
     public String getResultUrl() {
         return this.resultUrl;
+    }
+
+    public QueryAntcloudAdomAppmarketPrivacyresultResponse setFailedReason(String failedReason) {
+        this.failedReason = failedReason;
+        return this;
+    }
+    public String getFailedReason() {
+        return this.failedReason;
     }
 
 }
