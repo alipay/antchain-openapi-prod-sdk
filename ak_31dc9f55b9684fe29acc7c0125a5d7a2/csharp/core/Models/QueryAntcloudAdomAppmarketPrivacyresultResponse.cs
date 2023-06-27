@@ -34,6 +34,11 @@ namespace AntChain.SDK.Ak_31dc9f55b9684fe29acc7c0125a5d7a2.Models
         [Validation(Required=false)]
         public string ResultUrl { get; set; }
 
+        // 失败的原因
+        [NameInMap("failed_reason")]
+        [Validation(Required=false)]
+        public string FailedReason { get; set; }
+
     }
 
 }
