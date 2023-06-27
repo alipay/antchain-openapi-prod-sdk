@@ -341,6 +341,31 @@ export class DataSourceInterface extends $tea.Model {
   }
 }
 
+// 国内商标对应商品信息
+export class DomesticTmGoodsInfo extends $tea.Model {
+  // 商品中文名称
+  goodsCnName?: string;
+  // 类似群编码
+  similarCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      goodsCnName: 'goods_cn_name',
+      similarCode: 'similar_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      goodsCnName: 'string',
+      similarCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 工作经历信息
 export class WorkExperiencesInfo extends $tea.Model {
   // 工作开始日期
@@ -928,6 +953,31 @@ export class DetailCarInfo extends $tea.Model {
       useNatureCode: 'string',
       fuelType: 'string',
       displacement: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 国内商标扩展信息
+export class DomesticTmExtensionInfo extends $tea.Model {
+  // 商标logo URL地址
+  tmLogoUrl?: string;
+  // 商品与服务信息列表
+  goodsInfo?: DomesticTmGoodsInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      tmLogoUrl: 'tm_logo_url',
+      goodsInfo: 'goods_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tmLogoUrl: 'string',
+      goodsInfo: { 'type': 'array', 'itemType': DomesticTmGoodsInfo },
     };
   }
 
@@ -2899,6 +2949,69 @@ export class UploadServiceAuthfileResponse extends $tea.Model {
   }
 }
 
+export class QueryDomestictrademarkExtensioninfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数据集ID
+  dataSetId: string;
+  // 商标唯一标识号
+  tid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dataSetId: 'data_set_id',
+      tid: 'tid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dataSetId: 'string',
+      tid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDomestictrademarkExtensioninfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商标扩展商品与服务信息
+  data?: DomesticTmGoodsInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': DomesticTmGoodsInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class GetDasLinkRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3995,7 +4108,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.53",
+          sdk_version: "1.1.54",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
@@ -4503,6 +4616,25 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<UploadServiceAuthfileResponse>(await this.doRequest("1.0", "antchain.das.service.authfile.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadServiceAuthfileResponse({}));
+  }
+
+  /**
+   * Description: 查询国内商标扩展信息
+   * Summary: 查询国内商标扩展信息
+   */
+  async queryDomestictrademarkExtensioninfo(request: QueryDomestictrademarkExtensioninfoRequest): Promise<QueryDomestictrademarkExtensioninfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDomestictrademarkExtensioninfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询国内商标扩展信息
+   * Summary: 查询国内商标扩展信息
+   */
+  async queryDomestictrademarkExtensioninfoEx(request: QueryDomestictrademarkExtensioninfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDomestictrademarkExtensioninfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDomestictrademarkExtensioninfoResponse>(await this.doRequest("1.0", "antchain.das.domestictrademark.extensioninfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDomestictrademarkExtensioninfoResponse({}));
   }
 
   /**
