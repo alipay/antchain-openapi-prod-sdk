@@ -116,6 +116,8 @@ export class QueryAntcloudAdomAppmarketPrivacyresultResponse extends $tea.Model 
   status?: string;
   // 结果文件路径
   resultUrl?: string;
+  // 失败的原因
+  failedReason?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -123,6 +125,7 @@ export class QueryAntcloudAdomAppmarketPrivacyresultResponse extends $tea.Model 
       resultMsg: 'result_msg',
       status: 'status',
       resultUrl: 'result_url',
+      failedReason: 'failed_reason',
     };
   }
 
@@ -133,6 +136,7 @@ export class QueryAntcloudAdomAppmarketPrivacyresultResponse extends $tea.Model 
       resultMsg: 'string',
       status: 'string',
       resultUrl: 'string',
+      failedReason: 'string',
     };
   }
 
@@ -374,7 +378,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_31dc9f55b9684fe29acc7c0125a5d7a2",
           _prod_channel: "saas",
         };
