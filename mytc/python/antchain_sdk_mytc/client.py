@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.1',
+                    'sdk_version': '1.6.0',
                     '_prod_code': 'MYTC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.1',
+                    'sdk_version': '1.6.0',
                     '_prod_code': 'MYTC',
                     '_prod_channel': 'undefined'
                 }
@@ -543,6 +543,152 @@ class Client:
         return TeaCore.from_map(
             mytc_models.CheckCodeFakescreenResponse(),
             await self.do_request_async('1.0', 'antchain.mytc.code.fakescreen.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_anti_file(
+        self,
+        request: mytc_models.UploadAntiFileRequest,
+    ) -> mytc_models.UploadAntiFileResponse:
+        """
+        Description: 防伪文件上传API
+        Summary: 防伪文件上传API
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_anti_file_ex(request, headers, runtime)
+
+    async def upload_anti_file_async(
+        self,
+        request: mytc_models.UploadAntiFileRequest,
+    ) -> mytc_models.UploadAntiFileResponse:
+        """
+        Description: 防伪文件上传API
+        Summary: 防伪文件上传API
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_anti_file_ex_async(request, headers, runtime)
+
+    def upload_anti_file_ex(
+        self,
+        request: mytc_models.UploadAntiFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.UploadAntiFileResponse:
+        """
+        Description: 防伪文件上传API
+        Summary: 防伪文件上传API
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = mytc_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.mytc.anti.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_anti_file_response = mytc_models.UploadAntiFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_anti_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.UploadAntiFileResponse(),
+            self.do_request('1.0', 'antchain.mytc.anti.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_anti_file_ex_async(
+        self,
+        request: mytc_models.UploadAntiFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.UploadAntiFileResponse:
+        """
+        Description: 防伪文件上传API
+        Summary: 防伪文件上传API
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = mytc_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.mytc.anti.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_anti_file_response = mytc_models.UploadAntiFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_anti_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.UploadAntiFileResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.anti.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def judge_code_fakescreen(
+        self,
+        request: mytc_models.JudgeCodeFakescreenRequest,
+    ) -> mytc_models.JudgeCodeFakescreenResponse:
+        """
+        Description: 开放产品管理中心
+        Summary: 二维码防伪防屏拍图片验证，非文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.judge_code_fakescreen_ex(request, headers, runtime)
+
+    async def judge_code_fakescreen_async(
+        self,
+        request: mytc_models.JudgeCodeFakescreenRequest,
+    ) -> mytc_models.JudgeCodeFakescreenResponse:
+        """
+        Description: 开放产品管理中心
+        Summary: 二维码防伪防屏拍图片验证，非文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.judge_code_fakescreen_ex_async(request, headers, runtime)
+
+    def judge_code_fakescreen_ex(
+        self,
+        request: mytc_models.JudgeCodeFakescreenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.JudgeCodeFakescreenResponse:
+        """
+        Description: 开放产品管理中心
+        Summary: 二维码防伪防屏拍图片验证，非文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.JudgeCodeFakescreenResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.fakescreen.judge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def judge_code_fakescreen_ex_async(
+        self,
+        request: mytc_models.JudgeCodeFakescreenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.JudgeCodeFakescreenResponse:
+        """
+        Description: 开放产品管理中心
+        Summary: 二维码防伪防屏拍图片验证，非文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.JudgeCodeFakescreenResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.fakescreen.judge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def init_anti_imagesync(
