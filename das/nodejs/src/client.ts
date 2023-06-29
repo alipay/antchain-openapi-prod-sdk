@@ -1110,6 +1110,8 @@ export class DomesticTmInfo extends $tea.Model {
   applicantAddrEn?: string;
   // 权利人社会信用统一代码
   ownerUscc?: string;
+  // 商标唯一标识码
+  tid?: string;
   static names(): { [key: string]: string } {
     return {
       tmName: 'tm_name',
@@ -1131,6 +1133,7 @@ export class DomesticTmInfo extends $tea.Model {
       applicantNameEn: 'applicant_name_en',
       applicantAddrEn: 'applicant_addr_en',
       ownerUscc: 'owner_uscc',
+      tid: 'tid',
     };
   }
 
@@ -1155,6 +1158,7 @@ export class DomesticTmInfo extends $tea.Model {
       applicantNameEn: 'string',
       applicantAddrEn: 'string',
       ownerUscc: 'string',
+      tid: 'string',
     };
   }
 
@@ -4108,7 +4112,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.54",
+          sdk_version: "1.1.55",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
