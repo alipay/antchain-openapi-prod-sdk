@@ -656,7 +656,7 @@ export class CheckCodeFakescreenRequest extends $tea.Model {
   productInstanceId?: string;
   // 设备型号	
   deviceType?: string;
-  // 闪光前图片
+  // 闪光前或闪光后的图片
   fileObject?: Readable;
   fileObjectName?: string;
   fileId: string;
@@ -709,6 +709,146 @@ export class CheckCodeFakescreenResponse extends $tea.Model {
   // 返回编码	
   detectCode?: string;
   // 调用返回信息	
+  detectMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      detectSuccess: 'detect_success',
+      detectCode: 'detect_code',
+      detectMessage: 'detect_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      detectSuccess: 'boolean',
+      detectCode: 'string',
+      detectMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAntiFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件上传
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAntiFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传文件公网可访问路径
+  url?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      url: 'url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      url: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class JudgeCodeFakescreenRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备型号
+  deviceType?: string;
+  // 未闪光图片的fileId
+  unflashedFileId: string;
+  // 闪光后图片fileId
+  flashedFileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceType: 'device_type',
+      unflashedFileId: 'unflashed_file_id',
+      flashedFileId: 'flashed_file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceType: 'string',
+      unflashedFileId: 'string',
+      flashedFileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class JudgeCodeFakescreenResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 验真是否成功
+  detectSuccess?: boolean;
+  // 返回编码
+  detectCode?: string;
+  // 调用返回信息
   detectMessage?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2612,7 +2752,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.1",
+          sdk_version: "1.6.0",
           _prod_code: "MYTC",
           _prod_channel: "undefined",
         };
@@ -2778,6 +2918,65 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<CheckCodeFakescreenResponse>(await this.doRequest("1.0", "antchain.mytc.code.fakescreen.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckCodeFakescreenResponse({}));
+  }
+
+  /**
+   * Description: 防伪文件上传API
+   * Summary: 防伪文件上传API
+   */
+  async uploadAntiFile(request: UploadAntiFileRequest): Promise<UploadAntiFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadAntiFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 防伪文件上传API
+   * Summary: 防伪文件上传API
+   */
+  async uploadAntiFileEx(request: UploadAntiFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadAntiFileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antchain.mytc.anti.file.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadAntiFileResponse = new UploadAntiFileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadAntiFileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadAntiFileResponse>(await this.doRequest("1.0", "antchain.mytc.anti.file.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadAntiFileResponse({}));
+  }
+
+  /**
+   * Description: 开放产品管理中心
+   * Summary: 二维码防伪防屏拍图片验证，非文件上传
+   */
+  async judgeCodeFakescreen(request: JudgeCodeFakescreenRequest): Promise<JudgeCodeFakescreenResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.judgeCodeFakescreenEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 开放产品管理中心
+   * Summary: 二维码防伪防屏拍图片验证，非文件上传
+   */
+  async judgeCodeFakescreenEx(request: JudgeCodeFakescreenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<JudgeCodeFakescreenResponse> {
+    Util.validateModel(request);
+    return $tea.cast<JudgeCodeFakescreenResponse>(await this.doRequest("1.0", "antchain.mytc.code.fakescreen.judge", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new JudgeCodeFakescreenResponse({}));
   }
 
   /**
