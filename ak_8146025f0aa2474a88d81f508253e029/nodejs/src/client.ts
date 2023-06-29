@@ -197,6 +197,105 @@ export class QueryHksecuritytechGatewayDeviceriskFingerResponse extends $tea.Mod
   }
 }
 
+export class QueryHksecuritytechGatewayDeviceriskDeviceriskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // apdid_token
+  apdidToken: string;
+  // client_id
+  clientId?: string;
+  // app_id
+  appId?: string;
+  // env_id
+  envId?: string;
+  // tenant_id
+  tenantId?: string;
+  // merchant_id
+  merchantId?: string;
+  // app_name
+  appName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      apdidToken: 'apdid_token',
+      clientId: 'client_id',
+      appId: 'app_id',
+      envId: 'env_id',
+      tenantId: 'tenant_id',
+      merchantId: 'merchant_id',
+      appName: 'app_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      apdidToken: 'string',
+      clientId: 'string',
+      appId: 'string',
+      envId: 'string',
+      tenantId: 'string',
+      merchantId: 'string',
+      appName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryHksecuritytechGatewayDeviceriskDeviceriskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // code
+  code?: number;
+  // message
+  message?: string;
+  // request_id
+  requestId?: string;
+  // success
+  success?: boolean;
+  // data
+  data?: DeviceRiskResp;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      requestId: 'request_id',
+      success: 'success',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      message: 'string',
+      requestId: 'string',
+      success: 'boolean',
+      data: DeviceRiskResp,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -310,7 +409,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_8146025f0aa2474a88d81f508253e029",
           _prod_channel: "saas",
         };
@@ -375,6 +474,25 @@ export default class Client {
   async queryHksecuritytechGatewayDeviceriskFingerEx(request: QueryHksecuritytechGatewayDeviceriskFingerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryHksecuritytechGatewayDeviceriskFingerResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryHksecuritytechGatewayDeviceriskFingerResponse>(await this.doRequest("1.0", "hksecuritytech.gateway.devicerisk.finger.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryHksecuritytechGatewayDeviceriskFingerResponse({}));
+  }
+
+  /**
+   * Description: 终端安全-设备风险查询
+   * Summary: 设备风险查询
+   */
+  async queryHksecuritytechGatewayDeviceriskDevicerisk(request: QueryHksecuritytechGatewayDeviceriskDeviceriskRequest): Promise<QueryHksecuritytechGatewayDeviceriskDeviceriskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryHksecuritytechGatewayDeviceriskDeviceriskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 终端安全-设备风险查询
+   * Summary: 设备风险查询
+   */
+  async queryHksecuritytechGatewayDeviceriskDeviceriskEx(request: QueryHksecuritytechGatewayDeviceriskDeviceriskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryHksecuritytechGatewayDeviceriskDeviceriskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryHksecuritytechGatewayDeviceriskDeviceriskResponse>(await this.doRequest("1.0", "hksecuritytech.gateway.devicerisk.devicerisk.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryHksecuritytechGatewayDeviceriskDeviceriskResponse({}));
   }
 
 }
