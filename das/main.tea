@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.54',
+    sdk_version = '1.1.55',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -586,6 +586,8 @@ model DomesticTmInfo {
   applicantAddrEn?: string(name='applicant_addr_en', example='英文地址信息'),
   // 权利人社会信用统一代码
   ownerUscc?: string(name='owner_uscc', example='1234567W'),
+  // 商标唯一标识码
+  tid?: string(name='tid', example='123456'),
 }
 
 // 数据源详细信息
