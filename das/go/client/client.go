@@ -1479,6 +1479,8 @@ type DomesticTmInfo struct {
 	ApplicantAddrEn *string `json:"applicant_addr_en,omitempty" xml:"applicant_addr_en,omitempty"`
 	// 权利人社会信用统一代码
 	OwnerUscc *string `json:"owner_uscc,omitempty" xml:"owner_uscc,omitempty"`
+	// 商标唯一标识码
+	Tid *string `json:"tid,omitempty" xml:"tid,omitempty"`
 }
 
 func (s DomesticTmInfo) String() string {
@@ -1581,6 +1583,11 @@ func (s *DomesticTmInfo) SetApplicantAddrEn(v string) *DomesticTmInfo {
 
 func (s *DomesticTmInfo) SetOwnerUscc(v string) *DomesticTmInfo {
 	s.OwnerUscc = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetTid(v string) *DomesticTmInfo {
+	s.Tid = &v
 	return s
 }
 
@@ -5371,7 +5378,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.54"),
+				"sdk_version":      tea.String("1.1.55"),
 				"_prod_code":       tea.String("DAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
