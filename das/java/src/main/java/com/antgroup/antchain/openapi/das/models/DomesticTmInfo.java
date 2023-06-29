@@ -81,6 +81,10 @@ public class DomesticTmInfo extends TeaModel {
     @NameInMap("owner_uscc")
     public String ownerUscc;
 
+    // 商标唯一标识码
+    @NameInMap("tid")
+    public String tid;
+
     public static DomesticTmInfo build(java.util.Map<String, ?> map) throws Exception {
         DomesticTmInfo self = new DomesticTmInfo();
         return TeaModel.build(map, self);
@@ -236,6 +240,14 @@ public class DomesticTmInfo extends TeaModel {
     }
     public String getOwnerUscc() {
         return this.ownerUscc;
+    }
+
+    public DomesticTmInfo setTid(String tid) {
+        this.tid = tid;
+        return this;
+    }
+    public String getTid() {
+        return this.tid;
     }
 
 }
