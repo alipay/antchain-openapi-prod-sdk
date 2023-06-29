@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.0.1"),
                     new TeaPair("_prod_code", "ak_8146025f0aa2474a88d81f508253e029"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -178,5 +178,24 @@ public class Client {
     public QueryHksecuritytechGatewayDeviceriskFingerResponse queryHksecuritytechGatewayDeviceriskFingerEx(QueryHksecuritytechGatewayDeviceriskFingerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.devicerisk.finger.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryHksecuritytechGatewayDeviceriskFingerResponse());
+    }
+
+    /**
+     * Description: 终端安全-设备风险查询
+     * Summary: 设备风险查询
+     */
+    public QueryHksecuritytechGatewayDeviceriskDeviceriskResponse queryHksecuritytechGatewayDeviceriskDevicerisk(QueryHksecuritytechGatewayDeviceriskDeviceriskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryHksecuritytechGatewayDeviceriskDeviceriskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全-设备风险查询
+     * Summary: 设备风险查询
+     */
+    public QueryHksecuritytechGatewayDeviceriskDeviceriskResponse queryHksecuritytechGatewayDeviceriskDeviceriskEx(QueryHksecuritytechGatewayDeviceriskDeviceriskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.devicerisk.devicerisk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryHksecuritytechGatewayDeviceriskDeviceriskResponse());
     }
 }
