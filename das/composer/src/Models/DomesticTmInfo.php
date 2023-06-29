@@ -160,6 +160,14 @@ class DomesticTmInfo extends Model
      * @var string
      */
     public $ownerUscc;
+
+    // 商标唯一标识码
+    /**
+     * @example 123456
+     *
+     * @var string
+     */
+    public $tid;
     protected $_name = [
         'tmName'          => 'tm_name',
         'tmRegNum'        => 'tm_reg_num',
@@ -180,6 +188,7 @@ class DomesticTmInfo extends Model
         'applicantNameEn' => 'applicant_name_en',
         'applicantAddrEn' => 'applicant_addr_en',
         'ownerUscc'       => 'owner_uscc',
+        'tid'             => 'tid',
     ];
 
     public function validate()
@@ -251,6 +260,9 @@ class DomesticTmInfo extends Model
         }
         if (null !== $this->ownerUscc) {
             $res['owner_uscc'] = $this->ownerUscc;
+        }
+        if (null !== $this->tid) {
+            $res['tid'] = $this->tid;
         }
 
         return $res;
@@ -326,6 +338,9 @@ class DomesticTmInfo extends Model
         }
         if (isset($map['owner_uscc'])) {
             $model->ownerUscc = $map['owner_uscc'];
+        }
+        if (isset($map['tid'])) {
+            $model->tid = $map['tid'];
         }
 
         return $model;
