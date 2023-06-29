@@ -15,7 +15,7 @@ public class CheckCodeFakescreenRequest extends TeaModel {
     @NameInMap("device_type")
     public String deviceType;
 
-    // 闪光前图片
+    // 闪光前或闪光后的图片
     // 待上传文件
     @NameInMap("fileObject")
     public java.io.InputStream fileObject;

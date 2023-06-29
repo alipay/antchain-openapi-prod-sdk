@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.5.1"),
+                    new TeaPair("sdk_version", "1.6.0"),
                     new TeaPair("_prod_code", "MYTC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -279,6 +279,65 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.fakescreen.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckCodeFakescreenResponse());
+    }
+
+    /**
+     * Description: 防伪文件上传API
+     * Summary: 防伪文件上传API
+     */
+    public UploadAntiFileResponse uploadAntiFile(UploadAntiFileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadAntiFileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 防伪文件上传API
+     * Summary: 防伪文件上传API
+     */
+    public UploadAntiFileResponse uploadAntiFileEx(UploadAntiFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antchain.mytc.anti.file.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadAntiFileResponse uploadAntiFileResponse = UploadAntiFileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadAntiFileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.anti.file.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAntiFileResponse());
+    }
+
+    /**
+     * Description: 开放产品管理中心
+     * Summary: 二维码防伪防屏拍图片验证，非文件上传
+     */
+    public JudgeCodeFakescreenResponse judgeCodeFakescreen(JudgeCodeFakescreenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.judgeCodeFakescreenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 开放产品管理中心
+     * Summary: 二维码防伪防屏拍图片验证，非文件上传
+     */
+    public JudgeCodeFakescreenResponse judgeCodeFakescreenEx(JudgeCodeFakescreenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.fakescreen.judge", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new JudgeCodeFakescreenResponse());
     }
 
     /**
