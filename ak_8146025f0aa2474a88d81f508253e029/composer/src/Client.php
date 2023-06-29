@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_8146025f0aa2474a88d81f508253e029\Models\QueryHksecuritytechGatewayDeviceriskDeviceriskRequest;
+use AntChain\Ak_8146025f0aa2474a88d81f508253e029\Models\QueryHksecuritytechGatewayDeviceriskDeviceriskResponse;
 use AntChain\Ak_8146025f0aa2474a88d81f508253e029\Models\QueryHksecuritytechGatewayDeviceriskFingerRequest;
 use AntChain\Ak_8146025f0aa2474a88d81f508253e029\Models\QueryHksecuritytechGatewayDeviceriskFingerResponse;
 use AntChain\Util\UtilClient;
@@ -160,7 +162,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_8146025f0aa2474a88d81f508253e029',
                     '_prod_channel'    => 'saas',
                 ];
@@ -239,5 +241,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryHksecuritytechGatewayDeviceriskFingerResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.devicerisk.finger.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-设备风险查询
+     * Summary: 设备风险查询.
+     *
+     * @param QueryHksecuritytechGatewayDeviceriskDeviceriskRequest $request
+     *
+     * @return QueryHksecuritytechGatewayDeviceriskDeviceriskResponse
+     */
+    public function queryHksecuritytechGatewayDeviceriskDevicerisk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryHksecuritytechGatewayDeviceriskDeviceriskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-设备风险查询
+     * Summary: 设备风险查询.
+     *
+     * @param QueryHksecuritytechGatewayDeviceriskDeviceriskRequest $request
+     * @param string[]                                              $headers
+     * @param RuntimeOptions                                        $runtime
+     *
+     * @return QueryHksecuritytechGatewayDeviceriskDeviceriskResponse
+     */
+    public function queryHksecuritytechGatewayDeviceriskDeviceriskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryHksecuritytechGatewayDeviceriskDeviceriskResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
