@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.1',
+    sdk_version = '1.6.0',
     _prod_code = 'MYTC',
     _prod_channel = 'undefined'
   };
@@ -462,7 +462,7 @@ model CheckCodeFakescreenRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 设备型号	
   deviceType?: string(name='device_type'),
-  // 闪光前图片
+  // 闪光前或闪光后的图片
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileObjectName?: string(description='待上传文件名', ignore='true'),
   fileId: string(name='file_id'),
@@ -525,6 +525,111 @@ async function checkCodeFakescreenEx(request: CheckCodeFakescreenRequest, header
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.mytc.code.fakescreen.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAntiFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件上传
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadAntiFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传文件公网可访问路径
+  url?: string(name='url'),
+}
+
+/**
+ * Description: 防伪文件上传API
+ * Summary: 防伪文件上传API
+ */
+async function uploadAntiFile(request: UploadAntiFileRequest): UploadAntiFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAntiFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 防伪文件上传API
+ * Summary: 防伪文件上传API
+ */
+async function uploadAntiFileEx(request: UploadAntiFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAntiFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.mytc.anti.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadAntiFileResponse = new UploadAntiFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadAntiFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.anti.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model JudgeCodeFakescreenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备型号
+  deviceType?: string(name='device_type'),
+  // 未闪光图片的fileId
+  unflashedFileId: string(name='unflashed_file_id'),
+  // 闪光后图片fileId
+  flashedFileId: string(name='flashed_file_id'),
+}
+
+model JudgeCodeFakescreenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 验真是否成功
+  detectSuccess?: boolean(name='detect_success'),
+  // 返回编码
+  detectCode?: string(name='detect_code'),
+  // 调用返回信息
+  detectMessage?: string(name='detect_message'),
+}
+
+/**
+ * Description: 开放产品管理中心
+ * Summary: 二维码防伪防屏拍图片验证，非文件上传
+ */
+async function judgeCodeFakescreen(request: JudgeCodeFakescreenRequest): JudgeCodeFakescreenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return judgeCodeFakescreenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 开放产品管理中心
+ * Summary: 二维码防伪防屏拍图片验证，非文件上传
+ */
+async function judgeCodeFakescreenEx(request: JudgeCodeFakescreenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): JudgeCodeFakescreenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.fakescreen.judge', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model InitAntiImagesyncRequest = {
