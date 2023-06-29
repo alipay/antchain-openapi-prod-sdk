@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_8146025f0aa2474a88d81f508253e029',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_8146025f0aa2474a88d81f508253e029',
                     '_prod_channel': 'saas'
                 }
@@ -329,4 +329,60 @@ class Client:
         return TeaCore.from_map(
             ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.QueryHksecuritytechGatewayDeviceriskFingerResponse(),
             await self.do_request_async('1.0', 'hksecuritytech.gateway.devicerisk.finger.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_hksecuritytech_gateway_devicerisk_devicerisk(
+        self,
+        request: ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.QueryHksecuritytechGatewayDeviceriskDeviceriskRequest,
+    ) -> ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.QueryHksecuritytechGatewayDeviceriskDeviceriskResponse:
+        """
+        Description: 终端安全-设备风险查询
+        Summary: 设备风险查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_hksecuritytech_gateway_devicerisk_devicerisk_ex(request, headers, runtime)
+
+    async def query_hksecuritytech_gateway_devicerisk_devicerisk_async(
+        self,
+        request: ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.QueryHksecuritytechGatewayDeviceriskDeviceriskRequest,
+    ) -> ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.QueryHksecuritytechGatewayDeviceriskDeviceriskResponse:
+        """
+        Description: 终端安全-设备风险查询
+        Summary: 设备风险查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_hksecuritytech_gateway_devicerisk_devicerisk_ex_async(request, headers, runtime)
+
+    def query_hksecuritytech_gateway_devicerisk_devicerisk_ex(
+        self,
+        request: ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.QueryHksecuritytechGatewayDeviceriskDeviceriskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.QueryHksecuritytechGatewayDeviceriskDeviceriskResponse:
+        """
+        Description: 终端安全-设备风险查询
+        Summary: 设备风险查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.QueryHksecuritytechGatewayDeviceriskDeviceriskResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_hksecuritytech_gateway_devicerisk_devicerisk_ex_async(
+        self,
+        request: ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.QueryHksecuritytechGatewayDeviceriskDeviceriskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.QueryHksecuritytechGatewayDeviceriskDeviceriskResponse:
+        """
+        Description: 终端安全-设备风险查询
+        Summary: 设备风险查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.QueryHksecuritytechGatewayDeviceriskDeviceriskResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
