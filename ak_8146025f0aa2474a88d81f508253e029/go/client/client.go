@@ -307,6 +307,146 @@ func (s *QueryHksecuritytechGatewayDeviceriskFingerResponse) SetData(v *DeviceRi
 	return s
 }
 
+type QueryHksecuritytechGatewayDeviceriskDeviceriskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// apdid_token
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+	// client_id
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// env_id
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// merchant_id
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+}
+
+func (s QueryHksecuritytechGatewayDeviceriskDeviceriskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHksecuritytechGatewayDeviceriskDeviceriskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest) SetAuthToken(v string) *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest) SetProductInstanceId(v string) *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest) SetApdidToken(v string) *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest) SetClientId(v string) *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest) SetAppId(v string) *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest) SetEnvId(v string) *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest {
+	s.EnvId = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest) SetTenantId(v string) *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest) SetMerchantId(v string) *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest) SetAppName(v string) *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest {
+	s.AppName = &v
+	return s
+}
+
+type QueryHksecuritytechGatewayDeviceriskDeviceriskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// code
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// message
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// request_id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// data
+	Data *DeviceRiskResp `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryHksecuritytechGatewayDeviceriskDeviceriskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHksecuritytechGatewayDeviceriskDeviceriskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse) SetReqMsgId(v string) *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse) SetResultCode(v string) *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse) SetResultMsg(v string) *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse) SetCode(v int64) *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse) SetMessage(v string) *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse) SetRequestId(v string) *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse) SetSuccess(v bool) *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse) SetData(v *DeviceRiskResp) *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -429,7 +569,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_8146025f0aa2474a88d81f508253e029"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -514,6 +654,40 @@ func (client *Client) QueryHksecuritytechGatewayDeviceriskFingerEx(request *Quer
 	}
 	_result = &QueryHksecuritytechGatewayDeviceriskFingerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.devicerisk.finger.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全-设备风险查询
+ * Summary: 设备风险查询
+ */
+func (client *Client) QueryHksecuritytechGatewayDeviceriskDevicerisk(request *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest) (_result *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryHksecuritytechGatewayDeviceriskDeviceriskResponse{}
+	_body, _err := client.QueryHksecuritytechGatewayDeviceriskDeviceriskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全-设备风险查询
+ * Summary: 设备风险查询
+ */
+func (client *Client) QueryHksecuritytechGatewayDeviceriskDeviceriskEx(request *QueryHksecuritytechGatewayDeviceriskDeviceriskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryHksecuritytechGatewayDeviceriskDeviceriskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryHksecuritytechGatewayDeviceriskDeviceriskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.devicerisk.devicerisk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
