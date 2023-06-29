@@ -137,7 +137,7 @@ namespace AntChain.SDK.MYTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.1"},
+                        {"sdk_version", "1.6.0"},
                         {"_prod_code", "MYTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MYTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.1"},
+                        {"sdk_version", "1.6.0"},
                         {"_prod_code", "MYTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -583,6 +583,136 @@ namespace AntChain.SDK.MYTC
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckCodeFakescreenResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.fakescreen.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 防伪文件上传API
+         * Summary: 防伪文件上传API
+         */
+        public UploadAntiFileResponse UploadAntiFile(UploadAntiFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadAntiFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 防伪文件上传API
+         * Summary: 防伪文件上传API
+         */
+        public async Task<UploadAntiFileResponse> UploadAntiFileAsync(UploadAntiFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadAntiFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 防伪文件上传API
+         * Summary: 防伪文件上传API
+         */
+        public UploadAntiFileResponse UploadAntiFileEx(UploadAntiFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antchain.mytc.anti.file.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadAntiFileResponse uploadAntiFileResponse = new UploadAntiFileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadAntiFileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntiFileResponse>(DoRequest("1.0", "antchain.mytc.anti.file.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 防伪文件上传API
+         * Summary: 防伪文件上传API
+         */
+        public async Task<UploadAntiFileResponse> UploadAntiFileExAsync(UploadAntiFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antchain.mytc.anti.file.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadAntiFileResponse uploadAntiFileResponse = new UploadAntiFileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadAntiFileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntiFileResponse>(await DoRequestAsync("1.0", "antchain.mytc.anti.file.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 开放产品管理中心
+         * Summary: 二维码防伪防屏拍图片验证，非文件上传
+         */
+        public JudgeCodeFakescreenResponse JudgeCodeFakescreen(JudgeCodeFakescreenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return JudgeCodeFakescreenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 开放产品管理中心
+         * Summary: 二维码防伪防屏拍图片验证，非文件上传
+         */
+        public async Task<JudgeCodeFakescreenResponse> JudgeCodeFakescreenAsync(JudgeCodeFakescreenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await JudgeCodeFakescreenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 开放产品管理中心
+         * Summary: 二维码防伪防屏拍图片验证，非文件上传
+         */
+        public JudgeCodeFakescreenResponse JudgeCodeFakescreenEx(JudgeCodeFakescreenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<JudgeCodeFakescreenResponse>(DoRequest("1.0", "antchain.mytc.code.fakescreen.judge", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 开放产品管理中心
+         * Summary: 二维码防伪防屏拍图片验证，非文件上传
+         */
+        public async Task<JudgeCodeFakescreenResponse> JudgeCodeFakescreenExAsync(JudgeCodeFakescreenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<JudgeCodeFakescreenResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.fakescreen.judge", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
