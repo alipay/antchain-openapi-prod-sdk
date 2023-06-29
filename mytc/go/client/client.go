@@ -893,7 +893,7 @@ type CheckCodeFakescreenRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 设备型号
 	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
-	// 闪光前图片
+	// 闪光前或闪光后的图片
 	// 待上传文件
 	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
 	// 待上传文件名
@@ -1004,6 +1004,188 @@ func (s *CheckCodeFakescreenResponse) SetDetectCode(v string) *CheckCodeFakescre
 }
 
 func (s *CheckCodeFakescreenResponse) SetDetectMessage(v string) *CheckCodeFakescreenResponse {
+	s.DetectMessage = &v
+	return s
+}
+
+type UploadAntiFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件上传
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s UploadAntiFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAntiFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAntiFileRequest) SetAuthToken(v string) *UploadAntiFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadAntiFileRequest) SetProductInstanceId(v string) *UploadAntiFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadAntiFileRequest) SetFileObject(v io.Reader) *UploadAntiFileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadAntiFileRequest) SetFileObjectName(v string) *UploadAntiFileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadAntiFileRequest) SetFileId(v string) *UploadAntiFileRequest {
+	s.FileId = &v
+	return s
+}
+
+type UploadAntiFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传文件公网可访问路径
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+}
+
+func (s UploadAntiFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAntiFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAntiFileResponse) SetReqMsgId(v string) *UploadAntiFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadAntiFileResponse) SetResultCode(v string) *UploadAntiFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadAntiFileResponse) SetResultMsg(v string) *UploadAntiFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadAntiFileResponse) SetUrl(v string) *UploadAntiFileResponse {
+	s.Url = &v
+	return s
+}
+
+type JudgeCodeFakescreenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备型号
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
+	// 未闪光图片的fileId
+	UnflashedFileId *string `json:"unflashed_file_id,omitempty" xml:"unflashed_file_id,omitempty" require:"true"`
+	// 闪光后图片fileId
+	FlashedFileId *string `json:"flashed_file_id,omitempty" xml:"flashed_file_id,omitempty" require:"true"`
+}
+
+func (s JudgeCodeFakescreenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JudgeCodeFakescreenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *JudgeCodeFakescreenRequest) SetAuthToken(v string) *JudgeCodeFakescreenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *JudgeCodeFakescreenRequest) SetProductInstanceId(v string) *JudgeCodeFakescreenRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *JudgeCodeFakescreenRequest) SetDeviceType(v string) *JudgeCodeFakescreenRequest {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *JudgeCodeFakescreenRequest) SetUnflashedFileId(v string) *JudgeCodeFakescreenRequest {
+	s.UnflashedFileId = &v
+	return s
+}
+
+func (s *JudgeCodeFakescreenRequest) SetFlashedFileId(v string) *JudgeCodeFakescreenRequest {
+	s.FlashedFileId = &v
+	return s
+}
+
+type JudgeCodeFakescreenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 验真是否成功
+	DetectSuccess *bool `json:"detect_success,omitempty" xml:"detect_success,omitempty"`
+	// 返回编码
+	DetectCode *string `json:"detect_code,omitempty" xml:"detect_code,omitempty"`
+	// 调用返回信息
+	DetectMessage *string `json:"detect_message,omitempty" xml:"detect_message,omitempty"`
+}
+
+func (s JudgeCodeFakescreenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JudgeCodeFakescreenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *JudgeCodeFakescreenResponse) SetReqMsgId(v string) *JudgeCodeFakescreenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *JudgeCodeFakescreenResponse) SetResultCode(v string) *JudgeCodeFakescreenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *JudgeCodeFakescreenResponse) SetResultMsg(v string) *JudgeCodeFakescreenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *JudgeCodeFakescreenResponse) SetDetectSuccess(v bool) *JudgeCodeFakescreenResponse {
+	s.DetectSuccess = &v
+	return s
+}
+
+func (s *JudgeCodeFakescreenResponse) SetDetectCode(v string) *JudgeCodeFakescreenResponse {
+	s.DetectCode = &v
+	return s
+}
+
+func (s *JudgeCodeFakescreenResponse) SetDetectMessage(v string) *JudgeCodeFakescreenResponse {
 	s.DetectMessage = &v
 	return s
 }
@@ -3457,7 +3639,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.1"),
+				"sdk_version":      tea.String("1.6.0"),
 				"_prod_code":       tea.String("MYTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3697,6 +3879,103 @@ func (client *Client) CheckCodeFakescreenEx(request *CheckCodeFakescreenRequest,
 	}
 	_result = &CheckCodeFakescreenResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mytc.code.fakescreen.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 防伪文件上传API
+ * Summary: 防伪文件上传API
+ */
+func (client *Client) UploadAntiFile(request *UploadAntiFileRequest) (_result *UploadAntiFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadAntiFileResponse{}
+	_body, _err := client.UploadAntiFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 防伪文件上传API
+ * Summary: 防伪文件上传API
+ */
+func (client *Client) UploadAntiFileEx(request *UploadAntiFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAntiFileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antchain.mytc.anti.file.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadAntiFileResponse := &UploadAntiFileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadAntiFileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadAntiFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mytc.anti.file.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 开放产品管理中心
+ * Summary: 二维码防伪防屏拍图片验证，非文件上传
+ */
+func (client *Client) JudgeCodeFakescreen(request *JudgeCodeFakescreenRequest) (_result *JudgeCodeFakescreenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &JudgeCodeFakescreenResponse{}
+	_body, _err := client.JudgeCodeFakescreenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 开放产品管理中心
+ * Summary: 二维码防伪防屏拍图片验证，非文件上传
+ */
+func (client *Client) JudgeCodeFakescreenEx(request *JudgeCodeFakescreenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *JudgeCodeFakescreenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &JudgeCodeFakescreenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mytc.code.fakescreen.judge"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
