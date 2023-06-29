@@ -106,6 +106,11 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string OwnerUscc { get; set; }
 
+        // 商标唯一标识码
+        [NameInMap("tid")]
+        [Validation(Required=false)]
+        public string Tid { get; set; }
+
     }
 
 }
