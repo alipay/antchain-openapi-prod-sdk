@@ -1790,6 +1790,7 @@ class DomesticTmInfo(TeaModel):
         applicant_name_en: str = None,
         applicant_addr_en: str = None,
         owner_uscc: str = None,
+        tid: str = None,
     ):
         # 商标名称
         self.tm_name = tm_name
@@ -1830,6 +1831,8 @@ class DomesticTmInfo(TeaModel):
         self.applicant_addr_en = applicant_addr_en
         # 权利人社会信用统一代码
         self.owner_uscc = owner_uscc
+        # 商标唯一标识码
+        self.tid = tid
 
     def validate(self):
         if self.coowner_infos:
@@ -1883,6 +1886,8 @@ class DomesticTmInfo(TeaModel):
             result['applicant_addr_en'] = self.applicant_addr_en
         if self.owner_uscc is not None:
             result['owner_uscc'] = self.owner_uscc
+        if self.tid is not None:
+            result['tid'] = self.tid
         return result
 
     def from_map(self, m: dict = None):
@@ -1928,6 +1933,8 @@ class DomesticTmInfo(TeaModel):
             self.applicant_addr_en = m.get('applicant_addr_en')
         if m.get('owner_uscc') is not None:
             self.owner_uscc = m.get('owner_uscc')
+        if m.get('tid') is not None:
+            self.tid = m.get('tid')
         return self
 
 
