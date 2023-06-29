@@ -37,6 +37,8 @@ use AntChain\MYTC\Models\FinishAntiImagesyncRequest;
 use AntChain\MYTC\Models\FinishAntiImagesyncResponse;
 use AntChain\MYTC\Models\InitAntiImagesyncRequest;
 use AntChain\MYTC\Models\InitAntiImagesyncResponse;
+use AntChain\MYTC\Models\JudgeCodeFakescreenRequest;
+use AntChain\MYTC\Models\JudgeCodeFakescreenResponse;
 use AntChain\MYTC\Models\QueryCodeCertRequest;
 use AntChain\MYTC\Models\QueryCodeCertResponse;
 use AntChain\MYTC\Models\QueryCodeCombineRequest;
@@ -57,6 +59,8 @@ use AntChain\MYTC\Models\UpdateCodeRegistrationRequest;
 use AntChain\MYTC\Models\UpdateCodeRegistrationResponse;
 use AntChain\MYTC\Models\UpdateCodeRelationRequest;
 use AntChain\MYTC\Models\UpdateCodeRelationResponse;
+use AntChain\MYTC\Models\UploadAntiFileRequest;
+use AntChain\MYTC\Models\UploadAntiFileResponse;
 use AntChain\MYTC\Models\UploadAntiImagesyncRequest;
 use AntChain\MYTC\Models\UploadAntiImagesyncResponse;
 use AntChain\MYTC\Models\VerifyMiniNfcRequest;
@@ -208,7 +212,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.1',
+                    'sdk_version'      => '1.6.0',
                     '_prod_code'       => 'MYTC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -407,6 +411,90 @@ class Client
         Utils::validateModel($request);
 
         return CheckCodeFakescreenResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.fakescreen.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 防伪文件上传API
+     * Summary: 防伪文件上传API.
+     *
+     * @param UploadAntiFileRequest $request
+     *
+     * @return UploadAntiFileResponse
+     */
+    public function uploadAntiFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAntiFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 防伪文件上传API
+     * Summary: 防伪文件上传API.
+     *
+     * @param UploadAntiFileRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return UploadAntiFileResponse
+     */
+    public function uploadAntiFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.mytc.anti.file.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadAntiFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadAntiFileResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.anti.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 开放产品管理中心
+     * Summary: 二维码防伪防屏拍图片验证，非文件上传.
+     *
+     * @param JudgeCodeFakescreenRequest $request
+     *
+     * @return JudgeCodeFakescreenResponse
+     */
+    public function judgeCodeFakescreen($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->judgeCodeFakescreenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 开放产品管理中心
+     * Summary: 二维码防伪防屏拍图片验证，非文件上传.
+     *
+     * @param JudgeCodeFakescreenRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return JudgeCodeFakescreenResponse
+     */
+    public function judgeCodeFakescreenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return JudgeCodeFakescreenResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.fakescreen.judge', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
