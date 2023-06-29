@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'ak_8146025f0aa2474a88d81f508253e029',
     _prod_channel = 'saas'
   };
@@ -223,5 +223,63 @@ async function queryHksecuritytechGatewayDeviceriskFinger(request: QueryHksecuri
 async function queryHksecuritytechGatewayDeviceriskFingerEx(request: QueryHksecuritytechGatewayDeviceriskFingerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryHksecuritytechGatewayDeviceriskFingerResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'hksecuritytech.gateway.devicerisk.finger.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryHksecuritytechGatewayDeviceriskDeviceriskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // apdid_token
+  apdidToken: string(name='apdid_token'),
+  // client_id
+  clientId?: string(name='client_id'),
+  // app_id
+  appId?: string(name='app_id'),
+  // env_id
+  envId?: string(name='env_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+  // merchant_id
+  merchantId?: string(name='merchant_id'),
+  // app_name
+  appName?: string(name='app_name'),
+}
+
+model QueryHksecuritytechGatewayDeviceriskDeviceriskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // code
+  code?: long(name='code'),
+  // message
+  message?: string(name='message'),
+  // request_id
+  requestId?: string(name='request_id'),
+  // success
+  success?: boolean(name='success'),
+  // data
+  data?: DeviceRiskResp(name='data'),
+}
+
+/**
+ * Description: 终端安全-设备风险查询
+ * Summary: 设备风险查询
+ */
+async function queryHksecuritytechGatewayDeviceriskDevicerisk(request: QueryHksecuritytechGatewayDeviceriskDeviceriskRequest): QueryHksecuritytechGatewayDeviceriskDeviceriskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryHksecuritytechGatewayDeviceriskDeviceriskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全-设备风险查询
+ * Summary: 设备风险查询
+ */
+async function queryHksecuritytechGatewayDeviceriskDeviceriskEx(request: QueryHksecuritytechGatewayDeviceriskDeviceriskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryHksecuritytechGatewayDeviceriskDeviceriskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
