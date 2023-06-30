@@ -33,6 +33,13 @@ namespace AntChain.SDK.MYTC.Models
         [Validation(Required=true)]
         public string FlashedFileId { get; set; }
 
+        // 上传文件类型，默认为id。
+        // id标识通过网关上传，参数为网关的fileId。
+        // url标识上传的为图片可访问链接。
+        [NameInMap("file_type")]
+        [Validation(Required=false)]
+        public string FileType { get; set; }
+
     }
 
 }
