@@ -25,6 +25,12 @@ public class JudgeCodeFakescreenRequest extends TeaModel {
     @Validation(required = true)
     public String flashedFileId;
 
+    // 上传文件类型，默认为id。
+    // id标识通过网关上传，参数为网关的fileId。
+    // url标识上传的为图片可访问链接。
+    @NameInMap("file_type")
+    public String fileType;
+
     public static JudgeCodeFakescreenRequest build(java.util.Map<String, ?> map) throws Exception {
         JudgeCodeFakescreenRequest self = new JudgeCodeFakescreenRequest();
         return TeaModel.build(map, self);
@@ -68,6 +74,14 @@ public class JudgeCodeFakescreenRequest extends TeaModel {
     }
     public String getFlashedFileId() {
         return this.flashedFileId;
+    }
+
+    public JudgeCodeFakescreenRequest setFileType(String fileType) {
+        this.fileType = fileType;
+        return this;
+    }
+    public String getFileType() {
+        return this.fileType;
     }
 
 }
