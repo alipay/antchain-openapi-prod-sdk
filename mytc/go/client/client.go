@@ -1102,6 +1102,10 @@ type JudgeCodeFakescreenRequest struct {
 	UnflashedFileId *string `json:"unflashed_file_id,omitempty" xml:"unflashed_file_id,omitempty" require:"true"`
 	// 闪光后图片fileId
 	FlashedFileId *string `json:"flashed_file_id,omitempty" xml:"flashed_file_id,omitempty" require:"true"`
+	// 上传文件类型，默认为id。
+	// id标识通过网关上传，参数为网关的fileId。
+	// url标识上传的为图片可访问链接。
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty"`
 }
 
 func (s JudgeCodeFakescreenRequest) String() string {
@@ -1134,6 +1138,11 @@ func (s *JudgeCodeFakescreenRequest) SetUnflashedFileId(v string) *JudgeCodeFake
 
 func (s *JudgeCodeFakescreenRequest) SetFlashedFileId(v string) *JudgeCodeFakescreenRequest {
 	s.FlashedFileId = &v
+	return s
+}
+
+func (s *JudgeCodeFakescreenRequest) SetFileType(v string) *JudgeCodeFakescreenRequest {
+	s.FileType = &v
 	return s
 }
 
@@ -3639,7 +3648,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.0"),
+				"sdk_version":      tea.String("1.6.2"),
 				"_prod_code":       tea.String("MYTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
