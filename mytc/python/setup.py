@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_mytc.
 
-Created on 29/06/2023
+Created on 30/06/2023
 
 @author: Ant Chain SDK
 """

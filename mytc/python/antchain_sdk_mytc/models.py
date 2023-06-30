@@ -1331,6 +1331,7 @@ class JudgeCodeFakescreenRequest(TeaModel):
         device_type: str = None,
         unflashed_file_id: str = None,
         flashed_file_id: str = None,
+        file_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1341,6 +1342,10 @@ class JudgeCodeFakescreenRequest(TeaModel):
         self.unflashed_file_id = unflashed_file_id
         # 闪光后图片fileId
         self.flashed_file_id = flashed_file_id
+        # 上传文件类型，默认为id。
+        # id标识通过网关上传，参数为网关的fileId。
+        # url标识上传的为图片可访问链接。
+        self.file_type = file_type
 
     def validate(self):
         self.validate_required(self.unflashed_file_id, 'unflashed_file_id')
@@ -1362,6 +1367,8 @@ class JudgeCodeFakescreenRequest(TeaModel):
             result['unflashed_file_id'] = self.unflashed_file_id
         if self.flashed_file_id is not None:
             result['flashed_file_id'] = self.flashed_file_id
+        if self.file_type is not None:
+            result['file_type'] = self.file_type
         return result
 
     def from_map(self, m: dict = None):
@@ -1376,6 +1383,8 @@ class JudgeCodeFakescreenRequest(TeaModel):
             self.unflashed_file_id = m.get('unflashed_file_id')
         if m.get('flashed_file_id') is not None:
             self.flashed_file_id = m.get('flashed_file_id')
+        if m.get('file_type') is not None:
+            self.file_type = m.get('file_type')
         return self
 
 
