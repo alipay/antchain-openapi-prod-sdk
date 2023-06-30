@@ -812,6 +812,10 @@ export class JudgeCodeFakescreenRequest extends $tea.Model {
   unflashedFileId: string;
   // 闪光后图片fileId
   flashedFileId: string;
+  // 上传文件类型，默认为id。
+  // id标识通过网关上传，参数为网关的fileId。
+  // url标识上传的为图片可访问链接。
+  fileType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -819,6 +823,7 @@ export class JudgeCodeFakescreenRequest extends $tea.Model {
       deviceType: 'device_type',
       unflashedFileId: 'unflashed_file_id',
       flashedFileId: 'flashed_file_id',
+      fileType: 'file_type',
     };
   }
 
@@ -829,6 +834,7 @@ export class JudgeCodeFakescreenRequest extends $tea.Model {
       deviceType: 'string',
       unflashedFileId: 'string',
       flashedFileId: 'string',
+      fileType: 'string',
     };
   }
 
@@ -2752,7 +2758,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.0",
+          sdk_version: "1.6.2",
           _prod_code: "MYTC",
           _prod_channel: "undefined",
         };
