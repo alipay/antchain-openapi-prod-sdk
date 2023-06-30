@@ -36,12 +36,21 @@ class JudgeCodeFakescreenRequest extends Model
      * @var string
      */
     public $flashedFileId;
+
+    // 上传文件类型，默认为id。
+    // id标识通过网关上传，参数为网关的fileId。
+    // url标识上传的为图片可访问链接。
+    /**
+     * @var string
+     */
+    public $fileType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'deviceType'        => 'device_type',
         'unflashedFileId'   => 'unflashed_file_id',
         'flashedFileId'     => 'flashed_file_id',
+        'fileType'          => 'file_type',
     ];
 
     public function validate()
@@ -67,6 +76,9 @@ class JudgeCodeFakescreenRequest extends Model
         }
         if (null !== $this->flashedFileId) {
             $res['flashed_file_id'] = $this->flashedFileId;
+        }
+        if (null !== $this->fileType) {
+            $res['file_type'] = $this->fileType;
         }
 
         return $res;
@@ -94,6 +106,9 @@ class JudgeCodeFakescreenRequest extends Model
         }
         if (isset($map['flashed_file_id'])) {
             $model->flashedFileId = $map['flashed_file_id'];
+        }
+        if (isset($map['file_type'])) {
+            $model->fileType = $map['file_type'];
         }
 
         return $model;
