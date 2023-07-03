@@ -13,6 +13,16 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\HK_SECURITYTECH\Models\CreateBlueshieldSecuritypictureRequest;
 use AntChain\HK_SECURITYTECH\Models\CreateBlueshieldSecuritypictureResponse;
+use AntChain\HK_SECURITYTECH\Models\QueryDeviceriskDeviceriskRequest;
+use AntChain\HK_SECURITYTECH\Models\QueryDeviceriskDeviceriskResponse;
+use AntChain\HK_SECURITYTECH\Models\QueryDeviceriskFingerRequest;
+use AntChain\HK_SECURITYTECH\Models\QueryDeviceriskFingerResponse;
+use AntChain\HK_SECURITYTECH\Models\QueryFaceshieldNativeRequest;
+use AntChain\HK_SECURITYTECH\Models\QueryFaceshieldNativeResponse;
+use AntChain\HK_SECURITYTECH\Models\QueryFaceshieldWebRequest;
+use AntChain\HK_SECURITYTECH\Models\QueryFaceshieldWebResponse;
+use AntChain\HK_SECURITYTECH\Models\SubmitAshieldHardeningtaskRequest;
+use AntChain\HK_SECURITYTECH\Models\SubmitAshieldHardeningtaskResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -132,6 +142,8 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 人脸盾结果
+            //
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -159,7 +171,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.3.2',
                     '_prod_code'       => 'HK_SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -238,5 +250,170 @@ class Client
         Utils::validateModel($request);
 
         return CreateBlueshieldSecuritypictureResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.blueshield.securitypicture.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全人脸盾Native查询
+     * Summary: 人脸盾Native查询.
+     *
+     * @param QueryFaceshieldNativeRequest $request
+     *
+     * @return QueryFaceshieldNativeResponse
+     */
+    public function queryFaceshieldNative($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFaceshieldNativeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全人脸盾Native查询
+     * Summary: 人脸盾Native查询.
+     *
+     * @param QueryFaceshieldNativeRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryFaceshieldNativeResponse
+     */
+    public function queryFaceshieldNativeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFaceshieldNativeResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.faceshield.native.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 启动加固任务
+     * Summary: 启动加固任务
+     *
+     * @param SubmitAshieldHardeningtaskRequest $request
+     *
+     * @return SubmitAshieldHardeningtaskResponse
+     */
+    public function submitAshieldHardeningtask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAshieldHardeningtaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 启动加固任务
+     * Summary: 启动加固任务
+     *
+     * @param SubmitAshieldHardeningtaskRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return SubmitAshieldHardeningtaskResponse
+     */
+    public function submitAshieldHardeningtaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAshieldHardeningtaskResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.ashield.hardeningtask.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备风险查询
+     * Summary: 设备风险查询.
+     *
+     * @param QueryDeviceriskFingerRequest $request
+     *
+     * @return QueryDeviceriskFingerResponse
+     */
+    public function queryDeviceriskFinger($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeviceriskFingerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备风险查询
+     * Summary: 设备风险查询.
+     *
+     * @param QueryDeviceriskFingerRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryDeviceriskFingerResponse
+     */
+    public function queryDeviceriskFingerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeviceriskFingerResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.devicerisk.finger.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-设备风险查询
+     * Summary: 设备风险查询.
+     *
+     * @param QueryDeviceriskDeviceriskRequest $request
+     *
+     * @return QueryDeviceriskDeviceriskResponse
+     */
+    public function queryDeviceriskDevicerisk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeviceriskDeviceriskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-设备风险查询
+     * Summary: 设备风险查询.
+     *
+     * @param QueryDeviceriskDeviceriskRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryDeviceriskDeviceriskResponse
+     */
+    public function queryDeviceriskDeviceriskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeviceriskDeviceriskResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全人脸盾Web查询
+     * Summary: 人脸盾Web查询.
+     *
+     * @param QueryFaceshieldWebRequest $request
+     *
+     * @return QueryFaceshieldWebResponse
+     */
+    public function queryFaceshieldWeb($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFaceshieldWebEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全人脸盾Web查询
+     * Summary: 人脸盾Web查询.
+     *
+     * @param QueryFaceshieldWebRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryFaceshieldWebResponse
+     */
+    public function queryFaceshieldWebEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFaceshieldWebResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.faceshield.web.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
