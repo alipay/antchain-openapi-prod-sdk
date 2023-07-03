@@ -109,7 +109,9 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 人脸盾结果
+            # 
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +136,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.3.2',
                     '_prod_code': 'HK_SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -212,7 +214,9 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 人脸盾结果
+            # 
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +241,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.3.2',
                     '_prod_code': 'HK_SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -327,4 +331,284 @@ class Client:
         return TeaCore.from_map(
             hk__securitytech_models.CreateBlueshieldSecuritypictureResponse(),
             await self.do_request_async('1.0', 'hksecuritytech.gateway.blueshield.securitypicture.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_faceshield_native(
+        self,
+        request: hk__securitytech_models.QueryFaceshieldNativeRequest,
+    ) -> hk__securitytech_models.QueryFaceshieldNativeResponse:
+        """
+        Description: 终端安全人脸盾Native查询
+        Summary: 人脸盾Native查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_faceshield_native_ex(request, headers, runtime)
+
+    async def query_faceshield_native_async(
+        self,
+        request: hk__securitytech_models.QueryFaceshieldNativeRequest,
+    ) -> hk__securitytech_models.QueryFaceshieldNativeResponse:
+        """
+        Description: 终端安全人脸盾Native查询
+        Summary: 人脸盾Native查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_faceshield_native_ex_async(request, headers, runtime)
+
+    def query_faceshield_native_ex(
+        self,
+        request: hk__securitytech_models.QueryFaceshieldNativeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryFaceshieldNativeResponse:
+        """
+        Description: 终端安全人脸盾Native查询
+        Summary: 人脸盾Native查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryFaceshieldNativeResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.faceshield.native.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_faceshield_native_ex_async(
+        self,
+        request: hk__securitytech_models.QueryFaceshieldNativeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryFaceshieldNativeResponse:
+        """
+        Description: 终端安全人脸盾Native查询
+        Summary: 人脸盾Native查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryFaceshieldNativeResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.faceshield.native.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_ashield_hardeningtask(
+        self,
+        request: hk__securitytech_models.SubmitAshieldHardeningtaskRequest,
+    ) -> hk__securitytech_models.SubmitAshieldHardeningtaskResponse:
+        """
+        Description: 启动加固任务
+        Summary: 启动加固任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_ashield_hardeningtask_ex(request, headers, runtime)
+
+    async def submit_ashield_hardeningtask_async(
+        self,
+        request: hk__securitytech_models.SubmitAshieldHardeningtaskRequest,
+    ) -> hk__securitytech_models.SubmitAshieldHardeningtaskResponse:
+        """
+        Description: 启动加固任务
+        Summary: 启动加固任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_ashield_hardeningtask_ex_async(request, headers, runtime)
+
+    def submit_ashield_hardeningtask_ex(
+        self,
+        request: hk__securitytech_models.SubmitAshieldHardeningtaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.SubmitAshieldHardeningtaskResponse:
+        """
+        Description: 启动加固任务
+        Summary: 启动加固任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.SubmitAshieldHardeningtaskResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.ashield.hardeningtask.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_ashield_hardeningtask_ex_async(
+        self,
+        request: hk__securitytech_models.SubmitAshieldHardeningtaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.SubmitAshieldHardeningtaskResponse:
+        """
+        Description: 启动加固任务
+        Summary: 启动加固任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.SubmitAshieldHardeningtaskResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.ashield.hardeningtask.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_devicerisk_finger(
+        self,
+        request: hk__securitytech_models.QueryDeviceriskFingerRequest,
+    ) -> hk__securitytech_models.QueryDeviceriskFingerResponse:
+        """
+        Description: 设备风险查询
+        Summary: 设备风险查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_devicerisk_finger_ex(request, headers, runtime)
+
+    async def query_devicerisk_finger_async(
+        self,
+        request: hk__securitytech_models.QueryDeviceriskFingerRequest,
+    ) -> hk__securitytech_models.QueryDeviceriskFingerResponse:
+        """
+        Description: 设备风险查询
+        Summary: 设备风险查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_devicerisk_finger_ex_async(request, headers, runtime)
+
+    def query_devicerisk_finger_ex(
+        self,
+        request: hk__securitytech_models.QueryDeviceriskFingerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryDeviceriskFingerResponse:
+        """
+        Description: 设备风险查询
+        Summary: 设备风险查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryDeviceriskFingerResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.devicerisk.finger.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_devicerisk_finger_ex_async(
+        self,
+        request: hk__securitytech_models.QueryDeviceriskFingerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryDeviceriskFingerResponse:
+        """
+        Description: 设备风险查询
+        Summary: 设备风险查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryDeviceriskFingerResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.devicerisk.finger.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_devicerisk_devicerisk(
+        self,
+        request: hk__securitytech_models.QueryDeviceriskDeviceriskRequest,
+    ) -> hk__securitytech_models.QueryDeviceriskDeviceriskResponse:
+        """
+        Description: 终端安全-设备风险查询
+        Summary: 设备风险查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_devicerisk_devicerisk_ex(request, headers, runtime)
+
+    async def query_devicerisk_devicerisk_async(
+        self,
+        request: hk__securitytech_models.QueryDeviceriskDeviceriskRequest,
+    ) -> hk__securitytech_models.QueryDeviceriskDeviceriskResponse:
+        """
+        Description: 终端安全-设备风险查询
+        Summary: 设备风险查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_devicerisk_devicerisk_ex_async(request, headers, runtime)
+
+    def query_devicerisk_devicerisk_ex(
+        self,
+        request: hk__securitytech_models.QueryDeviceriskDeviceriskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryDeviceriskDeviceriskResponse:
+        """
+        Description: 终端安全-设备风险查询
+        Summary: 设备风险查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryDeviceriskDeviceriskResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_devicerisk_devicerisk_ex_async(
+        self,
+        request: hk__securitytech_models.QueryDeviceriskDeviceriskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryDeviceriskDeviceriskResponse:
+        """
+        Description: 终端安全-设备风险查询
+        Summary: 设备风险查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryDeviceriskDeviceriskResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_faceshield_web(
+        self,
+        request: hk__securitytech_models.QueryFaceshieldWebRequest,
+    ) -> hk__securitytech_models.QueryFaceshieldWebResponse:
+        """
+        Description: 终端安全人脸盾Web查询
+        Summary: 人脸盾Web查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_faceshield_web_ex(request, headers, runtime)
+
+    async def query_faceshield_web_async(
+        self,
+        request: hk__securitytech_models.QueryFaceshieldWebRequest,
+    ) -> hk__securitytech_models.QueryFaceshieldWebResponse:
+        """
+        Description: 终端安全人脸盾Web查询
+        Summary: 人脸盾Web查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_faceshield_web_ex_async(request, headers, runtime)
+
+    def query_faceshield_web_ex(
+        self,
+        request: hk__securitytech_models.QueryFaceshieldWebRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryFaceshieldWebResponse:
+        """
+        Description: 终端安全人脸盾Web查询
+        Summary: 人脸盾Web查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryFaceshieldWebResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.faceshield.web.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_faceshield_web_ex_async(
+        self,
+        request: hk__securitytech_models.QueryFaceshieldWebRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryFaceshieldWebResponse:
+        """
+        Description: 终端安全人脸盾Web查询
+        Summary: 人脸盾Web查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryFaceshieldWebResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.faceshield.web.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
