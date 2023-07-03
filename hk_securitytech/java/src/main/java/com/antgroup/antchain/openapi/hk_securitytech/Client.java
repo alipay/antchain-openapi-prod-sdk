@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1"),
+                    new TeaPair("sdk_version", "1.3.2"),
                     new TeaPair("_prod_code", "HK_SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -178,5 +178,100 @@ public class Client {
     public CreateBlueshieldSecuritypictureResponse createBlueshieldSecuritypictureEx(CreateBlueshieldSecuritypictureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.blueshield.securitypicture.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBlueshieldSecuritypictureResponse());
+    }
+
+    /**
+     * Description: 终端安全人脸盾Native查询
+     * Summary: 人脸盾Native查询
+     */
+    public QueryFaceshieldNativeResponse queryFaceshieldNative(QueryFaceshieldNativeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFaceshieldNativeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全人脸盾Native查询
+     * Summary: 人脸盾Native查询
+     */
+    public QueryFaceshieldNativeResponse queryFaceshieldNativeEx(QueryFaceshieldNativeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.faceshield.native.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceshieldNativeResponse());
+    }
+
+    /**
+     * Description: 启动加固任务
+     * Summary: 启动加固任务
+     */
+    public SubmitAshieldHardeningtaskResponse submitAshieldHardeningtask(SubmitAshieldHardeningtaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAshieldHardeningtaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 启动加固任务
+     * Summary: 启动加固任务
+     */
+    public SubmitAshieldHardeningtaskResponse submitAshieldHardeningtaskEx(SubmitAshieldHardeningtaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.ashield.hardeningtask.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAshieldHardeningtaskResponse());
+    }
+
+    /**
+     * Description: 设备风险查询
+     * Summary: 设备风险查询
+     */
+    public QueryDeviceriskFingerResponse queryDeviceriskFinger(QueryDeviceriskFingerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDeviceriskFingerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 设备风险查询
+     * Summary: 设备风险查询
+     */
+    public QueryDeviceriskFingerResponse queryDeviceriskFingerEx(QueryDeviceriskFingerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.devicerisk.finger.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceriskFingerResponse());
+    }
+
+    /**
+     * Description: 终端安全-设备风险查询
+     * Summary: 设备风险查询
+     */
+    public QueryDeviceriskDeviceriskResponse queryDeviceriskDevicerisk(QueryDeviceriskDeviceriskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDeviceriskDeviceriskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全-设备风险查询
+     * Summary: 设备风险查询
+     */
+    public QueryDeviceriskDeviceriskResponse queryDeviceriskDeviceriskEx(QueryDeviceriskDeviceriskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.devicerisk.devicerisk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceriskDeviceriskResponse());
+    }
+
+    /**
+     * Description: 终端安全人脸盾Web查询
+     * Summary: 人脸盾Web查询
+     */
+    public QueryFaceshieldWebResponse queryFaceshieldWeb(QueryFaceshieldWebRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFaceshieldWebEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全人脸盾Web查询
+     * Summary: 人脸盾Web查询
+     */
+    public QueryFaceshieldWebResponse queryFaceshieldWebEx(QueryFaceshieldWebRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceshieldWebResponse());
     }
 }
