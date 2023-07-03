@@ -1134,6 +1134,46 @@ func (s *GoodsDigitalFingerprintIdentifyResultData) SetPointIdentificationResult
 	return s
 }
 
+// 部标设备数据
+type JtData struct {
+	// 数据的可信平台唯一ID
+	TrustiotId *int64 `json:"trustiot_id,omitempty" xml:"trustiot_id,omitempty" require:"true"`
+	// IoT可信平台设备唯一ID
+	TrustiotEntityId *int64 `json:"trustiot_entity_id,omitempty" xml:"trustiot_entity_id,omitempty" require:"true"`
+	// 上报原文解析处理之后的数据
+	ProcessedContent *string `json:"processed_content,omitempty" xml:"processed_content,omitempty" require:"true"`
+	// 和上一次上报数据里程对比，新增的里程数
+	DeltaMileage *int64 `json:"delta_mileage,omitempty" xml:"delta_mileage,omitempty"`
+}
+
+func (s JtData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JtData) GoString() string {
+	return s.String()
+}
+
+func (s *JtData) SetTrustiotId(v int64) *JtData {
+	s.TrustiotId = &v
+	return s
+}
+
+func (s *JtData) SetTrustiotEntityId(v int64) *JtData {
+	s.TrustiotEntityId = &v
+	return s
+}
+
+func (s *JtData) SetProcessedContent(v string) *JtData {
+	s.ProcessedContent = &v
+	return s
+}
+
+func (s *JtData) SetDeltaMileage(v int64) *JtData {
+	s.DeltaMileage = &v
+	return s
+}
+
 // 租赁合同信息
 type RentContractInfo struct {
 	// 租赁合同ID
@@ -3856,6 +3896,53 @@ func (s *BaiQrcodeVerifyRespData) SetUnableIdentifySolution(v string) *BaiQrcode
 	return s
 }
 
+// 多媒体文件
+type JtMedia struct {
+	// 多媒体ID
+	MediaId *string `json:"media_id,omitempty" xml:"media_id,omitempty" require:"true"`
+	// 文件名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 可访问的url
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 上传时间
+	GmtCreate *int64 `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
+	// 多媒体类型枚举：IMAGE 图像；AUDIO 音频；VIDEO视频； UN_KNOW  未知；
+	MediaType *string `json:"media_type,omitempty" xml:"media_type,omitempty" require:"true"`
+}
+
+func (s JtMedia) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JtMedia) GoString() string {
+	return s.String()
+}
+
+func (s *JtMedia) SetMediaId(v string) *JtMedia {
+	s.MediaId = &v
+	return s
+}
+
+func (s *JtMedia) SetName(v string) *JtMedia {
+	s.Name = &v
+	return s
+}
+
+func (s *JtMedia) SetUrl(v string) *JtMedia {
+	s.Url = &v
+	return s
+}
+
+func (s *JtMedia) SetGmtCreate(v int64) *JtMedia {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *JtMedia) SetMediaType(v string) *JtMedia {
+	s.MediaType = &v
+	return s
+}
+
 // 商品鉴定点检测接口响应数据
 type BaiGoodsPointCheckRespData struct {
 	// 图片是否有效，无效则需要提示重拍
@@ -4492,6 +4579,60 @@ func (s BaiQrcodeParseReqData) GoString() string {
 
 func (s *BaiQrcodeParseReqData) SetImageUrl(v string) *BaiQrcodeParseReqData {
 	s.ImageUrl = &v
+	return s
+}
+
+// 部标设备信息
+type JtDevice struct {
+	// 设备ID
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 可信设备ID
+	TrustiotDeviceId *int64 `json:"trustiot_device_id,omitempty" xml:"trustiot_device_id,omitempty" require:"true"`
+	// 设备注册时间
+	GmtCreate *int64 `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
+	// 设备是否在线
+	Online *bool `json:"online,omitempty" xml:"online,omitempty" require:"true"`
+	// 设备型号
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty"`
+}
+
+func (s JtDevice) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JtDevice) GoString() string {
+	return s.String()
+}
+
+func (s *JtDevice) SetDeviceId(v string) *JtDevice {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *JtDevice) SetScene(v string) *JtDevice {
+	s.Scene = &v
+	return s
+}
+
+func (s *JtDevice) SetTrustiotDeviceId(v int64) *JtDevice {
+	s.TrustiotDeviceId = &v
+	return s
+}
+
+func (s *JtDevice) SetGmtCreate(v int64) *JtDevice {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *JtDevice) SetOnline(v bool) *JtDevice {
+	s.Online = &v
+	return s
+}
+
+func (s *JtDevice) SetDeviceModel(v string) *JtDevice {
+	s.DeviceModel = &v
 	return s
 }
 
@@ -5813,6 +5954,39 @@ func (s *CustomerDeviceItem) SetServiceStatus(v string) *CustomerDeviceItem {
 
 func (s *CustomerDeviceItem) SetScreenStatus(v string) *CustomerDeviceItem {
 	s.ScreenStatus = &v
+	return s
+}
+
+// 部标数据查询接口中返回的聚合统计指标结构体
+type JtExtraData struct {
+	// 查询的时间范围内的行驶总里程
+	DeltaMileage *int64 `json:"delta_mileage,omitempty" xml:"delta_mileage,omitempty" require:"true"`
+	// 最大车速
+	MaxSpeed *int64 `json:"max_speed,omitempty" xml:"max_speed,omitempty" require:"true"`
+	// 平均车速
+	AvgSpeed *int64 `json:"avg_speed,omitempty" xml:"avg_speed,omitempty" require:"true"`
+}
+
+func (s JtExtraData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JtExtraData) GoString() string {
+	return s.String()
+}
+
+func (s *JtExtraData) SetDeltaMileage(v int64) *JtExtraData {
+	s.DeltaMileage = &v
+	return s
+}
+
+func (s *JtExtraData) SetMaxSpeed(v int64) *JtExtraData {
+	s.MaxSpeed = &v
+	return s
+}
+
+func (s *JtExtraData) SetAvgSpeed(v int64) *JtExtraData {
+	s.AvgSpeed = &v
 	return s
 }
 
@@ -24279,6 +24453,328 @@ func (s *QueryThingmodelEventResponse) SetDataDemo(v string) *QueryThingmodelEve
 	return s
 }
 
+type QueryEntityrelationJtdevicebycarRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 车辆ID： 车辆车牌颜色+车牌号
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+}
+
+func (s QueryEntityrelationJtdevicebycarRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEntityrelationJtdevicebycarRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEntityrelationJtdevicebycarRequest) SetAuthToken(v string) *QueryEntityrelationJtdevicebycarRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEntityrelationJtdevicebycarRequest) SetProductInstanceId(v string) *QueryEntityrelationJtdevicebycarRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEntityrelationJtdevicebycarRequest) SetDeviceId(v string) *QueryEntityrelationJtdevicebycarRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *QueryEntityrelationJtdevicebycarRequest) SetScene(v string) *QueryEntityrelationJtdevicebycarRequest {
+	s.Scene = &v
+	return s
+}
+
+type QueryEntityrelationJtdevicebycarResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 车辆关联的部标设备列表
+	DeviceList []*JtDevice `json:"device_list,omitempty" xml:"device_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryEntityrelationJtdevicebycarResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEntityrelationJtdevicebycarResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEntityrelationJtdevicebycarResponse) SetReqMsgId(v string) *QueryEntityrelationJtdevicebycarResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEntityrelationJtdevicebycarResponse) SetResultCode(v string) *QueryEntityrelationJtdevicebycarResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEntityrelationJtdevicebycarResponse) SetResultMsg(v string) *QueryEntityrelationJtdevicebycarResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEntityrelationJtdevicebycarResponse) SetDeviceList(v []*JtDevice) *QueryEntityrelationJtdevicebycarResponse {
+	s.DeviceList = v
+	return s
+}
+
+type QueryCollectorJtfluxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询类型，支持LOCATION, TRACE,  ALARM三类
+	QueryType *string `json:"query_type,omitempty" xml:"query_type,omitempty" require:"true"`
+	// 查询模式，支持抽样SAMPLE和分页PAGE两类，query_type不是LOCATION时必填
+	QueryMode *string `json:"query_mode,omitempty" xml:"query_mode,omitempty"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 部标设备可信平台唯一ID列表
+	TrustiotDeviceIdList []*int64 `json:"trustiot_device_id_list,omitempty" xml:"trustiot_device_id_list,omitempty" type:"Repeated"`
+	// 开始时间，查询TRACE,  ALARM时必填
+	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty"`
+	// 结束时间，查询TRACE,  ALARM时必填
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty"`
+	// 查询ALARM的类型，默认查全部类型，包括ALARM_BASIC,ALARM_ADAS ,ALARM_DSM,ALARM_ACCELEROMETER四类
+	AlarmTypes []*string `json:"alarm_types,omitempty" xml:"alarm_types,omitempty" type:"Repeated"`
+	// 页码
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 单页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryCollectorJtfluxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCollectorJtfluxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCollectorJtfluxRequest) SetAuthToken(v string) *QueryCollectorJtfluxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxRequest) SetProductInstanceId(v string) *QueryCollectorJtfluxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxRequest) SetQueryType(v string) *QueryCollectorJtfluxRequest {
+	s.QueryType = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxRequest) SetQueryMode(v string) *QueryCollectorJtfluxRequest {
+	s.QueryMode = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxRequest) SetScene(v string) *QueryCollectorJtfluxRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxRequest) SetTrustiotDeviceIdList(v []*int64) *QueryCollectorJtfluxRequest {
+	s.TrustiotDeviceIdList = v
+	return s
+}
+
+func (s *QueryCollectorJtfluxRequest) SetStartTime(v int64) *QueryCollectorJtfluxRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxRequest) SetEndTime(v int64) *QueryCollectorJtfluxRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxRequest) SetAlarmTypes(v []*string) *QueryCollectorJtfluxRequest {
+	s.AlarmTypes = v
+	return s
+}
+
+func (s *QueryCollectorJtfluxRequest) SetPageIndex(v int64) *QueryCollectorJtfluxRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxRequest) SetPageSize(v int64) *QueryCollectorJtfluxRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryCollectorJtfluxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 1
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 单页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总记录数
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// 总页数
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty"`
+	// 部标数据列表
+	PageData []*JtData `json:"page_data,omitempty" xml:"page_data,omitempty" type:"Repeated"`
+	// 聚合统计指标
+	ExtraData *JtExtraData `json:"extra_data,omitempty" xml:"extra_data,omitempty"`
+}
+
+func (s QueryCollectorJtfluxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCollectorJtfluxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCollectorJtfluxResponse) SetReqMsgId(v string) *QueryCollectorJtfluxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxResponse) SetResultCode(v string) *QueryCollectorJtfluxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxResponse) SetResultMsg(v string) *QueryCollectorJtfluxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxResponse) SetPageIndex(v int64) *QueryCollectorJtfluxResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxResponse) SetPageSize(v int64) *QueryCollectorJtfluxResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxResponse) SetTotalSize(v int64) *QueryCollectorJtfluxResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxResponse) SetTotalPages(v int64) *QueryCollectorJtfluxResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxResponse) SetPageData(v []*JtData) *QueryCollectorJtfluxResponse {
+	s.PageData = v
+	return s
+}
+
+func (s *QueryCollectorJtfluxResponse) SetExtraData(v *JtExtraData) *QueryCollectorJtfluxResponse {
+	s.ExtraData = v
+	return s
+}
+
+type QueryCollectorJtmediaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 异常事件ID，由告警事件标识生成，在blockchain.bot.collector.jtflux.query接口中可获取
+	AlarmEventId *string `json:"alarm_event_id,omitempty" xml:"alarm_event_id,omitempty" require:"true"`
+	// 异常事件媒体文件ID列表
+	MediaIdList []*string `json:"media_id_list,omitempty" xml:"media_id_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryCollectorJtmediaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCollectorJtmediaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCollectorJtmediaRequest) SetAuthToken(v string) *QueryCollectorJtmediaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCollectorJtmediaRequest) SetProductInstanceId(v string) *QueryCollectorJtmediaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCollectorJtmediaRequest) SetScene(v string) *QueryCollectorJtmediaRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *QueryCollectorJtmediaRequest) SetAlarmEventId(v string) *QueryCollectorJtmediaRequest {
+	s.AlarmEventId = &v
+	return s
+}
+
+func (s *QueryCollectorJtmediaRequest) SetMediaIdList(v []*string) *QueryCollectorJtmediaRequest {
+	s.MediaIdList = v
+	return s
+}
+
+type QueryCollectorJtmediaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 多媒体文件列表
+	MediaList []*JtMedia `json:"media_list,omitempty" xml:"media_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryCollectorJtmediaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCollectorJtmediaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCollectorJtmediaResponse) SetReqMsgId(v string) *QueryCollectorJtmediaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCollectorJtmediaResponse) SetResultCode(v string) *QueryCollectorJtmediaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCollectorJtmediaResponse) SetResultMsg(v string) *QueryCollectorJtmediaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCollectorJtmediaResponse) SetMediaList(v []*JtMedia) *QueryCollectorJtmediaResponse {
+	s.MediaList = v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -26049,7 +26545,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.83"),
+				"sdk_version":      tea.String("1.8.90"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -32011,6 +32507,108 @@ func (client *Client) QueryThingmodelEventEx(request *QueryThingmodelEventReques
 	}
 	_result = &QueryThingmodelEventResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thingmodel.event.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+ * Summary: 车辆关联的部标设备列表查询
+ */
+func (client *Client) QueryEntityrelationJtdevicebycar(request *QueryEntityrelationJtdevicebycarRequest) (_result *QueryEntityrelationJtdevicebycarResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEntityrelationJtdevicebycarResponse{}
+	_body, _err := client.QueryEntityrelationJtdevicebycarEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+ * Summary: 车辆关联的部标设备列表查询
+ */
+func (client *Client) QueryEntityrelationJtdevicebycarEx(request *QueryEntityrelationJtdevicebycarRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEntityrelationJtdevicebycarResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEntityrelationJtdevicebycarResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.entityrelation.jtdevicebycar.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 部标设备位置/轨迹/异常数据查询
+ * Summary: 部标设备位置/轨迹/异常数据查询
+ */
+func (client *Client) QueryCollectorJtflux(request *QueryCollectorJtfluxRequest) (_result *QueryCollectorJtfluxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCollectorJtfluxResponse{}
+	_body, _err := client.QueryCollectorJtfluxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 部标设备位置/轨迹/异常数据查询
+ * Summary: 部标设备位置/轨迹/异常数据查询
+ */
+func (client *Client) QueryCollectorJtfluxEx(request *QueryCollectorJtfluxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCollectorJtfluxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCollectorJtfluxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.collector.jtflux.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过异常事件ID查询部标多媒体文件地址
+ * Summary: 通过异常事件ID查询部标多媒体文件地址
+ */
+func (client *Client) QueryCollectorJtmedia(request *QueryCollectorJtmediaRequest) (_result *QueryCollectorJtmediaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCollectorJtmediaResponse{}
+	_body, _err := client.QueryCollectorJtmediaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过异常事件ID查询部标多媒体文件地址
+ * Summary: 通过异常事件ID查询部标多媒体文件地址
+ */
+func (client *Client) QueryCollectorJtmediaEx(request *QueryCollectorJtmediaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCollectorJtmediaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCollectorJtmediaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.collector.jtmedia.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
