@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.3.2',
     _prod_code = 'HK_SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -159,6 +159,58 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 人脸盾结果
+// 
+model FaceShieldResult {
+  // 设备token
+  // 
+  apdidToken: string(name='apdid_token', example='uYxLZlL5YGpLvdwO5+4pyCkjgf3/FF4XxOqzrmG/XY+jyFilhgEAAA== '),
+  // 风险等级，-1参数异常，0无风险，1-3表示低、中、高
+  // 
+  riskLevel: long(name='risk_level', example='3'),
+  // 风险描述，对风险等级的补充
+  // 
+  riskDesc: string(name='risk_desc', example='本次咨询设备风险水平很高,风险编号:10000010.8.0 '),
+  // 处理的建议，如PAAS
+  sugAction: string(name='sug_action', example='建议直接拦截 '),
+}
+
+// 安卓加固ClassMethodConfig
+model ClassMethodConfig {
+  // 加固类名
+  className: string(name='class_name', example='class_name'),
+  // 方法集合，使用英文逗号分隔
+  methods: string(name='methods', example='methods'),
+}
+
+// 安卓加固HardeningTaskResponse
+model HardeningTaskResponse {
+  // 加固任务的 ID，后续用来轮询调用
+  taskId: string(name='task_id', example='task_id'),
+  // 加固任务的状态
+  status: long(name='status', example=''),
+  // 加固后 APK/ABB 的 MD5
+  afterMdFive: string(name='after_md_five', example='after_md_five'),
+  // 加固后 APK/ABB 的大小
+  afterSize: long(name='after_size', example=''),
+}
+
+// 设备风险查询data
+model DeviceRiskResp {
+  // apdid
+  apdid: string(name='apdid', example='-'),
+  // apdid
+  apdidToken: string(name='apdid_token', example='-'),
+  // riskLevel
+  riskLevel: long(name='risk_level', example=''),
+  // risk_desc
+  riskDesc: string(name='risk_desc', example='-'),
+  // sug_action
+  sugAction: string(name='sug_action', example='-'),
+  // risk_labels
+  riskLabels: [ string ](name='risk_labels', example=''),
 }
 
 model CreateBlueshieldSecuritypictureRequest = {
@@ -229,5 +281,267 @@ async function createBlueshieldSecuritypicture(request: CreateBlueshieldSecurity
 async function createBlueshieldSecuritypictureEx(request: CreateBlueshieldSecuritypictureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBlueshieldSecuritypictureResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'hksecuritytech.gateway.blueshield.securitypicture.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFaceshieldNativeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户id，标识客户来源
+  // 
+  clientId: string(name='client_id'),
+  // 设备token
+  // 
+  apdidToken?: string(name='apdid_token'),
+  // 切面数据（JSON，详见下方）
+  aopData?: string(name='aop_data'),
+  // 签名信息	否（和切面二选一即可）
+  // 
+  signature?: string(name='signature'),
+  // 签名因子（和切面二选一即可）
+  // 
+  signFactor?: string(name='sign_factor'),
+}
+
+model QueryFaceshieldNativeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // true成功，false失败
+  // 
+  success?: boolean(name='success'),
+  // 请求码，200成功，其他失败，具体见错误码
+  // 
+  code?: long(name='code'),
+  // 错误时的返回信息
+  // 
+  message?: string(name='message'),
+  // 请求时传入的，若没有传，则系统自动生成
+  // 
+  requestId?: string(name='request_id'),
+  // apdidToken String 设备token riskLevel String 风险等级，-1参数异常，0无风险，1-3表示低、中、高 riskDesc String 风险描述，对风险等级的补充 sugAction String 处理的建议，如PAAS
+  data?: FaceShieldResult(name='data'),
+}
+
+/**
+ * Description: 终端安全人脸盾Native查询
+ * Summary: 人脸盾Native查询
+ */
+async function queryFaceshieldNative(request: QueryFaceshieldNativeRequest): QueryFaceshieldNativeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFaceshieldNativeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全人脸盾Native查询
+ * Summary: 人脸盾Native查询
+ */
+async function queryFaceshieldNativeEx(request: QueryFaceshieldNativeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFaceshieldNativeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.faceshield.native.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAshieldHardeningtaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // APK/ABB 上传后的地址
+  fileUrl: string(name='file_url'),
+  // java2jni配置文件
+  javatocJniConfig: [ ClassMethodConfig ](name='javatoc_jni_config'),
+}
+
+model SubmitAshieldHardeningtaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回的具体对象，具体含义见下表。
+  resData?: HardeningTaskResponse(name='res_data'),
+}
+
+/**
+ * Description: 启动加固任务
+ * Summary: 启动加固任务
+ */
+async function submitAshieldHardeningtask(request: SubmitAshieldHardeningtaskRequest): SubmitAshieldHardeningtaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAshieldHardeningtaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 启动加固任务
+ * Summary: 启动加固任务
+ */
+async function submitAshieldHardeningtaskEx(request: SubmitAshieldHardeningtaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAshieldHardeningtaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.ashield.hardeningtask.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeviceriskFingerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // apdid_token
+  apdidToken: string(name='apdid_token'),
+  // client_id
+  clientId?: string(name='client_id'),
+}
+
+model QueryDeviceriskFingerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // code
+  code?: long(name='code'),
+  // message
+  message?: string(name='message'),
+  // request_id
+  requestId?: string(name='request_id'),
+  // success
+  success?: boolean(name='success'),
+  // data
+  data?: DeviceRiskResp(name='data'),
+}
+
+/**
+ * Description: 设备风险查询
+ * Summary: 设备风险查询
+ */
+async function queryDeviceriskFinger(request: QueryDeviceriskFingerRequest): QueryDeviceriskFingerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeviceriskFingerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 设备风险查询
+ * Summary: 设备风险查询
+ */
+async function queryDeviceriskFingerEx(request: QueryDeviceriskFingerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceriskFingerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.devicerisk.finger.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeviceriskDeviceriskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // apdid_token
+  apdidToken: string(name='apdid_token'),
+  // client_id
+  clientId?: string(name='client_id'),
+  // app_id
+  appId?: string(name='app_id'),
+  // env_id
+  envId?: string(name='env_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+  // merchant_id
+  merchantId?: string(name='merchant_id'),
+  // app_name
+  appName?: string(name='app_name'),
+}
+
+model QueryDeviceriskDeviceriskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // code
+  code?: long(name='code'),
+  // message
+  message?: string(name='message'),
+  // request_id
+  requestId?: string(name='request_id'),
+  // success
+  success?: boolean(name='success'),
+  // data
+  data?: DeviceRiskResp(name='data'),
+}
+
+/**
+ * Description: 终端安全-设备风险查询
+ * Summary: 设备风险查询
+ */
+async function queryDeviceriskDevicerisk(request: QueryDeviceriskDeviceriskRequest): QueryDeviceriskDeviceriskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeviceriskDeviceriskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全-设备风险查询
+ * Summary: 设备风险查询
+ */
+async function queryDeviceriskDeviceriskEx(request: QueryDeviceriskDeviceriskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceriskDeviceriskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFaceshieldWebRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户id，标识客户来源
+  // 
+  clientId: string(name='client_id'),
+  // apdid_token
+  apdidToken?: string(name='apdid_token'),
+  // aop_data
+  aopData?: string(name='aop_data'),
+}
+
+model QueryFaceshieldWebResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // success
+  success?: boolean(name='success'),
+  // 请求码，200成功，其他失败，具体见错误码
+  // 
+  code?: long(name='code'),
+  // 错误时的返回信息
+  // 
+  message?: string(name='message'),
+  // 请求时传入的，若没有传，则系统自动生成
+  // 
+  requestId?: string(name='request_id'),
+  // data
+  data?: FaceShieldResult(name='data'),
+}
+
+/**
+ * Description: 终端安全人脸盾Web查询
+ * Summary: 人脸盾Web查询
+ */
+async function queryFaceshieldWeb(request: QueryFaceshieldWebRequest): QueryFaceshieldWebResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFaceshieldWebEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全人脸盾Web查询
+ * Summary: 人脸盾Web查询
+ */
+async function queryFaceshieldWebEx(request: QueryFaceshieldWebRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFaceshieldWebResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.faceshield.web.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
