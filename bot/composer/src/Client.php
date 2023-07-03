@@ -255,6 +255,10 @@ use AntChain\BOT\Models\QueryAsyncRequestRequest;
 use AntChain\BOT\Models\QueryAsyncRequestResponse;
 use AntChain\BOT\Models\QueryBaiOcrRequest;
 use AntChain\BOT\Models\QueryBaiOcrResponse;
+use AntChain\BOT\Models\QueryCollectorJtfluxRequest;
+use AntChain\BOT\Models\QueryCollectorJtfluxResponse;
+use AntChain\BOT\Models\QueryCollectorJtmediaRequest;
+use AntChain\BOT\Models\QueryCollectorJtmediaResponse;
 use AntChain\BOT\Models\QueryDataBytxhashRequest;
 use AntChain\BOT\Models\QueryDataBytxhashResponse;
 use AntChain\BOT\Models\QueryDeviceRegisterresultRequest;
@@ -267,6 +271,8 @@ use AntChain\BOT\Models\QueryDeviceStatusRequest;
 use AntChain\BOT\Models\QueryDeviceStatusResponse;
 use AntChain\BOT\Models\QueryDockedDataRequest;
 use AntChain\BOT\Models\QueryDockedDataResponse;
+use AntChain\BOT\Models\QueryEntityrelationJtdevicebycarRequest;
+use AntChain\BOT\Models\QueryEntityrelationJtdevicebycarResponse;
 use AntChain\BOT\Models\QueryIotbasicDevicecollectRequest;
 use AntChain\BOT\Models\QueryIotbasicDevicecollectResponse;
 use AntChain\BOT\Models\QueryIotbasicDeviceorderRequest;
@@ -538,7 +544,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.83',
+                    'sdk_version'      => '1.8.90',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -6311,6 +6317,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryThingmodelEventResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thingmodel.event.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+     * Summary: 车辆关联的部标设备列表查询.
+     *
+     * @param QueryEntityrelationJtdevicebycarRequest $request
+     *
+     * @return QueryEntityrelationJtdevicebycarResponse
+     */
+    public function queryEntityrelationJtdevicebycar($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEntityrelationJtdevicebycarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+     * Summary: 车辆关联的部标设备列表查询.
+     *
+     * @param QueryEntityrelationJtdevicebycarRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return QueryEntityrelationJtdevicebycarResponse
+     */
+    public function queryEntityrelationJtdevicebycarEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEntityrelationJtdevicebycarResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.entityrelation.jtdevicebycar.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 部标设备位置/轨迹/异常数据查询
+     * Summary: 部标设备位置/轨迹/异常数据查询.
+     *
+     * @param QueryCollectorJtfluxRequest $request
+     *
+     * @return QueryCollectorJtfluxResponse
+     */
+    public function queryCollectorJtflux($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCollectorJtfluxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 部标设备位置/轨迹/异常数据查询
+     * Summary: 部标设备位置/轨迹/异常数据查询.
+     *
+     * @param QueryCollectorJtfluxRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryCollectorJtfluxResponse
+     */
+    public function queryCollectorJtfluxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCollectorJtfluxResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.collector.jtflux.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过异常事件ID查询部标多媒体文件地址
+     * Summary: 通过异常事件ID查询部标多媒体文件地址
+     *
+     * @param QueryCollectorJtmediaRequest $request
+     *
+     * @return QueryCollectorJtmediaResponse
+     */
+    public function queryCollectorJtmedia($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCollectorJtmediaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过异常事件ID查询部标多媒体文件地址
+     * Summary: 通过异常事件ID查询部标多媒体文件地址
+     *
+     * @param QueryCollectorJtmediaRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryCollectorJtmediaResponse
+     */
+    public function queryCollectorJtmediaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCollectorJtmediaResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.collector.jtmedia.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
