@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.83"),
+                    new TeaPair("sdk_version", "1.8.90"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -3467,6 +3467,63 @@ public class Client {
     public QueryThingmodelEventResponse queryThingmodelEventEx(QueryThingmodelEventRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.thingmodel.event.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryThingmodelEventResponse());
+    }
+
+    /**
+     * Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+     * Summary: 车辆关联的部标设备列表查询
+     */
+    public QueryEntityrelationJtdevicebycarResponse queryEntityrelationJtdevicebycar(QueryEntityrelationJtdevicebycarRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEntityrelationJtdevicebycarEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+     * Summary: 车辆关联的部标设备列表查询
+     */
+    public QueryEntityrelationJtdevicebycarResponse queryEntityrelationJtdevicebycarEx(QueryEntityrelationJtdevicebycarRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.entityrelation.jtdevicebycar.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEntityrelationJtdevicebycarResponse());
+    }
+
+    /**
+     * Description: 部标设备位置/轨迹/异常数据查询
+     * Summary: 部标设备位置/轨迹/异常数据查询
+     */
+    public QueryCollectorJtfluxResponse queryCollectorJtflux(QueryCollectorJtfluxRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCollectorJtfluxEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 部标设备位置/轨迹/异常数据查询
+     * Summary: 部标设备位置/轨迹/异常数据查询
+     */
+    public QueryCollectorJtfluxResponse queryCollectorJtfluxEx(QueryCollectorJtfluxRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.collector.jtflux.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCollectorJtfluxResponse());
+    }
+
+    /**
+     * Description: 通过异常事件ID查询部标多媒体文件地址
+     * Summary: 通过异常事件ID查询部标多媒体文件地址
+     */
+    public QueryCollectorJtmediaResponse queryCollectorJtmedia(QueryCollectorJtmediaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCollectorJtmediaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过异常事件ID查询部标多媒体文件地址
+     * Summary: 通过异常事件ID查询部标多媒体文件地址
+     */
+    public QueryCollectorJtmediaResponse queryCollectorJtmediaEx(QueryCollectorJtmediaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.collector.jtmedia.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCollectorJtmediaResponse());
     }
 
     /**
