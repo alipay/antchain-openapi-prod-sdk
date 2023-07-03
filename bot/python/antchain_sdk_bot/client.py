@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.83',
+                    'sdk_version': '1.8.90',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.83',
+                    'sdk_version': '1.8.90',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -9995,6 +9995,174 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryThingmodelEventResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thingmodel.event.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_entityrelation_jtdevicebycar(
+        self,
+        request: bot_models.QueryEntityrelationJtdevicebycarRequest,
+    ) -> bot_models.QueryEntityrelationJtdevicebycarResponse:
+        """
+        Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+        Summary: 车辆关联的部标设备列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_entityrelation_jtdevicebycar_ex(request, headers, runtime)
+
+    async def query_entityrelation_jtdevicebycar_async(
+        self,
+        request: bot_models.QueryEntityrelationJtdevicebycarRequest,
+    ) -> bot_models.QueryEntityrelationJtdevicebycarResponse:
+        """
+        Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+        Summary: 车辆关联的部标设备列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_entityrelation_jtdevicebycar_ex_async(request, headers, runtime)
+
+    def query_entityrelation_jtdevicebycar_ex(
+        self,
+        request: bot_models.QueryEntityrelationJtdevicebycarRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryEntityrelationJtdevicebycarResponse:
+        """
+        Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+        Summary: 车辆关联的部标设备列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryEntityrelationJtdevicebycarResponse(),
+            self.do_request('1.0', 'blockchain.bot.entityrelation.jtdevicebycar.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_entityrelation_jtdevicebycar_ex_async(
+        self,
+        request: bot_models.QueryEntityrelationJtdevicebycarRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryEntityrelationJtdevicebycarResponse:
+        """
+        Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+        Summary: 车辆关联的部标设备列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryEntityrelationJtdevicebycarResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.entityrelation.jtdevicebycar.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_collector_jtflux(
+        self,
+        request: bot_models.QueryCollectorJtfluxRequest,
+    ) -> bot_models.QueryCollectorJtfluxResponse:
+        """
+        Description: 部标设备位置/轨迹/异常数据查询
+        Summary: 部标设备位置/轨迹/异常数据查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_collector_jtflux_ex(request, headers, runtime)
+
+    async def query_collector_jtflux_async(
+        self,
+        request: bot_models.QueryCollectorJtfluxRequest,
+    ) -> bot_models.QueryCollectorJtfluxResponse:
+        """
+        Description: 部标设备位置/轨迹/异常数据查询
+        Summary: 部标设备位置/轨迹/异常数据查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_collector_jtflux_ex_async(request, headers, runtime)
+
+    def query_collector_jtflux_ex(
+        self,
+        request: bot_models.QueryCollectorJtfluxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryCollectorJtfluxResponse:
+        """
+        Description: 部标设备位置/轨迹/异常数据查询
+        Summary: 部标设备位置/轨迹/异常数据查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryCollectorJtfluxResponse(),
+            self.do_request('1.0', 'blockchain.bot.collector.jtflux.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_collector_jtflux_ex_async(
+        self,
+        request: bot_models.QueryCollectorJtfluxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryCollectorJtfluxResponse:
+        """
+        Description: 部标设备位置/轨迹/异常数据查询
+        Summary: 部标设备位置/轨迹/异常数据查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryCollectorJtfluxResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.collector.jtflux.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_collector_jtmedia(
+        self,
+        request: bot_models.QueryCollectorJtmediaRequest,
+    ) -> bot_models.QueryCollectorJtmediaResponse:
+        """
+        Description: 通过异常事件ID查询部标多媒体文件地址
+        Summary: 通过异常事件ID查询部标多媒体文件地址
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_collector_jtmedia_ex(request, headers, runtime)
+
+    async def query_collector_jtmedia_async(
+        self,
+        request: bot_models.QueryCollectorJtmediaRequest,
+    ) -> bot_models.QueryCollectorJtmediaResponse:
+        """
+        Description: 通过异常事件ID查询部标多媒体文件地址
+        Summary: 通过异常事件ID查询部标多媒体文件地址
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_collector_jtmedia_ex_async(request, headers, runtime)
+
+    def query_collector_jtmedia_ex(
+        self,
+        request: bot_models.QueryCollectorJtmediaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryCollectorJtmediaResponse:
+        """
+        Description: 通过异常事件ID查询部标多媒体文件地址
+        Summary: 通过异常事件ID查询部标多媒体文件地址
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryCollectorJtmediaResponse(),
+            self.do_request('1.0', 'blockchain.bot.collector.jtmedia.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_collector_jtmedia_ex_async(
+        self,
+        request: bot_models.QueryCollectorJtmediaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryCollectorJtmediaResponse:
+        """
+        Description: 通过异常事件ID查询部标多媒体文件地址
+        Summary: 通过异常事件ID查询部标多媒体文件地址
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryCollectorJtmediaResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.collector.jtmedia.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
