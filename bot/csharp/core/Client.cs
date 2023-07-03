@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.83"},
+                        {"sdk_version", "1.8.90"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.83"},
+                        {"sdk_version", "1.8.90"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -7631,6 +7631,132 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryThingmodelEventResponse>(await DoRequestAsync("1.0", "blockchain.bot.thingmodel.event.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+         * Summary: 车辆关联的部标设备列表查询
+         */
+        public QueryEntityrelationJtdevicebycarResponse QueryEntityrelationJtdevicebycar(QueryEntityrelationJtdevicebycarRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEntityrelationJtdevicebycarEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+         * Summary: 车辆关联的部标设备列表查询
+         */
+        public async Task<QueryEntityrelationJtdevicebycarResponse> QueryEntityrelationJtdevicebycarAsync(QueryEntityrelationJtdevicebycarRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEntityrelationJtdevicebycarExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+         * Summary: 车辆关联的部标设备列表查询
+         */
+        public QueryEntityrelationJtdevicebycarResponse QueryEntityrelationJtdevicebycarEx(QueryEntityrelationJtdevicebycarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEntityrelationJtdevicebycarResponse>(DoRequest("1.0", "blockchain.bot.entityrelation.jtdevicebycar.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+         * Summary: 车辆关联的部标设备列表查询
+         */
+        public async Task<QueryEntityrelationJtdevicebycarResponse> QueryEntityrelationJtdevicebycarExAsync(QueryEntityrelationJtdevicebycarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEntityrelationJtdevicebycarResponse>(await DoRequestAsync("1.0", "blockchain.bot.entityrelation.jtdevicebycar.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 部标设备位置/轨迹/异常数据查询
+         * Summary: 部标设备位置/轨迹/异常数据查询
+         */
+        public QueryCollectorJtfluxResponse QueryCollectorJtflux(QueryCollectorJtfluxRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCollectorJtfluxEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 部标设备位置/轨迹/异常数据查询
+         * Summary: 部标设备位置/轨迹/异常数据查询
+         */
+        public async Task<QueryCollectorJtfluxResponse> QueryCollectorJtfluxAsync(QueryCollectorJtfluxRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCollectorJtfluxExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 部标设备位置/轨迹/异常数据查询
+         * Summary: 部标设备位置/轨迹/异常数据查询
+         */
+        public QueryCollectorJtfluxResponse QueryCollectorJtfluxEx(QueryCollectorJtfluxRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCollectorJtfluxResponse>(DoRequest("1.0", "blockchain.bot.collector.jtflux.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 部标设备位置/轨迹/异常数据查询
+         * Summary: 部标设备位置/轨迹/异常数据查询
+         */
+        public async Task<QueryCollectorJtfluxResponse> QueryCollectorJtfluxExAsync(QueryCollectorJtfluxRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCollectorJtfluxResponse>(await DoRequestAsync("1.0", "blockchain.bot.collector.jtflux.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过异常事件ID查询部标多媒体文件地址
+         * Summary: 通过异常事件ID查询部标多媒体文件地址
+         */
+        public QueryCollectorJtmediaResponse QueryCollectorJtmedia(QueryCollectorJtmediaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCollectorJtmediaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过异常事件ID查询部标多媒体文件地址
+         * Summary: 通过异常事件ID查询部标多媒体文件地址
+         */
+        public async Task<QueryCollectorJtmediaResponse> QueryCollectorJtmediaAsync(QueryCollectorJtmediaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCollectorJtmediaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过异常事件ID查询部标多媒体文件地址
+         * Summary: 通过异常事件ID查询部标多媒体文件地址
+         */
+        public QueryCollectorJtmediaResponse QueryCollectorJtmediaEx(QueryCollectorJtmediaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCollectorJtmediaResponse>(DoRequest("1.0", "blockchain.bot.collector.jtmedia.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过异常事件ID查询部标多媒体文件地址
+         * Summary: 通过异常事件ID查询部标多媒体文件地址
+         */
+        public async Task<QueryCollectorJtmediaResponse> QueryCollectorJtmediaExAsync(QueryCollectorJtmediaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCollectorJtmediaResponse>(await DoRequestAsync("1.0", "blockchain.bot.collector.jtmedia.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
