@@ -137,7 +137,7 @@ namespace AntChain.SDK.HK_SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.3.2"},
                         {"_prod_code", "HK_SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.HK_SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.3.2"},
                         {"_prod_code", "HK_SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -361,6 +361,216 @@ namespace AntChain.SDK.HK_SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateBlueshieldSecuritypictureResponse>(await DoRequestAsync("1.0", "hksecuritytech.gateway.blueshield.securitypicture.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全人脸盾Native查询
+         * Summary: 人脸盾Native查询
+         */
+        public QueryFaceshieldNativeResponse QueryFaceshieldNative(QueryFaceshieldNativeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryFaceshieldNativeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全人脸盾Native查询
+         * Summary: 人脸盾Native查询
+         */
+        public async Task<QueryFaceshieldNativeResponse> QueryFaceshieldNativeAsync(QueryFaceshieldNativeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryFaceshieldNativeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全人脸盾Native查询
+         * Summary: 人脸盾Native查询
+         */
+        public QueryFaceshieldNativeResponse QueryFaceshieldNativeEx(QueryFaceshieldNativeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFaceshieldNativeResponse>(DoRequest("1.0", "hksecuritytech.gateway.faceshield.native.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全人脸盾Native查询
+         * Summary: 人脸盾Native查询
+         */
+        public async Task<QueryFaceshieldNativeResponse> QueryFaceshieldNativeExAsync(QueryFaceshieldNativeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFaceshieldNativeResponse>(await DoRequestAsync("1.0", "hksecuritytech.gateway.faceshield.native.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 启动加固任务
+         * Summary: 启动加固任务
+         */
+        public SubmitAshieldHardeningtaskResponse SubmitAshieldHardeningtask(SubmitAshieldHardeningtaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAshieldHardeningtaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 启动加固任务
+         * Summary: 启动加固任务
+         */
+        public async Task<SubmitAshieldHardeningtaskResponse> SubmitAshieldHardeningtaskAsync(SubmitAshieldHardeningtaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAshieldHardeningtaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 启动加固任务
+         * Summary: 启动加固任务
+         */
+        public SubmitAshieldHardeningtaskResponse SubmitAshieldHardeningtaskEx(SubmitAshieldHardeningtaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAshieldHardeningtaskResponse>(DoRequest("1.0", "hksecuritytech.gateway.ashield.hardeningtask.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 启动加固任务
+         * Summary: 启动加固任务
+         */
+        public async Task<SubmitAshieldHardeningtaskResponse> SubmitAshieldHardeningtaskExAsync(SubmitAshieldHardeningtaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAshieldHardeningtaskResponse>(await DoRequestAsync("1.0", "hksecuritytech.gateway.ashield.hardeningtask.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备风险查询
+         * Summary: 设备风险查询
+         */
+        public QueryDeviceriskFingerResponse QueryDeviceriskFinger(QueryDeviceriskFingerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDeviceriskFingerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备风险查询
+         * Summary: 设备风险查询
+         */
+        public async Task<QueryDeviceriskFingerResponse> QueryDeviceriskFingerAsync(QueryDeviceriskFingerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDeviceriskFingerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备风险查询
+         * Summary: 设备风险查询
+         */
+        public QueryDeviceriskFingerResponse QueryDeviceriskFingerEx(QueryDeviceriskFingerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceriskFingerResponse>(DoRequest("1.0", "hksecuritytech.gateway.devicerisk.finger.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备风险查询
+         * Summary: 设备风险查询
+         */
+        public async Task<QueryDeviceriskFingerResponse> QueryDeviceriskFingerExAsync(QueryDeviceriskFingerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceriskFingerResponse>(await DoRequestAsync("1.0", "hksecuritytech.gateway.devicerisk.finger.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全-设备风险查询
+         * Summary: 设备风险查询
+         */
+        public QueryDeviceriskDeviceriskResponse QueryDeviceriskDevicerisk(QueryDeviceriskDeviceriskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDeviceriskDeviceriskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全-设备风险查询
+         * Summary: 设备风险查询
+         */
+        public async Task<QueryDeviceriskDeviceriskResponse> QueryDeviceriskDeviceriskAsync(QueryDeviceriskDeviceriskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDeviceriskDeviceriskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全-设备风险查询
+         * Summary: 设备风险查询
+         */
+        public QueryDeviceriskDeviceriskResponse QueryDeviceriskDeviceriskEx(QueryDeviceriskDeviceriskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceriskDeviceriskResponse>(DoRequest("1.0", "hksecuritytech.gateway.devicerisk.devicerisk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全-设备风险查询
+         * Summary: 设备风险查询
+         */
+        public async Task<QueryDeviceriskDeviceriskResponse> QueryDeviceriskDeviceriskExAsync(QueryDeviceriskDeviceriskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceriskDeviceriskResponse>(await DoRequestAsync("1.0", "hksecuritytech.gateway.devicerisk.devicerisk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全人脸盾Web查询
+         * Summary: 人脸盾Web查询
+         */
+        public QueryFaceshieldWebResponse QueryFaceshieldWeb(QueryFaceshieldWebRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryFaceshieldWebEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全人脸盾Web查询
+         * Summary: 人脸盾Web查询
+         */
+        public async Task<QueryFaceshieldWebResponse> QueryFaceshieldWebAsync(QueryFaceshieldWebRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryFaceshieldWebExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全人脸盾Web查询
+         * Summary: 人脸盾Web查询
+         */
+        public QueryFaceshieldWebResponse QueryFaceshieldWebEx(QueryFaceshieldWebRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFaceshieldWebResponse>(DoRequest("1.0", "hksecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全人脸盾Web查询
+         * Summary: 人脸盾Web查询
+         */
+        public async Task<QueryFaceshieldWebResponse> QueryFaceshieldWebExAsync(QueryFaceshieldWebRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFaceshieldWebResponse>(await DoRequestAsync("1.0", "hksecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
