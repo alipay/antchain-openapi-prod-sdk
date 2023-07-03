@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.83',
+    sdk_version = '1.8.90',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -455,6 +455,18 @@ model GoodsDigitalFingerprintIdentifyResultData {
   description: string(name='description', example='描述'),
   // 商品数字指纹鉴定点鉴定结果列表
   pointIdentificationResults: [ GoodsDigitalFingerprintPointIdentificationResult ](name='point_identification_results', example='{"sub_point_name":"正面","result":"REAL","grade":"0.92"}'),
+}
+
+// 部标设备数据
+model JtData {
+  // 数据的可信平台唯一ID
+  trustiotId: long(name='trustiot_id', example='123'),
+  // IoT可信平台设备唯一ID
+  trustiotEntityId: long(name='trustiot_entity_id', example='123'),
+  // 上报原文解析处理之后的数据
+  processedContent: string(name='processed_content', example='processed_content'),
+  // 和上一次上报数据里程对比，新增的里程数
+  deltaMileage?: long(name='delta_mileage', example='123'),
 }
 
 // 租赁合同信息
@@ -1331,6 +1343,20 @@ model BaiQrcodeVerifyRespData {
   unableIdentifySolution: string(name='unable_identify_solution', example='请重新印刷'),
 }
 
+// 多媒体文件
+model JtMedia {
+  // 多媒体ID
+  mediaId: string(name='media_id', example='123'),
+  // 文件名称
+  name: string(name='name', example='xxxx.jpg'),
+  // 可访问的url
+  url: string(name='url', example='https://oss.com/53/85855.jpg?sign=xxx'),
+  // 上传时间
+  gmtCreate: long(name='gmt_create', example='1687859592688'),
+  // 多媒体类型枚举：IMAGE 图像；AUDIO 音频；VIDEO视频； UN_KNOW  未知；
+  mediaType: string(name='media_type', example='IMAGE'),
+}
+
 // 商品鉴定点检测接口响应数据
 model BaiGoodsPointCheckRespData {
   // 图片是否有效，无效则需要提示重拍
@@ -1529,6 +1555,22 @@ model LabelChainResult {
 model BaiQrcodeParseReqData {
   // 待识别图片的url
   imageUrl: string(name='image_url', example='http://testImage.com/xxxxx'),
+}
+
+// 部标设备信息
+model JtDevice {
+  // 设备ID
+  deviceId: string(name='device_id', example='STRING 123ABC'),
+  // 场景码
+  scene: string(name='scene', example='123ABC'),
+  // 可信设备ID
+  trustiotDeviceId: long(name='trustiot_device_id', example='7006071575276187649'),
+  // 设备注册时间
+  gmtCreate: long(name='gmt_create', example='1686497064968'),
+  // 设备是否在线
+  online: boolean(name='online', example='true, false'),
+  // 设备型号
+  deviceModel?: string(name='device_model', example='丰图T8'),
 }
 
 // 电脑型号信息
@@ -1965,6 +2007,16 @@ model CustomerDeviceItem {
   serviceStatus: string(name='service_status', example='INIT'),
   // 屏幕状态 开屏、锁屏
   screenStatus?: string(name='screen_status', example='屏幕状态'),
+}
+
+// 部标数据查询接口中返回的聚合统计指标结构体
+model JtExtraData {
+  // 查询的时间范围内的行驶总里程
+  deltaMileage: long(name='delta_mileage', example='312'),
+  // 最大车速
+  maxSpeed: long(name='max_speed', example='60'),
+  // 平均车速
+  avgSpeed: long(name='avg_speed', example='60'),
 }
 
 // 信物链实体查询返回的数据结构，对应数据表字段
@@ -10625,6 +10677,152 @@ async function queryThingmodelEvent(request: QueryThingmodelEventRequest): Query
 async function queryThingmodelEventEx(request: QueryThingmodelEventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryThingmodelEventResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.thingmodel.event.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEntityrelationJtdevicebycarRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 车辆ID： 车辆车牌颜色+车牌号
+  deviceId: string(name='device_id'),
+  // 场景码
+  scene: string(name='scene'),
+}
+
+model QueryEntityrelationJtdevicebycarResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 车辆关联的部标设备列表
+  deviceList?: [ JtDevice ](name='device_list'),
+}
+
+/**
+ * Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+ * Summary: 车辆关联的部标设备列表查询
+ */
+async function queryEntityrelationJtdevicebycar(request: QueryEntityrelationJtdevicebycarRequest): QueryEntityrelationJtdevicebycarResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEntityrelationJtdevicebycarEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+ * Summary: 车辆关联的部标设备列表查询
+ */
+async function queryEntityrelationJtdevicebycarEx(request: QueryEntityrelationJtdevicebycarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEntityrelationJtdevicebycarResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.entityrelation.jtdevicebycar.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCollectorJtfluxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询类型，支持LOCATION, TRACE,  ALARM三类
+  queryType: string(name='query_type'),
+  // 查询模式，支持抽样SAMPLE和分页PAGE两类，query_type不是LOCATION时必填
+  queryMode?: string(name='query_mode'),
+  // 场景码
+  scene: string(name='scene'),
+  // 部标设备可信平台唯一ID列表
+  trustiotDeviceIdList?: [ long ](name='trustiot_device_id_list'),
+  // 开始时间，查询TRACE,  ALARM时必填
+  startTime?: long(name='start_time'),
+  // 结束时间，查询TRACE,  ALARM时必填
+  endTime?: long(name='end_time'),
+  // 查询ALARM的类型，默认查全部类型，包括ALARM_BASIC,ALARM_ADAS ,ALARM_DSM,ALARM_ACCELEROMETER四类
+  alarmTypes?: [ string ](name='alarm_types'),
+  // 页码
+  pageIndex?: long(name='page_index'),
+  // 单页数量
+  pageSize?: long(name='page_size'),
+}
+
+model QueryCollectorJtfluxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 1
+  pageIndex?: long(name='page_index'),
+  // 单页数量
+  pageSize?: long(name='page_size'),
+  // 总记录数
+  totalSize?: long(name='total_size'),
+  // 总页数
+  totalPages?: long(name='total_pages'),
+  // 部标数据列表
+  pageData?: [ JtData ](name='page_data'),
+  // 聚合统计指标
+  extraData?: JtExtraData(name='extra_data'),
+}
+
+/**
+ * Description: 部标设备位置/轨迹/异常数据查询
+ * Summary: 部标设备位置/轨迹/异常数据查询
+ */
+async function queryCollectorJtflux(request: QueryCollectorJtfluxRequest): QueryCollectorJtfluxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCollectorJtfluxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 部标设备位置/轨迹/异常数据查询
+ * Summary: 部标设备位置/轨迹/异常数据查询
+ */
+async function queryCollectorJtfluxEx(request: QueryCollectorJtfluxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCollectorJtfluxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.collector.jtflux.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCollectorJtmediaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 异常事件ID，由告警事件标识生成，在blockchain.bot.collector.jtflux.query接口中可获取
+  alarmEventId: string(name='alarm_event_id'),
+  // 异常事件媒体文件ID列表
+  mediaIdList?: [ string ](name='media_id_list'),
+}
+
+model QueryCollectorJtmediaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 多媒体文件列表
+  mediaList?: [ JtMedia ](name='media_list'),
+}
+
+/**
+ * Description: 通过异常事件ID查询部标多媒体文件地址
+ * Summary: 通过异常事件ID查询部标多媒体文件地址
+ */
+async function queryCollectorJtmedia(request: QueryCollectorJtmediaRequest): QueryCollectorJtmediaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCollectorJtmediaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过异常事件ID查询部标多媒体文件地址
+ * Summary: 通过异常事件ID查询部标多媒体文件地址
+ */
+async function queryCollectorJtmediaEx(request: QueryCollectorJtmediaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCollectorJtmediaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.collector.jtmedia.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
