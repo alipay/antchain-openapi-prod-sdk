@@ -148,6 +148,170 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 人脸盾结果
+//
+type FaceShieldResult struct {
+	// 设备token
+	//
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+	// 风险等级，-1参数异常，0无风险，1-3表示低、中、高
+	//
+	RiskLevel *int64 `json:"risk_level,omitempty" xml:"risk_level,omitempty" require:"true"`
+	// 风险描述，对风险等级的补充
+	//
+	RiskDesc *string `json:"risk_desc,omitempty" xml:"risk_desc,omitempty" require:"true"`
+	// 处理的建议，如PAAS
+	SugAction *string `json:"sug_action,omitempty" xml:"sug_action,omitempty" require:"true"`
+}
+
+func (s FaceShieldResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FaceShieldResult) GoString() string {
+	return s.String()
+}
+
+func (s *FaceShieldResult) SetApdidToken(v string) *FaceShieldResult {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *FaceShieldResult) SetRiskLevel(v int64) *FaceShieldResult {
+	s.RiskLevel = &v
+	return s
+}
+
+func (s *FaceShieldResult) SetRiskDesc(v string) *FaceShieldResult {
+	s.RiskDesc = &v
+	return s
+}
+
+func (s *FaceShieldResult) SetSugAction(v string) *FaceShieldResult {
+	s.SugAction = &v
+	return s
+}
+
+// 安卓加固ClassMethodConfig
+type ClassMethodConfig struct {
+	// 加固类名
+	ClassName *string `json:"class_name,omitempty" xml:"class_name,omitempty" require:"true"`
+	// 方法集合，使用英文逗号分隔
+	Methods *string `json:"methods,omitempty" xml:"methods,omitempty" require:"true"`
+}
+
+func (s ClassMethodConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ClassMethodConfig) GoString() string {
+	return s.String()
+}
+
+func (s *ClassMethodConfig) SetClassName(v string) *ClassMethodConfig {
+	s.ClassName = &v
+	return s
+}
+
+func (s *ClassMethodConfig) SetMethods(v string) *ClassMethodConfig {
+	s.Methods = &v
+	return s
+}
+
+// 安卓加固HardeningTaskResponse
+type HardeningTaskResponse struct {
+	// 加固任务的 ID，后续用来轮询调用
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 加固任务的状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 加固后 APK/ABB 的 MD5
+	AfterMdFive *string `json:"after_md_five,omitempty" xml:"after_md_five,omitempty" require:"true"`
+	// 加固后 APK/ABB 的大小
+	AfterSize *int64 `json:"after_size,omitempty" xml:"after_size,omitempty" require:"true"`
+}
+
+func (s HardeningTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HardeningTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *HardeningTaskResponse) SetTaskId(v string) *HardeningTaskResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *HardeningTaskResponse) SetStatus(v int64) *HardeningTaskResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *HardeningTaskResponse) SetAfterMdFive(v string) *HardeningTaskResponse {
+	s.AfterMdFive = &v
+	return s
+}
+
+func (s *HardeningTaskResponse) SetAfterSize(v int64) *HardeningTaskResponse {
+	s.AfterSize = &v
+	return s
+}
+
+// 设备风险查询data
+type DeviceRiskResp struct {
+	// apdid
+	Apdid *string `json:"apdid,omitempty" xml:"apdid,omitempty" require:"true"`
+	// apdid
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+	// riskLevel
+	RiskLevel *int64 `json:"risk_level,omitempty" xml:"risk_level,omitempty" require:"true"`
+	// risk_desc
+	RiskDesc *string `json:"risk_desc,omitempty" xml:"risk_desc,omitempty" require:"true"`
+	// sug_action
+	SugAction *string `json:"sug_action,omitempty" xml:"sug_action,omitempty" require:"true"`
+	// risk_labels
+	RiskLabels []*string `json:"risk_labels,omitempty" xml:"risk_labels,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s DeviceRiskResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceRiskResp) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceRiskResp) SetApdid(v string) *DeviceRiskResp {
+	s.Apdid = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetApdidToken(v string) *DeviceRiskResp {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetRiskLevel(v int64) *DeviceRiskResp {
+	s.RiskLevel = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetRiskDesc(v string) *DeviceRiskResp {
+	s.RiskDesc = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetSugAction(v string) *DeviceRiskResp {
+	s.SugAction = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetRiskLabels(v []*string) *DeviceRiskResp {
+	s.RiskLabels = v
+	return s
+}
+
 type CreateBlueshieldSecuritypictureRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -300,6 +464,578 @@ func (s *CreateBlueshieldSecuritypictureResponse) SetBodyBase64(v string) *Creat
 	return s
 }
 
+type QueryFaceshieldNativeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客户id，标识客户来源
+	//
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty" require:"true"`
+	// 设备token
+	//
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty"`
+	// 切面数据（JSON，详见下方）
+	AopData *string `json:"aop_data,omitempty" xml:"aop_data,omitempty"`
+	// 签名信息	否（和切面二选一即可）
+	//
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty"`
+	// 签名因子（和切面二选一即可）
+	//
+	SignFactor *string `json:"sign_factor,omitempty" xml:"sign_factor,omitempty"`
+}
+
+func (s QueryFaceshieldNativeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFaceshieldNativeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFaceshieldNativeRequest) SetAuthToken(v string) *QueryFaceshieldNativeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFaceshieldNativeRequest) SetProductInstanceId(v string) *QueryFaceshieldNativeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFaceshieldNativeRequest) SetClientId(v string) *QueryFaceshieldNativeRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *QueryFaceshieldNativeRequest) SetApdidToken(v string) *QueryFaceshieldNativeRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *QueryFaceshieldNativeRequest) SetAopData(v string) *QueryFaceshieldNativeRequest {
+	s.AopData = &v
+	return s
+}
+
+func (s *QueryFaceshieldNativeRequest) SetSignature(v string) *QueryFaceshieldNativeRequest {
+	s.Signature = &v
+	return s
+}
+
+func (s *QueryFaceshieldNativeRequest) SetSignFactor(v string) *QueryFaceshieldNativeRequest {
+	s.SignFactor = &v
+	return s
+}
+
+type QueryFaceshieldNativeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// true成功，false失败
+	//
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 请求码，200成功，其他失败，具体见错误码
+	//
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 错误时的返回信息
+	//
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 请求时传入的，若没有传，则系统自动生成
+	//
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// apdidToken String 设备token riskLevel String 风险等级，-1参数异常，0无风险，1-3表示低、中、高 riskDesc String 风险描述，对风险等级的补充 sugAction String 处理的建议，如PAAS
+	Data *FaceShieldResult `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryFaceshieldNativeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFaceshieldNativeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFaceshieldNativeResponse) SetReqMsgId(v string) *QueryFaceshieldNativeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFaceshieldNativeResponse) SetResultCode(v string) *QueryFaceshieldNativeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFaceshieldNativeResponse) SetResultMsg(v string) *QueryFaceshieldNativeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFaceshieldNativeResponse) SetSuccess(v bool) *QueryFaceshieldNativeResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryFaceshieldNativeResponse) SetCode(v int64) *QueryFaceshieldNativeResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryFaceshieldNativeResponse) SetMessage(v string) *QueryFaceshieldNativeResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryFaceshieldNativeResponse) SetRequestId(v string) *QueryFaceshieldNativeResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryFaceshieldNativeResponse) SetData(v *FaceShieldResult) *QueryFaceshieldNativeResponse {
+	s.Data = v
+	return s
+}
+
+type SubmitAshieldHardeningtaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// APK/ABB 上传后的地址
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// java2jni配置文件
+	JavatocJniConfig []*ClassMethodConfig `json:"javatoc_jni_config,omitempty" xml:"javatoc_jni_config,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SubmitAshieldHardeningtaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAshieldHardeningtaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAshieldHardeningtaskRequest) SetAuthToken(v string) *SubmitAshieldHardeningtaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskRequest) SetProductInstanceId(v string) *SubmitAshieldHardeningtaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskRequest) SetFileUrl(v string) *SubmitAshieldHardeningtaskRequest {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskRequest) SetJavatocJniConfig(v []*ClassMethodConfig) *SubmitAshieldHardeningtaskRequest {
+	s.JavatocJniConfig = v
+	return s
+}
+
+type SubmitAshieldHardeningtaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回的具体对象，具体含义见下表。
+	ResData *HardeningTaskResponse `json:"res_data,omitempty" xml:"res_data,omitempty"`
+}
+
+func (s SubmitAshieldHardeningtaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAshieldHardeningtaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAshieldHardeningtaskResponse) SetReqMsgId(v string) *SubmitAshieldHardeningtaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskResponse) SetResultCode(v string) *SubmitAshieldHardeningtaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskResponse) SetResultMsg(v string) *SubmitAshieldHardeningtaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskResponse) SetResData(v *HardeningTaskResponse) *SubmitAshieldHardeningtaskResponse {
+	s.ResData = v
+	return s
+}
+
+type QueryDeviceriskFingerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// apdid_token
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+	// client_id
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+}
+
+func (s QueryDeviceriskFingerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceriskFingerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceriskFingerRequest) SetAuthToken(v string) *QueryDeviceriskFingerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerRequest) SetProductInstanceId(v string) *QueryDeviceriskFingerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerRequest) SetApdidToken(v string) *QueryDeviceriskFingerRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerRequest) SetClientId(v string) *QueryDeviceriskFingerRequest {
+	s.ClientId = &v
+	return s
+}
+
+type QueryDeviceriskFingerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// code
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// message
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// request_id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// data
+	Data *DeviceRiskResp `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryDeviceriskFingerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceriskFingerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceriskFingerResponse) SetReqMsgId(v string) *QueryDeviceriskFingerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerResponse) SetResultCode(v string) *QueryDeviceriskFingerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerResponse) SetResultMsg(v string) *QueryDeviceriskFingerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerResponse) SetCode(v int64) *QueryDeviceriskFingerResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerResponse) SetMessage(v string) *QueryDeviceriskFingerResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerResponse) SetRequestId(v string) *QueryDeviceriskFingerResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerResponse) SetSuccess(v bool) *QueryDeviceriskFingerResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerResponse) SetData(v *DeviceRiskResp) *QueryDeviceriskFingerResponse {
+	s.Data = v
+	return s
+}
+
+type QueryDeviceriskDeviceriskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// apdid_token
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+	// client_id
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// env_id
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// merchant_id
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+}
+
+func (s QueryDeviceriskDeviceriskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceriskDeviceriskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetAuthToken(v string) *QueryDeviceriskDeviceriskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetProductInstanceId(v string) *QueryDeviceriskDeviceriskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetApdidToken(v string) *QueryDeviceriskDeviceriskRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetClientId(v string) *QueryDeviceriskDeviceriskRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetAppId(v string) *QueryDeviceriskDeviceriskRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetEnvId(v string) *QueryDeviceriskDeviceriskRequest {
+	s.EnvId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetTenantId(v string) *QueryDeviceriskDeviceriskRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetMerchantId(v string) *QueryDeviceriskDeviceriskRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetAppName(v string) *QueryDeviceriskDeviceriskRequest {
+	s.AppName = &v
+	return s
+}
+
+type QueryDeviceriskDeviceriskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// code
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// message
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// request_id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// data
+	Data *DeviceRiskResp `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryDeviceriskDeviceriskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceriskDeviceriskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetReqMsgId(v string) *QueryDeviceriskDeviceriskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetResultCode(v string) *QueryDeviceriskDeviceriskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetResultMsg(v string) *QueryDeviceriskDeviceriskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetCode(v int64) *QueryDeviceriskDeviceriskResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetMessage(v string) *QueryDeviceriskDeviceriskResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetRequestId(v string) *QueryDeviceriskDeviceriskResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetSuccess(v bool) *QueryDeviceriskDeviceriskResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetData(v *DeviceRiskResp) *QueryDeviceriskDeviceriskResponse {
+	s.Data = v
+	return s
+}
+
+type QueryFaceshieldWebRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客户id，标识客户来源
+	//
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty" require:"true"`
+	// apdid_token
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty"`
+	// aop_data
+	AopData *string `json:"aop_data,omitempty" xml:"aop_data,omitempty"`
+}
+
+func (s QueryFaceshieldWebRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFaceshieldWebRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFaceshieldWebRequest) SetAuthToken(v string) *QueryFaceshieldWebRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFaceshieldWebRequest) SetProductInstanceId(v string) *QueryFaceshieldWebRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFaceshieldWebRequest) SetClientId(v string) *QueryFaceshieldWebRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *QueryFaceshieldWebRequest) SetApdidToken(v string) *QueryFaceshieldWebRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *QueryFaceshieldWebRequest) SetAopData(v string) *QueryFaceshieldWebRequest {
+	s.AopData = &v
+	return s
+}
+
+type QueryFaceshieldWebResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 请求码，200成功，其他失败，具体见错误码
+	//
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 错误时的返回信息
+	//
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 请求时传入的，若没有传，则系统自动生成
+	//
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// data
+	Data *FaceShieldResult `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryFaceshieldWebResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFaceshieldWebResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFaceshieldWebResponse) SetReqMsgId(v string) *QueryFaceshieldWebResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFaceshieldWebResponse) SetResultCode(v string) *QueryFaceshieldWebResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFaceshieldWebResponse) SetResultMsg(v string) *QueryFaceshieldWebResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFaceshieldWebResponse) SetSuccess(v bool) *QueryFaceshieldWebResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryFaceshieldWebResponse) SetCode(v int64) *QueryFaceshieldWebResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryFaceshieldWebResponse) SetMessage(v string) *QueryFaceshieldWebResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryFaceshieldWebResponse) SetRequestId(v string) *QueryFaceshieldWebResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryFaceshieldWebResponse) SetData(v *FaceShieldResult) *QueryFaceshieldWebResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -422,7 +1158,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.3.2"),
 				"_prod_code":       tea.String("HK_SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -507,6 +1243,176 @@ func (client *Client) CreateBlueshieldSecuritypictureEx(request *CreateBlueshiel
 	}
 	_result = &CreateBlueshieldSecuritypictureResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.blueshield.securitypicture.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全人脸盾Native查询
+ * Summary: 人脸盾Native查询
+ */
+func (client *Client) QueryFaceshieldNative(request *QueryFaceshieldNativeRequest) (_result *QueryFaceshieldNativeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFaceshieldNativeResponse{}
+	_body, _err := client.QueryFaceshieldNativeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全人脸盾Native查询
+ * Summary: 人脸盾Native查询
+ */
+func (client *Client) QueryFaceshieldNativeEx(request *QueryFaceshieldNativeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFaceshieldNativeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFaceshieldNativeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.faceshield.native.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 启动加固任务
+ * Summary: 启动加固任务
+ */
+func (client *Client) SubmitAshieldHardeningtask(request *SubmitAshieldHardeningtaskRequest) (_result *SubmitAshieldHardeningtaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAshieldHardeningtaskResponse{}
+	_body, _err := client.SubmitAshieldHardeningtaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 启动加固任务
+ * Summary: 启动加固任务
+ */
+func (client *Client) SubmitAshieldHardeningtaskEx(request *SubmitAshieldHardeningtaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAshieldHardeningtaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAshieldHardeningtaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.ashield.hardeningtask.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 设备风险查询
+ * Summary: 设备风险查询
+ */
+func (client *Client) QueryDeviceriskFinger(request *QueryDeviceriskFingerRequest) (_result *QueryDeviceriskFingerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeviceriskFingerResponse{}
+	_body, _err := client.QueryDeviceriskFingerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 设备风险查询
+ * Summary: 设备风险查询
+ */
+func (client *Client) QueryDeviceriskFingerEx(request *QueryDeviceriskFingerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeviceriskFingerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeviceriskFingerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.devicerisk.finger.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全-设备风险查询
+ * Summary: 设备风险查询
+ */
+func (client *Client) QueryDeviceriskDevicerisk(request *QueryDeviceriskDeviceriskRequest) (_result *QueryDeviceriskDeviceriskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeviceriskDeviceriskResponse{}
+	_body, _err := client.QueryDeviceriskDeviceriskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全-设备风险查询
+ * Summary: 设备风险查询
+ */
+func (client *Client) QueryDeviceriskDeviceriskEx(request *QueryDeviceriskDeviceriskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeviceriskDeviceriskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeviceriskDeviceriskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.devicerisk.devicerisk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全人脸盾Web查询
+ * Summary: 人脸盾Web查询
+ */
+func (client *Client) QueryFaceshieldWeb(request *QueryFaceshieldWebRequest) (_result *QueryFaceshieldWebResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFaceshieldWebResponse{}
+	_body, _err := client.QueryFaceshieldWebEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全人脸盾Web查询
+ * Summary: 人脸盾Web查询
+ */
+func (client *Client) QueryFaceshieldWebEx(request *QueryFaceshieldWebRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFaceshieldWebResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFaceshieldWebResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.faceshield.web.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
