@@ -826,6 +826,39 @@ export class GoodsDigitalFingerprintIdentifyResultData extends $tea.Model {
   }
 }
 
+// 部标设备数据
+export class JtData extends $tea.Model {
+  // 数据的可信平台唯一ID
+  trustiotId: number;
+  // IoT可信平台设备唯一ID
+  trustiotEntityId: number;
+  // 上报原文解析处理之后的数据
+  processedContent: string;
+  // 和上一次上报数据里程对比，新增的里程数
+  deltaMileage?: number;
+  static names(): { [key: string]: string } {
+    return {
+      trustiotId: 'trustiot_id',
+      trustiotEntityId: 'trustiot_entity_id',
+      processedContent: 'processed_content',
+      deltaMileage: 'delta_mileage',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      trustiotId: 'number',
+      trustiotEntityId: 'number',
+      processedContent: 'string',
+      deltaMileage: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 租赁合同信息
 export class RentContractInfo extends $tea.Model {
   // 租赁合同ID
@@ -2939,6 +2972,43 @@ export class BaiQrcodeVerifyRespData extends $tea.Model {
   }
 }
 
+// 多媒体文件
+export class JtMedia extends $tea.Model {
+  // 多媒体ID
+  mediaId: string;
+  // 文件名称
+  name: string;
+  // 可访问的url
+  url: string;
+  // 上传时间
+  gmtCreate: number;
+  // 多媒体类型枚举：IMAGE 图像；AUDIO 音频；VIDEO视频； UN_KNOW  未知；
+  mediaType: string;
+  static names(): { [key: string]: string } {
+    return {
+      mediaId: 'media_id',
+      name: 'name',
+      url: 'url',
+      gmtCreate: 'gmt_create',
+      mediaType: 'media_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      mediaId: 'string',
+      name: 'string',
+      url: 'string',
+      gmtCreate: 'number',
+      mediaType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 商品鉴定点检测接口响应数据
 export class BaiGoodsPointCheckRespData extends $tea.Model {
   // 图片是否有效，无效则需要提示重拍
@@ -3434,6 +3504,47 @@ export class BaiQrcodeParseReqData extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       imageUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 部标设备信息
+export class JtDevice extends $tea.Model {
+  // 设备ID
+  deviceId: string;
+  // 场景码
+  scene: string;
+  // 可信设备ID
+  trustiotDeviceId: number;
+  // 设备注册时间
+  gmtCreate: number;
+  // 设备是否在线
+  online: boolean;
+  // 设备型号
+  deviceModel?: string;
+  static names(): { [key: string]: string } {
+    return {
+      deviceId: 'device_id',
+      scene: 'scene',
+      trustiotDeviceId: 'trustiot_device_id',
+      gmtCreate: 'gmt_create',
+      online: 'online',
+      deviceModel: 'device_model',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deviceId: 'string',
+      scene: 'string',
+      trustiotDeviceId: 'number',
+      gmtCreate: 'number',
+      online: 'boolean',
+      deviceModel: 'string',
     };
   }
 
@@ -4469,6 +4580,35 @@ export class CustomerDeviceItem extends $tea.Model {
       deviceStatus: 'string',
       serviceStatus: 'string',
       screenStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 部标数据查询接口中返回的聚合统计指标结构体
+export class JtExtraData extends $tea.Model {
+  // 查询的时间范围内的行驶总里程
+  deltaMileage: number;
+  // 最大车速
+  maxSpeed: number;
+  // 平均车速
+  avgSpeed: number;
+  static names(): { [key: string]: string } {
+    return {
+      deltaMileage: 'delta_mileage',
+      maxSpeed: 'max_speed',
+      avgSpeed: 'avg_speed',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deltaMileage: 'number',
+      maxSpeed: 'number',
+      avgSpeed: 'number',
     };
   }
 
@@ -18641,6 +18781,247 @@ export class QueryThingmodelEventResponse extends $tea.Model {
   }
 }
 
+export class QueryEntityrelationJtdevicebycarRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 车辆ID： 车辆车牌颜色+车牌号
+  deviceId: string;
+  // 场景码
+  scene: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      scene: 'scene',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      scene: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEntityrelationJtdevicebycarResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 车辆关联的部标设备列表
+  deviceList?: JtDevice[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      deviceList: 'device_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      deviceList: { 'type': 'array', 'itemType': JtDevice },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCollectorJtfluxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询类型，支持LOCATION, TRACE,  ALARM三类
+  queryType: string;
+  // 查询模式，支持抽样SAMPLE和分页PAGE两类，query_type不是LOCATION时必填
+  queryMode?: string;
+  // 场景码
+  scene: string;
+  // 部标设备可信平台唯一ID列表
+  trustiotDeviceIdList?: number[];
+  // 开始时间，查询TRACE,  ALARM时必填
+  startTime?: number;
+  // 结束时间，查询TRACE,  ALARM时必填
+  endTime?: number;
+  // 查询ALARM的类型，默认查全部类型，包括ALARM_BASIC,ALARM_ADAS ,ALARM_DSM,ALARM_ACCELEROMETER四类
+  alarmTypes?: string[];
+  // 页码
+  pageIndex?: number;
+  // 单页数量
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      queryType: 'query_type',
+      queryMode: 'query_mode',
+      scene: 'scene',
+      trustiotDeviceIdList: 'trustiot_device_id_list',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      alarmTypes: 'alarm_types',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      queryType: 'string',
+      queryMode: 'string',
+      scene: 'string',
+      trustiotDeviceIdList: { 'type': 'array', 'itemType': 'number' },
+      startTime: 'number',
+      endTime: 'number',
+      alarmTypes: { 'type': 'array', 'itemType': 'string' },
+      pageIndex: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCollectorJtfluxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 1
+  pageIndex?: number;
+  // 单页数量
+  pageSize?: number;
+  // 总记录数
+  totalSize?: number;
+  // 总页数
+  totalPages?: number;
+  // 部标数据列表
+  pageData?: JtData[];
+  // 聚合统计指标
+  extraData?: JtExtraData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      totalSize: 'total_size',
+      totalPages: 'total_pages',
+      pageData: 'page_data',
+      extraData: 'extra_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageIndex: 'number',
+      pageSize: 'number',
+      totalSize: 'number',
+      totalPages: 'number',
+      pageData: { 'type': 'array', 'itemType': JtData },
+      extraData: JtExtraData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCollectorJtmediaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  scene: string;
+  // 异常事件ID，由告警事件标识生成，在blockchain.bot.collector.jtflux.query接口中可获取
+  alarmEventId: string;
+  // 异常事件媒体文件ID列表
+  mediaIdList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      scene: 'scene',
+      alarmEventId: 'alarm_event_id',
+      mediaIdList: 'media_id_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      scene: 'string',
+      alarmEventId: 'string',
+      mediaIdList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCollectorJtmediaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 多媒体文件列表
+  mediaList?: JtMedia[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      mediaList: 'media_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      mediaList: { 'type': 'array', 'itemType': JtMedia },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -20023,7 +20404,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.83",
+          sdk_version: "1.8.90",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -23377,6 +23758,63 @@ export default class Client {
   async queryThingmodelEventEx(request: QueryThingmodelEventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryThingmodelEventResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryThingmodelEventResponse>(await this.doRequest("1.0", "blockchain.bot.thingmodel.event.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryThingmodelEventResponse({}));
+  }
+
+  /**
+   * Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+   * Summary: 车辆关联的部标设备列表查询
+   */
+  async queryEntityrelationJtdevicebycar(request: QueryEntityrelationJtdevicebycarRequest): Promise<QueryEntityrelationJtdevicebycarResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEntityrelationJtdevicebycarEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通过车辆车牌的颜色+号码+场景码，查询关联的部标设备对应的IoT可信平台唯一ID
+   * Summary: 车辆关联的部标设备列表查询
+   */
+  async queryEntityrelationJtdevicebycarEx(request: QueryEntityrelationJtdevicebycarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEntityrelationJtdevicebycarResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEntityrelationJtdevicebycarResponse>(await this.doRequest("1.0", "blockchain.bot.entityrelation.jtdevicebycar.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEntityrelationJtdevicebycarResponse({}));
+  }
+
+  /**
+   * Description: 部标设备位置/轨迹/异常数据查询
+   * Summary: 部标设备位置/轨迹/异常数据查询
+   */
+  async queryCollectorJtflux(request: QueryCollectorJtfluxRequest): Promise<QueryCollectorJtfluxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCollectorJtfluxEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 部标设备位置/轨迹/异常数据查询
+   * Summary: 部标设备位置/轨迹/异常数据查询
+   */
+  async queryCollectorJtfluxEx(request: QueryCollectorJtfluxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCollectorJtfluxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCollectorJtfluxResponse>(await this.doRequest("1.0", "blockchain.bot.collector.jtflux.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCollectorJtfluxResponse({}));
+  }
+
+  /**
+   * Description: 通过异常事件ID查询部标多媒体文件地址
+   * Summary: 通过异常事件ID查询部标多媒体文件地址
+   */
+  async queryCollectorJtmedia(request: QueryCollectorJtmediaRequest): Promise<QueryCollectorJtmediaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCollectorJtmediaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通过异常事件ID查询部标多媒体文件地址
+   * Summary: 通过异常事件ID查询部标多媒体文件地址
+   */
+  async queryCollectorJtmediaEx(request: QueryCollectorJtmediaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCollectorJtmediaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCollectorJtmediaResponse>(await this.doRequest("1.0", "blockchain.bot.collector.jtmedia.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCollectorJtmediaResponse({}));
   }
 
   /**
