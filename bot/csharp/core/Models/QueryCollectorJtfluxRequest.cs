@@ -63,6 +63,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public long? PageSize { get; set; }
 
+        // 告警子类型
+        [NameInMap("alarm_sub_types")]
+        [Validation(Required=false)]
+        public List<long?> AlarmSubTypes { get; set; }
+
     }
 
 }
