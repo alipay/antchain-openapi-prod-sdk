@@ -836,12 +836,41 @@ export class JtData extends $tea.Model {
   processedContent: string;
   // 和上一次上报数据里程对比，新增的里程数
   deltaMileage?: number;
+  // 正常位置信息：LOCATION
+  // 告警信息：ALARM_BASIC、 ALARM_ADAS、 ALARM_DSM、 ALARM_ACCELEROMETER
+  bizType: string;
+  // 告警子类型
+  // //ADAS
+  // 10001: 前向碰撞报警
+  // 10002: 车辆偏离报警
+  // 10003: 车距过近报警
+  // 10004: 行人碰撞报警
+  // 10005: 频繁变道报警
+  // 10006: 道路标识超限报警
+  // 10007: 障碍物报警 //10008~10015 保留
+  // 10016: 道路标志识别事件
+  // 10017: 主动抓拍事件 //10018~10031 保留
+  // //DSM
+  // 10101: 疲劳驾驶报警
+  // 10102: 接打电话报警
+  // 10103: 抽烟报警报警
+  // 10104: 分神驾驶报警
+  // 10105: 驾驶员异常报警 //10106~10115 保留
+  // 10116: 自动抓拍事件
+  // 10117: 驾驶员变更事件 //10118~10031 保留
+  // //加速度
+  // 11701: 急加速
+  // 11702: 急减速
+  // 11703: 急转弯
+  alarmSubType?: number;
   static names(): { [key: string]: string } {
     return {
       trustiotId: 'trustiot_id',
       trustiotEntityId: 'trustiot_entity_id',
       processedContent: 'processed_content',
       deltaMileage: 'delta_mileage',
+      bizType: 'biz_type',
+      alarmSubType: 'alarm_sub_type',
     };
   }
 
@@ -851,6 +880,8 @@ export class JtData extends $tea.Model {
       trustiotEntityId: 'number',
       processedContent: 'string',
       deltaMileage: 'number',
+      bizType: 'string',
+      alarmSubType: 'number',
     };
   }
 
@@ -18866,6 +18897,8 @@ export class QueryCollectorJtfluxRequest extends $tea.Model {
   pageIndex?: number;
   // 单页数量
   pageSize?: number;
+  // 告警子类型
+  alarmSubTypes?: number[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -18879,6 +18912,7 @@ export class QueryCollectorJtfluxRequest extends $tea.Model {
       alarmTypes: 'alarm_types',
       pageIndex: 'page_index',
       pageSize: 'page_size',
+      alarmSubTypes: 'alarm_sub_types',
     };
   }
 
@@ -18895,6 +18929,7 @@ export class QueryCollectorJtfluxRequest extends $tea.Model {
       alarmTypes: { 'type': 'array', 'itemType': 'string' },
       pageIndex: 'number',
       pageSize: 'number',
+      alarmSubTypes: { 'type': 'array', 'itemType': 'number' },
     };
   }
 
@@ -20404,7 +20439,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.90",
+          sdk_version: "1.8.94",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
