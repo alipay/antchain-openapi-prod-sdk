@@ -1144,6 +1144,33 @@ type JtData struct {
 	ProcessedContent *string `json:"processed_content,omitempty" xml:"processed_content,omitempty" require:"true"`
 	// 和上一次上报数据里程对比，新增的里程数
 	DeltaMileage *int64 `json:"delta_mileage,omitempty" xml:"delta_mileage,omitempty"`
+	// 正常位置信息：LOCATION
+	// 告警信息：ALARM_BASIC、 ALARM_ADAS、 ALARM_DSM、 ALARM_ACCELEROMETER
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 告警子类型
+	// //ADAS
+	// 10001: 前向碰撞报警
+	// 10002: 车辆偏离报警
+	// 10003: 车距过近报警
+	// 10004: 行人碰撞报警
+	// 10005: 频繁变道报警
+	// 10006: 道路标识超限报警
+	// 10007: 障碍物报警 //10008~10015 保留
+	// 10016: 道路标志识别事件
+	// 10017: 主动抓拍事件 //10018~10031 保留
+	// //DSM
+	// 10101: 疲劳驾驶报警
+	// 10102: 接打电话报警
+	// 10103: 抽烟报警报警
+	// 10104: 分神驾驶报警
+	// 10105: 驾驶员异常报警 //10106~10115 保留
+	// 10116: 自动抓拍事件
+	// 10117: 驾驶员变更事件 //10118~10031 保留
+	// //加速度
+	// 11701: 急加速
+	// 11702: 急减速
+	// 11703: 急转弯
+	AlarmSubType *int64 `json:"alarm_sub_type,omitempty" xml:"alarm_sub_type,omitempty"`
 }
 
 func (s JtData) String() string {
@@ -1171,6 +1198,16 @@ func (s *JtData) SetProcessedContent(v string) *JtData {
 
 func (s *JtData) SetDeltaMileage(v int64) *JtData {
 	s.DeltaMileage = &v
+	return s
+}
+
+func (s *JtData) SetBizType(v string) *JtData {
+	s.BizType = &v
+	return s
+}
+
+func (s *JtData) SetAlarmSubType(v int64) *JtData {
+	s.AlarmSubType = &v
 	return s
 }
 
@@ -24552,6 +24589,8 @@ type QueryCollectorJtfluxRequest struct {
 	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
 	// 单页数量
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 告警子类型
+	AlarmSubTypes []*int64 `json:"alarm_sub_types,omitempty" xml:"alarm_sub_types,omitempty" type:"Repeated"`
 }
 
 func (s QueryCollectorJtfluxRequest) String() string {
@@ -24614,6 +24653,11 @@ func (s *QueryCollectorJtfluxRequest) SetPageIndex(v int64) *QueryCollectorJtflu
 
 func (s *QueryCollectorJtfluxRequest) SetPageSize(v int64) *QueryCollectorJtfluxRequest {
 	s.PageSize = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxRequest) SetAlarmSubTypes(v []*int64) *QueryCollectorJtfluxRequest {
+	s.AlarmSubTypes = v
 	return s
 }
 
@@ -26545,7 +26589,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.90"),
+				"sdk_version":      tea.String("1.8.94"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
