@@ -23,6 +23,38 @@ public class JtData extends TeaModel {
     @NameInMap("delta_mileage")
     public Long deltaMileage;
 
+    // 正常位置信息：LOCATION
+    // 告警信息：ALARM_BASIC、 ALARM_ADAS、 ALARM_DSM、 ALARM_ACCELEROMETER
+    @NameInMap("biz_type")
+    @Validation(required = true)
+    public String bizType;
+
+    // 告警子类型
+    // //ADAS
+    // 10001: 前向碰撞报警
+    // 10002: 车辆偏离报警
+    // 10003: 车距过近报警
+    // 10004: 行人碰撞报警
+    // 10005: 频繁变道报警
+    // 10006: 道路标识超限报警
+    // 10007: 障碍物报警 //10008~10015 保留
+    // 10016: 道路标志识别事件
+    // 10017: 主动抓拍事件 //10018~10031 保留
+    // //DSM
+    // 10101: 疲劳驾驶报警
+    // 10102: 接打电话报警
+    // 10103: 抽烟报警报警
+    // 10104: 分神驾驶报警
+    // 10105: 驾驶员异常报警 //10106~10115 保留
+    // 10116: 自动抓拍事件
+    // 10117: 驾驶员变更事件 //10118~10031 保留
+    // //加速度
+    // 11701: 急加速
+    // 11702: 急减速
+    // 11703: 急转弯
+    @NameInMap("alarm_sub_type")
+    public Long alarmSubType;
+
     public static JtData build(java.util.Map<String, ?> map) throws Exception {
         JtData self = new JtData();
         return TeaModel.build(map, self);
@@ -58,6 +90,22 @@ public class JtData extends TeaModel {
     }
     public Long getDeltaMileage() {
         return this.deltaMileage;
+    }
+
+    public JtData setBizType(String bizType) {
+        this.bizType = bizType;
+        return this;
+    }
+    public String getBizType() {
+        return this.bizType;
+    }
+
+    public JtData setAlarmSubType(Long alarmSubType) {
+        this.alarmSubType = alarmSubType;
+        return this;
+    }
+    public Long getAlarmSubType() {
+        return this.alarmSubType;
     }
 
 }

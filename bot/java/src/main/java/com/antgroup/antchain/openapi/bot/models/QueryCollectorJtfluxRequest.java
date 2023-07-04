@@ -49,6 +49,10 @@ public class QueryCollectorJtfluxRequest extends TeaModel {
     @NameInMap("page_size")
     public Long pageSize;
 
+    // 告警子类型
+    @NameInMap("alarm_sub_types")
+    public java.util.List<Long> alarmSubTypes;
+
     public static QueryCollectorJtfluxRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryCollectorJtfluxRequest self = new QueryCollectorJtfluxRequest();
         return TeaModel.build(map, self);
@@ -140,6 +144,14 @@ public class QueryCollectorJtfluxRequest extends TeaModel {
     }
     public Long getPageSize() {
         return this.pageSize;
+    }
+
+    public QueryCollectorJtfluxRequest setAlarmSubTypes(java.util.List<Long> alarmSubTypes) {
+        this.alarmSubTypes = alarmSubTypes;
+        return this;
+    }
+    public java.util.List<Long> getAlarmSubTypes() {
+        return this.alarmSubTypes;
     }
 
 }
