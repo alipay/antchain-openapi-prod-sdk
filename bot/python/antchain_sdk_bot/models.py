@@ -1403,6 +1403,8 @@ class JtData(TeaModel):
         trustiot_entity_id: int = None,
         processed_content: str = None,
         delta_mileage: int = None,
+        biz_type: str = None,
+        alarm_sub_type: int = None,
     ):
         # 数据的可信平台唯一ID
         self.trustiot_id = trustiot_id
@@ -1412,11 +1414,39 @@ class JtData(TeaModel):
         self.processed_content = processed_content
         # 和上一次上报数据里程对比，新增的里程数
         self.delta_mileage = delta_mileage
+        # 正常位置信息：LOCATION
+        # 告警信息：ALARM_BASIC、 ALARM_ADAS、 ALARM_DSM、 ALARM_ACCELEROMETER
+        self.biz_type = biz_type
+        # 告警子类型
+        # //ADAS
+        # 10001: 前向碰撞报警
+        # 10002: 车辆偏离报警
+        # 10003: 车距过近报警
+        # 10004: 行人碰撞报警
+        # 10005: 频繁变道报警
+        # 10006: 道路标识超限报警
+        # 10007: 障碍物报警 //10008~10015 保留
+        # 10016: 道路标志识别事件
+        # 10017: 主动抓拍事件 //10018~10031 保留
+        # //DSM
+        # 10101: 疲劳驾驶报警
+        # 10102: 接打电话报警
+        # 10103: 抽烟报警报警
+        # 10104: 分神驾驶报警
+        # 10105: 驾驶员异常报警 //10106~10115 保留
+        # 10116: 自动抓拍事件
+        # 10117: 驾驶员变更事件 //10118~10031 保留
+        # //加速度
+        # 11701: 急加速
+        # 11702: 急减速
+        # 11703: 急转弯
+        self.alarm_sub_type = alarm_sub_type
 
     def validate(self):
         self.validate_required(self.trustiot_id, 'trustiot_id')
         self.validate_required(self.trustiot_entity_id, 'trustiot_entity_id')
         self.validate_required(self.processed_content, 'processed_content')
+        self.validate_required(self.biz_type, 'biz_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -1432,6 +1462,10 @@ class JtData(TeaModel):
             result['processed_content'] = self.processed_content
         if self.delta_mileage is not None:
             result['delta_mileage'] = self.delta_mileage
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.alarm_sub_type is not None:
+            result['alarm_sub_type'] = self.alarm_sub_type
         return result
 
     def from_map(self, m: dict = None):
@@ -1444,6 +1478,10 @@ class JtData(TeaModel):
             self.processed_content = m.get('processed_content')
         if m.get('delta_mileage') is not None:
             self.delta_mileage = m.get('delta_mileage')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('alarm_sub_type') is not None:
+            self.alarm_sub_type = m.get('alarm_sub_type')
         return self
 
 
@@ -30857,6 +30895,7 @@ class QueryCollectorJtfluxRequest(TeaModel):
         alarm_types: List[str] = None,
         page_index: int = None,
         page_size: int = None,
+        alarm_sub_types: List[int] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -30879,6 +30918,8 @@ class QueryCollectorJtfluxRequest(TeaModel):
         self.page_index = page_index
         # 单页数量
         self.page_size = page_size
+        # 告警子类型
+        self.alarm_sub_types = alarm_sub_types
 
     def validate(self):
         self.validate_required(self.query_type, 'query_type')
@@ -30912,6 +30953,8 @@ class QueryCollectorJtfluxRequest(TeaModel):
             result['page_index'] = self.page_index
         if self.page_size is not None:
             result['page_size'] = self.page_size
+        if self.alarm_sub_types is not None:
+            result['alarm_sub_types'] = self.alarm_sub_types
         return result
 
     def from_map(self, m: dict = None):
@@ -30938,6 +30981,8 @@ class QueryCollectorJtfluxRequest(TeaModel):
             self.page_index = m.get('page_index')
         if m.get('page_size') is not None:
             self.page_size = m.get('page_size')
+        if m.get('alarm_sub_types') is not None:
+            self.alarm_sub_types = m.get('alarm_sub_types')
         return self
 
 
