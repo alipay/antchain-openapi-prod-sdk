@@ -39,11 +39,52 @@ class JtData extends Model
      * @var int
      */
     public $deltaMileage;
+
+    // 正常位置信息：LOCATION
+    // 告警信息：ALARM_BASIC、 ALARM_ADAS、 ALARM_DSM、 ALARM_ACCELEROMETER
+    /**
+     * @example 数据标识
+     *
+     * @var string
+     */
+    public $bizType;
+
+    // 告警子类型
+    // //ADAS
+    // 10001: 前向碰撞报警
+    // 10002: 车辆偏离报警
+    // 10003: 车距过近报警
+    // 10004: 行人碰撞报警
+    // 10005: 频繁变道报警
+    // 10006: 道路标识超限报警
+    // 10007: 障碍物报警 //10008~10015 保留
+    // 10016: 道路标志识别事件
+    // 10017: 主动抓拍事件 //10018~10031 保留
+    // //DSM
+    // 10101: 疲劳驾驶报警
+    // 10102: 接打电话报警
+    // 10103: 抽烟报警报警
+    // 10104: 分神驾驶报警
+    // 10105: 驾驶员异常报警 //10106~10115 保留
+    // 10116: 自动抓拍事件
+    // 10117: 驾驶员变更事件 //10118~10031 保留
+    // //加速度
+    // 11701: 急加速
+    // 11702: 急减速
+    // 11703: 急转弯
+    /**
+     * @example 10001
+     *
+     * @var int
+     */
+    public $alarmSubType;
     protected $_name = [
         'trustiotId'       => 'trustiot_id',
         'trustiotEntityId' => 'trustiot_entity_id',
         'processedContent' => 'processed_content',
         'deltaMileage'     => 'delta_mileage',
+        'bizType'          => 'biz_type',
+        'alarmSubType'     => 'alarm_sub_type',
     ];
 
     public function validate()
@@ -51,6 +92,7 @@ class JtData extends Model
         Model::validateRequired('trustiotId', $this->trustiotId, true);
         Model::validateRequired('trustiotEntityId', $this->trustiotEntityId, true);
         Model::validateRequired('processedContent', $this->processedContent, true);
+        Model::validateRequired('bizType', $this->bizType, true);
     }
 
     public function toMap()
@@ -67,6 +109,12 @@ class JtData extends Model
         }
         if (null !== $this->deltaMileage) {
             $res['delta_mileage'] = $this->deltaMileage;
+        }
+        if (null !== $this->bizType) {
+            $res['biz_type'] = $this->bizType;
+        }
+        if (null !== $this->alarmSubType) {
+            $res['alarm_sub_type'] = $this->alarmSubType;
         }
 
         return $res;
@@ -91,6 +139,12 @@ class JtData extends Model
         }
         if (isset($map['delta_mileage'])) {
             $model->deltaMileage = $map['delta_mileage'];
+        }
+        if (isset($map['biz_type'])) {
+            $model->bizType = $map['biz_type'];
+        }
+        if (isset($map['alarm_sub_type'])) {
+            $model->alarmSubType = $map['alarm_sub_type'];
         }
 
         return $model;

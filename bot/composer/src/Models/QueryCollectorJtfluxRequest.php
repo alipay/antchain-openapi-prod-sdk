@@ -72,6 +72,12 @@ class QueryCollectorJtfluxRequest extends Model
      * @var int
      */
     public $pageSize;
+
+    // 告警子类型
+    /**
+     * @var int[]
+     */
+    public $alarmSubTypes;
     protected $_name = [
         'authToken'            => 'auth_token',
         'productInstanceId'    => 'product_instance_id',
@@ -84,6 +90,7 @@ class QueryCollectorJtfluxRequest extends Model
         'alarmTypes'           => 'alarm_types',
         'pageIndex'            => 'page_index',
         'pageSize'             => 'page_size',
+        'alarmSubTypes'        => 'alarm_sub_types',
     ];
 
     public function validate()
@@ -127,6 +134,9 @@ class QueryCollectorJtfluxRequest extends Model
         }
         if (null !== $this->pageSize) {
             $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->alarmSubTypes) {
+            $res['alarm_sub_types'] = $this->alarmSubTypes;
         }
 
         return $res;
@@ -176,6 +186,11 @@ class QueryCollectorJtfluxRequest extends Model
         }
         if (isset($map['page_size'])) {
             $model->pageSize = $map['page_size'];
+        }
+        if (isset($map['alarm_sub_types'])) {
+            if (!empty($map['alarm_sub_types'])) {
+                $model->alarmSubTypes = $map['alarm_sub_types'];
+            }
         }
 
         return $model;
