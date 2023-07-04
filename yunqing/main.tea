@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.14.18',
+    sdk_version = '4.0.5',
     _prod_code = 'YUNQING',
     _prod_channel = 'undefined'
   };
@@ -110,7 +110,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   }
 
   __request.headers = {
-    host = Util.defaultString(@endpoint, 'prodapigw-sofastack.cloud.alipay.com'),
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
     user-agent = Util.getUserAgent(@userAgent),
     ...headers
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -601,6 +601,20 @@ model OpsPlan {
   utcModified: string(name='utc_modified', example='修改时间'),
 }
 
+// 系统参数
+model SystemParameterInfo {
+  // 参数名
+  type: string(name='type', example='sso_login_url'),
+  // 参数值
+  value: string(name='value', example='127.0.0.1'),
+  // 环境Id
+  envId: string(name='env_id', example='730420210726104445272690000'),
+  // 参数描述
+  description?: string(name='description', example='sso跳转登录地址'),
+  // 记录id
+  id?: string(name='id', example='1072610444527'),
+}
+
 // 云游应用元数据
 model Application {
   // 应用英文名
@@ -769,6 +783,14 @@ model AppService {
   owner?: Owner(name='owner', example=''),
   // 应用SRE信息
   admin?: Admin(name='admin', example=''),
+  // 副本数
+  expectReplica?: long(name='expect_replica', example='3'),
+  // 镜像
+  image?: string(name='image', example='acs-reg.alipay.com/acloud/yunyoudev:9e470963-1626373943641'),
+  // 2G
+  cpu?: long(name='cpu', example='cpu资源'),
+  // 内存资源
+  memory?: long(name='memory', example='4G'),
 }
 
 // 回滚快照
@@ -849,6 +871,22 @@ model SolutionInstance {
   status: string(name='status', example='EXECUTING'),
 }
 
+// 测试用例是否可执行
+model AutoTestAvailableProdOption {
+  // 是否可执行测试用例	
+  isRunnable: boolean(name='is_runnable', example='true, false'),
+  // 不能执行自动化测试用例的原因	
+  // 
+  message: string(name='message', example='产品没有配备自动化测试镜像 '),
+  // 部署单元唯一标识（元数据）	
+  // 
+  deploymentUnitIdentity: string(name='deployment_unit_identity', example='default'),
+  // 部署单元实例唯一标识	
+  identity: string(name='identity', example='default'),
+  // 产品码
+  prodCode: string(name='prod_code', example='IAM'),
+}
+
 // 云游系统信息
 model System {
   // 系统的代码commit
@@ -911,6 +949,210 @@ model Schema {
   resourcePoolId?: string(name='resource_pool_id', example='rdb-ant58sit'),
 }
 
+// http配置
+model HTTP {
+  // 检查path
+  path: string(name='path', example='/common/checkService'),
+  // http schema
+  scheme: string(name='scheme', example='http'),
+  // port
+  port: long(name='port', example=''),
+}
+
+// 宿主机挂载配置，比如：挂载路径、目录还是文件
+model HostPathVolumeSource {
+  // 宿主机挂载的路径
+  path: string(name='path', example='/home/t2/iam/data'),
+  //   挂载的类型：  FILE("File"),
+  //     DIRECTORY("Directory");
+  type: string(name='type', example='Directory'),
+}
+
+// 持久化存储数据卷配置
+model PersistentVolumeSource {
+  //     READWRITEONCE("ReadWriteOnce"),
+  //     READONLYMANY("ReadOnlyMany"),
+  //     READWRITEMANY("ReadWriteMany");
+  accessModes: [ string ](name='access_modes', example='["ReadWriteOnce"]'),
+}
+
+// 探针配置Exec
+model Exec {
+  // args
+  args: [ string ](name='args', example=''),
+  // cmd
+  cmd: string(name='cmd', example='["bash","sleep","20"]'),
+}
+
+// 检测配置
+model TCP {
+  // tcp port
+  port: long(name='port', example=''),
+}
+
+// 应用数据卷配置项，主要涉及：挂载路径、是否只读、挂载传递方式
+model MountOptions {
+  // 容器内挂载路径
+  mountPath: string(name='mount_path', example='/home/admin/logs'),
+  // 是否只读，默认false
+  readOnly: string(name='read_only', example='false'),
+  // 挂载传递策略：    NONE("None"),
+  //     HOSTTOCONTAINER("HostToContainer"),
+  //     BIDIRECTIONAL("Bidirectional");
+  // 
+  mountPropagation: string(name='mount_propagation', example='None'),
+}
+
+// 探针配置
+model ProbeConfig {
+  // 超时时间，单位s
+  timeout: string(name='timeout', example='10'),
+  // exec
+  exec?: Exec(name='exec', example=''),
+  // http
+  http?: HTTP(name='http', example=''),
+  // tcp
+  tcp?: TCP(name='tcp', example=''),
+}
+
+// 灰度发布策略
+model GrayRelease {
+  // 需要更新到的副本数，比如：应用A有10个副本，本次更新updated_replicas=5，则会更新前5个
+  updatedReplicas?: long(name='updated_replicas', example=''),
+  //     发布策略：TWO_GROUP("TWO_GROUP", "分两组"),
+  //     ALL_ONE("ALL_ONE", "共分一组"),
+  //     EACH_ONE("EACH_ONE", "每台一组"),
+  //     SYSTEM_RECOMMENDATION("SYSTEM_RECOMMENDATION", "系统推荐"),
+  //     CUSTOMIZE("CUSTOMIZE", "自定义分组")
+  releaseStrategy: string(name='release_strategy', example='EACH_ONE'),
+}
+
+// 数据卷挂载方式，比如：宿主机挂载、PV持久化存储挂载
+model VolumeSource {
+  // 宿主机模式配置
+  hostPath?: HostPathVolumeSource(name='host_path', example=''),
+  // 和Host二选一
+  persistentVolume?: PersistentVolumeSource(name='persistent_volume', example=''),
+}
+
+// 数据库变更
+model SQLMigration {
+  // 变更名称
+  key: string(name='key', example='SQL_MIG_1243'),
+  // 产品升级变更sql
+  upgrade: string(name='upgrade', example='select x；'),
+  // 回滚变更sql
+  downgrade?: string(name='downgrade', example='select x;'),
+}
+
+// AAP 应用亲和性配置
+model AffinityConfig {
+  // 尽量满足的应用列表
+  preferred?: [ string ](name='preferred', example='["app1"]'),
+  // 必须满足的应用列表
+  required?: [ string ](name='required', example=''),
+}
+
+// 数据卷规格
+model VolumeSpec {
+  // 数据卷名称
+  volumeName: string(name='volume_name', example='logs'),
+  // 数据卷容量，单位为G
+  capacity: string(name='capacity', example='10'),
+}
+
+// 参数模版
+model ParameterTemplate {
+  // template模板值
+  template: string(name='template', example='template'),
+  // target 模版对象
+  target?: string(name='target', example='target'),
+}
+
+// 产品实例元数据
+model ProductInstanceMeta {
+  // 命名空间
+  namespace: string(name='namespace', example='ant-iam'),
+  // 产品Code
+  prodCode: string(name='prod_code', example='IAM'),
+  // 实例名称，同一个ns下不可重复
+  name: string(name='name', example='ant-iam'),
+}
+
+// 参数
+model Parameter {
+  // 参数默认值
+  default: string(name='default', example='123'),
+  // 参数key
+  key: string(name='key', example='app'),
+  //  参数描述
+  description: string(name='description', example='123'),
+  // 参数类型        MANUAL("manual"),
+  //         CONSTANT("constant"),
+  //         EXPRESSION("expression");
+  kind: string(name='kind', example='constant'),
+  // 是否必须
+  required: boolean(name='required', example='true, false'),
+  // 参数模版
+  parameters: [ ParameterTemplate ](name='parameters', example=''),
+  //         STRING("string"),
+  //         SECRET("secret"),
+  //         INT("int"),
+  //         FLOAT("float"),
+  //         ANY("any");
+  type: string(name='type', example='参数值类型'),
+}
+
+// 持久化存储配置
+model PersistentVolumeConfig {
+  // 挂载名称
+  volumeName: string(name='volume_name', example='logs'),
+  //     挂载的获取名称，默认：ReadWriteOnce。READWRITEONCE("ReadWriteOnce"),
+  //     READONLYMANY("ReadOnlyMany"),
+  //     READWRITEMANY("ReadWriteMany");
+  accessModes?: [ string ](name='access_modes', example=''),
+  // 存储类
+  storageClass?: string(name='storage_class', example='yoda'),
+  // 是否使用匿名卷，，默认false
+  useEmptyDir: boolean(name='use_empty_dir', example='false'),
+}
+
+// AAP应用数据卷元数据
+model Volume {
+  // 数据卷名称
+  name: string(name='name', example='logs'),
+  //  可挂载的配置
+  volumeSource: VolumeSource(name='volume_source', example=''),
+  // 数据卷配置
+  mountOptions: MountOptions(name='mount_options', example=''),
+}
+
+// 应用部署拓扑约束，比如：亲和性、反亲和性、sidecar等
+model TopologyConstraints {
+  // 亲和性配置
+  affinity?: AffinityConfig(name='affinity', example=''),
+  // 反亲和性配置
+  antiAffinity?: AffinityConfig(name='anti_affinity', example=''),
+  // sidecar应用列表
+  sidecars?: [ string ](name='sidecars', example=''),
+}
+
+// 资源规格
+model ResourceSpec {
+  // cpu规格
+  cpu: string(name='cpu', example='1'),
+  // gpu规格
+  gpu?: string(name='gpu', example='0'),
+  // memory
+  memory: string(name='memory', example='2'),
+  // 规格名称
+  name: string(name='name', example='标准单机房'),
+  // 应用副本数
+  replicas: long(name='replicas', example='2'),
+  // 数据卷规格
+  volumes: [ VolumeSpec ](name='volumes', example=''),
+}
+
 // 底座配置
 model CloudStackConfig {
   // 阿里云accessKey获取
@@ -923,6 +1165,102 @@ model CloudStackConfig {
   zone: string(name='zone', example='default'),
   // 底座类型
   type: string(name='type', example='ANT_STACK'),
+}
+
+// 应用生命周期
+model Lifecycle {
+  // 存活探针
+  liveness?: ProbeConfig(name='liveness', example=''),
+  // readiness
+  readiness?: ProbeConfig(name='readiness', example=''),
+  // preStop
+  preStop?: ProbeConfig(name='pre_stop', example=''),
+  // postStart
+  postStart?: ProbeConfig(name='post_start', example=''),
+  // startUp
+  startUp?: ProbeConfig(name='start_up', example=''),
+  // entrypoint
+  entrypoint?: ProbeConfig(name='entrypoint', example=''),
+}
+
+// AAP 应用实例环境变量值
+model AppEnv {
+  // 应用部署时用于渲染的值，渲染为value
+  renderValue: string(name='render_value', example='default'),
+  // 参数的值，部署的时候会被render_value的渲染结果覆盖
+  value: string(name='value', example='default'),
+  // 参数的key
+  key: string(name='key', example='cell_id'),
+}
+
+// 数据库schema
+model DatabaseSchema {
+  // 数据库方言
+  dialect: string(name='dialect', example='mysql'),
+  // 数据库schema名称
+  name: string(name='name', example='acimacore'),
+  // 拓扑名称
+  topoCode: string(name='topo_code', example='stadard'),
+  // schema数据库变更
+  sqlMigrations: [ SQLMigration ](name='sql_migrations', example=''),
+}
+
+// 应用镜像
+model ApplicationImage {
+  // 架构:amd64，arm64
+  arch: string(name='arch', example='amd64'),
+  // 镜像名称
+  image: string(name='image', example='acs-reg.xxxx.com/ccc/xxxx'),
+}
+
+// 应用服务规格配置
+model ApplicationServiceSpec {
+  // 服务域名
+  domain?: [ string ](name='domain', example=''),
+  // 服务名称
+  name: string(name='name', example='sre'),
+  // 服务端口
+  port: long(name='port', example=''),
+  // 服务协议，http，tcp
+  protocol: string(name='protocol', example='tcp'),
+}
+
+// 应用发布配置
+model AppDeployInitOption {
+  // 应用name
+  name: string(name='name', example='acimacore'),
+  // 产品内应用的依赖关系，决定应用的执行顺序
+  releaseOrder: long(name='release_order', example='1'),
+  // 分组策略：
+  //     TWO_GROUP("TWO_GROUP", "分两组"),
+  //     ALL_ONE("ALL_ONE", "共分一组"),
+  //     EACH_ONE("EACH_ONE", "每台一组"),
+  //     SYSTEM_RECOMMENDATION("SYSTEM_RECOMMENDATION", "系统推荐")
+  groupStrategy: string(name='group_strategy', example='EACH_ONE'),
+  // 分组是否需要手动确认，默认false
+  needConfirm: boolean(name='need_confirm', example='true, false'),
+}
+
+// 运维配置
+model OpsSpec {
+  // 需要下线的pod列表
+  offlinePod?: [ string ](name='offline_pod', example=''),
+  // 发布灰度策略
+  grayRelease?: GrayRelease(name='gray_release', example=''),
+}
+
+// 产品元信息
+model ProductMeta {
+  // 产品code
+  code: string(name='code', example='YANFA'),
+  // 产品名称
+  name: string(name='name', example='yanfa'),
+  // 产品标签
+  labels?: [ string ](name='labels', example=''),
+  // 产品版本
+  version: string(name='version', example='1.1.1'),
+  // 所属产品集
+  group?: string(name='group', example='PAAS'),
 }
 
 // 云游站点基本信息
@@ -967,18 +1305,6 @@ model EnvInfo {
   keystonePoolName: string(name='keystone_pool_name', example='zz-keystone'),
   // 底座配置
   cloudStackConfig: CloudStackConfig(name='cloud_stack_config', example=''),
-}
-
-// lb后端服务器
-model LbBackendServer {
-  // 应用容器名称
-  containerName: string(name='container_name', example='zz-xxx-1'),
-  // lb backendServer权值
-  weight: long(name='weight', example='100'),
-  // lb和backendServer关系
-  relationType: string(name='relation_type', example='ONETOALL'),
-  // 环境id
-  envId: string(name='env_id', example='7304000001'),
 }
 
 // lb实例监听器
@@ -1085,26 +1411,34 @@ model ResourceInstance {
   deploymentUnitInstanceIdentity: string(name='deployment_unit_instance_identity', example='default'),
 }
 
-//  应用基线数据
-model AppInstance {
-  // 环境id
-  envId: string(name='env_id', example='7304000001'),
-  // 产品码
-  prodCode: string(name='prod_code', example='YUNYOUDEV'),
-  // 应用名称
-  appName: string(name='app_name', example='yunyoudev'),
+// AAP 应用实例
+model ApplicationInstance {
+  // 应用实例的名字，一般为应用code的小写字母
+  name: string(name='name', example='aciamcore'),
   // 应用版本
-  appVersion: string(name='app_version', example='1.11.1'),
-  // 应用镜像名
-  image: string(name='image', example='acs-reg.xxxxx'),
-  // 应用基线状态：ACTIVE、FAILED、UPGRADING
-  status: string(name='status', example='ACTIVE'),
-  // 部署单元标识id
-  deploymentUnitIdentity?: string(name='deployment_unit_identity', example='default'),
-  // 部署单元实例id
-  deploymentUnitInstanceIdentity?: string(name='deployment_unit_instance_identity', example='default'),
-  // 应用期望实例数
-  expectReplica: string(name='expect_replica', example='1'),
+  appVersion: string(name='app_version', example='1.1.1'),
+  // 应用实例的命名空间，一般：站点code-prodCode小写
+  namespace: string(name='namespace', example='ant-iam'),
+  // 一般为空，系统自动填充默认值
+  storageClass?: string(name='storage_class', example='yoda-xx'),
+  // 应用部署的拓扑约束，一般为：亲和性、反亲和性、sidecar等
+  topologyConstraints?: TopologyConstraints(name='topology_constraints', example=''),
+  // 健康检查、hook配置
+  lifecycle?: Lifecycle(name='lifecycle', example=''),
+  // 应用的环境变量
+  appEnvs?: [ AppEnv ](name='app_envs', example=''),
+  // 依赖的应用名列表
+  applicationDependencies?: [ string ](name='application_dependencies', example=''),
+  // 应用的规格
+  resourceSpec: ResourceSpec(name='resource_spec', example=''),
+  // 持久化存储，可为空数组
+  persistentVolumeConfigs: [ PersistentVolumeConfig ](name='persistent_volume_configs', example=''),
+  // 运维策略
+  opsSpec: OpsSpec(name='ops_spec', example=''),
+  // OrderedReady:顺序更新，Parallel：并行更新
+  podManagementPolicy: string(name='pod_management_policy', example='OrderedReady'),
+  // 镜像
+  image: string(name='image', example='acs-reg.xxxx.com/ccc/xxxx'),
 }
 
 // 容器基线实例信息
@@ -1137,6 +1471,101 @@ model ContainerInstance {
   deploymentUnitInstanceIdentity: string(name='deployment_unit_instance_identity', example='default'),
   // 部署单元标识id
   deploymentUnitIdentity: string(name='deployment_unit_identity', example='default'),
+}
+
+// 应用元数据
+model ApplicationMeta {
+  // 产品名称
+  name: string(name='name', example='acimacore'),
+  // 应用code
+  code: string(name='code', example='aciamcore'),
+  // 应用版本
+  version: string(name='version', example='1.1.1'),
+  // 所属产品code
+  productCode: string(name='product_code', example='IAM'),
+  // 应用之间的依赖
+  dependencies?: [ string ](name='dependencies', example=''),
+  // 应用类型    STANDARD("standard"),
+  //     JOB("job"),
+  //     SIDECAR("sidecar"),
+  //     DAEMON("daemon");
+  kind: string(name='kind', example='standard'),
+}
+
+//  应用基线数据
+model AppInstance {
+  // 环境id
+  envId: string(name='env_id', example='7304000001'),
+  // 产品码
+  prodCode: string(name='prod_code', example='YUNYOUDEV'),
+  // 应用名称
+  appName: string(name='app_name', example='yunyoudev'),
+  // 应用版本
+  appVersion: string(name='app_version', example='1.11.1'),
+  // 应用镜像名
+  image: string(name='image', example='acs-reg.xxxxx'),
+  // 应用基线状态：ACTIVE、FAILED、UPGRADING
+  status: string(name='status', example='ACTIVE'),
+  // 部署单元标识id
+  deploymentUnitIdentity?: string(name='deployment_unit_identity', example='default'),
+  // 部署单元实例id
+  deploymentUnitInstanceIdentity?: string(name='deployment_unit_instance_identity', example='default'),
+  // 应用期望实例数
+  expectReplica: string(name='expect_replica', example='1'),
+}
+
+// 站点信息
+model SiteInfo {
+  // 站点名称
+  name: string(name='name', example='yinshu'),
+  // 站点code
+  code: string(name='code', example='yinshu'),
+}
+
+// lb后端服务器
+model LbBackendServer {
+  // 应用容器名称
+  containerName: string(name='container_name', example='zz-xxx-1'),
+  // lb backendServer权值
+  weight: long(name='weight', example='100'),
+  // lb和backendServer关系
+  relationType: string(name='relation_type', example='ONETOALL'),
+  // 环境id
+  envId: string(name='env_id', example='7304000001'),
+}
+
+// 产品部署初始化配置
+model ProductDeployInitOption {
+  // 命名空间
+  namespace: string(name='namespace', example='ant'),
+  // 产品实例名称
+  name: string(name='name', example='ant-iam'),
+  // 产品code
+  prodCode: string(name='prod_code', example='IAM'),
+  // 站点code
+  siteCode: string(name='site_code', example='ant'),
+  // 多个产品实例时，本产品的发布顺序
+  releaseOrder: long(name='release_order', example='1'),
+  // 产品内应用分部署配置
+  apps: [ AppDeployInitOption ](name='apps', example=''),
+}
+
+// 产品部署初始化请求
+model ProductDeployInitOptionRequest {
+  // 站点code
+  siteCode: string(name='site_code', example='ant'),
+  // 需要部署的产品实例元数据
+  productInstances: [ ProductInstanceMeta ](name='product_instances', example=''),
+}
+
+// 产品元信息
+model Product {
+  // 数据库变更
+  database: [ DatabaseSchema ](name='database', example=''),
+  // 产品元信息
+  meta: ProductMeta(name='meta', example=''),
+  // 产品共享参数
+  parameters?: [ Parameter ](name='parameters', example=''),
 }
 
 // 产品基线元信息
@@ -2278,6 +2707,9 @@ model CreateAppdeployRequest = {
   // 	
   // 操作人名称（花名或者真名）
   submitterName?: string(name='submitter_name'),
+  // 是否由云游自动确认资源规划，默认false；
+  // 云游自动确认规划可能不符合预期，请谨慎使用
+  autoConfirmPlan?: boolean(name='auto_confirm_plan'),
 }
 
 model CreateAppdeployResponse = {
@@ -2366,14 +2798,14 @@ model ImportSolutioninstanceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // com.alipay.cloud.apyunqing.boxing.model.box序列化后的结果
+  // 解决方案序列化后的结果
   boxData: string(name='box_data'),
   // 环境id
   envId: string(name='env_id'),
-  // 工号
-  workNo: string(name='work_no'),
-  // 花名
-  name?: string(name='name'),
+  // 操作人ID
+  submitterId: string(name='submitter_id'),
+  // 操作人名称
+  submitterName?: string(name='submitter_name'),
 }
 
 model ImportSolutioninstanceResponse = {
@@ -2383,6 +2815,8 @@ model ImportSolutioninstanceResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 发布单id
+  opsPlanId?: string(name='ops_plan_id'),
 }
 
 /**
@@ -2410,7 +2844,7 @@ model CheckSolutioninstanceImportRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 环境id
   envId: string(name='env_id'),
-  // com.alipay.cloud.apyunqing.boxing.model.box序列化后的结果
+  // 解决方案文件序列化后的结果
   boxData: string(name='box_data'),
 }
 
@@ -3553,6 +3987,799 @@ async function pagequeryRollbackSnapshotversion(request: PagequeryRollbackSnapsh
 async function pagequeryRollbackSnapshotversionEx(request: PagequeryRollbackSnapshotversionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryRollbackSnapshotversionResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'yunyou.yunqing.rollback.snapshotversion.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model EnableProdAutotestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境id
+  envId: string(name='env_id'),
+  // 产品码
+  prodCodes?: [ string ](name='prod_codes'),
+  // READY("READY", "准备执行"), DEPLOYING("DEPLOYING", "部署中, 首次部署时的状态"),  UPGRADING("UPGRADING", "升级中, 首次部署时的状态"),      ROLL_BACKING("ROLL_BACKING", "回滚中, 包括产品回滚和应用回滚"),      ACTIVE("ACTIVE", "可用"),      FAILED("FAILED", "失败"),ROLLBACKED("ROLLBACKED", "已回滚"),APP_ROLLBACKED("APP_ROLLBACKED", "应用回滚")
+  prodStatus?: [ string ](name='prod_status'),
+}
+
+model EnableProdAutotestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否可执行测试用例结果
+  options?: [ AutoTestAvailableProdOption ](name='options'),
+}
+
+/**
+ * Description: 产品是否可创建测试单
+ * Summary: 产品是否可创建测试单
+ */
+async function enableProdAutotest(request: EnableProdAutotestRequest): EnableProdAutotestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return enableProdAutotestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品是否可创建测试单
+ * Summary: 产品是否可创建测试单
+ */
+async function enableProdAutotestEx(request: EnableProdAutotestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): EnableProdAutotestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.prod.autotest.enable', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySystemParameterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境ids
+  envIds: string(name='env_ids'),
+  // 参数名s
+  types?: string(name='types'),
+}
+
+model QuerySystemParameterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 系统参数值
+  systemParameters?: [ SystemParameterInfo ](name='system_parameters'),
+}
+
+/**
+ * Description: 系统参数查询
+ * Summary: 系统参数查询
+ */
+async function querySystemParameter(request: QuerySystemParameterRequest): QuerySystemParameterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySystemParameterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 系统参数查询
+ * Summary: 系统参数查询
+ */
+async function querySystemParameterEx(request: QuerySystemParameterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySystemParameterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.system.parameter.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryOpsplanNodetreeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 发布单id
+  opsPlanId: string(name='ops_plan_id'),
+  // 发布单节点树根节点id
+  subTreeNodeRootId?: string(name='sub_tree_node_root_id'),
+}
+
+model QueryOpsplanNodetreeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 发布单节点树，为json string
+  nodeTree?: string(name='node_tree'),
+}
+
+/**
+ * Description: 查询发布单详情
+发布单详情的任务树是嵌套结构，OP目前不支持定义此类型的结构体
+故本接口返回了json string，调用方需要自己构造
+ * Summary: 查询发布单详情
+ */
+async function queryOpsplanNodetree(request: QueryOpsplanNodetreeRequest): QueryOpsplanNodetreeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryOpsplanNodetreeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询发布单详情
+发布单详情的任务树是嵌套结构，OP目前不支持定义此类型的结构体
+故本接口返回了json string，调用方需要自己构造
+ * Summary: 查询发布单详情
+ */
+async function queryOpsplanNodetreeEx(request: QueryOpsplanNodetreeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryOpsplanNodetreeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.opsplan.nodetree.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAapSitesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model ListAapSitesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // site list
+  sites?: [ SiteInfo ](name='sites'),
+}
+
+/**
+ * Description: 站点信息list
+ * Summary: 站点信息list
+ */
+async function listAapSites(request: ListAapSitesRequest): ListAapSitesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAapSitesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 站点信息list
+ * Summary: 站点信息list
+ */
+async function listAapSitesEx(request: ListAapSitesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAapSitesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.aap.sites.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportAapMetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // yaml的string格式
+  metaContext: string(name='meta_context'),
+}
+
+model ImportAapMetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否上传成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: AAP 元数据导入，包含：产品、应用、拓扑信息 。https://yuque.antfin-inc.com/tpaas/ednkxs/izdpx9s4at32mwbi?singleDoc# 《AAP：用户自定义产品接入》
+ * Summary: AAP 元数据导入
+ */
+async function importAapMeta(request: ImportAapMetaRequest): ImportAapMetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importAapMetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: AAP 元数据导入，包含：产品、应用、拓扑信息 。https://yuque.antfin-inc.com/tpaas/ednkxs/izdpx9s4at32mwbi?singleDoc# 《AAP：用户自定义产品接入》
+ * Summary: AAP 元数据导入
+ */
+async function importAapMetaEx(request: ImportAapMetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportAapMetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.aap.meta.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitAapProductinstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 命名空间，命名格式：siteCode-prodCode （小写）
+  namespace: string(name='namespace'),
+  // 产品实例名称，推荐产品code的小写字母
+  name: string(name='name'),
+  // 产品code
+  prodCode: string(name='prod_code'),
+  // 产品版本
+  prodVersion: string(name='prod_version'),
+  // 产品部署的拓扑名称，部署时会根据该信息进行部署
+  topologyCode: string(name='topology_code'),
+  // 站点code
+  siteCode: string(name='site_code'),
+}
+
+model InitAapProductinstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: AAP 产品实例初始化
+ * Summary: AAP 产品实例初始化
+ */
+async function initAapProductinstance(request: InitAapProductinstanceRequest): InitAapProductinstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initAapProductinstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: AAP 产品实例初始化
+ * Summary: AAP 产品实例初始化
+ */
+async function initAapProductinstanceEx(request: InitAapProductinstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitAapProductinstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.aap.productinstance.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitAapReleaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 需要升级的产品实例
+  productDeployInitOptionRequest: ProductDeployInitOptionRequest(name='product_deploy_init_option_request'),
+  // 站点code
+  siteCode?: string(name='site_code'),
+}
+
+model InitAapReleaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 初始化的结果，可用此调用发布接口
+  deployInitOptions?: [ ProductDeployInitOption ](name='deploy_init_options'),
+}
+
+/**
+ * Description: 产品实例发布初始化
+ * Summary: 产品实例发布初始化
+ */
+async function initAapRelease(request: InitAapReleaseRequest): InitAapReleaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initAapReleaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品实例发布初始化
+ * Summary: 产品实例发布初始化
+ */
+async function initAapReleaseEx(request: InitAapReleaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitAapReleaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.aap.release.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeployAapProductinstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 站点code
+  siteCode: string(name='site_code'),
+  // 产品部署参数
+  productDeployInitOptions: [ ProductDeployInitOption ](name='product_deploy_init_options'),
+}
+
+model DeployAapProductinstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 发布单id
+  releasePlanId?: string(name='release_plan_id'),
+}
+
+/**
+ * Description: 产品实例部署
+ * Summary: 产品实例部署
+ */
+async function deployAapProductinstance(request: DeployAapProductinstanceRequest): DeployAapProductinstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deployAapProductinstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品实例部署
+ * Summary: 产品实例部署
+ */
+async function deployAapProductinstanceEx(request: DeployAapProductinstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeployAapProductinstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.aap.productinstance.deploy', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAapReleaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 发布单id
+  releasePlanId: string(name='release_plan_id'),
+}
+
+model GetAapReleaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 发布单状态:
+  //     TOBE_DEPLOY("TOBE_DEPLOY","待执行","待执行"),
+  //     EXECUTING("EXECUTING","执行中","执行中"),
+  //     SUCCESS("SUCCESS","完成","完成"),
+  //     CANCELED("CANCELED","已取消","已取消"),
+  //     FAILED("FAILED","失败","失败"),
+  //     WAITING_CONFIRM("WAITING_CONFIRM","待确认","待确认");
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 发布单状态查询
+ * Summary: 发布单
+ */
+async function getAapRelease(request: GetAapReleaseRequest): GetAapReleaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAapReleaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发布单状态查询
+ * Summary: 发布单
+ */
+async function getAapReleaseEx(request: GetAapReleaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAapReleaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.aap.release.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAapApplicationinstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 站点code
+  siteCode: string(name='site_code'),
+  // 应用实例
+  applicationInstance: ApplicationInstance(name='application_instance'),
+}
+
+model UpdateAapApplicationinstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 应用实例更新，比如：规格、镜像、参数等
+ * Summary: 应用实例更新
+ */
+async function updateAapApplicationinstance(request: UpdateAapApplicationinstanceRequest): UpdateAapApplicationinstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAapApplicationinstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用实例更新，比如：规格、镜像、参数等
+ * Summary: 应用实例更新
+ */
+async function updateAapApplicationinstanceEx(request: UpdateAapApplicationinstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAapApplicationinstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.aap.applicationinstance.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAapApplicationinstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // sitecode
+  // 
+  siteCode: string(name='site_code'),
+  // namespace
+  namespace: string(name='namespace'),
+  // 产品code
+  prodCode: string(name='prod_code'),
+  // 产品实例name
+  productInstanceName: string(name='product_instance_name'),
+  // app name
+  appName: string(name='app_name'),
+}
+
+model QueryAapApplicationinstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // siteCode
+  siteCode?: string(name='site_code'),
+  // 应用实例
+  applicationInstance?: ApplicationInstance(name='application_instance'),
+}
+
+/**
+ * Description: 应用实例查询
+ * Summary: 应用实例查询
+ */
+async function queryAapApplicationinstance(request: QueryAapApplicationinstanceRequest): QueryAapApplicationinstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAapApplicationinstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用实例查询
+ * Summary: 应用实例查询
+ */
+async function queryAapApplicationinstanceEx(request: QueryAapApplicationinstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAapApplicationinstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.aap.applicationinstance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SetAapApplicationinstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 规格修改
+  resourceSpec: ResourceSpec(name='resource_spec'),
+  // 命名空间
+  namespace: string(name='namespace'),
+  // 产品实例名称
+  productInstanceName: string(name='product_instance_name'),
+  // 产品code
+  prodCode: string(name='prod_code'),
+  // 应用名称
+  appCode: string(name='app_code'),
+  // 站点code
+  siteCode: string(name='site_code'),
+}
+
+model SetAapApplicationinstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否修改成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 应用规格配置修改
+ * Summary: 应用规格配置修改
+ */
+async function setAapApplicationinstance(request: SetAapApplicationinstanceRequest): SetAapApplicationinstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return setAapApplicationinstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用规格配置修改
+ * Summary: 应用规格配置修改
+ */
+async function setAapApplicationinstanceEx(request: SetAapApplicationinstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SetAapApplicationinstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.aap.applicationinstance.set', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SetAapImagesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用镜像，默认使用amd64
+  images: ApplicationImage(name='images'),
+  // namespace
+  namespace: string(name='namespace'),
+  // siteCode
+  siteCode: string(name='site_code'),
+  // 产品code
+  prodCode: string(name='prod_code'),
+  // 产品实例名称
+  productInstanceName: string(name='product_instance_name'),
+  // 应用code
+  appCode: string(name='app_code'),
+}
+
+model SetAapImagesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否修改成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 应用镜像修改
+ * Summary: 应用镜像修改
+ */
+async function setAapImages(request: SetAapImagesRequest): SetAapImagesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return setAapImagesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用镜像修改
+ * Summary: 应用镜像修改
+ */
+async function setAapImagesEx(request: SetAapImagesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SetAapImagesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.aap.images.set', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAapProductinstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // site_code
+  siteCode: string(name='site_code'),
+  // name space
+  namespace: string(name='namespace'),
+  // 产品code
+  prodCode: string(name='prod_code'),
+  // 产品实例name
+  productInstanceName: string(name='product_instance_name'),
+}
+
+model QueryAapProductinstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // namespace
+  namespace?: string(name='namespace'),
+  // prod code
+  prodCode?: string(name='prod_code'),
+  // 产品实例名称
+  name?: string(name='name'),
+  // 产品版本
+  prodVersion?: string(name='prod_version'),
+  // 拓扑code
+  topologyCode?: string(name='topology_code'),
+  // 拓扑名称
+  topologyName?: string(name='topology_name'),
+  // 产品实例状态
+  status?: string(name='status'),
+  // 应用实例列表
+  appInstances?: [ ApplicationMeta ](name='app_instances'),
+}
+
+/**
+ * Description: 产品实例查询
+ * Summary: 产品实例查询
+ */
+async function queryAapProductinstance(request: QueryAapProductinstanceRequest): QueryAapProductinstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAapProductinstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品实例查询
+ * Summary: 产品实例查询
+ */
+async function queryAapProductinstanceEx(request: QueryAapProductinstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAapProductinstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.aap.productinstance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailAapApplicationinstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // site code
+  siteCode: string(name='site_code'),
+  // namespace
+  namespace: string(name='namespace'),
+  // prod code
+  prodCode: string(name='prod_code'),
+  // 产品实例名称
+  productInstanceName: string(name='product_instance_name'),
+  // 应用code
+  appCode: string(name='app_code'),
+}
+
+model DetailAapApplicationinstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 应用名称
+  name?: string(name='name'),
+  // 镜像
+  image?: string(name='image'),
+  // 副本数
+  replicas?: long(name='replicas'),
+  // 容器详情
+  podInstances?: [ ContainerInstance ](name='pod_instances'),
+  // 应用版本
+  version?: string(name='version'),
+}
+
+/**
+ * Description: 应用实例详情查询
+ * Summary: 应用实例详情查询
+ */
+async function detailAapApplicationinstance(request: DetailAapApplicationinstanceRequest): DetailAapApplicationinstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailAapApplicationinstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用实例详情查询
+ * Summary: 应用实例详情查询
+ */
+async function detailAapApplicationinstanceEx(request: DetailAapApplicationinstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailAapApplicationinstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.aap.applicationinstance.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SetAapParametersRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // site code
+  siteCode: string(name='site_code'),
+  // namespace
+  namespace: string(name='namespace'),
+  // prod code
+  prodCode: string(name='prod_code'),
+  // product_instance_name
+  productInstanceName: string(name='product_instance_name'),
+  // 应用code
+  appCode: string(name='app_code'),
+  // 更新的应用参数
+  appEnvs: [ AppEnv ](name='app_envs'),
+}
+
+model SetAapParametersResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 更新是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 应用参数更新
+ * Summary: 应用参数更新
+ */
+async function setAapParameters(request: SetAapParametersRequest): SetAapParametersResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return setAapParametersEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用参数更新
+ * Summary: 应用参数更新
+ */
+async function setAapParametersEx(request: SetAapParametersRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SetAapParametersResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.aap.parameters.set', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteAapProductinstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 站点code
+  siteCode: string(name='site_code'),
+  // 产品实例所属命名空间
+  namespace: string(name='namespace'),
+  // 产品实例code
+  prodCode: string(name='prod_code'),
+  // 产品实例名称
+  productInstanceName: string(name='product_instance_name'),
+}
+
+model DeleteAapProductinstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 产品实例卸载
+ * Summary: 产品实例卸载
+ */
+async function deleteAapProductinstance(request: DeleteAapProductinstanceRequest): DeleteAapProductinstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteAapProductinstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品实例卸载
+ * Summary: 产品实例卸载
+ */
+async function deleteAapProductinstanceEx(request: DeleteAapProductinstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteAapProductinstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.aap.productinstance.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateEnvRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境初始化参数配置
+  envConfigInfo: string(name='env_config_info'),
+}
+
+model CreateEnvResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 环境ID
+  envId?: string(name='env_id'),
+}
+
+/**
+ * Description: 初始化云游local环境
+ * Summary: 初始化云游local环境
+ */
+async function createEnv(request: CreateEnvRequest): CreateEnvResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createEnvEx(request, headers, runtime);
+}
+
+/**
+ * Description: 初始化云游local环境
+ * Summary: 初始化云游local环境
+ */
+async function createEnvEx(request: CreateEnvRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateEnvResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.env.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model AllEnvsRequest = {
