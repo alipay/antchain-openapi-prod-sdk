@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,14 +135,14 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.14.18',
+                    'sdk_version': '4.0.5',
                     '_prod_code': 'YUNQING',
                     '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
                 _request.headers = TeaCore.merge({
-                    'host': UtilClient.default_string(self._endpoint, 'prodapigw-sofastack.cloud.alipay.com'),
+                    'host': UtilClient.default_string(self._endpoint, 'openapi.antchain.antgroup.com'),
                     'user-agent': UtilClient.get_user_agent(self._user_agent)
                 }, headers)
                 tmp = UtilClient.anyify_map_value(RPCUtilClient.query(request))
@@ -202,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -239,14 +239,14 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.14.18',
+                    'sdk_version': '4.0.5',
                     '_prod_code': 'YUNQING',
                     '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
                 _request.headers = TeaCore.merge({
-                    'host': UtilClient.default_string(self._endpoint, 'prodapigw-sofastack.cloud.alipay.com'),
+                    'host': UtilClient.default_string(self._endpoint, 'openapi.antchain.antgroup.com'),
                     'user-agent': UtilClient.get_user_agent(self._user_agent)
                 }, headers)
                 tmp = UtilClient.anyify_map_value(RPCUtilClient.query(request))
@@ -3249,6 +3249,1022 @@ class Client:
         return TeaCore.from_map(
             yunqing_models.PagequeryRollbackSnapshotversionResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.rollback.snapshotversion.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def enable_prod_autotest(
+        self,
+        request: yunqing_models.EnableProdAutotestRequest,
+    ) -> yunqing_models.EnableProdAutotestResponse:
+        """
+        Description: 产品是否可创建测试单
+        Summary: 产品是否可创建测试单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.enable_prod_autotest_ex(request, headers, runtime)
+
+    async def enable_prod_autotest_async(
+        self,
+        request: yunqing_models.EnableProdAutotestRequest,
+    ) -> yunqing_models.EnableProdAutotestResponse:
+        """
+        Description: 产品是否可创建测试单
+        Summary: 产品是否可创建测试单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.enable_prod_autotest_ex_async(request, headers, runtime)
+
+    def enable_prod_autotest_ex(
+        self,
+        request: yunqing_models.EnableProdAutotestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.EnableProdAutotestResponse:
+        """
+        Description: 产品是否可创建测试单
+        Summary: 产品是否可创建测试单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.EnableProdAutotestResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.prod.autotest.enable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def enable_prod_autotest_ex_async(
+        self,
+        request: yunqing_models.EnableProdAutotestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.EnableProdAutotestResponse:
+        """
+        Description: 产品是否可创建测试单
+        Summary: 产品是否可创建测试单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.EnableProdAutotestResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.prod.autotest.enable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_system_parameter(
+        self,
+        request: yunqing_models.QuerySystemParameterRequest,
+    ) -> yunqing_models.QuerySystemParameterResponse:
+        """
+        Description: 系统参数查询
+        Summary: 系统参数查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_system_parameter_ex(request, headers, runtime)
+
+    async def query_system_parameter_async(
+        self,
+        request: yunqing_models.QuerySystemParameterRequest,
+    ) -> yunqing_models.QuerySystemParameterResponse:
+        """
+        Description: 系统参数查询
+        Summary: 系统参数查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_system_parameter_ex_async(request, headers, runtime)
+
+    def query_system_parameter_ex(
+        self,
+        request: yunqing_models.QuerySystemParameterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.QuerySystemParameterResponse:
+        """
+        Description: 系统参数查询
+        Summary: 系统参数查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.QuerySystemParameterResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.system.parameter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_system_parameter_ex_async(
+        self,
+        request: yunqing_models.QuerySystemParameterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.QuerySystemParameterResponse:
+        """
+        Description: 系统参数查询
+        Summary: 系统参数查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.QuerySystemParameterResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.system.parameter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_opsplan_nodetree(
+        self,
+        request: yunqing_models.QueryOpsplanNodetreeRequest,
+    ) -> yunqing_models.QueryOpsplanNodetreeResponse:
+        """
+        Description: 查询发布单详情
+        发布单详情的任务树是嵌套结构，OP目前不支持定义此类型的结构体
+        故本接口返回了json string，调用方需要自己构造
+        Summary: 查询发布单详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_opsplan_nodetree_ex(request, headers, runtime)
+
+    async def query_opsplan_nodetree_async(
+        self,
+        request: yunqing_models.QueryOpsplanNodetreeRequest,
+    ) -> yunqing_models.QueryOpsplanNodetreeResponse:
+        """
+        Description: 查询发布单详情
+        发布单详情的任务树是嵌套结构，OP目前不支持定义此类型的结构体
+        故本接口返回了json string，调用方需要自己构造
+        Summary: 查询发布单详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_opsplan_nodetree_ex_async(request, headers, runtime)
+
+    def query_opsplan_nodetree_ex(
+        self,
+        request: yunqing_models.QueryOpsplanNodetreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.QueryOpsplanNodetreeResponse:
+        """
+        Description: 查询发布单详情
+        发布单详情的任务树是嵌套结构，OP目前不支持定义此类型的结构体
+        故本接口返回了json string，调用方需要自己构造
+        Summary: 查询发布单详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.QueryOpsplanNodetreeResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.opsplan.nodetree.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_opsplan_nodetree_ex_async(
+        self,
+        request: yunqing_models.QueryOpsplanNodetreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.QueryOpsplanNodetreeResponse:
+        """
+        Description: 查询发布单详情
+        发布单详情的任务树是嵌套结构，OP目前不支持定义此类型的结构体
+        故本接口返回了json string，调用方需要自己构造
+        Summary: 查询发布单详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.QueryOpsplanNodetreeResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.opsplan.nodetree.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_aap_sites(
+        self,
+        request: yunqing_models.ListAapSitesRequest,
+    ) -> yunqing_models.ListAapSitesResponse:
+        """
+        Description: 站点信息list
+        Summary: 站点信息list
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_aap_sites_ex(request, headers, runtime)
+
+    async def list_aap_sites_async(
+        self,
+        request: yunqing_models.ListAapSitesRequest,
+    ) -> yunqing_models.ListAapSitesResponse:
+        """
+        Description: 站点信息list
+        Summary: 站点信息list
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_aap_sites_ex_async(request, headers, runtime)
+
+    def list_aap_sites_ex(
+        self,
+        request: yunqing_models.ListAapSitesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.ListAapSitesResponse:
+        """
+        Description: 站点信息list
+        Summary: 站点信息list
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.ListAapSitesResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.aap.sites.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_aap_sites_ex_async(
+        self,
+        request: yunqing_models.ListAapSitesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.ListAapSitesResponse:
+        """
+        Description: 站点信息list
+        Summary: 站点信息list
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.ListAapSitesResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.aap.sites.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_aap_meta(
+        self,
+        request: yunqing_models.ImportAapMetaRequest,
+    ) -> yunqing_models.ImportAapMetaResponse:
+        """
+        Description: AAP 元数据导入，包含：产品、应用、拓扑信息 。https://yuque.antfin-inc.com/tpaas/ednkxs/izdpx9s4at32mwbi?singleDoc# 《AAP：用户自定义产品接入》
+        Summary: AAP 元数据导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_aap_meta_ex(request, headers, runtime)
+
+    async def import_aap_meta_async(
+        self,
+        request: yunqing_models.ImportAapMetaRequest,
+    ) -> yunqing_models.ImportAapMetaResponse:
+        """
+        Description: AAP 元数据导入，包含：产品、应用、拓扑信息 。https://yuque.antfin-inc.com/tpaas/ednkxs/izdpx9s4at32mwbi?singleDoc# 《AAP：用户自定义产品接入》
+        Summary: AAP 元数据导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_aap_meta_ex_async(request, headers, runtime)
+
+    def import_aap_meta_ex(
+        self,
+        request: yunqing_models.ImportAapMetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.ImportAapMetaResponse:
+        """
+        Description: AAP 元数据导入，包含：产品、应用、拓扑信息 。https://yuque.antfin-inc.com/tpaas/ednkxs/izdpx9s4at32mwbi?singleDoc# 《AAP：用户自定义产品接入》
+        Summary: AAP 元数据导入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.ImportAapMetaResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.aap.meta.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_aap_meta_ex_async(
+        self,
+        request: yunqing_models.ImportAapMetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.ImportAapMetaResponse:
+        """
+        Description: AAP 元数据导入，包含：产品、应用、拓扑信息 。https://yuque.antfin-inc.com/tpaas/ednkxs/izdpx9s4at32mwbi?singleDoc# 《AAP：用户自定义产品接入》
+        Summary: AAP 元数据导入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.ImportAapMetaResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.aap.meta.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_aap_productinstance(
+        self,
+        request: yunqing_models.InitAapProductinstanceRequest,
+    ) -> yunqing_models.InitAapProductinstanceResponse:
+        """
+        Description: AAP 产品实例初始化
+        Summary: AAP 产品实例初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_aap_productinstance_ex(request, headers, runtime)
+
+    async def init_aap_productinstance_async(
+        self,
+        request: yunqing_models.InitAapProductinstanceRequest,
+    ) -> yunqing_models.InitAapProductinstanceResponse:
+        """
+        Description: AAP 产品实例初始化
+        Summary: AAP 产品实例初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_aap_productinstance_ex_async(request, headers, runtime)
+
+    def init_aap_productinstance_ex(
+        self,
+        request: yunqing_models.InitAapProductinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.InitAapProductinstanceResponse:
+        """
+        Description: AAP 产品实例初始化
+        Summary: AAP 产品实例初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.InitAapProductinstanceResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.aap.productinstance.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_aap_productinstance_ex_async(
+        self,
+        request: yunqing_models.InitAapProductinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.InitAapProductinstanceResponse:
+        """
+        Description: AAP 产品实例初始化
+        Summary: AAP 产品实例初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.InitAapProductinstanceResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.aap.productinstance.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_aap_release(
+        self,
+        request: yunqing_models.InitAapReleaseRequest,
+    ) -> yunqing_models.InitAapReleaseResponse:
+        """
+        Description: 产品实例发布初始化
+        Summary: 产品实例发布初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_aap_release_ex(request, headers, runtime)
+
+    async def init_aap_release_async(
+        self,
+        request: yunqing_models.InitAapReleaseRequest,
+    ) -> yunqing_models.InitAapReleaseResponse:
+        """
+        Description: 产品实例发布初始化
+        Summary: 产品实例发布初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_aap_release_ex_async(request, headers, runtime)
+
+    def init_aap_release_ex(
+        self,
+        request: yunqing_models.InitAapReleaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.InitAapReleaseResponse:
+        """
+        Description: 产品实例发布初始化
+        Summary: 产品实例发布初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.InitAapReleaseResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.aap.release.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_aap_release_ex_async(
+        self,
+        request: yunqing_models.InitAapReleaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.InitAapReleaseResponse:
+        """
+        Description: 产品实例发布初始化
+        Summary: 产品实例发布初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.InitAapReleaseResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.aap.release.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def deploy_aap_productinstance(
+        self,
+        request: yunqing_models.DeployAapProductinstanceRequest,
+    ) -> yunqing_models.DeployAapProductinstanceResponse:
+        """
+        Description: 产品实例部署
+        Summary: 产品实例部署
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.deploy_aap_productinstance_ex(request, headers, runtime)
+
+    async def deploy_aap_productinstance_async(
+        self,
+        request: yunqing_models.DeployAapProductinstanceRequest,
+    ) -> yunqing_models.DeployAapProductinstanceResponse:
+        """
+        Description: 产品实例部署
+        Summary: 产品实例部署
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.deploy_aap_productinstance_ex_async(request, headers, runtime)
+
+    def deploy_aap_productinstance_ex(
+        self,
+        request: yunqing_models.DeployAapProductinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.DeployAapProductinstanceResponse:
+        """
+        Description: 产品实例部署
+        Summary: 产品实例部署
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.DeployAapProductinstanceResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.aap.productinstance.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def deploy_aap_productinstance_ex_async(
+        self,
+        request: yunqing_models.DeployAapProductinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.DeployAapProductinstanceResponse:
+        """
+        Description: 产品实例部署
+        Summary: 产品实例部署
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.DeployAapProductinstanceResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.aap.productinstance.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_aap_release(
+        self,
+        request: yunqing_models.GetAapReleaseRequest,
+    ) -> yunqing_models.GetAapReleaseResponse:
+        """
+        Description: 发布单状态查询
+        Summary: 发布单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_aap_release_ex(request, headers, runtime)
+
+    async def get_aap_release_async(
+        self,
+        request: yunqing_models.GetAapReleaseRequest,
+    ) -> yunqing_models.GetAapReleaseResponse:
+        """
+        Description: 发布单状态查询
+        Summary: 发布单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_aap_release_ex_async(request, headers, runtime)
+
+    def get_aap_release_ex(
+        self,
+        request: yunqing_models.GetAapReleaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.GetAapReleaseResponse:
+        """
+        Description: 发布单状态查询
+        Summary: 发布单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.GetAapReleaseResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.aap.release.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_aap_release_ex_async(
+        self,
+        request: yunqing_models.GetAapReleaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.GetAapReleaseResponse:
+        """
+        Description: 发布单状态查询
+        Summary: 发布单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.GetAapReleaseResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.aap.release.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_aap_applicationinstance(
+        self,
+        request: yunqing_models.UpdateAapApplicationinstanceRequest,
+    ) -> yunqing_models.UpdateAapApplicationinstanceResponse:
+        """
+        Description: 应用实例更新，比如：规格、镜像、参数等
+        Summary: 应用实例更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_aap_applicationinstance_ex(request, headers, runtime)
+
+    async def update_aap_applicationinstance_async(
+        self,
+        request: yunqing_models.UpdateAapApplicationinstanceRequest,
+    ) -> yunqing_models.UpdateAapApplicationinstanceResponse:
+        """
+        Description: 应用实例更新，比如：规格、镜像、参数等
+        Summary: 应用实例更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_aap_applicationinstance_ex_async(request, headers, runtime)
+
+    def update_aap_applicationinstance_ex(
+        self,
+        request: yunqing_models.UpdateAapApplicationinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.UpdateAapApplicationinstanceResponse:
+        """
+        Description: 应用实例更新，比如：规格、镜像、参数等
+        Summary: 应用实例更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.UpdateAapApplicationinstanceResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.aap.applicationinstance.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_aap_applicationinstance_ex_async(
+        self,
+        request: yunqing_models.UpdateAapApplicationinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.UpdateAapApplicationinstanceResponse:
+        """
+        Description: 应用实例更新，比如：规格、镜像、参数等
+        Summary: 应用实例更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.UpdateAapApplicationinstanceResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.aap.applicationinstance.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_aap_applicationinstance(
+        self,
+        request: yunqing_models.QueryAapApplicationinstanceRequest,
+    ) -> yunqing_models.QueryAapApplicationinstanceResponse:
+        """
+        Description: 应用实例查询
+        Summary: 应用实例查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aap_applicationinstance_ex(request, headers, runtime)
+
+    async def query_aap_applicationinstance_async(
+        self,
+        request: yunqing_models.QueryAapApplicationinstanceRequest,
+    ) -> yunqing_models.QueryAapApplicationinstanceResponse:
+        """
+        Description: 应用实例查询
+        Summary: 应用实例查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aap_applicationinstance_ex_async(request, headers, runtime)
+
+    def query_aap_applicationinstance_ex(
+        self,
+        request: yunqing_models.QueryAapApplicationinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.QueryAapApplicationinstanceResponse:
+        """
+        Description: 应用实例查询
+        Summary: 应用实例查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.QueryAapApplicationinstanceResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.aap.applicationinstance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aap_applicationinstance_ex_async(
+        self,
+        request: yunqing_models.QueryAapApplicationinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.QueryAapApplicationinstanceResponse:
+        """
+        Description: 应用实例查询
+        Summary: 应用实例查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.QueryAapApplicationinstanceResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.aap.applicationinstance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def set_aap_applicationinstance(
+        self,
+        request: yunqing_models.SetAapApplicationinstanceRequest,
+    ) -> yunqing_models.SetAapApplicationinstanceResponse:
+        """
+        Description: 应用规格配置修改
+        Summary: 应用规格配置修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.set_aap_applicationinstance_ex(request, headers, runtime)
+
+    async def set_aap_applicationinstance_async(
+        self,
+        request: yunqing_models.SetAapApplicationinstanceRequest,
+    ) -> yunqing_models.SetAapApplicationinstanceResponse:
+        """
+        Description: 应用规格配置修改
+        Summary: 应用规格配置修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.set_aap_applicationinstance_ex_async(request, headers, runtime)
+
+    def set_aap_applicationinstance_ex(
+        self,
+        request: yunqing_models.SetAapApplicationinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.SetAapApplicationinstanceResponse:
+        """
+        Description: 应用规格配置修改
+        Summary: 应用规格配置修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.SetAapApplicationinstanceResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.aap.applicationinstance.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def set_aap_applicationinstance_ex_async(
+        self,
+        request: yunqing_models.SetAapApplicationinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.SetAapApplicationinstanceResponse:
+        """
+        Description: 应用规格配置修改
+        Summary: 应用规格配置修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.SetAapApplicationinstanceResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.aap.applicationinstance.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def set_aap_images(
+        self,
+        request: yunqing_models.SetAapImagesRequest,
+    ) -> yunqing_models.SetAapImagesResponse:
+        """
+        Description: 应用镜像修改
+        Summary: 应用镜像修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.set_aap_images_ex(request, headers, runtime)
+
+    async def set_aap_images_async(
+        self,
+        request: yunqing_models.SetAapImagesRequest,
+    ) -> yunqing_models.SetAapImagesResponse:
+        """
+        Description: 应用镜像修改
+        Summary: 应用镜像修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.set_aap_images_ex_async(request, headers, runtime)
+
+    def set_aap_images_ex(
+        self,
+        request: yunqing_models.SetAapImagesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.SetAapImagesResponse:
+        """
+        Description: 应用镜像修改
+        Summary: 应用镜像修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.SetAapImagesResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.aap.images.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def set_aap_images_ex_async(
+        self,
+        request: yunqing_models.SetAapImagesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.SetAapImagesResponse:
+        """
+        Description: 应用镜像修改
+        Summary: 应用镜像修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.SetAapImagesResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.aap.images.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_aap_productinstance(
+        self,
+        request: yunqing_models.QueryAapProductinstanceRequest,
+    ) -> yunqing_models.QueryAapProductinstanceResponse:
+        """
+        Description: 产品实例查询
+        Summary: 产品实例查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aap_productinstance_ex(request, headers, runtime)
+
+    async def query_aap_productinstance_async(
+        self,
+        request: yunqing_models.QueryAapProductinstanceRequest,
+    ) -> yunqing_models.QueryAapProductinstanceResponse:
+        """
+        Description: 产品实例查询
+        Summary: 产品实例查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aap_productinstance_ex_async(request, headers, runtime)
+
+    def query_aap_productinstance_ex(
+        self,
+        request: yunqing_models.QueryAapProductinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.QueryAapProductinstanceResponse:
+        """
+        Description: 产品实例查询
+        Summary: 产品实例查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.QueryAapProductinstanceResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.aap.productinstance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aap_productinstance_ex_async(
+        self,
+        request: yunqing_models.QueryAapProductinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.QueryAapProductinstanceResponse:
+        """
+        Description: 产品实例查询
+        Summary: 产品实例查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.QueryAapProductinstanceResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.aap.productinstance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_aap_applicationinstance(
+        self,
+        request: yunqing_models.DetailAapApplicationinstanceRequest,
+    ) -> yunqing_models.DetailAapApplicationinstanceResponse:
+        """
+        Description: 应用实例详情查询
+        Summary: 应用实例详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_aap_applicationinstance_ex(request, headers, runtime)
+
+    async def detail_aap_applicationinstance_async(
+        self,
+        request: yunqing_models.DetailAapApplicationinstanceRequest,
+    ) -> yunqing_models.DetailAapApplicationinstanceResponse:
+        """
+        Description: 应用实例详情查询
+        Summary: 应用实例详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_aap_applicationinstance_ex_async(request, headers, runtime)
+
+    def detail_aap_applicationinstance_ex(
+        self,
+        request: yunqing_models.DetailAapApplicationinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.DetailAapApplicationinstanceResponse:
+        """
+        Description: 应用实例详情查询
+        Summary: 应用实例详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.DetailAapApplicationinstanceResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.aap.applicationinstance.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_aap_applicationinstance_ex_async(
+        self,
+        request: yunqing_models.DetailAapApplicationinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.DetailAapApplicationinstanceResponse:
+        """
+        Description: 应用实例详情查询
+        Summary: 应用实例详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.DetailAapApplicationinstanceResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.aap.applicationinstance.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def set_aap_parameters(
+        self,
+        request: yunqing_models.SetAapParametersRequest,
+    ) -> yunqing_models.SetAapParametersResponse:
+        """
+        Description: 应用参数更新
+        Summary: 应用参数更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.set_aap_parameters_ex(request, headers, runtime)
+
+    async def set_aap_parameters_async(
+        self,
+        request: yunqing_models.SetAapParametersRequest,
+    ) -> yunqing_models.SetAapParametersResponse:
+        """
+        Description: 应用参数更新
+        Summary: 应用参数更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.set_aap_parameters_ex_async(request, headers, runtime)
+
+    def set_aap_parameters_ex(
+        self,
+        request: yunqing_models.SetAapParametersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.SetAapParametersResponse:
+        """
+        Description: 应用参数更新
+        Summary: 应用参数更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.SetAapParametersResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.aap.parameters.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def set_aap_parameters_ex_async(
+        self,
+        request: yunqing_models.SetAapParametersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.SetAapParametersResponse:
+        """
+        Description: 应用参数更新
+        Summary: 应用参数更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.SetAapParametersResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.aap.parameters.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_aap_productinstance(
+        self,
+        request: yunqing_models.DeleteAapProductinstanceRequest,
+    ) -> yunqing_models.DeleteAapProductinstanceResponse:
+        """
+        Description: 产品实例卸载
+        Summary: 产品实例卸载
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_aap_productinstance_ex(request, headers, runtime)
+
+    async def delete_aap_productinstance_async(
+        self,
+        request: yunqing_models.DeleteAapProductinstanceRequest,
+    ) -> yunqing_models.DeleteAapProductinstanceResponse:
+        """
+        Description: 产品实例卸载
+        Summary: 产品实例卸载
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_aap_productinstance_ex_async(request, headers, runtime)
+
+    def delete_aap_productinstance_ex(
+        self,
+        request: yunqing_models.DeleteAapProductinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.DeleteAapProductinstanceResponse:
+        """
+        Description: 产品实例卸载
+        Summary: 产品实例卸载
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.DeleteAapProductinstanceResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.aap.productinstance.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_aap_productinstance_ex_async(
+        self,
+        request: yunqing_models.DeleteAapProductinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.DeleteAapProductinstanceResponse:
+        """
+        Description: 产品实例卸载
+        Summary: 产品实例卸载
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.DeleteAapProductinstanceResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.aap.productinstance.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_env(
+        self,
+        request: yunqing_models.CreateEnvRequest,
+    ) -> yunqing_models.CreateEnvResponse:
+        """
+        Description: 初始化云游local环境
+        Summary: 初始化云游local环境
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_env_ex(request, headers, runtime)
+
+    async def create_env_async(
+        self,
+        request: yunqing_models.CreateEnvRequest,
+    ) -> yunqing_models.CreateEnvResponse:
+        """
+        Description: 初始化云游local环境
+        Summary: 初始化云游local环境
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_env_ex_async(request, headers, runtime)
+
+    def create_env_ex(
+        self,
+        request: yunqing_models.CreateEnvRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.CreateEnvResponse:
+        """
+        Description: 初始化云游local环境
+        Summary: 初始化云游local环境
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.CreateEnvResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.env.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_env_ex_async(
+        self,
+        request: yunqing_models.CreateEnvRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.CreateEnvResponse:
+        """
+        Description: 初始化云游local环境
+        Summary: 初始化云游local环境
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.CreateEnvResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.env.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def all_envs(
