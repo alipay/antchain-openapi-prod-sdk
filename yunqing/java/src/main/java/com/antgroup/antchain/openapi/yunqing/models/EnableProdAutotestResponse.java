@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.yunqing.models;
 
 import com.aliyun.tea.*;
 
-public class ImportSolutioninstanceResponse extends TeaModel {
+public class EnableProdAutotestResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class ImportSolutioninstanceResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 发布单id
-    @NameInMap("ops_plan_id")
-    public String opsPlanId;
+    // 是否可执行测试用例结果
+    @NameInMap("options")
+    public java.util.List<AutoTestAvailableProdOption> options;
 
-    public static ImportSolutioninstanceResponse build(java.util.Map<String, ?> map) throws Exception {
-        ImportSolutioninstanceResponse self = new ImportSolutioninstanceResponse();
+    public static EnableProdAutotestResponse build(java.util.Map<String, ?> map) throws Exception {
+        EnableProdAutotestResponse self = new EnableProdAutotestResponse();
         return TeaModel.build(map, self);
     }
 
-    public ImportSolutioninstanceResponse setReqMsgId(String reqMsgId) {
+    public EnableProdAutotestResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class ImportSolutioninstanceResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ImportSolutioninstanceResponse setResultCode(String resultCode) {
+    public EnableProdAutotestResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class ImportSolutioninstanceResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ImportSolutioninstanceResponse setResultMsg(String resultMsg) {
+    public EnableProdAutotestResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class ImportSolutioninstanceResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ImportSolutioninstanceResponse setOpsPlanId(String opsPlanId) {
-        this.opsPlanId = opsPlanId;
+    public EnableProdAutotestResponse setOptions(java.util.List<AutoTestAvailableProdOption> options) {
+        this.options = options;
         return this;
     }
-    public String getOpsPlanId() {
-        return this.opsPlanId;
+    public java.util.List<AutoTestAvailableProdOption> getOptions() {
+        return this.options;
     }
 
 }

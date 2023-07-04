@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.yunqing.models;
 
 import com.aliyun.tea.*;
 
-public class ImportSolutioninstanceResponse extends TeaModel {
+public class ListAapSitesResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class ImportSolutioninstanceResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 发布单id
-    @NameInMap("ops_plan_id")
-    public String opsPlanId;
+    // site list
+    @NameInMap("sites")
+    public java.util.List<SiteInfo> sites;
 
-    public static ImportSolutioninstanceResponse build(java.util.Map<String, ?> map) throws Exception {
-        ImportSolutioninstanceResponse self = new ImportSolutioninstanceResponse();
+    public static ListAapSitesResponse build(java.util.Map<String, ?> map) throws Exception {
+        ListAapSitesResponse self = new ListAapSitesResponse();
         return TeaModel.build(map, self);
     }
 
-    public ImportSolutioninstanceResponse setReqMsgId(String reqMsgId) {
+    public ListAapSitesResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class ImportSolutioninstanceResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ImportSolutioninstanceResponse setResultCode(String resultCode) {
+    public ListAapSitesResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class ImportSolutioninstanceResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ImportSolutioninstanceResponse setResultMsg(String resultMsg) {
+    public ListAapSitesResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class ImportSolutioninstanceResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ImportSolutioninstanceResponse setOpsPlanId(String opsPlanId) {
-        this.opsPlanId = opsPlanId;
+    public ListAapSitesResponse setSites(java.util.List<SiteInfo> sites) {
+        this.sites = sites;
         return this;
     }
-    public String getOpsPlanId() {
-        return this.opsPlanId;
+    public java.util.List<SiteInfo> getSites() {
+        return this.sites;
     }
 
 }

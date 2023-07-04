@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "3.14.18"),
+                    new TeaPair("sdk_version", "4.0.5"),
                     new TeaPair("_prod_code", "YUNQING"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -120,7 +120,7 @@ public class Client {
 
                 request_.headers = TeaConverter.merge(String.class,
                     TeaConverter.buildMap(
-                        new TeaPair("host", com.aliyun.teautil.Common.defaultString(_endpoint, "prodapigw-sofastack.cloud.alipay.com")),
+                        new TeaPair("host", com.aliyun.teautil.Common.defaultString(_endpoint, "openapi.antchain.antgroup.com")),
                         new TeaPair("user-agent", com.aliyun.teautil.Common.getUserAgent(_userAgent))
                     ),
                     headers
@@ -1170,6 +1170,352 @@ public class Client {
     public PagequeryRollbackSnapshotversionResponse pagequeryRollbackSnapshotversionEx(PagequeryRollbackSnapshotversionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.rollback.snapshotversion.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryRollbackSnapshotversionResponse());
+    }
+
+    /**
+     * Description: 产品是否可创建测试单
+     * Summary: 产品是否可创建测试单
+     */
+    public EnableProdAutotestResponse enableProdAutotest(EnableProdAutotestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.enableProdAutotestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品是否可创建测试单
+     * Summary: 产品是否可创建测试单
+     */
+    public EnableProdAutotestResponse enableProdAutotestEx(EnableProdAutotestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.prod.autotest.enable", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new EnableProdAutotestResponse());
+    }
+
+    /**
+     * Description: 系统参数查询
+     * Summary: 系统参数查询
+     */
+    public QuerySystemParameterResponse querySystemParameter(QuerySystemParameterRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySystemParameterEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 系统参数查询
+     * Summary: 系统参数查询
+     */
+    public QuerySystemParameterResponse querySystemParameterEx(QuerySystemParameterRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.system.parameter.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySystemParameterResponse());
+    }
+
+    /**
+     * Description: 查询发布单详情
+    发布单详情的任务树是嵌套结构，OP目前不支持定义此类型的结构体
+    故本接口返回了json string，调用方需要自己构造
+     * Summary: 查询发布单详情
+     */
+    public QueryOpsplanNodetreeResponse queryOpsplanNodetree(QueryOpsplanNodetreeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOpsplanNodetreeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询发布单详情
+    发布单详情的任务树是嵌套结构，OP目前不支持定义此类型的结构体
+    故本接口返回了json string，调用方需要自己构造
+     * Summary: 查询发布单详情
+     */
+    public QueryOpsplanNodetreeResponse queryOpsplanNodetreeEx(QueryOpsplanNodetreeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.opsplan.nodetree.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOpsplanNodetreeResponse());
+    }
+
+    /**
+     * Description: 站点信息list
+     * Summary: 站点信息list
+     */
+    public ListAapSitesResponse listAapSites(ListAapSitesRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAapSitesEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 站点信息list
+     * Summary: 站点信息list
+     */
+    public ListAapSitesResponse listAapSitesEx(ListAapSitesRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.aap.sites.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAapSitesResponse());
+    }
+
+    /**
+     * Description: AAP 元数据导入，包含：产品、应用、拓扑信息 。https://yuque.antfin-inc.com/tpaas/ednkxs/izdpx9s4at32mwbi?singleDoc# 《AAP：用户自定义产品接入》
+     * Summary: AAP 元数据导入
+     */
+    public ImportAapMetaResponse importAapMeta(ImportAapMetaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importAapMetaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: AAP 元数据导入，包含：产品、应用、拓扑信息 。https://yuque.antfin-inc.com/tpaas/ednkxs/izdpx9s4at32mwbi?singleDoc# 《AAP：用户自定义产品接入》
+     * Summary: AAP 元数据导入
+     */
+    public ImportAapMetaResponse importAapMetaEx(ImportAapMetaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.aap.meta.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportAapMetaResponse());
+    }
+
+    /**
+     * Description: AAP 产品实例初始化
+     * Summary: AAP 产品实例初始化
+     */
+    public InitAapProductinstanceResponse initAapProductinstance(InitAapProductinstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initAapProductinstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: AAP 产品实例初始化
+     * Summary: AAP 产品实例初始化
+     */
+    public InitAapProductinstanceResponse initAapProductinstanceEx(InitAapProductinstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.aap.productinstance.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitAapProductinstanceResponse());
+    }
+
+    /**
+     * Description: 产品实例发布初始化
+     * Summary: 产品实例发布初始化
+     */
+    public InitAapReleaseResponse initAapRelease(InitAapReleaseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initAapReleaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品实例发布初始化
+     * Summary: 产品实例发布初始化
+     */
+    public InitAapReleaseResponse initAapReleaseEx(InitAapReleaseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.aap.release.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitAapReleaseResponse());
+    }
+
+    /**
+     * Description: 产品实例部署
+     * Summary: 产品实例部署
+     */
+    public DeployAapProductinstanceResponse deployAapProductinstance(DeployAapProductinstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deployAapProductinstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品实例部署
+     * Summary: 产品实例部署
+     */
+    public DeployAapProductinstanceResponse deployAapProductinstanceEx(DeployAapProductinstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.aap.productinstance.deploy", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeployAapProductinstanceResponse());
+    }
+
+    /**
+     * Description: 发布单状态查询
+     * Summary: 发布单
+     */
+    public GetAapReleaseResponse getAapRelease(GetAapReleaseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAapReleaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 发布单状态查询
+     * Summary: 发布单
+     */
+    public GetAapReleaseResponse getAapReleaseEx(GetAapReleaseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.aap.release.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAapReleaseResponse());
+    }
+
+    /**
+     * Description: 应用实例更新，比如：规格、镜像、参数等
+     * Summary: 应用实例更新
+     */
+    public UpdateAapApplicationinstanceResponse updateAapApplicationinstance(UpdateAapApplicationinstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateAapApplicationinstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用实例更新，比如：规格、镜像、参数等
+     * Summary: 应用实例更新
+     */
+    public UpdateAapApplicationinstanceResponse updateAapApplicationinstanceEx(UpdateAapApplicationinstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.aap.applicationinstance.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateAapApplicationinstanceResponse());
+    }
+
+    /**
+     * Description: 应用实例查询
+     * Summary: 应用实例查询
+     */
+    public QueryAapApplicationinstanceResponse queryAapApplicationinstance(QueryAapApplicationinstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAapApplicationinstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用实例查询
+     * Summary: 应用实例查询
+     */
+    public QueryAapApplicationinstanceResponse queryAapApplicationinstanceEx(QueryAapApplicationinstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.aap.applicationinstance.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAapApplicationinstanceResponse());
+    }
+
+    /**
+     * Description: 应用规格配置修改
+     * Summary: 应用规格配置修改
+     */
+    public SetAapApplicationinstanceResponse setAapApplicationinstance(SetAapApplicationinstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.setAapApplicationinstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用规格配置修改
+     * Summary: 应用规格配置修改
+     */
+    public SetAapApplicationinstanceResponse setAapApplicationinstanceEx(SetAapApplicationinstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.aap.applicationinstance.set", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SetAapApplicationinstanceResponse());
+    }
+
+    /**
+     * Description: 应用镜像修改
+     * Summary: 应用镜像修改
+     */
+    public SetAapImagesResponse setAapImages(SetAapImagesRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.setAapImagesEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用镜像修改
+     * Summary: 应用镜像修改
+     */
+    public SetAapImagesResponse setAapImagesEx(SetAapImagesRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.aap.images.set", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SetAapImagesResponse());
+    }
+
+    /**
+     * Description: 产品实例查询
+     * Summary: 产品实例查询
+     */
+    public QueryAapProductinstanceResponse queryAapProductinstance(QueryAapProductinstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAapProductinstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品实例查询
+     * Summary: 产品实例查询
+     */
+    public QueryAapProductinstanceResponse queryAapProductinstanceEx(QueryAapProductinstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.aap.productinstance.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAapProductinstanceResponse());
+    }
+
+    /**
+     * Description: 应用实例详情查询
+     * Summary: 应用实例详情查询
+     */
+    public DetailAapApplicationinstanceResponse detailAapApplicationinstance(DetailAapApplicationinstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailAapApplicationinstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用实例详情查询
+     * Summary: 应用实例详情查询
+     */
+    public DetailAapApplicationinstanceResponse detailAapApplicationinstanceEx(DetailAapApplicationinstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.aap.applicationinstance.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailAapApplicationinstanceResponse());
+    }
+
+    /**
+     * Description: 应用参数更新
+     * Summary: 应用参数更新
+     */
+    public SetAapParametersResponse setAapParameters(SetAapParametersRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.setAapParametersEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用参数更新
+     * Summary: 应用参数更新
+     */
+    public SetAapParametersResponse setAapParametersEx(SetAapParametersRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.aap.parameters.set", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SetAapParametersResponse());
+    }
+
+    /**
+     * Description: 产品实例卸载
+     * Summary: 产品实例卸载
+     */
+    public DeleteAapProductinstanceResponse deleteAapProductinstance(DeleteAapProductinstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteAapProductinstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品实例卸载
+     * Summary: 产品实例卸载
+     */
+    public DeleteAapProductinstanceResponse deleteAapProductinstanceEx(DeleteAapProductinstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.aap.productinstance.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteAapProductinstanceResponse());
+    }
+
+    /**
+     * Description: 初始化云游local环境
+     * Summary: 初始化云游local环境
+     */
+    public CreateEnvResponse createEnv(CreateEnvRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createEnvEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 初始化云游local环境
+     * Summary: 初始化云游local环境
+     */
+    public CreateEnvResponse createEnvEx(CreateEnvRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.env.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateEnvResponse());
     }
 
     /**

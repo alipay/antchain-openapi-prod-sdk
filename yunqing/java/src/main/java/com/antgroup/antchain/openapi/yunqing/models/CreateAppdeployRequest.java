@@ -53,6 +53,11 @@ public class CreateAppdeployRequest extends TeaModel {
     @NameInMap("submitter_name")
     public String submitterName;
 
+    // 是否由云游自动确认资源规划，默认false；
+    // 云游自动确认规划可能不符合预期，请谨慎使用
+    @NameInMap("auto_confirm_plan")
+    public Boolean autoConfirmPlan;
+
     public static CreateAppdeployRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAppdeployRequest self = new CreateAppdeployRequest();
         return TeaModel.build(map, self);
@@ -144,6 +149,14 @@ public class CreateAppdeployRequest extends TeaModel {
     }
     public String getSubmitterName() {
         return this.submitterName;
+    }
+
+    public CreateAppdeployRequest setAutoConfirmPlan(Boolean autoConfirmPlan) {
+        this.autoConfirmPlan = autoConfirmPlan;
+        return this;
+    }
+    public Boolean getAutoConfirmPlan() {
+        return this.autoConfirmPlan;
     }
 
 }

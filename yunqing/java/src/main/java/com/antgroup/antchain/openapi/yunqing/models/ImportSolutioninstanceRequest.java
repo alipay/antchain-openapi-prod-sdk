@@ -11,7 +11,7 @@ public class ImportSolutioninstanceRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // com.alipay.cloud.apyunqing.boxing.model.box序列化后的结果
+    // 解决方案序列化后的结果
     @NameInMap("box_data")
     @Validation(required = true)
     public String boxData;
@@ -21,14 +21,14 @@ public class ImportSolutioninstanceRequest extends TeaModel {
     @Validation(required = true)
     public String envId;
 
-    // 工号
-    @NameInMap("work_no")
+    // 操作人ID
+    @NameInMap("submitter_id")
     @Validation(required = true)
-    public String workNo;
+    public String submitterId;
 
-    // 花名
-    @NameInMap("name")
-    public String name;
+    // 操作人名称
+    @NameInMap("submitter_name")
+    public String submitterName;
 
     public static ImportSolutioninstanceRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportSolutioninstanceRequest self = new ImportSolutioninstanceRequest();
@@ -67,20 +67,20 @@ public class ImportSolutioninstanceRequest extends TeaModel {
         return this.envId;
     }
 
-    public ImportSolutioninstanceRequest setWorkNo(String workNo) {
-        this.workNo = workNo;
+    public ImportSolutioninstanceRequest setSubmitterId(String submitterId) {
+        this.submitterId = submitterId;
         return this;
     }
-    public String getWorkNo() {
-        return this.workNo;
+    public String getSubmitterId() {
+        return this.submitterId;
     }
 
-    public ImportSolutioninstanceRequest setName(String name) {
-        this.name = name;
+    public ImportSolutioninstanceRequest setSubmitterName(String submitterName) {
+        this.submitterName = submitterName;
         return this;
     }
-    public String getName() {
-        return this.name;
+    public String getSubmitterName() {
+        return this.submitterName;
     }
 
 }

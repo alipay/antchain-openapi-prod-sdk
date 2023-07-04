@@ -16,7 +16,7 @@ public class CheckSolutioninstanceImportRequest extends TeaModel {
     @Validation(required = true)
     public String envId;
 
-    // com.alipay.cloud.apyunqing.boxing.model.box序列化后的结果
+    // 解决方案文件序列化后的结果
     @NameInMap("box_data")
     @Validation(required = true)
     public String boxData;

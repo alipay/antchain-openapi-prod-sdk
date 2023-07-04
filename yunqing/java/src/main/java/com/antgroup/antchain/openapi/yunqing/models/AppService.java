@@ -68,6 +68,22 @@ public class AppService extends TeaModel {
     @NameInMap("admin")
     public Admin admin;
 
+    // 副本数
+    @NameInMap("expect_replica")
+    public Long expectReplica;
+
+    // 镜像
+    @NameInMap("image")
+    public String image;
+
+    // 2G
+    @NameInMap("cpu")
+    public Long cpu;
+
+    // 内存资源
+    @NameInMap("memory")
+    public Long memory;
+
     public static AppService build(java.util.Map<String, ?> map) throws Exception {
         AppService self = new AppService();
         return TeaModel.build(map, self);
@@ -199,6 +215,38 @@ public class AppService extends TeaModel {
     }
     public Admin getAdmin() {
         return this.admin;
+    }
+
+    public AppService setExpectReplica(Long expectReplica) {
+        this.expectReplica = expectReplica;
+        return this;
+    }
+    public Long getExpectReplica() {
+        return this.expectReplica;
+    }
+
+    public AppService setImage(String image) {
+        this.image = image;
+        return this;
+    }
+    public String getImage() {
+        return this.image;
+    }
+
+    public AppService setCpu(Long cpu) {
+        this.cpu = cpu;
+        return this;
+    }
+    public Long getCpu() {
+        return this.cpu;
+    }
+
+    public AppService setMemory(Long memory) {
+        this.memory = memory;
+        return this;
+    }
+    public Long getMemory() {
+        return this.memory;
     }
 
 }

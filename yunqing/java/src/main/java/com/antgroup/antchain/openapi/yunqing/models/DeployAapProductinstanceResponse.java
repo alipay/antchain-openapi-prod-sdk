@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.yunqing.models;
 
 import com.aliyun.tea.*;
 
-public class ImportSolutioninstanceResponse extends TeaModel {
+public class DeployAapProductinstanceResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -17,15 +17,15 @@ public class ImportSolutioninstanceResponse extends TeaModel {
     public String resultMsg;
 
     // 发布单id
-    @NameInMap("ops_plan_id")
-    public String opsPlanId;
+    @NameInMap("release_plan_id")
+    public String releasePlanId;
 
-    public static ImportSolutioninstanceResponse build(java.util.Map<String, ?> map) throws Exception {
-        ImportSolutioninstanceResponse self = new ImportSolutioninstanceResponse();
+    public static DeployAapProductinstanceResponse build(java.util.Map<String, ?> map) throws Exception {
+        DeployAapProductinstanceResponse self = new DeployAapProductinstanceResponse();
         return TeaModel.build(map, self);
     }
 
-    public ImportSolutioninstanceResponse setReqMsgId(String reqMsgId) {
+    public DeployAapProductinstanceResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class ImportSolutioninstanceResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ImportSolutioninstanceResponse setResultCode(String resultCode) {
+    public DeployAapProductinstanceResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class ImportSolutioninstanceResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ImportSolutioninstanceResponse setResultMsg(String resultMsg) {
+    public DeployAapProductinstanceResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class ImportSolutioninstanceResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ImportSolutioninstanceResponse setOpsPlanId(String opsPlanId) {
-        this.opsPlanId = opsPlanId;
+    public DeployAapProductinstanceResponse setReleasePlanId(String releasePlanId) {
+        this.releasePlanId = releasePlanId;
         return this;
     }
-    public String getOpsPlanId() {
-        return this.opsPlanId;
+    public String getReleasePlanId() {
+        return this.releasePlanId;
     }
 
 }
