@@ -19,7 +19,7 @@ class ImportSolutioninstanceRequest extends Model
      */
     public $productInstanceId;
 
-    // com.alipay.cloud.apyunqing.boxing.model.box序列化后的结果
+    // 解决方案序列化后的结果
     /**
      * @var string
      */
@@ -31,31 +31,31 @@ class ImportSolutioninstanceRequest extends Model
      */
     public $envId;
 
-    // 工号
+    // 操作人ID
     /**
      * @var string
      */
-    public $workNo;
+    public $submitterId;
 
-    // 花名
+    // 操作人名称
     /**
      * @var string
      */
-    public $name;
+    public $submitterName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'boxData'           => 'box_data',
         'envId'             => 'env_id',
-        'workNo'            => 'work_no',
-        'name'              => 'name',
+        'submitterId'       => 'submitter_id',
+        'submitterName'     => 'submitter_name',
     ];
 
     public function validate()
     {
         Model::validateRequired('boxData', $this->boxData, true);
         Model::validateRequired('envId', $this->envId, true);
-        Model::validateRequired('workNo', $this->workNo, true);
+        Model::validateRequired('submitterId', $this->submitterId, true);
     }
 
     public function toMap()
@@ -73,11 +73,11 @@ class ImportSolutioninstanceRequest extends Model
         if (null !== $this->envId) {
             $res['env_id'] = $this->envId;
         }
-        if (null !== $this->workNo) {
-            $res['work_no'] = $this->workNo;
+        if (null !== $this->submitterId) {
+            $res['submitter_id'] = $this->submitterId;
         }
-        if (null !== $this->name) {
-            $res['name'] = $this->name;
+        if (null !== $this->submitterName) {
+            $res['submitter_name'] = $this->submitterName;
         }
 
         return $res;
@@ -103,11 +103,11 @@ class ImportSolutioninstanceRequest extends Model
         if (isset($map['env_id'])) {
             $model->envId = $map['env_id'];
         }
-        if (isset($map['work_no'])) {
-            $model->workNo = $map['work_no'];
+        if (isset($map['submitter_id'])) {
+            $model->submitterId = $map['submitter_id'];
         }
-        if (isset($map['name'])) {
-            $model->name = $map['name'];
+        if (isset($map['submitter_name'])) {
+            $model->submitterName = $map['submitter_name'];
         }
 
         return $model;

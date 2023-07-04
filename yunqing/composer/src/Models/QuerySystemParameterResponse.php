@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportSolutioninstanceResponse extends Model
+class QuerySystemParameterResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class ImportSolutioninstanceResponse extends Model
      */
     public $resultMsg;
 
-    // 发布单id
+    // 系统参数值
     /**
-     * @var string
+     * @var SystemParameterInfo[]
      */
-    public $opsPlanId;
+    public $systemParameters;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'opsPlanId'  => 'ops_plan_id',
+        'reqMsgId'         => 'req_msg_id',
+        'resultCode'       => 'result_code',
+        'resultMsg'        => 'result_msg',
+        'systemParameters' => 'system_parameters',
     ];
 
     public function validate()
@@ -54,8 +54,14 @@ class ImportSolutioninstanceResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->opsPlanId) {
-            $res['ops_plan_id'] = $this->opsPlanId;
+        if (null !== $this->systemParameters) {
+            $res['system_parameters'] = [];
+            if (null !== $this->systemParameters && \is_array($this->systemParameters)) {
+                $n = 0;
+                foreach ($this->systemParameters as $item) {
+                    $res['system_parameters'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -64,7 +70,7 @@ class ImportSolutioninstanceResponse extends Model
     /**
      * @param array $map
      *
-     * @return ImportSolutioninstanceResponse
+     * @return QuerySystemParameterResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +84,14 @@ class ImportSolutioninstanceResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['ops_plan_id'])) {
-            $model->opsPlanId = $map['ops_plan_id'];
+        if (isset($map['system_parameters'])) {
+            if (!empty($map['system_parameters'])) {
+                $model->systemParameters = [];
+                $n                       = 0;
+                foreach ($map['system_parameters'] as $item) {
+                    $model->systemParameters[$n++] = null !== $item ? SystemParameterInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

@@ -30,26 +30,38 @@ use AntChain\YUNQING\Models\CreateAppopsRequest;
 use AntChain\YUNQING\Models\CreateAppopsResponse;
 use AntChain\YUNQING\Models\CreateAutotestopsRequest;
 use AntChain\YUNQING\Models\CreateAutotestopsResponse;
+use AntChain\YUNQING\Models\CreateEnvRequest;
+use AntChain\YUNQING\Models\CreateEnvResponse;
 use AntChain\YUNQING\Models\CreateProdinstanceDeployunitbatchRequest;
 use AntChain\YUNQING\Models\CreateProdinstanceDeployunitbatchResponse;
 use AntChain\YUNQING\Models\CreateProdinstanceDeployunitRequest;
 use AntChain\YUNQING\Models\CreateProdinstanceDeployunitResponse;
 use AntChain\YUNQING\Models\CreateProdsAppopsRequest;
 use AntChain\YUNQING\Models\CreateProdsAppopsResponse;
+use AntChain\YUNQING\Models\DeleteAapProductinstanceRequest;
+use AntChain\YUNQING\Models\DeleteAapProductinstanceResponse;
+use AntChain\YUNQING\Models\DeployAapProductinstanceRequest;
+use AntChain\YUNQING\Models\DeployAapProductinstanceResponse;
 use AntChain\YUNQING\Models\DeprecateSolutioninstanceRequest;
 use AntChain\YUNQING\Models\DeprecateSolutioninstanceResponse;
 use AntChain\YUNQING\Models\DescribeSolutioninstanceRequest;
 use AntChain\YUNQING\Models\DescribeSolutioninstanceResponse;
+use AntChain\YUNQING\Models\DetailAapApplicationinstanceRequest;
+use AntChain\YUNQING\Models\DetailAapApplicationinstanceResponse;
 use AntChain\YUNQING\Models\DisableDynamicslbRequest;
 use AntChain\YUNQING\Models\DisableDynamicslbResponse;
 use AntChain\YUNQING\Models\EnableDynamicslbRequest;
 use AntChain\YUNQING\Models\EnableDynamicslbResponse;
+use AntChain\YUNQING\Models\EnableProdAutotestRequest;
+use AntChain\YUNQING\Models\EnableProdAutotestResponse;
 use AntChain\YUNQING\Models\ExecClusterDnsRequest;
 use AntChain\YUNQING\Models\ExecClusterDnsResponse;
 use AntChain\YUNQING\Models\ExportBaselineRequest;
 use AntChain\YUNQING\Models\ExportBaselineResponse;
 use AntChain\YUNQING\Models\FinishSolutioninstanceRequest;
 use AntChain\YUNQING\Models\FinishSolutioninstanceResponse;
+use AntChain\YUNQING\Models\GetAapReleaseRequest;
+use AntChain\YUNQING\Models\GetAapReleaseResponse;
 use AntChain\YUNQING\Models\GetAppopsRequest;
 use AntChain\YUNQING\Models\GetAppopsResponse;
 use AntChain\YUNQING\Models\GetAutotestopsRequest;
@@ -66,6 +78,8 @@ use AntChain\YUNQING\Models\GetSystemRequest;
 use AntChain\YUNQING\Models\GetSystemResponse;
 use AntChain\YUNQING\Models\GetUnitDetailRequest;
 use AntChain\YUNQING\Models\GetUnitDetailResponse;
+use AntChain\YUNQING\Models\ImportAapMetaRequest;
+use AntChain\YUNQING\Models\ImportAapMetaResponse;
 use AntChain\YUNQING\Models\ImportAuthRequest;
 use AntChain\YUNQING\Models\ImportAuthResponse;
 use AntChain\YUNQING\Models\ImportEnvMetaRequest;
@@ -74,6 +88,12 @@ use AntChain\YUNQING\Models\ImportProdMetaRequest;
 use AntChain\YUNQING\Models\ImportProdMetaResponse;
 use AntChain\YUNQING\Models\ImportSolutioninstanceRequest;
 use AntChain\YUNQING\Models\ImportSolutioninstanceResponse;
+use AntChain\YUNQING\Models\InitAapProductinstanceRequest;
+use AntChain\YUNQING\Models\InitAapProductinstanceResponse;
+use AntChain\YUNQING\Models\InitAapReleaseRequest;
+use AntChain\YUNQING\Models\InitAapReleaseResponse;
+use AntChain\YUNQING\Models\ListAapSitesRequest;
+use AntChain\YUNQING\Models\ListAapSitesResponse;
 use AntChain\YUNQING\Models\ListEnvRequest;
 use AntChain\YUNQING\Models\ListEnvResponse;
 use AntChain\YUNQING\Models\ListProdinstanceDeployunitRequest;
@@ -100,6 +120,10 @@ use AntChain\YUNQING\Models\PagequeryRollbackSnapshotversionRequest;
 use AntChain\YUNQING\Models\PagequeryRollbackSnapshotversionResponse;
 use AntChain\YUNQING\Models\PagequerySolutionOpsplanRequest;
 use AntChain\YUNQING\Models\PagequerySolutionOpsplanResponse;
+use AntChain\YUNQING\Models\QueryAapApplicationinstanceRequest;
+use AntChain\YUNQING\Models\QueryAapApplicationinstanceResponse;
+use AntChain\YUNQING\Models\QueryAapProductinstanceRequest;
+use AntChain\YUNQING\Models\QueryAapProductinstanceResponse;
 use AntChain\YUNQING\Models\QueryAppparamRequest;
 use AntChain\YUNQING\Models\QueryAppparamResponse;
 use AntChain\YUNQING\Models\QueryAuthRequest;
@@ -110,6 +134,8 @@ use AntChain\YUNQING\Models\QueryClusterNativepodRequest;
 use AntChain\YUNQING\Models\QueryClusterNativepodResponse;
 use AntChain\YUNQING\Models\QueryClusterPodsRequest;
 use AntChain\YUNQING\Models\QueryClusterPodsResponse;
+use AntChain\YUNQING\Models\QueryOpsplanNodetreeRequest;
+use AntChain\YUNQING\Models\QueryOpsplanNodetreeResponse;
 use AntChain\YUNQING\Models\QueryProdinstanceAppserviceRequest;
 use AntChain\YUNQING\Models\QueryProdinstanceAppserviceResponse;
 use AntChain\YUNQING\Models\QueryProdinstanceRequest;
@@ -118,6 +144,8 @@ use AntChain\YUNQING\Models\QueryProdsDeploymentunitsRequest;
 use AntChain\YUNQING\Models\QueryProdsDeploymentunitsResponse;
 use AntChain\YUNQING\Models\QuerySolutioninstanceRequest;
 use AntChain\YUNQING\Models\QuerySolutioninstanceResponse;
+use AntChain\YUNQING\Models\QuerySystemParameterRequest;
+use AntChain\YUNQING\Models\QuerySystemParameterResponse;
 use AntChain\YUNQING\Models\QueryUnitinstanceCreationRequest;
 use AntChain\YUNQING\Models\QueryUnitinstanceCreationResponse;
 use AntChain\YUNQING\Models\ReopenSolutioninstanceRequest;
@@ -138,10 +166,18 @@ use AntChain\YUNQING\Models\ScaleoutProdinstanceAppserviceRequest;
 use AntChain\YUNQING\Models\ScaleoutProdinstanceAppserviceResponse;
 use AntChain\YUNQING\Models\ScaleProdinstanceAppserviceRequest;
 use AntChain\YUNQING\Models\ScaleProdinstanceAppserviceResponse;
+use AntChain\YUNQING\Models\SetAapApplicationinstanceRequest;
+use AntChain\YUNQING\Models\SetAapApplicationinstanceResponse;
+use AntChain\YUNQING\Models\SetAapImagesRequest;
+use AntChain\YUNQING\Models\SetAapImagesResponse;
+use AntChain\YUNQING\Models\SetAapParametersRequest;
+use AntChain\YUNQING\Models\SetAapParametersResponse;
 use AntChain\YUNQING\Models\UninstallProdinstanceAppserviceRequest;
 use AntChain\YUNQING\Models\UninstallProdinstanceAppserviceResponse;
 use AntChain\YUNQING\Models\UninstallProdinstanceDeployunitRequest;
 use AntChain\YUNQING\Models\UninstallProdinstanceDeployunitResponse;
+use AntChain\YUNQING\Models\UpdateAapApplicationinstanceRequest;
+use AntChain\YUNQING\Models\UpdateAapApplicationinstanceResponse;
 use Exception;
 
 class Client
@@ -240,18 +276,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -288,7 +324,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '3.14.18',
+                    'sdk_version'      => '4.0.5',
                     '_prod_code'       => 'YUNQING',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -296,7 +332,7 @@ class Client
                     $_request->query['security_token'] = $this->_securityToken;
                 }
                 $_request->headers = Tea::merge([
-                    'host'       => Utils::defaultString($this->_endpoint, 'prodapigw-sofastack.cloud.alipay.com'),
+                    'host'       => Utils::defaultString($this->_endpoint, 'openapi.antchain.antgroup.com'),
                     'user-agent' => Utils::getUserAgent($this->_userAgent),
                 ], $headers);
                 $tmp                               = Utils::anyifyMapValue(RpcUtils::query($request));
@@ -2087,6 +2123,604 @@ class Client
         Utils::validateModel($request);
 
         return PagequeryRollbackSnapshotversionResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.rollback.snapshotversion.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品是否可创建测试单
+     * Summary: 产品是否可创建测试单.
+     *
+     * @param EnableProdAutotestRequest $request
+     *
+     * @return EnableProdAutotestResponse
+     */
+    public function enableProdAutotest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->enableProdAutotestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品是否可创建测试单
+     * Summary: 产品是否可创建测试单.
+     *
+     * @param EnableProdAutotestRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return EnableProdAutotestResponse
+     */
+    public function enableProdAutotestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return EnableProdAutotestResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.prod.autotest.enable', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 系统参数查询
+     * Summary: 系统参数查询.
+     *
+     * @param QuerySystemParameterRequest $request
+     *
+     * @return QuerySystemParameterResponse
+     */
+    public function querySystemParameter($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySystemParameterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 系统参数查询
+     * Summary: 系统参数查询.
+     *
+     * @param QuerySystemParameterRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QuerySystemParameterResponse
+     */
+    public function querySystemParameterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySystemParameterResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.system.parameter.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询发布单详情
+     * 发布单详情的任务树是嵌套结构，OP目前不支持定义此类型的结构体
+     * 故本接口返回了json string，调用方需要自己构造
+     * Summary: 查询发布单详情.
+     *
+     * @param QueryOpsplanNodetreeRequest $request
+     *
+     * @return QueryOpsplanNodetreeResponse
+     */
+    public function queryOpsplanNodetree($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOpsplanNodetreeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询发布单详情
+     * 发布单详情的任务树是嵌套结构，OP目前不支持定义此类型的结构体
+     * 故本接口返回了json string，调用方需要自己构造
+     * Summary: 查询发布单详情.
+     *
+     * @param QueryOpsplanNodetreeRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryOpsplanNodetreeResponse
+     */
+    public function queryOpsplanNodetreeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOpsplanNodetreeResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.opsplan.nodetree.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 站点信息list
+     * Summary: 站点信息list.
+     *
+     * @param ListAapSitesRequest $request
+     *
+     * @return ListAapSitesResponse
+     */
+    public function listAapSites($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAapSitesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 站点信息list
+     * Summary: 站点信息list.
+     *
+     * @param ListAapSitesRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return ListAapSitesResponse
+     */
+    public function listAapSitesEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAapSitesResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.aap.sites.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: AAP 元数据导入，包含：产品、应用、拓扑信息 。https://yuque.antfin-inc.com/tpaas/ednkxs/izdpx9s4at32mwbi?singleDoc# 《AAP：用户自定义产品接入》
+     * Summary: AAP 元数据导入.
+     *
+     * @param ImportAapMetaRequest $request
+     *
+     * @return ImportAapMetaResponse
+     */
+    public function importAapMeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importAapMetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AAP 元数据导入，包含：产品、应用、拓扑信息 。https://yuque.antfin-inc.com/tpaas/ednkxs/izdpx9s4at32mwbi?singleDoc# 《AAP：用户自定义产品接入》
+     * Summary: AAP 元数据导入.
+     *
+     * @param ImportAapMetaRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return ImportAapMetaResponse
+     */
+    public function importAapMetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportAapMetaResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.aap.meta.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: AAP 产品实例初始化
+     * Summary: AAP 产品实例初始化.
+     *
+     * @param InitAapProductinstanceRequest $request
+     *
+     * @return InitAapProductinstanceResponse
+     */
+    public function initAapProductinstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initAapProductinstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AAP 产品实例初始化
+     * Summary: AAP 产品实例初始化.
+     *
+     * @param InitAapProductinstanceRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return InitAapProductinstanceResponse
+     */
+    public function initAapProductinstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitAapProductinstanceResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.aap.productinstance.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品实例发布初始化
+     * Summary: 产品实例发布初始化.
+     *
+     * @param InitAapReleaseRequest $request
+     *
+     * @return InitAapReleaseResponse
+     */
+    public function initAapRelease($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initAapReleaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品实例发布初始化
+     * Summary: 产品实例发布初始化.
+     *
+     * @param InitAapReleaseRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return InitAapReleaseResponse
+     */
+    public function initAapReleaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitAapReleaseResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.aap.release.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品实例部署
+     * Summary: 产品实例部署.
+     *
+     * @param DeployAapProductinstanceRequest $request
+     *
+     * @return DeployAapProductinstanceResponse
+     */
+    public function deployAapProductinstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deployAapProductinstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品实例部署
+     * Summary: 产品实例部署.
+     *
+     * @param DeployAapProductinstanceRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return DeployAapProductinstanceResponse
+     */
+    public function deployAapProductinstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeployAapProductinstanceResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.aap.productinstance.deploy', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发布单状态查询
+     * Summary: 发布单.
+     *
+     * @param GetAapReleaseRequest $request
+     *
+     * @return GetAapReleaseResponse
+     */
+    public function getAapRelease($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAapReleaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发布单状态查询
+     * Summary: 发布单.
+     *
+     * @param GetAapReleaseRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return GetAapReleaseResponse
+     */
+    public function getAapReleaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAapReleaseResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.aap.release.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用实例更新，比如：规格、镜像、参数等
+     * Summary: 应用实例更新.
+     *
+     * @param UpdateAapApplicationinstanceRequest $request
+     *
+     * @return UpdateAapApplicationinstanceResponse
+     */
+    public function updateAapApplicationinstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAapApplicationinstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用实例更新，比如：规格、镜像、参数等
+     * Summary: 应用实例更新.
+     *
+     * @param UpdateAapApplicationinstanceRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return UpdateAapApplicationinstanceResponse
+     */
+    public function updateAapApplicationinstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAapApplicationinstanceResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.aap.applicationinstance.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用实例查询
+     * Summary: 应用实例查询.
+     *
+     * @param QueryAapApplicationinstanceRequest $request
+     *
+     * @return QueryAapApplicationinstanceResponse
+     */
+    public function queryAapApplicationinstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAapApplicationinstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用实例查询
+     * Summary: 应用实例查询.
+     *
+     * @param QueryAapApplicationinstanceRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryAapApplicationinstanceResponse
+     */
+    public function queryAapApplicationinstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAapApplicationinstanceResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.aap.applicationinstance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用规格配置修改
+     * Summary: 应用规格配置修改.
+     *
+     * @param SetAapApplicationinstanceRequest $request
+     *
+     * @return SetAapApplicationinstanceResponse
+     */
+    public function setAapApplicationinstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setAapApplicationinstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用规格配置修改
+     * Summary: 应用规格配置修改.
+     *
+     * @param SetAapApplicationinstanceRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return SetAapApplicationinstanceResponse
+     */
+    public function setAapApplicationinstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetAapApplicationinstanceResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.aap.applicationinstance.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用镜像修改
+     * Summary: 应用镜像修改.
+     *
+     * @param SetAapImagesRequest $request
+     *
+     * @return SetAapImagesResponse
+     */
+    public function setAapImages($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setAapImagesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用镜像修改
+     * Summary: 应用镜像修改.
+     *
+     * @param SetAapImagesRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return SetAapImagesResponse
+     */
+    public function setAapImagesEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetAapImagesResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.aap.images.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品实例查询
+     * Summary: 产品实例查询.
+     *
+     * @param QueryAapProductinstanceRequest $request
+     *
+     * @return QueryAapProductinstanceResponse
+     */
+    public function queryAapProductinstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAapProductinstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品实例查询
+     * Summary: 产品实例查询.
+     *
+     * @param QueryAapProductinstanceRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryAapProductinstanceResponse
+     */
+    public function queryAapProductinstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAapProductinstanceResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.aap.productinstance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用实例详情查询
+     * Summary: 应用实例详情查询.
+     *
+     * @param DetailAapApplicationinstanceRequest $request
+     *
+     * @return DetailAapApplicationinstanceResponse
+     */
+    public function detailAapApplicationinstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailAapApplicationinstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用实例详情查询
+     * Summary: 应用实例详情查询.
+     *
+     * @param DetailAapApplicationinstanceRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return DetailAapApplicationinstanceResponse
+     */
+    public function detailAapApplicationinstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailAapApplicationinstanceResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.aap.applicationinstance.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用参数更新
+     * Summary: 应用参数更新.
+     *
+     * @param SetAapParametersRequest $request
+     *
+     * @return SetAapParametersResponse
+     */
+    public function setAapParameters($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setAapParametersEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用参数更新
+     * Summary: 应用参数更新.
+     *
+     * @param SetAapParametersRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return SetAapParametersResponse
+     */
+    public function setAapParametersEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetAapParametersResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.aap.parameters.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品实例卸载
+     * Summary: 产品实例卸载.
+     *
+     * @param DeleteAapProductinstanceRequest $request
+     *
+     * @return DeleteAapProductinstanceResponse
+     */
+    public function deleteAapProductinstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteAapProductinstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品实例卸载
+     * Summary: 产品实例卸载.
+     *
+     * @param DeleteAapProductinstanceRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return DeleteAapProductinstanceResponse
+     */
+    public function deleteAapProductinstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteAapProductinstanceResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.aap.productinstance.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 初始化云游local环境
+     * Summary: 初始化云游local环境.
+     *
+     * @param CreateEnvRequest $request
+     *
+     * @return CreateEnvResponse
+     */
+    public function createEnv($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createEnvEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 初始化云游local环境
+     * Summary: 初始化云游local环境.
+     *
+     * @param CreateEnvRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return CreateEnvResponse
+     */
+    public function createEnvEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateEnvResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.env.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

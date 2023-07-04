@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckSolutioninstanceImportRequest extends Model
+class CreateEnvRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,20 @@ class CheckSolutioninstanceImportRequest extends Model
      */
     public $productInstanceId;
 
-    // 环境id
+    // 环境初始化参数配置
     /**
      * @var string
      */
-    public $envId;
-
-    // 解决方案文件序列化后的结果
-    /**
-     * @var string
-     */
-    public $boxData;
+    public $envConfigInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'envId'             => 'env_id',
-        'boxData'           => 'box_data',
+        'envConfigInfo'     => 'env_config_info',
     ];
 
     public function validate()
     {
-        Model::validateRequired('envId', $this->envId, true);
-        Model::validateRequired('boxData', $this->boxData, true);
+        Model::validateRequired('envConfigInfo', $this->envConfigInfo, true);
     }
 
     public function toMap()
@@ -52,11 +44,8 @@ class CheckSolutioninstanceImportRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->envId) {
-            $res['env_id'] = $this->envId;
-        }
-        if (null !== $this->boxData) {
-            $res['box_data'] = $this->boxData;
+        if (null !== $this->envConfigInfo) {
+            $res['env_config_info'] = $this->envConfigInfo;
         }
 
         return $res;
@@ -65,7 +54,7 @@ class CheckSolutioninstanceImportRequest extends Model
     /**
      * @param array $map
      *
-     * @return CheckSolutioninstanceImportRequest
+     * @return CreateEnvRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +65,8 @@ class CheckSolutioninstanceImportRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['env_id'])) {
-            $model->envId = $map['env_id'];
-        }
-        if (isset($map['box_data'])) {
-            $model->boxData = $map['box_data'];
+        if (isset($map['env_config_info'])) {
+            $model->envConfigInfo = $map['env_config_info'];
         }
 
         return $model;

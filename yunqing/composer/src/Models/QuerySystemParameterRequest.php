@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckSolutioninstanceImportRequest extends Model
+class QuerySystemParameterRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,27 @@ class CheckSolutioninstanceImportRequest extends Model
      */
     public $productInstanceId;
 
-    // 环境id
+    // 环境ids
     /**
      * @var string
      */
-    public $envId;
+    public $envIds;
 
-    // 解决方案文件序列化后的结果
+    // 参数名s
     /**
      * @var string
      */
-    public $boxData;
+    public $types;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'envId'             => 'env_id',
-        'boxData'           => 'box_data',
+        'envIds'            => 'env_ids',
+        'types'             => 'types',
     ];
 
     public function validate()
     {
-        Model::validateRequired('envId', $this->envId, true);
-        Model::validateRequired('boxData', $this->boxData, true);
+        Model::validateRequired('envIds', $this->envIds, true);
     }
 
     public function toMap()
@@ -52,11 +51,11 @@ class CheckSolutioninstanceImportRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->envId) {
-            $res['env_id'] = $this->envId;
+        if (null !== $this->envIds) {
+            $res['env_ids'] = $this->envIds;
         }
-        if (null !== $this->boxData) {
-            $res['box_data'] = $this->boxData;
+        if (null !== $this->types) {
+            $res['types'] = $this->types;
         }
 
         return $res;
@@ -65,7 +64,7 @@ class CheckSolutioninstanceImportRequest extends Model
     /**
      * @param array $map
      *
-     * @return CheckSolutioninstanceImportRequest
+     * @return QuerySystemParameterRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +75,11 @@ class CheckSolutioninstanceImportRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['env_id'])) {
-            $model->envId = $map['env_id'];
+        if (isset($map['env_ids'])) {
+            $model->envIds = $map['env_ids'];
         }
-        if (isset($map['box_data'])) {
-            $model->boxData = $map['box_data'];
+        if (isset($map['types'])) {
+            $model->types = $map['types'];
         }
 
         return $model;

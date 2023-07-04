@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportSolutioninstanceResponse extends Model
+class GetAapReleaseResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,22 @@ class ImportSolutioninstanceResponse extends Model
      */
     public $resultMsg;
 
-    // 发布单id
+    // 发布单状态:
+    // TOBE_DEPLOY("TOBE_DEPLOY","待执行","待执行"),
+    // EXECUTING("EXECUTING","执行中","执行中"),
+    // SUCCESS("SUCCESS","完成","完成"),
+    // CANCELED("CANCELED","已取消","已取消"),
+    // FAILED("FAILED","失败","失败"),
+    // WAITING_CONFIRM("WAITING_CONFIRM","待确认","待确认");
     /**
      * @var string
      */
-    public $opsPlanId;
+    public $status;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'opsPlanId'  => 'ops_plan_id',
+        'status'     => 'status',
     ];
 
     public function validate()
@@ -54,8 +60,8 @@ class ImportSolutioninstanceResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->opsPlanId) {
-            $res['ops_plan_id'] = $this->opsPlanId;
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
         }
 
         return $res;
@@ -64,7 +70,7 @@ class ImportSolutioninstanceResponse extends Model
     /**
      * @param array $map
      *
-     * @return ImportSolutioninstanceResponse
+     * @return GetAapReleaseResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +84,8 @@ class ImportSolutioninstanceResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['ops_plan_id'])) {
-            $model->opsPlanId = $map['ops_plan_id'];
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
 
         return $model;

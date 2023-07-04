@@ -73,6 +73,13 @@ class CreateAppdeployRequest extends Model
      * @var string
      */
     public $submitterName;
+
+    // 是否由云游自动确认资源规划，默认false；
+    // 云游自动确认规划可能不符合预期，请谨慎使用
+    /**
+     * @var bool
+     */
+    public $autoConfirmPlan;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -85,6 +92,7 @@ class CreateAppdeployRequest extends Model
         'groupStrategy'     => 'group_strategy',
         'submitterId'       => 'submitter_id',
         'submitterName'     => 'submitter_name',
+        'autoConfirmPlan'   => 'auto_confirm_plan',
     ];
 
     public function validate()
@@ -131,6 +139,9 @@ class CreateAppdeployRequest extends Model
         }
         if (null !== $this->submitterName) {
             $res['submitter_name'] = $this->submitterName;
+        }
+        if (null !== $this->autoConfirmPlan) {
+            $res['auto_confirm_plan'] = $this->autoConfirmPlan;
         }
 
         return $res;
@@ -180,6 +191,9 @@ class CreateAppdeployRequest extends Model
         }
         if (isset($map['submitter_name'])) {
             $model->submitterName = $map['submitter_name'];
+        }
+        if (isset($map['auto_confirm_plan'])) {
+            $model->autoConfirmPlan = $map['auto_confirm_plan'];
         }
 
         return $model;

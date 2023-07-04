@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportSolutioninstanceResponse extends Model
+class InitAapReleaseResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class ImportSolutioninstanceResponse extends Model
      */
     public $resultMsg;
 
-    // 发布单id
+    // 初始化的结果，可用此调用发布接口
     /**
-     * @var string
+     * @var ProductDeployInitOption[]
      */
-    public $opsPlanId;
+    public $deployInitOptions;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'opsPlanId'  => 'ops_plan_id',
+        'reqMsgId'          => 'req_msg_id',
+        'resultCode'        => 'result_code',
+        'resultMsg'         => 'result_msg',
+        'deployInitOptions' => 'deploy_init_options',
     ];
 
     public function validate()
@@ -54,8 +54,14 @@ class ImportSolutioninstanceResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->opsPlanId) {
-            $res['ops_plan_id'] = $this->opsPlanId;
+        if (null !== $this->deployInitOptions) {
+            $res['deploy_init_options'] = [];
+            if (null !== $this->deployInitOptions && \is_array($this->deployInitOptions)) {
+                $n = 0;
+                foreach ($this->deployInitOptions as $item) {
+                    $res['deploy_init_options'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -64,7 +70,7 @@ class ImportSolutioninstanceResponse extends Model
     /**
      * @param array $map
      *
-     * @return ImportSolutioninstanceResponse
+     * @return InitAapReleaseResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +84,14 @@ class ImportSolutioninstanceResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['ops_plan_id'])) {
-            $model->opsPlanId = $map['ops_plan_id'];
+        if (isset($map['deploy_init_options'])) {
+            if (!empty($map['deploy_init_options'])) {
+                $model->deployInitOptions = [];
+                $n                        = 0;
+                foreach ($map['deploy_init_options'] as $item) {
+                    $model->deployInitOptions[$n++] = null !== $item ? ProductDeployInitOption::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

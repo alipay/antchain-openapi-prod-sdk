@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckSolutioninstanceImportRequest extends Model
+class QueryOpsplanNodetreeRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,27 @@ class CheckSolutioninstanceImportRequest extends Model
      */
     public $productInstanceId;
 
-    // 环境id
+    // 发布单id
     /**
      * @var string
      */
-    public $envId;
+    public $opsPlanId;
 
-    // 解决方案文件序列化后的结果
+    // 发布单节点树根节点id
     /**
      * @var string
      */
-    public $boxData;
+    public $subTreeNodeRootId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'envId'             => 'env_id',
-        'boxData'           => 'box_data',
+        'opsPlanId'         => 'ops_plan_id',
+        'subTreeNodeRootId' => 'sub_tree_node_root_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('envId', $this->envId, true);
-        Model::validateRequired('boxData', $this->boxData, true);
+        Model::validateRequired('opsPlanId', $this->opsPlanId, true);
     }
 
     public function toMap()
@@ -52,11 +51,11 @@ class CheckSolutioninstanceImportRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->envId) {
-            $res['env_id'] = $this->envId;
+        if (null !== $this->opsPlanId) {
+            $res['ops_plan_id'] = $this->opsPlanId;
         }
-        if (null !== $this->boxData) {
-            $res['box_data'] = $this->boxData;
+        if (null !== $this->subTreeNodeRootId) {
+            $res['sub_tree_node_root_id'] = $this->subTreeNodeRootId;
         }
 
         return $res;
@@ -65,7 +64,7 @@ class CheckSolutioninstanceImportRequest extends Model
     /**
      * @param array $map
      *
-     * @return CheckSolutioninstanceImportRequest
+     * @return QueryOpsplanNodetreeRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +75,11 @@ class CheckSolutioninstanceImportRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['env_id'])) {
-            $model->envId = $map['env_id'];
+        if (isset($map['ops_plan_id'])) {
+            $model->opsPlanId = $map['ops_plan_id'];
         }
-        if (isset($map['box_data'])) {
-            $model->boxData = $map['box_data'];
+        if (isset($map['sub_tree_node_root_id'])) {
+            $model->subTreeNodeRootId = $map['sub_tree_node_root_id'];
         }
 
         return $model;

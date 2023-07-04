@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckSolutioninstanceImportRequest extends Model
+class UpdateAapApplicationinstanceRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,28 @@ class CheckSolutioninstanceImportRequest extends Model
      */
     public $productInstanceId;
 
-    // 环境id
+    // 站点code
     /**
      * @var string
      */
-    public $envId;
+    public $siteCode;
 
-    // 解决方案文件序列化后的结果
+    // 应用实例
     /**
-     * @var string
+     * @var ApplicationInstance
      */
-    public $boxData;
+    public $applicationInstance;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'envId'             => 'env_id',
-        'boxData'           => 'box_data',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'siteCode'            => 'site_code',
+        'applicationInstance' => 'application_instance',
     ];
 
     public function validate()
     {
-        Model::validateRequired('envId', $this->envId, true);
-        Model::validateRequired('boxData', $this->boxData, true);
+        Model::validateRequired('siteCode', $this->siteCode, true);
+        Model::validateRequired('applicationInstance', $this->applicationInstance, true);
     }
 
     public function toMap()
@@ -52,11 +52,11 @@ class CheckSolutioninstanceImportRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->envId) {
-            $res['env_id'] = $this->envId;
+        if (null !== $this->siteCode) {
+            $res['site_code'] = $this->siteCode;
         }
-        if (null !== $this->boxData) {
-            $res['box_data'] = $this->boxData;
+        if (null !== $this->applicationInstance) {
+            $res['application_instance'] = null !== $this->applicationInstance ? $this->applicationInstance->toMap() : null;
         }
 
         return $res;
@@ -65,7 +65,7 @@ class CheckSolutioninstanceImportRequest extends Model
     /**
      * @param array $map
      *
-     * @return CheckSolutioninstanceImportRequest
+     * @return UpdateAapApplicationinstanceRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +76,11 @@ class CheckSolutioninstanceImportRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['env_id'])) {
-            $model->envId = $map['env_id'];
+        if (isset($map['site_code'])) {
+            $model->siteCode = $map['site_code'];
         }
-        if (isset($map['box_data'])) {
-            $model->boxData = $map['box_data'];
+        if (isset($map['application_instance'])) {
+            $model->applicationInstance = ApplicationInstance::fromMap($map['application_instance']);
         }
 
         return $model;

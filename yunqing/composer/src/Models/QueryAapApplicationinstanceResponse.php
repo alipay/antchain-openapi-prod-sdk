@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportSolutioninstanceResponse extends Model
+class QueryAapApplicationinstanceResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class ImportSolutioninstanceResponse extends Model
      */
     public $resultMsg;
 
-    // 发布单id
+    // siteCode
     /**
      * @var string
      */
-    public $opsPlanId;
+    public $siteCode;
+
+    // 应用实例
+    /**
+     * @var ApplicationInstance
+     */
+    public $applicationInstance;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'opsPlanId'  => 'ops_plan_id',
+        'reqMsgId'            => 'req_msg_id',
+        'resultCode'          => 'result_code',
+        'resultMsg'           => 'result_msg',
+        'siteCode'            => 'site_code',
+        'applicationInstance' => 'application_instance',
     ];
 
     public function validate()
@@ -54,8 +61,11 @@ class ImportSolutioninstanceResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->opsPlanId) {
-            $res['ops_plan_id'] = $this->opsPlanId;
+        if (null !== $this->siteCode) {
+            $res['site_code'] = $this->siteCode;
+        }
+        if (null !== $this->applicationInstance) {
+            $res['application_instance'] = null !== $this->applicationInstance ? $this->applicationInstance->toMap() : null;
         }
 
         return $res;
@@ -64,7 +74,7 @@ class ImportSolutioninstanceResponse extends Model
     /**
      * @param array $map
      *
-     * @return ImportSolutioninstanceResponse
+     * @return QueryAapApplicationinstanceResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +88,11 @@ class ImportSolutioninstanceResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['ops_plan_id'])) {
-            $model->opsPlanId = $map['ops_plan_id'];
+        if (isset($map['site_code'])) {
+            $model->siteCode = $map['site_code'];
+        }
+        if (isset($map['application_instance'])) {
+            $model->applicationInstance = ApplicationInstance::fromMap($map['application_instance']);
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportSolutioninstanceResponse extends Model
+class ListAapSitesResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class ImportSolutioninstanceResponse extends Model
      */
     public $resultMsg;
 
-    // 发布单id
+    // site list
     /**
-     * @var string
+     * @var SiteInfo[]
      */
-    public $opsPlanId;
+    public $sites;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'opsPlanId'  => 'ops_plan_id',
+        'sites'      => 'sites',
     ];
 
     public function validate()
@@ -54,8 +54,14 @@ class ImportSolutioninstanceResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->opsPlanId) {
-            $res['ops_plan_id'] = $this->opsPlanId;
+        if (null !== $this->sites) {
+            $res['sites'] = [];
+            if (null !== $this->sites && \is_array($this->sites)) {
+                $n = 0;
+                foreach ($this->sites as $item) {
+                    $res['sites'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -64,7 +70,7 @@ class ImportSolutioninstanceResponse extends Model
     /**
      * @param array $map
      *
-     * @return ImportSolutioninstanceResponse
+     * @return ListAapSitesResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +84,14 @@ class ImportSolutioninstanceResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['ops_plan_id'])) {
-            $model->opsPlanId = $map['ops_plan_id'];
+        if (isset($map['sites'])) {
+            if (!empty($map['sites'])) {
+                $model->sites = [];
+                $n            = 0;
+                foreach ($map['sites'] as $item) {
+                    $model->sites[$n++] = null !== $item ? SiteInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

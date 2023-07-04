@@ -135,6 +135,38 @@ class AppService extends Model
      * @var Admin
      */
     public $admin;
+
+    // 副本数
+    /**
+     * @example 3
+     *
+     * @var int
+     */
+    public $expectReplica;
+
+    // 镜像
+    /**
+     * @example acs-reg.alipay.com/acloud/yunyoudev:9e470963-1626373943641
+     *
+     * @var string
+     */
+    public $image;
+
+    // 2G
+    /**
+     * @example cpu资源
+     *
+     * @var int
+     */
+    public $cpu;
+
+    // 内存资源
+    /**
+     * @example 4G
+     *
+     * @var int
+     */
+    public $memory;
     protected $_name = [
         'appName'        => 'app_name',
         'appVersion'     => 'app_version',
@@ -152,6 +184,10 @@ class AppService extends Model
         'productApp'     => 'product_app',
         'owner'          => 'owner',
         'admin'          => 'admin',
+        'expectReplica'  => 'expect_replica',
+        'image'          => 'image',
+        'cpu'            => 'cpu',
+        'memory'         => 'memory',
     ];
 
     public function validate()
@@ -208,6 +244,18 @@ class AppService extends Model
         }
         if (null !== $this->admin) {
             $res['admin'] = null !== $this->admin ? $this->admin->toMap() : null;
+        }
+        if (null !== $this->expectReplica) {
+            $res['expect_replica'] = $this->expectReplica;
+        }
+        if (null !== $this->image) {
+            $res['image'] = $this->image;
+        }
+        if (null !== $this->cpu) {
+            $res['cpu'] = $this->cpu;
+        }
+        if (null !== $this->memory) {
+            $res['memory'] = $this->memory;
         }
 
         return $res;
@@ -268,6 +316,18 @@ class AppService extends Model
         }
         if (isset($map['admin'])) {
             $model->admin = Admin::fromMap($map['admin']);
+        }
+        if (isset($map['expect_replica'])) {
+            $model->expectReplica = $map['expect_replica'];
+        }
+        if (isset($map['image'])) {
+            $model->image = $map['image'];
+        }
+        if (isset($map['cpu'])) {
+            $model->cpu = $map['cpu'];
+        }
+        if (isset($map['memory'])) {
+            $model->memory = $map['memory'];
         }
 
         return $model;

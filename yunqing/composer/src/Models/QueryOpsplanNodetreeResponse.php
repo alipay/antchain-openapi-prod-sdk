@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportSolutioninstanceResponse extends Model
+class QueryOpsplanNodetreeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class ImportSolutioninstanceResponse extends Model
      */
     public $resultMsg;
 
-    // 发布单id
+    // 发布单节点树，为json string
     /**
      * @var string
      */
-    public $opsPlanId;
+    public $nodeTree;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'opsPlanId'  => 'ops_plan_id',
+        'nodeTree'   => 'node_tree',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class ImportSolutioninstanceResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->opsPlanId) {
-            $res['ops_plan_id'] = $this->opsPlanId;
+        if (null !== $this->nodeTree) {
+            $res['node_tree'] = $this->nodeTree;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class ImportSolutioninstanceResponse extends Model
     /**
      * @param array $map
      *
-     * @return ImportSolutioninstanceResponse
+     * @return QueryOpsplanNodetreeResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class ImportSolutioninstanceResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['ops_plan_id'])) {
-            $model->opsPlanId = $map['ops_plan_id'];
+        if (isset($map['node_tree'])) {
+            $model->nodeTree = $map['node_tree'];
         }
 
         return $model;
