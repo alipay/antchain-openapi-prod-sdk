@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.YUNQING.Models
 {
-    public class CheckSolutioninstanceImportRequest : TeaModel {
+    public class InitAapReleaseRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 环境id
-        [NameInMap("env_id")]
+        // 需要升级的产品实例
+        [NameInMap("product_deploy_init_option_request")]
         [Validation(Required=true)]
-        public string EnvId { get; set; }
+        public ProductDeployInitOptionRequest ProductDeployInitOptionRequest { get; set; }
 
-        // 解决方案文件序列化后的结果
-        [NameInMap("box_data")]
-        [Validation(Required=true)]
-        public string BoxData { get; set; }
+        // 站点code
+        [NameInMap("site_code")]
+        [Validation(Required=false)]
+        public string SiteCode { get; set; }
 
     }
 

@@ -91,7 +91,7 @@ namespace AntChain.SDK.YUNQING
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,7 @@ namespace AntChain.SDK.YUNQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.14.18"},
+                        {"sdk_version", "4.0.5"},
                         {"_prod_code", "YUNQING"},
                         {"_prod_channel", "undefined"},
                     };
@@ -149,7 +149,7 @@ namespace AntChain.SDK.YUNQING
                     (
                         new Dictionary<string, string>()
                         {
-                            {"host", AlibabaCloud.TeaUtil.Common.DefaultString(_endpoint, "prodapigw-sofastack.cloud.alipay.com")},
+                            {"host", AlibabaCloud.TeaUtil.Common.DefaultString(_endpoint, "openapi.antchain.antgroup.com")},
                             {"user-agent", AlibabaCloud.TeaUtil.Common.GetUserAgent(_userAgent)},
                         },
                         headers
@@ -217,7 +217,7 @@ namespace AntChain.SDK.YUNQING
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -263,7 +263,7 @@ namespace AntChain.SDK.YUNQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.14.18"},
+                        {"sdk_version", "4.0.5"},
                         {"_prod_code", "YUNQING"},
                         {"_prod_channel", "undefined"},
                     };
@@ -275,7 +275,7 @@ namespace AntChain.SDK.YUNQING
                     (
                         new Dictionary<string, string>()
                         {
-                            {"host", AlibabaCloud.TeaUtil.Common.DefaultString(_endpoint, "prodapigw-sofastack.cloud.alipay.com")},
+                            {"host", AlibabaCloud.TeaUtil.Common.DefaultString(_endpoint, "openapi.antchain.antgroup.com")},
                             {"user-agent", AlibabaCloud.TeaUtil.Common.GetUserAgent(_userAgent)},
                         },
                         headers
@@ -2553,6 +2553,770 @@ namespace AntChain.SDK.YUNQING
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PagequeryRollbackSnapshotversionResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.rollback.snapshotversion.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 产品是否可创建测试单
+         * Summary: 产品是否可创建测试单
+         */
+        public EnableProdAutotestResponse EnableProdAutotest(EnableProdAutotestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return EnableProdAutotestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 产品是否可创建测试单
+         * Summary: 产品是否可创建测试单
+         */
+        public async Task<EnableProdAutotestResponse> EnableProdAutotestAsync(EnableProdAutotestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await EnableProdAutotestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 产品是否可创建测试单
+         * Summary: 产品是否可创建测试单
+         */
+        public EnableProdAutotestResponse EnableProdAutotestEx(EnableProdAutotestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<EnableProdAutotestResponse>(DoRequest("1.0", "yunyou.yunqing.prod.autotest.enable", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 产品是否可创建测试单
+         * Summary: 产品是否可创建测试单
+         */
+        public async Task<EnableProdAutotestResponse> EnableProdAutotestExAsync(EnableProdAutotestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<EnableProdAutotestResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.prod.autotest.enable", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 系统参数查询
+         * Summary: 系统参数查询
+         */
+        public QuerySystemParameterResponse QuerySystemParameter(QuerySystemParameterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QuerySystemParameterEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 系统参数查询
+         * Summary: 系统参数查询
+         */
+        public async Task<QuerySystemParameterResponse> QuerySystemParameterAsync(QuerySystemParameterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QuerySystemParameterExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 系统参数查询
+         * Summary: 系统参数查询
+         */
+        public QuerySystemParameterResponse QuerySystemParameterEx(QuerySystemParameterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySystemParameterResponse>(DoRequest("1.0", "yunyou.yunqing.system.parameter.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 系统参数查询
+         * Summary: 系统参数查询
+         */
+        public async Task<QuerySystemParameterResponse> QuerySystemParameterExAsync(QuerySystemParameterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySystemParameterResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.system.parameter.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询发布单详情
+        发布单详情的任务树是嵌套结构，OP目前不支持定义此类型的结构体
+        故本接口返回了json string，调用方需要自己构造
+         * Summary: 查询发布单详情
+         */
+        public QueryOpsplanNodetreeResponse QueryOpsplanNodetree(QueryOpsplanNodetreeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryOpsplanNodetreeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询发布单详情
+        发布单详情的任务树是嵌套结构，OP目前不支持定义此类型的结构体
+        故本接口返回了json string，调用方需要自己构造
+         * Summary: 查询发布单详情
+         */
+        public async Task<QueryOpsplanNodetreeResponse> QueryOpsplanNodetreeAsync(QueryOpsplanNodetreeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryOpsplanNodetreeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询发布单详情
+        发布单详情的任务树是嵌套结构，OP目前不支持定义此类型的结构体
+        故本接口返回了json string，调用方需要自己构造
+         * Summary: 查询发布单详情
+         */
+        public QueryOpsplanNodetreeResponse QueryOpsplanNodetreeEx(QueryOpsplanNodetreeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOpsplanNodetreeResponse>(DoRequest("1.0", "yunyou.yunqing.opsplan.nodetree.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询发布单详情
+        发布单详情的任务树是嵌套结构，OP目前不支持定义此类型的结构体
+        故本接口返回了json string，调用方需要自己构造
+         * Summary: 查询发布单详情
+         */
+        public async Task<QueryOpsplanNodetreeResponse> QueryOpsplanNodetreeExAsync(QueryOpsplanNodetreeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOpsplanNodetreeResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.opsplan.nodetree.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 站点信息list
+         * Summary: 站点信息list
+         */
+        public ListAapSitesResponse ListAapSites(ListAapSitesRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAapSitesEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 站点信息list
+         * Summary: 站点信息list
+         */
+        public async Task<ListAapSitesResponse> ListAapSitesAsync(ListAapSitesRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAapSitesExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 站点信息list
+         * Summary: 站点信息list
+         */
+        public ListAapSitesResponse ListAapSitesEx(ListAapSitesRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAapSitesResponse>(DoRequest("1.0", "yunyou.yunqing.aap.sites.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 站点信息list
+         * Summary: 站点信息list
+         */
+        public async Task<ListAapSitesResponse> ListAapSitesExAsync(ListAapSitesRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAapSitesResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.aap.sites.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AAP 元数据导入，包含：产品、应用、拓扑信息 。https://yuque.antfin-inc.com/tpaas/ednkxs/izdpx9s4at32mwbi?singleDoc# 《AAP：用户自定义产品接入》
+         * Summary: AAP 元数据导入
+         */
+        public ImportAapMetaResponse ImportAapMeta(ImportAapMetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportAapMetaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: AAP 元数据导入，包含：产品、应用、拓扑信息 。https://yuque.antfin-inc.com/tpaas/ednkxs/izdpx9s4at32mwbi?singleDoc# 《AAP：用户自定义产品接入》
+         * Summary: AAP 元数据导入
+         */
+        public async Task<ImportAapMetaResponse> ImportAapMetaAsync(ImportAapMetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportAapMetaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: AAP 元数据导入，包含：产品、应用、拓扑信息 。https://yuque.antfin-inc.com/tpaas/ednkxs/izdpx9s4at32mwbi?singleDoc# 《AAP：用户自定义产品接入》
+         * Summary: AAP 元数据导入
+         */
+        public ImportAapMetaResponse ImportAapMetaEx(ImportAapMetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportAapMetaResponse>(DoRequest("1.0", "yunyou.yunqing.aap.meta.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AAP 元数据导入，包含：产品、应用、拓扑信息 。https://yuque.antfin-inc.com/tpaas/ednkxs/izdpx9s4at32mwbi?singleDoc# 《AAP：用户自定义产品接入》
+         * Summary: AAP 元数据导入
+         */
+        public async Task<ImportAapMetaResponse> ImportAapMetaExAsync(ImportAapMetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportAapMetaResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.aap.meta.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AAP 产品实例初始化
+         * Summary: AAP 产品实例初始化
+         */
+        public InitAapProductinstanceResponse InitAapProductinstance(InitAapProductinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitAapProductinstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: AAP 产品实例初始化
+         * Summary: AAP 产品实例初始化
+         */
+        public async Task<InitAapProductinstanceResponse> InitAapProductinstanceAsync(InitAapProductinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitAapProductinstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: AAP 产品实例初始化
+         * Summary: AAP 产品实例初始化
+         */
+        public InitAapProductinstanceResponse InitAapProductinstanceEx(InitAapProductinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitAapProductinstanceResponse>(DoRequest("1.0", "yunyou.yunqing.aap.productinstance.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AAP 产品实例初始化
+         * Summary: AAP 产品实例初始化
+         */
+        public async Task<InitAapProductinstanceResponse> InitAapProductinstanceExAsync(InitAapProductinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitAapProductinstanceResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.aap.productinstance.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 产品实例发布初始化
+         * Summary: 产品实例发布初始化
+         */
+        public InitAapReleaseResponse InitAapRelease(InitAapReleaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitAapReleaseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 产品实例发布初始化
+         * Summary: 产品实例发布初始化
+         */
+        public async Task<InitAapReleaseResponse> InitAapReleaseAsync(InitAapReleaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitAapReleaseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 产品实例发布初始化
+         * Summary: 产品实例发布初始化
+         */
+        public InitAapReleaseResponse InitAapReleaseEx(InitAapReleaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitAapReleaseResponse>(DoRequest("1.0", "yunyou.yunqing.aap.release.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 产品实例发布初始化
+         * Summary: 产品实例发布初始化
+         */
+        public async Task<InitAapReleaseResponse> InitAapReleaseExAsync(InitAapReleaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitAapReleaseResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.aap.release.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 产品实例部署
+         * Summary: 产品实例部署
+         */
+        public DeployAapProductinstanceResponse DeployAapProductinstance(DeployAapProductinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeployAapProductinstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 产品实例部署
+         * Summary: 产品实例部署
+         */
+        public async Task<DeployAapProductinstanceResponse> DeployAapProductinstanceAsync(DeployAapProductinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeployAapProductinstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 产品实例部署
+         * Summary: 产品实例部署
+         */
+        public DeployAapProductinstanceResponse DeployAapProductinstanceEx(DeployAapProductinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeployAapProductinstanceResponse>(DoRequest("1.0", "yunyou.yunqing.aap.productinstance.deploy", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 产品实例部署
+         * Summary: 产品实例部署
+         */
+        public async Task<DeployAapProductinstanceResponse> DeployAapProductinstanceExAsync(DeployAapProductinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeployAapProductinstanceResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.aap.productinstance.deploy", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发布单状态查询
+         * Summary: 发布单
+         */
+        public GetAapReleaseResponse GetAapRelease(GetAapReleaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetAapReleaseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发布单状态查询
+         * Summary: 发布单
+         */
+        public async Task<GetAapReleaseResponse> GetAapReleaseAsync(GetAapReleaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetAapReleaseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发布单状态查询
+         * Summary: 发布单
+         */
+        public GetAapReleaseResponse GetAapReleaseEx(GetAapReleaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAapReleaseResponse>(DoRequest("1.0", "yunyou.yunqing.aap.release.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发布单状态查询
+         * Summary: 发布单
+         */
+        public async Task<GetAapReleaseResponse> GetAapReleaseExAsync(GetAapReleaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAapReleaseResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.aap.release.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用实例更新，比如：规格、镜像、参数等
+         * Summary: 应用实例更新
+         */
+        public UpdateAapApplicationinstanceResponse UpdateAapApplicationinstance(UpdateAapApplicationinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateAapApplicationinstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用实例更新，比如：规格、镜像、参数等
+         * Summary: 应用实例更新
+         */
+        public async Task<UpdateAapApplicationinstanceResponse> UpdateAapApplicationinstanceAsync(UpdateAapApplicationinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateAapApplicationinstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用实例更新，比如：规格、镜像、参数等
+         * Summary: 应用实例更新
+         */
+        public UpdateAapApplicationinstanceResponse UpdateAapApplicationinstanceEx(UpdateAapApplicationinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAapApplicationinstanceResponse>(DoRequest("1.0", "yunyou.yunqing.aap.applicationinstance.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用实例更新，比如：规格、镜像、参数等
+         * Summary: 应用实例更新
+         */
+        public async Task<UpdateAapApplicationinstanceResponse> UpdateAapApplicationinstanceExAsync(UpdateAapApplicationinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAapApplicationinstanceResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.aap.applicationinstance.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用实例查询
+         * Summary: 应用实例查询
+         */
+        public QueryAapApplicationinstanceResponse QueryAapApplicationinstance(QueryAapApplicationinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAapApplicationinstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用实例查询
+         * Summary: 应用实例查询
+         */
+        public async Task<QueryAapApplicationinstanceResponse> QueryAapApplicationinstanceAsync(QueryAapApplicationinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAapApplicationinstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用实例查询
+         * Summary: 应用实例查询
+         */
+        public QueryAapApplicationinstanceResponse QueryAapApplicationinstanceEx(QueryAapApplicationinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAapApplicationinstanceResponse>(DoRequest("1.0", "yunyou.yunqing.aap.applicationinstance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用实例查询
+         * Summary: 应用实例查询
+         */
+        public async Task<QueryAapApplicationinstanceResponse> QueryAapApplicationinstanceExAsync(QueryAapApplicationinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAapApplicationinstanceResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.aap.applicationinstance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用规格配置修改
+         * Summary: 应用规格配置修改
+         */
+        public SetAapApplicationinstanceResponse SetAapApplicationinstance(SetAapApplicationinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SetAapApplicationinstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用规格配置修改
+         * Summary: 应用规格配置修改
+         */
+        public async Task<SetAapApplicationinstanceResponse> SetAapApplicationinstanceAsync(SetAapApplicationinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SetAapApplicationinstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用规格配置修改
+         * Summary: 应用规格配置修改
+         */
+        public SetAapApplicationinstanceResponse SetAapApplicationinstanceEx(SetAapApplicationinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SetAapApplicationinstanceResponse>(DoRequest("1.0", "yunyou.yunqing.aap.applicationinstance.set", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用规格配置修改
+         * Summary: 应用规格配置修改
+         */
+        public async Task<SetAapApplicationinstanceResponse> SetAapApplicationinstanceExAsync(SetAapApplicationinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SetAapApplicationinstanceResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.aap.applicationinstance.set", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用镜像修改
+         * Summary: 应用镜像修改
+         */
+        public SetAapImagesResponse SetAapImages(SetAapImagesRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SetAapImagesEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用镜像修改
+         * Summary: 应用镜像修改
+         */
+        public async Task<SetAapImagesResponse> SetAapImagesAsync(SetAapImagesRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SetAapImagesExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用镜像修改
+         * Summary: 应用镜像修改
+         */
+        public SetAapImagesResponse SetAapImagesEx(SetAapImagesRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SetAapImagesResponse>(DoRequest("1.0", "yunyou.yunqing.aap.images.set", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用镜像修改
+         * Summary: 应用镜像修改
+         */
+        public async Task<SetAapImagesResponse> SetAapImagesExAsync(SetAapImagesRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SetAapImagesResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.aap.images.set", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 产品实例查询
+         * Summary: 产品实例查询
+         */
+        public QueryAapProductinstanceResponse QueryAapProductinstance(QueryAapProductinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAapProductinstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 产品实例查询
+         * Summary: 产品实例查询
+         */
+        public async Task<QueryAapProductinstanceResponse> QueryAapProductinstanceAsync(QueryAapProductinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAapProductinstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 产品实例查询
+         * Summary: 产品实例查询
+         */
+        public QueryAapProductinstanceResponse QueryAapProductinstanceEx(QueryAapProductinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAapProductinstanceResponse>(DoRequest("1.0", "yunyou.yunqing.aap.productinstance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 产品实例查询
+         * Summary: 产品实例查询
+         */
+        public async Task<QueryAapProductinstanceResponse> QueryAapProductinstanceExAsync(QueryAapProductinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAapProductinstanceResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.aap.productinstance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用实例详情查询
+         * Summary: 应用实例详情查询
+         */
+        public DetailAapApplicationinstanceResponse DetailAapApplicationinstance(DetailAapApplicationinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailAapApplicationinstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用实例详情查询
+         * Summary: 应用实例详情查询
+         */
+        public async Task<DetailAapApplicationinstanceResponse> DetailAapApplicationinstanceAsync(DetailAapApplicationinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailAapApplicationinstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用实例详情查询
+         * Summary: 应用实例详情查询
+         */
+        public DetailAapApplicationinstanceResponse DetailAapApplicationinstanceEx(DetailAapApplicationinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailAapApplicationinstanceResponse>(DoRequest("1.0", "yunyou.yunqing.aap.applicationinstance.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用实例详情查询
+         * Summary: 应用实例详情查询
+         */
+        public async Task<DetailAapApplicationinstanceResponse> DetailAapApplicationinstanceExAsync(DetailAapApplicationinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailAapApplicationinstanceResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.aap.applicationinstance.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用参数更新
+         * Summary: 应用参数更新
+         */
+        public SetAapParametersResponse SetAapParameters(SetAapParametersRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SetAapParametersEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用参数更新
+         * Summary: 应用参数更新
+         */
+        public async Task<SetAapParametersResponse> SetAapParametersAsync(SetAapParametersRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SetAapParametersExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用参数更新
+         * Summary: 应用参数更新
+         */
+        public SetAapParametersResponse SetAapParametersEx(SetAapParametersRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SetAapParametersResponse>(DoRequest("1.0", "yunyou.yunqing.aap.parameters.set", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用参数更新
+         * Summary: 应用参数更新
+         */
+        public async Task<SetAapParametersResponse> SetAapParametersExAsync(SetAapParametersRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SetAapParametersResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.aap.parameters.set", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 产品实例卸载
+         * Summary: 产品实例卸载
+         */
+        public DeleteAapProductinstanceResponse DeleteAapProductinstance(DeleteAapProductinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteAapProductinstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 产品实例卸载
+         * Summary: 产品实例卸载
+         */
+        public async Task<DeleteAapProductinstanceResponse> DeleteAapProductinstanceAsync(DeleteAapProductinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteAapProductinstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 产品实例卸载
+         * Summary: 产品实例卸载
+         */
+        public DeleteAapProductinstanceResponse DeleteAapProductinstanceEx(DeleteAapProductinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteAapProductinstanceResponse>(DoRequest("1.0", "yunyou.yunqing.aap.productinstance.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 产品实例卸载
+         * Summary: 产品实例卸载
+         */
+        public async Task<DeleteAapProductinstanceResponse> DeleteAapProductinstanceExAsync(DeleteAapProductinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteAapProductinstanceResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.aap.productinstance.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 初始化云游local环境
+         * Summary: 初始化云游local环境
+         */
+        public CreateEnvResponse CreateEnv(CreateEnvRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateEnvEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 初始化云游local环境
+         * Summary: 初始化云游local环境
+         */
+        public async Task<CreateEnvResponse> CreateEnvAsync(CreateEnvRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateEnvExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 初始化云游local环境
+         * Summary: 初始化云游local环境
+         */
+        public CreateEnvResponse CreateEnvEx(CreateEnvRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateEnvResponse>(DoRequest("1.0", "yunyou.yunqing.env.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 初始化云游local环境
+         * Summary: 初始化云游local环境
+         */
+        public async Task<CreateEnvResponse> CreateEnvExAsync(CreateEnvRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateEnvResponse>(await DoRequestAsync("1.0", "yunyou.yunqing.env.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

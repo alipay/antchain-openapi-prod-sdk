@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.YUNQING.Models
 {
-    public class ImportSolutioninstanceResponse : TeaModel {
+    public class GetAapReleaseResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,16 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 发布单id
-        [NameInMap("ops_plan_id")]
+        // 发布单状态:
+        //     TOBE_DEPLOY("TOBE_DEPLOY","待执行","待执行"),
+        //     EXECUTING("EXECUTING","执行中","执行中"),
+        //     SUCCESS("SUCCESS","完成","完成"),
+        //     CANCELED("CANCELED","已取消","已取消"),
+        //     FAILED("FAILED","失败","失败"),
+        //     WAITING_CONFIRM("WAITING_CONFIRM","待确认","待确认");
+        [NameInMap("status")]
         [Validation(Required=false)]
-        public string OpsPlanId { get; set; }
+        public string Status { get; set; }
 
     }
 

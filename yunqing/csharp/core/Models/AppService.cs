@@ -90,6 +90,26 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=false)]
         public Admin Admin { get; set; }
 
+        // 副本数
+        [NameInMap("expect_replica")]
+        [Validation(Required=false)]
+        public long? ExpectReplica { get; set; }
+
+        // 镜像
+        [NameInMap("image")]
+        [Validation(Required=false)]
+        public string Image { get; set; }
+
+        // 2G
+        [NameInMap("cpu")]
+        [Validation(Required=false)]
+        public long? Cpu { get; set; }
+
+        // 内存资源
+        [NameInMap("memory")]
+        [Validation(Required=false)]
+        public long? Memory { get; set; }
+
     }
 
 }

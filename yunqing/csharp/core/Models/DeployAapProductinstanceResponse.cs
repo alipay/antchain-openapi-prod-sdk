@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.YUNQING.Models
 {
-    public class ImportSolutioninstanceResponse : TeaModel {
+    public class DeployAapProductinstanceResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -25,9 +25,9 @@ namespace AntChain.SDK.YUNQING.Models
         public string ResultMsg { get; set; }
 
         // 发布单id
-        [NameInMap("ops_plan_id")]
+        [NameInMap("release_plan_id")]
         [Validation(Required=false)]
-        public string OpsPlanId { get; set; }
+        public string ReleasePlanId { get; set; }
 
     }
 

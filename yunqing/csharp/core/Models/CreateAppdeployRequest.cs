@@ -64,6 +64,12 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=false)]
         public string SubmitterName { get; set; }
 
+        // 是否由云游自动确认资源规划，默认false；
+        // 云游自动确认规划可能不符合预期，请谨慎使用
+        [NameInMap("auto_confirm_plan")]
+        [Validation(Required=false)]
+        public bool? AutoConfirmPlan { get; set; }
+
     }
 
 }
