@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.2',
+                    'sdk_version': '1.10.8',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.2',
+                    'sdk_version': '1.10.8',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -889,6 +889,62 @@ class Client:
         return TeaCore.from_map(
             twc_models.GetBclUploadurlResponse(),
             await self.do_request_async('1.0', 'twc.notary.bcl.uploadurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_bcl_promiserepayment(
+        self,
+        request: twc_models.UpdateBclPromiserepaymentRequest,
+    ) -> twc_models.UpdateBclPromiserepaymentResponse:
+        """
+        Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+        Summary: 变更BCL订单承诺履约还款方式
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_bcl_promiserepayment_ex(request, headers, runtime)
+
+    async def update_bcl_promiserepayment_async(
+        self,
+        request: twc_models.UpdateBclPromiserepaymentRequest,
+    ) -> twc_models.UpdateBclPromiserepaymentResponse:
+        """
+        Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+        Summary: 变更BCL订单承诺履约还款方式
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_bcl_promiserepayment_ex_async(request, headers, runtime)
+
+    def update_bcl_promiserepayment_ex(
+        self,
+        request: twc_models.UpdateBclPromiserepaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdateBclPromiserepaymentResponse:
+        """
+        Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+        Summary: 变更BCL订单承诺履约还款方式
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UpdateBclPromiserepaymentResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.promiserepayment.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_bcl_promiserepayment_ex_async(
+        self,
+        request: twc_models.UpdateBclPromiserepaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdateBclPromiserepaymentResponse:
+        """
+        Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+        Summary: 变更BCL订单承诺履约还款方式
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UpdateBclPromiserepaymentResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.promiserepayment.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_contract_account(

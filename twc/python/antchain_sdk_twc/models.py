@@ -912,6 +912,7 @@ class BclPromiseDetailInfo(TeaModel):
         status: str = None,
         promise_time: str = None,
         pay_time: str = None,
+        way: str = None,
     ):
         # 承诺期数
         self.period = period
@@ -926,6 +927,8 @@ class BclPromiseDetailInfo(TeaModel):
         self.promise_time = promise_time
         # 履约日期
         self.pay_time = pay_time
+        # 归还方式，取值范围如下： ACTIVE_REPAYMENT：主动还款， MY_BANK_PROXY_WITHHOLDING：网商委托代扣, PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
+        self.way = way
 
     def validate(self):
         self.validate_required(self.period, 'period')
@@ -936,6 +939,9 @@ class BclPromiseDetailInfo(TeaModel):
             self.validate_pattern(self.promise_time, 'promise_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.pay_time is not None:
             self.validate_pattern(self.pay_time, 'pay_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.way, 'way')
+        if self.way is not None:
+            self.validate_max_length(self.way, 'way', 32)
 
     def to_map(self):
         _map = super().to_map()
@@ -953,6 +959,8 @@ class BclPromiseDetailInfo(TeaModel):
             result['promise_time'] = self.promise_time
         if self.pay_time is not None:
             result['pay_time'] = self.pay_time
+        if self.way is not None:
+            result['way'] = self.way
         return result
 
     def from_map(self, m: dict = None):
@@ -967,6 +975,8 @@ class BclPromiseDetailInfo(TeaModel):
             self.promise_time = m.get('promise_time')
         if m.get('pay_time') is not None:
             self.pay_time = m.get('pay_time')
+        if m.get('way') is not None:
+            self.way = m.get('way')
         return self
 
 
@@ -4781,10 +4791,13 @@ class LeaseClearingInfo(TeaModel):
 class BclCertifyInfo(TeaModel):
     def __init__(
         self,
+        certify_id: str = None,
         certify_url: str = None,
         result_desc: str = None,
         status: str = None,
     ):
+        # 认证id
+        self.certify_id = certify_id
         # 认证url 如果status待认证,该字段非空,
         # 如果认证失败,这里的新的认证链接,支持重复认证
         self.certify_url = certify_url
@@ -4805,6 +4818,8 @@ class BclCertifyInfo(TeaModel):
             return _map
 
         result = dict()
+        if self.certify_id is not None:
+            result['certify_id'] = self.certify_id
         if self.certify_url is not None:
             result['certify_url'] = self.certify_url
         if self.result_desc is not None:
@@ -4815,6 +4830,8 @@ class BclCertifyInfo(TeaModel):
 
     def from_map(self, m: dict = None):
         m = m or dict()
+        if m.get('certify_id') is not None:
+            self.certify_id = m.get('certify_id')
         if m.get('certify_url') is not None:
             self.certify_url = m.get('certify_url')
         if m.get('result_desc') is not None:
@@ -5611,8 +5628,8 @@ class BclOrderInfo(TeaModel):
         # 已创建 CREATED
         # 待发起 PRE_SUBMIT
         # 已发起 SUBMIT
-        # 履约中 PROMISING
-        # 履约完成 PROMISED
+        # 履约中 PERFORMING
+        # 履约完成 PERFORMED
         # 订单完结 ORDER_FINISH
         # 风控失败 RISK_FAIL
         # 核身失败 IDENTITY_NOT_MATCH
@@ -9553,10 +9570,8 @@ class AddBclLogisticinfoRequest(TeaModel):
         self.validate_required(self.logistic_status, 'logistic_status')
         if self.logistic_status is not None:
             self.validate_max_length(self.logistic_status, 'logistic_status', 16)
-        self.validate_required(self.logistics_file_id, 'logistics_file_id')
         if self.logistics_file_id is not None:
             self.validate_max_length(self.logistics_file_id, 'logistics_file_id', 64)
-        self.validate_required(self.arrive_confirm_file_id, 'arrive_confirm_file_id')
         if self.arrive_confirm_file_id is not None:
             self.validate_max_length(self.arrive_confirm_file_id, 'arrive_confirm_file_id', 64)
         self.validate_required(self.arrive_confirm_time, 'arrive_confirm_time')
@@ -9815,7 +9830,6 @@ class CreateBclOrderRequest(TeaModel):
         order_create_time: str = None,
         user_info: BclUserInfo = None,
         due_mode: str = None,
-        total_money: int = None,
         total_rent_money: int = None,
         rent_term: int = None,
         rent_unit: str = None,
@@ -9848,8 +9862,6 @@ class CreateBclOrderRequest(TeaModel):
         # DUE_BUYOUT 到期买断
         # DUE_RETURN 到期归还
         self.due_mode = due_mode
-        # 商品售价 单位分
-        self.total_money = total_money
         # 租金总额 单位分
         self.total_rent_money = total_rent_money
         # 订单租期, 比如6期,12期,24期,36期,填数字
@@ -9857,8 +9869,7 @@ class CreateBclOrderRequest(TeaModel):
         # 订单租期对应的单位,如果是租期为6,租期单位为MONTH,代表租6个月
         # 月: MONTH
         self.rent_unit = rent_unit
-        # 到期买断价 单位分，
-        # 到期金额，若为买断形式传买断金额，否则传到期归还金额
+        # 到期买断价 单位分，若为买断形式传买断金额，否则传到期归还金额
         self.buy_out_price = buy_out_price
         # 芝麻信用 订单免押金额  单位分
         self.deposit_free = deposit_free
@@ -9907,9 +9918,6 @@ class CreateBclOrderRequest(TeaModel):
         self.validate_required(self.due_mode, 'due_mode')
         if self.due_mode is not None:
             self.validate_max_length(self.due_mode, 'due_mode', 16)
-        self.validate_required(self.total_money, 'total_money')
-        if self.total_money is not None:
-            self.validate_minimum(self.total_money, 'total_money', 1)
         self.validate_required(self.total_rent_money, 'total_rent_money')
         if self.total_rent_money is not None:
             self.validate_minimum(self.total_rent_money, 'total_rent_money', 1)
@@ -9973,8 +9981,6 @@ class CreateBclOrderRequest(TeaModel):
             result['user_info'] = self.user_info.to_map()
         if self.due_mode is not None:
             result['due_mode'] = self.due_mode
-        if self.total_money is not None:
-            result['total_money'] = self.total_money
         if self.total_rent_money is not None:
             result['total_rent_money'] = self.total_rent_money
         if self.rent_term is not None:
@@ -10032,8 +10038,6 @@ class CreateBclOrderRequest(TeaModel):
             self.user_info = temp_model.from_map(m['user_info'])
         if m.get('due_mode') is not None:
             self.due_mode = m.get('due_mode')
-        if m.get('total_money') is not None:
-            self.total_money = m.get('total_money')
         if m.get('total_rent_money') is not None:
             self.total_rent_money = m.get('total_rent_money')
         if m.get('rent_term') is not None:
@@ -10521,7 +10525,7 @@ class CreateBclProductRequest(TeaModel):
         # 商品名称，
         # 长度不超过64位
         self.product_name = product_name
-        # 商品价格,单位为分。如：856400，表示8564元，大于0
+        # 商品官网价格,单位为分。如：856400，表示8564元，大于0
         self.product_price = product_price
         # 一级行业代码。
         # 
@@ -10589,7 +10593,7 @@ class CreateBclProductRequest(TeaModel):
             self.validate_max_length(self.product_outer_id, 'product_outer_id', 32)
         self.validate_required(self.product_version, 'product_version')
         if self.product_version is not None:
-            self.validate_max_length(self.product_version, 'product_version', 16)
+            self.validate_max_length(self.product_version, 'product_version', 8)
         self.validate_required(self.product_name, 'product_name')
         if self.product_name is not None:
             self.validate_max_length(self.product_name, 'product_name', 64)
@@ -11202,6 +11206,102 @@ class GetBclUploadurlResponse(TeaModel):
             self.url = m.get('url')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
+        return self
+
+
+class UpdateBclPromiserepaymentRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        period: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单编号ID,长度不超过32位
+        self.order_id = order_id
+        # 租期编号，如：1表示第一期; 目前还款支持最大期数为120期；
+        self.period = period
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        if self.order_id is not None:
+            self.validate_max_length(self.order_id, 'order_id', 32)
+        self.validate_required(self.period, 'period')
+        if self.period is not None:
+            self.validate_maximum(self.period, 'period', 120)
+            self.validate_minimum(self.period, 'period', 1)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.period is not None:
+            result['period'] = self.period
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('period') is not None:
+            self.period = m.get('period')
+        return self
+
+
+class UpdateBclPromiserepaymentResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
@@ -19128,6 +19228,8 @@ class CancelContractPaysingletradeRequest(TeaModel):
         product_instance_id: str = None,
         flow_id: str = None,
         cancel_out_order_no: str = None,
+        bcl_order_id: str = None,
+        bcl_tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -19136,6 +19238,10 @@ class CancelContractPaysingletradeRequest(TeaModel):
         self.flow_id = flow_id
         # 被取消的某一期的代扣id
         self.cancel_out_order_no = cancel_out_order_no
+        # 租赁宝租赁订单号
+        self.bcl_order_id = bcl_order_id
+        # 租赁订单对应的租户id
+        self.bcl_tenant_id = bcl_tenant_id
 
     def validate(self):
         self.validate_required(self.flow_id, 'flow_id')
@@ -19155,6 +19261,10 @@ class CancelContractPaysingletradeRequest(TeaModel):
             result['flow_id'] = self.flow_id
         if self.cancel_out_order_no is not None:
             result['cancel_out_order_no'] = self.cancel_out_order_no
+        if self.bcl_order_id is not None:
+            result['bcl_order_id'] = self.bcl_order_id
+        if self.bcl_tenant_id is not None:
+            result['bcl_tenant_id'] = self.bcl_tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -19167,6 +19277,10 @@ class CancelContractPaysingletradeRequest(TeaModel):
             self.flow_id = m.get('flow_id')
         if m.get('cancel_out_order_no') is not None:
             self.cancel_out_order_no = m.get('cancel_out_order_no')
+        if m.get('bcl_order_id') is not None:
+            self.bcl_order_id = m.get('bcl_order_id')
+        if m.get('bcl_tenant_id') is not None:
+            self.bcl_tenant_id = m.get('bcl_tenant_id')
         return self
 
 
