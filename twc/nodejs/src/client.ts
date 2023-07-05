@@ -555,6 +555,8 @@ export class BclPromiseDetailInfo extends $tea.Model {
   promiseTime: string;
   // 履约日期
   payTime?: string;
+  // 归还方式，取值范围如下： ACTIVE_REPAYMENT：主动还款， MY_BANK_PROXY_WITHHOLDING：网商委托代扣, PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
+  way: string;
   static names(): { [key: string]: string } {
     return {
       period: 'period',
@@ -562,6 +564,7 @@ export class BclPromiseDetailInfo extends $tea.Model {
       status: 'status',
       promiseTime: 'promise_time',
       payTime: 'pay_time',
+      way: 'way',
     };
   }
 
@@ -572,6 +575,7 @@ export class BclPromiseDetailInfo extends $tea.Model {
       status: 'string',
       promiseTime: 'string',
       payTime: 'string',
+      way: 'string',
     };
   }
 
@@ -2904,6 +2908,8 @@ export class LeaseClearingInfo extends $tea.Model {
 
 // 实人信息
 export class BclCertifyInfo extends $tea.Model {
+  // 认证id
+  certifyId?: string;
   // 认证url 如果status待认证,该字段非空,
   // 如果认证失败,这里的新的认证链接,支持重复认证
   certifyUrl?: string;
@@ -2916,6 +2922,7 @@ export class BclCertifyInfo extends $tea.Model {
   status: string;
   static names(): { [key: string]: string } {
     return {
+      certifyId: 'certify_id',
       certifyUrl: 'certify_url',
       resultDesc: 'result_desc',
       status: 'status',
@@ -2924,6 +2931,7 @@ export class BclCertifyInfo extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
+      certifyId: 'string',
       certifyUrl: 'string',
       resultDesc: 'string',
       status: 'string',
@@ -3412,8 +3420,8 @@ export class BclOrderInfo extends $tea.Model {
   // 已创建 CREATED
   // 待发起 PRE_SUBMIT
   // 已发起 SUBMIT
-  // 履约中 PROMISING
-  // 履约完成 PROMISED
+  // 履约中 PERFORMING
+  // 履约完成 PERFORMED
   // 订单完结 ORDER_FINISH
   // 风控失败 RISK_FAIL
   // 核身失败 IDENTITY_NOT_MATCH
@@ -5812,9 +5820,9 @@ export class AddBclLogisticinfoRequest extends $tea.Model {
   // 当前暂时只支持已签收
   logisticStatus: string;
   // 物流照片网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
-  logisticsFileId: string;
+  logisticsFileId?: string;
   // 签收记录,网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
-  arriveConfirmFileId: string;
+  arriveConfirmFileId?: string;
   // 用户签收时间格式为2019-8-31 12:00:00
   arriveConfirmTime: string;
   // 物流公司简称
@@ -5989,8 +5997,6 @@ export class CreateBclOrderRequest extends $tea.Model {
   // DUE_BUYOUT 到期买断 
   // DUE_RETURN 到期归还
   dueMode: string;
-  // 商品售价 单位分
-  totalMoney: number;
   // 租金总额 单位分
   totalRentMoney: number;
   // 订单租期, 比如6期,12期,24期,36期,填数字
@@ -5998,8 +6004,7 @@ export class CreateBclOrderRequest extends $tea.Model {
   // 订单租期对应的单位,如果是租期为6,租期单位为MONTH,代表租6个月
   // 月: MONTH
   rentUnit: string;
-  // 到期买断价 单位分，
-  // 到期金额，若为买断形式传买断金额，否则传到期归还金额
+  // 到期买断价 单位分，若为买断形式传买断金额，否则传到期归还金额
   buyOutPrice?: number;
   // 芝麻信用 订单免押金额  单位分
   depositFree?: number;
@@ -6042,7 +6047,6 @@ export class CreateBclOrderRequest extends $tea.Model {
       orderCreateTime: 'order_create_time',
       userInfo: 'user_info',
       dueMode: 'due_mode',
-      totalMoney: 'total_money',
       totalRentMoney: 'total_rent_money',
       rentTerm: 'rent_term',
       rentUnit: 'rent_unit',
@@ -6072,7 +6076,6 @@ export class CreateBclOrderRequest extends $tea.Model {
       orderCreateTime: 'string',
       userInfo: BclUserInfo,
       dueMode: 'string',
-      totalMoney: 'number',
       totalRentMoney: 'number',
       rentTerm: 'number',
       rentUnit: 'string',
@@ -6332,7 +6335,7 @@ export class CreateBclProductRequest extends $tea.Model {
   // 商品名称，
   // 长度不超过64位
   productName: string;
-  // 商品价格,单位为分。如：856400，表示8564元，大于0
+  // 商品官网价格,单位为分。如：856400，表示8564元，大于0
   productPrice: number;
   // 一级行业代码。
   // 
@@ -6738,6 +6741,65 @@ export class GetBclUploadurlResponse extends $tea.Model {
       resultMsg: 'string',
       url: 'string',
       fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateBclPromiserepaymentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单编号ID,长度不超过32位
+  orderId: string;
+  // 租期编号，如：1表示第一期; 目前还款支持最大期数为120期；
+  period: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      period: 'period',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      period: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateBclPromiserepaymentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -11548,12 +11610,18 @@ export class CancelContractPaysingletradeRequest extends $tea.Model {
   flowId: string;
   // 被取消的某一期的代扣id
   cancelOutOrderNo: string;
+  // 租赁宝租赁订单号
+  bclOrderId?: string;
+  // 租赁订单对应的租户id
+  bclTenantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       flowId: 'flow_id',
       cancelOutOrderNo: 'cancel_out_order_no',
+      bclOrderId: 'bcl_order_id',
+      bclTenantId: 'bcl_tenant_id',
     };
   }
 
@@ -11563,6 +11631,8 @@ export class CancelContractPaysingletradeRequest extends $tea.Model {
       productInstanceId: 'string',
       flowId: 'string',
       cancelOutOrderNo: 'string',
+      bclOrderId: 'string',
+      bclTenantId: 'string',
     };
   }
 
@@ -33228,7 +33298,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.2",
+          sdk_version: "1.10.8",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -33483,6 +33553,25 @@ export default class Client {
   async getBclUploadurlEx(request: GetBclUploadurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetBclUploadurlResponse> {
     Util.validateModel(request);
     return $tea.cast<GetBclUploadurlResponse>(await this.doRequest("1.0", "twc.notary.bcl.uploadurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetBclUploadurlResponse({}));
+  }
+
+  /**
+   * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+   * Summary: 变更BCL订单承诺履约还款方式
+   */
+  async updateBclPromiserepayment(request: UpdateBclPromiserepaymentRequest): Promise<UpdateBclPromiserepaymentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateBclPromiserepaymentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+   * Summary: 变更BCL订单承诺履约还款方式
+   */
+  async updateBclPromiserepaymentEx(request: UpdateBclPromiserepaymentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateBclPromiserepaymentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateBclPromiserepaymentResponse>(await this.doRequest("1.0", "twc.notary.bcl.promiserepayment.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateBclPromiserepaymentResponse({}));
   }
 
   /**
