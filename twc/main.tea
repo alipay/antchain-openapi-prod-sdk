@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.8',
+    sdk_version = '1.10.9',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -3771,6 +3771,9 @@ model CreateContractPlatformRequest = {
   creator: ContractAccountApplication(name='creator'),
   // 平台机构信息
   platform: ContractOrganizationApplication(name='platform'),
+  // 代理客户时，实际用户的租户ID
+  // 
+  subTenantId?: string(name='sub_tenant_id'),
 }
 
 model CreateContractPlatformResponse = {
@@ -3821,6 +3824,8 @@ model CreateContractUserRequest = {
   user: ContractAccountApplication(name='user'),
   // 用户类型，个人（PERSON）或机构（ORGANIZATION）
   userType: string(name='user_type'),
+  // 代理客户时，实际用户的租户ID
+  subTenantId?: string(name='sub_tenant_id'),
 }
 
 model CreateContractUserResponse = {
@@ -4081,6 +4086,8 @@ model GetContractFileuploadurlRequest = {
   fileSize: long(name='file_size'),
   // 文件名称（必须带上文件扩展名，不然会导致后续发起流程校验过不去 示例：合同.pdf ）
   fileName: string(name='file_name'),
+  // 代理客户时，实际用户的租户ID
+  subTenantId?: string(name='sub_tenant_id'),
 }
 
 model GetContractFileuploadurlResponse = {
@@ -5474,6 +5481,8 @@ model GetContractSignurlRequest = {
   shortUrl?: boolean(name='short_url'),
   // 本功能需要单独审批开放。当account_id为机构账户时，可以在执行签署时单独指定经办人账户，代为完成本次签署操作。
   agentAccountId?: string(name='agent_account_id'),
+  // 代理客户时，实际用户的租户ID
+  subTenantId?: string(name='sub_tenant_id'),
 }
 
 model GetContractSignurlResponse = {
@@ -6128,6 +6137,18 @@ model CreateContractOnestepflowRequest = {
   signPlatform?: string(name='sign_platform'),
   // 签署有效截止日期，毫秒，默认3天失效
   signValidity?: long(name='sign_validity'),
+  // 是否强制代扣
+  autoDeductionForce?: boolean(name='auto_deduction_force'),
+  // 代扣规则详情
+  repaymentOrderInfo?: [ RepaymentOrderRequest ](name='repayment_order_info'),
+  // 付款方ID（个人）
+  payerTuid?: string(name='payer_tuid'),
+  // 收款方ID(机构)
+  payeeTuid?: string(name='payee_tuid'),
+  // 租赁订单Id
+  bclOrderId?: string(maxLength=32, name='bcl_order_id'),
+  // 代理客户时，实际用户的租户ID
+  subTenantId?: string(name='sub_tenant_id'),
 }
 
 model CreateContractOnestepflowResponse = {
