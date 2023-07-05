@@ -26,12 +26,12 @@ public class AddBclLogisticinfoRequest extends TeaModel {
 
     // 物流照片网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
     @NameInMap("logistics_file_id")
-    @Validation(required = true, maxLength = 64)
+    @Validation(maxLength = 64)
     public String logisticsFileId;
 
     // 签收记录,网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
     @NameInMap("arrive_confirm_file_id")
-    @Validation(required = true, maxLength = 64)
+    @Validation(maxLength = 64)
     public String arriveConfirmFileId;
 
     // 用户签收时间格式为2019-8-31 12:00:00

@@ -33,11 +33,6 @@ public class CreateBclOrderRequest extends TeaModel {
     @Validation(required = true, maxLength = 16)
     public String dueMode;
 
-    // 商品售价 单位分
-    @NameInMap("total_money")
-    @Validation(required = true, minimum = 1)
-    public Long totalMoney;
-
     // 租金总额 单位分
     @NameInMap("total_rent_money")
     @Validation(required = true, minimum = 1)
@@ -54,8 +49,7 @@ public class CreateBclOrderRequest extends TeaModel {
     @Validation(required = true, maxLength = 16)
     public String rentUnit;
 
-    // 到期买断价 单位分，
-    // 到期金额，若为买断形式传买断金额，否则传到期归还金额
+    // 到期买断价 单位分，若为买断形式传买断金额，否则传到期归还金额
     @NameInMap("buy_out_price")
     public Long buyOutPrice;
 
@@ -180,14 +174,6 @@ public class CreateBclOrderRequest extends TeaModel {
     }
     public String getDueMode() {
         return this.dueMode;
-    }
-
-    public CreateBclOrderRequest setTotalMoney(Long totalMoney) {
-        this.totalMoney = totalMoney;
-        return this;
-    }
-    public Long getTotalMoney() {
-        return this.totalMoney;
     }
 
     public CreateBclOrderRequest setTotalRentMoney(Long totalRentMoney) {

@@ -4,6 +4,10 @@ package com.antgroup.antchain.openapi.twc.models;
 import com.aliyun.tea.*;
 
 public class BclCertifyInfo extends TeaModel {
+    // 认证id
+    @NameInMap("certify_id")
+    public String certifyId;
+
     // 认证url 如果status待认证,该字段非空,
     // 如果认证失败,这里的新的认证链接,支持重复认证
     @NameInMap("certify_url")
@@ -24,6 +28,14 @@ public class BclCertifyInfo extends TeaModel {
     public static BclCertifyInfo build(java.util.Map<String, ?> map) throws Exception {
         BclCertifyInfo self = new BclCertifyInfo();
         return TeaModel.build(map, self);
+    }
+
+    public BclCertifyInfo setCertifyId(String certifyId) {
+        this.certifyId = certifyId;
+        return this;
+    }
+    public String getCertifyId() {
+        return this.certifyId;
     }
 
     public BclCertifyInfo setCertifyUrl(String certifyUrl) {

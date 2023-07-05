@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.2"),
+                    new TeaPair("sdk_version", "1.10.8"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -368,6 +368,25 @@ public class Client {
     public GetBclUploadurlResponse getBclUploadurlEx(GetBclUploadurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.uploadurl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetBclUploadurlResponse());
+    }
+
+    /**
+     * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+     * Summary: 变更BCL订单承诺履约还款方式
+     */
+    public UpdateBclPromiserepaymentResponse updateBclPromiserepayment(UpdateBclPromiserepaymentRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateBclPromiserepaymentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+     * Summary: 变更BCL订单承诺履约还款方式
+     */
+    public UpdateBclPromiserepaymentResponse updateBclPromiserepaymentEx(UpdateBclPromiserepaymentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.promiserepayment.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateBclPromiserepaymentResponse());
     }
 
     /**

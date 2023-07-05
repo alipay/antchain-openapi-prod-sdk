@@ -21,6 +21,14 @@ public class CancelContractPaysingletradeRequest extends TeaModel {
     @Validation(required = true)
     public String cancelOutOrderNo;
 
+    // 租赁宝租赁订单号
+    @NameInMap("bcl_order_id")
+    public String bclOrderId;
+
+    // 租赁订单对应的租户id
+    @NameInMap("bcl_tenant_id")
+    public String bclTenantId;
+
     public static CancelContractPaysingletradeRequest build(java.util.Map<String, ?> map) throws Exception {
         CancelContractPaysingletradeRequest self = new CancelContractPaysingletradeRequest();
         return TeaModel.build(map, self);
@@ -56,6 +64,22 @@ public class CancelContractPaysingletradeRequest extends TeaModel {
     }
     public String getCancelOutOrderNo() {
         return this.cancelOutOrderNo;
+    }
+
+    public CancelContractPaysingletradeRequest setBclOrderId(String bclOrderId) {
+        this.bclOrderId = bclOrderId;
+        return this;
+    }
+    public String getBclOrderId() {
+        return this.bclOrderId;
+    }
+
+    public CancelContractPaysingletradeRequest setBclTenantId(String bclTenantId) {
+        this.bclTenantId = bclTenantId;
+        return this;
+    }
+    public String getBclTenantId() {
+        return this.bclTenantId;
     }
 
 }

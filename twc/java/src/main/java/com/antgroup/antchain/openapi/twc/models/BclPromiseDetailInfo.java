@@ -32,6 +32,11 @@ public class BclPromiseDetailInfo extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String payTime;
 
+    // 归还方式，取值范围如下： ACTIVE_REPAYMENT：主动还款， MY_BANK_PROXY_WITHHOLDING：网商委托代扣, PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
+    @NameInMap("way")
+    @Validation(required = true, maxLength = 32)
+    public String way;
+
     public static BclPromiseDetailInfo build(java.util.Map<String, ?> map) throws Exception {
         BclPromiseDetailInfo self = new BclPromiseDetailInfo();
         return TeaModel.build(map, self);
@@ -75,6 +80,14 @@ public class BclPromiseDetailInfo extends TeaModel {
     }
     public String getPayTime() {
         return this.payTime;
+    }
+
+    public BclPromiseDetailInfo setWay(String way) {
+        this.way = way;
+        return this;
+    }
+    public String getWay() {
+        return this.way;
     }
 
 }

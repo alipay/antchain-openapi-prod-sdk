@@ -20,7 +20,7 @@ public class CreateBclProductRequest extends TeaModel {
     // 商品版本;
     // 每个商品的编码+版本 唯一确认一个产品信息，必须为自然数，如"0","1","10"等
     @NameInMap("product_version")
-    @Validation(required = true, maxLength = 16)
+    @Validation(required = true, maxLength = 8)
     public String productVersion;
 
     // 商品名称，
@@ -29,7 +29,7 @@ public class CreateBclProductRequest extends TeaModel {
     @Validation(required = true, maxLength = 64)
     public String productName;
 
-    // 商品价格,单位为分。如：856400，表示8564元，大于0
+    // 商品官网价格,单位为分。如：856400，表示8564元，大于0
     @NameInMap("product_price")
     @Validation(required = true, minimum = 1)
     public Long productPrice;
