@@ -11,6 +11,11 @@ public class BindGatewayAbcTestRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 123
+    @NameInMap("test_param")
+    @Validation(required = true)
+    public java.util.List<DemoClass> testParam;
+
     public static BindGatewayAbcTestRequest build(java.util.Map<String, ?> map) throws Exception {
         BindGatewayAbcTestRequest self = new BindGatewayAbcTestRequest();
         return TeaModel.build(map, self);
@@ -30,6 +35,14 @@ public class BindGatewayAbcTestRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public BindGatewayAbcTestRequest setTestParam(java.util.List<DemoClass> testParam) {
+        this.testParam = testParam;
+        return this;
+    }
+    public java.util.List<DemoClass> getTestParam() {
+        return this.testParam;
     }
 
 }

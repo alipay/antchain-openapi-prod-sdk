@@ -11,7 +11,7 @@ public class ExecGatewayRoadRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 初始值
+    // 计算值输入
     @NameInMap("exec_num")
     @Validation(required = true)
     public Long execNum;

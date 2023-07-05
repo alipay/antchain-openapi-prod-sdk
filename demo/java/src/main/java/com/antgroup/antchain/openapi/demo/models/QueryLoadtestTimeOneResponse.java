@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class CreateSaasTestTesthResponse extends TeaModel {
+public class QueryLoadtestTimeOneResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,20 @@ public class CreateSaasTestTesthResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // test
-    @NameInMap("name")
-    public String name;
+    // 200
+    @NameInMap("stauts")
+    public String stauts;
 
-    public static CreateSaasTestTesthResponse build(java.util.Map<String, ?> map) throws Exception {
-        CreateSaasTestTesthResponse self = new CreateSaasTestTesthResponse();
+    // ok
+    @NameInMap("msg")
+    public String msg;
+
+    public static QueryLoadtestTimeOneResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryLoadtestTimeOneResponse self = new QueryLoadtestTimeOneResponse();
         return TeaModel.build(map, self);
     }
 
-    public CreateSaasTestTesthResponse setReqMsgId(String reqMsgId) {
+    public QueryLoadtestTimeOneResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +37,7 @@ public class CreateSaasTestTesthResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CreateSaasTestTesthResponse setResultCode(String resultCode) {
+    public QueryLoadtestTimeOneResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +45,7 @@ public class CreateSaasTestTesthResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CreateSaasTestTesthResponse setResultMsg(String resultMsg) {
+    public QueryLoadtestTimeOneResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +53,20 @@ public class CreateSaasTestTesthResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CreateSaasTestTesthResponse setName(String name) {
-        this.name = name;
+    public QueryLoadtestTimeOneResponse setStauts(String stauts) {
+        this.stauts = stauts;
         return this;
     }
-    public String getName() {
-        return this.name;
+    public String getStauts() {
+        return this.stauts;
+    }
+
+    public QueryLoadtestTimeOneResponse setMsg(String msg) {
+        this.msg = msg;
+        return this;
+    }
+    public String getMsg() {
+        return this.msg;
     }
 
 }

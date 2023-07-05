@@ -16,7 +16,7 @@ public class QueryGatewayRoadResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 查询结果
+    // 查询返回
     @NameInMap("query_result")
     public String queryResult;
 

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class ReplaceSaasTestTestjRequest extends TeaModel {
+public class QueryLoadtestTimeOneRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class ReplaceSaasTestTestjRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // test
-    @NameInMap("name")
+    // 毫秒值
+    @NameInMap("timeout")
     @Validation(required = true)
-    public String name;
+    public Long timeout;
 
-    public static ReplaceSaasTestTestjRequest build(java.util.Map<String, ?> map) throws Exception {
-        ReplaceSaasTestTestjRequest self = new ReplaceSaasTestTestjRequest();
+    public static QueryLoadtestTimeOneRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryLoadtestTimeOneRequest self = new QueryLoadtestTimeOneRequest();
         return TeaModel.build(map, self);
     }
 
-    public ReplaceSaasTestTestjRequest setAuthToken(String authToken) {
+    public QueryLoadtestTimeOneRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class ReplaceSaasTestTestjRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ReplaceSaasTestTestjRequest setProductInstanceId(String productInstanceId) {
+    public QueryLoadtestTimeOneRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class ReplaceSaasTestTestjRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ReplaceSaasTestTestjRequest setName(String name) {
-        this.name = name;
+    public QueryLoadtestTimeOneRequest setTimeout(Long timeout) {
+        this.timeout = timeout;
         return this;
     }
-    public String getName() {
-        return this.name;
+    public Long getTimeout() {
+        return this.timeout;
     }
 
 }

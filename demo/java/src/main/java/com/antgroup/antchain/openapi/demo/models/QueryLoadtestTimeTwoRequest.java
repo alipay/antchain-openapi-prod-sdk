@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryMasterstationMasterdataRequest extends TeaModel {
+public class QueryLoadtestTimeTwoRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class QueryMasterstationMasterdataRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 用户工号
-    @NameInMap("workno")
+    // 毫秒
+    @NameInMap("timeout")
     @Validation(required = true)
-    public String workno;
+    public Long timeout;
 
-    public static QueryMasterstationMasterdataRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryMasterstationMasterdataRequest self = new QueryMasterstationMasterdataRequest();
+    public static QueryLoadtestTimeTwoRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryLoadtestTimeTwoRequest self = new QueryLoadtestTimeTwoRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryMasterstationMasterdataRequest setAuthToken(String authToken) {
+    public QueryLoadtestTimeTwoRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryMasterstationMasterdataRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryMasterstationMasterdataRequest setProductInstanceId(String productInstanceId) {
+    public QueryLoadtestTimeTwoRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class QueryMasterstationMasterdataRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryMasterstationMasterdataRequest setWorkno(String workno) {
-        this.workno = workno;
+    public QueryLoadtestTimeTwoRequest setTimeout(Long timeout) {
+        this.timeout = timeout;
         return this;
     }
-    public String getWorkno() {
-        return this.workno;
+    public Long getTimeout() {
+        return this.timeout;
     }
 
 }

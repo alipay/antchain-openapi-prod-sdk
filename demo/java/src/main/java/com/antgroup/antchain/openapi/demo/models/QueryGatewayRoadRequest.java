@@ -11,7 +11,7 @@ public class QueryGatewayRoadRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 查询内容
+    // 查询输入
     @NameInMap("data")
     @Validation(required = true)
     public String data;

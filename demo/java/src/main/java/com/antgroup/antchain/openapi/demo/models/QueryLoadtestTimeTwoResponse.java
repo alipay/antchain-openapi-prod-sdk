@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class CreateSaasTestTestiResponse extends TeaModel {
+public class QueryLoadtestTimeTwoResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,20 @@ public class CreateSaasTestTestiResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // test
-    @NameInMap("sex")
-    public String sex;
+    // 200
+    @NameInMap("stauts")
+    public String stauts;
 
-    public static CreateSaasTestTestiResponse build(java.util.Map<String, ?> map) throws Exception {
-        CreateSaasTestTestiResponse self = new CreateSaasTestTestiResponse();
+    // ok
+    @NameInMap("msg")
+    public String msg;
+
+    public static QueryLoadtestTimeTwoResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryLoadtestTimeTwoResponse self = new QueryLoadtestTimeTwoResponse();
         return TeaModel.build(map, self);
     }
 
-    public CreateSaasTestTestiResponse setReqMsgId(String reqMsgId) {
+    public QueryLoadtestTimeTwoResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +37,7 @@ public class CreateSaasTestTestiResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CreateSaasTestTestiResponse setResultCode(String resultCode) {
+    public QueryLoadtestTimeTwoResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +45,7 @@ public class CreateSaasTestTestiResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CreateSaasTestTestiResponse setResultMsg(String resultMsg) {
+    public QueryLoadtestTimeTwoResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +53,20 @@ public class CreateSaasTestTestiResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CreateSaasTestTestiResponse setSex(String sex) {
-        this.sex = sex;
+    public QueryLoadtestTimeTwoResponse setStauts(String stauts) {
+        this.stauts = stauts;
         return this;
     }
-    public String getSex() {
-        return this.sex;
+    public String getStauts() {
+        return this.stauts;
+    }
+
+    public QueryLoadtestTimeTwoResponse setMsg(String msg) {
+        this.msg = msg;
+        return this;
+    }
+    public String getMsg() {
+        return this.msg;
     }
 
 }

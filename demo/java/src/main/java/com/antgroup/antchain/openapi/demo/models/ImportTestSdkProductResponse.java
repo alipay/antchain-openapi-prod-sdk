@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryMasterstationMasterdataResponse extends TeaModel {
+public class ImportTestSdkProductResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class QueryMasterstationMasterdataResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static QueryMasterstationMasterdataResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryMasterstationMasterdataResponse self = new QueryMasterstationMasterdataResponse();
+    public static ImportTestSdkProductResponse build(java.util.Map<String, ?> map) throws Exception {
+        ImportTestSdkProductResponse self = new ImportTestSdkProductResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryMasterstationMasterdataResponse setReqMsgId(String reqMsgId) {
+    public ImportTestSdkProductResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryMasterstationMasterdataResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryMasterstationMasterdataResponse setResultCode(String resultCode) {
+    public ImportTestSdkProductResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryMasterstationMasterdataResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryMasterstationMasterdataResponse setResultMsg(String resultMsg) {
+    public ImportTestSdkProductResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }

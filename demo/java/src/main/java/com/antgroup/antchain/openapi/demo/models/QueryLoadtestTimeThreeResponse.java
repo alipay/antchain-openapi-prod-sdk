@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class ReplaceSaasTestTestjResponse extends TeaModel {
+public class QueryLoadtestTimeThreeResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,20 @@ public class ReplaceSaasTestTestjResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // test
-    @NameInMap("age")
-    public String age;
+    // 200
+    @NameInMap("stauts")
+    public String stauts;
 
-    public static ReplaceSaasTestTestjResponse build(java.util.Map<String, ?> map) throws Exception {
-        ReplaceSaasTestTestjResponse self = new ReplaceSaasTestTestjResponse();
+    // ok
+    @NameInMap("msg")
+    public String msg;
+
+    public static QueryLoadtestTimeThreeResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryLoadtestTimeThreeResponse self = new QueryLoadtestTimeThreeResponse();
         return TeaModel.build(map, self);
     }
 
-    public ReplaceSaasTestTestjResponse setReqMsgId(String reqMsgId) {
+    public QueryLoadtestTimeThreeResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +37,7 @@ public class ReplaceSaasTestTestjResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ReplaceSaasTestTestjResponse setResultCode(String resultCode) {
+    public QueryLoadtestTimeThreeResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +45,7 @@ public class ReplaceSaasTestTestjResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ReplaceSaasTestTestjResponse setResultMsg(String resultMsg) {
+    public QueryLoadtestTimeThreeResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +53,20 @@ public class ReplaceSaasTestTestjResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ReplaceSaasTestTestjResponse setAge(String age) {
-        this.age = age;
+    public QueryLoadtestTimeThreeResponse setStauts(String stauts) {
+        this.stauts = stauts;
         return this;
     }
-    public String getAge() {
-        return this.age;
+    public String getStauts() {
+        return this.stauts;
+    }
+
+    public QueryLoadtestTimeThreeResponse setMsg(String msg) {
+        this.msg = msg;
+        return this;
+    }
+    public String getMsg() {
+        return this.msg;
     }
 
 }

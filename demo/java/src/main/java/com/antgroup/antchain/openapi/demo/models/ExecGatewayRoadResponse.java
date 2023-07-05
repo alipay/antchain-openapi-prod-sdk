@@ -16,7 +16,7 @@ public class ExecGatewayRoadResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 计算后返回结果
+    // 计算值返回
     @NameInMap("exec_num_echo")
     public Long execNumEcho;
 
