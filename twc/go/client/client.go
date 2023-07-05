@@ -752,6 +752,8 @@ type BclPromiseDetailInfo struct {
 	PromiseTime *string `json:"promise_time,omitempty" xml:"promise_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 履约日期
 	PayTime *string `json:"pay_time,omitempty" xml:"pay_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 归还方式，取值范围如下： ACTIVE_REPAYMENT：主动还款， MY_BANK_PROXY_WITHHOLDING：网商委托代扣, PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
+	Way *string `json:"way,omitempty" xml:"way,omitempty" require:"true" maxLength:"32"`
 }
 
 func (s BclPromiseDetailInfo) String() string {
@@ -784,6 +786,11 @@ func (s *BclPromiseDetailInfo) SetPromiseTime(v string) *BclPromiseDetailInfo {
 
 func (s *BclPromiseDetailInfo) SetPayTime(v string) *BclPromiseDetailInfo {
 	s.PayTime = &v
+	return s
+}
+
+func (s *BclPromiseDetailInfo) SetWay(v string) *BclPromiseDetailInfo {
+	s.Way = &v
 	return s
 }
 
@@ -3838,6 +3845,8 @@ func (s *LeaseClearingInfo) SetMemo(v string) *LeaseClearingInfo {
 
 // 实人信息
 type BclCertifyInfo struct {
+	// 认证id
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
 	// 认证url 如果status待认证,该字段非空,
 	// 如果认证失败,这里的新的认证链接,支持重复认证
 	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
@@ -3856,6 +3865,11 @@ func (s BclCertifyInfo) String() string {
 
 func (s BclCertifyInfo) GoString() string {
 	return s.String()
+}
+
+func (s *BclCertifyInfo) SetCertifyId(v string) *BclCertifyInfo {
+	s.CertifyId = &v
+	return s
 }
 
 func (s *BclCertifyInfo) SetCertifyUrl(v string) *BclCertifyInfo {
@@ -4501,8 +4515,8 @@ type BclOrderInfo struct {
 	// 已创建 CREATED
 	// 待发起 PRE_SUBMIT
 	// 已发起 SUBMIT
-	// 履约中 PROMISING
-	// 履约完成 PROMISED
+	// 履约中 PERFORMING
+	// 履约完成 PERFORMED
 	// 订单完结 ORDER_FINISH
 	// 风控失败 RISK_FAIL
 	// 核身失败 IDENTITY_NOT_MATCH
@@ -7672,9 +7686,9 @@ type AddBclLogisticinfoRequest struct {
 	// 当前暂时只支持已签收
 	LogisticStatus *string `json:"logistic_status,omitempty" xml:"logistic_status,omitempty" require:"true" maxLength:"16"`
 	// 物流照片网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
-	LogisticsFileId *string `json:"logistics_file_id,omitempty" xml:"logistics_file_id,omitempty" require:"true" maxLength:"64"`
+	LogisticsFileId *string `json:"logistics_file_id,omitempty" xml:"logistics_file_id,omitempty" maxLength:"64"`
 	// 签收记录,网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
-	ArriveConfirmFileId *string `json:"arrive_confirm_file_id,omitempty" xml:"arrive_confirm_file_id,omitempty" require:"true" maxLength:"64"`
+	ArriveConfirmFileId *string `json:"arrive_confirm_file_id,omitempty" xml:"arrive_confirm_file_id,omitempty" maxLength:"64"`
 	// 用户签收时间格式为2019-8-31 12:00:00
 	ArriveConfirmTime *string `json:"arrive_confirm_time,omitempty" xml:"arrive_confirm_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 物流公司简称
@@ -7910,8 +7924,6 @@ type CreateBclOrderRequest struct {
 	// DUE_BUYOUT 到期买断
 	// DUE_RETURN 到期归还
 	DueMode *string `json:"due_mode,omitempty" xml:"due_mode,omitempty" require:"true" maxLength:"16"`
-	// 商品售价 单位分
-	TotalMoney *int64 `json:"total_money,omitempty" xml:"total_money,omitempty" require:"true" minimum:"1"`
 	// 租金总额 单位分
 	TotalRentMoney *int64 `json:"total_rent_money,omitempty" xml:"total_rent_money,omitempty" require:"true" minimum:"1"`
 	// 订单租期, 比如6期,12期,24期,36期,填数字
@@ -7919,8 +7931,7 @@ type CreateBclOrderRequest struct {
 	// 订单租期对应的单位,如果是租期为6,租期单位为MONTH,代表租6个月
 	// 月: MONTH
 	RentUnit *string `json:"rent_unit,omitempty" xml:"rent_unit,omitempty" require:"true" maxLength:"16"`
-	// 到期买断价 单位分，
-	// 到期金额，若为买断形式传买断金额，否则传到期归还金额
+	// 到期买断价 单位分，若为买断形式传买断金额，否则传到期归还金额
 	BuyOutPrice *int64 `json:"buy_out_price,omitempty" xml:"buy_out_price,omitempty" minimum:"1"`
 	// 芝麻信用 订单免押金额  单位分
 	DepositFree *int64 `json:"deposit_free,omitempty" xml:"deposit_free,omitempty" minimum:"1"`
@@ -7992,11 +8003,6 @@ func (s *CreateBclOrderRequest) SetUserInfo(v *BclUserInfo) *CreateBclOrderReque
 
 func (s *CreateBclOrderRequest) SetDueMode(v string) *CreateBclOrderRequest {
 	s.DueMode = &v
-	return s
-}
-
-func (s *CreateBclOrderRequest) SetTotalMoney(v int64) *CreateBclOrderRequest {
-	s.TotalMoney = &v
 	return s
 }
 
@@ -8393,11 +8399,11 @@ type CreateBclProductRequest struct {
 	ProductOuterId *string `json:"product_outer_id,omitempty" xml:"product_outer_id,omitempty" require:"true" maxLength:"32"`
 	// 商品版本;
 	// 每个商品的编码+版本 唯一确认一个产品信息，必须为自然数，如"0","1","10"等
-	ProductVersion *string `json:"product_version,omitempty" xml:"product_version,omitempty" require:"true" maxLength:"16"`
+	ProductVersion *string `json:"product_version,omitempty" xml:"product_version,omitempty" require:"true" maxLength:"8"`
 	// 商品名称，
 	// 长度不超过64位
 	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true" maxLength:"64"`
-	// 商品价格,单位为分。如：856400，表示8564元，大于0
+	// 商品官网价格,单位为分。如：856400，表示8564元，大于0
 	ProductPrice *int64 `json:"product_price,omitempty" xml:"product_price,omitempty" require:"true" minimum:"1"`
 	// 一级行业代码。
 	//
@@ -8966,6 +8972,76 @@ func (s *GetBclUploadurlResponse) SetUrl(v string) *GetBclUploadurlResponse {
 
 func (s *GetBclUploadurlResponse) SetFileId(v string) *GetBclUploadurlResponse {
 	s.FileId = &v
+	return s
+}
+
+type UpdateBclPromiserepaymentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单编号ID,长度不超过32位
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"32"`
+	// 租期编号，如：1表示第一期; 目前还款支持最大期数为120期；
+	Period *int64 `json:"period,omitempty" xml:"period,omitempty" require:"true" maximum:"120" minimum:"1"`
+}
+
+func (s UpdateBclPromiserepaymentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateBclPromiserepaymentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateBclPromiserepaymentRequest) SetAuthToken(v string) *UpdateBclPromiserepaymentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateBclPromiserepaymentRequest) SetProductInstanceId(v string) *UpdateBclPromiserepaymentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateBclPromiserepaymentRequest) SetOrderId(v string) *UpdateBclPromiserepaymentRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *UpdateBclPromiserepaymentRequest) SetPeriod(v int64) *UpdateBclPromiserepaymentRequest {
+	s.Period = &v
+	return s
+}
+
+type UpdateBclPromiserepaymentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateBclPromiserepaymentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateBclPromiserepaymentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateBclPromiserepaymentResponse) SetReqMsgId(v string) *UpdateBclPromiserepaymentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateBclPromiserepaymentResponse) SetResultCode(v string) *UpdateBclPromiserepaymentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateBclPromiserepaymentResponse) SetResultMsg(v string) *UpdateBclPromiserepaymentResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -15491,6 +15567,10 @@ type CancelContractPaysingletradeRequest struct {
 	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
 	// 被取消的某一期的代扣id
 	CancelOutOrderNo *string `json:"cancel_out_order_no,omitempty" xml:"cancel_out_order_no,omitempty" require:"true"`
+	// 租赁宝租赁订单号
+	BclOrderId *string `json:"bcl_order_id,omitempty" xml:"bcl_order_id,omitempty"`
+	// 租赁订单对应的租户id
+	BclTenantId *string `json:"bcl_tenant_id,omitempty" xml:"bcl_tenant_id,omitempty"`
 }
 
 func (s CancelContractPaysingletradeRequest) String() string {
@@ -15518,6 +15598,16 @@ func (s *CancelContractPaysingletradeRequest) SetFlowId(v string) *CancelContrac
 
 func (s *CancelContractPaysingletradeRequest) SetCancelOutOrderNo(v string) *CancelContractPaysingletradeRequest {
 	s.CancelOutOrderNo = &v
+	return s
+}
+
+func (s *CancelContractPaysingletradeRequest) SetBclOrderId(v string) *CancelContractPaysingletradeRequest {
+	s.BclOrderId = &v
+	return s
+}
+
+func (s *CancelContractPaysingletradeRequest) SetBclTenantId(v string) *CancelContractPaysingletradeRequest {
+	s.BclTenantId = &v
 	return s
 }
 
@@ -44741,7 +44831,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.2"),
+				"sdk_version":      tea.String("1.10.8"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -45166,6 +45256,40 @@ func (client *Client) GetBclUploadurlEx(request *GetBclUploadurlRequest, headers
 	}
 	_result = &GetBclUploadurlResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.uploadurl.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+ * Summary: 变更BCL订单承诺履约还款方式
+ */
+func (client *Client) UpdateBclPromiserepayment(request *UpdateBclPromiserepaymentRequest) (_result *UpdateBclPromiserepaymentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateBclPromiserepaymentResponse{}
+	_body, _err := client.UpdateBclPromiserepaymentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+ * Summary: 变更BCL订单承诺履约还款方式
+ */
+func (client *Client) UpdateBclPromiserepaymentEx(request *UpdateBclPromiserepaymentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateBclPromiserepaymentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateBclPromiserepaymentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.promiserepayment.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
