@@ -7860,12 +7860,16 @@ export class CreateContractPlatformRequest extends $tea.Model {
   creator: ContractAccountApplication;
   // 平台机构信息
   platform: ContractOrganizationApplication;
+  // 代理客户时，实际用户的租户ID
+  // 
+  subTenantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       creator: 'creator',
       platform: 'platform',
+      subTenantId: 'sub_tenant_id',
     };
   }
 
@@ -7875,6 +7879,7 @@ export class CreateContractPlatformRequest extends $tea.Model {
       productInstanceId: 'string',
       creator: ContractAccountApplication,
       platform: ContractOrganizationApplication,
+      subTenantId: 'string',
     };
   }
 
@@ -7941,6 +7946,8 @@ export class CreateContractUserRequest extends $tea.Model {
   user: ContractAccountApplication;
   // 用户类型，个人（PERSON）或机构（ORGANIZATION）
   userType: string;
+  // 代理客户时，实际用户的租户ID
+  subTenantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7948,6 +7955,7 @@ export class CreateContractUserRequest extends $tea.Model {
       organization: 'organization',
       user: 'user',
       userType: 'user_type',
+      subTenantId: 'sub_tenant_id',
     };
   }
 
@@ -7958,6 +7966,7 @@ export class CreateContractUserRequest extends $tea.Model {
       organization: ContractOrganizationApplication,
       user: ContractAccountApplication,
       userType: 'string',
+      subTenantId: 'string',
     };
   }
 
@@ -8385,6 +8394,8 @@ export class GetContractFileuploadurlRequest extends $tea.Model {
   fileSize: number;
   // 文件名称（必须带上文件扩展名，不然会导致后续发起流程校验过不去 示例：合同.pdf ）
   fileName: string;
+  // 代理客户时，实际用户的租户ID
+  subTenantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -8395,6 +8406,7 @@ export class GetContractFileuploadurlRequest extends $tea.Model {
       convert2Pdf: 'convert_2_pdf',
       fileSize: 'file_size',
       fileName: 'file_name',
+      subTenantId: 'sub_tenant_id',
     };
   }
 
@@ -8408,6 +8420,7 @@ export class GetContractFileuploadurlRequest extends $tea.Model {
       convert2Pdf: 'string',
       fileSize: 'number',
       fileName: 'string',
+      subTenantId: 'string',
     };
   }
 
@@ -10699,6 +10712,8 @@ export class GetContractSignurlRequest extends $tea.Model {
   shortUrl?: boolean;
   // 本功能需要单独审批开放。当account_id为机构账户时，可以在执行签署时单独指定经办人账户，代为完成本次签署操作。
   agentAccountId?: string;
+  // 代理客户时，实际用户的租户ID
+  subTenantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10708,6 +10723,7 @@ export class GetContractSignurlRequest extends $tea.Model {
       organizeId: 'organize_id',
       shortUrl: 'short_url',
       agentAccountId: 'agent_account_id',
+      subTenantId: 'sub_tenant_id',
     };
   }
 
@@ -10720,6 +10736,7 @@ export class GetContractSignurlRequest extends $tea.Model {
       organizeId: 'string',
       shortUrl: 'boolean',
       agentAccountId: 'string',
+      subTenantId: 'string',
     };
   }
 
@@ -11770,6 +11787,18 @@ export class CreateContractOnestepflowRequest extends $tea.Model {
   signPlatform?: string;
   // 签署有效截止日期，毫秒，默认3天失效
   signValidity?: number;
+  // 是否强制代扣
+  autoDeductionForce?: boolean;
+  // 代扣规则详情
+  repaymentOrderInfo?: RepaymentOrderRequest[];
+  // 付款方ID（个人）
+  payerTuid?: string;
+  // 收款方ID(机构)
+  payeeTuid?: string;
+  // 租赁订单Id
+  bclOrderId?: string;
+  // 代理客户时，实际用户的租户ID
+  subTenantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11785,6 +11814,12 @@ export class CreateContractOnestepflowRequest extends $tea.Model {
       signFields: 'sign_fields',
       signPlatform: 'sign_platform',
       signValidity: 'sign_validity',
+      autoDeductionForce: 'auto_deduction_force',
+      repaymentOrderInfo: 'repayment_order_info',
+      payerTuid: 'payer_tuid',
+      payeeTuid: 'payee_tuid',
+      bclOrderId: 'bcl_order_id',
+      subTenantId: 'sub_tenant_id',
     };
   }
 
@@ -11803,6 +11838,12 @@ export class CreateContractOnestepflowRequest extends $tea.Model {
       signFields: { 'type': 'array', 'itemType': OneStepSignField },
       signPlatform: 'string',
       signValidity: 'number',
+      autoDeductionForce: 'boolean',
+      repaymentOrderInfo: { 'type': 'array', 'itemType': RepaymentOrderRequest },
+      payerTuid: 'string',
+      payeeTuid: 'string',
+      bclOrderId: 'string',
+      subTenantId: 'string',
     };
   }
 
@@ -33298,7 +33339,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.8",
+          sdk_version: "1.10.9",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
