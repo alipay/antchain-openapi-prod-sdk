@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.2"},
+                        {"sdk_version", "1.10.8"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.2"},
+                        {"sdk_version", "1.10.8"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -781,6 +781,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetBclUploadurlResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.uploadurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+         * Summary: 变更BCL订单承诺履约还款方式
+         */
+        public UpdateBclPromiserepaymentResponse UpdateBclPromiserepayment(UpdateBclPromiserepaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateBclPromiserepaymentEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+         * Summary: 变更BCL订单承诺履约还款方式
+         */
+        public async Task<UpdateBclPromiserepaymentResponse> UpdateBclPromiserepaymentAsync(UpdateBclPromiserepaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateBclPromiserepaymentExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+         * Summary: 变更BCL订单承诺履约还款方式
+         */
+        public UpdateBclPromiserepaymentResponse UpdateBclPromiserepaymentEx(UpdateBclPromiserepaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateBclPromiserepaymentResponse>(DoRequest("1.0", "twc.notary.bcl.promiserepayment.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+         * Summary: 变更BCL订单承诺履约还款方式
+         */
+        public async Task<UpdateBclPromiserepaymentResponse> UpdateBclPromiserepaymentExAsync(UpdateBclPromiserepaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateBclPromiserepaymentResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.promiserepayment.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

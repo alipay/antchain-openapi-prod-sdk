@@ -33,12 +33,12 @@ namespace AntChain.SDK.TWC.Models
 
         // 物流照片网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
         [NameInMap("logistics_file_id")]
-        [Validation(Required=true, MaxLength=64)]
+        [Validation(Required=false, MaxLength=64)]
         public string LogisticsFileId { get; set; }
 
         // 签收记录,网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
         [NameInMap("arrive_confirm_file_id")]
-        [Validation(Required=true, MaxLength=64)]
+        [Validation(Required=false, MaxLength=64)]
         public string ArriveConfirmFileId { get; set; }
 
         // 用户签收时间格式为2019-8-31 12:00:00

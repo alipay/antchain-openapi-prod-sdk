@@ -40,11 +40,6 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true, MaxLength=16)]
         public string DueMode { get; set; }
 
-        // 商品售价 单位分
-        [NameInMap("total_money")]
-        [Validation(Required=true)]
-        public long? TotalMoney { get; set; }
-
         // 租金总额 单位分
         [NameInMap("total_rent_money")]
         [Validation(Required=true)]
@@ -61,8 +56,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true, MaxLength=16)]
         public string RentUnit { get; set; }
 
-        // 到期买断价 单位分，
-        // 到期金额，若为买断形式传买断金额，否则传到期归还金额
+        // 到期买断价 单位分，若为买断形式传买断金额，否则传到期归还金额
         [NameInMap("buy_out_price")]
         [Validation(Required=false)]
         public long? BuyOutPrice { get; set; }

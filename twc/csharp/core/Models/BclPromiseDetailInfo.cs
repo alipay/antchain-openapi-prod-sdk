@@ -38,6 +38,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string PayTime { get; set; }
 
+        // 归还方式，取值范围如下： ACTIVE_REPAYMENT：主动还款， MY_BANK_PROXY_WITHHOLDING：网商委托代扣, PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
+        [NameInMap("way")]
+        [Validation(Required=true, MaxLength=32)]
+        public string Way { get; set; }
+
     }
 
 }

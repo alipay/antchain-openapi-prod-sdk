@@ -27,7 +27,7 @@ namespace AntChain.SDK.TWC.Models
         // 商品版本;
         // 每个商品的编码+版本 唯一确认一个产品信息，必须为自然数，如"0","1","10"等
         [NameInMap("product_version")]
-        [Validation(Required=true, MaxLength=16)]
+        [Validation(Required=true, MaxLength=8)]
         public string ProductVersion { get; set; }
 
         // 商品名称，
@@ -36,7 +36,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true, MaxLength=64)]
         public string ProductName { get; set; }
 
-        // 商品价格,单位为分。如：856400，表示8564元，大于0
+        // 商品官网价格,单位为分。如：856400，表示8564元，大于0
         [NameInMap("product_price")]
         [Validation(Required=true)]
         public long? ProductPrice { get; set; }

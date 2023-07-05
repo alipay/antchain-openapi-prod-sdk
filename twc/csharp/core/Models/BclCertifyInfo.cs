@@ -10,6 +10,11 @@ namespace AntChain.SDK.TWC.Models
 {
     // 实人信息
     public class BclCertifyInfo : TeaModel {
+        // 认证id
+        [NameInMap("certify_id")]
+        [Validation(Required=false)]
+        public string CertifyId { get; set; }
+
         // 认证url 如果status待认证,该字段非空,
         // 如果认证失败,这里的新的认证链接,支持重复认证
         [NameInMap("certify_url")]
