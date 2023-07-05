@@ -18,7 +18,7 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 初始值
+        // 计算值输入
         [NameInMap("exec_num")]
         [Validation(Required=true)]
         public long? ExecNum { get; set; }

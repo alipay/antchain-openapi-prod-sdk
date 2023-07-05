@@ -18,7 +18,7 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 查询内容
+        // 查询输入
         [NameInMap("data")]
         [Validation(Required=true)]
         public string Data { get; set; }

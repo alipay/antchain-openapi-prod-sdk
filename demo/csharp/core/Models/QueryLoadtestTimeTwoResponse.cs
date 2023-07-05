@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    public class CreateSaasTestTestiResponse : TeaModel {
+    public class QueryLoadtestTimeTwoResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,15 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // test
-        [NameInMap("sex")]
+        // 200
+        [NameInMap("stauts")]
         [Validation(Required=false)]
-        public string Sex { get; set; }
+        public string Stauts { get; set; }
+
+        // ok
+        [NameInMap("msg")]
+        [Validation(Required=false)]
+        public string Msg { get; set; }
 
     }
 

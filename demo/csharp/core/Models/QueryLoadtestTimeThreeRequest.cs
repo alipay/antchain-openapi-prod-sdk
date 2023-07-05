@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    public class QueryMasterstationMasterdataRequest : TeaModel {
+    public class QueryLoadtestTimeThreeRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,10 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 用户工号
-        [NameInMap("workno")]
+        // ms
+        [NameInMap("timeout")]
         [Validation(Required=true)]
-        public string Workno { get; set; }
+        public long? Timeout { get; set; }
 
     }
 

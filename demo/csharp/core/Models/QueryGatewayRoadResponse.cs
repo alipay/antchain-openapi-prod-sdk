@@ -24,7 +24,7 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 查询结果
+        // 查询返回
         [NameInMap("query_result")]
         [Validation(Required=false)]
         public string QueryResult { get; set; }
