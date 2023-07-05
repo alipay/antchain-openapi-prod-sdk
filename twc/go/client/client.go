@@ -10447,6 +10447,9 @@ type CreateContractPlatformRequest struct {
 	Creator *ContractAccountApplication `json:"creator,omitempty" xml:"creator,omitempty" require:"true"`
 	// 平台机构信息
 	Platform *ContractOrganizationApplication `json:"platform,omitempty" xml:"platform,omitempty" require:"true"`
+	// 代理客户时，实际用户的租户ID
+	//
+	SubTenantId *string `json:"sub_tenant_id,omitempty" xml:"sub_tenant_id,omitempty"`
 }
 
 func (s CreateContractPlatformRequest) String() string {
@@ -10474,6 +10477,11 @@ func (s *CreateContractPlatformRequest) SetCreator(v *ContractAccountApplication
 
 func (s *CreateContractPlatformRequest) SetPlatform(v *ContractOrganizationApplication) *CreateContractPlatformRequest {
 	s.Platform = v
+	return s
+}
+
+func (s *CreateContractPlatformRequest) SetSubTenantId(v string) *CreateContractPlatformRequest {
+	s.SubTenantId = &v
 	return s
 }
 
@@ -10554,6 +10562,8 @@ type CreateContractUserRequest struct {
 	User *ContractAccountApplication `json:"user,omitempty" xml:"user,omitempty" require:"true"`
 	// 用户类型，个人（PERSON）或机构（ORGANIZATION）
 	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+	// 代理客户时，实际用户的租户ID
+	SubTenantId *string `json:"sub_tenant_id,omitempty" xml:"sub_tenant_id,omitempty"`
 }
 
 func (s CreateContractUserRequest) String() string {
@@ -10586,6 +10596,11 @@ func (s *CreateContractUserRequest) SetUser(v *ContractAccountApplication) *Crea
 
 func (s *CreateContractUserRequest) SetUserType(v string) *CreateContractUserRequest {
 	s.UserType = &v
+	return s
+}
+
+func (s *CreateContractUserRequest) SetSubTenantId(v string) *CreateContractUserRequest {
+	s.SubTenantId = &v
 	return s
 }
 
@@ -11192,6 +11207,8 @@ type GetContractFileuploadurlRequest struct {
 	FileSize *int64 `json:"file_size,omitempty" xml:"file_size,omitempty" require:"true"`
 	// 文件名称（必须带上文件扩展名，不然会导致后续发起流程校验过不去 示例：合同.pdf ）
 	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 代理客户时，实际用户的租户ID
+	SubTenantId *string `json:"sub_tenant_id,omitempty" xml:"sub_tenant_id,omitempty"`
 }
 
 func (s GetContractFileuploadurlRequest) String() string {
@@ -11239,6 +11256,11 @@ func (s *GetContractFileuploadurlRequest) SetFileSize(v int64) *GetContractFileu
 
 func (s *GetContractFileuploadurlRequest) SetFileName(v string) *GetContractFileuploadurlRequest {
 	s.FileName = &v
+	return s
+}
+
+func (s *GetContractFileuploadurlRequest) SetSubTenantId(v string) *GetContractFileuploadurlRequest {
+	s.SubTenantId = &v
 	return s
 }
 
@@ -14337,6 +14359,8 @@ type GetContractSignurlRequest struct {
 	ShortUrl *bool `json:"short_url,omitempty" xml:"short_url,omitempty"`
 	// 本功能需要单独审批开放。当account_id为机构账户时，可以在执行签署时单独指定经办人账户，代为完成本次签署操作。
 	AgentAccountId *string `json:"agent_account_id,omitempty" xml:"agent_account_id,omitempty"`
+	// 代理客户时，实际用户的租户ID
+	SubTenantId *string `json:"sub_tenant_id,omitempty" xml:"sub_tenant_id,omitempty"`
 }
 
 func (s GetContractSignurlRequest) String() string {
@@ -14379,6 +14403,11 @@ func (s *GetContractSignurlRequest) SetShortUrl(v bool) *GetContractSignurlReque
 
 func (s *GetContractSignurlRequest) SetAgentAccountId(v string) *GetContractSignurlRequest {
 	s.AgentAccountId = &v
+	return s
+}
+
+func (s *GetContractSignurlRequest) SetSubTenantId(v string) *GetContractSignurlRequest {
+	s.SubTenantId = &v
 	return s
 }
 
@@ -15767,6 +15796,18 @@ type CreateContractOnestepflowRequest struct {
 	SignPlatform *string `json:"sign_platform,omitempty" xml:"sign_platform,omitempty"`
 	// 签署有效截止日期，毫秒，默认3天失效
 	SignValidity *int64 `json:"sign_validity,omitempty" xml:"sign_validity,omitempty"`
+	// 是否强制代扣
+	AutoDeductionForce *bool `json:"auto_deduction_force,omitempty" xml:"auto_deduction_force,omitempty"`
+	// 代扣规则详情
+	RepaymentOrderInfo []*RepaymentOrderRequest `json:"repayment_order_info,omitempty" xml:"repayment_order_info,omitempty" type:"Repeated"`
+	// 付款方ID（个人）
+	PayerTuid *string `json:"payer_tuid,omitempty" xml:"payer_tuid,omitempty"`
+	// 收款方ID(机构)
+	PayeeTuid *string `json:"payee_tuid,omitempty" xml:"payee_tuid,omitempty"`
+	// 租赁订单Id
+	BclOrderId *string `json:"bcl_order_id,omitempty" xml:"bcl_order_id,omitempty" maxLength:"32"`
+	// 代理客户时，实际用户的租户ID
+	SubTenantId *string `json:"sub_tenant_id,omitempty" xml:"sub_tenant_id,omitempty"`
 }
 
 func (s CreateContractOnestepflowRequest) String() string {
@@ -15839,6 +15880,36 @@ func (s *CreateContractOnestepflowRequest) SetSignPlatform(v string) *CreateCont
 
 func (s *CreateContractOnestepflowRequest) SetSignValidity(v int64) *CreateContractOnestepflowRequest {
 	s.SignValidity = &v
+	return s
+}
+
+func (s *CreateContractOnestepflowRequest) SetAutoDeductionForce(v bool) *CreateContractOnestepflowRequest {
+	s.AutoDeductionForce = &v
+	return s
+}
+
+func (s *CreateContractOnestepflowRequest) SetRepaymentOrderInfo(v []*RepaymentOrderRequest) *CreateContractOnestepflowRequest {
+	s.RepaymentOrderInfo = v
+	return s
+}
+
+func (s *CreateContractOnestepflowRequest) SetPayerTuid(v string) *CreateContractOnestepflowRequest {
+	s.PayerTuid = &v
+	return s
+}
+
+func (s *CreateContractOnestepflowRequest) SetPayeeTuid(v string) *CreateContractOnestepflowRequest {
+	s.PayeeTuid = &v
+	return s
+}
+
+func (s *CreateContractOnestepflowRequest) SetBclOrderId(v string) *CreateContractOnestepflowRequest {
+	s.BclOrderId = &v
+	return s
+}
+
+func (s *CreateContractOnestepflowRequest) SetSubTenantId(v string) *CreateContractOnestepflowRequest {
+	s.SubTenantId = &v
 	return s
 }
 
@@ -44831,7 +44902,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.8"),
+				"sdk_version":      tea.String("1.10.9"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
