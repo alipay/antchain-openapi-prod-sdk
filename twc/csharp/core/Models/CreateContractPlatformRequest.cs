@@ -28,6 +28,12 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public ContractOrganizationApplication Platform { get; set; }
 
+        // 代理客户时，实际用户的租户ID
+        // 
+        [NameInMap("sub_tenant_id")]
+        [Validation(Required=false)]
+        public string SubTenantId { get; set; }
+
     }
 
 }
