@@ -13022,6 +13022,7 @@ class CreateContractPlatformRequest(TeaModel):
         product_instance_id: str = None,
         creator: ContractAccountApplication = None,
         platform: ContractOrganizationApplication = None,
+        sub_tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -13030,6 +13031,9 @@ class CreateContractPlatformRequest(TeaModel):
         self.creator = creator
         # 平台机构信息
         self.platform = platform
+        # 代理客户时，实际用户的租户ID
+        # 
+        self.sub_tenant_id = sub_tenant_id
 
     def validate(self):
         self.validate_required(self.creator, 'creator')
@@ -13053,6 +13057,8 @@ class CreateContractPlatformRequest(TeaModel):
             result['creator'] = self.creator.to_map()
         if self.platform is not None:
             result['platform'] = self.platform.to_map()
+        if self.sub_tenant_id is not None:
+            result['sub_tenant_id'] = self.sub_tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -13067,6 +13073,8 @@ class CreateContractPlatformRequest(TeaModel):
         if m.get('platform') is not None:
             temp_model = ContractOrganizationApplication()
             self.platform = temp_model.from_map(m['platform'])
+        if m.get('sub_tenant_id') is not None:
+            self.sub_tenant_id = m.get('sub_tenant_id')
         return self
 
 
@@ -13155,6 +13163,7 @@ class CreateContractUserRequest(TeaModel):
         organization: ContractOrganizationApplication = None,
         user: ContractAccountApplication = None,
         user_type: str = None,
+        sub_tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -13165,6 +13174,8 @@ class CreateContractUserRequest(TeaModel):
         self.user = user
         # 用户类型，个人（PERSON）或机构（ORGANIZATION）
         self.user_type = user_type
+        # 代理客户时，实际用户的租户ID
+        self.sub_tenant_id = sub_tenant_id
 
     def validate(self):
         if self.organization:
@@ -13190,6 +13201,8 @@ class CreateContractUserRequest(TeaModel):
             result['user'] = self.user.to_map()
         if self.user_type is not None:
             result['user_type'] = self.user_type
+        if self.sub_tenant_id is not None:
+            result['sub_tenant_id'] = self.sub_tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -13206,6 +13219,8 @@ class CreateContractUserRequest(TeaModel):
             self.user = temp_model.from_map(m['user'])
         if m.get('user_type') is not None:
             self.user_type = m.get('user_type')
+        if m.get('sub_tenant_id') is not None:
+            self.sub_tenant_id = m.get('sub_tenant_id')
         return self
 
 
@@ -13898,6 +13913,7 @@ class GetContractFileuploadurlRequest(TeaModel):
         convert_2pdf: str = None,
         file_size: int = None,
         file_name: str = None,
+        sub_tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -13914,6 +13930,8 @@ class GetContractFileuploadurlRequest(TeaModel):
         self.file_size = file_size
         # 文件名称（必须带上文件扩展名，不然会导致后续发起流程校验过不去 示例：合同.pdf ）
         self.file_name = file_name
+        # 代理客户时，实际用户的租户ID
+        self.sub_tenant_id = sub_tenant_id
 
     def validate(self):
         self.validate_required(self.content_md_5, 'content_md_5')
@@ -13944,6 +13962,8 @@ class GetContractFileuploadurlRequest(TeaModel):
             result['file_size'] = self.file_size
         if self.file_name is not None:
             result['file_name'] = self.file_name
+        if self.sub_tenant_id is not None:
+            result['sub_tenant_id'] = self.sub_tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -13964,6 +13984,8 @@ class GetContractFileuploadurlRequest(TeaModel):
             self.file_size = m.get('file_size')
         if m.get('file_name') is not None:
             self.file_name = m.get('file_name')
+        if m.get('sub_tenant_id') is not None:
+            self.sub_tenant_id = m.get('sub_tenant_id')
         return self
 
 
@@ -17754,6 +17776,7 @@ class GetContractSignurlRequest(TeaModel):
         organize_id: str = None,
         short_url: bool = None,
         agent_account_id: str = None,
+        sub_tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -17768,6 +17791,8 @@ class GetContractSignurlRequest(TeaModel):
         self.short_url = short_url
         # 本功能需要单独审批开放。当account_id为机构账户时，可以在执行签署时单独指定经办人账户，代为完成本次签署操作。
         self.agent_account_id = agent_account_id
+        # 代理客户时，实际用户的租户ID
+        self.sub_tenant_id = sub_tenant_id
 
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
@@ -17793,6 +17818,8 @@ class GetContractSignurlRequest(TeaModel):
             result['short_url'] = self.short_url
         if self.agent_account_id is not None:
             result['agent_account_id'] = self.agent_account_id
+        if self.sub_tenant_id is not None:
+            result['sub_tenant_id'] = self.sub_tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -17811,6 +17838,8 @@ class GetContractSignurlRequest(TeaModel):
             self.short_url = m.get('short_url')
         if m.get('agent_account_id') is not None:
             self.agent_account_id = m.get('agent_account_id')
+        if m.get('sub_tenant_id') is not None:
+            self.sub_tenant_id = m.get('sub_tenant_id')
         return self
 
 
@@ -19460,6 +19489,12 @@ class CreateContractOnestepflowRequest(TeaModel):
         sign_fields: List[OneStepSignField] = None,
         sign_platform: str = None,
         sign_validity: int = None,
+        auto_deduction_force: bool = None,
+        repayment_order_info: List[RepaymentOrderRequest] = None,
+        payer_tuid: str = None,
+        payee_tuid: str = None,
+        bcl_order_id: str = None,
+        sub_tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -19486,6 +19521,18 @@ class CreateContractOnestepflowRequest(TeaModel):
         self.sign_platform = sign_platform
         # 签署有效截止日期，毫秒，默认3天失效
         self.sign_validity = sign_validity
+        # 是否强制代扣
+        self.auto_deduction_force = auto_deduction_force
+        # 代扣规则详情
+        self.repayment_order_info = repayment_order_info
+        # 付款方ID（个人）
+        self.payer_tuid = payer_tuid
+        # 收款方ID(机构)
+        self.payee_tuid = payee_tuid
+        # 租赁订单Id
+        self.bcl_order_id = bcl_order_id
+        # 代理客户时，实际用户的租户ID
+        self.sub_tenant_id = sub_tenant_id
 
     def validate(self):
         self.validate_required(self.business_scene, 'business_scene')
@@ -19499,6 +19546,12 @@ class CreateContractOnestepflowRequest(TeaModel):
             for k in self.sign_fields:
                 if k:
                     k.validate()
+        if self.repayment_order_info:
+            for k in self.repayment_order_info:
+                if k:
+                    k.validate()
+        if self.bcl_order_id is not None:
+            self.validate_max_length(self.bcl_order_id, 'bcl_order_id', 32)
 
     def to_map(self):
         _map = super().to_map()
@@ -19536,6 +19589,20 @@ class CreateContractOnestepflowRequest(TeaModel):
             result['sign_platform'] = self.sign_platform
         if self.sign_validity is not None:
             result['sign_validity'] = self.sign_validity
+        if self.auto_deduction_force is not None:
+            result['auto_deduction_force'] = self.auto_deduction_force
+        result['repayment_order_info'] = []
+        if self.repayment_order_info is not None:
+            for k in self.repayment_order_info:
+                result['repayment_order_info'].append(k.to_map() if k else None)
+        if self.payer_tuid is not None:
+            result['payer_tuid'] = self.payer_tuid
+        if self.payee_tuid is not None:
+            result['payee_tuid'] = self.payee_tuid
+        if self.bcl_order_id is not None:
+            result['bcl_order_id'] = self.bcl_order_id
+        if self.sub_tenant_id is not None:
+            result['sub_tenant_id'] = self.sub_tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -19573,6 +19640,21 @@ class CreateContractOnestepflowRequest(TeaModel):
             self.sign_platform = m.get('sign_platform')
         if m.get('sign_validity') is not None:
             self.sign_validity = m.get('sign_validity')
+        if m.get('auto_deduction_force') is not None:
+            self.auto_deduction_force = m.get('auto_deduction_force')
+        self.repayment_order_info = []
+        if m.get('repayment_order_info') is not None:
+            for k in m.get('repayment_order_info'):
+                temp_model = RepaymentOrderRequest()
+                self.repayment_order_info.append(temp_model.from_map(k))
+        if m.get('payer_tuid') is not None:
+            self.payer_tuid = m.get('payer_tuid')
+        if m.get('payee_tuid') is not None:
+            self.payee_tuid = m.get('payee_tuid')
+        if m.get('bcl_order_id') is not None:
+            self.bcl_order_id = m.get('bcl_order_id')
+        if m.get('sub_tenant_id') is not None:
+            self.sub_tenant_id = m.get('sub_tenant_id')
         return self
 
 
