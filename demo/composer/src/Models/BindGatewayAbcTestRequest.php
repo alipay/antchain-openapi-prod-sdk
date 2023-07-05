@@ -18,13 +18,21 @@ class BindGatewayAbcTestRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 123
+    /**
+     * @var DemoClass[]
+     */
+    public $testParam;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'testParam'         => 'test_param',
     ];
 
     public function validate()
     {
+        Model::validateRequired('testParam', $this->testParam, true);
     }
 
     public function toMap()
@@ -35,6 +43,15 @@ class BindGatewayAbcTestRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->testParam) {
+            $res['test_param'] = [];
+            if (null !== $this->testParam && \is_array($this->testParam)) {
+                $n = 0;
+                foreach ($this->testParam as $item) {
+                    $res['test_param'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -53,6 +70,15 @@ class BindGatewayAbcTestRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['test_param'])) {
+            if (!empty($map['test_param'])) {
+                $model->testParam = [];
+                $n                = 0;
+                foreach ($map['test_param'] as $item) {
+                    $model->testParam[$n++] = null !== $item ? DemoClass::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

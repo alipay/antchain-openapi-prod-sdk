@@ -26,7 +26,7 @@ class QueryGatewayRoadResponse extends Model
      */
     public $resultMsg;
 
-    // 查询结果
+    // 查询返回
     /**
      * @var string
      */

@@ -19,7 +19,7 @@ class ExecGatewayRoadRequest extends Model
      */
     public $productInstanceId;
 
-    // 初始值
+    // 计算值输入
     /**
      * @var int
      */

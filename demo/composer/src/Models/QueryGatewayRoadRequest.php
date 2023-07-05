@@ -19,7 +19,7 @@ class QueryGatewayRoadRequest extends Model
      */
     public $productInstanceId;
 
-    // 查询内容
+    // 查询输入
     /**
      * @var string
      */

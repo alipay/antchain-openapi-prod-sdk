@@ -26,7 +26,7 @@ class ExecGatewayRoadResponse extends Model
      */
     public $resultMsg;
 
-    // 计算后返回结果
+    // 计算值返回
     /**
      * @var int
      */
