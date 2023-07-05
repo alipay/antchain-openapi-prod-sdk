@@ -33,6 +33,10 @@ public class GetContractSignurlRequest extends TeaModel {
     @NameInMap("agent_account_id")
     public String agentAccountId;
 
+    // 代理客户时，实际用户的租户ID
+    @NameInMap("sub_tenant_id")
+    public String subTenantId;
+
     public static GetContractSignurlRequest build(java.util.Map<String, ?> map) throws Exception {
         GetContractSignurlRequest self = new GetContractSignurlRequest();
         return TeaModel.build(map, self);
@@ -92,6 +96,14 @@ public class GetContractSignurlRequest extends TeaModel {
     }
     public String getAgentAccountId() {
         return this.agentAccountId;
+    }
+
+    public GetContractSignurlRequest setSubTenantId(String subTenantId) {
+        this.subTenantId = subTenantId;
+        return this;
+    }
+    public String getSubTenantId() {
+        return this.subTenantId;
     }
 
 }

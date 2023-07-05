@@ -21,6 +21,11 @@ public class CreateContractPlatformRequest extends TeaModel {
     @Validation(required = true)
     public ContractOrganizationApplication platform;
 
+    // 代理客户时，实际用户的租户ID
+    // 
+    @NameInMap("sub_tenant_id")
+    public String subTenantId;
+
     public static CreateContractPlatformRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateContractPlatformRequest self = new CreateContractPlatformRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class CreateContractPlatformRequest extends TeaModel {
     }
     public ContractOrganizationApplication getPlatform() {
         return this.platform;
+    }
+
+    public CreateContractPlatformRequest setSubTenantId(String subTenantId) {
+        this.subTenantId = subTenantId;
+        return this;
+    }
+    public String getSubTenantId() {
+        return this.subTenantId;
     }
 
 }

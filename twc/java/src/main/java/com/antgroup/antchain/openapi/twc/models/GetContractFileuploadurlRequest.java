@@ -40,6 +40,10 @@ public class GetContractFileuploadurlRequest extends TeaModel {
     @Validation(required = true)
     public String fileName;
 
+    // 代理客户时，实际用户的租户ID
+    @NameInMap("sub_tenant_id")
+    public String subTenantId;
+
     public static GetContractFileuploadurlRequest build(java.util.Map<String, ?> map) throws Exception {
         GetContractFileuploadurlRequest self = new GetContractFileuploadurlRequest();
         return TeaModel.build(map, self);
@@ -107,6 +111,14 @@ public class GetContractFileuploadurlRequest extends TeaModel {
     }
     public String getFileName() {
         return this.fileName;
+    }
+
+    public GetContractFileuploadurlRequest setSubTenantId(String subTenantId) {
+        this.subTenantId = subTenantId;
+        return this;
+    }
+    public String getSubTenantId() {
+        return this.subTenantId;
     }
 
 }
