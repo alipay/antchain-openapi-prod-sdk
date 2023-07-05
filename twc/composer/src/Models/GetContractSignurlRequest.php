@@ -48,6 +48,12 @@ class GetContractSignurlRequest extends Model
      * @var string
      */
     public $agentAccountId;
+
+    // 代理客户时，实际用户的租户ID
+    /**
+     * @var string
+     */
+    public $subTenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class GetContractSignurlRequest extends Model
         'organizeId'        => 'organize_id',
         'shortUrl'          => 'short_url',
         'agentAccountId'    => 'agent_account_id',
+        'subTenantId'       => 'sub_tenant_id',
     ];
 
     public function validate()
@@ -87,6 +94,9 @@ class GetContractSignurlRequest extends Model
         }
         if (null !== $this->agentAccountId) {
             $res['agent_account_id'] = $this->agentAccountId;
+        }
+        if (null !== $this->subTenantId) {
+            $res['sub_tenant_id'] = $this->subTenantId;
         }
 
         return $res;
@@ -120,6 +130,9 @@ class GetContractSignurlRequest extends Model
         }
         if (isset($map['agent_account_id'])) {
             $model->agentAccountId = $map['agent_account_id'];
+        }
+        if (isset($map['sub_tenant_id'])) {
+            $model->subTenantId = $map['sub_tenant_id'];
         }
 
         return $model;

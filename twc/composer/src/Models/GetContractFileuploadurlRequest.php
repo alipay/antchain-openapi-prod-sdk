@@ -54,6 +54,12 @@ class GetContractFileuploadurlRequest extends Model
      * @var string
      */
     public $fileName;
+
+    // 代理客户时，实际用户的租户ID
+    /**
+     * @var string
+     */
+    public $subTenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +69,7 @@ class GetContractFileuploadurlRequest extends Model
         'convert2Pdf'       => 'convert_2_pdf',
         'fileSize'          => 'file_size',
         'fileName'          => 'file_name',
+        'subTenantId'       => 'sub_tenant_id',
     ];
 
     public function validate()
@@ -101,6 +108,9 @@ class GetContractFileuploadurlRequest extends Model
         if (null !== $this->fileName) {
             $res['file_name'] = $this->fileName;
         }
+        if (null !== $this->subTenantId) {
+            $res['sub_tenant_id'] = $this->subTenantId;
+        }
 
         return $res;
     }
@@ -136,6 +146,9 @@ class GetContractFileuploadurlRequest extends Model
         }
         if (isset($map['file_name'])) {
             $model->fileName = $map['file_name'];
+        }
+        if (isset($map['sub_tenant_id'])) {
+            $model->subTenantId = $map['sub_tenant_id'];
         }
 
         return $model;
