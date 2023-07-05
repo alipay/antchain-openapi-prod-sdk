@@ -137,8 +137,6 @@ class AddBclLogisticinfoRequest extends Model
     {
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('logisticStatus', $this->logisticStatus, true);
-        Model::validateRequired('logisticsFileId', $this->logisticsFileId, true);
-        Model::validateRequired('arriveConfirmFileId', $this->arriveConfirmFileId, true);
         Model::validateRequired('arriveConfirmTime', $this->arriveConfirmTime, true);
         Model::validateRequired('logisticCompanyName', $this->logisticCompanyName, true);
         Model::validateRequired('logisticsOrderId', $this->logisticsOrderId, true);

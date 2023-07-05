@@ -8,6 +8,14 @@ use AlibabaCloud\Tea\Model;
 
 class BclCertifyInfo extends Model
 {
+    // 认证id
+    /**
+     * @example 071b2346e73dfe309345ff9954722d01
+     *
+     * @var string
+     */
+    public $certifyId;
+
     // 认证url 如果status待认证,该字段非空,
     // 如果认证失败,这里的新的认证链接,支持重复认证
     /**
@@ -36,6 +44,7 @@ class BclCertifyInfo extends Model
      */
     public $status;
     protected $_name = [
+        'certifyId'  => 'certify_id',
         'certifyUrl' => 'certify_url',
         'resultDesc' => 'result_desc',
         'status'     => 'status',
@@ -49,6 +58,9 @@ class BclCertifyInfo extends Model
     public function toMap()
     {
         $res = [];
+        if (null !== $this->certifyId) {
+            $res['certify_id'] = $this->certifyId;
+        }
         if (null !== $this->certifyUrl) {
             $res['certify_url'] = $this->certifyUrl;
         }
@@ -70,6 +82,9 @@ class BclCertifyInfo extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
+        if (isset($map['certify_id'])) {
+            $model->certifyId = $map['certify_id'];
+        }
         if (isset($map['certify_url'])) {
             $model->certifyUrl = $map['certify_url'];
         }

@@ -119,8 +119,8 @@ class BclOrderInfo extends Model
     // 已创建 CREATED
     // 待发起 PRE_SUBMIT
     // 已发起 SUBMIT
-    // 履约中 PROMISING
-    // 履约完成 PROMISED
+    // 履约中 PERFORMING
+    // 履约完成 PERFORMED
     // 订单完结 ORDER_FINISH
     // 风控失败 RISK_FAIL
     // 核身失败 IDENTITY_NOT_MATCH

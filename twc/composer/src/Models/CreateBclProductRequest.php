@@ -40,7 +40,7 @@ class CreateBclProductRequest extends Model
      */
     public $productName;
 
-    // 商品价格,单位为分。如：856400，表示8564元，大于0
+    // 商品官网价格,单位为分。如：856400，表示8564元，大于0
     /**
      * @var int
      */
@@ -196,7 +196,7 @@ class CreateBclProductRequest extends Model
         Model::validateRequired('productBrand', $this->productBrand, true);
         Model::validateRequired('productModel', $this->productModel, true);
         Model::validateMaxLength('productOuterId', $this->productOuterId, 32);
-        Model::validateMaxLength('productVersion', $this->productVersion, 16);
+        Model::validateMaxLength('productVersion', $this->productVersion, 8);
         Model::validateMaxLength('productName', $this->productName, 64);
         Model::validateMaxLength('mainClass', $this->mainClass, 32);
         Model::validateMaxLength('subClass', $this->subClass, 32);

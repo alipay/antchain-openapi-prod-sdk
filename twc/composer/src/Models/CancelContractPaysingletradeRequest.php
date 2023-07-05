@@ -30,11 +30,25 @@ class CancelContractPaysingletradeRequest extends Model
      * @var string
      */
     public $cancelOutOrderNo;
+
+    // 租赁宝租赁订单号
+    /**
+     * @var string
+     */
+    public $bclOrderId;
+
+    // 租赁订单对应的租户id
+    /**
+     * @var string
+     */
+    public $bclTenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'flowId'            => 'flow_id',
         'cancelOutOrderNo'  => 'cancel_out_order_no',
+        'bclOrderId'        => 'bcl_order_id',
+        'bclTenantId'       => 'bcl_tenant_id',
     ];
 
     public function validate()
@@ -57,6 +71,12 @@ class CancelContractPaysingletradeRequest extends Model
         }
         if (null !== $this->cancelOutOrderNo) {
             $res['cancel_out_order_no'] = $this->cancelOutOrderNo;
+        }
+        if (null !== $this->bclOrderId) {
+            $res['bcl_order_id'] = $this->bclOrderId;
+        }
+        if (null !== $this->bclTenantId) {
+            $res['bcl_tenant_id'] = $this->bclTenantId;
         }
 
         return $res;
@@ -81,6 +101,12 @@ class CancelContractPaysingletradeRequest extends Model
         }
         if (isset($map['cancel_out_order_no'])) {
             $model->cancelOutOrderNo = $map['cancel_out_order_no'];
+        }
+        if (isset($map['bcl_order_id'])) {
+            $model->bclOrderId = $map['bcl_order_id'];
+        }
+        if (isset($map['bcl_tenant_id'])) {
+            $model->bclTenantId = $map['bcl_tenant_id'];
         }
 
         return $model;

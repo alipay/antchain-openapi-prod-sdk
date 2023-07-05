@@ -50,12 +50,21 @@ class BclPromiseDetailInfo extends Model
      * @var string
      */
     public $payTime;
+
+    // 归还方式，取值范围如下： ACTIVE_REPAYMENT：主动还款， MY_BANK_PROXY_WITHHOLDING：网商委托代扣, PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
+    /**
+     * @example ACTIVE_REPAYMENT
+     *
+     * @var string
+     */
+    public $way;
     protected $_name = [
         'period'      => 'period',
         'amount'      => 'amount',
         'status'      => 'status',
         'promiseTime' => 'promise_time',
         'payTime'     => 'pay_time',
+        'way'         => 'way',
     ];
 
     public function validate()
@@ -64,8 +73,10 @@ class BclPromiseDetailInfo extends Model
         Model::validateRequired('amount', $this->amount, true);
         Model::validateRequired('status', $this->status, true);
         Model::validateRequired('promiseTime', $this->promiseTime, true);
+        Model::validateRequired('way', $this->way, true);
         Model::validatePattern('promiseTime', $this->promiseTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('payTime', $this->payTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validateMaxLength('way', $this->way, 32);
     }
 
     public function toMap()
@@ -85,6 +96,9 @@ class BclPromiseDetailInfo extends Model
         }
         if (null !== $this->payTime) {
             $res['pay_time'] = $this->payTime;
+        }
+        if (null !== $this->way) {
+            $res['way'] = $this->way;
         }
 
         return $res;
@@ -112,6 +126,9 @@ class BclPromiseDetailInfo extends Model
         }
         if (isset($map['pay_time'])) {
             $model->payTime = $map['pay_time'];
+        }
+        if (isset($map['way'])) {
+            $model->way = $map['way'];
         }
 
         return $model;

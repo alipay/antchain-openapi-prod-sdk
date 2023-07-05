@@ -45,12 +45,6 @@ class CreateBclOrderRequest extends Model
      */
     public $dueMode;
 
-    // 商品售价 单位分
-    /**
-     * @var int
-     */
-    public $totalMoney;
-
     // 租金总额 单位分
     /**
      * @var int
@@ -70,8 +64,7 @@ class CreateBclOrderRequest extends Model
      */
     public $rentUnit;
 
-    // 到期买断价 单位分，
-    // 到期金额，若为买断形式传买断金额，否则传到期归还金额
+    // 到期买断价 单位分，若为买断形式传买断金额，否则传到期归还金额
     /**
      * @var int
      */
@@ -172,7 +165,6 @@ class CreateBclOrderRequest extends Model
         'orderCreateTime'        => 'order_create_time',
         'userInfo'               => 'user_info',
         'dueMode'                => 'due_mode',
-        'totalMoney'             => 'total_money',
         'totalRentMoney'         => 'total_rent_money',
         'rentTerm'               => 'rent_term',
         'rentUnit'               => 'rent_unit',
@@ -199,7 +191,6 @@ class CreateBclOrderRequest extends Model
         Model::validateRequired('orderCreateTime', $this->orderCreateTime, true);
         Model::validateRequired('userInfo', $this->userInfo, true);
         Model::validateRequired('dueMode', $this->dueMode, true);
-        Model::validateRequired('totalMoney', $this->totalMoney, true);
         Model::validateRequired('totalRentMoney', $this->totalRentMoney, true);
         Model::validateRequired('rentTerm', $this->rentTerm, true);
         Model::validateRequired('rentUnit', $this->rentUnit, true);
@@ -218,7 +209,6 @@ class CreateBclOrderRequest extends Model
         Model::validateMaxLength('orderExtraInfo', $this->orderExtraInfo, 4096);
         Model::validateMaxLength('userExtraInfo', $this->userExtraInfo, 4096);
         Model::validatePattern('orderCreateTime', $this->orderCreateTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-        Model::validateMinimum('totalMoney', $this->totalMoney, 1);
         Model::validateMinimum('totalRentMoney', $this->totalRentMoney, 1);
         Model::validateMinimum('rentTerm', $this->rentTerm, 1);
         Model::validateMinimum('buyOutPrice', $this->buyOutPrice, 1);
@@ -247,9 +237,6 @@ class CreateBclOrderRequest extends Model
         }
         if (null !== $this->dueMode) {
             $res['due_mode'] = $this->dueMode;
-        }
-        if (null !== $this->totalMoney) {
-            $res['total_money'] = $this->totalMoney;
         }
         if (null !== $this->totalRentMoney) {
             $res['total_rent_money'] = $this->totalRentMoney;
@@ -346,9 +333,6 @@ class CreateBclOrderRequest extends Model
         }
         if (isset($map['due_mode'])) {
             $model->dueMode = $map['due_mode'];
-        }
-        if (isset($map['total_money'])) {
-            $model->totalMoney = $map['total_money'];
         }
         if (isset($map['total_rent_money'])) {
             $model->totalRentMoney = $map['total_rent_money'];

@@ -607,6 +607,8 @@ use AntChain\TWC\Models\SyncLeaseSupplierorderstatusRequest;
 use AntChain\TWC\Models\SyncLeaseSupplierorderstatusResponse;
 use AntChain\TWC\Models\UnbindContractPayRequest;
 use AntChain\TWC\Models\UnbindContractPayResponse;
+use AntChain\TWC\Models\UpdateBclPromiserepaymentRequest;
+use AntChain\TWC\Models\UpdateBclPromiserepaymentResponse;
 use AntChain\TWC\Models\UpdateContractMerchantRequest;
 use AntChain\TWC\Models\UpdateContractMerchantResponse;
 use AntChain\TWC\Models\UpdateContractOrganizationRequest;
@@ -800,7 +802,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.2',
+                    'sdk_version'      => '1.10.8',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1209,6 +1211,39 @@ class Client
         Utils::validateModel($request);
 
         return GetBclUploadurlResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.uploadurl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+     * Summary: 变更BCL订单承诺履约还款方式.
+     *
+     * @param UpdateBclPromiserepaymentRequest $request
+     *
+     * @return UpdateBclPromiserepaymentResponse
+     */
+    public function updateBclPromiserepayment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateBclPromiserepaymentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+     * Summary: 变更BCL订单承诺履约还款方式.
+     *
+     * @param UpdateBclPromiserepaymentRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UpdateBclPromiserepaymentResponse
+     */
+    public function updateBclPromiserepaymentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateBclPromiserepaymentResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.promiserepayment.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
