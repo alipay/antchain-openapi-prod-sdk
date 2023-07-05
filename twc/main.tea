@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.2',
+    sdk_version = '1.10.8',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -359,6 +359,8 @@ model BclPromiseDetailInfo {
   promiseTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='promise_time', example='2023-04-05 12:12:23'),
   // 履约日期
   payTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='pay_time', example='2023-04-05 12:12:23'),
+  // 归还方式，取值范围如下： ACTIVE_REPAYMENT：主动还款， MY_BANK_PROXY_WITHHOLDING：网商委托代扣, PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
+  way: string(maxLength=32, name='way', example='ACTIVE_REPAYMENT'),
 }
 
 // 文件信息
@@ -1302,6 +1304,8 @@ model LeaseClearingInfo {
 
 // 实人信息
 model BclCertifyInfo {
+  // 认证id
+  certifyId?: string(name='certify_id', example='071b2346e73dfe309345ff9954722d01'),
   // 认证url 如果status待认证,该字段非空,
   // 如果认证失败,这里的新的认证链接,支持重复认证
   certifyUrl?: string(name='certify_url', example='https://asdqweqw.com/asd'),
@@ -1527,8 +1531,8 @@ model BclOrderInfo {
   // 已创建 CREATED
   // 待发起 PRE_SUBMIT
   // 已发起 SUBMIT
-  // 履约中 PROMISING
-  // 履约完成 PROMISED
+  // 履约中 PERFORMING
+  // 履约完成 PERFORMED
   // 订单完结 ORDER_FINISH
   // 风控失败 RISK_FAIL
   // 核身失败 IDENTITY_NOT_MATCH
@@ -2520,9 +2524,9 @@ model AddBclLogisticinfoRequest = {
   // 当前暂时只支持已签收
   logisticStatus: string(maxLength=16, name='logistic_status'),
   // 物流照片网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
-  logisticsFileId: string(maxLength=64, name='logistics_file_id'),
+  logisticsFileId?: string(maxLength=64, name='logistics_file_id'),
   // 签收记录,网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
-  arriveConfirmFileId: string(maxLength=64, name='arrive_confirm_file_id'),
+  arriveConfirmFileId?: string(maxLength=64, name='arrive_confirm_file_id'),
   // 用户签收时间格式为2019-8-31 12:00:00
   arriveConfirmTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='arrive_confirm_time'),
   // 物流公司简称
@@ -2629,8 +2633,6 @@ model CreateBclOrderRequest = {
   // DUE_BUYOUT 到期买断 
   // DUE_RETURN 到期归还
   dueMode: string(maxLength=16, name='due_mode'),
-  // 商品售价 单位分
-  totalMoney: long(minimum=1, name='total_money'),
   // 租金总额 单位分
   totalRentMoney: long(minimum=1, name='total_rent_money'),
   // 订单租期, 比如6期,12期,24期,36期,填数字
@@ -2638,8 +2640,7 @@ model CreateBclOrderRequest = {
   // 订单租期对应的单位,如果是租期为6,租期单位为MONTH,代表租6个月
   // 月: MONTH
   rentUnit: string(maxLength=16, name='rent_unit'),
-  // 到期买断价 单位分，
-  // 到期金额，若为买断形式传买断金额，否则传到期归还金额
+  // 到期买断价 单位分，若为买断形式传买断金额，否则传到期归还金额
   buyOutPrice?: long(minimum=1, name='buy_out_price'),
   // 芝麻信用 订单免押金额  单位分
   depositFree?: long(minimum=1, name='deposit_free'),
@@ -2831,11 +2832,11 @@ model CreateBclProductRequest = {
   productOuterId: string(maxLength=32, name='product_outer_id'),
   // 商品版本;
   // 每个商品的编码+版本 唯一确认一个产品信息，必须为自然数，如"0","1","10"等
-  productVersion: string(maxLength=16, name='product_version'),
+  productVersion: string(maxLength=8, name='product_version'),
   // 商品名称，
   // 长度不超过64位
   productName: string(maxLength=64, name='product_name'),
-  // 商品价格,单位为分。如：856400，表示8564元，大于0
+  // 商品官网价格,单位为分。如：856400，表示8564元，大于0
   productPrice: long(minimum=1, name='product_price'),
   // 一级行业代码。
   // 
@@ -3087,6 +3088,44 @@ async function getBclUploadurl(request: GetBclUploadurlRequest): GetBclUploadurl
 async function getBclUploadurlEx(request: GetBclUploadurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetBclUploadurlResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.bcl.uploadurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateBclPromiserepaymentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单编号ID,长度不超过32位
+  orderId: string(maxLength=32, name='order_id'),
+  // 租期编号，如：1表示第一期; 目前还款支持最大期数为120期；
+  period: long(maximum=120, minimum=1, name='period'),
+}
+
+model UpdateBclPromiserepaymentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+ * Summary: 变更BCL订单承诺履约还款方式
+ */
+async function updateBclPromiserepayment(request: UpdateBclPromiserepaymentRequest): UpdateBclPromiserepaymentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBclPromiserepaymentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
+ * Summary: 变更BCL订单承诺履约还款方式
+ */
+async function updateBclPromiserepaymentEx(request: UpdateBclPromiserepaymentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBclPromiserepaymentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.bcl.promiserepayment.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateContractAccountRequest = {
@@ -5983,6 +6022,10 @@ model CancelContractPaysingletradeRequest = {
   flowId: string(name='flow_id'),
   // 被取消的某一期的代扣id
   cancelOutOrderNo: string(name='cancel_out_order_no'),
+  // 租赁宝租赁订单号
+  bclOrderId?: string(name='bcl_order_id'),
+  // 租赁订单对应的租户id
+  bclTenantId?: string(name='bcl_tenant_id'),
 }
 
 model CancelContractPaysingletradeResponse = {
