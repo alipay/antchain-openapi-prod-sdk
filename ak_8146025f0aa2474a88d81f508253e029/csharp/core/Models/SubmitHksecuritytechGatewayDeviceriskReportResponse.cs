@@ -29,6 +29,11 @@ namespace AntChain.SDK.Ak_8146025f0aa2474a88d81f508253e029.Models
         [Validation(Required=false)]
         public long? ResultStatus { get; set; }
 
+        // result
+        [NameInMap("result")]
+        [Validation(Required=false)]
+        public DeviceRiskReportResult Result { get; set; }
+
     }
 
 }

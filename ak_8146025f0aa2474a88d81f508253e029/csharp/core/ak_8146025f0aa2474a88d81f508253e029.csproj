@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>AntChain.SDK.Ak_8146025f0aa2474a88d81f508253e029</AssemblyName>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <LangVersion>5</LangVersion>
     <Authors>Ant Chain, Inc</Authors>
     <Description>Ant Chain ak_8146025f0aa2474a88d81f508253e029 SDK Library for .NET</Description>
