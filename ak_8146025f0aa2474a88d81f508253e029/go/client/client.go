@@ -230,102 +230,6 @@ func (s *DeviceRiskReportResultData) SetResultType(v string) *DeviceRiskReportRe
 	return s
 }
 
-// 设备信息上报
-type DeviceRiskReportResult struct {
-	// success
-	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
-	// result_code
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty" require:"true"`
-	// result_status
-	ResultStatus *string `json:"result_status,omitempty" xml:"result_status,omitempty" require:"true"`
-	// apdid
-	Apdid *string `json:"apdid,omitempty" xml:"apdid,omitempty" require:"true"`
-	// token
-	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
-	// current_time
-	CurrentTime *string `json:"current_time,omitempty" xml:"current_time,omitempty" require:"true"`
-	// version
-	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
-	// vkey_switch
-	VkeySwitch *string `json:"vkey_switch,omitempty" xml:"vkey_switch,omitempty" require:"true"`
-	// bug_track_switch
-	BugTrackSwitch *string `json:"bug_track_switch,omitempty" xml:"bug_track_switch,omitempty" require:"true"`
-	// app_list_ver
-	AppListVer *string `json:"app_list_ver,omitempty" xml:"app_list_ver,omitempty" require:"true"`
-	// dynamic_key
-	DynamicKey *string `json:"dynamic_key,omitempty" xml:"dynamic_key,omitempty" require:"true"`
-	// result_data
-	ResultData *DeviceRiskReportResultData `json:"result_data,omitempty" xml:"result_data,omitempty" require:"true"`
-}
-
-func (s DeviceRiskReportResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeviceRiskReportResult) GoString() string {
-	return s.String()
-}
-
-func (s *DeviceRiskReportResult) SetSuccess(v bool) *DeviceRiskReportResult {
-	s.Success = &v
-	return s
-}
-
-func (s *DeviceRiskReportResult) SetResultCode(v string) *DeviceRiskReportResult {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *DeviceRiskReportResult) SetResultStatus(v string) *DeviceRiskReportResult {
-	s.ResultStatus = &v
-	return s
-}
-
-func (s *DeviceRiskReportResult) SetApdid(v string) *DeviceRiskReportResult {
-	s.Apdid = &v
-	return s
-}
-
-func (s *DeviceRiskReportResult) SetToken(v string) *DeviceRiskReportResult {
-	s.Token = &v
-	return s
-}
-
-func (s *DeviceRiskReportResult) SetCurrentTime(v string) *DeviceRiskReportResult {
-	s.CurrentTime = &v
-	return s
-}
-
-func (s *DeviceRiskReportResult) SetVersion(v string) *DeviceRiskReportResult {
-	s.Version = &v
-	return s
-}
-
-func (s *DeviceRiskReportResult) SetVkeySwitch(v string) *DeviceRiskReportResult {
-	s.VkeySwitch = &v
-	return s
-}
-
-func (s *DeviceRiskReportResult) SetBugTrackSwitch(v string) *DeviceRiskReportResult {
-	s.BugTrackSwitch = &v
-	return s
-}
-
-func (s *DeviceRiskReportResult) SetAppListVer(v string) *DeviceRiskReportResult {
-	s.AppListVer = &v
-	return s
-}
-
-func (s *DeviceRiskReportResult) SetDynamicKey(v string) *DeviceRiskReportResult {
-	s.DynamicKey = &v
-	return s
-}
-
-func (s *DeviceRiskReportResult) SetResultData(v *DeviceRiskReportResultData) *DeviceRiskReportResult {
-	s.ResultData = v
-	return s
-}
-
 // 设备风险查询data
 type DeviceRiskResp struct {
 	// apdid
@@ -663,10 +567,26 @@ type SubmitHksecuritytechGatewayDeviceriskReportResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 1000
-	ResultStatus *int64 `json:"result_status,omitempty" xml:"result_status,omitempty"`
-	// result
-	Result *DeviceRiskReportResult `json:"result,omitempty" xml:"result,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// apdid
+	Apdid *string `json:"apdid,omitempty" xml:"apdid,omitempty"`
+	// token
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+	// current_time
+	CurrentTime *string `json:"current_time,omitempty" xml:"current_time,omitempty"`
+	// version
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// vkey_switch
+	VkeySwitch *string `json:"vkey_switch,omitempty" xml:"vkey_switch,omitempty"`
+	// bug_track_switch
+	BugTrackSwitch *string `json:"bug_track_switch,omitempty" xml:"bug_track_switch,omitempty"`
+	// app_list_ver
+	AppListVer *string `json:"app_list_ver,omitempty" xml:"app_list_ver,omitempty"`
+	// dynamic_key
+	DynamicKey *string `json:"dynamic_key,omitempty" xml:"dynamic_key,omitempty"`
+	// result_data
+	ResultData *DeviceRiskReportResultData `json:"result_data,omitempty" xml:"result_data,omitempty"`
 }
 
 func (s SubmitHksecuritytechGatewayDeviceriskReportResponse) String() string {
@@ -692,13 +612,53 @@ func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetResultMsg(v str
 	return s
 }
 
-func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetResultStatus(v int64) *SubmitHksecuritytechGatewayDeviceriskReportResponse {
-	s.ResultStatus = &v
+func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetSuccess(v bool) *SubmitHksecuritytechGatewayDeviceriskReportResponse {
+	s.Success = &v
 	return s
 }
 
-func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetResult(v *DeviceRiskReportResult) *SubmitHksecuritytechGatewayDeviceriskReportResponse {
-	s.Result = v
+func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetApdid(v string) *SubmitHksecuritytechGatewayDeviceriskReportResponse {
+	s.Apdid = &v
+	return s
+}
+
+func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetToken(v string) *SubmitHksecuritytechGatewayDeviceriskReportResponse {
+	s.Token = &v
+	return s
+}
+
+func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetCurrentTime(v string) *SubmitHksecuritytechGatewayDeviceriskReportResponse {
+	s.CurrentTime = &v
+	return s
+}
+
+func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetVersion(v string) *SubmitHksecuritytechGatewayDeviceriskReportResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetVkeySwitch(v string) *SubmitHksecuritytechGatewayDeviceriskReportResponse {
+	s.VkeySwitch = &v
+	return s
+}
+
+func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetBugTrackSwitch(v string) *SubmitHksecuritytechGatewayDeviceriskReportResponse {
+	s.BugTrackSwitch = &v
+	return s
+}
+
+func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetAppListVer(v string) *SubmitHksecuritytechGatewayDeviceriskReportResponse {
+	s.AppListVer = &v
+	return s
+}
+
+func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetDynamicKey(v string) *SubmitHksecuritytechGatewayDeviceriskReportResponse {
+	s.DynamicKey = &v
+	return s
+}
+
+func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetResultData(v *DeviceRiskReportResultData) *SubmitHksecuritytechGatewayDeviceriskReportResponse {
+	s.ResultData = v
 	return s
 }
 
@@ -824,7 +784,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.0.4"),
 				"_prod_code":       tea.String("ak_8146025f0aa2474a88d81f508253e029"),
 				"_prod_channel":    tea.String("saas"),
 			}
