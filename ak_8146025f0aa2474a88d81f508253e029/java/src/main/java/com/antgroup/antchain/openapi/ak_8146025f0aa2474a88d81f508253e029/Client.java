@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1"),
+                    new TeaPair("sdk_version", "1.0.2"),
                     new TeaPair("_prod_code", "ak_8146025f0aa2474a88d81f508253e029"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -197,5 +197,24 @@ public class Client {
     public QueryHksecuritytechGatewayDeviceriskDeviceriskResponse queryHksecuritytechGatewayDeviceriskDeviceriskEx(QueryHksecuritytechGatewayDeviceriskDeviceriskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.devicerisk.devicerisk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryHksecuritytechGatewayDeviceriskDeviceriskResponse());
+    }
+
+    /**
+     * Description: 终端安全 设备信息上报
+     * Summary: 设备信息上报
+     */
+    public SubmitHksecuritytechGatewayDeviceriskReportResponse submitHksecuritytechGatewayDeviceriskReport(SubmitHksecuritytechGatewayDeviceriskReportRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitHksecuritytechGatewayDeviceriskReportEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全 设备信息上报
+     * Summary: 设备信息上报
+     */
+    public SubmitHksecuritytechGatewayDeviceriskReportResponse submitHksecuritytechGatewayDeviceriskReportEx(SubmitHksecuritytechGatewayDeviceriskReportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.devicerisk.report.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitHksecuritytechGatewayDeviceriskReportResponse());
     }
 }
