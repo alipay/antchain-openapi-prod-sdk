@@ -20,6 +20,10 @@ public class SubmitHksecuritytechGatewayDeviceriskReportResponse extends TeaMode
     @NameInMap("result_status")
     public Long resultStatus;
 
+    // result
+    @NameInMap("result")
+    public DeviceRiskReportResult result;
+
     public static SubmitHksecuritytechGatewayDeviceriskReportResponse build(java.util.Map<String, ?> map) throws Exception {
         SubmitHksecuritytechGatewayDeviceriskReportResponse self = new SubmitHksecuritytechGatewayDeviceriskReportResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class SubmitHksecuritytechGatewayDeviceriskReportResponse extends TeaMode
     }
     public Long getResultStatus() {
         return this.resultStatus;
+    }
+
+    public SubmitHksecuritytechGatewayDeviceriskReportResponse setResult(DeviceRiskReportResult result) {
+        this.result = result;
+        return this;
+    }
+    public DeviceRiskReportResult getResult() {
+        return this.result;
     }
 
 }

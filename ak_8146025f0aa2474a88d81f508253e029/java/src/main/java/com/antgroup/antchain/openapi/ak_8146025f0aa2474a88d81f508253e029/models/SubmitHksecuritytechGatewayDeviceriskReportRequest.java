@@ -16,11 +16,6 @@ public class SubmitHksecuritytechGatewayDeviceriskReportRequest extends TeaModel
     @Validation(required = true)
     public String requestData;
 
-    // result
-    @NameInMap("result")
-    @Validation(required = true)
-    public DeviceRiskReportResult result;
-
     public static SubmitHksecuritytechGatewayDeviceriskReportRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitHksecuritytechGatewayDeviceriskReportRequest self = new SubmitHksecuritytechGatewayDeviceriskReportRequest();
         return TeaModel.build(map, self);
@@ -48,14 +43,6 @@ public class SubmitHksecuritytechGatewayDeviceriskReportRequest extends TeaModel
     }
     public String getRequestData() {
         return this.requestData;
-    }
-
-    public SubmitHksecuritytechGatewayDeviceriskReportRequest setResult(DeviceRiskReportResult result) {
-        this.result = result;
-        return this;
-    }
-    public DeviceRiskReportResult getResult() {
-        return this.result;
     }
 
 }
