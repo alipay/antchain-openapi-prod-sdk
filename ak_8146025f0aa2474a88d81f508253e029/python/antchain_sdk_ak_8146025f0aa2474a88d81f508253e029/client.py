@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 设备风险查询data
+            # result.resultData
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'ak_8146025f0aa2474a88d81f508253e029',
                     '_prod_channel': 'saas'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 设备风险查询data
+            # result.resultData
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'ak_8146025f0aa2474a88d81f508253e029',
                     '_prod_channel': 'saas'
                 }
@@ -385,4 +385,60 @@ class Client:
         return TeaCore.from_map(
             ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.QueryHksecuritytechGatewayDeviceriskDeviceriskResponse(),
             await self.do_request_async('1.0', 'hksecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_hksecuritytech_gateway_devicerisk_report(
+        self,
+        request: ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.SubmitHksecuritytechGatewayDeviceriskReportRequest,
+    ) -> ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.SubmitHksecuritytechGatewayDeviceriskReportResponse:
+        """
+        Description: 终端安全 设备信息上报
+        Summary: 设备信息上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_hksecuritytech_gateway_devicerisk_report_ex(request, headers, runtime)
+
+    async def submit_hksecuritytech_gateway_devicerisk_report_async(
+        self,
+        request: ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.SubmitHksecuritytechGatewayDeviceriskReportRequest,
+    ) -> ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.SubmitHksecuritytechGatewayDeviceriskReportResponse:
+        """
+        Description: 终端安全 设备信息上报
+        Summary: 设备信息上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_hksecuritytech_gateway_devicerisk_report_ex_async(request, headers, runtime)
+
+    def submit_hksecuritytech_gateway_devicerisk_report_ex(
+        self,
+        request: ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.SubmitHksecuritytechGatewayDeviceriskReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.SubmitHksecuritytechGatewayDeviceriskReportResponse:
+        """
+        Description: 终端安全 设备信息上报
+        Summary: 设备信息上报
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.SubmitHksecuritytechGatewayDeviceriskReportResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.devicerisk.report.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_hksecuritytech_gateway_devicerisk_report_ex_async(
+        self,
+        request: ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.SubmitHksecuritytechGatewayDeviceriskReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.SubmitHksecuritytechGatewayDeviceriskReportResponse:
+        """
+        Description: 终端安全 设备信息上报
+        Summary: 设备信息上报
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__8146025f_0aa_2474a_88d_81f_508253e_029_models.SubmitHksecuritytechGatewayDeviceriskReportResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.devicerisk.report.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
