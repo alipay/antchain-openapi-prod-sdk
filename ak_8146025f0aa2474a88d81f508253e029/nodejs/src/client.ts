@@ -424,14 +424,11 @@ export class SubmitHksecuritytechGatewayDeviceriskReportRequest extends $tea.Mod
   productInstanceId?: string;
   // request_data
   requestData: string;
-  // result
-  result: DeviceRiskReportResult;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       requestData: 'request_data',
-      result: 'result',
     };
   }
 
@@ -440,7 +437,6 @@ export class SubmitHksecuritytechGatewayDeviceriskReportRequest extends $tea.Mod
       authToken: 'string',
       productInstanceId: 'string',
       requestData: 'string',
-      result: DeviceRiskReportResult,
     };
   }
 
@@ -458,12 +454,15 @@ export class SubmitHksecuritytechGatewayDeviceriskReportResponse extends $tea.Mo
   resultMsg?: string;
   // 1000
   resultStatus?: number;
+  // result
+  result?: DeviceRiskReportResult;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       resultStatus: 'result_status',
+      result: 'result',
     };
   }
 
@@ -473,6 +472,7 @@ export class SubmitHksecuritytechGatewayDeviceriskReportResponse extends $tea.Mo
       resultCode: 'string',
       resultMsg: 'string',
       resultStatus: 'number',
+      result: DeviceRiskReportResult,
     };
   }
 
@@ -594,7 +594,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.2",
+          sdk_version: "1.0.3",
           _prod_code: "ak_8146025f0aa2474a88d81f508253e029",
           _prod_channel: "saas",
         };
