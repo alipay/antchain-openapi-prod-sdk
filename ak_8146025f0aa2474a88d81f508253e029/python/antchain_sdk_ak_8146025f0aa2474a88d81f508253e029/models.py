@@ -736,21 +736,15 @@ class SubmitHksecuritytechGatewayDeviceriskReportRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         request_data: str = None,
-        result: DeviceRiskReportResult = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # request_data
         self.request_data = request_data
-        # result
-        self.result = result
 
     def validate(self):
         self.validate_required(self.request_data, 'request_data')
-        self.validate_required(self.result, 'result')
-        if self.result:
-            self.result.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -764,8 +758,6 @@ class SubmitHksecuritytechGatewayDeviceriskReportRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.request_data is not None:
             result['request_data'] = self.request_data
-        if self.result is not None:
-            result['result'] = self.result.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -776,9 +768,6 @@ class SubmitHksecuritytechGatewayDeviceriskReportRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('request_data') is not None:
             self.request_data = m.get('request_data')
-        if m.get('result') is not None:
-            temp_model = DeviceRiskReportResult()
-            self.result = temp_model.from_map(m['result'])
         return self
 
 
@@ -789,6 +778,7 @@ class SubmitHksecuritytechGatewayDeviceriskReportResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         result_status: int = None,
+        result: DeviceRiskReportResult = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -798,9 +788,12 @@ class SubmitHksecuritytechGatewayDeviceriskReportResponse(TeaModel):
         self.result_msg = result_msg
         # 1000
         self.result_status = result_status
+        # result
+        self.result = result
 
     def validate(self):
-        pass
+        if self.result:
+            self.result.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -816,6 +809,8 @@ class SubmitHksecuritytechGatewayDeviceriskReportResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.result_status is not None:
             result['result_status'] = self.result_status
+        if self.result is not None:
+            result['result'] = self.result.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -828,6 +823,9 @@ class SubmitHksecuritytechGatewayDeviceriskReportResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('result_status') is not None:
             self.result_status = m.get('result_status')
+        if m.get('result') is not None:
+            temp_model = DeviceRiskReportResult()
+            self.result = temp_model.from_map(m['result'])
         return self
 
 
