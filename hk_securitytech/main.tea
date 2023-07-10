@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.2',
+    sdk_version = '1.3.5',
     _prod_code = 'HK_SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -161,6 +161,30 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// result.resultData
+model DeviceRiskReportResultData {
+  // webrtc_url
+  webrtcUrl: string(name='webrtc_url', example='webrtc_url'),
+  // a_dynamic_swi
+  aDynamicSwi: string(name='a_dynamic_swi', example='a_dynamic_swi'),
+  // dynamic_interval
+  dynamicInterval: string(name='dynamic_interval', example='dynamic_interval'),
+  // color
+  color: string(name='color', example='color'),
+  // os
+  os: string(name='os', example='os'),
+  // dynamic_cmd
+  dynamicCmd: string(name='dynamic_cmd', example='dynamic_cmd'),
+  // time_interval
+  timeInterval: string(name='time_interval', example='time_interval'),
+  // dynamic_trace
+  dynamicTrace: string(name='dynamic_trace', example='dynamic_trace'),
+  // dynamic_num
+  dynamicNum: string(name='dynamic_num', example='dynamic_num'),
+  // result_type
+  resultType: string(name='result_type', example='result_type'),
+}
+
 // 人脸盾结果
 // 
 model FaceShieldResult {
@@ -175,6 +199,34 @@ model FaceShieldResult {
   riskDesc: string(name='risk_desc', example='本次咨询设备风险水平很高,风险编号:10000010.8.0 '),
   // 处理的建议，如PAAS
   sugAction: string(name='sug_action', example='建议直接拦截 '),
+}
+
+// 设备信息上报
+model DeviceRiskReportResult {
+  // success
+  success: boolean(name='success', example='true, false'),
+  // result_code
+  resultCode: string(name='result_code', example='result_code'),
+  // result_status
+  resultStatus: string(name='result_status', example='result_status'),
+  // apdid
+  apdid: string(name='apdid', example='apdid'),
+  // token
+  token: string(name='token', example='token'),
+  // current_time
+  currentTime: string(name='current_time', example='current_time'),
+  // version
+  version: string(name='version', example='version'),
+  // vkey_switch
+  vkeySwitch: string(name='vkey_switch', example='vkey_switch'),
+  // bug_track_switch
+  bugTrackSwitch: string(name='bug_track_switch', example='bug_track_switch'),
+  // app_list_ver
+  appListVer: string(name='app_list_ver', example='app_list_ver'),
+  // dynamic_key
+  dynamicKey: string(name='dynamic_key', example='dynamic_key'),
+  // result_data
+  resultData: DeviceRiskReportResultData(name='result_data', example=''),
 }
 
 // 安卓加固ClassMethodConfig
@@ -543,5 +595,61 @@ async function queryFaceshieldWeb(request: QueryFaceshieldWebRequest): QueryFace
 async function queryFaceshieldWebEx(request: QueryFaceshieldWebRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFaceshieldWebResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'hksecuritytech.gateway.faceshield.web.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitDeviceriskReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // request_data
+  requestData: string(name='request_data'),
+}
+
+model SubmitDeviceriskReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // success
+  success?: boolean(name='success'),
+  // apdid
+  apdid?: string(name='apdid'),
+  // token
+  token?: string(name='token'),
+  // current_time
+  currentTime?: string(name='current_time'),
+  // version
+  version?: string(name='version'),
+  // vkey_switch
+  vkeySwitch?: string(name='vkey_switch'),
+  // bug_track_switch
+  bugTrackSwitch?: string(name='bug_track_switch'),
+  // app_list_ver
+  appListVer?: string(name='app_list_ver'),
+  // dynamic_key
+  dynamicKey?: string(name='dynamic_key'),
+  // result_data
+  resultData?: DeviceRiskReportResultData(name='result_data'),
+}
+
+/**
+ * Description: 终端安全 设备信息上报
+ * Summary: 设备信息上报
+ */
+async function submitDeviceriskReport(request: SubmitDeviceriskReportRequest): SubmitDeviceriskReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitDeviceriskReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全 设备信息上报
+ * Summary: 设备信息上报
+ */
+async function submitDeviceriskReportEx(request: SubmitDeviceriskReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitDeviceriskReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.devicerisk.report.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
