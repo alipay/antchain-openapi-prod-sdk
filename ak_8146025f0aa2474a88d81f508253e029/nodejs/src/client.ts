@@ -77,6 +77,128 @@ export class Config extends $tea.Model {
   }
 }
 
+// result.resultData
+export class DeviceRiskReportResultData extends $tea.Model {
+  // webrtc_url
+  webrtcUrl: string;
+  // a_dynamic_swi
+  aDynamicSwi: string;
+  // dynamic_interval
+  dynamicInterval: string;
+  // color
+  color: string;
+  // os
+  os: string;
+  // dynamic_cmd
+  dynamicCmd: string;
+  // time_interval
+  timeInterval: string;
+  // dynamic_trace
+  dynamicTrace: string;
+  // dynamic_num
+  dynamicNum: string;
+  // result_type
+  resultType: string;
+  static names(): { [key: string]: string } {
+    return {
+      webrtcUrl: 'webrtc_url',
+      aDynamicSwi: 'a_dynamic_swi',
+      dynamicInterval: 'dynamic_interval',
+      color: 'color',
+      os: 'os',
+      dynamicCmd: 'dynamic_cmd',
+      timeInterval: 'time_interval',
+      dynamicTrace: 'dynamic_trace',
+      dynamicNum: 'dynamic_num',
+      resultType: 'result_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      webrtcUrl: 'string',
+      aDynamicSwi: 'string',
+      dynamicInterval: 'string',
+      color: 'string',
+      os: 'string',
+      dynamicCmd: 'string',
+      timeInterval: 'string',
+      dynamicTrace: 'string',
+      dynamicNum: 'string',
+      resultType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 设备信息上报
+export class DeviceRiskReportResult extends $tea.Model {
+  // success
+  success: boolean;
+  // result_code
+  resultCode: string;
+  // result_status
+  resultStatus: string;
+  // apdid
+  apdid: string;
+  // token
+  token: string;
+  // current_time
+  currentTime: string;
+  // version
+  version: string;
+  // vkey_switch
+  vkeySwitch: string;
+  // bug_track_switch
+  bugTrackSwitch: string;
+  // app_list_ver
+  appListVer: string;
+  // dynamic_key
+  dynamicKey: string;
+  // result_data
+  resultData: DeviceRiskReportResultData;
+  static names(): { [key: string]: string } {
+    return {
+      success: 'success',
+      resultCode: 'result_code',
+      resultStatus: 'result_status',
+      apdid: 'apdid',
+      token: 'token',
+      currentTime: 'current_time',
+      version: 'version',
+      vkeySwitch: 'vkey_switch',
+      bugTrackSwitch: 'bug_track_switch',
+      appListVer: 'app_list_ver',
+      dynamicKey: 'dynamic_key',
+      resultData: 'result_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      success: 'boolean',
+      resultCode: 'string',
+      resultStatus: 'string',
+      apdid: 'string',
+      token: 'string',
+      currentTime: 'string',
+      version: 'string',
+      vkeySwitch: 'string',
+      bugTrackSwitch: 'string',
+      appListVer: 'string',
+      dynamicKey: 'string',
+      resultData: DeviceRiskReportResultData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 设备风险查询data
 export class DeviceRiskResp extends $tea.Model {
   // apdid
@@ -296,6 +418,69 @@ export class QueryHksecuritytechGatewayDeviceriskDeviceriskResponse extends $tea
   }
 }
 
+export class SubmitHksecuritytechGatewayDeviceriskReportRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // request_data
+  requestData: string;
+  // result
+  result: DeviceRiskReportResult;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestData: 'request_data',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestData: 'string',
+      result: DeviceRiskReportResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitHksecuritytechGatewayDeviceriskReportResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 1000
+  resultStatus?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultStatus: 'result_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultStatus: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -409,7 +594,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "1.0.2",
           _prod_code: "ak_8146025f0aa2474a88d81f508253e029",
           _prod_channel: "saas",
         };
@@ -493,6 +678,25 @@ export default class Client {
   async queryHksecuritytechGatewayDeviceriskDeviceriskEx(request: QueryHksecuritytechGatewayDeviceriskDeviceriskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryHksecuritytechGatewayDeviceriskDeviceriskResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryHksecuritytechGatewayDeviceriskDeviceriskResponse>(await this.doRequest("1.0", "hksecuritytech.gateway.devicerisk.devicerisk.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryHksecuritytechGatewayDeviceriskDeviceriskResponse({}));
+  }
+
+  /**
+   * Description: 终端安全 设备信息上报
+   * Summary: 设备信息上报
+   */
+  async submitHksecuritytechGatewayDeviceriskReport(request: SubmitHksecuritytechGatewayDeviceriskReportRequest): Promise<SubmitHksecuritytechGatewayDeviceriskReportResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitHksecuritytechGatewayDeviceriskReportEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 终端安全 设备信息上报
+   * Summary: 设备信息上报
+   */
+  async submitHksecuritytechGatewayDeviceriskReportEx(request: SubmitHksecuritytechGatewayDeviceriskReportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitHksecuritytechGatewayDeviceriskReportResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitHksecuritytechGatewayDeviceriskReportResponse>(await this.doRequest("1.0", "hksecuritytech.gateway.devicerisk.report.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitHksecuritytechGatewayDeviceriskReportResponse({}));
   }
 
 }
