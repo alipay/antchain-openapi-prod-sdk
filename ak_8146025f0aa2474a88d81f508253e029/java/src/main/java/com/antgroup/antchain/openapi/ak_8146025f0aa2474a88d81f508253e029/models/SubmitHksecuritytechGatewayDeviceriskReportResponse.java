@@ -16,13 +16,45 @@ public class SubmitHksecuritytechGatewayDeviceriskReportResponse extends TeaMode
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 1000
-    @NameInMap("result_status")
-    public Long resultStatus;
+    // success
+    @NameInMap("success")
+    public Boolean success;
 
-    // result
-    @NameInMap("result")
-    public DeviceRiskReportResult result;
+    // apdid
+    @NameInMap("apdid")
+    public String apdid;
+
+    // token
+    @NameInMap("token")
+    public String token;
+
+    // current_time
+    @NameInMap("current_time")
+    public String currentTime;
+
+    // version
+    @NameInMap("version")
+    public String version;
+
+    // vkey_switch
+    @NameInMap("vkey_switch")
+    public String vkeySwitch;
+
+    // bug_track_switch
+    @NameInMap("bug_track_switch")
+    public String bugTrackSwitch;
+
+    // app_list_ver
+    @NameInMap("app_list_ver")
+    public String appListVer;
+
+    // dynamic_key
+    @NameInMap("dynamic_key")
+    public String dynamicKey;
+
+    // result_data
+    @NameInMap("result_data")
+    public DeviceRiskReportResultData resultData;
 
     public static SubmitHksecuritytechGatewayDeviceriskReportResponse build(java.util.Map<String, ?> map) throws Exception {
         SubmitHksecuritytechGatewayDeviceriskReportResponse self = new SubmitHksecuritytechGatewayDeviceriskReportResponse();
@@ -53,20 +85,84 @@ public class SubmitHksecuritytechGatewayDeviceriskReportResponse extends TeaMode
         return this.resultMsg;
     }
 
-    public SubmitHksecuritytechGatewayDeviceriskReportResponse setResultStatus(Long resultStatus) {
-        this.resultStatus = resultStatus;
+    public SubmitHksecuritytechGatewayDeviceriskReportResponse setSuccess(Boolean success) {
+        this.success = success;
         return this;
     }
-    public Long getResultStatus() {
-        return this.resultStatus;
+    public Boolean getSuccess() {
+        return this.success;
     }
 
-    public SubmitHksecuritytechGatewayDeviceriskReportResponse setResult(DeviceRiskReportResult result) {
-        this.result = result;
+    public SubmitHksecuritytechGatewayDeviceriskReportResponse setApdid(String apdid) {
+        this.apdid = apdid;
         return this;
     }
-    public DeviceRiskReportResult getResult() {
-        return this.result;
+    public String getApdid() {
+        return this.apdid;
+    }
+
+    public SubmitHksecuritytechGatewayDeviceriskReportResponse setToken(String token) {
+        this.token = token;
+        return this;
+    }
+    public String getToken() {
+        return this.token;
+    }
+
+    public SubmitHksecuritytechGatewayDeviceriskReportResponse setCurrentTime(String currentTime) {
+        this.currentTime = currentTime;
+        return this;
+    }
+    public String getCurrentTime() {
+        return this.currentTime;
+    }
+
+    public SubmitHksecuritytechGatewayDeviceriskReportResponse setVersion(String version) {
+        this.version = version;
+        return this;
+    }
+    public String getVersion() {
+        return this.version;
+    }
+
+    public SubmitHksecuritytechGatewayDeviceriskReportResponse setVkeySwitch(String vkeySwitch) {
+        this.vkeySwitch = vkeySwitch;
+        return this;
+    }
+    public String getVkeySwitch() {
+        return this.vkeySwitch;
+    }
+
+    public SubmitHksecuritytechGatewayDeviceriskReportResponse setBugTrackSwitch(String bugTrackSwitch) {
+        this.bugTrackSwitch = bugTrackSwitch;
+        return this;
+    }
+    public String getBugTrackSwitch() {
+        return this.bugTrackSwitch;
+    }
+
+    public SubmitHksecuritytechGatewayDeviceriskReportResponse setAppListVer(String appListVer) {
+        this.appListVer = appListVer;
+        return this;
+    }
+    public String getAppListVer() {
+        return this.appListVer;
+    }
+
+    public SubmitHksecuritytechGatewayDeviceriskReportResponse setDynamicKey(String dynamicKey) {
+        this.dynamicKey = dynamicKey;
+        return this;
+    }
+    public String getDynamicKey() {
+        return this.dynamicKey;
+    }
+
+    public SubmitHksecuritytechGatewayDeviceriskReportResponse setResultData(DeviceRiskReportResultData resultData) {
+        this.resultData = resultData;
+        return this;
+    }
+    public DeviceRiskReportResultData getResultData() {
+        return this.resultData;
     }
 
 }
