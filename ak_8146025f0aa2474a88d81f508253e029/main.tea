@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.3',
+    sdk_version = '1.0.4',
     _prod_code = 'ak_8146025f0aa2474a88d81f508253e029',
     _prod_channel = 'saas'
   };
@@ -183,34 +183,6 @@ model DeviceRiskReportResultData {
   dynamicNum: string(name='dynamic_num', example='dynamic_num'),
   // result_type
   resultType: string(name='result_type', example='result_type'),
-}
-
-// 设备信息上报
-model DeviceRiskReportResult {
-  // success
-  success: boolean(name='success', example='true, false'),
-  // result_code
-  resultCode: string(name='result_code', example='result_code'),
-  // result_status
-  resultStatus: string(name='result_status', example='result_status'),
-  // apdid
-  apdid: string(name='apdid', example='apdid'),
-  // token
-  token: string(name='token', example='token'),
-  // current_time
-  currentTime: string(name='current_time', example='current_time'),
-  // version
-  version: string(name='version', example='version'),
-  // vkey_switch
-  vkeySwitch: string(name='vkey_switch', example='vkey_switch'),
-  // bug_track_switch
-  bugTrackSwitch: string(name='bug_track_switch', example='bug_track_switch'),
-  // app_list_ver
-  appListVer: string(name='app_list_ver', example='app_list_ver'),
-  // dynamic_key
-  dynamicKey: string(name='dynamic_key', example='dynamic_key'),
-  // result_data
-  resultData: DeviceRiskReportResultData(name='result_data', example=''),
 }
 
 // 设备风险查询data
@@ -350,10 +322,26 @@ model SubmitHksecuritytechGatewayDeviceriskReportResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 1000
-  resultStatus?: long(name='result_status'),
-  // result
-  result?: DeviceRiskReportResult(name='result'),
+  // success
+  success?: boolean(name='success'),
+  // apdid
+  apdid?: string(name='apdid'),
+  // token
+  token?: string(name='token'),
+  // current_time
+  currentTime?: string(name='current_time'),
+  // version
+  version?: string(name='version'),
+  // vkey_switch
+  vkeySwitch?: string(name='vkey_switch'),
+  // bug_track_switch
+  bugTrackSwitch?: string(name='bug_track_switch'),
+  // app_list_ver
+  appListVer?: string(name='app_list_ver'),
+  // dynamic_key
+  dynamicKey?: string(name='dynamic_key'),
+  // result_data
+  resultData?: DeviceRiskReportResultData(name='result_data'),
 }
 
 /**
