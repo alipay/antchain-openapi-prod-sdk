@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.0.3',
     _prod_code = 'ak_8146025f0aa2474a88d81f508253e029',
     _prod_channel = 'saas'
   };
@@ -341,8 +341,6 @@ model SubmitHksecuritytechGatewayDeviceriskReportRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // request_data
   requestData: string(name='request_data'),
-  // result
-  result: DeviceRiskReportResult(name='result'),
 }
 
 model SubmitHksecuritytechGatewayDeviceriskReportResponse = {
@@ -354,6 +352,8 @@ model SubmitHksecuritytechGatewayDeviceriskReportResponse = {
   resultMsg?: string(name='result_msg'),
   // 1000
   resultStatus?: long(name='result_status'),
+  // result
+  result?: DeviceRiskReportResult(name='result'),
 }
 
 /**
