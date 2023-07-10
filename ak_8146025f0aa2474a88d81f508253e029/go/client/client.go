@@ -631,8 +631,6 @@ type SubmitHksecuritytechGatewayDeviceriskReportRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// request_data
 	RequestData *string `json:"request_data,omitempty" xml:"request_data,omitempty" require:"true"`
-	// result
-	Result *DeviceRiskReportResult `json:"result,omitempty" xml:"result,omitempty" require:"true"`
 }
 
 func (s SubmitHksecuritytechGatewayDeviceriskReportRequest) String() string {
@@ -658,11 +656,6 @@ func (s *SubmitHksecuritytechGatewayDeviceriskReportRequest) SetRequestData(v st
 	return s
 }
 
-func (s *SubmitHksecuritytechGatewayDeviceriskReportRequest) SetResult(v *DeviceRiskReportResult) *SubmitHksecuritytechGatewayDeviceriskReportRequest {
-	s.Result = v
-	return s
-}
-
 type SubmitHksecuritytechGatewayDeviceriskReportResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -672,6 +665,8 @@ type SubmitHksecuritytechGatewayDeviceriskReportResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 1000
 	ResultStatus *int64 `json:"result_status,omitempty" xml:"result_status,omitempty"`
+	// result
+	Result *DeviceRiskReportResult `json:"result,omitempty" xml:"result,omitempty"`
 }
 
 func (s SubmitHksecuritytechGatewayDeviceriskReportResponse) String() string {
@@ -699,6 +694,11 @@ func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetResultMsg(v str
 
 func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetResultStatus(v int64) *SubmitHksecuritytechGatewayDeviceriskReportResponse {
 	s.ResultStatus = &v
+	return s
+}
+
+func (s *SubmitHksecuritytechGatewayDeviceriskReportResponse) SetResult(v *DeviceRiskReportResult) *SubmitHksecuritytechGatewayDeviceriskReportResponse {
+	s.Result = v
 	return s
 }
 
@@ -824,7 +824,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.0.3"),
 				"_prod_code":       tea.String("ak_8146025f0aa2474a88d81f508253e029"),
 				"_prod_channel":    tea.String("saas"),
 			}
