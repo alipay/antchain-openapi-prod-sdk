@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.0.2',
     _prod_code = 'ak_8146025f0aa2474a88d81f508253e029',
     _prod_channel = 'saas'
   };
@@ -159,6 +159,58 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// result.resultData
+model DeviceRiskReportResultData {
+  // webrtc_url
+  webrtcUrl: string(name='webrtc_url', example='webrtc_url'),
+  // a_dynamic_swi
+  aDynamicSwi: string(name='a_dynamic_swi', example='a_dynamic_swi'),
+  // dynamic_interval
+  dynamicInterval: string(name='dynamic_interval', example='dynamic_interval'),
+  // color
+  color: string(name='color', example='color'),
+  // os
+  os: string(name='os', example='os'),
+  // dynamic_cmd
+  dynamicCmd: string(name='dynamic_cmd', example='dynamic_cmd'),
+  // time_interval
+  timeInterval: string(name='time_interval', example='time_interval'),
+  // dynamic_trace
+  dynamicTrace: string(name='dynamic_trace', example='dynamic_trace'),
+  // dynamic_num
+  dynamicNum: string(name='dynamic_num', example='dynamic_num'),
+  // result_type
+  resultType: string(name='result_type', example='result_type'),
+}
+
+// 设备信息上报
+model DeviceRiskReportResult {
+  // success
+  success: boolean(name='success', example='true, false'),
+  // result_code
+  resultCode: string(name='result_code', example='result_code'),
+  // result_status
+  resultStatus: string(name='result_status', example='result_status'),
+  // apdid
+  apdid: string(name='apdid', example='apdid'),
+  // token
+  token: string(name='token', example='token'),
+  // current_time
+  currentTime: string(name='current_time', example='current_time'),
+  // version
+  version: string(name='version', example='version'),
+  // vkey_switch
+  vkeySwitch: string(name='vkey_switch', example='vkey_switch'),
+  // bug_track_switch
+  bugTrackSwitch: string(name='bug_track_switch', example='bug_track_switch'),
+  // app_list_ver
+  appListVer: string(name='app_list_ver', example='app_list_ver'),
+  // dynamic_key
+  dynamicKey: string(name='dynamic_key', example='dynamic_key'),
+  // result_data
+  resultData: DeviceRiskReportResultData(name='result_data', example=''),
 }
 
 // 设备风险查询data
@@ -281,5 +333,45 @@ async function queryHksecuritytechGatewayDeviceriskDevicerisk(request: QueryHkse
 async function queryHksecuritytechGatewayDeviceriskDeviceriskEx(request: QueryHksecuritytechGatewayDeviceriskDeviceriskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryHksecuritytechGatewayDeviceriskDeviceriskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'hksecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitHksecuritytechGatewayDeviceriskReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // request_data
+  requestData: string(name='request_data'),
+  // result
+  result: DeviceRiskReportResult(name='result'),
+}
+
+model SubmitHksecuritytechGatewayDeviceriskReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 1000
+  resultStatus?: long(name='result_status'),
+}
+
+/**
+ * Description: 终端安全 设备信息上报
+ * Summary: 设备信息上报
+ */
+async function submitHksecuritytechGatewayDeviceriskReport(request: SubmitHksecuritytechGatewayDeviceriskReportRequest): SubmitHksecuritytechGatewayDeviceriskReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitHksecuritytechGatewayDeviceriskReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全 设备信息上报
+ * Summary: 设备信息上报
+ */
+async function submitHksecuritytechGatewayDeviceriskReportEx(request: SubmitHksecuritytechGatewayDeviceriskReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitHksecuritytechGatewayDeviceriskReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.devicerisk.report.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
