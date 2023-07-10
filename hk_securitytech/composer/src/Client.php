@@ -23,6 +23,8 @@ use AntChain\HK_SECURITYTECH\Models\QueryFaceshieldWebRequest;
 use AntChain\HK_SECURITYTECH\Models\QueryFaceshieldWebResponse;
 use AntChain\HK_SECURITYTECH\Models\SubmitAshieldHardeningtaskRequest;
 use AntChain\HK_SECURITYTECH\Models\SubmitAshieldHardeningtaskResponse;
+use AntChain\HK_SECURITYTECH\Models\SubmitDeviceriskReportRequest;
+use AntChain\HK_SECURITYTECH\Models\SubmitDeviceriskReportResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -142,8 +144,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 人脸盾结果
-            //
+            // result.resultData
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -171,7 +172,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.2',
+                    'sdk_version'      => '1.3.5',
                     '_prod_code'       => 'HK_SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -415,5 +416,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryFaceshieldWebResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.faceshield.web.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全 设备信息上报
+     * Summary: 设备信息上报.
+     *
+     * @param SubmitDeviceriskReportRequest $request
+     *
+     * @return SubmitDeviceriskReportResponse
+     */
+    public function submitDeviceriskReport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitDeviceriskReportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全 设备信息上报
+     * Summary: 设备信息上报.
+     *
+     * @param SubmitDeviceriskReportRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return SubmitDeviceriskReportResponse
+     */
+    public function submitDeviceriskReportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitDeviceriskReportResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.devicerisk.report.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
