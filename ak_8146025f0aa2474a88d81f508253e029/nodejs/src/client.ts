@@ -134,71 +134,6 @@ export class DeviceRiskReportResultData extends $tea.Model {
   }
 }
 
-// 设备信息上报
-export class DeviceRiskReportResult extends $tea.Model {
-  // success
-  success: boolean;
-  // result_code
-  resultCode: string;
-  // result_status
-  resultStatus: string;
-  // apdid
-  apdid: string;
-  // token
-  token: string;
-  // current_time
-  currentTime: string;
-  // version
-  version: string;
-  // vkey_switch
-  vkeySwitch: string;
-  // bug_track_switch
-  bugTrackSwitch: string;
-  // app_list_ver
-  appListVer: string;
-  // dynamic_key
-  dynamicKey: string;
-  // result_data
-  resultData: DeviceRiskReportResultData;
-  static names(): { [key: string]: string } {
-    return {
-      success: 'success',
-      resultCode: 'result_code',
-      resultStatus: 'result_status',
-      apdid: 'apdid',
-      token: 'token',
-      currentTime: 'current_time',
-      version: 'version',
-      vkeySwitch: 'vkey_switch',
-      bugTrackSwitch: 'bug_track_switch',
-      appListVer: 'app_list_ver',
-      dynamicKey: 'dynamic_key',
-      resultData: 'result_data',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      success: 'boolean',
-      resultCode: 'string',
-      resultStatus: 'string',
-      apdid: 'string',
-      token: 'string',
-      currentTime: 'string',
-      version: 'string',
-      vkeySwitch: 'string',
-      bugTrackSwitch: 'string',
-      appListVer: 'string',
-      dynamicKey: 'string',
-      resultData: DeviceRiskReportResultData,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 设备风险查询data
 export class DeviceRiskResp extends $tea.Model {
   // apdid
@@ -452,17 +387,41 @@ export class SubmitHksecuritytechGatewayDeviceriskReportResponse extends $tea.Mo
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 1000
-  resultStatus?: number;
-  // result
-  result?: DeviceRiskReportResult;
+  // success
+  success?: boolean;
+  // apdid
+  apdid?: string;
+  // token
+  token?: string;
+  // current_time
+  currentTime?: string;
+  // version
+  version?: string;
+  // vkey_switch
+  vkeySwitch?: string;
+  // bug_track_switch
+  bugTrackSwitch?: string;
+  // app_list_ver
+  appListVer?: string;
+  // dynamic_key
+  dynamicKey?: string;
+  // result_data
+  resultData?: DeviceRiskReportResultData;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      resultStatus: 'result_status',
-      result: 'result',
+      success: 'success',
+      apdid: 'apdid',
+      token: 'token',
+      currentTime: 'current_time',
+      version: 'version',
+      vkeySwitch: 'vkey_switch',
+      bugTrackSwitch: 'bug_track_switch',
+      appListVer: 'app_list_ver',
+      dynamicKey: 'dynamic_key',
+      resultData: 'result_data',
     };
   }
 
@@ -471,8 +430,16 @@ export class SubmitHksecuritytechGatewayDeviceriskReportResponse extends $tea.Mo
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      resultStatus: 'number',
-      result: DeviceRiskReportResult,
+      success: 'boolean',
+      apdid: 'string',
+      token: 'string',
+      currentTime: 'string',
+      version: 'string',
+      vkeySwitch: 'string',
+      bugTrackSwitch: 'string',
+      appListVer: 'string',
+      dynamicKey: 'string',
+      resultData: DeviceRiskReportResultData,
     };
   }
 
@@ -594,7 +561,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.3",
+          sdk_version: "1.0.4",
           _prod_code: "ak_8146025f0aa2474a88d81f508253e029",
           _prod_channel: "saas",
         };
