@@ -24,23 +24,15 @@ class SubmitHksecuritytechGatewayDeviceriskReportRequest extends Model
      * @var string
      */
     public $requestData;
-
-    // result
-    /**
-     * @var DeviceRiskReportResult
-     */
-    public $result;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'requestData'       => 'request_data',
-        'result'            => 'result',
     ];
 
     public function validate()
     {
         Model::validateRequired('requestData', $this->requestData, true);
-        Model::validateRequired('result', $this->result, true);
     }
 
     public function toMap()
@@ -54,9 +46,6 @@ class SubmitHksecuritytechGatewayDeviceriskReportRequest extends Model
         }
         if (null !== $this->requestData) {
             $res['request_data'] = $this->requestData;
-        }
-        if (null !== $this->result) {
-            $res['result'] = null !== $this->result ? $this->result->toMap() : null;
         }
 
         return $res;
@@ -78,9 +67,6 @@ class SubmitHksecuritytechGatewayDeviceriskReportRequest extends Model
         }
         if (isset($map['request_data'])) {
             $model->requestData = $map['request_data'];
-        }
-        if (isset($map['result'])) {
-            $model->result = DeviceRiskReportResult::fromMap($map['result']);
         }
 
         return $model;

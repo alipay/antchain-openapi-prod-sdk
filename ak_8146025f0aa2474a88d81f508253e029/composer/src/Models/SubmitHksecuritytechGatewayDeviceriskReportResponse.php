@@ -31,11 +31,18 @@ class SubmitHksecuritytechGatewayDeviceriskReportResponse extends Model
      * @var int
      */
     public $resultStatus;
+
+    // result
+    /**
+     * @var DeviceRiskReportResult
+     */
+    public $result;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
         'resultMsg'    => 'result_msg',
         'resultStatus' => 'result_status',
+        'result'       => 'result',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class SubmitHksecuritytechGatewayDeviceriskReportResponse extends Model
         }
         if (null !== $this->resultStatus) {
             $res['result_status'] = $this->resultStatus;
+        }
+        if (null !== $this->result) {
+            $res['result'] = null !== $this->result ? $this->result->toMap() : null;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class SubmitHksecuritytechGatewayDeviceriskReportResponse extends Model
         }
         if (isset($map['result_status'])) {
             $model->resultStatus = $map['result_status'];
+        }
+        if (isset($map['result'])) {
+            $model->result = DeviceRiskReportResult::fromMap($map['result']);
         }
 
         return $model;
