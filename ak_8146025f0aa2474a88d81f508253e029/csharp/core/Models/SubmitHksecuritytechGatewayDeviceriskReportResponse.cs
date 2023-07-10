@@ -24,15 +24,55 @@ namespace AntChain.SDK.Ak_8146025f0aa2474a88d81f508253e029.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 1000
-        [NameInMap("result_status")]
+        // success
+        [NameInMap("success")]
         [Validation(Required=false)]
-        public long? ResultStatus { get; set; }
+        public bool? Success { get; set; }
 
-        // result
-        [NameInMap("result")]
+        // apdid
+        [NameInMap("apdid")]
         [Validation(Required=false)]
-        public DeviceRiskReportResult Result { get; set; }
+        public string Apdid { get; set; }
+
+        // token
+        [NameInMap("token")]
+        [Validation(Required=false)]
+        public string Token { get; set; }
+
+        // current_time
+        [NameInMap("current_time")]
+        [Validation(Required=false)]
+        public string CurrentTime { get; set; }
+
+        // version
+        [NameInMap("version")]
+        [Validation(Required=false)]
+        public string Version { get; set; }
+
+        // vkey_switch
+        [NameInMap("vkey_switch")]
+        [Validation(Required=false)]
+        public string VkeySwitch { get; set; }
+
+        // bug_track_switch
+        [NameInMap("bug_track_switch")]
+        [Validation(Required=false)]
+        public string BugTrackSwitch { get; set; }
+
+        // app_list_ver
+        [NameInMap("app_list_ver")]
+        [Validation(Required=false)]
+        public string AppListVer { get; set; }
+
+        // dynamic_key
+        [NameInMap("dynamic_key")]
+        [Validation(Required=false)]
+        public string DynamicKey { get; set; }
+
+        // result_data
+        [NameInMap("result_data")]
+        [Validation(Required=false)]
+        public DeviceRiskReportResultData ResultData { get; set; }
 
     }
 
