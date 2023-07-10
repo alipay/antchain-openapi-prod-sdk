@@ -15,6 +15,8 @@ use AntChain\Ak_8146025f0aa2474a88d81f508253e029\Models\QueryHksecuritytechGatew
 use AntChain\Ak_8146025f0aa2474a88d81f508253e029\Models\QueryHksecuritytechGatewayDeviceriskDeviceriskResponse;
 use AntChain\Ak_8146025f0aa2474a88d81f508253e029\Models\QueryHksecuritytechGatewayDeviceriskFingerRequest;
 use AntChain\Ak_8146025f0aa2474a88d81f508253e029\Models\QueryHksecuritytechGatewayDeviceriskFingerResponse;
+use AntChain\Ak_8146025f0aa2474a88d81f508253e029\Models\SubmitHksecuritytechGatewayDeviceriskReportRequest;
+use AntChain\Ak_8146025f0aa2474a88d81f508253e029\Models\SubmitHksecuritytechGatewayDeviceriskReportResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -134,7 +136,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 设备风险查询data
+            // result.resultData
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -162,7 +164,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.2',
                     '_prod_code'       => 'ak_8146025f0aa2474a88d81f508253e029',
                     '_prod_channel'    => 'saas',
                 ];
@@ -274,5 +276,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryHksecuritytechGatewayDeviceriskDeviceriskResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全 设备信息上报
+     * Summary: 设备信息上报.
+     *
+     * @param SubmitHksecuritytechGatewayDeviceriskReportRequest $request
+     *
+     * @return SubmitHksecuritytechGatewayDeviceriskReportResponse
+     */
+    public function submitHksecuritytechGatewayDeviceriskReport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitHksecuritytechGatewayDeviceriskReportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全 设备信息上报
+     * Summary: 设备信息上报.
+     *
+     * @param SubmitHksecuritytechGatewayDeviceriskReportRequest $request
+     * @param string[]                                           $headers
+     * @param RuntimeOptions                                     $runtime
+     *
+     * @return SubmitHksecuritytechGatewayDeviceriskReportResponse
+     */
+    public function submitHksecuritytechGatewayDeviceriskReportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitHksecuritytechGatewayDeviceriskReportResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.devicerisk.report.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
