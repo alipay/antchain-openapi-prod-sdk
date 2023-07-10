@@ -148,6 +148,88 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// result.resultData
+type DeviceRiskReportResultData struct {
+	// webrtc_url
+	WebrtcUrl *string `json:"webrtc_url,omitempty" xml:"webrtc_url,omitempty" require:"true"`
+	// a_dynamic_swi
+	ADynamicSwi *string `json:"a_dynamic_swi,omitempty" xml:"a_dynamic_swi,omitempty" require:"true"`
+	// dynamic_interval
+	DynamicInterval *string `json:"dynamic_interval,omitempty" xml:"dynamic_interval,omitempty" require:"true"`
+	// color
+	Color *string `json:"color,omitempty" xml:"color,omitempty" require:"true"`
+	// os
+	Os *string `json:"os,omitempty" xml:"os,omitempty" require:"true"`
+	// dynamic_cmd
+	DynamicCmd *string `json:"dynamic_cmd,omitempty" xml:"dynamic_cmd,omitempty" require:"true"`
+	// time_interval
+	TimeInterval *string `json:"time_interval,omitempty" xml:"time_interval,omitempty" require:"true"`
+	// dynamic_trace
+	DynamicTrace *string `json:"dynamic_trace,omitempty" xml:"dynamic_trace,omitempty" require:"true"`
+	// dynamic_num
+	DynamicNum *string `json:"dynamic_num,omitempty" xml:"dynamic_num,omitempty" require:"true"`
+	// result_type
+	ResultType *string `json:"result_type,omitempty" xml:"result_type,omitempty" require:"true"`
+}
+
+func (s DeviceRiskReportResultData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceRiskReportResultData) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceRiskReportResultData) SetWebrtcUrl(v string) *DeviceRiskReportResultData {
+	s.WebrtcUrl = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetADynamicSwi(v string) *DeviceRiskReportResultData {
+	s.ADynamicSwi = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetDynamicInterval(v string) *DeviceRiskReportResultData {
+	s.DynamicInterval = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetColor(v string) *DeviceRiskReportResultData {
+	s.Color = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetOs(v string) *DeviceRiskReportResultData {
+	s.Os = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetDynamicCmd(v string) *DeviceRiskReportResultData {
+	s.DynamicCmd = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetTimeInterval(v string) *DeviceRiskReportResultData {
+	s.TimeInterval = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetDynamicTrace(v string) *DeviceRiskReportResultData {
+	s.DynamicTrace = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetDynamicNum(v string) *DeviceRiskReportResultData {
+	s.DynamicNum = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetResultType(v string) *DeviceRiskReportResultData {
+	s.ResultType = &v
+	return s
+}
+
 // 人脸盾结果
 //
 type FaceShieldResult struct {
@@ -189,6 +271,102 @@ func (s *FaceShieldResult) SetRiskDesc(v string) *FaceShieldResult {
 
 func (s *FaceShieldResult) SetSugAction(v string) *FaceShieldResult {
 	s.SugAction = &v
+	return s
+}
+
+// 设备信息上报
+type DeviceRiskReportResult struct {
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// result_code
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty" require:"true"`
+	// result_status
+	ResultStatus *string `json:"result_status,omitempty" xml:"result_status,omitempty" require:"true"`
+	// apdid
+	Apdid *string `json:"apdid,omitempty" xml:"apdid,omitempty" require:"true"`
+	// token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+	// current_time
+	CurrentTime *string `json:"current_time,omitempty" xml:"current_time,omitempty" require:"true"`
+	// version
+	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
+	// vkey_switch
+	VkeySwitch *string `json:"vkey_switch,omitempty" xml:"vkey_switch,omitempty" require:"true"`
+	// bug_track_switch
+	BugTrackSwitch *string `json:"bug_track_switch,omitempty" xml:"bug_track_switch,omitempty" require:"true"`
+	// app_list_ver
+	AppListVer *string `json:"app_list_ver,omitempty" xml:"app_list_ver,omitempty" require:"true"`
+	// dynamic_key
+	DynamicKey *string `json:"dynamic_key,omitempty" xml:"dynamic_key,omitempty" require:"true"`
+	// result_data
+	ResultData *DeviceRiskReportResultData `json:"result_data,omitempty" xml:"result_data,omitempty" require:"true"`
+}
+
+func (s DeviceRiskReportResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceRiskReportResult) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceRiskReportResult) SetSuccess(v bool) *DeviceRiskReportResult {
+	s.Success = &v
+	return s
+}
+
+func (s *DeviceRiskReportResult) SetResultCode(v string) *DeviceRiskReportResult {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeviceRiskReportResult) SetResultStatus(v string) *DeviceRiskReportResult {
+	s.ResultStatus = &v
+	return s
+}
+
+func (s *DeviceRiskReportResult) SetApdid(v string) *DeviceRiskReportResult {
+	s.Apdid = &v
+	return s
+}
+
+func (s *DeviceRiskReportResult) SetToken(v string) *DeviceRiskReportResult {
+	s.Token = &v
+	return s
+}
+
+func (s *DeviceRiskReportResult) SetCurrentTime(v string) *DeviceRiskReportResult {
+	s.CurrentTime = &v
+	return s
+}
+
+func (s *DeviceRiskReportResult) SetVersion(v string) *DeviceRiskReportResult {
+	s.Version = &v
+	return s
+}
+
+func (s *DeviceRiskReportResult) SetVkeySwitch(v string) *DeviceRiskReportResult {
+	s.VkeySwitch = &v
+	return s
+}
+
+func (s *DeviceRiskReportResult) SetBugTrackSwitch(v string) *DeviceRiskReportResult {
+	s.BugTrackSwitch = &v
+	return s
+}
+
+func (s *DeviceRiskReportResult) SetAppListVer(v string) *DeviceRiskReportResult {
+	s.AppListVer = &v
+	return s
+}
+
+func (s *DeviceRiskReportResult) SetDynamicKey(v string) *DeviceRiskReportResult {
+	s.DynamicKey = &v
+	return s
+}
+
+func (s *DeviceRiskReportResult) SetResultData(v *DeviceRiskReportResultData) *DeviceRiskReportResult {
+	s.ResultData = v
 	return s
 }
 
@@ -1036,6 +1214,139 @@ func (s *QueryFaceshieldWebResponse) SetData(v *FaceShieldResult) *QueryFaceshie
 	return s
 }
 
+type SubmitDeviceriskReportRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// request_data
+	RequestData *string `json:"request_data,omitempty" xml:"request_data,omitempty" require:"true"`
+}
+
+func (s SubmitDeviceriskReportRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitDeviceriskReportRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitDeviceriskReportRequest) SetAuthToken(v string) *SubmitDeviceriskReportRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportRequest) SetProductInstanceId(v string) *SubmitDeviceriskReportRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportRequest) SetRequestData(v string) *SubmitDeviceriskReportRequest {
+	s.RequestData = &v
+	return s
+}
+
+type SubmitDeviceriskReportResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// apdid
+	Apdid *string `json:"apdid,omitempty" xml:"apdid,omitempty"`
+	// token
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+	// current_time
+	CurrentTime *string `json:"current_time,omitempty" xml:"current_time,omitempty"`
+	// version
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// vkey_switch
+	VkeySwitch *string `json:"vkey_switch,omitempty" xml:"vkey_switch,omitempty"`
+	// bug_track_switch
+	BugTrackSwitch *string `json:"bug_track_switch,omitempty" xml:"bug_track_switch,omitempty"`
+	// app_list_ver
+	AppListVer *string `json:"app_list_ver,omitempty" xml:"app_list_ver,omitempty"`
+	// dynamic_key
+	DynamicKey *string `json:"dynamic_key,omitempty" xml:"dynamic_key,omitempty"`
+	// result_data
+	ResultData *DeviceRiskReportResultData `json:"result_data,omitempty" xml:"result_data,omitempty"`
+}
+
+func (s SubmitDeviceriskReportResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitDeviceriskReportResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitDeviceriskReportResponse) SetReqMsgId(v string) *SubmitDeviceriskReportResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetResultCode(v string) *SubmitDeviceriskReportResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetResultMsg(v string) *SubmitDeviceriskReportResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetSuccess(v bool) *SubmitDeviceriskReportResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetApdid(v string) *SubmitDeviceriskReportResponse {
+	s.Apdid = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetToken(v string) *SubmitDeviceriskReportResponse {
+	s.Token = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetCurrentTime(v string) *SubmitDeviceriskReportResponse {
+	s.CurrentTime = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetVersion(v string) *SubmitDeviceriskReportResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetVkeySwitch(v string) *SubmitDeviceriskReportResponse {
+	s.VkeySwitch = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetBugTrackSwitch(v string) *SubmitDeviceriskReportResponse {
+	s.BugTrackSwitch = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetAppListVer(v string) *SubmitDeviceriskReportResponse {
+	s.AppListVer = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetDynamicKey(v string) *SubmitDeviceriskReportResponse {
+	s.DynamicKey = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetResultData(v *DeviceRiskReportResultData) *SubmitDeviceriskReportResponse {
+	s.ResultData = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1158,7 +1469,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.2"),
+				"sdk_version":      tea.String("1.3.5"),
 				"_prod_code":       tea.String("HK_SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -1413,6 +1724,40 @@ func (client *Client) QueryFaceshieldWebEx(request *QueryFaceshieldWebRequest, h
 	}
 	_result = &QueryFaceshieldWebResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.faceshield.web.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全 设备信息上报
+ * Summary: 设备信息上报
+ */
+func (client *Client) SubmitDeviceriskReport(request *SubmitDeviceriskReportRequest) (_result *SubmitDeviceriskReportResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitDeviceriskReportResponse{}
+	_body, _err := client.SubmitDeviceriskReportEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全 设备信息上报
+ * Summary: 设备信息上报
+ */
+func (client *Client) SubmitDeviceriskReportEx(request *SubmitDeviceriskReportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitDeviceriskReportResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitDeviceriskReportResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.devicerisk.report.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
