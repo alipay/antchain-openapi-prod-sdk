@@ -137,7 +137,7 @@ namespace AntChain.SDK.HK_SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.2"},
+                        {"sdk_version", "1.3.5"},
                         {"_prod_code", "HK_SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.HK_SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.2"},
+                        {"sdk_version", "1.3.5"},
                         {"_prod_code", "HK_SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -571,6 +571,48 @@ namespace AntChain.SDK.HK_SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryFaceshieldWebResponse>(await DoRequestAsync("1.0", "hksecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全 设备信息上报
+         * Summary: 设备信息上报
+         */
+        public SubmitDeviceriskReportResponse SubmitDeviceriskReport(SubmitDeviceriskReportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitDeviceriskReportEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全 设备信息上报
+         * Summary: 设备信息上报
+         */
+        public async Task<SubmitDeviceriskReportResponse> SubmitDeviceriskReportAsync(SubmitDeviceriskReportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitDeviceriskReportExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全 设备信息上报
+         * Summary: 设备信息上报
+         */
+        public SubmitDeviceriskReportResponse SubmitDeviceriskReportEx(SubmitDeviceriskReportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitDeviceriskReportResponse>(DoRequest("1.0", "hksecuritytech.gateway.devicerisk.report.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全 设备信息上报
+         * Summary: 设备信息上报
+         */
+        public async Task<SubmitDeviceriskReportResponse> SubmitDeviceriskReportExAsync(SubmitDeviceriskReportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitDeviceriskReportResponse>(await DoRequestAsync("1.0", "hksecuritytech.gateway.devicerisk.report.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
