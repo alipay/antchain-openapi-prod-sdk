@@ -3016,6 +3016,73 @@ export class QueryDomestictrademarkExtensioninfoResponse extends $tea.Model {
   }
 }
 
+export class GetApplicationFileentranceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数据集ID
+  datasetId: string;
+  // 用户是否授权
+  userAuthed?: boolean;
+  // 授权文件ID
+  fileIndex?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      datasetId: 'dataset_id',
+      userAuthed: 'user_authed',
+      fileIndex: 'file_index',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      datasetId: 'string',
+      userAuthed: 'boolean',
+      fileIndex: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetApplicationFileentranceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 临时下载地址
+  url?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      url: 'url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      url: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class GetDasLinkRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4112,7 +4179,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.55",
+          sdk_version: "1.1.57",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
@@ -4639,6 +4706,25 @@ export default class Client {
   async queryDomestictrademarkExtensioninfoEx(request: QueryDomestictrademarkExtensioninfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDomestictrademarkExtensioninfoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDomestictrademarkExtensioninfoResponse>(await this.doRequest("1.0", "antchain.das.domestictrademark.extensioninfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDomestictrademarkExtensioninfoResponse({}));
+  }
+
+  /**
+   * Description: 文件类型数据服务统一接口
+   * Summary: 文件类型服务统一接口
+   */
+  async getApplicationFileentrance(request: GetApplicationFileentranceRequest): Promise<GetApplicationFileentranceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getApplicationFileentranceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文件类型数据服务统一接口
+   * Summary: 文件类型服务统一接口
+   */
+  async getApplicationFileentranceEx(request: GetApplicationFileentranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetApplicationFileentranceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetApplicationFileentranceResponse>(await this.doRequest("1.0", "antchain.das.application.fileentrance.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetApplicationFileentranceResponse({}));
   }
 
   /**
