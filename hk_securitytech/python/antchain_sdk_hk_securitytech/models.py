@@ -516,6 +516,42 @@ class HardeningTaskResponse(TeaModel):
         return self
 
 
+class MarketingRiskData(TeaModel):
+    def __init__(
+        self,
+        risk_level: int = None,
+        sug_action: str = None,
+    ):
+        # risk_level
+        self.risk_level = risk_level
+        # sug_action
+        self.sug_action = sug_action
+
+    def validate(self):
+        self.validate_required(self.risk_level, 'risk_level')
+        self.validate_required(self.sug_action, 'sug_action')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.risk_level is not None:
+            result['risk_level'] = self.risk_level
+        if self.sug_action is not None:
+            result['sug_action'] = self.sug_action
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('risk_level') is not None:
+            self.risk_level = m.get('risk_level')
+        if m.get('sug_action') is not None:
+            self.sug_action = m.get('sug_action')
+        return self
+
+
 class DeviceRiskResp(TeaModel):
     def __init__(
         self,
@@ -581,6 +617,50 @@ class DeviceRiskResp(TeaModel):
             self.sug_action = m.get('sug_action')
         if m.get('risk_labels') is not None:
             self.risk_labels = m.get('risk_labels')
+        return self
+
+
+class MarketingRiskSecurityData(TeaModel):
+    def __init__(
+        self,
+        apdid_token: str = None,
+        signature: str = None,
+        solution_risk_code: str = None,
+    ):
+        # apdid_token
+        self.apdid_token = apdid_token
+        # signature
+        self.signature = signature
+        # solution_risk_code
+        self.solution_risk_code = solution_risk_code
+
+    def validate(self):
+        self.validate_required(self.apdid_token, 'apdid_token')
+        self.validate_required(self.signature, 'signature')
+        self.validate_required(self.solution_risk_code, 'solution_risk_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apdid_token is not None:
+            result['apdid_token'] = self.apdid_token
+        if self.signature is not None:
+            result['signature'] = self.signature
+        if self.solution_risk_code is not None:
+            result['solution_risk_code'] = self.solution_risk_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('apdid_token') is not None:
+            self.apdid_token = m.get('apdid_token')
+        if m.get('signature') is not None:
+            self.signature = m.get('signature')
+        if m.get('solution_risk_code') is not None:
+            self.solution_risk_code = m.get('solution_risk_code')
         return self
 
 
@@ -1602,6 +1682,160 @@ class SubmitDeviceriskReportResponse(TeaModel):
         if m.get('result_data') is not None:
             temp_model = DeviceRiskReportResultData()
             self.result_data = temp_model.from_map(m['result_data'])
+        return self
+
+
+class QueryEaglepromoMarketingriskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        security_data: MarketingRiskSecurityData = None,
+        sign_factor: str = None,
+        client_id: str = None,
+        request_id: str = None,
+        biz_code: str = None,
+        terminal_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # security_data
+        self.security_data = security_data
+        # sign_factor
+        self.sign_factor = sign_factor
+        # client_id
+        self.client_id = client_id
+        # request_id
+        self.request_id = request_id
+        # biz_code
+        self.biz_code = biz_code
+        # terminal_type
+        self.terminal_type = terminal_type
+
+    def validate(self):
+        self.validate_required(self.security_data, 'security_data')
+        if self.security_data:
+            self.security_data.validate()
+        self.validate_required(self.sign_factor, 'sign_factor')
+        self.validate_required(self.client_id, 'client_id')
+        self.validate_required(self.terminal_type, 'terminal_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.security_data is not None:
+            result['security_data'] = self.security_data.to_map()
+        if self.sign_factor is not None:
+            result['sign_factor'] = self.sign_factor
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.biz_code is not None:
+            result['biz_code'] = self.biz_code
+        if self.terminal_type is not None:
+            result['terminal_type'] = self.terminal_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('security_data') is not None:
+            temp_model = MarketingRiskSecurityData()
+            self.security_data = temp_model.from_map(m['security_data'])
+        if m.get('sign_factor') is not None:
+            self.sign_factor = m.get('sign_factor')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('biz_code') is not None:
+            self.biz_code = m.get('biz_code')
+        if m.get('terminal_type') is not None:
+            self.terminal_type = m.get('terminal_type')
+        return self
+
+
+class QueryEaglepromoMarketingriskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        message: str = None,
+        code: int = None,
+        data: MarketingRiskData = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # success
+        self.success = success
+        # message
+        self.message = message
+        # code
+        self.code = code
+        # data
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.message is not None:
+            result['message'] = self.message
+        if self.code is not None:
+            result['code'] = self.code
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('data') is not None:
+            temp_model = MarketingRiskData()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 

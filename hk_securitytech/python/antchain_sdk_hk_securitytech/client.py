@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.5',
+                    'sdk_version': '1.3.6',
                     '_prod_code': 'HK_SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.5',
+                    'sdk_version': '1.3.6',
                     '_prod_code': 'HK_SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -665,4 +665,60 @@ class Client:
         return TeaCore.from_map(
             hk__securitytech_models.SubmitDeviceriskReportResponse(),
             await self.do_request_async('1.0', 'hksecuritytech.gateway.devicerisk.report.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_eaglepromo_marketingrisk(
+        self,
+        request: hk__securitytech_models.QueryEaglepromoMarketingriskRequest,
+    ) -> hk__securitytech_models.QueryEaglepromoMarketingriskResponse:
+        """
+        Description: 终端安全 EaglePromo
+        Summary: EaglePromo
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_eaglepromo_marketingrisk_ex(request, headers, runtime)
+
+    async def query_eaglepromo_marketingrisk_async(
+        self,
+        request: hk__securitytech_models.QueryEaglepromoMarketingriskRequest,
+    ) -> hk__securitytech_models.QueryEaglepromoMarketingriskResponse:
+        """
+        Description: 终端安全 EaglePromo
+        Summary: EaglePromo
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_eaglepromo_marketingrisk_ex_async(request, headers, runtime)
+
+    def query_eaglepromo_marketingrisk_ex(
+        self,
+        request: hk__securitytech_models.QueryEaglepromoMarketingriskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryEaglepromoMarketingriskResponse:
+        """
+        Description: 终端安全 EaglePromo
+        Summary: EaglePromo
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryEaglepromoMarketingriskResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.eaglepromo.marketingrisk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_eaglepromo_marketingrisk_ex_async(
+        self,
+        request: hk__securitytech_models.QueryEaglepromoMarketingriskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryEaglepromoMarketingriskResponse:
+        """
+        Description: 终端安全 EaglePromo
+        Summary: EaglePromo
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryEaglepromoMarketingriskResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.eaglepromo.marketingrisk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
