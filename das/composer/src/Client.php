@@ -23,6 +23,8 @@ use AntChain\DAS\Models\CreateDasDatasourceRequest;
 use AntChain\DAS\Models\CreateDasDatasourceResponse;
 use AntChain\DAS\Models\DeleteDasDatasourceRequest;
 use AntChain\DAS\Models\DeleteDasDatasourceResponse;
+use AntChain\DAS\Models\GetApplicationFileentranceRequest;
+use AntChain\DAS\Models\GetApplicationFileentranceResponse;
 use AntChain\DAS\Models\GetDasEnterprisevcRequest;
 use AntChain\DAS\Models\GetDasEnterprisevcResponse;
 use AntChain\DAS\Models\GetDasIndividualvcRequest;
@@ -230,7 +232,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.55',
+                    'sdk_version'      => '1.1.57',
                     '_prod_code'       => 'DAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1056,6 +1058,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryDomestictrademarkExtensioninfoResponse::fromMap($this->doRequest('1.0', 'antchain.das.domestictrademark.extensioninfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件类型数据服务统一接口
+     * Summary: 文件类型服务统一接口.
+     *
+     * @param GetApplicationFileentranceRequest $request
+     *
+     * @return GetApplicationFileentranceResponse
+     */
+    public function getApplicationFileentrance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getApplicationFileentranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件类型数据服务统一接口
+     * Summary: 文件类型服务统一接口.
+     *
+     * @param GetApplicationFileentranceRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return GetApplicationFileentranceResponse
+     */
+    public function getApplicationFileentranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetApplicationFileentranceResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.fileentrance.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
