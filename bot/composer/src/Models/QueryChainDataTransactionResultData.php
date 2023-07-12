@@ -8,14 +8,6 @@ use AlibabaCloud\Tea\Model;
 
 class QueryChainDataTransactionResultData extends Model
 {
-    // 业务ID
-    /**
-     * @example 123
-     *
-     * @var string
-     */
-    public $bizId;
-
     // 所属业务
     /**
      * @example SMART_CAR_KEY
@@ -48,13 +40,13 @@ class QueryChainDataTransactionResultData extends Model
      */
     public $tenantId;
 
-    // 资产数据
+    // 业务数据hash
     /**
      * @example 123
      *
      * @var string
      */
-    public $assetData;
+    public $textHash;
 
     // 时间
     /**
@@ -64,31 +56,26 @@ class QueryChainDataTransactionResultData extends Model
      */
     public $timestamp;
     protected $_name = [
-        'bizId'     => 'biz_id',
         'bizScene'  => 'biz_scene',
         'dataScene' => 'data_scene',
         'assetId'   => 'asset_id',
         'tenantId'  => 'tenant_id',
-        'assetData' => 'asset_data',
+        'textHash'  => 'text_hash',
         'timestamp' => 'timestamp',
     ];
 
     public function validate()
     {
-        Model::validateRequired('bizId', $this->bizId, true);
         Model::validateRequired('bizScene', $this->bizScene, true);
         Model::validateRequired('dataScene', $this->dataScene, true);
         Model::validateRequired('assetId', $this->assetId, true);
         Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('assetData', $this->assetData, true);
+        Model::validateRequired('textHash', $this->textHash, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->bizId) {
-            $res['biz_id'] = $this->bizId;
-        }
         if (null !== $this->bizScene) {
             $res['biz_scene'] = $this->bizScene;
         }
@@ -101,8 +88,8 @@ class QueryChainDataTransactionResultData extends Model
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
         }
-        if (null !== $this->assetData) {
-            $res['asset_data'] = $this->assetData;
+        if (null !== $this->textHash) {
+            $res['text_hash'] = $this->textHash;
         }
         if (null !== $this->timestamp) {
             $res['timestamp'] = $this->timestamp;
@@ -119,9 +106,6 @@ class QueryChainDataTransactionResultData extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['biz_id'])) {
-            $model->bizId = $map['biz_id'];
-        }
         if (isset($map['biz_scene'])) {
             $model->bizScene = $map['biz_scene'];
         }
@@ -134,8 +118,8 @@ class QueryChainDataTransactionResultData extends Model
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
         }
-        if (isset($map['asset_data'])) {
-            $model->assetData = $map['asset_data'];
+        if (isset($map['text_hash'])) {
+            $model->textHash = $map['text_hash'];
         }
         if (isset($map['timestamp'])) {
             $model->timestamp = $map['timestamp'];
