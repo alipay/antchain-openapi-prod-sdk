@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.5',
+    sdk_version = '1.3.6',
     _prod_code = 'HK_SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -249,6 +249,14 @@ model HardeningTaskResponse {
   afterSize: long(name='after_size', example=''),
 }
 
+// 终端安全MarketingRiskData
+model MarketingRiskData {
+  // risk_level
+  riskLevel: long(name='risk_level', example=''),
+  // sug_action
+  sugAction: string(name='sug_action', example='sug_action'),
+}
+
 // 设备风险查询data
 model DeviceRiskResp {
   // apdid
@@ -263,6 +271,16 @@ model DeviceRiskResp {
   sugAction: string(name='sug_action', example='-'),
   // risk_labels
   riskLabels: [ string ](name='risk_labels', example=''),
+}
+
+// MarketingRiskSecurityData
+model MarketingRiskSecurityData {
+  // apdid_token
+  apdidToken: string(name='apdid_token', example='apdid_token'),
+  // signature
+  signature: string(name='signature', example='signature'),
+  // solution_risk_code
+  solutionRiskCode: string(name='solution_risk_code', example='solution_risk_code'),
 }
 
 model CreateBlueshieldSecuritypictureRequest = {
@@ -651,5 +669,59 @@ async function submitDeviceriskReport(request: SubmitDeviceriskReportRequest): S
 async function submitDeviceriskReportEx(request: SubmitDeviceriskReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitDeviceriskReportResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'hksecuritytech.gateway.devicerisk.report.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEaglepromoMarketingriskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // security_data
+  securityData: MarketingRiskSecurityData(name='security_data'),
+  // sign_factor
+  signFactor: string(name='sign_factor'),
+  // client_id
+  clientId: string(name='client_id'),
+  // request_id
+  requestId?: string(name='request_id'),
+  // biz_code
+  bizCode?: string(name='biz_code'),
+  // terminal_type
+  terminalType: string(name='terminal_type'),
+}
+
+model QueryEaglepromoMarketingriskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // success
+  success?: boolean(name='success'),
+  // message
+  message?: string(name='message'),
+  // code
+  code?: long(name='code'),
+  // data
+  data?: MarketingRiskData(name='data'),
+}
+
+/**
+ * Description: 终端安全 EaglePromo
+ * Summary: EaglePromo
+ */
+async function queryEaglepromoMarketingrisk(request: QueryEaglepromoMarketingriskRequest): QueryEaglepromoMarketingriskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEaglepromoMarketingriskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全 EaglePromo
+ * Summary: EaglePromo
+ */
+async function queryEaglepromoMarketingriskEx(request: QueryEaglepromoMarketingriskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEaglepromoMarketingriskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.eaglepromo.marketingrisk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
