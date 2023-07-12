@@ -294,6 +294,31 @@ export class HardeningTaskResponse extends $tea.Model {
   }
 }
 
+// 终端安全MarketingRiskData
+export class MarketingRiskData extends $tea.Model {
+  // risk_level
+  riskLevel: number;
+  // sug_action
+  sugAction: string;
+  static names(): { [key: string]: string } {
+    return {
+      riskLevel: 'risk_level',
+      sugAction: 'sug_action',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      riskLevel: 'number',
+      sugAction: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 设备风险查询data
 export class DeviceRiskResp extends $tea.Model {
   // apdid
@@ -327,6 +352,35 @@ export class DeviceRiskResp extends $tea.Model {
       riskDesc: 'string',
       sugAction: 'string',
       riskLabels: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// MarketingRiskSecurityData
+export class MarketingRiskSecurityData extends $tea.Model {
+  // apdid_token
+  apdidToken: string;
+  // signature
+  signature: string;
+  // solution_risk_code
+  solutionRiskCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      apdidToken: 'apdid_token',
+      signature: 'signature',
+      solutionRiskCode: 'solution_risk_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apdidToken: 'string',
+      signature: 'string',
+      solutionRiskCode: 'string',
     };
   }
 
@@ -968,6 +1022,97 @@ export class SubmitDeviceriskReportResponse extends $tea.Model {
   }
 }
 
+export class QueryEaglepromoMarketingriskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // security_data
+  securityData: MarketingRiskSecurityData;
+  // sign_factor
+  signFactor: string;
+  // client_id
+  clientId: string;
+  // request_id
+  requestId?: string;
+  // biz_code
+  bizCode?: string;
+  // terminal_type
+  terminalType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      securityData: 'security_data',
+      signFactor: 'sign_factor',
+      clientId: 'client_id',
+      requestId: 'request_id',
+      bizCode: 'biz_code',
+      terminalType: 'terminal_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      securityData: MarketingRiskSecurityData,
+      signFactor: 'string',
+      clientId: 'string',
+      requestId: 'string',
+      bizCode: 'string',
+      terminalType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEaglepromoMarketingriskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // success
+  success?: boolean;
+  // message
+  message?: string;
+  // code
+  code?: number;
+  // data
+  data?: MarketingRiskData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      message: 'message',
+      code: 'code',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      message: 'string',
+      code: 'number',
+      data: MarketingRiskData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1081,7 +1226,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.5",
+          sdk_version: "1.3.6",
           _prod_code: "HK_SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -1260,6 +1405,25 @@ export default class Client {
   async submitDeviceriskReportEx(request: SubmitDeviceriskReportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitDeviceriskReportResponse> {
     Util.validateModel(request);
     return $tea.cast<SubmitDeviceriskReportResponse>(await this.doRequest("1.0", "hksecuritytech.gateway.devicerisk.report.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitDeviceriskReportResponse({}));
+  }
+
+  /**
+   * Description: 终端安全 EaglePromo
+   * Summary: EaglePromo
+   */
+  async queryEaglepromoMarketingrisk(request: QueryEaglepromoMarketingriskRequest): Promise<QueryEaglepromoMarketingriskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEaglepromoMarketingriskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 终端安全 EaglePromo
+   * Summary: EaglePromo
+   */
+  async queryEaglepromoMarketingriskEx(request: QueryEaglepromoMarketingriskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEaglepromoMarketingriskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEaglepromoMarketingriskResponse>(await this.doRequest("1.0", "hksecuritytech.gateway.eaglepromo.marketingrisk.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEaglepromoMarketingriskResponse({}));
   }
 
 }
