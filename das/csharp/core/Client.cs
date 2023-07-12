@@ -137,7 +137,7 @@ namespace AntChain.SDK.DAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.55"},
+                        {"sdk_version", "1.1.57"},
                         {"_prod_code", "DAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.55"},
+                        {"sdk_version", "1.1.57"},
                         {"_prod_code", "DAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1381,6 +1381,48 @@ namespace AntChain.SDK.DAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDomestictrademarkExtensioninfoResponse>(await DoRequestAsync("1.0", "antchain.das.domestictrademark.extensioninfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文件类型数据服务统一接口
+         * Summary: 文件类型服务统一接口
+         */
+        public GetApplicationFileentranceResponse GetApplicationFileentrance(GetApplicationFileentranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetApplicationFileentranceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文件类型数据服务统一接口
+         * Summary: 文件类型服务统一接口
+         */
+        public async Task<GetApplicationFileentranceResponse> GetApplicationFileentranceAsync(GetApplicationFileentranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetApplicationFileentranceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文件类型数据服务统一接口
+         * Summary: 文件类型服务统一接口
+         */
+        public GetApplicationFileentranceResponse GetApplicationFileentranceEx(GetApplicationFileentranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetApplicationFileentranceResponse>(DoRequest("1.0", "antchain.das.application.fileentrance.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文件类型数据服务统一接口
+         * Summary: 文件类型服务统一接口
+         */
+        public async Task<GetApplicationFileentranceResponse> GetApplicationFileentranceExAsync(GetApplicationFileentranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetApplicationFileentranceResponse>(await DoRequestAsync("1.0", "antchain.das.application.fileentrance.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
