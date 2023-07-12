@@ -454,8 +454,6 @@ export class PermissionedTenantModel extends $tea.Model {
 
 // 查询业务数据交易结果对象数据
 export class QueryChainDataTransactionResultData extends $tea.Model {
-  // 业务ID
-  bizId: string;
   // 所属业务
   bizScene: string;
   // 数据资产类型
@@ -464,30 +462,28 @@ export class QueryChainDataTransactionResultData extends $tea.Model {
   assetId: string;
   // 租户id
   tenantId: string;
-  // 资产数据
-  assetData: string;
+  // 业务数据hash
+  textHash: string;
   // 时间
   timestamp?: number;
   static names(): { [key: string]: string } {
     return {
-      bizId: 'biz_id',
       bizScene: 'biz_scene',
       dataScene: 'data_scene',
       assetId: 'asset_id',
       tenantId: 'tenant_id',
-      assetData: 'asset_data',
+      textHash: 'text_hash',
       timestamp: 'timestamp',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      bizId: 'string',
       bizScene: 'string',
       dataScene: 'string',
       assetId: 'string',
       tenantId: 'string',
-      assetData: 'string',
+      textHash: 'string',
       timestamp: 'number',
     };
   }
@@ -20439,7 +20435,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.94",
+          sdk_version: "1.8.95",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
