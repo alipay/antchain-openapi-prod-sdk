@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.55',
+                    'sdk_version': '1.1.57',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.55',
+                    'sdk_version': '1.1.57',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -1607,6 +1607,62 @@ class Client:
         return TeaCore.from_map(
             das_models.QueryDomestictrademarkExtensioninfoResponse(),
             await self.do_request_async('1.0', 'antchain.das.domestictrademark.extensioninfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_application_fileentrance(
+        self,
+        request: das_models.GetApplicationFileentranceRequest,
+    ) -> das_models.GetApplicationFileentranceResponse:
+        """
+        Description: 文件类型数据服务统一接口
+        Summary: 文件类型服务统一接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_application_fileentrance_ex(request, headers, runtime)
+
+    async def get_application_fileentrance_async(
+        self,
+        request: das_models.GetApplicationFileentranceRequest,
+    ) -> das_models.GetApplicationFileentranceResponse:
+        """
+        Description: 文件类型数据服务统一接口
+        Summary: 文件类型服务统一接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_application_fileentrance_ex_async(request, headers, runtime)
+
+    def get_application_fileentrance_ex(
+        self,
+        request: das_models.GetApplicationFileentranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.GetApplicationFileentranceResponse:
+        """
+        Description: 文件类型数据服务统一接口
+        Summary: 文件类型服务统一接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.GetApplicationFileentranceResponse(),
+            self.do_request('1.0', 'antchain.das.application.fileentrance.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_application_fileentrance_ex_async(
+        self,
+        request: das_models.GetApplicationFileentranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.GetApplicationFileentranceResponse:
+        """
+        Description: 文件类型数据服务统一接口
+        Summary: 文件类型服务统一接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.GetApplicationFileentranceResponse(),
+            await self.do_request_async('1.0', 'antchain.das.application.fileentrance.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_das_link(
