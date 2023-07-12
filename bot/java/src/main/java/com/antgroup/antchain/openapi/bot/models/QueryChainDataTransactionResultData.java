@@ -4,11 +4,6 @@ package com.antgroup.antchain.openapi.bot.models;
 import com.aliyun.tea.*;
 
 public class QueryChainDataTransactionResultData extends TeaModel {
-    // 业务ID
-    @NameInMap("biz_id")
-    @Validation(required = true)
-    public String bizId;
-
     // 所属业务
     @NameInMap("biz_scene")
     @Validation(required = true)
@@ -29,10 +24,10 @@ public class QueryChainDataTransactionResultData extends TeaModel {
     @Validation(required = true)
     public String tenantId;
 
-    // 资产数据
-    @NameInMap("asset_data")
+    // 业务数据hash
+    @NameInMap("text_hash")
     @Validation(required = true)
-    public String assetData;
+    public String textHash;
 
     // 时间
     @NameInMap("timestamp")
@@ -41,14 +36,6 @@ public class QueryChainDataTransactionResultData extends TeaModel {
     public static QueryChainDataTransactionResultData build(java.util.Map<String, ?> map) throws Exception {
         QueryChainDataTransactionResultData self = new QueryChainDataTransactionResultData();
         return TeaModel.build(map, self);
-    }
-
-    public QueryChainDataTransactionResultData setBizId(String bizId) {
-        this.bizId = bizId;
-        return this;
-    }
-    public String getBizId() {
-        return this.bizId;
     }
 
     public QueryChainDataTransactionResultData setBizScene(String bizScene) {
@@ -83,12 +70,12 @@ public class QueryChainDataTransactionResultData extends TeaModel {
         return this.tenantId;
     }
 
-    public QueryChainDataTransactionResultData setAssetData(String assetData) {
-        this.assetData = assetData;
+    public QueryChainDataTransactionResultData setTextHash(String textHash) {
+        this.textHash = textHash;
         return this;
     }
-    public String getAssetData() {
-        return this.assetData;
+    public String getTextHash() {
+        return this.textHash;
     }
 
     public QueryChainDataTransactionResultData setTimestamp(Long timestamp) {
