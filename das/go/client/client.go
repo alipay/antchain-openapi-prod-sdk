@@ -4007,7 +4007,7 @@ type GetApplicationFileentranceRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 数据集ID
-	DatasetId *string `json:"dataset_id,omitempty" xml:"dataset_id,omitempty" require:"true"`
+	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty" require:"true"`
 	// 用户是否授权
 	UserAuthed *bool `json:"user_authed,omitempty" xml:"user_authed,omitempty"`
 	// 授权文件ID
@@ -4032,8 +4032,8 @@ func (s *GetApplicationFileentranceRequest) SetProductInstanceId(v string) *GetA
 	return s
 }
 
-func (s *GetApplicationFileentranceRequest) SetDatasetId(v string) *GetApplicationFileentranceRequest {
-	s.DatasetId = &v
+func (s *GetApplicationFileentranceRequest) SetDataSetId(v string) *GetApplicationFileentranceRequest {
+	s.DataSetId = &v
 	return s
 }
 
@@ -5462,7 +5462,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.57"),
+				"sdk_version":      tea.String("1.1.58"),
 				"_prod_code":       tea.String("DAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
