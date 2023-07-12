@@ -10,11 +10,6 @@ namespace AntChain.SDK.BOT.Models
 {
     // 查询业务数据交易结果对象数据
     public class QueryChainDataTransactionResultData : TeaModel {
-        // 业务ID
-        [NameInMap("biz_id")]
-        [Validation(Required=true)]
-        public string BizId { get; set; }
-
         // 所属业务
         [NameInMap("biz_scene")]
         [Validation(Required=true)]
@@ -35,10 +30,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string TenantId { get; set; }
 
-        // 资产数据
-        [NameInMap("asset_data")]
+        // 业务数据hash
+        [NameInMap("text_hash")]
         [Validation(Required=true)]
-        public string AssetData { get; set; }
+        public string TextHash { get; set; }
 
         // 时间
         [NameInMap("timestamp")]
