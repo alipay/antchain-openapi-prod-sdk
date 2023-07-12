@@ -12,9 +12,9 @@ public class GetApplicationFileentranceRequest extends TeaModel {
     public String productInstanceId;
 
     // 数据集ID
-    @NameInMap("dataset_id")
+    @NameInMap("data_set_id")
     @Validation(required = true)
-    public String datasetId;
+    public String dataSetId;
 
     // 用户是否授权
     @NameInMap("user_authed")
@@ -45,12 +45,12 @@ public class GetApplicationFileentranceRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public GetApplicationFileentranceRequest setDatasetId(String datasetId) {
-        this.datasetId = datasetId;
+    public GetApplicationFileentranceRequest setDataSetId(String dataSetId) {
+        this.dataSetId = dataSetId;
         return this;
     }
-    public String getDatasetId() {
-        return this.datasetId;
+    public String getDataSetId() {
+        return this.dataSetId;
     }
 
     public GetApplicationFileentranceRequest setUserAuthed(Boolean userAuthed) {
