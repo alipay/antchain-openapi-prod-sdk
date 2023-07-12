@@ -662,8 +662,6 @@ func (s *PermissionedTenantModel) SetGatewayPublicKey(v string) *PermissionedTen
 
 // 查询业务数据交易结果对象数据
 type QueryChainDataTransactionResultData struct {
-	// 业务ID
-	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
 	// 所属业务
 	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
 	// 数据资产类型
@@ -672,8 +670,8 @@ type QueryChainDataTransactionResultData struct {
 	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
 	// 租户id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 资产数据
-	AssetData *string `json:"asset_data,omitempty" xml:"asset_data,omitempty" require:"true"`
+	// 业务数据hash
+	TextHash *string `json:"text_hash,omitempty" xml:"text_hash,omitempty" require:"true"`
 	// 时间
 	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
 }
@@ -684,11 +682,6 @@ func (s QueryChainDataTransactionResultData) String() string {
 
 func (s QueryChainDataTransactionResultData) GoString() string {
 	return s.String()
-}
-
-func (s *QueryChainDataTransactionResultData) SetBizId(v string) *QueryChainDataTransactionResultData {
-	s.BizId = &v
-	return s
 }
 
 func (s *QueryChainDataTransactionResultData) SetBizScene(v string) *QueryChainDataTransactionResultData {
@@ -711,8 +704,8 @@ func (s *QueryChainDataTransactionResultData) SetTenantId(v string) *QueryChainD
 	return s
 }
 
-func (s *QueryChainDataTransactionResultData) SetAssetData(v string) *QueryChainDataTransactionResultData {
-	s.AssetData = &v
+func (s *QueryChainDataTransactionResultData) SetTextHash(v string) *QueryChainDataTransactionResultData {
+	s.TextHash = &v
 	return s
 }
 
@@ -26589,7 +26582,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.94"),
+				"sdk_version":      tea.String("1.8.95"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
