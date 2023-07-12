@@ -17,6 +17,8 @@ use AntChain\HK_SECURITYTECH\Models\QueryDeviceriskDeviceriskRequest;
 use AntChain\HK_SECURITYTECH\Models\QueryDeviceriskDeviceriskResponse;
 use AntChain\HK_SECURITYTECH\Models\QueryDeviceriskFingerRequest;
 use AntChain\HK_SECURITYTECH\Models\QueryDeviceriskFingerResponse;
+use AntChain\HK_SECURITYTECH\Models\QueryEaglepromoMarketingriskRequest;
+use AntChain\HK_SECURITYTECH\Models\QueryEaglepromoMarketingriskResponse;
 use AntChain\HK_SECURITYTECH\Models\QueryFaceshieldNativeRequest;
 use AntChain\HK_SECURITYTECH\Models\QueryFaceshieldNativeResponse;
 use AntChain\HK_SECURITYTECH\Models\QueryFaceshieldWebRequest;
@@ -172,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.5',
+                    'sdk_version'      => '1.3.6',
                     '_prod_code'       => 'HK_SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -449,5 +451,38 @@ class Client
         Utils::validateModel($request);
 
         return SubmitDeviceriskReportResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.devicerisk.report.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全 EaglePromo
+     * Summary: EaglePromo.
+     *
+     * @param QueryEaglepromoMarketingriskRequest $request
+     *
+     * @return QueryEaglepromoMarketingriskResponse
+     */
+    public function queryEaglepromoMarketingrisk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEaglepromoMarketingriskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全 EaglePromo
+     * Summary: EaglePromo.
+     *
+     * @param QueryEaglepromoMarketingriskRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryEaglepromoMarketingriskResponse
+     */
+    public function queryEaglepromoMarketingriskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEaglepromoMarketingriskResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.eaglepromo.marketingrisk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
