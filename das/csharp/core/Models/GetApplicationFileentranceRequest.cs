@@ -19,9 +19,9 @@ namespace AntChain.SDK.DAS.Models
         public string ProductInstanceId { get; set; }
 
         // 数据集ID
-        [NameInMap("dataset_id")]
+        [NameInMap("data_set_id")]
         [Validation(Required=true)]
-        public string DatasetId { get; set; }
+        public string DataSetId { get; set; }
 
         // 用户是否授权
         [NameInMap("user_authed")]
