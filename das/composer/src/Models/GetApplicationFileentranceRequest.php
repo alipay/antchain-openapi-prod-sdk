@@ -23,7 +23,7 @@ class GetApplicationFileentranceRequest extends Model
     /**
      * @var string
      */
-    public $datasetId;
+    public $dataSetId;
 
     // 用户是否授权
     /**
@@ -39,14 +39,14 @@ class GetApplicationFileentranceRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'datasetId'         => 'dataset_id',
+        'dataSetId'         => 'data_set_id',
         'userAuthed'        => 'user_authed',
         'fileIndex'         => 'file_index',
     ];
 
     public function validate()
     {
-        Model::validateRequired('datasetId', $this->datasetId, true);
+        Model::validateRequired('dataSetId', $this->dataSetId, true);
     }
 
     public function toMap()
@@ -58,8 +58,8 @@ class GetApplicationFileentranceRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->datasetId) {
-            $res['dataset_id'] = $this->datasetId;
+        if (null !== $this->dataSetId) {
+            $res['data_set_id'] = $this->dataSetId;
         }
         if (null !== $this->userAuthed) {
             $res['user_authed'] = $this->userAuthed;
@@ -85,8 +85,8 @@ class GetApplicationFileentranceRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['dataset_id'])) {
-            $model->datasetId = $map['dataset_id'];
+        if (isset($map['data_set_id'])) {
+            $model->dataSetId = $map['data_set_id'];
         }
         if (isset($map['user_authed'])) {
             $model->userAuthed = $map['user_authed'];
