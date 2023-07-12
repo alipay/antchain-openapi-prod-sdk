@@ -5000,7 +5000,7 @@ class GetApplicationFileentranceRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        dataset_id: str = None,
+        data_set_id: str = None,
         user_authed: bool = None,
         file_index: str = None,
     ):
@@ -5008,14 +5008,14 @@ class GetApplicationFileentranceRequest(TeaModel):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 数据集ID
-        self.dataset_id = dataset_id
+        self.data_set_id = data_set_id
         # 用户是否授权
         self.user_authed = user_authed
         # 授权文件ID
         self.file_index = file_index
 
     def validate(self):
-        self.validate_required(self.dataset_id, 'dataset_id')
+        self.validate_required(self.data_set_id, 'data_set_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -5027,8 +5027,8 @@ class GetApplicationFileentranceRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.dataset_id is not None:
-            result['dataset_id'] = self.dataset_id
+        if self.data_set_id is not None:
+            result['data_set_id'] = self.data_set_id
         if self.user_authed is not None:
             result['user_authed'] = self.user_authed
         if self.file_index is not None:
@@ -5041,8 +5041,8 @@ class GetApplicationFileentranceRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('dataset_id') is not None:
-            self.dataset_id = m.get('dataset_id')
+        if m.get('data_set_id') is not None:
+            self.data_set_id = m.get('data_set_id')
         if m.get('user_authed') is not None:
             self.user_authed = m.get('user_authed')
         if m.get('file_index') is not None:
