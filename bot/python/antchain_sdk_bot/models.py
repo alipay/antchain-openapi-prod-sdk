@@ -784,16 +784,13 @@ class PermissionedTenantModel(TeaModel):
 class QueryChainDataTransactionResultData(TeaModel):
     def __init__(
         self,
-        biz_id: str = None,
         biz_scene: str = None,
         data_scene: str = None,
         asset_id: str = None,
         tenant_id: str = None,
-        asset_data: str = None,
+        text_hash: str = None,
         timestamp: int = None,
     ):
-        # 业务ID
-        self.biz_id = biz_id
         # 所属业务
         self.biz_scene = biz_scene
         # 数据资产类型
@@ -802,18 +799,17 @@ class QueryChainDataTransactionResultData(TeaModel):
         self.asset_id = asset_id
         # 租户id
         self.tenant_id = tenant_id
-        # 资产数据
-        self.asset_data = asset_data
+        # 业务数据hash
+        self.text_hash = text_hash
         # 时间
         self.timestamp = timestamp
 
     def validate(self):
-        self.validate_required(self.biz_id, 'biz_id')
         self.validate_required(self.biz_scene, 'biz_scene')
         self.validate_required(self.data_scene, 'data_scene')
         self.validate_required(self.asset_id, 'asset_id')
         self.validate_required(self.tenant_id, 'tenant_id')
-        self.validate_required(self.asset_data, 'asset_data')
+        self.validate_required(self.text_hash, 'text_hash')
 
     def to_map(self):
         _map = super().to_map()
@@ -821,8 +817,6 @@ class QueryChainDataTransactionResultData(TeaModel):
             return _map
 
         result = dict()
-        if self.biz_id is not None:
-            result['biz_id'] = self.biz_id
         if self.biz_scene is not None:
             result['biz_scene'] = self.biz_scene
         if self.data_scene is not None:
@@ -831,16 +825,14 @@ class QueryChainDataTransactionResultData(TeaModel):
             result['asset_id'] = self.asset_id
         if self.tenant_id is not None:
             result['tenant_id'] = self.tenant_id
-        if self.asset_data is not None:
-            result['asset_data'] = self.asset_data
+        if self.text_hash is not None:
+            result['text_hash'] = self.text_hash
         if self.timestamp is not None:
             result['timestamp'] = self.timestamp
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('biz_id') is not None:
-            self.biz_id = m.get('biz_id')
         if m.get('biz_scene') is not None:
             self.biz_scene = m.get('biz_scene')
         if m.get('data_scene') is not None:
@@ -849,8 +841,8 @@ class QueryChainDataTransactionResultData(TeaModel):
             self.asset_id = m.get('asset_id')
         if m.get('tenant_id') is not None:
             self.tenant_id = m.get('tenant_id')
-        if m.get('asset_data') is not None:
-            self.asset_data = m.get('asset_data')
+        if m.get('text_hash') is not None:
+            self.text_hash = m.get('text_hash')
         if m.get('timestamp') is not None:
             self.timestamp = m.get('timestamp')
         return self
