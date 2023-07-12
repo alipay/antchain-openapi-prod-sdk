@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.94',
+    sdk_version = '1.8.95',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -315,8 +315,6 @@ model PermissionedTenantModel {
 
 // 查询业务数据交易结果对象数据
 model QueryChainDataTransactionResultData {
-  // 业务ID
-  bizId: string(name='biz_id', example='123'),
   // 所属业务
   bizScene: string(name='biz_scene', example='SMART_CAR_KEY'),
   // 数据资产类型
@@ -325,8 +323,8 @@ model QueryChainDataTransactionResultData {
   assetId: string(name='asset_id', example='123'),
   // 租户id
   tenantId: string(name='tenant_id', example='ASDFGHJK'),
-  // 资产数据
-  assetData: string(name='asset_data', example='123'),
+  // 业务数据hash
+  textHash: string(name='text_hash', example='123'),
   // 时间
   timestamp?: long(name='timestamp', example=''),
 }
