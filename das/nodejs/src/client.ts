@@ -3021,7 +3021,7 @@ export class GetApplicationFileentranceRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 数据集ID
-  datasetId: string;
+  dataSetId: string;
   // 用户是否授权
   userAuthed?: boolean;
   // 授权文件ID
@@ -3030,7 +3030,7 @@ export class GetApplicationFileentranceRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      datasetId: 'dataset_id',
+      dataSetId: 'data_set_id',
       userAuthed: 'user_authed',
       fileIndex: 'file_index',
     };
@@ -3040,7 +3040,7 @@ export class GetApplicationFileentranceRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      datasetId: 'string',
+      dataSetId: 'string',
       userAuthed: 'boolean',
       fileIndex: 'string',
     };
@@ -4179,7 +4179,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.57",
+          sdk_version: "1.1.58",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
