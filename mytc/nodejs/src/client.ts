@@ -579,10 +579,12 @@ export class CheckCodeFakeRequest extends $tea.Model {
   productInstanceId?: string;
   // 设备型号
   deviceType?: string;
-  // 图片文件id，通过小程序拍照，上传的二维码图片信息。	
+  // 图片文件id，通过小程序拍照，上传的二维码图片信息。和file_data二选一
   fileObject?: Readable;
   fileObjectName?: string;
-  fileId: string;
+  fileId?: string;
+  // 文件流数据(iso-8859-1编码)，和file_id二选一
+  fileData?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -591,6 +593,7 @@ export class CheckCodeFakeRequest extends $tea.Model {
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
+      fileData: 'file_data',
     };
   }
 
@@ -602,6 +605,7 @@ export class CheckCodeFakeRequest extends $tea.Model {
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
+      fileData: 'string',
     };
   }
 
@@ -875,6 +879,69 @@ export class JudgeCodeFakescreenResponse extends $tea.Model {
       detectSuccess: 'boolean',
       detectCode: 'string',
       detectMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthAntiAccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户标识
+  userId: string;
+  // 手机设备型号
+  deviceType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      deviceType: 'device_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      deviceType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthAntiAccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户授权唯一标识，在一定时间范围内有效
+  token?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      token: 'string',
     };
   }
 
@@ -2758,7 +2825,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.2",
+          sdk_version: "1.6.4",
           _prod_code: "MYTC",
           _prod_channel: "undefined",
         };
@@ -2807,8 +2874,8 @@ export default class Client {
   }
 
   /**
-   * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
-   * Summary: 二维码防伪识别
+   * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+   * Summary: 二维码防伪识别(废弃)
    */
   async recognizeAntiQrcodeac(request: RecognizeAntiQrcodeacRequest): Promise<RecognizeAntiQrcodeacResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -2817,8 +2884,8 @@ export default class Client {
   }
 
   /**
-   * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
-   * Summary: 二维码防伪识别
+   * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+   * Summary: 二维码防伪识别(废弃)
    */
   async recognizeAntiQrcodeacEx(request: RecognizeAntiQrcodeacRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RecognizeAntiQrcodeacResponse> {
     if (!Util.isUnset(request.fileObject)) {
@@ -2887,8 +2954,8 @@ export default class Client {
   }
 
   /**
-   * Description: 二维码防伪防屏拍图片验证
-   * Summary: 二维码防伪防屏拍图片验证
+   * Description: 二维码防伪防屏拍图片验证(废弃)
+   * Summary: 二维码防伪防屏拍图片验证(废弃)
    */
   async checkCodeFakescreen(request: CheckCodeFakescreenRequest): Promise<CheckCodeFakescreenResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -2897,8 +2964,8 @@ export default class Client {
   }
 
   /**
-   * Description: 二维码防伪防屏拍图片验证
-   * Summary: 二维码防伪防屏拍图片验证
+   * Description: 二维码防伪防屏拍图片验证(废弃)
+   * Summary: 二维码防伪防屏拍图片验证(废弃)
    */
   async checkCodeFakescreenEx(request: CheckCodeFakescreenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckCodeFakescreenResponse> {
     if (!Util.isUnset(request.fileObject)) {
@@ -2927,8 +2994,8 @@ export default class Client {
   }
 
   /**
-   * Description: 防伪文件上传API
-   * Summary: 防伪文件上传API
+   * Description: 防伪文件上传API(废弃)
+   * Summary: 防伪文件上传API(废弃)
    */
   async uploadAntiFile(request: UploadAntiFileRequest): Promise<UploadAntiFileResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -2937,8 +3004,8 @@ export default class Client {
   }
 
   /**
-   * Description: 防伪文件上传API
-   * Summary: 防伪文件上传API
+   * Description: 防伪文件上传API(废弃)
+   * Summary: 防伪文件上传API(废弃)
    */
   async uploadAntiFileEx(request: UploadAntiFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadAntiFileResponse> {
     if (!Util.isUnset(request.fileObject)) {
@@ -2983,6 +3050,25 @@ export default class Client {
   async judgeCodeFakescreenEx(request: JudgeCodeFakescreenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<JudgeCodeFakescreenResponse> {
     Util.validateModel(request);
     return $tea.cast<JudgeCodeFakescreenResponse>(await this.doRequest("1.0", "antchain.mytc.code.fakescreen.judge", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new JudgeCodeFakescreenResponse({}));
+  }
+
+  /**
+   * Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+   * Summary: 二维码防伪校验授权
+   */
+  async authAntiAccount(request: AuthAntiAccountRequest): Promise<AuthAntiAccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.authAntiAccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+   * Summary: 二维码防伪校验授权
+   */
+  async authAntiAccountEx(request: AuthAntiAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AuthAntiAccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AuthAntiAccountResponse>(await this.doRequest("1.0", "antchain.mytc.anti.account.auth", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AuthAntiAccountResponse({}));
   }
 
   /**
