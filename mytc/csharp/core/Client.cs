@@ -137,7 +137,7 @@ namespace AntChain.SDK.MYTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.2"},
+                        {"sdk_version", "1.6.4"},
                         {"_prod_code", "MYTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MYTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.2"},
+                        {"sdk_version", "1.6.4"},
                         {"_prod_code", "MYTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -322,8 +322,8 @@ namespace AntChain.SDK.MYTC
         }
 
         /**
-         * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
-         * Summary: 二维码防伪识别
+         * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+         * Summary: 二维码防伪识别(废弃)
          */
         public RecognizeAntiQrcodeacResponse RecognizeAntiQrcodeac(RecognizeAntiQrcodeacRequest request)
         {
@@ -333,8 +333,8 @@ namespace AntChain.SDK.MYTC
         }
 
         /**
-         * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
-         * Summary: 二维码防伪识别
+         * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+         * Summary: 二维码防伪识别(废弃)
          */
         public async Task<RecognizeAntiQrcodeacResponse> RecognizeAntiQrcodeacAsync(RecognizeAntiQrcodeacRequest request)
         {
@@ -344,8 +344,8 @@ namespace AntChain.SDK.MYTC
         }
 
         /**
-         * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
-         * Summary: 二维码防伪识别
+         * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+         * Summary: 二维码防伪识别(废弃)
          */
         public RecognizeAntiQrcodeacResponse RecognizeAntiQrcodeacEx(RecognizeAntiQrcodeacRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -377,8 +377,8 @@ namespace AntChain.SDK.MYTC
         }
 
         /**
-         * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
-         * Summary: 二维码防伪识别
+         * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+         * Summary: 二维码防伪识别(废弃)
          */
         public async Task<RecognizeAntiQrcodeacResponse> RecognizeAntiQrcodeacExAsync(RecognizeAntiQrcodeacRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -498,8 +498,8 @@ namespace AntChain.SDK.MYTC
         }
 
         /**
-         * Description: 二维码防伪防屏拍图片验证
-         * Summary: 二维码防伪防屏拍图片验证
+         * Description: 二维码防伪防屏拍图片验证(废弃)
+         * Summary: 二维码防伪防屏拍图片验证(废弃)
          */
         public CheckCodeFakescreenResponse CheckCodeFakescreen(CheckCodeFakescreenRequest request)
         {
@@ -509,8 +509,8 @@ namespace AntChain.SDK.MYTC
         }
 
         /**
-         * Description: 二维码防伪防屏拍图片验证
-         * Summary: 二维码防伪防屏拍图片验证
+         * Description: 二维码防伪防屏拍图片验证(废弃)
+         * Summary: 二维码防伪防屏拍图片验证(废弃)
          */
         public async Task<CheckCodeFakescreenResponse> CheckCodeFakescreenAsync(CheckCodeFakescreenRequest request)
         {
@@ -520,8 +520,8 @@ namespace AntChain.SDK.MYTC
         }
 
         /**
-         * Description: 二维码防伪防屏拍图片验证
-         * Summary: 二维码防伪防屏拍图片验证
+         * Description: 二维码防伪防屏拍图片验证(废弃)
+         * Summary: 二维码防伪防屏拍图片验证(废弃)
          */
         public CheckCodeFakescreenResponse CheckCodeFakescreenEx(CheckCodeFakescreenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -553,8 +553,8 @@ namespace AntChain.SDK.MYTC
         }
 
         /**
-         * Description: 二维码防伪防屏拍图片验证
-         * Summary: 二维码防伪防屏拍图片验证
+         * Description: 二维码防伪防屏拍图片验证(废弃)
+         * Summary: 二维码防伪防屏拍图片验证(废弃)
          */
         public async Task<CheckCodeFakescreenResponse> CheckCodeFakescreenExAsync(CheckCodeFakescreenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -586,8 +586,8 @@ namespace AntChain.SDK.MYTC
         }
 
         /**
-         * Description: 防伪文件上传API
-         * Summary: 防伪文件上传API
+         * Description: 防伪文件上传API(废弃)
+         * Summary: 防伪文件上传API(废弃)
          */
         public UploadAntiFileResponse UploadAntiFile(UploadAntiFileRequest request)
         {
@@ -597,8 +597,8 @@ namespace AntChain.SDK.MYTC
         }
 
         /**
-         * Description: 防伪文件上传API
-         * Summary: 防伪文件上传API
+         * Description: 防伪文件上传API(废弃)
+         * Summary: 防伪文件上传API(废弃)
          */
         public async Task<UploadAntiFileResponse> UploadAntiFileAsync(UploadAntiFileRequest request)
         {
@@ -608,8 +608,8 @@ namespace AntChain.SDK.MYTC
         }
 
         /**
-         * Description: 防伪文件上传API
-         * Summary: 防伪文件上传API
+         * Description: 防伪文件上传API(废弃)
+         * Summary: 防伪文件上传API(废弃)
          */
         public UploadAntiFileResponse UploadAntiFileEx(UploadAntiFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -641,8 +641,8 @@ namespace AntChain.SDK.MYTC
         }
 
         /**
-         * Description: 防伪文件上传API
-         * Summary: 防伪文件上传API
+         * Description: 防伪文件上传API(废弃)
+         * Summary: 防伪文件上传API(废弃)
          */
         public async Task<UploadAntiFileResponse> UploadAntiFileExAsync(UploadAntiFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -713,6 +713,48 @@ namespace AntChain.SDK.MYTC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<JudgeCodeFakescreenResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.fakescreen.judge", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+         * Summary: 二维码防伪校验授权
+         */
+        public AuthAntiAccountResponse AuthAntiAccount(AuthAntiAccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AuthAntiAccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+         * Summary: 二维码防伪校验授权
+         */
+        public async Task<AuthAntiAccountResponse> AuthAntiAccountAsync(AuthAntiAccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AuthAntiAccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+         * Summary: 二维码防伪校验授权
+         */
+        public AuthAntiAccountResponse AuthAntiAccountEx(AuthAntiAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthAntiAccountResponse>(DoRequest("1.0", "antchain.mytc.anti.account.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+         * Summary: 二维码防伪校验授权
+         */
+        public async Task<AuthAntiAccountResponse> AuthAntiAccountExAsync(AuthAntiAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthAntiAccountResponse>(await DoRequestAsync("1.0", "antchain.mytc.anti.account.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
