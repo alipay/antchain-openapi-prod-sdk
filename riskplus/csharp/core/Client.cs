@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.33"},
+                        {"sdk_version", "1.16.36"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.33"},
+                        {"sdk_version", "1.16.36"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6475,6 +6475,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyUmktRealtimemarketingResponse>(await DoRequestAsync("1.0", "riskplus.umkt.realtimemarketing.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量实时策略触达
+         * Summary: 批量实时策略触达
+         */
+        public ApplyUmktRtBatchmarketingResponse ApplyUmktRtBatchmarketing(ApplyUmktRtBatchmarketingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyUmktRtBatchmarketingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量实时策略触达
+         * Summary: 批量实时策略触达
+         */
+        public async Task<ApplyUmktRtBatchmarketingResponse> ApplyUmktRtBatchmarketingAsync(ApplyUmktRtBatchmarketingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyUmktRtBatchmarketingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量实时策略触达
+         * Summary: 批量实时策略触达
+         */
+        public ApplyUmktRtBatchmarketingResponse ApplyUmktRtBatchmarketingEx(ApplyUmktRtBatchmarketingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyUmktRtBatchmarketingResponse>(DoRequest("1.0", "riskplus.umkt.rt.batchmarketing.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量实时策略触达
+         * Summary: 批量实时策略触达
+         */
+        public async Task<ApplyUmktRtBatchmarketingResponse> ApplyUmktRtBatchmarketingExAsync(ApplyUmktRtBatchmarketingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyUmktRtBatchmarketingResponse>(await DoRequestAsync("1.0", "riskplus.umkt.rt.batchmarketing.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
