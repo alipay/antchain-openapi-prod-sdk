@@ -26,7 +26,7 @@ class CheckCodeFakeRequest extends Model
      */
     public $deviceType;
 
-    // 图片文件id，通过小程序拍照，上传的二维码图片信息。
+    // 图片文件id，通过小程序拍照，上传的二维码图片信息。和file_data二选一
     /**
      * @description 待上传文件
      *
@@ -45,16 +45,22 @@ class CheckCodeFakeRequest extends Model
      * @var string
      */
     public $fileId;
+
+    // 文件流数据(iso-8859-1编码)，和file_id二选一
+    /**
+     * @var string
+     */
+    public $fileData;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'deviceType'        => 'device_type',
         'fileId'            => 'file_id',
+        'fileData'          => 'file_data',
     ];
 
     public function validate()
     {
-        Model::validateRequired('fileId', $this->fileId, true);
     }
 
     public function toMap()
@@ -77,6 +83,9 @@ class CheckCodeFakeRequest extends Model
         }
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
+        }
+        if (null !== $this->fileData) {
+            $res['file_data'] = $this->fileData;
         }
 
         return $res;
@@ -107,6 +116,9 @@ class CheckCodeFakeRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
+        }
+        if (isset($map['file_data'])) {
+            $model->fileData = $map['file_data'];
         }
 
         return $model;

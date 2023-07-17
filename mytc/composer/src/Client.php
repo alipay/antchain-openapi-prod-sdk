@@ -17,6 +17,8 @@ use AntChain\MYTC\Models\AddCodeRegistrationRequest;
 use AntChain\MYTC\Models\AddCodeRegistrationResponse;
 use AntChain\MYTC\Models\AddCodeRelationRequest;
 use AntChain\MYTC\Models\AddCodeRelationResponse;
+use AntChain\MYTC\Models\AuthAntiAccountRequest;
+use AntChain\MYTC\Models\AuthAntiAccountResponse;
 use AntChain\MYTC\Models\CheckCodeFakeRequest;
 use AntChain\MYTC\Models\CheckCodeFakeResponse;
 use AntChain\MYTC\Models\CheckCodeFakescreenRequest;
@@ -212,7 +214,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.2',
+                    'sdk_version'      => '1.6.4',
                     '_prod_code'       => 'MYTC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -261,8 +263,8 @@ class Client
     }
 
     /**
-     * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
-     * Summary: 二维码防伪识别.
+     * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+     * Summary: 二维码防伪识别(废弃).
      *
      * @param RecognizeAntiQrcodeacRequest $request
      *
@@ -277,8 +279,8 @@ class Client
     }
 
     /**
-     * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
-     * Summary: 二维码防伪识别.
+     * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+     * Summary: 二维码防伪识别(废弃).
      *
      * @param RecognizeAntiQrcodeacRequest $request
      * @param string[]                     $headers
@@ -363,8 +365,8 @@ class Client
     }
 
     /**
-     * Description: 二维码防伪防屏拍图片验证
-     * Summary: 二维码防伪防屏拍图片验证
+     * Description: 二维码防伪防屏拍图片验证(废弃)
+     * Summary: 二维码防伪防屏拍图片验证(废弃).
      *
      * @param CheckCodeFakescreenRequest $request
      *
@@ -379,8 +381,8 @@ class Client
     }
 
     /**
-     * Description: 二维码防伪防屏拍图片验证
-     * Summary: 二维码防伪防屏拍图片验证
+     * Description: 二维码防伪防屏拍图片验证(废弃)
+     * Summary: 二维码防伪防屏拍图片验证(废弃).
      *
      * @param CheckCodeFakescreenRequest $request
      * @param string[]                   $headers
@@ -414,8 +416,8 @@ class Client
     }
 
     /**
-     * Description: 防伪文件上传API
-     * Summary: 防伪文件上传API.
+     * Description: 防伪文件上传API(废弃)
+     * Summary: 防伪文件上传API(废弃).
      *
      * @param UploadAntiFileRequest $request
      *
@@ -430,8 +432,8 @@ class Client
     }
 
     /**
-     * Description: 防伪文件上传API
-     * Summary: 防伪文件上传API.
+     * Description: 防伪文件上传API(废弃)
+     * Summary: 防伪文件上传API(废弃).
      *
      * @param UploadAntiFileRequest $request
      * @param string[]              $headers
@@ -495,6 +497,39 @@ class Client
         Utils::validateModel($request);
 
         return JudgeCodeFakescreenResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.fakescreen.judge', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+     * Summary: 二维码防伪校验授权.
+     *
+     * @param AuthAntiAccountRequest $request
+     *
+     * @return AuthAntiAccountResponse
+     */
+    public function authAntiAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authAntiAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+     * Summary: 二维码防伪校验授权.
+     *
+     * @param AuthAntiAccountRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return AuthAntiAccountResponse
+     */
+    public function authAntiAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthAntiAccountResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.anti.account.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
