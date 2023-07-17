@@ -24,6 +24,10 @@ public class QueryRbbGeneralRequest extends TeaModel {
     @NameInMap("queryparas")
     public String queryparas;
 
+    // 虚拟云租户code
+    @NameInMap("virtual_cloud_tenant_code")
+    public String virtualCloudTenantCode;
+
     public static QueryRbbGeneralRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRbbGeneralRequest self = new QueryRbbGeneralRequest();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class QueryRbbGeneralRequest extends TeaModel {
     }
     public String getQueryparas() {
         return this.queryparas;
+    }
+
+    public QueryRbbGeneralRequest setVirtualCloudTenantCode(String virtualCloudTenantCode) {
+        this.virtualCloudTenantCode = virtualCloudTenantCode;
+        return this;
+    }
+    public String getVirtualCloudTenantCode() {
+        return this.virtualCloudTenantCode;
     }
 
 }

@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.16.33"),
+                    new TeaPair("sdk_version", "1.16.36"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2945,6 +2945,25 @@ public class Client {
     public ApplyUmktRealtimemarketingResponse applyUmktRealtimemarketingEx(ApplyUmktRealtimemarketingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.realtimemarketing.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyUmktRealtimemarketingResponse());
+    }
+
+    /**
+     * Description: 批量实时策略触达
+     * Summary: 批量实时策略触达
+     */
+    public ApplyUmktRtBatchmarketingResponse applyUmktRtBatchmarketing(ApplyUmktRtBatchmarketingRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyUmktRtBatchmarketingEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 批量实时策略触达
+     * Summary: 批量实时策略触达
+     */
+    public ApplyUmktRtBatchmarketingResponse applyUmktRtBatchmarketingEx(ApplyUmktRtBatchmarketingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.rt.batchmarketing.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyUmktRtBatchmarketingResponse());
     }
 
     /**
