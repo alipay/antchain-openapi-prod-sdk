@@ -2004,6 +2004,50 @@ class RtopCompanyRiskFactor(TeaModel):
         return self
 
 
+class CustomerDetail(TeaModel):
+    def __init__(
+        self,
+        customer_key: str = None,
+        channel_params: str = None,
+        ext_info: str = None,
+    ):
+        # 用户标识
+        self.customer_key = customer_key
+        # 渠道参数
+        self.channel_params = channel_params
+        # 用户透传字段
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.customer_key, 'customer_key')
+        self.validate_required(self.channel_params, 'channel_params')
+        self.validate_required(self.ext_info, 'ext_info')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.customer_key is not None:
+            result['customer_key'] = self.customer_key
+        if self.channel_params is not None:
+            result['channel_params'] = self.channel_params
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('customer_key') is not None:
+            self.customer_key = m.get('customer_key')
+        if m.get('channel_params') is not None:
+            self.channel_params = m.get('channel_params')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
 class CustomerBankCardInfo(TeaModel):
     def __init__(
         self,
@@ -15877,6 +15921,7 @@ class QueryRbbGeneralRequest(TeaModel):
         extension: str = None,
         queryname: str = None,
         queryparas: str = None,
+        virtual_cloud_tenant_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -15887,6 +15932,8 @@ class QueryRbbGeneralRequest(TeaModel):
         self.queryname = queryname
         # 查询参数JSON字符串
         self.queryparas = queryparas
+        # 虚拟云租户code
+        self.virtual_cloud_tenant_code = virtual_cloud_tenant_code
 
     def validate(self):
         self.validate_required(self.queryname, 'queryname')
@@ -15909,6 +15956,8 @@ class QueryRbbGeneralRequest(TeaModel):
             result['queryname'] = self.queryname
         if self.queryparas is not None:
             result['queryparas'] = self.queryparas
+        if self.virtual_cloud_tenant_code is not None:
+            result['virtual_cloud_tenant_code'] = self.virtual_cloud_tenant_code
         return result
 
     def from_map(self, m: dict = None):
@@ -15923,6 +15972,8 @@ class QueryRbbGeneralRequest(TeaModel):
             self.queryname = m.get('queryname')
         if m.get('queryparas') is not None:
             self.queryparas = m.get('queryparas')
+        if m.get('virtual_cloud_tenant_code') is not None:
+            self.virtual_cloud_tenant_code = m.get('virtual_cloud_tenant_code')
         return self
 
 
@@ -25107,6 +25158,137 @@ class ApplyUmktRealtimemarketingResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回流水id
+        self.biz_id = biz_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        return self
+
+
+class ApplyUmktRtBatchmarketingRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_strategy_id: int = None,
+        out_serial_no: str = None,
+        param_type: str = None,
+        out_info: str = None,
+        customer_details: List[CustomerDetail] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+        # 外部流水号
+        self.out_serial_no = out_serial_no
+        # 用户标识类型
+        self.param_type = param_type
+        # 批量透传字段
+        self.out_info = out_info
+        # 用户凭证列表
+        self.customer_details = customer_details
+
+    def validate(self):
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+        self.validate_required(self.out_serial_no, 'out_serial_no')
+        self.validate_required(self.param_type, 'param_type')
+        self.validate_required(self.out_info, 'out_info')
+        self.validate_required(self.customer_details, 'customer_details')
+        if self.customer_details:
+            for k in self.customer_details:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        if self.out_serial_no is not None:
+            result['out_serial_no'] = self.out_serial_no
+        if self.param_type is not None:
+            result['param_type'] = self.param_type
+        if self.out_info is not None:
+            result['out_info'] = self.out_info
+        result['customer_details'] = []
+        if self.customer_details is not None:
+            for k in self.customer_details:
+                result['customer_details'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('out_serial_no') is not None:
+            self.out_serial_no = m.get('out_serial_no')
+        if m.get('param_type') is not None:
+            self.param_type = m.get('param_type')
+        if m.get('out_info') is not None:
+            self.out_info = m.get('out_info')
+        self.customer_details = []
+        if m.get('customer_details') is not None:
+            for k in m.get('customer_details'):
+                temp_model = CustomerDetail()
+                self.customer_details.append(temp_model.from_map(k))
+        return self
+
+
+class ApplyUmktRtBatchmarketingResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 批次流水号
         self.biz_id = biz_id
 
     def validate(self):
