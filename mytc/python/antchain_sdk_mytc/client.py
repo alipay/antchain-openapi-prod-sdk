@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.2',
+                    'sdk_version': '1.6.4',
                     '_prod_code': 'MYTC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.2',
+                    'sdk_version': '1.6.4',
                     '_prod_code': 'MYTC',
                     '_prod_channel': 'undefined'
                 }
@@ -280,8 +280,8 @@ class Client:
         request: mytc_models.RecognizeAntiQrcodeacRequest,
     ) -> mytc_models.RecognizeAntiQrcodeacResponse:
         """
-        Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
-        Summary: 二维码防伪识别
+        Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+        Summary: 二维码防伪识别(废弃)
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -292,8 +292,8 @@ class Client:
         request: mytc_models.RecognizeAntiQrcodeacRequest,
     ) -> mytc_models.RecognizeAntiQrcodeacResponse:
         """
-        Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
-        Summary: 二维码防伪识别
+        Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+        Summary: 二维码防伪识别(废弃)
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -306,8 +306,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> mytc_models.RecognizeAntiQrcodeacResponse:
         """
-        Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
-        Summary: 二维码防伪识别
+        Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+        Summary: 二维码防伪识别(废弃)
         """
         if not UtilClient.is_unset(request.file_object):
             upload_req = mytc_models.CreateAntcloudGatewayxFileUploadRequest(
@@ -339,8 +339,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> mytc_models.RecognizeAntiQrcodeacResponse:
         """
-        Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
-        Summary: 二维码防伪识别
+        Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+        Summary: 二维码防伪识别(废弃)
         """
         if not UtilClient.is_unset(request.file_object):
             upload_req = mytc_models.CreateAntcloudGatewayxFileUploadRequest(
@@ -460,8 +460,8 @@ class Client:
         request: mytc_models.CheckCodeFakescreenRequest,
     ) -> mytc_models.CheckCodeFakescreenResponse:
         """
-        Description: 二维码防伪防屏拍图片验证
-        Summary: 二维码防伪防屏拍图片验证
+        Description: 二维码防伪防屏拍图片验证(废弃)
+        Summary: 二维码防伪防屏拍图片验证(废弃)
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -472,8 +472,8 @@ class Client:
         request: mytc_models.CheckCodeFakescreenRequest,
     ) -> mytc_models.CheckCodeFakescreenResponse:
         """
-        Description: 二维码防伪防屏拍图片验证
-        Summary: 二维码防伪防屏拍图片验证
+        Description: 二维码防伪防屏拍图片验证(废弃)
+        Summary: 二维码防伪防屏拍图片验证(废弃)
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -486,8 +486,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> mytc_models.CheckCodeFakescreenResponse:
         """
-        Description: 二维码防伪防屏拍图片验证
-        Summary: 二维码防伪防屏拍图片验证
+        Description: 二维码防伪防屏拍图片验证(废弃)
+        Summary: 二维码防伪防屏拍图片验证(废弃)
         """
         if not UtilClient.is_unset(request.file_object):
             upload_req = mytc_models.CreateAntcloudGatewayxFileUploadRequest(
@@ -519,8 +519,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> mytc_models.CheckCodeFakescreenResponse:
         """
-        Description: 二维码防伪防屏拍图片验证
-        Summary: 二维码防伪防屏拍图片验证
+        Description: 二维码防伪防屏拍图片验证(废弃)
+        Summary: 二维码防伪防屏拍图片验证(废弃)
         """
         if not UtilClient.is_unset(request.file_object):
             upload_req = mytc_models.CreateAntcloudGatewayxFileUploadRequest(
@@ -550,8 +550,8 @@ class Client:
         request: mytc_models.UploadAntiFileRequest,
     ) -> mytc_models.UploadAntiFileResponse:
         """
-        Description: 防伪文件上传API
-        Summary: 防伪文件上传API
+        Description: 防伪文件上传API(废弃)
+        Summary: 防伪文件上传API(废弃)
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -562,8 +562,8 @@ class Client:
         request: mytc_models.UploadAntiFileRequest,
     ) -> mytc_models.UploadAntiFileResponse:
         """
-        Description: 防伪文件上传API
-        Summary: 防伪文件上传API
+        Description: 防伪文件上传API(废弃)
+        Summary: 防伪文件上传API(废弃)
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -576,8 +576,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> mytc_models.UploadAntiFileResponse:
         """
-        Description: 防伪文件上传API
-        Summary: 防伪文件上传API
+        Description: 防伪文件上传API(废弃)
+        Summary: 防伪文件上传API(废弃)
         """
         if not UtilClient.is_unset(request.file_object):
             upload_req = mytc_models.CreateAntcloudGatewayxFileUploadRequest(
@@ -609,8 +609,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> mytc_models.UploadAntiFileResponse:
         """
-        Description: 防伪文件上传API
-        Summary: 防伪文件上传API
+        Description: 防伪文件上传API(废弃)
+        Summary: 防伪文件上传API(废弃)
         """
         if not UtilClient.is_unset(request.file_object):
             upload_req = mytc_models.CreateAntcloudGatewayxFileUploadRequest(
@@ -689,6 +689,62 @@ class Client:
         return TeaCore.from_map(
             mytc_models.JudgeCodeFakescreenResponse(),
             await self.do_request_async('1.0', 'antchain.mytc.code.fakescreen.judge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def auth_anti_account(
+        self,
+        request: mytc_models.AuthAntiAccountRequest,
+    ) -> mytc_models.AuthAntiAccountResponse:
+        """
+        Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+        Summary: 二维码防伪校验授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.auth_anti_account_ex(request, headers, runtime)
+
+    async def auth_anti_account_async(
+        self,
+        request: mytc_models.AuthAntiAccountRequest,
+    ) -> mytc_models.AuthAntiAccountResponse:
+        """
+        Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+        Summary: 二维码防伪校验授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.auth_anti_account_ex_async(request, headers, runtime)
+
+    def auth_anti_account_ex(
+        self,
+        request: mytc_models.AuthAntiAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.AuthAntiAccountResponse:
+        """
+        Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+        Summary: 二维码防伪校验授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.AuthAntiAccountResponse(),
+            self.do_request('1.0', 'antchain.mytc.anti.account.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def auth_anti_account_ex_async(
+        self,
+        request: mytc_models.AuthAntiAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.AuthAntiAccountResponse:
+        """
+        Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+        Summary: 二维码防伪校验授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.AuthAntiAccountResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.anti.account.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def init_anti_imagesync(

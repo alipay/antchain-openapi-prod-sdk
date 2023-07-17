@@ -960,21 +960,24 @@ class CheckCodeFakeRequest(TeaModel):
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
+        file_data: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 设备型号
         self.device_type = device_type
-        # 图片文件id，通过小程序拍照，上传的二维码图片信息。
+        # 图片文件id，通过小程序拍照，上传的二维码图片信息。和file_data二选一
         # 待上传文件
         self.file_object = file_object
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
+        # 文件流数据(iso-8859-1编码)，和file_id二选一
+        self.file_data = file_data
 
     def validate(self):
-        self.validate_required(self.file_id, 'file_id')
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -994,6 +997,8 @@ class CheckCodeFakeRequest(TeaModel):
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
+        if self.file_data is not None:
+            result['file_data'] = self.file_data
         return result
 
     def from_map(self, m: dict = None):
@@ -1010,6 +1015,8 @@ class CheckCodeFakeRequest(TeaModel):
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
+        if m.get('file_data') is not None:
+            self.file_data = m.get('file_data')
         return self
 
 
@@ -1448,6 +1455,103 @@ class JudgeCodeFakescreenResponse(TeaModel):
             self.detect_code = m.get('detect_code')
         if m.get('detect_message') is not None:
             self.detect_message = m.get('detect_message')
+        return self
+
+
+class AuthAntiAccountRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        user_id: str = None,
+        device_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户标识
+        self.user_id = user_id
+        # 手机设备型号
+        self.device_type = device_type
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.device_type is not None:
+            result['device_type'] = self.device_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('device_type') is not None:
+            self.device_type = m.get('device_type')
+        return self
+
+
+class AuthAntiAccountResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        token: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用户授权唯一标识，在一定时间范围内有效
+        self.token = token
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('token') is not None:
+            self.token = m.get('token')
         return self
 
 
