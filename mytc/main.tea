@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.2',
+    sdk_version = '1.6.4',
     _prod_code = 'MYTC',
     _prod_channel = 'undefined'
   };
@@ -354,8 +354,8 @@ model RecognizeAntiQrcodeacResponse = {
 }
 
 /**
- * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
- * Summary: 二维码防伪识别
+ * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+ * Summary: 二维码防伪识别(废弃)
  */
 async function recognizeAntiQrcodeac(request: RecognizeAntiQrcodeacRequest): RecognizeAntiQrcodeacResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -364,8 +364,8 @@ async function recognizeAntiQrcodeac(request: RecognizeAntiQrcodeacRequest): Rec
 }
 
 /**
- * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
- * Summary: 二维码防伪识别
+ * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+ * Summary: 二维码防伪识别(废弃)
  */
 async function recognizeAntiQrcodeacEx(request: RecognizeAntiQrcodeacRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RecognizeAntiQrcodeacResponse {
   if (!Util.isUnset(request.fileObject)) {
@@ -397,10 +397,12 @@ model CheckCodeFakeRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 设备型号
   deviceType?: string(name='device_type'),
-  // 图片文件id，通过小程序拍照，上传的二维码图片信息。	
+  // 图片文件id，通过小程序拍照，上传的二维码图片信息。和file_data二选一
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileObjectName?: string(description='待上传文件名', ignore='true'),
-  fileId: string(name='file_id'),
+  fileId?: string(name='file_id'),
+  // 文件流数据(iso-8859-1编码)，和file_id二选一
+  fileData?: string(name='file_data'),
 }
 
 model CheckCodeFakeResponse = {
@@ -490,8 +492,8 @@ model CheckCodeFakescreenResponse = {
 }
 
 /**
- * Description: 二维码防伪防屏拍图片验证
- * Summary: 二维码防伪防屏拍图片验证
+ * Description: 二维码防伪防屏拍图片验证(废弃)
+ * Summary: 二维码防伪防屏拍图片验证(废弃)
  */
 async function checkCodeFakescreen(request: CheckCodeFakescreenRequest): CheckCodeFakescreenResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -500,8 +502,8 @@ async function checkCodeFakescreen(request: CheckCodeFakescreenRequest): CheckCo
 }
 
 /**
- * Description: 二维码防伪防屏拍图片验证
- * Summary: 二维码防伪防屏拍图片验证
+ * Description: 二维码防伪防屏拍图片验证(废弃)
+ * Summary: 二维码防伪防屏拍图片验证(废弃)
  */
 async function checkCodeFakescreenEx(request: CheckCodeFakescreenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckCodeFakescreenResponse {
   if (!Util.isUnset(request.fileObject)) {
@@ -549,8 +551,8 @@ model UploadAntiFileResponse = {
 }
 
 /**
- * Description: 防伪文件上传API
- * Summary: 防伪文件上传API
+ * Description: 防伪文件上传API(废弃)
+ * Summary: 防伪文件上传API(废弃)
  */
 async function uploadAntiFile(request: UploadAntiFileRequest): UploadAntiFileResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -559,8 +561,8 @@ async function uploadAntiFile(request: UploadAntiFileRequest): UploadAntiFileRes
 }
 
 /**
- * Description: 防伪文件上传API
- * Summary: 防伪文件上传API
+ * Description: 防伪文件上传API(废弃)
+ * Summary: 防伪文件上传API(废弃)
  */
 async function uploadAntiFileEx(request: UploadAntiFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAntiFileResponse {
   if (!Util.isUnset(request.fileObject)) {
@@ -634,6 +636,46 @@ async function judgeCodeFakescreen(request: JudgeCodeFakescreenRequest): JudgeCo
 async function judgeCodeFakescreenEx(request: JudgeCodeFakescreenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): JudgeCodeFakescreenResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.mytc.code.fakescreen.judge', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthAntiAccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户标识
+  userId: string(name='user_id'),
+  // 手机设备型号
+  deviceType?: string(name='device_type'),
+}
+
+model AuthAntiAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户授权唯一标识，在一定时间范围内有效
+  token?: string(name='token'),
+}
+
+/**
+ * Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+ * Summary: 二维码防伪校验授权
+ */
+async function authAntiAccount(request: AuthAntiAccountRequest): AuthAntiAccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authAntiAccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+ * Summary: 二维码防伪校验授权
+ */
+async function authAntiAccountEx(request: AuthAntiAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthAntiAccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.anti.account.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model InitAntiImagesyncRequest = {
