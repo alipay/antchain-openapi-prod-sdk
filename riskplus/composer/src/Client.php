@@ -33,6 +33,8 @@ use AntChain\RISKPLUS\Models\ApplyUmktRealtimemarketingRequest;
 use AntChain\RISKPLUS\Models\ApplyUmktRealtimemarketingResponse;
 use AntChain\RISKPLUS\Models\ApplyUmktRobotcallRequest;
 use AntChain\RISKPLUS\Models\ApplyUmktRobotcallResponse;
+use AntChain\RISKPLUS\Models\ApplyUmktRtBatchmarketingRequest;
+use AntChain\RISKPLUS\Models\ApplyUmktRtBatchmarketingResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMarketingRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMarketingResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMixedmarketingRequest;
@@ -442,7 +444,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.33',
+                    'sdk_version'      => '1.16.36',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5233,6 +5235,39 @@ class Client
         Utils::validateModel($request);
 
         return ApplyUmktRealtimemarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.realtimemarketing.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量实时策略触达
+     * Summary: 批量实时策略触达.
+     *
+     * @param ApplyUmktRtBatchmarketingRequest $request
+     *
+     * @return ApplyUmktRtBatchmarketingResponse
+     */
+    public function applyUmktRtBatchmarketing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyUmktRtBatchmarketingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量实时策略触达
+     * Summary: 批量实时策略触达.
+     *
+     * @param ApplyUmktRtBatchmarketingRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return ApplyUmktRtBatchmarketingResponse
+     */
+    public function applyUmktRtBatchmarketingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyUmktRtBatchmarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.batchmarketing.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

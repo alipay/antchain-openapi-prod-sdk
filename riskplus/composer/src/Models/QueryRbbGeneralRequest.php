@@ -36,12 +36,19 @@ class QueryRbbGeneralRequest extends Model
      * @var string
      */
     public $queryparas;
+
+    // 虚拟云租户code
+    /**
+     * @var string
+     */
+    public $virtualCloudTenantCode;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'extension'         => 'extension',
-        'queryname'         => 'queryname',
-        'queryparas'        => 'queryparas',
+        'authToken'              => 'auth_token',
+        'productInstanceId'      => 'product_instance_id',
+        'extension'              => 'extension',
+        'queryname'              => 'queryname',
+        'queryparas'             => 'queryparas',
+        'virtualCloudTenantCode' => 'virtual_cloud_tenant_code',
     ];
 
     public function validate()
@@ -69,6 +76,9 @@ class QueryRbbGeneralRequest extends Model
         if (null !== $this->queryparas) {
             $res['queryparas'] = $this->queryparas;
         }
+        if (null !== $this->virtualCloudTenantCode) {
+            $res['virtual_cloud_tenant_code'] = $this->virtualCloudTenantCode;
+        }
 
         return $res;
     }
@@ -95,6 +105,9 @@ class QueryRbbGeneralRequest extends Model
         }
         if (isset($map['queryparas'])) {
             $model->queryparas = $map['queryparas'];
+        }
+        if (isset($map['virtual_cloud_tenant_code'])) {
+            $model->virtualCloudTenantCode = $map['virtual_cloud_tenant_code'];
         }
 
         return $model;
