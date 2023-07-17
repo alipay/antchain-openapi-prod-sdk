@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.33',
+    sdk_version = '1.16.36',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -596,6 +596,16 @@ model RtopCompanyRiskFactor {
   name?: string(name='name', example='1'),
   // 维度分数
   score?: long(name='score', example=''),
+}
+
+// 用户凭证信息
+model CustomerDetail {
+  // 用户标识
+  customerKey: string(name='customer_key', example='"186123456789"'),
+  // 渠道参数
+  channelParams: string(name='channel_params', example='"{\"name\":\"苹果\",\"code\":\"5643\",\"num\":\"5\"}"'),
+  // 用户透传字段
+  extInfo: string(name='ext_info', example='"[{\"name\":\"zhangshan\"}]"'),
 }
 
 // 用户绑定银行卡列表
@@ -5193,6 +5203,8 @@ model QueryRbbGeneralRequest = {
   queryname: string(maxLength=200, minLength=2, name='queryname'),
   // 查询参数JSON字符串
   queryparas?: string(name='queryparas'),
+  // 虚拟云租户code
+  virtualCloudTenantCode?: string(name='virtual_cloud_tenant_code'),
 }
 
 model QueryRbbGeneralResponse = {
@@ -8592,6 +8604,52 @@ async function applyUmktRealtimemarketing(request: ApplyUmktRealtimemarketingReq
 async function applyUmktRealtimemarketingEx(request: ApplyUmktRealtimemarketingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyUmktRealtimemarketingResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.realtimemarketing.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyUmktRtBatchmarketingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id'),
+  // 外部流水号
+  outSerialNo: string(name='out_serial_no'),
+  // 用户标识类型
+  paramType: string(name='param_type'),
+  // 批量透传字段
+  outInfo: string(name='out_info'),
+  // 用户凭证列表
+  customerDetails: [ CustomerDetail ](name='customer_details'),
+}
+
+model ApplyUmktRtBatchmarketingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批次流水号
+  bizId?: string(name='biz_id'),
+}
+
+/**
+ * Description: 批量实时策略触达
+ * Summary: 批量实时策略触达
+ */
+async function applyUmktRtBatchmarketing(request: ApplyUmktRtBatchmarketingRequest): ApplyUmktRtBatchmarketingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyUmktRtBatchmarketingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量实时策略触达
+ * Summary: 批量实时策略触达
+ */
+async function applyUmktRtBatchmarketingEx(request: ApplyUmktRtBatchmarketingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyUmktRtBatchmarketingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.rt.batchmarketing.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
