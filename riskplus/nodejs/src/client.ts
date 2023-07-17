@@ -1186,6 +1186,35 @@ export class RtopCompanyRiskFactor extends $tea.Model {
   }
 }
 
+// 用户凭证信息
+export class CustomerDetail extends $tea.Model {
+  // 用户标识
+  customerKey: string;
+  // 渠道参数
+  channelParams: string;
+  // 用户透传字段
+  extInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      customerKey: 'customer_key',
+      channelParams: 'channel_params',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      customerKey: 'string',
+      channelParams: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 用户绑定银行卡列表
 export class CustomerBankCardInfo extends $tea.Model {
   // 银行名称
@@ -9574,6 +9603,8 @@ export class QueryRbbGeneralRequest extends $tea.Model {
   queryname: string;
   // 查询参数JSON字符串
   queryparas?: string;
+  // 虚拟云租户code
+  virtualCloudTenantCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -9581,6 +9612,7 @@ export class QueryRbbGeneralRequest extends $tea.Model {
       extension: 'extension',
       queryname: 'queryname',
       queryparas: 'queryparas',
+      virtualCloudTenantCode: 'virtual_cloud_tenant_code',
     };
   }
 
@@ -9591,6 +9623,7 @@ export class QueryRbbGeneralRequest extends $tea.Model {
       extension: 'string',
       queryname: 'string',
       queryparas: 'string',
+      virtualCloudTenantCode: 'string',
     };
   }
 
@@ -15092,6 +15125,81 @@ export class ApplyUmktRealtimemarketingResponse extends $tea.Model {
   }
 }
 
+export class ApplyUmktRtBatchmarketingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景策略id
+  sceneStrategyId: number;
+  // 外部流水号
+  outSerialNo: string;
+  // 用户标识类型
+  paramType: string;
+  // 批量透传字段
+  outInfo: string;
+  // 用户凭证列表
+  customerDetails: CustomerDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneStrategyId: 'scene_strategy_id',
+      outSerialNo: 'out_serial_no',
+      paramType: 'param_type',
+      outInfo: 'out_info',
+      customerDetails: 'customer_details',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneStrategyId: 'number',
+      outSerialNo: 'string',
+      paramType: 'string',
+      outInfo: 'string',
+      customerDetails: { 'type': 'array', 'itemType': CustomerDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyUmktRtBatchmarketingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 批次流水号
+  bizId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -15293,7 +15401,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.33",
+          sdk_version: "1.16.36",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -18125,6 +18233,25 @@ export default class Client {
   async applyUmktRealtimemarketingEx(request: ApplyUmktRealtimemarketingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyUmktRealtimemarketingResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyUmktRealtimemarketingResponse>(await this.doRequest("1.0", "riskplus.umkt.realtimemarketing.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyUmktRealtimemarketingResponse({}));
+  }
+
+  /**
+   * Description: 批量实时策略触达
+   * Summary: 批量实时策略触达
+   */
+  async applyUmktRtBatchmarketing(request: ApplyUmktRtBatchmarketingRequest): Promise<ApplyUmktRtBatchmarketingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyUmktRtBatchmarketingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 批量实时策略触达
+   * Summary: 批量实时策略触达
+   */
+  async applyUmktRtBatchmarketingEx(request: ApplyUmktRtBatchmarketingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyUmktRtBatchmarketingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyUmktRtBatchmarketingResponse>(await this.doRequest("1.0", "riskplus.umkt.rt.batchmarketing.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyUmktRtBatchmarketingResponse({}));
   }
 
   /**
