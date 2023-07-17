@@ -788,12 +788,14 @@ type CheckCodeFakeRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 设备型号
 	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
-	// 图片文件id，通过小程序拍照，上传的二维码图片信息。
+	// 图片文件id，通过小程序拍照，上传的二维码图片信息。和file_data二选一
 	// 待上传文件
 	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
-	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 文件流数据(iso-8859-1编码)，和file_id二选一
+	FileData *string `json:"file_data,omitempty" xml:"file_data,omitempty"`
 }
 
 func (s CheckCodeFakeRequest) String() string {
@@ -831,6 +833,11 @@ func (s *CheckCodeFakeRequest) SetFileObjectName(v string) *CheckCodeFakeRequest
 
 func (s *CheckCodeFakeRequest) SetFileId(v string) *CheckCodeFakeRequest {
 	s.FileId = &v
+	return s
+}
+
+func (s *CheckCodeFakeRequest) SetFileData(v string) *CheckCodeFakeRequest {
+	s.FileData = &v
 	return s
 }
 
@@ -1196,6 +1203,83 @@ func (s *JudgeCodeFakescreenResponse) SetDetectCode(v string) *JudgeCodeFakescre
 
 func (s *JudgeCodeFakescreenResponse) SetDetectMessage(v string) *JudgeCodeFakescreenResponse {
 	s.DetectMessage = &v
+	return s
+}
+
+type AuthAntiAccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户标识
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 手机设备型号
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
+}
+
+func (s AuthAntiAccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthAntiAccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AuthAntiAccountRequest) SetAuthToken(v string) *AuthAntiAccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AuthAntiAccountRequest) SetProductInstanceId(v string) *AuthAntiAccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AuthAntiAccountRequest) SetUserId(v string) *AuthAntiAccountRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *AuthAntiAccountRequest) SetDeviceType(v string) *AuthAntiAccountRequest {
+	s.DeviceType = &v
+	return s
+}
+
+type AuthAntiAccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户授权唯一标识，在一定时间范围内有效
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+}
+
+func (s AuthAntiAccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthAntiAccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AuthAntiAccountResponse) SetReqMsgId(v string) *AuthAntiAccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AuthAntiAccountResponse) SetResultCode(v string) *AuthAntiAccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AuthAntiAccountResponse) SetResultMsg(v string) *AuthAntiAccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AuthAntiAccountResponse) SetToken(v string) *AuthAntiAccountResponse {
+	s.Token = &v
 	return s
 }
 
@@ -3648,7 +3732,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.2"),
+				"sdk_version":      tea.String("1.6.4"),
 				"_prod_code":       tea.String("MYTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3707,8 +3791,8 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
- * Summary: 二维码防伪识别
+ * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+ * Summary: 二维码防伪识别(废弃)
  */
 func (client *Client) RecognizeAntiQrcodeac(request *RecognizeAntiQrcodeacRequest) (_result *RecognizeAntiQrcodeacResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -3723,8 +3807,8 @@ func (client *Client) RecognizeAntiQrcodeac(request *RecognizeAntiQrcodeacReques
 }
 
 /**
- * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
- * Summary: 二维码防伪识别
+ * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+ * Summary: 二维码防伪识别(废弃)
  */
 func (client *Client) RecognizeAntiQrcodeacEx(request *RecognizeAntiQrcodeacRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RecognizeAntiQrcodeacResponse, _err error) {
 	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
@@ -3833,8 +3917,8 @@ func (client *Client) CheckCodeFakeEx(request *CheckCodeFakeRequest, headers map
 }
 
 /**
- * Description: 二维码防伪防屏拍图片验证
- * Summary: 二维码防伪防屏拍图片验证
+ * Description: 二维码防伪防屏拍图片验证(废弃)
+ * Summary: 二维码防伪防屏拍图片验证(废弃)
  */
 func (client *Client) CheckCodeFakescreen(request *CheckCodeFakescreenRequest) (_result *CheckCodeFakescreenResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -3849,8 +3933,8 @@ func (client *Client) CheckCodeFakescreen(request *CheckCodeFakescreenRequest) (
 }
 
 /**
- * Description: 二维码防伪防屏拍图片验证
- * Summary: 二维码防伪防屏拍图片验证
+ * Description: 二维码防伪防屏拍图片验证(废弃)
+ * Summary: 二维码防伪防屏拍图片验证(废弃)
  */
 func (client *Client) CheckCodeFakescreenEx(request *CheckCodeFakescreenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckCodeFakescreenResponse, _err error) {
 	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
@@ -3896,8 +3980,8 @@ func (client *Client) CheckCodeFakescreenEx(request *CheckCodeFakescreenRequest,
 }
 
 /**
- * Description: 防伪文件上传API
- * Summary: 防伪文件上传API
+ * Description: 防伪文件上传API(废弃)
+ * Summary: 防伪文件上传API(废弃)
  */
 func (client *Client) UploadAntiFile(request *UploadAntiFileRequest) (_result *UploadAntiFileResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -3912,8 +3996,8 @@ func (client *Client) UploadAntiFile(request *UploadAntiFileRequest) (_result *U
 }
 
 /**
- * Description: 防伪文件上传API
- * Summary: 防伪文件上传API
+ * Description: 防伪文件上传API(废弃)
+ * Summary: 防伪文件上传API(废弃)
  */
 func (client *Client) UploadAntiFileEx(request *UploadAntiFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAntiFileResponse, _err error) {
 	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
@@ -3985,6 +4069,40 @@ func (client *Client) JudgeCodeFakescreenEx(request *JudgeCodeFakescreenRequest,
 	}
 	_result = &JudgeCodeFakescreenResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mytc.code.fakescreen.judge"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+ * Summary: 二维码防伪校验授权
+ */
+func (client *Client) AuthAntiAccount(request *AuthAntiAccountRequest) (_result *AuthAntiAccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AuthAntiAccountResponse{}
+	_body, _err := client.AuthAntiAccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+ * Summary: 二维码防伪校验授权
+ */
+func (client *Client) AuthAntiAccountEx(request *AuthAntiAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AuthAntiAccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AuthAntiAccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mytc.anti.account.auth"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
