@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.2"),
+                    new TeaPair("sdk_version", "1.6.4"),
                     new TeaPair("_prod_code", "MYTC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -162,8 +162,8 @@ public class Client {
     }
 
     /**
-     * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
-     * Summary: 二维码防伪识别
+     * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+     * Summary: 二维码防伪识别(废弃)
      */
     public RecognizeAntiQrcodeacResponse recognizeAntiQrcodeac(RecognizeAntiQrcodeacRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -172,8 +172,8 @@ public class Client {
     }
 
     /**
-     * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。
-     * Summary: 二维码防伪识别
+     * Description: 主要用于二维码防伪识别，内部集成安创的二维码验真能力。（废弃）
+     * Summary: 二维码防伪识别(废弃)
      */
     public RecognizeAntiQrcodeacResponse recognizeAntiQrcodeacEx(RecognizeAntiQrcodeacRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -242,8 +242,8 @@ public class Client {
     }
 
     /**
-     * Description: 二维码防伪防屏拍图片验证
-     * Summary: 二维码防伪防屏拍图片验证
+     * Description: 二维码防伪防屏拍图片验证(废弃)
+     * Summary: 二维码防伪防屏拍图片验证(废弃)
      */
     public CheckCodeFakescreenResponse checkCodeFakescreen(CheckCodeFakescreenRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -252,8 +252,8 @@ public class Client {
     }
 
     /**
-     * Description: 二维码防伪防屏拍图片验证
-     * Summary: 二维码防伪防屏拍图片验证
+     * Description: 二维码防伪防屏拍图片验证(废弃)
+     * Summary: 二维码防伪防屏拍图片验证(废弃)
      */
     public CheckCodeFakescreenResponse checkCodeFakescreenEx(CheckCodeFakescreenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -282,8 +282,8 @@ public class Client {
     }
 
     /**
-     * Description: 防伪文件上传API
-     * Summary: 防伪文件上传API
+     * Description: 防伪文件上传API(废弃)
+     * Summary: 防伪文件上传API(废弃)
      */
     public UploadAntiFileResponse uploadAntiFile(UploadAntiFileRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -292,8 +292,8 @@ public class Client {
     }
 
     /**
-     * Description: 防伪文件上传API
-     * Summary: 防伪文件上传API
+     * Description: 防伪文件上传API(废弃)
+     * Summary: 防伪文件上传API(废弃)
      */
     public UploadAntiFileResponse uploadAntiFileEx(UploadAntiFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -338,6 +338,25 @@ public class Client {
     public JudgeCodeFakescreenResponse judgeCodeFakescreenEx(JudgeCodeFakescreenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.fakescreen.judge", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new JudgeCodeFakescreenResponse());
+    }
+
+    /**
+     * Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+     * Summary: 二维码防伪校验授权
+     */
+    public AuthAntiAccountResponse authAntiAccount(AuthAntiAccountRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.authAntiAccountEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 二维码防伪校验授权，获取token后通过restful api可进行防伪验证操作。
+     * Summary: 二维码防伪校验授权
+     */
+    public AuthAntiAccountResponse authAntiAccountEx(AuthAntiAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.anti.account.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthAntiAccountResponse());
     }
 
     /**

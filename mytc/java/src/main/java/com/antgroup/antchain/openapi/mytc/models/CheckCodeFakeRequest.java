@@ -15,7 +15,7 @@ public class CheckCodeFakeRequest extends TeaModel {
     @NameInMap("device_type")
     public String deviceType;
 
-    // 图片文件id，通过小程序拍照，上传的二维码图片信息。	
+    // 图片文件id，通过小程序拍照，上传的二维码图片信息。和file_data二选一
     // 待上传文件
     @NameInMap("fileObject")
     public java.io.InputStream fileObject;
@@ -25,8 +25,11 @@ public class CheckCodeFakeRequest extends TeaModel {
     public String fileObjectName;
 
     @NameInMap("file_id")
-    @Validation(required = true)
     public String fileId;
+
+    // 文件流数据(iso-8859-1编码)，和file_id二选一
+    @NameInMap("file_data")
+    public String fileData;
 
     public static CheckCodeFakeRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckCodeFakeRequest self = new CheckCodeFakeRequest();
@@ -79,6 +82,14 @@ public class CheckCodeFakeRequest extends TeaModel {
     }
     public String getFileId() {
         return this.fileId;
+    }
+
+    public CheckCodeFakeRequest setFileData(String fileData) {
+        this.fileData = fileData;
+        return this;
+    }
+    public String getFileData() {
+        return this.fileData;
     }
 
 }
