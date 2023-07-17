@@ -1602,6 +1602,39 @@ func (s *RtopCompanyRiskFactor) SetScore(v int64) *RtopCompanyRiskFactor {
 	return s
 }
 
+// 用户凭证信息
+type CustomerDetail struct {
+	// 用户标识
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
+	// 渠道参数
+	ChannelParams *string `json:"channel_params,omitempty" xml:"channel_params,omitempty" require:"true"`
+	// 用户透传字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+}
+
+func (s CustomerDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomerDetail) GoString() string {
+	return s.String()
+}
+
+func (s *CustomerDetail) SetCustomerKey(v string) *CustomerDetail {
+	s.CustomerKey = &v
+	return s
+}
+
+func (s *CustomerDetail) SetChannelParams(v string) *CustomerDetail {
+	s.ChannelParams = &v
+	return s
+}
+
+func (s *CustomerDetail) SetExtInfo(v string) *CustomerDetail {
+	s.ExtInfo = &v
+	return s
+}
+
 // 用户绑定银行卡列表
 type CustomerBankCardInfo struct {
 	// 银行名称
@@ -12866,6 +12899,8 @@ type QueryRbbGeneralRequest struct {
 	Queryname *string `json:"queryname,omitempty" xml:"queryname,omitempty" require:"true" maxLength:"200" minLength:"2"`
 	// 查询参数JSON字符串
 	Queryparas *string `json:"queryparas,omitempty" xml:"queryparas,omitempty"`
+	// 虚拟云租户code
+	VirtualCloudTenantCode *string `json:"virtual_cloud_tenant_code,omitempty" xml:"virtual_cloud_tenant_code,omitempty"`
 }
 
 func (s QueryRbbGeneralRequest) String() string {
@@ -12898,6 +12933,11 @@ func (s *QueryRbbGeneralRequest) SetQueryname(v string) *QueryRbbGeneralRequest 
 
 func (s *QueryRbbGeneralRequest) SetQueryparas(v string) *QueryRbbGeneralRequest {
 	s.Queryparas = &v
+	return s
+}
+
+func (s *QueryRbbGeneralRequest) SetVirtualCloudTenantCode(v string) *QueryRbbGeneralRequest {
+	s.VirtualCloudTenantCode = &v
 	return s
 }
 
@@ -20168,6 +20208,104 @@ func (s *ApplyUmktRealtimemarketingResponse) SetBizId(v string) *ApplyUmktRealti
 	return s
 }
 
+type ApplyUmktRtBatchmarketingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 外部流水号
+	OutSerialNo *string `json:"out_serial_no,omitempty" xml:"out_serial_no,omitempty" require:"true"`
+	// 用户标识类型
+	ParamType *string `json:"param_type,omitempty" xml:"param_type,omitempty" require:"true"`
+	// 批量透传字段
+	OutInfo *string `json:"out_info,omitempty" xml:"out_info,omitempty" require:"true"`
+	// 用户凭证列表
+	CustomerDetails []*CustomerDetail `json:"customer_details,omitempty" xml:"customer_details,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ApplyUmktRtBatchmarketingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyUmktRtBatchmarketingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyUmktRtBatchmarketingRequest) SetAuthToken(v string) *ApplyUmktRtBatchmarketingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyUmktRtBatchmarketingRequest) SetProductInstanceId(v string) *ApplyUmktRtBatchmarketingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyUmktRtBatchmarketingRequest) SetSceneStrategyId(v int64) *ApplyUmktRtBatchmarketingRequest {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *ApplyUmktRtBatchmarketingRequest) SetOutSerialNo(v string) *ApplyUmktRtBatchmarketingRequest {
+	s.OutSerialNo = &v
+	return s
+}
+
+func (s *ApplyUmktRtBatchmarketingRequest) SetParamType(v string) *ApplyUmktRtBatchmarketingRequest {
+	s.ParamType = &v
+	return s
+}
+
+func (s *ApplyUmktRtBatchmarketingRequest) SetOutInfo(v string) *ApplyUmktRtBatchmarketingRequest {
+	s.OutInfo = &v
+	return s
+}
+
+func (s *ApplyUmktRtBatchmarketingRequest) SetCustomerDetails(v []*CustomerDetail) *ApplyUmktRtBatchmarketingRequest {
+	s.CustomerDetails = v
+	return s
+}
+
+type ApplyUmktRtBatchmarketingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 批次流水号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+}
+
+func (s ApplyUmktRtBatchmarketingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyUmktRtBatchmarketingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyUmktRtBatchmarketingResponse) SetReqMsgId(v string) *ApplyUmktRtBatchmarketingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyUmktRtBatchmarketingResponse) SetResultCode(v string) *ApplyUmktRtBatchmarketingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyUmktRtBatchmarketingResponse) SetResultMsg(v string) *ApplyUmktRtBatchmarketingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyUmktRtBatchmarketingResponse) SetBizId(v string) *ApplyUmktRtBatchmarketingResponse {
+	s.BizId = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -20410,7 +20548,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.33"),
+				"sdk_version":      tea.String("1.16.36"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -25402,6 +25540,40 @@ func (client *Client) ApplyUmktRealtimemarketingEx(request *ApplyUmktRealtimemar
 	}
 	_result = &ApplyUmktRealtimemarketingResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.realtimemarketing.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 批量实时策略触达
+ * Summary: 批量实时策略触达
+ */
+func (client *Client) ApplyUmktRtBatchmarketing(request *ApplyUmktRtBatchmarketingRequest) (_result *ApplyUmktRtBatchmarketingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyUmktRtBatchmarketingResponse{}
+	_body, _err := client.ApplyUmktRtBatchmarketingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 批量实时策略触达
+ * Summary: 批量实时策略触达
+ */
+func (client *Client) ApplyUmktRtBatchmarketingEx(request *ApplyUmktRtBatchmarketingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyUmktRtBatchmarketingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyUmktRtBatchmarketingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.rt.batchmarketing.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
