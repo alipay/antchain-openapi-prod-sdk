@@ -147,6 +147,12 @@ class CreateBclOrderRequest extends Model
      */
     public $realPersonReturnUrl;
 
+    // 签署流程信息，如果使用租赁代扣创建则必填
+    /**
+     * @var BclContractFlowInfo
+     */
+    public $contractFlowInfo;
+
     // 资方定义订单的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
     /**
      * @var string
@@ -181,6 +187,7 @@ class CreateBclOrderRequest extends Model
         'serviceTypes'           => 'service_types',
         'userIp'                 => 'user_ip',
         'realPersonReturnUrl'    => 'real_person_return_url',
+        'contractFlowInfo'       => 'contract_flow_info',
         'orderExtraInfo'         => 'order_extra_info',
         'userExtraInfo'          => 'user_extra_info',
     ];
@@ -298,6 +305,9 @@ class CreateBclOrderRequest extends Model
         if (null !== $this->realPersonReturnUrl) {
             $res['real_person_return_url'] = $this->realPersonReturnUrl;
         }
+        if (null !== $this->contractFlowInfo) {
+            $res['contract_flow_info'] = null !== $this->contractFlowInfo ? $this->contractFlowInfo->toMap() : null;
+        }
         if (null !== $this->orderExtraInfo) {
             $res['order_extra_info'] = $this->orderExtraInfo;
         }
@@ -395,6 +405,9 @@ class CreateBclOrderRequest extends Model
         }
         if (isset($map['real_person_return_url'])) {
             $model->realPersonReturnUrl = $map['real_person_return_url'];
+        }
+        if (isset($map['contract_flow_info'])) {
+            $model->contractFlowInfo = BclContractFlowInfo::fromMap($map['contract_flow_info']);
         }
         if (isset($map['order_extra_info'])) {
             $model->orderExtraInfo = $map['order_extra_info'];

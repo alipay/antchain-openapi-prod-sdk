@@ -26,9 +26,45 @@ class BclContractInfo extends Model
      * @var BclFileInfo[]
      */
     public $signedFiles;
+
+    // 签署链接，使用租赁宝代扣并且发起订单后才可以查询获取
+    /**
+     * @example https://xxxx
+     *
+     * @var string
+     */
+    public $signUrl;
+
+    // 签署场景
+    /**
+     * @example 签署场景
+     *
+     * @var string
+     */
+    public $businessScene;
+
+    // 合同创建失败原因
+    /**
+     * @example 合同创建失败原因
+     *
+     * @var string
+     */
+    public $flowErrMsg;
+
+    // 签署区列表
+    /**
+     * @example
+     *
+     * @var BclContractSignFieldInfo[]
+     */
+    public $signFieldInfos;
     protected $_name = [
-        'signStatus'  => 'sign_status',
-        'signedFiles' => 'signed_files',
+        'signStatus'     => 'sign_status',
+        'signedFiles'    => 'signed_files',
+        'signUrl'        => 'sign_url',
+        'businessScene'  => 'business_scene',
+        'flowErrMsg'     => 'flow_err_msg',
+        'signFieldInfos' => 'sign_field_infos',
     ];
 
     public function validate()
@@ -48,6 +84,24 @@ class BclContractInfo extends Model
                 $n = 0;
                 foreach ($this->signedFiles as $item) {
                     $res['signed_files'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->signUrl) {
+            $res['sign_url'] = $this->signUrl;
+        }
+        if (null !== $this->businessScene) {
+            $res['business_scene'] = $this->businessScene;
+        }
+        if (null !== $this->flowErrMsg) {
+            $res['flow_err_msg'] = $this->flowErrMsg;
+        }
+        if (null !== $this->signFieldInfos) {
+            $res['sign_field_infos'] = [];
+            if (null !== $this->signFieldInfos && \is_array($this->signFieldInfos)) {
+                $n = 0;
+                foreach ($this->signFieldInfos as $item) {
+                    $res['sign_field_infos'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -72,6 +126,24 @@ class BclContractInfo extends Model
                 $n                  = 0;
                 foreach ($map['signed_files'] as $item) {
                     $model->signedFiles[$n++] = null !== $item ? BclFileInfo::fromMap($item) : $item;
+                }
+            }
+        }
+        if (isset($map['sign_url'])) {
+            $model->signUrl = $map['sign_url'];
+        }
+        if (isset($map['business_scene'])) {
+            $model->businessScene = $map['business_scene'];
+        }
+        if (isset($map['flow_err_msg'])) {
+            $model->flowErrMsg = $map['flow_err_msg'];
+        }
+        if (isset($map['sign_field_infos'])) {
+            if (!empty($map['sign_field_infos'])) {
+                $model->signFieldInfos = [];
+                $n                     = 0;
+                foreach ($map['sign_field_infos'] as $item) {
+                    $model->signFieldInfos[$n++] = null !== $item ? BclContractSignFieldInfo::fromMap($item) : $item;
                 }
             }
         }

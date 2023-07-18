@@ -93,6 +93,8 @@ use AntChain\TWC\Models\ConfirmWitnessFlowRequest;
 use AntChain\TWC\Models\ConfirmWitnessFlowResponse;
 use AntChain\TWC\Models\CreateBclOrderRequest;
 use AntChain\TWC\Models\CreateBclOrderResponse;
+use AntChain\TWC\Models\CreateBclPayeeRequest;
+use AntChain\TWC\Models\CreateBclPayeeResponse;
 use AntChain\TWC\Models\CreateBclProductRequest;
 use AntChain\TWC\Models\CreateBclProductResponse;
 use AntChain\TWC\Models\CreateContractAccountRequest;
@@ -802,7 +804,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.10',
+                    'sdk_version'      => '1.10.19',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1244,6 +1246,39 @@ class Client
         Utils::validateModel($request);
 
         return UpdateBclPromiserepaymentResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.promiserepayment.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建收款方
+     * Summary: 创建收款方.
+     *
+     * @param CreateBclPayeeRequest $request
+     *
+     * @return CreateBclPayeeResponse
+     */
+    public function createBclPayee($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBclPayeeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建收款方
+     * Summary: 创建收款方.
+     *
+     * @param CreateBclPayeeRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return CreateBclPayeeResponse
+     */
+    public function createBclPayeeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBclPayeeResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.payee.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
