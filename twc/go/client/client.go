@@ -334,6 +334,97 @@ func (s *OrderItem) SetLeaseNumber(v int64) *OrderItem {
 	return s
 }
 
+// 签署信息
+type BclSignField struct {
+	// 页码信息：当签署区sign_type为RIDE_SEAM时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；
+	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty" require:"true" maxLength:"8"`
+	// 非负数,小数位最多两位,x坐标，sign_type为SINGLE_PAGE时必填，sign_type为RIDE_SEAM时不填写
+	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty" maxLength:"8"`
+	// 非负数,小数位最多两位,y坐标
+	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true" maxLength:"8"`
+	// 签署类型，
+	// 单页签署: SINGLE_PAGE，
+	// 骑缝签署: RIDE_SEAM，
+	// 默认 SINGLE_PAGE
+	SignFieldType *string `json:"sign_field_type,omitempty" xml:"sign_field_type,omitempty" require:"true" maxLength:"16"`
+	// 是否添加签署时间
+	// 不添加: false 添加: true ， 默认false, 商家不支持指定日期坐标
+	AddSignDate *bool `json:"add_sign_date,omitempty" xml:"add_sign_date,omitempty"`
+	// 签章日期字体大小,默认12
+	// 商家签署区不支持
+	SignDateFontSize *int64 `json:"sign_date_font_size,omitempty" xml:"sign_date_font_size,omitempty" maximum:"20" minimum:"10"`
+	// 签章日期格式，yyyy年MM月dd日
+	// 商家签署区不支持
+	SignDateFormat *string `json:"sign_date_format,omitempty" xml:"sign_date_format,omitempty" maxLength:"32"`
+	// 页码信息，当sign_date_bean_type为REQUIRED时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
+	// 商家签署区不支持
+	SignDatePosPage *int64 `json:"sign_date_pos_page,omitempty" xml:"sign_date_pos_page,omitempty" minimum:"1"`
+	// 非负数,小数位最多两位,签章日期x坐标，默认0
+	// 商家签署区不支持
+	SignDatePosX *string `json:"sign_date_pos_x,omitempty" xml:"sign_date_pos_x,omitempty" maxLength:"8"`
+	// 非负数,小数位最多两位,签章日期y坐标，默认0
+	// 商家签署区不支持
+	SignDatePosY *string `json:"sign_date_pos_y,omitempty" xml:"sign_date_pos_y,omitempty" maxLength:"8"`
+}
+
+func (s BclSignField) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BclSignField) GoString() string {
+	return s.String()
+}
+
+func (s *BclSignField) SetPosPage(v string) *BclSignField {
+	s.PosPage = &v
+	return s
+}
+
+func (s *BclSignField) SetPosX(v string) *BclSignField {
+	s.PosX = &v
+	return s
+}
+
+func (s *BclSignField) SetPosY(v string) *BclSignField {
+	s.PosY = &v
+	return s
+}
+
+func (s *BclSignField) SetSignFieldType(v string) *BclSignField {
+	s.SignFieldType = &v
+	return s
+}
+
+func (s *BclSignField) SetAddSignDate(v bool) *BclSignField {
+	s.AddSignDate = &v
+	return s
+}
+
+func (s *BclSignField) SetSignDateFontSize(v int64) *BclSignField {
+	s.SignDateFontSize = &v
+	return s
+}
+
+func (s *BclSignField) SetSignDateFormat(v string) *BclSignField {
+	s.SignDateFormat = &v
+	return s
+}
+
+func (s *BclSignField) SetSignDatePosPage(v int64) *BclSignField {
+	s.SignDatePosPage = &v
+	return s
+}
+
+func (s *BclSignField) SetSignDatePosX(v string) *BclSignField {
+	s.SignDatePosX = &v
+	return s
+}
+
+func (s *BclSignField) SetSignDatePosY(v string) *BclSignField {
+	s.SignDatePosY = &v
+	return s
+}
+
 // 租赁分期信息
 type RentalStagingInformation struct {
 	// 分期期数
@@ -657,6 +748,39 @@ func (s *ContractDocSignVerifySignatureInfo) SetSignDate(v string) *ContractDocS
 	return s
 }
 
+// 合同文件信息
+type BclContractFileInfo struct {
+	// 文件OSS Id
+	OssFileId *string `json:"oss_file_id,omitempty" xml:"oss_file_id,omitempty" require:"true" maxLength:"64"`
+	// 买家用户签署区信息
+	UserSignFields []*BclSignField `json:"user_sign_fields,omitempty" xml:"user_sign_fields,omitempty" require:"true" type:"Repeated"`
+	// 租赁商家签署区信息
+	MerchantSignFields []*BclSignField `json:"merchant_sign_fields,omitempty" xml:"merchant_sign_fields,omitempty" type:"Repeated"`
+}
+
+func (s BclContractFileInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BclContractFileInfo) GoString() string {
+	return s.String()
+}
+
+func (s *BclContractFileInfo) SetOssFileId(v string) *BclContractFileInfo {
+	s.OssFileId = &v
+	return s
+}
+
+func (s *BclContractFileInfo) SetUserSignFields(v []*BclSignField) *BclContractFileInfo {
+	s.UserSignFields = v
+	return s
+}
+
+func (s *BclContractFileInfo) SetMerchantSignFields(v []*BclSignField) *BclContractFileInfo {
+	s.MerchantSignFields = v
+	return s
+}
+
 // 履约信息
 type PerformanceInfo struct {
 	// 支付租金总额
@@ -934,6 +1058,120 @@ func (s *LeaseOrderInfo) SetOrderCreateTime(v string) *LeaseOrderInfo {
 
 func (s *LeaseOrderInfo) SetBuyOutPrice(v string) *LeaseOrderInfo {
 	s.BuyOutPrice = &v
+	return s
+}
+
+// 返回的bcl订单签署区信息
+type BclContractSignFieldInfo struct {
+	// 签署流程id
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty"`
+	// 文件id
+	ContractFileId *string `json:"contract_file_id,omitempty" xml:"contract_file_id,omitempty"`
+	// 签署人id
+	ContractUserId *string `json:"contract_user_id,omitempty" xml:"contract_user_id,omitempty"`
+	// 签署页码
+	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty"`
+	// x坐标
+	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty"`
+	// y坐标
+	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty"`
+	// 签署类型，AUTO-自动，HAND-手动
+	SignType *string `json:"sign_type,omitempty" xml:"sign_type,omitempty"`
+	// 签署区类型，
+	// 单页签署: SINGLE_PAGE，
+	// 骑缝签署: RIDE_SEAM，
+	// 默认 SINGLE_PAGE
+	SignFieldType *string `json:"sign_field_type,omitempty" xml:"sign_field_type,omitempty"`
+	// 是否添加签署时间
+	// 不添加: false 添加: true ， 默认false, 商家不支持指定日期坐标
+	AddSignDate *bool `json:"add_sign_date,omitempty" xml:"add_sign_date,omitempty"`
+	// 签章日期字体大小,默认12 商家签署区不支持
+	SignDateFontSize *int64 `json:"sign_date_font_size,omitempty" xml:"sign_date_font_size,omitempty"`
+	// 签章日期格式，yyyy年MM月dd日 商家签署区不支持
+	SignDateFormat *string `json:"sign_date_format,omitempty" xml:"sign_date_format,omitempty"`
+	// 签章日期页码信息
+	SignDatePosPage *int64 `json:"sign_date_pos_page,omitempty" xml:"sign_date_pos_page,omitempty"`
+	// 签章日期x坐标
+	SignDatePosX *string `json:"sign_date_pos_x,omitempty" xml:"sign_date_pos_x,omitempty"`
+	// 签章日期y坐标
+	SignDatePosY *string `json:"sign_date_pos_y,omitempty" xml:"sign_date_pos_y,omitempty"`
+}
+
+func (s BclContractSignFieldInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BclContractSignFieldInfo) GoString() string {
+	return s.String()
+}
+
+func (s *BclContractSignFieldInfo) SetFlowId(v string) *BclContractSignFieldInfo {
+	s.FlowId = &v
+	return s
+}
+
+func (s *BclContractSignFieldInfo) SetContractFileId(v string) *BclContractSignFieldInfo {
+	s.ContractFileId = &v
+	return s
+}
+
+func (s *BclContractSignFieldInfo) SetContractUserId(v string) *BclContractSignFieldInfo {
+	s.ContractUserId = &v
+	return s
+}
+
+func (s *BclContractSignFieldInfo) SetPosPage(v string) *BclContractSignFieldInfo {
+	s.PosPage = &v
+	return s
+}
+
+func (s *BclContractSignFieldInfo) SetPosX(v string) *BclContractSignFieldInfo {
+	s.PosX = &v
+	return s
+}
+
+func (s *BclContractSignFieldInfo) SetPosY(v string) *BclContractSignFieldInfo {
+	s.PosY = &v
+	return s
+}
+
+func (s *BclContractSignFieldInfo) SetSignType(v string) *BclContractSignFieldInfo {
+	s.SignType = &v
+	return s
+}
+
+func (s *BclContractSignFieldInfo) SetSignFieldType(v string) *BclContractSignFieldInfo {
+	s.SignFieldType = &v
+	return s
+}
+
+func (s *BclContractSignFieldInfo) SetAddSignDate(v bool) *BclContractSignFieldInfo {
+	s.AddSignDate = &v
+	return s
+}
+
+func (s *BclContractSignFieldInfo) SetSignDateFontSize(v int64) *BclContractSignFieldInfo {
+	s.SignDateFontSize = &v
+	return s
+}
+
+func (s *BclContractSignFieldInfo) SetSignDateFormat(v string) *BclContractSignFieldInfo {
+	s.SignDateFormat = &v
+	return s
+}
+
+func (s *BclContractSignFieldInfo) SetSignDatePosPage(v int64) *BclContractSignFieldInfo {
+	s.SignDatePosPage = &v
+	return s
+}
+
+func (s *BclContractSignFieldInfo) SetSignDatePosX(v string) *BclContractSignFieldInfo {
+	s.SignDatePosX = &v
+	return s
+}
+
+func (s *BclContractSignFieldInfo) SetSignDatePosY(v string) *BclContractSignFieldInfo {
+	s.SignDatePosY = &v
 	return s
 }
 
@@ -3887,6 +4125,47 @@ func (s *BclCertifyInfo) SetStatus(v string) *BclCertifyInfo {
 	return s
 }
 
+// 合同流程信息
+type BclContractFlowInfo struct {
+	// 合同主题
+	// 注：名称不支持以下9个字符：/ \ : * " < > | ？
+	BusinessScene *string `json:"business_scene,omitempty" xml:"business_scene,omitempty" require:"true" maxLength:"32"`
+	// 流程中的签署文件信息，只支持一个文件
+	FileInfo []*BclContractFileInfo `json:"file_info,omitempty" xml:"file_info,omitempty" require:"true" type:"Repeated"`
+	// 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
+	SignPlatform *string `json:"sign_platform,omitempty" xml:"sign_platform,omitempty" maxLength:"8"`
+	// 收款方的ID，调用创建收款方接口获得
+	PayeeId *string `json:"payee_id,omitempty" xml:"payee_id,omitempty" require:"true" maxLength:"32"`
+}
+
+func (s BclContractFlowInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BclContractFlowInfo) GoString() string {
+	return s.String()
+}
+
+func (s *BclContractFlowInfo) SetBusinessScene(v string) *BclContractFlowInfo {
+	s.BusinessScene = &v
+	return s
+}
+
+func (s *BclContractFlowInfo) SetFileInfo(v []*BclContractFileInfo) *BclContractFlowInfo {
+	s.FileInfo = v
+	return s
+}
+
+func (s *BclContractFlowInfo) SetSignPlatform(v string) *BclContractFlowInfo {
+	s.SignPlatform = &v
+	return s
+}
+
+func (s *BclContractFlowInfo) SetPayeeId(v string) *BclContractFlowInfo {
+	s.PayeeId = &v
+	return s
+}
+
 // 阶段详情信息
 type PhaseDetail struct {
 	// 阶段id
@@ -5393,6 +5672,14 @@ type BclContractInfo struct {
 	SignStatus *string `json:"sign_status,omitempty" xml:"sign_status,omitempty" require:"true"`
 	// 签署完成的合同文件 只有签署完成才有
 	SignedFiles []*BclFileInfo `json:"signed_files,omitempty" xml:"signed_files,omitempty" type:"Repeated"`
+	// 签署链接，使用租赁宝代扣并且发起订单后才可以查询获取
+	SignUrl *string `json:"sign_url,omitempty" xml:"sign_url,omitempty"`
+	// 签署场景
+	BusinessScene *string `json:"business_scene,omitempty" xml:"business_scene,omitempty"`
+	// 合同创建失败原因
+	FlowErrMsg *string `json:"flow_err_msg,omitempty" xml:"flow_err_msg,omitempty"`
+	// 签署区列表
+	SignFieldInfos []*BclContractSignFieldInfo `json:"sign_field_infos,omitempty" xml:"sign_field_infos,omitempty" type:"Repeated"`
 }
 
 func (s BclContractInfo) String() string {
@@ -5410,6 +5697,26 @@ func (s *BclContractInfo) SetSignStatus(v string) *BclContractInfo {
 
 func (s *BclContractInfo) SetSignedFiles(v []*BclFileInfo) *BclContractInfo {
 	s.SignedFiles = v
+	return s
+}
+
+func (s *BclContractInfo) SetSignUrl(v string) *BclContractInfo {
+	s.SignUrl = &v
+	return s
+}
+
+func (s *BclContractInfo) SetBusinessScene(v string) *BclContractInfo {
+	s.BusinessScene = &v
+	return s
+}
+
+func (s *BclContractInfo) SetFlowErrMsg(v string) *BclContractInfo {
+	s.FlowErrMsg = &v
+	return s
+}
+
+func (s *BclContractInfo) SetSignFieldInfos(v []*BclContractSignFieldInfo) *BclContractInfo {
+	s.SignFieldInfos = v
 	return s
 }
 
@@ -7694,7 +8001,7 @@ type AddBclLogisticinfoRequest struct {
 	// 物流公司简称
 	LogisticCompanyName *string `json:"logistic_company_name,omitempty" xml:"logistic_company_name,omitempty" require:"true" maxLength:"32"`
 	// 物流公司code
-	LogisticCompanyCode *string `json:"logistic_company_code,omitempty" xml:"logistic_company_code,omitempty" maxLength:"32"`
+	LogisticCompanyCode *string `json:"logistic_company_code,omitempty" xml:"logistic_company_code,omitempty" require:"true" maxLength:"32"`
 	// 物流订单id
 	LogisticsOrderId *string `json:"logistics_order_id,omitempty" xml:"logistics_order_id,omitempty" require:"true" maxLength:"64"`
 	// 物流发货时间,格式为2019-8-31 12:00:00
@@ -7962,6 +8269,8 @@ type CreateBclOrderRequest struct {
 	UserIp *string `json:"user_ip,omitempty" xml:"user_ip,omitempty" maxLength:"32"`
 	// 承租人实人认证完成后回跳地址(比如商户小程序下单地址),选择实人认证服务时必填
 	RealPersonReturnUrl *string `json:"real_person_return_url,omitempty" xml:"real_person_return_url,omitempty" maxLength:"512"`
+	// 签署流程信息，如果使用租赁代扣创建则必填
+	ContractFlowInfo *BclContractFlowInfo `json:"contract_flow_info,omitempty" xml:"contract_flow_info,omitempty"`
 	// 资方定义订单的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
 	OrderExtraInfo *string `json:"order_extra_info,omitempty" xml:"order_extra_info,omitempty" maxLength:"4096"`
 	// 资方定义用户的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
@@ -8083,6 +8392,11 @@ func (s *CreateBclOrderRequest) SetUserIp(v string) *CreateBclOrderRequest {
 
 func (s *CreateBclOrderRequest) SetRealPersonReturnUrl(v string) *CreateBclOrderRequest {
 	s.RealPersonReturnUrl = &v
+	return s
+}
+
+func (s *CreateBclOrderRequest) SetContractFlowInfo(v *BclContractFlowInfo) *CreateBclOrderRequest {
+	s.ContractFlowInfo = v
 	return s
 }
 
@@ -9042,6 +9356,106 @@ func (s *UpdateBclPromiserepaymentResponse) SetResultCode(v string) *UpdateBclPr
 
 func (s *UpdateBclPromiserepaymentResponse) SetResultMsg(v string) *UpdateBclPromiserepaymentResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type CreateBclPayeeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业证件姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true" maxLength:"32"`
+	// 企业证件号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true" maxLength:"32"`
+	// 企业证件类型
+	// unified_social_credit_code（统一社会信用代码）
+	// enterprise_registered_number（企业工商注册号）
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	// 企业法定代表人名称
+	LegalPersonCertName *string `json:"legal_person_cert_name,omitempty" xml:"legal_person_cert_name,omitempty" require:"true" maxLength:"32"`
+	// 企业法定代表人证件号
+	LegalPersonCertNo *string `json:"legal_person_cert_no,omitempty" xml:"legal_person_cert_no,omitempty" require:"true" maxLength:"32"`
+}
+
+func (s CreateBclPayeeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBclPayeeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBclPayeeRequest) SetAuthToken(v string) *CreateBclPayeeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBclPayeeRequest) SetProductInstanceId(v string) *CreateBclPayeeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateBclPayeeRequest) SetCertName(v string) *CreateBclPayeeRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CreateBclPayeeRequest) SetCertNo(v string) *CreateBclPayeeRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CreateBclPayeeRequest) SetCertType(v string) *CreateBclPayeeRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *CreateBclPayeeRequest) SetLegalPersonCertName(v string) *CreateBclPayeeRequest {
+	s.LegalPersonCertName = &v
+	return s
+}
+
+func (s *CreateBclPayeeRequest) SetLegalPersonCertNo(v string) *CreateBclPayeeRequest {
+	s.LegalPersonCertNo = &v
+	return s
+}
+
+type CreateBclPayeeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 收款方的ID，后续进行商家进件和创建订单需要用到。
+	PayeeId *string `json:"payee_id,omitempty" xml:"payee_id,omitempty"`
+}
+
+func (s CreateBclPayeeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBclPayeeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBclPayeeResponse) SetReqMsgId(v string) *CreateBclPayeeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateBclPayeeResponse) SetResultCode(v string) *CreateBclPayeeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateBclPayeeResponse) SetResultMsg(v string) *CreateBclPayeeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateBclPayeeResponse) SetPayeeId(v string) *CreateBclPayeeResponse {
+	s.PayeeId = &v
 	return s
 }
 
@@ -44902,7 +45316,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.10"),
+				"sdk_version":      tea.String("1.10.19"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -45361,6 +45775,40 @@ func (client *Client) UpdateBclPromiserepaymentEx(request *UpdateBclPromiserepay
 	}
 	_result = &UpdateBclPromiserepaymentResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.promiserepayment.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建收款方
+ * Summary: 创建收款方
+ */
+func (client *Client) CreateBclPayee(request *CreateBclPayeeRequest) (_result *CreateBclPayeeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateBclPayeeResponse{}
+	_body, _err := client.CreateBclPayeeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建收款方
+ * Summary: 创建收款方
+ */
+func (client *Client) CreateBclPayeeEx(request *CreateBclPayeeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBclPayeeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBclPayeeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.payee.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
