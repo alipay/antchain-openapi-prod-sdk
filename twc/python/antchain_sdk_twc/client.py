@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.10',
+                    'sdk_version': '1.10.19',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.10',
+                    'sdk_version': '1.10.19',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -945,6 +945,62 @@ class Client:
         return TeaCore.from_map(
             twc_models.UpdateBclPromiserepaymentResponse(),
             await self.do_request_async('1.0', 'twc.notary.bcl.promiserepayment.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_bcl_payee(
+        self,
+        request: twc_models.CreateBclPayeeRequest,
+    ) -> twc_models.CreateBclPayeeResponse:
+        """
+        Description: 创建收款方
+        Summary: 创建收款方
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_bcl_payee_ex(request, headers, runtime)
+
+    async def create_bcl_payee_async(
+        self,
+        request: twc_models.CreateBclPayeeRequest,
+    ) -> twc_models.CreateBclPayeeResponse:
+        """
+        Description: 创建收款方
+        Summary: 创建收款方
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_bcl_payee_ex_async(request, headers, runtime)
+
+    def create_bcl_payee_ex(
+        self,
+        request: twc_models.CreateBclPayeeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateBclPayeeResponse:
+        """
+        Description: 创建收款方
+        Summary: 创建收款方
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateBclPayeeResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.payee.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_bcl_payee_ex_async(
+        self,
+        request: twc_models.CreateBclPayeeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateBclPayeeResponse:
+        """
+        Description: 创建收款方
+        Summary: 创建收款方
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateBclPayeeResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.payee.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_contract_account(

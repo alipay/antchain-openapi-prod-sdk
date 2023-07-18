@@ -385,6 +385,127 @@ class OrderItem(TeaModel):
         return self
 
 
+class BclSignField(TeaModel):
+    def __init__(
+        self,
+        pos_page: str = None,
+        pos_x: str = None,
+        pos_y: str = None,
+        sign_field_type: str = None,
+        add_sign_date: bool = None,
+        sign_date_font_size: int = None,
+        sign_date_format: str = None,
+        sign_date_pos_page: int = None,
+        sign_date_pos_x: str = None,
+        sign_date_pos_y: str = None,
+    ):
+        # 页码信息：当签署区sign_type为RIDE_SEAM时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；
+        self.pos_page = pos_page
+        # 非负数,小数位最多两位,x坐标，sign_type为SINGLE_PAGE时必填，sign_type为RIDE_SEAM时不填写
+        self.pos_x = pos_x
+        # 非负数,小数位最多两位,y坐标
+        self.pos_y = pos_y
+        # 签署类型，
+        # 单页签署: SINGLE_PAGE，
+        # 骑缝签署: RIDE_SEAM，
+        # 默认 SINGLE_PAGE
+        self.sign_field_type = sign_field_type
+        # 是否添加签署时间
+        # 不添加: false 添加: true ， 默认false, 商家不支持指定日期坐标
+        self.add_sign_date = add_sign_date
+        # 签章日期字体大小,默认12
+        # 商家签署区不支持
+        self.sign_date_font_size = sign_date_font_size
+        # 签章日期格式，yyyy年MM月dd日
+        # 商家签署区不支持
+        self.sign_date_format = sign_date_format
+        # 页码信息，当sign_date_bean_type为REQUIRED时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
+        # 商家签署区不支持
+        self.sign_date_pos_page = sign_date_pos_page
+        # 非负数,小数位最多两位,签章日期x坐标，默认0
+        # 商家签署区不支持
+        self.sign_date_pos_x = sign_date_pos_x
+        # 非负数,小数位最多两位,签章日期y坐标，默认0
+        # 商家签署区不支持
+        self.sign_date_pos_y = sign_date_pos_y
+
+    def validate(self):
+        self.validate_required(self.pos_page, 'pos_page')
+        if self.pos_page is not None:
+            self.validate_max_length(self.pos_page, 'pos_page', 8)
+        if self.pos_x is not None:
+            self.validate_max_length(self.pos_x, 'pos_x', 8)
+        self.validate_required(self.pos_y, 'pos_y')
+        if self.pos_y is not None:
+            self.validate_max_length(self.pos_y, 'pos_y', 8)
+        self.validate_required(self.sign_field_type, 'sign_field_type')
+        if self.sign_field_type is not None:
+            self.validate_max_length(self.sign_field_type, 'sign_field_type', 16)
+        if self.sign_date_font_size is not None:
+            self.validate_maximum(self.sign_date_font_size, 'sign_date_font_size', 20)
+            self.validate_minimum(self.sign_date_font_size, 'sign_date_font_size', 10)
+        if self.sign_date_format is not None:
+            self.validate_max_length(self.sign_date_format, 'sign_date_format', 32)
+        if self.sign_date_pos_page is not None:
+            self.validate_minimum(self.sign_date_pos_page, 'sign_date_pos_page', 1)
+        if self.sign_date_pos_x is not None:
+            self.validate_max_length(self.sign_date_pos_x, 'sign_date_pos_x', 8)
+        if self.sign_date_pos_y is not None:
+            self.validate_max_length(self.sign_date_pos_y, 'sign_date_pos_y', 8)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pos_page is not None:
+            result['pos_page'] = self.pos_page
+        if self.pos_x is not None:
+            result['pos_x'] = self.pos_x
+        if self.pos_y is not None:
+            result['pos_y'] = self.pos_y
+        if self.sign_field_type is not None:
+            result['sign_field_type'] = self.sign_field_type
+        if self.add_sign_date is not None:
+            result['add_sign_date'] = self.add_sign_date
+        if self.sign_date_font_size is not None:
+            result['sign_date_font_size'] = self.sign_date_font_size
+        if self.sign_date_format is not None:
+            result['sign_date_format'] = self.sign_date_format
+        if self.sign_date_pos_page is not None:
+            result['sign_date_pos_page'] = self.sign_date_pos_page
+        if self.sign_date_pos_x is not None:
+            result['sign_date_pos_x'] = self.sign_date_pos_x
+        if self.sign_date_pos_y is not None:
+            result['sign_date_pos_y'] = self.sign_date_pos_y
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('pos_page') is not None:
+            self.pos_page = m.get('pos_page')
+        if m.get('pos_x') is not None:
+            self.pos_x = m.get('pos_x')
+        if m.get('pos_y') is not None:
+            self.pos_y = m.get('pos_y')
+        if m.get('sign_field_type') is not None:
+            self.sign_field_type = m.get('sign_field_type')
+        if m.get('add_sign_date') is not None:
+            self.add_sign_date = m.get('add_sign_date')
+        if m.get('sign_date_font_size') is not None:
+            self.sign_date_font_size = m.get('sign_date_font_size')
+        if m.get('sign_date_format') is not None:
+            self.sign_date_format = m.get('sign_date_format')
+        if m.get('sign_date_pos_page') is not None:
+            self.sign_date_pos_page = m.get('sign_date_pos_page')
+        if m.get('sign_date_pos_x') is not None:
+            self.sign_date_pos_x = m.get('sign_date_pos_x')
+        if m.get('sign_date_pos_y') is not None:
+            self.sign_date_pos_y = m.get('sign_date_pos_y')
+        return self
+
+
 class RentalStagingInformation(TeaModel):
     def __init__(
         self,
@@ -796,6 +917,69 @@ class ContractDocSignVerifySignatureInfo(TeaModel):
         return self
 
 
+class BclContractFileInfo(TeaModel):
+    def __init__(
+        self,
+        oss_file_id: str = None,
+        user_sign_fields: List[BclSignField] = None,
+        merchant_sign_fields: List[BclSignField] = None,
+    ):
+        # 文件OSS Id
+        self.oss_file_id = oss_file_id
+        # 买家用户签署区信息
+        self.user_sign_fields = user_sign_fields
+        # 租赁商家签署区信息
+        self.merchant_sign_fields = merchant_sign_fields
+
+    def validate(self):
+        self.validate_required(self.oss_file_id, 'oss_file_id')
+        if self.oss_file_id is not None:
+            self.validate_max_length(self.oss_file_id, 'oss_file_id', 64)
+        self.validate_required(self.user_sign_fields, 'user_sign_fields')
+        if self.user_sign_fields:
+            for k in self.user_sign_fields:
+                if k:
+                    k.validate()
+        if self.merchant_sign_fields:
+            for k in self.merchant_sign_fields:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.oss_file_id is not None:
+            result['oss_file_id'] = self.oss_file_id
+        result['user_sign_fields'] = []
+        if self.user_sign_fields is not None:
+            for k in self.user_sign_fields:
+                result['user_sign_fields'].append(k.to_map() if k else None)
+        result['merchant_sign_fields'] = []
+        if self.merchant_sign_fields is not None:
+            for k in self.merchant_sign_fields:
+                result['merchant_sign_fields'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('oss_file_id') is not None:
+            self.oss_file_id = m.get('oss_file_id')
+        self.user_sign_fields = []
+        if m.get('user_sign_fields') is not None:
+            for k in m.get('user_sign_fields'):
+                temp_model = BclSignField()
+                self.user_sign_fields.append(temp_model.from_map(k))
+        self.merchant_sign_fields = []
+        if m.get('merchant_sign_fields') is not None:
+            for k in m.get('merchant_sign_fields'):
+                temp_model = BclSignField()
+                self.merchant_sign_fields.append(temp_model.from_map(k))
+        return self
+
+
 class PerformanceInfo(TeaModel):
     def __init__(
         self,
@@ -1150,6 +1334,129 @@ class LeaseOrderInfo(TeaModel):
             self.order_create_time = m.get('order_create_time')
         if m.get('buy_out_price') is not None:
             self.buy_out_price = m.get('buy_out_price')
+        return self
+
+
+class BclContractSignFieldInfo(TeaModel):
+    def __init__(
+        self,
+        flow_id: str = None,
+        contract_file_id: str = None,
+        contract_user_id: str = None,
+        pos_page: str = None,
+        pos_x: str = None,
+        pos_y: str = None,
+        sign_type: str = None,
+        sign_field_type: str = None,
+        add_sign_date: bool = None,
+        sign_date_font_size: int = None,
+        sign_date_format: str = None,
+        sign_date_pos_page: int = None,
+        sign_date_pos_x: str = None,
+        sign_date_pos_y: str = None,
+    ):
+        # 签署流程id
+        self.flow_id = flow_id
+        # 文件id
+        self.contract_file_id = contract_file_id
+        # 签署人id
+        self.contract_user_id = contract_user_id
+        # 签署页码
+        self.pos_page = pos_page
+        # x坐标
+        self.pos_x = pos_x
+        # y坐标
+        self.pos_y = pos_y
+        # 签署类型，AUTO-自动，HAND-手动
+        self.sign_type = sign_type
+        # 签署区类型，
+        # 单页签署: SINGLE_PAGE，
+        # 骑缝签署: RIDE_SEAM，
+        # 默认 SINGLE_PAGE
+        self.sign_field_type = sign_field_type
+        # 是否添加签署时间
+        # 不添加: false 添加: true ， 默认false, 商家不支持指定日期坐标
+        self.add_sign_date = add_sign_date
+        # 签章日期字体大小,默认12 商家签署区不支持
+        self.sign_date_font_size = sign_date_font_size
+        # 签章日期格式，yyyy年MM月dd日 商家签署区不支持
+        self.sign_date_format = sign_date_format
+        # 签章日期页码信息
+        self.sign_date_pos_page = sign_date_pos_page
+        # 签章日期x坐标
+        self.sign_date_pos_x = sign_date_pos_x
+        # 签章日期y坐标
+        self.sign_date_pos_y = sign_date_pos_y
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        if self.contract_file_id is not None:
+            result['contract_file_id'] = self.contract_file_id
+        if self.contract_user_id is not None:
+            result['contract_user_id'] = self.contract_user_id
+        if self.pos_page is not None:
+            result['pos_page'] = self.pos_page
+        if self.pos_x is not None:
+            result['pos_x'] = self.pos_x
+        if self.pos_y is not None:
+            result['pos_y'] = self.pos_y
+        if self.sign_type is not None:
+            result['sign_type'] = self.sign_type
+        if self.sign_field_type is not None:
+            result['sign_field_type'] = self.sign_field_type
+        if self.add_sign_date is not None:
+            result['add_sign_date'] = self.add_sign_date
+        if self.sign_date_font_size is not None:
+            result['sign_date_font_size'] = self.sign_date_font_size
+        if self.sign_date_format is not None:
+            result['sign_date_format'] = self.sign_date_format
+        if self.sign_date_pos_page is not None:
+            result['sign_date_pos_page'] = self.sign_date_pos_page
+        if self.sign_date_pos_x is not None:
+            result['sign_date_pos_x'] = self.sign_date_pos_x
+        if self.sign_date_pos_y is not None:
+            result['sign_date_pos_y'] = self.sign_date_pos_y
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        if m.get('contract_file_id') is not None:
+            self.contract_file_id = m.get('contract_file_id')
+        if m.get('contract_user_id') is not None:
+            self.contract_user_id = m.get('contract_user_id')
+        if m.get('pos_page') is not None:
+            self.pos_page = m.get('pos_page')
+        if m.get('pos_x') is not None:
+            self.pos_x = m.get('pos_x')
+        if m.get('pos_y') is not None:
+            self.pos_y = m.get('pos_y')
+        if m.get('sign_type') is not None:
+            self.sign_type = m.get('sign_type')
+        if m.get('sign_field_type') is not None:
+            self.sign_field_type = m.get('sign_field_type')
+        if m.get('add_sign_date') is not None:
+            self.add_sign_date = m.get('add_sign_date')
+        if m.get('sign_date_font_size') is not None:
+            self.sign_date_font_size = m.get('sign_date_font_size')
+        if m.get('sign_date_format') is not None:
+            self.sign_date_format = m.get('sign_date_format')
+        if m.get('sign_date_pos_page') is not None:
+            self.sign_date_pos_page = m.get('sign_date_pos_page')
+        if m.get('sign_date_pos_x') is not None:
+            self.sign_date_pos_x = m.get('sign_date_pos_x')
+        if m.get('sign_date_pos_y') is not None:
+            self.sign_date_pos_y = m.get('sign_date_pos_y')
         return self
 
 
@@ -4841,6 +5148,73 @@ class BclCertifyInfo(TeaModel):
         return self
 
 
+class BclContractFlowInfo(TeaModel):
+    def __init__(
+        self,
+        business_scene: str = None,
+        file_info: List[BclContractFileInfo] = None,
+        sign_platform: str = None,
+        payee_id: str = None,
+    ):
+        # 合同主题
+        # 注：名称不支持以下9个字符：/ \ : * " < > | ？
+        self.business_scene = business_scene
+        # 流程中的签署文件信息，只支持一个文件
+        self.file_info = file_info
+        # 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
+        self.sign_platform = sign_platform
+        # 收款方的ID，调用创建收款方接口获得
+        self.payee_id = payee_id
+
+    def validate(self):
+        self.validate_required(self.business_scene, 'business_scene')
+        if self.business_scene is not None:
+            self.validate_max_length(self.business_scene, 'business_scene', 32)
+        self.validate_required(self.file_info, 'file_info')
+        if self.file_info:
+            for k in self.file_info:
+                if k:
+                    k.validate()
+        if self.sign_platform is not None:
+            self.validate_max_length(self.sign_platform, 'sign_platform', 8)
+        self.validate_required(self.payee_id, 'payee_id')
+        if self.payee_id is not None:
+            self.validate_max_length(self.payee_id, 'payee_id', 32)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.business_scene is not None:
+            result['business_scene'] = self.business_scene
+        result['file_info'] = []
+        if self.file_info is not None:
+            for k in self.file_info:
+                result['file_info'].append(k.to_map() if k else None)
+        if self.sign_platform is not None:
+            result['sign_platform'] = self.sign_platform
+        if self.payee_id is not None:
+            result['payee_id'] = self.payee_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('business_scene') is not None:
+            self.business_scene = m.get('business_scene')
+        self.file_info = []
+        if m.get('file_info') is not None:
+            for k in m.get('file_info'):
+                temp_model = BclContractFileInfo()
+                self.file_info.append(temp_model.from_map(k))
+        if m.get('sign_platform') is not None:
+            self.sign_platform = m.get('sign_platform')
+        if m.get('payee_id') is not None:
+            self.payee_id = m.get('payee_id')
+        return self
+
+
 class PhaseDetail(TeaModel):
     def __init__(
         self,
@@ -6702,6 +7076,10 @@ class BclContractInfo(TeaModel):
         self,
         sign_status: str = None,
         signed_files: List[BclFileInfo] = None,
+        sign_url: str = None,
+        business_scene: str = None,
+        flow_err_msg: str = None,
+        sign_field_infos: List[BclContractSignFieldInfo] = None,
     ):
         # 待签署,SIGNING
         # 拒签,REJECT
@@ -6710,11 +7088,23 @@ class BclContractInfo(TeaModel):
         self.sign_status = sign_status
         # 签署完成的合同文件 只有签署完成才有
         self.signed_files = signed_files
+        # 签署链接，使用租赁宝代扣并且发起订单后才可以查询获取
+        self.sign_url = sign_url
+        # 签署场景
+        self.business_scene = business_scene
+        # 合同创建失败原因
+        self.flow_err_msg = flow_err_msg
+        # 签署区列表
+        self.sign_field_infos = sign_field_infos
 
     def validate(self):
         self.validate_required(self.sign_status, 'sign_status')
         if self.signed_files:
             for k in self.signed_files:
+                if k:
+                    k.validate()
+        if self.sign_field_infos:
+            for k in self.sign_field_infos:
                 if k:
                     k.validate()
 
@@ -6730,6 +7120,16 @@ class BclContractInfo(TeaModel):
         if self.signed_files is not None:
             for k in self.signed_files:
                 result['signed_files'].append(k.to_map() if k else None)
+        if self.sign_url is not None:
+            result['sign_url'] = self.sign_url
+        if self.business_scene is not None:
+            result['business_scene'] = self.business_scene
+        if self.flow_err_msg is not None:
+            result['flow_err_msg'] = self.flow_err_msg
+        result['sign_field_infos'] = []
+        if self.sign_field_infos is not None:
+            for k in self.sign_field_infos:
+                result['sign_field_infos'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -6741,6 +7141,17 @@ class BclContractInfo(TeaModel):
             for k in m.get('signed_files'):
                 temp_model = BclFileInfo()
                 self.signed_files.append(temp_model.from_map(k))
+        if m.get('sign_url') is not None:
+            self.sign_url = m.get('sign_url')
+        if m.get('business_scene') is not None:
+            self.business_scene = m.get('business_scene')
+        if m.get('flow_err_msg') is not None:
+            self.flow_err_msg = m.get('flow_err_msg')
+        self.sign_field_infos = []
+        if m.get('sign_field_infos') is not None:
+            for k in m.get('sign_field_infos'):
+                temp_model = BclContractSignFieldInfo()
+                self.sign_field_infos.append(temp_model.from_map(k))
         return self
 
 
@@ -9580,6 +9991,7 @@ class AddBclLogisticinfoRequest(TeaModel):
         self.validate_required(self.logistic_company_name, 'logistic_company_name')
         if self.logistic_company_name is not None:
             self.validate_max_length(self.logistic_company_name, 'logistic_company_name', 32)
+        self.validate_required(self.logistic_company_code, 'logistic_company_code')
         if self.logistic_company_code is not None:
             self.validate_max_length(self.logistic_company_code, 'logistic_company_code', 32)
         self.validate_required(self.logistics_order_id, 'logistics_order_id')
@@ -9846,6 +10258,7 @@ class CreateBclOrderRequest(TeaModel):
         service_types: List[str] = None,
         user_ip: str = None,
         real_person_return_url: str = None,
+        contract_flow_info: BclContractFlowInfo = None,
         order_extra_info: str = None,
         user_extra_info: str = None,
     ):
@@ -9900,6 +10313,8 @@ class CreateBclOrderRequest(TeaModel):
         self.user_ip = user_ip
         # 承租人实人认证完成后回跳地址(比如商户小程序下单地址),选择实人认证服务时必填
         self.real_person_return_url = real_person_return_url
+        # 签署流程信息，如果使用租赁代扣创建则必填
+        self.contract_flow_info = contract_flow_info
         # 资方定义订单的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
         self.order_extra_info = order_extra_info
         # 资方定义用户的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
@@ -9958,6 +10373,8 @@ class CreateBclOrderRequest(TeaModel):
             self.validate_max_length(self.user_ip, 'user_ip', 32)
         if self.real_person_return_url is not None:
             self.validate_max_length(self.real_person_return_url, 'real_person_return_url', 512)
+        if self.contract_flow_info:
+            self.contract_flow_info.validate()
         if self.order_extra_info is not None:
             self.validate_max_length(self.order_extra_info, 'order_extra_info', 4096)
         if self.user_extra_info is not None:
@@ -10017,6 +10434,8 @@ class CreateBclOrderRequest(TeaModel):
             result['user_ip'] = self.user_ip
         if self.real_person_return_url is not None:
             result['real_person_return_url'] = self.real_person_return_url
+        if self.contract_flow_info is not None:
+            result['contract_flow_info'] = self.contract_flow_info.to_map()
         if self.order_extra_info is not None:
             result['order_extra_info'] = self.order_extra_info
         if self.user_extra_info is not None:
@@ -10076,6 +10495,9 @@ class CreateBclOrderRequest(TeaModel):
             self.user_ip = m.get('user_ip')
         if m.get('real_person_return_url') is not None:
             self.real_person_return_url = m.get('real_person_return_url')
+        if m.get('contract_flow_info') is not None:
+            temp_model = BclContractFlowInfo()
+            self.contract_flow_info = temp_model.from_map(m['contract_flow_info'])
         if m.get('order_extra_info') is not None:
             self.order_extra_info = m.get('order_extra_info')
         if m.get('user_extra_info') is not None:
@@ -11302,6 +11724,138 @@ class UpdateBclPromiserepaymentResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class CreateBclPayeeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        cert_name: str = None,
+        cert_no: str = None,
+        cert_type: str = None,
+        legal_person_cert_name: str = None,
+        legal_person_cert_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 企业证件姓名
+        self.cert_name = cert_name
+        # 企业证件号
+        self.cert_no = cert_no
+        # 企业证件类型
+        # unified_social_credit_code（统一社会信用代码）
+        # enterprise_registered_number（企业工商注册号）
+        self.cert_type = cert_type
+        # 企业法定代表人名称
+        self.legal_person_cert_name = legal_person_cert_name
+        # 企业法定代表人证件号
+        self.legal_person_cert_no = legal_person_cert_no
+
+    def validate(self):
+        self.validate_required(self.cert_name, 'cert_name')
+        if self.cert_name is not None:
+            self.validate_max_length(self.cert_name, 'cert_name', 32)
+        self.validate_required(self.cert_no, 'cert_no')
+        if self.cert_no is not None:
+            self.validate_max_length(self.cert_no, 'cert_no', 32)
+        self.validate_required(self.cert_type, 'cert_type')
+        self.validate_required(self.legal_person_cert_name, 'legal_person_cert_name')
+        if self.legal_person_cert_name is not None:
+            self.validate_max_length(self.legal_person_cert_name, 'legal_person_cert_name', 32)
+        self.validate_required(self.legal_person_cert_no, 'legal_person_cert_no')
+        if self.legal_person_cert_no is not None:
+            self.validate_max_length(self.legal_person_cert_no, 'legal_person_cert_no', 32)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.legal_person_cert_name is not None:
+            result['legal_person_cert_name'] = self.legal_person_cert_name
+        if self.legal_person_cert_no is not None:
+            result['legal_person_cert_no'] = self.legal_person_cert_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('legal_person_cert_name') is not None:
+            self.legal_person_cert_name = m.get('legal_person_cert_name')
+        if m.get('legal_person_cert_no') is not None:
+            self.legal_person_cert_no = m.get('legal_person_cert_no')
+        return self
+
+
+class CreateBclPayeeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        payee_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 收款方的ID，后续进行商家进件和创建订单需要用到。
+        self.payee_id = payee_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.payee_id is not None:
+            result['payee_id'] = self.payee_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('payee_id') is not None:
+            self.payee_id = m.get('payee_id')
         return self
 
 
