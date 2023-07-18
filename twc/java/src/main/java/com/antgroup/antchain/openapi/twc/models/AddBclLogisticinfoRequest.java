@@ -46,7 +46,7 @@ public class AddBclLogisticinfoRequest extends TeaModel {
 
     // 物流公司code
     @NameInMap("logistic_company_code")
-    @Validation(maxLength = 32)
+    @Validation(required = true, maxLength = 32)
     public String logisticCompanyCode;
 
     // 物流订单id

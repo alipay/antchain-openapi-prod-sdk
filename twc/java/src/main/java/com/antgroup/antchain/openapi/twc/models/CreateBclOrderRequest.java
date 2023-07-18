@@ -113,6 +113,10 @@ public class CreateBclOrderRequest extends TeaModel {
     @Validation(maxLength = 512)
     public String realPersonReturnUrl;
 
+    // 签署流程信息，如果使用租赁代扣创建则必填
+    @NameInMap("contract_flow_info")
+    public BclContractFlowInfo contractFlowInfo;
+
     // 资方定义订单的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
     @NameInMap("order_extra_info")
     @Validation(maxLength = 4096)
@@ -302,6 +306,14 @@ public class CreateBclOrderRequest extends TeaModel {
     }
     public String getRealPersonReturnUrl() {
         return this.realPersonReturnUrl;
+    }
+
+    public CreateBclOrderRequest setContractFlowInfo(BclContractFlowInfo contractFlowInfo) {
+        this.contractFlowInfo = contractFlowInfo;
+        return this;
+    }
+    public BclContractFlowInfo getContractFlowInfo() {
+        return this.contractFlowInfo;
     }
 
     public CreateBclOrderRequest setOrderExtraInfo(String orderExtraInfo) {
