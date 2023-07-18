@@ -53,7 +53,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 物流公司code
         [NameInMap("logistic_company_code")]
-        [Validation(Required=false, MaxLength=32)]
+        [Validation(Required=true, MaxLength=32)]
         public string LogisticCompanyCode { get; set; }
 
         // 物流订单id

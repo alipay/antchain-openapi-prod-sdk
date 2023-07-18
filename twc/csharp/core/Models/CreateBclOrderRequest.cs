@@ -126,6 +126,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false, MaxLength=512)]
         public string RealPersonReturnUrl { get; set; }
 
+        // 签署流程信息，如果使用租赁代扣创建则必填
+        [NameInMap("contract_flow_info")]
+        [Validation(Required=false)]
+        public BclContractFlowInfo ContractFlowInfo { get; set; }
+
         // 资方定义订单的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
         [NameInMap("order_extra_info")]
         [Validation(Required=false, MaxLength=4096)]

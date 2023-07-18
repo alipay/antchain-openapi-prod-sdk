@@ -23,6 +23,26 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public List<BclFileInfo> SignedFiles { get; set; }
 
+        // 签署链接，使用租赁宝代扣并且发起订单后才可以查询获取
+        [NameInMap("sign_url")]
+        [Validation(Required=false)]
+        public string SignUrl { get; set; }
+
+        // 签署场景
+        [NameInMap("business_scene")]
+        [Validation(Required=false)]
+        public string BusinessScene { get; set; }
+
+        // 合同创建失败原因
+        [NameInMap("flow_err_msg")]
+        [Validation(Required=false)]
+        public string FlowErrMsg { get; set; }
+
+        // 签署区列表
+        [NameInMap("sign_field_infos")]
+        [Validation(Required=false)]
+        public List<BclContractSignFieldInfo> SignFieldInfos { get; set; }
+
     }
 
 }

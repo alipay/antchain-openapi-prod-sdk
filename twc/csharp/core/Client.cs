@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.10"},
+                        {"sdk_version", "1.10.19"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.10"},
+                        {"sdk_version", "1.10.19"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -823,6 +823,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UpdateBclPromiserepaymentResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.promiserepayment.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建收款方
+         * Summary: 创建收款方
+         */
+        public CreateBclPayeeResponse CreateBclPayee(CreateBclPayeeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateBclPayeeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建收款方
+         * Summary: 创建收款方
+         */
+        public async Task<CreateBclPayeeResponse> CreateBclPayeeAsync(CreateBclPayeeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateBclPayeeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建收款方
+         * Summary: 创建收款方
+         */
+        public CreateBclPayeeResponse CreateBclPayeeEx(CreateBclPayeeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBclPayeeResponse>(DoRequest("1.0", "twc.notary.bcl.payee.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建收款方
+         * Summary: 创建收款方
+         */
+        public async Task<CreateBclPayeeResponse> CreateBclPayeeExAsync(CreateBclPayeeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBclPayeeResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.payee.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
