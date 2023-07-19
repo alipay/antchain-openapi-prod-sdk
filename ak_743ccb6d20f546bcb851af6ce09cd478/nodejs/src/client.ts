@@ -85,8 +85,8 @@ export class QueryIdentityTagScoreRequest extends $tea.Model {
   requestId: string;
   // 订单号
   orderId: string;
-  // 模型类型列表
-  modelIdList: string[];
+  // 模型列表字符串
+  modelIdList: string;
   // 用户id
   userId: string;
   // 用户id类型：
@@ -126,7 +126,7 @@ export class QueryIdentityTagScoreRequest extends $tea.Model {
       productInstanceId: 'string',
       requestId: 'string',
       orderId: 'string',
-      modelIdList: { 'type': 'array', 'itemType': 'string' },
+      modelIdList: 'string',
       userId: 'string',
       userIdType: 'string',
       encryptType: 'string',
@@ -148,10 +148,7 @@ export class QueryIdentityTagScoreResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 业务响应结果，
-  // score: 模型分数，
-  // modelId：模型id
-  // }
+  // 业务响应结果
   data?: string;
   static names(): { [key: string]: string } {
     return {
@@ -289,7 +286,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_743ccb6d20f546bcb851af6ce09cd478",
           _prod_channel: "saas",
         };
