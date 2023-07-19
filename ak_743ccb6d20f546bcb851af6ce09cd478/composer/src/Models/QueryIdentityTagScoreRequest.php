@@ -31,9 +31,9 @@ class QueryIdentityTagScoreRequest extends Model
      */
     public $orderId;
 
-    // 模型类型列表
+    // 模型列表字符串
     /**
-     * @var string[]
+     * @var string
      */
     public $modelIdList;
 
@@ -164,9 +164,7 @@ class QueryIdentityTagScoreRequest extends Model
             $model->orderId = $map['order_id'];
         }
         if (isset($map['model_id_list'])) {
-            if (!empty($map['model_id_list'])) {
-                $model->modelIdList = $map['model_id_list'];
-            }
+            $model->modelIdList = $map['model_id_list'];
         }
         if (isset($map['user_id'])) {
             $model->userId = $map['user_id'];

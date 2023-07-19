@@ -26,10 +26,7 @@ class QueryIdentityTagScoreResponse extends Model
      */
     public $resultMsg;
 
-    // 业务响应结果，
-    // score: 模型分数，
-    // modelId：模型id
-    // }
+    // 业务响应结果
     /**
      * @var string
      */
