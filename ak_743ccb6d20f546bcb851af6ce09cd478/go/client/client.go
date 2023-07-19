@@ -156,8 +156,8 @@ type QueryIdentityTagScoreRequest struct {
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 	// 订单号
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
-	// 模型类型列表
-	ModelIdList []*string `json:"model_id_list,omitempty" xml:"model_id_list,omitempty" require:"true" type:"Repeated"`
+	// 模型列表字符串
+	ModelIdList *string `json:"model_id_list,omitempty" xml:"model_id_list,omitempty" require:"true"`
 	// 用户id
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
 	// 用户id类型：
@@ -205,8 +205,8 @@ func (s *QueryIdentityTagScoreRequest) SetOrderId(v string) *QueryIdentityTagSco
 	return s
 }
 
-func (s *QueryIdentityTagScoreRequest) SetModelIdList(v []*string) *QueryIdentityTagScoreRequest {
-	s.ModelIdList = v
+func (s *QueryIdentityTagScoreRequest) SetModelIdList(v string) *QueryIdentityTagScoreRequest {
+	s.ModelIdList = &v
 	return s
 }
 
@@ -247,10 +247,7 @@ type QueryIdentityTagScoreResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 业务响应结果，
-	// score: 模型分数，
-	// modelId：模型id
-	// }
+	// 业务响应结果
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
@@ -404,7 +401,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_743ccb6d20f546bcb851af6ce09cd478"),
 				"_prod_channel":    tea.String("saas"),
 			}
