@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'ak_743ccb6d20f546bcb851af6ce09cd478',
     _prod_channel = 'saas'
   };
@@ -169,8 +169,8 @@ model QueryIdentityTagScoreRequest = {
   requestId: string(name='request_id'),
   // 订单号
   orderId: string(name='order_id'),
-  // 模型类型列表
-  modelIdList: [ string ](name='model_id_list'),
+  // 模型列表字符串
+  modelIdList: string(name='model_id_list'),
   // 用户id
   userId: string(name='user_id'),
   // 用户id类型：
@@ -197,10 +197,7 @@ model QueryIdentityTagScoreResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 业务响应结果，
-  // score: 模型分数，
-  // modelId：模型id
-  // }
+  // 业务响应结果
   data?: string(name='data'),
 }
 
