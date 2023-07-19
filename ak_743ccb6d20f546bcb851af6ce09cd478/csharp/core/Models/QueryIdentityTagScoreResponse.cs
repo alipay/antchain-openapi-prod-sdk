@@ -24,10 +24,7 @@ namespace AntChain.SDK.Ak_743ccb6d20f546bcb851af6ce09cd478.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 业务响应结果，
-        // score: 模型分数，
-        // modelId：模型id
-        // }
+        // 业务响应结果
         [NameInMap("data")]
         [Validation(Required=false)]
         public string Data { get; set; }

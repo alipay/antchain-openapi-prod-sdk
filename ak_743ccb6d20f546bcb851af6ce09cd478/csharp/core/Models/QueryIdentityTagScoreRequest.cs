@@ -28,10 +28,10 @@ namespace AntChain.SDK.Ak_743ccb6d20f546bcb851af6ce09cd478.Models
         [Validation(Required=true)]
         public string OrderId { get; set; }
 
-        // 模型类型列表
+        // 模型列表字符串
         [NameInMap("model_id_list")]
         [Validation(Required=true)]
-        public List<string> ModelIdList { get; set; }
+        public string ModelIdList { get; set; }
 
         // 用户id
         [NameInMap("user_id")]
