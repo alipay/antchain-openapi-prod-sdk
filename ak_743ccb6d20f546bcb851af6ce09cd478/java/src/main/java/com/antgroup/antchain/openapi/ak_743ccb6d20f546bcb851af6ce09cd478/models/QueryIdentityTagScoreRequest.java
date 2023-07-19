@@ -21,10 +21,10 @@ public class QueryIdentityTagScoreRequest extends TeaModel {
     @Validation(required = true)
     public String orderId;
 
-    // 模型类型列表
+    // 模型列表字符串
     @NameInMap("model_id_list")
     @Validation(required = true)
-    public java.util.List<String> modelIdList;
+    public String modelIdList;
 
     // 用户id
     @NameInMap("user_id")
@@ -97,11 +97,11 @@ public class QueryIdentityTagScoreRequest extends TeaModel {
         return this.orderId;
     }
 
-    public QueryIdentityTagScoreRequest setModelIdList(java.util.List<String> modelIdList) {
+    public QueryIdentityTagScoreRequest setModelIdList(String modelIdList) {
         this.modelIdList = modelIdList;
         return this;
     }
-    public java.util.List<String> getModelIdList() {
+    public String getModelIdList() {
         return this.modelIdList;
     }
 

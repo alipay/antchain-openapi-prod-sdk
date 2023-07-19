@@ -16,10 +16,7 @@ public class QueryIdentityTagScoreResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 业务响应结果，
-    // score: 模型分数，
-    // modelId：模型id
-    // }
+    // 业务响应结果
     @NameInMap("data")
     public String data;
 
