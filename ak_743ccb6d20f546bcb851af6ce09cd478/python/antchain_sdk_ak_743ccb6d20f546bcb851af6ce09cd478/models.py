@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from typing import List
 
 
 class Config(TeaModel):
@@ -161,7 +160,7 @@ class QueryIdentityTagScoreRequest(TeaModel):
         product_instance_id: str = None,
         request_id: str = None,
         order_id: str = None,
-        model_id_list: List[str] = None,
+        model_id_list: str = None,
         user_id: str = None,
         user_id_type: str = None,
         encrypt_type: str = None,
@@ -176,7 +175,7 @@ class QueryIdentityTagScoreRequest(TeaModel):
         self.request_id = request_id
         # 订单号
         self.order_id = order_id
-        # 模型类型列表
+        # 模型列表字符串
         self.model_id_list = model_id_list
         # 用户id
         self.user_id = user_id
@@ -277,10 +276,7 @@ class QueryIdentityTagScoreResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 业务响应结果，
-        # score: 模型分数，
-        # modelId：模型id
-        # }
+        # 业务响应结果
         self.data = data
 
     def validate(self):
