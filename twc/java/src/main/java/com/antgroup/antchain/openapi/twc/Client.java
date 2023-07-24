@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.19"),
+                    new TeaPair("sdk_version", "1.10.21"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -5863,6 +5863,101 @@ public class Client {
     public CreateDataflowAccountResponse createDataflowAccountEx(CreateDataflowAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.dataflow.account.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDataflowAccountResponse());
+    }
+
+    /**
+     * Description: 发起一体化文件存证
+     * Summary: 发起一体化文件存证
+     */
+    public CreateFileIntegrationResponse createFileIntegration(CreateFileIntegrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createFileIntegrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 发起一体化文件存证
+     * Summary: 发起一体化文件存证
+     */
+    public CreateFileIntegrationResponse createFileIntegrationEx(CreateFileIntegrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.file.integration.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateFileIntegrationResponse());
+    }
+
+    /**
+     * Description: 完成一体化文件存证
+     * Summary: 完成一体化文件存证
+     */
+    public FinishFileIntegrationResponse finishFileIntegration(FinishFileIntegrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.finishFileIntegrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 完成一体化文件存证
+     * Summary: 完成一体化文件存证
+     */
+    public FinishFileIntegrationResponse finishFileIntegrationEx(FinishFileIntegrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.file.integration.finish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FinishFileIntegrationResponse());
+    }
+
+    /**
+     * Description: 查询一体化文件存证
+     * Summary: 查询一体化文件存证
+     */
+    public GetFileIntegrationResponse getFileIntegration(GetFileIntegrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getFileIntegrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询一体化文件存证
+     * Summary: 查询一体化文件存证
+     */
+    public GetFileIntegrationResponse getFileIntegrationEx(GetFileIntegrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.file.integration.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetFileIntegrationResponse());
+    }
+
+    /**
+     * Description: 一体化文件存证-发起授权
+     * Summary: 一体化文件存证-发起授权
+     */
+    public AuthFileIntegrationResponse authFileIntegration(AuthFileIntegrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.authFileIntegrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 一体化文件存证-发起授权
+     * Summary: 一体化文件存证-发起授权
+     */
+    public AuthFileIntegrationResponse authFileIntegrationEx(AuthFileIntegrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.file.integration.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthFileIntegrationResponse());
+    }
+
+    /**
+     * Description: 一体化文件存证-取消授权
+     * Summary: 一体化文件存证-取消授权
+     */
+    public CancelFileIntegrationResponse cancelFileIntegration(CancelFileIntegrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelFileIntegrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 一体化文件存证-取消授权
+     * Summary: 一体化文件存证-取消授权
+     */
+    public CancelFileIntegrationResponse cancelFileIntegrationEx(CancelFileIntegrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.file.integration.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelFileIntegrationResponse());
     }
 
     /**

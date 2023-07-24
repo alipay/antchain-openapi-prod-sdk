@@ -13,7 +13,7 @@ public class CreateBclPayeeRequest extends TeaModel {
 
     // 企业证件姓名
     @NameInMap("cert_name")
-    @Validation(required = true, maxLength = 32)
+    @Validation(required = true, maxLength = 96)
     public String certName;
 
     // 企业证件号
