@@ -245,10 +245,14 @@ export class BclSignField extends $tea.Model {
   // 签章日期字体大小,默认12
   // 商家签署区不支持
   signDateFontSize?: number;
-  // 签章日期格式，yyyy年MM月dd日
+  // 签章日期格式，
+  // yyyy年MM月dd日（默认值）
+  // yyyy-MM-dd
+  // yyyy/MM/dd
+  // yyyy-MM-dd HH:mm:ss
   // 商家签署区不支持
   signDateFormat?: string;
-  // 页码信息，当sign_date_bean_type为REQUIRED时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
+  // 页码信息，当add_sign_date为true时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
   // 商家签署区不支持
   signDatePosPage?: number;
   // 非负数,小数位最多两位,签章日期x坐标，默认0
@@ -31805,6 +31809,333 @@ export class CreateDataflowAccountResponse extends $tea.Model {
   }
 }
 
+export class CreateFileIntegrationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 存证链路的统一Id，全局唯一
+  transactionId: string;
+  // 描述本条存证在存证事务中的阶段，用户可自行维护
+  phase: string;
+  // 存证类型为文本哈希时的哈希算法，目前仅支持SHA256
+  hashAlgorithm?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      transactionId: 'transaction_id',
+      phase: 'phase',
+      hashAlgorithm: 'hash_algorithm',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      transactionId: 'string',
+      phase: 'string',
+      hashAlgorithm: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateFileIntegrationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 存储的文件名称，完成存证阶段需传入
+  objectName?: string;
+  // 文件上传的地址
+  uploadLink?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      objectName: 'object_name',
+      uploadLink: 'upload_link',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      objectName: 'string',
+      uploadLink: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FinishFileIntegrationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件一体化存储id，全局唯一
+  objectName: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      objectName: 'object_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      objectName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FinishFileIntegrationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上链哈希
+  txHash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      txHash: 'tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetFileIntegrationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 完成存证接口中获取的交易哈希
+  txHash: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      txHash: 'tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetFileIntegrationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 存证下载链接
+  downloadLink?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      downloadLink: 'download_link',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      downloadLink: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthFileIntegrationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授权类型：BUCKET，OBJECT
+  authType: string;
+  // object名称（当auth_type为OBJECT必填）
+  objectName?: string;
+  // 授权过期时间，格式为 yyyy-MM-dd HH:mm:ss
+  authExpireTime: string;
+  // 被授权的租户id
+  targetTenant: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      authType: 'auth_type',
+      objectName: 'object_name',
+      authExpireTime: 'auth_expire_time',
+      targetTenant: 'target_tenant',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      authType: 'string',
+      objectName: 'string',
+      authExpireTime: 'string',
+      targetTenant: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthFileIntegrationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授权结果
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelFileIntegrationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 被授权目标租户ID
+  targetTenant: string;
+  // 授权类型：BUCKET，OBJECT
+  authType: string;
+  // object名称（当auth_type为OBJECT必填）	
+  objectName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      targetTenant: 'target_tenant',
+      authType: 'auth_type',
+      objectName: 'object_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      targetTenant: 'string',
+      authType: 'string',
+      objectName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelFileIntegrationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 取消授权结果
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateFlowInstanceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -33642,7 +33973,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.19",
+          sdk_version: "1.10.21",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -39392,6 +39723,101 @@ export default class Client {
   async createDataflowAccountEx(request: CreateDataflowAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDataflowAccountResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateDataflowAccountResponse>(await this.doRequest("1.0", "twc.notary.dataflow.account.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDataflowAccountResponse({}));
+  }
+
+  /**
+   * Description: 发起一体化文件存证
+   * Summary: 发起一体化文件存证
+   */
+  async createFileIntegration(request: CreateFileIntegrationRequest): Promise<CreateFileIntegrationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createFileIntegrationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发起一体化文件存证
+   * Summary: 发起一体化文件存证
+   */
+  async createFileIntegrationEx(request: CreateFileIntegrationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateFileIntegrationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateFileIntegrationResponse>(await this.doRequest("1.0", "twc.notary.file.integration.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateFileIntegrationResponse({}));
+  }
+
+  /**
+   * Description: 完成一体化文件存证
+   * Summary: 完成一体化文件存证
+   */
+  async finishFileIntegration(request: FinishFileIntegrationRequest): Promise<FinishFileIntegrationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.finishFileIntegrationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 完成一体化文件存证
+   * Summary: 完成一体化文件存证
+   */
+  async finishFileIntegrationEx(request: FinishFileIntegrationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FinishFileIntegrationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<FinishFileIntegrationResponse>(await this.doRequest("1.0", "twc.notary.file.integration.finish", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FinishFileIntegrationResponse({}));
+  }
+
+  /**
+   * Description: 查询一体化文件存证
+   * Summary: 查询一体化文件存证
+   */
+  async getFileIntegration(request: GetFileIntegrationRequest): Promise<GetFileIntegrationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getFileIntegrationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询一体化文件存证
+   * Summary: 查询一体化文件存证
+   */
+  async getFileIntegrationEx(request: GetFileIntegrationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetFileIntegrationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetFileIntegrationResponse>(await this.doRequest("1.0", "twc.notary.file.integration.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetFileIntegrationResponse({}));
+  }
+
+  /**
+   * Description: 一体化文件存证-发起授权
+   * Summary: 一体化文件存证-发起授权
+   */
+  async authFileIntegration(request: AuthFileIntegrationRequest): Promise<AuthFileIntegrationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.authFileIntegrationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 一体化文件存证-发起授权
+   * Summary: 一体化文件存证-发起授权
+   */
+  async authFileIntegrationEx(request: AuthFileIntegrationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AuthFileIntegrationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AuthFileIntegrationResponse>(await this.doRequest("1.0", "twc.notary.file.integration.auth", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AuthFileIntegrationResponse({}));
+  }
+
+  /**
+   * Description: 一体化文件存证-取消授权
+   * Summary: 一体化文件存证-取消授权
+   */
+  async cancelFileIntegration(request: CancelFileIntegrationRequest): Promise<CancelFileIntegrationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelFileIntegrationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 一体化文件存证-取消授权
+   * Summary: 一体化文件存证-取消授权
+   */
+  async cancelFileIntegrationEx(request: CancelFileIntegrationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelFileIntegrationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelFileIntegrationResponse>(await this.doRequest("1.0", "twc.notary.file.integration.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelFileIntegrationResponse({}));
   }
 
   /**
