@@ -353,10 +353,14 @@ type BclSignField struct {
 	// 签章日期字体大小,默认12
 	// 商家签署区不支持
 	SignDateFontSize *int64 `json:"sign_date_font_size,omitempty" xml:"sign_date_font_size,omitempty" maximum:"20" minimum:"10"`
-	// 签章日期格式，yyyy年MM月dd日
+	// 签章日期格式，
+	// yyyy年MM月dd日（默认值）
+	// yyyy-MM-dd
+	// yyyy/MM/dd
+	// yyyy-MM-dd HH:mm:ss
 	// 商家签署区不支持
 	SignDateFormat *string `json:"sign_date_format,omitempty" xml:"sign_date_format,omitempty" maxLength:"32"`
-	// 页码信息，当sign_date_bean_type为REQUIRED时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
+	// 页码信息，当add_sign_date为true时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
 	// 商家签署区不支持
 	SignDatePosPage *int64 `json:"sign_date_pos_page,omitempty" xml:"sign_date_pos_page,omitempty" minimum:"1"`
 	// 非负数,小数位最多两位,签章日期x坐标，默认0
@@ -9364,7 +9368,7 @@ type CreateBclPayeeRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 企业证件姓名
-	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true" maxLength:"32"`
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true" maxLength:"96"`
 	// 企业证件号
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true" maxLength:"32"`
 	// 企业证件类型
@@ -42947,6 +42951,412 @@ func (s *CreateDataflowAccountResponse) SetChainAccount(v string) *CreateDataflo
 	return s
 }
 
+type CreateFileIntegrationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 存证链路的统一Id，全局唯一
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty" require:"true"`
+	// 描述本条存证在存证事务中的阶段，用户可自行维护
+	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
+	// 存证类型为文本哈希时的哈希算法，目前仅支持SHA256
+	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty"`
+}
+
+func (s CreateFileIntegrationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateFileIntegrationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateFileIntegrationRequest) SetAuthToken(v string) *CreateFileIntegrationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateFileIntegrationRequest) SetProductInstanceId(v string) *CreateFileIntegrationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateFileIntegrationRequest) SetTransactionId(v string) *CreateFileIntegrationRequest {
+	s.TransactionId = &v
+	return s
+}
+
+func (s *CreateFileIntegrationRequest) SetPhase(v string) *CreateFileIntegrationRequest {
+	s.Phase = &v
+	return s
+}
+
+func (s *CreateFileIntegrationRequest) SetHashAlgorithm(v string) *CreateFileIntegrationRequest {
+	s.HashAlgorithm = &v
+	return s
+}
+
+type CreateFileIntegrationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 存储的文件名称，完成存证阶段需传入
+	ObjectName *string `json:"object_name,omitempty" xml:"object_name,omitempty"`
+	// 文件上传的地址
+	UploadLink *string `json:"upload_link,omitempty" xml:"upload_link,omitempty"`
+}
+
+func (s CreateFileIntegrationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateFileIntegrationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateFileIntegrationResponse) SetReqMsgId(v string) *CreateFileIntegrationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateFileIntegrationResponse) SetResultCode(v string) *CreateFileIntegrationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateFileIntegrationResponse) SetResultMsg(v string) *CreateFileIntegrationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateFileIntegrationResponse) SetObjectName(v string) *CreateFileIntegrationResponse {
+	s.ObjectName = &v
+	return s
+}
+
+func (s *CreateFileIntegrationResponse) SetUploadLink(v string) *CreateFileIntegrationResponse {
+	s.UploadLink = &v
+	return s
+}
+
+type FinishFileIntegrationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件一体化存储id，全局唯一
+	ObjectName *string `json:"object_name,omitempty" xml:"object_name,omitempty" require:"true"`
+}
+
+func (s FinishFileIntegrationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishFileIntegrationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FinishFileIntegrationRequest) SetAuthToken(v string) *FinishFileIntegrationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FinishFileIntegrationRequest) SetProductInstanceId(v string) *FinishFileIntegrationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *FinishFileIntegrationRequest) SetObjectName(v string) *FinishFileIntegrationRequest {
+	s.ObjectName = &v
+	return s
+}
+
+type FinishFileIntegrationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上链哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+}
+
+func (s FinishFileIntegrationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishFileIntegrationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FinishFileIntegrationResponse) SetReqMsgId(v string) *FinishFileIntegrationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FinishFileIntegrationResponse) SetResultCode(v string) *FinishFileIntegrationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FinishFileIntegrationResponse) SetResultMsg(v string) *FinishFileIntegrationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *FinishFileIntegrationResponse) SetTxHash(v string) *FinishFileIntegrationResponse {
+	s.TxHash = &v
+	return s
+}
+
+type GetFileIntegrationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 完成存证接口中获取的交易哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+}
+
+func (s GetFileIntegrationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetFileIntegrationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetFileIntegrationRequest) SetAuthToken(v string) *GetFileIntegrationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetFileIntegrationRequest) SetProductInstanceId(v string) *GetFileIntegrationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetFileIntegrationRequest) SetTxHash(v string) *GetFileIntegrationRequest {
+	s.TxHash = &v
+	return s
+}
+
+type GetFileIntegrationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 存证下载链接
+	DownloadLink *string `json:"download_link,omitempty" xml:"download_link,omitempty"`
+}
+
+func (s GetFileIntegrationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetFileIntegrationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetFileIntegrationResponse) SetReqMsgId(v string) *GetFileIntegrationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetFileIntegrationResponse) SetResultCode(v string) *GetFileIntegrationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetFileIntegrationResponse) SetResultMsg(v string) *GetFileIntegrationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetFileIntegrationResponse) SetDownloadLink(v string) *GetFileIntegrationResponse {
+	s.DownloadLink = &v
+	return s
+}
+
+type AuthFileIntegrationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授权类型：BUCKET，OBJECT
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// object名称（当auth_type为OBJECT必填）
+	ObjectName *string `json:"object_name,omitempty" xml:"object_name,omitempty"`
+	// 授权过期时间，格式为 yyyy-MM-dd HH:mm:ss
+	AuthExpireTime *string `json:"auth_expire_time,omitempty" xml:"auth_expire_time,omitempty" require:"true"`
+	// 被授权的租户id
+	TargetTenant *string `json:"target_tenant,omitempty" xml:"target_tenant,omitempty" require:"true"`
+}
+
+func (s AuthFileIntegrationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthFileIntegrationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AuthFileIntegrationRequest) SetAuthToken(v string) *AuthFileIntegrationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AuthFileIntegrationRequest) SetProductInstanceId(v string) *AuthFileIntegrationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AuthFileIntegrationRequest) SetAuthType(v string) *AuthFileIntegrationRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *AuthFileIntegrationRequest) SetObjectName(v string) *AuthFileIntegrationRequest {
+	s.ObjectName = &v
+	return s
+}
+
+func (s *AuthFileIntegrationRequest) SetAuthExpireTime(v string) *AuthFileIntegrationRequest {
+	s.AuthExpireTime = &v
+	return s
+}
+
+func (s *AuthFileIntegrationRequest) SetTargetTenant(v string) *AuthFileIntegrationRequest {
+	s.TargetTenant = &v
+	return s
+}
+
+type AuthFileIntegrationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权结果
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s AuthFileIntegrationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthFileIntegrationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AuthFileIntegrationResponse) SetReqMsgId(v string) *AuthFileIntegrationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AuthFileIntegrationResponse) SetResultCode(v string) *AuthFileIntegrationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AuthFileIntegrationResponse) SetResultMsg(v string) *AuthFileIntegrationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AuthFileIntegrationResponse) SetResult(v bool) *AuthFileIntegrationResponse {
+	s.Result = &v
+	return s
+}
+
+type CancelFileIntegrationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 被授权目标租户ID
+	TargetTenant *string `json:"target_tenant,omitempty" xml:"target_tenant,omitempty" require:"true"`
+	// 授权类型：BUCKET，OBJECT
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// object名称（当auth_type为OBJECT必填）
+	ObjectName *string `json:"object_name,omitempty" xml:"object_name,omitempty"`
+}
+
+func (s CancelFileIntegrationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelFileIntegrationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CancelFileIntegrationRequest) SetAuthToken(v string) *CancelFileIntegrationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelFileIntegrationRequest) SetProductInstanceId(v string) *CancelFileIntegrationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CancelFileIntegrationRequest) SetTargetTenant(v string) *CancelFileIntegrationRequest {
+	s.TargetTenant = &v
+	return s
+}
+
+func (s *CancelFileIntegrationRequest) SetAuthType(v string) *CancelFileIntegrationRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *CancelFileIntegrationRequest) SetObjectName(v string) *CancelFileIntegrationRequest {
+	s.ObjectName = &v
+	return s
+}
+
+type CancelFileIntegrationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 取消授权结果
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s CancelFileIntegrationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelFileIntegrationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CancelFileIntegrationResponse) SetReqMsgId(v string) *CancelFileIntegrationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CancelFileIntegrationResponse) SetResultCode(v string) *CancelFileIntegrationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CancelFileIntegrationResponse) SetResultMsg(v string) *CancelFileIntegrationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CancelFileIntegrationResponse) SetResult(v bool) *CancelFileIntegrationResponse {
+	s.Result = &v
+	return s
+}
+
 type CreateFlowInstanceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -45316,7 +45726,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.19"),
+				"sdk_version":      tea.String("1.10.21"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -55571,6 +55981,176 @@ func (client *Client) CreateDataflowAccountEx(request *CreateDataflowAccountRequ
 	}
 	_result = &CreateDataflowAccountResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.dataflow.account.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发起一体化文件存证
+ * Summary: 发起一体化文件存证
+ */
+func (client *Client) CreateFileIntegration(request *CreateFileIntegrationRequest) (_result *CreateFileIntegrationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateFileIntegrationResponse{}
+	_body, _err := client.CreateFileIntegrationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发起一体化文件存证
+ * Summary: 发起一体化文件存证
+ */
+func (client *Client) CreateFileIntegrationEx(request *CreateFileIntegrationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateFileIntegrationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateFileIntegrationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.file.integration.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 完成一体化文件存证
+ * Summary: 完成一体化文件存证
+ */
+func (client *Client) FinishFileIntegration(request *FinishFileIntegrationRequest) (_result *FinishFileIntegrationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FinishFileIntegrationResponse{}
+	_body, _err := client.FinishFileIntegrationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 完成一体化文件存证
+ * Summary: 完成一体化文件存证
+ */
+func (client *Client) FinishFileIntegrationEx(request *FinishFileIntegrationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FinishFileIntegrationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FinishFileIntegrationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.file.integration.finish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询一体化文件存证
+ * Summary: 查询一体化文件存证
+ */
+func (client *Client) GetFileIntegration(request *GetFileIntegrationRequest) (_result *GetFileIntegrationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetFileIntegrationResponse{}
+	_body, _err := client.GetFileIntegrationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询一体化文件存证
+ * Summary: 查询一体化文件存证
+ */
+func (client *Client) GetFileIntegrationEx(request *GetFileIntegrationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetFileIntegrationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetFileIntegrationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.file.integration.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 一体化文件存证-发起授权
+ * Summary: 一体化文件存证-发起授权
+ */
+func (client *Client) AuthFileIntegration(request *AuthFileIntegrationRequest) (_result *AuthFileIntegrationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AuthFileIntegrationResponse{}
+	_body, _err := client.AuthFileIntegrationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 一体化文件存证-发起授权
+ * Summary: 一体化文件存证-发起授权
+ */
+func (client *Client) AuthFileIntegrationEx(request *AuthFileIntegrationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AuthFileIntegrationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AuthFileIntegrationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.file.integration.auth"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 一体化文件存证-取消授权
+ * Summary: 一体化文件存证-取消授权
+ */
+func (client *Client) CancelFileIntegration(request *CancelFileIntegrationRequest) (_result *CancelFileIntegrationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CancelFileIntegrationResponse{}
+	_body, _err := client.CancelFileIntegrationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 一体化文件存证-取消授权
+ * Summary: 一体化文件存证-取消授权
+ */
+func (client *Client) CancelFileIntegrationEx(request *CancelFileIntegrationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelFileIntegrationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CancelFileIntegrationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.file.integration.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
