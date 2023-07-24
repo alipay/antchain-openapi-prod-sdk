@@ -416,10 +416,14 @@ class BclSignField(TeaModel):
         # 签章日期字体大小,默认12
         # 商家签署区不支持
         self.sign_date_font_size = sign_date_font_size
-        # 签章日期格式，yyyy年MM月dd日
+        # 签章日期格式，
+        # yyyy年MM月dd日（默认值）
+        # yyyy-MM-dd
+        # yyyy/MM/dd
+        # yyyy-MM-dd HH:mm:ss
         # 商家签署区不支持
         self.sign_date_format = sign_date_format
-        # 页码信息，当sign_date_bean_type为REQUIRED时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
+        # 页码信息，当add_sign_date为true时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
         # 商家签署区不支持
         self.sign_date_pos_page = sign_date_pos_page
         # 非负数,小数位最多两位,签章日期x坐标，默认0
@@ -11757,7 +11761,7 @@ class CreateBclPayeeRequest(TeaModel):
     def validate(self):
         self.validate_required(self.cert_name, 'cert_name')
         if self.cert_name is not None:
-            self.validate_max_length(self.cert_name, 'cert_name', 32)
+            self.validate_max_length(self.cert_name, 'cert_name', 96)
         self.validate_required(self.cert_no, 'cert_no')
         if self.cert_no is not None:
             self.validate_max_length(self.cert_no, 'cert_no', 32)
@@ -52657,6 +52661,516 @@ class CreateDataflowAccountResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('chain_account') is not None:
             self.chain_account = m.get('chain_account')
+        return self
+
+
+class CreateFileIntegrationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        transaction_id: str = None,
+        phase: str = None,
+        hash_algorithm: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 存证链路的统一Id，全局唯一
+        self.transaction_id = transaction_id
+        # 描述本条存证在存证事务中的阶段，用户可自行维护
+        self.phase = phase
+        # 存证类型为文本哈希时的哈希算法，目前仅支持SHA256
+        self.hash_algorithm = hash_algorithm
+
+    def validate(self):
+        self.validate_required(self.transaction_id, 'transaction_id')
+        self.validate_required(self.phase, 'phase')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.transaction_id is not None:
+            result['transaction_id'] = self.transaction_id
+        if self.phase is not None:
+            result['phase'] = self.phase
+        if self.hash_algorithm is not None:
+            result['hash_algorithm'] = self.hash_algorithm
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('transaction_id') is not None:
+            self.transaction_id = m.get('transaction_id')
+        if m.get('phase') is not None:
+            self.phase = m.get('phase')
+        if m.get('hash_algorithm') is not None:
+            self.hash_algorithm = m.get('hash_algorithm')
+        return self
+
+
+class CreateFileIntegrationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        object_name: str = None,
+        upload_link: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 存储的文件名称，完成存证阶段需传入
+        self.object_name = object_name
+        # 文件上传的地址
+        self.upload_link = upload_link
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.object_name is not None:
+            result['object_name'] = self.object_name
+        if self.upload_link is not None:
+            result['upload_link'] = self.upload_link
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('object_name') is not None:
+            self.object_name = m.get('object_name')
+        if m.get('upload_link') is not None:
+            self.upload_link = m.get('upload_link')
+        return self
+
+
+class FinishFileIntegrationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        object_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 文件一体化存储id，全局唯一
+        self.object_name = object_name
+
+    def validate(self):
+        self.validate_required(self.object_name, 'object_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.object_name is not None:
+            result['object_name'] = self.object_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('object_name') is not None:
+            self.object_name = m.get('object_name')
+        return self
+
+
+class FinishFileIntegrationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        tx_hash: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 上链哈希
+        self.tx_hash = tx_hash
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        return self
+
+
+class GetFileIntegrationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tx_hash: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 完成存证接口中获取的交易哈希
+        self.tx_hash = tx_hash
+
+    def validate(self):
+        self.validate_required(self.tx_hash, 'tx_hash')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        return self
+
+
+class GetFileIntegrationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        download_link: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 存证下载链接
+        self.download_link = download_link
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.download_link is not None:
+            result['download_link'] = self.download_link
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('download_link') is not None:
+            self.download_link = m.get('download_link')
+        return self
+
+
+class AuthFileIntegrationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        auth_type: str = None,
+        object_name: str = None,
+        auth_expire_time: str = None,
+        target_tenant: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 授权类型：BUCKET，OBJECT
+        self.auth_type = auth_type
+        # object名称（当auth_type为OBJECT必填）
+        self.object_name = object_name
+        # 授权过期时间，格式为 yyyy-MM-dd HH:mm:ss
+        self.auth_expire_time = auth_expire_time
+        # 被授权的租户id
+        self.target_tenant = target_tenant
+
+    def validate(self):
+        self.validate_required(self.auth_type, 'auth_type')
+        self.validate_required(self.auth_expire_time, 'auth_expire_time')
+        self.validate_required(self.target_tenant, 'target_tenant')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.object_name is not None:
+            result['object_name'] = self.object_name
+        if self.auth_expire_time is not None:
+            result['auth_expire_time'] = self.auth_expire_time
+        if self.target_tenant is not None:
+            result['target_tenant'] = self.target_tenant
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('object_name') is not None:
+            self.object_name = m.get('object_name')
+        if m.get('auth_expire_time') is not None:
+            self.auth_expire_time = m.get('auth_expire_time')
+        if m.get('target_tenant') is not None:
+            self.target_tenant = m.get('target_tenant')
+        return self
+
+
+class AuthFileIntegrationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 授权结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class CancelFileIntegrationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        target_tenant: str = None,
+        auth_type: str = None,
+        object_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 被授权目标租户ID
+        self.target_tenant = target_tenant
+        # 授权类型：BUCKET，OBJECT
+        self.auth_type = auth_type
+        # object名称（当auth_type为OBJECT必填）
+        self.object_name = object_name
+
+    def validate(self):
+        self.validate_required(self.target_tenant, 'target_tenant')
+        self.validate_required(self.auth_type, 'auth_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.target_tenant is not None:
+            result['target_tenant'] = self.target_tenant
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.object_name is not None:
+            result['object_name'] = self.object_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('target_tenant') is not None:
+            self.target_tenant = m.get('target_tenant')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('object_name') is not None:
+            self.object_name = m.get('object_name')
+        return self
+
+
+class CancelFileIntegrationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 取消授权结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 

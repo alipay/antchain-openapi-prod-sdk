@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.19',
+                    'sdk_version': '1.10.21',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.19',
+                    'sdk_version': '1.10.21',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -17081,6 +17081,286 @@ class Client:
         return TeaCore.from_map(
             twc_models.CreateDataflowAccountResponse(),
             await self.do_request_async('1.0', 'twc.notary.dataflow.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_file_integration(
+        self,
+        request: twc_models.CreateFileIntegrationRequest,
+    ) -> twc_models.CreateFileIntegrationResponse:
+        """
+        Description: 发起一体化文件存证
+        Summary: 发起一体化文件存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_file_integration_ex(request, headers, runtime)
+
+    async def create_file_integration_async(
+        self,
+        request: twc_models.CreateFileIntegrationRequest,
+    ) -> twc_models.CreateFileIntegrationResponse:
+        """
+        Description: 发起一体化文件存证
+        Summary: 发起一体化文件存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_file_integration_ex_async(request, headers, runtime)
+
+    def create_file_integration_ex(
+        self,
+        request: twc_models.CreateFileIntegrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateFileIntegrationResponse:
+        """
+        Description: 发起一体化文件存证
+        Summary: 发起一体化文件存证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateFileIntegrationResponse(),
+            self.do_request('1.0', 'twc.notary.file.integration.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_file_integration_ex_async(
+        self,
+        request: twc_models.CreateFileIntegrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateFileIntegrationResponse:
+        """
+        Description: 发起一体化文件存证
+        Summary: 发起一体化文件存证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateFileIntegrationResponse(),
+            await self.do_request_async('1.0', 'twc.notary.file.integration.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def finish_file_integration(
+        self,
+        request: twc_models.FinishFileIntegrationRequest,
+    ) -> twc_models.FinishFileIntegrationResponse:
+        """
+        Description: 完成一体化文件存证
+        Summary: 完成一体化文件存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.finish_file_integration_ex(request, headers, runtime)
+
+    async def finish_file_integration_async(
+        self,
+        request: twc_models.FinishFileIntegrationRequest,
+    ) -> twc_models.FinishFileIntegrationResponse:
+        """
+        Description: 完成一体化文件存证
+        Summary: 完成一体化文件存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.finish_file_integration_ex_async(request, headers, runtime)
+
+    def finish_file_integration_ex(
+        self,
+        request: twc_models.FinishFileIntegrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.FinishFileIntegrationResponse:
+        """
+        Description: 完成一体化文件存证
+        Summary: 完成一体化文件存证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.FinishFileIntegrationResponse(),
+            self.do_request('1.0', 'twc.notary.file.integration.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def finish_file_integration_ex_async(
+        self,
+        request: twc_models.FinishFileIntegrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.FinishFileIntegrationResponse:
+        """
+        Description: 完成一体化文件存证
+        Summary: 完成一体化文件存证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.FinishFileIntegrationResponse(),
+            await self.do_request_async('1.0', 'twc.notary.file.integration.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_file_integration(
+        self,
+        request: twc_models.GetFileIntegrationRequest,
+    ) -> twc_models.GetFileIntegrationResponse:
+        """
+        Description: 查询一体化文件存证
+        Summary: 查询一体化文件存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_file_integration_ex(request, headers, runtime)
+
+    async def get_file_integration_async(
+        self,
+        request: twc_models.GetFileIntegrationRequest,
+    ) -> twc_models.GetFileIntegrationResponse:
+        """
+        Description: 查询一体化文件存证
+        Summary: 查询一体化文件存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_file_integration_ex_async(request, headers, runtime)
+
+    def get_file_integration_ex(
+        self,
+        request: twc_models.GetFileIntegrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetFileIntegrationResponse:
+        """
+        Description: 查询一体化文件存证
+        Summary: 查询一体化文件存证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.GetFileIntegrationResponse(),
+            self.do_request('1.0', 'twc.notary.file.integration.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_file_integration_ex_async(
+        self,
+        request: twc_models.GetFileIntegrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetFileIntegrationResponse:
+        """
+        Description: 查询一体化文件存证
+        Summary: 查询一体化文件存证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.GetFileIntegrationResponse(),
+            await self.do_request_async('1.0', 'twc.notary.file.integration.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def auth_file_integration(
+        self,
+        request: twc_models.AuthFileIntegrationRequest,
+    ) -> twc_models.AuthFileIntegrationResponse:
+        """
+        Description: 一体化文件存证-发起授权
+        Summary: 一体化文件存证-发起授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.auth_file_integration_ex(request, headers, runtime)
+
+    async def auth_file_integration_async(
+        self,
+        request: twc_models.AuthFileIntegrationRequest,
+    ) -> twc_models.AuthFileIntegrationResponse:
+        """
+        Description: 一体化文件存证-发起授权
+        Summary: 一体化文件存证-发起授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.auth_file_integration_ex_async(request, headers, runtime)
+
+    def auth_file_integration_ex(
+        self,
+        request: twc_models.AuthFileIntegrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.AuthFileIntegrationResponse:
+        """
+        Description: 一体化文件存证-发起授权
+        Summary: 一体化文件存证-发起授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.AuthFileIntegrationResponse(),
+            self.do_request('1.0', 'twc.notary.file.integration.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def auth_file_integration_ex_async(
+        self,
+        request: twc_models.AuthFileIntegrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.AuthFileIntegrationResponse:
+        """
+        Description: 一体化文件存证-发起授权
+        Summary: 一体化文件存证-发起授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.AuthFileIntegrationResponse(),
+            await self.do_request_async('1.0', 'twc.notary.file.integration.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_file_integration(
+        self,
+        request: twc_models.CancelFileIntegrationRequest,
+    ) -> twc_models.CancelFileIntegrationResponse:
+        """
+        Description: 一体化文件存证-取消授权
+        Summary: 一体化文件存证-取消授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_file_integration_ex(request, headers, runtime)
+
+    async def cancel_file_integration_async(
+        self,
+        request: twc_models.CancelFileIntegrationRequest,
+    ) -> twc_models.CancelFileIntegrationResponse:
+        """
+        Description: 一体化文件存证-取消授权
+        Summary: 一体化文件存证-取消授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_file_integration_ex_async(request, headers, runtime)
+
+    def cancel_file_integration_ex(
+        self,
+        request: twc_models.CancelFileIntegrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CancelFileIntegrationResponse:
+        """
+        Description: 一体化文件存证-取消授权
+        Summary: 一体化文件存证-取消授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CancelFileIntegrationResponse(),
+            self.do_request('1.0', 'twc.notary.file.integration.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_file_integration_ex_async(
+        self,
+        request: twc_models.CancelFileIntegrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CancelFileIntegrationResponse:
+        """
+        Description: 一体化文件存证-取消授权
+        Summary: 一体化文件存证-取消授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CancelFileIntegrationResponse(),
+            await self.do_request_async('1.0', 'twc.notary.file.integration.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_flow_instance(
