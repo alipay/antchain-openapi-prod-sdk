@@ -45,6 +45,8 @@ use AntChain\TWC\Models\ApplyStubCertificateRequest;
 use AntChain\TWC\Models\ApplyStubCertificateResponse;
 use AntChain\TWC\Models\AuthContractSignRequest;
 use AntChain\TWC\Models\AuthContractSignResponse;
+use AntChain\TWC\Models\AuthFileIntegrationRequest;
+use AntChain\TWC\Models\AuthFileIntegrationResponse;
 use AntChain\TWC\Models\AuthLeaseContractRequest;
 use AntChain\TWC\Models\AuthLeaseContractResponse;
 use AntChain\TWC\Models\AuthWitnessFlowRequest;
@@ -61,6 +63,8 @@ use AntChain\TWC\Models\CancelContractPaytradeRequest;
 use AntChain\TWC\Models\CancelContractPaytradeResponse;
 use AntChain\TWC\Models\CancelDataflowAuthorizeRequest;
 use AntChain\TWC\Models\CancelDataflowAuthorizeResponse;
+use AntChain\TWC\Models\CancelFileIntegrationRequest;
+use AntChain\TWC\Models\CancelFileIntegrationResponse;
 use AntChain\TWC\Models\CancelLeaseInsuranceRequest;
 use AntChain\TWC\Models\CancelLeaseInsuranceResponse;
 use AntChain\TWC\Models\CertifyEnterpriseFaceauthRequest;
@@ -161,6 +165,8 @@ use AntChain\TWC\Models\CreateEcocontractTextRequest;
 use AntChain\TWC\Models\CreateEcocontractTextResponse;
 use AntChain\TWC\Models\CreateEcocontractTransRequest;
 use AntChain\TWC\Models\CreateEcocontractTransResponse;
+use AntChain\TWC\Models\CreateFileIntegrationRequest;
+use AntChain\TWC\Models\CreateFileIntegrationResponse;
 use AntChain\TWC\Models\CreateFileRequest;
 use AntChain\TWC\Models\CreateFileResponse;
 use AntChain\TWC\Models\CreateFinanceFilenotaryRequest;
@@ -323,6 +329,8 @@ use AntChain\TWC\Models\ExecContractPayRequest;
 use AntChain\TWC\Models\ExecContractPayResponse;
 use AntChain\TWC\Models\ExistStubRequest;
 use AntChain\TWC\Models\ExistStubResponse;
+use AntChain\TWC\Models\FinishFileIntegrationRequest;
+use AntChain\TWC\Models\FinishFileIntegrationResponse;
 use AntChain\TWC\Models\FinishFlowInstanceRequest;
 use AntChain\TWC\Models\FinishFlowInstanceResponse;
 use AntChain\TWC\Models\FinishLeaseSupplierstatusRequest;
@@ -351,6 +359,8 @@ use AntChain\TWC\Models\GetCourtTextnotaryRequest;
 use AntChain\TWC\Models\GetCourtTextnotaryResponse;
 use AntChain\TWC\Models\GetDataflowTextRequest;
 use AntChain\TWC\Models\GetDataflowTextResponse;
+use AntChain\TWC\Models\GetFileIntegrationRequest;
+use AntChain\TWC\Models\GetFileIntegrationResponse;
 use AntChain\TWC\Models\GetFileRequest;
 use AntChain\TWC\Models\GetFileResponse;
 use AntChain\TWC\Models\GetFinanceFilenotaryRequest;
@@ -804,7 +814,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.19',
+                    'sdk_version'      => '1.10.21',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -10754,6 +10764,171 @@ class Client
         Utils::validateModel($request);
 
         return CreateDataflowAccountResponse::fromMap($this->doRequest('1.0', 'twc.notary.dataflow.account.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发起一体化文件存证
+     * Summary: 发起一体化文件存证
+     *
+     * @param CreateFileIntegrationRequest $request
+     *
+     * @return CreateFileIntegrationResponse
+     */
+    public function createFileIntegration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createFileIntegrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发起一体化文件存证
+     * Summary: 发起一体化文件存证
+     *
+     * @param CreateFileIntegrationRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CreateFileIntegrationResponse
+     */
+    public function createFileIntegrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateFileIntegrationResponse::fromMap($this->doRequest('1.0', 'twc.notary.file.integration.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 完成一体化文件存证
+     * Summary: 完成一体化文件存证
+     *
+     * @param FinishFileIntegrationRequest $request
+     *
+     * @return FinishFileIntegrationResponse
+     */
+    public function finishFileIntegration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->finishFileIntegrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 完成一体化文件存证
+     * Summary: 完成一体化文件存证
+     *
+     * @param FinishFileIntegrationRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return FinishFileIntegrationResponse
+     */
+    public function finishFileIntegrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FinishFileIntegrationResponse::fromMap($this->doRequest('1.0', 'twc.notary.file.integration.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询一体化文件存证
+     * Summary: 查询一体化文件存证
+     *
+     * @param GetFileIntegrationRequest $request
+     *
+     * @return GetFileIntegrationResponse
+     */
+    public function getFileIntegration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getFileIntegrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询一体化文件存证
+     * Summary: 查询一体化文件存证
+     *
+     * @param GetFileIntegrationRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return GetFileIntegrationResponse
+     */
+    public function getFileIntegrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetFileIntegrationResponse::fromMap($this->doRequest('1.0', 'twc.notary.file.integration.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一体化文件存证-发起授权
+     * Summary: 一体化文件存证-发起授权.
+     *
+     * @param AuthFileIntegrationRequest $request
+     *
+     * @return AuthFileIntegrationResponse
+     */
+    public function authFileIntegration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authFileIntegrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一体化文件存证-发起授权
+     * Summary: 一体化文件存证-发起授权.
+     *
+     * @param AuthFileIntegrationRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return AuthFileIntegrationResponse
+     */
+    public function authFileIntegrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthFileIntegrationResponse::fromMap($this->doRequest('1.0', 'twc.notary.file.integration.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一体化文件存证-取消授权
+     * Summary: 一体化文件存证-取消授权.
+     *
+     * @param CancelFileIntegrationRequest $request
+     *
+     * @return CancelFileIntegrationResponse
+     */
+    public function cancelFileIntegration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelFileIntegrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一体化文件存证-取消授权
+     * Summary: 一体化文件存证-取消授权.
+     *
+     * @param CancelFileIntegrationRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CancelFileIntegrationResponse
+     */
+    public function cancelFileIntegrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelFileIntegrationResponse::fromMap($this->doRequest('1.0', 'twc.notary.file.integration.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -67,7 +67,7 @@ class CreateBclPayeeRequest extends Model
         Model::validateRequired('certType', $this->certType, true);
         Model::validateRequired('legalPersonCertName', $this->legalPersonCertName, true);
         Model::validateRequired('legalPersonCertNo', $this->legalPersonCertNo, true);
-        Model::validateMaxLength('certName', $this->certName, 32);
+        Model::validateMaxLength('certName', $this->certName, 96);
         Model::validateMaxLength('certNo', $this->certNo, 32);
         Model::validateMaxLength('legalPersonCertName', $this->legalPersonCertName, 32);
         Model::validateMaxLength('legalPersonCertNo', $this->legalPersonCertNo, 32);
