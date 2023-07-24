@@ -20,7 +20,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 企业证件姓名
         [NameInMap("cert_name")]
-        [Validation(Required=true, MaxLength=32)]
+        [Validation(Required=true, MaxLength=96)]
         public string CertName { get; set; }
 
         // 企业证件号

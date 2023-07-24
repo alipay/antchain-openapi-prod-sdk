@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.19"},
+                        {"sdk_version", "1.10.21"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.19"},
+                        {"sdk_version", "1.10.21"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -12927,6 +12927,216 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateDataflowAccountResponse>(await DoRequestAsync("1.0", "twc.notary.dataflow.account.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发起一体化文件存证
+         * Summary: 发起一体化文件存证
+         */
+        public CreateFileIntegrationResponse CreateFileIntegration(CreateFileIntegrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateFileIntegrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发起一体化文件存证
+         * Summary: 发起一体化文件存证
+         */
+        public async Task<CreateFileIntegrationResponse> CreateFileIntegrationAsync(CreateFileIntegrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateFileIntegrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发起一体化文件存证
+         * Summary: 发起一体化文件存证
+         */
+        public CreateFileIntegrationResponse CreateFileIntegrationEx(CreateFileIntegrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateFileIntegrationResponse>(DoRequest("1.0", "twc.notary.file.integration.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发起一体化文件存证
+         * Summary: 发起一体化文件存证
+         */
+        public async Task<CreateFileIntegrationResponse> CreateFileIntegrationExAsync(CreateFileIntegrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateFileIntegrationResponse>(await DoRequestAsync("1.0", "twc.notary.file.integration.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 完成一体化文件存证
+         * Summary: 完成一体化文件存证
+         */
+        public FinishFileIntegrationResponse FinishFileIntegration(FinishFileIntegrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return FinishFileIntegrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 完成一体化文件存证
+         * Summary: 完成一体化文件存证
+         */
+        public async Task<FinishFileIntegrationResponse> FinishFileIntegrationAsync(FinishFileIntegrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await FinishFileIntegrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 完成一体化文件存证
+         * Summary: 完成一体化文件存证
+         */
+        public FinishFileIntegrationResponse FinishFileIntegrationEx(FinishFileIntegrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishFileIntegrationResponse>(DoRequest("1.0", "twc.notary.file.integration.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 完成一体化文件存证
+         * Summary: 完成一体化文件存证
+         */
+        public async Task<FinishFileIntegrationResponse> FinishFileIntegrationExAsync(FinishFileIntegrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishFileIntegrationResponse>(await DoRequestAsync("1.0", "twc.notary.file.integration.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询一体化文件存证
+         * Summary: 查询一体化文件存证
+         */
+        public GetFileIntegrationResponse GetFileIntegration(GetFileIntegrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetFileIntegrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询一体化文件存证
+         * Summary: 查询一体化文件存证
+         */
+        public async Task<GetFileIntegrationResponse> GetFileIntegrationAsync(GetFileIntegrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetFileIntegrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询一体化文件存证
+         * Summary: 查询一体化文件存证
+         */
+        public GetFileIntegrationResponse GetFileIntegrationEx(GetFileIntegrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetFileIntegrationResponse>(DoRequest("1.0", "twc.notary.file.integration.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询一体化文件存证
+         * Summary: 查询一体化文件存证
+         */
+        public async Task<GetFileIntegrationResponse> GetFileIntegrationExAsync(GetFileIntegrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetFileIntegrationResponse>(await DoRequestAsync("1.0", "twc.notary.file.integration.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 一体化文件存证-发起授权
+         * Summary: 一体化文件存证-发起授权
+         */
+        public AuthFileIntegrationResponse AuthFileIntegration(AuthFileIntegrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AuthFileIntegrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 一体化文件存证-发起授权
+         * Summary: 一体化文件存证-发起授权
+         */
+        public async Task<AuthFileIntegrationResponse> AuthFileIntegrationAsync(AuthFileIntegrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AuthFileIntegrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 一体化文件存证-发起授权
+         * Summary: 一体化文件存证-发起授权
+         */
+        public AuthFileIntegrationResponse AuthFileIntegrationEx(AuthFileIntegrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthFileIntegrationResponse>(DoRequest("1.0", "twc.notary.file.integration.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 一体化文件存证-发起授权
+         * Summary: 一体化文件存证-发起授权
+         */
+        public async Task<AuthFileIntegrationResponse> AuthFileIntegrationExAsync(AuthFileIntegrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthFileIntegrationResponse>(await DoRequestAsync("1.0", "twc.notary.file.integration.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 一体化文件存证-取消授权
+         * Summary: 一体化文件存证-取消授权
+         */
+        public CancelFileIntegrationResponse CancelFileIntegration(CancelFileIntegrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelFileIntegrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 一体化文件存证-取消授权
+         * Summary: 一体化文件存证-取消授权
+         */
+        public async Task<CancelFileIntegrationResponse> CancelFileIntegrationAsync(CancelFileIntegrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelFileIntegrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 一体化文件存证-取消授权
+         * Summary: 一体化文件存证-取消授权
+         */
+        public CancelFileIntegrationResponse CancelFileIntegrationEx(CancelFileIntegrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelFileIntegrationResponse>(DoRequest("1.0", "twc.notary.file.integration.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 一体化文件存证-取消授权
+         * Summary: 一体化文件存证-取消授权
+         */
+        public async Task<CancelFileIntegrationResponse> CancelFileIntegrationExAsync(CancelFileIntegrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelFileIntegrationResponse>(await DoRequestAsync("1.0", "twc.notary.file.integration.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

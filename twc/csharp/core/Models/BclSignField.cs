@@ -45,13 +45,17 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public long? SignDateFontSize { get; set; }
 
-        // 签章日期格式，yyyy年MM月dd日
+        // 签章日期格式，
+        // yyyy年MM月dd日（默认值）
+        // yyyy-MM-dd
+        // yyyy/MM/dd
+        // yyyy-MM-dd HH:mm:ss
         // 商家签署区不支持
         [NameInMap("sign_date_format")]
         [Validation(Required=false, MaxLength=32)]
         public string SignDateFormat { get; set; }
 
-        // 页码信息，当sign_date_bean_type为REQUIRED时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
+        // 页码信息，当add_sign_date为true时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
         // 商家签署区不支持
         [NameInMap("sign_date_pos_page")]
         [Validation(Required=false)]
