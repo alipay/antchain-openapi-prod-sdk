@@ -3696,6 +3696,7 @@ class CreateApiAuthurlRequest(TeaModel):
         cognizant_mobile: str = None,
         cognizant_name: str = None,
         identity_number: str = None,
+        order_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3716,6 +3717,8 @@ class CreateApiAuthurlRequest(TeaModel):
         self.cognizant_name = cognizant_name
         # 已认证的法人身份证号
         self.identity_number = identity_number
+        # 订单号，用于幂等控制，每次新生成，如果不填我方会自动生成一个
+        self.order_no = order_no
 
     def validate(self):
         self.validate_required(self.auth_type, 'auth_type')
@@ -3750,6 +3753,8 @@ class CreateApiAuthurlRequest(TeaModel):
             result['cognizant_name'] = self.cognizant_name
         if self.identity_number is not None:
             result['identity_number'] = self.identity_number
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
         return result
 
     def from_map(self, m: dict = None):
@@ -3774,6 +3779,8 @@ class CreateApiAuthurlRequest(TeaModel):
             self.cognizant_name = m.get('cognizant_name')
         if m.get('identity_number') is not None:
             self.identity_number = m.get('identity_number')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
         return self
 
 
@@ -3793,7 +3800,7 @@ class CreateApiAuthurlResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 蚂蚁生成的订单号，此次授权的唯一标识
+        # 订单号
         self.order_no = order_no
         # 短链接地址
         self.login_url = login_url
@@ -4155,6 +4162,8 @@ class QueryApiSimpleauthasyncResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         return_result: str = None,
+        null_data_flag: str = None,
+        biz_content: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -4164,6 +4173,11 @@ class QueryApiSimpleauthasyncResponse(TeaModel):
         self.result_msg = result_msg
         # 成功
         self.return_result = return_result
+        # false 有值
+        # true  无值
+        self.null_data_flag = null_data_flag
+        # json格式，其他内容
+        self.biz_content = biz_content
 
     def validate(self):
         pass
@@ -4182,6 +4196,10 @@ class QueryApiSimpleauthasyncResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.return_result is not None:
             result['return_result'] = self.return_result
+        if self.null_data_flag is not None:
+            result['null_data_flag'] = self.null_data_flag
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
         return result
 
     def from_map(self, m: dict = None):
@@ -4194,6 +4212,10 @@ class QueryApiSimpleauthasyncResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('return_result') is not None:
             self.return_result = m.get('return_result')
+        if m.get('null_data_flag') is not None:
+            self.null_data_flag = m.get('null_data_flag')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
         return self
 
 
