@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.26.33',
+                    'sdk_version': '1.26.36',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -202,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.26.33',
+                    'sdk_version': '1.26.36',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -13695,6 +13695,790 @@ class Client:
             await self.do_request_async('1.0', 'baas.api.dwhb.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def create_caas_application_manage(
+        self,
+        request: blockchain_models.CreateCaasApplicationManageRequest,
+    ) -> blockchain_models.CreateCaasApplicationManageResponse:
+        """
+        Description: 新建应用
+        Summary: 新建应用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_caas_application_manage_ex(request, headers, runtime)
+
+    async def create_caas_application_manage_async(
+        self,
+        request: blockchain_models.CreateCaasApplicationManageRequest,
+    ) -> blockchain_models.CreateCaasApplicationManageResponse:
+        """
+        Description: 新建应用
+        Summary: 新建应用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_caas_application_manage_ex_async(request, headers, runtime)
+
+    def create_caas_application_manage_ex(
+        self,
+        request: blockchain_models.CreateCaasApplicationManageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateCaasApplicationManageResponse:
+        """
+        Description: 新建应用
+        Summary: 新建应用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.CreateCaasApplicationManageResponse(),
+            self.do_request('1.0', 'baas.caas.application.manage.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_caas_application_manage_ex_async(
+        self,
+        request: blockchain_models.CreateCaasApplicationManageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateCaasApplicationManageResponse:
+        """
+        Description: 新建应用
+        Summary: 新建应用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.CreateCaasApplicationManageResponse(),
+            await self.do_request_async('1.0', 'baas.caas.application.manage.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_caas_application_manage(
+        self,
+        request: blockchain_models.PagequeryCaasApplicationManageRequest,
+    ) -> blockchain_models.PagequeryCaasApplicationManageResponse:
+        """
+        Description: 应用列表查询
+        Summary: 应用列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_caas_application_manage_ex(request, headers, runtime)
+
+    async def pagequery_caas_application_manage_async(
+        self,
+        request: blockchain_models.PagequeryCaasApplicationManageRequest,
+    ) -> blockchain_models.PagequeryCaasApplicationManageResponse:
+        """
+        Description: 应用列表查询
+        Summary: 应用列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_caas_application_manage_ex_async(request, headers, runtime)
+
+    def pagequery_caas_application_manage_ex(
+        self,
+        request: blockchain_models.PagequeryCaasApplicationManageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.PagequeryCaasApplicationManageResponse:
+        """
+        Description: 应用列表查询
+        Summary: 应用列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.PagequeryCaasApplicationManageResponse(),
+            self.do_request('1.0', 'baas.caas.application.manage.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_caas_application_manage_ex_async(
+        self,
+        request: blockchain_models.PagequeryCaasApplicationManageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.PagequeryCaasApplicationManageResponse:
+        """
+        Description: 应用列表查询
+        Summary: 应用列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.PagequeryCaasApplicationManageResponse(),
+            await self.do_request_async('1.0', 'baas.caas.application.manage.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_caas_application_manage(
+        self,
+        request: blockchain_models.GetCaasApplicationManageRequest,
+    ) -> blockchain_models.GetCaasApplicationManageResponse:
+        """
+        Description: 查看sk
+        Summary: 查看sk
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_caas_application_manage_ex(request, headers, runtime)
+
+    async def get_caas_application_manage_async(
+        self,
+        request: blockchain_models.GetCaasApplicationManageRequest,
+    ) -> blockchain_models.GetCaasApplicationManageResponse:
+        """
+        Description: 查看sk
+        Summary: 查看sk
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_caas_application_manage_ex_async(request, headers, runtime)
+
+    def get_caas_application_manage_ex(
+        self,
+        request: blockchain_models.GetCaasApplicationManageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.GetCaasApplicationManageResponse:
+        """
+        Description: 查看sk
+        Summary: 查看sk
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.GetCaasApplicationManageResponse(),
+            self.do_request('1.0', 'baas.caas.application.manage.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_caas_application_manage_ex_async(
+        self,
+        request: blockchain_models.GetCaasApplicationManageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.GetCaasApplicationManageResponse:
+        """
+        Description: 查看sk
+        Summary: 查看sk
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.GetCaasApplicationManageResponse(),
+            await self.do_request_async('1.0', 'baas.caas.application.manage.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_caas_application_manage(
+        self,
+        request: blockchain_models.QueryCaasApplicationManageRequest,
+    ) -> blockchain_models.QueryCaasApplicationManageResponse:
+        """
+        Description: 查询合约绑定关系
+        Summary: 查询合约绑定关系
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_caas_application_manage_ex(request, headers, runtime)
+
+    async def query_caas_application_manage_async(
+        self,
+        request: blockchain_models.QueryCaasApplicationManageRequest,
+    ) -> blockchain_models.QueryCaasApplicationManageResponse:
+        """
+        Description: 查询合约绑定关系
+        Summary: 查询合约绑定关系
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_caas_application_manage_ex_async(request, headers, runtime)
+
+    def query_caas_application_manage_ex(
+        self,
+        request: blockchain_models.QueryCaasApplicationManageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryCaasApplicationManageResponse:
+        """
+        Description: 查询合约绑定关系
+        Summary: 查询合约绑定关系
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryCaasApplicationManageResponse(),
+            self.do_request('1.0', 'baas.caas.application.manage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_caas_application_manage_ex_async(
+        self,
+        request: blockchain_models.QueryCaasApplicationManageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryCaasApplicationManageResponse:
+        """
+        Description: 查询合约绑定关系
+        Summary: 查询合约绑定关系
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryCaasApplicationManageResponse(),
+            await self.do_request_async('1.0', 'baas.caas.application.manage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unbind_caas_application_manage(
+        self,
+        request: blockchain_models.UnbindCaasApplicationManageRequest,
+    ) -> blockchain_models.UnbindCaasApplicationManageResponse:
+        """
+        Description: 解除授权
+        Summary: 解除授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unbind_caas_application_manage_ex(request, headers, runtime)
+
+    async def unbind_caas_application_manage_async(
+        self,
+        request: blockchain_models.UnbindCaasApplicationManageRequest,
+    ) -> blockchain_models.UnbindCaasApplicationManageResponse:
+        """
+        Description: 解除授权
+        Summary: 解除授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unbind_caas_application_manage_ex_async(request, headers, runtime)
+
+    def unbind_caas_application_manage_ex(
+        self,
+        request: blockchain_models.UnbindCaasApplicationManageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UnbindCaasApplicationManageResponse:
+        """
+        Description: 解除授权
+        Summary: 解除授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.UnbindCaasApplicationManageResponse(),
+            self.do_request('1.0', 'baas.caas.application.manage.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unbind_caas_application_manage_ex_async(
+        self,
+        request: blockchain_models.UnbindCaasApplicationManageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UnbindCaasApplicationManageResponse:
+        """
+        Description: 解除授权
+        Summary: 解除授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.UnbindCaasApplicationManageResponse(),
+            await self.do_request_async('1.0', 'baas.caas.application.manage.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_caas_application_manage(
+        self,
+        request: blockchain_models.BindCaasApplicationManageRequest,
+    ) -> blockchain_models.BindCaasApplicationManageResponse:
+        """
+        Description: 绑定合约
+        Summary: 绑定合约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_caas_application_manage_ex(request, headers, runtime)
+
+    async def bind_caas_application_manage_async(
+        self,
+        request: blockchain_models.BindCaasApplicationManageRequest,
+    ) -> blockchain_models.BindCaasApplicationManageResponse:
+        """
+        Description: 绑定合约
+        Summary: 绑定合约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_caas_application_manage_ex_async(request, headers, runtime)
+
+    def bind_caas_application_manage_ex(
+        self,
+        request: blockchain_models.BindCaasApplicationManageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.BindCaasApplicationManageResponse:
+        """
+        Description: 绑定合约
+        Summary: 绑定合约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.BindCaasApplicationManageResponse(),
+            self.do_request('1.0', 'baas.caas.application.manage.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_caas_application_manage_ex_async(
+        self,
+        request: blockchain_models.BindCaasApplicationManageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.BindCaasApplicationManageResponse:
+        """
+        Description: 绑定合约
+        Summary: 绑定合约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.BindCaasApplicationManageResponse(),
+            await self.do_request_async('1.0', 'baas.caas.application.manage.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_caas_contract_service(
+        self,
+        request: blockchain_models.DeleteCaasContractServiceRequest,
+    ) -> blockchain_models.DeleteCaasContractServiceResponse:
+        """
+        Description: 删除合约
+        Summary: 删除合约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_caas_contract_service_ex(request, headers, runtime)
+
+    async def delete_caas_contract_service_async(
+        self,
+        request: blockchain_models.DeleteCaasContractServiceRequest,
+    ) -> blockchain_models.DeleteCaasContractServiceResponse:
+        """
+        Description: 删除合约
+        Summary: 删除合约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_caas_contract_service_ex_async(request, headers, runtime)
+
+    def delete_caas_contract_service_ex(
+        self,
+        request: blockchain_models.DeleteCaasContractServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.DeleteCaasContractServiceResponse:
+        """
+        Description: 删除合约
+        Summary: 删除合约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.DeleteCaasContractServiceResponse(),
+            self.do_request('1.0', 'baas.caas.contract.service.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_caas_contract_service_ex_async(
+        self,
+        request: blockchain_models.DeleteCaasContractServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.DeleteCaasContractServiceResponse:
+        """
+        Description: 删除合约
+        Summary: 删除合约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.DeleteCaasContractServiceResponse(),
+            await self.do_request_async('1.0', 'baas.caas.contract.service.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_caas_contract_service(
+        self,
+        request: blockchain_models.CreateCaasContractServiceRequest,
+    ) -> blockchain_models.CreateCaasContractServiceResponse:
+        """
+        Description: 新建合约服务
+        Summary: 新建合约服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_caas_contract_service_ex(request, headers, runtime)
+
+    async def create_caas_contract_service_async(
+        self,
+        request: blockchain_models.CreateCaasContractServiceRequest,
+    ) -> blockchain_models.CreateCaasContractServiceResponse:
+        """
+        Description: 新建合约服务
+        Summary: 新建合约服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_caas_contract_service_ex_async(request, headers, runtime)
+
+    def create_caas_contract_service_ex(
+        self,
+        request: blockchain_models.CreateCaasContractServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateCaasContractServiceResponse:
+        """
+        Description: 新建合约服务
+        Summary: 新建合约服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.CreateCaasContractServiceResponse(),
+            self.do_request('1.0', 'baas.caas.contract.service.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_caas_contract_service_ex_async(
+        self,
+        request: blockchain_models.CreateCaasContractServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateCaasContractServiceResponse:
+        """
+        Description: 新建合约服务
+        Summary: 新建合约服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.CreateCaasContractServiceResponse(),
+            await self.do_request_async('1.0', 'baas.caas.contract.service.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_caas_contract_service(
+        self,
+        request: blockchain_models.PagequeryCaasContractServiceRequest,
+    ) -> blockchain_models.PagequeryCaasContractServiceResponse:
+        """
+        Description: 我的合约列表查询
+        Summary: 我的合约列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_caas_contract_service_ex(request, headers, runtime)
+
+    async def pagequery_caas_contract_service_async(
+        self,
+        request: blockchain_models.PagequeryCaasContractServiceRequest,
+    ) -> blockchain_models.PagequeryCaasContractServiceResponse:
+        """
+        Description: 我的合约列表查询
+        Summary: 我的合约列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_caas_contract_service_ex_async(request, headers, runtime)
+
+    def pagequery_caas_contract_service_ex(
+        self,
+        request: blockchain_models.PagequeryCaasContractServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.PagequeryCaasContractServiceResponse:
+        """
+        Description: 我的合约列表查询
+        Summary: 我的合约列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.PagequeryCaasContractServiceResponse(),
+            self.do_request('1.0', 'baas.caas.contract.service.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_caas_contract_service_ex_async(
+        self,
+        request: blockchain_models.PagequeryCaasContractServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.PagequeryCaasContractServiceResponse:
+        """
+        Description: 我的合约列表查询
+        Summary: 我的合约列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.PagequeryCaasContractServiceResponse(),
+            await self.do_request_async('1.0', 'baas.caas.contract.service.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_caas_contract_service(
+        self,
+        request: blockchain_models.ListCaasContractServiceRequest,
+    ) -> blockchain_models.ListCaasContractServiceResponse:
+        """
+        Description: 查询合约类型列表
+        Summary: 查询合约类型列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_caas_contract_service_ex(request, headers, runtime)
+
+    async def list_caas_contract_service_async(
+        self,
+        request: blockchain_models.ListCaasContractServiceRequest,
+    ) -> blockchain_models.ListCaasContractServiceResponse:
+        """
+        Description: 查询合约类型列表
+        Summary: 查询合约类型列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_caas_contract_service_ex_async(request, headers, runtime)
+
+    def list_caas_contract_service_ex(
+        self,
+        request: blockchain_models.ListCaasContractServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ListCaasContractServiceResponse:
+        """
+        Description: 查询合约类型列表
+        Summary: 查询合约类型列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ListCaasContractServiceResponse(),
+            self.do_request('1.0', 'baas.caas.contract.service.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_caas_contract_service_ex_async(
+        self,
+        request: blockchain_models.ListCaasContractServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ListCaasContractServiceResponse:
+        """
+        Description: 查询合约类型列表
+        Summary: 查询合约类型列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ListCaasContractServiceResponse(),
+            await self.do_request_async('1.0', 'baas.caas.contract.service.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def deploy_caas_contract_service(
+        self,
+        request: blockchain_models.DeployCaasContractServiceRequest,
+    ) -> blockchain_models.DeployCaasContractServiceResponse:
+        """
+        Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+        Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.deploy_caas_contract_service_ex(request, headers, runtime)
+
+    async def deploy_caas_contract_service_async(
+        self,
+        request: blockchain_models.DeployCaasContractServiceRequest,
+    ) -> blockchain_models.DeployCaasContractServiceResponse:
+        """
+        Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+        Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.deploy_caas_contract_service_ex_async(request, headers, runtime)
+
+    def deploy_caas_contract_service_ex(
+        self,
+        request: blockchain_models.DeployCaasContractServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.DeployCaasContractServiceResponse:
+        """
+        Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+        Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.DeployCaasContractServiceResponse(),
+            self.do_request('1.0', 'baas.caas.contract.service.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def deploy_caas_contract_service_ex_async(
+        self,
+        request: blockchain_models.DeployCaasContractServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.DeployCaasContractServiceResponse:
+        """
+        Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+        Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.DeployCaasContractServiceResponse(),
+            await self.do_request_async('1.0', 'baas.caas.contract.service.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_caas_contract_service(
+        self,
+        request: blockchain_models.DetailCaasContractServiceRequest,
+    ) -> blockchain_models.DetailCaasContractServiceResponse:
+        """
+        Description: 合约详情
+        Summary: 合约详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_caas_contract_service_ex(request, headers, runtime)
+
+    async def detail_caas_contract_service_async(
+        self,
+        request: blockchain_models.DetailCaasContractServiceRequest,
+    ) -> blockchain_models.DetailCaasContractServiceResponse:
+        """
+        Description: 合约详情
+        Summary: 合约详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_caas_contract_service_ex_async(request, headers, runtime)
+
+    def detail_caas_contract_service_ex(
+        self,
+        request: blockchain_models.DetailCaasContractServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.DetailCaasContractServiceResponse:
+        """
+        Description: 合约详情
+        Summary: 合约详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.DetailCaasContractServiceResponse(),
+            self.do_request('1.0', 'baas.caas.contract.service.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_caas_contract_service_ex_async(
+        self,
+        request: blockchain_models.DetailCaasContractServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.DetailCaasContractServiceResponse:
+        """
+        Description: 合约详情
+        Summary: 合约详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.DetailCaasContractServiceResponse(),
+            await self.do_request_async('1.0', 'baas.caas.contract.service.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_caas_contract_service(
+        self,
+        request: blockchain_models.QueryCaasContractServiceRequest,
+    ) -> blockchain_models.QueryCaasContractServiceResponse:
+        """
+        Description: 查询创建实例进度
+        Summary: 查询创建实例进度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_caas_contract_service_ex(request, headers, runtime)
+
+    async def query_caas_contract_service_async(
+        self,
+        request: blockchain_models.QueryCaasContractServiceRequest,
+    ) -> blockchain_models.QueryCaasContractServiceResponse:
+        """
+        Description: 查询创建实例进度
+        Summary: 查询创建实例进度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_caas_contract_service_ex_async(request, headers, runtime)
+
+    def query_caas_contract_service_ex(
+        self,
+        request: blockchain_models.QueryCaasContractServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryCaasContractServiceResponse:
+        """
+        Description: 查询创建实例进度
+        Summary: 查询创建实例进度
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryCaasContractServiceResponse(),
+            self.do_request('1.0', 'baas.caas.contract.service.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_caas_contract_service_ex_async(
+        self,
+        request: blockchain_models.QueryCaasContractServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryCaasContractServiceResponse:
+        """
+        Description: 查询创建实例进度
+        Summary: 查询创建实例进度
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryCaasContractServiceResponse(),
+            await self.do_request_async('1.0', 'baas.caas.contract.service.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_caas_contract_market(
+        self,
+        request: blockchain_models.PagequeryCaasContractMarketRequest,
+    ) -> blockchain_models.PagequeryCaasContractMarketResponse:
+        """
+        Description: 智能合约市场列表查询
+        Summary: 智能合约市场列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_caas_contract_market_ex(request, headers, runtime)
+
+    async def pagequery_caas_contract_market_async(
+        self,
+        request: blockchain_models.PagequeryCaasContractMarketRequest,
+    ) -> blockchain_models.PagequeryCaasContractMarketResponse:
+        """
+        Description: 智能合约市场列表查询
+        Summary: 智能合约市场列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_caas_contract_market_ex_async(request, headers, runtime)
+
+    def pagequery_caas_contract_market_ex(
+        self,
+        request: blockchain_models.PagequeryCaasContractMarketRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.PagequeryCaasContractMarketResponse:
+        """
+        Description: 智能合约市场列表查询
+        Summary: 智能合约市场列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.PagequeryCaasContractMarketResponse(),
+            self.do_request('1.0', 'baas.caas.contract.market.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_caas_contract_market_ex_async(
+        self,
+        request: blockchain_models.PagequeryCaasContractMarketRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.PagequeryCaasContractMarketResponse:
+        """
+        Description: 智能合约市场列表查询
+        Summary: 智能合约市场列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.PagequeryCaasContractMarketResponse(),
+            await self.do_request_async('1.0', 'baas.caas.contract.market.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_contract_record(
         self,
         request: blockchain_models.CreateContractRecordRequest,
@@ -21381,6 +22165,62 @@ class Client:
         return TeaCore.from_map(
             blockchain_models.QueryAuthCertDetailurlResponse(),
             await self.do_request_async('1.0', 'baas.auth.cert.detailurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_auth_task_status(
+        self,
+        request: blockchain_models.NotifyAuthTaskStatusRequest,
+    ) -> blockchain_models.NotifyAuthTaskStatusResponse:
+        """
+        Description: 主站应用同步授权宝权益任务的完成情况
+        Summary: 主站应用同步授权宝权益任务的完成情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_auth_task_status_ex(request, headers, runtime)
+
+    async def notify_auth_task_status_async(
+        self,
+        request: blockchain_models.NotifyAuthTaskStatusRequest,
+    ) -> blockchain_models.NotifyAuthTaskStatusResponse:
+        """
+        Description: 主站应用同步授权宝权益任务的完成情况
+        Summary: 主站应用同步授权宝权益任务的完成情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_auth_task_status_ex_async(request, headers, runtime)
+
+    def notify_auth_task_status_ex(
+        self,
+        request: blockchain_models.NotifyAuthTaskStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.NotifyAuthTaskStatusResponse:
+        """
+        Description: 主站应用同步授权宝权益任务的完成情况
+        Summary: 主站应用同步授权宝权益任务的完成情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.NotifyAuthTaskStatusResponse(),
+            self.do_request('1.0', 'baas.auth.task.status.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_auth_task_status_ex_async(
+        self,
+        request: blockchain_models.NotifyAuthTaskStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.NotifyAuthTaskStatusResponse:
+        """
+        Description: 主站应用同步授权宝权益任务的完成情况
+        Summary: 主站应用同步授权宝权益任务的完成情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.NotifyAuthTaskStatusResponse(),
+            await self.do_request_async('1.0', 'baas.auth.task.status.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(
