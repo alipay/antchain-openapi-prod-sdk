@@ -2953,6 +2953,8 @@ type CreateApiAuthurlRequest struct {
 	CognizantName *string `json:"cognizant_name,omitempty" xml:"cognizant_name,omitempty"`
 	// 已认证的法人身份证号
 	IdentityNumber *string `json:"identity_number,omitempty" xml:"identity_number,omitempty"`
+	// 订单号，用于幂等控制，每次新生成，如果不填我方会自动生成一个
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
 }
 
 func (s CreateApiAuthurlRequest) String() string {
@@ -3013,6 +3015,11 @@ func (s *CreateApiAuthurlRequest) SetIdentityNumber(v string) *CreateApiAuthurlR
 	return s
 }
 
+func (s *CreateApiAuthurlRequest) SetOrderNo(v string) *CreateApiAuthurlRequest {
+	s.OrderNo = &v
+	return s
+}
+
 type CreateApiAuthurlResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -3020,7 +3027,7 @@ type CreateApiAuthurlResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 蚂蚁生成的订单号，此次授权的唯一标识
+	// 订单号
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
 	// 短链接地址
 	LoginUrl *string `json:"login_url,omitempty" xml:"login_url,omitempty"`
@@ -3324,6 +3331,11 @@ type QueryApiSimpleauthasyncResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 成功
 	ReturnResult *string `json:"return_result,omitempty" xml:"return_result,omitempty"`
+	// false 有值
+	// true  无值
+	NullDataFlag *string `json:"null_data_flag,omitempty" xml:"null_data_flag,omitempty"`
+	// json格式，其他内容
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
 }
 
 func (s QueryApiSimpleauthasyncResponse) String() string {
@@ -3351,6 +3363,16 @@ func (s *QueryApiSimpleauthasyncResponse) SetResultMsg(v string) *QueryApiSimple
 
 func (s *QueryApiSimpleauthasyncResponse) SetReturnResult(v string) *QueryApiSimpleauthasyncResponse {
 	s.ReturnResult = &v
+	return s
+}
+
+func (s *QueryApiSimpleauthasyncResponse) SetNullDataFlag(v string) *QueryApiSimpleauthasyncResponse {
+	s.NullDataFlag = &v
+	return s
+}
+
+func (s *QueryApiSimpleauthasyncResponse) SetBizContent(v string) *QueryApiSimpleauthasyncResponse {
+	s.BizContent = &v
 	return s
 }
 
@@ -3724,7 +3746,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.13"),
+				"sdk_version":      tea.String("1.6.15"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
