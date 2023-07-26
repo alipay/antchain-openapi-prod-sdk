@@ -29,6 +29,17 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string ReturnResult { get; set; }
 
+        // false 有值
+        // true  无值
+        [NameInMap("null_data_flag")]
+        [Validation(Required=false)]
+        public string NullDataFlag { get; set; }
+
+        // json格式，其他内容
+        [NameInMap("biz_content")]
+        [Validation(Required=false)]
+        public string BizContent { get; set; }
+
     }
 
 }

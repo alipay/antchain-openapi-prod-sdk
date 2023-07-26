@@ -58,6 +58,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string IdentityNumber { get; set; }
 
+        // 订单号，用于幂等控制，每次新生成，如果不填我方会自动生成一个
+        [NameInMap("order_no")]
+        [Validation(Required=false)]
+        public string OrderNo { get; set; }
+
     }
 
 }

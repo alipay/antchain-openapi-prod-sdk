@@ -24,7 +24,7 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 蚂蚁生成的订单号，此次授权的唯一标识
+        // 订单号
         [NameInMap("order_no")]
         [Validation(Required=false)]
         public string OrderNo { get; set; }
