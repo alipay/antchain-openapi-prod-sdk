@@ -2227,6 +2227,8 @@ export class CreateApiAuthurlRequest extends $tea.Model {
   cognizantName?: string;
   // 已认证的法人身份证号
   identityNumber?: string;
+  // 订单号，用于幂等控制，每次新生成，如果不填我方会自动生成一个
+  orderNo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2239,6 +2241,7 @@ export class CreateApiAuthurlRequest extends $tea.Model {
       cognizantMobile: 'cognizant_mobile',
       cognizantName: 'cognizant_name',
       identityNumber: 'identity_number',
+      orderNo: 'order_no',
     };
   }
 
@@ -2254,6 +2257,7 @@ export class CreateApiAuthurlRequest extends $tea.Model {
       cognizantMobile: 'string',
       cognizantName: 'string',
       identityNumber: 'string',
+      orderNo: 'string',
     };
   }
 
@@ -2269,7 +2273,7 @@ export class CreateApiAuthurlResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 蚂蚁生成的订单号，此次授权的唯一标识
+  // 订单号
   orderNo?: string;
   // 短链接地址
   loginUrl?: string;
@@ -2501,12 +2505,19 @@ export class QueryApiSimpleauthasyncResponse extends $tea.Model {
   resultMsg?: string;
   // 成功
   returnResult?: string;
+  // false 有值
+  // true  无值
+  nullDataFlag?: string;
+  // json格式，其他内容
+  bizContent?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       returnResult: 'return_result',
+      nullDataFlag: 'null_data_flag',
+      bizContent: 'biz_content',
     };
   }
 
@@ -2516,6 +2527,8 @@ export class QueryApiSimpleauthasyncResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       returnResult: 'string',
+      nullDataFlag: 'string',
+      bizContent: 'string',
     };
   }
 
@@ -2818,7 +2831,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.13",
+          sdk_version: "1.6.15",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
