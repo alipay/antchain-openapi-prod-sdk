@@ -66,6 +66,12 @@ class CreateApiAuthurlRequest extends Model
      * @var string
      */
     public $identityNumber;
+
+    // 订单号，用于幂等控制，每次新生成，如果不填我方会自动生成一个
+    /**
+     * @var string
+     */
+    public $orderNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +83,7 @@ class CreateApiAuthurlRequest extends Model
         'cognizantMobile'   => 'cognizant_mobile',
         'cognizantName'     => 'cognizant_name',
         'identityNumber'    => 'identity_number',
+        'orderNo'           => 'order_no',
     ];
 
     public function validate()
@@ -121,6 +128,9 @@ class CreateApiAuthurlRequest extends Model
         if (null !== $this->identityNumber) {
             $res['identity_number'] = $this->identityNumber;
         }
+        if (null !== $this->orderNo) {
+            $res['order_no'] = $this->orderNo;
+        }
 
         return $res;
     }
@@ -162,6 +172,9 @@ class CreateApiAuthurlRequest extends Model
         }
         if (isset($map['identity_number'])) {
             $model->identityNumber = $map['identity_number'];
+        }
+        if (isset($map['order_no'])) {
+            $model->orderNo = $map['order_no'];
         }
 
         return $model;

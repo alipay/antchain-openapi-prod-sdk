@@ -26,7 +26,7 @@ class CreateApiAuthurlResponse extends Model
      */
     public $resultMsg;
 
-    // 蚂蚁生成的订单号，此次授权的唯一标识
+    // 订单号
     /**
      * @var string
      */

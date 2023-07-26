@@ -31,11 +31,26 @@ class QueryApiSimpleauthasyncResponse extends Model
      * @var string
      */
     public $returnResult;
+
+    // false 有值
+    // true  无值
+    /**
+     * @var string
+     */
+    public $nullDataFlag;
+
+    // json格式，其他内容
+    /**
+     * @var string
+     */
+    public $bizContent;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
         'resultMsg'    => 'result_msg',
         'returnResult' => 'return_result',
+        'nullDataFlag' => 'null_data_flag',
+        'bizContent'   => 'biz_content',
     ];
 
     public function validate()
@@ -56,6 +71,12 @@ class QueryApiSimpleauthasyncResponse extends Model
         }
         if (null !== $this->returnResult) {
             $res['return_result'] = $this->returnResult;
+        }
+        if (null !== $this->nullDataFlag) {
+            $res['null_data_flag'] = $this->nullDataFlag;
+        }
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
         }
 
         return $res;
@@ -80,6 +101,12 @@ class QueryApiSimpleauthasyncResponse extends Model
         }
         if (isset($map['return_result'])) {
             $model->returnResult = $map['return_result'];
+        }
+        if (isset($map['null_data_flag'])) {
+            $model->nullDataFlag = $map['null_data_flag'];
+        }
+        if (isset($map['biz_content'])) {
+            $model->bizContent = $map['biz_content'];
         }
 
         return $model;
