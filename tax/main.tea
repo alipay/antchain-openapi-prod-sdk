@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.13',
+    sdk_version = '1.6.15',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -1310,6 +1310,8 @@ model CreateApiAuthurlRequest = {
   cognizantName?: string(name='cognizant_name'),
   // 已认证的法人身份证号
   identityNumber?: string(name='identity_number'),
+  // 订单号，用于幂等控制，每次新生成，如果不填我方会自动生成一个
+  orderNo?: string(name='order_no'),
 }
 
 model CreateApiAuthurlResponse = {
@@ -1319,7 +1321,7 @@ model CreateApiAuthurlResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 蚂蚁生成的订单号，此次授权的唯一标识
+  // 订单号
   orderNo?: string(name='order_no'),
   // 短链接地址
   loginUrl?: string(name='login_url'),
@@ -1462,6 +1464,11 @@ model QueryApiSimpleauthasyncResponse = {
   resultMsg?: string(name='result_msg'),
   // 成功
   returnResult?: string(name='return_result'),
+  // false 有值
+  // true  无值
+  nullDataFlag?: string(name='null_data_flag'),
+  // json格式，其他内容
+  bizContent?: string(name='biz_content'),
 }
 
 /**
