@@ -48,6 +48,10 @@ public class CreateApiAuthurlRequest extends TeaModel {
     @NameInMap("identity_number")
     public String identityNumber;
 
+    // 订单号，用于幂等控制，每次新生成，如果不填我方会自动生成一个
+    @NameInMap("order_no")
+    public String orderNo;
+
     public static CreateApiAuthurlRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateApiAuthurlRequest self = new CreateApiAuthurlRequest();
         return TeaModel.build(map, self);
@@ -131,6 +135,14 @@ public class CreateApiAuthurlRequest extends TeaModel {
     }
     public String getIdentityNumber() {
         return this.identityNumber;
+    }
+
+    public CreateApiAuthurlRequest setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+        return this;
+    }
+    public String getOrderNo() {
+        return this.orderNo;
     }
 
 }

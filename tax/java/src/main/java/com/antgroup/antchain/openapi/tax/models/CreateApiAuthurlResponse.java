@@ -16,7 +16,7 @@ public class CreateApiAuthurlResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 蚂蚁生成的订单号，此次授权的唯一标识
+    // 订单号
     @NameInMap("order_no")
     public String orderNo;
 

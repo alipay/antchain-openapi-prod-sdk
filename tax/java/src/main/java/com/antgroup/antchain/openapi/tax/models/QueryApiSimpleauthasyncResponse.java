@@ -20,6 +20,15 @@ public class QueryApiSimpleauthasyncResponse extends TeaModel {
     @NameInMap("return_result")
     public String returnResult;
 
+    // false 有值
+    // true  无值
+    @NameInMap("null_data_flag")
+    public String nullDataFlag;
+
+    // json格式，其他内容
+    @NameInMap("biz_content")
+    public String bizContent;
+
     public static QueryApiSimpleauthasyncResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryApiSimpleauthasyncResponse self = new QueryApiSimpleauthasyncResponse();
         return TeaModel.build(map, self);
@@ -55,6 +64,22 @@ public class QueryApiSimpleauthasyncResponse extends TeaModel {
     }
     public String getReturnResult() {
         return this.returnResult;
+    }
+
+    public QueryApiSimpleauthasyncResponse setNullDataFlag(String nullDataFlag) {
+        this.nullDataFlag = nullDataFlag;
+        return this;
+    }
+    public String getNullDataFlag() {
+        return this.nullDataFlag;
+    }
+
+    public QueryApiSimpleauthasyncResponse setBizContent(String bizContent) {
+        this.bizContent = bizContent;
+        return this;
+    }
+    public String getBizContent() {
+        return this.bizContent;
     }
 
 }
