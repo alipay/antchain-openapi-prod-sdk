@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.26.33',
+    sdk_version = '1.26.36',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -376,6 +376,18 @@ model DisServicesInfo {
   desc?: string(name='desc', example='描述'),
 }
 
+// 合约列表响应
+model ContractListResp {
+  // 服务ID
+  serviceId?: string(name='service_id', example='cme20230724104931af3a4d'),
+  // 合约名称
+  name?: string(name='name', example='资产合约'),
+  // 合约类型
+  type?: string(name='type', example='存证合约'),
+  // 创建时间
+  createTime?: long(name='create_time', example='1690166971465'),
+}
+
 // 阿里云合约链信息
 model ALiYunContractBlockchain {
   // name
@@ -396,6 +408,22 @@ model ALiYunContractBlockchain {
   network?: string(name='network', example='network'),
   // version
   version?: string(name='version', example='version'),
+}
+
+// 实例进度信息
+model InstanceProgressInfo {
+  // 操作人
+  operator?: string(name='operator', example='张三'),
+  // 操作时间
+  time?: long(name='time', example='1690166971465'),
+  // 合约部署进度类型
+  type?: string(name='type', example='SERVICE_START'),
+  // 部署状态
+  status?: string(name='status', example='INIT'),
+  // 合约部署进度名称
+  typeName?: string(name='type_name', example='部署合约服务'),
+  // 额外参数
+  data?: string(name='data', example='{json}'),
 }
 
 // 阿里云区块链小程序用户权限信息
@@ -660,6 +688,16 @@ model ALiYunTransactionSummary {
   gasUsed?: long(name='gas_used', example='123'),
 }
 
+// 实例最近调用记录
+model InstanceRecordInfo {
+  // 应用标识
+  application?: string(name='application', example='app20230725115808679d4f'),
+  // 执行结果
+  status?: string(name='status', example='INIT'),
+  // 操作时间
+  operatingTime?: string(name='operating_time', example='1690166971465'),
+}
+
 // 阿里云账户信息
 model ALiYunAccount {
   // ant_chain_id
@@ -756,6 +794,16 @@ model AccountMappingInfo {
   status: long(name='status', example='1'),
   // 账户唯一标示
   uid: string(name='uid', example='userid'),
+}
+
+// 应用授权列表查询
+model ApplicationListResp {
+  // 应用程序ID
+  applicationId?: string(name='application_id', example='app20230725115808679d4f'),
+  // 链ID
+  accessKey?: string(name='access_key', example='284f75bc-8069-443f-9d46-4576bb15f210'),
+  // 合约(创建实例时填写的合约名称。)
+  nameList?: [ string ](name='name_list', example=''),
 }
 
 // VC可信传输时，指定的目标did信息
@@ -1307,6 +1355,12 @@ model PublicKeyRelation {
   recipientId: string(name='recipient_id', example='did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2'),
 }
 
+// 合约类型
+model ContractTypeResp {
+  // 合约服务类型
+  type?: string(name='type', example='存证合约'),
+}
+
 // 物流金融平台运单轨迹信息
 model LogisticLocation {
   // 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
@@ -1477,6 +1531,14 @@ model ALiYunTransactionReceipt {
   result?: long(name='result', example='result'),
   // logs
   logs?: [ string ](name='logs', example='logs'),
+}
+
+// 实例进度
+model ContractCreateProcessResp {
+  // 当前进度信息
+  status?: string(name='status', example='SERVICE_START'),
+  // 合约部署进度
+  progressInfoList?: [ InstanceProgressInfo ](name='progress_info_list', example=''),
 }
 
 // 授权流程操作结果
@@ -1718,6 +1780,14 @@ model OCUserData {
   userName: string(name='user_name', example='xxxxxxx'),
 }
 
+// 应用授权列表查询
+model PageRespApplicationListResp {
+  // 总数
+  total?: long(name='total', example='200'),
+  // 列表数据
+  dataList?: [ ApplicationListResp ](name='data_list', example=''),
+}
+
 // 包含业务组的用户信息
 model AccountInfoWithBiz {
   // 注册地址
@@ -1825,6 +1895,14 @@ model ALiYunBuyUnion {
   consortiumName?: string(name='consortium_name', example='consortium_name'),
   // consortium_id
   consortiumId?: string(name='consortium_id', example='consortium_id'),
+}
+
+// 合约列表响应
+model PageRespContractListResp {
+  // 总数
+  total?: long(name='total', example='200'),
+  // 列表数据
+  dataList?: [ ContractListResp ](name='data_list', example=''),
 }
 
 // 分享可验证声明时的核心内容
@@ -2148,6 +2226,18 @@ model ALiYunChainStatics {
   creatTime?: long(name='creat_time', example='creat_time'),
 }
 
+// 34
+model EWRFW {
+  // FFF
+  sdf: [ DidDocServicesInfo ](name='sdf', example=''),
+  // www
+  www: string(name='www', example='www'),
+  // ss
+  listString: [ string ](name='list_string', example=''),
+  // aaa
+  aaa: DidDocServicesInfo(name='aaa', example=''),
+}
+
 // 阿里云蚂蚁区块链证书列表信息
 model ALiYunCertificateApplications {
   // pagination
@@ -2290,6 +2380,16 @@ model ContractInfo {
   timestamp?: long(name='timestamp', example='1573401600000'),
 }
 
+// 合约与应用关联信息
+model ContractBindAppResp {
+  // 合约标识
+  serviceId?: string(name='service_id', example='cme20230724104931af3a4d'),
+  // 合约名称
+  name?: string(name='name', example='资产合约'),
+  // 是否已关联
+  bind?: boolean(name='bind', example='true'),
+}
+
 // 创建VC参数
 model AddVC {
   // vc原文hash
@@ -2302,6 +2402,30 @@ model AddVC {
   subjectHash: string(name='subject_hash', example='1234567'),
   // 可验证声明id
   vcId: string(name='vc_id', example='vc:mychain:xxxxxx'),
+}
+
+// 合约详情
+model ContractDetailResp {
+  // 合约标识
+  serviceId?: string(name='service_id', example='cme20230724104931af3a4d'),
+  // 合约服务名称
+  name?: string(name='name', example='存证合约'),
+  // 创建人
+  creator?: string(name='creator', example='张三'),
+  // 创建时间
+  createTime?: long(name='create_time', example='1690166971465'),
+  // 订购产品
+  orderingProducts?: string(name='ordering_products', example='存证合约服务'),
+  // 关联区块链id
+  chanId?: string(name='chan_id', example='284f75bc-8069-443f-9d46-4576bb15f210'),
+  // 合约状态
+  contractStatus?: string(name='contract_status', example='DEPLOYED'),
+  // 合约部署进度当前状态
+  status?: string(name='status', example='SERVICE_START'),
+  // 合约部署进度
+  progressInfoList?: [ InstanceProgressInfo ](name='progress_info_list', example=''),
+  // 实例最近调用记录(暂缓，先不做)
+  recordInfoList?: [ InstanceRecordInfo ](name='record_info_list', example=''),
 }
 
 // 带单位的值
@@ -2500,6 +2624,12 @@ model Item {
   type: string(name='type', example='text, image, region, link, longtext'),
 }
 
+// 合约服务列表查询
+model ContractListReq {
+  // 合约服务类别
+  type?: string(name='type', example='存证合约'),
+}
+
 // C3S可信计算服务TAPP应用信息
 model TappInfo {
   // C3S可信计算TAPP应用标识
@@ -2662,6 +2792,22 @@ model ALiYunChainInfo {
 model DidAddDoc {
   // did doc content
   doc: string(name='doc', example='json string'),
+}
+
+// 合约市场
+model ContractTemplateResp {
+  // 模板标识
+  templateId?: string(name='template_id', example='tme202307251209228357cc'),
+  // 合约名称
+  name?: string(name='name', example='资产合约'),
+  // 缩略图url
+  thumbUrl?: string(name='thumb_url', example='http://www.xxx.com'),
+  // 合约描述
+  description?: string(name='description', example='实现数据不可删除，不可篡改，不可抵赖的存证效果'),
+  // 是否已开通合约
+  open?: boolean(name='open', example='true'),
+  // 后续展示：购买用户头像
+  avatarLogoList?: [ string ](name='avatar_logo_list', example=''),
 }
 
 // 证书模板详情类
@@ -13829,6 +13975,654 @@ async function queryApiDwhbTransactionEx(request: QueryApiDwhbTransactionRequest
   return doRequest('1.0' ,'baas.api.dwhb.transaction.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model CreateCaasApplicationManageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model CreateCaasApplicationManageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应版本号
+  version?: string(name='version'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 异常码
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg'),
+  // 应用id
+  applicationId?: string(name='application_id'),
+}
+
+/**
+ * Description: 新建应用
+ * Summary: 新建应用
+ */
+async function createCaasApplicationManage(request: CreateCaasApplicationManageRequest): CreateCaasApplicationManageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCaasApplicationManageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新建应用
+ * Summary: 新建应用
+ */
+async function createCaasApplicationManageEx(request: CreateCaasApplicationManageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCaasApplicationManageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.application.manage.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryCaasApplicationManageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 页码
+  num: long(name='num'),
+  // 页大小
+  size: long(name='size'),
+}
+
+model PagequeryCaasApplicationManageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应版本号
+  version?: string(name='version'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 异常码
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg'),
+  // 请求结果数据
+  data?: PageRespApplicationListResp(name='data'),
+}
+
+/**
+ * Description: 应用列表查询
+ * Summary: 应用列表查询
+ */
+async function pagequeryCaasApplicationManage(request: PagequeryCaasApplicationManageRequest): PagequeryCaasApplicationManageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryCaasApplicationManageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用列表查询
+ * Summary: 应用列表查询
+ */
+async function pagequeryCaasApplicationManageEx(request: PagequeryCaasApplicationManageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryCaasApplicationManageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.application.manage.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetCaasApplicationManageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用程序ID
+  applicationId: string(name='application_id'),
+}
+
+model GetCaasApplicationManageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应版本号
+  version?: string(name='version'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 异常码
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg'),
+  // 应用秘钥
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 查看sk
+ * Summary: 查看sk
+ */
+async function getCaasApplicationManage(request: GetCaasApplicationManageRequest): GetCaasApplicationManageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getCaasApplicationManageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查看sk
+ * Summary: 查看sk
+ */
+async function getCaasApplicationManageEx(request: GetCaasApplicationManageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetCaasApplicationManageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.application.manage.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCaasApplicationManageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用程序ID
+  applicationId: string(name='application_id'),
+}
+
+model QueryCaasApplicationManageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应版本号
+  version?: string(name='version'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 异常码
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg'),
+  // 请求结果数据
+  data?: [ ContractBindAppResp ](name='data'),
+}
+
+/**
+ * Description: 查询合约绑定关系
+ * Summary: 查询合约绑定关系
+ */
+async function queryCaasApplicationManage(request: QueryCaasApplicationManageRequest): QueryCaasApplicationManageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCaasApplicationManageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询合约绑定关系
+ * Summary: 查询合约绑定关系
+ */
+async function queryCaasApplicationManageEx(request: QueryCaasApplicationManageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCaasApplicationManageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.application.manage.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnbindCaasApplicationManageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用程序ID
+  applicationId: string(name='application_id'),
+}
+
+model UnbindCaasApplicationManageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应版本号
+  version?: string(name='version'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 异常码
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg'),
+}
+
+/**
+ * Description: 解除授权
+ * Summary: 解除授权
+ */
+async function unbindCaasApplicationManage(request: UnbindCaasApplicationManageRequest): UnbindCaasApplicationManageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unbindCaasApplicationManageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 解除授权
+ * Summary: 解除授权
+ */
+async function unbindCaasApplicationManageEx(request: UnbindCaasApplicationManageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindCaasApplicationManageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.application.manage.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindCaasApplicationManageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用程序ID
+  applicationId: string(name='application_id'),
+  // 合约服务标识集合
+  serviceIds?: [ string ](name='service_ids'),
+}
+
+model BindCaasApplicationManageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应版本号
+  version?: string(name='version'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 异常码
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg'),
+}
+
+/**
+ * Description: 绑定合约
+ * Summary: 绑定合约
+ */
+async function bindCaasApplicationManage(request: BindCaasApplicationManageRequest): BindCaasApplicationManageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindCaasApplicationManageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 绑定合约
+ * Summary: 绑定合约
+ */
+async function bindCaasApplicationManageEx(request: BindCaasApplicationManageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindCaasApplicationManageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.application.manage.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteCaasContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 服务ID
+  serviceId: string(name='service_id'),
+}
+
+model DeleteCaasContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应版本号
+  version?: string(name='version'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 异常码
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg'),
+}
+
+/**
+ * Description: 删除合约
+ * Summary: 删除合约
+ */
+async function deleteCaasContractService(request: DeleteCaasContractServiceRequest): DeleteCaasContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteCaasContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除合约
+ * Summary: 删除合约
+ */
+async function deleteCaasContractServiceEx(request: DeleteCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteCaasContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.service.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateCaasContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  chainId: string(name='chain_id'),
+  // 合约模板标识
+  templateId: string(name='template_id'),
+  // 合约名称
+  name: string(name='name'),
+}
+
+model CreateCaasContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应版本号
+  version?: string(name='version'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 异常码
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg'),
+  // 请求结果数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 新建合约服务
+ * Summary: 新建合约服务
+ */
+async function createCaasContractService(request: CreateCaasContractServiceRequest): CreateCaasContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCaasContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新建合约服务
+ * Summary: 新建合约服务
+ */
+async function createCaasContractServiceEx(request: CreateCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCaasContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.service.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryCaasContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 页码
+  num: long(name='num'),
+  // 页大小
+  size: long(name='size'),
+  // 业务数据
+  data?: ContractListReq(name='data'),
+}
+
+model PagequeryCaasContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应版本号
+  version?: string(name='version'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 异常码
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg'),
+  // 请求结果数据
+  data?: PageRespContractListResp(name='data'),
+}
+
+/**
+ * Description: 我的合约列表查询
+ * Summary: 我的合约列表查询
+ */
+async function pagequeryCaasContractService(request: PagequeryCaasContractServiceRequest): PagequeryCaasContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryCaasContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 我的合约列表查询
+ * Summary: 我的合约列表查询
+ */
+async function pagequeryCaasContractServiceEx(request: PagequeryCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryCaasContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.service.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListCaasContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model ListCaasContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应版本号
+  version?: string(name='version'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 异常码
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg'),
+  // 请求结果数据
+  data?: [ ContractTypeResp ](name='data'),
+}
+
+/**
+ * Description: 查询合约类型列表
+ * Summary: 查询合约类型列表
+ */
+async function listCaasContractService(request: ListCaasContractServiceRequest): ListCaasContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listCaasContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询合约类型列表
+ * Summary: 查询合约类型列表
+ */
+async function listCaasContractServiceEx(request: ListCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCaasContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.service.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeployCaasContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  chainId: string(name='chain_id'),
+  // 合约模板标识
+  templateId: string(name='template_id'),
+  // 合约名称
+  name: string(name='name'),
+}
+
+model DeployCaasContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应版本号
+  version?: string(name='version'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 异常码
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg'),
+  // 请求结果数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+ * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+ */
+async function deployCaasContractService(request: DeployCaasContractServiceRequest): DeployCaasContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deployCaasContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+ * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+ */
+async function deployCaasContractServiceEx(request: DeployCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeployCaasContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.service.deploy', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailCaasContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 服务ID
+  serviceId: string(name='service_id'),
+}
+
+model DetailCaasContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应版本号
+  version?: string(name='version'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 异常码
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg'),
+  // 请求结果数据
+  data?: ContractDetailResp(name='data'),
+}
+
+/**
+ * Description: 合约详情
+ * Summary: 合约详情
+ */
+async function detailCaasContractService(request: DetailCaasContractServiceRequest): DetailCaasContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailCaasContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合约详情
+ * Summary: 合约详情
+ */
+async function detailCaasContractServiceEx(request: DetailCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailCaasContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.service.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCaasContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 服务ID
+  serviceId: string(name='service_id'),
+}
+
+model QueryCaasContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应版本号
+  version?: string(name='version'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 异常码
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg'),
+  // 请求结果数据
+  data?: ContractCreateProcessResp(name='data'),
+}
+
+/**
+ * Description: 查询创建实例进度
+ * Summary: 查询创建实例进度
+ */
+async function queryCaasContractService(request: QueryCaasContractServiceRequest): QueryCaasContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCaasContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询创建实例进度
+ * Summary: 查询创建实例进度
+ */
+async function queryCaasContractServiceEx(request: QueryCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCaasContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.service.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryCaasContractMarketRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model PagequeryCaasContractMarketResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应版本号
+  version?: string(name='version'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 异常码
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg'),
+  // 请求结果数据
+  data?: [ ContractTemplateResp ](name='data'),
+}
+
+/**
+ * Description: 智能合约市场列表查询
+ * Summary: 智能合约市场列表查询
+ */
+async function pagequeryCaasContractMarket(request: PagequeryCaasContractMarketRequest): PagequeryCaasContractMarketResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryCaasContractMarketEx(request, headers, runtime);
+}
+
+/**
+ * Description: 智能合约市场列表查询
+ * Summary: 智能合约市场列表查询
+ */
+async function pagequeryCaasContractMarketEx(request: PagequeryCaasContractMarketRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryCaasContractMarketResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.market.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateContractRecordRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -20137,6 +20931,48 @@ async function queryAuthCertDetailurl(request: QueryAuthCertDetailurlRequest): Q
 async function queryAuthCertDetailurlEx(request: QueryAuthCertDetailurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthCertDetailurlResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.cert.detailurl.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyAuthTaskStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务id
+  taskId: string(name='task_id'),
+  // 支uid
+  userId: string(name='user_id'),
+  // NO_START, NO_SUBMIT, NOT_COMPLETE, COMPLETE
+  status: string(name='status'),
+  // 状态发生时间
+  happenTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='happen_time'),
+}
+
+model NotifyAuthTaskStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 主站应用同步授权宝权益任务的完成情况
+ * Summary: 主站应用同步授权宝权益任务的完成情况
+ */
+async function notifyAuthTaskStatus(request: NotifyAuthTaskStatusRequest): NotifyAuthTaskStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyAuthTaskStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 主站应用同步授权宝权益任务的完成情况
+ * Summary: 主站应用同步授权宝权益任务的完成情况
+ */
+async function notifyAuthTaskStatusEx(request: NotifyAuthTaskStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyAuthTaskStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.status.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
