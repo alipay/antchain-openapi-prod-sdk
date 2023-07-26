@@ -593,6 +593,39 @@ export class DisServicesInfo extends $tea.Model {
   }
 }
 
+// 合约列表响应
+export class ContractListResp extends $tea.Model {
+  // 服务ID
+  serviceId?: string;
+  // 合约名称
+  name?: string;
+  // 合约类型
+  type?: string;
+  // 创建时间
+  createTime?: number;
+  static names(): { [key: string]: string } {
+    return {
+      serviceId: 'service_id',
+      name: 'name',
+      type: 'type',
+      createTime: 'create_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      serviceId: 'string',
+      name: 'string',
+      type: 'string',
+      createTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 阿里云合约链信息
 export class ALiYunContractBlockchain extends $tea.Model {
   // name
@@ -638,6 +671,47 @@ export class ALiYunContractBlockchain extends $tea.Model {
       transactions: 'number',
       network: 'string',
       version: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 实例进度信息
+export class InstanceProgressInfo extends $tea.Model {
+  // 操作人
+  operator?: string;
+  // 操作时间
+  time?: number;
+  // 合约部署进度类型
+  type?: string;
+  // 部署状态
+  status?: string;
+  // 合约部署进度名称
+  typeName?: string;
+  // 额外参数
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      operator: 'operator',
+      time: 'time',
+      type: 'type',
+      status: 'status',
+      typeName: 'type_name',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      operator: 'string',
+      time: 'number',
+      type: 'string',
+      status: 'string',
+      typeName: 'string',
+      data: 'string',
     };
   }
 
@@ -1296,6 +1370,35 @@ export class ALiYunTransactionSummary extends $tea.Model {
   }
 }
 
+// 实例最近调用记录
+export class InstanceRecordInfo extends $tea.Model {
+  // 应用标识
+  application?: string;
+  // 执行结果
+  status?: string;
+  // 操作时间
+  operatingTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      application: 'application',
+      status: 'status',
+      operatingTime: 'operating_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      application: 'string',
+      status: 'string',
+      operatingTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 阿里云账户信息
 export class ALiYunAccount extends $tea.Model {
   // ant_chain_id
@@ -1529,6 +1632,35 @@ export class AccountMappingInfo extends $tea.Model {
       bindingStatus: 'number',
       status: 'number',
       uid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 应用授权列表查询
+export class ApplicationListResp extends $tea.Model {
+  // 应用程序ID
+  applicationId?: string;
+  // 链ID
+  accessKey?: string;
+  // 合约(创建实例时填写的合约名称。)
+  nameList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      applicationId: 'application_id',
+      accessKey: 'access_key',
+      nameList: 'name_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      applicationId: 'string',
+      accessKey: 'string',
+      nameList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -2967,6 +3099,27 @@ export class PublicKeyRelation extends $tea.Model {
   }
 }
 
+// 合约类型
+export class ContractTypeResp extends $tea.Model {
+  // 合约服务类型
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 物流金融平台运单轨迹信息
 export class LogisticLocation extends $tea.Model {
   // 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
@@ -3429,6 +3582,31 @@ export class ALiYunTransactionReceipt extends $tea.Model {
       gasUsed: 'string',
       result: 'number',
       logs: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 实例进度
+export class ContractCreateProcessResp extends $tea.Model {
+  // 当前进度信息
+  status?: string;
+  // 合约部署进度
+  progressInfoList?: InstanceProgressInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      status: 'status',
+      progressInfoList: 'progress_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      status: 'string',
+      progressInfoList: { 'type': 'array', 'itemType': InstanceProgressInfo },
     };
   }
 
@@ -4065,6 +4243,31 @@ export class OCUserData extends $tea.Model {
   }
 }
 
+// 应用授权列表查询
+export class PageRespApplicationListResp extends $tea.Model {
+  // 总数
+  total?: number;
+  // 列表数据
+  dataList?: ApplicationListResp[];
+  static names(): { [key: string]: string } {
+    return {
+      total: 'total',
+      dataList: 'data_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      total: 'number',
+      dataList: { 'type': 'array', 'itemType': ApplicationListResp },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 包含业务组的用户信息
 export class AccountInfoWithBiz extends $tea.Model {
   // 注册地址
@@ -4337,6 +4540,31 @@ export class ALiYunBuyUnion extends $tea.Model {
     return {
       consortiumName: 'string',
       consortiumId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 合约列表响应
+export class PageRespContractListResp extends $tea.Model {
+  // 总数
+  total?: number;
+  // 列表数据
+  dataList?: ContractListResp[];
+  static names(): { [key: string]: string } {
+    return {
+      total: 'total',
+      dataList: 'data_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      total: 'number',
+      dataList: { 'type': 'array', 'itemType': ContractListResp },
     };
   }
 
@@ -5202,6 +5430,39 @@ export class ALiYunChainStatics extends $tea.Model {
   }
 }
 
+// 34
+export class EWRFW extends $tea.Model {
+  // FFF
+  sdf: DidDocServicesInfo[];
+  // www
+  www: string;
+  // ss
+  listString: string[];
+  // aaa
+  aaa: DidDocServicesInfo;
+  static names(): { [key: string]: string } {
+    return {
+      sdf: 'sdf',
+      www: 'www',
+      listString: 'list_string',
+      aaa: 'aaa',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sdf: { 'type': 'array', 'itemType': DidDocServicesInfo },
+      www: 'string',
+      listString: { 'type': 'array', 'itemType': 'string' },
+      aaa: DidDocServicesInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 阿里云蚂蚁区块链证书列表信息
 export class ALiYunCertificateApplications extends $tea.Model {
   // pagination
@@ -5597,6 +5858,35 @@ export class ContractInfo extends $tea.Model {
   }
 }
 
+// 合约与应用关联信息
+export class ContractBindAppResp extends $tea.Model {
+  // 合约标识
+  serviceId?: string;
+  // 合约名称
+  name?: string;
+  // 是否已关联
+  bind?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      serviceId: 'service_id',
+      name: 'name',
+      bind: 'bind',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      serviceId: 'string',
+      name: 'string',
+      bind: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 创建VC参数
 export class AddVC extends $tea.Model {
   // vc原文hash
@@ -5626,6 +5916,63 @@ export class AddVC extends $tea.Model {
       status: 'string',
       subjectHash: 'string',
       vcId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 合约详情
+export class ContractDetailResp extends $tea.Model {
+  // 合约标识
+  serviceId?: string;
+  // 合约服务名称
+  name?: string;
+  // 创建人
+  creator?: string;
+  // 创建时间
+  createTime?: number;
+  // 订购产品
+  orderingProducts?: string;
+  // 关联区块链id
+  chanId?: string;
+  // 合约状态
+  contractStatus?: string;
+  // 合约部署进度当前状态
+  status?: string;
+  // 合约部署进度
+  progressInfoList?: InstanceProgressInfo[];
+  // 实例最近调用记录(暂缓，先不做)
+  recordInfoList?: InstanceRecordInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      serviceId: 'service_id',
+      name: 'name',
+      creator: 'creator',
+      createTime: 'create_time',
+      orderingProducts: 'ordering_products',
+      chanId: 'chan_id',
+      contractStatus: 'contract_status',
+      status: 'status',
+      progressInfoList: 'progress_info_list',
+      recordInfoList: 'record_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      serviceId: 'string',
+      name: 'string',
+      creator: 'string',
+      createTime: 'number',
+      orderingProducts: 'string',
+      chanId: 'string',
+      contractStatus: 'string',
+      status: 'string',
+      progressInfoList: { 'type': 'array', 'itemType': InstanceProgressInfo },
+      recordInfoList: { 'type': 'array', 'itemType': InstanceRecordInfo },
     };
   }
 
@@ -6155,6 +6502,27 @@ export class Item extends $tea.Model {
   }
 }
 
+// 合约服务列表查询
+export class ContractListReq extends $tea.Model {
+  // 合约服务类别
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // C3S可信计算服务TAPP应用信息
 export class TappInfo extends $tea.Model {
   // C3S可信计算TAPP应用标识
@@ -6574,6 +6942,47 @@ export class DidAddDoc extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       doc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 合约市场
+export class ContractTemplateResp extends $tea.Model {
+  // 模板标识
+  templateId?: string;
+  // 合约名称
+  name?: string;
+  // 缩略图url
+  thumbUrl?: string;
+  // 合约描述
+  description?: string;
+  // 是否已开通合约
+  open?: boolean;
+  // 后续展示：购买用户头像
+  avatarLogoList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      templateId: 'template_id',
+      name: 'name',
+      thumbUrl: 'thumb_url',
+      description: 'description',
+      open: 'open',
+      avatarLogoList: 'avatar_logo_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      templateId: 'string',
+      name: 'string',
+      thumbUrl: 'string',
+      description: 'string',
+      open: 'boolean',
+      avatarLogoList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -24792,6 +25201,1064 @@ export class QueryApiDwhbTransactionResponse extends $tea.Model {
   }
 }
 
+export class CreateCaasApplicationManageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateCaasApplicationManageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应版本号
+  version?: string;
+  // 请求是否成功
+  success?: boolean;
+  // 异常码
+  errorCode?: string;
+  // 异常信息
+  errorMsg?: string;
+  // 应用id
+  applicationId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+      applicationId: 'application_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+      applicationId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryCaasApplicationManageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 页码
+  num: number;
+  // 页大小
+  size: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      num: 'num',
+      size: 'size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      num: 'number',
+      size: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryCaasApplicationManageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应版本号
+  version?: string;
+  // 请求是否成功
+  success?: boolean;
+  // 异常码
+  errorCode?: string;
+  // 异常信息
+  errorMsg?: string;
+  // 请求结果数据
+  data?: PageRespApplicationListResp;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+      data: PageRespApplicationListResp,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetCaasApplicationManageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 应用程序ID
+  applicationId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applicationId: 'application_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applicationId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetCaasApplicationManageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应版本号
+  version?: string;
+  // 请求是否成功
+  success?: boolean;
+  // 异常码
+  errorCode?: string;
+  // 异常信息
+  errorMsg?: string;
+  // 应用秘钥
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCaasApplicationManageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 应用程序ID
+  applicationId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applicationId: 'application_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applicationId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCaasApplicationManageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应版本号
+  version?: string;
+  // 请求是否成功
+  success?: boolean;
+  // 异常码
+  errorCode?: string;
+  // 异常信息
+  errorMsg?: string;
+  // 请求结果数据
+  data?: ContractBindAppResp[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+      data: { 'type': 'array', 'itemType': ContractBindAppResp },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UnbindCaasApplicationManageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 应用程序ID
+  applicationId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applicationId: 'application_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applicationId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UnbindCaasApplicationManageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应版本号
+  version?: string;
+  // 请求是否成功
+  success?: boolean;
+  // 异常码
+  errorCode?: string;
+  // 异常信息
+  errorMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindCaasApplicationManageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 应用程序ID
+  applicationId: string;
+  // 合约服务标识集合
+  serviceIds?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applicationId: 'application_id',
+      serviceIds: 'service_ids',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applicationId: 'string',
+      serviceIds: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindCaasApplicationManageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应版本号
+  version?: string;
+  // 请求是否成功
+  success?: boolean;
+  // 异常码
+  errorCode?: string;
+  // 异常信息
+  errorMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteCaasContractServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 服务ID
+  serviceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serviceId: 'service_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serviceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteCaasContractServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应版本号
+  version?: string;
+  // 请求是否成功
+  success?: boolean;
+  // 异常码
+  errorCode?: string;
+  // 异常信息
+  errorMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateCaasContractServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链ID
+  chainId: string;
+  // 合约模板标识
+  templateId: string;
+  // 合约名称
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      chainId: 'chain_id',
+      templateId: 'template_id',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      chainId: 'string',
+      templateId: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateCaasContractServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应版本号
+  version?: string;
+  // 请求是否成功
+  success?: boolean;
+  // 异常码
+  errorCode?: string;
+  // 异常信息
+  errorMsg?: string;
+  // 请求结果数据
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryCaasContractServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 页码
+  num: number;
+  // 页大小
+  size: number;
+  // 业务数据
+  data?: ContractListReq;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      num: 'num',
+      size: 'size',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      num: 'number',
+      size: 'number',
+      data: ContractListReq,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryCaasContractServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应版本号
+  version?: string;
+  // 请求是否成功
+  success?: boolean;
+  // 异常码
+  errorCode?: string;
+  // 异常信息
+  errorMsg?: string;
+  // 请求结果数据
+  data?: PageRespContractListResp;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+      data: PageRespContractListResp,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListCaasContractServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListCaasContractServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应版本号
+  version?: string;
+  // 请求是否成功
+  success?: boolean;
+  // 异常码
+  errorCode?: string;
+  // 异常信息
+  errorMsg?: string;
+  // 请求结果数据
+  data?: ContractTypeResp[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+      data: { 'type': 'array', 'itemType': ContractTypeResp },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeployCaasContractServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链ID
+  chainId: string;
+  // 合约模板标识
+  templateId: string;
+  // 合约名称
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      chainId: 'chain_id',
+      templateId: 'template_id',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      chainId: 'string',
+      templateId: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeployCaasContractServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应版本号
+  version?: string;
+  // 请求是否成功
+  success?: boolean;
+  // 异常码
+  errorCode?: string;
+  // 异常信息
+  errorMsg?: string;
+  // 请求结果数据
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailCaasContractServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 服务ID
+  serviceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serviceId: 'service_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serviceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailCaasContractServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应版本号
+  version?: string;
+  // 请求是否成功
+  success?: boolean;
+  // 异常码
+  errorCode?: string;
+  // 异常信息
+  errorMsg?: string;
+  // 请求结果数据
+  data?: ContractDetailResp;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+      data: ContractDetailResp,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCaasContractServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 服务ID
+  serviceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serviceId: 'service_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serviceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCaasContractServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应版本号
+  version?: string;
+  // 请求是否成功
+  success?: boolean;
+  // 异常码
+  errorCode?: string;
+  // 异常信息
+  errorMsg?: string;
+  // 请求结果数据
+  data?: ContractCreateProcessResp;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+      data: ContractCreateProcessResp,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryCaasContractMarketRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryCaasContractMarketResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应版本号
+  version?: string;
+  // 请求是否成功
+  success?: boolean;
+  // 异常码
+  errorCode?: string;
+  // 异常信息
+  errorMsg?: string;
+  // 请求结果数据
+  data?: ContractTemplateResp[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+      data: { 'type': 'array', 'itemType': ContractTemplateResp },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateContractRecordRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -34922,6 +36389,73 @@ export class QueryAuthCertDetailurlResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       detailUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyAuthTaskStatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务id
+  taskId: string;
+  // 支uid
+  userId: string;
+  // NO_START, NO_SUBMIT, NOT_COMPLETE, COMPLETE
+  status: string;
+  // 状态发生时间
+  happenTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+      userId: 'user_id',
+      status: 'status',
+      happenTime: 'happen_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+      userId: 'string',
+      status: 'string',
+      happenTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyAuthTaskStatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -49769,7 +51303,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -49808,7 +51342,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.26.33",
+          sdk_version: "1.26.36",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
@@ -54416,6 +55950,272 @@ export default class Client {
   }
 
   /**
+   * Description: 新建应用
+   * Summary: 新建应用
+   */
+  async createCaasApplicationManage(request: CreateCaasApplicationManageRequest): Promise<CreateCaasApplicationManageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createCaasApplicationManageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 新建应用
+   * Summary: 新建应用
+   */
+  async createCaasApplicationManageEx(request: CreateCaasApplicationManageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateCaasApplicationManageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateCaasApplicationManageResponse>(await this.doRequest("1.0", "baas.caas.application.manage.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateCaasApplicationManageResponse({}));
+  }
+
+  /**
+   * Description: 应用列表查询
+   * Summary: 应用列表查询
+   */
+  async pagequeryCaasApplicationManage(request: PagequeryCaasApplicationManageRequest): Promise<PagequeryCaasApplicationManageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryCaasApplicationManageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 应用列表查询
+   * Summary: 应用列表查询
+   */
+  async pagequeryCaasApplicationManageEx(request: PagequeryCaasApplicationManageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryCaasApplicationManageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryCaasApplicationManageResponse>(await this.doRequest("1.0", "baas.caas.application.manage.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryCaasApplicationManageResponse({}));
+  }
+
+  /**
+   * Description: 查看sk
+   * Summary: 查看sk
+   */
+  async getCaasApplicationManage(request: GetCaasApplicationManageRequest): Promise<GetCaasApplicationManageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getCaasApplicationManageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查看sk
+   * Summary: 查看sk
+   */
+  async getCaasApplicationManageEx(request: GetCaasApplicationManageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetCaasApplicationManageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetCaasApplicationManageResponse>(await this.doRequest("1.0", "baas.caas.application.manage.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetCaasApplicationManageResponse({}));
+  }
+
+  /**
+   * Description: 查询合约绑定关系
+   * Summary: 查询合约绑定关系
+   */
+  async queryCaasApplicationManage(request: QueryCaasApplicationManageRequest): Promise<QueryCaasApplicationManageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCaasApplicationManageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询合约绑定关系
+   * Summary: 查询合约绑定关系
+   */
+  async queryCaasApplicationManageEx(request: QueryCaasApplicationManageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCaasApplicationManageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCaasApplicationManageResponse>(await this.doRequest("1.0", "baas.caas.application.manage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCaasApplicationManageResponse({}));
+  }
+
+  /**
+   * Description: 解除授权
+   * Summary: 解除授权
+   */
+  async unbindCaasApplicationManage(request: UnbindCaasApplicationManageRequest): Promise<UnbindCaasApplicationManageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.unbindCaasApplicationManageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 解除授权
+   * Summary: 解除授权
+   */
+  async unbindCaasApplicationManageEx(request: UnbindCaasApplicationManageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnbindCaasApplicationManageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UnbindCaasApplicationManageResponse>(await this.doRequest("1.0", "baas.caas.application.manage.unbind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UnbindCaasApplicationManageResponse({}));
+  }
+
+  /**
+   * Description: 绑定合约
+   * Summary: 绑定合约
+   */
+  async bindCaasApplicationManage(request: BindCaasApplicationManageRequest): Promise<BindCaasApplicationManageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindCaasApplicationManageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 绑定合约
+   * Summary: 绑定合约
+   */
+  async bindCaasApplicationManageEx(request: BindCaasApplicationManageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindCaasApplicationManageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindCaasApplicationManageResponse>(await this.doRequest("1.0", "baas.caas.application.manage.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindCaasApplicationManageResponse({}));
+  }
+
+  /**
+   * Description: 删除合约
+   * Summary: 删除合约
+   */
+  async deleteCaasContractService(request: DeleteCaasContractServiceRequest): Promise<DeleteCaasContractServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteCaasContractServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 删除合约
+   * Summary: 删除合约
+   */
+  async deleteCaasContractServiceEx(request: DeleteCaasContractServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteCaasContractServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteCaasContractServiceResponse>(await this.doRequest("1.0", "baas.caas.contract.service.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteCaasContractServiceResponse({}));
+  }
+
+  /**
+   * Description: 新建合约服务
+   * Summary: 新建合约服务
+   */
+  async createCaasContractService(request: CreateCaasContractServiceRequest): Promise<CreateCaasContractServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createCaasContractServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 新建合约服务
+   * Summary: 新建合约服务
+   */
+  async createCaasContractServiceEx(request: CreateCaasContractServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateCaasContractServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateCaasContractServiceResponse>(await this.doRequest("1.0", "baas.caas.contract.service.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateCaasContractServiceResponse({}));
+  }
+
+  /**
+   * Description: 我的合约列表查询
+   * Summary: 我的合约列表查询
+   */
+  async pagequeryCaasContractService(request: PagequeryCaasContractServiceRequest): Promise<PagequeryCaasContractServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryCaasContractServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 我的合约列表查询
+   * Summary: 我的合约列表查询
+   */
+  async pagequeryCaasContractServiceEx(request: PagequeryCaasContractServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryCaasContractServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryCaasContractServiceResponse>(await this.doRequest("1.0", "baas.caas.contract.service.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryCaasContractServiceResponse({}));
+  }
+
+  /**
+   * Description: 查询合约类型列表
+   * Summary: 查询合约类型列表
+   */
+  async listCaasContractService(request: ListCaasContractServiceRequest): Promise<ListCaasContractServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listCaasContractServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询合约类型列表
+   * Summary: 查询合约类型列表
+   */
+  async listCaasContractServiceEx(request: ListCaasContractServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListCaasContractServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListCaasContractServiceResponse>(await this.doRequest("1.0", "baas.caas.contract.service.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListCaasContractServiceResponse({}));
+  }
+
+  /**
+   * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+   * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+   */
+  async deployCaasContractService(request: DeployCaasContractServiceRequest): Promise<DeployCaasContractServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deployCaasContractServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+   * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+   */
+  async deployCaasContractServiceEx(request: DeployCaasContractServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeployCaasContractServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeployCaasContractServiceResponse>(await this.doRequest("1.0", "baas.caas.contract.service.deploy", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeployCaasContractServiceResponse({}));
+  }
+
+  /**
+   * Description: 合约详情
+   * Summary: 合约详情
+   */
+  async detailCaasContractService(request: DetailCaasContractServiceRequest): Promise<DetailCaasContractServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailCaasContractServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 合约详情
+   * Summary: 合约详情
+   */
+  async detailCaasContractServiceEx(request: DetailCaasContractServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailCaasContractServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailCaasContractServiceResponse>(await this.doRequest("1.0", "baas.caas.contract.service.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailCaasContractServiceResponse({}));
+  }
+
+  /**
+   * Description: 查询创建实例进度
+   * Summary: 查询创建实例进度
+   */
+  async queryCaasContractService(request: QueryCaasContractServiceRequest): Promise<QueryCaasContractServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCaasContractServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询创建实例进度
+   * Summary: 查询创建实例进度
+   */
+  async queryCaasContractServiceEx(request: QueryCaasContractServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCaasContractServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCaasContractServiceResponse>(await this.doRequest("1.0", "baas.caas.contract.service.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCaasContractServiceResponse({}));
+  }
+
+  /**
+   * Description: 智能合约市场列表查询
+   * Summary: 智能合约市场列表查询
+   */
+  async pagequeryCaasContractMarket(request: PagequeryCaasContractMarketRequest): Promise<PagequeryCaasContractMarketResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryCaasContractMarketEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 智能合约市场列表查询
+   * Summary: 智能合约市场列表查询
+   */
+  async pagequeryCaasContractMarketEx(request: PagequeryCaasContractMarketRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryCaasContractMarketResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryCaasContractMarketResponse>(await this.doRequest("1.0", "baas.caas.contract.market.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryCaasContractMarketResponse({}));
+  }
+
+  /**
    * Description: 合约部署记录
    * Summary: 合约部署记录
    */
@@ -57041,6 +58841,25 @@ export default class Client {
   async queryAuthCertDetailurlEx(request: QueryAuthCertDetailurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthCertDetailurlResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAuthCertDetailurlResponse>(await this.doRequest("1.0", "baas.auth.cert.detailurl.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthCertDetailurlResponse({}));
+  }
+
+  /**
+   * Description: 主站应用同步授权宝权益任务的完成情况
+   * Summary: 主站应用同步授权宝权益任务的完成情况
+   */
+  async notifyAuthTaskStatus(request: NotifyAuthTaskStatusRequest): Promise<NotifyAuthTaskStatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyAuthTaskStatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 主站应用同步授权宝权益任务的完成情况
+   * Summary: 主站应用同步授权宝权益任务的完成情况
+   */
+  async notifyAuthTaskStatusEx(request: NotifyAuthTaskStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyAuthTaskStatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyAuthTaskStatusResponse>(await this.doRequest("1.0", "baas.auth.task.status.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyAuthTaskStatusResponse({}));
   }
 
   /**
