@@ -869,6 +869,46 @@ func (s *DisServicesInfo) SetDesc(v string) *DisServicesInfo {
 	return s
 }
 
+// 合约列表响应
+type ContractListResp struct {
+	// 服务ID
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	// 合约名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 合约类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 创建时间
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
+}
+
+func (s ContractListResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractListResp) GoString() string {
+	return s.String()
+}
+
+func (s *ContractListResp) SetServiceId(v string) *ContractListResp {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *ContractListResp) SetName(v string) *ContractListResp {
+	s.Name = &v
+	return s
+}
+
+func (s *ContractListResp) SetType(v string) *ContractListResp {
+	s.Type = &v
+	return s
+}
+
+func (s *ContractListResp) SetCreateTime(v int64) *ContractListResp {
+	s.CreateTime = &v
+	return s
+}
+
 // 阿里云合约链信息
 type ALiYunContractBlockchain struct {
 	// name
@@ -941,6 +981,60 @@ func (s *ALiYunContractBlockchain) SetNetwork(v string) *ALiYunContractBlockchai
 
 func (s *ALiYunContractBlockchain) SetVersion(v string) *ALiYunContractBlockchain {
 	s.Version = &v
+	return s
+}
+
+// 实例进度信息
+type InstanceProgressInfo struct {
+	// 操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// 操作时间
+	Time *int64 `json:"time,omitempty" xml:"time,omitempty"`
+	// 合约部署进度类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 部署状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 合约部署进度名称
+	TypeName *string `json:"type_name,omitempty" xml:"type_name,omitempty"`
+	// 额外参数
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s InstanceProgressInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InstanceProgressInfo) GoString() string {
+	return s.String()
+}
+
+func (s *InstanceProgressInfo) SetOperator(v string) *InstanceProgressInfo {
+	s.Operator = &v
+	return s
+}
+
+func (s *InstanceProgressInfo) SetTime(v int64) *InstanceProgressInfo {
+	s.Time = &v
+	return s
+}
+
+func (s *InstanceProgressInfo) SetType(v string) *InstanceProgressInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *InstanceProgressInfo) SetStatus(v string) *InstanceProgressInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *InstanceProgressInfo) SetTypeName(v string) *InstanceProgressInfo {
+	s.TypeName = &v
+	return s
+}
+
+func (s *InstanceProgressInfo) SetData(v string) *InstanceProgressInfo {
+	s.Data = &v
 	return s
 }
 
@@ -1833,6 +1927,39 @@ func (s *ALiYunTransactionSummary) SetGasUsed(v int64) *ALiYunTransactionSummary
 	return s
 }
 
+// 实例最近调用记录
+type InstanceRecordInfo struct {
+	// 应用标识
+	Application *string `json:"application,omitempty" xml:"application,omitempty"`
+	// 执行结果
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 操作时间
+	OperatingTime *string `json:"operating_time,omitempty" xml:"operating_time,omitempty"`
+}
+
+func (s InstanceRecordInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InstanceRecordInfo) GoString() string {
+	return s.String()
+}
+
+func (s *InstanceRecordInfo) SetApplication(v string) *InstanceRecordInfo {
+	s.Application = &v
+	return s
+}
+
+func (s *InstanceRecordInfo) SetStatus(v string) *InstanceRecordInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *InstanceRecordInfo) SetOperatingTime(v string) *InstanceRecordInfo {
+	s.OperatingTime = &v
+	return s
+}
+
 // 阿里云账户信息
 type ALiYunAccount struct {
 	// ant_chain_id
@@ -2163,6 +2290,39 @@ func (s *AccountMappingInfo) SetStatus(v int64) *AccountMappingInfo {
 
 func (s *AccountMappingInfo) SetUid(v string) *AccountMappingInfo {
 	s.Uid = &v
+	return s
+}
+
+// 应用授权列表查询
+type ApplicationListResp struct {
+	// 应用程序ID
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
+	// 链ID
+	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
+	// 合约(创建实例时填写的合约名称。)
+	NameList []*string `json:"name_list,omitempty" xml:"name_list,omitempty" type:"Repeated"`
+}
+
+func (s ApplicationListResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplicationListResp) GoString() string {
+	return s.String()
+}
+
+func (s *ApplicationListResp) SetApplicationId(v string) *ApplicationListResp {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *ApplicationListResp) SetAccessKey(v string) *ApplicationListResp {
+	s.AccessKey = &v
+	return s
+}
+
+func (s *ApplicationListResp) SetNameList(v []*string) *ApplicationListResp {
+	s.NameList = v
 	return s
 }
 
@@ -4011,6 +4171,25 @@ func (s *PublicKeyRelation) SetRecipientId(v string) *PublicKeyRelation {
 	return s
 }
 
+// 合约类型
+type ContractTypeResp struct {
+	// 合约服务类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s ContractTypeResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractTypeResp) GoString() string {
+	return s.String()
+}
+
+func (s *ContractTypeResp) SetType(v string) *ContractTypeResp {
+	s.Type = &v
+	return s
+}
+
 // 物流金融平台运单轨迹信息
 type LogisticLocation struct {
 	// 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
@@ -4582,6 +4761,32 @@ func (s *ALiYunTransactionReceipt) SetResult(v int64) *ALiYunTransactionReceipt 
 
 func (s *ALiYunTransactionReceipt) SetLogs(v []*string) *ALiYunTransactionReceipt {
 	s.Logs = v
+	return s
+}
+
+// 实例进度
+type ContractCreateProcessResp struct {
+	// 当前进度信息
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 合约部署进度
+	ProgressInfoList []*InstanceProgressInfo `json:"progress_info_list,omitempty" xml:"progress_info_list,omitempty" type:"Repeated"`
+}
+
+func (s ContractCreateProcessResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractCreateProcessResp) GoString() string {
+	return s.String()
+}
+
+func (s *ContractCreateProcessResp) SetStatus(v string) *ContractCreateProcessResp {
+	s.Status = &v
+	return s
+}
+
+func (s *ContractCreateProcessResp) SetProgressInfoList(v []*InstanceProgressInfo) *ContractCreateProcessResp {
+	s.ProgressInfoList = v
 	return s
 }
 
@@ -5380,6 +5585,32 @@ func (s *OCUserData) SetUserName(v string) *OCUserData {
 	return s
 }
 
+// 应用授权列表查询
+type PageRespApplicationListResp struct {
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 列表数据
+	DataList []*ApplicationListResp `json:"data_list,omitempty" xml:"data_list,omitempty" type:"Repeated"`
+}
+
+func (s PageRespApplicationListResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PageRespApplicationListResp) GoString() string {
+	return s.String()
+}
+
+func (s *PageRespApplicationListResp) SetTotal(v int64) *PageRespApplicationListResp {
+	s.Total = &v
+	return s
+}
+
+func (s *PageRespApplicationListResp) SetDataList(v []*ApplicationListResp) *PageRespApplicationListResp {
+	s.DataList = v
+	return s
+}
+
 // 包含业务组的用户信息
 type AccountInfoWithBiz struct {
 	// 注册地址
@@ -5742,6 +5973,32 @@ func (s *ALiYunBuyUnion) SetConsortiumName(v string) *ALiYunBuyUnion {
 
 func (s *ALiYunBuyUnion) SetConsortiumId(v string) *ALiYunBuyUnion {
 	s.ConsortiumId = &v
+	return s
+}
+
+// 合约列表响应
+type PageRespContractListResp struct {
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 列表数据
+	DataList []*ContractListResp `json:"data_list,omitempty" xml:"data_list,omitempty" type:"Repeated"`
+}
+
+func (s PageRespContractListResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PageRespContractListResp) GoString() string {
+	return s.String()
+}
+
+func (s *PageRespContractListResp) SetTotal(v int64) *PageRespContractListResp {
+	s.Total = &v
+	return s
+}
+
+func (s *PageRespContractListResp) SetDataList(v []*ContractListResp) *PageRespContractListResp {
+	s.DataList = v
 	return s
 }
 
@@ -6818,6 +7075,46 @@ func (s *ALiYunChainStatics) SetCreatTime(v int64) *ALiYunChainStatics {
 	return s
 }
 
+// 34
+type EWRFW struct {
+	// FFF
+	Sdf []*DidDocServicesInfo `json:"sdf,omitempty" xml:"sdf,omitempty" require:"true" type:"Repeated"`
+	// www
+	Www *string `json:"www,omitempty" xml:"www,omitempty" require:"true"`
+	// ss
+	ListString []*string `json:"list_string,omitempty" xml:"list_string,omitempty" require:"true" type:"Repeated"`
+	// aaa
+	Aaa *DidDocServicesInfo `json:"aaa,omitempty" xml:"aaa,omitempty" require:"true"`
+}
+
+func (s EWRFW) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EWRFW) GoString() string {
+	return s.String()
+}
+
+func (s *EWRFW) SetSdf(v []*DidDocServicesInfo) *EWRFW {
+	s.Sdf = v
+	return s
+}
+
+func (s *EWRFW) SetWww(v string) *EWRFW {
+	s.Www = &v
+	return s
+}
+
+func (s *EWRFW) SetListString(v []*string) *EWRFW {
+	s.ListString = v
+	return s
+}
+
+func (s *EWRFW) SetAaa(v *DidDocServicesInfo) *EWRFW {
+	s.Aaa = v
+	return s
+}
+
 // 阿里云蚂蚁区块链证书列表信息
 type ALiYunCertificateApplications struct {
 	// pagination
@@ -7274,6 +7571,39 @@ func (s *ContractInfo) SetTimestamp(v int64) *ContractInfo {
 	return s
 }
 
+// 合约与应用关联信息
+type ContractBindAppResp struct {
+	// 合约标识
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	// 合约名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 是否已关联
+	Bind *bool `json:"bind,omitempty" xml:"bind,omitempty"`
+}
+
+func (s ContractBindAppResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractBindAppResp) GoString() string {
+	return s.String()
+}
+
+func (s *ContractBindAppResp) SetServiceId(v string) *ContractBindAppResp {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *ContractBindAppResp) SetName(v string) *ContractBindAppResp {
+	s.Name = &v
+	return s
+}
+
+func (s *ContractBindAppResp) SetBind(v bool) *ContractBindAppResp {
+	s.Bind = &v
+	return s
+}
+
 // 创建VC参数
 type AddVC struct {
 	// vc原文hash
@@ -7318,6 +7648,88 @@ func (s *AddVC) SetSubjectHash(v string) *AddVC {
 
 func (s *AddVC) SetVcId(v string) *AddVC {
 	s.VcId = &v
+	return s
+}
+
+// 合约详情
+type ContractDetailResp struct {
+	// 合约标识
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	// 合约服务名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 创建人
+	Creator *string `json:"creator,omitempty" xml:"creator,omitempty"`
+	// 创建时间
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 订购产品
+	OrderingProducts *string `json:"ordering_products,omitempty" xml:"ordering_products,omitempty"`
+	// 关联区块链id
+	ChanId *string `json:"chan_id,omitempty" xml:"chan_id,omitempty"`
+	// 合约状态
+	ContractStatus *string `json:"contract_status,omitempty" xml:"contract_status,omitempty"`
+	// 合约部署进度当前状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 合约部署进度
+	ProgressInfoList []*InstanceProgressInfo `json:"progress_info_list,omitempty" xml:"progress_info_list,omitempty" type:"Repeated"`
+	// 实例最近调用记录(暂缓，先不做)
+	RecordInfoList []*InstanceRecordInfo `json:"record_info_list,omitempty" xml:"record_info_list,omitempty" type:"Repeated"`
+}
+
+func (s ContractDetailResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractDetailResp) GoString() string {
+	return s.String()
+}
+
+func (s *ContractDetailResp) SetServiceId(v string) *ContractDetailResp {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *ContractDetailResp) SetName(v string) *ContractDetailResp {
+	s.Name = &v
+	return s
+}
+
+func (s *ContractDetailResp) SetCreator(v string) *ContractDetailResp {
+	s.Creator = &v
+	return s
+}
+
+func (s *ContractDetailResp) SetCreateTime(v int64) *ContractDetailResp {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *ContractDetailResp) SetOrderingProducts(v string) *ContractDetailResp {
+	s.OrderingProducts = &v
+	return s
+}
+
+func (s *ContractDetailResp) SetChanId(v string) *ContractDetailResp {
+	s.ChanId = &v
+	return s
+}
+
+func (s *ContractDetailResp) SetContractStatus(v string) *ContractDetailResp {
+	s.ContractStatus = &v
+	return s
+}
+
+func (s *ContractDetailResp) SetStatus(v string) *ContractDetailResp {
+	s.Status = &v
+	return s
+}
+
+func (s *ContractDetailResp) SetProgressInfoList(v []*InstanceProgressInfo) *ContractDetailResp {
+	s.ProgressInfoList = v
+	return s
+}
+
+func (s *ContractDetailResp) SetRecordInfoList(v []*InstanceRecordInfo) *ContractDetailResp {
+	s.RecordInfoList = v
 	return s
 }
 
@@ -7962,6 +8374,25 @@ func (s *Item) SetType(v string) *Item {
 	return s
 }
 
+// 合约服务列表查询
+type ContractListReq struct {
+	// 合约服务类别
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s ContractListReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractListReq) GoString() string {
+	return s.String()
+}
+
+func (s *ContractListReq) SetType(v string) *ContractListReq {
+	s.Type = &v
+	return s
+}
+
 // C3S可信计算服务TAPP应用信息
 type TappInfo struct {
 	// C3S可信计算TAPP应用标识
@@ -8511,6 +8942,60 @@ func (s DidAddDoc) GoString() string {
 
 func (s *DidAddDoc) SetDoc(v string) *DidAddDoc {
 	s.Doc = &v
+	return s
+}
+
+// 合约市场
+type ContractTemplateResp struct {
+	// 模板标识
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty"`
+	// 合约名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 缩略图url
+	ThumbUrl *string `json:"thumb_url,omitempty" xml:"thumb_url,omitempty"`
+	// 合约描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 是否已开通合约
+	Open *bool `json:"open,omitempty" xml:"open,omitempty"`
+	// 后续展示：购买用户头像
+	AvatarLogoList []*string `json:"avatar_logo_list,omitempty" xml:"avatar_logo_list,omitempty" type:"Repeated"`
+}
+
+func (s ContractTemplateResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractTemplateResp) GoString() string {
+	return s.String()
+}
+
+func (s *ContractTemplateResp) SetTemplateId(v string) *ContractTemplateResp {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *ContractTemplateResp) SetName(v string) *ContractTemplateResp {
+	s.Name = &v
+	return s
+}
+
+func (s *ContractTemplateResp) SetThumbUrl(v string) *ContractTemplateResp {
+	s.ThumbUrl = &v
+	return s
+}
+
+func (s *ContractTemplateResp) SetDescription(v string) *ContractTemplateResp {
+	s.Description = &v
+	return s
+}
+
+func (s *ContractTemplateResp) SetOpen(v bool) *ContractTemplateResp {
+	s.Open = &v
+	return s
+}
+
+func (s *ContractTemplateResp) SetAvatarLogoList(v []*string) *ContractTemplateResp {
+	s.AvatarLogoList = v
 	return s
 }
 
@@ -32370,6 +32855,1392 @@ func (s *QueryApiDwhbTransactionResponse) SetTransactionList(v []*TransactionInf
 	return s
 }
 
+type CreateCaasApplicationManageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s CreateCaasApplicationManageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateCaasApplicationManageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateCaasApplicationManageRequest) SetAuthToken(v string) *CreateCaasApplicationManageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateCaasApplicationManageRequest) SetProductInstanceId(v string) *CreateCaasApplicationManageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type CreateCaasApplicationManageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 异常码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 应用id
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
+}
+
+func (s CreateCaasApplicationManageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateCaasApplicationManageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateCaasApplicationManageResponse) SetReqMsgId(v string) *CreateCaasApplicationManageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateCaasApplicationManageResponse) SetResultCode(v string) *CreateCaasApplicationManageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateCaasApplicationManageResponse) SetResultMsg(v string) *CreateCaasApplicationManageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateCaasApplicationManageResponse) SetVersion(v string) *CreateCaasApplicationManageResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *CreateCaasApplicationManageResponse) SetSuccess(v bool) *CreateCaasApplicationManageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *CreateCaasApplicationManageResponse) SetErrorCode(v string) *CreateCaasApplicationManageResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *CreateCaasApplicationManageResponse) SetErrorMsg(v string) *CreateCaasApplicationManageResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *CreateCaasApplicationManageResponse) SetApplicationId(v string) *CreateCaasApplicationManageResponse {
+	s.ApplicationId = &v
+	return s
+}
+
+type PagequeryCaasApplicationManageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 页码
+	Num *int64 `json:"num,omitempty" xml:"num,omitempty" require:"true"`
+	// 页大小
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
+}
+
+func (s PagequeryCaasApplicationManageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryCaasApplicationManageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryCaasApplicationManageRequest) SetAuthToken(v string) *PagequeryCaasApplicationManageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageRequest) SetProductInstanceId(v string) *PagequeryCaasApplicationManageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageRequest) SetNum(v int64) *PagequeryCaasApplicationManageRequest {
+	s.Num = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageRequest) SetSize(v int64) *PagequeryCaasApplicationManageRequest {
+	s.Size = &v
+	return s
+}
+
+type PagequeryCaasApplicationManageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 异常码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 请求结果数据
+	Data *PageRespApplicationListResp `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s PagequeryCaasApplicationManageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryCaasApplicationManageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryCaasApplicationManageResponse) SetReqMsgId(v string) *PagequeryCaasApplicationManageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageResponse) SetResultCode(v string) *PagequeryCaasApplicationManageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageResponse) SetResultMsg(v string) *PagequeryCaasApplicationManageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageResponse) SetVersion(v string) *PagequeryCaasApplicationManageResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageResponse) SetSuccess(v bool) *PagequeryCaasApplicationManageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageResponse) SetErrorCode(v string) *PagequeryCaasApplicationManageResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageResponse) SetErrorMsg(v string) *PagequeryCaasApplicationManageResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageResponse) SetData(v *PageRespApplicationListResp) *PagequeryCaasApplicationManageResponse {
+	s.Data = v
+	return s
+}
+
+type GetCaasApplicationManageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用程序ID
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
+}
+
+func (s GetCaasApplicationManageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetCaasApplicationManageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetCaasApplicationManageRequest) SetAuthToken(v string) *GetCaasApplicationManageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetCaasApplicationManageRequest) SetProductInstanceId(v string) *GetCaasApplicationManageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetCaasApplicationManageRequest) SetApplicationId(v string) *GetCaasApplicationManageRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+type GetCaasApplicationManageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 异常码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 应用秘钥
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s GetCaasApplicationManageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetCaasApplicationManageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetCaasApplicationManageResponse) SetReqMsgId(v string) *GetCaasApplicationManageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetCaasApplicationManageResponse) SetResultCode(v string) *GetCaasApplicationManageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetCaasApplicationManageResponse) SetResultMsg(v string) *GetCaasApplicationManageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetCaasApplicationManageResponse) SetVersion(v string) *GetCaasApplicationManageResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *GetCaasApplicationManageResponse) SetSuccess(v bool) *GetCaasApplicationManageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *GetCaasApplicationManageResponse) SetErrorCode(v string) *GetCaasApplicationManageResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *GetCaasApplicationManageResponse) SetErrorMsg(v string) *GetCaasApplicationManageResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *GetCaasApplicationManageResponse) SetData(v string) *GetCaasApplicationManageResponse {
+	s.Data = &v
+	return s
+}
+
+type QueryCaasApplicationManageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用程序ID
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
+}
+
+func (s QueryCaasApplicationManageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCaasApplicationManageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCaasApplicationManageRequest) SetAuthToken(v string) *QueryCaasApplicationManageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCaasApplicationManageRequest) SetProductInstanceId(v string) *QueryCaasApplicationManageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCaasApplicationManageRequest) SetApplicationId(v string) *QueryCaasApplicationManageRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+type QueryCaasApplicationManageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 异常码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 请求结果数据
+	Data []*ContractBindAppResp `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryCaasApplicationManageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCaasApplicationManageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCaasApplicationManageResponse) SetReqMsgId(v string) *QueryCaasApplicationManageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCaasApplicationManageResponse) SetResultCode(v string) *QueryCaasApplicationManageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCaasApplicationManageResponse) SetResultMsg(v string) *QueryCaasApplicationManageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCaasApplicationManageResponse) SetVersion(v string) *QueryCaasApplicationManageResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *QueryCaasApplicationManageResponse) SetSuccess(v bool) *QueryCaasApplicationManageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryCaasApplicationManageResponse) SetErrorCode(v string) *QueryCaasApplicationManageResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *QueryCaasApplicationManageResponse) SetErrorMsg(v string) *QueryCaasApplicationManageResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *QueryCaasApplicationManageResponse) SetData(v []*ContractBindAppResp) *QueryCaasApplicationManageResponse {
+	s.Data = v
+	return s
+}
+
+type UnbindCaasApplicationManageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用程序ID
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
+}
+
+func (s UnbindCaasApplicationManageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnbindCaasApplicationManageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UnbindCaasApplicationManageRequest) SetAuthToken(v string) *UnbindCaasApplicationManageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UnbindCaasApplicationManageRequest) SetProductInstanceId(v string) *UnbindCaasApplicationManageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UnbindCaasApplicationManageRequest) SetApplicationId(v string) *UnbindCaasApplicationManageRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+type UnbindCaasApplicationManageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 异常码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+}
+
+func (s UnbindCaasApplicationManageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnbindCaasApplicationManageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UnbindCaasApplicationManageResponse) SetReqMsgId(v string) *UnbindCaasApplicationManageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UnbindCaasApplicationManageResponse) SetResultCode(v string) *UnbindCaasApplicationManageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UnbindCaasApplicationManageResponse) SetResultMsg(v string) *UnbindCaasApplicationManageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UnbindCaasApplicationManageResponse) SetVersion(v string) *UnbindCaasApplicationManageResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *UnbindCaasApplicationManageResponse) SetSuccess(v bool) *UnbindCaasApplicationManageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *UnbindCaasApplicationManageResponse) SetErrorCode(v string) *UnbindCaasApplicationManageResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *UnbindCaasApplicationManageResponse) SetErrorMsg(v string) *UnbindCaasApplicationManageResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+type BindCaasApplicationManageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用程序ID
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
+	// 合约服务标识集合
+	ServiceIds []*string `json:"service_ids,omitempty" xml:"service_ids,omitempty" type:"Repeated"`
+}
+
+func (s BindCaasApplicationManageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCaasApplicationManageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindCaasApplicationManageRequest) SetAuthToken(v string) *BindCaasApplicationManageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindCaasApplicationManageRequest) SetProductInstanceId(v string) *BindCaasApplicationManageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindCaasApplicationManageRequest) SetApplicationId(v string) *BindCaasApplicationManageRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *BindCaasApplicationManageRequest) SetServiceIds(v []*string) *BindCaasApplicationManageRequest {
+	s.ServiceIds = v
+	return s
+}
+
+type BindCaasApplicationManageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 异常码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+}
+
+func (s BindCaasApplicationManageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCaasApplicationManageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindCaasApplicationManageResponse) SetReqMsgId(v string) *BindCaasApplicationManageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindCaasApplicationManageResponse) SetResultCode(v string) *BindCaasApplicationManageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindCaasApplicationManageResponse) SetResultMsg(v string) *BindCaasApplicationManageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BindCaasApplicationManageResponse) SetVersion(v string) *BindCaasApplicationManageResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *BindCaasApplicationManageResponse) SetSuccess(v bool) *BindCaasApplicationManageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *BindCaasApplicationManageResponse) SetErrorCode(v string) *BindCaasApplicationManageResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *BindCaasApplicationManageResponse) SetErrorMsg(v string) *BindCaasApplicationManageResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+type DeleteCaasContractServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 服务ID
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+}
+
+func (s DeleteCaasContractServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteCaasContractServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteCaasContractServiceRequest) SetAuthToken(v string) *DeleteCaasContractServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteCaasContractServiceRequest) SetProductInstanceId(v string) *DeleteCaasContractServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteCaasContractServiceRequest) SetServiceId(v string) *DeleteCaasContractServiceRequest {
+	s.ServiceId = &v
+	return s
+}
+
+type DeleteCaasContractServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 异常码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+}
+
+func (s DeleteCaasContractServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteCaasContractServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteCaasContractServiceResponse) SetReqMsgId(v string) *DeleteCaasContractServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteCaasContractServiceResponse) SetResultCode(v string) *DeleteCaasContractServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteCaasContractServiceResponse) SetResultMsg(v string) *DeleteCaasContractServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeleteCaasContractServiceResponse) SetVersion(v string) *DeleteCaasContractServiceResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *DeleteCaasContractServiceResponse) SetSuccess(v bool) *DeleteCaasContractServiceResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *DeleteCaasContractServiceResponse) SetErrorCode(v string) *DeleteCaasContractServiceResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *DeleteCaasContractServiceResponse) SetErrorMsg(v string) *DeleteCaasContractServiceResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+type CreateCaasContractServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+	// 合约模板标识
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true"`
+	// 合约名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s CreateCaasContractServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateCaasContractServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateCaasContractServiceRequest) SetAuthToken(v string) *CreateCaasContractServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateCaasContractServiceRequest) SetProductInstanceId(v string) *CreateCaasContractServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateCaasContractServiceRequest) SetChainId(v string) *CreateCaasContractServiceRequest {
+	s.ChainId = &v
+	return s
+}
+
+func (s *CreateCaasContractServiceRequest) SetTemplateId(v string) *CreateCaasContractServiceRequest {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *CreateCaasContractServiceRequest) SetName(v string) *CreateCaasContractServiceRequest {
+	s.Name = &v
+	return s
+}
+
+type CreateCaasContractServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 异常码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 请求结果数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CreateCaasContractServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateCaasContractServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateCaasContractServiceResponse) SetReqMsgId(v string) *CreateCaasContractServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateCaasContractServiceResponse) SetResultCode(v string) *CreateCaasContractServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateCaasContractServiceResponse) SetResultMsg(v string) *CreateCaasContractServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateCaasContractServiceResponse) SetVersion(v string) *CreateCaasContractServiceResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *CreateCaasContractServiceResponse) SetSuccess(v bool) *CreateCaasContractServiceResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *CreateCaasContractServiceResponse) SetErrorCode(v string) *CreateCaasContractServiceResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *CreateCaasContractServiceResponse) SetErrorMsg(v string) *CreateCaasContractServiceResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *CreateCaasContractServiceResponse) SetData(v string) *CreateCaasContractServiceResponse {
+	s.Data = &v
+	return s
+}
+
+type PagequeryCaasContractServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 页码
+	Num *int64 `json:"num,omitempty" xml:"num,omitempty" require:"true"`
+	// 页大小
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
+	// 业务数据
+	Data *ContractListReq `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s PagequeryCaasContractServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryCaasContractServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryCaasContractServiceRequest) SetAuthToken(v string) *PagequeryCaasContractServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryCaasContractServiceRequest) SetProductInstanceId(v string) *PagequeryCaasContractServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryCaasContractServiceRequest) SetNum(v int64) *PagequeryCaasContractServiceRequest {
+	s.Num = &v
+	return s
+}
+
+func (s *PagequeryCaasContractServiceRequest) SetSize(v int64) *PagequeryCaasContractServiceRequest {
+	s.Size = &v
+	return s
+}
+
+func (s *PagequeryCaasContractServiceRequest) SetData(v *ContractListReq) *PagequeryCaasContractServiceRequest {
+	s.Data = v
+	return s
+}
+
+type PagequeryCaasContractServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 异常码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 请求结果数据
+	Data *PageRespContractListResp `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s PagequeryCaasContractServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryCaasContractServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryCaasContractServiceResponse) SetReqMsgId(v string) *PagequeryCaasContractServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryCaasContractServiceResponse) SetResultCode(v string) *PagequeryCaasContractServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryCaasContractServiceResponse) SetResultMsg(v string) *PagequeryCaasContractServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryCaasContractServiceResponse) SetVersion(v string) *PagequeryCaasContractServiceResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *PagequeryCaasContractServiceResponse) SetSuccess(v bool) *PagequeryCaasContractServiceResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PagequeryCaasContractServiceResponse) SetErrorCode(v string) *PagequeryCaasContractServiceResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *PagequeryCaasContractServiceResponse) SetErrorMsg(v string) *PagequeryCaasContractServiceResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *PagequeryCaasContractServiceResponse) SetData(v *PageRespContractListResp) *PagequeryCaasContractServiceResponse {
+	s.Data = v
+	return s
+}
+
+type ListCaasContractServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s ListCaasContractServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListCaasContractServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListCaasContractServiceRequest) SetAuthToken(v string) *ListCaasContractServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListCaasContractServiceRequest) SetProductInstanceId(v string) *ListCaasContractServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type ListCaasContractServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 异常码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 请求结果数据
+	Data []*ContractTypeResp `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s ListCaasContractServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListCaasContractServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListCaasContractServiceResponse) SetReqMsgId(v string) *ListCaasContractServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListCaasContractServiceResponse) SetResultCode(v string) *ListCaasContractServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListCaasContractServiceResponse) SetResultMsg(v string) *ListCaasContractServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListCaasContractServiceResponse) SetVersion(v string) *ListCaasContractServiceResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *ListCaasContractServiceResponse) SetSuccess(v bool) *ListCaasContractServiceResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *ListCaasContractServiceResponse) SetErrorCode(v string) *ListCaasContractServiceResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *ListCaasContractServiceResponse) SetErrorMsg(v string) *ListCaasContractServiceResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *ListCaasContractServiceResponse) SetData(v []*ContractTypeResp) *ListCaasContractServiceResponse {
+	s.Data = v
+	return s
+}
+
+type DeployCaasContractServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+	// 合约模板标识
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true"`
+	// 合约名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s DeployCaasContractServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeployCaasContractServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeployCaasContractServiceRequest) SetAuthToken(v string) *DeployCaasContractServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceRequest) SetProductInstanceId(v string) *DeployCaasContractServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceRequest) SetChainId(v string) *DeployCaasContractServiceRequest {
+	s.ChainId = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceRequest) SetTemplateId(v string) *DeployCaasContractServiceRequest {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceRequest) SetName(v string) *DeployCaasContractServiceRequest {
+	s.Name = &v
+	return s
+}
+
+type DeployCaasContractServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 异常码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 请求结果数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s DeployCaasContractServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeployCaasContractServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeployCaasContractServiceResponse) SetReqMsgId(v string) *DeployCaasContractServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceResponse) SetResultCode(v string) *DeployCaasContractServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceResponse) SetResultMsg(v string) *DeployCaasContractServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceResponse) SetVersion(v string) *DeployCaasContractServiceResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceResponse) SetSuccess(v bool) *DeployCaasContractServiceResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceResponse) SetErrorCode(v string) *DeployCaasContractServiceResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceResponse) SetErrorMsg(v string) *DeployCaasContractServiceResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceResponse) SetData(v string) *DeployCaasContractServiceResponse {
+	s.Data = &v
+	return s
+}
+
+type DetailCaasContractServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 服务ID
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+}
+
+func (s DetailCaasContractServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailCaasContractServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailCaasContractServiceRequest) SetAuthToken(v string) *DetailCaasContractServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailCaasContractServiceRequest) SetProductInstanceId(v string) *DetailCaasContractServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailCaasContractServiceRequest) SetServiceId(v string) *DetailCaasContractServiceRequest {
+	s.ServiceId = &v
+	return s
+}
+
+type DetailCaasContractServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 异常码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 请求结果数据
+	Data *ContractDetailResp `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s DetailCaasContractServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailCaasContractServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailCaasContractServiceResponse) SetReqMsgId(v string) *DetailCaasContractServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailCaasContractServiceResponse) SetResultCode(v string) *DetailCaasContractServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailCaasContractServiceResponse) SetResultMsg(v string) *DetailCaasContractServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailCaasContractServiceResponse) SetVersion(v string) *DetailCaasContractServiceResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *DetailCaasContractServiceResponse) SetSuccess(v bool) *DetailCaasContractServiceResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *DetailCaasContractServiceResponse) SetErrorCode(v string) *DetailCaasContractServiceResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *DetailCaasContractServiceResponse) SetErrorMsg(v string) *DetailCaasContractServiceResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *DetailCaasContractServiceResponse) SetData(v *ContractDetailResp) *DetailCaasContractServiceResponse {
+	s.Data = v
+	return s
+}
+
+type QueryCaasContractServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 服务ID
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+}
+
+func (s QueryCaasContractServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCaasContractServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCaasContractServiceRequest) SetAuthToken(v string) *QueryCaasContractServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCaasContractServiceRequest) SetProductInstanceId(v string) *QueryCaasContractServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCaasContractServiceRequest) SetServiceId(v string) *QueryCaasContractServiceRequest {
+	s.ServiceId = &v
+	return s
+}
+
+type QueryCaasContractServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 异常码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 请求结果数据
+	Data *ContractCreateProcessResp `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryCaasContractServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCaasContractServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCaasContractServiceResponse) SetReqMsgId(v string) *QueryCaasContractServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCaasContractServiceResponse) SetResultCode(v string) *QueryCaasContractServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCaasContractServiceResponse) SetResultMsg(v string) *QueryCaasContractServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCaasContractServiceResponse) SetVersion(v string) *QueryCaasContractServiceResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *QueryCaasContractServiceResponse) SetSuccess(v bool) *QueryCaasContractServiceResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryCaasContractServiceResponse) SetErrorCode(v string) *QueryCaasContractServiceResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *QueryCaasContractServiceResponse) SetErrorMsg(v string) *QueryCaasContractServiceResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *QueryCaasContractServiceResponse) SetData(v *ContractCreateProcessResp) *QueryCaasContractServiceResponse {
+	s.Data = v
+	return s
+}
+
+type PagequeryCaasContractMarketRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s PagequeryCaasContractMarketRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryCaasContractMarketRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryCaasContractMarketRequest) SetAuthToken(v string) *PagequeryCaasContractMarketRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryCaasContractMarketRequest) SetProductInstanceId(v string) *PagequeryCaasContractMarketRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type PagequeryCaasContractMarketResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 异常码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 请求结果数据
+	Data []*ContractTemplateResp `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s PagequeryCaasContractMarketResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryCaasContractMarketResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryCaasContractMarketResponse) SetReqMsgId(v string) *PagequeryCaasContractMarketResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryCaasContractMarketResponse) SetResultCode(v string) *PagequeryCaasContractMarketResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryCaasContractMarketResponse) SetResultMsg(v string) *PagequeryCaasContractMarketResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryCaasContractMarketResponse) SetVersion(v string) *PagequeryCaasContractMarketResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *PagequeryCaasContractMarketResponse) SetSuccess(v bool) *PagequeryCaasContractMarketResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PagequeryCaasContractMarketResponse) SetErrorCode(v string) *PagequeryCaasContractMarketResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *PagequeryCaasContractMarketResponse) SetErrorMsg(v string) *PagequeryCaasContractMarketResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *PagequeryCaasContractMarketResponse) SetData(v []*ContractTemplateResp) *PagequeryCaasContractMarketResponse {
+	s.Data = v
+	return s
+}
+
 type CreateContractRecordRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -45523,6 +47394,90 @@ func (s *QueryAuthCertDetailurlResponse) SetResultMsg(v string) *QueryAuthCertDe
 
 func (s *QueryAuthCertDetailurlResponse) SetDetailUrl(v string) *QueryAuthCertDetailurlResponse {
 	s.DetailUrl = &v
+	return s
+}
+
+type NotifyAuthTaskStatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 支uid
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// NO_START, NO_SUBMIT, NOT_COMPLETE, COMPLETE
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 状态发生时间
+	HappenTime *string `json:"happen_time,omitempty" xml:"happen_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s NotifyAuthTaskStatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyAuthTaskStatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyAuthTaskStatusRequest) SetAuthToken(v string) *NotifyAuthTaskStatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyAuthTaskStatusRequest) SetProductInstanceId(v string) *NotifyAuthTaskStatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyAuthTaskStatusRequest) SetTaskId(v string) *NotifyAuthTaskStatusRequest {
+	s.TaskId = &v
+	return s
+}
+
+func (s *NotifyAuthTaskStatusRequest) SetUserId(v string) *NotifyAuthTaskStatusRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *NotifyAuthTaskStatusRequest) SetStatus(v string) *NotifyAuthTaskStatusRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *NotifyAuthTaskStatusRequest) SetHappenTime(v string) *NotifyAuthTaskStatusRequest {
+	s.HappenTime = &v
+	return s
+}
+
+type NotifyAuthTaskStatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s NotifyAuthTaskStatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyAuthTaskStatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyAuthTaskStatusResponse) SetReqMsgId(v string) *NotifyAuthTaskStatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyAuthTaskStatusResponse) SetResultCode(v string) *NotifyAuthTaskStatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyAuthTaskStatusResponse) SetResultMsg(v string) *NotifyAuthTaskStatusResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -64780,17 +66735,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -64824,7 +66779,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.26.33"),
+				"sdk_version":      tea.String("1.26.36"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -73027,6 +74982,482 @@ func (client *Client) QueryApiDwhbTransactionEx(request *QueryApiDwhbTransaction
 }
 
 /**
+ * Description: 新建应用
+ * Summary: 新建应用
+ */
+func (client *Client) CreateCaasApplicationManage(request *CreateCaasApplicationManageRequest) (_result *CreateCaasApplicationManageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateCaasApplicationManageResponse{}
+	_body, _err := client.CreateCaasApplicationManageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 新建应用
+ * Summary: 新建应用
+ */
+func (client *Client) CreateCaasApplicationManageEx(request *CreateCaasApplicationManageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateCaasApplicationManageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateCaasApplicationManageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.application.manage.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用列表查询
+ * Summary: 应用列表查询
+ */
+func (client *Client) PagequeryCaasApplicationManage(request *PagequeryCaasApplicationManageRequest) (_result *PagequeryCaasApplicationManageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryCaasApplicationManageResponse{}
+	_body, _err := client.PagequeryCaasApplicationManageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用列表查询
+ * Summary: 应用列表查询
+ */
+func (client *Client) PagequeryCaasApplicationManageEx(request *PagequeryCaasApplicationManageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryCaasApplicationManageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryCaasApplicationManageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.application.manage.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查看sk
+ * Summary: 查看sk
+ */
+func (client *Client) GetCaasApplicationManage(request *GetCaasApplicationManageRequest) (_result *GetCaasApplicationManageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetCaasApplicationManageResponse{}
+	_body, _err := client.GetCaasApplicationManageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查看sk
+ * Summary: 查看sk
+ */
+func (client *Client) GetCaasApplicationManageEx(request *GetCaasApplicationManageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetCaasApplicationManageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetCaasApplicationManageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.application.manage.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询合约绑定关系
+ * Summary: 查询合约绑定关系
+ */
+func (client *Client) QueryCaasApplicationManage(request *QueryCaasApplicationManageRequest) (_result *QueryCaasApplicationManageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCaasApplicationManageResponse{}
+	_body, _err := client.QueryCaasApplicationManageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询合约绑定关系
+ * Summary: 查询合约绑定关系
+ */
+func (client *Client) QueryCaasApplicationManageEx(request *QueryCaasApplicationManageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCaasApplicationManageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCaasApplicationManageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.application.manage.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 解除授权
+ * Summary: 解除授权
+ */
+func (client *Client) UnbindCaasApplicationManage(request *UnbindCaasApplicationManageRequest) (_result *UnbindCaasApplicationManageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UnbindCaasApplicationManageResponse{}
+	_body, _err := client.UnbindCaasApplicationManageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 解除授权
+ * Summary: 解除授权
+ */
+func (client *Client) UnbindCaasApplicationManageEx(request *UnbindCaasApplicationManageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UnbindCaasApplicationManageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UnbindCaasApplicationManageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.application.manage.unbind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 绑定合约
+ * Summary: 绑定合约
+ */
+func (client *Client) BindCaasApplicationManage(request *BindCaasApplicationManageRequest) (_result *BindCaasApplicationManageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindCaasApplicationManageResponse{}
+	_body, _err := client.BindCaasApplicationManageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 绑定合约
+ * Summary: 绑定合约
+ */
+func (client *Client) BindCaasApplicationManageEx(request *BindCaasApplicationManageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindCaasApplicationManageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindCaasApplicationManageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.application.manage.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除合约
+ * Summary: 删除合约
+ */
+func (client *Client) DeleteCaasContractService(request *DeleteCaasContractServiceRequest) (_result *DeleteCaasContractServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteCaasContractServiceResponse{}
+	_body, _err := client.DeleteCaasContractServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除合约
+ * Summary: 删除合约
+ */
+func (client *Client) DeleteCaasContractServiceEx(request *DeleteCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteCaasContractServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteCaasContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 新建合约服务
+ * Summary: 新建合约服务
+ */
+func (client *Client) CreateCaasContractService(request *CreateCaasContractServiceRequest) (_result *CreateCaasContractServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateCaasContractServiceResponse{}
+	_body, _err := client.CreateCaasContractServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 新建合约服务
+ * Summary: 新建合约服务
+ */
+func (client *Client) CreateCaasContractServiceEx(request *CreateCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateCaasContractServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateCaasContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 我的合约列表查询
+ * Summary: 我的合约列表查询
+ */
+func (client *Client) PagequeryCaasContractService(request *PagequeryCaasContractServiceRequest) (_result *PagequeryCaasContractServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryCaasContractServiceResponse{}
+	_body, _err := client.PagequeryCaasContractServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 我的合约列表查询
+ * Summary: 我的合约列表查询
+ */
+func (client *Client) PagequeryCaasContractServiceEx(request *PagequeryCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryCaasContractServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryCaasContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询合约类型列表
+ * Summary: 查询合约类型列表
+ */
+func (client *Client) ListCaasContractService(request *ListCaasContractServiceRequest) (_result *ListCaasContractServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListCaasContractServiceResponse{}
+	_body, _err := client.ListCaasContractServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询合约类型列表
+ * Summary: 查询合约类型列表
+ */
+func (client *Client) ListCaasContractServiceEx(request *ListCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListCaasContractServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListCaasContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+ * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+ */
+func (client *Client) DeployCaasContractService(request *DeployCaasContractServiceRequest) (_result *DeployCaasContractServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeployCaasContractServiceResponse{}
+	_body, _err := client.DeployCaasContractServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+ * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
+ */
+func (client *Client) DeployCaasContractServiceEx(request *DeployCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeployCaasContractServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeployCaasContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.deploy"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 合约详情
+ * Summary: 合约详情
+ */
+func (client *Client) DetailCaasContractService(request *DetailCaasContractServiceRequest) (_result *DetailCaasContractServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailCaasContractServiceResponse{}
+	_body, _err := client.DetailCaasContractServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 合约详情
+ * Summary: 合约详情
+ */
+func (client *Client) DetailCaasContractServiceEx(request *DetailCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailCaasContractServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailCaasContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询创建实例进度
+ * Summary: 查询创建实例进度
+ */
+func (client *Client) QueryCaasContractService(request *QueryCaasContractServiceRequest) (_result *QueryCaasContractServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCaasContractServiceResponse{}
+	_body, _err := client.QueryCaasContractServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询创建实例进度
+ * Summary: 查询创建实例进度
+ */
+func (client *Client) QueryCaasContractServiceEx(request *QueryCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCaasContractServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCaasContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 智能合约市场列表查询
+ * Summary: 智能合约市场列表查询
+ */
+func (client *Client) PagequeryCaasContractMarket(request *PagequeryCaasContractMarketRequest) (_result *PagequeryCaasContractMarketResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryCaasContractMarketResponse{}
+	_body, _err := client.PagequeryCaasContractMarketEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 智能合约市场列表查询
+ * Summary: 智能合约市场列表查询
+ */
+func (client *Client) PagequeryCaasContractMarketEx(request *PagequeryCaasContractMarketRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryCaasContractMarketResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryCaasContractMarketResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.market.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 合约部署记录
  * Summary: 合约部署记录
  */
@@ -77703,6 +80134,40 @@ func (client *Client) QueryAuthCertDetailurlEx(request *QueryAuthCertDetailurlRe
 	}
 	_result = &QueryAuthCertDetailurlResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.cert.detailurl.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 主站应用同步授权宝权益任务的完成情况
+ * Summary: 主站应用同步授权宝权益任务的完成情况
+ */
+func (client *Client) NotifyAuthTaskStatus(request *NotifyAuthTaskStatusRequest) (_result *NotifyAuthTaskStatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyAuthTaskStatusResponse{}
+	_body, _err := client.NotifyAuthTaskStatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 主站应用同步授权宝权益任务的完成情况
+ * Summary: 主站应用同步授权宝权益任务的完成情况
+ */
+func (client *Client) NotifyAuthTaskStatusEx(request *NotifyAuthTaskStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyAuthTaskStatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyAuthTaskStatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.status.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
