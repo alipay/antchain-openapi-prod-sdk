@@ -6,7 +6,7 @@ namespace AntChain\Acm\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ListAccesskeyRequest extends Model
+class EnableOauthMobileloginRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,19 +14,19 @@ class ListAccesskeyRequest extends Model
      */
     public $authToken;
 
-    // 操作员或服务账号唯一ID
+    // 三方授权凭证
     /**
      * @var string
      */
-    public $userId;
+    public $accessToken;
     protected $_name = [
-        'authToken' => 'auth_token',
-        'userId'    => 'user_id',
+        'authToken'   => 'auth_token',
+        'accessToken' => 'access_token',
     ];
 
     public function validate()
     {
-        Model::validateRequired('userId', $this->userId, true);
+        Model::validateRequired('accessToken', $this->accessToken, true);
     }
 
     public function toMap()
@@ -35,8 +35,8 @@ class ListAccesskeyRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
-        if (null !== $this->userId) {
-            $res['user_id'] = $this->userId;
+        if (null !== $this->accessToken) {
+            $res['access_token'] = $this->accessToken;
         }
 
         return $res;
@@ -45,7 +45,7 @@ class ListAccesskeyRequest extends Model
     /**
      * @param array $map
      *
-     * @return ListAccesskeyRequest
+     * @return EnableOauthMobileloginRequest
      */
     public static function fromMap($map = [])
     {
@@ -53,8 +53,8 @@ class ListAccesskeyRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
-        if (isset($map['user_id'])) {
-            $model->userId = $map['user_id'];
+        if (isset($map['access_token'])) {
+            $model->accessToken = $map['access_token'];
         }
 
         return $model;

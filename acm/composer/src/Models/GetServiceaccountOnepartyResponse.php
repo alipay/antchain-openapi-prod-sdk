@@ -6,7 +6,7 @@ namespace AntChain\Acm\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetAccessorResponse extends Model
+class GetServiceaccountOnepartyResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,65 +26,51 @@ class GetAccessorResponse extends Model
      */
     public $resultMsg;
 
-    // Accessor关联的AccessKey
+    // 租户ID
+    /**
+     * @var string
+     */
+    public $tenantId;
+
+    // 用户ID
+    /**
+     * @var string
+     */
+    public $userId;
+
+    // 用户类型
+    /**
+     * @var string
+     */
+    public $userType;
+
+    // accessKey
     /**
      * @var string
      */
     public $accessKey;
 
-    // Accessor关联的AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
+    // accessSecret
     /**
      * @var string
      */
     public $accessSecret;
 
-    // AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
+    // status
     /**
      * @var string
      */
-    public $account;
-
-    // AccessKey创建时间，ISO8601格式
-    /**
-     * @var string
-     */
-    public $createTime;
-
-    // Accessor唯一标识
-    /**
-     * @var string
-     */
-    public $id;
-
-    // 关联的租户
-    /**
-     * @var string
-     */
-    public $tenant;
-
-    // Accessor类型(RAM/ACCOUNT)
-    /**
-     * @var string
-     */
-    public $type;
-
-    // 关联的用户ID
-    /**
-     * @var string
-     */
-    public $userId;
+    public $status;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
         'resultMsg'    => 'result_msg',
+        'tenantId'     => 'tenant_id',
+        'userId'       => 'user_id',
+        'userType'     => 'user_type',
         'accessKey'    => 'access_key',
         'accessSecret' => 'access_secret',
-        'account'      => 'account',
-        'createTime'   => 'create_time',
-        'id'           => 'id',
-        'tenant'       => 'tenant',
-        'type'         => 'type',
-        'userId'       => 'userId',
+        'status'       => 'status',
     ];
 
     public function validate()
@@ -103,29 +89,23 @@ class GetAccessorResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->userId) {
+            $res['user_id'] = $this->userId;
+        }
+        if (null !== $this->userType) {
+            $res['user_type'] = $this->userType;
+        }
         if (null !== $this->accessKey) {
             $res['access_key'] = $this->accessKey;
         }
         if (null !== $this->accessSecret) {
             $res['access_secret'] = $this->accessSecret;
         }
-        if (null !== $this->account) {
-            $res['account'] = $this->account;
-        }
-        if (null !== $this->createTime) {
-            $res['create_time'] = $this->createTime;
-        }
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
-        }
-        if (null !== $this->tenant) {
-            $res['tenant'] = $this->tenant;
-        }
-        if (null !== $this->type) {
-            $res['type'] = $this->type;
-        }
-        if (null !== $this->userId) {
-            $res['userId'] = $this->userId;
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
         }
 
         return $res;
@@ -134,7 +114,7 @@ class GetAccessorResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetAccessorResponse
+     * @return GetServiceaccountOnepartyResponse
      */
     public static function fromMap($map = [])
     {
@@ -148,29 +128,23 @@ class GetAccessorResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
+        }
+        if (isset($map['user_id'])) {
+            $model->userId = $map['user_id'];
+        }
+        if (isset($map['user_type'])) {
+            $model->userType = $map['user_type'];
+        }
         if (isset($map['access_key'])) {
             $model->accessKey = $map['access_key'];
         }
         if (isset($map['access_secret'])) {
             $model->accessSecret = $map['access_secret'];
         }
-        if (isset($map['account'])) {
-            $model->account = $map['account'];
-        }
-        if (isset($map['create_time'])) {
-            $model->createTime = $map['create_time'];
-        }
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
-        }
-        if (isset($map['tenant'])) {
-            $model->tenant = $map['tenant'];
-        }
-        if (isset($map['type'])) {
-            $model->type = $map['type'];
-        }
-        if (isset($map['userId'])) {
-            $model->userId = $map['userId'];
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
 
         return $model;

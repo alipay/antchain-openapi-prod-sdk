@@ -6,7 +6,7 @@ namespace AntChain\Acm\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckLoginIdRequest extends Model
+class SyncTenantInfoRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,19 +14,19 @@ class CheckLoginIdRequest extends Model
      */
     public $authToken;
 
-    // 登录id
+    // 账号ID
     /**
      * @var string
      */
-    public $loginName;
+    public $tenantId;
     protected $_name = [
         'authToken' => 'auth_token',
-        'loginName' => 'login_name',
+        'tenantId'  => 'tenant_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('loginName', $this->loginName, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
     }
 
     public function toMap()
@@ -35,8 +35,8 @@ class CheckLoginIdRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
-        if (null !== $this->loginName) {
-            $res['login_name'] = $this->loginName;
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
         }
 
         return $res;
@@ -45,7 +45,7 @@ class CheckLoginIdRequest extends Model
     /**
      * @param array $map
      *
-     * @return CheckLoginIdRequest
+     * @return SyncTenantInfoRequest
      */
     public static function fromMap($map = [])
     {
@@ -53,8 +53,8 @@ class CheckLoginIdRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
-        if (isset($map['login_name'])) {
-            $model->loginName = $map['login_name'];
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
 
         return $model;

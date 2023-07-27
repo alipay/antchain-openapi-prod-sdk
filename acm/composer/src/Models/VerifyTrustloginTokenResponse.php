@@ -6,7 +6,7 @@ namespace AntChain\Acm\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ListAccesskeyResponse extends Model
+class VerifyTrustloginTokenResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,21 +26,28 @@ class ListAccesskeyResponse extends Model
      */
     public $resultMsg;
 
-    // AccessKey列表
+    // 用户ID
+    //
     /**
-     * @var AccessKey[]
+     * @var string
      */
-    public $accessKeys;
+    public $userId;
+
+    // 验证结果，VALID有效，INVALID无效
+    /**
+     * @var string
+     */
+    public $result;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'accessKeys' => 'access_keys',
+        'userId'     => 'user_id',
+        'result'     => 'result',
     ];
 
     public function validate()
     {
-        Model::validateRequired('accessKeys', $this->accessKeys, true);
     }
 
     public function toMap()
@@ -55,14 +62,11 @@ class ListAccesskeyResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->accessKeys) {
-            $res['access_keys'] = [];
-            if (null !== $this->accessKeys && \is_array($this->accessKeys)) {
-                $n = 0;
-                foreach ($this->accessKeys as $item) {
-                    $res['access_keys'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->userId) {
+            $res['user_id'] = $this->userId;
+        }
+        if (null !== $this->result) {
+            $res['result'] = $this->result;
         }
 
         return $res;
@@ -71,7 +75,7 @@ class ListAccesskeyResponse extends Model
     /**
      * @param array $map
      *
-     * @return ListAccesskeyResponse
+     * @return VerifyTrustloginTokenResponse
      */
     public static function fromMap($map = [])
     {
@@ -85,14 +89,11 @@ class ListAccesskeyResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['access_keys'])) {
-            if (!empty($map['access_keys'])) {
-                $model->accessKeys = [];
-                $n                 = 0;
-                foreach ($map['access_keys'] as $item) {
-                    $model->accessKeys[$n++] = null !== $item ? AccessKey::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['user_id'])) {
+            $model->userId = $map['user_id'];
+        }
+        if (isset($map['result'])) {
+            $model->result = $map['result'];
         }
 
         return $model;

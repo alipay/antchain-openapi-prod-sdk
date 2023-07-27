@@ -15,22 +15,28 @@ use AntChain\Acm\Models\AddTenantBusinesstagRequest;
 use AntChain\Acm\Models\AddTenantBusinesstagResponse;
 use AntChain\Acm\Models\AddTenantMemberRequest;
 use AntChain\Acm\Models\AddTenantMemberResponse;
+use AntChain\Acm\Models\ApplyTrustloginTokenRequest;
+use AntChain\Acm\Models\ApplyTrustloginTokenResponse;
 use AntChain\Acm\Models\CheckAlipayTenantRequest;
 use AntChain\Acm\Models\CheckAlipayTenantResponse;
-use AntChain\Acm\Models\CheckLoginIdRequest;
-use AntChain\Acm\Models\CheckLoginIdResponse;
 use AntChain\Acm\Models\CheckLoginnameRequest;
 use AntChain\Acm\Models\CheckLoginnameResponse;
 use AntChain\Acm\Models\CreateAntchainTenantRequest;
 use AntChain\Acm\Models\CreateAntchainTenantResponse;
+use AntChain\Acm\Models\CreateOauthServiceaccountRequest;
+use AntChain\Acm\Models\CreateOauthServiceaccountResponse;
 use AntChain\Acm\Models\CreateOperatorRequest;
 use AntChain\Acm\Models\CreateOperatorResponse;
+use AntChain\Acm\Models\CreateServiceaccountOnepartyRequest;
+use AntChain\Acm\Models\CreateServiceaccountOnepartyResponse;
 use AntChain\Acm\Models\CreateTenantRequest;
 use AntChain\Acm\Models\CreateTenantResponse;
 use AntChain\Acm\Models\DeleteOperatorRequest;
 use AntChain\Acm\Models\DeleteOperatorResponse;
-use AntChain\Acm\Models\GetAccessorRequest;
-use AntChain\Acm\Models\GetAccessorResponse;
+use AntChain\Acm\Models\DisableOauthMobileloginRequest;
+use AntChain\Acm\Models\DisableOauthMobileloginResponse;
+use AntChain\Acm\Models\EnableOauthMobileloginRequest;
+use AntChain\Acm\Models\EnableOauthMobileloginResponse;
 use AntChain\Acm\Models\GetAntpassportTenantRequest;
 use AntChain\Acm\Models\GetAntpassportTenantResponse;
 use AntChain\Acm\Models\GetCurrentidRequest;
@@ -39,16 +45,18 @@ use AntChain\Acm\Models\GetCustomerRequest;
 use AntChain\Acm\Models\GetCustomerResponse;
 use AntChain\Acm\Models\GetMasterTenantRequest;
 use AntChain\Acm\Models\GetMasterTenantResponse;
+use AntChain\Acm\Models\GetOauthServiceaccountRequest;
+use AntChain\Acm\Models\GetOauthServiceaccountResponse;
 use AntChain\Acm\Models\GetOperatorRequest;
 use AntChain\Acm\Models\GetOperatorResponse;
+use AntChain\Acm\Models\GetServiceaccountOnepartyRequest;
+use AntChain\Acm\Models\GetServiceaccountOnepartyResponse;
 use AntChain\Acm\Models\GetTenantDingtokenRequest;
 use AntChain\Acm\Models\GetTenantDingtokenResponse;
 use AntChain\Acm\Models\GetTenantIaasaccountRequest;
 use AntChain\Acm\Models\GetTenantIaasaccountResponse;
 use AntChain\Acm\Models\GetTenantRequest;
 use AntChain\Acm\Models\GetTenantResponse;
-use AntChain\Acm\Models\ListAccesskeyRequest;
-use AntChain\Acm\Models\ListAccesskeyResponse;
 use AntChain\Acm\Models\ListCustomerRequest;
 use AntChain\Acm\Models\ListCustomerResponse;
 use AntChain\Acm\Models\QueryAdminRequest;
@@ -67,10 +75,14 @@ use AntChain\Acm\Models\SearchOperatorRequest;
 use AntChain\Acm\Models\SearchOperatorResponse;
 use AntChain\Acm\Models\SendOperatorActiveemailRequest;
 use AntChain\Acm\Models\SendOperatorActiveemailResponse;
+use AntChain\Acm\Models\SyncTenantInfoRequest;
+use AntChain\Acm\Models\SyncTenantInfoResponse;
 use AntChain\Acm\Models\UpdateCustomerIdentityRequest;
 use AntChain\Acm\Models\UpdateCustomerIdentityResponse;
 use AntChain\Acm\Models\UpdateOperatorRequest;
 use AntChain\Acm\Models\UpdateOperatorResponse;
+use AntChain\Acm\Models\VerifyTrustloginTokenRequest;
+use AntChain\Acm\Models\VerifyTrustloginTokenResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -170,18 +182,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -218,7 +230,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.23',
+                    'sdk_version'      => '1.3.3',
+                    '_prod_code'       => 'acm',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -661,39 +675,6 @@ class Client
     }
 
     /**
-     * Description: 获取用户AccessKey信息
-     * Summary: 获取用户AccessKey信息.
-     *
-     * @param ListAccesskeyRequest $request
-     *
-     * @return ListAccesskeyResponse
-     */
-    public function listAccesskey($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->listAccesskeyEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 获取用户AccessKey信息
-     * Summary: 获取用户AccessKey信息.
-     *
-     * @param ListAccesskeyRequest $request
-     * @param string[]             $headers
-     * @param RuntimeOptions       $runtime
-     *
-     * @return ListAccesskeyResponse
-     */
-    public function listAccesskeyEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return ListAccesskeyResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.accesskey.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 获取调用接口所使用AccessKey对应的身份实体信息
      * Summary: 获取调用接口所使用AccessKey对应的身份实体信息.
      *
@@ -724,39 +705,6 @@ class Client
         Utils::validateModel($request);
 
         return GetCurrentidResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.currentid.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 获取用户Accessor信息
-     * Summary: 获取用户Accessor信息.
-     *
-     * @param GetAccessorRequest $request
-     *
-     * @return GetAccessorResponse
-     */
-    public function getAccessor($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->getAccessorEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 获取用户Accessor信息
-     * Summary: 获取用户Accessor信息.
-     *
-     * @param GetAccessorRequest $request
-     * @param string[]           $headers
-     * @param RuntimeOptions     $runtime
-     *
-     * @return GetAccessorResponse
-     */
-    public function getAccessorEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return GetAccessorResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.accessor.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1024,41 +972,8 @@ class Client
     }
 
     /**
-     * Description: 校验邮箱是否可以创建账号
-     * Summary: 校验邮箱是否可以创建账号.
-     *
-     * @param CheckLoginIdRequest $request
-     *
-     * @return CheckLoginIdResponse
-     */
-    public function checkLoginId($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->checkLoginIdEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 校验邮箱是否可以创建账号
-     * Summary: 校验邮箱是否可以创建账号.
-     *
-     * @param CheckLoginIdRequest $request
-     * @param string[]            $headers
-     * @param RuntimeOptions      $runtime
-     *
-     * @return CheckLoginIdResponse
-     */
-    public function checkLoginIdEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return CheckLoginIdResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.login.id.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 使用租户ID查询租户信息
-     * Summary: 使用租户ID查询租户信息.
+     * Description: 使用用户ID或用户CODE查询用户信息
+     * Summary: 使用用户ID或用户CODE查询用户信息.
      *
      * @param GetMasterTenantRequest $request
      *
@@ -1073,8 +988,8 @@ class Client
     }
 
     /**
-     * Description: 使用租户ID查询租户信息
-     * Summary: 使用租户ID查询租户信息.
+     * Description: 使用用户ID或用户CODE查询用户信息
+     * Summary: 使用用户ID或用户CODE查询用户信息.
      *
      * @param GetMasterTenantRequest $request
      * @param string[]               $headers
@@ -1252,5 +1167,302 @@ class Client
         Utils::validateModel($request);
 
         return SendOperatorActiveemailResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.operator.activeemail.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 账号信息同步
+     * Summary: 账号信息同步.
+     *
+     * @param SyncTenantInfoRequest $request
+     *
+     * @return SyncTenantInfoResponse
+     */
+    public function syncTenantInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncTenantInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 账号信息同步
+     * Summary: 账号信息同步.
+     *
+     * @param SyncTenantInfoRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return SyncTenantInfoResponse
+     */
+    public function syncTenantInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncTenantInfoResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.tenant.info.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三方授权创建服务账号
+     * Summary: 三方授权创建服务账号.
+     *
+     * @param CreateOauthServiceaccountRequest $request
+     *
+     * @return CreateOauthServiceaccountResponse
+     */
+    public function createOauthServiceaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createOauthServiceaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三方授权创建服务账号
+     * Summary: 三方授权创建服务账号.
+     *
+     * @param CreateOauthServiceaccountRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CreateOauthServiceaccountResponse
+     */
+    public function createOauthServiceaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateOauthServiceaccountResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.oauth.serviceaccount.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三方授权获取服务账号信息
+     * Summary: 三方授权获取服务账号信息.
+     *
+     * @param GetOauthServiceaccountRequest $request
+     *
+     * @return GetOauthServiceaccountResponse
+     */
+    public function getOauthServiceaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getOauthServiceaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三方授权获取服务账号信息
+     * Summary: 三方授权获取服务账号信息.
+     *
+     * @param GetOauthServiceaccountRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return GetOauthServiceaccountResponse
+     */
+    public function getOauthServiceaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetOauthServiceaccountResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.oauth.serviceaccount.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三方授权开通手机号登陆
+     * Summary: 三方授权开通手机号登陆.
+     *
+     * @param EnableOauthMobileloginRequest $request
+     *
+     * @return EnableOauthMobileloginResponse
+     */
+    public function enableOauthMobilelogin($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->enableOauthMobileloginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三方授权开通手机号登陆
+     * Summary: 三方授权开通手机号登陆.
+     *
+     * @param EnableOauthMobileloginRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return EnableOauthMobileloginResponse
+     */
+    public function enableOauthMobileloginEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return EnableOauthMobileloginResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.oauth.mobilelogin.enable', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三方授权关闭手机号登陆
+     * Summary: 三方授权关闭手机号登陆.
+     *
+     * @param DisableOauthMobileloginRequest $request
+     *
+     * @return DisableOauthMobileloginResponse
+     */
+    public function disableOauthMobilelogin($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->disableOauthMobileloginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三方授权关闭手机号登陆
+     * Summary: 三方授权关闭手机号登陆.
+     *
+     * @param DisableOauthMobileloginRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return DisableOauthMobileloginResponse
+     */
+    public function disableOauthMobileloginEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DisableOauthMobileloginResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.oauth.mobilelogin.disable', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提供给一方化平台代客创建服务账号（ak sk）
+     * Summary: 一方化会员服务账号创建.
+     *
+     * @param CreateServiceaccountOnepartyRequest $request
+     *
+     * @return CreateServiceaccountOnepartyResponse
+     */
+    public function createServiceaccountOneparty($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createServiceaccountOnepartyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提供给一方化平台代客创建服务账号（ak sk）
+     * Summary: 一方化会员服务账号创建.
+     *
+     * @param CreateServiceaccountOnepartyRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateServiceaccountOnepartyResponse
+     */
+    public function createServiceaccountOnepartyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateServiceaccountOnepartyResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.serviceaccount.oneparty.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一方化会员服务账号查询（ak sk）
+     * Summary: 一方化会员服务账号查询.
+     *
+     * @param GetServiceaccountOnepartyRequest $request
+     *
+     * @return GetServiceaccountOnepartyResponse
+     */
+    public function getServiceaccountOneparty($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getServiceaccountOnepartyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一方化会员服务账号查询（ak sk）
+     * Summary: 一方化会员服务账号查询.
+     *
+     * @param GetServiceaccountOnepartyRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return GetServiceaccountOnepartyResponse
+     */
+    public function getServiceaccountOnepartyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetServiceaccountOnepartyResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.serviceaccount.oneparty.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: token用于三方会员免密登录，与数科官网token不通用
+     * Summary: 三方会员免密登录token申请.
+     *
+     * @param ApplyTrustloginTokenRequest $request
+     *
+     * @return ApplyTrustloginTokenResponse
+     */
+    public function applyTrustloginToken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyTrustloginTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: token用于三方会员免密登录，与数科官网token不通用
+     * Summary: 三方会员免密登录token申请.
+     *
+     * @param ApplyTrustloginTokenRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ApplyTrustloginTokenResponse
+     */
+    public function applyTrustloginTokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyTrustloginTokenResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.trustlogin.token.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三方会员免密登录token校验，与数科官网token不通用
+     * Summary: 三方会员免密登录token校验.
+     *
+     * @param VerifyTrustloginTokenRequest $request
+     *
+     * @return VerifyTrustloginTokenResponse
+     */
+    public function verifyTrustloginToken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyTrustloginTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三方会员免密登录token校验，与数科官网token不通用
+     * Summary: 三方会员免密登录token校验.
+     *
+     * @param VerifyTrustloginTokenRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return VerifyTrustloginTokenResponse
+     */
+    public function verifyTrustloginTokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyTrustloginTokenResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.trustlogin.token.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

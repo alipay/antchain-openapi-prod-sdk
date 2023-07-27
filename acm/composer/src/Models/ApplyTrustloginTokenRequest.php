@@ -6,7 +6,7 @@ namespace AntChain\Acm\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetAccessorRequest extends Model
+class ApplyTrustloginTokenRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,32 +14,36 @@ class GetAccessorRequest extends Model
      */
     public $authToken;
 
-    // Accessor关联的accessKey
-    /**
-     * @var string
-     */
-    public $accessKeyId;
-
-    // 租户唯一标识
-    /**
-     * @var string
-     */
-    public $tenant;
-
-    // 操作员或服务账号唯一ID
+    // 用户ID
+    //
     /**
      * @var string
      */
     public $userId;
+
+    // 系统来源
+    /**
+     * @var string
+     */
+    public $sourceSystem;
+
+    // 登录账号
+    //
+    /**
+     * @var string
+     */
+    public $loginName;
     protected $_name = [
-        'authToken'   => 'auth_token',
-        'accessKeyId' => 'access_key_id',
-        'tenant'      => 'tenant',
-        'userId'      => 'user_id',
+        'authToken'    => 'auth_token',
+        'userId'       => 'user_id',
+        'sourceSystem' => 'source_system',
+        'loginName'    => 'login_name',
     ];
 
     public function validate()
     {
+        Model::validateRequired('userId', $this->userId, true);
+        Model::validateRequired('sourceSystem', $this->sourceSystem, true);
     }
 
     public function toMap()
@@ -48,14 +52,14 @@ class GetAccessorRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
-        if (null !== $this->accessKeyId) {
-            $res['access_key_id'] = $this->accessKeyId;
-        }
-        if (null !== $this->tenant) {
-            $res['tenant'] = $this->tenant;
-        }
         if (null !== $this->userId) {
             $res['user_id'] = $this->userId;
+        }
+        if (null !== $this->sourceSystem) {
+            $res['source_system'] = $this->sourceSystem;
+        }
+        if (null !== $this->loginName) {
+            $res['login_name'] = $this->loginName;
         }
 
         return $res;
@@ -64,7 +68,7 @@ class GetAccessorRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetAccessorRequest
+     * @return ApplyTrustloginTokenRequest
      */
     public static function fromMap($map = [])
     {
@@ -72,14 +76,14 @@ class GetAccessorRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
-        if (isset($map['access_key_id'])) {
-            $model->accessKeyId = $map['access_key_id'];
-        }
-        if (isset($map['tenant'])) {
-            $model->tenant = $map['tenant'];
-        }
         if (isset($map['user_id'])) {
             $model->userId = $map['user_id'];
+        }
+        if (isset($map['source_system'])) {
+            $model->sourceSystem = $map['source_system'];
+        }
+        if (isset($map['login_name'])) {
+            $model->loginName = $map['login_name'];
         }
 
         return $model;

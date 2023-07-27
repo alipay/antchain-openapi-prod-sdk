@@ -6,7 +6,7 @@ namespace AntChain\Acm\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckLoginIdResponse extends Model
+class ApplyTrustloginTokenResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,25 @@ class CheckLoginIdResponse extends Model
      */
     public $resultMsg;
 
-    // 是否存在
-    /**
-     * @var bool
-     */
-    public $exist;
-
-    // 所属的租户id
+    // 用户ID
+    //
     /**
      * @var string
      */
-    public $tenantId;
+    public $userId;
+
+    // 用于登录的token
+    //
+    /**
+     * @var string
+     */
+    public $accessToken;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'exist'      => 'exist',
-        'tenantId'   => 'tenant_id',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'userId'      => 'user_id',
+        'accessToken' => 'access_token',
     ];
 
     public function validate()
@@ -61,11 +63,11 @@ class CheckLoginIdResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->exist) {
-            $res['exist'] = $this->exist;
+        if (null !== $this->userId) {
+            $res['user_id'] = $this->userId;
         }
-        if (null !== $this->tenantId) {
-            $res['tenant_id'] = $this->tenantId;
+        if (null !== $this->accessToken) {
+            $res['access_token'] = $this->accessToken;
         }
 
         return $res;
@@ -74,7 +76,7 @@ class CheckLoginIdResponse extends Model
     /**
      * @param array $map
      *
-     * @return CheckLoginIdResponse
+     * @return ApplyTrustloginTokenResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +90,11 @@ class CheckLoginIdResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['exist'])) {
-            $model->exist = $map['exist'];
+        if (isset($map['user_id'])) {
+            $model->userId = $map['user_id'];
         }
-        if (isset($map['tenant_id'])) {
-            $model->tenantId = $map['tenant_id'];
+        if (isset($map['access_token'])) {
+            $model->accessToken = $map['access_token'];
         }
 
         return $model;
