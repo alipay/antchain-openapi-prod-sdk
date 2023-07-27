@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.acm.models;
 
 import com.aliyun.tea.*;
 
-public class ListAccesskeyResponse extends TeaModel {
+public class SyncTenantInfoResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,17 +16,12 @@ public class ListAccesskeyResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // AccessKey列表
-    @NameInMap("access_keys")
-    @Validation(required = true)
-    public java.util.List<AccessKey> accessKeys;
-
-    public static ListAccesskeyResponse build(java.util.Map<String, ?> map) throws Exception {
-        ListAccesskeyResponse self = new ListAccesskeyResponse();
+    public static SyncTenantInfoResponse build(java.util.Map<String, ?> map) throws Exception {
+        SyncTenantInfoResponse self = new SyncTenantInfoResponse();
         return TeaModel.build(map, self);
     }
 
-    public ListAccesskeyResponse setReqMsgId(String reqMsgId) {
+    public SyncTenantInfoResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -34,7 +29,7 @@ public class ListAccesskeyResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ListAccesskeyResponse setResultCode(String resultCode) {
+    public SyncTenantInfoResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -42,20 +37,12 @@ public class ListAccesskeyResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ListAccesskeyResponse setResultMsg(String resultMsg) {
+    public SyncTenantInfoResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public ListAccesskeyResponse setAccessKeys(java.util.List<AccessKey> accessKeys) {
-        this.accessKeys = accessKeys;
-        return this;
-    }
-    public java.util.List<AccessKey> getAccessKeys() {
-        return this.accessKeys;
     }
 
 }

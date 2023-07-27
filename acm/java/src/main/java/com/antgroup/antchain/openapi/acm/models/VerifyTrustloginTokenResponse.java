@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.acm.models;
 
 import com.aliyun.tea.*;
 
-public class CheckLoginIdResponse extends TeaModel {
+public class VerifyTrustloginTokenResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,21 @@ public class CheckLoginIdResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 是否存在
-    @NameInMap("exist")
-    public Boolean exist;
+    // 用户ID
+    // 
+    @NameInMap("user_id")
+    public String userId;
 
-    // 所属的租户id
-    @NameInMap("tenant_id")
-    public String tenantId;
+    // 验证结果，VALID有效，INVALID无效
+    @NameInMap("result")
+    public String result;
 
-    public static CheckLoginIdResponse build(java.util.Map<String, ?> map) throws Exception {
-        CheckLoginIdResponse self = new CheckLoginIdResponse();
+    public static VerifyTrustloginTokenResponse build(java.util.Map<String, ?> map) throws Exception {
+        VerifyTrustloginTokenResponse self = new VerifyTrustloginTokenResponse();
         return TeaModel.build(map, self);
     }
 
-    public CheckLoginIdResponse setReqMsgId(String reqMsgId) {
+    public VerifyTrustloginTokenResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +38,7 @@ public class CheckLoginIdResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CheckLoginIdResponse setResultCode(String resultCode) {
+    public VerifyTrustloginTokenResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +46,7 @@ public class CheckLoginIdResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CheckLoginIdResponse setResultMsg(String resultMsg) {
+    public VerifyTrustloginTokenResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,20 +54,20 @@ public class CheckLoginIdResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CheckLoginIdResponse setExist(Boolean exist) {
-        this.exist = exist;
+    public VerifyTrustloginTokenResponse setUserId(String userId) {
+        this.userId = userId;
         return this;
     }
-    public Boolean getExist() {
-        return this.exist;
+    public String getUserId() {
+        return this.userId;
     }
 
-    public CheckLoginIdResponse setTenantId(String tenantId) {
-        this.tenantId = tenantId;
+    public VerifyTrustloginTokenResponse setResult(String result) {
+        this.result = result;
         return this;
     }
-    public String getTenantId() {
-        return this.tenantId;
+    public String getResult() {
+        return this.result;
     }
 
 }

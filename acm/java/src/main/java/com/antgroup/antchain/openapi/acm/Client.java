@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.23")
+                    new TeaPair("sdk_version", "1.3.3"),
+                    new TeaPair("_prod_code", "acm"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -388,25 +390,6 @@ public class Client {
     }
 
     /**
-     * Description: 获取用户AccessKey信息
-     * Summary: 获取用户AccessKey信息
-     */
-    public ListAccesskeyResponse listAccesskey(ListAccesskeyRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.listAccesskeyEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 获取用户AccessKey信息
-     * Summary: 获取用户AccessKey信息
-     */
-    public ListAccesskeyResponse listAccesskeyEx(ListAccesskeyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.accesskey.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAccesskeyResponse());
-    }
-
-    /**
      * Description: 获取调用接口所使用AccessKey对应的身份实体信息
      * Summary: 获取调用接口所使用AccessKey对应的身份实体信息
      */
@@ -423,25 +406,6 @@ public class Client {
     public GetCurrentidResponse getCurrentidEx(GetCurrentidRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.currentid.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetCurrentidResponse());
-    }
-
-    /**
-     * Description: 获取用户Accessor信息
-     * Summary: 获取用户Accessor信息
-     */
-    public GetAccessorResponse getAccessor(GetAccessorRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.getAccessorEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 获取用户Accessor信息
-     * Summary: 获取用户Accessor信息
-     */
-    public GetAccessorResponse getAccessorEx(GetAccessorRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.accessor.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAccessorResponse());
     }
 
     /**
@@ -597,27 +561,8 @@ public class Client {
     }
 
     /**
-     * Description: 校验邮箱是否可以创建账号
-     * Summary: 校验邮箱是否可以创建账号
-     */
-    public CheckLoginIdResponse checkLoginId(CheckLoginIdRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.checkLoginIdEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 校验邮箱是否可以创建账号
-     * Summary: 校验邮箱是否可以创建账号
-     */
-    public CheckLoginIdResponse checkLoginIdEx(CheckLoginIdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.login.id.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckLoginIdResponse());
-    }
-
-    /**
-     * Description: 使用租户ID查询租户信息
-     * Summary: 使用租户ID查询租户信息
+     * Description: 使用用户ID或用户CODE查询用户信息
+     * Summary: 使用用户ID或用户CODE查询用户信息
      */
     public GetMasterTenantResponse getMasterTenant(GetMasterTenantRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -626,8 +571,8 @@ public class Client {
     }
 
     /**
-     * Description: 使用租户ID查询租户信息
-     * Summary: 使用租户ID查询租户信息
+     * Description: 使用用户ID或用户CODE查询用户信息
+     * Summary: 使用用户ID或用户CODE查询用户信息
      */
     public GetMasterTenantResponse getMasterTenantEx(GetMasterTenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -727,5 +672,176 @@ public class Client {
     public SendOperatorActiveemailResponse sendOperatorActiveemailEx(SendOperatorActiveemailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.operator.activeemail.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendOperatorActiveemailResponse());
+    }
+
+    /**
+     * Description: 账号信息同步
+     * Summary: 账号信息同步
+     */
+    public SyncTenantInfoResponse syncTenantInfo(SyncTenantInfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncTenantInfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 账号信息同步
+     * Summary: 账号信息同步
+     */
+    public SyncTenantInfoResponse syncTenantInfoEx(SyncTenantInfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.info.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncTenantInfoResponse());
+    }
+
+    /**
+     * Description: 三方授权创建服务账号
+     * Summary: 三方授权创建服务账号
+     */
+    public CreateOauthServiceaccountResponse createOauthServiceaccount(CreateOauthServiceaccountRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createOauthServiceaccountEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 三方授权创建服务账号
+     * Summary: 三方授权创建服务账号
+     */
+    public CreateOauthServiceaccountResponse createOauthServiceaccountEx(CreateOauthServiceaccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.oauth.serviceaccount.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateOauthServiceaccountResponse());
+    }
+
+    /**
+     * Description: 三方授权获取服务账号信息
+     * Summary: 三方授权获取服务账号信息
+     */
+    public GetOauthServiceaccountResponse getOauthServiceaccount(GetOauthServiceaccountRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getOauthServiceaccountEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 三方授权获取服务账号信息
+     * Summary: 三方授权获取服务账号信息
+     */
+    public GetOauthServiceaccountResponse getOauthServiceaccountEx(GetOauthServiceaccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.oauth.serviceaccount.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetOauthServiceaccountResponse());
+    }
+
+    /**
+     * Description: 三方授权开通手机号登陆
+     * Summary: 三方授权开通手机号登陆
+     */
+    public EnableOauthMobileloginResponse enableOauthMobilelogin(EnableOauthMobileloginRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.enableOauthMobileloginEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 三方授权开通手机号登陆
+     * Summary: 三方授权开通手机号登陆
+     */
+    public EnableOauthMobileloginResponse enableOauthMobileloginEx(EnableOauthMobileloginRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.oauth.mobilelogin.enable", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new EnableOauthMobileloginResponse());
+    }
+
+    /**
+     * Description: 三方授权关闭手机号登陆
+     * Summary: 三方授权关闭手机号登陆
+     */
+    public DisableOauthMobileloginResponse disableOauthMobilelogin(DisableOauthMobileloginRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.disableOauthMobileloginEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 三方授权关闭手机号登陆
+     * Summary: 三方授权关闭手机号登陆
+     */
+    public DisableOauthMobileloginResponse disableOauthMobileloginEx(DisableOauthMobileloginRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.oauth.mobilelogin.disable", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DisableOauthMobileloginResponse());
+    }
+
+    /**
+     * Description: 提供给一方化平台代客创建服务账号（ak sk）
+     * Summary: 一方化会员服务账号创建
+     */
+    public CreateServiceaccountOnepartyResponse createServiceaccountOneparty(CreateServiceaccountOnepartyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createServiceaccountOnepartyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 提供给一方化平台代客创建服务账号（ak sk）
+     * Summary: 一方化会员服务账号创建
+     */
+    public CreateServiceaccountOnepartyResponse createServiceaccountOnepartyEx(CreateServiceaccountOnepartyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.serviceaccount.oneparty.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateServiceaccountOnepartyResponse());
+    }
+
+    /**
+     * Description: 一方化会员服务账号查询（ak sk）
+     * Summary: 一方化会员服务账号查询
+     */
+    public GetServiceaccountOnepartyResponse getServiceaccountOneparty(GetServiceaccountOnepartyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getServiceaccountOnepartyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 一方化会员服务账号查询（ak sk）
+     * Summary: 一方化会员服务账号查询
+     */
+    public GetServiceaccountOnepartyResponse getServiceaccountOnepartyEx(GetServiceaccountOnepartyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.serviceaccount.oneparty.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetServiceaccountOnepartyResponse());
+    }
+
+    /**
+     * Description: token用于三方会员免密登录，与数科官网token不通用
+     * Summary: 三方会员免密登录token申请
+     */
+    public ApplyTrustloginTokenResponse applyTrustloginToken(ApplyTrustloginTokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyTrustloginTokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: token用于三方会员免密登录，与数科官网token不通用
+     * Summary: 三方会员免密登录token申请
+     */
+    public ApplyTrustloginTokenResponse applyTrustloginTokenEx(ApplyTrustloginTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.trustlogin.token.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyTrustloginTokenResponse());
+    }
+
+    /**
+     * Description: 三方会员免密登录token校验，与数科官网token不通用
+     * Summary: 三方会员免密登录token校验
+     */
+    public VerifyTrustloginTokenResponse verifyTrustloginToken(VerifyTrustloginTokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyTrustloginTokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 三方会员免密登录token校验，与数科官网token不通用
+     * Summary: 三方会员免密登录token校验
+     */
+    public VerifyTrustloginTokenResponse verifyTrustloginTokenEx(VerifyTrustloginTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.trustlogin.token.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyTrustloginTokenResponse());
     }
 }
