@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.23'
+                    'sdk_version': '1.3.3',
+                    '_prod_code': 'acm',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -200,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.23'
+                    'sdk_version': '1.3.3',
+                    '_prod_code': 'acm',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +310,8 @@ class Client:
         Summary: 获取企业
         """
         UtilClient.validate_model(request)
-        return acm_models.GetCustomerResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetCustomerResponse(),
             self.do_request('1.0', 'antcloud.acm.customer.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +326,8 @@ class Client:
         Summary: 获取企业
         """
         UtilClient.validate_model(request)
-        return acm_models.GetCustomerResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetCustomerResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.customer.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +366,8 @@ class Client:
         Summary: 获取操作员
         """
         UtilClient.validate_model(request)
-        return acm_models.GetOperatorResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetOperatorResponse(),
             self.do_request('1.0', 'antcloud.acm.operator.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +382,8 @@ class Client:
         Summary: 获取操作员
         """
         UtilClient.validate_model(request)
-        return acm_models.GetOperatorResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetOperatorResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.operator.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +422,8 @@ class Client:
         Summary: 查询操作员
         """
         UtilClient.validate_model(request)
-        return acm_models.QueryOperatorResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.QueryOperatorResponse(),
             self.do_request('1.0', 'antcloud.acm.operator.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +438,8 @@ class Client:
         Summary: 查询操作员
         """
         UtilClient.validate_model(request)
-        return acm_models.QueryOperatorResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.QueryOperatorResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.operator.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +478,8 @@ class Client:
         Summary: 搜索操作员
         """
         UtilClient.validate_model(request)
-        return acm_models.SearchOperatorResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.SearchOperatorResponse(),
             self.do_request('1.0', 'antcloud.acm.operator.search', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +494,8 @@ class Client:
         Summary: 搜索操作员
         """
         UtilClient.validate_model(request)
-        return acm_models.SearchOperatorResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.SearchOperatorResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.operator.search', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +534,8 @@ class Client:
         Summary: 创建操作员
         """
         UtilClient.validate_model(request)
-        return acm_models.CreateOperatorResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.CreateOperatorResponse(),
             self.do_request('1.0', 'antcloud.acm.operator.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +550,8 @@ class Client:
         Summary: 创建操作员
         """
         UtilClient.validate_model(request)
-        return acm_models.CreateOperatorResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.CreateOperatorResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.operator.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +590,8 @@ class Client:
         Summary: 更新操作员
         """
         UtilClient.validate_model(request)
-        return acm_models.UpdateOperatorResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.UpdateOperatorResponse(),
             self.do_request('1.0', 'antcloud.acm.operator.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +606,8 @@ class Client:
         Summary: 更新操作员
         """
         UtilClient.validate_model(request)
-        return acm_models.UpdateOperatorResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.UpdateOperatorResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.operator.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +646,8 @@ class Client:
         Summary: 删除操作员
         """
         UtilClient.validate_model(request)
-        return acm_models.DeleteOperatorResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.DeleteOperatorResponse(),
             self.do_request('1.0', 'antcloud.acm.operator.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +662,8 @@ class Client:
         Summary: 删除操作员
         """
         UtilClient.validate_model(request)
-        return acm_models.DeleteOperatorResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.DeleteOperatorResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.operator.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +702,8 @@ class Client:
         Summary: 添加租户成员
         """
         UtilClient.validate_model(request)
-        return acm_models.AddTenantMemberResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.AddTenantMemberResponse(),
             self.do_request('1.0', 'antcloud.acm.tenant.member.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +718,8 @@ class Client:
         Summary: 添加租户成员
         """
         UtilClient.validate_model(request)
-        return acm_models.AddTenantMemberResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.AddTenantMemberResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.tenant.member.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +758,8 @@ class Client:
         Summary: 初始化租户
         """
         UtilClient.validate_model(request)
-        return acm_models.CreateTenantResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.CreateTenantResponse(),
             self.do_request('1.0', 'antcloud.acm.tenant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +774,8 @@ class Client:
         Summary: 初始化租户
         """
         UtilClient.validate_model(request)
-        return acm_models.CreateTenantResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.CreateTenantResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.tenant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +814,8 @@ class Client:
         Summary: 获取用户信息
         """
         UtilClient.validate_model(request)
-        return acm_models.GetTenantResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetTenantResponse(),
             self.do_request('1.0', 'antcloud.acm.tenant.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +830,8 @@ class Client:
         Summary: 获取用户信息
         """
         UtilClient.validate_model(request)
-        return acm_models.GetTenantResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetTenantResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.tenant.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +870,8 @@ class Client:
         Summary: 查询租户列表
         """
         UtilClient.validate_model(request)
-        return acm_models.QueryTenantResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.QueryTenantResponse(),
             self.do_request('1.0', 'antcloud.acm.tenant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +886,8 @@ class Client:
         Summary: 查询租户列表
         """
         UtilClient.validate_model(request)
-        return acm_models.QueryTenantResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.QueryTenantResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.tenant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -900,7 +926,8 @@ class Client:
         Summary: 查询租户ID
         """
         UtilClient.validate_model(request)
-        return acm_models.GetAntpassportTenantResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetAntpassportTenantResponse(),
             self.do_request('1.0', 'antcloud.acm.antpassport.tenant.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -915,62 +942,9 @@ class Client:
         Summary: 查询租户ID
         """
         UtilClient.validate_model(request)
-        return acm_models.GetAntpassportTenantResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetAntpassportTenantResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.antpassport.tenant.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def list_accesskey(
-        self,
-        request: acm_models.ListAccesskeyRequest,
-    ) -> acm_models.ListAccesskeyResponse:
-        """
-        Description: 获取用户AccessKey信息
-        Summary: 获取用户AccessKey信息
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_accesskey_ex(request, headers, runtime)
-
-    async def list_accesskey_async(
-        self,
-        request: acm_models.ListAccesskeyRequest,
-    ) -> acm_models.ListAccesskeyResponse:
-        """
-        Description: 获取用户AccessKey信息
-        Summary: 获取用户AccessKey信息
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.list_accesskey_ex_async(request, headers, runtime)
-
-    def list_accesskey_ex(
-        self,
-        request: acm_models.ListAccesskeyRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> acm_models.ListAccesskeyResponse:
-        """
-        Description: 获取用户AccessKey信息
-        Summary: 获取用户AccessKey信息
-        """
-        UtilClient.validate_model(request)
-        return acm_models.ListAccesskeyResponse().from_map(
-            self.do_request('1.0', 'antcloud.acm.accesskey.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def list_accesskey_ex_async(
-        self,
-        request: acm_models.ListAccesskeyRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> acm_models.ListAccesskeyResponse:
-        """
-        Description: 获取用户AccessKey信息
-        Summary: 获取用户AccessKey信息
-        """
-        UtilClient.validate_model(request)
-        return acm_models.ListAccesskeyResponse().from_map(
-            await self.do_request_async('1.0', 'antcloud.acm.accesskey.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_currentid(
@@ -1008,7 +982,8 @@ class Client:
         Summary: 获取调用接口所使用AccessKey对应的身份实体信息
         """
         UtilClient.validate_model(request)
-        return acm_models.GetCurrentidResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetCurrentidResponse(),
             self.do_request('1.0', 'antcloud.acm.currentid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1023,62 +998,9 @@ class Client:
         Summary: 获取调用接口所使用AccessKey对应的身份实体信息
         """
         UtilClient.validate_model(request)
-        return acm_models.GetCurrentidResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetCurrentidResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.currentid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def get_accessor(
-        self,
-        request: acm_models.GetAccessorRequest,
-    ) -> acm_models.GetAccessorResponse:
-        """
-        Description: 获取用户Accessor信息
-        Summary: 获取用户Accessor信息
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_accessor_ex(request, headers, runtime)
-
-    async def get_accessor_async(
-        self,
-        request: acm_models.GetAccessorRequest,
-    ) -> acm_models.GetAccessorResponse:
-        """
-        Description: 获取用户Accessor信息
-        Summary: 获取用户Accessor信息
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.get_accessor_ex_async(request, headers, runtime)
-
-    def get_accessor_ex(
-        self,
-        request: acm_models.GetAccessorRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> acm_models.GetAccessorResponse:
-        """
-        Description: 获取用户Accessor信息
-        Summary: 获取用户Accessor信息
-        """
-        UtilClient.validate_model(request)
-        return acm_models.GetAccessorResponse().from_map(
-            self.do_request('1.0', 'antcloud.acm.accessor.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def get_accessor_ex_async(
-        self,
-        request: acm_models.GetAccessorRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> acm_models.GetAccessorResponse:
-        """
-        Description: 获取用户Accessor信息
-        Summary: 获取用户Accessor信息
-        """
-        UtilClient.validate_model(request)
-        return acm_models.GetAccessorResponse().from_map(
-            await self.do_request_async('1.0', 'antcloud.acm.accessor.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_tenant_dingtoken(
@@ -1116,7 +1038,8 @@ class Client:
         Summary: 获取租户的钉钉授权
         """
         UtilClient.validate_model(request)
-        return acm_models.GetTenantDingtokenResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetTenantDingtokenResponse(),
             self.do_request('1.0', 'antcloud.acm.tenant.dingtoken.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1131,7 +1054,8 @@ class Client:
         Summary: 获取租户的钉钉授权
         """
         UtilClient.validate_model(request)
-        return acm_models.GetTenantDingtokenResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetTenantDingtokenResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.tenant.dingtoken.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1170,7 +1094,8 @@ class Client:
         Summary: 分页查询管理员
         """
         UtilClient.validate_model(request)
-        return acm_models.QueryAdminResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.QueryAdminResponse(),
             self.do_request('1.0', 'antcloud.acm.admin.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1185,7 +1110,8 @@ class Client:
         Summary: 分页查询管理员
         """
         UtilClient.validate_model(request)
-        return acm_models.QueryAdminResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.QueryAdminResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.admin.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1224,7 +1150,8 @@ class Client:
         Summary: 获取租户的IaaS账号
         """
         UtilClient.validate_model(request)
-        return acm_models.GetTenantIaasaccountResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetTenantIaasaccountResponse(),
             self.do_request('1.0', 'antcloud.acm.tenant.iaasaccount.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1239,7 +1166,8 @@ class Client:
         Summary: 获取租户的IaaS账号
         """
         UtilClient.validate_model(request)
-        return acm_models.GetTenantIaasaccountResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetTenantIaasaccountResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.tenant.iaasaccount.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1278,7 +1206,8 @@ class Client:
         Summary: 查询企业列表
         """
         UtilClient.validate_model(request)
-        return acm_models.ListCustomerResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.ListCustomerResponse(),
             self.do_request('1.0', 'antcloud.acm.customer.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1293,7 +1222,8 @@ class Client:
         Summary: 查询企业列表
         """
         UtilClient.validate_model(request)
-        return acm_models.ListCustomerResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.ListCustomerResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.customer.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1332,7 +1262,8 @@ class Client:
         Summary: 支付宝账号证书信息校验、入驻、打标
         """
         UtilClient.validate_model(request)
-        return acm_models.CheckAlipayTenantResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.CheckAlipayTenantResponse(),
             self.do_request('1.0', 'antcloud.acm.alipay.tenant.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1347,7 +1278,8 @@ class Client:
         Summary: 支付宝账号证书信息校验、入驻、打标
         """
         UtilClient.validate_model(request)
-        return acm_models.CheckAlipayTenantResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.CheckAlipayTenantResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.alipay.tenant.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1386,7 +1318,8 @@ class Client:
         Summary: 租户入住状态查询
         """
         UtilClient.validate_model(request)
-        return acm_models.QueryTenantStatusResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.QueryTenantStatusResponse(),
             self.do_request('1.0', 'antcloud.acm.tenant.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1401,7 +1334,8 @@ class Client:
         Summary: 租户入住状态查询
         """
         UtilClient.validate_model(request)
-        return acm_models.QueryTenantStatusResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.QueryTenantStatusResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.tenant.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1440,7 +1374,8 @@ class Client:
         Summary: 账号创建
         """
         UtilClient.validate_model(request)
-        return acm_models.CreateAntchainTenantResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.CreateAntchainTenantResponse(),
             self.do_request('1.0', 'antcloud.acm.antchain.tenant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1455,7 +1390,8 @@ class Client:
         Summary: 账号创建
         """
         UtilClient.validate_model(request)
-        return acm_models.CreateAntchainTenantResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.CreateAntchainTenantResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.antchain.tenant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1494,7 +1430,8 @@ class Client:
         Summary: 客户认证信息更新
         """
         UtilClient.validate_model(request)
-        return acm_models.UpdateCustomerIdentityResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.UpdateCustomerIdentityResponse(),
             self.do_request('1.0', 'antcloud.acm.customer.identity.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1509,62 +1446,9 @@ class Client:
         Summary: 客户认证信息更新
         """
         UtilClient.validate_model(request)
-        return acm_models.UpdateCustomerIdentityResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.UpdateCustomerIdentityResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.customer.identity.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def check_login_id(
-        self,
-        request: acm_models.CheckLoginIdRequest,
-    ) -> acm_models.CheckLoginIdResponse:
-        """
-        Description: 校验邮箱是否可以创建账号
-        Summary: 校验邮箱是否可以创建账号
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.check_login_id_ex(request, headers, runtime)
-
-    async def check_login_id_async(
-        self,
-        request: acm_models.CheckLoginIdRequest,
-    ) -> acm_models.CheckLoginIdResponse:
-        """
-        Description: 校验邮箱是否可以创建账号
-        Summary: 校验邮箱是否可以创建账号
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.check_login_id_ex_async(request, headers, runtime)
-
-    def check_login_id_ex(
-        self,
-        request: acm_models.CheckLoginIdRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> acm_models.CheckLoginIdResponse:
-        """
-        Description: 校验邮箱是否可以创建账号
-        Summary: 校验邮箱是否可以创建账号
-        """
-        UtilClient.validate_model(request)
-        return acm_models.CheckLoginIdResponse().from_map(
-            self.do_request('1.0', 'antcloud.acm.login.id.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def check_login_id_ex_async(
-        self,
-        request: acm_models.CheckLoginIdRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> acm_models.CheckLoginIdResponse:
-        """
-        Description: 校验邮箱是否可以创建账号
-        Summary: 校验邮箱是否可以创建账号
-        """
-        UtilClient.validate_model(request)
-        return acm_models.CheckLoginIdResponse().from_map(
-            await self.do_request_async('1.0', 'antcloud.acm.login.id.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_master_tenant(
@@ -1572,8 +1456,8 @@ class Client:
         request: acm_models.GetMasterTenantRequest,
     ) -> acm_models.GetMasterTenantResponse:
         """
-        Description: 使用租户ID查询租户信息
-        Summary: 使用租户ID查询租户信息
+        Description: 使用用户ID或用户CODE查询用户信息
+        Summary: 使用用户ID或用户CODE查询用户信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1584,8 +1468,8 @@ class Client:
         request: acm_models.GetMasterTenantRequest,
     ) -> acm_models.GetMasterTenantResponse:
         """
-        Description: 使用租户ID查询租户信息
-        Summary: 使用租户ID查询租户信息
+        Description: 使用用户ID或用户CODE查询用户信息
+        Summary: 使用用户ID或用户CODE查询用户信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1598,11 +1482,12 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> acm_models.GetMasterTenantResponse:
         """
-        Description: 使用租户ID查询租户信息
-        Summary: 使用租户ID查询租户信息
+        Description: 使用用户ID或用户CODE查询用户信息
+        Summary: 使用用户ID或用户CODE查询用户信息
         """
         UtilClient.validate_model(request)
-        return acm_models.GetMasterTenantResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetMasterTenantResponse(),
             self.do_request('1.0', 'antcloud.acm.master.tenant.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1613,11 +1498,12 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> acm_models.GetMasterTenantResponse:
         """
-        Description: 使用租户ID查询租户信息
-        Summary: 使用租户ID查询租户信息
+        Description: 使用用户ID或用户CODE查询用户信息
+        Summary: 使用用户ID或用户CODE查询用户信息
         """
         UtilClient.validate_model(request)
-        return acm_models.GetMasterTenantResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.GetMasterTenantResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.master.tenant.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1656,7 +1542,8 @@ class Client:
         Summary: 检查邮箱是否可以用来注册
         """
         UtilClient.validate_model(request)
-        return acm_models.CheckLoginnameResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.CheckLoginnameResponse(),
             self.do_request('1.0', 'antcloud.acm.loginname.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1671,7 +1558,8 @@ class Client:
         Summary: 检查邮箱是否可以用来注册
         """
         UtilClient.validate_model(request)
-        return acm_models.CheckLoginnameResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.CheckLoginnameResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.loginname.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1710,7 +1598,8 @@ class Client:
         Summary: 查询租户的标签列表
         """
         UtilClient.validate_model(request)
-        return acm_models.QueryTenantTagResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.QueryTenantTagResponse(),
             self.do_request('1.0', 'antcloud.acm.tenant.tag.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1725,7 +1614,8 @@ class Client:
         Summary: 查询租户的标签列表
         """
         UtilClient.validate_model(request)
-        return acm_models.QueryTenantTagResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.QueryTenantTagResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.tenant.tag.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1764,7 +1654,8 @@ class Client:
         Summary: 租户增加业务标签
         """
         UtilClient.validate_model(request)
-        return acm_models.AddTenantBusinesstagResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.AddTenantBusinesstagResponse(),
             self.do_request('1.0', 'antcloud.acm.tenant.businesstag.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1779,7 +1670,8 @@ class Client:
         Summary: 租户增加业务标签
         """
         UtilClient.validate_model(request)
-        return acm_models.AddTenantBusinesstagResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.AddTenantBusinesstagResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.tenant.businesstag.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1818,7 +1710,8 @@ class Client:
         Summary: 删除业务标签
         """
         UtilClient.validate_model(request)
-        return acm_models.RemoveTenantBusinesstagResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.RemoveTenantBusinesstagResponse(),
             self.do_request('1.0', 'antcloud.acm.tenant.businesstag.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1833,7 +1726,8 @@ class Client:
         Summary: 删除业务标签
         """
         UtilClient.validate_model(request)
-        return acm_models.RemoveTenantBusinesstagResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.RemoveTenantBusinesstagResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.tenant.businesstag.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1872,7 +1766,8 @@ class Client:
         Summary: 操作员发送激活邮件
         """
         UtilClient.validate_model(request)
-        return acm_models.SendOperatorActiveemailResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.SendOperatorActiveemailResponse(),
             self.do_request('1.0', 'antcloud.acm.operator.activeemail.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1887,6 +1782,511 @@ class Client:
         Summary: 操作员发送激活邮件
         """
         UtilClient.validate_model(request)
-        return acm_models.SendOperatorActiveemailResponse().from_map(
+        return TeaCore.from_map(
+            acm_models.SendOperatorActiveemailResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.operator.activeemail.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_tenant_info(
+        self,
+        request: acm_models.SyncTenantInfoRequest,
+    ) -> acm_models.SyncTenantInfoResponse:
+        """
+        Description: 账号信息同步
+        Summary: 账号信息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_tenant_info_ex(request, headers, runtime)
+
+    async def sync_tenant_info_async(
+        self,
+        request: acm_models.SyncTenantInfoRequest,
+    ) -> acm_models.SyncTenantInfoResponse:
+        """
+        Description: 账号信息同步
+        Summary: 账号信息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_tenant_info_ex_async(request, headers, runtime)
+
+    def sync_tenant_info_ex(
+        self,
+        request: acm_models.SyncTenantInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.SyncTenantInfoResponse:
+        """
+        Description: 账号信息同步
+        Summary: 账号信息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.SyncTenantInfoResponse(),
+            self.do_request('1.0', 'antcloud.acm.tenant.info.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_tenant_info_ex_async(
+        self,
+        request: acm_models.SyncTenantInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.SyncTenantInfoResponse:
+        """
+        Description: 账号信息同步
+        Summary: 账号信息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.SyncTenantInfoResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.tenant.info.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_oauth_serviceaccount(
+        self,
+        request: acm_models.CreateOauthServiceaccountRequest,
+    ) -> acm_models.CreateOauthServiceaccountResponse:
+        """
+        Description: 三方授权创建服务账号
+        Summary: 三方授权创建服务账号
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_oauth_serviceaccount_ex(request, headers, runtime)
+
+    async def create_oauth_serviceaccount_async(
+        self,
+        request: acm_models.CreateOauthServiceaccountRequest,
+    ) -> acm_models.CreateOauthServiceaccountResponse:
+        """
+        Description: 三方授权创建服务账号
+        Summary: 三方授权创建服务账号
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_oauth_serviceaccount_ex_async(request, headers, runtime)
+
+    def create_oauth_serviceaccount_ex(
+        self,
+        request: acm_models.CreateOauthServiceaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.CreateOauthServiceaccountResponse:
+        """
+        Description: 三方授权创建服务账号
+        Summary: 三方授权创建服务账号
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.CreateOauthServiceaccountResponse(),
+            self.do_request('1.0', 'antcloud.acm.oauth.serviceaccount.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_oauth_serviceaccount_ex_async(
+        self,
+        request: acm_models.CreateOauthServiceaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.CreateOauthServiceaccountResponse:
+        """
+        Description: 三方授权创建服务账号
+        Summary: 三方授权创建服务账号
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.CreateOauthServiceaccountResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.oauth.serviceaccount.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_oauth_serviceaccount(
+        self,
+        request: acm_models.GetOauthServiceaccountRequest,
+    ) -> acm_models.GetOauthServiceaccountResponse:
+        """
+        Description: 三方授权获取服务账号信息
+        Summary: 三方授权获取服务账号信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_oauth_serviceaccount_ex(request, headers, runtime)
+
+    async def get_oauth_serviceaccount_async(
+        self,
+        request: acm_models.GetOauthServiceaccountRequest,
+    ) -> acm_models.GetOauthServiceaccountResponse:
+        """
+        Description: 三方授权获取服务账号信息
+        Summary: 三方授权获取服务账号信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_oauth_serviceaccount_ex_async(request, headers, runtime)
+
+    def get_oauth_serviceaccount_ex(
+        self,
+        request: acm_models.GetOauthServiceaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.GetOauthServiceaccountResponse:
+        """
+        Description: 三方授权获取服务账号信息
+        Summary: 三方授权获取服务账号信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.GetOauthServiceaccountResponse(),
+            self.do_request('1.0', 'antcloud.acm.oauth.serviceaccount.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_oauth_serviceaccount_ex_async(
+        self,
+        request: acm_models.GetOauthServiceaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.GetOauthServiceaccountResponse:
+        """
+        Description: 三方授权获取服务账号信息
+        Summary: 三方授权获取服务账号信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.GetOauthServiceaccountResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.oauth.serviceaccount.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def enable_oauth_mobilelogin(
+        self,
+        request: acm_models.EnableOauthMobileloginRequest,
+    ) -> acm_models.EnableOauthMobileloginResponse:
+        """
+        Description: 三方授权开通手机号登陆
+        Summary: 三方授权开通手机号登陆
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.enable_oauth_mobilelogin_ex(request, headers, runtime)
+
+    async def enable_oauth_mobilelogin_async(
+        self,
+        request: acm_models.EnableOauthMobileloginRequest,
+    ) -> acm_models.EnableOauthMobileloginResponse:
+        """
+        Description: 三方授权开通手机号登陆
+        Summary: 三方授权开通手机号登陆
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.enable_oauth_mobilelogin_ex_async(request, headers, runtime)
+
+    def enable_oauth_mobilelogin_ex(
+        self,
+        request: acm_models.EnableOauthMobileloginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.EnableOauthMobileloginResponse:
+        """
+        Description: 三方授权开通手机号登陆
+        Summary: 三方授权开通手机号登陆
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.EnableOauthMobileloginResponse(),
+            self.do_request('1.0', 'antcloud.acm.oauth.mobilelogin.enable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def enable_oauth_mobilelogin_ex_async(
+        self,
+        request: acm_models.EnableOauthMobileloginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.EnableOauthMobileloginResponse:
+        """
+        Description: 三方授权开通手机号登陆
+        Summary: 三方授权开通手机号登陆
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.EnableOauthMobileloginResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.oauth.mobilelogin.enable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def disable_oauth_mobilelogin(
+        self,
+        request: acm_models.DisableOauthMobileloginRequest,
+    ) -> acm_models.DisableOauthMobileloginResponse:
+        """
+        Description: 三方授权关闭手机号登陆
+        Summary: 三方授权关闭手机号登陆
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.disable_oauth_mobilelogin_ex(request, headers, runtime)
+
+    async def disable_oauth_mobilelogin_async(
+        self,
+        request: acm_models.DisableOauthMobileloginRequest,
+    ) -> acm_models.DisableOauthMobileloginResponse:
+        """
+        Description: 三方授权关闭手机号登陆
+        Summary: 三方授权关闭手机号登陆
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.disable_oauth_mobilelogin_ex_async(request, headers, runtime)
+
+    def disable_oauth_mobilelogin_ex(
+        self,
+        request: acm_models.DisableOauthMobileloginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.DisableOauthMobileloginResponse:
+        """
+        Description: 三方授权关闭手机号登陆
+        Summary: 三方授权关闭手机号登陆
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.DisableOauthMobileloginResponse(),
+            self.do_request('1.0', 'antcloud.acm.oauth.mobilelogin.disable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def disable_oauth_mobilelogin_ex_async(
+        self,
+        request: acm_models.DisableOauthMobileloginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.DisableOauthMobileloginResponse:
+        """
+        Description: 三方授权关闭手机号登陆
+        Summary: 三方授权关闭手机号登陆
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.DisableOauthMobileloginResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.oauth.mobilelogin.disable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_serviceaccount_oneparty(
+        self,
+        request: acm_models.CreateServiceaccountOnepartyRequest,
+    ) -> acm_models.CreateServiceaccountOnepartyResponse:
+        """
+        Description: 提供给一方化平台代客创建服务账号（ak sk）
+        Summary: 一方化会员服务账号创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_serviceaccount_oneparty_ex(request, headers, runtime)
+
+    async def create_serviceaccount_oneparty_async(
+        self,
+        request: acm_models.CreateServiceaccountOnepartyRequest,
+    ) -> acm_models.CreateServiceaccountOnepartyResponse:
+        """
+        Description: 提供给一方化平台代客创建服务账号（ak sk）
+        Summary: 一方化会员服务账号创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_serviceaccount_oneparty_ex_async(request, headers, runtime)
+
+    def create_serviceaccount_oneparty_ex(
+        self,
+        request: acm_models.CreateServiceaccountOnepartyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.CreateServiceaccountOnepartyResponse:
+        """
+        Description: 提供给一方化平台代客创建服务账号（ak sk）
+        Summary: 一方化会员服务账号创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.CreateServiceaccountOnepartyResponse(),
+            self.do_request('1.0', 'antcloud.acm.serviceaccount.oneparty.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_serviceaccount_oneparty_ex_async(
+        self,
+        request: acm_models.CreateServiceaccountOnepartyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.CreateServiceaccountOnepartyResponse:
+        """
+        Description: 提供给一方化平台代客创建服务账号（ak sk）
+        Summary: 一方化会员服务账号创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.CreateServiceaccountOnepartyResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.serviceaccount.oneparty.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_serviceaccount_oneparty(
+        self,
+        request: acm_models.GetServiceaccountOnepartyRequest,
+    ) -> acm_models.GetServiceaccountOnepartyResponse:
+        """
+        Description: 一方化会员服务账号查询（ak sk）
+        Summary: 一方化会员服务账号查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_serviceaccount_oneparty_ex(request, headers, runtime)
+
+    async def get_serviceaccount_oneparty_async(
+        self,
+        request: acm_models.GetServiceaccountOnepartyRequest,
+    ) -> acm_models.GetServiceaccountOnepartyResponse:
+        """
+        Description: 一方化会员服务账号查询（ak sk）
+        Summary: 一方化会员服务账号查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_serviceaccount_oneparty_ex_async(request, headers, runtime)
+
+    def get_serviceaccount_oneparty_ex(
+        self,
+        request: acm_models.GetServiceaccountOnepartyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.GetServiceaccountOnepartyResponse:
+        """
+        Description: 一方化会员服务账号查询（ak sk）
+        Summary: 一方化会员服务账号查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.GetServiceaccountOnepartyResponse(),
+            self.do_request('1.0', 'antcloud.acm.serviceaccount.oneparty.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_serviceaccount_oneparty_ex_async(
+        self,
+        request: acm_models.GetServiceaccountOnepartyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.GetServiceaccountOnepartyResponse:
+        """
+        Description: 一方化会员服务账号查询（ak sk）
+        Summary: 一方化会员服务账号查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.GetServiceaccountOnepartyResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.serviceaccount.oneparty.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_trustlogin_token(
+        self,
+        request: acm_models.ApplyTrustloginTokenRequest,
+    ) -> acm_models.ApplyTrustloginTokenResponse:
+        """
+        Description: token用于三方会员免密登录，与数科官网token不通用
+        Summary: 三方会员免密登录token申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_trustlogin_token_ex(request, headers, runtime)
+
+    async def apply_trustlogin_token_async(
+        self,
+        request: acm_models.ApplyTrustloginTokenRequest,
+    ) -> acm_models.ApplyTrustloginTokenResponse:
+        """
+        Description: token用于三方会员免密登录，与数科官网token不通用
+        Summary: 三方会员免密登录token申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_trustlogin_token_ex_async(request, headers, runtime)
+
+    def apply_trustlogin_token_ex(
+        self,
+        request: acm_models.ApplyTrustloginTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.ApplyTrustloginTokenResponse:
+        """
+        Description: token用于三方会员免密登录，与数科官网token不通用
+        Summary: 三方会员免密登录token申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.ApplyTrustloginTokenResponse(),
+            self.do_request('1.0', 'antcloud.acm.trustlogin.token.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_trustlogin_token_ex_async(
+        self,
+        request: acm_models.ApplyTrustloginTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.ApplyTrustloginTokenResponse:
+        """
+        Description: token用于三方会员免密登录，与数科官网token不通用
+        Summary: 三方会员免密登录token申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.ApplyTrustloginTokenResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.trustlogin.token.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_trustlogin_token(
+        self,
+        request: acm_models.VerifyTrustloginTokenRequest,
+    ) -> acm_models.VerifyTrustloginTokenResponse:
+        """
+        Description: 三方会员免密登录token校验，与数科官网token不通用
+        Summary: 三方会员免密登录token校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_trustlogin_token_ex(request, headers, runtime)
+
+    async def verify_trustlogin_token_async(
+        self,
+        request: acm_models.VerifyTrustloginTokenRequest,
+    ) -> acm_models.VerifyTrustloginTokenResponse:
+        """
+        Description: 三方会员免密登录token校验，与数科官网token不通用
+        Summary: 三方会员免密登录token校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_trustlogin_token_ex_async(request, headers, runtime)
+
+    def verify_trustlogin_token_ex(
+        self,
+        request: acm_models.VerifyTrustloginTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.VerifyTrustloginTokenResponse:
+        """
+        Description: 三方会员免密登录token校验，与数科官网token不通用
+        Summary: 三方会员免密登录token校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.VerifyTrustloginTokenResponse(),
+            self.do_request('1.0', 'antcloud.acm.trustlogin.token.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_trustlogin_token_ex_async(
+        self,
+        request: acm_models.VerifyTrustloginTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.VerifyTrustloginTokenResponse:
+        """
+        Description: 三方会员免密登录token校验，与数科官网token不通用
+        Summary: 三方会员免密登录token校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.VerifyTrustloginTokenResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.trustlogin.token.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
