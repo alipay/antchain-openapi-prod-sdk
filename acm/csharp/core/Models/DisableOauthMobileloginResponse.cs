@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Acm.Models
 {
-    public class ListAccesskeyResponse : TeaModel {
+    public class DisableOauthMobileloginResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,11 +23,6 @@ namespace AntChain.SDK.Acm.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
-
-        // AccessKey列表
-        [NameInMap("access_keys")]
-        [Validation(Required=true)]
-        public List<AccessKey> AccessKeys { get; set; }
 
     }
 

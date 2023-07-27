@@ -91,7 +91,7 @@ namespace AntChain.SDK.Acm
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,9 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.23"},
+                        {"sdk_version", "1.3.3"},
+                        {"_prod_code", "acm"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -215,7 +217,7 @@ namespace AntChain.SDK.Acm
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -261,7 +263,9 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.23"},
+                        {"sdk_version", "1.3.3"},
+                        {"_prod_code", "acm"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -822,48 +826,6 @@ namespace AntChain.SDK.Acm
         }
 
         /**
-         * Description: 获取用户AccessKey信息
-         * Summary: 获取用户AccessKey信息
-         */
-        public ListAccesskeyResponse ListAccesskey(ListAccesskeyRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return ListAccesskeyEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 获取用户AccessKey信息
-         * Summary: 获取用户AccessKey信息
-         */
-        public async Task<ListAccesskeyResponse> ListAccesskeyAsync(ListAccesskeyRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await ListAccesskeyExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 获取用户AccessKey信息
-         * Summary: 获取用户AccessKey信息
-         */
-        public ListAccesskeyResponse ListAccesskeyEx(ListAccesskeyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListAccesskeyResponse>(DoRequest("1.0", "antcloud.acm.accesskey.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 获取用户AccessKey信息
-         * Summary: 获取用户AccessKey信息
-         */
-        public async Task<ListAccesskeyResponse> ListAccesskeyExAsync(ListAccesskeyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListAccesskeyResponse>(await DoRequestAsync("1.0", "antcloud.acm.accesskey.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
          * Description: 获取调用接口所使用AccessKey对应的身份实体信息
          * Summary: 获取调用接口所使用AccessKey对应的身份实体信息
          */
@@ -903,48 +865,6 @@ namespace AntChain.SDK.Acm
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetCurrentidResponse>(await DoRequestAsync("1.0", "antcloud.acm.currentid.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 获取用户Accessor信息
-         * Summary: 获取用户Accessor信息
-         */
-        public GetAccessorResponse GetAccessor(GetAccessorRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return GetAccessorEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 获取用户Accessor信息
-         * Summary: 获取用户Accessor信息
-         */
-        public async Task<GetAccessorResponse> GetAccessorAsync(GetAccessorRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await GetAccessorExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 获取用户Accessor信息
-         * Summary: 获取用户Accessor信息
-         */
-        public GetAccessorResponse GetAccessorEx(GetAccessorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetAccessorResponse>(DoRequest("1.0", "antcloud.acm.accessor.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 获取用户Accessor信息
-         * Summary: 获取用户Accessor信息
-         */
-        public async Task<GetAccessorResponse> GetAccessorExAsync(GetAccessorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetAccessorResponse>(await DoRequestAsync("1.0", "antcloud.acm.accessor.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -1284,50 +1204,8 @@ namespace AntChain.SDK.Acm
         }
 
         /**
-         * Description: 校验邮箱是否可以创建账号
-         * Summary: 校验邮箱是否可以创建账号
-         */
-        public CheckLoginIdResponse CheckLoginId(CheckLoginIdRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return CheckLoginIdEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 校验邮箱是否可以创建账号
-         * Summary: 校验邮箱是否可以创建账号
-         */
-        public async Task<CheckLoginIdResponse> CheckLoginIdAsync(CheckLoginIdRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await CheckLoginIdExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 校验邮箱是否可以创建账号
-         * Summary: 校验邮箱是否可以创建账号
-         */
-        public CheckLoginIdResponse CheckLoginIdEx(CheckLoginIdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CheckLoginIdResponse>(DoRequest("1.0", "antcloud.acm.login.id.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 校验邮箱是否可以创建账号
-         * Summary: 校验邮箱是否可以创建账号
-         */
-        public async Task<CheckLoginIdResponse> CheckLoginIdExAsync(CheckLoginIdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CheckLoginIdResponse>(await DoRequestAsync("1.0", "antcloud.acm.login.id.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 使用租户ID查询租户信息
-         * Summary: 使用租户ID查询租户信息
+         * Description: 使用用户ID或用户CODE查询用户信息
+         * Summary: 使用用户ID或用户CODE查询用户信息
          */
         public GetMasterTenantResponse GetMasterTenant(GetMasterTenantRequest request)
         {
@@ -1337,8 +1215,8 @@ namespace AntChain.SDK.Acm
         }
 
         /**
-         * Description: 使用租户ID查询租户信息
-         * Summary: 使用租户ID查询租户信息
+         * Description: 使用用户ID或用户CODE查询用户信息
+         * Summary: 使用用户ID或用户CODE查询用户信息
          */
         public async Task<GetMasterTenantResponse> GetMasterTenantAsync(GetMasterTenantRequest request)
         {
@@ -1348,8 +1226,8 @@ namespace AntChain.SDK.Acm
         }
 
         /**
-         * Description: 使用租户ID查询租户信息
-         * Summary: 使用租户ID查询租户信息
+         * Description: 使用用户ID或用户CODE查询用户信息
+         * Summary: 使用用户ID或用户CODE查询用户信息
          */
         public GetMasterTenantResponse GetMasterTenantEx(GetMasterTenantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1358,8 +1236,8 @@ namespace AntChain.SDK.Acm
         }
 
         /**
-         * Description: 使用租户ID查询租户信息
-         * Summary: 使用租户ID查询租户信息
+         * Description: 使用用户ID或用户CODE查询用户信息
+         * Summary: 使用用户ID或用户CODE查询用户信息
          */
         public async Task<GetMasterTenantResponse> GetMasterTenantExAsync(GetMasterTenantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1575,6 +1453,384 @@ namespace AntChain.SDK.Acm
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SendOperatorActiveemailResponse>(await DoRequestAsync("1.0", "antcloud.acm.operator.activeemail.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 账号信息同步
+         * Summary: 账号信息同步
+         */
+        public SyncTenantInfoResponse SyncTenantInfo(SyncTenantInfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncTenantInfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 账号信息同步
+         * Summary: 账号信息同步
+         */
+        public async Task<SyncTenantInfoResponse> SyncTenantInfoAsync(SyncTenantInfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncTenantInfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 账号信息同步
+         * Summary: 账号信息同步
+         */
+        public SyncTenantInfoResponse SyncTenantInfoEx(SyncTenantInfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncTenantInfoResponse>(DoRequest("1.0", "antcloud.acm.tenant.info.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 账号信息同步
+         * Summary: 账号信息同步
+         */
+        public async Task<SyncTenantInfoResponse> SyncTenantInfoExAsync(SyncTenantInfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncTenantInfoResponse>(await DoRequestAsync("1.0", "antcloud.acm.tenant.info.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方授权创建服务账号
+         * Summary: 三方授权创建服务账号
+         */
+        public CreateOauthServiceaccountResponse CreateOauthServiceaccount(CreateOauthServiceaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateOauthServiceaccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方授权创建服务账号
+         * Summary: 三方授权创建服务账号
+         */
+        public async Task<CreateOauthServiceaccountResponse> CreateOauthServiceaccountAsync(CreateOauthServiceaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateOauthServiceaccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方授权创建服务账号
+         * Summary: 三方授权创建服务账号
+         */
+        public CreateOauthServiceaccountResponse CreateOauthServiceaccountEx(CreateOauthServiceaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateOauthServiceaccountResponse>(DoRequest("1.0", "antcloud.acm.oauth.serviceaccount.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方授权创建服务账号
+         * Summary: 三方授权创建服务账号
+         */
+        public async Task<CreateOauthServiceaccountResponse> CreateOauthServiceaccountExAsync(CreateOauthServiceaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateOauthServiceaccountResponse>(await DoRequestAsync("1.0", "antcloud.acm.oauth.serviceaccount.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方授权获取服务账号信息
+         * Summary: 三方授权获取服务账号信息
+         */
+        public GetOauthServiceaccountResponse GetOauthServiceaccount(GetOauthServiceaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetOauthServiceaccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方授权获取服务账号信息
+         * Summary: 三方授权获取服务账号信息
+         */
+        public async Task<GetOauthServiceaccountResponse> GetOauthServiceaccountAsync(GetOauthServiceaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetOauthServiceaccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方授权获取服务账号信息
+         * Summary: 三方授权获取服务账号信息
+         */
+        public GetOauthServiceaccountResponse GetOauthServiceaccountEx(GetOauthServiceaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetOauthServiceaccountResponse>(DoRequest("1.0", "antcloud.acm.oauth.serviceaccount.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方授权获取服务账号信息
+         * Summary: 三方授权获取服务账号信息
+         */
+        public async Task<GetOauthServiceaccountResponse> GetOauthServiceaccountExAsync(GetOauthServiceaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetOauthServiceaccountResponse>(await DoRequestAsync("1.0", "antcloud.acm.oauth.serviceaccount.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方授权开通手机号登陆
+         * Summary: 三方授权开通手机号登陆
+         */
+        public EnableOauthMobileloginResponse EnableOauthMobilelogin(EnableOauthMobileloginRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return EnableOauthMobileloginEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方授权开通手机号登陆
+         * Summary: 三方授权开通手机号登陆
+         */
+        public async Task<EnableOauthMobileloginResponse> EnableOauthMobileloginAsync(EnableOauthMobileloginRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await EnableOauthMobileloginExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方授权开通手机号登陆
+         * Summary: 三方授权开通手机号登陆
+         */
+        public EnableOauthMobileloginResponse EnableOauthMobileloginEx(EnableOauthMobileloginRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<EnableOauthMobileloginResponse>(DoRequest("1.0", "antcloud.acm.oauth.mobilelogin.enable", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方授权开通手机号登陆
+         * Summary: 三方授权开通手机号登陆
+         */
+        public async Task<EnableOauthMobileloginResponse> EnableOauthMobileloginExAsync(EnableOauthMobileloginRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<EnableOauthMobileloginResponse>(await DoRequestAsync("1.0", "antcloud.acm.oauth.mobilelogin.enable", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方授权关闭手机号登陆
+         * Summary: 三方授权关闭手机号登陆
+         */
+        public DisableOauthMobileloginResponse DisableOauthMobilelogin(DisableOauthMobileloginRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DisableOauthMobileloginEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方授权关闭手机号登陆
+         * Summary: 三方授权关闭手机号登陆
+         */
+        public async Task<DisableOauthMobileloginResponse> DisableOauthMobileloginAsync(DisableOauthMobileloginRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DisableOauthMobileloginExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方授权关闭手机号登陆
+         * Summary: 三方授权关闭手机号登陆
+         */
+        public DisableOauthMobileloginResponse DisableOauthMobileloginEx(DisableOauthMobileloginRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DisableOauthMobileloginResponse>(DoRequest("1.0", "antcloud.acm.oauth.mobilelogin.disable", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方授权关闭手机号登陆
+         * Summary: 三方授权关闭手机号登陆
+         */
+        public async Task<DisableOauthMobileloginResponse> DisableOauthMobileloginExAsync(DisableOauthMobileloginRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DisableOauthMobileloginResponse>(await DoRequestAsync("1.0", "antcloud.acm.oauth.mobilelogin.disable", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提供给一方化平台代客创建服务账号（ak sk）
+         * Summary: 一方化会员服务账号创建
+         */
+        public CreateServiceaccountOnepartyResponse CreateServiceaccountOneparty(CreateServiceaccountOnepartyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateServiceaccountOnepartyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提供给一方化平台代客创建服务账号（ak sk）
+         * Summary: 一方化会员服务账号创建
+         */
+        public async Task<CreateServiceaccountOnepartyResponse> CreateServiceaccountOnepartyAsync(CreateServiceaccountOnepartyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateServiceaccountOnepartyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提供给一方化平台代客创建服务账号（ak sk）
+         * Summary: 一方化会员服务账号创建
+         */
+        public CreateServiceaccountOnepartyResponse CreateServiceaccountOnepartyEx(CreateServiceaccountOnepartyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateServiceaccountOnepartyResponse>(DoRequest("1.0", "antcloud.acm.serviceaccount.oneparty.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提供给一方化平台代客创建服务账号（ak sk）
+         * Summary: 一方化会员服务账号创建
+         */
+        public async Task<CreateServiceaccountOnepartyResponse> CreateServiceaccountOnepartyExAsync(CreateServiceaccountOnepartyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateServiceaccountOnepartyResponse>(await DoRequestAsync("1.0", "antcloud.acm.serviceaccount.oneparty.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 一方化会员服务账号查询（ak sk）
+         * Summary: 一方化会员服务账号查询
+         */
+        public GetServiceaccountOnepartyResponse GetServiceaccountOneparty(GetServiceaccountOnepartyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetServiceaccountOnepartyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 一方化会员服务账号查询（ak sk）
+         * Summary: 一方化会员服务账号查询
+         */
+        public async Task<GetServiceaccountOnepartyResponse> GetServiceaccountOnepartyAsync(GetServiceaccountOnepartyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetServiceaccountOnepartyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 一方化会员服务账号查询（ak sk）
+         * Summary: 一方化会员服务账号查询
+         */
+        public GetServiceaccountOnepartyResponse GetServiceaccountOnepartyEx(GetServiceaccountOnepartyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetServiceaccountOnepartyResponse>(DoRequest("1.0", "antcloud.acm.serviceaccount.oneparty.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 一方化会员服务账号查询（ak sk）
+         * Summary: 一方化会员服务账号查询
+         */
+        public async Task<GetServiceaccountOnepartyResponse> GetServiceaccountOnepartyExAsync(GetServiceaccountOnepartyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetServiceaccountOnepartyResponse>(await DoRequestAsync("1.0", "antcloud.acm.serviceaccount.oneparty.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: token用于三方会员免密登录，与数科官网token不通用
+         * Summary: 三方会员免密登录token申请
+         */
+        public ApplyTrustloginTokenResponse ApplyTrustloginToken(ApplyTrustloginTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyTrustloginTokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: token用于三方会员免密登录，与数科官网token不通用
+         * Summary: 三方会员免密登录token申请
+         */
+        public async Task<ApplyTrustloginTokenResponse> ApplyTrustloginTokenAsync(ApplyTrustloginTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyTrustloginTokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: token用于三方会员免密登录，与数科官网token不通用
+         * Summary: 三方会员免密登录token申请
+         */
+        public ApplyTrustloginTokenResponse ApplyTrustloginTokenEx(ApplyTrustloginTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyTrustloginTokenResponse>(DoRequest("1.0", "antcloud.acm.trustlogin.token.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: token用于三方会员免密登录，与数科官网token不通用
+         * Summary: 三方会员免密登录token申请
+         */
+        public async Task<ApplyTrustloginTokenResponse> ApplyTrustloginTokenExAsync(ApplyTrustloginTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyTrustloginTokenResponse>(await DoRequestAsync("1.0", "antcloud.acm.trustlogin.token.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方会员免密登录token校验，与数科官网token不通用
+         * Summary: 三方会员免密登录token校验
+         */
+        public VerifyTrustloginTokenResponse VerifyTrustloginToken(VerifyTrustloginTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return VerifyTrustloginTokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方会员免密登录token校验，与数科官网token不通用
+         * Summary: 三方会员免密登录token校验
+         */
+        public async Task<VerifyTrustloginTokenResponse> VerifyTrustloginTokenAsync(VerifyTrustloginTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await VerifyTrustloginTokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方会员免密登录token校验，与数科官网token不通用
+         * Summary: 三方会员免密登录token校验
+         */
+        public VerifyTrustloginTokenResponse VerifyTrustloginTokenEx(VerifyTrustloginTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyTrustloginTokenResponse>(DoRequest("1.0", "antcloud.acm.trustlogin.token.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方会员免密登录token校验，与数科官网token不通用
+         * Summary: 三方会员免密登录token校验
+         */
+        public async Task<VerifyTrustloginTokenResponse> VerifyTrustloginTokenExAsync(VerifyTrustloginTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyTrustloginTokenResponse>(await DoRequestAsync("1.0", "antcloud.acm.trustlogin.token.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

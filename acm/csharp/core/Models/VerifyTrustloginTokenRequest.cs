@@ -8,16 +8,23 @@ using Tea;
 
 namespace AntChain.SDK.Acm.Models
 {
-    public class ListAccesskeyRequest : TeaModel {
+    public class VerifyTrustloginTokenRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 操作员或服务账号唯一ID
-        [NameInMap("user_id")]
+        // 系统来源
+        // 
+        [NameInMap("source_system")]
         [Validation(Required=true)]
-        public string UserId { get; set; }
+        public string SourceSystem { get; set; }
+
+        // 申请免密登录时获取的token
+        // 
+        [NameInMap("access_token")]
+        [Validation(Required=true)]
+        public string AccessToken { get; set; }
 
     }
 

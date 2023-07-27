@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Acm.Models
 {
-    public class CheckLoginIdResponse : TeaModel {
+    public class VerifyTrustloginTokenResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,16 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 是否存在
-        [NameInMap("exist")]
+        // 用户ID
+        // 
+        [NameInMap("user_id")]
         [Validation(Required=false)]
-        public bool? Exist { get; set; }
+        public string UserId { get; set; }
 
-        // 所属的租户id
-        [NameInMap("tenant_id")]
+        // 验证结果，VALID有效，INVALID无效
+        [NameInMap("result")]
         [Validation(Required=false)]
-        public string TenantId { get; set; }
+        public string Result { get; set; }
 
     }
 
