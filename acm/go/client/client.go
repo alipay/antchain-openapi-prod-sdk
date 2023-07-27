@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -1820,70 +1820,6 @@ func (s *GetAntpassportTenantResponse) SetTenant(v string) *GetAntpassportTenant
 	return s
 }
 
-type ListAccesskeyRequest struct {
-	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 操作员或服务账号唯一ID
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-}
-
-func (s ListAccesskeyRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ListAccesskeyRequest) GoString() string {
-	return s.String()
-}
-
-func (s *ListAccesskeyRequest) SetAuthToken(v string) *ListAccesskeyRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *ListAccesskeyRequest) SetUserId(v string) *ListAccesskeyRequest {
-	s.UserId = &v
-	return s
-}
-
-type ListAccesskeyResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// AccessKey列表
-	AccessKeys []*AccessKey `json:"access_keys,omitempty" xml:"access_keys,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s ListAccesskeyResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ListAccesskeyResponse) GoString() string {
-	return s.String()
-}
-
-func (s *ListAccesskeyResponse) SetReqMsgId(v string) *ListAccesskeyResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *ListAccesskeyResponse) SetResultCode(v string) *ListAccesskeyResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *ListAccesskeyResponse) SetResultMsg(v string) *ListAccesskeyResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *ListAccesskeyResponse) SetAccessKeys(v []*AccessKey) *ListAccesskeyResponse {
-	s.AccessKeys = v
-	return s
-}
-
 type GetCurrentidRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1966,133 +1902,6 @@ func (s *GetCurrentidResponse) SetType(v string) *GetCurrentidResponse {
 
 func (s *GetCurrentidResponse) SetUpdateTime(v string) *GetCurrentidResponse {
 	s.UpdateTime = &v
-	return s
-}
-
-type GetAccessorRequest struct {
-	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// Accessor关联的accessKey
-	AccessKeyId *string `json:"access_key_id,omitempty" xml:"access_key_id,omitempty"`
-	// 租户唯一标识
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
-	// 操作员或服务账号唯一ID
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
-}
-
-func (s GetAccessorRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GetAccessorRequest) GoString() string {
-	return s.String()
-}
-
-func (s *GetAccessorRequest) SetAuthToken(v string) *GetAccessorRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *GetAccessorRequest) SetAccessKeyId(v string) *GetAccessorRequest {
-	s.AccessKeyId = &v
-	return s
-}
-
-func (s *GetAccessorRequest) SetTenant(v string) *GetAccessorRequest {
-	s.Tenant = &v
-	return s
-}
-
-func (s *GetAccessorRequest) SetUserId(v string) *GetAccessorRequest {
-	s.UserId = &v
-	return s
-}
-
-type GetAccessorResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// Accessor关联的AccessKey
-	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
-	// Accessor关联的AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
-	AccessSecret *string `json:"access_secret,omitempty" xml:"access_secret,omitempty"`
-	// AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
-	Account *string `json:"account,omitempty" xml:"account,omitempty"`
-	// AccessKey创建时间，ISO8601格式
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// Accessor唯一标识
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 关联的租户
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
-	// Accessor类型(RAM/ACCOUNT)
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// 关联的用户ID
-	UserId *string `json:"userId,omitempty" xml:"userId,omitempty"`
-}
-
-func (s GetAccessorResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GetAccessorResponse) GoString() string {
-	return s.String()
-}
-
-func (s *GetAccessorResponse) SetReqMsgId(v string) *GetAccessorResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *GetAccessorResponse) SetResultCode(v string) *GetAccessorResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *GetAccessorResponse) SetResultMsg(v string) *GetAccessorResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *GetAccessorResponse) SetAccessKey(v string) *GetAccessorResponse {
-	s.AccessKey = &v
-	return s
-}
-
-func (s *GetAccessorResponse) SetAccessSecret(v string) *GetAccessorResponse {
-	s.AccessSecret = &v
-	return s
-}
-
-func (s *GetAccessorResponse) SetAccount(v string) *GetAccessorResponse {
-	s.Account = &v
-	return s
-}
-
-func (s *GetAccessorResponse) SetCreateTime(v string) *GetAccessorResponse {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *GetAccessorResponse) SetId(v string) *GetAccessorResponse {
-	s.Id = &v
-	return s
-}
-
-func (s *GetAccessorResponse) SetTenant(v string) *GetAccessorResponse {
-	s.Tenant = &v
-	return s
-}
-
-func (s *GetAccessorResponse) SetType(v string) *GetAccessorResponse {
-	s.Type = &v
-	return s
-}
-
-func (s *GetAccessorResponse) SetUserId(v string) *GetAccessorResponse {
-	s.UserId = &v
 	return s
 }
 
@@ -2911,77 +2720,6 @@ func (s *UpdateCustomerIdentityResponse) SetCustomerId(v string) *UpdateCustomer
 	return s
 }
 
-type CheckLoginIdRequest struct {
-	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 登录id
-	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
-}
-
-func (s CheckLoginIdRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CheckLoginIdRequest) GoString() string {
-	return s.String()
-}
-
-func (s *CheckLoginIdRequest) SetAuthToken(v string) *CheckLoginIdRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *CheckLoginIdRequest) SetLoginName(v string) *CheckLoginIdRequest {
-	s.LoginName = &v
-	return s
-}
-
-type CheckLoginIdResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 是否存在
-	Exist *bool `json:"exist,omitempty" xml:"exist,omitempty"`
-	// 所属的租户id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-}
-
-func (s CheckLoginIdResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CheckLoginIdResponse) GoString() string {
-	return s.String()
-}
-
-func (s *CheckLoginIdResponse) SetReqMsgId(v string) *CheckLoginIdResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *CheckLoginIdResponse) SetResultCode(v string) *CheckLoginIdResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *CheckLoginIdResponse) SetResultMsg(v string) *CheckLoginIdResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *CheckLoginIdResponse) SetExist(v bool) *CheckLoginIdResponse {
-	s.Exist = &v
-	return s
-}
-
-func (s *CheckLoginIdResponse) SetTenantId(v string) *CheckLoginIdResponse {
-	s.TenantId = &v
-	return s
-}
-
 type GetMasterTenantRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3471,6 +3209,778 @@ func (s *SendOperatorActiveemailResponse) SetResultMsg(v string) *SendOperatorAc
 	return s
 }
 
+type SyncTenantInfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 账号ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s SyncTenantInfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncTenantInfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncTenantInfoRequest) SetAuthToken(v string) *SyncTenantInfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncTenantInfoRequest) SetTenantId(v string) *SyncTenantInfoRequest {
+	s.TenantId = &v
+	return s
+}
+
+type SyncTenantInfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncTenantInfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncTenantInfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncTenantInfoResponse) SetReqMsgId(v string) *SyncTenantInfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncTenantInfoResponse) SetResultCode(v string) *SyncTenantInfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncTenantInfoResponse) SetResultMsg(v string) *SyncTenantInfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CreateOauthServiceaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 三方授权凭证
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+	// 服务账号描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 服务账号别名
+	Alias *string `json:"alias,omitempty" xml:"alias,omitempty" require:"true"`
+}
+
+func (s CreateOauthServiceaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateOauthServiceaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateOauthServiceaccountRequest) SetAuthToken(v string) *CreateOauthServiceaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateOauthServiceaccountRequest) SetAccessToken(v string) *CreateOauthServiceaccountRequest {
+	s.AccessToken = &v
+	return s
+}
+
+func (s *CreateOauthServiceaccountRequest) SetDescription(v string) *CreateOauthServiceaccountRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *CreateOauthServiceaccountRequest) SetAlias(v string) *CreateOauthServiceaccountRequest {
+	s.Alias = &v
+	return s
+}
+
+type CreateOauthServiceaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 服务账号ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 服务账号描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 服务账号别名
+	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
+}
+
+func (s CreateOauthServiceaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateOauthServiceaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateOauthServiceaccountResponse) SetReqMsgId(v string) *CreateOauthServiceaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateOauthServiceaccountResponse) SetResultCode(v string) *CreateOauthServiceaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateOauthServiceaccountResponse) SetResultMsg(v string) *CreateOauthServiceaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateOauthServiceaccountResponse) SetId(v string) *CreateOauthServiceaccountResponse {
+	s.Id = &v
+	return s
+}
+
+func (s *CreateOauthServiceaccountResponse) SetDescription(v string) *CreateOauthServiceaccountResponse {
+	s.Description = &v
+	return s
+}
+
+func (s *CreateOauthServiceaccountResponse) SetAlias(v string) *CreateOauthServiceaccountResponse {
+	s.Alias = &v
+	return s
+}
+
+type GetOauthServiceaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 三方授权凭证
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+	// 服务账号ID
+	ServiceAccountId *string `json:"service_account_id,omitempty" xml:"service_account_id,omitempty" require:"true"`
+}
+
+func (s GetOauthServiceaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetOauthServiceaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetOauthServiceaccountRequest) SetAuthToken(v string) *GetOauthServiceaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetOauthServiceaccountRequest) SetAccessToken(v string) *GetOauthServiceaccountRequest {
+	s.AccessToken = &v
+	return s
+}
+
+func (s *GetOauthServiceaccountRequest) SetServiceAccountId(v string) *GetOauthServiceaccountRequest {
+	s.ServiceAccountId = &v
+	return s
+}
+
+type GetOauthServiceaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 服务账号AK
+	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
+	// 服务账号SK
+	AccessSecret *string `json:"access_secret,omitempty" xml:"access_secret,omitempty"`
+	// 服务账号别名
+	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
+	// 服务账号描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 服务账号ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 服务名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 服务账号归属的账号ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s GetOauthServiceaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetOauthServiceaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetOauthServiceaccountResponse) SetReqMsgId(v string) *GetOauthServiceaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetOauthServiceaccountResponse) SetResultCode(v string) *GetOauthServiceaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetOauthServiceaccountResponse) SetResultMsg(v string) *GetOauthServiceaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetOauthServiceaccountResponse) SetAccessKey(v string) *GetOauthServiceaccountResponse {
+	s.AccessKey = &v
+	return s
+}
+
+func (s *GetOauthServiceaccountResponse) SetAccessSecret(v string) *GetOauthServiceaccountResponse {
+	s.AccessSecret = &v
+	return s
+}
+
+func (s *GetOauthServiceaccountResponse) SetAlias(v string) *GetOauthServiceaccountResponse {
+	s.Alias = &v
+	return s
+}
+
+func (s *GetOauthServiceaccountResponse) SetDescription(v string) *GetOauthServiceaccountResponse {
+	s.Description = &v
+	return s
+}
+
+func (s *GetOauthServiceaccountResponse) SetId(v string) *GetOauthServiceaccountResponse {
+	s.Id = &v
+	return s
+}
+
+func (s *GetOauthServiceaccountResponse) SetName(v string) *GetOauthServiceaccountResponse {
+	s.Name = &v
+	return s
+}
+
+func (s *GetOauthServiceaccountResponse) SetTenantId(v string) *GetOauthServiceaccountResponse {
+	s.TenantId = &v
+	return s
+}
+
+type EnableOauthMobileloginRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 三方授权凭证
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+}
+
+func (s EnableOauthMobileloginRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnableOauthMobileloginRequest) GoString() string {
+	return s.String()
+}
+
+func (s *EnableOauthMobileloginRequest) SetAuthToken(v string) *EnableOauthMobileloginRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *EnableOauthMobileloginRequest) SetAccessToken(v string) *EnableOauthMobileloginRequest {
+	s.AccessToken = &v
+	return s
+}
+
+type EnableOauthMobileloginResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s EnableOauthMobileloginResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnableOauthMobileloginResponse) GoString() string {
+	return s.String()
+}
+
+func (s *EnableOauthMobileloginResponse) SetReqMsgId(v string) *EnableOauthMobileloginResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *EnableOauthMobileloginResponse) SetResultCode(v string) *EnableOauthMobileloginResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *EnableOauthMobileloginResponse) SetResultMsg(v string) *EnableOauthMobileloginResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type DisableOauthMobileloginRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 三方授权凭证
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+}
+
+func (s DisableOauthMobileloginRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DisableOauthMobileloginRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DisableOauthMobileloginRequest) SetAuthToken(v string) *DisableOauthMobileloginRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DisableOauthMobileloginRequest) SetAccessToken(v string) *DisableOauthMobileloginRequest {
+	s.AccessToken = &v
+	return s
+}
+
+type DisableOauthMobileloginResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DisableOauthMobileloginResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DisableOauthMobileloginResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DisableOauthMobileloginResponse) SetReqMsgId(v string) *DisableOauthMobileloginResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DisableOauthMobileloginResponse) SetResultCode(v string) *DisableOauthMobileloginResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DisableOauthMobileloginResponse) SetResultMsg(v string) *DisableOauthMobileloginResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CreateServiceaccountOnepartyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 系统来源
+	SourceSystem *string `json:"source_system,omitempty" xml:"source_system,omitempty" require:"true"`
+}
+
+func (s CreateServiceaccountOnepartyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateServiceaccountOnepartyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateServiceaccountOnepartyRequest) SetAuthToken(v string) *CreateServiceaccountOnepartyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateServiceaccountOnepartyRequest) SetTenantId(v string) *CreateServiceaccountOnepartyRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CreateServiceaccountOnepartyRequest) SetSourceSystem(v string) *CreateServiceaccountOnepartyRequest {
+	s.SourceSystem = &v
+	return s
+}
+
+type CreateServiceaccountOnepartyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// accessKey
+	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
+	// accessSecret
+	AccessSecret *string `json:"access_secret,omitempty" xml:"access_secret,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户类型
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
+	// ak状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s CreateServiceaccountOnepartyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateServiceaccountOnepartyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateServiceaccountOnepartyResponse) SetReqMsgId(v string) *CreateServiceaccountOnepartyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateServiceaccountOnepartyResponse) SetResultCode(v string) *CreateServiceaccountOnepartyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateServiceaccountOnepartyResponse) SetResultMsg(v string) *CreateServiceaccountOnepartyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateServiceaccountOnepartyResponse) SetAccessKey(v string) *CreateServiceaccountOnepartyResponse {
+	s.AccessKey = &v
+	return s
+}
+
+func (s *CreateServiceaccountOnepartyResponse) SetAccessSecret(v string) *CreateServiceaccountOnepartyResponse {
+	s.AccessSecret = &v
+	return s
+}
+
+func (s *CreateServiceaccountOnepartyResponse) SetUserId(v string) *CreateServiceaccountOnepartyResponse {
+	s.UserId = &v
+	return s
+}
+
+func (s *CreateServiceaccountOnepartyResponse) SetUserType(v string) *CreateServiceaccountOnepartyResponse {
+	s.UserType = &v
+	return s
+}
+
+func (s *CreateServiceaccountOnepartyResponse) SetStatus(v string) *CreateServiceaccountOnepartyResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *CreateServiceaccountOnepartyResponse) SetTenantId(v string) *CreateServiceaccountOnepartyResponse {
+	s.TenantId = &v
+	return s
+}
+
+type GetServiceaccountOnepartyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 系统来源
+	SourceSystem *string `json:"source_system,omitempty" xml:"source_system,omitempty" require:"true"`
+	// accessKey
+	IamAccessKey *string `json:"iam_access_key,omitempty" xml:"iam_access_key,omitempty"`
+	// 用户id（服务账号）。和iam_access_key参数二选一
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s GetServiceaccountOnepartyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetServiceaccountOnepartyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetServiceaccountOnepartyRequest) SetAuthToken(v string) *GetServiceaccountOnepartyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetServiceaccountOnepartyRequest) SetTenantId(v string) *GetServiceaccountOnepartyRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *GetServiceaccountOnepartyRequest) SetSourceSystem(v string) *GetServiceaccountOnepartyRequest {
+	s.SourceSystem = &v
+	return s
+}
+
+func (s *GetServiceaccountOnepartyRequest) SetIamAccessKey(v string) *GetServiceaccountOnepartyRequest {
+	s.IamAccessKey = &v
+	return s
+}
+
+func (s *GetServiceaccountOnepartyRequest) SetUserId(v string) *GetServiceaccountOnepartyRequest {
+	s.UserId = &v
+	return s
+}
+
+type GetServiceaccountOnepartyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户类型
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
+	// accessKey
+	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
+	// accessSecret
+	AccessSecret *string `json:"access_secret,omitempty" xml:"access_secret,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s GetServiceaccountOnepartyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetServiceaccountOnepartyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetServiceaccountOnepartyResponse) SetReqMsgId(v string) *GetServiceaccountOnepartyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetServiceaccountOnepartyResponse) SetResultCode(v string) *GetServiceaccountOnepartyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetServiceaccountOnepartyResponse) SetResultMsg(v string) *GetServiceaccountOnepartyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetServiceaccountOnepartyResponse) SetTenantId(v string) *GetServiceaccountOnepartyResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *GetServiceaccountOnepartyResponse) SetUserId(v string) *GetServiceaccountOnepartyResponse {
+	s.UserId = &v
+	return s
+}
+
+func (s *GetServiceaccountOnepartyResponse) SetUserType(v string) *GetServiceaccountOnepartyResponse {
+	s.UserType = &v
+	return s
+}
+
+func (s *GetServiceaccountOnepartyResponse) SetAccessKey(v string) *GetServiceaccountOnepartyResponse {
+	s.AccessKey = &v
+	return s
+}
+
+func (s *GetServiceaccountOnepartyResponse) SetAccessSecret(v string) *GetServiceaccountOnepartyResponse {
+	s.AccessSecret = &v
+	return s
+}
+
+func (s *GetServiceaccountOnepartyResponse) SetStatus(v string) *GetServiceaccountOnepartyResponse {
+	s.Status = &v
+	return s
+}
+
+type ApplyTrustloginTokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 用户ID
+	//
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 系统来源
+	SourceSystem *string `json:"source_system,omitempty" xml:"source_system,omitempty" require:"true"`
+	// 登录账号
+	//
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+}
+
+func (s ApplyTrustloginTokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyTrustloginTokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyTrustloginTokenRequest) SetAuthToken(v string) *ApplyTrustloginTokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyTrustloginTokenRequest) SetUserId(v string) *ApplyTrustloginTokenRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ApplyTrustloginTokenRequest) SetSourceSystem(v string) *ApplyTrustloginTokenRequest {
+	s.SourceSystem = &v
+	return s
+}
+
+func (s *ApplyTrustloginTokenRequest) SetLoginName(v string) *ApplyTrustloginTokenRequest {
+	s.LoginName = &v
+	return s
+}
+
+type ApplyTrustloginTokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户ID
+	//
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用于登录的token
+	//
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty"`
+}
+
+func (s ApplyTrustloginTokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyTrustloginTokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyTrustloginTokenResponse) SetReqMsgId(v string) *ApplyTrustloginTokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyTrustloginTokenResponse) SetResultCode(v string) *ApplyTrustloginTokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyTrustloginTokenResponse) SetResultMsg(v string) *ApplyTrustloginTokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyTrustloginTokenResponse) SetUserId(v string) *ApplyTrustloginTokenResponse {
+	s.UserId = &v
+	return s
+}
+
+func (s *ApplyTrustloginTokenResponse) SetAccessToken(v string) *ApplyTrustloginTokenResponse {
+	s.AccessToken = &v
+	return s
+}
+
+type VerifyTrustloginTokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 系统来源
+	//
+	SourceSystem *string `json:"source_system,omitempty" xml:"source_system,omitempty" require:"true"`
+	// 申请免密登录时获取的token
+	//
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+}
+
+func (s VerifyTrustloginTokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyTrustloginTokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyTrustloginTokenRequest) SetAuthToken(v string) *VerifyTrustloginTokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyTrustloginTokenRequest) SetSourceSystem(v string) *VerifyTrustloginTokenRequest {
+	s.SourceSystem = &v
+	return s
+}
+
+func (s *VerifyTrustloginTokenRequest) SetAccessToken(v string) *VerifyTrustloginTokenRequest {
+	s.AccessToken = &v
+	return s
+}
+
+type VerifyTrustloginTokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户ID
+	//
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 验证结果，VALID有效，INVALID无效
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s VerifyTrustloginTokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyTrustloginTokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyTrustloginTokenResponse) SetReqMsgId(v string) *VerifyTrustloginTokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyTrustloginTokenResponse) SetResultCode(v string) *VerifyTrustloginTokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyTrustloginTokenResponse) SetResultMsg(v string) *VerifyTrustloginTokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyTrustloginTokenResponse) SetUserId(v string) *VerifyTrustloginTokenResponse {
+	s.UserId = &v
+	return s
+}
+
+func (s *VerifyTrustloginTokenResponse) SetResult(v string) *VerifyTrustloginTokenResponse {
+	s.Result = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3549,17 +4059,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -3593,7 +4103,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.23"),
+				"sdk_version":      tea.String("1.3.3"),
+				"_prod_code":       tea.String("acm"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -3619,8 +4131,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -4050,40 +4570,6 @@ func (client *Client) GetAntpassportTenantEx(request *GetAntpassportTenantReques
 }
 
 /**
- * Description: 获取用户AccessKey信息
- * Summary: 获取用户AccessKey信息
- */
-func (client *Client) ListAccesskey(request *ListAccesskeyRequest) (_result *ListAccesskeyResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &ListAccesskeyResponse{}
-	_body, _err := client.ListAccesskeyEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 获取用户AccessKey信息
- * Summary: 获取用户AccessKey信息
- */
-func (client *Client) ListAccesskeyEx(request *ListAccesskeyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAccesskeyResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &ListAccesskeyResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.accesskey.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
  * Description: 获取调用接口所使用AccessKey对应的身份实体信息
  * Summary: 获取调用接口所使用AccessKey对应的身份实体信息
  */
@@ -4110,40 +4596,6 @@ func (client *Client) GetCurrentidEx(request *GetCurrentidRequest, headers map[s
 	}
 	_result = &GetCurrentidResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.currentid.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 获取用户Accessor信息
- * Summary: 获取用户Accessor信息
- */
-func (client *Client) GetAccessor(request *GetAccessorRequest) (_result *GetAccessorResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &GetAccessorResponse{}
-	_body, _err := client.GetAccessorEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 获取用户Accessor信息
- * Summary: 获取用户Accessor信息
- */
-func (client *Client) GetAccessorEx(request *GetAccessorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAccessorResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &GetAccessorResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.accessor.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -4424,42 +4876,8 @@ func (client *Client) UpdateCustomerIdentityEx(request *UpdateCustomerIdentityRe
 }
 
 /**
- * Description: 校验邮箱是否可以创建账号
- * Summary: 校验邮箱是否可以创建账号
- */
-func (client *Client) CheckLoginId(request *CheckLoginIdRequest) (_result *CheckLoginIdResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &CheckLoginIdResponse{}
-	_body, _err := client.CheckLoginIdEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 校验邮箱是否可以创建账号
- * Summary: 校验邮箱是否可以创建账号
- */
-func (client *Client) CheckLoginIdEx(request *CheckLoginIdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckLoginIdResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &CheckLoginIdResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.login.id.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 使用租户ID查询租户信息
- * Summary: 使用租户ID查询租户信息
+ * Description: 使用用户ID或用户CODE查询用户信息
+ * Summary: 使用用户ID或用户CODE查询用户信息
  */
 func (client *Client) GetMasterTenant(request *GetMasterTenantRequest) (_result *GetMasterTenantResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -4474,8 +4892,8 @@ func (client *Client) GetMasterTenant(request *GetMasterTenantRequest) (_result 
 }
 
 /**
- * Description: 使用租户ID查询租户信息
- * Summary: 使用租户ID查询租户信息
+ * Description: 使用用户ID或用户CODE查询用户信息
+ * Summary: 使用用户ID或用户CODE查询用户信息
  */
 func (client *Client) GetMasterTenantEx(request *GetMasterTenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetMasterTenantResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -4654,6 +5072,312 @@ func (client *Client) SendOperatorActiveemailEx(request *SendOperatorActiveemail
 	}
 	_result = &SendOperatorActiveemailResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.operator.activeemail.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 账号信息同步
+ * Summary: 账号信息同步
+ */
+func (client *Client) SyncTenantInfo(request *SyncTenantInfoRequest) (_result *SyncTenantInfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncTenantInfoResponse{}
+	_body, _err := client.SyncTenantInfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 账号信息同步
+ * Summary: 账号信息同步
+ */
+func (client *Client) SyncTenantInfoEx(request *SyncTenantInfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncTenantInfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncTenantInfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.tenant.info.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 三方授权创建服务账号
+ * Summary: 三方授权创建服务账号
+ */
+func (client *Client) CreateOauthServiceaccount(request *CreateOauthServiceaccountRequest) (_result *CreateOauthServiceaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateOauthServiceaccountResponse{}
+	_body, _err := client.CreateOauthServiceaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 三方授权创建服务账号
+ * Summary: 三方授权创建服务账号
+ */
+func (client *Client) CreateOauthServiceaccountEx(request *CreateOauthServiceaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateOauthServiceaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateOauthServiceaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.oauth.serviceaccount.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 三方授权获取服务账号信息
+ * Summary: 三方授权获取服务账号信息
+ */
+func (client *Client) GetOauthServiceaccount(request *GetOauthServiceaccountRequest) (_result *GetOauthServiceaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetOauthServiceaccountResponse{}
+	_body, _err := client.GetOauthServiceaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 三方授权获取服务账号信息
+ * Summary: 三方授权获取服务账号信息
+ */
+func (client *Client) GetOauthServiceaccountEx(request *GetOauthServiceaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetOauthServiceaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetOauthServiceaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.oauth.serviceaccount.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 三方授权开通手机号登陆
+ * Summary: 三方授权开通手机号登陆
+ */
+func (client *Client) EnableOauthMobilelogin(request *EnableOauthMobileloginRequest) (_result *EnableOauthMobileloginResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &EnableOauthMobileloginResponse{}
+	_body, _err := client.EnableOauthMobileloginEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 三方授权开通手机号登陆
+ * Summary: 三方授权开通手机号登陆
+ */
+func (client *Client) EnableOauthMobileloginEx(request *EnableOauthMobileloginRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *EnableOauthMobileloginResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &EnableOauthMobileloginResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.oauth.mobilelogin.enable"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 三方授权关闭手机号登陆
+ * Summary: 三方授权关闭手机号登陆
+ */
+func (client *Client) DisableOauthMobilelogin(request *DisableOauthMobileloginRequest) (_result *DisableOauthMobileloginResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DisableOauthMobileloginResponse{}
+	_body, _err := client.DisableOauthMobileloginEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 三方授权关闭手机号登陆
+ * Summary: 三方授权关闭手机号登陆
+ */
+func (client *Client) DisableOauthMobileloginEx(request *DisableOauthMobileloginRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DisableOauthMobileloginResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DisableOauthMobileloginResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.oauth.mobilelogin.disable"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 提供给一方化平台代客创建服务账号（ak sk）
+ * Summary: 一方化会员服务账号创建
+ */
+func (client *Client) CreateServiceaccountOneparty(request *CreateServiceaccountOnepartyRequest) (_result *CreateServiceaccountOnepartyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateServiceaccountOnepartyResponse{}
+	_body, _err := client.CreateServiceaccountOnepartyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提供给一方化平台代客创建服务账号（ak sk）
+ * Summary: 一方化会员服务账号创建
+ */
+func (client *Client) CreateServiceaccountOnepartyEx(request *CreateServiceaccountOnepartyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateServiceaccountOnepartyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateServiceaccountOnepartyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.serviceaccount.oneparty.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 一方化会员服务账号查询（ak sk）
+ * Summary: 一方化会员服务账号查询
+ */
+func (client *Client) GetServiceaccountOneparty(request *GetServiceaccountOnepartyRequest) (_result *GetServiceaccountOnepartyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetServiceaccountOnepartyResponse{}
+	_body, _err := client.GetServiceaccountOnepartyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 一方化会员服务账号查询（ak sk）
+ * Summary: 一方化会员服务账号查询
+ */
+func (client *Client) GetServiceaccountOnepartyEx(request *GetServiceaccountOnepartyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetServiceaccountOnepartyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetServiceaccountOnepartyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.serviceaccount.oneparty.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: token用于三方会员免密登录，与数科官网token不通用
+ * Summary: 三方会员免密登录token申请
+ */
+func (client *Client) ApplyTrustloginToken(request *ApplyTrustloginTokenRequest) (_result *ApplyTrustloginTokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyTrustloginTokenResponse{}
+	_body, _err := client.ApplyTrustloginTokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: token用于三方会员免密登录，与数科官网token不通用
+ * Summary: 三方会员免密登录token申请
+ */
+func (client *Client) ApplyTrustloginTokenEx(request *ApplyTrustloginTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyTrustloginTokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyTrustloginTokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.trustlogin.token.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 三方会员免密登录token校验，与数科官网token不通用
+ * Summary: 三方会员免密登录token校验
+ */
+func (client *Client) VerifyTrustloginToken(request *VerifyTrustloginTokenRequest) (_result *VerifyTrustloginTokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyTrustloginTokenResponse{}
+	_body, _err := client.VerifyTrustloginTokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 三方会员免密登录token校验，与数科官网token不通用
+ * Summary: 三方会员免密登录token校验
+ */
+func (client *Client) VerifyTrustloginTokenEx(request *VerifyTrustloginTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyTrustloginTokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyTrustloginTokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.trustlogin.token.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
