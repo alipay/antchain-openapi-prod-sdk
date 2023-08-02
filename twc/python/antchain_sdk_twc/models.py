@@ -10414,7 +10414,6 @@ class CreateBclOrderRequest(TeaModel):
             self.validate_max_length(self.order_extra_info, 'order_extra_info', 4096)
         if self.user_extra_info is not None:
             self.validate_max_length(self.user_extra_info, 'user_extra_info', 4096)
-        self.validate_required(self.none_financing, 'none_financing')
 
     def to_map(self):
         _map = super().to_map()
