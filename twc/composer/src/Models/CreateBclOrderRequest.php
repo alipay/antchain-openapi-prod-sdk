@@ -214,7 +214,6 @@ class CreateBclOrderRequest extends Model
         Model::validateRequired('orderWithholdType', $this->orderWithholdType, true);
         Model::validateRequired('logisticType', $this->logisticType, true);
         Model::validateRequired('productInfos', $this->productInfos, true);
-        Model::validateRequired('noneFinancing', $this->noneFinancing, true);
         Model::validateMaxLength('orderOuterId', $this->orderOuterId, 64);
         Model::validateMaxLength('dueMode', $this->dueMode, 16);
         Model::validateMaxLength('rentUnit', $this->rentUnit, 16);
