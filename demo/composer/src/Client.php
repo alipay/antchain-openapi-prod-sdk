@@ -57,6 +57,8 @@ use AntChain\DEMO\Models\QueryAbcAbcAbcRequest;
 use AntChain\DEMO\Models\QueryAbcAbcAbcResponse;
 use AntChain\DEMO\Models\QueryAdAsdAsdRequest;
 use AntChain\DEMO\Models\QueryAdAsdAsdResponse;
+use AntChain\DEMO\Models\QueryApiOfflineRequest;
+use AntChain\DEMO\Models\QueryApiOfflineResponse;
 use AntChain\DEMO\Models\QueryApprovalTestRequest;
 use AntChain\DEMO\Models\QueryApprovalTestResponse;
 use AntChain\DEMO\Models\QueryCjtestCjResRequest;
@@ -248,7 +250,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.185',
+                    'sdk_version'      => '1.0.188',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -861,39 +863,6 @@ class Client
     }
 
     /**
-     * Description: cj test
-     * Summary: cj test.
-     *
-     * @param QueryCjtestCjResRequest $request
-     *
-     * @return QueryCjtestCjResResponse
-     */
-    public function queryCjtestCjRes($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryCjtestCjResEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: cj test
-     * Summary: cj test.
-     *
-     * @param QueryCjtestCjResRequest $request
-     * @param string[]                $headers
-     * @param RuntimeOptions          $runtime
-     *
-     * @return QueryCjtestCjResResponse
-     */
-    public function queryCjtestCjResEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryCjtestCjResResponse::fromMap($this->doRequest('1.0', 'demo.cjtest.cj.res.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 根据入参组合返回结果，Fr 自动化连通性测试。
      * Summary: road.init（Fr AutoT）.
      *
@@ -1125,72 +1094,6 @@ class Client
     }
 
     /**
-     * Description: 压测接口1
-     * Summary: 压测接口1.
-     *
-     * @param QueryLoadtestTimeOneRequest $request
-     *
-     * @return QueryLoadtestTimeOneResponse
-     */
-    public function queryLoadtestTimeOne($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryLoadtestTimeOneEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 压测接口1
-     * Summary: 压测接口1.
-     *
-     * @param QueryLoadtestTimeOneRequest $request
-     * @param string[]                    $headers
-     * @param RuntimeOptions              $runtime
-     *
-     * @return QueryLoadtestTimeOneResponse
-     */
-    public function queryLoadtestTimeOneEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryLoadtestTimeOneResponse::fromMap($this->doRequest('1.0', 'demo.loadtest.time.one.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 压测接口2
-     * Summary: 压测接口2.
-     *
-     * @param QueryLoadtestTimeTwoRequest $request
-     *
-     * @return QueryLoadtestTimeTwoResponse
-     */
-    public function queryLoadtestTimeTwo($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryLoadtestTimeTwoEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 压测接口2
-     * Summary: 压测接口2.
-     *
-     * @param QueryLoadtestTimeTwoRequest $request
-     * @param string[]                    $headers
-     * @param RuntimeOptions              $runtime
-     *
-     * @return QueryLoadtestTimeTwoResponse
-     */
-    public function queryLoadtestTimeTwoEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryLoadtestTimeTwoResponse::fromMap($this->doRequest('1.0', 'demo.loadtest.time.two.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 压测接口3
      * Summary: 压测接口3.
      *
@@ -1353,6 +1256,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryTestTestobjectBbbResponse::fromMap($this->doRequest('1.0', 'demo.test.testobject.bbb.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: cj test
+     * Summary: cj test1.
+     *
+     * @param QueryCjtestCjResRequest $request
+     *
+     * @return QueryCjtestCjResResponse
+     */
+    public function queryCjtestCjRes($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCjtestCjResEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: cj test
+     * Summary: cj test1.
+     *
+     * @param QueryCjtestCjResRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryCjtestCjResResponse
+     */
+    public function queryCjtestCjResEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCjtestCjResResponse::fromMap($this->doRequest('1.0', 'demo.cjtest.cj.res.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 压测接口1
+     * Summary: 压测接口1.
+     *
+     * @param QueryLoadtestTimeOneRequest $request
+     *
+     * @return QueryLoadtestTimeOneResponse
+     */
+    public function queryLoadtestTimeOne($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLoadtestTimeOneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 压测接口1
+     * Summary: 压测接口1.
+     *
+     * @param QueryLoadtestTimeOneRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryLoadtestTimeOneResponse
+     */
+    public function queryLoadtestTimeOneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLoadtestTimeOneResponse::fromMap($this->doRequest('1.0', 'demo.loadtest.time.one.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 压测接口2
+     * Summary: 压测接口2.
+     *
+     * @param QueryLoadtestTimeTwoRequest $request
+     *
+     * @return QueryLoadtestTimeTwoResponse
+     */
+    public function queryLoadtestTimeTwo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLoadtestTimeTwoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 压测接口2
+     * Summary: 压测接口2.
+     *
+     * @param QueryLoadtestTimeTwoRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryLoadtestTimeTwoResponse
+     */
+    public function queryLoadtestTimeTwoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLoadtestTimeTwoResponse::fromMap($this->doRequest('1.0', 'demo.loadtest.time.two.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1587,7 +1589,7 @@ class Client
     }
 
     /**
-     * Description: 自动化测试创建test
+     * Description: 自动化测试创建test1
      * Summary: 自动化测试创建test1.
      *
      * @param BindAaaBbbCccRequest $request
@@ -1603,7 +1605,7 @@ class Client
     }
 
     /**
-     * Description: 自动化测试创建test
+     * Description: 自动化测试创建test1
      * Summary: 自动化测试创建test1.
      *
      * @param BindAaaBbbCccRequest $request
@@ -1683,6 +1685,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryAbcAbcAbcResponse::fromMap($this->doRequest('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: api下架测试使用
+     * Summary: api下架测试.
+     *
+     * @param QueryApiOfflineRequest $request
+     *
+     * @return QueryApiOfflineResponse
+     */
+    public function queryApiOffline($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiOfflineEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: api下架测试使用
+     * Summary: api下架测试.
+     *
+     * @param QueryApiOfflineRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryApiOfflineResponse
+     */
+    public function queryApiOfflineEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiOfflineResponse::fromMap($this->doRequest('1.0', 'demo.api.offline.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

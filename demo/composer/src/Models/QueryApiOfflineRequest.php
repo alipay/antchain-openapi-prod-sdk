@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryCjtestCjResRequest extends Model
+class QueryApiOfflineRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,33 +18,13 @@ class QueryCjtestCjResRequest extends Model
      * @var string
      */
     public $productInstanceId;
-
-    // 1
-    /**
-     * @var int
-     */
-    public $test1;
-
-    // 2
-    /**
-     * @var int
-     */
-    public $test2;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'test1'             => 'test1',
-        'test2'             => 'test2',
     ];
 
     public function validate()
     {
-        Model::validateRequired('test1', $this->test1, true);
-        Model::validateRequired('test2', $this->test2, true);
-        Model::validateMaximum('test1', $this->test1, 100);
-        Model::validateMaximum('test2', $this->test2, 200);
-        Model::validateMinimum('test1', $this->test1, 1);
-        Model::validateMinimum('test2', $this->test2, 100);
     }
 
     public function toMap()
@@ -56,12 +36,6 @@ class QueryCjtestCjResRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->test1) {
-            $res['test1'] = $this->test1;
-        }
-        if (null !== $this->test2) {
-            $res['test2'] = $this->test2;
-        }
 
         return $res;
     }
@@ -69,7 +43,7 @@ class QueryCjtestCjResRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryCjtestCjResRequest
+     * @return QueryApiOfflineRequest
      */
     public static function fromMap($map = [])
     {
@@ -79,12 +53,6 @@ class QueryCjtestCjResRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['test1'])) {
-            $model->test1 = $map['test1'];
-        }
-        if (isset($map['test2'])) {
-            $model->test2 = $map['test2'];
         }
 
         return $model;
