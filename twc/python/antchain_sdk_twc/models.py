@@ -5159,6 +5159,8 @@ class BclContractFlowInfo(TeaModel):
         file_info: List[BclContractFileInfo] = None,
         sign_platform: str = None,
         payee_id: str = None,
+        redirect_url_on_failure: str = None,
+        redirect_url: str = None,
     ):
         # 合同主题
         # 注：名称不支持以下9个字符：/ \ : * " < > | ？
@@ -5169,6 +5171,10 @@ class BclContractFlowInfo(TeaModel):
         self.sign_platform = sign_platform
         # 收款方的ID，调用创建收款方接口获得
         self.payee_id = payee_id
+        # 合同签署失败回调地址
+        self.redirect_url_on_failure = redirect_url_on_failure
+        # 合同签署成功回调地址
+        self.redirect_url = redirect_url
 
     def validate(self):
         self.validate_required(self.business_scene, 'business_scene')
@@ -5184,6 +5190,10 @@ class BclContractFlowInfo(TeaModel):
         self.validate_required(self.payee_id, 'payee_id')
         if self.payee_id is not None:
             self.validate_max_length(self.payee_id, 'payee_id', 32)
+        if self.redirect_url_on_failure is not None:
+            self.validate_max_length(self.redirect_url_on_failure, 'redirect_url_on_failure', 512)
+        if self.redirect_url is not None:
+            self.validate_max_length(self.redirect_url, 'redirect_url', 512)
 
     def to_map(self):
         _map = super().to_map()
@@ -5201,6 +5211,10 @@ class BclContractFlowInfo(TeaModel):
             result['sign_platform'] = self.sign_platform
         if self.payee_id is not None:
             result['payee_id'] = self.payee_id
+        if self.redirect_url_on_failure is not None:
+            result['redirect_url_on_failure'] = self.redirect_url_on_failure
+        if self.redirect_url is not None:
+            result['redirect_url'] = self.redirect_url
         return result
 
     def from_map(self, m: dict = None):
@@ -5216,6 +5230,10 @@ class BclContractFlowInfo(TeaModel):
             self.sign_platform = m.get('sign_platform')
         if m.get('payee_id') is not None:
             self.payee_id = m.get('payee_id')
+        if m.get('redirect_url_on_failure') is not None:
+            self.redirect_url_on_failure = m.get('redirect_url_on_failure')
+        if m.get('redirect_url') is not None:
+            self.redirect_url = m.get('redirect_url')
         return self
 
 
@@ -7084,6 +7102,7 @@ class BclContractInfo(TeaModel):
         business_scene: str = None,
         flow_err_msg: str = None,
         sign_field_infos: List[BclContractSignFieldInfo] = None,
+        dest_url: str = None,
     ):
         # 待签署,SIGNING
         # 拒签,REJECT
@@ -7100,6 +7119,8 @@ class BclContractInfo(TeaModel):
         self.flow_err_msg = flow_err_msg
         # 签署区列表
         self.sign_field_infos = sign_field_infos
+        # 签署长链接，使用租赁宝代扣并且发起订单后才可以查询获取
+        self.dest_url = dest_url
 
     def validate(self):
         self.validate_required(self.sign_status, 'sign_status')
@@ -7134,6 +7155,8 @@ class BclContractInfo(TeaModel):
         if self.sign_field_infos is not None:
             for k in self.sign_field_infos:
                 result['sign_field_infos'].append(k.to_map() if k else None)
+        if self.dest_url is not None:
+            result['dest_url'] = self.dest_url
         return result
 
     def from_map(self, m: dict = None):
@@ -7156,6 +7179,8 @@ class BclContractInfo(TeaModel):
             for k in m.get('sign_field_infos'):
                 temp_model = BclContractSignFieldInfo()
                 self.sign_field_infos.append(temp_model.from_map(k))
+        if m.get('dest_url') is not None:
+            self.dest_url = m.get('dest_url')
         return self
 
 
@@ -10265,6 +10290,7 @@ class CreateBclOrderRequest(TeaModel):
         contract_flow_info: BclContractFlowInfo = None,
         order_extra_info: str = None,
         user_extra_info: str = None,
+        none_financing: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10312,6 +10338,7 @@ class CreateBclOrderRequest(TeaModel):
         self.product_infos = product_infos
         # - 实名：REAL_PERSON,
         # - 风控：RISK,
+        # - 合同：CONTRACT
         self.service_types = service_types
         # 用户下单时候的ip地址,如果可选服务选择了风控,必填 ,长度不超过32位
         self.user_ip = user_ip
@@ -10323,6 +10350,10 @@ class CreateBclOrderRequest(TeaModel):
         self.order_extra_info = order_extra_info
         # 资方定义用户的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
         self.user_extra_info = user_extra_info
+        # 是否不需要融资：
+        # ● true表示明确这笔订单不需要融资
+        # ● false表示该笔订单后续可能融资也可能不融资
+        self.none_financing = none_financing
 
     def validate(self):
         self.validate_required(self.order_outer_id, 'order_outer_id')
@@ -10383,6 +10414,7 @@ class CreateBclOrderRequest(TeaModel):
             self.validate_max_length(self.order_extra_info, 'order_extra_info', 4096)
         if self.user_extra_info is not None:
             self.validate_max_length(self.user_extra_info, 'user_extra_info', 4096)
+        self.validate_required(self.none_financing, 'none_financing')
 
     def to_map(self):
         _map = super().to_map()
@@ -10444,6 +10476,8 @@ class CreateBclOrderRequest(TeaModel):
             result['order_extra_info'] = self.order_extra_info
         if self.user_extra_info is not None:
             result['user_extra_info'] = self.user_extra_info
+        if self.none_financing is not None:
+            result['none_financing'] = self.none_financing
         return result
 
     def from_map(self, m: dict = None):
@@ -10506,6 +10540,8 @@ class CreateBclOrderRequest(TeaModel):
             self.order_extra_info = m.get('order_extra_info')
         if m.get('user_extra_info') is not None:
             self.user_extra_info = m.get('user_extra_info')
+        if m.get('none_financing') is not None:
+            self.none_financing = m.get('none_financing')
         return self
 
 
@@ -11860,6 +11896,96 @@ class CreateBclPayeeResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('payee_id') is not None:
             self.payee_id = m.get('payee_id')
+        return self
+
+
+class ApplyBclFinancingRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单id,长度不超过32位
+        self.order_id = order_id
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class ApplyBclFinancingResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        financing_apply_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 融资申请单号
+        self.financing_apply_no = financing_apply_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.financing_apply_no is not None:
+            result['financing_apply_no'] = self.financing_apply_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('financing_apply_no') is not None:
+            self.financing_apply_no = m.get('financing_apply_no')
         return self
 
 

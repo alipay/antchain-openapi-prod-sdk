@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.22',
+                    'sdk_version': '1.10.28',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.22',
+                    'sdk_version': '1.10.28',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -1001,6 +1001,62 @@ class Client:
         return TeaCore.from_map(
             twc_models.CreateBclPayeeResponse(),
             await self.do_request_async('1.0', 'twc.notary.bcl.payee.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_bcl_financing(
+        self,
+        request: twc_models.ApplyBclFinancingRequest,
+    ) -> twc_models.ApplyBclFinancingResponse:
+        """
+        Description: 租赁宝plus订单融资申请接口
+        Summary: 租赁宝plus订单融资申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_bcl_financing_ex(request, headers, runtime)
+
+    async def apply_bcl_financing_async(
+        self,
+        request: twc_models.ApplyBclFinancingRequest,
+    ) -> twc_models.ApplyBclFinancingResponse:
+        """
+        Description: 租赁宝plus订单融资申请接口
+        Summary: 租赁宝plus订单融资申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_bcl_financing_ex_async(request, headers, runtime)
+
+    def apply_bcl_financing_ex(
+        self,
+        request: twc_models.ApplyBclFinancingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyBclFinancingResponse:
+        """
+        Description: 租赁宝plus订单融资申请接口
+        Summary: 租赁宝plus订单融资申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ApplyBclFinancingResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.financing.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_bcl_financing_ex_async(
+        self,
+        request: twc_models.ApplyBclFinancingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyBclFinancingResponse:
+        """
+        Description: 租赁宝plus订单融资申请接口
+        Summary: 租赁宝plus订单融资申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ApplyBclFinancingResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.financing.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_contract_account(
