@@ -8304,7 +8304,7 @@ type CreateBclOrderRequest struct {
 	// 是否不需要融资：
 	// ● true表示明确这笔订单不需要融资
 	// ● false表示该笔订单后续可能融资也可能不融资
-	NoneFinancing *bool `json:"none_financing,omitempty" xml:"none_financing,omitempty" require:"true"`
+	NoneFinancing *bool `json:"none_financing,omitempty" xml:"none_financing,omitempty"`
 }
 
 func (s CreateBclOrderRequest) String() string {
@@ -45827,7 +45827,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.28"),
+				"sdk_version":      tea.String("1.10.29"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
