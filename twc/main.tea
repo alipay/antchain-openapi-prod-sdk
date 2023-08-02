@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.22',
+    sdk_version = '1.10.28',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -1412,6 +1412,10 @@ model BclContractFlowInfo {
   signPlatform?: string(maxLength=8, name='sign_platform', example='ALIPAY'),
   // 收款方的ID，调用创建收款方接口获得
   payeeId: string(maxLength=32, name='payee_id', example='PROD1112'),
+  // 合同签署失败回调地址
+  redirectUrlOnFailure?: string(maxLength=512, name='redirect_url_on_failure', example='http://www.xxx.com'),
+  // 合同签署成功回调地址
+  redirectUrl?: string(maxLength=512, name='redirect_url', example='http://www.xxx.com'),
 }
 
 // 阶段详情信息
@@ -1888,6 +1892,8 @@ model BclContractInfo {
   flowErrMsg?: string(name='flow_err_msg', example='合同创建失败原因'),
   // 签署区列表
   signFieldInfos?: [ BclContractSignFieldInfo ](name='sign_field_infos', example=''),
+  // 签署长链接，使用租赁宝代扣并且发起订单后才可以查询获取
+  destUrl?: string(name='dest_url', example='http://www.xxx.com'),
 }
 
 // 融资租赁里的产品详细信息
@@ -2770,6 +2776,7 @@ model CreateBclOrderRequest = {
   productInfos: [ BclOrderProductInfo ](name='product_infos'),
   // - 实名：REAL_PERSON,
   // - 风控：RISK,
+  // - 合同：CONTRACT
   serviceTypes?: [ string ](name='service_types'),
   // 用户下单时候的ip地址,如果可选服务选择了风控,必填 ,长度不超过32位
   userIp?: string(maxLength=32, name='user_ip'),
@@ -2781,6 +2788,10 @@ model CreateBclOrderRequest = {
   orderExtraInfo?: string(maxLength=4096, name='order_extra_info'),
   // 资方定义用户的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
   userExtraInfo?: string(maxLength=4096, name='user_extra_info'),
+  // 是否不需要融资：
+  // ● true表示明确这笔订单不需要融资
+  // ● false表示该笔订单后续可能融资也可能不融资
+  noneFinancing: boolean(name='none_financing'),
 }
 
 model CreateBclOrderResponse = {
@@ -3280,6 +3291,44 @@ async function createBclPayee(request: CreateBclPayeeRequest): CreateBclPayeeRes
 async function createBclPayeeEx(request: CreateBclPayeeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBclPayeeResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.bcl.payee.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyBclFinancingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id,长度不超过32位
+  orderId: string(name='order_id'),
+}
+
+model ApplyBclFinancingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 融资申请单号
+  financingApplyNo?: string(name='financing_apply_no'),
+}
+
+/**
+ * Description: 租赁宝plus订单融资申请接口
+ * Summary: 租赁宝plus订单融资申请接口
+ */
+async function applyBclFinancing(request: ApplyBclFinancingRequest): ApplyBclFinancingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyBclFinancingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁宝plus订单融资申请接口
+ * Summary: 租赁宝plus订单融资申请接口
+ */
+async function applyBclFinancingEx(request: ApplyBclFinancingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyBclFinancingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.bcl.financing.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateContractAccountRequest = {
