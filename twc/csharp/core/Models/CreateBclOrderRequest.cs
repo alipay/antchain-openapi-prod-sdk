@@ -112,6 +112,7 @@ namespace AntChain.SDK.TWC.Models
 
         // - 实名：REAL_PERSON,
         // - 风控：RISK,
+        // - 合同：CONTRACT
         [NameInMap("service_types")]
         [Validation(Required=false)]
         public List<string> ServiceTypes { get; set; }
@@ -140,6 +141,13 @@ namespace AntChain.SDK.TWC.Models
         [NameInMap("user_extra_info")]
         [Validation(Required=false, MaxLength=4096)]
         public string UserExtraInfo { get; set; }
+
+        // 是否不需要融资：
+        // ● true表示明确这笔订单不需要融资
+        // ● false表示该笔订单后续可能融资也可能不融资
+        [NameInMap("none_financing")]
+        [Validation(Required=true)]
+        public bool? NoneFinancing { get; set; }
 
     }
 

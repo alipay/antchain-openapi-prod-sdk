@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.22"},
+                        {"sdk_version", "1.10.28"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.22"},
+                        {"sdk_version", "1.10.28"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -865,6 +865,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateBclPayeeResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.payee.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁宝plus订单融资申请接口
+         * Summary: 租赁宝plus订单融资申请接口
+         */
+        public ApplyBclFinancingResponse ApplyBclFinancing(ApplyBclFinancingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyBclFinancingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁宝plus订单融资申请接口
+         * Summary: 租赁宝plus订单融资申请接口
+         */
+        public async Task<ApplyBclFinancingResponse> ApplyBclFinancingAsync(ApplyBclFinancingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyBclFinancingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁宝plus订单融资申请接口
+         * Summary: 租赁宝plus订单融资申请接口
+         */
+        public ApplyBclFinancingResponse ApplyBclFinancingEx(ApplyBclFinancingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyBclFinancingResponse>(DoRequest("1.0", "twc.notary.bcl.financing.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁宝plus订单融资申请接口
+         * Summary: 租赁宝plus订单融资申请接口
+         */
+        public async Task<ApplyBclFinancingResponse> ApplyBclFinancingExAsync(ApplyBclFinancingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyBclFinancingResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.financing.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

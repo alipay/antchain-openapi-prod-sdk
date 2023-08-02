@@ -31,6 +31,16 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true, MaxLength=32)]
         public string PayeeId { get; set; }
 
+        // 合同签署失败回调地址
+        [NameInMap("redirect_url_on_failure")]
+        [Validation(Required=false, MaxLength=512)]
+        public string RedirectUrlOnFailure { get; set; }
+
+        // 合同签署成功回调地址
+        [NameInMap("redirect_url")]
+        [Validation(Required=false, MaxLength=512)]
+        public string RedirectUrl { get; set; }
+
     }
 
 }

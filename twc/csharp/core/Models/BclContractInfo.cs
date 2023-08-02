@@ -43,6 +43,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public List<BclContractSignFieldInfo> SignFieldInfos { get; set; }
 
+        // 签署长链接，使用租赁宝代扣并且发起订单后才可以查询获取
+        [NameInMap("dest_url")]
+        [Validation(Required=false)]
+        public string DestUrl { get; set; }
+
     }
 
 }
