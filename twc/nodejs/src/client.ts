@@ -3130,12 +3130,18 @@ export class BclContractFlowInfo extends $tea.Model {
   signPlatform?: string;
   // 收款方的ID，调用创建收款方接口获得
   payeeId: string;
+  // 合同签署失败回调地址
+  redirectUrlOnFailure?: string;
+  // 合同签署成功回调地址
+  redirectUrl?: string;
   static names(): { [key: string]: string } {
     return {
       businessScene: 'business_scene',
       fileInfo: 'file_info',
       signPlatform: 'sign_platform',
       payeeId: 'payee_id',
+      redirectUrlOnFailure: 'redirect_url_on_failure',
+      redirectUrl: 'redirect_url',
     };
   }
 
@@ -3145,6 +3151,8 @@ export class BclContractFlowInfo extends $tea.Model {
       fileInfo: { 'type': 'array', 'itemType': BclContractFileInfo },
       signPlatform: 'string',
       payeeId: 'string',
+      redirectUrlOnFailure: 'string',
+      redirectUrl: 'string',
     };
   }
 
@@ -4288,6 +4296,8 @@ export class BclContractInfo extends $tea.Model {
   flowErrMsg?: string;
   // 签署区列表
   signFieldInfos?: BclContractSignFieldInfo[];
+  // 签署长链接，使用租赁宝代扣并且发起订单后才可以查询获取
+  destUrl?: string;
   static names(): { [key: string]: string } {
     return {
       signStatus: 'sign_status',
@@ -4296,6 +4306,7 @@ export class BclContractInfo extends $tea.Model {
       businessScene: 'business_scene',
       flowErrMsg: 'flow_err_msg',
       signFieldInfos: 'sign_field_infos',
+      destUrl: 'dest_url',
     };
   }
 
@@ -4307,6 +4318,7 @@ export class BclContractInfo extends $tea.Model {
       businessScene: 'string',
       flowErrMsg: 'string',
       signFieldInfos: { 'type': 'array', 'itemType': BclContractSignFieldInfo },
+      destUrl: 'string',
     };
   }
 
@@ -6256,6 +6268,7 @@ export class CreateBclOrderRequest extends $tea.Model {
   productInfos: BclOrderProductInfo[];
   // - 实名：REAL_PERSON,
   // - 风控：RISK,
+  // - 合同：CONTRACT
   serviceTypes?: string[];
   // 用户下单时候的ip地址,如果可选服务选择了风控,必填 ,长度不超过32位
   userIp?: string;
@@ -6267,6 +6280,10 @@ export class CreateBclOrderRequest extends $tea.Model {
   orderExtraInfo?: string;
   // 资方定义用户的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
   userExtraInfo?: string;
+  // 是否不需要融资：
+  // ● true表示明确这笔订单不需要融资
+  // ● false表示该笔订单后续可能融资也可能不融资
+  noneFinancing: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6294,6 +6311,7 @@ export class CreateBclOrderRequest extends $tea.Model {
       contractFlowInfo: 'contract_flow_info',
       orderExtraInfo: 'order_extra_info',
       userExtraInfo: 'user_extra_info',
+      noneFinancing: 'none_financing',
     };
   }
 
@@ -6324,6 +6342,7 @@ export class CreateBclOrderRequest extends $tea.Model {
       contractFlowInfo: BclContractFlowInfo,
       orderExtraInfo: 'string',
       userExtraInfo: 'string',
+      noneFinancing: 'boolean',
     };
   }
 
@@ -7107,6 +7126,65 @@ export class CreateBclPayeeResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       payeeId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyBclFinancingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id,长度不超过32位
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyBclFinancingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 融资申请单号
+  financingApplyNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      financingApplyNo: 'financing_apply_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      financingApplyNo: 'string',
     };
   }
 
@@ -33973,7 +34051,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.22",
+          sdk_version: "1.10.28",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -34266,6 +34344,25 @@ export default class Client {
   async createBclPayeeEx(request: CreateBclPayeeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateBclPayeeResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateBclPayeeResponse>(await this.doRequest("1.0", "twc.notary.bcl.payee.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateBclPayeeResponse({}));
+  }
+
+  /**
+   * Description: 租赁宝plus订单融资申请接口
+   * Summary: 租赁宝plus订单融资申请接口
+   */
+  async applyBclFinancing(request: ApplyBclFinancingRequest): Promise<ApplyBclFinancingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyBclFinancingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁宝plus订单融资申请接口
+   * Summary: 租赁宝plus订单融资申请接口
+   */
+  async applyBclFinancingEx(request: ApplyBclFinancingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyBclFinancingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyBclFinancingResponse>(await this.doRequest("1.0", "twc.notary.bcl.financing.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyBclFinancingResponse({}));
   }
 
   /**
