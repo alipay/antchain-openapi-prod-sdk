@@ -132,7 +132,6 @@ public class CreateBclOrderRequest extends TeaModel {
     // ● true表示明确这笔订单不需要融资
     // ● false表示该笔订单后续可能融资也可能不融资
     @NameInMap("none_financing")
-    @Validation(required = true)
     public Boolean noneFinancing;
 
     public static CreateBclOrderRequest build(java.util.Map<String, ?> map) throws Exception {
