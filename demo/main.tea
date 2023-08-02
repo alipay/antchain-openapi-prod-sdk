@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.185',
+    sdk_version = '1.0.188',
     _prod_code = 'DEMO',
     _prod_channel = 'undefined'
   };
@@ -1029,40 +1029,6 @@ async function uploadCjtestSourceFileEx(request: UploadCjtestSourceFileRequest, 
   return doRequest('1.0' ,'demo.cjtest.source.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryCjtestCjResRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-}
-
-model QueryCjtestCjResResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: cj test
- * Summary: cj test
- */
-async function queryCjtestCjRes(request: QueryCjtestCjResRequest): QueryCjtestCjResResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryCjtestCjResEx(request, headers, runtime);
-}
-
-/**
- * Description: cj test
- * Summary: cj test
- */
-async function queryCjtestCjResEx(request: QueryCjtestCjResRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCjtestCjResResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.cjtest.cj.res.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
 model InitGatewayRoadRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1335,86 +1301,6 @@ async function execGatewayRoadEx(request: ExecGatewayRoadRequest, headers: map[s
   return doRequest('1.0' ,'demo.gateway.road.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryLoadtestTimeOneRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 毫秒值
-  timeout: long(name='timeout'),
-}
-
-model QueryLoadtestTimeOneResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 200
-  stauts?: string(name='stauts'),
-  // ok
-  msg?: string(name='msg'),
-}
-
-/**
- * Description: 压测接口1
- * Summary: 压测接口1
- */
-async function queryLoadtestTimeOne(request: QueryLoadtestTimeOneRequest): QueryLoadtestTimeOneResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryLoadtestTimeOneEx(request, headers, runtime);
-}
-
-/**
- * Description: 压测接口1
- * Summary: 压测接口1
- */
-async function queryLoadtestTimeOneEx(request: QueryLoadtestTimeOneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLoadtestTimeOneResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.loadtest.time.one.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryLoadtestTimeTwoRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 毫秒
-  timeout: long(name='timeout'),
-}
-
-model QueryLoadtestTimeTwoResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 200
-  stauts?: string(name='stauts'),
-  // ok
-  msg?: string(name='msg'),
-}
-
-/**
- * Description: 压测接口2
- * Summary: 压测接口2
- */
-async function queryLoadtestTimeTwo(request: QueryLoadtestTimeTwoRequest): QueryLoadtestTimeTwoResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryLoadtestTimeTwoEx(request, headers, runtime);
-}
-
-/**
- * Description: 压测接口2
- * Summary: 压测接口2
- */
-async function queryLoadtestTimeTwoEx(request: QueryLoadtestTimeTwoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLoadtestTimeTwoResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.loadtest.time.two.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
 model QueryLoadtestTimeThreeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1607,6 +1493,124 @@ async function queryTestTestobjectBbb(request: QueryTestTestobjectBbbRequest): Q
 async function queryTestTestobjectBbbEx(request: QueryTestTestobjectBbbRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestTestobjectBbbResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.test.testobject.bbb.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCjtestCjResRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 1
+  test1: long(maximum=100, minimum=1, name='test1'),
+  // 2
+  test2: long(maximum=200, minimum=100, name='test2'),
+}
+
+model QueryCjtestCjResResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: cj test
+ * Summary: cj test1
+ */
+async function queryCjtestCjRes(request: QueryCjtestCjResRequest): QueryCjtestCjResResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCjtestCjResEx(request, headers, runtime);
+}
+
+/**
+ * Description: cj test
+ * Summary: cj test1
+ */
+async function queryCjtestCjResEx(request: QueryCjtestCjResRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCjtestCjResResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.cjtest.cj.res.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLoadtestTimeOneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 毫秒值
+  timeout: long(name='timeout'),
+}
+
+model QueryLoadtestTimeOneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 200
+  stauts?: string(name='stauts'),
+  // ok
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 压测接口1
+ * Summary: 压测接口1
+ */
+async function queryLoadtestTimeOne(request: QueryLoadtestTimeOneRequest): QueryLoadtestTimeOneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLoadtestTimeOneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 压测接口1
+ * Summary: 压测接口1
+ */
+async function queryLoadtestTimeOneEx(request: QueryLoadtestTimeOneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLoadtestTimeOneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.loadtest.time.one.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLoadtestTimeTwoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 毫秒
+  timeout: long(name='timeout'),
+}
+
+model QueryLoadtestTimeTwoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 200
+  stauts?: string(name='stauts'),
+  // ok
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 压测接口2
+ * Summary: 压测接口2
+ */
+async function queryLoadtestTimeTwo(request: QueryLoadtestTimeTwoRequest): QueryLoadtestTimeTwoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLoadtestTimeTwoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 压测接口2
+ * Summary: 压测接口2
+ */
+async function queryLoadtestTimeTwoEx(request: QueryLoadtestTimeTwoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLoadtestTimeTwoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.loadtest.time.two.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryTestGatewayTestRequest = {
@@ -1887,7 +1891,7 @@ model BindAaaBbbCccResponse = {
 }
 
 /**
- * Description: 自动化测试创建test
+ * Description: 自动化测试创建test1
  * Summary: 自动化测试创建test1
  */
 async function bindAaaBbbCcc(request: BindAaaBbbCccRequest): BindAaaBbbCccResponse {
@@ -1897,7 +1901,7 @@ async function bindAaaBbbCcc(request: BindAaaBbbCccRequest): BindAaaBbbCccRespon
 }
 
 /**
- * Description: 自动化测试创建test
+ * Description: 自动化测试创建test1
  * Summary: 自动化测试创建test1
  */
 async function bindAaaBbbCccEx(request: BindAaaBbbCccRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindAaaBbbCccResponse {
@@ -1971,6 +1975,40 @@ async function queryAbcAbcAbc(request: QueryAbcAbcAbcRequest): QueryAbcAbcAbcRes
 async function queryAbcAbcAbcEx(request: QueryAbcAbcAbcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAbcAbcAbcResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.abc.abc.abc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApiOfflineRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryApiOfflineResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: api下架测试使用
+ * Summary: api下架测试
+ */
+async function queryApiOffline(request: QueryApiOfflineRequest): QueryApiOfflineResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiOfflineEx(request, headers, runtime);
+}
+
+/**
+ * Description: api下架测试使用
+ * Summary: api下架测试
+ */
+async function queryApiOfflineEx(request: QueryApiOfflineRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiOfflineResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.api.offline.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ResetComCnCcRequest = {
