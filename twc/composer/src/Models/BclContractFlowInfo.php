@@ -40,11 +40,29 @@ class BclContractFlowInfo extends Model
      * @var string
      */
     public $payeeId;
+
+    // 合同签署失败回调地址
+    /**
+     * @example http://www.xxx.com
+     *
+     * @var string
+     */
+    public $redirectUrlOnFailure;
+
+    // 合同签署成功回调地址
+    /**
+     * @example http://www.xxx.com
+     *
+     * @var string
+     */
+    public $redirectUrl;
     protected $_name = [
-        'businessScene' => 'business_scene',
-        'fileInfo'      => 'file_info',
-        'signPlatform'  => 'sign_platform',
-        'payeeId'       => 'payee_id',
+        'businessScene'        => 'business_scene',
+        'fileInfo'             => 'file_info',
+        'signPlatform'         => 'sign_platform',
+        'payeeId'              => 'payee_id',
+        'redirectUrlOnFailure' => 'redirect_url_on_failure',
+        'redirectUrl'          => 'redirect_url',
     ];
 
     public function validate()
@@ -55,6 +73,8 @@ class BclContractFlowInfo extends Model
         Model::validateMaxLength('businessScene', $this->businessScene, 32);
         Model::validateMaxLength('signPlatform', $this->signPlatform, 8);
         Model::validateMaxLength('payeeId', $this->payeeId, 32);
+        Model::validateMaxLength('redirectUrlOnFailure', $this->redirectUrlOnFailure, 512);
+        Model::validateMaxLength('redirectUrl', $this->redirectUrl, 512);
     }
 
     public function toMap()
@@ -77,6 +97,12 @@ class BclContractFlowInfo extends Model
         }
         if (null !== $this->payeeId) {
             $res['payee_id'] = $this->payeeId;
+        }
+        if (null !== $this->redirectUrlOnFailure) {
+            $res['redirect_url_on_failure'] = $this->redirectUrlOnFailure;
+        }
+        if (null !== $this->redirectUrl) {
+            $res['redirect_url'] = $this->redirectUrl;
         }
 
         return $res;
@@ -107,6 +133,12 @@ class BclContractFlowInfo extends Model
         }
         if (isset($map['payee_id'])) {
             $model->payeeId = $map['payee_id'];
+        }
+        if (isset($map['redirect_url_on_failure'])) {
+            $model->redirectUrlOnFailure = $map['redirect_url_on_failure'];
+        }
+        if (isset($map['redirect_url'])) {
+            $model->redirectUrl = $map['redirect_url'];
         }
 
         return $model;

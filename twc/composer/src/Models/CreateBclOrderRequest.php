@@ -130,6 +130,7 @@ class CreateBclOrderRequest extends Model
 
     // - 实名：REAL_PERSON,
     // - 风控：RISK,
+    // - 合同：CONTRACT
     /**
      * @var string[]
      */
@@ -164,6 +165,14 @@ class CreateBclOrderRequest extends Model
      * @var string
      */
     public $userExtraInfo;
+
+    // 是否不需要融资：
+    // ● true表示明确这笔订单不需要融资
+    // ● false表示该笔订单后续可能融资也可能不融资
+    /**
+     * @var bool
+     */
+    public $noneFinancing;
     protected $_name = [
         'authToken'              => 'auth_token',
         'productInstanceId'      => 'product_instance_id',
@@ -190,6 +199,7 @@ class CreateBclOrderRequest extends Model
         'contractFlowInfo'       => 'contract_flow_info',
         'orderExtraInfo'         => 'order_extra_info',
         'userExtraInfo'          => 'user_extra_info',
+        'noneFinancing'          => 'none_financing',
     ];
 
     public function validate()
@@ -204,6 +214,7 @@ class CreateBclOrderRequest extends Model
         Model::validateRequired('orderWithholdType', $this->orderWithholdType, true);
         Model::validateRequired('logisticType', $this->logisticType, true);
         Model::validateRequired('productInfos', $this->productInfos, true);
+        Model::validateRequired('noneFinancing', $this->noneFinancing, true);
         Model::validateMaxLength('orderOuterId', $this->orderOuterId, 64);
         Model::validateMaxLength('dueMode', $this->dueMode, 16);
         Model::validateMaxLength('rentUnit', $this->rentUnit, 16);
@@ -314,6 +325,9 @@ class CreateBclOrderRequest extends Model
         if (null !== $this->userExtraInfo) {
             $res['user_extra_info'] = $this->userExtraInfo;
         }
+        if (null !== $this->noneFinancing) {
+            $res['none_financing'] = $this->noneFinancing;
+        }
 
         return $res;
     }
@@ -414,6 +428,9 @@ class CreateBclOrderRequest extends Model
         }
         if (isset($map['user_extra_info'])) {
             $model->userExtraInfo = $map['user_extra_info'];
+        }
+        if (isset($map['none_financing'])) {
+            $model->noneFinancing = $map['none_financing'];
         }
 
         return $model;

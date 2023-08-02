@@ -21,6 +21,8 @@ use AntChain\TWC\Models\AddContractPlatformsignfieldsRequest;
 use AntChain\TWC\Models\AddContractPlatformsignfieldsResponse;
 use AntChain\TWC\Models\AddContractSignfieldRequest;
 use AntChain\TWC\Models\AddContractSignfieldResponse;
+use AntChain\TWC\Models\ApplyBclFinancingRequest;
+use AntChain\TWC\Models\ApplyBclFinancingResponse;
 use AntChain\TWC\Models\ApplyContractCallbackkeyRequest;
 use AntChain\TWC\Models\ApplyContractCallbackkeyResponse;
 use AntChain\TWC\Models\ApplyContractMerchantRequest;
@@ -814,7 +816,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.22',
+                    'sdk_version'      => '1.10.28',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1289,6 +1291,39 @@ class Client
         Utils::validateModel($request);
 
         return CreateBclPayeeResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.payee.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁宝plus订单融资申请接口
+     * Summary: 租赁宝plus订单融资申请接口.
+     *
+     * @param ApplyBclFinancingRequest $request
+     *
+     * @return ApplyBclFinancingResponse
+     */
+    public function applyBclFinancing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyBclFinancingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁宝plus订单融资申请接口
+     * Summary: 租赁宝plus订单融资申请接口.
+     *
+     * @param ApplyBclFinancingRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ApplyBclFinancingResponse
+     */
+    public function applyBclFinancingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyBclFinancingResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.financing.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

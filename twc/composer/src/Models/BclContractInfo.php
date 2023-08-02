@@ -58,6 +58,14 @@ class BclContractInfo extends Model
      * @var BclContractSignFieldInfo[]
      */
     public $signFieldInfos;
+
+    // 签署长链接，使用租赁宝代扣并且发起订单后才可以查询获取
+    /**
+     * @example http://www.xxx.com
+     *
+     * @var string
+     */
+    public $destUrl;
     protected $_name = [
         'signStatus'     => 'sign_status',
         'signedFiles'    => 'signed_files',
@@ -65,6 +73,7 @@ class BclContractInfo extends Model
         'businessScene'  => 'business_scene',
         'flowErrMsg'     => 'flow_err_msg',
         'signFieldInfos' => 'sign_field_infos',
+        'destUrl'        => 'dest_url',
     ];
 
     public function validate()
@@ -104,6 +113,9 @@ class BclContractInfo extends Model
                     $res['sign_field_infos'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->destUrl) {
+            $res['dest_url'] = $this->destUrl;
         }
 
         return $res;
@@ -146,6 +158,9 @@ class BclContractInfo extends Model
                     $model->signFieldInfos[$n++] = null !== $item ? BclContractSignFieldInfo::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['dest_url'])) {
+            $model->destUrl = $map['dest_url'];
         }
 
         return $model;
