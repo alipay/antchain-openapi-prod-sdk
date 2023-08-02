@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.28',
+    sdk_version = '1.10.29',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -2791,7 +2791,7 @@ model CreateBclOrderRequest = {
   // 是否不需要融资：
   // ● true表示明确这笔订单不需要融资
   // ● false表示该笔订单后续可能融资也可能不融资
-  noneFinancing: boolean(name='none_financing'),
+  noneFinancing?: boolean(name='none_financing'),
 }
 
 model CreateBclOrderResponse = {
