@@ -4140,6 +4140,10 @@ type BclContractFlowInfo struct {
 	SignPlatform *string `json:"sign_platform,omitempty" xml:"sign_platform,omitempty" maxLength:"8"`
 	// 收款方的ID，调用创建收款方接口获得
 	PayeeId *string `json:"payee_id,omitempty" xml:"payee_id,omitempty" require:"true" maxLength:"32"`
+	// 合同签署失败回调地址
+	RedirectUrlOnFailure *string `json:"redirect_url_on_failure,omitempty" xml:"redirect_url_on_failure,omitempty" maxLength:"512"`
+	// 合同签署成功回调地址
+	RedirectUrl *string `json:"redirect_url,omitempty" xml:"redirect_url,omitempty" maxLength:"512"`
 }
 
 func (s BclContractFlowInfo) String() string {
@@ -4167,6 +4171,16 @@ func (s *BclContractFlowInfo) SetSignPlatform(v string) *BclContractFlowInfo {
 
 func (s *BclContractFlowInfo) SetPayeeId(v string) *BclContractFlowInfo {
 	s.PayeeId = &v
+	return s
+}
+
+func (s *BclContractFlowInfo) SetRedirectUrlOnFailure(v string) *BclContractFlowInfo {
+	s.RedirectUrlOnFailure = &v
+	return s
+}
+
+func (s *BclContractFlowInfo) SetRedirectUrl(v string) *BclContractFlowInfo {
+	s.RedirectUrl = &v
 	return s
 }
 
@@ -5684,6 +5698,8 @@ type BclContractInfo struct {
 	FlowErrMsg *string `json:"flow_err_msg,omitempty" xml:"flow_err_msg,omitempty"`
 	// 签署区列表
 	SignFieldInfos []*BclContractSignFieldInfo `json:"sign_field_infos,omitempty" xml:"sign_field_infos,omitempty" type:"Repeated"`
+	// 签署长链接，使用租赁宝代扣并且发起订单后才可以查询获取
+	DestUrl *string `json:"dest_url,omitempty" xml:"dest_url,omitempty"`
 }
 
 func (s BclContractInfo) String() string {
@@ -5721,6 +5737,11 @@ func (s *BclContractInfo) SetFlowErrMsg(v string) *BclContractInfo {
 
 func (s *BclContractInfo) SetSignFieldInfos(v []*BclContractSignFieldInfo) *BclContractInfo {
 	s.SignFieldInfos = v
+	return s
+}
+
+func (s *BclContractInfo) SetDestUrl(v string) *BclContractInfo {
+	s.DestUrl = &v
 	return s
 }
 
@@ -8268,6 +8289,7 @@ type CreateBclOrderRequest struct {
 	ProductInfos []*BclOrderProductInfo `json:"product_infos,omitempty" xml:"product_infos,omitempty" require:"true" type:"Repeated"`
 	// - 实名：REAL_PERSON,
 	// - 风控：RISK,
+	// - 合同：CONTRACT
 	ServiceTypes []*string `json:"service_types,omitempty" xml:"service_types,omitempty" type:"Repeated"`
 	// 用户下单时候的ip地址,如果可选服务选择了风控,必填 ,长度不超过32位
 	UserIp *string `json:"user_ip,omitempty" xml:"user_ip,omitempty" maxLength:"32"`
@@ -8279,6 +8301,10 @@ type CreateBclOrderRequest struct {
 	OrderExtraInfo *string `json:"order_extra_info,omitempty" xml:"order_extra_info,omitempty" maxLength:"4096"`
 	// 资方定义用户的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
 	UserExtraInfo *string `json:"user_extra_info,omitempty" xml:"user_extra_info,omitempty" maxLength:"4096"`
+	// 是否不需要融资：
+	// ● true表示明确这笔订单不需要融资
+	// ● false表示该笔订单后续可能融资也可能不融资
+	NoneFinancing *bool `json:"none_financing,omitempty" xml:"none_financing,omitempty" require:"true"`
 }
 
 func (s CreateBclOrderRequest) String() string {
@@ -8411,6 +8437,11 @@ func (s *CreateBclOrderRequest) SetOrderExtraInfo(v string) *CreateBclOrderReque
 
 func (s *CreateBclOrderRequest) SetUserExtraInfo(v string) *CreateBclOrderRequest {
 	s.UserExtraInfo = &v
+	return s
+}
+
+func (s *CreateBclOrderRequest) SetNoneFinancing(v bool) *CreateBclOrderRequest {
+	s.NoneFinancing = &v
 	return s
 }
 
@@ -9460,6 +9491,76 @@ func (s *CreateBclPayeeResponse) SetResultMsg(v string) *CreateBclPayeeResponse 
 
 func (s *CreateBclPayeeResponse) SetPayeeId(v string) *CreateBclPayeeResponse {
 	s.PayeeId = &v
+	return s
+}
+
+type ApplyBclFinancingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id,长度不超过32位
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+}
+
+func (s ApplyBclFinancingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyBclFinancingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyBclFinancingRequest) SetAuthToken(v string) *ApplyBclFinancingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyBclFinancingRequest) SetProductInstanceId(v string) *ApplyBclFinancingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyBclFinancingRequest) SetOrderId(v string) *ApplyBclFinancingRequest {
+	s.OrderId = &v
+	return s
+}
+
+type ApplyBclFinancingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 融资申请单号
+	FinancingApplyNo *string `json:"financing_apply_no,omitempty" xml:"financing_apply_no,omitempty"`
+}
+
+func (s ApplyBclFinancingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyBclFinancingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyBclFinancingResponse) SetReqMsgId(v string) *ApplyBclFinancingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyBclFinancingResponse) SetResultCode(v string) *ApplyBclFinancingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyBclFinancingResponse) SetResultMsg(v string) *ApplyBclFinancingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyBclFinancingResponse) SetFinancingApplyNo(v string) *ApplyBclFinancingResponse {
+	s.FinancingApplyNo = &v
 	return s
 }
 
@@ -45726,7 +45827,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.22"),
+				"sdk_version":      tea.String("1.10.28"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -46219,6 +46320,40 @@ func (client *Client) CreateBclPayeeEx(request *CreateBclPayeeRequest, headers m
 	}
 	_result = &CreateBclPayeeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.payee.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁宝plus订单融资申请接口
+ * Summary: 租赁宝plus订单融资申请接口
+ */
+func (client *Client) ApplyBclFinancing(request *ApplyBclFinancingRequest) (_result *ApplyBclFinancingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyBclFinancingResponse{}
+	_body, _err := client.ApplyBclFinancingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁宝plus订单融资申请接口
+ * Summary: 租赁宝plus订单融资申请接口
+ */
+func (client *Client) ApplyBclFinancingEx(request *ApplyBclFinancingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyBclFinancingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyBclFinancingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.financing.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
