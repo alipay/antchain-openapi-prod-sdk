@@ -100,6 +100,7 @@ public class CreateBclOrderRequest extends TeaModel {
 
     // - 实名：REAL_PERSON,
     // - 风控：RISK,
+    // - 合同：CONTRACT
     @NameInMap("service_types")
     public java.util.List<String> serviceTypes;
 
@@ -126,6 +127,13 @@ public class CreateBclOrderRequest extends TeaModel {
     @NameInMap("user_extra_info")
     @Validation(maxLength = 4096)
     public String userExtraInfo;
+
+    // 是否不需要融资：
+    // ● true表示明确这笔订单不需要融资
+    // ● false表示该笔订单后续可能融资也可能不融资
+    @NameInMap("none_financing")
+    @Validation(required = true)
+    public Boolean noneFinancing;
 
     public static CreateBclOrderRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateBclOrderRequest self = new CreateBclOrderRequest();
@@ -330,6 +338,14 @@ public class CreateBclOrderRequest extends TeaModel {
     }
     public String getUserExtraInfo() {
         return this.userExtraInfo;
+    }
+
+    public CreateBclOrderRequest setNoneFinancing(Boolean noneFinancing) {
+        this.noneFinancing = noneFinancing;
+        return this;
+    }
+    public Boolean getNoneFinancing() {
+        return this.noneFinancing;
     }
 
 }

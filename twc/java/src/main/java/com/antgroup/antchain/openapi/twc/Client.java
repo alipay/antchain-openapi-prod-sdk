@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.22"),
+                    new TeaPair("sdk_version", "1.10.28"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -406,6 +406,25 @@ public class Client {
     public CreateBclPayeeResponse createBclPayeeEx(CreateBclPayeeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.payee.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBclPayeeResponse());
+    }
+
+    /**
+     * Description: 租赁宝plus订单融资申请接口
+     * Summary: 租赁宝plus订单融资申请接口
+     */
+    public ApplyBclFinancingResponse applyBclFinancing(ApplyBclFinancingRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyBclFinancingEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租赁宝plus订单融资申请接口
+     * Summary: 租赁宝plus订单融资申请接口
+     */
+    public ApplyBclFinancingResponse applyBclFinancingEx(ApplyBclFinancingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.financing.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyBclFinancingResponse());
     }
 
     /**

@@ -32,6 +32,10 @@ public class BclContractInfo extends TeaModel {
     @NameInMap("sign_field_infos")
     public java.util.List<BclContractSignFieldInfo> signFieldInfos;
 
+    // 签署长链接，使用租赁宝代扣并且发起订单后才可以查询获取
+    @NameInMap("dest_url")
+    public String destUrl;
+
     public static BclContractInfo build(java.util.Map<String, ?> map) throws Exception {
         BclContractInfo self = new BclContractInfo();
         return TeaModel.build(map, self);
@@ -83,6 +87,14 @@ public class BclContractInfo extends TeaModel {
     }
     public java.util.List<BclContractSignFieldInfo> getSignFieldInfos() {
         return this.signFieldInfos;
+    }
+
+    public BclContractInfo setDestUrl(String destUrl) {
+        this.destUrl = destUrl;
+        return this;
+    }
+    public String getDestUrl() {
+        return this.destUrl;
     }
 
 }

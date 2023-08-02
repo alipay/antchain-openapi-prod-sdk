@@ -25,6 +25,16 @@ public class BclContractFlowInfo extends TeaModel {
     @Validation(required = true, maxLength = 32)
     public String payeeId;
 
+    // 合同签署失败回调地址
+    @NameInMap("redirect_url_on_failure")
+    @Validation(maxLength = 512)
+    public String redirectUrlOnFailure;
+
+    // 合同签署成功回调地址
+    @NameInMap("redirect_url")
+    @Validation(maxLength = 512)
+    public String redirectUrl;
+
     public static BclContractFlowInfo build(java.util.Map<String, ?> map) throws Exception {
         BclContractFlowInfo self = new BclContractFlowInfo();
         return TeaModel.build(map, self);
@@ -60,6 +70,22 @@ public class BclContractFlowInfo extends TeaModel {
     }
     public String getPayeeId() {
         return this.payeeId;
+    }
+
+    public BclContractFlowInfo setRedirectUrlOnFailure(String redirectUrlOnFailure) {
+        this.redirectUrlOnFailure = redirectUrlOnFailure;
+        return this;
+    }
+    public String getRedirectUrlOnFailure() {
+        return this.redirectUrlOnFailure;
+    }
+
+    public BclContractFlowInfo setRedirectUrl(String redirectUrl) {
+        this.redirectUrl = redirectUrl;
+        return this;
+    }
+    public String getRedirectUrl() {
+        return this.redirectUrl;
     }
 
 }
