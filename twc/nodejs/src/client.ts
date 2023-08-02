@@ -6283,7 +6283,7 @@ export class CreateBclOrderRequest extends $tea.Model {
   // 是否不需要融资：
   // ● true表示明确这笔订单不需要融资
   // ● false表示该笔订单后续可能融资也可能不融资
-  noneFinancing: boolean;
+  noneFinancing?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -34051,7 +34051,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.28",
+          sdk_version: "1.10.29",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
