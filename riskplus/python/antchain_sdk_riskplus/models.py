@@ -25323,6 +25323,406 @@ class ApplyUmktRtBatchmarketingResponse(TeaModel):
         return self
 
 
+class CallbackUmktRobotcallRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        customer_key: str = None,
+        current_call_times: int = None,
+        key_template: str = None,
+        batch_id: str = None,
+        call_type: int = None,
+        tag: str = None,
+        call_id: str = None,
+        task_id: int = None,
+        template_id: int = None,
+        status_code: int = None,
+        status_description: str = None,
+        transfer_status_code: str = None,
+        transfer_status: str = None,
+        agent_id: int = None,
+        agent_tag: str = None,
+        agent_extension: str = None,
+        import_time: str = None,
+        call_begin_time: str = None,
+        ring_time: int = None,
+        answer_time: str = None,
+        speaking_time: str = None,
+        speaking_duration: int = None,
+        hangup_time: str = None,
+        speaking_turns: int = None,
+        agent_speaking_time: str = None,
+        agent_speaking_duration: int = None,
+        intent_tag: str = None,
+        intent_description: str = None,
+        individual_tag: str = None,
+        keywords: str = None,
+        hungup_type: int = None,
+        sms: int = None,
+        chat_record: str = None,
+        chats: str = None,
+        add_wx: int = None,
+        add_wx_status: str = None,
+        answer_recall: int = None,
+        properties: str = None,
+        biz_properties: str = None,
+        intercept_reason: str = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 外呼号码，支持密文
+        self.customer_key = customer_key
+        # 当前呼叫次数	     Integer
+        self.current_call_times = current_call_times
+        # 号码的模版类型
+        self.key_template = key_template
+        # 导入号码时返回的批次号
+        self.batch_id = batch_id
+        # 外呼类型
+        # 建议按照如下约定给到
+        # 2001:批量-预测外呼
+        # 2002:批量-AI外呼-不转人工
+        # 2003:批量-AI外呼-接通转人工
+        # 2004: 批量-AI外呼-智能转人工
+        # 2005:批量-语音通知
+        self.call_type = call_type
+        # 用户自定义标签
+        self.tag = tag
+        # 外呼呼叫实例id
+        self.call_id = call_id
+        # 外呼任务编号
+        self.task_id = task_id
+        # 外呼的话术模板ID，可以为空
+        self.template_id = template_id
+        # 外呼状态编码
+        self.status_code = status_code
+        # 外呼状态编码对应描述
+        self.status_description = status_description
+        # 转人工状态编码
+        self.transfer_status_code = transfer_status_code
+        # 转人工状态编码对应描述
+        self.transfer_status = transfer_status
+        # 分配坐席ID,可以为空
+        self.agent_id = agent_id
+        # 建议填写坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
+        self.agent_tag = agent_tag
+        # 坐席分机号，可以为空
+        self.agent_extension = agent_extension
+        # 导入时间，格式:2019-01-09 14:14:19
+        self.import_time = import_time
+        # 开始通话时间，格式：2019-01-09 14:14:19
+        self.call_begin_time = call_begin_time
+        # 振铃时长,单位毫秒
+        self.ring_time = ring_time
+        # 接通时间
+        self.answer_time = answer_time
+        # 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+        self.speaking_time = speaking_time
+        # 通话时长，单位：秒
+        self.speaking_duration = speaking_duration
+        # 通话挂断时间
+        self.hangup_time = hangup_time
+        # 对话轮次
+        self.speaking_turns = speaking_turns
+        # 坐席通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+        self.agent_speaking_time = agent_speaking_time
+        # 坐席通话时长，单位：秒
+        self.agent_speaking_duration = agent_speaking_duration
+        # 意向标签
+        self.intent_tag = intent_tag
+        # 意向说明
+        self.intent_description = intent_description
+        # 个性标签
+        self.individual_tag = individual_tag
+        # 回复关键词
+        self.keywords = keywords
+        # 挂机方式
+        self.hungup_type = hungup_type
+        # 挂机短信，1:发送，2:不发送
+        self.sms = sms
+        # 对话录音,url
+        self.chat_record = chat_record
+        # 对话记录
+        self.chats = chats
+        # 0:不添加，1:添加
+        self.add_wx = add_wx
+        # 加微进度可选值：已申请、加微成功
+        self.add_wx_status = add_wx_status
+        # 是否接通重呼 0正常外呼，1接通重呼
+        self.answer_recall = answer_recall
+        # 导入号码时的参数值
+        self.properties = properties
+        # 导入号码时的业务参数值
+        self.biz_properties = biz_properties
+        # 拦截原因 可选值：黑名单拦截，灰名单拦截，异常号码拦截
+        self.intercept_reason = intercept_reason
+        # 回调冗余字段
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.customer_key, 'customer_key')
+        self.validate_required(self.current_call_times, 'current_call_times')
+        self.validate_required(self.key_template, 'key_template')
+        self.validate_required(self.batch_id, 'batch_id')
+        self.validate_required(self.call_type, 'call_type')
+        self.validate_required(self.call_id, 'call_id')
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.status_description, 'status_description')
+        self.validate_required(self.transfer_status_code, 'transfer_status_code')
+        self.validate_required(self.transfer_status, 'transfer_status')
+        self.validate_required(self.import_time, 'import_time')
+        self.validate_required(self.call_begin_time, 'call_begin_time')
+        self.validate_required(self.ring_time, 'ring_time')
+        self.validate_required(self.speaking_time, 'speaking_time')
+        self.validate_required(self.speaking_duration, 'speaking_duration')
+        self.validate_required(self.hangup_time, 'hangup_time')
+        self.validate_required(self.speaking_turns, 'speaking_turns')
+        self.validate_required(self.agent_speaking_time, 'agent_speaking_time')
+        self.validate_required(self.agent_speaking_duration, 'agent_speaking_duration')
+        self.validate_required(self.intent_tag, 'intent_tag')
+        self.validate_required(self.intent_description, 'intent_description')
+        self.validate_required(self.hungup_type, 'hungup_type')
+        self.validate_required(self.sms, 'sms')
+        self.validate_required(self.answer_recall, 'answer_recall')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.customer_key is not None:
+            result['customer_key'] = self.customer_key
+        if self.current_call_times is not None:
+            result['current_call_times'] = self.current_call_times
+        if self.key_template is not None:
+            result['key_template'] = self.key_template
+        if self.batch_id is not None:
+            result['batch_id'] = self.batch_id
+        if self.call_type is not None:
+            result['call_type'] = self.call_type
+        if self.tag is not None:
+            result['tag'] = self.tag
+        if self.call_id is not None:
+            result['call_id'] = self.call_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
+        if self.status_code is not None:
+            result['status_code'] = self.status_code
+        if self.status_description is not None:
+            result['status_description'] = self.status_description
+        if self.transfer_status_code is not None:
+            result['transfer_status_code'] = self.transfer_status_code
+        if self.transfer_status is not None:
+            result['transfer_status'] = self.transfer_status
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.agent_tag is not None:
+            result['agent_tag'] = self.agent_tag
+        if self.agent_extension is not None:
+            result['agent_extension'] = self.agent_extension
+        if self.import_time is not None:
+            result['import_time'] = self.import_time
+        if self.call_begin_time is not None:
+            result['call_begin_time'] = self.call_begin_time
+        if self.ring_time is not None:
+            result['ring_time'] = self.ring_time
+        if self.answer_time is not None:
+            result['answer_time'] = self.answer_time
+        if self.speaking_time is not None:
+            result['speaking_time'] = self.speaking_time
+        if self.speaking_duration is not None:
+            result['speaking_duration'] = self.speaking_duration
+        if self.hangup_time is not None:
+            result['hangup_time'] = self.hangup_time
+        if self.speaking_turns is not None:
+            result['speaking_turns'] = self.speaking_turns
+        if self.agent_speaking_time is not None:
+            result['agent_speaking_time'] = self.agent_speaking_time
+        if self.agent_speaking_duration is not None:
+            result['agent_speaking_duration'] = self.agent_speaking_duration
+        if self.intent_tag is not None:
+            result['intent_tag'] = self.intent_tag
+        if self.intent_description is not None:
+            result['intent_description'] = self.intent_description
+        if self.individual_tag is not None:
+            result['individual_tag'] = self.individual_tag
+        if self.keywords is not None:
+            result['keywords'] = self.keywords
+        if self.hungup_type is not None:
+            result['hungup_type'] = self.hungup_type
+        if self.sms is not None:
+            result['sms'] = self.sms
+        if self.chat_record is not None:
+            result['chat_record'] = self.chat_record
+        if self.chats is not None:
+            result['chats'] = self.chats
+        if self.add_wx is not None:
+            result['add_wx'] = self.add_wx
+        if self.add_wx_status is not None:
+            result['add_wx_status'] = self.add_wx_status
+        if self.answer_recall is not None:
+            result['answer_recall'] = self.answer_recall
+        if self.properties is not None:
+            result['properties'] = self.properties
+        if self.biz_properties is not None:
+            result['biz_properties'] = self.biz_properties
+        if self.intercept_reason is not None:
+            result['intercept_reason'] = self.intercept_reason
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('customer_key') is not None:
+            self.customer_key = m.get('customer_key')
+        if m.get('current_call_times') is not None:
+            self.current_call_times = m.get('current_call_times')
+        if m.get('key_template') is not None:
+            self.key_template = m.get('key_template')
+        if m.get('batch_id') is not None:
+            self.batch_id = m.get('batch_id')
+        if m.get('call_type') is not None:
+            self.call_type = m.get('call_type')
+        if m.get('tag') is not None:
+            self.tag = m.get('tag')
+        if m.get('call_id') is not None:
+            self.call_id = m.get('call_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
+        if m.get('status_code') is not None:
+            self.status_code = m.get('status_code')
+        if m.get('status_description') is not None:
+            self.status_description = m.get('status_description')
+        if m.get('transfer_status_code') is not None:
+            self.transfer_status_code = m.get('transfer_status_code')
+        if m.get('transfer_status') is not None:
+            self.transfer_status = m.get('transfer_status')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('agent_tag') is not None:
+            self.agent_tag = m.get('agent_tag')
+        if m.get('agent_extension') is not None:
+            self.agent_extension = m.get('agent_extension')
+        if m.get('import_time') is not None:
+            self.import_time = m.get('import_time')
+        if m.get('call_begin_time') is not None:
+            self.call_begin_time = m.get('call_begin_time')
+        if m.get('ring_time') is not None:
+            self.ring_time = m.get('ring_time')
+        if m.get('answer_time') is not None:
+            self.answer_time = m.get('answer_time')
+        if m.get('speaking_time') is not None:
+            self.speaking_time = m.get('speaking_time')
+        if m.get('speaking_duration') is not None:
+            self.speaking_duration = m.get('speaking_duration')
+        if m.get('hangup_time') is not None:
+            self.hangup_time = m.get('hangup_time')
+        if m.get('speaking_turns') is not None:
+            self.speaking_turns = m.get('speaking_turns')
+        if m.get('agent_speaking_time') is not None:
+            self.agent_speaking_time = m.get('agent_speaking_time')
+        if m.get('agent_speaking_duration') is not None:
+            self.agent_speaking_duration = m.get('agent_speaking_duration')
+        if m.get('intent_tag') is not None:
+            self.intent_tag = m.get('intent_tag')
+        if m.get('intent_description') is not None:
+            self.intent_description = m.get('intent_description')
+        if m.get('individual_tag') is not None:
+            self.individual_tag = m.get('individual_tag')
+        if m.get('keywords') is not None:
+            self.keywords = m.get('keywords')
+        if m.get('hungup_type') is not None:
+            self.hungup_type = m.get('hungup_type')
+        if m.get('sms') is not None:
+            self.sms = m.get('sms')
+        if m.get('chat_record') is not None:
+            self.chat_record = m.get('chat_record')
+        if m.get('chats') is not None:
+            self.chats = m.get('chats')
+        if m.get('add_wx') is not None:
+            self.add_wx = m.get('add_wx')
+        if m.get('add_wx_status') is not None:
+            self.add_wx_status = m.get('add_wx_status')
+        if m.get('answer_recall') is not None:
+            self.answer_recall = m.get('answer_recall')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        if m.get('biz_properties') is not None:
+            self.biz_properties = m.get('biz_properties')
+        if m.get('intercept_reason') is not None:
+            self.intercept_reason = m.get('intercept_reason')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class CallbackUmktRobotcallResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
 class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,
