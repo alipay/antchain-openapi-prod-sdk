@@ -20306,6 +20306,362 @@ func (s *ApplyUmktRtBatchmarketingResponse) SetBizId(v string) *ApplyUmktRtBatch
 	return s
 }
 
+type CallbackUmktRobotcallRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外呼号码，支持密文
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
+	// 当前呼叫次数	     Integer
+	CurrentCallTimes *int64 `json:"current_call_times,omitempty" xml:"current_call_times,omitempty" require:"true"`
+	// 号码的模版类型
+	KeyTemplate *string `json:"key_template,omitempty" xml:"key_template,omitempty" require:"true"`
+	// 导入号码时返回的批次号
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty" require:"true"`
+	// 外呼类型
+	// 建议按照如下约定给到
+	// 2001:批量-预测外呼
+	// 2002:批量-AI外呼-不转人工
+	// 2003:批量-AI外呼-接通转人工
+	// 2004: 批量-AI外呼-智能转人工
+	// 2005:批量-语音通知
+	CallType *int64 `json:"call_type,omitempty" xml:"call_type,omitempty" require:"true"`
+	// 用户自定义标签
+	Tag *string `json:"tag,omitempty" xml:"tag,omitempty"`
+	// 外呼呼叫实例id
+	CallId *string `json:"call_id,omitempty" xml:"call_id,omitempty" require:"true"`
+	// 外呼任务编号
+	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 外呼的话术模板ID，可以为空
+	TemplateId *int64 `json:"template_id,omitempty" xml:"template_id,omitempty"`
+	// 外呼状态编码
+	StatusCode *int64 `json:"status_code,omitempty" xml:"status_code,omitempty" require:"true"`
+	// 外呼状态编码对应描述
+	StatusDescription *string `json:"status_description,omitempty" xml:"status_description,omitempty" require:"true"`
+	// 转人工状态编码
+	TransferStatusCode *string `json:"transfer_status_code,omitempty" xml:"transfer_status_code,omitempty" require:"true"`
+	// 转人工状态编码对应描述
+	TransferStatus *string `json:"transfer_status,omitempty" xml:"transfer_status,omitempty" require:"true"`
+	// 分配坐席ID,可以为空
+	AgentId *int64 `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 建议填写坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
+	AgentTag *string `json:"agent_tag,omitempty" xml:"agent_tag,omitempty"`
+	// 坐席分机号，可以为空
+	AgentExtension *string `json:"agent_extension,omitempty" xml:"agent_extension,omitempty"`
+	// 导入时间，格式:2019-01-09 14:14:19
+	ImportTime *string `json:"import_time,omitempty" xml:"import_time,omitempty" require:"true"`
+	// 开始通话时间，格式：2019-01-09 14:14:19
+	CallBeginTime *string `json:"call_begin_time,omitempty" xml:"call_begin_time,omitempty" require:"true"`
+	// 振铃时长,单位毫秒
+	RingTime *int64 `json:"ring_time,omitempty" xml:"ring_time,omitempty" require:"true"`
+	// 接通时间
+	AnswerTime *string `json:"answer_time,omitempty" xml:"answer_time,omitempty"`
+	// 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+	SpeakingTime *string `json:"speaking_time,omitempty" xml:"speaking_time,omitempty" require:"true"`
+	// 通话时长，单位：秒
+	SpeakingDuration *int64 `json:"speaking_duration,omitempty" xml:"speaking_duration,omitempty" require:"true"`
+	// 通话挂断时间
+	HangupTime *string `json:"hangup_time,omitempty" xml:"hangup_time,omitempty" require:"true"`
+	// 对话轮次
+	SpeakingTurns *int64 `json:"speaking_turns,omitempty" xml:"speaking_turns,omitempty" require:"true"`
+	// 坐席通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+	AgentSpeakingTime *string `json:"agent_speaking_time,omitempty" xml:"agent_speaking_time,omitempty" require:"true"`
+	// 坐席通话时长，单位：秒
+	AgentSpeakingDuration *int64 `json:"agent_speaking_duration,omitempty" xml:"agent_speaking_duration,omitempty" require:"true"`
+	// 意向标签
+	IntentTag *string `json:"intent_tag,omitempty" xml:"intent_tag,omitempty" require:"true"`
+	// 意向说明
+	IntentDescription *string `json:"intent_description,omitempty" xml:"intent_description,omitempty" require:"true"`
+	// 个性标签
+	IndividualTag *string `json:"individual_tag,omitempty" xml:"individual_tag,omitempty"`
+	// 回复关键词
+	Keywords *string `json:"keywords,omitempty" xml:"keywords,omitempty"`
+	// 挂机方式
+	HungupType *int64 `json:"hungup_type,omitempty" xml:"hungup_type,omitempty" require:"true"`
+	// 挂机短信，1:发送，2:不发送
+	Sms *int64 `json:"sms,omitempty" xml:"sms,omitempty" require:"true"`
+	// 对话录音,url
+	ChatRecord *string `json:"chat_record,omitempty" xml:"chat_record,omitempty"`
+	// 对话记录
+	Chats *string `json:"chats,omitempty" xml:"chats,omitempty"`
+	// 0:不添加，1:添加
+	AddWx *int64 `json:"add_wx,omitempty" xml:"add_wx,omitempty"`
+	// 加微进度可选值：已申请、加微成功
+	AddWxStatus *string `json:"add_wx_status,omitempty" xml:"add_wx_status,omitempty"`
+	// 是否接通重呼 0正常外呼，1接通重呼
+	AnswerRecall *int64 `json:"answer_recall,omitempty" xml:"answer_recall,omitempty" require:"true"`
+	// 导入号码时的参数值
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 导入号码时的业务参数值
+	BizProperties *string `json:"biz_properties,omitempty" xml:"biz_properties,omitempty"`
+	// 拦截原因 可选值：黑名单拦截，灰名单拦截，异常号码拦截
+	InterceptReason *string `json:"intercept_reason,omitempty" xml:"intercept_reason,omitempty"`
+	// 回调冗余字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s CallbackUmktRobotcallRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackUmktRobotcallRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackUmktRobotcallRequest) SetAuthToken(v string) *CallbackUmktRobotcallRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetProductInstanceId(v string) *CallbackUmktRobotcallRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetCustomerKey(v string) *CallbackUmktRobotcallRequest {
+	s.CustomerKey = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetCurrentCallTimes(v int64) *CallbackUmktRobotcallRequest {
+	s.CurrentCallTimes = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetKeyTemplate(v string) *CallbackUmktRobotcallRequest {
+	s.KeyTemplate = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetBatchId(v string) *CallbackUmktRobotcallRequest {
+	s.BatchId = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetCallType(v int64) *CallbackUmktRobotcallRequest {
+	s.CallType = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetTag(v string) *CallbackUmktRobotcallRequest {
+	s.Tag = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetCallId(v string) *CallbackUmktRobotcallRequest {
+	s.CallId = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetTaskId(v int64) *CallbackUmktRobotcallRequest {
+	s.TaskId = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetTemplateId(v int64) *CallbackUmktRobotcallRequest {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetStatusCode(v int64) *CallbackUmktRobotcallRequest {
+	s.StatusCode = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetStatusDescription(v string) *CallbackUmktRobotcallRequest {
+	s.StatusDescription = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetTransferStatusCode(v string) *CallbackUmktRobotcallRequest {
+	s.TransferStatusCode = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetTransferStatus(v string) *CallbackUmktRobotcallRequest {
+	s.TransferStatus = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetAgentId(v int64) *CallbackUmktRobotcallRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetAgentTag(v string) *CallbackUmktRobotcallRequest {
+	s.AgentTag = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetAgentExtension(v string) *CallbackUmktRobotcallRequest {
+	s.AgentExtension = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetImportTime(v string) *CallbackUmktRobotcallRequest {
+	s.ImportTime = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetCallBeginTime(v string) *CallbackUmktRobotcallRequest {
+	s.CallBeginTime = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetRingTime(v int64) *CallbackUmktRobotcallRequest {
+	s.RingTime = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetAnswerTime(v string) *CallbackUmktRobotcallRequest {
+	s.AnswerTime = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetSpeakingTime(v string) *CallbackUmktRobotcallRequest {
+	s.SpeakingTime = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetSpeakingDuration(v int64) *CallbackUmktRobotcallRequest {
+	s.SpeakingDuration = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetHangupTime(v string) *CallbackUmktRobotcallRequest {
+	s.HangupTime = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetSpeakingTurns(v int64) *CallbackUmktRobotcallRequest {
+	s.SpeakingTurns = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetAgentSpeakingTime(v string) *CallbackUmktRobotcallRequest {
+	s.AgentSpeakingTime = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetAgentSpeakingDuration(v int64) *CallbackUmktRobotcallRequest {
+	s.AgentSpeakingDuration = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetIntentTag(v string) *CallbackUmktRobotcallRequest {
+	s.IntentTag = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetIntentDescription(v string) *CallbackUmktRobotcallRequest {
+	s.IntentDescription = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetIndividualTag(v string) *CallbackUmktRobotcallRequest {
+	s.IndividualTag = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetKeywords(v string) *CallbackUmktRobotcallRequest {
+	s.Keywords = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetHungupType(v int64) *CallbackUmktRobotcallRequest {
+	s.HungupType = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetSms(v int64) *CallbackUmktRobotcallRequest {
+	s.Sms = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetChatRecord(v string) *CallbackUmktRobotcallRequest {
+	s.ChatRecord = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetChats(v string) *CallbackUmktRobotcallRequest {
+	s.Chats = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetAddWx(v int64) *CallbackUmktRobotcallRequest {
+	s.AddWx = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetAddWxStatus(v string) *CallbackUmktRobotcallRequest {
+	s.AddWxStatus = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetAnswerRecall(v int64) *CallbackUmktRobotcallRequest {
+	s.AnswerRecall = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetProperties(v string) *CallbackUmktRobotcallRequest {
+	s.Properties = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetBizProperties(v string) *CallbackUmktRobotcallRequest {
+	s.BizProperties = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetInterceptReason(v string) *CallbackUmktRobotcallRequest {
+	s.InterceptReason = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetExtInfo(v string) *CallbackUmktRobotcallRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type CallbackUmktRobotcallResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s CallbackUmktRobotcallResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackUmktRobotcallResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackUmktRobotcallResponse) SetReqMsgId(v string) *CallbackUmktRobotcallResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallResponse) SetResultCode(v string) *CallbackUmktRobotcallResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallResponse) SetResultMsg(v string) *CallbackUmktRobotcallResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallResponse) SetSuccess(v bool) *CallbackUmktRobotcallResponse {
+	s.Success = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -20548,7 +20904,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.36"),
+				"sdk_version":      tea.String("1.16.38"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -25574,6 +25930,40 @@ func (client *Client) ApplyUmktRtBatchmarketingEx(request *ApplyUmktRtBatchmarke
 	}
 	_result = &ApplyUmktRtBatchmarketingResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.rt.batchmarketing.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 新接入ai外呼服务商的回调接口
+ * Summary: ai外呼回调接口
+ */
+func (client *Client) CallbackUmktRobotcall(request *CallbackUmktRobotcallRequest) (_result *CallbackUmktRobotcallResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackUmktRobotcallResponse{}
+	_body, _err := client.CallbackUmktRobotcallEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 新接入ai外呼服务商的回调接口
+ * Summary: ai外呼回调接口
+ */
+func (client *Client) CallbackUmktRobotcallEx(request *CallbackUmktRobotcallRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackUmktRobotcallResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackUmktRobotcallResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.robotcall.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
