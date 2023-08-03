@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.36',
+    sdk_version = '1.16.38',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -8650,6 +8650,130 @@ async function applyUmktRtBatchmarketing(request: ApplyUmktRtBatchmarketingReque
 async function applyUmktRtBatchmarketingEx(request: ApplyUmktRtBatchmarketingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyUmktRtBatchmarketingResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.rt.batchmarketing.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackUmktRobotcallRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外呼号码，支持密文
+  customerKey: string(name='customer_key'),
+  // 当前呼叫次数	     Integer
+  currentCallTimes: long(name='current_call_times'),
+  // 号码的模版类型
+  keyTemplate: string(name='key_template'),
+  // 导入号码时返回的批次号
+  batchId: string(name='batch_id'),
+  // 外呼类型
+  // 建议按照如下约定给到
+  // 2001:批量-预测外呼
+  // 2002:批量-AI外呼-不转人工
+  // 2003:批量-AI外呼-接通转人工
+  // 2004: 批量-AI外呼-智能转人工
+  // 2005:批量-语音通知
+  callType: long(name='call_type'),
+  // 用户自定义标签
+  tag?: string(name='tag'),
+  // 外呼呼叫实例id
+  callId: string(name='call_id'),
+  // 外呼任务编号
+  taskId: long(name='task_id'),
+  // 外呼的话术模板ID，可以为空
+  templateId?: long(name='template_id'),
+  // 外呼状态编码
+  statusCode: long(name='status_code'),
+  // 外呼状态编码对应描述
+  statusDescription: string(name='status_description'),
+  // 转人工状态编码
+  transferStatusCode: string(name='transfer_status_code'),
+  // 转人工状态编码对应描述
+  transferStatus: string(name='transfer_status'),
+  // 分配坐席ID,可以为空
+  agentId?: long(name='agent_id'),
+  // 建议填写坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
+  agentTag?: string(name='agent_tag'),
+  // 坐席分机号，可以为空
+  agentExtension?: string(name='agent_extension'),
+  // 导入时间，格式:2019-01-09 14:14:19
+  importTime: string(name='import_time'),
+  // 开始通话时间，格式：2019-01-09 14:14:19
+  callBeginTime: string(name='call_begin_time'),
+  // 振铃时长,单位毫秒
+  ringTime: long(name='ring_time'),
+  // 接通时间
+  answerTime?: string(name='answer_time'),
+  // 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+  speakingTime: string(name='speaking_time'),
+  // 通话时长，单位：秒
+  speakingDuration: long(name='speaking_duration'),
+  // 通话挂断时间
+  hangupTime: string(name='hangup_time'),
+  // 对话轮次
+  speakingTurns: long(name='speaking_turns'),
+  // 坐席通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+  agentSpeakingTime: string(name='agent_speaking_time'),
+  // 坐席通话时长，单位：秒
+  agentSpeakingDuration: long(name='agent_speaking_duration'),
+  // 意向标签
+  intentTag: string(name='intent_tag'),
+  // 意向说明
+  intentDescription: string(name='intent_description'),
+  // 个性标签
+  individualTag?: string(name='individual_tag'),
+  // 回复关键词
+  keywords?: string(name='keywords'),
+  // 挂机方式
+  hungupType: long(name='hungup_type'),
+  // 挂机短信，1:发送，2:不发送
+  sms: long(name='sms'),
+  // 对话录音,url
+  chatRecord?: string(name='chat_record'),
+  // 对话记录
+  chats?: string(name='chats'),
+  // 0:不添加，1:添加
+  addWx?: long(name='add_wx'),
+  // 加微进度可选值：已申请、加微成功
+  addWxStatus?: string(name='add_wx_status'),
+  // 是否接通重呼 0正常外呼，1接通重呼
+  answerRecall: long(name='answer_recall'),
+  // 导入号码时的参数值
+  properties?: string(name='properties'),
+  // 导入号码时的业务参数值
+  bizProperties?: string(name='biz_properties'),
+  // 拦截原因 可选值：黑名单拦截，灰名单拦截，异常号码拦截
+  interceptReason?: string(name='intercept_reason'),
+  // 回调冗余字段
+  extInfo?: string(name='ext_info'),
+}
+
+model CallbackUmktRobotcallResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 新接入ai外呼服务商的回调接口
+ * Summary: ai外呼回调接口
+ */
+async function callbackUmktRobotcall(request: CallbackUmktRobotcallRequest): CallbackUmktRobotcallResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackUmktRobotcallEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新接入ai外呼服务商的回调接口
+ * Summary: ai外呼回调接口
+ */
+async function callbackUmktRobotcallEx(request: CallbackUmktRobotcallRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackUmktRobotcallResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.robotcall.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
