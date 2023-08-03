@@ -45,6 +45,8 @@ use AntChain\RISKPLUS\Models\BatchqueryUmktRtTopnRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtTopnResponse;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardRequest;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardResponse;
+use AntChain\RISKPLUS\Models\CallbackUmktRobotcallRequest;
+use AntChain\RISKPLUS\Models\CallbackUmktRobotcallResponse;
 use AntChain\RISKPLUS\Models\CancelUmktDataaccessOfflinetaskRequest;
 use AntChain\RISKPLUS\Models\CancelUmktDataaccessOfflinetaskResponse;
 use AntChain\RISKPLUS\Models\CheckSecurityDataRequest;
@@ -444,7 +446,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.36',
+                    'sdk_version'      => '1.16.38',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5268,6 +5270,39 @@ class Client
         Utils::validateModel($request);
 
         return ApplyUmktRtBatchmarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.batchmarketing.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新接入ai外呼服务商的回调接口
+     * Summary: ai外呼回调接口.
+     *
+     * @param CallbackUmktRobotcallRequest $request
+     *
+     * @return CallbackUmktRobotcallResponse
+     */
+    public function callbackUmktRobotcall($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackUmktRobotcallEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新接入ai外呼服务商的回调接口
+     * Summary: ai外呼回调接口.
+     *
+     * @param CallbackUmktRobotcallRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CallbackUmktRobotcallResponse
+     */
+    public function callbackUmktRobotcallEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackUmktRobotcallResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.robotcall.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
