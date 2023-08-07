@@ -15,6 +15,8 @@ use AntChain\NFTC\Models\PublishMerchantDiyskuRequest;
 use AntChain\NFTC\Models\PublishMerchantDiyskuResponse;
 use AntChain\NFTC\Models\QueryMerchantDiyskuRequest;
 use AntChain\NFTC\Models\QueryMerchantDiyskuResponse;
+use AntChain\NFTC\Models\QueryMerchantUgcimagesRequest;
+use AntChain\NFTC\Models\QueryMerchantUgcimagesResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -161,7 +163,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.0.3',
                     '_prod_code'       => 'NFTC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -273,5 +275,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryMerchantDiyskuResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.merchant.diysku.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提供ISV  ugc铸造图片查询的openapi服务
+     * Summary: ugc铸造图片查询的openapi接口.
+     *
+     * @param QueryMerchantUgcimagesRequest $request
+     *
+     * @return QueryMerchantUgcimagesResponse
+     */
+    public function queryMerchantUgcimages($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMerchantUgcimagesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提供ISV  ugc铸造图片查询的openapi服务
+     * Summary: ugc铸造图片查询的openapi接口.
+     *
+     * @param QueryMerchantUgcimagesRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryMerchantUgcimagesResponse
+     */
+    public function queryMerchantUgcimagesEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMerchantUgcimagesResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.merchant.ugcimages.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
