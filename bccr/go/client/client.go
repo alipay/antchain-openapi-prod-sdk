@@ -6759,10 +6759,6 @@ type AddDciUserRequest struct {
 	CertificateType *string `json:"certificate_type,omitempty" xml:"certificate_type,omitempty" require:"true"`
 	// 证件号
 	CertificateNumber *string `json:"certificate_number,omitempty" xml:"certificate_number,omitempty" require:"true"`
-	// 证件有效期限起始日期
-	CertificateStartTime *string `json:"certificate_start_time,omitempty" xml:"certificate_start_time,omitempty"`
-	// 证件有效期限终止日期
-	CertificateEndTime *string `json:"certificate_end_time,omitempty" xml:"certificate_end_time,omitempty"`
 	// 证件正面OSS fileId
 	CertificateFrontFileId *string `json:"certificate_front_file_id,omitempty" xml:"certificate_front_file_id,omitempty" require:"true"`
 	// 证件反面OSS fileId
@@ -6775,26 +6771,30 @@ type AddDciUserRequest struct {
 	LegalPersonCertNo *string `json:"legal_person_cert_no,omitempty" xml:"legal_person_cert_no,omitempty"`
 	// 手机号
 	Phone *string `json:"phone,omitempty" xml:"phone,omitempty" require:"true"`
-	// 地址
-	Address *string `json:"address,omitempty" xml:"address,omitempty"`
-	// 用户身份开始时间
-	IdentityStartTime *string `json:"identity_start_time,omitempty" xml:"identity_start_time,omitempty"`
 	// 所属地区
 	AreaType *string `json:"area_type,omitempty" xml:"area_type,omitempty" require:"true"`
 	// 代理信息
 	ProxyData *ProxyData `json:"proxy_data,omitempty" xml:"proxy_data,omitempty"`
+	// 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+	CopyrightCertificationType *string `json:"copyright_certification_type,omitempty" xml:"copyright_certification_type,omitempty"`
 	// 幂等字段
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
 	// 用户名称废弃
 	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
+	// 证件有效期限起始日期废弃
+	CertificateStartTime *string `json:"certificate_start_time,omitempty" xml:"certificate_start_time,omitempty"`
+	// 证件有效期限终止日期废弃
+	CertificateEndTime *string `json:"certificate_end_time,omitempty" xml:"certificate_end_time,omitempty"`
 	// 证件正面OSS fileId废弃
 	CertificateFrontFilePath *string `json:"certificate_front_file_path,omitempty" xml:"certificate_front_file_path,omitempty"`
 	// 证件反面OSS filePath废弃
 	CertificateBackFilePath *string `json:"certificate_back_file_path,omitempty" xml:"certificate_back_file_path,omitempty"`
+	// 用户身份开始时间废弃
+	IdentityStartTime *string `json:"identity_start_time,omitempty" xml:"identity_start_time,omitempty"`
 	// 用户类型废弃
 	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
-	// 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
-	CopyrightCertificationType *string `json:"copyright_certification_type,omitempty" xml:"copyright_certification_type,omitempty"`
+	// 地址废弃
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
 }
 
 func (s AddDciUserRequest) String() string {
@@ -6830,16 +6830,6 @@ func (s *AddDciUserRequest) SetCertificateNumber(v string) *AddDciUserRequest {
 	return s
 }
 
-func (s *AddDciUserRequest) SetCertificateStartTime(v string) *AddDciUserRequest {
-	s.CertificateStartTime = &v
-	return s
-}
-
-func (s *AddDciUserRequest) SetCertificateEndTime(v string) *AddDciUserRequest {
-	s.CertificateEndTime = &v
-	return s
-}
-
 func (s *AddDciUserRequest) SetCertificateFrontFileId(v string) *AddDciUserRequest {
 	s.CertificateFrontFileId = &v
 	return s
@@ -6870,16 +6860,6 @@ func (s *AddDciUserRequest) SetPhone(v string) *AddDciUserRequest {
 	return s
 }
 
-func (s *AddDciUserRequest) SetAddress(v string) *AddDciUserRequest {
-	s.Address = &v
-	return s
-}
-
-func (s *AddDciUserRequest) SetIdentityStartTime(v string) *AddDciUserRequest {
-	s.IdentityStartTime = &v
-	return s
-}
-
 func (s *AddDciUserRequest) SetAreaType(v string) *AddDciUserRequest {
 	s.AreaType = &v
 	return s
@@ -6887,6 +6867,11 @@ func (s *AddDciUserRequest) SetAreaType(v string) *AddDciUserRequest {
 
 func (s *AddDciUserRequest) SetProxyData(v *ProxyData) *AddDciUserRequest {
 	s.ProxyData = v
+	return s
+}
+
+func (s *AddDciUserRequest) SetCopyrightCertificationType(v string) *AddDciUserRequest {
+	s.CopyrightCertificationType = &v
 	return s
 }
 
@@ -6900,6 +6885,16 @@ func (s *AddDciUserRequest) SetUserName(v string) *AddDciUserRequest {
 	return s
 }
 
+func (s *AddDciUserRequest) SetCertificateStartTime(v string) *AddDciUserRequest {
+	s.CertificateStartTime = &v
+	return s
+}
+
+func (s *AddDciUserRequest) SetCertificateEndTime(v string) *AddDciUserRequest {
+	s.CertificateEndTime = &v
+	return s
+}
+
 func (s *AddDciUserRequest) SetCertificateFrontFilePath(v string) *AddDciUserRequest {
 	s.CertificateFrontFilePath = &v
 	return s
@@ -6910,13 +6905,18 @@ func (s *AddDciUserRequest) SetCertificateBackFilePath(v string) *AddDciUserRequ
 	return s
 }
 
+func (s *AddDciUserRequest) SetIdentityStartTime(v string) *AddDciUserRequest {
+	s.IdentityStartTime = &v
+	return s
+}
+
 func (s *AddDciUserRequest) SetUserType(v string) *AddDciUserRequest {
 	s.UserType = &v
 	return s
 }
 
-func (s *AddDciUserRequest) SetCopyrightCertificationType(v string) *AddDciUserRequest {
-	s.CopyrightCertificationType = &v
+func (s *AddDciUserRequest) SetAddress(v string) *AddDciUserRequest {
+	s.Address = &v
 	return s
 }
 
@@ -10967,7 +10967,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.64"),
+				"sdk_version":      tea.String("1.17.65"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
