@@ -6241,6 +6241,77 @@ export class CancelBmpbrowserPrivilegeResponse extends $tea.Model {
   }
 }
 
+export class QueryEnterpriseBaseinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 0 为按照企业信用编码查询 1为按照企业名称查询
+  type: string;
+  // 需要查询的企业关联信息
+  data: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      type: 'type',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      type: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEnterpriseBaseinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 企业信用编码
+  epCode?: string;
+  // 企业名称
+  epName?: string;
+  // 企业法人名称
+  legalPersonName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      epCode: 'ep_code',
+      epName: 'ep_name',
+      legalPersonName: 'legal_person_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      epCode: 'string',
+      epName: 'string',
+      legalPersonName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -6354,7 +6425,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.11",
+          sdk_version: "1.1.12",
           _prod_code: "BAASPLUS",
           _prod_channel: "undefined",
         };
@@ -7903,6 +7974,25 @@ export default class Client {
   async cancelBmpbrowserPrivilegeEx(request: CancelBmpbrowserPrivilegeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelBmpbrowserPrivilegeResponse> {
     Util.validateModel(request);
     return $tea.cast<CancelBmpbrowserPrivilegeResponse>(await this.doRequest("1.0", "baas.plus.bmpbrowser.privilege.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelBmpbrowserPrivilegeResponse({}));
+  }
+
+  /**
+   * Description: 企业基础信息查询（企业信用编码/企业名称/法人）
+   * Summary: 企业基础信息查询
+   */
+  async queryEnterpriseBaseinfo(request: QueryEnterpriseBaseinfoRequest): Promise<QueryEnterpriseBaseinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEnterpriseBaseinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企业基础信息查询（企业信用编码/企业名称/法人）
+   * Summary: 企业基础信息查询
+   */
+  async queryEnterpriseBaseinfoEx(request: QueryEnterpriseBaseinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEnterpriseBaseinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEnterpriseBaseinfoResponse>(await this.doRequest("1.0", "baas.plus.enterprise.baseinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEnterpriseBaseinfoResponse({}));
   }
 
 }
