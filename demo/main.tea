@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.188',
+    sdk_version = '1.0.196',
     _prod_code = 'DEMO',
     _prod_channel = 'undefined'
   };
@@ -229,7 +229,7 @@ model RouteCondition {
   channelId: string(name='channel_id', example='HZZKZTKJ'),
 }
 
-// test
+// testAtestB
 model SCRealEstateQueryBody {
 }
 
@@ -273,6 +273,16 @@ model NameValuePair {
   name: string(name='name', example='key'),
   // 键值
   value: string(name='value', example='value'),
+}
+
+// 自动生成单测代码model
+model AutoCodeModel {
+  // 111
+  modelStringParam: string(name='model_string_param', example='111'),
+  // 111
+  modelDateParam: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='model_date_param', example='2018-10-10T10:10:00Z'),
+  // 111
+  modelArrayParam: [ string ](name='model_array_param', example='111'),
 }
 
 // SCRealEstateQueryRequestBody
@@ -515,8 +525,6 @@ model EchoGatewayCheckRequest = {
   inputInt: long(maximum=40, minimum=10, name='input_int'),
   // 测试一下
   fileName: string(name='file_name'),
-  // 123
-  date: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='date'),
 }
 
 model EchoGatewayCheckResponse = {
@@ -535,8 +543,8 @@ model EchoGatewayCheckResponse = {
 }
 
 /**
- * Description: Demo接口，返回当输入的值
- * Summary: 返回输入值
+ * Description: Demo接口，返回当前输入的值
+ * Summary: 返回输入值1
  */
 async function echoGatewayCheck(request: EchoGatewayCheckRequest): EchoGatewayCheckResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -545,8 +553,8 @@ async function echoGatewayCheck(request: EchoGatewayCheckRequest): EchoGatewayCh
 }
 
 /**
- * Description: Demo接口，返回当输入的值
- * Summary: 返回输入值
+ * Description: Demo接口，返回当前输入的值
+ * Summary: 返回输入值1
  */
 async function echoGatewayCheckEx(request: EchoGatewayCheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): EchoGatewayCheckResponse {
   if (!Util.isUnset(request.fileObject)) {
@@ -911,7 +919,7 @@ model QueryAdAsdAsdResponse = {
 
 /**
  * Description: asd
- * Summary: asd1
+ * Summary: asdasdasd
  */
 async function queryAdAsdAsd(request: QueryAdAsdAsdRequest): QueryAdAsdAsdResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -921,7 +929,7 @@ async function queryAdAsdAsd(request: QueryAdAsdAsdRequest): QueryAdAsdAsdRespon
 
 /**
  * Description: asd
- * Summary: asd1
+ * Summary: asdasdasd
  */
 async function queryAdAsdAsdEx(request: QueryAdAsdAsdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAdAsdAsdResponse {
   Util.validateModel(request);
@@ -1341,6 +1349,134 @@ async function queryLoadtestTimeThreeEx(request: QueryLoadtestTimeThreeRequest, 
   return doRequest('1.0' ,'demo.loadtest.time.three.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryApiOfflineStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryApiOfflineStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: api下架测试
+测试状态
+ * Summary: api下架测试测试状态
+ */
+async function queryApiOfflineStatus(request: QueryApiOfflineStatusRequest): QueryApiOfflineStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiOfflineStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: api下架测试
+测试状态
+ * Summary: api下架测试测试状态
+ */
+async function queryApiOfflineStatusEx(request: QueryApiOfflineStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiOfflineStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.api.offline.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportDemoApistatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model ImportDemoApistatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 测试数据，可删除
+ * Summary: api状态测试
+ */
+async function importDemoApistatus(request: ImportDemoApistatusRequest): ImportDemoApistatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importDemoApistatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试数据，可删除
+ * Summary: api状态测试
+ */
+async function importDemoApistatusEx(request: ImportDemoApistatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportDemoApistatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.demo.apistatus.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAutoTestCodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 111
+  stringParam1: string(name='string_param_1'),
+  // 222
+  stringParam2?: string(name='string_param_2'),
+  // 111
+  numberParam1: long(name='number_param_1'),
+  // 222
+  numberParam2?: long(name='number_param_2'),
+  // 111
+  boolParam1: boolean(name='bool_param_1'),
+  // 222
+  boolParam2?: boolean(name='bool_param_2'),
+  // 111
+  dateParam1: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='date_param_1'),
+  // 222
+  dateParam2?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='date_param_2'),
+  // 111
+  arrayParam1: [ string ](name='array_param_1'),
+  // 222
+  arrayParam2?: [ string ](name='array_param_2'),
+  // 111
+  structParam1: AutoCodeModel(name='struct_param_1'),
+  // 222
+  structParam2?: AutoCodeModel(name='struct_param_2'),
+}
+
+model CreateAutoTestCodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 测试自动生成回归测试代码
+ * Summary: 测试自动生成回归测试代码
+ */
+async function createAutoTestCode(request: CreateAutoTestCodeRequest): CreateAutoTestCodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAutoTestCodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试自动生成回归测试代码
+ * Summary: 测试自动生成回归测试代码
+ */
+async function createAutoTestCodeEx(request: CreateAutoTestCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAutoTestCodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.auto.test.code.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model BindAsdAsdAsdRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1396,6 +1532,7 @@ model QueryApprovalTestResponse = {
 
 /**
  * Description: 用于测试api评审接入SDL的测试使用
+测试评审
  * Summary: api评审测试
  */
 async function queryApprovalTest(request: QueryApprovalTestRequest): QueryApprovalTestResponse {
@@ -1406,6 +1543,7 @@ async function queryApprovalTest(request: QueryApprovalTestRequest): QueryApprov
 
 /**
  * Description: 用于测试api评审接入SDL的测试使用
+测试评审
  * Summary: api评审测试
  */
 async function queryApprovalTestEx(request: QueryApprovalTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApprovalTestResponse {
