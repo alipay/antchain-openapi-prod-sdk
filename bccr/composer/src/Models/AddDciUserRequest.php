@@ -37,18 +37,6 @@ class AddDciUserRequest extends Model
      */
     public $certificateNumber;
 
-    // 证件有效期限起始日期
-    /**
-     * @var string
-     */
-    public $certificateStartTime;
-
-    // 证件有效期限终止日期
-    /**
-     * @var string
-     */
-    public $certificateEndTime;
-
     // 证件正面OSS fileId
     /**
      * @var string
@@ -85,18 +73,6 @@ class AddDciUserRequest extends Model
      */
     public $phone;
 
-    // 地址
-    /**
-     * @var string
-     */
-    public $address;
-
-    // 用户身份开始时间
-    /**
-     * @var string
-     */
-    public $identityStartTime;
-
     // 所属地区
     /**
      * @var string
@@ -108,6 +84,12 @@ class AddDciUserRequest extends Model
      * @var ProxyData
      */
     public $proxyData;
+
+    // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+    /**
+     * @var string
+     */
+    public $copyrightCertificationType;
 
     // 幂等字段
     /**
@@ -121,6 +103,18 @@ class AddDciUserRequest extends Model
      */
     public $userName;
 
+    // 证件有效期限起始日期废弃
+    /**
+     * @var string
+     */
+    public $certificateStartTime;
+
+    // 证件有效期限终止日期废弃
+    /**
+     * @var string
+     */
+    public $certificateEndTime;
+
     // 证件正面OSS fileId废弃
     /**
      * @var string
@@ -133,41 +127,47 @@ class AddDciUserRequest extends Model
      */
     public $certificateBackFilePath;
 
+    // 用户身份开始时间废弃
+    /**
+     * @var string
+     */
+    public $identityStartTime;
+
     // 用户类型废弃
     /**
      * @var string
      */
     public $userType;
 
-    // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+    // 地址废弃
     /**
      * @var string
      */
-    public $copyrightCertificationType;
+    public $address;
     protected $_name = [
         'authToken'                  => 'auth_token',
         'productInstanceId'          => 'product_instance_id',
         'certName'                   => 'cert_name',
         'certificateType'            => 'certificate_type',
         'certificateNumber'          => 'certificate_number',
-        'certificateStartTime'       => 'certificate_start_time',
-        'certificateEndTime'         => 'certificate_end_time',
         'certificateFrontFileId'     => 'certificate_front_file_id',
         'certificateBackFileId'      => 'certificate_back_file_id',
         'legalPersonCertName'        => 'legal_person_cert_name',
         'legalPersonCertType'        => 'legal_person_cert_type',
         'legalPersonCertNo'          => 'legal_person_cert_no',
         'phone'                      => 'phone',
-        'address'                    => 'address',
-        'identityStartTime'          => 'identity_start_time',
         'areaType'                   => 'area_type',
         'proxyData'                  => 'proxy_data',
+        'copyrightCertificationType' => 'copyright_certification_type',
         'clientToken'                => 'client_token',
         'userName'                   => 'user_name',
+        'certificateStartTime'       => 'certificate_start_time',
+        'certificateEndTime'         => 'certificate_end_time',
         'certificateFrontFilePath'   => 'certificate_front_file_path',
         'certificateBackFilePath'    => 'certificate_back_file_path',
+        'identityStartTime'          => 'identity_start_time',
         'userType'                   => 'user_type',
-        'copyrightCertificationType' => 'copyright_certification_type',
+        'address'                    => 'address',
     ];
 
     public function validate()
@@ -199,12 +199,6 @@ class AddDciUserRequest extends Model
         if (null !== $this->certificateNumber) {
             $res['certificate_number'] = $this->certificateNumber;
         }
-        if (null !== $this->certificateStartTime) {
-            $res['certificate_start_time'] = $this->certificateStartTime;
-        }
-        if (null !== $this->certificateEndTime) {
-            $res['certificate_end_time'] = $this->certificateEndTime;
-        }
         if (null !== $this->certificateFrontFileId) {
             $res['certificate_front_file_id'] = $this->certificateFrontFileId;
         }
@@ -223,17 +217,14 @@ class AddDciUserRequest extends Model
         if (null !== $this->phone) {
             $res['phone'] = $this->phone;
         }
-        if (null !== $this->address) {
-            $res['address'] = $this->address;
-        }
-        if (null !== $this->identityStartTime) {
-            $res['identity_start_time'] = $this->identityStartTime;
-        }
         if (null !== $this->areaType) {
             $res['area_type'] = $this->areaType;
         }
         if (null !== $this->proxyData) {
             $res['proxy_data'] = null !== $this->proxyData ? $this->proxyData->toMap() : null;
+        }
+        if (null !== $this->copyrightCertificationType) {
+            $res['copyright_certification_type'] = $this->copyrightCertificationType;
         }
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
@@ -241,17 +232,26 @@ class AddDciUserRequest extends Model
         if (null !== $this->userName) {
             $res['user_name'] = $this->userName;
         }
+        if (null !== $this->certificateStartTime) {
+            $res['certificate_start_time'] = $this->certificateStartTime;
+        }
+        if (null !== $this->certificateEndTime) {
+            $res['certificate_end_time'] = $this->certificateEndTime;
+        }
         if (null !== $this->certificateFrontFilePath) {
             $res['certificate_front_file_path'] = $this->certificateFrontFilePath;
         }
         if (null !== $this->certificateBackFilePath) {
             $res['certificate_back_file_path'] = $this->certificateBackFilePath;
         }
+        if (null !== $this->identityStartTime) {
+            $res['identity_start_time'] = $this->identityStartTime;
+        }
         if (null !== $this->userType) {
             $res['user_type'] = $this->userType;
         }
-        if (null !== $this->copyrightCertificationType) {
-            $res['copyright_certification_type'] = $this->copyrightCertificationType;
+        if (null !== $this->address) {
+            $res['address'] = $this->address;
         }
 
         return $res;
@@ -280,12 +280,6 @@ class AddDciUserRequest extends Model
         if (isset($map['certificate_number'])) {
             $model->certificateNumber = $map['certificate_number'];
         }
-        if (isset($map['certificate_start_time'])) {
-            $model->certificateStartTime = $map['certificate_start_time'];
-        }
-        if (isset($map['certificate_end_time'])) {
-            $model->certificateEndTime = $map['certificate_end_time'];
-        }
         if (isset($map['certificate_front_file_id'])) {
             $model->certificateFrontFileId = $map['certificate_front_file_id'];
         }
@@ -304,17 +298,14 @@ class AddDciUserRequest extends Model
         if (isset($map['phone'])) {
             $model->phone = $map['phone'];
         }
-        if (isset($map['address'])) {
-            $model->address = $map['address'];
-        }
-        if (isset($map['identity_start_time'])) {
-            $model->identityStartTime = $map['identity_start_time'];
-        }
         if (isset($map['area_type'])) {
             $model->areaType = $map['area_type'];
         }
         if (isset($map['proxy_data'])) {
             $model->proxyData = ProxyData::fromMap($map['proxy_data']);
+        }
+        if (isset($map['copyright_certification_type'])) {
+            $model->copyrightCertificationType = $map['copyright_certification_type'];
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
@@ -322,17 +313,26 @@ class AddDciUserRequest extends Model
         if (isset($map['user_name'])) {
             $model->userName = $map['user_name'];
         }
+        if (isset($map['certificate_start_time'])) {
+            $model->certificateStartTime = $map['certificate_start_time'];
+        }
+        if (isset($map['certificate_end_time'])) {
+            $model->certificateEndTime = $map['certificate_end_time'];
+        }
         if (isset($map['certificate_front_file_path'])) {
             $model->certificateFrontFilePath = $map['certificate_front_file_path'];
         }
         if (isset($map['certificate_back_file_path'])) {
             $model->certificateBackFilePath = $map['certificate_back_file_path'];
         }
+        if (isset($map['identity_start_time'])) {
+            $model->identityStartTime = $map['identity_start_time'];
+        }
         if (isset($map['user_type'])) {
             $model->userType = $map['user_type'];
         }
-        if (isset($map['copyright_certification_type'])) {
-            $model->copyrightCertificationType = $map['copyright_certification_type'];
+        if (isset($map['address'])) {
+            $model->address = $map['address'];
         }
 
         return $model;
