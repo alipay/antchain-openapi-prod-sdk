@@ -2718,6 +2718,113 @@ export class QueryRiskEvaluationResponse extends $tea.Model {
   }
 }
 
+export class PullApiSimpleauthasyncpollingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户号/子租户号，如果为租户号获取，则为租户号，如果为子租户号获取，则传输子租户号	
+  // 
+  instCode: string;
+  // 纳税人识别号	
+  identityId: string;
+  // 用于幂等控制	
+  // 
+  bizRequestId: string;
+  // 产品类型：发票指标-301，税务指标-302，发票加税务指标-303	
+  // 
+  authType: string;
+  // 行方生成的授权编号	
+  // 
+  authCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      instCode: 'inst_code',
+      identityId: 'identity_id',
+      bizRequestId: 'biz_request_id',
+      authType: 'auth_type',
+      authCode: 'auth_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      instCode: 'string',
+      identityId: 'string',
+      bizRequestId: 'string',
+      authType: 'string',
+      authCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PullApiSimpleauthasyncpollingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 租户号
+  instCode?: string;
+  // 纳税人识别号
+  identityId?: string;
+  // 和查询的biz_request_id相同
+  bizRequestId?: string;
+  // 产品类型：发票指标-301，税务指标-302，发票加税务指标-303
+  authType?: string;
+  // 行方生成的授权编号
+  authCode?: string;
+  // 时间戳
+  timestamp?: string;
+  // 极简授权文件地址列表
+  fileList?: string[];
+  // 秘钥
+  secret?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      instCode: 'inst_code',
+      identityId: 'identity_id',
+      bizRequestId: 'biz_request_id',
+      authType: 'auth_type',
+      authCode: 'auth_code',
+      timestamp: 'timestamp',
+      fileList: 'file_list',
+      secret: 'secret',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      instCode: 'string',
+      identityId: 'string',
+      bizRequestId: 'string',
+      authType: 'string',
+      authCode: 'string',
+      timestamp: 'string',
+      fileList: { 'type': 'array', 'itemType': 'string' },
+      secret: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2831,7 +2938,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.15",
+          sdk_version: "1.6.16",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
@@ -3276,6 +3383,25 @@ export default class Client {
   async queryRiskEvaluationEx(request: QueryRiskEvaluationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRiskEvaluationResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryRiskEvaluationResponse>(await this.doRequest("1.0", "blockchain.tax.risk.evaluation.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRiskEvaluationResponse({}));
+  }
+
+  /**
+   * Description: 极简授权-异步查询数据-轮询拉取结果
+   * Summary: 极简授权-异步查询数据-轮询拉取结果
+   */
+  async pullApiSimpleauthasyncpolling(request: PullApiSimpleauthasyncpollingRequest): Promise<PullApiSimpleauthasyncpollingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pullApiSimpleauthasyncpollingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 极简授权-异步查询数据-轮询拉取结果
+   * Summary: 极简授权-异步查询数据-轮询拉取结果
+   */
+  async pullApiSimpleauthasyncpollingEx(request: PullApiSimpleauthasyncpollingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PullApiSimpleauthasyncpollingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PullApiSimpleauthasyncpollingResponse>(await this.doRequest("1.0", "blockchain.tax.api.simpleauthasyncpolling.pull", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PullApiSimpleauthasyncpollingResponse({}));
   }
 
 }
