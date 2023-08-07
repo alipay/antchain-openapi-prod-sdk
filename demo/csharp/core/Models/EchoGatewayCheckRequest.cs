@@ -52,11 +52,6 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=true)]
         public string FileName { get; set; }
 
-        // 123
-        [NameInMap("date")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
-        public string Date { get; set; }
-
     }
 
 }

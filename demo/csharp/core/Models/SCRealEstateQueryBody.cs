@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    // test
+    // testAtestB
     public class SCRealEstateQueryBody : TeaModel {
     }
 
