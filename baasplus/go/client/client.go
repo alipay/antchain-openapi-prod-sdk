@@ -8138,6 +8138,97 @@ func (s *CancelBmpbrowserPrivilegeResponse) SetStatus(v int64) *CancelBmpbrowser
 	return s
 }
 
+type QueryEnterpriseBaseinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 0 为按照企业信用编码查询 1为按照企业名称查询
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 需要查询的企业关联信息
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s QueryEnterpriseBaseinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEnterpriseBaseinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEnterpriseBaseinfoRequest) SetAuthToken(v string) *QueryEnterpriseBaseinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEnterpriseBaseinfoRequest) SetProductInstanceId(v string) *QueryEnterpriseBaseinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEnterpriseBaseinfoRequest) SetType(v string) *QueryEnterpriseBaseinfoRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryEnterpriseBaseinfoRequest) SetData(v string) *QueryEnterpriseBaseinfoRequest {
+	s.Data = &v
+	return s
+}
+
+type QueryEnterpriseBaseinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 企业信用编码
+	EpCode *string `json:"ep_code,omitempty" xml:"ep_code,omitempty"`
+	// 企业名称
+	EpName *string `json:"ep_name,omitempty" xml:"ep_name,omitempty"`
+	// 企业法人名称
+	LegalPersonName *string `json:"legal_person_name,omitempty" xml:"legal_person_name,omitempty"`
+}
+
+func (s QueryEnterpriseBaseinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEnterpriseBaseinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEnterpriseBaseinfoResponse) SetReqMsgId(v string) *QueryEnterpriseBaseinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEnterpriseBaseinfoResponse) SetResultCode(v string) *QueryEnterpriseBaseinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEnterpriseBaseinfoResponse) SetResultMsg(v string) *QueryEnterpriseBaseinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEnterpriseBaseinfoResponse) SetEpCode(v string) *QueryEnterpriseBaseinfoResponse {
+	s.EpCode = &v
+	return s
+}
+
+func (s *QueryEnterpriseBaseinfoResponse) SetEpName(v string) *QueryEnterpriseBaseinfoResponse {
+	s.EpName = &v
+	return s
+}
+
+func (s *QueryEnterpriseBaseinfoResponse) SetLegalPersonName(v string) *QueryEnterpriseBaseinfoResponse {
+	s.LegalPersonName = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -8260,7 +8351,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.11"),
+				"sdk_version":      tea.String("1.1.12"),
 				"_prod_code":       tea.String("BAASPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -10999,6 +11090,40 @@ func (client *Client) CancelBmpbrowserPrivilegeEx(request *CancelBmpbrowserPrivi
 	}
 	_result = &CancelBmpbrowserPrivilegeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.plus.bmpbrowser.privilege.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业基础信息查询（企业信用编码/企业名称/法人）
+ * Summary: 企业基础信息查询
+ */
+func (client *Client) QueryEnterpriseBaseinfo(request *QueryEnterpriseBaseinfoRequest) (_result *QueryEnterpriseBaseinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEnterpriseBaseinfoResponse{}
+	_body, _err := client.QueryEnterpriseBaseinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业基础信息查询（企业信用编码/企业名称/法人）
+ * Summary: 企业基础信息查询
+ */
+func (client *Client) QueryEnterpriseBaseinfoEx(request *QueryEnterpriseBaseinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEnterpriseBaseinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEnterpriseBaseinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.plus.enterprise.baseinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
