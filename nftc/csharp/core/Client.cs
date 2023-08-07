@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.3"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.3"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -403,6 +403,48 @@ namespace AntChain.SDK.NFTC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryMerchantDiyskuResponse>(await DoRequestAsync("1.0", "antchain.nftc.merchant.diysku.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提供ISV  ugc铸造图片查询的openapi服务
+         * Summary: ugc铸造图片查询的openapi接口
+         */
+        public QueryMerchantUgcimagesResponse QueryMerchantUgcimages(QueryMerchantUgcimagesRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMerchantUgcimagesEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提供ISV  ugc铸造图片查询的openapi服务
+         * Summary: ugc铸造图片查询的openapi接口
+         */
+        public async Task<QueryMerchantUgcimagesResponse> QueryMerchantUgcimagesAsync(QueryMerchantUgcimagesRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMerchantUgcimagesExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提供ISV  ugc铸造图片查询的openapi服务
+         * Summary: ugc铸造图片查询的openapi接口
+         */
+        public QueryMerchantUgcimagesResponse QueryMerchantUgcimagesEx(QueryMerchantUgcimagesRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMerchantUgcimagesResponse>(DoRequest("1.0", "antchain.nftc.merchant.ugcimages.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提供ISV  ugc铸造图片查询的openapi服务
+         * Summary: ugc铸造图片查询的openapi接口
+         */
+        public async Task<QueryMerchantUgcimagesResponse> QueryMerchantUgcimagesExAsync(QueryMerchantUgcimagesRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMerchantUgcimagesResponse>(await DoRequestAsync("1.0", "antchain.nftc.merchant.ugcimages.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
