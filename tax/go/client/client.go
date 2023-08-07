@@ -3624,6 +3624,157 @@ func (s *QueryRiskEvaluationResponse) SetQueryTime(v string) *QueryRiskEvaluatio
 	return s
 }
 
+type PullApiSimpleauthasyncpollingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户号/子租户号，如果为租户号获取，则为租户号，如果为子租户号获取，则传输子租户号
+	//
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 纳税人识别号
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 用于幂等控制
+	//
+	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty" require:"true"`
+	// 产品类型：发票指标-301，税务指标-302，发票加税务指标-303
+	//
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 行方生成的授权编号
+	//
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
+}
+
+func (s PullApiSimpleauthasyncpollingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PullApiSimpleauthasyncpollingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PullApiSimpleauthasyncpollingRequest) SetAuthToken(v string) *PullApiSimpleauthasyncpollingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingRequest) SetProductInstanceId(v string) *PullApiSimpleauthasyncpollingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingRequest) SetInstCode(v string) *PullApiSimpleauthasyncpollingRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingRequest) SetIdentityId(v string) *PullApiSimpleauthasyncpollingRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingRequest) SetBizRequestId(v string) *PullApiSimpleauthasyncpollingRequest {
+	s.BizRequestId = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingRequest) SetAuthType(v string) *PullApiSimpleauthasyncpollingRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingRequest) SetAuthCode(v string) *PullApiSimpleauthasyncpollingRequest {
+	s.AuthCode = &v
+	return s
+}
+
+type PullApiSimpleauthasyncpollingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 租户号
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty"`
+	// 纳税人识别号
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty"`
+	// 和查询的biz_request_id相同
+	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty"`
+	// 产品类型：发票指标-301，税务指标-302，发票加税务指标-303
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
+	// 行方生成的授权编号
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
+	// 时间戳
+	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
+	// 极简授权文件地址列表
+	FileList []*string `json:"file_list,omitempty" xml:"file_list,omitempty" type:"Repeated"`
+	// 秘钥
+	Secret *string `json:"secret,omitempty" xml:"secret,omitempty"`
+}
+
+func (s PullApiSimpleauthasyncpollingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PullApiSimpleauthasyncpollingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PullApiSimpleauthasyncpollingResponse) SetReqMsgId(v string) *PullApiSimpleauthasyncpollingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingResponse) SetResultCode(v string) *PullApiSimpleauthasyncpollingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingResponse) SetResultMsg(v string) *PullApiSimpleauthasyncpollingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingResponse) SetInstCode(v string) *PullApiSimpleauthasyncpollingResponse {
+	s.InstCode = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingResponse) SetIdentityId(v string) *PullApiSimpleauthasyncpollingResponse {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingResponse) SetBizRequestId(v string) *PullApiSimpleauthasyncpollingResponse {
+	s.BizRequestId = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingResponse) SetAuthType(v string) *PullApiSimpleauthasyncpollingResponse {
+	s.AuthType = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingResponse) SetAuthCode(v string) *PullApiSimpleauthasyncpollingResponse {
+	s.AuthCode = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingResponse) SetTimestamp(v string) *PullApiSimpleauthasyncpollingResponse {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingResponse) SetFileList(v []*string) *PullApiSimpleauthasyncpollingResponse {
+	s.FileList = v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingResponse) SetSecret(v string) *PullApiSimpleauthasyncpollingResponse {
+	s.Secret = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3746,7 +3897,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.15"),
+				"sdk_version":      tea.String("1.6.16"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4511,6 +4662,40 @@ func (client *Client) QueryRiskEvaluationEx(request *QueryRiskEvaluationRequest,
 	}
 	_result = &QueryRiskEvaluationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.risk.evaluation.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 极简授权-异步查询数据-轮询拉取结果
+ * Summary: 极简授权-异步查询数据-轮询拉取结果
+ */
+func (client *Client) PullApiSimpleauthasyncpolling(request *PullApiSimpleauthasyncpollingRequest) (_result *PullApiSimpleauthasyncpollingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PullApiSimpleauthasyncpollingResponse{}
+	_body, _err := client.PullApiSimpleauthasyncpollingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 极简授权-异步查询数据-轮询拉取结果
+ * Summary: 极简授权-异步查询数据-轮询拉取结果
+ */
+func (client *Client) PullApiSimpleauthasyncpollingEx(request *PullApiSimpleauthasyncpollingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PullApiSimpleauthasyncpollingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PullApiSimpleauthasyncpollingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.simpleauthasyncpolling.pull"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
