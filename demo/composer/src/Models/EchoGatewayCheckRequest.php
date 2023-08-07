@@ -57,12 +57,6 @@ class EchoGatewayCheckRequest extends Model
      * @var string
      */
     public $fileName;
-
-    // 123
-    /**
-     * @var string
-     */
-    public $date;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,7 +64,6 @@ class EchoGatewayCheckRequest extends Model
         'fileId'            => 'file_id',
         'inputInt'          => 'input_int',
         'fileName'          => 'file_name',
-        'date'              => 'date',
     ];
 
     public function validate()
@@ -79,10 +72,8 @@ class EchoGatewayCheckRequest extends Model
         Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('inputInt', $this->inputInt, true);
         Model::validateRequired('fileName', $this->fileName, true);
-        Model::validateRequired('date', $this->date, true);
         Model::validateMaximum('inputInt', $this->inputInt, 40);
         Model::validateMinimum('inputInt', $this->inputInt, 10);
-        Model::validatePattern('date', $this->date, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -117,9 +108,6 @@ class EchoGatewayCheckRequest extends Model
         }
         if (null !== $this->fileName) {
             $res['file_name'] = $this->fileName;
-        }
-        if (null !== $this->date) {
-            $res['date'] = $this->date;
         }
 
         return $res;
@@ -162,9 +150,6 @@ class EchoGatewayCheckRequest extends Model
         }
         if (isset($map['file_name'])) {
             $model->fileName = $map['file_name'];
-        }
-        if (isset($map['date'])) {
-            $model->date = $map['date'];
         }
 
         return $model;

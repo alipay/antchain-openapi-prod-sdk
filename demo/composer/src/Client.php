@@ -33,12 +33,16 @@ use AntChain\DEMO\Models\BindTestTestTestRequest;
 use AntChain\DEMO\Models\BindTestTestTestResponse;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\DEMO\Models\CreateAutoTestCodeRequest;
+use AntChain\DEMO\Models\CreateAutoTestCodeResponse;
 use AntChain\DEMO\Models\EchoGatewayCheckRequest;
 use AntChain\DEMO\Models\EchoGatewayCheckResponse;
 use AntChain\DEMO\Models\ExecGatewayRoadRequest;
 use AntChain\DEMO\Models\ExecGatewayRoadResponse;
 use AntChain\DEMO\Models\ImportComCnTestRequest;
 use AntChain\DEMO\Models\ImportComCnTestResponse;
+use AntChain\DEMO\Models\ImportDemoApistatusRequest;
+use AntChain\DEMO\Models\ImportDemoApistatusResponse;
 use AntChain\DEMO\Models\ImportSaasTestTestbRequest;
 use AntChain\DEMO\Models\ImportSaasTestTestbResponse;
 use AntChain\DEMO\Models\ImportTestSdkProductRequest;
@@ -59,6 +63,8 @@ use AntChain\DEMO\Models\QueryAdAsdAsdRequest;
 use AntChain\DEMO\Models\QueryAdAsdAsdResponse;
 use AntChain\DEMO\Models\QueryApiOfflineRequest;
 use AntChain\DEMO\Models\QueryApiOfflineResponse;
+use AntChain\DEMO\Models\QueryApiOfflineStatusRequest;
+use AntChain\DEMO\Models\QueryApiOfflineStatusResponse;
 use AntChain\DEMO\Models\QueryApprovalTestRequest;
 use AntChain\DEMO\Models\QueryApprovalTestResponse;
 use AntChain\DEMO\Models\QueryCjtestCjResRequest;
@@ -250,7 +256,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.188',
+                    'sdk_version'      => '1.0.196',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -398,8 +404,8 @@ class Client
     }
 
     /**
-     * Description: Demo接口，返回当输入的值
-     * Summary: 返回输入值
+     * Description: Demo接口，返回当前输入的值
+     * Summary: 返回输入值1.
      *
      * @param EchoGatewayCheckRequest $request
      *
@@ -414,8 +420,8 @@ class Client
     }
 
     /**
-     * Description: Demo接口，返回当输入的值
-     * Summary: 返回输入值
+     * Description: Demo接口，返回当前输入的值
+     * Summary: 返回输入值1.
      *
      * @param EchoGatewayCheckRequest $request
      * @param string[]                $headers
@@ -747,7 +753,7 @@ class Client
 
     /**
      * Description: asd
-     * Summary: asd1.
+     * Summary: asdasdasd.
      *
      * @param QueryAdAsdAsdRequest $request
      *
@@ -763,7 +769,7 @@ class Client
 
     /**
      * Description: asd
-     * Summary: asd1.
+     * Summary: asdasdasd.
      *
      * @param QueryAdAsdAsdRequest $request
      * @param string[]             $headers
@@ -1127,6 +1133,107 @@ class Client
     }
 
     /**
+     * Description: api下架测试
+     * 测试状态
+     * Summary: api下架测试测试状态
+     *
+     * @param QueryApiOfflineStatusRequest $request
+     *
+     * @return QueryApiOfflineStatusResponse
+     */
+    public function queryApiOfflineStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiOfflineStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: api下架测试
+     * 测试状态
+     * Summary: api下架测试测试状态
+     *
+     * @param QueryApiOfflineStatusRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryApiOfflineStatusResponse
+     */
+    public function queryApiOfflineStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiOfflineStatusResponse::fromMap($this->doRequest('1.0', 'demo.api.offline.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试数据，可删除
+     * Summary: api状态测试.
+     *
+     * @param ImportDemoApistatusRequest $request
+     *
+     * @return ImportDemoApistatusResponse
+     */
+    public function importDemoApistatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importDemoApistatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试数据，可删除
+     * Summary: api状态测试.
+     *
+     * @param ImportDemoApistatusRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ImportDemoApistatusResponse
+     */
+    public function importDemoApistatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportDemoApistatusResponse::fromMap($this->doRequest('1.0', 'demo.demo.apistatus.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试自动生成回归测试代码
+     * Summary: 测试自动生成回归测试代码
+     *
+     * @param CreateAutoTestCodeRequest $request
+     *
+     * @return CreateAutoTestCodeResponse
+     */
+    public function createAutoTestCode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAutoTestCodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试自动生成回归测试代码
+     * Summary: 测试自动生成回归测试代码
+     *
+     * @param CreateAutoTestCodeRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateAutoTestCodeResponse
+     */
+    public function createAutoTestCodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAutoTestCodeResponse::fromMap($this->doRequest('1.0', 'demo.auto.test.code.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: asd
      * Summary: asd.
      *
@@ -1161,6 +1268,7 @@ class Client
 
     /**
      * Description: 用于测试api评审接入SDL的测试使用
+     * 测试评审
      * Summary: api评审测试.
      *
      * @param QueryApprovalTestRequest $request
@@ -1177,6 +1285,7 @@ class Client
 
     /**
      * Description: 用于测试api评审接入SDL的测试使用
+     * 测试评审
      * Summary: api评审测试.
      *
      * @param QueryApprovalTestRequest $request
