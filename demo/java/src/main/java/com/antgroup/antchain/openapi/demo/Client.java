@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.188"),
+                    new TeaPair("sdk_version", "1.0.196"),
                     new TeaPair("_prod_code", "DEMO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -219,8 +219,8 @@ public class Client {
     }
 
     /**
-     * Description: Demo接口，返回当输入的值
-     * Summary: 返回输入值
+     * Description: Demo接口，返回当前输入的值
+     * Summary: 返回输入值1
      */
     public EchoGatewayCheckResponse echoGatewayCheck(EchoGatewayCheckRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -229,8 +229,8 @@ public class Client {
     }
 
     /**
-     * Description: Demo接口，返回当输入的值
-     * Summary: 返回输入值
+     * Description: Demo接口，返回当前输入的值
+     * Summary: 返回输入值1
      */
     public EchoGatewayCheckResponse echoGatewayCheckEx(EchoGatewayCheckRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -431,7 +431,7 @@ public class Client {
 
     /**
      * Description: asd
-     * Summary: asd1
+     * Summary: asdasdasd
      */
     public QueryAdAsdAsdResponse queryAdAsdAsd(QueryAdAsdAsdRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -441,7 +441,7 @@ public class Client {
 
     /**
      * Description: asd
-     * Summary: asd1
+     * Summary: asdasdasd
      */
     public QueryAdAsdAsdResponse queryAdAsdAsdEx(QueryAdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -660,6 +660,65 @@ public class Client {
     }
 
     /**
+     * Description: api下架测试
+    测试状态
+     * Summary: api下架测试测试状态
+     */
+    public QueryApiOfflineStatusResponse queryApiOfflineStatus(QueryApiOfflineStatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryApiOfflineStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: api下架测试
+    测试状态
+     * Summary: api下架测试测试状态
+     */
+    public QueryApiOfflineStatusResponse queryApiOfflineStatusEx(QueryApiOfflineStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.api.offline.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApiOfflineStatusResponse());
+    }
+
+    /**
+     * Description: 测试数据，可删除
+     * Summary: api状态测试
+     */
+    public ImportDemoApistatusResponse importDemoApistatus(ImportDemoApistatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importDemoApistatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 测试数据，可删除
+     * Summary: api状态测试
+     */
+    public ImportDemoApistatusResponse importDemoApistatusEx(ImportDemoApistatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.demo.apistatus.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportDemoApistatusResponse());
+    }
+
+    /**
+     * Description: 测试自动生成回归测试代码
+     * Summary: 测试自动生成回归测试代码
+     */
+    public CreateAutoTestCodeResponse createAutoTestCode(CreateAutoTestCodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAutoTestCodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 测试自动生成回归测试代码
+     * Summary: 测试自动生成回归测试代码
+     */
+    public CreateAutoTestCodeResponse createAutoTestCodeEx(CreateAutoTestCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.auto.test.code.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAutoTestCodeResponse());
+    }
+
+    /**
      * Description: asd
      * Summary: asd
      */
@@ -680,6 +739,7 @@ public class Client {
 
     /**
      * Description: 用于测试api评审接入SDL的测试使用
+    测试评审
      * Summary: api评审测试
      */
     public QueryApprovalTestResponse queryApprovalTest(QueryApprovalTestRequest request) throws Exception {
@@ -690,6 +750,7 @@ public class Client {
 
     /**
      * Description: 用于测试api评审接入SDL的测试使用
+    测试评审
      * Summary: api评审测试
      */
     public QueryApprovalTestResponse queryApprovalTestEx(QueryApprovalTestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {

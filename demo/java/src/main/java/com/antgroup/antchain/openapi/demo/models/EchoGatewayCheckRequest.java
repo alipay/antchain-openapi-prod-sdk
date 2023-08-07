@@ -39,11 +39,6 @@ public class EchoGatewayCheckRequest extends TeaModel {
     @Validation(required = true)
     public String fileName;
 
-    // 123
-    @NameInMap("date")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
-    public String date;
-
     public static EchoGatewayCheckRequest build(java.util.Map<String, ?> map) throws Exception {
         EchoGatewayCheckRequest self = new EchoGatewayCheckRequest();
         return TeaModel.build(map, self);
@@ -111,14 +106,6 @@ public class EchoGatewayCheckRequest extends TeaModel {
     }
     public String getFileName() {
         return this.fileName;
-    }
-
-    public EchoGatewayCheckRequest setDate(String date) {
-        this.date = date;
-        return this;
-    }
-    public String getDate() {
-        return this.date;
     }
 
 }
