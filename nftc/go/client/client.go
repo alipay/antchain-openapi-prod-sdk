@@ -392,6 +392,83 @@ func (s *QueryMerchantDiyskuResponse) SetSendStatus(v string) *QueryMerchantDiys
 	return s
 }
 
+type QueryMerchantUgcimagesRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// ugc资产铸造记录id列表
+	RecordIdList []*string `json:"record_id_list,omitempty" xml:"record_id_list,omitempty" require:"true" type:"Repeated"`
+	// 场景
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+}
+
+func (s QueryMerchantUgcimagesRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMerchantUgcimagesRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMerchantUgcimagesRequest) SetAuthToken(v string) *QueryMerchantUgcimagesRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMerchantUgcimagesRequest) SetProductInstanceId(v string) *QueryMerchantUgcimagesRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMerchantUgcimagesRequest) SetRecordIdList(v []*string) *QueryMerchantUgcimagesRequest {
+	s.RecordIdList = v
+	return s
+}
+
+func (s *QueryMerchantUgcimagesRequest) SetBizScene(v string) *QueryMerchantUgcimagesRequest {
+	s.BizScene = &v
+	return s
+}
+
+type QueryMerchantUgcimagesResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 入参中id对应的图片列表
+	ImgList []*string `json:"img_list,omitempty" xml:"img_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryMerchantUgcimagesResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMerchantUgcimagesResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMerchantUgcimagesResponse) SetReqMsgId(v string) *QueryMerchantUgcimagesResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMerchantUgcimagesResponse) SetResultCode(v string) *QueryMerchantUgcimagesResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMerchantUgcimagesResponse) SetResultMsg(v string) *QueryMerchantUgcimagesResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMerchantUgcimagesResponse) SetImgList(v []*string) *QueryMerchantUgcimagesResponse {
+	s.ImgList = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -514,7 +591,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.0.3"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -633,6 +710,40 @@ func (client *Client) QueryMerchantDiyskuEx(request *QueryMerchantDiyskuRequest,
 	}
 	_result = &QueryMerchantDiyskuResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.merchant.diysku.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 提供ISV  ugc铸造图片查询的openapi服务
+ * Summary: ugc铸造图片查询的openapi接口
+ */
+func (client *Client) QueryMerchantUgcimages(request *QueryMerchantUgcimagesRequest) (_result *QueryMerchantUgcimagesResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMerchantUgcimagesResponse{}
+	_body, _err := client.QueryMerchantUgcimagesEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提供ISV  ugc铸造图片查询的openapi服务
+ * Summary: ugc铸造图片查询的openapi接口
+ */
+func (client *Client) QueryMerchantUgcimagesEx(request *QueryMerchantUgcimagesRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMerchantUgcimagesResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMerchantUgcimagesResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.merchant.ugcimages.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
