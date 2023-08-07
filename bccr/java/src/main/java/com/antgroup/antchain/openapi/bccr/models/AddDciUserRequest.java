@@ -26,14 +26,6 @@ public class AddDciUserRequest extends TeaModel {
     @Validation(required = true)
     public String certificateNumber;
 
-    // 证件有效期限起始日期
-    @NameInMap("certificate_start_time")
-    public String certificateStartTime;
-
-    // 证件有效期限终止日期
-    @NameInMap("certificate_end_time")
-    public String certificateEndTime;
-
     // 证件正面OSS fileId
     @NameInMap("certificate_front_file_id")
     @Validation(required = true)
@@ -60,14 +52,6 @@ public class AddDciUserRequest extends TeaModel {
     @Validation(required = true)
     public String phone;
 
-    // 地址
-    @NameInMap("address")
-    public String address;
-
-    // 用户身份开始时间
-    @NameInMap("identity_start_time")
-    public String identityStartTime;
-
     // 所属地区
     @NameInMap("area_type")
     @Validation(required = true)
@@ -76,6 +60,10 @@ public class AddDciUserRequest extends TeaModel {
     // 代理信息
     @NameInMap("proxy_data")
     public ProxyData proxyData;
+
+    // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+    @NameInMap("copyright_certification_type")
+    public String copyrightCertificationType;
 
     // 幂等字段
     @NameInMap("client_token")
@@ -86,6 +74,14 @@ public class AddDciUserRequest extends TeaModel {
     @NameInMap("user_name")
     public String userName;
 
+    // 证件有效期限起始日期废弃
+    @NameInMap("certificate_start_time")
+    public String certificateStartTime;
+
+    // 证件有效期限终止日期废弃
+    @NameInMap("certificate_end_time")
+    public String certificateEndTime;
+
     // 证件正面OSS fileId废弃
     @NameInMap("certificate_front_file_path")
     public String certificateFrontFilePath;
@@ -94,13 +90,17 @@ public class AddDciUserRequest extends TeaModel {
     @NameInMap("certificate_back_file_path")
     public String certificateBackFilePath;
 
+    // 用户身份开始时间废弃
+    @NameInMap("identity_start_time")
+    public String identityStartTime;
+
     // 用户类型废弃
     @NameInMap("user_type")
     public String userType;
 
-    // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
-    @NameInMap("copyright_certification_type")
-    public String copyrightCertificationType;
+    // 地址废弃
+    @NameInMap("address")
+    public String address;
 
     public static AddDciUserRequest build(java.util.Map<String, ?> map) throws Exception {
         AddDciUserRequest self = new AddDciUserRequest();
@@ -145,22 +145,6 @@ public class AddDciUserRequest extends TeaModel {
     }
     public String getCertificateNumber() {
         return this.certificateNumber;
-    }
-
-    public AddDciUserRequest setCertificateStartTime(String certificateStartTime) {
-        this.certificateStartTime = certificateStartTime;
-        return this;
-    }
-    public String getCertificateStartTime() {
-        return this.certificateStartTime;
-    }
-
-    public AddDciUserRequest setCertificateEndTime(String certificateEndTime) {
-        this.certificateEndTime = certificateEndTime;
-        return this;
-    }
-    public String getCertificateEndTime() {
-        return this.certificateEndTime;
     }
 
     public AddDciUserRequest setCertificateFrontFileId(String certificateFrontFileId) {
@@ -211,22 +195,6 @@ public class AddDciUserRequest extends TeaModel {
         return this.phone;
     }
 
-    public AddDciUserRequest setAddress(String address) {
-        this.address = address;
-        return this;
-    }
-    public String getAddress() {
-        return this.address;
-    }
-
-    public AddDciUserRequest setIdentityStartTime(String identityStartTime) {
-        this.identityStartTime = identityStartTime;
-        return this;
-    }
-    public String getIdentityStartTime() {
-        return this.identityStartTime;
-    }
-
     public AddDciUserRequest setAreaType(String areaType) {
         this.areaType = areaType;
         return this;
@@ -241,6 +209,14 @@ public class AddDciUserRequest extends TeaModel {
     }
     public ProxyData getProxyData() {
         return this.proxyData;
+    }
+
+    public AddDciUserRequest setCopyrightCertificationType(String copyrightCertificationType) {
+        this.copyrightCertificationType = copyrightCertificationType;
+        return this;
+    }
+    public String getCopyrightCertificationType() {
+        return this.copyrightCertificationType;
     }
 
     public AddDciUserRequest setClientToken(String clientToken) {
@@ -259,6 +235,22 @@ public class AddDciUserRequest extends TeaModel {
         return this.userName;
     }
 
+    public AddDciUserRequest setCertificateStartTime(String certificateStartTime) {
+        this.certificateStartTime = certificateStartTime;
+        return this;
+    }
+    public String getCertificateStartTime() {
+        return this.certificateStartTime;
+    }
+
+    public AddDciUserRequest setCertificateEndTime(String certificateEndTime) {
+        this.certificateEndTime = certificateEndTime;
+        return this;
+    }
+    public String getCertificateEndTime() {
+        return this.certificateEndTime;
+    }
+
     public AddDciUserRequest setCertificateFrontFilePath(String certificateFrontFilePath) {
         this.certificateFrontFilePath = certificateFrontFilePath;
         return this;
@@ -275,6 +267,14 @@ public class AddDciUserRequest extends TeaModel {
         return this.certificateBackFilePath;
     }
 
+    public AddDciUserRequest setIdentityStartTime(String identityStartTime) {
+        this.identityStartTime = identityStartTime;
+        return this;
+    }
+    public String getIdentityStartTime() {
+        return this.identityStartTime;
+    }
+
     public AddDciUserRequest setUserType(String userType) {
         this.userType = userType;
         return this;
@@ -283,12 +283,12 @@ public class AddDciUserRequest extends TeaModel {
         return this.userType;
     }
 
-    public AddDciUserRequest setCopyrightCertificationType(String copyrightCertificationType) {
-        this.copyrightCertificationType = copyrightCertificationType;
+    public AddDciUserRequest setAddress(String address) {
+        this.address = address;
         return this;
     }
-    public String getCopyrightCertificationType() {
-        return this.copyrightCertificationType;
+    public String getAddress() {
+        return this.address;
     }
 
 }
