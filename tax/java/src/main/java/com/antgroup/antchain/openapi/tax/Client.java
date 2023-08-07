@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.15"),
+                    new TeaPair("sdk_version", "1.6.16"),
                     new TeaPair("_prod_code", "TAX"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -558,5 +558,24 @@ public class Client {
     public QueryRiskEvaluationResponse queryRiskEvaluationEx(QueryRiskEvaluationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.risk.evaluation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRiskEvaluationResponse());
+    }
+
+    /**
+     * Description: 极简授权-异步查询数据-轮询拉取结果
+     * Summary: 极简授权-异步查询数据-轮询拉取结果
+     */
+    public PullApiSimpleauthasyncpollingResponse pullApiSimpleauthasyncpolling(PullApiSimpleauthasyncpollingRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pullApiSimpleauthasyncpollingEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 极简授权-异步查询数据-轮询拉取结果
+     * Summary: 极简授权-异步查询数据-轮询拉取结果
+     */
+    public PullApiSimpleauthasyncpollingResponse pullApiSimpleauthasyncpollingEx(PullApiSimpleauthasyncpollingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.simpleauthasyncpolling.pull", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PullApiSimpleauthasyncpollingResponse());
     }
 }
