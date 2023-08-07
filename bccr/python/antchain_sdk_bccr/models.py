@@ -8311,24 +8311,24 @@ class AddDciUserRequest(TeaModel):
         cert_name: str = None,
         certificate_type: str = None,
         certificate_number: str = None,
-        certificate_start_time: str = None,
-        certificate_end_time: str = None,
         certificate_front_file_id: str = None,
         certificate_back_file_id: str = None,
         legal_person_cert_name: str = None,
         legal_person_cert_type: str = None,
         legal_person_cert_no: str = None,
         phone: str = None,
-        address: str = None,
-        identity_start_time: str = None,
         area_type: str = None,
         proxy_data: ProxyData = None,
+        copyright_certification_type: str = None,
         client_token: str = None,
         user_name: str = None,
+        certificate_start_time: str = None,
+        certificate_end_time: str = None,
         certificate_front_file_path: str = None,
         certificate_back_file_path: str = None,
+        identity_start_time: str = None,
         user_type: str = None,
-        copyright_certification_type: str = None,
+        address: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8339,10 +8339,6 @@ class AddDciUserRequest(TeaModel):
         self.certificate_type = certificate_type
         # 证件号
         self.certificate_number = certificate_number
-        # 证件有效期限起始日期
-        self.certificate_start_time = certificate_start_time
-        # 证件有效期限终止日期
-        self.certificate_end_time = certificate_end_time
         # 证件正面OSS fileId
         self.certificate_front_file_id = certificate_front_file_id
         # 证件反面OSS fileId
@@ -8355,26 +8351,30 @@ class AddDciUserRequest(TeaModel):
         self.legal_person_cert_no = legal_person_cert_no
         # 手机号
         self.phone = phone
-        # 地址
-        self.address = address
-        # 用户身份开始时间
-        self.identity_start_time = identity_start_time
         # 所属地区
         self.area_type = area_type
         # 代理信息
         self.proxy_data = proxy_data
+        # 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+        self.copyright_certification_type = copyright_certification_type
         # 幂等字段
         self.client_token = client_token
         # 用户名称废弃
         self.user_name = user_name
+        # 证件有效期限起始日期废弃
+        self.certificate_start_time = certificate_start_time
+        # 证件有效期限终止日期废弃
+        self.certificate_end_time = certificate_end_time
         # 证件正面OSS fileId废弃
         self.certificate_front_file_path = certificate_front_file_path
         # 证件反面OSS filePath废弃
         self.certificate_back_file_path = certificate_back_file_path
+        # 用户身份开始时间废弃
+        self.identity_start_time = identity_start_time
         # 用户类型废弃
         self.user_type = user_type
-        # 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
-        self.copyright_certification_type = copyright_certification_type
+        # 地址废弃
+        self.address = address
 
     def validate(self):
         self.validate_required(self.cert_name, 'cert_name')
@@ -8403,10 +8403,6 @@ class AddDciUserRequest(TeaModel):
             result['certificate_type'] = self.certificate_type
         if self.certificate_number is not None:
             result['certificate_number'] = self.certificate_number
-        if self.certificate_start_time is not None:
-            result['certificate_start_time'] = self.certificate_start_time
-        if self.certificate_end_time is not None:
-            result['certificate_end_time'] = self.certificate_end_time
         if self.certificate_front_file_id is not None:
             result['certificate_front_file_id'] = self.certificate_front_file_id
         if self.certificate_back_file_id is not None:
@@ -8419,26 +8415,30 @@ class AddDciUserRequest(TeaModel):
             result['legal_person_cert_no'] = self.legal_person_cert_no
         if self.phone is not None:
             result['phone'] = self.phone
-        if self.address is not None:
-            result['address'] = self.address
-        if self.identity_start_time is not None:
-            result['identity_start_time'] = self.identity_start_time
         if self.area_type is not None:
             result['area_type'] = self.area_type
         if self.proxy_data is not None:
             result['proxy_data'] = self.proxy_data.to_map()
+        if self.copyright_certification_type is not None:
+            result['copyright_certification_type'] = self.copyright_certification_type
         if self.client_token is not None:
             result['client_token'] = self.client_token
         if self.user_name is not None:
             result['user_name'] = self.user_name
+        if self.certificate_start_time is not None:
+            result['certificate_start_time'] = self.certificate_start_time
+        if self.certificate_end_time is not None:
+            result['certificate_end_time'] = self.certificate_end_time
         if self.certificate_front_file_path is not None:
             result['certificate_front_file_path'] = self.certificate_front_file_path
         if self.certificate_back_file_path is not None:
             result['certificate_back_file_path'] = self.certificate_back_file_path
+        if self.identity_start_time is not None:
+            result['identity_start_time'] = self.identity_start_time
         if self.user_type is not None:
             result['user_type'] = self.user_type
-        if self.copyright_certification_type is not None:
-            result['copyright_certification_type'] = self.copyright_certification_type
+        if self.address is not None:
+            result['address'] = self.address
         return result
 
     def from_map(self, m: dict = None):
@@ -8453,10 +8453,6 @@ class AddDciUserRequest(TeaModel):
             self.certificate_type = m.get('certificate_type')
         if m.get('certificate_number') is not None:
             self.certificate_number = m.get('certificate_number')
-        if m.get('certificate_start_time') is not None:
-            self.certificate_start_time = m.get('certificate_start_time')
-        if m.get('certificate_end_time') is not None:
-            self.certificate_end_time = m.get('certificate_end_time')
         if m.get('certificate_front_file_id') is not None:
             self.certificate_front_file_id = m.get('certificate_front_file_id')
         if m.get('certificate_back_file_id') is not None:
@@ -8469,27 +8465,31 @@ class AddDciUserRequest(TeaModel):
             self.legal_person_cert_no = m.get('legal_person_cert_no')
         if m.get('phone') is not None:
             self.phone = m.get('phone')
-        if m.get('address') is not None:
-            self.address = m.get('address')
-        if m.get('identity_start_time') is not None:
-            self.identity_start_time = m.get('identity_start_time')
         if m.get('area_type') is not None:
             self.area_type = m.get('area_type')
         if m.get('proxy_data') is not None:
             temp_model = ProxyData()
             self.proxy_data = temp_model.from_map(m['proxy_data'])
+        if m.get('copyright_certification_type') is not None:
+            self.copyright_certification_type = m.get('copyright_certification_type')
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
         if m.get('user_name') is not None:
             self.user_name = m.get('user_name')
+        if m.get('certificate_start_time') is not None:
+            self.certificate_start_time = m.get('certificate_start_time')
+        if m.get('certificate_end_time') is not None:
+            self.certificate_end_time = m.get('certificate_end_time')
         if m.get('certificate_front_file_path') is not None:
             self.certificate_front_file_path = m.get('certificate_front_file_path')
         if m.get('certificate_back_file_path') is not None:
             self.certificate_back_file_path = m.get('certificate_back_file_path')
+        if m.get('identity_start_time') is not None:
+            self.identity_start_time = m.get('identity_start_time')
         if m.get('user_type') is not None:
             self.user_type = m.get('user_type')
-        if m.get('copyright_certification_type') is not None:
-            self.copyright_certification_type = m.get('copyright_certification_type')
+        if m.get('address') is not None:
+            self.address = m.get('address')
         return self
 
 
