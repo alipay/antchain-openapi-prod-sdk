@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.15"},
+                        {"sdk_version", "1.6.16"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.15"},
+                        {"sdk_version", "1.6.16"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1201,6 +1201,48 @@ namespace AntChain.SDK.TAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryRiskEvaluationResponse>(await DoRequestAsync("1.0", "blockchain.tax.risk.evaluation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 极简授权-异步查询数据-轮询拉取结果
+         * Summary: 极简授权-异步查询数据-轮询拉取结果
+         */
+        public PullApiSimpleauthasyncpollingResponse PullApiSimpleauthasyncpolling(PullApiSimpleauthasyncpollingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PullApiSimpleauthasyncpollingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 极简授权-异步查询数据-轮询拉取结果
+         * Summary: 极简授权-异步查询数据-轮询拉取结果
+         */
+        public async Task<PullApiSimpleauthasyncpollingResponse> PullApiSimpleauthasyncpollingAsync(PullApiSimpleauthasyncpollingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PullApiSimpleauthasyncpollingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 极简授权-异步查询数据-轮询拉取结果
+         * Summary: 极简授权-异步查询数据-轮询拉取结果
+         */
+        public PullApiSimpleauthasyncpollingResponse PullApiSimpleauthasyncpollingEx(PullApiSimpleauthasyncpollingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PullApiSimpleauthasyncpollingResponse>(DoRequest("1.0", "blockchain.tax.api.simpleauthasyncpolling.pull", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 极简授权-异步查询数据-轮询拉取结果
+         * Summary: 极简授权-异步查询数据-轮询拉取结果
+         */
+        public async Task<PullApiSimpleauthasyncpollingResponse> PullApiSimpleauthasyncpollingExAsync(PullApiSimpleauthasyncpollingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PullApiSimpleauthasyncpollingResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.simpleauthasyncpolling.pull", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
