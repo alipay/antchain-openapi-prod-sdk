@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.15',
+                    'sdk_version': '1.6.16',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.15',
+                    'sdk_version': '1.6.16',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -1449,4 +1449,60 @@ class Client:
         return TeaCore.from_map(
             tax_models.QueryRiskEvaluationResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.risk.evaluation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pull_api_simpleauthasyncpolling(
+        self,
+        request: tax_models.PullApiSimpleauthasyncpollingRequest,
+    ) -> tax_models.PullApiSimpleauthasyncpollingResponse:
+        """
+        Description: 极简授权-异步查询数据-轮询拉取结果
+        Summary: 极简授权-异步查询数据-轮询拉取结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pull_api_simpleauthasyncpolling_ex(request, headers, runtime)
+
+    async def pull_api_simpleauthasyncpolling_async(
+        self,
+        request: tax_models.PullApiSimpleauthasyncpollingRequest,
+    ) -> tax_models.PullApiSimpleauthasyncpollingResponse:
+        """
+        Description: 极简授权-异步查询数据-轮询拉取结果
+        Summary: 极简授权-异步查询数据-轮询拉取结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pull_api_simpleauthasyncpolling_ex_async(request, headers, runtime)
+
+    def pull_api_simpleauthasyncpolling_ex(
+        self,
+        request: tax_models.PullApiSimpleauthasyncpollingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.PullApiSimpleauthasyncpollingResponse:
+        """
+        Description: 极简授权-异步查询数据-轮询拉取结果
+        Summary: 极简授权-异步查询数据-轮询拉取结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.PullApiSimpleauthasyncpollingResponse(),
+            self.do_request('1.0', 'blockchain.tax.api.simpleauthasyncpolling.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pull_api_simpleauthasyncpolling_ex_async(
+        self,
+        request: tax_models.PullApiSimpleauthasyncpollingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.PullApiSimpleauthasyncpollingResponse:
+        """
+        Description: 极简授权-异步查询数据-轮询拉取结果
+        Summary: 极简授权-异步查询数据-轮询拉取结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.PullApiSimpleauthasyncpollingResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.api.simpleauthasyncpolling.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

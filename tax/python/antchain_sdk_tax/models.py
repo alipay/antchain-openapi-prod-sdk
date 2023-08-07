@@ -4523,3 +4523,177 @@ class QueryRiskEvaluationResponse(TeaModel):
         return self
 
 
+class PullApiSimpleauthasyncpollingRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        inst_code: str = None,
+        identity_id: str = None,
+        biz_request_id: str = None,
+        auth_type: str = None,
+        auth_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户号/子租户号，如果为租户号获取，则为租户号，如果为子租户号获取，则传输子租户号
+        # 
+        self.inst_code = inst_code
+        # 纳税人识别号
+        self.identity_id = identity_id
+        # 用于幂等控制
+        # 
+        self.biz_request_id = biz_request_id
+        # 产品类型：发票指标-301，税务指标-302，发票加税务指标-303
+        # 
+        self.auth_type = auth_type
+        # 行方生成的授权编号
+        # 
+        self.auth_code = auth_code
+
+    def validate(self):
+        self.validate_required(self.inst_code, 'inst_code')
+        self.validate_required(self.identity_id, 'identity_id')
+        self.validate_required(self.biz_request_id, 'biz_request_id')
+        self.validate_required(self.auth_type, 'auth_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.inst_code is not None:
+            result['inst_code'] = self.inst_code
+        if self.identity_id is not None:
+            result['identity_id'] = self.identity_id
+        if self.biz_request_id is not None:
+            result['biz_request_id'] = self.biz_request_id
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('inst_code') is not None:
+            self.inst_code = m.get('inst_code')
+        if m.get('identity_id') is not None:
+            self.identity_id = m.get('identity_id')
+        if m.get('biz_request_id') is not None:
+            self.biz_request_id = m.get('biz_request_id')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        return self
+
+
+class PullApiSimpleauthasyncpollingResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        inst_code: str = None,
+        identity_id: str = None,
+        biz_request_id: str = None,
+        auth_type: str = None,
+        auth_code: str = None,
+        timestamp: str = None,
+        file_list: List[str] = None,
+        secret: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 租户号
+        self.inst_code = inst_code
+        # 纳税人识别号
+        self.identity_id = identity_id
+        # 和查询的biz_request_id相同
+        self.biz_request_id = biz_request_id
+        # 产品类型：发票指标-301，税务指标-302，发票加税务指标-303
+        self.auth_type = auth_type
+        # 行方生成的授权编号
+        self.auth_code = auth_code
+        # 时间戳
+        self.timestamp = timestamp
+        # 极简授权文件地址列表
+        self.file_list = file_list
+        # 秘钥
+        self.secret = secret
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.inst_code is not None:
+            result['inst_code'] = self.inst_code
+        if self.identity_id is not None:
+            result['identity_id'] = self.identity_id
+        if self.biz_request_id is not None:
+            result['biz_request_id'] = self.biz_request_id
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        if self.file_list is not None:
+            result['file_list'] = self.file_list
+        if self.secret is not None:
+            result['secret'] = self.secret
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('inst_code') is not None:
+            self.inst_code = m.get('inst_code')
+        if m.get('identity_id') is not None:
+            self.identity_id = m.get('identity_id')
+        if m.get('biz_request_id') is not None:
+            self.biz_request_id = m.get('biz_request_id')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        if m.get('file_list') is not None:
+            self.file_list = m.get('file_list')
+        if m.get('secret') is not None:
+            self.secret = m.get('secret')
+        return self
+
+
