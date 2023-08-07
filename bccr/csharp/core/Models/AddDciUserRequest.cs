@@ -33,16 +33,6 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string CertificateNumber { get; set; }
 
-        // 证件有效期限起始日期
-        [NameInMap("certificate_start_time")]
-        [Validation(Required=false)]
-        public string CertificateStartTime { get; set; }
-
-        // 证件有效期限终止日期
-        [NameInMap("certificate_end_time")]
-        [Validation(Required=false)]
-        public string CertificateEndTime { get; set; }
-
         // 证件正面OSS fileId
         [NameInMap("certificate_front_file_id")]
         [Validation(Required=true)]
@@ -73,16 +63,6 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string Phone { get; set; }
 
-        // 地址
-        [NameInMap("address")]
-        [Validation(Required=false)]
-        public string Address { get; set; }
-
-        // 用户身份开始时间
-        [NameInMap("identity_start_time")]
-        [Validation(Required=false)]
-        public string IdentityStartTime { get; set; }
-
         // 所属地区
         [NameInMap("area_type")]
         [Validation(Required=true)]
@@ -92,6 +72,11 @@ namespace AntChain.SDK.BCCR.Models
         [NameInMap("proxy_data")]
         [Validation(Required=false)]
         public ProxyData ProxyData { get; set; }
+
+        // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+        [NameInMap("copyright_certification_type")]
+        [Validation(Required=false)]
+        public string CopyrightCertificationType { get; set; }
 
         // 幂等字段
         [NameInMap("client_token")]
@@ -103,6 +88,16 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string UserName { get; set; }
 
+        // 证件有效期限起始日期废弃
+        [NameInMap("certificate_start_time")]
+        [Validation(Required=false)]
+        public string CertificateStartTime { get; set; }
+
+        // 证件有效期限终止日期废弃
+        [NameInMap("certificate_end_time")]
+        [Validation(Required=false)]
+        public string CertificateEndTime { get; set; }
+
         // 证件正面OSS fileId废弃
         [NameInMap("certificate_front_file_path")]
         [Validation(Required=false)]
@@ -113,15 +108,20 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string CertificateBackFilePath { get; set; }
 
+        // 用户身份开始时间废弃
+        [NameInMap("identity_start_time")]
+        [Validation(Required=false)]
+        public string IdentityStartTime { get; set; }
+
         // 用户类型废弃
         [NameInMap("user_type")]
         [Validation(Required=false)]
         public string UserType { get; set; }
 
-        // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
-        [NameInMap("copyright_certification_type")]
+        // 地址废弃
+        [NameInMap("address")]
         [Validation(Required=false)]
-        public string CopyrightCertificationType { get; set; }
+        public string Address { get; set; }
 
     }
 
