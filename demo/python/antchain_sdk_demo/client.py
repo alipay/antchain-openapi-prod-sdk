@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.188',
+                    'sdk_version': '1.0.196',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.188',
+                    'sdk_version': '1.0.196',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -448,8 +448,8 @@ class Client:
         request: demo_models.EchoGatewayCheckRequest,
     ) -> demo_models.EchoGatewayCheckResponse:
         """
-        Description: Demo接口，返回当输入的值
-        Summary: 返回输入值
+        Description: Demo接口，返回当前输入的值
+        Summary: 返回输入值1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -460,8 +460,8 @@ class Client:
         request: demo_models.EchoGatewayCheckRequest,
     ) -> demo_models.EchoGatewayCheckResponse:
         """
-        Description: Demo接口，返回当输入的值
-        Summary: 返回输入值
+        Description: Demo接口，返回当前输入的值
+        Summary: 返回输入值1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -474,8 +474,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> demo_models.EchoGatewayCheckResponse:
         """
-        Description: Demo接口，返回当输入的值
-        Summary: 返回输入值
+        Description: Demo接口，返回当前输入的值
+        Summary: 返回输入值1
         """
         if not UtilClient.is_unset(request.file_object):
             upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
@@ -507,8 +507,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> demo_models.EchoGatewayCheckResponse:
         """
-        Description: Demo接口，返回当输入的值
-        Summary: 返回输入值
+        Description: Demo接口，返回当前输入的值
+        Summary: 返回输入值1
         """
         if not UtilClient.is_unset(request.file_object):
             upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
@@ -1043,7 +1043,7 @@ class Client:
     ) -> demo_models.QueryAdAsdAsdResponse:
         """
         Description: asd
-        Summary: asd1
+        Summary: asdasdasd
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1055,7 +1055,7 @@ class Client:
     ) -> demo_models.QueryAdAsdAsdResponse:
         """
         Description: asd
-        Summary: asd1
+        Summary: asdasdasd
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1069,7 +1069,7 @@ class Client:
     ) -> demo_models.QueryAdAsdAsdResponse:
         """
         Description: asd
-        Summary: asd1
+        Summary: asdasdasd
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1085,7 +1085,7 @@ class Client:
     ) -> demo_models.QueryAdAsdAsdResponse:
         """
         Description: asd
-        Summary: asd1
+        Summary: asdasdasd
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1687,6 +1687,178 @@ class Client:
             await self.do_request_async('1.0', 'demo.loadtest.time.three.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_api_offline_status(
+        self,
+        request: demo_models.QueryApiOfflineStatusRequest,
+    ) -> demo_models.QueryApiOfflineStatusResponse:
+        """
+        Description: api下架测试
+        测试状态
+        Summary: api下架测试测试状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_api_offline_status_ex(request, headers, runtime)
+
+    async def query_api_offline_status_async(
+        self,
+        request: demo_models.QueryApiOfflineStatusRequest,
+    ) -> demo_models.QueryApiOfflineStatusResponse:
+        """
+        Description: api下架测试
+        测试状态
+        Summary: api下架测试测试状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_api_offline_status_ex_async(request, headers, runtime)
+
+    def query_api_offline_status_ex(
+        self,
+        request: demo_models.QueryApiOfflineStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryApiOfflineStatusResponse:
+        """
+        Description: api下架测试
+        测试状态
+        Summary: api下架测试测试状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryApiOfflineStatusResponse(),
+            self.do_request('1.0', 'demo.api.offline.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_api_offline_status_ex_async(
+        self,
+        request: demo_models.QueryApiOfflineStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryApiOfflineStatusResponse:
+        """
+        Description: api下架测试
+        测试状态
+        Summary: api下架测试测试状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryApiOfflineStatusResponse(),
+            await self.do_request_async('1.0', 'demo.api.offline.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_demo_apistatus(
+        self,
+        request: demo_models.ImportDemoApistatusRequest,
+    ) -> demo_models.ImportDemoApistatusResponse:
+        """
+        Description: 测试数据，可删除
+        Summary: api状态测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_demo_apistatus_ex(request, headers, runtime)
+
+    async def import_demo_apistatus_async(
+        self,
+        request: demo_models.ImportDemoApistatusRequest,
+    ) -> demo_models.ImportDemoApistatusResponse:
+        """
+        Description: 测试数据，可删除
+        Summary: api状态测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_demo_apistatus_ex_async(request, headers, runtime)
+
+    def import_demo_apistatus_ex(
+        self,
+        request: demo_models.ImportDemoApistatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.ImportDemoApistatusResponse:
+        """
+        Description: 测试数据，可删除
+        Summary: api状态测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.ImportDemoApistatusResponse(),
+            self.do_request('1.0', 'demo.demo.apistatus.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_demo_apistatus_ex_async(
+        self,
+        request: demo_models.ImportDemoApistatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.ImportDemoApistatusResponse:
+        """
+        Description: 测试数据，可删除
+        Summary: api状态测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.ImportDemoApistatusResponse(),
+            await self.do_request_async('1.0', 'demo.demo.apistatus.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_auto_test_code(
+        self,
+        request: demo_models.CreateAutoTestCodeRequest,
+    ) -> demo_models.CreateAutoTestCodeResponse:
+        """
+        Description: 测试自动生成回归测试代码
+        Summary: 测试自动生成回归测试代码
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_auto_test_code_ex(request, headers, runtime)
+
+    async def create_auto_test_code_async(
+        self,
+        request: demo_models.CreateAutoTestCodeRequest,
+    ) -> demo_models.CreateAutoTestCodeResponse:
+        """
+        Description: 测试自动生成回归测试代码
+        Summary: 测试自动生成回归测试代码
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_auto_test_code_ex_async(request, headers, runtime)
+
+    def create_auto_test_code_ex(
+        self,
+        request: demo_models.CreateAutoTestCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.CreateAutoTestCodeResponse:
+        """
+        Description: 测试自动生成回归测试代码
+        Summary: 测试自动生成回归测试代码
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.CreateAutoTestCodeResponse(),
+            self.do_request('1.0', 'demo.auto.test.code.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_auto_test_code_ex_async(
+        self,
+        request: demo_models.CreateAutoTestCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.CreateAutoTestCodeResponse:
+        """
+        Description: 测试自动生成回归测试代码
+        Summary: 测试自动生成回归测试代码
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.CreateAutoTestCodeResponse(),
+            await self.do_request_async('1.0', 'demo.auto.test.code.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def bind_asd_asd_asd(
         self,
         request: demo_models.BindAsdAsdAsdRequest,
@@ -1749,6 +1921,7 @@ class Client:
     ) -> demo_models.QueryApprovalTestResponse:
         """
         Description: 用于测试api评审接入SDL的测试使用
+        测试评审
         Summary: api评审测试
         """
         runtime = util_models.RuntimeOptions()
@@ -1761,6 +1934,7 @@ class Client:
     ) -> demo_models.QueryApprovalTestResponse:
         """
         Description: 用于测试api评审接入SDL的测试使用
+        测试评审
         Summary: api评审测试
         """
         runtime = util_models.RuntimeOptions()
@@ -1775,6 +1949,7 @@ class Client:
     ) -> demo_models.QueryApprovalTestResponse:
         """
         Description: 用于测试api评审接入SDL的测试使用
+        测试评审
         Summary: api评审测试
         """
         UtilClient.validate_model(request)
@@ -1791,6 +1966,7 @@ class Client:
     ) -> demo_models.QueryApprovalTestResponse:
         """
         Description: 用于测试api评审接入SDL的测试使用
+        测试评审
         Summary: api评审测试
         """
         UtilClient.validate_model(request)
