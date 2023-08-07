@@ -4979,10 +4979,6 @@ export class AddDciUserRequest extends $tea.Model {
   certificateType: string;
   // 证件号
   certificateNumber: string;
-  // 证件有效期限起始日期
-  certificateStartTime?: string;
-  // 证件有效期限终止日期
-  certificateEndTime?: string;
   // 证件正面OSS fileId
   certificateFrontFileId: string;
   // 证件反面OSS fileId
@@ -4995,26 +4991,30 @@ export class AddDciUserRequest extends $tea.Model {
   legalPersonCertNo?: string;
   // 手机号
   phone: string;
-  // 地址
-  address?: string;
-  // 用户身份开始时间
-  identityStartTime?: string;
   // 所属地区
   areaType: string;
   // 代理信息
   proxyData?: ProxyData;
+  // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+  copyrightCertificationType?: string;
   // 幂等字段
   clientToken: string;
   // 用户名称废弃
   userName?: string;
+  // 证件有效期限起始日期废弃
+  certificateStartTime?: string;
+  // 证件有效期限终止日期废弃
+  certificateEndTime?: string;
   // 证件正面OSS fileId废弃
   certificateFrontFilePath?: string;
   // 证件反面OSS filePath废弃
   certificateBackFilePath?: string;
+  // 用户身份开始时间废弃
+  identityStartTime?: string;
   // 用户类型废弃
   userType?: string;
-  // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
-  copyrightCertificationType?: string;
+  // 地址废弃
+  address?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5022,24 +5022,24 @@ export class AddDciUserRequest extends $tea.Model {
       certName: 'cert_name',
       certificateType: 'certificate_type',
       certificateNumber: 'certificate_number',
-      certificateStartTime: 'certificate_start_time',
-      certificateEndTime: 'certificate_end_time',
       certificateFrontFileId: 'certificate_front_file_id',
       certificateBackFileId: 'certificate_back_file_id',
       legalPersonCertName: 'legal_person_cert_name',
       legalPersonCertType: 'legal_person_cert_type',
       legalPersonCertNo: 'legal_person_cert_no',
       phone: 'phone',
-      address: 'address',
-      identityStartTime: 'identity_start_time',
       areaType: 'area_type',
       proxyData: 'proxy_data',
+      copyrightCertificationType: 'copyright_certification_type',
       clientToken: 'client_token',
       userName: 'user_name',
+      certificateStartTime: 'certificate_start_time',
+      certificateEndTime: 'certificate_end_time',
       certificateFrontFilePath: 'certificate_front_file_path',
       certificateBackFilePath: 'certificate_back_file_path',
+      identityStartTime: 'identity_start_time',
       userType: 'user_type',
-      copyrightCertificationType: 'copyright_certification_type',
+      address: 'address',
     };
   }
 
@@ -5050,24 +5050,24 @@ export class AddDciUserRequest extends $tea.Model {
       certName: 'string',
       certificateType: 'string',
       certificateNumber: 'string',
-      certificateStartTime: 'string',
-      certificateEndTime: 'string',
       certificateFrontFileId: 'string',
       certificateBackFileId: 'string',
       legalPersonCertName: 'string',
       legalPersonCertType: 'string',
       legalPersonCertNo: 'string',
       phone: 'string',
-      address: 'string',
-      identityStartTime: 'string',
       areaType: 'string',
       proxyData: ProxyData,
+      copyrightCertificationType: 'string',
       clientToken: 'string',
       userName: 'string',
+      certificateStartTime: 'string',
+      certificateEndTime: 'string',
       certificateFrontFilePath: 'string',
       certificateBackFilePath: 'string',
+      identityStartTime: 'string',
       userType: 'string',
-      copyrightCertificationType: 'string',
+      address: 'string',
     };
   }
 
@@ -8145,7 +8145,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.64",
+          sdk_version: "1.17.65",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
