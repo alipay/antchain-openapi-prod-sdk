@@ -31,6 +31,8 @@ use AntChain\TAX\Models\ExecIcmSyncgatheringRequest;
 use AntChain\TAX\Models\ExecIcmSyncgatheringResponse;
 use AntChain\TAX\Models\MatchIcmSimpleauthRequest;
 use AntChain\TAX\Models\MatchIcmSimpleauthResponse;
+use AntChain\TAX\Models\PullApiSimpleauthasyncpollingRequest;
+use AntChain\TAX\Models\PullApiSimpleauthasyncpollingResponse;
 use AntChain\TAX\Models\PushChargeRequest;
 use AntChain\TAX\Models\PushChargeResponse;
 use AntChain\TAX\Models\PushIcmInvoiceinfoRequest;
@@ -200,7 +202,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.15',
+                    'sdk_version'      => '1.6.16',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -939,5 +941,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryRiskEvaluationResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.risk.evaluation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 极简授权-异步查询数据-轮询拉取结果
+     * Summary: 极简授权-异步查询数据-轮询拉取结果.
+     *
+     * @param PullApiSimpleauthasyncpollingRequest $request
+     *
+     * @return PullApiSimpleauthasyncpollingResponse
+     */
+    public function pullApiSimpleauthasyncpolling($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pullApiSimpleauthasyncpollingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 极简授权-异步查询数据-轮询拉取结果
+     * Summary: 极简授权-异步查询数据-轮询拉取结果.
+     *
+     * @param PullApiSimpleauthasyncpollingRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return PullApiSimpleauthasyncpollingResponse
+     */
+    public function pullApiSimpleauthasyncpollingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PullApiSimpleauthasyncpollingResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.simpleauthasyncpolling.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
