@@ -52,6 +52,10 @@ public class QueryAntsaasStaffingcContractSignResponse extends TeaModel {
     @NameInMap("file_url")
     public String fileUrl;
 
+    // 如果未签署，将返回签署链接
+    @NameInMap("sign_url_list")
+    public java.util.List<SignUrlResp> signUrlList;
+
     public static QueryAntsaasStaffingcContractSignResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAntsaasStaffingcContractSignResponse self = new QueryAntsaasStaffingcContractSignResponse();
         return TeaModel.build(map, self);
@@ -151,6 +155,14 @@ public class QueryAntsaasStaffingcContractSignResponse extends TeaModel {
     }
     public String getFileUrl() {
         return this.fileUrl;
+    }
+
+    public QueryAntsaasStaffingcContractSignResponse setSignUrlList(java.util.List<SignUrlResp> signUrlList) {
+        this.signUrlList = signUrlList;
+        return this;
+    }
+    public java.util.List<SignUrlResp> getSignUrlList() {
+        return this.signUrlList;
     }
 
 }

@@ -11,6 +11,11 @@ public class SignAntsaasStaffingcContractSendRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 需要确保唯一（定位订单）
+    @NameInMap("out_biz_no")
+    @Validation(required = true)
+    public String outBizNo;
+
     // 合同或模版文件
     // 待上传文件
     @NameInMap("fileObject")
@@ -23,17 +28,12 @@ public class SignAntsaasStaffingcContractSendRequest extends TeaModel {
     @NameInMap("file_id")
     public String fileId;
 
-    // 合同文件（base64格式）
-    @NameInMap("contract_file")
-    @Validation(required = true)
-    public String contractFile;
-
     // 合同类型（1合同文件 2合同模板）
     @NameInMap("contract_type")
     @Validation(required = true)
     public Long contractType;
 
-    // 合同名称
+    // 合同名称, 必须带上文件名后缀。 .dpf .doc .docx
     @NameInMap("contract_name")
     @Validation(required = true)
     public String contractName;
@@ -83,6 +83,14 @@ public class SignAntsaasStaffingcContractSendRequest extends TeaModel {
         return this.productInstanceId;
     }
 
+    public SignAntsaasStaffingcContractSendRequest setOutBizNo(String outBizNo) {
+        this.outBizNo = outBizNo;
+        return this;
+    }
+    public String getOutBizNo() {
+        return this.outBizNo;
+    }
+
     public SignAntsaasStaffingcContractSendRequest setFileObject(java.io.InputStream fileObject) {
         this.fileObject = fileObject;
         return this;
@@ -105,14 +113,6 @@ public class SignAntsaasStaffingcContractSendRequest extends TeaModel {
     }
     public String getFileId() {
         return this.fileId;
-    }
-
-    public SignAntsaasStaffingcContractSendRequest setContractFile(String contractFile) {
-        this.contractFile = contractFile;
-        return this;
-    }
-    public String getContractFile() {
-        return this.contractFile;
     }
 
     public SignAntsaasStaffingcContractSendRequest setContractType(Long contractType) {
