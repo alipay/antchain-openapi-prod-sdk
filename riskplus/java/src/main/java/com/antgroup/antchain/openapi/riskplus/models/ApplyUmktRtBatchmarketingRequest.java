@@ -28,7 +28,6 @@ public class ApplyUmktRtBatchmarketingRequest extends TeaModel {
 
     // 批量透传字段
     @NameInMap("out_info")
-    @Validation(required = true)
     public String outInfo;
 
     // 用户凭证列表
