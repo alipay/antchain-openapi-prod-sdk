@@ -18,6 +18,11 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 需要确保唯一（定位订单）
+        [NameInMap("out_biz_no")]
+        [Validation(Required=true)]
+        public string OutBizNo { get; set; }
+
         // 合同或模版文件
         /// <summary>
         /// 待上传文件
@@ -37,17 +42,12 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0.Models
         [Validation(Required=false)]
         public string FileId { get; set; }
 
-        // 合同文件（base64格式）
-        [NameInMap("contract_file")]
-        [Validation(Required=true)]
-        public string ContractFile { get; set; }
-
         // 合同类型（1合同文件 2合同模板）
         [NameInMap("contract_type")]
         [Validation(Required=true)]
         public long? ContractType { get; set; }
 
-        // 合同名称
+        // 合同名称, 必须带上文件名后缀。 .dpf .doc .docx
         [NameInMap("contract_name")]
         [Validation(Required=true)]
         public string ContractName { get; set; }

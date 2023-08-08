@@ -69,6 +69,11 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0.Models
         [Validation(Required=false)]
         public string FileUrl { get; set; }
 
+        // 如果未签署，将返回签署链接
+        [NameInMap("sign_url_list")]
+        [Validation(Required=false)]
+        public List<SignUrlResp> SignUrlList { get; set; }
+
     }
 
 }
