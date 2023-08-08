@@ -20630,8 +20630,6 @@ type CallbackUmktRobotcallResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 }
 
 func (s CallbackUmktRobotcallResponse) String() string {
@@ -20654,11 +20652,6 @@ func (s *CallbackUmktRobotcallResponse) SetResultCode(v string) *CallbackUmktRob
 
 func (s *CallbackUmktRobotcallResponse) SetResultMsg(v string) *CallbackUmktRobotcallResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *CallbackUmktRobotcallResponse) SetSuccess(v bool) *CallbackUmktRobotcallResponse {
-	s.Success = &v
 	return s
 }
 
@@ -20904,7 +20897,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.38"),
+				"sdk_version":      tea.String("1.16.39"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
