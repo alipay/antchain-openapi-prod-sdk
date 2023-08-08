@@ -15400,14 +15400,11 @@ export class CallbackUmktRobotcallResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 是否成功
-  success?: boolean;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      success: 'success',
     };
   }
 
@@ -15416,7 +15413,6 @@ export class CallbackUmktRobotcallResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      success: 'boolean',
     };
   }
 
@@ -15626,7 +15622,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.38",
+          sdk_version: "1.16.39",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
