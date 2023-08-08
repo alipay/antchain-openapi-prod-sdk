@@ -277,15 +277,15 @@ export class SignAntsaasStaffingcContractSendRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 需要确保唯一（定位订单）
+  outBizNo: string;
   // 合同或模版文件
   fileObject?: Readable;
   fileObjectName?: string;
   fileId?: string;
-  // 合同文件（base64格式）
-  contractFile: string;
   // 合同类型（1合同文件 2合同模板）
   contractType: number;
-  // 合同名称
+  // 合同名称, 必须带上文件名后缀。 .dpf .doc .docx
   contractName: string;
   // 合同文件类型 （pdf、word）
   contractFileType: string;
@@ -301,10 +301,10 @@ export class SignAntsaasStaffingcContractSendRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      outBizNo: 'out_biz_no',
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
-      contractFile: 'contract_file',
       contractType: 'contract_type',
       contractName: 'contract_name',
       contractFileType: 'contract_file_type',
@@ -319,10 +319,10 @@ export class SignAntsaasStaffingcContractSendRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      outBizNo: 'string',
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
-      contractFile: 'string',
       contractType: 'number',
       contractName: 'string',
       contractFileType: 'string',
@@ -422,6 +422,8 @@ export class QueryAntsaasStaffingcContractSignResponse extends $tea.Model {
   fileName?: string;
   // 合同文件下载地址（1小时内有效）
   fileUrl?: string;
+  // 如果未签署，将返回签署链接
+  signUrlList?: SignUrlResp[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -436,6 +438,7 @@ export class QueryAntsaasStaffingcContractSignResponse extends $tea.Model {
       fileId: 'file_id',
       fileName: 'file_name',
       fileUrl: 'file_url',
+      signUrlList: 'sign_url_list',
     };
   }
 
@@ -453,6 +456,7 @@ export class QueryAntsaasStaffingcContractSignResponse extends $tea.Model {
       fileId: 'string',
       fileName: 'string',
       fileUrl: 'string',
+      signUrlList: { 'type': 'array', 'itemType': SignUrlResp },
     };
   }
 
@@ -662,7 +666,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.1.0",
           _prod_code: "ak_320bc483f2434f39a3af9ec9f04d3cc0",
           _prod_channel: "saas",
         };
