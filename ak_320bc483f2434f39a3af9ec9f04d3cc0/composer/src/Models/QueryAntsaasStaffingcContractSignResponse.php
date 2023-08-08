@@ -79,6 +79,12 @@ class QueryAntsaasStaffingcContractSignResponse extends Model
      * @var string
      */
     public $fileUrl;
+
+    // 如果未签署，将返回签署链接
+    /**
+     * @var SignUrlResp[]
+     */
+    public $signUrlList;
     protected $_name = [
         'reqMsgId'         => 'req_msg_id',
         'resultCode'       => 'result_code',
@@ -92,6 +98,7 @@ class QueryAntsaasStaffingcContractSignResponse extends Model
         'fileId'           => 'file_id',
         'fileName'         => 'file_name',
         'fileUrl'          => 'file_url',
+        'signUrlList'      => 'sign_url_list',
     ];
 
     public function validate()
@@ -136,6 +143,15 @@ class QueryAntsaasStaffingcContractSignResponse extends Model
         }
         if (null !== $this->fileUrl) {
             $res['file_url'] = $this->fileUrl;
+        }
+        if (null !== $this->signUrlList) {
+            $res['sign_url_list'] = [];
+            if (null !== $this->signUrlList && \is_array($this->signUrlList)) {
+                $n = 0;
+                foreach ($this->signUrlList as $item) {
+                    $res['sign_url_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -184,6 +200,15 @@ class QueryAntsaasStaffingcContractSignResponse extends Model
         }
         if (isset($map['file_url'])) {
             $model->fileUrl = $map['file_url'];
+        }
+        if (isset($map['sign_url_list'])) {
+            if (!empty($map['sign_url_list'])) {
+                $model->signUrlList = [];
+                $n                  = 0;
+                foreach ($map['sign_url_list'] as $item) {
+                    $model->signUrlList[$n++] = null !== $item ? SignUrlResp::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

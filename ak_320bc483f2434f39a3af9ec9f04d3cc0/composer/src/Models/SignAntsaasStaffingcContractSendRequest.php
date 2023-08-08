@@ -20,6 +20,12 @@ class SignAntsaasStaffingcContractSendRequest extends Model
      */
     public $productInstanceId;
 
+    // 需要确保唯一（定位订单）
+    /**
+     * @var string
+     */
+    public $outBizNo;
+
     // 合同或模版文件
     /**
      * @description 待上传文件
@@ -40,19 +46,13 @@ class SignAntsaasStaffingcContractSendRequest extends Model
      */
     public $fileId;
 
-    // 合同文件（base64格式）
-    /**
-     * @var string
-     */
-    public $contractFile;
-
     // 合同类型（1合同文件 2合同模板）
     /**
      * @var int
      */
     public $contractType;
 
-    // 合同名称
+    // 合同名称, 必须带上文件名后缀。 .dpf .doc .docx
     /**
      * @var string
      */
@@ -90,8 +90,8 @@ class SignAntsaasStaffingcContractSendRequest extends Model
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
+        'outBizNo'           => 'out_biz_no',
         'fileId'             => 'file_id',
-        'contractFile'       => 'contract_file',
         'contractType'       => 'contract_type',
         'contractName'       => 'contract_name',
         'contractFileType'   => 'contract_file_type',
@@ -103,7 +103,7 @@ class SignAntsaasStaffingcContractSendRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('contractFile', $this->contractFile, true);
+        Model::validateRequired('outBizNo', $this->outBizNo, true);
         Model::validateRequired('contractType', $this->contractType, true);
         Model::validateRequired('contractName', $this->contractName, true);
         Model::validateRequired('contractFileType', $this->contractFileType, true);
@@ -121,6 +121,9 @@ class SignAntsaasStaffingcContractSendRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->outBizNo) {
+            $res['out_biz_no'] = $this->outBizNo;
+        }
         if (null !== $this->fileObject) {
             $res['fileObject'] = $this->fileObject;
         }
@@ -129,9 +132,6 @@ class SignAntsaasStaffingcContractSendRequest extends Model
         }
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
-        }
-        if (null !== $this->contractFile) {
-            $res['contract_file'] = $this->contractFile;
         }
         if (null !== $this->contractType) {
             $res['contract_type'] = $this->contractType;
@@ -184,6 +184,9 @@ class SignAntsaasStaffingcContractSendRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if (isset($map['out_biz_no'])) {
+            $model->outBizNo = $map['out_biz_no'];
+        }
         if (isset($map['fileObject'])) {
             $model->fileObject = $map['fileObject'];
         }
@@ -192,9 +195,6 @@ class SignAntsaasStaffingcContractSendRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
-        }
-        if (isset($map['contract_file'])) {
-            $model->contractFile = $map['contract_file'];
         }
         if (isset($map['contract_type'])) {
             $model->contractType = $map['contract_type'];
