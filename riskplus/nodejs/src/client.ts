@@ -15136,7 +15136,7 @@ export class ApplyUmktRtBatchmarketingRequest extends $tea.Model {
   // 用户标识类型
   paramType: string;
   // 批量透传字段
-  outInfo: string;
+  outInfo?: string;
   // 用户凭证列表
   customerDetails: CustomerDetail[];
   static names(): { [key: string]: string } {
@@ -15622,7 +15622,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.39",
+          sdk_version: "1.16.40",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
