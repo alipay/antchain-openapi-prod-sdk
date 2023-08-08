@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.1.0',
     _prod_code = 'ak_320bc483f2434f39a3af9ec9f04d3cc0',
     _prod_channel = 'saas'
   };
@@ -236,15 +236,15 @@ model SignAntsaasStaffingcContractSendRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 需要确保唯一（定位订单）
+  outBizNo: string(name='out_biz_no'),
   // 合同或模版文件
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileObjectName?: string(description='待上传文件名', ignore='true'),
   fileId?: string(name='file_id'),
-  // 合同文件（base64格式）
-  contractFile: string(name='contract_file'),
   // 合同类型（1合同文件 2合同模板）
   contractType: long(name='contract_type'),
-  // 合同名称
+  // 合同名称, 必须带上文件名后缀。 .dpf .doc .docx
   contractName: string(name='contract_name'),
   // 合同文件类型 （pdf、word）
   contractFileType: string(name='contract_file_type'),
@@ -340,6 +340,8 @@ model QueryAntsaasStaffingcContractSignResponse = {
   fileName?: string(name='file_name'),
   // 合同文件下载地址（1小时内有效）
   fileUrl?: string(name='file_url'),
+  // 如果未签署，将返回签署链接
+  signUrlList?: [ SignUrlResp ](name='sign_url_list'),
 }
 
 /**
