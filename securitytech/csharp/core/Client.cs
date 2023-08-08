@@ -137,7 +137,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.11"},
+                        {"sdk_version", "1.1.12"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.11"},
+                        {"sdk_version", "1.1.12"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -407,6 +407,174 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecEkytInsureResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ekyt.insure.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蓝盾安全图片生成
+         * Summary: 蓝盾安全图片生成
+         */
+        public CreateBssecpicResponse CreateBssecpic(CreateBssecpicRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateBssecpicEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蓝盾安全图片生成
+         * Summary: 蓝盾安全图片生成
+         */
+        public async Task<CreateBssecpicResponse> CreateBssecpicAsync(CreateBssecpicRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateBssecpicExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蓝盾安全图片生成
+         * Summary: 蓝盾安全图片生成
+         */
+        public CreateBssecpicResponse CreateBssecpicEx(CreateBssecpicRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBssecpicResponse>(DoRequest("1.0", "antsecuritytech.gateway.bssecpic.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蓝盾安全图片生成
+         * Summary: 蓝盾安全图片生成
+         */
+        public async Task<CreateBssecpicResponse> CreateBssecpicExAsync(CreateBssecpicRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBssecpicResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.bssecpic.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蓝盾安全图片生成
+         * Summary: 蓝盾安全图片生成
+         */
+        public CreateBlueshieldSecuritypictureResponse CreateBlueshieldSecuritypicture(CreateBlueshieldSecuritypictureRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateBlueshieldSecuritypictureEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蓝盾安全图片生成
+         * Summary: 蓝盾安全图片生成
+         */
+        public async Task<CreateBlueshieldSecuritypictureResponse> CreateBlueshieldSecuritypictureAsync(CreateBlueshieldSecuritypictureRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateBlueshieldSecuritypictureExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蓝盾安全图片生成
+         * Summary: 蓝盾安全图片生成
+         */
+        public CreateBlueshieldSecuritypictureResponse CreateBlueshieldSecuritypictureEx(CreateBlueshieldSecuritypictureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBlueshieldSecuritypictureResponse>(DoRequest("1.0", "antsecuritytech.gateway.blueshield.securitypicture.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蓝盾安全图片生成
+         * Summary: 蓝盾安全图片生成
+         */
+        public async Task<CreateBlueshieldSecuritypictureResponse> CreateBlueshieldSecuritypictureExAsync(CreateBlueshieldSecuritypictureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBlueshieldSecuritypictureResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.blueshield.securitypicture.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全人脸盾Native查询
+         * Summary: 人脸盾Native查询
+         */
+        public QueryFaceshieldNativeResponse QueryFaceshieldNative(QueryFaceshieldNativeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryFaceshieldNativeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全人脸盾Native查询
+         * Summary: 人脸盾Native查询
+         */
+        public async Task<QueryFaceshieldNativeResponse> QueryFaceshieldNativeAsync(QueryFaceshieldNativeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryFaceshieldNativeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全人脸盾Native查询
+         * Summary: 人脸盾Native查询
+         */
+        public QueryFaceshieldNativeResponse QueryFaceshieldNativeEx(QueryFaceshieldNativeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFaceshieldNativeResponse>(DoRequest("1.0", "antsecuritytech.gateway.faceshield.native.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全人脸盾Native查询
+         * Summary: 人脸盾Native查询
+         */
+        public async Task<QueryFaceshieldNativeResponse> QueryFaceshieldNativeExAsync(QueryFaceshieldNativeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFaceshieldNativeResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.faceshield.native.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全人脸盾Web查询
+         * Summary: 人脸盾Web查询
+         */
+        public QueryFaceshieldWebResponse QueryFaceshieldWeb(QueryFaceshieldWebRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryFaceshieldWebEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全人脸盾Web查询
+         * Summary: 人脸盾Web查询
+         */
+        public async Task<QueryFaceshieldWebResponse> QueryFaceshieldWebAsync(QueryFaceshieldWebRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryFaceshieldWebExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全人脸盾Web查询
+         * Summary: 人脸盾Web查询
+         */
+        public QueryFaceshieldWebResponse QueryFaceshieldWebEx(QueryFaceshieldWebRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFaceshieldWebResponse>(DoRequest("1.0", "antsecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全人脸盾Web查询
+         * Summary: 人脸盾Web查询
+         */
+        public async Task<QueryFaceshieldWebResponse> QueryFaceshieldWebExAsync(QueryFaceshieldWebRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFaceshieldWebResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -620,216 +788,6 @@ namespace AntChain.SDK.SECURITYTECH
         }
 
         /**
-         * Description: 租凭住房保险产品，接口开放给租房平台
-         * Summary: 租凭住房保险产品，接口开放给租房平台
-         */
-        public ExecIifaaInsureResponse ExecIifaaInsure(ExecIifaaInsureRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return ExecIifaaInsureEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 租凭住房保险产品，接口开放给租房平台
-         * Summary: 租凭住房保险产品，接口开放给租房平台
-         */
-        public async Task<ExecIifaaInsureResponse> ExecIifaaInsureAsync(ExecIifaaInsureRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await ExecIifaaInsureExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 租凭住房保险产品，接口开放给租房平台
-         * Summary: 租凭住房保险产品，接口开放给租房平台
-         */
-        public ExecIifaaInsureResponse ExecIifaaInsureEx(ExecIifaaInsureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ExecIifaaInsureResponse>(DoRequest("1.0", "antsecuritytech.gateway.iifaa.insure.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 租凭住房保险产品，接口开放给租房平台
-         * Summary: 租凭住房保险产品，接口开放给租房平台
-         */
-        public async Task<ExecIifaaInsureResponse> ExecIifaaInsureExAsync(ExecIifaaInsureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ExecIifaaInsureResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.iifaa.insure.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 蓝盾安全图片生成
-         * Summary: 蓝盾安全图片生成
-         */
-        public CreateBssecpicResponse CreateBssecpic(CreateBssecpicRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return CreateBssecpicEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 蓝盾安全图片生成
-         * Summary: 蓝盾安全图片生成
-         */
-        public async Task<CreateBssecpicResponse> CreateBssecpicAsync(CreateBssecpicRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await CreateBssecpicExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 蓝盾安全图片生成
-         * Summary: 蓝盾安全图片生成
-         */
-        public CreateBssecpicResponse CreateBssecpicEx(CreateBssecpicRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateBssecpicResponse>(DoRequest("1.0", "antsecuritytech.gateway.bssecpic.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 蓝盾安全图片生成
-         * Summary: 蓝盾安全图片生成
-         */
-        public async Task<CreateBssecpicResponse> CreateBssecpicExAsync(CreateBssecpicRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateBssecpicResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.bssecpic.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 蓝盾安全图片生成
-         * Summary: 蓝盾安全图片生成
-         */
-        public CreateBlueshieldSecuritypictureResponse CreateBlueshieldSecuritypicture(CreateBlueshieldSecuritypictureRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return CreateBlueshieldSecuritypictureEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 蓝盾安全图片生成
-         * Summary: 蓝盾安全图片生成
-         */
-        public async Task<CreateBlueshieldSecuritypictureResponse> CreateBlueshieldSecuritypictureAsync(CreateBlueshieldSecuritypictureRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await CreateBlueshieldSecuritypictureExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 蓝盾安全图片生成
-         * Summary: 蓝盾安全图片生成
-         */
-        public CreateBlueshieldSecuritypictureResponse CreateBlueshieldSecuritypictureEx(CreateBlueshieldSecuritypictureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateBlueshieldSecuritypictureResponse>(DoRequest("1.0", "antsecuritytech.gateway.blueshield.securitypicture.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 蓝盾安全图片生成
-         * Summary: 蓝盾安全图片生成
-         */
-        public async Task<CreateBlueshieldSecuritypictureResponse> CreateBlueshieldSecuritypictureExAsync(CreateBlueshieldSecuritypictureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateBlueshieldSecuritypictureResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.blueshield.securitypicture.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 终端安全人脸盾Native查询
-         * Summary: 人脸盾Native查询
-         */
-        public QueryFaceshieldNativeResponse QueryFaceshieldNative(QueryFaceshieldNativeRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryFaceshieldNativeEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 终端安全人脸盾Native查询
-         * Summary: 人脸盾Native查询
-         */
-        public async Task<QueryFaceshieldNativeResponse> QueryFaceshieldNativeAsync(QueryFaceshieldNativeRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryFaceshieldNativeExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 终端安全人脸盾Native查询
-         * Summary: 人脸盾Native查询
-         */
-        public QueryFaceshieldNativeResponse QueryFaceshieldNativeEx(QueryFaceshieldNativeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryFaceshieldNativeResponse>(DoRequest("1.0", "antsecuritytech.gateway.faceshield.native.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 终端安全人脸盾Native查询
-         * Summary: 人脸盾Native查询
-         */
-        public async Task<QueryFaceshieldNativeResponse> QueryFaceshieldNativeExAsync(QueryFaceshieldNativeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryFaceshieldNativeResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.faceshield.native.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 终端安全人脸盾Web查询
-         * Summary: 人脸盾Web查询
-         */
-        public QueryFaceshieldWebResponse QueryFaceshieldWeb(QueryFaceshieldWebRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryFaceshieldWebEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 终端安全人脸盾Web查询
-         * Summary: 人脸盾Web查询
-         */
-        public async Task<QueryFaceshieldWebResponse> QueryFaceshieldWebAsync(QueryFaceshieldWebRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryFaceshieldWebExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 终端安全人脸盾Web查询
-         * Summary: 人脸盾Web查询
-         */
-        public QueryFaceshieldWebResponse QueryFaceshieldWebEx(QueryFaceshieldWebRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryFaceshieldWebResponse>(DoRequest("1.0", "antsecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 终端安全人脸盾Web查询
-         * Summary: 人脸盾Web查询
-         */
-        public async Task<QueryFaceshieldWebResponse> QueryFaceshieldWebExAsync(QueryFaceshieldWebRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryFaceshieldWebResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
          * Description: 巡检商业化
          * Summary: 巡检商业化
          */
@@ -872,6 +830,48 @@ namespace AntChain.SDK.SECURITYTECH
         }
 
         /**
+         * Description: 租凭住房保险产品，接口开放给租房平台
+         * Summary: 租凭住房保险产品，接口开放给租房平台
+         */
+        public ExecIifaaInsureResponse ExecIifaaInsure(ExecIifaaInsureRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecIifaaInsureEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租凭住房保险产品，接口开放给租房平台
+         * Summary: 租凭住房保险产品，接口开放给租房平台
+         */
+        public async Task<ExecIifaaInsureResponse> ExecIifaaInsureAsync(ExecIifaaInsureRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecIifaaInsureExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租凭住房保险产品，接口开放给租房平台
+         * Summary: 租凭住房保险产品，接口开放给租房平台
+         */
+        public ExecIifaaInsureResponse ExecIifaaInsureEx(ExecIifaaInsureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecIifaaInsureResponse>(DoRequest("1.0", "antsecuritytech.gateway.iifaa.insure.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租凭住房保险产品，接口开放给租房平台
+         * Summary: 租凭住房保险产品，接口开放给租房平台
+         */
+        public async Task<ExecIifaaInsureResponse> ExecIifaaInsureExAsync(ExecIifaaInsureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecIifaaInsureResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.iifaa.insure.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 内容安全图片同步检测
          * Summary: 内容安全图片同步检测
          */
@@ -911,6 +911,48 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryCctPictureResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.cct.picture.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 内容安全主站同步检测
+         * Summary: 内容安全主站同步检测
+         */
+        public RecognizeCctAnalyzeResponse RecognizeCctAnalyze(RecognizeCctAnalyzeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RecognizeCctAnalyzeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 内容安全主站同步检测
+         * Summary: 内容安全主站同步检测
+         */
+        public async Task<RecognizeCctAnalyzeResponse> RecognizeCctAnalyzeAsync(RecognizeCctAnalyzeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RecognizeCctAnalyzeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 内容安全主站同步检测
+         * Summary: 内容安全主站同步检测
+         */
+        public RecognizeCctAnalyzeResponse RecognizeCctAnalyzeEx(RecognizeCctAnalyzeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RecognizeCctAnalyzeResponse>(DoRequest("1.0", "antsecuritytech.gateway.cct.analyze.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 内容安全主站同步检测
+         * Summary: 内容安全主站同步检测
+         */
+        public async Task<RecognizeCctAnalyzeResponse> RecognizeCctAnalyzeExAsync(RecognizeCctAnalyzeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RecognizeCctAnalyzeResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.cct.analyze.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
