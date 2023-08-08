@@ -488,10 +488,10 @@ class SignAntsaasStaffingcContractSendRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        out_biz_no: str = None,
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
-        contract_file: str = None,
         contract_type: int = None,
         contract_name: str = None,
         contract_file_type: str = None,
@@ -503,17 +503,17 @@ class SignAntsaasStaffingcContractSendRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 需要确保唯一（定位订单）
+        self.out_biz_no = out_biz_no
         # 合同或模版文件
         # 待上传文件
         self.file_object = file_object
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
-        # 合同文件（base64格式）
-        self.contract_file = contract_file
         # 合同类型（1合同文件 2合同模板）
         self.contract_type = contract_type
-        # 合同名称
+        # 合同名称, 必须带上文件名后缀。 .dpf .doc .docx
         self.contract_name = contract_name
         # 合同文件类型 （pdf、word）
         self.contract_file_type = contract_file_type
@@ -527,7 +527,7 @@ class SignAntsaasStaffingcContractSendRequest(TeaModel):
         self.sign_enterprise_list = sign_enterprise_list
 
     def validate(self):
-        self.validate_required(self.contract_file, 'contract_file')
+        self.validate_required(self.out_biz_no, 'out_biz_no')
         self.validate_required(self.contract_type, 'contract_type')
         self.validate_required(self.contract_name, 'contract_name')
         self.validate_required(self.contract_file_type, 'contract_file_type')
@@ -553,14 +553,14 @@ class SignAntsaasStaffingcContractSendRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
         if self.file_object is not None:
             result['fileObject'] = self.file_object
         if self.file_object_name is not None:
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
-        if self.contract_file is not None:
-            result['contract_file'] = self.contract_file
         if self.contract_type is not None:
             result['contract_type'] = self.contract_type
         if self.contract_name is not None:
@@ -587,14 +587,14 @@ class SignAntsaasStaffingcContractSendRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
         if m.get('fileObject') is not None:
             self.file_object = m.get('fileObject')
         if m.get('fileObjectName') is not None:
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
-        if m.get('contract_file') is not None:
-            self.contract_file = m.get('contract_file')
         if m.get('contract_type') is not None:
             self.contract_type = m.get('contract_type')
         if m.get('contract_name') is not None:
@@ -725,6 +725,7 @@ class QueryAntsaasStaffingcContractSignResponse(TeaModel):
         file_id: str = None,
         file_name: str = None,
         file_url: str = None,
+        sign_url_list: List[SignUrlResp] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -750,9 +751,14 @@ class QueryAntsaasStaffingcContractSignResponse(TeaModel):
         self.file_name = file_name
         # 合同文件下载地址（1小时内有效）
         self.file_url = file_url
+        # 如果未签署，将返回签署链接
+        self.sign_url_list = sign_url_list
 
     def validate(self):
-        pass
+        if self.sign_url_list:
+            for k in self.sign_url_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -784,6 +790,10 @@ class QueryAntsaasStaffingcContractSignResponse(TeaModel):
             result['file_name'] = self.file_name
         if self.file_url is not None:
             result['file_url'] = self.file_url
+        result['sign_url_list'] = []
+        if self.sign_url_list is not None:
+            for k in self.sign_url_list:
+                result['sign_url_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -812,6 +822,11 @@ class QueryAntsaasStaffingcContractSignResponse(TeaModel):
             self.file_name = m.get('file_name')
         if m.get('file_url') is not None:
             self.file_url = m.get('file_url')
+        self.sign_url_list = []
+        if m.get('sign_url_list') is not None:
+            for k in m.get('sign_url_list'):
+                temp_model = SignUrlResp()
+                self.sign_url_list.append(temp_model.from_map(k))
         return self
 
 
