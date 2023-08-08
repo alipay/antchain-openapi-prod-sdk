@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.11',
+    sdk_version = '1.1.12',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -161,6 +161,14 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// CctSubCheckLabel
+model CctSubCheckLabel {
+  // sub_label
+  subLabel: string(name='sub_label', example='sub_label'),
+  // rate
+  rate: long(name='rate', example=''),
+}
+
 // 人脸盾结果
 model FaceShieldResult {
   // 设备token
@@ -171,6 +179,14 @@ model FaceShieldResult {
   riskDesc: string(name='risk_desc', example='本次咨询设备风险水平很高,风险编号:10000010.8.0'),
   // 处理的建议，如PAAS
   sugAction: string(name='sug_action', example='建议直接拦截'),
+}
+
+// 内容安全请求体datamap
+model CctDataMap {
+  // text
+  text?: [ string ](name='text', example='text'),
+  // PICTURE
+  picture?: [ string ](name='picture', example='PICTURE'),
 }
 
 // 保单信息
@@ -195,6 +211,18 @@ model InsureInfo {
   operateType: string(name='operate_type', example='投保'),
   // 保司信用代码
   insureCompCreditNo: string(name='insure_comp_credit_no', example='91440300892305861T'),
+}
+
+// 内容安全response
+model CctDetectCheckLabel {
+  // label
+  label: string(name='label', example='label'),
+  // rate
+  rate: long(name='rate', example='rate'),
+  // subLabels
+  subLabels: [ CctSubCheckLabel ](name='sub_labels', example=''),
+  // details
+  details: string(name='details', example='details'),
 }
 
 model RunGeneralRequest = {
@@ -281,244 +309,6 @@ async function execEkytInsure(request: ExecEkytInsureRequest): ExecEkytInsureRes
 async function execEkytInsureEx(request: ExecEkytInsureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecEkytInsureResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.ekyt.insure.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model InitIifaaDeviceRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 产商code
-  corpCode: string(name='corp_code'),
-  // 设备类型
-  deviceType: string(name='device_type'),
-  // 设备信息
-  deviceInfo: string(name='device_info'),
-}
-
-model InitIifaaDeviceResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 返回数据
-  data?: string(name='data'),
-}
-
-/**
- * Description: 设备激活
- * Summary: 可信设备认证设备初始化，设备激活
- */
-async function initIifaaDevice(request: InitIifaaDeviceRequest): InitIifaaDeviceResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return initIifaaDeviceEx(request, headers, runtime);
-}
-
-/**
- * Description: 设备激活
- * Summary: 可信设备认证设备初始化，设备激活
- */
-async function initIifaaDeviceEx(request: InitIifaaDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitIifaaDeviceResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.device.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model RecognizeIifaaDeviceRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 设备唯一ID
-  tuid: string(name='tuid'),
-}
-
-model RecognizeIifaaDeviceResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 返回数据内容
-  data?: string(name='data'),
-}
-
-/**
- * Description: 可信设备认证风险咨询，获取预认证数据
- * Summary: 可信设备认证风险咨询，获取预认证数据
- */
-async function recognizeIifaaDevice(request: RecognizeIifaaDeviceRequest): RecognizeIifaaDeviceResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return recognizeIifaaDeviceEx(request, headers, runtime);
-}
-
-/**
- * Description: 可信设备认证风险咨询，获取预认证数据
- * Summary: 可信设备认证风险咨询，获取预认证数据
- */
-async function recognizeIifaaDeviceEx(request: RecognizeIifaaDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RecognizeIifaaDeviceResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.device.recognize', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model VerifyIifaaDeviceRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 待验证的数据
-  cipherText: string(name='cipher_text'),
-}
-
-model VerifyIifaaDeviceResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 验证结果
-  data?: string(name='data'),
-}
-
-/**
- * Description: 可信设备认证，设备验证
- * Summary: 可信设备认证，设备验证
- */
-async function verifyIifaaDevice(request: VerifyIifaaDeviceRequest): VerifyIifaaDeviceResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return verifyIifaaDeviceEx(request, headers, runtime);
-}
-
-/**
- * Description: 可信设备认证，设备验证
- * Summary: 可信设备认证，设备验证
- */
-async function verifyIifaaDeviceEx(request: VerifyIifaaDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyIifaaDeviceResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.device.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model RegisterIifaaCorpRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 产商code
-  corpCode: string(name='corp_code'),
-  // 产商名称
-  corpName: string(name='corp_name'),
-  // 产商签约code
-  productCode: string(name='product_code'),
-}
-
-model RegisterIifaaCorpResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 产商注册结果
-  data?: string(name='data'),
-}
-
-/**
- * Description: 可信设备认证，产商注册
- * Summary: 可信设备认证，产商注册
- */
-async function registerIifaaCorp(request: RegisterIifaaCorpRequest): RegisterIifaaCorpResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return registerIifaaCorpEx(request, headers, runtime);
-}
-
-/**
- * Description: 可信设备认证，产商注册
- * Summary: 可信设备认证，产商注册
- */
-async function registerIifaaCorpEx(request: RegisterIifaaCorpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterIifaaCorpResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.corp.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model DeprecateIifaaDeviceRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 设备唯一ID
-  tuid: string(name='tuid'),
-}
-
-model DeprecateIifaaDeviceResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 设备擦除结果
-  data?: string(name='data'),
-}
-
-/**
- * Description: 可信设备认证，擦除设备信息
- * Summary: 可信设备认证，擦除设备信息
- */
-async function deprecateIifaaDevice(request: DeprecateIifaaDeviceRequest): DeprecateIifaaDeviceResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return deprecateIifaaDeviceEx(request, headers, runtime);
-}
-
-/**
- * Description: 可信设备认证，擦除设备信息
- * Summary: 可信设备认证，擦除设备信息
- */
-async function deprecateIifaaDeviceEx(request: DeprecateIifaaDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeprecateIifaaDeviceResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.device.deprecate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model ExecIifaaInsureRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 保险信息list的jsonStr
-  insureInfoListStr: string(name='insure_info_list_str'),
-  // 对insure_info_list_str的签名，使用十六进制字符串编码
-  signature: string(name='signature'),
-}
-
-model ExecIifaaInsureResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 投保结果list的jsonStr
-  data?: string(name='data'),
-}
-
-/**
- * Description: 租凭住房保险产品，接口开放给租房平台
- * Summary: 租凭住房保险产品，接口开放给租房平台
- */
-async function execIifaaInsure(request: ExecIifaaInsureRequest): ExecIifaaInsureResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return execIifaaInsureEx(request, headers, runtime);
-}
-
-/**
- * Description: 租凭住房保险产品，接口开放给租房平台
- * Summary: 租凭住房保险产品，接口开放给租房平台
- */
-async function execIifaaInsureEx(request: ExecIifaaInsureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecIifaaInsureResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.insure.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateBssecpicRequest = {
@@ -769,6 +559,204 @@ async function queryFaceshieldWebEx(request: QueryFaceshieldWebRequest, headers:
   return doRequest('1.0' ,'antsecuritytech.gateway.faceshield.web.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model InitIifaaDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产商code
+  corpCode: string(name='corp_code'),
+  // 设备类型
+  deviceType: string(name='device_type'),
+  // 设备信息
+  deviceInfo: string(name='device_info'),
+}
+
+model InitIifaaDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 设备激活
+ * Summary: 可信设备认证设备初始化，设备激活
+ */
+async function initIifaaDevice(request: InitIifaaDeviceRequest): InitIifaaDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initIifaaDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 设备激活
+ * Summary: 可信设备认证设备初始化，设备激活
+ */
+async function initIifaaDeviceEx(request: InitIifaaDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitIifaaDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.device.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RecognizeIifaaDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备唯一ID
+  tuid: string(name='tuid'),
+}
+
+model RecognizeIifaaDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据内容
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 可信设备认证风险咨询，获取预认证数据
+ * Summary: 可信设备认证风险咨询，获取预认证数据
+ */
+async function recognizeIifaaDevice(request: RecognizeIifaaDeviceRequest): RecognizeIifaaDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return recognizeIifaaDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 可信设备认证风险咨询，获取预认证数据
+ * Summary: 可信设备认证风险咨询，获取预认证数据
+ */
+async function recognizeIifaaDeviceEx(request: RecognizeIifaaDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RecognizeIifaaDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.device.recognize', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyIifaaDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待验证的数据
+  cipherText: string(name='cipher_text'),
+}
+
+model VerifyIifaaDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 验证结果
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 可信设备认证，设备验证
+ * Summary: 可信设备认证，设备验证
+ */
+async function verifyIifaaDevice(request: VerifyIifaaDeviceRequest): VerifyIifaaDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyIifaaDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 可信设备认证，设备验证
+ * Summary: 可信设备认证，设备验证
+ */
+async function verifyIifaaDeviceEx(request: VerifyIifaaDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyIifaaDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.device.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterIifaaCorpRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产商code
+  corpCode: string(name='corp_code'),
+  // 产商名称
+  corpName: string(name='corp_name'),
+  // 产商签约code
+  productCode: string(name='product_code'),
+}
+
+model RegisterIifaaCorpResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 产商注册结果
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 可信设备认证，产商注册
+ * Summary: 可信设备认证，产商注册
+ */
+async function registerIifaaCorp(request: RegisterIifaaCorpRequest): RegisterIifaaCorpResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerIifaaCorpEx(request, headers, runtime);
+}
+
+/**
+ * Description: 可信设备认证，产商注册
+ * Summary: 可信设备认证，产商注册
+ */
+async function registerIifaaCorpEx(request: RegisterIifaaCorpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterIifaaCorpResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.corp.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeprecateIifaaDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备唯一ID
+  tuid: string(name='tuid'),
+}
+
+model DeprecateIifaaDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 设备擦除结果
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 可信设备认证，擦除设备信息
+ * Summary: 可信设备认证，擦除设备信息
+ */
+async function deprecateIifaaDevice(request: DeprecateIifaaDeviceRequest): DeprecateIifaaDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deprecateIifaaDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 可信设备认证，擦除设备信息
+ * Summary: 可信设备认证，擦除设备信息
+ */
+async function deprecateIifaaDeviceEx(request: DeprecateIifaaDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeprecateIifaaDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.device.deprecate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model RunXhunterSpiRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -813,6 +801,46 @@ async function runXhunterSpiEx(request: RunXhunterSpiRequest, headers: map[strin
   return doRequest('1.0' ,'antsecuritytech.gateway.xhunter.spi.run', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model ExecIifaaInsureRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 保险信息list的jsonStr
+  insureInfoListStr: string(name='insure_info_list_str'),
+  // 对insure_info_list_str的签名，使用十六进制字符串编码
+  signature: string(name='signature'),
+}
+
+model ExecIifaaInsureResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 投保结果list的jsonStr
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 租凭住房保险产品，接口开放给租房平台
+ * Summary: 租凭住房保险产品，接口开放给租房平台
+ */
+async function execIifaaInsure(request: ExecIifaaInsureRequest): ExecIifaaInsureResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execIifaaInsureEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租凭住房保险产品，接口开放给租房平台
+ * Summary: 租凭住房保险产品，接口开放给租房平台
+ */
+async function execIifaaInsureEx(request: ExecIifaaInsureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecIifaaInsureResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.insure.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryCctPictureRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -851,5 +879,55 @@ async function queryCctPicture(request: QueryCctPictureRequest): QueryCctPicture
 async function queryCctPictureEx(request: QueryCctPictureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCctPictureResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.cct.picture.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RecognizeCctAnalyzeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // channel
+  channel: string(name='channel'),
+  // content_type
+  contentType: string(name='content_type'),
+  // user_id
+  userId: string(name='user_id'),
+  // request_id
+  requestId: string(name='request_id'),
+  // data_map
+  dataMap: CctDataMap(name='data_map'),
+}
+
+model RecognizeCctAnalyzeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // biz_request_id
+  bizRequestId?: string(name='biz_request_id'),
+  // suggestion
+  suggestion?: string(name='suggestion'),
+  // detect_labels
+  detectLabels?: [ CctDetectCheckLabel ](name='detect_labels'),
+}
+
+/**
+ * Description: 内容安全主站同步检测
+ * Summary: 内容安全主站同步检测
+ */
+async function recognizeCctAnalyze(request: RecognizeCctAnalyzeRequest): RecognizeCctAnalyzeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return recognizeCctAnalyzeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内容安全主站同步检测
+ * Summary: 内容安全主站同步检测
+ */
+async function recognizeCctAnalyzeEx(request: RecognizeCctAnalyzeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RecognizeCctAnalyzeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.cct.analyze.recognize', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
