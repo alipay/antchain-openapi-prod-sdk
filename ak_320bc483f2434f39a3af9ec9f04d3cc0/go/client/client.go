@@ -387,17 +387,17 @@ type SignAntsaasStaffingcContractSendRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 需要确保唯一（定位订单）
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
 	// 合同或模版文件
 	// 待上传文件
 	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
-	// 合同文件（base64格式）
-	ContractFile *string `json:"contract_file,omitempty" xml:"contract_file,omitempty" require:"true"`
 	// 合同类型（1合同文件 2合同模板）
 	ContractType *int64 `json:"contract_type,omitempty" xml:"contract_type,omitempty" require:"true"`
-	// 合同名称
+	// 合同名称, 必须带上文件名后缀。 .dpf .doc .docx
 	ContractName *string `json:"contract_name,omitempty" xml:"contract_name,omitempty" require:"true"`
 	// 合同文件类型 （pdf、word）
 	ContractFileType *string `json:"contract_file_type,omitempty" xml:"contract_file_type,omitempty" require:"true"`
@@ -429,6 +429,11 @@ func (s *SignAntsaasStaffingcContractSendRequest) SetProductInstanceId(v string)
 	return s
 }
 
+func (s *SignAntsaasStaffingcContractSendRequest) SetOutBizNo(v string) *SignAntsaasStaffingcContractSendRequest {
+	s.OutBizNo = &v
+	return s
+}
+
 func (s *SignAntsaasStaffingcContractSendRequest) SetFileObject(v io.Reader) *SignAntsaasStaffingcContractSendRequest {
 	s.FileObject = v
 	return s
@@ -441,11 +446,6 @@ func (s *SignAntsaasStaffingcContractSendRequest) SetFileObjectName(v string) *S
 
 func (s *SignAntsaasStaffingcContractSendRequest) SetFileId(v string) *SignAntsaasStaffingcContractSendRequest {
 	s.FileId = &v
-	return s
-}
-
-func (s *SignAntsaasStaffingcContractSendRequest) SetContractFile(v string) *SignAntsaasStaffingcContractSendRequest {
-	s.ContractFile = &v
 	return s
 }
 
@@ -579,6 +579,8 @@ type QueryAntsaasStaffingcContractSignResponse struct {
 	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty"`
 	// 合同文件下载地址（1小时内有效）
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+	// 如果未签署，将返回签署链接
+	SignUrlList []*SignUrlResp `json:"sign_url_list,omitempty" xml:"sign_url_list,omitempty" type:"Repeated"`
 }
 
 func (s QueryAntsaasStaffingcContractSignResponse) String() string {
@@ -646,6 +648,11 @@ func (s *QueryAntsaasStaffingcContractSignResponse) SetFileName(v string) *Query
 
 func (s *QueryAntsaasStaffingcContractSignResponse) SetFileUrl(v string) *QueryAntsaasStaffingcContractSignResponse {
 	s.FileUrl = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcContractSignResponse) SetSignUrlList(v []*SignUrlResp) *QueryAntsaasStaffingcContractSignResponse {
+	s.SignUrlList = v
 	return s
 }
 
@@ -891,7 +898,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.1.0"),
 				"_prod_code":       tea.String("ak_320bc483f2434f39a3af9ec9f04d3cc0"),
 				"_prod_channel":    tea.String("saas"),
 			}
