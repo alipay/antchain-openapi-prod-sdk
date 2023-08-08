@@ -148,6 +148,32 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// CctSubCheckLabel
+type CctSubCheckLabel struct {
+	// sub_label
+	SubLabel *string `json:"sub_label,omitempty" xml:"sub_label,omitempty" require:"true"`
+	// rate
+	Rate *int64 `json:"rate,omitempty" xml:"rate,omitempty" require:"true"`
+}
+
+func (s CctSubCheckLabel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CctSubCheckLabel) GoString() string {
+	return s.String()
+}
+
+func (s *CctSubCheckLabel) SetSubLabel(v string) *CctSubCheckLabel {
+	s.SubLabel = &v
+	return s
+}
+
+func (s *CctSubCheckLabel) SetRate(v int64) *CctSubCheckLabel {
+	s.Rate = &v
+	return s
+}
+
 // 人脸盾结果
 type FaceShieldResult struct {
 	// 设备token
@@ -185,6 +211,32 @@ func (s *FaceShieldResult) SetRiskDesc(v string) *FaceShieldResult {
 
 func (s *FaceShieldResult) SetSugAction(v string) *FaceShieldResult {
 	s.SugAction = &v
+	return s
+}
+
+// 内容安全请求体datamap
+type CctDataMap struct {
+	// text
+	Text []*string `json:"text,omitempty" xml:"text,omitempty" type:"Repeated"`
+	// PICTURE
+	Picture []*string `json:"picture,omitempty" xml:"picture,omitempty" type:"Repeated"`
+}
+
+func (s CctDataMap) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CctDataMap) GoString() string {
+	return s.String()
+}
+
+func (s *CctDataMap) SetText(v []*string) *CctDataMap {
+	s.Text = v
+	return s
+}
+
+func (s *CctDataMap) SetPicture(v []*string) *CctDataMap {
+	s.Picture = v
 	return s
 }
 
@@ -267,6 +319,46 @@ func (s *InsureInfo) SetOperateType(v string) *InsureInfo {
 
 func (s *InsureInfo) SetInsureCompCreditNo(v string) *InsureInfo {
 	s.InsureCompCreditNo = &v
+	return s
+}
+
+// 内容安全response
+type CctDetectCheckLabel struct {
+	// label
+	Label *string `json:"label,omitempty" xml:"label,omitempty" require:"true"`
+	// rate
+	Rate *int64 `json:"rate,omitempty" xml:"rate,omitempty" require:"true"`
+	// subLabels
+	SubLabels []*CctSubCheckLabel `json:"sub_labels,omitempty" xml:"sub_labels,omitempty" require:"true" type:"Repeated"`
+	// details
+	Details *string `json:"details,omitempty" xml:"details,omitempty" require:"true"`
+}
+
+func (s CctDetectCheckLabel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CctDetectCheckLabel) GoString() string {
+	return s.String()
+}
+
+func (s *CctDetectCheckLabel) SetLabel(v string) *CctDetectCheckLabel {
+	s.Label = &v
+	return s
+}
+
+func (s *CctDetectCheckLabel) SetRate(v int64) *CctDetectCheckLabel {
+	s.Rate = &v
+	return s
+}
+
+func (s *CctDetectCheckLabel) SetSubLabels(v []*CctSubCheckLabel) *CctDetectCheckLabel {
+	s.SubLabels = v
+	return s
+}
+
+func (s *CctDetectCheckLabel) SetDetails(v string) *CctDetectCheckLabel {
+	s.Details = &v
 	return s
 }
 
@@ -434,461 +526,6 @@ func (s *ExecEkytInsureResponse) SetSuccess(v bool) *ExecEkytInsureResponse {
 }
 
 func (s *ExecEkytInsureResponse) SetData(v string) *ExecEkytInsureResponse {
-	s.Data = &v
-	return s
-}
-
-type InitIifaaDeviceRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 产商code
-	CorpCode *string `json:"corp_code,omitempty" xml:"corp_code,omitempty" require:"true"`
-	// 设备类型
-	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty" require:"true"`
-	// 设备信息
-	DeviceInfo *string `json:"device_info,omitempty" xml:"device_info,omitempty" require:"true"`
-}
-
-func (s InitIifaaDeviceRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s InitIifaaDeviceRequest) GoString() string {
-	return s.String()
-}
-
-func (s *InitIifaaDeviceRequest) SetAuthToken(v string) *InitIifaaDeviceRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *InitIifaaDeviceRequest) SetProductInstanceId(v string) *InitIifaaDeviceRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *InitIifaaDeviceRequest) SetCorpCode(v string) *InitIifaaDeviceRequest {
-	s.CorpCode = &v
-	return s
-}
-
-func (s *InitIifaaDeviceRequest) SetDeviceType(v string) *InitIifaaDeviceRequest {
-	s.DeviceType = &v
-	return s
-}
-
-func (s *InitIifaaDeviceRequest) SetDeviceInfo(v string) *InitIifaaDeviceRequest {
-	s.DeviceInfo = &v
-	return s
-}
-
-type InitIifaaDeviceResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回数据
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
-}
-
-func (s InitIifaaDeviceResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s InitIifaaDeviceResponse) GoString() string {
-	return s.String()
-}
-
-func (s *InitIifaaDeviceResponse) SetReqMsgId(v string) *InitIifaaDeviceResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *InitIifaaDeviceResponse) SetResultCode(v string) *InitIifaaDeviceResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *InitIifaaDeviceResponse) SetResultMsg(v string) *InitIifaaDeviceResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *InitIifaaDeviceResponse) SetData(v string) *InitIifaaDeviceResponse {
-	s.Data = &v
-	return s
-}
-
-type RecognizeIifaaDeviceRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 设备唯一ID
-	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
-}
-
-func (s RecognizeIifaaDeviceRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RecognizeIifaaDeviceRequest) GoString() string {
-	return s.String()
-}
-
-func (s *RecognizeIifaaDeviceRequest) SetAuthToken(v string) *RecognizeIifaaDeviceRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *RecognizeIifaaDeviceRequest) SetProductInstanceId(v string) *RecognizeIifaaDeviceRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *RecognizeIifaaDeviceRequest) SetTuid(v string) *RecognizeIifaaDeviceRequest {
-	s.Tuid = &v
-	return s
-}
-
-type RecognizeIifaaDeviceResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回数据内容
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
-}
-
-func (s RecognizeIifaaDeviceResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RecognizeIifaaDeviceResponse) GoString() string {
-	return s.String()
-}
-
-func (s *RecognizeIifaaDeviceResponse) SetReqMsgId(v string) *RecognizeIifaaDeviceResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *RecognizeIifaaDeviceResponse) SetResultCode(v string) *RecognizeIifaaDeviceResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *RecognizeIifaaDeviceResponse) SetResultMsg(v string) *RecognizeIifaaDeviceResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *RecognizeIifaaDeviceResponse) SetData(v string) *RecognizeIifaaDeviceResponse {
-	s.Data = &v
-	return s
-}
-
-type VerifyIifaaDeviceRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 待验证的数据
-	CipherText *string `json:"cipher_text,omitempty" xml:"cipher_text,omitempty" require:"true"`
-}
-
-func (s VerifyIifaaDeviceRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VerifyIifaaDeviceRequest) GoString() string {
-	return s.String()
-}
-
-func (s *VerifyIifaaDeviceRequest) SetAuthToken(v string) *VerifyIifaaDeviceRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *VerifyIifaaDeviceRequest) SetProductInstanceId(v string) *VerifyIifaaDeviceRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *VerifyIifaaDeviceRequest) SetCipherText(v string) *VerifyIifaaDeviceRequest {
-	s.CipherText = &v
-	return s
-}
-
-type VerifyIifaaDeviceResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 验证结果
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
-}
-
-func (s VerifyIifaaDeviceResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VerifyIifaaDeviceResponse) GoString() string {
-	return s.String()
-}
-
-func (s *VerifyIifaaDeviceResponse) SetReqMsgId(v string) *VerifyIifaaDeviceResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *VerifyIifaaDeviceResponse) SetResultCode(v string) *VerifyIifaaDeviceResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *VerifyIifaaDeviceResponse) SetResultMsg(v string) *VerifyIifaaDeviceResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *VerifyIifaaDeviceResponse) SetData(v string) *VerifyIifaaDeviceResponse {
-	s.Data = &v
-	return s
-}
-
-type RegisterIifaaCorpRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 产商code
-	CorpCode *string `json:"corp_code,omitempty" xml:"corp_code,omitempty" require:"true"`
-	// 产商名称
-	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
-	// 产商签约code
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
-}
-
-func (s RegisterIifaaCorpRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RegisterIifaaCorpRequest) GoString() string {
-	return s.String()
-}
-
-func (s *RegisterIifaaCorpRequest) SetAuthToken(v string) *RegisterIifaaCorpRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *RegisterIifaaCorpRequest) SetProductInstanceId(v string) *RegisterIifaaCorpRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *RegisterIifaaCorpRequest) SetCorpCode(v string) *RegisterIifaaCorpRequest {
-	s.CorpCode = &v
-	return s
-}
-
-func (s *RegisterIifaaCorpRequest) SetCorpName(v string) *RegisterIifaaCorpRequest {
-	s.CorpName = &v
-	return s
-}
-
-func (s *RegisterIifaaCorpRequest) SetProductCode(v string) *RegisterIifaaCorpRequest {
-	s.ProductCode = &v
-	return s
-}
-
-type RegisterIifaaCorpResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 产商注册结果
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
-}
-
-func (s RegisterIifaaCorpResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RegisterIifaaCorpResponse) GoString() string {
-	return s.String()
-}
-
-func (s *RegisterIifaaCorpResponse) SetReqMsgId(v string) *RegisterIifaaCorpResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *RegisterIifaaCorpResponse) SetResultCode(v string) *RegisterIifaaCorpResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *RegisterIifaaCorpResponse) SetResultMsg(v string) *RegisterIifaaCorpResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *RegisterIifaaCorpResponse) SetData(v string) *RegisterIifaaCorpResponse {
-	s.Data = &v
-	return s
-}
-
-type DeprecateIifaaDeviceRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 设备唯一ID
-	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
-}
-
-func (s DeprecateIifaaDeviceRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeprecateIifaaDeviceRequest) GoString() string {
-	return s.String()
-}
-
-func (s *DeprecateIifaaDeviceRequest) SetAuthToken(v string) *DeprecateIifaaDeviceRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *DeprecateIifaaDeviceRequest) SetProductInstanceId(v string) *DeprecateIifaaDeviceRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *DeprecateIifaaDeviceRequest) SetTuid(v string) *DeprecateIifaaDeviceRequest {
-	s.Tuid = &v
-	return s
-}
-
-type DeprecateIifaaDeviceResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 设备擦除结果
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
-}
-
-func (s DeprecateIifaaDeviceResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeprecateIifaaDeviceResponse) GoString() string {
-	return s.String()
-}
-
-func (s *DeprecateIifaaDeviceResponse) SetReqMsgId(v string) *DeprecateIifaaDeviceResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *DeprecateIifaaDeviceResponse) SetResultCode(v string) *DeprecateIifaaDeviceResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *DeprecateIifaaDeviceResponse) SetResultMsg(v string) *DeprecateIifaaDeviceResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *DeprecateIifaaDeviceResponse) SetData(v string) *DeprecateIifaaDeviceResponse {
-	s.Data = &v
-	return s
-}
-
-type ExecIifaaInsureRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 保险信息list的jsonStr
-	InsureInfoListStr *string `json:"insure_info_list_str,omitempty" xml:"insure_info_list_str,omitempty" require:"true"`
-	// 对insure_info_list_str的签名，使用十六进制字符串编码
-	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
-}
-
-func (s ExecIifaaInsureRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ExecIifaaInsureRequest) GoString() string {
-	return s.String()
-}
-
-func (s *ExecIifaaInsureRequest) SetAuthToken(v string) *ExecIifaaInsureRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *ExecIifaaInsureRequest) SetProductInstanceId(v string) *ExecIifaaInsureRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *ExecIifaaInsureRequest) SetInsureInfoListStr(v string) *ExecIifaaInsureRequest {
-	s.InsureInfoListStr = &v
-	return s
-}
-
-func (s *ExecIifaaInsureRequest) SetSignature(v string) *ExecIifaaInsureRequest {
-	s.Signature = &v
-	return s
-}
-
-type ExecIifaaInsureResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 投保结果list的jsonStr
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
-}
-
-func (s ExecIifaaInsureResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ExecIifaaInsureResponse) GoString() string {
-	return s.String()
-}
-
-func (s *ExecIifaaInsureResponse) SetReqMsgId(v string) *ExecIifaaInsureResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *ExecIifaaInsureResponse) SetResultCode(v string) *ExecIifaaInsureResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *ExecIifaaInsureResponse) SetResultMsg(v string) *ExecIifaaInsureResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *ExecIifaaInsureResponse) SetData(v string) *ExecIifaaInsureResponse {
 	s.Data = &v
 	return s
 }
@@ -1469,6 +1106,384 @@ func (s *QueryFaceshieldWebResponse) SetData(v *FaceShieldResult) *QueryFaceshie
 	return s
 }
 
+type InitIifaaDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产商code
+	CorpCode *string `json:"corp_code,omitempty" xml:"corp_code,omitempty" require:"true"`
+	// 设备类型
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty" require:"true"`
+	// 设备信息
+	DeviceInfo *string `json:"device_info,omitempty" xml:"device_info,omitempty" require:"true"`
+}
+
+func (s InitIifaaDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitIifaaDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitIifaaDeviceRequest) SetAuthToken(v string) *InitIifaaDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitIifaaDeviceRequest) SetProductInstanceId(v string) *InitIifaaDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitIifaaDeviceRequest) SetCorpCode(v string) *InitIifaaDeviceRequest {
+	s.CorpCode = &v
+	return s
+}
+
+func (s *InitIifaaDeviceRequest) SetDeviceType(v string) *InitIifaaDeviceRequest {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *InitIifaaDeviceRequest) SetDeviceInfo(v string) *InitIifaaDeviceRequest {
+	s.DeviceInfo = &v
+	return s
+}
+
+type InitIifaaDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s InitIifaaDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitIifaaDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitIifaaDeviceResponse) SetReqMsgId(v string) *InitIifaaDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitIifaaDeviceResponse) SetResultCode(v string) *InitIifaaDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitIifaaDeviceResponse) SetResultMsg(v string) *InitIifaaDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitIifaaDeviceResponse) SetData(v string) *InitIifaaDeviceResponse {
+	s.Data = &v
+	return s
+}
+
+type RecognizeIifaaDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备唯一ID
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+}
+
+func (s RecognizeIifaaDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecognizeIifaaDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RecognizeIifaaDeviceRequest) SetAuthToken(v string) *RecognizeIifaaDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RecognizeIifaaDeviceRequest) SetProductInstanceId(v string) *RecognizeIifaaDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RecognizeIifaaDeviceRequest) SetTuid(v string) *RecognizeIifaaDeviceRequest {
+	s.Tuid = &v
+	return s
+}
+
+type RecognizeIifaaDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据内容
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s RecognizeIifaaDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecognizeIifaaDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RecognizeIifaaDeviceResponse) SetReqMsgId(v string) *RecognizeIifaaDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RecognizeIifaaDeviceResponse) SetResultCode(v string) *RecognizeIifaaDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RecognizeIifaaDeviceResponse) SetResultMsg(v string) *RecognizeIifaaDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RecognizeIifaaDeviceResponse) SetData(v string) *RecognizeIifaaDeviceResponse {
+	s.Data = &v
+	return s
+}
+
+type VerifyIifaaDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待验证的数据
+	CipherText *string `json:"cipher_text,omitempty" xml:"cipher_text,omitempty" require:"true"`
+}
+
+func (s VerifyIifaaDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyIifaaDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyIifaaDeviceRequest) SetAuthToken(v string) *VerifyIifaaDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyIifaaDeviceRequest) SetProductInstanceId(v string) *VerifyIifaaDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifyIifaaDeviceRequest) SetCipherText(v string) *VerifyIifaaDeviceRequest {
+	s.CipherText = &v
+	return s
+}
+
+type VerifyIifaaDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 验证结果
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s VerifyIifaaDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyIifaaDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyIifaaDeviceResponse) SetReqMsgId(v string) *VerifyIifaaDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyIifaaDeviceResponse) SetResultCode(v string) *VerifyIifaaDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyIifaaDeviceResponse) SetResultMsg(v string) *VerifyIifaaDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyIifaaDeviceResponse) SetData(v string) *VerifyIifaaDeviceResponse {
+	s.Data = &v
+	return s
+}
+
+type RegisterIifaaCorpRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产商code
+	CorpCode *string `json:"corp_code,omitempty" xml:"corp_code,omitempty" require:"true"`
+	// 产商名称
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+	// 产商签约code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+}
+
+func (s RegisterIifaaCorpRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterIifaaCorpRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterIifaaCorpRequest) SetAuthToken(v string) *RegisterIifaaCorpRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterIifaaCorpRequest) SetProductInstanceId(v string) *RegisterIifaaCorpRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterIifaaCorpRequest) SetCorpCode(v string) *RegisterIifaaCorpRequest {
+	s.CorpCode = &v
+	return s
+}
+
+func (s *RegisterIifaaCorpRequest) SetCorpName(v string) *RegisterIifaaCorpRequest {
+	s.CorpName = &v
+	return s
+}
+
+func (s *RegisterIifaaCorpRequest) SetProductCode(v string) *RegisterIifaaCorpRequest {
+	s.ProductCode = &v
+	return s
+}
+
+type RegisterIifaaCorpResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 产商注册结果
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s RegisterIifaaCorpResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterIifaaCorpResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterIifaaCorpResponse) SetReqMsgId(v string) *RegisterIifaaCorpResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterIifaaCorpResponse) SetResultCode(v string) *RegisterIifaaCorpResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterIifaaCorpResponse) SetResultMsg(v string) *RegisterIifaaCorpResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterIifaaCorpResponse) SetData(v string) *RegisterIifaaCorpResponse {
+	s.Data = &v
+	return s
+}
+
+type DeprecateIifaaDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备唯一ID
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+}
+
+func (s DeprecateIifaaDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeprecateIifaaDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeprecateIifaaDeviceRequest) SetAuthToken(v string) *DeprecateIifaaDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeprecateIifaaDeviceRequest) SetProductInstanceId(v string) *DeprecateIifaaDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeprecateIifaaDeviceRequest) SetTuid(v string) *DeprecateIifaaDeviceRequest {
+	s.Tuid = &v
+	return s
+}
+
+type DeprecateIifaaDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备擦除结果
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s DeprecateIifaaDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeprecateIifaaDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeprecateIifaaDeviceResponse) SetReqMsgId(v string) *DeprecateIifaaDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeprecateIifaaDeviceResponse) SetResultCode(v string) *DeprecateIifaaDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeprecateIifaaDeviceResponse) SetResultMsg(v string) *DeprecateIifaaDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeprecateIifaaDeviceResponse) SetData(v string) *DeprecateIifaaDeviceResponse {
+	s.Data = &v
+	return s
+}
+
 type RunXhunterSpiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1560,6 +1575,83 @@ func (s *RunXhunterSpiResponse) SetResponse(v string) *RunXhunterSpiResponse {
 	return s
 }
 
+type ExecIifaaInsureRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 保险信息list的jsonStr
+	InsureInfoListStr *string `json:"insure_info_list_str,omitempty" xml:"insure_info_list_str,omitempty" require:"true"`
+	// 对insure_info_list_str的签名，使用十六进制字符串编码
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+}
+
+func (s ExecIifaaInsureRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecIifaaInsureRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecIifaaInsureRequest) SetAuthToken(v string) *ExecIifaaInsureRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecIifaaInsureRequest) SetProductInstanceId(v string) *ExecIifaaInsureRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecIifaaInsureRequest) SetInsureInfoListStr(v string) *ExecIifaaInsureRequest {
+	s.InsureInfoListStr = &v
+	return s
+}
+
+func (s *ExecIifaaInsureRequest) SetSignature(v string) *ExecIifaaInsureRequest {
+	s.Signature = &v
+	return s
+}
+
+type ExecIifaaInsureResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 投保结果list的jsonStr
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ExecIifaaInsureResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecIifaaInsureResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecIifaaInsureResponse) SetReqMsgId(v string) *ExecIifaaInsureResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecIifaaInsureResponse) SetResultCode(v string) *ExecIifaaInsureResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecIifaaInsureResponse) SetResultMsg(v string) *ExecIifaaInsureResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecIifaaInsureResponse) SetData(v string) *ExecIifaaInsureResponse {
+	s.Data = &v
+	return s
+}
+
 type QueryCctPictureRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1634,6 +1726,118 @@ func (s *QueryCctPictureResponse) SetResultMsg(v string) *QueryCctPictureRespons
 
 func (s *QueryCctPictureResponse) SetResponse(v string) *QueryCctPictureResponse {
 	s.Response = &v
+	return s
+}
+
+type RecognizeCctAnalyzeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// channel
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+	// content_type
+	ContentType *string `json:"content_type,omitempty" xml:"content_type,omitempty" require:"true"`
+	// user_id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// request_id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// data_map
+	DataMap *CctDataMap `json:"data_map,omitempty" xml:"data_map,omitempty" require:"true"`
+}
+
+func (s RecognizeCctAnalyzeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecognizeCctAnalyzeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RecognizeCctAnalyzeRequest) SetAuthToken(v string) *RecognizeCctAnalyzeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RecognizeCctAnalyzeRequest) SetProductInstanceId(v string) *RecognizeCctAnalyzeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RecognizeCctAnalyzeRequest) SetChannel(v string) *RecognizeCctAnalyzeRequest {
+	s.Channel = &v
+	return s
+}
+
+func (s *RecognizeCctAnalyzeRequest) SetContentType(v string) *RecognizeCctAnalyzeRequest {
+	s.ContentType = &v
+	return s
+}
+
+func (s *RecognizeCctAnalyzeRequest) SetUserId(v string) *RecognizeCctAnalyzeRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *RecognizeCctAnalyzeRequest) SetRequestId(v string) *RecognizeCctAnalyzeRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *RecognizeCctAnalyzeRequest) SetDataMap(v *CctDataMap) *RecognizeCctAnalyzeRequest {
+	s.DataMap = v
+	return s
+}
+
+type RecognizeCctAnalyzeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// biz_request_id
+	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty"`
+	// suggestion
+	Suggestion *string `json:"suggestion,omitempty" xml:"suggestion,omitempty"`
+	// detect_labels
+	DetectLabels []*CctDetectCheckLabel `json:"detect_labels,omitempty" xml:"detect_labels,omitempty" type:"Repeated"`
+}
+
+func (s RecognizeCctAnalyzeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecognizeCctAnalyzeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RecognizeCctAnalyzeResponse) SetReqMsgId(v string) *RecognizeCctAnalyzeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RecognizeCctAnalyzeResponse) SetResultCode(v string) *RecognizeCctAnalyzeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RecognizeCctAnalyzeResponse) SetResultMsg(v string) *RecognizeCctAnalyzeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RecognizeCctAnalyzeResponse) SetBizRequestId(v string) *RecognizeCctAnalyzeResponse {
+	s.BizRequestId = &v
+	return s
+}
+
+func (s *RecognizeCctAnalyzeResponse) SetSuggestion(v string) *RecognizeCctAnalyzeResponse {
+	s.Suggestion = &v
+	return s
+}
+
+func (s *RecognizeCctAnalyzeResponse) SetDetectLabels(v []*CctDetectCheckLabel) *RecognizeCctAnalyzeResponse {
+	s.DetectLabels = v
 	return s
 }
 
@@ -1759,7 +1963,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.11"),
+				"sdk_version":      tea.String("1.1.12"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -1880,6 +2084,142 @@ func (client *Client) ExecEkytInsureEx(request *ExecEkytInsureRequest, headers m
 	}
 	_result = &ExecEkytInsureResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.ekyt.insure.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 蓝盾安全图片生成
+ * Summary: 蓝盾安全图片生成
+ */
+func (client *Client) CreateBssecpic(request *CreateBssecpicRequest) (_result *CreateBssecpicResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateBssecpicResponse{}
+	_body, _err := client.CreateBssecpicEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 蓝盾安全图片生成
+ * Summary: 蓝盾安全图片生成
+ */
+func (client *Client) CreateBssecpicEx(request *CreateBssecpicRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBssecpicResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBssecpicResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.bssecpic.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 蓝盾安全图片生成
+ * Summary: 蓝盾安全图片生成
+ */
+func (client *Client) CreateBlueshieldSecuritypicture(request *CreateBlueshieldSecuritypictureRequest) (_result *CreateBlueshieldSecuritypictureResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateBlueshieldSecuritypictureResponse{}
+	_body, _err := client.CreateBlueshieldSecuritypictureEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 蓝盾安全图片生成
+ * Summary: 蓝盾安全图片生成
+ */
+func (client *Client) CreateBlueshieldSecuritypictureEx(request *CreateBlueshieldSecuritypictureRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBlueshieldSecuritypictureResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBlueshieldSecuritypictureResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.blueshield.securitypicture.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全人脸盾Native查询
+ * Summary: 人脸盾Native查询
+ */
+func (client *Client) QueryFaceshieldNative(request *QueryFaceshieldNativeRequest) (_result *QueryFaceshieldNativeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFaceshieldNativeResponse{}
+	_body, _err := client.QueryFaceshieldNativeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全人脸盾Native查询
+ * Summary: 人脸盾Native查询
+ */
+func (client *Client) QueryFaceshieldNativeEx(request *QueryFaceshieldNativeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFaceshieldNativeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFaceshieldNativeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.faceshield.native.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全人脸盾Web查询
+ * Summary: 人脸盾Web查询
+ */
+func (client *Client) QueryFaceshieldWeb(request *QueryFaceshieldWebRequest) (_result *QueryFaceshieldWebResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFaceshieldWebResponse{}
+	_body, _err := client.QueryFaceshieldWebEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全人脸盾Web查询
+ * Summary: 人脸盾Web查询
+ */
+func (client *Client) QueryFaceshieldWebEx(request *QueryFaceshieldWebRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFaceshieldWebResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFaceshieldWebResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.faceshield.web.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -2058,176 +2398,6 @@ func (client *Client) DeprecateIifaaDeviceEx(request *DeprecateIifaaDeviceReques
 }
 
 /**
- * Description: 租凭住房保险产品，接口开放给租房平台
- * Summary: 租凭住房保险产品，接口开放给租房平台
- */
-func (client *Client) ExecIifaaInsure(request *ExecIifaaInsureRequest) (_result *ExecIifaaInsureResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &ExecIifaaInsureResponse{}
-	_body, _err := client.ExecIifaaInsureEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 租凭住房保险产品，接口开放给租房平台
- * Summary: 租凭住房保险产品，接口开放给租房平台
- */
-func (client *Client) ExecIifaaInsureEx(request *ExecIifaaInsureRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecIifaaInsureResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &ExecIifaaInsureResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.iifaa.insure.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 蓝盾安全图片生成
- * Summary: 蓝盾安全图片生成
- */
-func (client *Client) CreateBssecpic(request *CreateBssecpicRequest) (_result *CreateBssecpicResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &CreateBssecpicResponse{}
-	_body, _err := client.CreateBssecpicEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 蓝盾安全图片生成
- * Summary: 蓝盾安全图片生成
- */
-func (client *Client) CreateBssecpicEx(request *CreateBssecpicRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBssecpicResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &CreateBssecpicResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.bssecpic.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 蓝盾安全图片生成
- * Summary: 蓝盾安全图片生成
- */
-func (client *Client) CreateBlueshieldSecuritypicture(request *CreateBlueshieldSecuritypictureRequest) (_result *CreateBlueshieldSecuritypictureResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &CreateBlueshieldSecuritypictureResponse{}
-	_body, _err := client.CreateBlueshieldSecuritypictureEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 蓝盾安全图片生成
- * Summary: 蓝盾安全图片生成
- */
-func (client *Client) CreateBlueshieldSecuritypictureEx(request *CreateBlueshieldSecuritypictureRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBlueshieldSecuritypictureResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &CreateBlueshieldSecuritypictureResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.blueshield.securitypicture.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 终端安全人脸盾Native查询
- * Summary: 人脸盾Native查询
- */
-func (client *Client) QueryFaceshieldNative(request *QueryFaceshieldNativeRequest) (_result *QueryFaceshieldNativeResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryFaceshieldNativeResponse{}
-	_body, _err := client.QueryFaceshieldNativeEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 终端安全人脸盾Native查询
- * Summary: 人脸盾Native查询
- */
-func (client *Client) QueryFaceshieldNativeEx(request *QueryFaceshieldNativeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFaceshieldNativeResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryFaceshieldNativeResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.faceshield.native.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 终端安全人脸盾Web查询
- * Summary: 人脸盾Web查询
- */
-func (client *Client) QueryFaceshieldWeb(request *QueryFaceshieldWebRequest) (_result *QueryFaceshieldWebResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryFaceshieldWebResponse{}
-	_body, _err := client.QueryFaceshieldWebEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 终端安全人脸盾Web查询
- * Summary: 人脸盾Web查询
- */
-func (client *Client) QueryFaceshieldWebEx(request *QueryFaceshieldWebRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFaceshieldWebResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryFaceshieldWebResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.faceshield.web.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
  * Description: 巡检商业化
  * Summary: 巡检商业化
  */
@@ -2262,6 +2432,40 @@ func (client *Client) RunXhunterSpiEx(request *RunXhunterSpiRequest, headers map
 }
 
 /**
+ * Description: 租凭住房保险产品，接口开放给租房平台
+ * Summary: 租凭住房保险产品，接口开放给租房平台
+ */
+func (client *Client) ExecIifaaInsure(request *ExecIifaaInsureRequest) (_result *ExecIifaaInsureResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecIifaaInsureResponse{}
+	_body, _err := client.ExecIifaaInsureEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租凭住房保险产品，接口开放给租房平台
+ * Summary: 租凭住房保险产品，接口开放给租房平台
+ */
+func (client *Client) ExecIifaaInsureEx(request *ExecIifaaInsureRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecIifaaInsureResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecIifaaInsureResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.iifaa.insure.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 内容安全图片同步检测
  * Summary: 内容安全图片同步检测
  */
@@ -2288,6 +2492,40 @@ func (client *Client) QueryCctPictureEx(request *QueryCctPictureRequest, headers
 	}
 	_result = &QueryCctPictureResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.cct.picture.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 内容安全主站同步检测
+ * Summary: 内容安全主站同步检测
+ */
+func (client *Client) RecognizeCctAnalyze(request *RecognizeCctAnalyzeRequest) (_result *RecognizeCctAnalyzeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RecognizeCctAnalyzeResponse{}
+	_body, _err := client.RecognizeCctAnalyzeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 内容安全主站同步检测
+ * Summary: 内容安全主站同步检测
+ */
+func (client *Client) RecognizeCctAnalyzeEx(request *RecognizeCctAnalyzeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RecognizeCctAnalyzeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RecognizeCctAnalyzeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.cct.analyze.recognize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
