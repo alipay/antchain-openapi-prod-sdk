@@ -24,11 +24,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 是否成功
-        [NameInMap("success")]
-        [Validation(Required=false)]
-        public bool? Success { get; set; }
-
     }
 
 }
