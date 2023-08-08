@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 人脸盾结果
+            # CctSubCheckLabel
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.11',
+                    'sdk_version': '1.1.12',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 人脸盾结果
+            # CctSubCheckLabel
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.11',
+                    'sdk_version': '1.1.12',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -389,6 +389,230 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.ExecEkytInsureResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.ekyt.insure.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_bssecpic(
+        self,
+        request: securitytech_models.CreateBssecpicRequest,
+    ) -> securitytech_models.CreateBssecpicResponse:
+        """
+        Description: 蓝盾安全图片生成
+        Summary: 蓝盾安全图片生成
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_bssecpic_ex(request, headers, runtime)
+
+    async def create_bssecpic_async(
+        self,
+        request: securitytech_models.CreateBssecpicRequest,
+    ) -> securitytech_models.CreateBssecpicResponse:
+        """
+        Description: 蓝盾安全图片生成
+        Summary: 蓝盾安全图片生成
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_bssecpic_ex_async(request, headers, runtime)
+
+    def create_bssecpic_ex(
+        self,
+        request: securitytech_models.CreateBssecpicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.CreateBssecpicResponse:
+        """
+        Description: 蓝盾安全图片生成
+        Summary: 蓝盾安全图片生成
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.CreateBssecpicResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.bssecpic.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_bssecpic_ex_async(
+        self,
+        request: securitytech_models.CreateBssecpicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.CreateBssecpicResponse:
+        """
+        Description: 蓝盾安全图片生成
+        Summary: 蓝盾安全图片生成
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.CreateBssecpicResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.bssecpic.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_blueshield_securitypicture(
+        self,
+        request: securitytech_models.CreateBlueshieldSecuritypictureRequest,
+    ) -> securitytech_models.CreateBlueshieldSecuritypictureResponse:
+        """
+        Description: 蓝盾安全图片生成
+        Summary: 蓝盾安全图片生成
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_blueshield_securitypicture_ex(request, headers, runtime)
+
+    async def create_blueshield_securitypicture_async(
+        self,
+        request: securitytech_models.CreateBlueshieldSecuritypictureRequest,
+    ) -> securitytech_models.CreateBlueshieldSecuritypictureResponse:
+        """
+        Description: 蓝盾安全图片生成
+        Summary: 蓝盾安全图片生成
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_blueshield_securitypicture_ex_async(request, headers, runtime)
+
+    def create_blueshield_securitypicture_ex(
+        self,
+        request: securitytech_models.CreateBlueshieldSecuritypictureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.CreateBlueshieldSecuritypictureResponse:
+        """
+        Description: 蓝盾安全图片生成
+        Summary: 蓝盾安全图片生成
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.CreateBlueshieldSecuritypictureResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.blueshield.securitypicture.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_blueshield_securitypicture_ex_async(
+        self,
+        request: securitytech_models.CreateBlueshieldSecuritypictureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.CreateBlueshieldSecuritypictureResponse:
+        """
+        Description: 蓝盾安全图片生成
+        Summary: 蓝盾安全图片生成
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.CreateBlueshieldSecuritypictureResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.blueshield.securitypicture.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_faceshield_native(
+        self,
+        request: securitytech_models.QueryFaceshieldNativeRequest,
+    ) -> securitytech_models.QueryFaceshieldNativeResponse:
+        """
+        Description: 终端安全人脸盾Native查询
+        Summary: 人脸盾Native查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_faceshield_native_ex(request, headers, runtime)
+
+    async def query_faceshield_native_async(
+        self,
+        request: securitytech_models.QueryFaceshieldNativeRequest,
+    ) -> securitytech_models.QueryFaceshieldNativeResponse:
+        """
+        Description: 终端安全人脸盾Native查询
+        Summary: 人脸盾Native查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_faceshield_native_ex_async(request, headers, runtime)
+
+    def query_faceshield_native_ex(
+        self,
+        request: securitytech_models.QueryFaceshieldNativeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryFaceshieldNativeResponse:
+        """
+        Description: 终端安全人脸盾Native查询
+        Summary: 人脸盾Native查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryFaceshieldNativeResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.faceshield.native.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_faceshield_native_ex_async(
+        self,
+        request: securitytech_models.QueryFaceshieldNativeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryFaceshieldNativeResponse:
+        """
+        Description: 终端安全人脸盾Native查询
+        Summary: 人脸盾Native查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryFaceshieldNativeResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.faceshield.native.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_faceshield_web(
+        self,
+        request: securitytech_models.QueryFaceshieldWebRequest,
+    ) -> securitytech_models.QueryFaceshieldWebResponse:
+        """
+        Description: 终端安全人脸盾Web查询
+        Summary: 人脸盾Web查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_faceshield_web_ex(request, headers, runtime)
+
+    async def query_faceshield_web_async(
+        self,
+        request: securitytech_models.QueryFaceshieldWebRequest,
+    ) -> securitytech_models.QueryFaceshieldWebResponse:
+        """
+        Description: 终端安全人脸盾Web查询
+        Summary: 人脸盾Web查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_faceshield_web_ex_async(request, headers, runtime)
+
+    def query_faceshield_web_ex(
+        self,
+        request: securitytech_models.QueryFaceshieldWebRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryFaceshieldWebResponse:
+        """
+        Description: 终端安全人脸盾Web查询
+        Summary: 人脸盾Web查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryFaceshieldWebResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.faceshield.web.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_faceshield_web_ex_async(
+        self,
+        request: securitytech_models.QueryFaceshieldWebRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryFaceshieldWebResponse:
+        """
+        Description: 终端安全人脸盾Web查询
+        Summary: 人脸盾Web查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryFaceshieldWebResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.faceshield.web.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def init_iifaa_device(
@@ -671,286 +895,6 @@ class Client:
             await self.do_request_async('1.0', 'antsecuritytech.gateway.iifaa.device.deprecate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def exec_iifaa_insure(
-        self,
-        request: securitytech_models.ExecIifaaInsureRequest,
-    ) -> securitytech_models.ExecIifaaInsureResponse:
-        """
-        Description: 租凭住房保险产品，接口开放给租房平台
-        Summary: 租凭住房保险产品，接口开放给租房平台
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.exec_iifaa_insure_ex(request, headers, runtime)
-
-    async def exec_iifaa_insure_async(
-        self,
-        request: securitytech_models.ExecIifaaInsureRequest,
-    ) -> securitytech_models.ExecIifaaInsureResponse:
-        """
-        Description: 租凭住房保险产品，接口开放给租房平台
-        Summary: 租凭住房保险产品，接口开放给租房平台
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.exec_iifaa_insure_ex_async(request, headers, runtime)
-
-    def exec_iifaa_insure_ex(
-        self,
-        request: securitytech_models.ExecIifaaInsureRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> securitytech_models.ExecIifaaInsureResponse:
-        """
-        Description: 租凭住房保险产品，接口开放给租房平台
-        Summary: 租凭住房保险产品，接口开放给租房平台
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            securitytech_models.ExecIifaaInsureResponse(),
-            self.do_request('1.0', 'antsecuritytech.gateway.iifaa.insure.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def exec_iifaa_insure_ex_async(
-        self,
-        request: securitytech_models.ExecIifaaInsureRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> securitytech_models.ExecIifaaInsureResponse:
-        """
-        Description: 租凭住房保险产品，接口开放给租房平台
-        Summary: 租凭住房保险产品，接口开放给租房平台
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            securitytech_models.ExecIifaaInsureResponse(),
-            await self.do_request_async('1.0', 'antsecuritytech.gateway.iifaa.insure.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def create_bssecpic(
-        self,
-        request: securitytech_models.CreateBssecpicRequest,
-    ) -> securitytech_models.CreateBssecpicResponse:
-        """
-        Description: 蓝盾安全图片生成
-        Summary: 蓝盾安全图片生成
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_bssecpic_ex(request, headers, runtime)
-
-    async def create_bssecpic_async(
-        self,
-        request: securitytech_models.CreateBssecpicRequest,
-    ) -> securitytech_models.CreateBssecpicResponse:
-        """
-        Description: 蓝盾安全图片生成
-        Summary: 蓝盾安全图片生成
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.create_bssecpic_ex_async(request, headers, runtime)
-
-    def create_bssecpic_ex(
-        self,
-        request: securitytech_models.CreateBssecpicRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> securitytech_models.CreateBssecpicResponse:
-        """
-        Description: 蓝盾安全图片生成
-        Summary: 蓝盾安全图片生成
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            securitytech_models.CreateBssecpicResponse(),
-            self.do_request('1.0', 'antsecuritytech.gateway.bssecpic.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def create_bssecpic_ex_async(
-        self,
-        request: securitytech_models.CreateBssecpicRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> securitytech_models.CreateBssecpicResponse:
-        """
-        Description: 蓝盾安全图片生成
-        Summary: 蓝盾安全图片生成
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            securitytech_models.CreateBssecpicResponse(),
-            await self.do_request_async('1.0', 'antsecuritytech.gateway.bssecpic.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def create_blueshield_securitypicture(
-        self,
-        request: securitytech_models.CreateBlueshieldSecuritypictureRequest,
-    ) -> securitytech_models.CreateBlueshieldSecuritypictureResponse:
-        """
-        Description: 蓝盾安全图片生成
-        Summary: 蓝盾安全图片生成
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_blueshield_securitypicture_ex(request, headers, runtime)
-
-    async def create_blueshield_securitypicture_async(
-        self,
-        request: securitytech_models.CreateBlueshieldSecuritypictureRequest,
-    ) -> securitytech_models.CreateBlueshieldSecuritypictureResponse:
-        """
-        Description: 蓝盾安全图片生成
-        Summary: 蓝盾安全图片生成
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.create_blueshield_securitypicture_ex_async(request, headers, runtime)
-
-    def create_blueshield_securitypicture_ex(
-        self,
-        request: securitytech_models.CreateBlueshieldSecuritypictureRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> securitytech_models.CreateBlueshieldSecuritypictureResponse:
-        """
-        Description: 蓝盾安全图片生成
-        Summary: 蓝盾安全图片生成
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            securitytech_models.CreateBlueshieldSecuritypictureResponse(),
-            self.do_request('1.0', 'antsecuritytech.gateway.blueshield.securitypicture.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def create_blueshield_securitypicture_ex_async(
-        self,
-        request: securitytech_models.CreateBlueshieldSecuritypictureRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> securitytech_models.CreateBlueshieldSecuritypictureResponse:
-        """
-        Description: 蓝盾安全图片生成
-        Summary: 蓝盾安全图片生成
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            securitytech_models.CreateBlueshieldSecuritypictureResponse(),
-            await self.do_request_async('1.0', 'antsecuritytech.gateway.blueshield.securitypicture.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_faceshield_native(
-        self,
-        request: securitytech_models.QueryFaceshieldNativeRequest,
-    ) -> securitytech_models.QueryFaceshieldNativeResponse:
-        """
-        Description: 终端安全人脸盾Native查询
-        Summary: 人脸盾Native查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_faceshield_native_ex(request, headers, runtime)
-
-    async def query_faceshield_native_async(
-        self,
-        request: securitytech_models.QueryFaceshieldNativeRequest,
-    ) -> securitytech_models.QueryFaceshieldNativeResponse:
-        """
-        Description: 终端安全人脸盾Native查询
-        Summary: 人脸盾Native查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_faceshield_native_ex_async(request, headers, runtime)
-
-    def query_faceshield_native_ex(
-        self,
-        request: securitytech_models.QueryFaceshieldNativeRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> securitytech_models.QueryFaceshieldNativeResponse:
-        """
-        Description: 终端安全人脸盾Native查询
-        Summary: 人脸盾Native查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            securitytech_models.QueryFaceshieldNativeResponse(),
-            self.do_request('1.0', 'antsecuritytech.gateway.faceshield.native.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_faceshield_native_ex_async(
-        self,
-        request: securitytech_models.QueryFaceshieldNativeRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> securitytech_models.QueryFaceshieldNativeResponse:
-        """
-        Description: 终端安全人脸盾Native查询
-        Summary: 人脸盾Native查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            securitytech_models.QueryFaceshieldNativeResponse(),
-            await self.do_request_async('1.0', 'antsecuritytech.gateway.faceshield.native.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_faceshield_web(
-        self,
-        request: securitytech_models.QueryFaceshieldWebRequest,
-    ) -> securitytech_models.QueryFaceshieldWebResponse:
-        """
-        Description: 终端安全人脸盾Web查询
-        Summary: 人脸盾Web查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_faceshield_web_ex(request, headers, runtime)
-
-    async def query_faceshield_web_async(
-        self,
-        request: securitytech_models.QueryFaceshieldWebRequest,
-    ) -> securitytech_models.QueryFaceshieldWebResponse:
-        """
-        Description: 终端安全人脸盾Web查询
-        Summary: 人脸盾Web查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_faceshield_web_ex_async(request, headers, runtime)
-
-    def query_faceshield_web_ex(
-        self,
-        request: securitytech_models.QueryFaceshieldWebRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> securitytech_models.QueryFaceshieldWebResponse:
-        """
-        Description: 终端安全人脸盾Web查询
-        Summary: 人脸盾Web查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            securitytech_models.QueryFaceshieldWebResponse(),
-            self.do_request('1.0', 'antsecuritytech.gateway.faceshield.web.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_faceshield_web_ex_async(
-        self,
-        request: securitytech_models.QueryFaceshieldWebRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> securitytech_models.QueryFaceshieldWebResponse:
-        """
-        Description: 终端安全人脸盾Web查询
-        Summary: 人脸盾Web查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            securitytech_models.QueryFaceshieldWebResponse(),
-            await self.do_request_async('1.0', 'antsecuritytech.gateway.faceshield.web.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def run_xhunter_spi(
         self,
         request: securitytech_models.RunXhunterSpiRequest,
@@ -1007,6 +951,62 @@ class Client:
             await self.do_request_async('1.0', 'antsecuritytech.gateway.xhunter.spi.run', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def exec_iifaa_insure(
+        self,
+        request: securitytech_models.ExecIifaaInsureRequest,
+    ) -> securitytech_models.ExecIifaaInsureResponse:
+        """
+        Description: 租凭住房保险产品，接口开放给租房平台
+        Summary: 租凭住房保险产品，接口开放给租房平台
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_iifaa_insure_ex(request, headers, runtime)
+
+    async def exec_iifaa_insure_async(
+        self,
+        request: securitytech_models.ExecIifaaInsureRequest,
+    ) -> securitytech_models.ExecIifaaInsureResponse:
+        """
+        Description: 租凭住房保险产品，接口开放给租房平台
+        Summary: 租凭住房保险产品，接口开放给租房平台
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_iifaa_insure_ex_async(request, headers, runtime)
+
+    def exec_iifaa_insure_ex(
+        self,
+        request: securitytech_models.ExecIifaaInsureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ExecIifaaInsureResponse:
+        """
+        Description: 租凭住房保险产品，接口开放给租房平台
+        Summary: 租凭住房保险产品，接口开放给租房平台
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ExecIifaaInsureResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.iifaa.insure.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_iifaa_insure_ex_async(
+        self,
+        request: securitytech_models.ExecIifaaInsureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ExecIifaaInsureResponse:
+        """
+        Description: 租凭住房保险产品，接口开放给租房平台
+        Summary: 租凭住房保险产品，接口开放给租房平台
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ExecIifaaInsureResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.iifaa.insure.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_cct_picture(
         self,
         request: securitytech_models.QueryCctPictureRequest,
@@ -1061,4 +1061,60 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.QueryCctPictureResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.cct.picture.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def recognize_cct_analyze(
+        self,
+        request: securitytech_models.RecognizeCctAnalyzeRequest,
+    ) -> securitytech_models.RecognizeCctAnalyzeResponse:
+        """
+        Description: 内容安全主站同步检测
+        Summary: 内容安全主站同步检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.recognize_cct_analyze_ex(request, headers, runtime)
+
+    async def recognize_cct_analyze_async(
+        self,
+        request: securitytech_models.RecognizeCctAnalyzeRequest,
+    ) -> securitytech_models.RecognizeCctAnalyzeResponse:
+        """
+        Description: 内容安全主站同步检测
+        Summary: 内容安全主站同步检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.recognize_cct_analyze_ex_async(request, headers, runtime)
+
+    def recognize_cct_analyze_ex(
+        self,
+        request: securitytech_models.RecognizeCctAnalyzeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.RecognizeCctAnalyzeResponse:
+        """
+        Description: 内容安全主站同步检测
+        Summary: 内容安全主站同步检测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.RecognizeCctAnalyzeResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.cct.analyze.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def recognize_cct_analyze_ex_async(
+        self,
+        request: securitytech_models.RecognizeCctAnalyzeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.RecognizeCctAnalyzeResponse:
+        """
+        Description: 内容安全主站同步检测
+        Summary: 内容安全主站同步检测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.RecognizeCctAnalyzeResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.cct.analyze.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
