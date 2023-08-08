@@ -20219,7 +20219,7 @@ type ApplyUmktRtBatchmarketingRequest struct {
 	// 用户标识类型
 	ParamType *string `json:"param_type,omitempty" xml:"param_type,omitempty" require:"true"`
 	// 批量透传字段
-	OutInfo *string `json:"out_info,omitempty" xml:"out_info,omitempty" require:"true"`
+	OutInfo *string `json:"out_info,omitempty" xml:"out_info,omitempty"`
 	// 用户凭证列表
 	CustomerDetails []*CustomerDetail `json:"customer_details,omitempty" xml:"customer_details,omitempty" require:"true" type:"Repeated"`
 }
@@ -20897,7 +20897,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.39"),
+				"sdk_version":      tea.String("1.16.40"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
