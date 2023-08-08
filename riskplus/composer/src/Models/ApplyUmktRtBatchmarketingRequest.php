@@ -63,7 +63,6 @@ class ApplyUmktRtBatchmarketingRequest extends Model
         Model::validateRequired('sceneStrategyId', $this->sceneStrategyId, true);
         Model::validateRequired('outSerialNo', $this->outSerialNo, true);
         Model::validateRequired('paramType', $this->paramType, true);
-        Model::validateRequired('outInfo', $this->outInfo, true);
         Model::validateRequired('customerDetails', $this->customerDetails, true);
     }
 
