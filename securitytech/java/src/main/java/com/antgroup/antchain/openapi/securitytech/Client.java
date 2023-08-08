@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.11"),
+                    new TeaPair("sdk_version", "1.1.12"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -199,6 +199,82 @@ public class Client {
     public ExecEkytInsureResponse execEkytInsureEx(ExecEkytInsureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ekyt.insure.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecEkytInsureResponse());
+    }
+
+    /**
+     * Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成
+     */
+    public CreateBssecpicResponse createBssecpic(CreateBssecpicRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBssecpicEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成
+     */
+    public CreateBssecpicResponse createBssecpicEx(CreateBssecpicRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.bssecpic.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBssecpicResponse());
+    }
+
+    /**
+     * Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成
+     */
+    public CreateBlueshieldSecuritypictureResponse createBlueshieldSecuritypicture(CreateBlueshieldSecuritypictureRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBlueshieldSecuritypictureEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成
+     */
+    public CreateBlueshieldSecuritypictureResponse createBlueshieldSecuritypictureEx(CreateBlueshieldSecuritypictureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.blueshield.securitypicture.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBlueshieldSecuritypictureResponse());
+    }
+
+    /**
+     * Description: 终端安全人脸盾Native查询
+     * Summary: 人脸盾Native查询
+     */
+    public QueryFaceshieldNativeResponse queryFaceshieldNative(QueryFaceshieldNativeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFaceshieldNativeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全人脸盾Native查询
+     * Summary: 人脸盾Native查询
+     */
+    public QueryFaceshieldNativeResponse queryFaceshieldNativeEx(QueryFaceshieldNativeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.faceshield.native.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceshieldNativeResponse());
+    }
+
+    /**
+     * Description: 终端安全人脸盾Web查询
+     * Summary: 人脸盾Web查询
+     */
+    public QueryFaceshieldWebResponse queryFaceshieldWeb(QueryFaceshieldWebRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFaceshieldWebEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全人脸盾Web查询
+     * Summary: 人脸盾Web查询
+     */
+    public QueryFaceshieldWebResponse queryFaceshieldWebEx(QueryFaceshieldWebRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceshieldWebResponse());
     }
 
     /**
@@ -297,101 +373,6 @@ public class Client {
     }
 
     /**
-     * Description: 租凭住房保险产品，接口开放给租房平台
-     * Summary: 租凭住房保险产品，接口开放给租房平台
-     */
-    public ExecIifaaInsureResponse execIifaaInsure(ExecIifaaInsureRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.execIifaaInsureEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 租凭住房保险产品，接口开放给租房平台
-     * Summary: 租凭住房保险产品，接口开放给租房平台
-     */
-    public ExecIifaaInsureResponse execIifaaInsureEx(ExecIifaaInsureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.insure.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecIifaaInsureResponse());
-    }
-
-    /**
-     * Description: 蓝盾安全图片生成
-     * Summary: 蓝盾安全图片生成
-     */
-    public CreateBssecpicResponse createBssecpic(CreateBssecpicRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.createBssecpicEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 蓝盾安全图片生成
-     * Summary: 蓝盾安全图片生成
-     */
-    public CreateBssecpicResponse createBssecpicEx(CreateBssecpicRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.bssecpic.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBssecpicResponse());
-    }
-
-    /**
-     * Description: 蓝盾安全图片生成
-     * Summary: 蓝盾安全图片生成
-     */
-    public CreateBlueshieldSecuritypictureResponse createBlueshieldSecuritypicture(CreateBlueshieldSecuritypictureRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.createBlueshieldSecuritypictureEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 蓝盾安全图片生成
-     * Summary: 蓝盾安全图片生成
-     */
-    public CreateBlueshieldSecuritypictureResponse createBlueshieldSecuritypictureEx(CreateBlueshieldSecuritypictureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.blueshield.securitypicture.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBlueshieldSecuritypictureResponse());
-    }
-
-    /**
-     * Description: 终端安全人脸盾Native查询
-     * Summary: 人脸盾Native查询
-     */
-    public QueryFaceshieldNativeResponse queryFaceshieldNative(QueryFaceshieldNativeRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryFaceshieldNativeEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 终端安全人脸盾Native查询
-     * Summary: 人脸盾Native查询
-     */
-    public QueryFaceshieldNativeResponse queryFaceshieldNativeEx(QueryFaceshieldNativeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.faceshield.native.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceshieldNativeResponse());
-    }
-
-    /**
-     * Description: 终端安全人脸盾Web查询
-     * Summary: 人脸盾Web查询
-     */
-    public QueryFaceshieldWebResponse queryFaceshieldWeb(QueryFaceshieldWebRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryFaceshieldWebEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 终端安全人脸盾Web查询
-     * Summary: 人脸盾Web查询
-     */
-    public QueryFaceshieldWebResponse queryFaceshieldWebEx(QueryFaceshieldWebRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceshieldWebResponse());
-    }
-
-    /**
      * Description: 巡检商业化
      * Summary: 巡检商业化
      */
@@ -411,6 +392,25 @@ public class Client {
     }
 
     /**
+     * Description: 租凭住房保险产品，接口开放给租房平台
+     * Summary: 租凭住房保险产品，接口开放给租房平台
+     */
+    public ExecIifaaInsureResponse execIifaaInsure(ExecIifaaInsureRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execIifaaInsureEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租凭住房保险产品，接口开放给租房平台
+     * Summary: 租凭住房保险产品，接口开放给租房平台
+     */
+    public ExecIifaaInsureResponse execIifaaInsureEx(ExecIifaaInsureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.insure.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecIifaaInsureResponse());
+    }
+
+    /**
      * Description: 内容安全图片同步检测
      * Summary: 内容安全图片同步检测
      */
@@ -427,5 +427,24 @@ public class Client {
     public QueryCctPictureResponse queryCctPictureEx(QueryCctPictureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.cct.picture.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCctPictureResponse());
+    }
+
+    /**
+     * Description: 内容安全主站同步检测
+     * Summary: 内容安全主站同步检测
+     */
+    public RecognizeCctAnalyzeResponse recognizeCctAnalyze(RecognizeCctAnalyzeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.recognizeCctAnalyzeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 内容安全主站同步检测
+     * Summary: 内容安全主站同步检测
+     */
+    public RecognizeCctAnalyzeResponse recognizeCctAnalyzeEx(RecognizeCctAnalyzeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.cct.analyze.recognize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RecognizeCctAnalyzeResponse());
     }
 }
