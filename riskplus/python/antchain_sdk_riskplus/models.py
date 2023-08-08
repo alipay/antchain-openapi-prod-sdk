@@ -25221,7 +25221,6 @@ class ApplyUmktRtBatchmarketingRequest(TeaModel):
         self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
         self.validate_required(self.out_serial_no, 'out_serial_no')
         self.validate_required(self.param_type, 'param_type')
-        self.validate_required(self.out_info, 'out_info')
         self.validate_required(self.customer_details, 'customer_details')
         if self.customer_details:
             for k in self.customer_details:
