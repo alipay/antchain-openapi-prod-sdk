@@ -16,10 +16,6 @@ public class CallbackUmktRobotcallResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 是否成功
-    @NameInMap("success")
-    public Boolean success;
-
     public static CallbackUmktRobotcallResponse build(java.util.Map<String, ?> map) throws Exception {
         CallbackUmktRobotcallResponse self = new CallbackUmktRobotcallResponse();
         return TeaModel.build(map, self);
@@ -47,14 +43,6 @@ public class CallbackUmktRobotcallResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public CallbackUmktRobotcallResponse setSuccess(Boolean success) {
-        this.success = success;
-        return this;
-    }
-    public Boolean getSuccess() {
-        return this.success;
     }
 
 }
