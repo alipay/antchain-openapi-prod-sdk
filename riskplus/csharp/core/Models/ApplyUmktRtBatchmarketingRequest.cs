@@ -35,7 +35,7 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 批量透传字段
         [NameInMap("out_info")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string OutInfo { get; set; }
 
         // 用户凭证列表
