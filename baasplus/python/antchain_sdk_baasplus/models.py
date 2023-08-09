@@ -10144,3 +10144,123 @@ class QueryEnterpriseBaseinfoResponse(TeaModel):
         return self
 
 
+class QueryEnterpriseBusinessinfomationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        type: str = None,
+        key: str = None,
+        scene_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 00：企业名；01：注册号；02：18位统一社会信用代码；03：9位组织机构代码
+        self.type = type
+        # 企业查询关键字，企业名/注册号/社会信用代码/组织机构代码
+        self.key = key
+        # 产品场景编码
+        self.scene_code = scene_code
+
+    def validate(self):
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.scene_code, 'scene_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.key is not None:
+            result['key'] = self.key
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        return self
+
+
+class QueryEnterpriseBusinessinfomationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: str = None,
+        msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务结果码  0:企业经营正常   1:企业异常经营  2:企业查询失败
+        self.code = code
+        # 业务结果说明
+        self.msg = msg
+        # 企业经营信息详情
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.msg is not None:
+            result['msg'] = self.msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+

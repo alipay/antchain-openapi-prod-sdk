@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.12',
+                    'sdk_version': '1.2.0',
                     '_prod_code': 'BAASPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.12',
+                    'sdk_version': '1.2.0',
                     '_prod_code': 'BAASPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -4757,4 +4757,60 @@ class Client:
         return TeaCore.from_map(
             baasplus_models.QueryEnterpriseBaseinfoResponse(),
             await self.do_request_async('1.0', 'baas.plus.enterprise.baseinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_enterprise_businessinfomation(
+        self,
+        request: baasplus_models.QueryEnterpriseBusinessinfomationRequest,
+    ) -> baasplus_models.QueryEnterpriseBusinessinfomationResponse:
+        """
+        Description: 企业工商信息查询能力
+        Summary: 企业工商信息查询能力
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_enterprise_businessinfomation_ex(request, headers, runtime)
+
+    async def query_enterprise_businessinfomation_async(
+        self,
+        request: baasplus_models.QueryEnterpriseBusinessinfomationRequest,
+    ) -> baasplus_models.QueryEnterpriseBusinessinfomationResponse:
+        """
+        Description: 企业工商信息查询能力
+        Summary: 企业工商信息查询能力
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_enterprise_businessinfomation_ex_async(request, headers, runtime)
+
+    def query_enterprise_businessinfomation_ex(
+        self,
+        request: baasplus_models.QueryEnterpriseBusinessinfomationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasplus_models.QueryEnterpriseBusinessinfomationResponse:
+        """
+        Description: 企业工商信息查询能力
+        Summary: 企业工商信息查询能力
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasplus_models.QueryEnterpriseBusinessinfomationResponse(),
+            self.do_request('1.0', 'baas.plus.enterprise.businessinfomation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_enterprise_businessinfomation_ex_async(
+        self,
+        request: baasplus_models.QueryEnterpriseBusinessinfomationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasplus_models.QueryEnterpriseBusinessinfomationResponse:
+        """
+        Description: 企业工商信息查询能力
+        Summary: 企业工商信息查询能力
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasplus_models.QueryEnterpriseBusinessinfomationResponse(),
+            await self.do_request_async('1.0', 'baas.plus.enterprise.businessinfomation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
