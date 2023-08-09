@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.4',
+    sdk_version = '1.1.25',
+    _prod_code = 'SAAS',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -145,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -157,6 +159,86 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// api信息结构体
+model ApiInfoModel {
+  // api名称
+  apiName: string(name='api_name', example='demo.sss.ss.ss.bind'),
+  // API所属网关技术产品码
+  prodCode: string(name='prod_code', example='demo'),
+  // 是否是内部接口 0对外 1对内
+  internal: long(name='internal', example='0'),
+  // api版本号
+  apiVersion: string(name='api_version', example='1.0'),
+  // api描述
+  apiDesc: string(name='api_desc', example='测试用api'),
+  // api所属网关产品id
+  providerId: string(name='provider_id', example='0000567567'),
+}
+
+// 能力信息
+model AbilityInfo {
+  // 能力编号
+  abilityId: string(name='ability_id', example='ak_3821c8f0145440dab91b9b23edb1dc73'),
+  // 能力名称
+  abilityName: string(name='ability_name', example='B2B支付网关'),
+  // 研发负责人
+  devOwner: string(name='dev_owner', example='张三'),
+  // 创建时间
+  gmtCreate: string(name='gmt_create', example='2021-12-30 00:00:00'),
+  // 描述信息
+  description: string(name='description', example='适用场景：企业资金支付场景   适合行业：存在企业采购/企业充值/企业转账等企业支付场景的行业   归属行业线：B类基础产品   产品描述：将交易场景与企业对公账户支付线上关联，订单交易对应的支付需求自动发送给企业网银做财务支出的确认和复核。'),
+  // 研发负责人邮箱前缀
+  devOwnerPrefixEmail: string(name='dev_owner_prefix_email', example='qiujianglong.qjl'),
+  // 产品负责人
+  productOwner: string(name='product_owner', example='江来'),
+  // 能力对应商业中台L5Code
+  businessCode?: string(name='business_code', example='DMZNFM00883001'),
+  // apiInfoModels列表
+  apiInfoModels: [ ApiInfoModel ](name='api_info_models', example='test'),
+  // 能力sla看板url
+  slaUrl?: string(name='sla_url', example='https://antslo.alipay.com/maas/slistd/115600116/std/d/147100480_slistd?var-tag1=xxx&var-tag2=All'),
+}
+
+// 能力与API关联信息
+model AbilityApiRelation {
+  // api名称
+  apiName: string(name='api_name', example='antchain.saas.ability.withproduct.query'),
+  // 能力列表
+  abilityInfoList: [ AbilityInfo ](name='ability_info_list', example='[{"abilityId":"ak_3821c8f0145440dab91b9b23edb1dc73","abilityName":"B2B支付网关","devOwner":"张三","gmtCreate":"2023-01-02 12:00:00","description":"适用场景：企业资金支付场景 适合行业：存在企业采购/企业充值/企业转账等企业支付场景的行业 归属行业线：B类基础产品 产品描述：将交易场景与企业对公账户支付线上关联，订单交易对应的支付"}] '),
+}
+
+// api 信息
+model ApiInfo {
+  // 查询不动产接口
+  apiCode: string(name='api_code', example='queryA'),
+  // api pb文件定义
+  apiProtobufDefinition: string(name='api_protobuf_definition', example='api'),
+}
+
+// 干系人
+model RelUser {
+  // 工号
+  empId: string(name='emp_id', example='338849'),
+  // 域账号
+  loginName: string(name='login_name', example='zhangsan.zs'),
+  // 花名
+  nickName: string(name='nick_name', example='张三'),
+  // 角色，PD-产品经理，DEV-研发
+  role: string(name='role', example='PD'),
+}
+
+// sdk的maven依赖信息
+model SdkMavenDependencyInfo {
+  // client端maven依赖，包含蚂蚁链版本和金融云版本依赖信息
+  referenceClient: string(name='reference_client', example='{"referenceClient":"<!-- 蚂蚁链客户端SDK -->\n<dependency>\n\t<groupId>com.antgroup.antchain.openapi</groupId>\n\t<artifactId>openapi-xxx</artifactId>\n\t<version>x.x.x</version>\n}'),
+  // 客户端server端依赖，产品api基于技术产品纬度使用技术客户端sdk构建，此处依赖基本使用不到
+  referencServer?: string(name='referenc_server', example='<dependency>\n\t<groupId>cn.com.antcloud.api</groupId>\n\t<artifactId>antcloud-api-xxx</artifactId>\n\t<version>x.x.x</version>\n</dependency>'),
+  // client端maven仓库地址
+  mavenLinkClient: string(name='maven_link_client', example='https://search.maven.org/artifact/com.antgroup.antchain.openapi/xxx/x.x.x/jar'),
+  // server端maven仓库地址
+  mavenLinkServer?: string(name='maven_link_server', example='https://search.maven.org/artifact/com.antgroup.antchain.openapi/xxx/x.x.x/jar'),
 }
 
 // 键值对，兼容map用
@@ -251,5 +333,411 @@ async function queryMarketSolution(request: QueryMarketSolutionRequest): QueryMa
 async function queryMarketSolutionEx(request: QueryMarketSolutionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMarketSolutionResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.saas.market.solution.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAbilityWithproductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产品编码，源自于开放平台OPM定义的技术产品编码
+  productCode: string(name='product_code'),
+}
+
+model QueryAbilityWithproductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 能力列表
+  abilityInfoList?: [ AbilityInfo ](name='ability_info_list'),
+}
+
+/**
+ * Description: 查询本产品下所有的能力标签
+ * Summary: 查询本产品下所有的能力标签
+ */
+async function queryAbilityWithproduct(request: QueryAbilityWithproductRequest): QueryAbilityWithproductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAbilityWithproductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询本产品下所有的能力标签
+ * Summary: 查询本产品下所有的能力标签
+ */
+async function queryAbilityWithproductEx(request: QueryAbilityWithproductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAbilityWithproductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.ability.withproduct.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryAbilityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前页码
+  current: long(name='current'),
+  // 每页大小
+  pageSize: long(name='page_size'),
+  // 用于能力的搜索标签
+  keyword?: string(name='keyword'),
+  // 网关产品码
+  gwProdCode?: string(name='gw_prod_code'),
+}
+
+model PagequeryAbilityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页码
+  current?: long(name='current'),
+  // 当前页大小
+  pageSize?: long(name='page_size'),
+  // 总数
+  total?: long(name='total'),
+  // 能力信息列表
+  abilityInfoList?: [ AbilityInfo ](name='ability_info_list'),
+}
+
+/**
+ * Description: 分页查询能力数据
+ * Summary: 分页查询能力数据
+ */
+async function pagequeryAbility(request: PagequeryAbilityRequest): PagequeryAbilityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryAbilityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询能力数据
+ * Summary: 分页查询能力数据
+ */
+async function pagequeryAbilityEx(request: PagequeryAbilityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryAbilityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.ability.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindAbilityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // api名称
+  apiName: string(name='api_name'),
+  // 能力id列表
+  abilityIds: [ string ](name='ability_ids'),
+  // 操作人的域账号
+  operatorId: string(name='operator_id'),
+  // api信息
+  apiInfoModel: ApiInfoModel(name='api_info_model'),
+}
+
+model BindAbilityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 绑定API
+ * Summary: 绑定能力与API关系
+ */
+async function bindAbility(request: BindAbilityRequest): BindAbilityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindAbilityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 绑定API
+ * Summary: 绑定能力与API关系
+ */
+async function bindAbilityEx(request: BindAbilityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindAbilityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.ability.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAbilityWithapinameRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // api名称列表
+  apiNameList: [ string ](name='api_name_list'),
+}
+
+model QueryAbilityWithapinameResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // api与能力信息关联列表
+  abilityApiRelationList?: [ AbilityApiRelation ](name='ability_api_relation_list'),
+}
+
+/**
+ * Description: 根据api名称列表查询能力标签列表
+ * Summary: 根据api名称列表查询能力标签列表
+ */
+async function queryAbilityWithapiname(request: QueryAbilityWithapinameRequest): QueryAbilityWithapinameResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAbilityWithapinameEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据api名称列表查询能力标签列表
+ * Summary: 根据api名称列表查询能力标签列表
+ */
+async function queryAbilityWithapinameEx(request: QueryAbilityWithapinameRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAbilityWithapinameResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.ability.withapiname.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackAbilityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // api名称集合
+  apiNames: [ string ](name='api_names'),
+}
+
+model CallbackAbilityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: api上线回调接口
+ * Summary: api上线回调接口
+ */
+async function callbackAbility(request: CallbackAbilityRequest): CallbackAbilityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackAbilityEx(request, headers, runtime);
+}
+
+/**
+ * Description: api上线回调接口
+ * Summary: api上线回调接口
+ */
+async function callbackAbilityEx(request: CallbackAbilityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackAbilityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.ability.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFoundationProtobufRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产品码
+  productCode: string(name='product_code'),
+  // api code列表信息
+  apiCodeList: [ string ](name='api_code_list'),
+}
+
+model QueryFoundationProtobufResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // api probuf信息
+  apiInfoList?: [ ApiInfo ](name='api_info_list'),
+}
+
+/**
+ * Description: 根据产品码+api code查询api protobuf信息
+ * Summary: 查询api protobuf信息（勿删）
+ */
+async function queryFoundationProtobuf(request: QueryFoundationProtobufRequest): QueryFoundationProtobufResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFoundationProtobufEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据产品码+api code查询api protobuf信息
+ * Summary: 查询api protobuf信息（勿删）
+ */
+async function queryFoundationProtobufEx(request: QueryFoundationProtobufRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFoundationProtobufResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.foundation.protobuf.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAbilityResultcodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 1-INTERNAL_ERROR，2-TOO_MANY_REQUESTS，3-UNKNOW_ERROR，4-ACCESS_DENIED，5-OK，6-CUSTOM_RESULT_CODE_ONE，7-CUSTOM_RESULT_CODE_TWO
+  index: long(name='index'),
+}
+
+model QueryAbilityResultcodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 测试网关结果码和计量接口
+ * Summary: 网关结果码测试接口
+ */
+async function queryAbilityResultcode(request: QueryAbilityResultcodeRequest): QueryAbilityResultcodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAbilityResultcodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试网关结果码和计量接口
+ * Summary: 网关结果码测试接口
+ */
+async function queryAbilityResultcodeEx(request: QueryAbilityResultcodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAbilityResultcodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.ability.resultcode.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindAbilityApiRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 共享能力id
+  abilityId: string(name='ability_id'),
+  // qiujianglong.qjl
+  operatorId: string(name='operator_id'),
+  // api模型集合
+  apiInfoModels: [ ApiInfoModel ](name='api_info_models'),
+}
+
+model BindAbilityApiResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 绑定能力的api信息
+ * Summary: 绑定能力的api信息
+ */
+async function bindAbilityApi(request: BindAbilityApiRequest): BindAbilityApiResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindAbilityApiEx(request, headers, runtime);
+}
+
+/**
+ * Description: 绑定能力的api信息
+ * Summary: 绑定能力的api信息
+ */
+async function bindAbilityApiEx(request: BindAbilityApiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindAbilityApiResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.ability.api.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAbilityBusinesscodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 能力id
+  abilityId: string(name='ability_id'),
+}
+
+model QueryAbilityBusinesscodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 能力信息
+  abilityInfo?: AbilityInfo(name='ability_info'),
+}
+
+/**
+ * Description: 根据能力id查询能力信息
+ * Summary: 根据能力id查询能力信息
+ */
+async function queryAbilityBusinesscode(request: QueryAbilityBusinesscodeRequest): QueryAbilityBusinesscodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAbilityBusinesscodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据能力id查询能力信息
+ * Summary: 根据能力id查询能力信息
+ */
+async function queryAbilityBusinesscodeEx(request: QueryAbilityBusinesscodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAbilityBusinesscodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.ability.businesscode.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBusinessProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商业产品L5编码
+  businessCode: string(name='business_code'),
+}
+
+model QueryBusinessProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商业产品sdk客户端的maven依赖信息
+  sdkMavenDependencyInfo?: SdkMavenDependencyInfo(name='sdk_maven_dependency_info'),
+  // 商业产品最新api信息列表，可能与当前版本jar包内api不一致，若发现不一致请在opm商业sdk管理中重新进行打包
+  apiInfoModels?: [ ApiInfoModel ](name='api_info_models'),
+  // 已发布中央仓库的版本
+  publishVersion?: string(name='publish_version'),
+  // 是否存在运行中的任务，商业产品一次发布中央仓库打包任务，会执行三个子打包任务，上传线下仓库，上传蚂蚁链sdk包至中央仓库，上传金融云sdk包至中央仓库
+  taskRunning?: boolean(name='task_running'),
+  // 最新一次打包任务运行状态RUNNING/SUCCESS/FAILED
+  taskStatus?: string(name='task_status'),
+  // 能力sla看板url
+  slaUrl?: string(name='sla_url'),
+}
+
+/**
+ * Description: 根据商业编码查询sdk依赖和api信息
+ * Summary: 根据商业编码查询sdk依赖和api信息
+ */
+async function queryBusinessProduct(request: QueryBusinessProductRequest): QueryBusinessProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBusinessProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据商业编码查询sdk依赖和api信息
+ * Summary: 根据商业编码查询sdk依赖和api信息
+ */
+async function queryBusinessProductEx(request: QueryBusinessProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBusinessProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.business.product.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
