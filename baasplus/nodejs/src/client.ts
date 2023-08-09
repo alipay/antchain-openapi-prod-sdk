@@ -6312,6 +6312,81 @@ export class QueryEnterpriseBaseinfoResponse extends $tea.Model {
   }
 }
 
+export class QueryEnterpriseBusinessinfomationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 00：企业名；01：注册号；02：18位统一社会信用代码；03：9位组织机构代码
+  type: string;
+  // 企业查询关键字，企业名/注册号/社会信用代码/组织机构代码
+  key: string;
+  // 产品场景编码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      type: 'type',
+      key: 'key',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      type: 'string',
+      key: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEnterpriseBusinessinfomationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务结果码  0:企业经营正常   1:企业异常经营  2:企业查询失败
+  code?: string;
+  // 业务结果说明
+  msg?: string;
+  // 企业经营信息详情
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      msg: 'msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'string',
+      msg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -6425,7 +6500,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.12",
+          sdk_version: "1.2.0",
           _prod_code: "BAASPLUS",
           _prod_channel: "undefined",
         };
@@ -7993,6 +8068,25 @@ export default class Client {
   async queryEnterpriseBaseinfoEx(request: QueryEnterpriseBaseinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEnterpriseBaseinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryEnterpriseBaseinfoResponse>(await this.doRequest("1.0", "baas.plus.enterprise.baseinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEnterpriseBaseinfoResponse({}));
+  }
+
+  /**
+   * Description: 企业工商信息查询能力
+   * Summary: 企业工商信息查询能力
+   */
+  async queryEnterpriseBusinessinfomation(request: QueryEnterpriseBusinessinfomationRequest): Promise<QueryEnterpriseBusinessinfomationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEnterpriseBusinessinfomationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企业工商信息查询能力
+   * Summary: 企业工商信息查询能力
+   */
+  async queryEnterpriseBusinessinfomationEx(request: QueryEnterpriseBusinessinfomationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEnterpriseBusinessinfomationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEnterpriseBusinessinfomationResponse>(await this.doRequest("1.0", "baas.plus.enterprise.businessinfomation.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEnterpriseBusinessinfomationResponse({}));
   }
 
 }
