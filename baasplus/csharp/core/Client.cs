@@ -137,7 +137,7 @@ namespace AntChain.SDK.BAASPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.12"},
+                        {"sdk_version", "1.2.0"},
                         {"_prod_code", "BAASPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BAASPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.12"},
+                        {"sdk_version", "1.2.0"},
                         {"_prod_code", "BAASPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3683,6 +3683,48 @@ namespace AntChain.SDK.BAASPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryEnterpriseBaseinfoResponse>(await DoRequestAsync("1.0", "baas.plus.enterprise.baseinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业工商信息查询能力
+         * Summary: 企业工商信息查询能力
+         */
+        public QueryEnterpriseBusinessinfomationResponse QueryEnterpriseBusinessinfomation(QueryEnterpriseBusinessinfomationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEnterpriseBusinessinfomationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业工商信息查询能力
+         * Summary: 企业工商信息查询能力
+         */
+        public async Task<QueryEnterpriseBusinessinfomationResponse> QueryEnterpriseBusinessinfomationAsync(QueryEnterpriseBusinessinfomationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEnterpriseBusinessinfomationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业工商信息查询能力
+         * Summary: 企业工商信息查询能力
+         */
+        public QueryEnterpriseBusinessinfomationResponse QueryEnterpriseBusinessinfomationEx(QueryEnterpriseBusinessinfomationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEnterpriseBusinessinfomationResponse>(DoRequest("1.0", "baas.plus.enterprise.businessinfomation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业工商信息查询能力
+         * Summary: 企业工商信息查询能力
+         */
+        public async Task<QueryEnterpriseBusinessinfomationResponse> QueryEnterpriseBusinessinfomationExAsync(QueryEnterpriseBusinessinfomationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEnterpriseBusinessinfomationResponse>(await DoRequestAsync("1.0", "baas.plus.enterprise.businessinfomation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
