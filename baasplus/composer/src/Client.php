@@ -81,6 +81,8 @@ use AntChain\BAASPLUS\Models\QueryContentriskInternalRequest;
 use AntChain\BAASPLUS\Models\QueryContentriskInternalResponse;
 use AntChain\BAASPLUS\Models\QueryEnterpriseBaseinfoRequest;
 use AntChain\BAASPLUS\Models\QueryEnterpriseBaseinfoResponse;
+use AntChain\BAASPLUS\Models\QueryEnterpriseBusinessinfomationRequest;
+use AntChain\BAASPLUS\Models\QueryEnterpriseBusinessinfomationResponse;
 use AntChain\BAASPLUS\Models\QueryEnterpriseidFaceauthinternalRequest;
 use AntChain\BAASPLUS\Models\QueryEnterpriseidFaceauthinternalResponse;
 use AntChain\BAASPLUS\Models\QueryEnterpriseidFaceauthRequest;
@@ -318,7 +320,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.12',
+                    'sdk_version'      => '1.2.0',
                     '_prod_code'       => 'BAASPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3006,5 +3008,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryEnterpriseBaseinfoResponse::fromMap($this->doRequest('1.0', 'baas.plus.enterprise.baseinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业工商信息查询能力
+     * Summary: 企业工商信息查询能力.
+     *
+     * @param QueryEnterpriseBusinessinfomationRequest $request
+     *
+     * @return QueryEnterpriseBusinessinfomationResponse
+     */
+    public function queryEnterpriseBusinessinfomation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEnterpriseBusinessinfomationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业工商信息查询能力
+     * Summary: 企业工商信息查询能力.
+     *
+     * @param QueryEnterpriseBusinessinfomationRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryEnterpriseBusinessinfomationResponse
+     */
+    public function queryEnterpriseBusinessinfomationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEnterpriseBusinessinfomationResponse::fromMap($this->doRequest('1.0', 'baas.plus.enterprise.businessinfomation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
