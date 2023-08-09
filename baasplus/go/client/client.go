@@ -8229,6 +8229,104 @@ func (s *QueryEnterpriseBaseinfoResponse) SetLegalPersonName(v string) *QueryEnt
 	return s
 }
 
+type QueryEnterpriseBusinessinfomationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 00：企业名；01：注册号；02：18位统一社会信用代码；03：9位组织机构代码
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 企业查询关键字，企业名/注册号/社会信用代码/组织机构代码
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// 产品场景编码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s QueryEnterpriseBusinessinfomationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEnterpriseBusinessinfomationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEnterpriseBusinessinfomationRequest) SetAuthToken(v string) *QueryEnterpriseBusinessinfomationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEnterpriseBusinessinfomationRequest) SetProductInstanceId(v string) *QueryEnterpriseBusinessinfomationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEnterpriseBusinessinfomationRequest) SetType(v string) *QueryEnterpriseBusinessinfomationRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryEnterpriseBusinessinfomationRequest) SetKey(v string) *QueryEnterpriseBusinessinfomationRequest {
+	s.Key = &v
+	return s
+}
+
+func (s *QueryEnterpriseBusinessinfomationRequest) SetSceneCode(v string) *QueryEnterpriseBusinessinfomationRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type QueryEnterpriseBusinessinfomationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务结果码  0:企业经营正常   1:企业异常经营  2:企业查询失败
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 业务结果说明
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 企业经营信息详情
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryEnterpriseBusinessinfomationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEnterpriseBusinessinfomationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEnterpriseBusinessinfomationResponse) SetReqMsgId(v string) *QueryEnterpriseBusinessinfomationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEnterpriseBusinessinfomationResponse) SetResultCode(v string) *QueryEnterpriseBusinessinfomationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEnterpriseBusinessinfomationResponse) SetResultMsg(v string) *QueryEnterpriseBusinessinfomationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEnterpriseBusinessinfomationResponse) SetCode(v string) *QueryEnterpriseBusinessinfomationResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryEnterpriseBusinessinfomationResponse) SetMsg(v string) *QueryEnterpriseBusinessinfomationResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryEnterpriseBusinessinfomationResponse) SetData(v string) *QueryEnterpriseBusinessinfomationResponse {
+	s.Data = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -8351,7 +8449,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.12"),
+				"sdk_version":      tea.String("1.2.0"),
 				"_prod_code":       tea.String("BAASPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -11124,6 +11222,40 @@ func (client *Client) QueryEnterpriseBaseinfoEx(request *QueryEnterpriseBaseinfo
 	}
 	_result = &QueryEnterpriseBaseinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.plus.enterprise.baseinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业工商信息查询能力
+ * Summary: 企业工商信息查询能力
+ */
+func (client *Client) QueryEnterpriseBusinessinfomation(request *QueryEnterpriseBusinessinfomationRequest) (_result *QueryEnterpriseBusinessinfomationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEnterpriseBusinessinfomationResponse{}
+	_body, _err := client.QueryEnterpriseBusinessinfomationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业工商信息查询能力
+ * Summary: 企业工商信息查询能力
+ */
+func (client *Client) QueryEnterpriseBusinessinfomationEx(request *QueryEnterpriseBusinessinfomationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEnterpriseBusinessinfomationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEnterpriseBusinessinfomationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.plus.enterprise.businessinfomation.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
