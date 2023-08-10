@@ -868,31 +868,31 @@ func (s *QueryDemoDemoDefaultSdkcccResponse) SetResultMsg(v string) *QueryDemoDe
 	return s
 }
 
-type QueryDemoDemoDefaultSdkdddRequest struct {
+type QueryDemoDemoDefaultSdkfffRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 }
 
-func (s QueryDemoDemoDefaultSdkdddRequest) String() string {
+func (s QueryDemoDemoDefaultSdkfffRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryDemoDemoDefaultSdkdddRequest) GoString() string {
+func (s QueryDemoDemoDefaultSdkfffRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryDemoDemoDefaultSdkdddRequest) SetAuthToken(v string) *QueryDemoDemoDefaultSdkdddRequest {
+func (s *QueryDemoDemoDefaultSdkfffRequest) SetAuthToken(v string) *QueryDemoDemoDefaultSdkfffRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryDemoDemoDefaultSdkdddRequest) SetProductInstanceId(v string) *QueryDemoDemoDefaultSdkdddRequest {
+func (s *QueryDemoDemoDefaultSdkfffRequest) SetProductInstanceId(v string) *QueryDemoDemoDefaultSdkfffRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-type QueryDemoDemoDefaultSdkdddResponse struct {
+type QueryDemoDemoDefaultSdkfffResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -901,25 +901,25 @@ type QueryDemoDemoDefaultSdkdddResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
-func (s QueryDemoDemoDefaultSdkdddResponse) String() string {
+func (s QueryDemoDemoDefaultSdkfffResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryDemoDemoDefaultSdkdddResponse) GoString() string {
+func (s QueryDemoDemoDefaultSdkfffResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryDemoDemoDefaultSdkdddResponse) SetReqMsgId(v string) *QueryDemoDemoDefaultSdkdddResponse {
+func (s *QueryDemoDemoDefaultSdkfffResponse) SetReqMsgId(v string) *QueryDemoDemoDefaultSdkfffResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryDemoDemoDefaultSdkdddResponse) SetResultCode(v string) *QueryDemoDemoDefaultSdkdddResponse {
+func (s *QueryDemoDemoDefaultSdkfffResponse) SetResultCode(v string) *QueryDemoDemoDefaultSdkfffResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryDemoDemoDefaultSdkdddResponse) SetResultMsg(v string) *QueryDemoDemoDefaultSdkdddResponse {
+func (s *QueryDemoDemoDefaultSdkfffResponse) SetResultMsg(v string) *QueryDemoDemoDefaultSdkfffResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -1046,7 +1046,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.6"),
+				"sdk_version":      tea.String("1.0.7"),
 				"_prod_code":       tea.String("ak_a1f82644937c486c81a62b0e5a6b4fbe"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -1343,14 +1343,14 @@ func (client *Client) QueryDemoDemoDefaultSdkcccEx(request *QueryDemoDemoDefault
 }
 
 /**
- * Description: sdktest
+ * Description: 描述
  * Summary: 测试接口
  */
-func (client *Client) QueryDemoDemoDefaultSdkddd(request *QueryDemoDemoDefaultSdkdddRequest) (_result *QueryDemoDemoDefaultSdkdddResponse, _err error) {
+func (client *Client) QueryDemoDemoDefaultSdkfff(request *QueryDemoDemoDefaultSdkfffRequest) (_result *QueryDemoDemoDefaultSdkfffResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryDemoDemoDefaultSdkdddResponse{}
-	_body, _err := client.QueryDemoDemoDefaultSdkdddEx(request, headers, runtime)
+	_result = &QueryDemoDemoDefaultSdkfffResponse{}
+	_body, _err := client.QueryDemoDemoDefaultSdkfffEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -1359,16 +1359,16 @@ func (client *Client) QueryDemoDemoDefaultSdkddd(request *QueryDemoDemoDefaultSd
 }
 
 /**
- * Description: sdktest
+ * Description: 描述
  * Summary: 测试接口
  */
-func (client *Client) QueryDemoDemoDefaultSdkdddEx(request *QueryDemoDemoDefaultSdkdddRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoDemoDefaultSdkdddResponse, _err error) {
+func (client *Client) QueryDemoDemoDefaultSdkfffEx(request *QueryDemoDemoDefaultSdkfffRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoDemoDefaultSdkfffResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryDemoDemoDefaultSdkdddResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.demo.default.sdkddd.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &QueryDemoDemoDefaultSdkfffResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.demo.default.sdkfff.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
