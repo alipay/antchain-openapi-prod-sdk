@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.6',
+                    'sdk_version': '1.0.7',
                     '_prod_code': 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.6',
+                    'sdk_version': '1.0.7',
                     '_prod_code': 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
                     '_prod_channel': 'saas'
                 }
@@ -667,58 +667,58 @@ class Client:
             await self.do_request_async('1.0', 'demo.demo.default.sdkccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_demo_demo_default_sdkddd(
+    def query_demo_demo_default_sdkfff(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkdddRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkdddResponse:
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffResponse:
         """
-        Description: sdktest
+        Description: 描述
         Summary: 测试接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_demo_demo_default_sdkddd_ex(request, headers, runtime)
+        return self.query_demo_demo_default_sdkfff_ex(request, headers, runtime)
 
-    async def query_demo_demo_default_sdkddd_async(
+    async def query_demo_demo_default_sdkfff_async(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkdddRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkdddResponse:
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffResponse:
         """
-        Description: sdktest
+        Description: 描述
         Summary: 测试接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_demo_demo_default_sdkddd_ex_async(request, headers, runtime)
+        return await self.query_demo_demo_default_sdkfff_ex_async(request, headers, runtime)
 
-    def query_demo_demo_default_sdkddd_ex(
+    def query_demo_demo_default_sdkfff_ex(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkdddRequest,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkdddResponse:
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffResponse:
         """
-        Description: sdktest
+        Description: 描述
         Summary: 测试接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkdddResponse(),
-            self.do_request('1.0', 'demo.demo.default.sdkddd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffResponse(),
+            self.do_request('1.0', 'demo.demo.default.sdkfff.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_demo_demo_default_sdkddd_ex_async(
+    async def query_demo_demo_default_sdkfff_ex_async(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkdddRequest,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkdddResponse:
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffResponse:
         """
-        Description: sdktest
+        Description: 描述
         Summary: 测试接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkdddResponse(),
-            await self.do_request_async('1.0', 'demo.demo.default.sdkddd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffResponse(),
+            await self.do_request_async('1.0', 'demo.demo.default.sdkfff.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

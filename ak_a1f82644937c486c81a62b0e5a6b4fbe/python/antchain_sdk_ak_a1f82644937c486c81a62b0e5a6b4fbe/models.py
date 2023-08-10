@@ -1122,7 +1122,7 @@ class QueryDemoDemoDefaultSdkcccResponse(TeaModel):
         return self
 
 
-class QueryDemoDemoDefaultSdkdddRequest(TeaModel):
+class QueryDemoDemoDefaultSdkfffRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -1156,7 +1156,7 @@ class QueryDemoDemoDefaultSdkdddRequest(TeaModel):
         return self
 
 
-class QueryDemoDemoDefaultSdkdddResponse(TeaModel):
+class QueryDemoDemoDefaultSdkfffResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
