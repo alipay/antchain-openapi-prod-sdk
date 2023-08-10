@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_a1f82644937c486c81a62b0e5a6b4fbe.models
 
 import com.aliyun.tea.*;
 
-public class QueryDemoDemoDefaultSdkdddRequest extends TeaModel {
+public class QueryDemoDemoDefaultSdkfffRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,12 +11,12 @@ public class QueryDemoDemoDefaultSdkdddRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    public static QueryDemoDemoDefaultSdkdddRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryDemoDemoDefaultSdkdddRequest self = new QueryDemoDemoDefaultSdkdddRequest();
+    public static QueryDemoDemoDefaultSdkfffRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryDemoDemoDefaultSdkfffRequest self = new QueryDemoDemoDefaultSdkfffRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryDemoDemoDefaultSdkdddRequest setAuthToken(String authToken) {
+    public QueryDemoDemoDefaultSdkfffRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -24,7 +24,7 @@ public class QueryDemoDemoDefaultSdkdddRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryDemoDemoDefaultSdkdddRequest setProductInstanceId(String productInstanceId) {
+    public QueryDemoDemoDefaultSdkfffRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
