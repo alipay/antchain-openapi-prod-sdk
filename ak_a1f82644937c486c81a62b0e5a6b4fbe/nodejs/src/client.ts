@@ -138,6 +138,8 @@ export class AbilityInfo extends $tea.Model {
   businessCode?: string;
   // apiInfoModels列表
   apiInfoModels: ApiInfoModel[];
+  // 能力sla看板url
+  slaUrl?: string;
   static names(): { [key: string]: string } {
     return {
       abilityId: 'ability_id',
@@ -149,6 +151,7 @@ export class AbilityInfo extends $tea.Model {
       productOwner: 'product_owner',
       businessCode: 'business_code',
       apiInfoModels: 'api_info_models',
+      slaUrl: 'sla_url',
     };
   }
 
@@ -163,6 +166,7 @@ export class AbilityInfo extends $tea.Model {
       productOwner: 'string',
       businessCode: 'string',
       apiInfoModels: { 'type': 'array', 'itemType': ApiInfoModel },
+      slaUrl: 'string',
     };
   }
 
@@ -291,7 +295,7 @@ export class PagequeryAntchainSaasAbilityRequest extends $tea.Model {
   // 用于能力的搜索标签
   keyword?: string;
   // 网关产品码
-  prodCode?: string;
+  gwProdCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -299,7 +303,7 @@ export class PagequeryAntchainSaasAbilityRequest extends $tea.Model {
       current: 'current',
       pageSize: 'page_size',
       keyword: 'keyword',
-      prodCode: 'prod_code',
+      gwProdCode: 'gw_prod_code',
     };
   }
 
@@ -310,7 +314,7 @@ export class PagequeryAntchainSaasAbilityRequest extends $tea.Model {
       current: 'number',
       pageSize: 'number',
       keyword: 'string',
-      prodCode: 'string',
+      gwProdCode: 'string',
     };
   }
 
@@ -607,6 +611,57 @@ export class QueryAntchainSaasFoundationProtobufResponse extends $tea.Model {
   }
 }
 
+export class QueryDemoDemoDefaultSdkcccRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoDemoDefaultSdkcccResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -720,7 +775,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.4",
+          sdk_version: "1.0.5",
           _prod_code: "ak_a1f82644937c486c81a62b0e5a6b4fbe",
           _prod_channel: "saas",
         };
@@ -880,6 +935,25 @@ export default class Client {
   async queryAntchainSaasFoundationProtobufEx(request: QueryAntchainSaasFoundationProtobufRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainSaasFoundationProtobufResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAntchainSaasFoundationProtobufResponse>(await this.doRequest("1.0", "antchain.saas.foundation.protobuf.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainSaasFoundationProtobufResponse({}));
+  }
+
+  /**
+   * Description: 111
+   * Summary: 测试接口
+   */
+  async queryDemoDemoDefaultSdkccc(request: QueryDemoDemoDefaultSdkcccRequest): Promise<QueryDemoDemoDefaultSdkcccResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDemoDemoDefaultSdkcccEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 111
+   * Summary: 测试接口
+   */
+  async queryDemoDemoDefaultSdkcccEx(request: QueryDemoDemoDefaultSdkcccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoDemoDefaultSdkcccResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDemoDemoDefaultSdkcccResponse>(await this.doRequest("1.0", "demo.demo.default.sdkccc.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoDemoDefaultSdkcccResponse({}));
   }
 
 }
