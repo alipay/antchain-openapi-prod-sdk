@@ -25,8 +25,8 @@ use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasFoundat
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasFoundationProtobufResponse;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDemoDefaultSdkcccRequest;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDemoDefaultSdkcccResponse;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDemoDefaultSdkdddRequest;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDemoDefaultSdkdddResponse;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDemoDefaultSdkfffRequest;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDemoDefaultSdkfffResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -174,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.6',
+                    'sdk_version'      => '1.0.7',
                     '_prod_code'       => 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
                     '_prod_channel'    => 'saas',
                 ];
@@ -454,35 +454,35 @@ class Client
     }
 
     /**
-     * Description: sdktest
+     * Description: 描述
      * Summary: 测试接口.
      *
-     * @param QueryDemoDemoDefaultSdkdddRequest $request
+     * @param QueryDemoDemoDefaultSdkfffRequest $request
      *
-     * @return QueryDemoDemoDefaultSdkdddResponse
+     * @return QueryDemoDemoDefaultSdkfffResponse
      */
-    public function queryDemoDemoDefaultSdkddd($request)
+    public function queryDemoDemoDefaultSdkfff($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryDemoDemoDefaultSdkdddEx($request, $headers, $runtime);
+        return $this->queryDemoDemoDefaultSdkfffEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: sdktest
+     * Description: 描述
      * Summary: 测试接口.
      *
-     * @param QueryDemoDemoDefaultSdkdddRequest $request
+     * @param QueryDemoDemoDefaultSdkfffRequest $request
      * @param string[]                          $headers
      * @param RuntimeOptions                    $runtime
      *
-     * @return QueryDemoDemoDefaultSdkdddResponse
+     * @return QueryDemoDemoDefaultSdkfffResponse
      */
-    public function queryDemoDemoDefaultSdkdddEx($request, $headers, $runtime)
+    public function queryDemoDemoDefaultSdkfffEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryDemoDemoDefaultSdkdddResponse::fromMap($this->doRequest('1.0', 'demo.demo.default.sdkddd.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryDemoDemoDefaultSdkfffResponse::fromMap($this->doRequest('1.0', 'demo.demo.default.sdkfff.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -6,7 +6,7 @@ namespace AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDemoDemoDefaultSdkdddResponse extends Model
+class QueryDemoDemoDefaultSdkfffResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -54,7 +54,7 @@ class QueryDemoDemoDefaultSdkdddResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryDemoDemoDefaultSdkdddResponse
+     * @return QueryDemoDemoDefaultSdkfffResponse
      */
     public static function fromMap($map = [])
     {
