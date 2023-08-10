@@ -234,6 +234,7 @@ class AbilityInfo(TeaModel):
         product_owner: str = None,
         business_code: str = None,
         api_info_models: List[ApiInfoModel] = None,
+        sla_url: str = None,
     ):
         # 能力编号
         self.ability_id = ability_id
@@ -253,6 +254,8 @@ class AbilityInfo(TeaModel):
         self.business_code = business_code
         # apiInfoModels列表
         self.api_info_models = api_info_models
+        # 能力sla看板url
+        self.sla_url = sla_url
 
     def validate(self):
         self.validate_required(self.ability_id, 'ability_id')
@@ -294,6 +297,8 @@ class AbilityInfo(TeaModel):
         if self.api_info_models is not None:
             for k in self.api_info_models:
                 result['api_info_models'].append(k.to_map() if k else None)
+        if self.sla_url is not None:
+            result['sla_url'] = self.sla_url
         return result
 
     def from_map(self, m: dict = None):
@@ -319,6 +324,8 @@ class AbilityInfo(TeaModel):
             for k in m.get('api_info_models'):
                 temp_model = ApiInfoModel()
                 self.api_info_models.append(temp_model.from_map(k))
+        if m.get('sla_url') is not None:
+            self.sla_url = m.get('sla_url')
         return self
 
 
@@ -509,7 +516,7 @@ class PagequeryAntchainSaasAbilityRequest(TeaModel):
         current: int = None,
         page_size: int = None,
         keyword: str = None,
-        prod_code: str = None,
+        gw_prod_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -521,7 +528,7 @@ class PagequeryAntchainSaasAbilityRequest(TeaModel):
         # 用于能力的搜索标签
         self.keyword = keyword
         # 网关产品码
-        self.prod_code = prod_code
+        self.gw_prod_code = gw_prod_code
 
     def validate(self):
         self.validate_required(self.current, 'current')
@@ -543,8 +550,8 @@ class PagequeryAntchainSaasAbilityRequest(TeaModel):
             result['page_size'] = self.page_size
         if self.keyword is not None:
             result['keyword'] = self.keyword
-        if self.prod_code is not None:
-            result['prod_code'] = self.prod_code
+        if self.gw_prod_code is not None:
+            result['gw_prod_code'] = self.gw_prod_code
         return result
 
     def from_map(self, m: dict = None):
@@ -559,8 +566,8 @@ class PagequeryAntchainSaasAbilityRequest(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('keyword') is not None:
             self.keyword = m.get('keyword')
-        if m.get('prod_code') is not None:
-            self.prod_code = m.get('prod_code')
+        if m.get('gw_prod_code') is not None:
+            self.gw_prod_code = m.get('gw_prod_code')
         return self
 
 
@@ -1036,6 +1043,82 @@ class QueryAntchainSaasFoundationProtobufResponse(TeaModel):
             for k in m.get('api_info_list'):
                 temp_model = ApiInfo()
                 self.api_info_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryDemoDemoDefaultSdkcccRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        return self
+
+
+class QueryDemoDemoDefaultSdkcccResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 

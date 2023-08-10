@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4',
+                    'sdk_version': '1.0.5',
                     '_prod_code': 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4',
+                    'sdk_version': '1.0.5',
                     '_prod_code': 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
                     '_prod_channel': 'saas'
                 }
@@ -609,4 +609,60 @@ class Client:
         return TeaCore.from_map(
             ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasFoundationProtobufResponse(),
             await self.do_request_async('1.0', 'antchain.saas.foundation.protobuf.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_demo_demo_default_sdkccc(
+        self,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccResponse:
+        """
+        Description: 111
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_demo_default_sdkccc_ex(request, headers, runtime)
+
+    async def query_demo_demo_default_sdkccc_async(
+        self,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccResponse:
+        """
+        Description: 111
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_demo_default_sdkccc_ex_async(request, headers, runtime)
+
+    def query_demo_demo_default_sdkccc_ex(
+        self,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccResponse:
+        """
+        Description: 111
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccResponse(),
+            self.do_request('1.0', 'demo.demo.default.sdkccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_demo_default_sdkccc_ex_async(
+        self,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccResponse:
+        """
+        Description: 111
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccResponse(),
+            await self.do_request_async('1.0', 'demo.demo.default.sdkccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
