@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.4',
+    sdk_version = '1.0.5',
     _prod_code = 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
     _prod_channel = 'saas'
   };
@@ -197,6 +197,8 @@ model AbilityInfo {
   businessCode?: string(name='business_code', example='DMZNFM00883001'),
   // apiInfoModels列表
   apiInfoModels: [ ApiInfoModel ](name='api_info_models', example='test'),
+  // 能力sla看板url
+  slaUrl?: string(name='sla_url', example='https://antslo.alipay.com/maas/slistd/115600116/std/d/147100480_slistd?var-tag1=xxx&var-tag2=All'),
 }
 
 // 能力与API关联信息
@@ -264,7 +266,7 @@ model PagequeryAntchainSaasAbilityRequest = {
   // 用于能力的搜索标签
   keyword?: string(name='keyword'),
   // 网关产品码
-  prodCode?: string(name='prod_code'),
+  gwProdCode?: string(name='gw_prod_code'),
 }
 
 model PagequeryAntchainSaasAbilityResponse = {
@@ -457,5 +459,39 @@ async function queryAntchainSaasFoundationProtobuf(request: QueryAntchainSaasFou
 async function queryAntchainSaasFoundationProtobufEx(request: QueryAntchainSaasFoundationProtobufRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainSaasFoundationProtobufResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.saas.foundation.protobuf.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoDemoDefaultSdkcccRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryDemoDemoDefaultSdkcccResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 111
+ * Summary: 测试接口
+ */
+async function queryDemoDemoDefaultSdkccc(request: QueryDemoDemoDefaultSdkcccRequest): QueryDemoDemoDefaultSdkcccResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoDemoDefaultSdkcccEx(request, headers, runtime);
+}
+
+/**
+ * Description: 111
+ * Summary: 测试接口
+ */
+async function queryDemoDemoDefaultSdkcccEx(request: QueryDemoDemoDefaultSdkcccRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoDemoDefaultSdkcccResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.demo.default.sdkccc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
