@@ -868,6 +868,62 @@ func (s *QueryDemoDemoDefaultSdkcccResponse) SetResultMsg(v string) *QueryDemoDe
 	return s
 }
 
+type QueryDemoDemoDefaultSdkdddRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryDemoDemoDefaultSdkdddRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoDemoDefaultSdkdddRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoDemoDefaultSdkdddRequest) SetAuthToken(v string) *QueryDemoDemoDefaultSdkdddRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDemoDemoDefaultSdkdddRequest) SetProductInstanceId(v string) *QueryDemoDemoDefaultSdkdddRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryDemoDemoDefaultSdkdddResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryDemoDemoDefaultSdkdddResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoDemoDefaultSdkdddResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoDemoDefaultSdkdddResponse) SetReqMsgId(v string) *QueryDemoDemoDefaultSdkdddResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDemoDemoDefaultSdkdddResponse) SetResultCode(v string) *QueryDemoDemoDefaultSdkdddResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDemoDemoDefaultSdkdddResponse) SetResultMsg(v string) *QueryDemoDemoDefaultSdkdddResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -990,7 +1046,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.5"),
+				"sdk_version":      tea.String("1.0.6"),
 				"_prod_code":       tea.String("ak_a1f82644937c486c81a62b0e5a6b4fbe"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -1279,6 +1335,40 @@ func (client *Client) QueryDemoDemoDefaultSdkcccEx(request *QueryDemoDemoDefault
 	}
 	_result = &QueryDemoDemoDefaultSdkcccResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.demo.default.sdkccc.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: sdktest
+ * Summary: 测试接口
+ */
+func (client *Client) QueryDemoDemoDefaultSdkddd(request *QueryDemoDemoDefaultSdkdddRequest) (_result *QueryDemoDemoDefaultSdkdddResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDemoDemoDefaultSdkdddResponse{}
+	_body, _err := client.QueryDemoDemoDefaultSdkdddEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: sdktest
+ * Summary: 测试接口
+ */
+func (client *Client) QueryDemoDemoDefaultSdkdddEx(request *QueryDemoDemoDefaultSdkdddRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoDemoDefaultSdkdddResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDemoDemoDefaultSdkdddResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.demo.default.sdkddd.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
