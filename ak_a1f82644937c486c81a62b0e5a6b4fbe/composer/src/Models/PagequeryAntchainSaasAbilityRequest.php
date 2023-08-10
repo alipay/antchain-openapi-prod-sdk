@@ -41,14 +41,14 @@ class PagequeryAntchainSaasAbilityRequest extends Model
     /**
      * @var string
      */
-    public $prodCode;
+    public $gwProdCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'current'           => 'current',
         'pageSize'          => 'page_size',
         'keyword'           => 'keyword',
-        'prodCode'          => 'prod_code',
+        'gwProdCode'        => 'gw_prod_code',
     ];
 
     public function validate()
@@ -75,8 +75,8 @@ class PagequeryAntchainSaasAbilityRequest extends Model
         if (null !== $this->keyword) {
             $res['keyword'] = $this->keyword;
         }
-        if (null !== $this->prodCode) {
-            $res['prod_code'] = $this->prodCode;
+        if (null !== $this->gwProdCode) {
+            $res['gw_prod_code'] = $this->gwProdCode;
         }
 
         return $res;
@@ -105,8 +105,8 @@ class PagequeryAntchainSaasAbilityRequest extends Model
         if (isset($map['keyword'])) {
             $model->keyword = $map['keyword'];
         }
-        if (isset($map['prod_code'])) {
-            $model->prodCode = $map['prod_code'];
+        if (isset($map['gw_prod_code'])) {
+            $model->gwProdCode = $map['gw_prod_code'];
         }
 
         return $model;

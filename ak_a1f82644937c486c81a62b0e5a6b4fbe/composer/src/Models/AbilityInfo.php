@@ -79,6 +79,14 @@ class AbilityInfo extends Model
      * @var ApiInfoModel[]
      */
     public $apiInfoModels;
+
+    // 能力sla看板url
+    /**
+     * @example https://antslo.alipay.com/maas/slistd/115600116/std/d/147100480_slistd?var-tag1=xxx&var-tag2=All
+     *
+     * @var string
+     */
+    public $slaUrl;
     protected $_name = [
         'abilityId'           => 'ability_id',
         'abilityName'         => 'ability_name',
@@ -89,6 +97,7 @@ class AbilityInfo extends Model
         'productOwner'        => 'product_owner',
         'businessCode'        => 'business_code',
         'apiInfoModels'       => 'api_info_models',
+        'slaUrl'              => 'sla_url',
     ];
 
     public function validate()
@@ -139,6 +148,9 @@ class AbilityInfo extends Model
                 }
             }
         }
+        if (null !== $this->slaUrl) {
+            $res['sla_url'] = $this->slaUrl;
+        }
 
         return $res;
     }
@@ -183,6 +195,9 @@ class AbilityInfo extends Model
                     $model->apiInfoModels[$n++] = null !== $item ? ApiInfoModel::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['sla_url'])) {
+            $model->slaUrl = $map['sla_url'];
         }
 
         return $model;
