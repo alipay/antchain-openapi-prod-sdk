@@ -26,8 +26,8 @@ public class PagequeryAntchainSaasAbilityRequest extends TeaModel {
     public String keyword;
 
     // 网关产品码
-    @NameInMap("prod_code")
-    public String prodCode;
+    @NameInMap("gw_prod_code")
+    public String gwProdCode;
 
     public static PagequeryAntchainSaasAbilityRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequeryAntchainSaasAbilityRequest self = new PagequeryAntchainSaasAbilityRequest();
@@ -74,12 +74,12 @@ public class PagequeryAntchainSaasAbilityRequest extends TeaModel {
         return this.keyword;
     }
 
-    public PagequeryAntchainSaasAbilityRequest setProdCode(String prodCode) {
-        this.prodCode = prodCode;
+    public PagequeryAntchainSaasAbilityRequest setGwProdCode(String gwProdCode) {
+        this.gwProdCode = gwProdCode;
         return this;
     }
-    public String getProdCode() {
-        return this.prodCode;
+    public String getGwProdCode() {
+        return this.gwProdCode;
     }
 
 }

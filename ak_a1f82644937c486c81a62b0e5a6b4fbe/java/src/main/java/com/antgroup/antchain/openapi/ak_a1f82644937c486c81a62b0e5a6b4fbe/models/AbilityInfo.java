@@ -48,6 +48,10 @@ public class AbilityInfo extends TeaModel {
     @Validation(required = true)
     public java.util.List<ApiInfoModel> apiInfoModels;
 
+    // 能力sla看板url
+    @NameInMap("sla_url")
+    public String slaUrl;
+
     public static AbilityInfo build(java.util.Map<String, ?> map) throws Exception {
         AbilityInfo self = new AbilityInfo();
         return TeaModel.build(map, self);
@@ -123,6 +127,14 @@ public class AbilityInfo extends TeaModel {
     }
     public java.util.List<ApiInfoModel> getApiInfoModels() {
         return this.apiInfoModels;
+    }
+
+    public AbilityInfo setSlaUrl(String slaUrl) {
+        this.slaUrl = slaUrl;
+        return this;
+    }
+    public String getSlaUrl() {
+        return this.slaUrl;
     }
 
 }

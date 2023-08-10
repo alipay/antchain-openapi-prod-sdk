@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.4"),
+                    new TeaPair("sdk_version", "1.0.5"),
                     new TeaPair("_prod_code", "ak_a1f82644937c486c81a62b0e5a6b4fbe"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -273,5 +273,24 @@ public class Client {
     public QueryAntchainSaasFoundationProtobufResponse queryAntchainSaasFoundationProtobufEx(QueryAntchainSaasFoundationProtobufRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.foundation.protobuf.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainSaasFoundationProtobufResponse());
+    }
+
+    /**
+     * Description: 111
+     * Summary: 测试接口
+     */
+    public QueryDemoDemoDefaultSdkcccResponse queryDemoDemoDefaultSdkccc(QueryDemoDemoDefaultSdkcccRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoDemoDefaultSdkcccEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 111
+     * Summary: 测试接口
+     */
+    public QueryDemoDemoDefaultSdkcccResponse queryDemoDemoDefaultSdkcccEx(QueryDemoDemoDefaultSdkcccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.demo.default.sdkccc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoDemoDefaultSdkcccResponse());
     }
 }
