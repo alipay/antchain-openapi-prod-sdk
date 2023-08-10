@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.6"},
+                        {"sdk_version", "1.0.7"},
                         {"_prod_code", "ak_a1f82644937c486c81a62b0e5a6b4fbe"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.6"},
+                        {"sdk_version", "1.0.7"},
                         {"_prod_code", "ak_a1f82644937c486c81a62b0e5a6b4fbe"},
                         {"_prod_channel", "saas"},
                     };
@@ -616,45 +616,45 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
         }
 
         /**
-         * Description: sdktest
+         * Description: 描述
          * Summary: 测试接口
          */
-        public QueryDemoDemoDefaultSdkdddResponse QueryDemoDemoDefaultSdkddd(QueryDemoDemoDefaultSdkdddRequest request)
+        public QueryDemoDemoDefaultSdkfffResponse QueryDemoDemoDefaultSdkfff(QueryDemoDemoDefaultSdkfffRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryDemoDemoDefaultSdkdddEx(request, headers, runtime);
+            return QueryDemoDemoDefaultSdkfffEx(request, headers, runtime);
         }
 
         /**
-         * Description: sdktest
+         * Description: 描述
          * Summary: 测试接口
          */
-        public async Task<QueryDemoDemoDefaultSdkdddResponse> QueryDemoDemoDefaultSdkdddAsync(QueryDemoDemoDefaultSdkdddRequest request)
+        public async Task<QueryDemoDemoDefaultSdkfffResponse> QueryDemoDemoDefaultSdkfffAsync(QueryDemoDemoDefaultSdkfffRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryDemoDemoDefaultSdkdddExAsync(request, headers, runtime);
+            return await QueryDemoDemoDefaultSdkfffExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: sdktest
+         * Description: 描述
          * Summary: 测试接口
          */
-        public QueryDemoDemoDefaultSdkdddResponse QueryDemoDemoDefaultSdkdddEx(QueryDemoDemoDefaultSdkdddRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public QueryDemoDemoDefaultSdkfffResponse QueryDemoDemoDefaultSdkfffEx(QueryDemoDemoDefaultSdkfffRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDemoDemoDefaultSdkdddResponse>(DoRequest("1.0", "demo.demo.default.sdkddd.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryDemoDemoDefaultSdkfffResponse>(DoRequest("1.0", "demo.demo.default.sdkfff.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: sdktest
+         * Description: 描述
          * Summary: 测试接口
          */
-        public async Task<QueryDemoDemoDefaultSdkdddResponse> QueryDemoDemoDefaultSdkdddExAsync(QueryDemoDemoDefaultSdkdddRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<QueryDemoDemoDefaultSdkfffResponse> QueryDemoDemoDefaultSdkfffExAsync(QueryDemoDemoDefaultSdkfffRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDemoDemoDefaultSdkdddResponse>(await DoRequestAsync("1.0", "demo.demo.default.sdkddd.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryDemoDemoDefaultSdkfffResponse>(await DoRequestAsync("1.0", "demo.demo.default.sdkfff.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
