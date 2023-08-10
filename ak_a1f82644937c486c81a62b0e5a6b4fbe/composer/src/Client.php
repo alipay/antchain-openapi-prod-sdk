@@ -25,6 +25,8 @@ use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasFoundat
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasFoundationProtobufResponse;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDemoDefaultSdkcccRequest;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDemoDefaultSdkcccResponse;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDemoDefaultSdkdddRequest;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDemoDefaultSdkdddResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -172,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.5',
+                    'sdk_version'      => '1.0.6',
                     '_prod_code'       => 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
                     '_prod_channel'    => 'saas',
                 ];
@@ -449,5 +451,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryDemoDemoDefaultSdkcccResponse::fromMap($this->doRequest('1.0', 'demo.demo.default.sdkccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: sdktest
+     * Summary: 测试接口.
+     *
+     * @param QueryDemoDemoDefaultSdkdddRequest $request
+     *
+     * @return QueryDemoDemoDefaultSdkdddResponse
+     */
+    public function queryDemoDemoDefaultSdkddd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoDemoDefaultSdkdddEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: sdktest
+     * Summary: 测试接口.
+     *
+     * @param QueryDemoDemoDefaultSdkdddRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryDemoDemoDefaultSdkdddResponse
+     */
+    public function queryDemoDemoDefaultSdkdddEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoDemoDefaultSdkdddResponse::fromMap($this->doRequest('1.0', 'demo.demo.default.sdkddd.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
