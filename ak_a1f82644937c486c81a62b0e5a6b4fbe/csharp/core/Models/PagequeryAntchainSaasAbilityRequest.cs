@@ -34,9 +34,9 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe.Models
         public string Keyword { get; set; }
 
         // 网关产品码
-        [NameInMap("prod_code")]
+        [NameInMap("gw_prod_code")]
         [Validation(Required=false)]
-        public string ProdCode { get; set; }
+        public string GwProdCode { get; set; }
 
     }
 

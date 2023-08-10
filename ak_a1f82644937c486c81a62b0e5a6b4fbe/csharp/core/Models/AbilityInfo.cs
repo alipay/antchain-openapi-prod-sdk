@@ -55,6 +55,11 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe.Models
         [Validation(Required=true)]
         public List<ApiInfoModel> ApiInfoModels { get; set; }
 
+        // 能力sla看板url
+        [NameInMap("sla_url")]
+        [Validation(Required=false)]
+        public string SlaUrl { get; set; }
+
     }
 
 }
