@@ -118,7 +118,7 @@ namespace AntChain.SDK.YUQING.Models
         // 相关性得分
         [NameInMap("relevance_score")]
         [Validation(Required=false)]
-        public long? RelevanceScore { get; set; }
+        public string RelevanceScore { get; set; }
 
         // 相似文章数
         [NameInMap("similar_number")]
@@ -134,6 +134,11 @@ namespace AntChain.SDK.YUQING.Models
         [NameInMap("weibo_mid")]
         [Validation(Required=false)]
         public string WeiboMid { get; set; }
+
+        // 传播得分，0-10
+        [NameInMap("propagation_score")]
+        [Validation(Required=false)]
+        public string PropagationScore { get; set; }
 
     }
 

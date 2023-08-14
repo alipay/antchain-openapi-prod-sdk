@@ -137,7 +137,7 @@ namespace AntChain.SDK.YUQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.3"},
+                        {"sdk_version", "1.2.9"},
                         {"_prod_code", "YUQING"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.YUQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.3"},
+                        {"sdk_version", "1.2.9"},
                         {"_prod_code", "YUQING"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1033,6 +1033,132 @@ namespace AntChain.SDK.YUQING
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetMessagesHistoryResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.messages.history.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提交实时热搜任务
+         * Summary: 提交实时热搜任务
+         */
+        public SubmitHotspotTaskResponse SubmitHotspotTask(SubmitHotspotTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitHotspotTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提交实时热搜任务
+         * Summary: 提交实时热搜任务
+         */
+        public async Task<SubmitHotspotTaskResponse> SubmitHotspotTaskAsync(SubmitHotspotTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitHotspotTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提交实时热搜任务
+         * Summary: 提交实时热搜任务
+         */
+        public SubmitHotspotTaskResponse SubmitHotspotTaskEx(SubmitHotspotTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitHotspotTaskResponse>(DoRequest("1.0", "universalsaas.yuqing.hotspot.task.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提交实时热搜任务
+         * Summary: 提交实时热搜任务
+         */
+        public async Task<SubmitHotspotTaskResponse> SubmitHotspotTaskExAsync(SubmitHotspotTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitHotspotTaskResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.hotspot.task.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取实时热搜任务结果
+         * Summary: 获取实时热搜任务结果
+         */
+        public GetHotspotTaskResponse GetHotspotTask(GetHotspotTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetHotspotTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取实时热搜任务结果
+         * Summary: 获取实时热搜任务结果
+         */
+        public async Task<GetHotspotTaskResponse> GetHotspotTaskAsync(GetHotspotTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetHotspotTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取实时热搜任务结果
+         * Summary: 获取实时热搜任务结果
+         */
+        public GetHotspotTaskResponse GetHotspotTaskEx(GetHotspotTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetHotspotTaskResponse>(DoRequest("1.0", "universalsaas.yuqing.hotspot.task.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取实时热搜任务结果
+         * Summary: 获取实时热搜任务结果
+         */
+        public async Task<GetHotspotTaskResponse> GetHotspotTaskExAsync(GetHotspotTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetHotspotTaskResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.hotspot.task.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取stsToken，作用于通用SAAS业务
+         * Summary: 获取stsToken
+         */
+        public GetStsTokenResponse GetStsToken(GetStsTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetStsTokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取stsToken，作用于通用SAAS业务
+         * Summary: 获取stsToken
+         */
+        public async Task<GetStsTokenResponse> GetStsTokenAsync(GetStsTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetStsTokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取stsToken，作用于通用SAAS业务
+         * Summary: 获取stsToken
+         */
+        public GetStsTokenResponse GetStsTokenEx(GetStsTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetStsTokenResponse>(DoRequest("1.0", "universalsaas.yuqing.sts.token.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取stsToken，作用于通用SAAS业务
+         * Summary: 获取stsToken
+         */
+        public async Task<GetStsTokenResponse> GetStsTokenExAsync(GetStsTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetStsTokenResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.sts.token.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
