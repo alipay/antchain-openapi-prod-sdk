@@ -631,6 +631,10 @@ type YuqingMessage struct {
 	WeiboMid *string `json:"weibo_mid,omitempty" xml:"weibo_mid,omitempty"`
 	// 传播得分，0-10
 	PropagationScore *string `json:"propagation_score,omitempty" xml:"propagation_score,omitempty"`
+	// 情感得分
+	EmotionScore *string `json:"emotion_score,omitempty" xml:"emotion_score,omitempty"`
+	// 影响力得分
+	InfluenceScore *string `json:"influence_score,omitempty" xml:"influence_score,omitempty"`
 }
 
 func (s YuqingMessage) String() string {
@@ -768,6 +772,16 @@ func (s *YuqingMessage) SetWeiboMid(v string) *YuqingMessage {
 
 func (s *YuqingMessage) SetPropagationScore(v string) *YuqingMessage {
 	s.PropagationScore = &v
+	return s
+}
+
+func (s *YuqingMessage) SetEmotionScore(v string) *YuqingMessage {
+	s.EmotionScore = &v
+	return s
+}
+
+func (s *YuqingMessage) SetInfluenceScore(v string) *YuqingMessage {
+	s.InfluenceScore = &v
 	return s
 }
 
@@ -3886,7 +3900,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.9"),
+				"sdk_version":      tea.String("1.2.10"),
 				"_prod_code":       tea.String("YUQING"),
 				"_prod_channel":    tea.String("undefined"),
 			}
