@@ -140,6 +140,16 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=false)]
         public string PropagationScore { get; set; }
 
+        // 情感得分
+        [NameInMap("emotion_score")]
+        [Validation(Required=false)]
+        public string EmotionScore { get; set; }
+
+        // 影响力得分
+        [NameInMap("influence_score")]
+        [Validation(Required=false)]
+        public string InfluenceScore { get; set; }
+
     }
 
 }
