@@ -240,412 +240,6 @@ func (s *Pair) SetValue(v string) *Pair {
 	return s
 }
 
-// 钉钉Markdown
-type Markdown struct {
-	// 标题
-	Title *string `json:"title,omitempty" xml:"title,omitempty"`
-	// 内容
-	Text *string `json:"text,omitempty" xml:"text,omitempty"`
-}
-
-func (s Markdown) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Markdown) GoString() string {
-	return s.String()
-}
-
-func (s *Markdown) SetTitle(v string) *Markdown {
-	s.Title = &v
-	return s
-}
-
-func (s *Markdown) SetText(v string) *Markdown {
-	s.Text = &v
-	return s
-}
-
-// 钉钉At
-type At struct {
-	// @手机号
-	AtMobiles []*string `json:"at_mobiles,omitempty" xml:"at_mobiles,omitempty" type:"Repeated"`
-	// @用户ID
-	AtUserIds []*string `json:"at_user_ids,omitempty" xml:"at_user_ids,omitempty" type:"Repeated"`
-	// @所有人
-	IsAtAll *bool `json:"is_at_all,omitempty" xml:"is_at_all,omitempty"`
-}
-
-func (s At) String() string {
-	return tea.Prettify(s)
-}
-
-func (s At) GoString() string {
-	return s.String()
-}
-
-func (s *At) SetAtMobiles(v []*string) *At {
-	s.AtMobiles = v
-	return s
-}
-
-func (s *At) SetAtUserIds(v []*string) *At {
-	s.AtUserIds = v
-	return s
-}
-
-func (s *At) SetIsAtAll(v bool) *At {
-	s.IsAtAll = &v
-	return s
-}
-
-// YuqingMessage
-type YuqingMessage struct {
-	// 作者头像地址
-	AuthorAvatarUrl *string `json:"author_avatar_url,omitempty" xml:"author_avatar_url,omitempty"`
-	// 粉丝数
-	AuthorFollowersCount *int64 `json:"author_followers_count,omitempty" xml:"author_followers_count,omitempty"`
-	// 好友数
-	AuthorFriendsCount *int64 `json:"author_friends_count,omitempty" xml:"author_friends_count,omitempty"`
-	// 作者id
-	AuthorId *string `json:"author_id,omitempty" xml:"author_id,omitempty"`
-	// 作者名称
-	AuthorName *string `json:"author_name,omitempty" xml:"author_name,omitempty"`
-	// 发文数
-	AuthorStatusesCount *int64 `json:"author_statuses_count,omitempty" xml:"author_statuses_count,omitempty"`
-	// 作者认证类型
-	AuthorVerifyType *string `json:"author_verify_type,omitempty" xml:"author_verify_type,omitempty"`
-	// 舆情文章被抓取的时间戳
-	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// 文章正文内容
-	DocContent *string `json:"doc_content,omitempty" xml:"doc_content,omitempty"`
-	// 文章摘要
-	DocContentBrief *string `json:"doc_content_brief,omitempty" xml:"doc_content_brief,omitempty"`
-	// 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
-	DocContentSign *string `json:"doc_content_sign,omitempty" xml:"doc_content_sign,omitempty"`
-	// 文章唯一docId
-	DocId *string `json:"doc_id,omitempty" xml:"doc_id,omitempty"`
-	// 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
-	DocSelfContentSign *string `json:"doc_self_content_sign,omitempty" xml:"doc_self_content_sign,omitempty"`
-	// 文章标题
-	DocTitle *string `json:"doc_title,omitempty" xml:"doc_title,omitempty"`
-	// 原文地址
-	DocUrl *string `json:"doc_url,omitempty" xml:"doc_url,omitempty"`
-	// 情感的正负面，-1代表负面，1代表非负面
-	EmotionType *int64 `json:"emotion_type,omitempty" xml:"emotion_type,omitempty"`
-	// 命中的搜索词列表
-	HighlightKeywords []*string `json:"highlight_keywords,omitempty" xml:"highlight_keywords,omitempty" type:"Repeated"`
-	// 媒体类型，枚举值
-	MediaType *string `json:"media_type,omitempty" xml:"media_type,omitempty"`
-	// 舆情消息类型:转发,评论/回复, 原文,群聊等
-	MessageType *string `json:"message_type,omitempty" xml:"message_type,omitempty"`
-	// 文章的父docId，如被转发的文章docId
-	ParentDocId *string `json:"parent_doc_id,omitempty" xml:"parent_doc_id,omitempty"`
-	// 舆情文章的发布时间戳
-	PublishTime *int64 `json:"publish_time,omitempty" xml:"publish_time,omitempty"`
-	// 相关性得分
-	RelevanceScore *int64 `json:"relevance_score,omitempty" xml:"relevance_score,omitempty"`
-	// 相似文章数
-	SimilarNumber *int64 `json:"similar_number,omitempty" xml:"similar_number,omitempty"`
-	// 微博评论id
-	WeiboCommentId *string `json:"weibo_comment_id,omitempty" xml:"weibo_comment_id,omitempty"`
-	// 微博消息id
-	WeiboMid *string `json:"weibo_mid,omitempty" xml:"weibo_mid,omitempty"`
-}
-
-func (s YuqingMessage) String() string {
-	return tea.Prettify(s)
-}
-
-func (s YuqingMessage) GoString() string {
-	return s.String()
-}
-
-func (s *YuqingMessage) SetAuthorAvatarUrl(v string) *YuqingMessage {
-	s.AuthorAvatarUrl = &v
-	return s
-}
-
-func (s *YuqingMessage) SetAuthorFollowersCount(v int64) *YuqingMessage {
-	s.AuthorFollowersCount = &v
-	return s
-}
-
-func (s *YuqingMessage) SetAuthorFriendsCount(v int64) *YuqingMessage {
-	s.AuthorFriendsCount = &v
-	return s
-}
-
-func (s *YuqingMessage) SetAuthorId(v string) *YuqingMessage {
-	s.AuthorId = &v
-	return s
-}
-
-func (s *YuqingMessage) SetAuthorName(v string) *YuqingMessage {
-	s.AuthorName = &v
-	return s
-}
-
-func (s *YuqingMessage) SetAuthorStatusesCount(v int64) *YuqingMessage {
-	s.AuthorStatusesCount = &v
-	return s
-}
-
-func (s *YuqingMessage) SetAuthorVerifyType(v string) *YuqingMessage {
-	s.AuthorVerifyType = &v
-	return s
-}
-
-func (s *YuqingMessage) SetCreateTime(v int64) *YuqingMessage {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *YuqingMessage) SetDocContent(v string) *YuqingMessage {
-	s.DocContent = &v
-	return s
-}
-
-func (s *YuqingMessage) SetDocContentBrief(v string) *YuqingMessage {
-	s.DocContentBrief = &v
-	return s
-}
-
-func (s *YuqingMessage) SetDocContentSign(v string) *YuqingMessage {
-	s.DocContentSign = &v
-	return s
-}
-
-func (s *YuqingMessage) SetDocId(v string) *YuqingMessage {
-	s.DocId = &v
-	return s
-}
-
-func (s *YuqingMessage) SetDocSelfContentSign(v string) *YuqingMessage {
-	s.DocSelfContentSign = &v
-	return s
-}
-
-func (s *YuqingMessage) SetDocTitle(v string) *YuqingMessage {
-	s.DocTitle = &v
-	return s
-}
-
-func (s *YuqingMessage) SetDocUrl(v string) *YuqingMessage {
-	s.DocUrl = &v
-	return s
-}
-
-func (s *YuqingMessage) SetEmotionType(v int64) *YuqingMessage {
-	s.EmotionType = &v
-	return s
-}
-
-func (s *YuqingMessage) SetHighlightKeywords(v []*string) *YuqingMessage {
-	s.HighlightKeywords = v
-	return s
-}
-
-func (s *YuqingMessage) SetMediaType(v string) *YuqingMessage {
-	s.MediaType = &v
-	return s
-}
-
-func (s *YuqingMessage) SetMessageType(v string) *YuqingMessage {
-	s.MessageType = &v
-	return s
-}
-
-func (s *YuqingMessage) SetParentDocId(v string) *YuqingMessage {
-	s.ParentDocId = &v
-	return s
-}
-
-func (s *YuqingMessage) SetPublishTime(v int64) *YuqingMessage {
-	s.PublishTime = &v
-	return s
-}
-
-func (s *YuqingMessage) SetRelevanceScore(v int64) *YuqingMessage {
-	s.RelevanceScore = &v
-	return s
-}
-
-func (s *YuqingMessage) SetSimilarNumber(v int64) *YuqingMessage {
-	s.SimilarNumber = &v
-	return s
-}
-
-func (s *YuqingMessage) SetWeiboCommentId(v string) *YuqingMessage {
-	s.WeiboCommentId = &v
-	return s
-}
-
-func (s *YuqingMessage) SetWeiboMid(v string) *YuqingMessage {
-	s.WeiboMid = &v
-	return s
-}
-
-// 钉钉动作卡片
-type ActionCard struct {
-	// 标题
-	Title *string `json:"title,omitempty" xml:"title,omitempty"`
-	// 内容
-	Text *string `json:"text,omitempty" xml:"text,omitempty"`
-	// btn_orientation
-	BtnOrientation *string `json:"btn_orientation,omitempty" xml:"btn_orientation,omitempty"`
-	// 简单标题
-	SingleTitle *string `json:"single_title,omitempty" xml:"single_title,omitempty"`
-	// 简单地址
-	SingleUrl *string `json:"single_url,omitempty" xml:"single_url,omitempty"`
-	// 点击
-	Btns []*Btn `json:"btns,omitempty" xml:"btns,omitempty" type:"Repeated"`
-}
-
-func (s ActionCard) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ActionCard) GoString() string {
-	return s.String()
-}
-
-func (s *ActionCard) SetTitle(v string) *ActionCard {
-	s.Title = &v
-	return s
-}
-
-func (s *ActionCard) SetText(v string) *ActionCard {
-	s.Text = &v
-	return s
-}
-
-func (s *ActionCard) SetBtnOrientation(v string) *ActionCard {
-	s.BtnOrientation = &v
-	return s
-}
-
-func (s *ActionCard) SetSingleTitle(v string) *ActionCard {
-	s.SingleTitle = &v
-	return s
-}
-
-func (s *ActionCard) SetSingleUrl(v string) *ActionCard {
-	s.SingleUrl = &v
-	return s
-}
-
-func (s *ActionCard) SetBtns(v []*Btn) *ActionCard {
-	s.Btns = v
-	return s
-}
-
-// 钉钉FeedCard
-type FeedCard struct {
-	// 卡片流
-	Links []*Link `json:"links,omitempty" xml:"links,omitempty" type:"Repeated"`
-}
-
-func (s FeedCard) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FeedCard) GoString() string {
-	return s.String()
-}
-
-func (s *FeedCard) SetLinks(v []*Link) *FeedCard {
-	s.Links = v
-	return s
-}
-
-// 钉钉文字消息
-type Text struct {
-	// 内容
-	Content *string `json:"content,omitempty" xml:"content,omitempty"`
-}
-
-func (s Text) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Text) GoString() string {
-	return s.String()
-}
-
-func (s *Text) SetContent(v string) *Text {
-	s.Content = &v
-	return s
-}
-
-// 钉钉消息体
-type DingTalkContent struct {
-	// webHook
-	WebHook *string `json:"web_hook,omitempty" xml:"web_hook,omitempty"`
-	// 消息类型
-	Msgtype *string `json:"msgtype,omitempty" xml:"msgtype,omitempty"`
-	// 文字
-	Text *Text `json:"text,omitempty" xml:"text,omitempty"`
-	// 链接
-	Link *Link `json:"link,omitempty" xml:"link,omitempty"`
-	// markdown
-	Markdown *Markdown `json:"markdown,omitempty" xml:"markdown,omitempty"`
-	// actionCard
-	ActionCard *ActionCard `json:"action_card,omitempty" xml:"action_card,omitempty"`
-	// feedCard
-	FeedCard *FeedCard `json:"feed_card,omitempty" xml:"feed_card,omitempty"`
-	// at
-	At *At `json:"at,omitempty" xml:"at,omitempty"`
-}
-
-func (s DingTalkContent) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DingTalkContent) GoString() string {
-	return s.String()
-}
-
-func (s *DingTalkContent) SetWebHook(v string) *DingTalkContent {
-	s.WebHook = &v
-	return s
-}
-
-func (s *DingTalkContent) SetMsgtype(v string) *DingTalkContent {
-	s.Msgtype = &v
-	return s
-}
-
-func (s *DingTalkContent) SetText(v *Text) *DingTalkContent {
-	s.Text = v
-	return s
-}
-
-func (s *DingTalkContent) SetLink(v *Link) *DingTalkContent {
-	s.Link = v
-	return s
-}
-
-func (s *DingTalkContent) SetMarkdown(v *Markdown) *DingTalkContent {
-	s.Markdown = v
-	return s
-}
-
-func (s *DingTalkContent) SetActionCard(v *ActionCard) *DingTalkContent {
-	s.ActionCard = v
-	return s
-}
-
-func (s *DingTalkContent) SetFeedCard(v *FeedCard) *DingTalkContent {
-	s.FeedCard = v
-	return s
-}
-
-func (s *DingTalkContent) SetAt(v *At) *DingTalkContent {
-	s.At = v
-	return s
-}
-
 // 热搜结构体
 type HotspotMessage struct {
 	// 热搜/热榜/话题 对应用户id (可能为空)
@@ -924,6 +518,419 @@ func (s *HotspotMessage) SetFirstXxistTimestamp(v int64) *HotspotMessage {
 	return s
 }
 
+// 钉钉Markdown
+type Markdown struct {
+	// 标题
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	// 内容
+	Text *string `json:"text,omitempty" xml:"text,omitempty"`
+}
+
+func (s Markdown) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Markdown) GoString() string {
+	return s.String()
+}
+
+func (s *Markdown) SetTitle(v string) *Markdown {
+	s.Title = &v
+	return s
+}
+
+func (s *Markdown) SetText(v string) *Markdown {
+	s.Text = &v
+	return s
+}
+
+// 钉钉At
+type At struct {
+	// @手机号
+	AtMobiles []*string `json:"at_mobiles,omitempty" xml:"at_mobiles,omitempty" type:"Repeated"`
+	// @用户ID
+	AtUserIds []*string `json:"at_user_ids,omitempty" xml:"at_user_ids,omitempty" type:"Repeated"`
+	// @所有人
+	IsAtAll *bool `json:"is_at_all,omitempty" xml:"is_at_all,omitempty"`
+}
+
+func (s At) String() string {
+	return tea.Prettify(s)
+}
+
+func (s At) GoString() string {
+	return s.String()
+}
+
+func (s *At) SetAtMobiles(v []*string) *At {
+	s.AtMobiles = v
+	return s
+}
+
+func (s *At) SetAtUserIds(v []*string) *At {
+	s.AtUserIds = v
+	return s
+}
+
+func (s *At) SetIsAtAll(v bool) *At {
+	s.IsAtAll = &v
+	return s
+}
+
+// YuqingMessage
+type YuqingMessage struct {
+	// 作者头像地址
+	AuthorAvatarUrl *string `json:"author_avatar_url,omitempty" xml:"author_avatar_url,omitempty"`
+	// 粉丝数
+	AuthorFollowersCount *int64 `json:"author_followers_count,omitempty" xml:"author_followers_count,omitempty"`
+	// 好友数
+	AuthorFriendsCount *int64 `json:"author_friends_count,omitempty" xml:"author_friends_count,omitempty"`
+	// 作者id
+	AuthorId *string `json:"author_id,omitempty" xml:"author_id,omitempty"`
+	// 作者名称
+	AuthorName *string `json:"author_name,omitempty" xml:"author_name,omitempty"`
+	// 发文数
+	AuthorStatusesCount *int64 `json:"author_statuses_count,omitempty" xml:"author_statuses_count,omitempty"`
+	// 作者认证类型
+	AuthorVerifyType *string `json:"author_verify_type,omitempty" xml:"author_verify_type,omitempty"`
+	// 舆情文章被抓取的时间戳
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 文章正文内容
+	DocContent *string `json:"doc_content,omitempty" xml:"doc_content,omitempty"`
+	// 文章摘要
+	DocContentBrief *string `json:"doc_content_brief,omitempty" xml:"doc_content_brief,omitempty"`
+	// 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
+	DocContentSign *string `json:"doc_content_sign,omitempty" xml:"doc_content_sign,omitempty"`
+	// 文章唯一docId
+	DocId *string `json:"doc_id,omitempty" xml:"doc_id,omitempty"`
+	// 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
+	DocSelfContentSign *string `json:"doc_self_content_sign,omitempty" xml:"doc_self_content_sign,omitempty"`
+	// 文章标题
+	DocTitle *string `json:"doc_title,omitempty" xml:"doc_title,omitempty"`
+	// 原文地址
+	DocUrl *string `json:"doc_url,omitempty" xml:"doc_url,omitempty"`
+	// 情感的正负面，-1代表负面，1代表非负面
+	EmotionType *int64 `json:"emotion_type,omitempty" xml:"emotion_type,omitempty"`
+	// 命中的搜索词列表
+	HighlightKeywords []*string `json:"highlight_keywords,omitempty" xml:"highlight_keywords,omitempty" type:"Repeated"`
+	// 媒体类型，枚举值
+	MediaType *string `json:"media_type,omitempty" xml:"media_type,omitempty"`
+	// 舆情消息类型:转发,评论/回复, 原文,群聊等
+	MessageType *string `json:"message_type,omitempty" xml:"message_type,omitempty"`
+	// 文章的父docId，如被转发的文章docId
+	ParentDocId *string `json:"parent_doc_id,omitempty" xml:"parent_doc_id,omitempty"`
+	// 舆情文章的发布时间戳
+	PublishTime *int64 `json:"publish_time,omitempty" xml:"publish_time,omitempty"`
+	// 相关性得分
+	RelevanceScore *string `json:"relevance_score,omitempty" xml:"relevance_score,omitempty"`
+	// 相似文章数
+	SimilarNumber *int64 `json:"similar_number,omitempty" xml:"similar_number,omitempty"`
+	// 微博评论id
+	WeiboCommentId *string `json:"weibo_comment_id,omitempty" xml:"weibo_comment_id,omitempty"`
+	// 微博消息id
+	WeiboMid *string `json:"weibo_mid,omitempty" xml:"weibo_mid,omitempty"`
+	// 传播得分，0-10
+	PropagationScore *string `json:"propagation_score,omitempty" xml:"propagation_score,omitempty"`
+}
+
+func (s YuqingMessage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s YuqingMessage) GoString() string {
+	return s.String()
+}
+
+func (s *YuqingMessage) SetAuthorAvatarUrl(v string) *YuqingMessage {
+	s.AuthorAvatarUrl = &v
+	return s
+}
+
+func (s *YuqingMessage) SetAuthorFollowersCount(v int64) *YuqingMessage {
+	s.AuthorFollowersCount = &v
+	return s
+}
+
+func (s *YuqingMessage) SetAuthorFriendsCount(v int64) *YuqingMessage {
+	s.AuthorFriendsCount = &v
+	return s
+}
+
+func (s *YuqingMessage) SetAuthorId(v string) *YuqingMessage {
+	s.AuthorId = &v
+	return s
+}
+
+func (s *YuqingMessage) SetAuthorName(v string) *YuqingMessage {
+	s.AuthorName = &v
+	return s
+}
+
+func (s *YuqingMessage) SetAuthorStatusesCount(v int64) *YuqingMessage {
+	s.AuthorStatusesCount = &v
+	return s
+}
+
+func (s *YuqingMessage) SetAuthorVerifyType(v string) *YuqingMessage {
+	s.AuthorVerifyType = &v
+	return s
+}
+
+func (s *YuqingMessage) SetCreateTime(v int64) *YuqingMessage {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocContent(v string) *YuqingMessage {
+	s.DocContent = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocContentBrief(v string) *YuqingMessage {
+	s.DocContentBrief = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocContentSign(v string) *YuqingMessage {
+	s.DocContentSign = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocId(v string) *YuqingMessage {
+	s.DocId = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocSelfContentSign(v string) *YuqingMessage {
+	s.DocSelfContentSign = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocTitle(v string) *YuqingMessage {
+	s.DocTitle = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocUrl(v string) *YuqingMessage {
+	s.DocUrl = &v
+	return s
+}
+
+func (s *YuqingMessage) SetEmotionType(v int64) *YuqingMessage {
+	s.EmotionType = &v
+	return s
+}
+
+func (s *YuqingMessage) SetHighlightKeywords(v []*string) *YuqingMessage {
+	s.HighlightKeywords = v
+	return s
+}
+
+func (s *YuqingMessage) SetMediaType(v string) *YuqingMessage {
+	s.MediaType = &v
+	return s
+}
+
+func (s *YuqingMessage) SetMessageType(v string) *YuqingMessage {
+	s.MessageType = &v
+	return s
+}
+
+func (s *YuqingMessage) SetParentDocId(v string) *YuqingMessage {
+	s.ParentDocId = &v
+	return s
+}
+
+func (s *YuqingMessage) SetPublishTime(v int64) *YuqingMessage {
+	s.PublishTime = &v
+	return s
+}
+
+func (s *YuqingMessage) SetRelevanceScore(v string) *YuqingMessage {
+	s.RelevanceScore = &v
+	return s
+}
+
+func (s *YuqingMessage) SetSimilarNumber(v int64) *YuqingMessage {
+	s.SimilarNumber = &v
+	return s
+}
+
+func (s *YuqingMessage) SetWeiboCommentId(v string) *YuqingMessage {
+	s.WeiboCommentId = &v
+	return s
+}
+
+func (s *YuqingMessage) SetWeiboMid(v string) *YuqingMessage {
+	s.WeiboMid = &v
+	return s
+}
+
+func (s *YuqingMessage) SetPropagationScore(v string) *YuqingMessage {
+	s.PropagationScore = &v
+	return s
+}
+
+// 钉钉动作卡片
+type ActionCard struct {
+	// 标题
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	// 内容
+	Text *string `json:"text,omitempty" xml:"text,omitempty"`
+	// btn_orientation
+	BtnOrientation *string `json:"btn_orientation,omitempty" xml:"btn_orientation,omitempty"`
+	// 简单标题
+	SingleTitle *string `json:"single_title,omitempty" xml:"single_title,omitempty"`
+	// 简单地址
+	SingleUrl *string `json:"single_url,omitempty" xml:"single_url,omitempty"`
+	// 点击
+	Btns []*Btn `json:"btns,omitempty" xml:"btns,omitempty" type:"Repeated"`
+}
+
+func (s ActionCard) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ActionCard) GoString() string {
+	return s.String()
+}
+
+func (s *ActionCard) SetTitle(v string) *ActionCard {
+	s.Title = &v
+	return s
+}
+
+func (s *ActionCard) SetText(v string) *ActionCard {
+	s.Text = &v
+	return s
+}
+
+func (s *ActionCard) SetBtnOrientation(v string) *ActionCard {
+	s.BtnOrientation = &v
+	return s
+}
+
+func (s *ActionCard) SetSingleTitle(v string) *ActionCard {
+	s.SingleTitle = &v
+	return s
+}
+
+func (s *ActionCard) SetSingleUrl(v string) *ActionCard {
+	s.SingleUrl = &v
+	return s
+}
+
+func (s *ActionCard) SetBtns(v []*Btn) *ActionCard {
+	s.Btns = v
+	return s
+}
+
+// 钉钉FeedCard
+type FeedCard struct {
+	// 卡片流
+	Links []*Link `json:"links,omitempty" xml:"links,omitempty" type:"Repeated"`
+}
+
+func (s FeedCard) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FeedCard) GoString() string {
+	return s.String()
+}
+
+func (s *FeedCard) SetLinks(v []*Link) *FeedCard {
+	s.Links = v
+	return s
+}
+
+// 钉钉文字消息
+type Text struct {
+	// 内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+}
+
+func (s Text) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Text) GoString() string {
+	return s.String()
+}
+
+func (s *Text) SetContent(v string) *Text {
+	s.Content = &v
+	return s
+}
+
+// 钉钉消息体
+type DingTalkContent struct {
+	// webHook
+	WebHook *string `json:"web_hook,omitempty" xml:"web_hook,omitempty"`
+	// 消息类型
+	Msgtype *string `json:"msgtype,omitempty" xml:"msgtype,omitempty"`
+	// 文字
+	Text *Text `json:"text,omitempty" xml:"text,omitempty"`
+	// 链接
+	Link *Link `json:"link,omitempty" xml:"link,omitempty"`
+	// markdown
+	Markdown *Markdown `json:"markdown,omitempty" xml:"markdown,omitempty"`
+	// actionCard
+	ActionCard *ActionCard `json:"action_card,omitempty" xml:"action_card,omitempty"`
+	// feedCard
+	FeedCard *FeedCard `json:"feed_card,omitempty" xml:"feed_card,omitempty"`
+	// at
+	At *At `json:"at,omitempty" xml:"at,omitempty"`
+}
+
+func (s DingTalkContent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DingTalkContent) GoString() string {
+	return s.String()
+}
+
+func (s *DingTalkContent) SetWebHook(v string) *DingTalkContent {
+	s.WebHook = &v
+	return s
+}
+
+func (s *DingTalkContent) SetMsgtype(v string) *DingTalkContent {
+	s.Msgtype = &v
+	return s
+}
+
+func (s *DingTalkContent) SetText(v *Text) *DingTalkContent {
+	s.Text = v
+	return s
+}
+
+func (s *DingTalkContent) SetLink(v *Link) *DingTalkContent {
+	s.Link = v
+	return s
+}
+
+func (s *DingTalkContent) SetMarkdown(v *Markdown) *DingTalkContent {
+	s.Markdown = v
+	return s
+}
+
+func (s *DingTalkContent) SetActionCard(v *ActionCard) *DingTalkContent {
+	s.ActionCard = v
+	return s
+}
+
+func (s *DingTalkContent) SetFeedCard(v *FeedCard) *DingTalkContent {
+	s.FeedCard = v
+	return s
+}
+
+func (s *DingTalkContent) SetAt(v *At) *DingTalkContent {
+	s.At = v
+	return s
+}
+
 // 预警消息体
 type Alarm struct {
 	// 人工打的标签
@@ -1085,6 +1092,53 @@ func (s *AnalysisConfig) SetPublishTimeEnd(v int64) *AnalysisConfig {
 
 func (s *AnalysisConfig) SetUrlList(v []*string) *AnalysisConfig {
 	s.UrlList = v
+	return s
+}
+
+// 热搜任务结构体
+type HotspotTask struct {
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 数量
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	// 当前页
+	PageNow *int64 `json:"page_now,omitempty" xml:"page_now,omitempty" require:"true"`
+	// 每页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 数据
+	Pages []*HotspotMessage `json:"pages,omitempty" xml:"pages,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s HotspotTask) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HotspotTask) GoString() string {
+	return s.String()
+}
+
+func (s *HotspotTask) SetTaskId(v string) *HotspotTask {
+	s.TaskId = &v
+	return s
+}
+
+func (s *HotspotTask) SetCount(v int64) *HotspotTask {
+	s.Count = &v
+	return s
+}
+
+func (s *HotspotTask) SetPageNow(v int64) *HotspotTask {
+	s.PageNow = &v
+	return s
+}
+
+func (s *HotspotTask) SetPageSize(v int64) *HotspotTask {
+	s.PageSize = &v
+	return s
+}
+
+func (s *HotspotTask) SetPages(v []*HotspotMessage) *HotspotTask {
+	s.Pages = v
 	return s
 }
 
@@ -3451,6 +3505,265 @@ func (s *GetMessagesHistoryResponse) SetYuqingMessages(v []*YuqingMessage) *GetM
 	return s
 }
 
+type SubmitHotspotTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 媒体类型
+	MediaSubTypes []*string `json:"media_sub_types,omitempty" xml:"media_sub_types,omitempty" require:"true" type:"Repeated"`
+	// 任务过期时间,单位秒
+	ExpiredTime *int64 `json:"expired_time,omitempty" xml:"expired_time,omitempty" require:"true"`
+	// 排序方式： 正序(+)、倒序(-)
+	SortByDirection *string `json:"sort_by_direction,omitempty" xml:"sort_by_direction,omitempty"`
+	// 排序字段
+	SortBy *string `json:"sort_by,omitempty" xml:"sort_by,omitempty"`
+	// 爬取开始时间过滤
+	CrawlerTimeStartFilter *int64 `json:"crawler_time_start_filter,omitempty" xml:"crawler_time_start_filter,omitempty"`
+	// 爬取结束时间过滤
+	CrawlerTimeEndFilter *int64 `json:"crawler_time_end_filter,omitempty" xml:"crawler_time_end_filter,omitempty"`
+}
+
+func (s SubmitHotspotTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitHotspotTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitHotspotTaskRequest) SetAuthToken(v string) *SubmitHotspotTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitHotspotTaskRequest) SetProductInstanceId(v string) *SubmitHotspotTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitHotspotTaskRequest) SetMediaSubTypes(v []*string) *SubmitHotspotTaskRequest {
+	s.MediaSubTypes = v
+	return s
+}
+
+func (s *SubmitHotspotTaskRequest) SetExpiredTime(v int64) *SubmitHotspotTaskRequest {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *SubmitHotspotTaskRequest) SetSortByDirection(v string) *SubmitHotspotTaskRequest {
+	s.SortByDirection = &v
+	return s
+}
+
+func (s *SubmitHotspotTaskRequest) SetSortBy(v string) *SubmitHotspotTaskRequest {
+	s.SortBy = &v
+	return s
+}
+
+func (s *SubmitHotspotTaskRequest) SetCrawlerTimeStartFilter(v int64) *SubmitHotspotTaskRequest {
+	s.CrawlerTimeStartFilter = &v
+	return s
+}
+
+func (s *SubmitHotspotTaskRequest) SetCrawlerTimeEndFilter(v int64) *SubmitHotspotTaskRequest {
+	s.CrawlerTimeEndFilter = &v
+	return s
+}
+
+type SubmitHotspotTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务ID
+	TaskIds []*string `json:"task_ids,omitempty" xml:"task_ids,omitempty" type:"Repeated"`
+}
+
+func (s SubmitHotspotTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitHotspotTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitHotspotTaskResponse) SetReqMsgId(v string) *SubmitHotspotTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitHotspotTaskResponse) SetResultCode(v string) *SubmitHotspotTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitHotspotTaskResponse) SetResultMsg(v string) *SubmitHotspotTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitHotspotTaskResponse) SetTaskIds(v []*string) *SubmitHotspotTaskResponse {
+	s.TaskIds = v
+	return s
+}
+
+type GetHotspotTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskIds []*string `json:"task_ids,omitempty" xml:"task_ids,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s GetHotspotTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetHotspotTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetHotspotTaskRequest) SetAuthToken(v string) *GetHotspotTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetHotspotTaskRequest) SetProductInstanceId(v string) *GetHotspotTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetHotspotTaskRequest) SetTaskIds(v []*string) *GetHotspotTaskRequest {
+	s.TaskIds = v
+	return s
+}
+
+type GetHotspotTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务的结果
+	HotspotTasks []*HotspotTask `json:"hotspot_tasks,omitempty" xml:"hotspot_tasks,omitempty" type:"Repeated"`
+}
+
+func (s GetHotspotTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetHotspotTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetHotspotTaskResponse) SetReqMsgId(v string) *GetHotspotTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetHotspotTaskResponse) SetResultCode(v string) *GetHotspotTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetHotspotTaskResponse) SetResultMsg(v string) *GetHotspotTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetHotspotTaskResponse) SetHotspotTasks(v []*HotspotTask) *GetHotspotTaskResponse {
+	s.HotspotTasks = v
+	return s
+}
+
+type GetStsTokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务类型
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+}
+
+func (s GetStsTokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetStsTokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetStsTokenRequest) SetAuthToken(v string) *GetStsTokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetStsTokenRequest) SetProductInstanceId(v string) *GetStsTokenRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetStsTokenRequest) SetBizType(v string) *GetStsTokenRequest {
+	s.BizType = &v
+	return s
+}
+
+type GetStsTokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// AK
+	AccessKeyId *string `json:"access_key_id,omitempty" xml:"access_key_id,omitempty"`
+	// SK
+	AccessKeySecret *string `json:"access_key_secret,omitempty" xml:"access_key_secret,omitempty"`
+	// stsToken
+	SecurityToken *string `json:"security_token,omitempty" xml:"security_token,omitempty"`
+}
+
+func (s GetStsTokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetStsTokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetStsTokenResponse) SetReqMsgId(v string) *GetStsTokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetStsTokenResponse) SetResultCode(v string) *GetStsTokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetStsTokenResponse) SetResultMsg(v string) *GetStsTokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetStsTokenResponse) SetAccessKeyId(v string) *GetStsTokenResponse {
+	s.AccessKeyId = &v
+	return s
+}
+
+func (s *GetStsTokenResponse) SetAccessKeySecret(v string) *GetStsTokenResponse {
+	s.AccessKeySecret = &v
+	return s
+}
+
+func (s *GetStsTokenResponse) SetSecurityToken(v string) *GetStsTokenResponse {
+	s.SecurityToken = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3573,7 +3886,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.3"),
+				"sdk_version":      tea.String("1.2.9"),
 				"_prod_code":       tea.String("YUQING"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4202,6 +4515,108 @@ func (client *Client) GetMessagesHistoryEx(request *GetMessagesHistoryRequest, h
 	}
 	_result = &GetMessagesHistoryResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.messages.history.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 提交实时热搜任务
+ * Summary: 提交实时热搜任务
+ */
+func (client *Client) SubmitHotspotTask(request *SubmitHotspotTaskRequest) (_result *SubmitHotspotTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitHotspotTaskResponse{}
+	_body, _err := client.SubmitHotspotTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提交实时热搜任务
+ * Summary: 提交实时热搜任务
+ */
+func (client *Client) SubmitHotspotTaskEx(request *SubmitHotspotTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitHotspotTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitHotspotTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.hotspot.task.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取实时热搜任务结果
+ * Summary: 获取实时热搜任务结果
+ */
+func (client *Client) GetHotspotTask(request *GetHotspotTaskRequest) (_result *GetHotspotTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetHotspotTaskResponse{}
+	_body, _err := client.GetHotspotTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取实时热搜任务结果
+ * Summary: 获取实时热搜任务结果
+ */
+func (client *Client) GetHotspotTaskEx(request *GetHotspotTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetHotspotTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetHotspotTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.hotspot.task.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取stsToken，作用于通用SAAS业务
+ * Summary: 获取stsToken
+ */
+func (client *Client) GetStsToken(request *GetStsTokenRequest) (_result *GetStsTokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetStsTokenResponse{}
+	_body, _err := client.GetStsTokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取stsToken，作用于通用SAAS业务
+ * Summary: 获取stsToken
+ */
+func (client *Client) GetStsTokenEx(request *GetStsTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetStsTokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetStsTokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.sts.token.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
