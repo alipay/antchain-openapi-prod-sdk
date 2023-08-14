@@ -703,6 +703,8 @@ class YuqingMessage(TeaModel):
         weibo_comment_id: str = None,
         weibo_mid: str = None,
         propagation_score: str = None,
+        emotion_score: str = None,
+        influence_score: str = None,
     ):
         # 作者头像地址
         self.author_avatar_url = author_avatar_url
@@ -756,6 +758,10 @@ class YuqingMessage(TeaModel):
         self.weibo_mid = weibo_mid
         # 传播得分，0-10
         self.propagation_score = propagation_score
+        # 情感得分
+        self.emotion_score = emotion_score
+        # 影响力得分
+        self.influence_score = influence_score
 
     def validate(self):
         pass
@@ -818,6 +824,10 @@ class YuqingMessage(TeaModel):
             result['weibo_mid'] = self.weibo_mid
         if self.propagation_score is not None:
             result['propagation_score'] = self.propagation_score
+        if self.emotion_score is not None:
+            result['emotion_score'] = self.emotion_score
+        if self.influence_score is not None:
+            result['influence_score'] = self.influence_score
         return result
 
     def from_map(self, m: dict = None):
@@ -874,6 +884,10 @@ class YuqingMessage(TeaModel):
             self.weibo_mid = m.get('weibo_mid')
         if m.get('propagation_score') is not None:
             self.propagation_score = m.get('propagation_score')
+        if m.get('emotion_score') is not None:
+            self.emotion_score = m.get('emotion_score')
+        if m.get('influence_score') is not None:
+            self.influence_score = m.get('influence_score')
         return self
 
 
