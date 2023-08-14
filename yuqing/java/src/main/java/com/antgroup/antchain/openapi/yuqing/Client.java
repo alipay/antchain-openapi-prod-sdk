@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.3"),
+                    new TeaPair("sdk_version", "1.2.9"),
                     new TeaPair("_prod_code", "YUQING"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -482,5 +482,62 @@ public class Client {
     public GetMessagesHistoryResponse getMessagesHistoryEx(GetMessagesHistoryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.messages.history.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetMessagesHistoryResponse());
+    }
+
+    /**
+     * Description: 提交实时热搜任务
+     * Summary: 提交实时热搜任务
+     */
+    public SubmitHotspotTaskResponse submitHotspotTask(SubmitHotspotTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitHotspotTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 提交实时热搜任务
+     * Summary: 提交实时热搜任务
+     */
+    public SubmitHotspotTaskResponse submitHotspotTaskEx(SubmitHotspotTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.hotspot.task.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitHotspotTaskResponse());
+    }
+
+    /**
+     * Description: 获取实时热搜任务结果
+     * Summary: 获取实时热搜任务结果
+     */
+    public GetHotspotTaskResponse getHotspotTask(GetHotspotTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getHotspotTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取实时热搜任务结果
+     * Summary: 获取实时热搜任务结果
+     */
+    public GetHotspotTaskResponse getHotspotTaskEx(GetHotspotTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.hotspot.task.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetHotspotTaskResponse());
+    }
+
+    /**
+     * Description: 获取stsToken，作用于通用SAAS业务
+     * Summary: 获取stsToken
+     */
+    public GetStsTokenResponse getStsToken(GetStsTokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getStsTokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取stsToken，作用于通用SAAS业务
+     * Summary: 获取stsToken
+     */
+    public GetStsTokenResponse getStsTokenEx(GetStsTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.sts.token.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetStsTokenResponse());
     }
 }

@@ -90,7 +90,7 @@ public class YuqingMessage extends TeaModel {
 
     // 相关性得分
     @NameInMap("relevance_score")
-    public Long relevanceScore;
+    public String relevanceScore;
 
     // 相似文章数
     @NameInMap("similar_number")
@@ -103,6 +103,10 @@ public class YuqingMessage extends TeaModel {
     // 微博消息id
     @NameInMap("weibo_mid")
     public String weiboMid;
+
+    // 传播得分，0-10
+    @NameInMap("propagation_score")
+    public String propagationScore;
 
     public static YuqingMessage build(java.util.Map<String, ?> map) throws Exception {
         YuqingMessage self = new YuqingMessage();
@@ -277,11 +281,11 @@ public class YuqingMessage extends TeaModel {
         return this.publishTime;
     }
 
-    public YuqingMessage setRelevanceScore(Long relevanceScore) {
+    public YuqingMessage setRelevanceScore(String relevanceScore) {
         this.relevanceScore = relevanceScore;
         return this;
     }
-    public Long getRelevanceScore() {
+    public String getRelevanceScore() {
         return this.relevanceScore;
     }
 
@@ -307,6 +311,14 @@ public class YuqingMessage extends TeaModel {
     }
     public String getWeiboMid() {
         return this.weiboMid;
+    }
+
+    public YuqingMessage setPropagationScore(String propagationScore) {
+        this.propagationScore = propagationScore;
+        return this;
+    }
+    public String getPropagationScore() {
+        return this.propagationScore;
     }
 
 }
