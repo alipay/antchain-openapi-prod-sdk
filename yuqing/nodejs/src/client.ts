@@ -437,6 +437,10 @@ export class YuqingMessage extends $tea.Model {
   weiboMid?: string;
   // 传播得分，0-10
   propagationScore?: string;
+  // 情感得分
+  emotionScore?: string;
+  // 影响力得分
+  influenceScore?: string;
   static names(): { [key: string]: string } {
     return {
       authorAvatarUrl: 'author_avatar_url',
@@ -465,6 +469,8 @@ export class YuqingMessage extends $tea.Model {
       weiboCommentId: 'weibo_comment_id',
       weiboMid: 'weibo_mid',
       propagationScore: 'propagation_score',
+      emotionScore: 'emotion_score',
+      influenceScore: 'influence_score',
     };
   }
 
@@ -496,6 +502,8 @@ export class YuqingMessage extends $tea.Model {
       weiboCommentId: 'string',
       weiboMid: 'string',
       propagationScore: 'string',
+      emotionScore: 'string',
+      influenceScore: 'string',
     };
   }
 
@@ -2829,7 +2837,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.9",
+          sdk_version: "1.2.10",
           _prod_code: "YUQING",
           _prod_channel: "undefined",
         };
