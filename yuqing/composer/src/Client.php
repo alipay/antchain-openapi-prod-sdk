@@ -16,10 +16,14 @@ use AntChain\YUQING\Models\CreateProjectRequest;
 use AntChain\YUQING\Models\CreateProjectResponse;
 use AntChain\YUQING\Models\DeleteProjectRequest;
 use AntChain\YUQING\Models\DeleteProjectResponse;
+use AntChain\YUQING\Models\GetHotspotTaskRequest;
+use AntChain\YUQING\Models\GetHotspotTaskResponse;
 use AntChain\YUQING\Models\GetMessageRequest;
 use AntChain\YUQING\Models\GetMessageResponse;
 use AntChain\YUQING\Models\GetMessagesHistoryRequest;
 use AntChain\YUQING\Models\GetMessagesHistoryResponse;
+use AntChain\YUQING\Models\GetStsTokenRequest;
+use AntChain\YUQING\Models\GetStsTokenResponse;
 use AntChain\YUQING\Models\QueryAlarmRequest;
 use AntChain\YUQING\Models\QueryAlarmResponse;
 use AntChain\YUQING\Models\QueryAnalysisQueryRequest;
@@ -44,6 +48,8 @@ use AntChain\YUQING\Models\SendProductNoticeRequest;
 use AntChain\YUQING\Models\SendProductNoticeResponse;
 use AntChain\YUQING\Models\SetProductOperateRequest;
 use AntChain\YUQING\Models\SetProductOperateResponse;
+use AntChain\YUQING\Models\SubmitHotspotTaskRequest;
+use AntChain\YUQING\Models\SubmitHotspotTaskResponse;
 use AntChain\YUQING\Models\SubmitMessagesHistoryRequest;
 use AntChain\YUQING\Models\SubmitMessagesHistoryResponse;
 use Exception;
@@ -192,7 +198,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.3',
+                    'sdk_version'      => '1.2.9',
                     '_prod_code'       => 'YUQING',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -799,5 +805,104 @@ class Client
         Utils::validateModel($request);
 
         return GetMessagesHistoryResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.messages.history.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提交实时热搜任务
+     * Summary: 提交实时热搜任务
+     *
+     * @param SubmitHotspotTaskRequest $request
+     *
+     * @return SubmitHotspotTaskResponse
+     */
+    public function submitHotspotTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitHotspotTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交实时热搜任务
+     * Summary: 提交实时热搜任务
+     *
+     * @param SubmitHotspotTaskRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return SubmitHotspotTaskResponse
+     */
+    public function submitHotspotTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitHotspotTaskResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.hotspot.task.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取实时热搜任务结果
+     * Summary: 获取实时热搜任务结果.
+     *
+     * @param GetHotspotTaskRequest $request
+     *
+     * @return GetHotspotTaskResponse
+     */
+    public function getHotspotTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getHotspotTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取实时热搜任务结果
+     * Summary: 获取实时热搜任务结果.
+     *
+     * @param GetHotspotTaskRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return GetHotspotTaskResponse
+     */
+    public function getHotspotTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetHotspotTaskResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.hotspot.task.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取stsToken，作用于通用SAAS业务
+     * Summary: 获取stsToken.
+     *
+     * @param GetStsTokenRequest $request
+     *
+     * @return GetStsTokenResponse
+     */
+    public function getStsToken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getStsTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取stsToken，作用于通用SAAS业务
+     * Summary: 获取stsToken.
+     *
+     * @param GetStsTokenRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return GetStsTokenResponse
+     */
+    public function getStsTokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetStsTokenResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.sts.token.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

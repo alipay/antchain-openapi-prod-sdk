@@ -180,7 +180,7 @@ class YuqingMessage extends Model
     /**
      * @example 相关性得分
      *
-     * @var int
+     * @var string
      */
     public $relevanceScore;
 
@@ -207,6 +207,14 @@ class YuqingMessage extends Model
      * @var string
      */
     public $weiboMid;
+
+    // 传播得分，0-10
+    /**
+     * @example 10
+     *
+     * @var string
+     */
+    public $propagationScore;
     protected $_name = [
         'authorAvatarUrl'      => 'author_avatar_url',
         'authorFollowersCount' => 'author_followers_count',
@@ -233,6 +241,7 @@ class YuqingMessage extends Model
         'similarNumber'        => 'similar_number',
         'weiboCommentId'       => 'weibo_comment_id',
         'weiboMid'             => 'weibo_mid',
+        'propagationScore'     => 'propagation_score',
     ];
 
     public function validate()
@@ -316,6 +325,9 @@ class YuqingMessage extends Model
         }
         if (null !== $this->weiboMid) {
             $res['weibo_mid'] = $this->weiboMid;
+        }
+        if (null !== $this->propagationScore) {
+            $res['propagation_score'] = $this->propagationScore;
         }
 
         return $res;
@@ -405,6 +417,9 @@ class YuqingMessage extends Model
         }
         if (isset($map['weibo_mid'])) {
             $model->weiboMid = $map['weibo_mid'];
+        }
+        if (isset($map['propagation_score'])) {
+            $model->propagationScore = $map['propagation_score'];
         }
 
         return $model;
