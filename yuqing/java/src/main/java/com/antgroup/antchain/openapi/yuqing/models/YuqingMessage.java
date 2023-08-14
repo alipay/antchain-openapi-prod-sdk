@@ -108,6 +108,14 @@ public class YuqingMessage extends TeaModel {
     @NameInMap("propagation_score")
     public String propagationScore;
 
+    // 情感得分
+    @NameInMap("emotion_score")
+    public String emotionScore;
+
+    // 影响力得分
+    @NameInMap("influence_score")
+    public String influenceScore;
+
     public static YuqingMessage build(java.util.Map<String, ?> map) throws Exception {
         YuqingMessage self = new YuqingMessage();
         return TeaModel.build(map, self);
@@ -319,6 +327,22 @@ public class YuqingMessage extends TeaModel {
     }
     public String getPropagationScore() {
         return this.propagationScore;
+    }
+
+    public YuqingMessage setEmotionScore(String emotionScore) {
+        this.emotionScore = emotionScore;
+        return this;
+    }
+    public String getEmotionScore() {
+        return this.emotionScore;
+    }
+
+    public YuqingMessage setInfluenceScore(String influenceScore) {
+        this.influenceScore = influenceScore;
+        return this;
+    }
+    public String getInfluenceScore() {
+        return this.influenceScore;
     }
 
 }
