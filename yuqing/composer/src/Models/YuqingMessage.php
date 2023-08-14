@@ -215,6 +215,22 @@ class YuqingMessage extends Model
      * @var string
      */
     public $propagationScore;
+
+    // 情感得分
+    /**
+     * @example 10.1
+     *
+     * @var string
+     */
+    public $emotionScore;
+
+    // 影响力得分
+    /**
+     * @example 10.2
+     *
+     * @var string
+     */
+    public $influenceScore;
     protected $_name = [
         'authorAvatarUrl'      => 'author_avatar_url',
         'authorFollowersCount' => 'author_followers_count',
@@ -242,6 +258,8 @@ class YuqingMessage extends Model
         'weiboCommentId'       => 'weibo_comment_id',
         'weiboMid'             => 'weibo_mid',
         'propagationScore'     => 'propagation_score',
+        'emotionScore'         => 'emotion_score',
+        'influenceScore'       => 'influence_score',
     ];
 
     public function validate()
@@ -328,6 +346,12 @@ class YuqingMessage extends Model
         }
         if (null !== $this->propagationScore) {
             $res['propagation_score'] = $this->propagationScore;
+        }
+        if (null !== $this->emotionScore) {
+            $res['emotion_score'] = $this->emotionScore;
+        }
+        if (null !== $this->influenceScore) {
+            $res['influence_score'] = $this->influenceScore;
         }
 
         return $res;
@@ -420,6 +444,12 @@ class YuqingMessage extends Model
         }
         if (isset($map['propagation_score'])) {
             $model->propagationScore = $map['propagation_score'];
+        }
+        if (isset($map['emotion_score'])) {
+            $model->emotionScore = $map['emotion_score'];
+        }
+        if (isset($map['influence_score'])) {
+            $model->influenceScore = $map['influence_score'];
         }
 
         return $model;
