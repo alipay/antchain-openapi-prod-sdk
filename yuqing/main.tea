@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.3',
+    sdk_version = '1.2.9',
     _prod_code = 'YUQING',
     _prod_channel = 'undefined'
   };
@@ -189,126 +189,6 @@ model Pair {
   value: string(name='value', example='value'),
 }
 
-// 钉钉Markdown
-model Markdown {
-  // 标题
-  title?: string(name='title', example='标题'),
-  // 内容
-  text?: string(name='text', example='内容'),
-}
-
-// 钉钉At
-model At {
-  // @手机号
-  atMobiles?: [ string ](name='at_mobiles', example='@手机号'),
-  // @用户ID
-  atUserIds?: [ string ](name='at_user_ids', example='@用户ID'),
-  // @所有人
-  isAtAll?: boolean(name='is_at_all', example='true, false'),
-}
-
-// YuqingMessage
-model YuqingMessage {
-  // 作者头像地址
-  authorAvatarUrl?: string(name='author_avatar_url', example='作者头像地址'),
-  // 粉丝数
-  authorFollowersCount?: long(name='author_followers_count', example='粉丝数'),
-  // 好友数
-  authorFriendsCount?: long(name='author_friends_count', example='好友数'),
-  // 作者id
-  authorId?: string(name='author_id', example='作者id'),
-  // 作者名称
-  authorName?: string(name='author_name', example='作者名称'),
-  // 发文数
-  authorStatusesCount?: long(name='author_statuses_count', example='发文数'),
-  // 作者认证类型
-  authorVerifyType?: string(name='author_verify_type', example='作者认证类型'),
-  // 舆情文章被抓取的时间戳
-  createTime?: long(name='create_time', example='舆情文章被抓取的时间戳'),
-  // 文章正文内容
-  docContent?: string(name='doc_content', example='文章正文内容'),
-  // 文章摘要
-  docContentBrief?: string(name='doc_content_brief', example='文章摘要'),
-  // 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
-  docContentSign?: string(name='doc_content_sign', example='文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同'),
-  // 文章唯一docId
-  docId?: string(name='doc_id', example='文章唯一docId'),
-  // 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
-  docSelfContentSign?: string(name='doc_self_content_sign', example='文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关'),
-  // 文章标题
-  docTitle?: string(name='doc_title', example='文章标题'),
-  // 原文地址
-  docUrl?: string(name='doc_url', example='原文地址'),
-  // 情感的正负面，-1代表负面，1代表非负面
-  emotionType?: long(name='emotion_type', example='情感的正负面，-1代表负面，1代表非负面'),
-  // 命中的搜索词列表
-  highlightKeywords?: [ string ](name='highlight_keywords', example='命中的搜索词列表'),
-  // 媒体类型，枚举值
-  mediaType?: string(name='media_type', example='媒体类型，枚举值'),
-  // 舆情消息类型:转发,评论/回复, 原文,群聊等
-  messageType?: string(name='message_type', example='舆情消息类型:转发,评论/回复, 原文,群聊等'),
-  // 文章的父docId，如被转发的文章docId
-  parentDocId?: string(name='parent_doc_id', example='文章的父docId，如被转发的文章docId'),
-  // 舆情文章的发布时间戳
-  publishTime?: long(name='publish_time', example='舆情文章的发布时间戳'),
-  // 相关性得分
-  relevanceScore?: long(name='relevance_score', example='相关性得分'),
-  // 相似文章数
-  similarNumber?: long(name='similar_number', example='相似文章数'),
-  // 微博评论id
-  weiboCommentId?: string(name='weibo_comment_id', example='微博评论id'),
-  // 微博消息id
-  weiboMid?: string(name='weibo_mid', example='微博消息id'),
-}
-
-// 钉钉动作卡片
-model ActionCard {
-  // 标题
-  title?: string(name='title', example='标题'),
-  // 内容
-  text?: string(name='text', example='内容'),
-  // btn_orientation
-  btnOrientation?: string(name='btn_orientation', example='btn_orientation'),
-  // 简单标题
-  singleTitle?: string(name='single_title', example='简单标题'),
-  // 简单地址
-  singleUrl?: string(name='single_url', example='简单地址'),
-  // 点击
-  btns?: [ Btn ](name='btns', example='点击'),
-}
-
-// 钉钉FeedCard
-model FeedCard {
-  // 卡片流
-  links?: [ Link ](name='links', example='卡片流'),
-}
-
-// 钉钉文字消息
-model Text {
-  // 内容
-  content?: string(name='content', example='内容'),
-}
-
-// 钉钉消息体
-model DingTalkContent {
-  // webHook
-  webHook?: string(name='web_hook', example='webHook'),
-  // 消息类型
-  msgtype?: string(name='msgtype', example='消息类型'),
-  // 文字
-  text?: Text(name='text', example='文字'),
-  // 链接
-  link?: Link(name='link', example='链接'),
-  // markdown
-  markdown?: Markdown(name='markdown', example='markdown'),
-  // actionCard
-  actionCard?: ActionCard(name='action_card', example='actionCard'),
-  // feedCard
-  feedCard?: FeedCard(name='feed_card', example='feedCard'),
-  // at
-  at?: At(name='at', example='at'),
-}
-
 // 热搜结构体
 model HotspotMessage {
   // 热搜/热榜/话题 对应用户id (可能为空)
@@ -389,6 +269,128 @@ model HotspotMessage {
   firstXxistTimestamp: long(name='first_xxist_timestamp', example='1'),
 }
 
+// 钉钉Markdown
+model Markdown {
+  // 标题
+  title?: string(name='title', example='标题'),
+  // 内容
+  text?: string(name='text', example='内容'),
+}
+
+// 钉钉At
+model At {
+  // @手机号
+  atMobiles?: [ string ](name='at_mobiles', example='@手机号'),
+  // @用户ID
+  atUserIds?: [ string ](name='at_user_ids', example='@用户ID'),
+  // @所有人
+  isAtAll?: boolean(name='is_at_all', example='true, false'),
+}
+
+// YuqingMessage
+model YuqingMessage {
+  // 作者头像地址
+  authorAvatarUrl?: string(name='author_avatar_url', example='作者头像地址'),
+  // 粉丝数
+  authorFollowersCount?: long(name='author_followers_count', example='粉丝数'),
+  // 好友数
+  authorFriendsCount?: long(name='author_friends_count', example='好友数'),
+  // 作者id
+  authorId?: string(name='author_id', example='作者id'),
+  // 作者名称
+  authorName?: string(name='author_name', example='作者名称'),
+  // 发文数
+  authorStatusesCount?: long(name='author_statuses_count', example='发文数'),
+  // 作者认证类型
+  authorVerifyType?: string(name='author_verify_type', example='作者认证类型'),
+  // 舆情文章被抓取的时间戳
+  createTime?: long(name='create_time', example='舆情文章被抓取的时间戳'),
+  // 文章正文内容
+  docContent?: string(name='doc_content', example='文章正文内容'),
+  // 文章摘要
+  docContentBrief?: string(name='doc_content_brief', example='文章摘要'),
+  // 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
+  docContentSign?: string(name='doc_content_sign', example='文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同'),
+  // 文章唯一docId
+  docId?: string(name='doc_id', example='文章唯一docId'),
+  // 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
+  docSelfContentSign?: string(name='doc_self_content_sign', example='文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关'),
+  // 文章标题
+  docTitle?: string(name='doc_title', example='文章标题'),
+  // 原文地址
+  docUrl?: string(name='doc_url', example='原文地址'),
+  // 情感的正负面，-1代表负面，1代表非负面
+  emotionType?: long(name='emotion_type', example='情感的正负面，-1代表负面，1代表非负面'),
+  // 命中的搜索词列表
+  highlightKeywords?: [ string ](name='highlight_keywords', example='命中的搜索词列表'),
+  // 媒体类型，枚举值
+  mediaType?: string(name='media_type', example='媒体类型，枚举值'),
+  // 舆情消息类型:转发,评论/回复, 原文,群聊等
+  messageType?: string(name='message_type', example='舆情消息类型:转发,评论/回复, 原文,群聊等'),
+  // 文章的父docId，如被转发的文章docId
+  parentDocId?: string(name='parent_doc_id', example='文章的父docId，如被转发的文章docId'),
+  // 舆情文章的发布时间戳
+  publishTime?: long(name='publish_time', example='舆情文章的发布时间戳'),
+  // 相关性得分
+  relevanceScore?: string(name='relevance_score', example='相关性得分'),
+  // 相似文章数
+  similarNumber?: long(name='similar_number', example='相似文章数'),
+  // 微博评论id
+  weiboCommentId?: string(name='weibo_comment_id', example='微博评论id'),
+  // 微博消息id
+  weiboMid?: string(name='weibo_mid', example='微博消息id'),
+  // 传播得分，0-10
+  propagationScore?: string(name='propagation_score', example='10'),
+}
+
+// 钉钉动作卡片
+model ActionCard {
+  // 标题
+  title?: string(name='title', example='标题'),
+  // 内容
+  text?: string(name='text', example='内容'),
+  // btn_orientation
+  btnOrientation?: string(name='btn_orientation', example='btn_orientation'),
+  // 简单标题
+  singleTitle?: string(name='single_title', example='简单标题'),
+  // 简单地址
+  singleUrl?: string(name='single_url', example='简单地址'),
+  // 点击
+  btns?: [ Btn ](name='btns', example='点击'),
+}
+
+// 钉钉FeedCard
+model FeedCard {
+  // 卡片流
+  links?: [ Link ](name='links', example='卡片流'),
+}
+
+// 钉钉文字消息
+model Text {
+  // 内容
+  content?: string(name='content', example='内容'),
+}
+
+// 钉钉消息体
+model DingTalkContent {
+  // webHook
+  webHook?: string(name='web_hook', example='webHook'),
+  // 消息类型
+  msgtype?: string(name='msgtype', example='消息类型'),
+  // 文字
+  text?: Text(name='text', example='文字'),
+  // 链接
+  link?: Link(name='link', example='链接'),
+  // markdown
+  markdown?: Markdown(name='markdown', example='markdown'),
+  // actionCard
+  actionCard?: ActionCard(name='action_card', example='actionCard'),
+  // feedCard
+  feedCard?: FeedCard(name='feed_card', example='feedCard'),
+  // at
+  at?: At(name='at', example='at'),
+}
+
 // 预警消息体
 model Alarm {
   // 人工打的标签
@@ -435,6 +437,20 @@ model AnalysisConfig {
   publishTimeEnd?: long(name='publish_time_end', example=''),
   // URL列表
   urlList?: [ string ](name='url_list', example=''),
+}
+
+// 热搜任务结构体
+model HotspotTask {
+  // 任务ID
+  taskId: string(name='task_id', example='1'),
+  // 数量
+  count: long(name='count', example=''),
+  // 当前页
+  pageNow: long(name='page_now', example=''),
+  // 每页数量
+  pageSize: long(name='page_size', example=''),
+  // 数据
+  pages: [ HotspotMessage ](name='pages', example=''),
 }
 
 // 查询结构体
@@ -1419,5 +1435,133 @@ async function getMessagesHistory(request: GetMessagesHistoryRequest): GetMessag
 async function getMessagesHistoryEx(request: GetMessagesHistoryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetMessagesHistoryResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'universalsaas.yuqing.messages.history.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitHotspotTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 媒体类型
+  mediaSubTypes: [ string ](name='media_sub_types'),
+  // 任务过期时间,单位秒
+  expiredTime: long(name='expired_time'),
+  // 排序方式： 正序(+)、倒序(-)
+  sortByDirection?: string(name='sort_by_direction'),
+  // 排序字段
+  sortBy?: string(name='sort_by'),
+  // 爬取开始时间过滤
+  crawlerTimeStartFilter?: long(name='crawler_time_start_filter'),
+  // 爬取结束时间过滤
+  crawlerTimeEndFilter?: long(name='crawler_time_end_filter'),
+}
+
+model SubmitHotspotTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务ID
+  taskIds?: [ string ](name='task_ids'),
+}
+
+/**
+ * Description: 提交实时热搜任务
+ * Summary: 提交实时热搜任务
+ */
+async function submitHotspotTask(request: SubmitHotspotTaskRequest): SubmitHotspotTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitHotspotTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交实时热搜任务
+ * Summary: 提交实时热搜任务
+ */
+async function submitHotspotTaskEx(request: SubmitHotspotTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitHotspotTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.hotspot.task.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetHotspotTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskIds: [ string ](name='task_ids'),
+}
+
+model GetHotspotTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务的结果
+  hotspotTasks?: [ HotspotTask ](name='hotspot_tasks'),
+}
+
+/**
+ * Description: 获取实时热搜任务结果
+ * Summary: 获取实时热搜任务结果
+ */
+async function getHotspotTask(request: GetHotspotTaskRequest): GetHotspotTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getHotspotTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取实时热搜任务结果
+ * Summary: 获取实时热搜任务结果
+ */
+async function getHotspotTaskEx(request: GetHotspotTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetHotspotTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.hotspot.task.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetStsTokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型
+  bizType: string(name='biz_type'),
+}
+
+model GetStsTokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // AK
+  accessKeyId?: string(name='access_key_id'),
+  // SK
+  accessKeySecret?: string(name='access_key_secret'),
+  // stsToken
+  securityToken?: string(name='security_token'),
+}
+
+/**
+ * Description: 获取stsToken，作用于通用SAAS业务
+ * Summary: 获取stsToken
+ */
+async function getStsToken(request: GetStsTokenRequest): GetStsTokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getStsTokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取stsToken，作用于通用SAAS业务
+ * Summary: 获取stsToken
+ */
+async function getStsTokenEx(request: GetStsTokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetStsTokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.sts.token.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
