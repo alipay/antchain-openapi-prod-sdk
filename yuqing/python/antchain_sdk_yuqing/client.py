@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.3',
+                    'sdk_version': '1.2.9',
                     '_prod_code': 'YUQING',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.3',
+                    'sdk_version': '1.2.9',
                     '_prod_code': 'YUQING',
                     '_prod_channel': 'undefined'
                 }
@@ -1225,4 +1225,172 @@ class Client:
         return TeaCore.from_map(
             yuqing_models.GetMessagesHistoryResponse(),
             await self.do_request_async('1.0', 'universalsaas.yuqing.messages.history.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_hotspot_task(
+        self,
+        request: yuqing_models.SubmitHotspotTaskRequest,
+    ) -> yuqing_models.SubmitHotspotTaskResponse:
+        """
+        Description: 提交实时热搜任务
+        Summary: 提交实时热搜任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_hotspot_task_ex(request, headers, runtime)
+
+    async def submit_hotspot_task_async(
+        self,
+        request: yuqing_models.SubmitHotspotTaskRequest,
+    ) -> yuqing_models.SubmitHotspotTaskResponse:
+        """
+        Description: 提交实时热搜任务
+        Summary: 提交实时热搜任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_hotspot_task_ex_async(request, headers, runtime)
+
+    def submit_hotspot_task_ex(
+        self,
+        request: yuqing_models.SubmitHotspotTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.SubmitHotspotTaskResponse:
+        """
+        Description: 提交实时热搜任务
+        Summary: 提交实时热搜任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.SubmitHotspotTaskResponse(),
+            self.do_request('1.0', 'universalsaas.yuqing.hotspot.task.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_hotspot_task_ex_async(
+        self,
+        request: yuqing_models.SubmitHotspotTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.SubmitHotspotTaskResponse:
+        """
+        Description: 提交实时热搜任务
+        Summary: 提交实时热搜任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.SubmitHotspotTaskResponse(),
+            await self.do_request_async('1.0', 'universalsaas.yuqing.hotspot.task.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_hotspot_task(
+        self,
+        request: yuqing_models.GetHotspotTaskRequest,
+    ) -> yuqing_models.GetHotspotTaskResponse:
+        """
+        Description: 获取实时热搜任务结果
+        Summary: 获取实时热搜任务结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_hotspot_task_ex(request, headers, runtime)
+
+    async def get_hotspot_task_async(
+        self,
+        request: yuqing_models.GetHotspotTaskRequest,
+    ) -> yuqing_models.GetHotspotTaskResponse:
+        """
+        Description: 获取实时热搜任务结果
+        Summary: 获取实时热搜任务结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_hotspot_task_ex_async(request, headers, runtime)
+
+    def get_hotspot_task_ex(
+        self,
+        request: yuqing_models.GetHotspotTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.GetHotspotTaskResponse:
+        """
+        Description: 获取实时热搜任务结果
+        Summary: 获取实时热搜任务结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.GetHotspotTaskResponse(),
+            self.do_request('1.0', 'universalsaas.yuqing.hotspot.task.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_hotspot_task_ex_async(
+        self,
+        request: yuqing_models.GetHotspotTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.GetHotspotTaskResponse:
+        """
+        Description: 获取实时热搜任务结果
+        Summary: 获取实时热搜任务结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.GetHotspotTaskResponse(),
+            await self.do_request_async('1.0', 'universalsaas.yuqing.hotspot.task.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_sts_token(
+        self,
+        request: yuqing_models.GetStsTokenRequest,
+    ) -> yuqing_models.GetStsTokenResponse:
+        """
+        Description: 获取stsToken，作用于通用SAAS业务
+        Summary: 获取stsToken
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_sts_token_ex(request, headers, runtime)
+
+    async def get_sts_token_async(
+        self,
+        request: yuqing_models.GetStsTokenRequest,
+    ) -> yuqing_models.GetStsTokenResponse:
+        """
+        Description: 获取stsToken，作用于通用SAAS业务
+        Summary: 获取stsToken
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_sts_token_ex_async(request, headers, runtime)
+
+    def get_sts_token_ex(
+        self,
+        request: yuqing_models.GetStsTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.GetStsTokenResponse:
+        """
+        Description: 获取stsToken，作用于通用SAAS业务
+        Summary: 获取stsToken
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.GetStsTokenResponse(),
+            self.do_request('1.0', 'universalsaas.yuqing.sts.token.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_sts_token_ex_async(
+        self,
+        request: yuqing_models.GetStsTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.GetStsTokenResponse:
+        """
+        Description: 获取stsToken，作用于通用SAAS业务
+        Summary: 获取stsToken
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.GetStsTokenResponse(),
+            await self.do_request_async('1.0', 'universalsaas.yuqing.sts.token.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
