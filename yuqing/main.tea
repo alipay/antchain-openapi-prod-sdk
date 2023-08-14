@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.9',
+    sdk_version = '1.2.10',
     _prod_code = 'YUQING',
     _prod_channel = 'undefined'
   };
@@ -341,6 +341,10 @@ model YuqingMessage {
   weiboMid?: string(name='weibo_mid', example='微博消息id'),
   // 传播得分，0-10
   propagationScore?: string(name='propagation_score', example='10'),
+  // 情感得分
+  emotionScore?: string(name='emotion_score', example='10.1'),
+  // 影响力得分
+  influenceScore?: string(name='influence_score', example='10.2'),
 }
 
 // 钉钉动作卡片
