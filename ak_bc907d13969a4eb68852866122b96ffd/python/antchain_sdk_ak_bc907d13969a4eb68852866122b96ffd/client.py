@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # MapObject
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_bc907d13969a4eb68852866122b96ffd',
                     '_prod_channel': 'saas'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # MapObject
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_bc907d13969a4eb68852866122b96ffd',
                     '_prod_channel': 'saas'
                 }
@@ -278,7 +280,7 @@ class Client:
         request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AuthItagAntitagAcmRequest,
     ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AuthItagAntitagAcmResponse:
         """
-        Description: 获取Token
+        Description: 通过标注平台ID获取Token
         Summary: 获取Token
         """
         runtime = util_models.RuntimeOptions()
@@ -290,7 +292,7 @@ class Client:
         request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AuthItagAntitagAcmRequest,
     ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AuthItagAntitagAcmResponse:
         """
-        Description: 获取Token
+        Description: 通过标注平台ID获取Token
         Summary: 获取Token
         """
         runtime = util_models.RuntimeOptions()
@@ -304,7 +306,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AuthItagAntitagAcmResponse:
         """
-        Description: 获取Token
+        Description: 通过标注平台ID获取Token
         Summary: 获取Token
         """
         UtilClient.validate_model(request)
@@ -320,11 +322,403 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AuthItagAntitagAcmResponse:
         """
-        Description: 获取Token
+        Description: 通过标注平台ID获取Token
         Summary: 获取Token
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AuthItagAntitagAcmResponse(),
             await self.do_request_async('1.0', 'itag.antitag.acm.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_itag_antitag_task_request(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskRequestRequest,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskRequestResponse:
+        """
+        Description: 创建标注任务
+        Summary: 创建标注任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_itag_antitag_task_request_ex(request, headers, runtime)
+
+    async def create_itag_antitag_task_request_async(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskRequestRequest,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskRequestResponse:
+        """
+        Description: 创建标注任务
+        Summary: 创建标注任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_itag_antitag_task_request_ex_async(request, headers, runtime)
+
+    def create_itag_antitag_task_request_ex(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskRequestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskRequestResponse:
+        """
+        Description: 创建标注任务
+        Summary: 创建标注任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskRequestResponse(),
+            self.do_request('1.0', 'itag.antitag.task.request.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_itag_antitag_task_request_ex_async(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskRequestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskRequestResponse:
+        """
+        Description: 创建标注任务
+        Summary: 创建标注任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskRequestResponse(),
+            await self.do_request_async('1.0', 'itag.antitag.task.request.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def export_itag_antitag_task_download(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.ExportItagAntitagTaskDownloadRequest,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.ExportItagAntitagTaskDownloadResponse:
+        """
+        Description: 触发数据导出
+        Summary: 触发数据导出
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.export_itag_antitag_task_download_ex(request, headers, runtime)
+
+    async def export_itag_antitag_task_download_async(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.ExportItagAntitagTaskDownloadRequest,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.ExportItagAntitagTaskDownloadResponse:
+        """
+        Description: 触发数据导出
+        Summary: 触发数据导出
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.export_itag_antitag_task_download_ex_async(request, headers, runtime)
+
+    def export_itag_antitag_task_download_ex(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.ExportItagAntitagTaskDownloadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.ExportItagAntitagTaskDownloadResponse:
+        """
+        Description: 触发数据导出
+        Summary: 触发数据导出
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.ExportItagAntitagTaskDownloadResponse(),
+            self.do_request('1.0', 'itag.antitag.task.download.export', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def export_itag_antitag_task_download_ex_async(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.ExportItagAntitagTaskDownloadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.ExportItagAntitagTaskDownloadResponse:
+        """
+        Description: 触发数据导出
+        Summary: 触发数据导出
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.ExportItagAntitagTaskDownloadResponse(),
+            await self.do_request_async('1.0', 'itag.antitag.task.download.export', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_itag_antitag_task_download(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskDownloadRequest,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskDownloadResponse:
+        """
+        Description: 轮询导出进度
+        Summary: 轮询导出进度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_itag_antitag_task_download_ex(request, headers, runtime)
+
+    async def query_itag_antitag_task_download_async(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskDownloadRequest,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskDownloadResponse:
+        """
+        Description: 轮询导出进度
+        Summary: 轮询导出进度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_itag_antitag_task_download_ex_async(request, headers, runtime)
+
+    def query_itag_antitag_task_download_ex(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskDownloadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskDownloadResponse:
+        """
+        Description: 轮询导出进度
+        Summary: 轮询导出进度
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskDownloadResponse(),
+            self.do_request('1.0', 'itag.antitag.task.download.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_itag_antitag_task_download_ex_async(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskDownloadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskDownloadResponse:
+        """
+        Description: 轮询导出进度
+        Summary: 轮询导出进度
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskDownloadResponse(),
+            await self.do_request_async('1.0', 'itag.antitag.task.download.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_itag_antitag_task_process(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskProcessRequest,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskProcessResponse:
+        """
+        Description: 任务进度查询
+        Summary: 任务进度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_itag_antitag_task_process_ex(request, headers, runtime)
+
+    async def query_itag_antitag_task_process_async(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskProcessRequest,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskProcessResponse:
+        """
+        Description: 任务进度查询
+        Summary: 任务进度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_itag_antitag_task_process_ex_async(request, headers, runtime)
+
+    def query_itag_antitag_task_process_ex(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskProcessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskProcessResponse:
+        """
+        Description: 任务进度查询
+        Summary: 任务进度查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskProcessResponse(),
+            self.do_request('1.0', 'itag.antitag.task.process.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_itag_antitag_task_process_ex_async(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskProcessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskProcessResponse:
+        """
+        Description: 任务进度查询
+        Summary: 任务进度查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.QueryItagAntitagTaskProcessResponse(),
+            await self.do_request_async('1.0', 'itag.antitag.task.process.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_itag_antitag_user(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.RegisterItagAntitagUserRequest,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.RegisterItagAntitagUserResponse:
+        """
+        Description: 注册用户到标注平台
+        Summary: 注册用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_itag_antitag_user_ex(request, headers, runtime)
+
+    async def register_itag_antitag_user_async(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.RegisterItagAntitagUserRequest,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.RegisterItagAntitagUserResponse:
+        """
+        Description: 注册用户到标注平台
+        Summary: 注册用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_itag_antitag_user_ex_async(request, headers, runtime)
+
+    def register_itag_antitag_user_ex(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.RegisterItagAntitagUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.RegisterItagAntitagUserResponse:
+        """
+        Description: 注册用户到标注平台
+        Summary: 注册用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.RegisterItagAntitagUserResponse(),
+            self.do_request('1.0', 'itag.antitag.user.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_itag_antitag_user_ex_async(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.RegisterItagAntitagUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.RegisterItagAntitagUserResponse:
+        """
+        Description: 注册用户到标注平台
+        Summary: 注册用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.RegisterItagAntitagUserResponse(),
+            await self.do_request_async('1.0', 'itag.antitag.user.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_itag_antitag_user_tnt(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AddItagAntitagUserTntRequest,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AddItagAntitagUserTntResponse:
+        """
+        Description: 添加用户到指定租户
+        Summary: 新用户到租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_itag_antitag_user_tnt_ex(request, headers, runtime)
+
+    async def add_itag_antitag_user_tnt_async(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AddItagAntitagUserTntRequest,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AddItagAntitagUserTntResponse:
+        """
+        Description: 添加用户到指定租户
+        Summary: 新用户到租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_itag_antitag_user_tnt_ex_async(request, headers, runtime)
+
+    def add_itag_antitag_user_tnt_ex(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AddItagAntitagUserTntRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AddItagAntitagUserTntResponse:
+        """
+        Description: 添加用户到指定租户
+        Summary: 新用户到租户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AddItagAntitagUserTntResponse(),
+            self.do_request('1.0', 'itag.antitag.user.tnt.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_itag_antitag_user_tnt_ex_async(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AddItagAntitagUserTntRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AddItagAntitagUserTntResponse:
+        """
+        Description: 添加用户到指定租户
+        Summary: 新用户到租户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.AddItagAntitagUserTntResponse(),
+            await self.do_request_async('1.0', 'itag.antitag.user.tnt.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_itag_antitag_task_json(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskJsonRequest,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskJsonResponse:
+        """
+        Description: 通过json方式创建任务
+        Summary: 创建标注任务json
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_itag_antitag_task_json_ex(request, headers, runtime)
+
+    async def create_itag_antitag_task_json_async(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskJsonRequest,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskJsonResponse:
+        """
+        Description: 通过json方式创建任务
+        Summary: 创建标注任务json
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_itag_antitag_task_json_ex_async(request, headers, runtime)
+
+    def create_itag_antitag_task_json_ex(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskJsonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskJsonResponse:
+        """
+        Description: 通过json方式创建任务
+        Summary: 创建标注任务json
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskJsonResponse(),
+            self.do_request('1.0', 'itag.antitag.task.json.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_itag_antitag_task_json_ex_async(
+        self,
+        request: ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskJsonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskJsonResponse:
+        """
+        Description: 通过json方式创建任务
+        Summary: 创建标注任务json
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bc_907d_13969a_4eb_68852866122b_96ffd_models.CreateItagAntitagTaskJsonResponse(),
+            await self.do_request_async('1.0', 'itag.antitag.task.json.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
