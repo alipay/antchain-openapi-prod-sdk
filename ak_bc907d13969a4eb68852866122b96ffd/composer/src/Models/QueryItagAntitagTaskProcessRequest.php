@@ -6,7 +6,7 @@ namespace AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AuthItagAntitagAcmRequest extends Model
+class QueryItagAntitagTaskProcessRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,26 @@ class AuthItagAntitagAcmRequest extends Model
      */
     public $productInstanceId;
 
-    // 第三方平台用户ID
+    // TntInstId
     /**
      * @var string
      */
-    public $accountno;
+    public $tntinstid;
 
-    // 用户来源
+    // taskid
     /**
      * @var string
      */
-    public $accountsource;
+    public $taskid;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'accountno'         => 'accountno',
-        'accountsource'     => 'accountsource',
+        'tntinstid'         => 'tntinstid',
+        'taskid'            => 'taskid',
     ];
 
     public function validate()
     {
-        Model::validateRequired('accountno', $this->accountno, true);
-        Model::validateRequired('accountsource', $this->accountsource, true);
     }
 
     public function toMap()
@@ -52,11 +50,11 @@ class AuthItagAntitagAcmRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->accountno) {
-            $res['accountno'] = $this->accountno;
+        if (null !== $this->tntinstid) {
+            $res['tntinstid'] = $this->tntinstid;
         }
-        if (null !== $this->accountsource) {
-            $res['accountsource'] = $this->accountsource;
+        if (null !== $this->taskid) {
+            $res['taskid'] = $this->taskid;
         }
 
         return $res;
@@ -65,7 +63,7 @@ class AuthItagAntitagAcmRequest extends Model
     /**
      * @param array $map
      *
-     * @return AuthItagAntitagAcmRequest
+     * @return QueryItagAntitagTaskProcessRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +74,11 @@ class AuthItagAntitagAcmRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['accountno'])) {
-            $model->accountno = $map['accountno'];
+        if (isset($map['tntinstid'])) {
+            $model->tntinstid = $map['tntinstid'];
         }
-        if (isset($map['accountsource'])) {
-            $model->accountsource = $map['accountsource'];
+        if (isset($map['taskid'])) {
+            $model->taskid = $map['taskid'];
         }
 
         return $model;

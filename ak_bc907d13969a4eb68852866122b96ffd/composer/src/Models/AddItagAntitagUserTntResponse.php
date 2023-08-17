@@ -6,7 +6,7 @@ namespace AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AuthItagAntitagAcmResponse extends Model
+class AddItagAntitagUserTntResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,37 +26,30 @@ class AuthItagAntitagAcmResponse extends Model
      */
     public $resultMsg;
 
-    // 消息ID
+    // TntInstId
     /**
      * @var string
      */
-    public $reqmsgid;
+    public $tntinstid;
 
-    // 结果码
+    // 角色，枚举值：ADMIN|SUPER_ADMIN|ADMINISTRATOR|LEADER|OPERATOR, 默认OPERATOR",
     /**
      * @var string
      */
-    public $resultcode;
+    public $role;
 
-    // 结果消息
+    // 用户信息
     /**
-     * @var string
+     * @var User
      */
-    public $resultmsg;
-
-    // 授权码
-    /**
-     * @var string
-     */
-    public $accesstoken;
+    public $result;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'reqmsgid'    => 'reqmsgid',
-        'resultcode'  => 'resultcode',
-        'resultmsg'   => 'resultmsg',
-        'accesstoken' => 'accesstoken',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'tntinstid'  => 'tntinstid',
+        'role'       => 'role',
+        'result'     => 'result',
     ];
 
     public function validate()
@@ -75,17 +68,14 @@ class AuthItagAntitagAcmResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->reqmsgid) {
-            $res['reqmsgid'] = $this->reqmsgid;
+        if (null !== $this->tntinstid) {
+            $res['tntinstid'] = $this->tntinstid;
         }
-        if (null !== $this->resultcode) {
-            $res['resultcode'] = $this->resultcode;
+        if (null !== $this->role) {
+            $res['role'] = $this->role;
         }
-        if (null !== $this->resultmsg) {
-            $res['resultmsg'] = $this->resultmsg;
-        }
-        if (null !== $this->accesstoken) {
-            $res['accesstoken'] = $this->accesstoken;
+        if (null !== $this->result) {
+            $res['result'] = null !== $this->result ? $this->result->toMap() : null;
         }
 
         return $res;
@@ -94,7 +84,7 @@ class AuthItagAntitagAcmResponse extends Model
     /**
      * @param array $map
      *
-     * @return AuthItagAntitagAcmResponse
+     * @return AddItagAntitagUserTntResponse
      */
     public static function fromMap($map = [])
     {
@@ -108,17 +98,14 @@ class AuthItagAntitagAcmResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['reqmsgid'])) {
-            $model->reqmsgid = $map['reqmsgid'];
+        if (isset($map['tntinstid'])) {
+            $model->tntinstid = $map['tntinstid'];
         }
-        if (isset($map['resultcode'])) {
-            $model->resultcode = $map['resultcode'];
+        if (isset($map['role'])) {
+            $model->role = $map['role'];
         }
-        if (isset($map['resultmsg'])) {
-            $model->resultmsg = $map['resultmsg'];
-        }
-        if (isset($map['accesstoken'])) {
-            $model->accesstoken = $map['accesstoken'];
+        if (isset($map['result'])) {
+            $model->result = User::fromMap($map['result']);
         }
 
         return $model;

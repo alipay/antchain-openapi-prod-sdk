@@ -6,7 +6,7 @@ namespace AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AuthItagAntitagAcmRequest extends Model
+class RegisterItagAntitagUserRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,7 +19,13 @@ class AuthItagAntitagAcmRequest extends Model
      */
     public $productInstanceId;
 
-    // 第三方平台用户ID
+    // 名称
+    /**
+     * @var string
+     */
+    public $name;
+
+    // 第三方系统用户账号ID
     /**
      * @var string
      */
@@ -30,15 +36,31 @@ class AuthItagAntitagAcmRequest extends Model
      * @var string
      */
     public $accountsource;
+
+    // 邮箱
+    /**
+     * @var string
+     */
+    public $email;
+
+    // 电话
+    /**
+     * @var string
+     */
+    public $phone;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'name'              => 'name',
         'accountno'         => 'accountno',
         'accountsource'     => 'accountsource',
+        'email'             => 'email',
+        'phone'             => 'phone',
     ];
 
     public function validate()
     {
+        Model::validateRequired('name', $this->name, true);
         Model::validateRequired('accountno', $this->accountno, true);
         Model::validateRequired('accountsource', $this->accountsource, true);
     }
@@ -52,11 +74,20 @@ class AuthItagAntitagAcmRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->name) {
+            $res['name'] = $this->name;
+        }
         if (null !== $this->accountno) {
             $res['accountno'] = $this->accountno;
         }
         if (null !== $this->accountsource) {
             $res['accountsource'] = $this->accountsource;
+        }
+        if (null !== $this->email) {
+            $res['email'] = $this->email;
+        }
+        if (null !== $this->phone) {
+            $res['phone'] = $this->phone;
         }
 
         return $res;
@@ -65,7 +96,7 @@ class AuthItagAntitagAcmRequest extends Model
     /**
      * @param array $map
      *
-     * @return AuthItagAntitagAcmRequest
+     * @return RegisterItagAntitagUserRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +107,20 @@ class AuthItagAntitagAcmRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if (isset($map['name'])) {
+            $model->name = $map['name'];
+        }
         if (isset($map['accountno'])) {
             $model->accountno = $map['accountno'];
         }
         if (isset($map['accountsource'])) {
             $model->accountsource = $map['accountsource'];
+        }
+        if (isset($map['email'])) {
+            $model->email = $map['email'];
+        }
+        if (isset($map['phone'])) {
+            $model->phone = $map['phone'];
         }
 
         return $model;

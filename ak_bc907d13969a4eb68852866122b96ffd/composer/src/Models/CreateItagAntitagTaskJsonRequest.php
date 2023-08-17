@@ -6,7 +6,7 @@ namespace AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AuthItagAntitagAcmRequest extends Model
+class CreateItagAntitagTaskJsonRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,20 @@ class AuthItagAntitagAcmRequest extends Model
      */
     public $productInstanceId;
 
-    // 第三方平台用户ID
+    // 创建任务参数，格式为JSON
     /**
      * @var string
      */
-    public $accountno;
-
-    // 用户来源
-    /**
-     * @var string
-     */
-    public $accountsource;
+    public $params;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'accountno'         => 'accountno',
-        'accountsource'     => 'accountsource',
+        'params'            => 'params',
     ];
 
     public function validate()
     {
-        Model::validateRequired('accountno', $this->accountno, true);
-        Model::validateRequired('accountsource', $this->accountsource, true);
+        Model::validateRequired('params', $this->params, true);
     }
 
     public function toMap()
@@ -52,11 +44,8 @@ class AuthItagAntitagAcmRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->accountno) {
-            $res['accountno'] = $this->accountno;
-        }
-        if (null !== $this->accountsource) {
-            $res['accountsource'] = $this->accountsource;
+        if (null !== $this->params) {
+            $res['params'] = $this->params;
         }
 
         return $res;
@@ -65,7 +54,7 @@ class AuthItagAntitagAcmRequest extends Model
     /**
      * @param array $map
      *
-     * @return AuthItagAntitagAcmRequest
+     * @return CreateItagAntitagTaskJsonRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +65,8 @@ class AuthItagAntitagAcmRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['accountno'])) {
-            $model->accountno = $map['accountno'];
-        }
-        if (isset($map['accountsource'])) {
-            $model->accountsource = $map['accountsource'];
+        if (isset($map['params'])) {
+            $model->params = $map['params'];
         }
 
         return $model;

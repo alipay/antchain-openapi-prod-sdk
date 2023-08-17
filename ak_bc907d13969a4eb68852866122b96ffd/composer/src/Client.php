@@ -11,8 +11,22 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\AddItagAntitagUserTntRequest;
+use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\AddItagAntitagUserTntResponse;
 use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\AuthItagAntitagAcmRequest;
 use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\AuthItagAntitagAcmResponse;
+use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\CreateItagAntitagTaskJsonRequest;
+use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\CreateItagAntitagTaskJsonResponse;
+use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\CreateItagAntitagTaskRequestRequest;
+use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\CreateItagAntitagTaskRequestResponse;
+use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\ExportItagAntitagTaskDownloadRequest;
+use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\ExportItagAntitagTaskDownloadResponse;
+use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\QueryItagAntitagTaskDownloadRequest;
+use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\QueryItagAntitagTaskDownloadResponse;
+use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\QueryItagAntitagTaskProcessRequest;
+use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\QueryItagAntitagTaskProcessResponse;
+use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\RegisterItagAntitagUserRequest;
+use AntChain\Ak_bc907d13969a4eb68852866122b96ffd\Models\RegisterItagAntitagUserResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -132,6 +146,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // MapObject
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -159,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_bc907d13969a4eb68852866122b96ffd',
                     '_prod_channel'    => 'saas',
                 ];
@@ -208,7 +223,7 @@ class Client
     }
 
     /**
-     * Description: 获取Token
+     * Description: 通过标注平台ID获取Token
      * Summary: 获取Token.
      *
      * @param AuthItagAntitagAcmRequest $request
@@ -224,7 +239,7 @@ class Client
     }
 
     /**
-     * Description: 获取Token
+     * Description: 通过标注平台ID获取Token
      * Summary: 获取Token.
      *
      * @param AuthItagAntitagAcmRequest $request
@@ -238,5 +253,236 @@ class Client
         Utils::validateModel($request);
 
         return AuthItagAntitagAcmResponse::fromMap($this->doRequest('1.0', 'itag.antitag.acm.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建标注任务
+     * Summary: 创建标注任务
+     *
+     * @param CreateItagAntitagTaskRequestRequest $request
+     *
+     * @return CreateItagAntitagTaskRequestResponse
+     */
+    public function createItagAntitagTaskRequest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createItagAntitagTaskRequestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建标注任务
+     * Summary: 创建标注任务
+     *
+     * @param CreateItagAntitagTaskRequestRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateItagAntitagTaskRequestResponse
+     */
+    public function createItagAntitagTaskRequestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateItagAntitagTaskRequestResponse::fromMap($this->doRequest('1.0', 'itag.antitag.task.request.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 触发数据导出
+     * Summary: 触发数据导出.
+     *
+     * @param ExportItagAntitagTaskDownloadRequest $request
+     *
+     * @return ExportItagAntitagTaskDownloadResponse
+     */
+    public function exportItagAntitagTaskDownload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->exportItagAntitagTaskDownloadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 触发数据导出
+     * Summary: 触发数据导出.
+     *
+     * @param ExportItagAntitagTaskDownloadRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return ExportItagAntitagTaskDownloadResponse
+     */
+    public function exportItagAntitagTaskDownloadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExportItagAntitagTaskDownloadResponse::fromMap($this->doRequest('1.0', 'itag.antitag.task.download.export', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 轮询导出进度
+     * Summary: 轮询导出进度.
+     *
+     * @param QueryItagAntitagTaskDownloadRequest $request
+     *
+     * @return QueryItagAntitagTaskDownloadResponse
+     */
+    public function queryItagAntitagTaskDownload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryItagAntitagTaskDownloadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 轮询导出进度
+     * Summary: 轮询导出进度.
+     *
+     * @param QueryItagAntitagTaskDownloadRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryItagAntitagTaskDownloadResponse
+     */
+    public function queryItagAntitagTaskDownloadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryItagAntitagTaskDownloadResponse::fromMap($this->doRequest('1.0', 'itag.antitag.task.download.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 任务进度查询
+     * Summary: 任务进度查询.
+     *
+     * @param QueryItagAntitagTaskProcessRequest $request
+     *
+     * @return QueryItagAntitagTaskProcessResponse
+     */
+    public function queryItagAntitagTaskProcess($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryItagAntitagTaskProcessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 任务进度查询
+     * Summary: 任务进度查询.
+     *
+     * @param QueryItagAntitagTaskProcessRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryItagAntitagTaskProcessResponse
+     */
+    public function queryItagAntitagTaskProcessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryItagAntitagTaskProcessResponse::fromMap($this->doRequest('1.0', 'itag.antitag.task.process.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 注册用户到标注平台
+     * Summary: 注册用户.
+     *
+     * @param RegisterItagAntitagUserRequest $request
+     *
+     * @return RegisterItagAntitagUserResponse
+     */
+    public function registerItagAntitagUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerItagAntitagUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 注册用户到标注平台
+     * Summary: 注册用户.
+     *
+     * @param RegisterItagAntitagUserRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return RegisterItagAntitagUserResponse
+     */
+    public function registerItagAntitagUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterItagAntitagUserResponse::fromMap($this->doRequest('1.0', 'itag.antitag.user.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 添加用户到指定租户
+     * Summary: 新用户到租户.
+     *
+     * @param AddItagAntitagUserTntRequest $request
+     *
+     * @return AddItagAntitagUserTntResponse
+     */
+    public function addItagAntitagUserTnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addItagAntitagUserTntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 添加用户到指定租户
+     * Summary: 新用户到租户.
+     *
+     * @param AddItagAntitagUserTntRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return AddItagAntitagUserTntResponse
+     */
+    public function addItagAntitagUserTntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddItagAntitagUserTntResponse::fromMap($this->doRequest('1.0', 'itag.antitag.user.tnt.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过json方式创建任务
+     * Summary: 创建标注任务json.
+     *
+     * @param CreateItagAntitagTaskJsonRequest $request
+     *
+     * @return CreateItagAntitagTaskJsonResponse
+     */
+    public function createItagAntitagTaskJson($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createItagAntitagTaskJsonEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过json方式创建任务
+     * Summary: 创建标注任务json.
+     *
+     * @param CreateItagAntitagTaskJsonRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CreateItagAntitagTaskJsonResponse
+     */
+    public function createItagAntitagTaskJsonEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateItagAntitagTaskJsonResponse::fromMap($this->doRequest('1.0', 'itag.antitag.task.json.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
