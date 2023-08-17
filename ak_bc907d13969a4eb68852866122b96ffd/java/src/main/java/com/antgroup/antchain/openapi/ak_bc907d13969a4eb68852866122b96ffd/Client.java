@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.0.1"),
                     new TeaPair("_prod_code", "ak_bc907d13969a4eb68852866122b96ffd"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -162,7 +162,7 @@ public class Client {
     }
 
     /**
-     * Description: 获取Token
+     * Description: 通过标注平台ID获取Token
      * Summary: 获取Token
      */
     public AuthItagAntitagAcmResponse authItagAntitagAcm(AuthItagAntitagAcmRequest request) throws Exception {
@@ -172,11 +172,144 @@ public class Client {
     }
 
     /**
-     * Description: 获取Token
+     * Description: 通过标注平台ID获取Token
      * Summary: 获取Token
      */
     public AuthItagAntitagAcmResponse authItagAntitagAcmEx(AuthItagAntitagAcmRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "itag.antitag.acm.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthItagAntitagAcmResponse());
+    }
+
+    /**
+     * Description: 创建标注任务
+     * Summary: 创建标注任务
+     */
+    public CreateItagAntitagTaskRequestResponse createItagAntitagTaskRequest(CreateItagAntitagTaskRequestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createItagAntitagTaskRequestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建标注任务
+     * Summary: 创建标注任务
+     */
+    public CreateItagAntitagTaskRequestResponse createItagAntitagTaskRequestEx(CreateItagAntitagTaskRequestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "itag.antitag.task.request.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateItagAntitagTaskRequestResponse());
+    }
+
+    /**
+     * Description: 触发数据导出
+     * Summary: 触发数据导出
+     */
+    public ExportItagAntitagTaskDownloadResponse exportItagAntitagTaskDownload(ExportItagAntitagTaskDownloadRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.exportItagAntitagTaskDownloadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 触发数据导出
+     * Summary: 触发数据导出
+     */
+    public ExportItagAntitagTaskDownloadResponse exportItagAntitagTaskDownloadEx(ExportItagAntitagTaskDownloadRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "itag.antitag.task.download.export", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExportItagAntitagTaskDownloadResponse());
+    }
+
+    /**
+     * Description: 轮询导出进度 
+     * Summary: 轮询导出进度 
+     */
+    public QueryItagAntitagTaskDownloadResponse queryItagAntitagTaskDownload(QueryItagAntitagTaskDownloadRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryItagAntitagTaskDownloadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 轮询导出进度 
+     * Summary: 轮询导出进度 
+     */
+    public QueryItagAntitagTaskDownloadResponse queryItagAntitagTaskDownloadEx(QueryItagAntitagTaskDownloadRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "itag.antitag.task.download.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryItagAntitagTaskDownloadResponse());
+    }
+
+    /**
+     * Description: 任务进度查询
+     * Summary: 任务进度查询
+     */
+    public QueryItagAntitagTaskProcessResponse queryItagAntitagTaskProcess(QueryItagAntitagTaskProcessRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryItagAntitagTaskProcessEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 任务进度查询
+     * Summary: 任务进度查询
+     */
+    public QueryItagAntitagTaskProcessResponse queryItagAntitagTaskProcessEx(QueryItagAntitagTaskProcessRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "itag.antitag.task.process.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryItagAntitagTaskProcessResponse());
+    }
+
+    /**
+     * Description: 注册用户到标注平台
+     * Summary: 注册用户
+     */
+    public RegisterItagAntitagUserResponse registerItagAntitagUser(RegisterItagAntitagUserRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerItagAntitagUserEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 注册用户到标注平台
+     * Summary: 注册用户
+     */
+    public RegisterItagAntitagUserResponse registerItagAntitagUserEx(RegisterItagAntitagUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "itag.antitag.user.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterItagAntitagUserResponse());
+    }
+
+    /**
+     * Description: 添加用户到指定租户
+     * Summary: 新用户到租户
+     */
+    public AddItagAntitagUserTntResponse addItagAntitagUserTnt(AddItagAntitagUserTntRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addItagAntitagUserTntEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 添加用户到指定租户
+     * Summary: 新用户到租户
+     */
+    public AddItagAntitagUserTntResponse addItagAntitagUserTntEx(AddItagAntitagUserTntRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "itag.antitag.user.tnt.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddItagAntitagUserTntResponse());
+    }
+
+    /**
+     * Description: 通过json方式创建任务
+     * Summary: 创建标注任务json
+     */
+    public CreateItagAntitagTaskJsonResponse createItagAntitagTaskJson(CreateItagAntitagTaskJsonRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createItagAntitagTaskJsonEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过json方式创建任务
+     * Summary: 创建标注任务json
+     */
+    public CreateItagAntitagTaskJsonResponse createItagAntitagTaskJsonEx(CreateItagAntitagTaskJsonRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "itag.antitag.task.json.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateItagAntitagTaskJsonResponse());
     }
 }

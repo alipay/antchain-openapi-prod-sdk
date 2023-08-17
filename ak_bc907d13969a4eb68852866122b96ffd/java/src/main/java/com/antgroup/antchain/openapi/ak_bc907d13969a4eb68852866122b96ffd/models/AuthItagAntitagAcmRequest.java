@@ -11,10 +11,15 @@ public class AuthItagAntitagAcmRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 用户ID
-    @NameInMap("userid")
+    // 第三方平台用户ID
+    @NameInMap("accountno")
     @Validation(required = true)
-    public String userid;
+    public String accountno;
+
+    // 用户来源
+    @NameInMap("accountsource")
+    @Validation(required = true)
+    public String accountsource;
 
     public static AuthItagAntitagAcmRequest build(java.util.Map<String, ?> map) throws Exception {
         AuthItagAntitagAcmRequest self = new AuthItagAntitagAcmRequest();
@@ -37,12 +42,20 @@ public class AuthItagAntitagAcmRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public AuthItagAntitagAcmRequest setUserid(String userid) {
-        this.userid = userid;
+    public AuthItagAntitagAcmRequest setAccountno(String accountno) {
+        this.accountno = accountno;
         return this;
     }
-    public String getUserid() {
-        return this.userid;
+    public String getAccountno() {
+        return this.accountno;
+    }
+
+    public AuthItagAntitagAcmRequest setAccountsource(String accountsource) {
+        this.accountsource = accountsource;
+        return this;
+    }
+    public String getAccountsource() {
+        return this.accountsource;
     }
 
 }

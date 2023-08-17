@@ -28,10 +28,6 @@ public class AuthItagAntitagAcmResponse extends TeaModel {
     @NameInMap("resultmsg")
     public String resultmsg;
 
-    // 用户ID
-    @NameInMap("userid")
-    public String userid;
-
     // 授权码
     @NameInMap("accesstoken")
     public String accesstoken;
@@ -87,14 +83,6 @@ public class AuthItagAntitagAcmResponse extends TeaModel {
     }
     public String getResultmsg() {
         return this.resultmsg;
-    }
-
-    public AuthItagAntitagAcmResponse setUserid(String userid) {
-        this.userid = userid;
-        return this;
-    }
-    public String getUserid() {
-        return this.userid;
     }
 
     public AuthItagAntitagAcmResponse setAccesstoken(String accesstoken) {
