@@ -3123,13 +3123,12 @@ export class BclCertifyInfo extends $tea.Model {
 export class BclContractFlowInfo extends $tea.Model {
   // 合同主题
   // 注：名称不支持以下9个字符：/ \ : * " < > | ？
-  businessScene: string;
-  // 流程中的签署文件信息，只支持一个文件
-  fileInfo: BclContractFileInfo[];
-  // 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
-  signPlatform?: string;
-  // 收款方的ID，调用创建收款方接口获得
-  payeeId: string;
+  // 仅当使用合同服务时必填
+  businessScene?: string;
+  // 流程中的签署文件信息
+  // 本期只支持一个文件
+  // 仅当使用合同服务时必填
+  fileInfo?: BclContractFileInfo[];
   // 合同签署失败回调地址
   redirectUrlOnFailure?: string;
   // 合同签署成功回调地址
@@ -3138,8 +3137,6 @@ export class BclContractFlowInfo extends $tea.Model {
     return {
       businessScene: 'business_scene',
       fileInfo: 'file_info',
-      signPlatform: 'sign_platform',
-      payeeId: 'payee_id',
       redirectUrlOnFailure: 'redirect_url_on_failure',
       redirectUrl: 'redirect_url',
     };
@@ -3149,8 +3146,6 @@ export class BclContractFlowInfo extends $tea.Model {
     return {
       businessScene: 'string',
       fileInfo: { 'type': 'array', 'itemType': BclContractFileInfo },
-      signPlatform: 'string',
-      payeeId: 'string',
       redirectUrlOnFailure: 'string',
       redirectUrl: 'string',
     };
@@ -4380,6 +4375,35 @@ export class ProductInfo extends $tea.Model {
       supplierId: 'string',
       supplierVersion: 'string',
       extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商家联系人信息
+export class BclContactInfo extends $tea.Model {
+  // 联系人名称，最大长度：128
+  name: string;
+  // 联系人手机号，最大长度：20
+  mobile: string;
+  // 联系人电话，最大长度：20
+  phone?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      mobile: 'mobile',
+      phone: 'phone',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      mobile: 'string',
+      phone: 'string',
     };
   }
 
@@ -6055,14 +6079,14 @@ export class AddBclLogisticinfoRequest extends $tea.Model {
   // - SHIPPED 已发货 
   // - TRANSPORT 运输中 
   // - SIGNED 已签收  
-  // 当前暂时只支持已签收
+  // 当前暂时只支持已发货和已签收
   logisticStatus: string;
   // 物流照片网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
   logisticsFileId?: string;
   // 签收记录,网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
   arriveConfirmFileId?: string;
   // 用户签收时间格式为2019-8-31 12:00:00
-  arriveConfirmTime: string;
+  arriveConfirmTime?: string;
   // 物流公司简称
   logisticCompanyName: string;
   // 物流公司code
@@ -6079,8 +6103,6 @@ export class AddBclLogisticinfoRequest extends $tea.Model {
   deliverAddress: string;
   // 收货地址
   arriveAddress: string;
-  // 物流额外信息,资方定义物流的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-  logisticExtraInfo?: string;
   // 收货人姓名
   arriveName: string;
   // 收货人联系电话
@@ -6101,7 +6123,6 @@ export class AddBclLogisticinfoRequest extends $tea.Model {
       leaseType: 'lease_type',
       deliverAddress: 'deliver_address',
       arriveAddress: 'arrive_address',
-      logisticExtraInfo: 'logistic_extra_info',
       arriveName: 'arrive_name',
       arriveMobile: 'arrive_mobile',
     };
@@ -6123,7 +6144,6 @@ export class AddBclLogisticinfoRequest extends $tea.Model {
       leaseType: 'string',
       deliverAddress: 'string',
       arriveAddress: 'string',
-      logisticExtraInfo: 'string',
       arriveName: 'string',
       arriveMobile: 'string',
     };
@@ -6166,7 +6186,9 @@ export class SubmitBclOrderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 订单id,长度不超过32位
+  // 租赁订单ID
+  // 长度不超过32位 
+  // 订单状态为 待发起 PRE_SUBMIT 才可以调用
   orderId: string;
   static names(): { [key: string]: string } {
     return {
@@ -6276,10 +6298,6 @@ export class CreateBclOrderRequest extends $tea.Model {
   realPersonReturnUrl?: string;
   // 签署流程信息，如果使用租赁代扣创建则必填
   contractFlowInfo?: BclContractFlowInfo;
-  // 资方定义订单的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-  orderExtraInfo?: string;
-  // 资方定义用户的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-  userExtraInfo?: string;
   // 是否不需要融资：
   // ● true表示明确这笔订单不需要融资
   // ● false表示该笔订单后续可能融资也可能不融资
@@ -6309,8 +6327,6 @@ export class CreateBclOrderRequest extends $tea.Model {
       userIp: 'user_ip',
       realPersonReturnUrl: 'real_person_return_url',
       contractFlowInfo: 'contract_flow_info',
-      orderExtraInfo: 'order_extra_info',
-      userExtraInfo: 'user_extra_info',
       noneFinancing: 'none_financing',
     };
   }
@@ -6340,8 +6356,6 @@ export class CreateBclOrderRequest extends $tea.Model {
       userIp: 'string',
       realPersonReturnUrl: 'string',
       contractFlowInfo: BclContractFlowInfo,
-      orderExtraInfo: 'string',
-      userExtraInfo: 'string',
       noneFinancing: 'boolean',
     };
   }
@@ -6735,7 +6749,8 @@ export class QueryBclProductRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 商品ID，长度不能超过32为
+  // 商品ID
+  // 最大长度：32
   productId: string;
   static names(): { [key: string]: string } {
     return {
@@ -6939,7 +6954,7 @@ export class GetBclUploadurlRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 文件名称
+  // 文件名称（最长128个字符，需要带文件后缀，不包含中文）
   fileName: string;
   static names(): { [key: string]: string } {
     return {
@@ -6969,9 +6984,9 @@ export class GetBclUploadurlResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 授权访问oss链接
+  // OSS上传链接
   url?: string;
-  // OSS 文件id
+  // 文件OSS ID
   fileId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -7140,11 +7155,15 @@ export class ApplyBclFinancingRequest extends $tea.Model {
   productInstanceId?: string;
   // 订单id,长度不超过32位
   orderId: string;
+  // 客户端token：
+  // 幂等号，用来保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。更多详情，请参见如何保证幂等性。
+  clientToken: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderId: 'order_id',
+      clientToken: 'client_token',
     };
   }
 
@@ -7153,6 +7172,7 @@ export class ApplyBclFinancingRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       orderId: 'string',
+      clientToken: 'string',
     };
   }
 
@@ -7169,6 +7189,7 @@ export class ApplyBclFinancingResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 融资申请单号
+  // 使用方可保存用于与租赁宝PLUS订单关联
   financingApplyNo?: string;
   static names(): { [key: string]: string } {
     return {
@@ -7185,6 +7206,583 @@ export class ApplyBclFinancingResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       financingApplyNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBclMerchantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 入驻编号
+  enrollmentNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      enrollmentNo: 'enrollment_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      enrollmentNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBclMerchantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 入驻状态：入驻中：EXEC（表示等待商家去支付宝平台签约）；SUCCESS：入驻成功；FAIL：入驻失败
+  status?: string;
+  // 是否需要使用租赁代扣
+  needProxyWithholding?: boolean;
+  // 入驻失败的原因，在入驻失败时才会有值
+  reason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      needProxyWithholding: 'need_proxy_withholding',
+      reason: 'reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      needProxyWithholding: 'boolean',
+      reason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterBclMerchantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商家实体名称
+  // 要与证件的名称相同，会在用户签署代扣协议时或者支付宝扣款账单中展示，请规范填写，最大长度：128
+  name: string;
+  // 商家实体别名
+  // 会在用户签署代扣协议时或者支付宝扣款账单中展示，请规范填写，最大长度：128  
+  // 如果need_proxy_withholding为true则必填
+  aliasName?: string;
+  // 商家实体类型：
+  // 1.企业：ENTERPRISE
+  // 当前暂时只支持企业
+  merchantType: string;
+  // 商家营业执照号
+  // 最大长度20
+  certNo: string;
+  // 法人名称
+  // 最大长度64
+  legalName: string;
+  // 法人身份证号
+  // 最大长度18
+  legalCertNo: string;
+  // 商家联系人信息
+  // 当前只支持一个联系人
+  contactInfos?: BclContactInfo[];
+  // 商家实体支付宝账号
+  // 用作结算账号。本字段支付宝账号实名信息要求与商户名称cert_name同名，且是实名认证支付宝企业账户，最大长度：64
+  // 如果need_proxy_withholding为true则必填
+  alipayLogonId?: string;
+  // 租赁经营类型
+  // 1.数码/娱乐设备租赁：DIGITAL_LEASE
+  // 2.共享充电宝及其他共享租赁：SHARE_LEASE
+  // 3.汽车租赁：CAR_LEASE
+  managementType: string;
+  // 是否需要使用租赁代扣
+  // true 为需要使用
+  // false 为不需要使用
+  needProxyWithholding: boolean;
+  // 客户端token：
+  // 幂等号，用来保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。更多详情，请参见如何保证幂等性。
+  clientToken: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      name: 'name',
+      aliasName: 'alias_name',
+      merchantType: 'merchant_type',
+      certNo: 'cert_no',
+      legalName: 'legal_name',
+      legalCertNo: 'legal_cert_no',
+      contactInfos: 'contact_infos',
+      alipayLogonId: 'alipay_logon_id',
+      managementType: 'management_type',
+      needProxyWithholding: 'need_proxy_withholding',
+      clientToken: 'client_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      name: 'string',
+      aliasName: 'string',
+      merchantType: 'string',
+      certNo: 'string',
+      legalName: 'string',
+      legalCertNo: 'string',
+      contactInfos: { 'type': 'array', 'itemType': BclContactInfo },
+      alipayLogonId: 'string',
+      managementType: 'string',
+      needProxyWithholding: 'boolean',
+      clientToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterBclMerchantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 入驻编号，受理成功时才会有值，务必保存，可用于后续查询入驻的结果
+  enrollmentNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      enrollmentNo: 'enrollment_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      enrollmentNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelBclWithholdRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 解约申请单号
+  cancelApplyNo: string;
+  // 是否允许解除代扣
+  allowCancelWithhold: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      cancelApplyNo: 'cancel_apply_no',
+      allowCancelWithhold: 'allow_cancel_withhold',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      cancelApplyNo: 'string',
+      allowCancelWithhold: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelBclWithholdResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBclComplainRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 投诉订单号
+  complainEventId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      complainEventId: 'complain_event_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      complainEventId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBclComplainResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 租赁订单id
+  orderId?: string;
+  // 投诉订单号
+  complainEventId?: string;
+  // 投诉单状态
+  status?: string;
+  // 支付宝交易号
+  thirdTradeNo?: string;
+  // 发起交易流水号
+  tradeCallNo?: string;
+  // 投诉单创建时间
+  gmtCreate?: string;
+  // 投诉单修改时间
+  gmtModified?: string;
+  // 投诉单修改时间
+  gmtFinished?: string;
+  // 用户投诉诉求
+  leafCategoryName?: string;
+  // 用户投诉原因
+  complainReason?: string;
+  // 投诉人电话号码
+  phoneNo?: string;
+  // 交易金额，单位元
+  tradeAmount?: string;
+  // 用户与商家之间的协商记录
+  replyDetailInfos?: ReplayDetailInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+      complainEventId: 'complain_event_id',
+      status: 'status',
+      thirdTradeNo: 'third_trade_no',
+      tradeCallNo: 'trade_call_no',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      gmtFinished: 'gmt_finished',
+      leafCategoryName: 'leaf_category_name',
+      complainReason: 'complain_reason',
+      phoneNo: 'phone_no',
+      tradeAmount: 'trade_amount',
+      replyDetailInfos: 'reply_detail_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+      complainEventId: 'string',
+      status: 'string',
+      thirdTradeNo: 'string',
+      tradeCallNo: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      gmtFinished: 'string',
+      leafCategoryName: 'string',
+      complainReason: 'string',
+      phoneNo: 'string',
+      tradeAmount: 'string',
+      replyDetailInfos: ReplayDetailInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadBclComplainimageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 图片格式，支持格式：jpg、jpeg、png
+  imageName: string;
+  // 图片二进制字节流
+  imageContent: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      imageName: 'image_name',
+      imageContent: 'image_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      imageName: 'string',
+      imageContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadBclComplainimageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 图片在文件存储平台的标识
+  iamgeId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      iamgeId: 'iamge_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      iamgeId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitBclComplainfeedbackRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 投诉订单号
+  complainEventId: string;
+  // 反馈类目ID
+  // 00:使用体验保障金退款；
+  // 02:通过其他方式退款;
+  // 03:已发货;
+  // 04:其他;
+  // 05:已完成售后服务;
+  // 06:非我方责任范围；
+  feedbackCode: string;
+  // 反馈内容，不超过200字
+  feedbackContent: string;
+  // 商家处理投诉时反馈凭证的图片id，多个逗号隔开（图片id可以通过"商户上传处理图片"接口获取）
+  // 
+  feedbackImages: string;
+  // 处理投诉人，字数不超过6个字
+  operator: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      complainEventId: 'complain_event_id',
+      feedbackCode: 'feedback_code',
+      feedbackContent: 'feedback_content',
+      feedbackImages: 'feedback_images',
+      operator: 'operator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      complainEventId: 'string',
+      feedbackCode: 'string',
+      feedbackContent: 'string',
+      feedbackImages: 'string',
+      operator: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitBclComplainfeedbackResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否处理成功
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBclComplaineventidsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客诉单开始时间
+  startDate: string;
+  // 客诉单结束时间
+  endDate: string;
+  // 每页数量
+  pageSize?: number;
+  // 页码
+  pageNum: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      startDate: 'start_date',
+      endDate: 'end_date',
+      pageSize: 'page_size',
+      pageNum: 'page_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      startDate: 'string',
+      endDate: 'string',
+      pageSize: 'number',
+      pageNum: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBclComplaineventidsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 投诉单id列表
+  complainEventIds?: string[];
+  // 总量
+  count?: number;
+  // 每页数量
+  pageSize?: number;
+  // 页码
+  pageNum?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      complainEventIds: 'complain_event_ids',
+      count: 'count',
+      pageSize: 'page_size',
+      pageNum: 'page_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      complainEventIds: { 'type': 'array', 'itemType': 'string' },
+      count: 'number',
+      pageSize: 'number',
+      pageNum: 'number',
     };
   }
 
@@ -34051,7 +34649,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.29",
+          sdk_version: "1.11.21",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -34363,6 +34961,139 @@ export default class Client {
   async applyBclFinancingEx(request: ApplyBclFinancingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyBclFinancingResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyBclFinancingResponse>(await this.doRequest("1.0", "twc.notary.bcl.financing.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyBclFinancingResponse({}));
+  }
+
+  /**
+   * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+   * Summary: 查询商家入驻结果
+   */
+  async queryBclMerchant(request: QueryBclMerchantRequest): Promise<QueryBclMerchantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBclMerchantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+   * Summary: 查询商家入驻结果
+   */
+  async queryBclMerchantEx(request: QueryBclMerchantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBclMerchantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBclMerchantResponse>(await this.doRequest("1.0", "twc.notary.bcl.merchant.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBclMerchantResponse({}));
+  }
+
+  /**
+   * Description: 商家入驻租赁宝plus平台接口
+   * Summary: 商家入驻租赁宝plus平台接口
+   */
+  async registerBclMerchant(request: RegisterBclMerchantRequest): Promise<RegisterBclMerchantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerBclMerchantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商家入驻租赁宝plus平台接口
+   * Summary: 商家入驻租赁宝plus平台接口
+   */
+  async registerBclMerchantEx(request: RegisterBclMerchantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterBclMerchantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterBclMerchantResponse>(await this.doRequest("1.0", "twc.notary.bcl.merchant.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterBclMerchantResponse({}));
+  }
+
+  /**
+   * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+   * Summary: 解除代扣协议
+   */
+  async cancelBclWithhold(request: CancelBclWithholdRequest): Promise<CancelBclWithholdResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelBclWithholdEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+   * Summary: 解除代扣协议
+   */
+  async cancelBclWithholdEx(request: CancelBclWithholdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelBclWithholdResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelBclWithholdResponse>(await this.doRequest("1.0", "twc.notary.bcl.withhold.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelBclWithholdResponse({}));
+  }
+
+  /**
+   * Description: 查询单条交易投诉详情接口
+   * Summary: 查询单条交易投诉详情接口
+   */
+  async queryBclComplain(request: QueryBclComplainRequest): Promise<QueryBclComplainResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBclComplainEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询单条交易投诉详情接口
+   * Summary: 查询单条交易投诉详情接口
+   */
+  async queryBclComplainEx(request: QueryBclComplainRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBclComplainResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBclComplainResponse>(await this.doRequest("1.0", "twc.notary.bcl.complain.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBclComplainResponse({}));
+  }
+
+  /**
+   * Description: 商户上传处理图片
+   * Summary: 商户上传处理图片
+   */
+  async uploadBclComplainimage(request: UploadBclComplainimageRequest): Promise<UploadBclComplainimageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadBclComplainimageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商户上传处理图片
+   * Summary: 商户上传处理图片
+   */
+  async uploadBclComplainimageEx(request: UploadBclComplainimageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadBclComplainimageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadBclComplainimageResponse>(await this.doRequest("1.0", "twc.notary.bcl.complainimage.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadBclComplainimageResponse({}));
+  }
+
+  /**
+   * Description: 商家处理交易投诉
+   * Summary: 商家处理交易投诉
+   */
+  async submitBclComplainfeedback(request: SubmitBclComplainfeedbackRequest): Promise<SubmitBclComplainfeedbackResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitBclComplainfeedbackEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商家处理交易投诉
+   * Summary: 商家处理交易投诉
+   */
+  async submitBclComplainfeedbackEx(request: SubmitBclComplainfeedbackRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitBclComplainfeedbackResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitBclComplainfeedbackResponse>(await this.doRequest("1.0", "twc.notary.bcl.complainfeedback.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitBclComplainfeedbackResponse({}));
+  }
+
+  /**
+   * Description: 查询投诉单id列表
+   * Summary: 查询投诉单id列表
+   */
+  async queryBclComplaineventids(request: QueryBclComplaineventidsRequest): Promise<QueryBclComplaineventidsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBclComplaineventidsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询投诉单id列表
+   * Summary: 查询投诉单id列表
+   */
+  async queryBclComplaineventidsEx(request: QueryBclComplaineventidsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBclComplaineventidsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBclComplaineventidsResponse>(await this.doRequest("1.0", "twc.notary.bcl.complaineventids.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBclComplaineventidsResponse({}));
   }
 
   /**
