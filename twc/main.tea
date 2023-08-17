@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.29',
+    sdk_version = '1.11.21',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -1405,13 +1405,12 @@ model BclCertifyInfo {
 model BclContractFlowInfo {
   // 合同主题
   // 注：名称不支持以下9个字符：/ \ : * " < > | ？
-  businessScene: string(maxLength=32, name='business_scene', example='主题信息'),
-  // 流程中的签署文件信息，只支持一个文件
-  fileInfo: [ BclContractFileInfo ](name='file_info', example=''),
-  // 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
-  signPlatform?: string(maxLength=8, name='sign_platform', example='ALIPAY'),
-  // 收款方的ID，调用创建收款方接口获得
-  payeeId: string(maxLength=32, name='payee_id', example='PROD1112'),
+  // 仅当使用合同服务时必填
+  businessScene?: string(maxLength=32, name='business_scene', example='主题信息'),
+  // 流程中的签署文件信息
+  // 本期只支持一个文件
+  // 仅当使用合同服务时必填
+  fileInfo?: [ BclContractFileInfo ](name='file_info', example=''),
   // 合同签署失败回调地址
   redirectUrlOnFailure?: string(maxLength=512, name='redirect_url_on_failure', example='http://www.xxx.com'),
   // 合同签署成功回调地址
@@ -1920,6 +1919,16 @@ model ProductInfo {
   supplierVersion?: string(name='supplier_version', example='001'),
   // 额外字段
   extraInfo?: string(name='extra_info', example='{}'),
+}
+
+// 商家联系人信息
+model BclContactInfo {
+  // 联系人名称，最大长度：128
+  name: string(name='name', example='张三'),
+  // 联系人手机号，最大长度：20
+  mobile: string(name='mobile', example='138xxxx8888'),
+  // 联系人电话，最大长度：20
+  phone?: string(name='phone', example='0571-12345678'),
 }
 
 // 查询全流程存证证据详情查询的请求信息
@@ -2631,14 +2640,14 @@ model AddBclLogisticinfoRequest = {
   // - SHIPPED 已发货 
   // - TRANSPORT 运输中 
   // - SIGNED 已签收  
-  // 当前暂时只支持已签收
+  // 当前暂时只支持已发货和已签收
   logisticStatus: string(maxLength=16, name='logistic_status'),
   // 物流照片网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
   logisticsFileId?: string(maxLength=64, name='logistics_file_id'),
   // 签收记录,网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
   arriveConfirmFileId?: string(maxLength=64, name='arrive_confirm_file_id'),
   // 用户签收时间格式为2019-8-31 12:00:00
-  arriveConfirmTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='arrive_confirm_time'),
+  arriveConfirmTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='arrive_confirm_time'),
   // 物流公司简称
   logisticCompanyName: string(maxLength=32, name='logistic_company_name'),
   // 物流公司code
@@ -2655,8 +2664,6 @@ model AddBclLogisticinfoRequest = {
   deliverAddress: string(maxLength=512, name='deliver_address'),
   // 收货地址
   arriveAddress: string(maxLength=512, name='arrive_address'),
-  // 物流额外信息,资方定义物流的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-  logisticExtraInfo?: string(maxLength=4096, name='logistic_extra_info'),
   // 收货人姓名
   arriveName: string(maxLength=32, name='arrive_name'),
   // 收货人联系电话
@@ -2695,7 +2702,9 @@ model SubmitBclOrderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 订单id,长度不超过32位
+  // 租赁订单ID
+  // 长度不超过32位 
+  // 订单状态为 待发起 PRE_SUBMIT 才可以调用
   orderId: string(maxLength=32, name='order_id'),
 }
 
@@ -2784,10 +2793,6 @@ model CreateBclOrderRequest = {
   realPersonReturnUrl?: string(maxLength=512, name='real_person_return_url'),
   // 签署流程信息，如果使用租赁代扣创建则必填
   contractFlowInfo?: BclContractFlowInfo(name='contract_flow_info'),
-  // 资方定义订单的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-  orderExtraInfo?: string(maxLength=4096, name='order_extra_info'),
-  // 资方定义用户的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-  userExtraInfo?: string(maxLength=4096, name='user_extra_info'),
   // 是否不需要融资：
   // ● true表示明确这笔订单不需要融资
   // ● false表示该笔订单后续可能融资也可能不融资
@@ -3051,7 +3056,8 @@ model QueryBclProductRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 商品ID，长度不能超过32为
+  // 商品ID
+  // 最大长度：32
   productId: string(maxLength=32, name='product_id'),
 }
 
@@ -3171,7 +3177,7 @@ model GetBclUploadurlRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 文件名称
+  // 文件名称（最长128个字符，需要带文件后缀，不包含中文）
   fileName: string(maxLength=128, name='file_name'),
 }
 
@@ -3182,9 +3188,9 @@ model GetBclUploadurlResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 授权访问oss链接
+  // OSS上传链接
   url?: string(name='url'),
-  // OSS 文件id
+  // 文件OSS ID
   fileId?: string(name='file_id'),
 }
 
@@ -3299,6 +3305,9 @@ model ApplyBclFinancingRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 订单id,长度不超过32位
   orderId: string(name='order_id'),
+  // 客户端token：
+  // 幂等号，用来保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。更多详情，请参见如何保证幂等性。
+  clientToken: string(name='client_token'),
 }
 
 model ApplyBclFinancingResponse = {
@@ -3309,6 +3318,7 @@ model ApplyBclFinancingResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 融资申请单号
+  // 使用方可保存用于与租赁宝PLUS订单关联
   financingApplyNo?: string(name='financing_apply_no'),
 }
 
@@ -3329,6 +3339,366 @@ async function applyBclFinancing(request: ApplyBclFinancingRequest): ApplyBclFin
 async function applyBclFinancingEx(request: ApplyBclFinancingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyBclFinancingResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.bcl.financing.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBclMerchantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 入驻编号
+  enrollmentNo: string(name='enrollment_no'),
+}
+
+model QueryBclMerchantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 入驻状态：入驻中：EXEC（表示等待商家去支付宝平台签约）；SUCCESS：入驻成功；FAIL：入驻失败
+  status?: string(name='status'),
+  // 是否需要使用租赁代扣
+  needProxyWithholding?: boolean(name='need_proxy_withholding'),
+  // 入驻失败的原因，在入驻失败时才会有值
+  reason?: string(name='reason'),
+}
+
+/**
+ * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+ * Summary: 查询商家入驻结果
+ */
+async function queryBclMerchant(request: QueryBclMerchantRequest): QueryBclMerchantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBclMerchantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+ * Summary: 查询商家入驻结果
+ */
+async function queryBclMerchantEx(request: QueryBclMerchantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBclMerchantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.bcl.merchant.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterBclMerchantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商家实体名称
+  // 要与证件的名称相同，会在用户签署代扣协议时或者支付宝扣款账单中展示，请规范填写，最大长度：128
+  name: string(name='name'),
+  // 商家实体别名
+  // 会在用户签署代扣协议时或者支付宝扣款账单中展示，请规范填写，最大长度：128  
+  // 如果need_proxy_withholding为true则必填
+  aliasName?: string(name='alias_name'),
+  // 商家实体类型：
+  // 1.企业：ENTERPRISE
+  // 当前暂时只支持企业
+  merchantType: string(name='merchant_type'),
+  // 商家营业执照号
+  // 最大长度20
+  certNo: string(name='cert_no'),
+  // 法人名称
+  // 最大长度64
+  legalName: string(name='legal_name'),
+  // 法人身份证号
+  // 最大长度18
+  legalCertNo: string(name='legal_cert_no'),
+  // 商家联系人信息
+  // 当前只支持一个联系人
+  contactInfos?: [ BclContactInfo ](name='contact_infos'),
+  // 商家实体支付宝账号
+  // 用作结算账号。本字段支付宝账号实名信息要求与商户名称cert_name同名，且是实名认证支付宝企业账户，最大长度：64
+  // 如果need_proxy_withholding为true则必填
+  alipayLogonId?: string(name='alipay_logon_id'),
+  // 租赁经营类型
+  // 1.数码/娱乐设备租赁：DIGITAL_LEASE
+  // 2.共享充电宝及其他共享租赁：SHARE_LEASE
+  // 3.汽车租赁：CAR_LEASE
+  managementType: string(name='management_type'),
+  // 是否需要使用租赁代扣
+  // true 为需要使用
+  // false 为不需要使用
+  needProxyWithholding: boolean(name='need_proxy_withholding'),
+  // 客户端token：
+  // 幂等号，用来保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。更多详情，请参见如何保证幂等性。
+  clientToken: string(name='client_token'),
+}
+
+model RegisterBclMerchantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 入驻编号，受理成功时才会有值，务必保存，可用于后续查询入驻的结果
+  enrollmentNo?: string(name='enrollment_no'),
+}
+
+/**
+ * Description: 商家入驻租赁宝plus平台接口
+ * Summary: 商家入驻租赁宝plus平台接口
+ */
+async function registerBclMerchant(request: RegisterBclMerchantRequest): RegisterBclMerchantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerBclMerchantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商家入驻租赁宝plus平台接口
+ * Summary: 商家入驻租赁宝plus平台接口
+ */
+async function registerBclMerchantEx(request: RegisterBclMerchantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterBclMerchantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.bcl.merchant.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelBclWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 解约申请单号
+  cancelApplyNo: string(name='cancel_apply_no'),
+  // 是否允许解除代扣
+  allowCancelWithhold: boolean(name='allow_cancel_withhold'),
+}
+
+model CancelBclWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+ * Summary: 解除代扣协议
+ */
+async function cancelBclWithhold(request: CancelBclWithholdRequest): CancelBclWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelBclWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+ * Summary: 解除代扣协议
+ */
+async function cancelBclWithholdEx(request: CancelBclWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelBclWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.bcl.withhold.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBclComplainRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 投诉订单号
+  complainEventId: string(maxLength=64, name='complain_event_id'),
+}
+
+model QueryBclComplainResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 租赁订单id
+  orderId?: string(name='order_id'),
+  // 投诉订单号
+  complainEventId?: string(name='complain_event_id'),
+  // 投诉单状态
+  status?: string(name='status'),
+  // 支付宝交易号
+  thirdTradeNo?: string(name='third_trade_no'),
+  // 发起交易流水号
+  tradeCallNo?: string(name='trade_call_no'),
+  // 投诉单创建时间
+  gmtCreate?: string(name='gmt_create'),
+  // 投诉单修改时间
+  gmtModified?: string(name='gmt_modified'),
+  // 投诉单修改时间
+  gmtFinished?: string(name='gmt_finished'),
+  // 用户投诉诉求
+  leafCategoryName?: string(name='leaf_category_name'),
+  // 用户投诉原因
+  complainReason?: string(name='complain_reason'),
+  // 投诉人电话号码
+  phoneNo?: string(name='phone_no'),
+  // 交易金额，单位元
+  tradeAmount?: string(name='trade_amount'),
+  // 用户与商家之间的协商记录
+  replyDetailInfos?: ReplayDetailInfo(name='reply_detail_infos'),
+}
+
+/**
+ * Description: 查询单条交易投诉详情接口
+ * Summary: 查询单条交易投诉详情接口
+ */
+async function queryBclComplain(request: QueryBclComplainRequest): QueryBclComplainResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBclComplainEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询单条交易投诉详情接口
+ * Summary: 查询单条交易投诉详情接口
+ */
+async function queryBclComplainEx(request: QueryBclComplainRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBclComplainResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.bcl.complain.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadBclComplainimageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 图片格式，支持格式：jpg、jpeg、png
+  imageName: string(maxLength=64, name='image_name'),
+  // 图片二进制字节流
+  imageContent: string(name='image_content'),
+}
+
+model UploadBclComplainimageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 图片在文件存储平台的标识
+  iamgeId?: string(name='iamge_id'),
+}
+
+/**
+ * Description: 商户上传处理图片
+ * Summary: 商户上传处理图片
+ */
+async function uploadBclComplainimage(request: UploadBclComplainimageRequest): UploadBclComplainimageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadBclComplainimageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户上传处理图片
+ * Summary: 商户上传处理图片
+ */
+async function uploadBclComplainimageEx(request: UploadBclComplainimageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadBclComplainimageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.bcl.complainimage.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitBclComplainfeedbackRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 投诉订单号
+  complainEventId: string(maxLength=64, name='complain_event_id'),
+  // 反馈类目ID
+  // 00:使用体验保障金退款；
+  // 02:通过其他方式退款;
+  // 03:已发货;
+  // 04:其他;
+  // 05:已完成售后服务;
+  // 06:非我方责任范围；
+  feedbackCode: string(maxLength=32, name='feedback_code'),
+  // 反馈内容，不超过200字
+  feedbackContent: string(maxLength=1024, name='feedback_content'),
+  // 商家处理投诉时反馈凭证的图片id，多个逗号隔开（图片id可以通过"商户上传处理图片"接口获取）
+  // 
+  feedbackImages: string(maxLength=1024, name='feedback_images'),
+  // 处理投诉人，字数不超过6个字
+  operator: string(maxLength=32, name='operator'),
+}
+
+model SubmitBclComplainfeedbackResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否处理成功
+  result?: boolean(name='result'),
+}
+
+/**
+ * Description: 商家处理交易投诉
+ * Summary: 商家处理交易投诉
+ */
+async function submitBclComplainfeedback(request: SubmitBclComplainfeedbackRequest): SubmitBclComplainfeedbackResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitBclComplainfeedbackEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商家处理交易投诉
+ * Summary: 商家处理交易投诉
+ */
+async function submitBclComplainfeedbackEx(request: SubmitBclComplainfeedbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitBclComplainfeedbackResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.bcl.complainfeedback.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBclComplaineventidsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客诉单开始时间
+  startDate: string(maxLength=16, name='start_date'),
+  // 客诉单结束时间
+  endDate: string(maxLength=16, name='end_date'),
+  // 每页数量
+  pageSize?: long(name='page_size'),
+  // 页码
+  pageNum: long(minimum=1, name='page_num'),
+}
+
+model QueryBclComplaineventidsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 投诉单id列表
+  complainEventIds?: [ string ](name='complain_event_ids'),
+  // 总量
+  count?: long(name='count'),
+  // 每页数量
+  pageSize?: long(name='page_size'),
+  // 页码
+  pageNum?: long(name='page_num'),
+}
+
+/**
+ * Description: 查询投诉单id列表
+ * Summary: 查询投诉单id列表
+ */
+async function queryBclComplaineventids(request: QueryBclComplaineventidsRequest): QueryBclComplaineventidsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBclComplaineventidsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询投诉单id列表
+ * Summary: 查询投诉单id列表
+ */
+async function queryBclComplaineventidsEx(request: QueryBclComplaineventidsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBclComplaineventidsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.bcl.complaineventids.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateContractAccountRequest = {
