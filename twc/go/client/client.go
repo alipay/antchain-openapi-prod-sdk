@@ -4133,13 +4133,12 @@ func (s *BclCertifyInfo) SetStatus(v string) *BclCertifyInfo {
 type BclContractFlowInfo struct {
 	// 合同主题
 	// 注：名称不支持以下9个字符：/ \ : * " < > | ？
-	BusinessScene *string `json:"business_scene,omitempty" xml:"business_scene,omitempty" require:"true" maxLength:"32"`
-	// 流程中的签署文件信息，只支持一个文件
-	FileInfo []*BclContractFileInfo `json:"file_info,omitempty" xml:"file_info,omitempty" require:"true" type:"Repeated"`
-	// 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
-	SignPlatform *string `json:"sign_platform,omitempty" xml:"sign_platform,omitempty" maxLength:"8"`
-	// 收款方的ID，调用创建收款方接口获得
-	PayeeId *string `json:"payee_id,omitempty" xml:"payee_id,omitempty" require:"true" maxLength:"32"`
+	// 仅当使用合同服务时必填
+	BusinessScene *string `json:"business_scene,omitempty" xml:"business_scene,omitempty" maxLength:"32"`
+	// 流程中的签署文件信息
+	// 本期只支持一个文件
+	// 仅当使用合同服务时必填
+	FileInfo []*BclContractFileInfo `json:"file_info,omitempty" xml:"file_info,omitempty" type:"Repeated"`
 	// 合同签署失败回调地址
 	RedirectUrlOnFailure *string `json:"redirect_url_on_failure,omitempty" xml:"redirect_url_on_failure,omitempty" maxLength:"512"`
 	// 合同签署成功回调地址
@@ -4161,16 +4160,6 @@ func (s *BclContractFlowInfo) SetBusinessScene(v string) *BclContractFlowInfo {
 
 func (s *BclContractFlowInfo) SetFileInfo(v []*BclContractFileInfo) *BclContractFlowInfo {
 	s.FileInfo = v
-	return s
-}
-
-func (s *BclContractFlowInfo) SetSignPlatform(v string) *BclContractFlowInfo {
-	s.SignPlatform = &v
-	return s
-}
-
-func (s *BclContractFlowInfo) SetPayeeId(v string) *BclContractFlowInfo {
-	s.PayeeId = &v
 	return s
 }
 
@@ -5831,6 +5820,39 @@ func (s *ProductInfo) SetSupplierVersion(v string) *ProductInfo {
 
 func (s *ProductInfo) SetExtraInfo(v string) *ProductInfo {
 	s.ExtraInfo = &v
+	return s
+}
+
+// 商家联系人信息
+type BclContactInfo struct {
+	// 联系人名称，最大长度：128
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 联系人手机号，最大长度：20
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 联系人电话，最大长度：20
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
+}
+
+func (s BclContactInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BclContactInfo) GoString() string {
+	return s.String()
+}
+
+func (s *BclContactInfo) SetName(v string) *BclContactInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *BclContactInfo) SetMobile(v string) *BclContactInfo {
+	s.Mobile = &v
+	return s
+}
+
+func (s *BclContactInfo) SetPhone(v string) *BclContactInfo {
+	s.Phone = &v
 	return s
 }
 
@@ -8015,14 +8037,14 @@ type AddBclLogisticinfoRequest struct {
 	// - SHIPPED 已发货
 	// - TRANSPORT 运输中
 	// - SIGNED 已签收
-	// 当前暂时只支持已签收
+	// 当前暂时只支持已发货和已签收
 	LogisticStatus *string `json:"logistic_status,omitempty" xml:"logistic_status,omitempty" require:"true" maxLength:"16"`
 	// 物流照片网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
 	LogisticsFileId *string `json:"logistics_file_id,omitempty" xml:"logistics_file_id,omitempty" maxLength:"64"`
 	// 签收记录,网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
 	ArriveConfirmFileId *string `json:"arrive_confirm_file_id,omitempty" xml:"arrive_confirm_file_id,omitempty" maxLength:"64"`
 	// 用户签收时间格式为2019-8-31 12:00:00
-	ArriveConfirmTime *string `json:"arrive_confirm_time,omitempty" xml:"arrive_confirm_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	ArriveConfirmTime *string `json:"arrive_confirm_time,omitempty" xml:"arrive_confirm_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 物流公司简称
 	LogisticCompanyName *string `json:"logistic_company_name,omitempty" xml:"logistic_company_name,omitempty" require:"true" maxLength:"32"`
 	// 物流公司code
@@ -8039,8 +8061,6 @@ type AddBclLogisticinfoRequest struct {
 	DeliverAddress *string `json:"deliver_address,omitempty" xml:"deliver_address,omitempty" require:"true" maxLength:"512"`
 	// 收货地址
 	ArriveAddress *string `json:"arrive_address,omitempty" xml:"arrive_address,omitempty" require:"true" maxLength:"512"`
-	// 物流额外信息,资方定义物流的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-	LogisticExtraInfo *string `json:"logistic_extra_info,omitempty" xml:"logistic_extra_info,omitempty" maxLength:"4096"`
 	// 收货人姓名
 	ArriveName *string `json:"arrive_name,omitempty" xml:"arrive_name,omitempty" require:"true" maxLength:"32"`
 	// 收货人联系电话
@@ -8125,11 +8145,6 @@ func (s *AddBclLogisticinfoRequest) SetArriveAddress(v string) *AddBclLogisticin
 	return s
 }
 
-func (s *AddBclLogisticinfoRequest) SetLogisticExtraInfo(v string) *AddBclLogisticinfoRequest {
-	s.LogisticExtraInfo = &v
-	return s
-}
-
 func (s *AddBclLogisticinfoRequest) SetArriveName(v string) *AddBclLogisticinfoRequest {
 	s.ArriveName = &v
 	return s
@@ -8176,7 +8191,9 @@ type SubmitBclOrderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 订单id,长度不超过32位
+	// 租赁订单ID
+	// 长度不超过32位
+	// 订单状态为 待发起 PRE_SUBMIT 才可以调用
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"32"`
 }
 
@@ -8297,10 +8314,6 @@ type CreateBclOrderRequest struct {
 	RealPersonReturnUrl *string `json:"real_person_return_url,omitempty" xml:"real_person_return_url,omitempty" maxLength:"512"`
 	// 签署流程信息，如果使用租赁代扣创建则必填
 	ContractFlowInfo *BclContractFlowInfo `json:"contract_flow_info,omitempty" xml:"contract_flow_info,omitempty"`
-	// 资方定义订单的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-	OrderExtraInfo *string `json:"order_extra_info,omitempty" xml:"order_extra_info,omitempty" maxLength:"4096"`
-	// 资方定义用户的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-	UserExtraInfo *string `json:"user_extra_info,omitempty" xml:"user_extra_info,omitempty" maxLength:"4096"`
 	// 是否不需要融资：
 	// ● true表示明确这笔订单不需要融资
 	// ● false表示该笔订单后续可能融资也可能不融资
@@ -8427,16 +8440,6 @@ func (s *CreateBclOrderRequest) SetRealPersonReturnUrl(v string) *CreateBclOrder
 
 func (s *CreateBclOrderRequest) SetContractFlowInfo(v *BclContractFlowInfo) *CreateBclOrderRequest {
 	s.ContractFlowInfo = v
-	return s
-}
-
-func (s *CreateBclOrderRequest) SetOrderExtraInfo(v string) *CreateBclOrderRequest {
-	s.OrderExtraInfo = &v
-	return s
-}
-
-func (s *CreateBclOrderRequest) SetUserExtraInfo(v string) *CreateBclOrderRequest {
-	s.UserExtraInfo = &v
 	return s
 }
 
@@ -8962,7 +8965,8 @@ type QueryBclProductRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 商品ID，长度不能超过32为
+	// 商品ID
+	// 最大长度：32
 	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true" maxLength:"32"`
 }
 
@@ -9251,7 +9255,7 @@ type GetBclUploadurlRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 文件名称
+	// 文件名称（最长128个字符，需要带文件后缀，不包含中文）
 	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true" maxLength:"128"`
 }
 
@@ -9285,9 +9289,9 @@ type GetBclUploadurlResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 授权访问oss链接
+	// OSS上传链接
 	Url *string `json:"url,omitempty" xml:"url,omitempty"`
-	// OSS 文件id
+	// 文件OSS ID
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 }
 
@@ -9500,6 +9504,9 @@ type ApplyBclFinancingRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 订单id,长度不超过32位
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 客户端token：
+	// 幂等号，用来保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。更多详情，请参见如何保证幂等性。
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
 }
 
 func (s ApplyBclFinancingRequest) String() string {
@@ -9525,6 +9532,11 @@ func (s *ApplyBclFinancingRequest) SetOrderId(v string) *ApplyBclFinancingReques
 	return s
 }
 
+func (s *ApplyBclFinancingRequest) SetClientToken(v string) *ApplyBclFinancingRequest {
+	s.ClientToken = &v
+	return s
+}
+
 type ApplyBclFinancingResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -9533,6 +9545,7 @@ type ApplyBclFinancingResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 融资申请单号
+	// 使用方可保存用于与租赁宝PLUS订单关联
 	FinancingApplyNo *string `json:"financing_apply_no,omitempty" xml:"financing_apply_no,omitempty"`
 }
 
@@ -9561,6 +9574,765 @@ func (s *ApplyBclFinancingResponse) SetResultMsg(v string) *ApplyBclFinancingRes
 
 func (s *ApplyBclFinancingResponse) SetFinancingApplyNo(v string) *ApplyBclFinancingResponse {
 	s.FinancingApplyNo = &v
+	return s
+}
+
+type QueryBclMerchantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 入驻编号
+	EnrollmentNo *string `json:"enrollment_no,omitempty" xml:"enrollment_no,omitempty" require:"true"`
+}
+
+func (s QueryBclMerchantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBclMerchantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBclMerchantRequest) SetAuthToken(v string) *QueryBclMerchantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBclMerchantRequest) SetProductInstanceId(v string) *QueryBclMerchantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBclMerchantRequest) SetEnrollmentNo(v string) *QueryBclMerchantRequest {
+	s.EnrollmentNo = &v
+	return s
+}
+
+type QueryBclMerchantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 入驻状态：入驻中：EXEC（表示等待商家去支付宝平台签约）；SUCCESS：入驻成功；FAIL：入驻失败
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 是否需要使用租赁代扣
+	NeedProxyWithholding *bool `json:"need_proxy_withholding,omitempty" xml:"need_proxy_withholding,omitempty"`
+	// 入驻失败的原因，在入驻失败时才会有值
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+}
+
+func (s QueryBclMerchantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBclMerchantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBclMerchantResponse) SetReqMsgId(v string) *QueryBclMerchantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBclMerchantResponse) SetResultCode(v string) *QueryBclMerchantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBclMerchantResponse) SetResultMsg(v string) *QueryBclMerchantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBclMerchantResponse) SetStatus(v string) *QueryBclMerchantResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryBclMerchantResponse) SetNeedProxyWithholding(v bool) *QueryBclMerchantResponse {
+	s.NeedProxyWithholding = &v
+	return s
+}
+
+func (s *QueryBclMerchantResponse) SetReason(v string) *QueryBclMerchantResponse {
+	s.Reason = &v
+	return s
+}
+
+type RegisterBclMerchantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商家实体名称
+	// 要与证件的名称相同，会在用户签署代扣协议时或者支付宝扣款账单中展示，请规范填写，最大长度：128
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 商家实体别名
+	// 会在用户签署代扣协议时或者支付宝扣款账单中展示，请规范填写，最大长度：128
+	// 如果need_proxy_withholding为true则必填
+	AliasName *string `json:"alias_name,omitempty" xml:"alias_name,omitempty"`
+	// 商家实体类型：
+	// 1.企业：ENTERPRISE
+	// 当前暂时只支持企业
+	MerchantType *string `json:"merchant_type,omitempty" xml:"merchant_type,omitempty" require:"true"`
+	// 商家营业执照号
+	// 最大长度20
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 法人名称
+	// 最大长度64
+	LegalName *string `json:"legal_name,omitempty" xml:"legal_name,omitempty" require:"true"`
+	// 法人身份证号
+	// 最大长度18
+	LegalCertNo *string `json:"legal_cert_no,omitempty" xml:"legal_cert_no,omitempty" require:"true"`
+	// 商家联系人信息
+	// 当前只支持一个联系人
+	ContactInfos []*BclContactInfo `json:"contact_infos,omitempty" xml:"contact_infos,omitempty" type:"Repeated"`
+	// 商家实体支付宝账号
+	// 用作结算账号。本字段支付宝账号实名信息要求与商户名称cert_name同名，且是实名认证支付宝企业账户，最大长度：64
+	// 如果need_proxy_withholding为true则必填
+	AlipayLogonId *string `json:"alipay_logon_id,omitempty" xml:"alipay_logon_id,omitempty"`
+	// 租赁经营类型
+	// 1.数码/娱乐设备租赁：DIGITAL_LEASE
+	// 2.共享充电宝及其他共享租赁：SHARE_LEASE
+	// 3.汽车租赁：CAR_LEASE
+	ManagementType *string `json:"management_type,omitempty" xml:"management_type,omitempty" require:"true"`
+	// 是否需要使用租赁代扣
+	// true 为需要使用
+	// false 为不需要使用
+	NeedProxyWithholding *bool `json:"need_proxy_withholding,omitempty" xml:"need_proxy_withholding,omitempty" require:"true"`
+	// 客户端token：
+	// 幂等号，用来保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。更多详情，请参见如何保证幂等性。
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+}
+
+func (s RegisterBclMerchantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterBclMerchantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterBclMerchantRequest) SetAuthToken(v string) *RegisterBclMerchantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterBclMerchantRequest) SetProductInstanceId(v string) *RegisterBclMerchantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterBclMerchantRequest) SetName(v string) *RegisterBclMerchantRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *RegisterBclMerchantRequest) SetAliasName(v string) *RegisterBclMerchantRequest {
+	s.AliasName = &v
+	return s
+}
+
+func (s *RegisterBclMerchantRequest) SetMerchantType(v string) *RegisterBclMerchantRequest {
+	s.MerchantType = &v
+	return s
+}
+
+func (s *RegisterBclMerchantRequest) SetCertNo(v string) *RegisterBclMerchantRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *RegisterBclMerchantRequest) SetLegalName(v string) *RegisterBclMerchantRequest {
+	s.LegalName = &v
+	return s
+}
+
+func (s *RegisterBclMerchantRequest) SetLegalCertNo(v string) *RegisterBclMerchantRequest {
+	s.LegalCertNo = &v
+	return s
+}
+
+func (s *RegisterBclMerchantRequest) SetContactInfos(v []*BclContactInfo) *RegisterBclMerchantRequest {
+	s.ContactInfos = v
+	return s
+}
+
+func (s *RegisterBclMerchantRequest) SetAlipayLogonId(v string) *RegisterBclMerchantRequest {
+	s.AlipayLogonId = &v
+	return s
+}
+
+func (s *RegisterBclMerchantRequest) SetManagementType(v string) *RegisterBclMerchantRequest {
+	s.ManagementType = &v
+	return s
+}
+
+func (s *RegisterBclMerchantRequest) SetNeedProxyWithholding(v bool) *RegisterBclMerchantRequest {
+	s.NeedProxyWithholding = &v
+	return s
+}
+
+func (s *RegisterBclMerchantRequest) SetClientToken(v string) *RegisterBclMerchantRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type RegisterBclMerchantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 入驻编号，受理成功时才会有值，务必保存，可用于后续查询入驻的结果
+	EnrollmentNo *string `json:"enrollment_no,omitempty" xml:"enrollment_no,omitempty"`
+}
+
+func (s RegisterBclMerchantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterBclMerchantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterBclMerchantResponse) SetReqMsgId(v string) *RegisterBclMerchantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterBclMerchantResponse) SetResultCode(v string) *RegisterBclMerchantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterBclMerchantResponse) SetResultMsg(v string) *RegisterBclMerchantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterBclMerchantResponse) SetEnrollmentNo(v string) *RegisterBclMerchantResponse {
+	s.EnrollmentNo = &v
+	return s
+}
+
+type CancelBclWithholdRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 解约申请单号
+	CancelApplyNo *string `json:"cancel_apply_no,omitempty" xml:"cancel_apply_no,omitempty" require:"true"`
+	// 是否允许解除代扣
+	AllowCancelWithhold *bool `json:"allow_cancel_withhold,omitempty" xml:"allow_cancel_withhold,omitempty" require:"true"`
+}
+
+func (s CancelBclWithholdRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelBclWithholdRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CancelBclWithholdRequest) SetAuthToken(v string) *CancelBclWithholdRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelBclWithholdRequest) SetProductInstanceId(v string) *CancelBclWithholdRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CancelBclWithholdRequest) SetCancelApplyNo(v string) *CancelBclWithholdRequest {
+	s.CancelApplyNo = &v
+	return s
+}
+
+func (s *CancelBclWithholdRequest) SetAllowCancelWithhold(v bool) *CancelBclWithholdRequest {
+	s.AllowCancelWithhold = &v
+	return s
+}
+
+type CancelBclWithholdResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CancelBclWithholdResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelBclWithholdResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CancelBclWithholdResponse) SetReqMsgId(v string) *CancelBclWithholdResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CancelBclWithholdResponse) SetResultCode(v string) *CancelBclWithholdResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CancelBclWithholdResponse) SetResultMsg(v string) *CancelBclWithholdResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryBclComplainRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 投诉订单号
+	ComplainEventId *string `json:"complain_event_id,omitempty" xml:"complain_event_id,omitempty" require:"true" maxLength:"64"`
+}
+
+func (s QueryBclComplainRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBclComplainRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBclComplainRequest) SetAuthToken(v string) *QueryBclComplainRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBclComplainRequest) SetProductInstanceId(v string) *QueryBclComplainRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBclComplainRequest) SetComplainEventId(v string) *QueryBclComplainRequest {
+	s.ComplainEventId = &v
+	return s
+}
+
+type QueryBclComplainResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 租赁订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 投诉订单号
+	ComplainEventId *string `json:"complain_event_id,omitempty" xml:"complain_event_id,omitempty"`
+	// 投诉单状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 支付宝交易号
+	ThirdTradeNo *string `json:"third_trade_no,omitempty" xml:"third_trade_no,omitempty"`
+	// 发起交易流水号
+	TradeCallNo *string `json:"trade_call_no,omitempty" xml:"trade_call_no,omitempty"`
+	// 投诉单创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty"`
+	// 投诉单修改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty"`
+	// 投诉单修改时间
+	GmtFinished *string `json:"gmt_finished,omitempty" xml:"gmt_finished,omitempty"`
+	// 用户投诉诉求
+	LeafCategoryName *string `json:"leaf_category_name,omitempty" xml:"leaf_category_name,omitempty"`
+	// 用户投诉原因
+	ComplainReason *string `json:"complain_reason,omitempty" xml:"complain_reason,omitempty"`
+	// 投诉人电话号码
+	PhoneNo *string `json:"phone_no,omitempty" xml:"phone_no,omitempty"`
+	// 交易金额，单位元
+	TradeAmount *string `json:"trade_amount,omitempty" xml:"trade_amount,omitempty"`
+	// 用户与商家之间的协商记录
+	ReplyDetailInfos *ReplayDetailInfo `json:"reply_detail_infos,omitempty" xml:"reply_detail_infos,omitempty"`
+}
+
+func (s QueryBclComplainResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBclComplainResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBclComplainResponse) SetReqMsgId(v string) *QueryBclComplainResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetResultCode(v string) *QueryBclComplainResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetResultMsg(v string) *QueryBclComplainResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetOrderId(v string) *QueryBclComplainResponse {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetComplainEventId(v string) *QueryBclComplainResponse {
+	s.ComplainEventId = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetStatus(v string) *QueryBclComplainResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetThirdTradeNo(v string) *QueryBclComplainResponse {
+	s.ThirdTradeNo = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetTradeCallNo(v string) *QueryBclComplainResponse {
+	s.TradeCallNo = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetGmtCreate(v string) *QueryBclComplainResponse {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetGmtModified(v string) *QueryBclComplainResponse {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetGmtFinished(v string) *QueryBclComplainResponse {
+	s.GmtFinished = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetLeafCategoryName(v string) *QueryBclComplainResponse {
+	s.LeafCategoryName = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetComplainReason(v string) *QueryBclComplainResponse {
+	s.ComplainReason = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetPhoneNo(v string) *QueryBclComplainResponse {
+	s.PhoneNo = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetTradeAmount(v string) *QueryBclComplainResponse {
+	s.TradeAmount = &v
+	return s
+}
+
+func (s *QueryBclComplainResponse) SetReplyDetailInfos(v *ReplayDetailInfo) *QueryBclComplainResponse {
+	s.ReplyDetailInfos = v
+	return s
+}
+
+type UploadBclComplainimageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 图片格式，支持格式：jpg、jpeg、png
+	ImageName *string `json:"image_name,omitempty" xml:"image_name,omitempty" require:"true" maxLength:"64"`
+	// 图片二进制字节流
+	ImageContent *string `json:"image_content,omitempty" xml:"image_content,omitempty" require:"true"`
+}
+
+func (s UploadBclComplainimageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadBclComplainimageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadBclComplainimageRequest) SetAuthToken(v string) *UploadBclComplainimageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadBclComplainimageRequest) SetProductInstanceId(v string) *UploadBclComplainimageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadBclComplainimageRequest) SetImageName(v string) *UploadBclComplainimageRequest {
+	s.ImageName = &v
+	return s
+}
+
+func (s *UploadBclComplainimageRequest) SetImageContent(v string) *UploadBclComplainimageRequest {
+	s.ImageContent = &v
+	return s
+}
+
+type UploadBclComplainimageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 图片在文件存储平台的标识
+	IamgeId *string `json:"iamge_id,omitempty" xml:"iamge_id,omitempty"`
+}
+
+func (s UploadBclComplainimageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadBclComplainimageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadBclComplainimageResponse) SetReqMsgId(v string) *UploadBclComplainimageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadBclComplainimageResponse) SetResultCode(v string) *UploadBclComplainimageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadBclComplainimageResponse) SetResultMsg(v string) *UploadBclComplainimageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadBclComplainimageResponse) SetIamgeId(v string) *UploadBclComplainimageResponse {
+	s.IamgeId = &v
+	return s
+}
+
+type SubmitBclComplainfeedbackRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 投诉订单号
+	ComplainEventId *string `json:"complain_event_id,omitempty" xml:"complain_event_id,omitempty" require:"true" maxLength:"64"`
+	// 反馈类目ID
+	// 00:使用体验保障金退款；
+	// 02:通过其他方式退款;
+	// 03:已发货;
+	// 04:其他;
+	// 05:已完成售后服务;
+	// 06:非我方责任范围；
+	FeedbackCode *string `json:"feedback_code,omitempty" xml:"feedback_code,omitempty" require:"true" maxLength:"32"`
+	// 反馈内容，不超过200字
+	FeedbackContent *string `json:"feedback_content,omitempty" xml:"feedback_content,omitempty" require:"true" maxLength:"1024"`
+	// 商家处理投诉时反馈凭证的图片id，多个逗号隔开（图片id可以通过"商户上传处理图片"接口获取）
+	//
+	FeedbackImages *string `json:"feedback_images,omitempty" xml:"feedback_images,omitempty" require:"true" maxLength:"1024"`
+	// 处理投诉人，字数不超过6个字
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true" maxLength:"32"`
+}
+
+func (s SubmitBclComplainfeedbackRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitBclComplainfeedbackRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitBclComplainfeedbackRequest) SetAuthToken(v string) *SubmitBclComplainfeedbackRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitBclComplainfeedbackRequest) SetProductInstanceId(v string) *SubmitBclComplainfeedbackRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitBclComplainfeedbackRequest) SetComplainEventId(v string) *SubmitBclComplainfeedbackRequest {
+	s.ComplainEventId = &v
+	return s
+}
+
+func (s *SubmitBclComplainfeedbackRequest) SetFeedbackCode(v string) *SubmitBclComplainfeedbackRequest {
+	s.FeedbackCode = &v
+	return s
+}
+
+func (s *SubmitBclComplainfeedbackRequest) SetFeedbackContent(v string) *SubmitBclComplainfeedbackRequest {
+	s.FeedbackContent = &v
+	return s
+}
+
+func (s *SubmitBclComplainfeedbackRequest) SetFeedbackImages(v string) *SubmitBclComplainfeedbackRequest {
+	s.FeedbackImages = &v
+	return s
+}
+
+func (s *SubmitBclComplainfeedbackRequest) SetOperator(v string) *SubmitBclComplainfeedbackRequest {
+	s.Operator = &v
+	return s
+}
+
+type SubmitBclComplainfeedbackResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否处理成功
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s SubmitBclComplainfeedbackResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitBclComplainfeedbackResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitBclComplainfeedbackResponse) SetReqMsgId(v string) *SubmitBclComplainfeedbackResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitBclComplainfeedbackResponse) SetResultCode(v string) *SubmitBclComplainfeedbackResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitBclComplainfeedbackResponse) SetResultMsg(v string) *SubmitBclComplainfeedbackResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitBclComplainfeedbackResponse) SetResult(v bool) *SubmitBclComplainfeedbackResponse {
+	s.Result = &v
+	return s
+}
+
+type QueryBclComplaineventidsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客诉单开始时间
+	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty" require:"true" maxLength:"16"`
+	// 客诉单结束时间
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty" require:"true" maxLength:"16"`
+	// 每页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true" minimum:"1"`
+}
+
+func (s QueryBclComplaineventidsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBclComplaineventidsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBclComplaineventidsRequest) SetAuthToken(v string) *QueryBclComplaineventidsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBclComplaineventidsRequest) SetProductInstanceId(v string) *QueryBclComplaineventidsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBclComplaineventidsRequest) SetStartDate(v string) *QueryBclComplaineventidsRequest {
+	s.StartDate = &v
+	return s
+}
+
+func (s *QueryBclComplaineventidsRequest) SetEndDate(v string) *QueryBclComplaineventidsRequest {
+	s.EndDate = &v
+	return s
+}
+
+func (s *QueryBclComplaineventidsRequest) SetPageSize(v int64) *QueryBclComplaineventidsRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryBclComplaineventidsRequest) SetPageNum(v int64) *QueryBclComplaineventidsRequest {
+	s.PageNum = &v
+	return s
+}
+
+type QueryBclComplaineventidsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 投诉单id列表
+	ComplainEventIds []*string `json:"complain_event_ids,omitempty" xml:"complain_event_ids,omitempty" type:"Repeated"`
+	// 总量
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty"`
+	// 每页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+}
+
+func (s QueryBclComplaineventidsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBclComplaineventidsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBclComplaineventidsResponse) SetReqMsgId(v string) *QueryBclComplaineventidsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBclComplaineventidsResponse) SetResultCode(v string) *QueryBclComplaineventidsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBclComplaineventidsResponse) SetResultMsg(v string) *QueryBclComplaineventidsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBclComplaineventidsResponse) SetComplainEventIds(v []*string) *QueryBclComplaineventidsResponse {
+	s.ComplainEventIds = v
+	return s
+}
+
+func (s *QueryBclComplaineventidsResponse) SetCount(v int64) *QueryBclComplaineventidsResponse {
+	s.Count = &v
+	return s
+}
+
+func (s *QueryBclComplaineventidsResponse) SetPageSize(v int64) *QueryBclComplaineventidsResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryBclComplaineventidsResponse) SetPageNum(v int64) *QueryBclComplaineventidsResponse {
+	s.PageNum = &v
 	return s
 }
 
@@ -45827,7 +46599,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.29"),
+				"sdk_version":      tea.String("1.11.21"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -46354,6 +47126,244 @@ func (client *Client) ApplyBclFinancingEx(request *ApplyBclFinancingRequest, hea
 	}
 	_result = &ApplyBclFinancingResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.financing.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+ * Summary: 查询商家入驻结果
+ */
+func (client *Client) QueryBclMerchant(request *QueryBclMerchantRequest) (_result *QueryBclMerchantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBclMerchantResponse{}
+	_body, _err := client.QueryBclMerchantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+ * Summary: 查询商家入驻结果
+ */
+func (client *Client) QueryBclMerchantEx(request *QueryBclMerchantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBclMerchantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBclMerchantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.merchant.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商家入驻租赁宝plus平台接口
+ * Summary: 商家入驻租赁宝plus平台接口
+ */
+func (client *Client) RegisterBclMerchant(request *RegisterBclMerchantRequest) (_result *RegisterBclMerchantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterBclMerchantResponse{}
+	_body, _err := client.RegisterBclMerchantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商家入驻租赁宝plus平台接口
+ * Summary: 商家入驻租赁宝plus平台接口
+ */
+func (client *Client) RegisterBclMerchantEx(request *RegisterBclMerchantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterBclMerchantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterBclMerchantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.merchant.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+ * Summary: 解除代扣协议
+ */
+func (client *Client) CancelBclWithhold(request *CancelBclWithholdRequest) (_result *CancelBclWithholdResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CancelBclWithholdResponse{}
+	_body, _err := client.CancelBclWithholdEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+ * Summary: 解除代扣协议
+ */
+func (client *Client) CancelBclWithholdEx(request *CancelBclWithholdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelBclWithholdResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CancelBclWithholdResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.withhold.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询单条交易投诉详情接口
+ * Summary: 查询单条交易投诉详情接口
+ */
+func (client *Client) QueryBclComplain(request *QueryBclComplainRequest) (_result *QueryBclComplainResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBclComplainResponse{}
+	_body, _err := client.QueryBclComplainEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询单条交易投诉详情接口
+ * Summary: 查询单条交易投诉详情接口
+ */
+func (client *Client) QueryBclComplainEx(request *QueryBclComplainRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBclComplainResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBclComplainResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.complain.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商户上传处理图片
+ * Summary: 商户上传处理图片
+ */
+func (client *Client) UploadBclComplainimage(request *UploadBclComplainimageRequest) (_result *UploadBclComplainimageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadBclComplainimageResponse{}
+	_body, _err := client.UploadBclComplainimageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商户上传处理图片
+ * Summary: 商户上传处理图片
+ */
+func (client *Client) UploadBclComplainimageEx(request *UploadBclComplainimageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadBclComplainimageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadBclComplainimageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.complainimage.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商家处理交易投诉
+ * Summary: 商家处理交易投诉
+ */
+func (client *Client) SubmitBclComplainfeedback(request *SubmitBclComplainfeedbackRequest) (_result *SubmitBclComplainfeedbackResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitBclComplainfeedbackResponse{}
+	_body, _err := client.SubmitBclComplainfeedbackEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商家处理交易投诉
+ * Summary: 商家处理交易投诉
+ */
+func (client *Client) SubmitBclComplainfeedbackEx(request *SubmitBclComplainfeedbackRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitBclComplainfeedbackResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitBclComplainfeedbackResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.complainfeedback.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询投诉单id列表
+ * Summary: 查询投诉单id列表
+ */
+func (client *Client) QueryBclComplaineventids(request *QueryBclComplaineventidsRequest) (_result *QueryBclComplaineventidsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBclComplaineventidsResponse{}
+	_body, _err := client.QueryBclComplaineventidsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询投诉单id列表
+ * Summary: 查询投诉单id列表
+ */
+func (client *Client) QueryBclComplaineventidsEx(request *QueryBclComplaineventidsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBclComplaineventidsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBclComplaineventidsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.complaineventids.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
