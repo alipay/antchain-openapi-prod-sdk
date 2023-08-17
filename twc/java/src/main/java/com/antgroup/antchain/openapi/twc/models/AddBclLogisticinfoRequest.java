@@ -19,7 +19,7 @@ public class AddBclLogisticinfoRequest extends TeaModel {
     // - SHIPPED 已发货 
     // - TRANSPORT 运输中 
     // - SIGNED 已签收  
-    // 当前暂时只支持已签收
+    // 当前暂时只支持已发货和已签收
     @NameInMap("logistic_status")
     @Validation(required = true, maxLength = 16)
     public String logisticStatus;
@@ -36,7 +36,7 @@ public class AddBclLogisticinfoRequest extends TeaModel {
 
     // 用户签收时间格式为2019-8-31 12:00:00
     @NameInMap("arrive_confirm_time")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String arriveConfirmTime;
 
     // 物流公司简称
@@ -75,11 +75,6 @@ public class AddBclLogisticinfoRequest extends TeaModel {
     @NameInMap("arrive_address")
     @Validation(required = true, maxLength = 512)
     public String arriveAddress;
-
-    // 物流额外信息,资方定义物流的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-    @NameInMap("logistic_extra_info")
-    @Validation(maxLength = 4096)
-    public String logisticExtraInfo;
 
     // 收货人姓名
     @NameInMap("arrive_name")
@@ -206,14 +201,6 @@ public class AddBclLogisticinfoRequest extends TeaModel {
     }
     public String getArriveAddress() {
         return this.arriveAddress;
-    }
-
-    public AddBclLogisticinfoRequest setLogisticExtraInfo(String logisticExtraInfo) {
-        this.logisticExtraInfo = logisticExtraInfo;
-        return this;
-    }
-    public String getLogisticExtraInfo() {
-        return this.logisticExtraInfo;
     }
 
     public AddBclLogisticinfoRequest setArriveName(String arriveName) {

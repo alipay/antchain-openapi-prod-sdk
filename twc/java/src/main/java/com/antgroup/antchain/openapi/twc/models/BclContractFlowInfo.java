@@ -6,24 +6,16 @@ import com.aliyun.tea.*;
 public class BclContractFlowInfo extends TeaModel {
     // 合同主题
     // 注：名称不支持以下9个字符：/ \ : * " < > | ？
+    // 仅当使用合同服务时必填
     @NameInMap("business_scene")
-    @Validation(required = true, maxLength = 32)
+    @Validation(maxLength = 32)
     public String businessScene;
 
-    // 流程中的签署文件信息，只支持一个文件
+    // 流程中的签署文件信息
+    // 本期只支持一个文件
+    // 仅当使用合同服务时必填
     @NameInMap("file_info")
-    @Validation(required = true)
     public java.util.List<BclContractFileInfo> fileInfo;
-
-    // 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
-    @NameInMap("sign_platform")
-    @Validation(maxLength = 8)
-    public String signPlatform;
-
-    // 收款方的ID，调用创建收款方接口获得
-    @NameInMap("payee_id")
-    @Validation(required = true, maxLength = 32)
-    public String payeeId;
 
     // 合同签署失败回调地址
     @NameInMap("redirect_url_on_failure")
@@ -54,22 +46,6 @@ public class BclContractFlowInfo extends TeaModel {
     }
     public java.util.List<BclContractFileInfo> getFileInfo() {
         return this.fileInfo;
-    }
-
-    public BclContractFlowInfo setSignPlatform(String signPlatform) {
-        this.signPlatform = signPlatform;
-        return this;
-    }
-    public String getSignPlatform() {
-        return this.signPlatform;
-    }
-
-    public BclContractFlowInfo setPayeeId(String payeeId) {
-        this.payeeId = payeeId;
-        return this;
-    }
-    public String getPayeeId() {
-        return this.payeeId;
     }
 
     public BclContractFlowInfo setRedirectUrlOnFailure(String redirectUrlOnFailure) {

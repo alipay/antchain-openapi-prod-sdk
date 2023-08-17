@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class GetBclUploadurlResponse extends TeaModel {
+public class RegisterBclMerchantResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,16 @@ public class GetBclUploadurlResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // OSS上传链接
-    @NameInMap("url")
-    public String url;
+    // 入驻编号，受理成功时才会有值，务必保存，可用于后续查询入驻的结果
+    @NameInMap("enrollment_no")
+    public String enrollmentNo;
 
-    // 文件OSS ID
-    @NameInMap("file_id")
-    public String fileId;
-
-    public static GetBclUploadurlResponse build(java.util.Map<String, ?> map) throws Exception {
-        GetBclUploadurlResponse self = new GetBclUploadurlResponse();
+    public static RegisterBclMerchantResponse build(java.util.Map<String, ?> map) throws Exception {
+        RegisterBclMerchantResponse self = new RegisterBclMerchantResponse();
         return TeaModel.build(map, self);
     }
 
-    public GetBclUploadurlResponse setReqMsgId(String reqMsgId) {
+    public RegisterBclMerchantResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +33,7 @@ public class GetBclUploadurlResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public GetBclUploadurlResponse setResultCode(String resultCode) {
+    public RegisterBclMerchantResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +41,7 @@ public class GetBclUploadurlResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public GetBclUploadurlResponse setResultMsg(String resultMsg) {
+    public RegisterBclMerchantResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,20 +49,12 @@ public class GetBclUploadurlResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public GetBclUploadurlResponse setUrl(String url) {
-        this.url = url;
+    public RegisterBclMerchantResponse setEnrollmentNo(String enrollmentNo) {
+        this.enrollmentNo = enrollmentNo;
         return this;
     }
-    public String getUrl() {
-        return this.url;
-    }
-
-    public GetBclUploadurlResponse setFileId(String fileId) {
-        this.fileId = fileId;
-        return this;
-    }
-    public String getFileId() {
-        return this.fileId;
+    public String getEnrollmentNo() {
+        return this.enrollmentNo;
     }
 
 }

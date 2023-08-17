@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class GetBclUploadurlResponse extends TeaModel {
+public class UploadBclComplainimageResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,16 @@ public class GetBclUploadurlResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // OSS上传链接
-    @NameInMap("url")
-    public String url;
+    // 图片在文件存储平台的标识
+    @NameInMap("iamge_id")
+    public String iamgeId;
 
-    // 文件OSS ID
-    @NameInMap("file_id")
-    public String fileId;
-
-    public static GetBclUploadurlResponse build(java.util.Map<String, ?> map) throws Exception {
-        GetBclUploadurlResponse self = new GetBclUploadurlResponse();
+    public static UploadBclComplainimageResponse build(java.util.Map<String, ?> map) throws Exception {
+        UploadBclComplainimageResponse self = new UploadBclComplainimageResponse();
         return TeaModel.build(map, self);
     }
 
-    public GetBclUploadurlResponse setReqMsgId(String reqMsgId) {
+    public UploadBclComplainimageResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +33,7 @@ public class GetBclUploadurlResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public GetBclUploadurlResponse setResultCode(String resultCode) {
+    public UploadBclComplainimageResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +41,7 @@ public class GetBclUploadurlResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public GetBclUploadurlResponse setResultMsg(String resultMsg) {
+    public UploadBclComplainimageResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,20 +49,12 @@ public class GetBclUploadurlResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public GetBclUploadurlResponse setUrl(String url) {
-        this.url = url;
+    public UploadBclComplainimageResponse setIamgeId(String iamgeId) {
+        this.iamgeId = iamgeId;
         return this;
     }
-    public String getUrl() {
-        return this.url;
-    }
-
-    public GetBclUploadurlResponse setFileId(String fileId) {
-        this.fileId = fileId;
-        return this;
-    }
-    public String getFileId() {
-        return this.fileId;
+    public String getIamgeId() {
+        return this.iamgeId;
     }
 
 }

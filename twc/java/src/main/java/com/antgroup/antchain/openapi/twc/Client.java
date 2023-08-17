@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.29"),
+                    new TeaPair("sdk_version", "1.11.21"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -425,6 +425,139 @@ public class Client {
     public ApplyBclFinancingResponse applyBclFinancingEx(ApplyBclFinancingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.financing.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyBclFinancingResponse());
+    }
+
+    /**
+     * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+     * Summary: 查询商家入驻结果
+     */
+    public QueryBclMerchantResponse queryBclMerchant(QueryBclMerchantRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBclMerchantEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+     * Summary: 查询商家入驻结果
+     */
+    public QueryBclMerchantResponse queryBclMerchantEx(QueryBclMerchantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.merchant.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBclMerchantResponse());
+    }
+
+    /**
+     * Description: 商家入驻租赁宝plus平台接口
+     * Summary: 商家入驻租赁宝plus平台接口
+     */
+    public RegisterBclMerchantResponse registerBclMerchant(RegisterBclMerchantRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerBclMerchantEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商家入驻租赁宝plus平台接口
+     * Summary: 商家入驻租赁宝plus平台接口
+     */
+    public RegisterBclMerchantResponse registerBclMerchantEx(RegisterBclMerchantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.merchant.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterBclMerchantResponse());
+    }
+
+    /**
+     * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+     * Summary: 解除代扣协议
+     */
+    public CancelBclWithholdResponse cancelBclWithhold(CancelBclWithholdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelBclWithholdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+     * Summary: 解除代扣协议
+     */
+    public CancelBclWithholdResponse cancelBclWithholdEx(CancelBclWithholdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.withhold.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelBclWithholdResponse());
+    }
+
+    /**
+     * Description: 查询单条交易投诉详情接口
+     * Summary: 查询单条交易投诉详情接口
+     */
+    public QueryBclComplainResponse queryBclComplain(QueryBclComplainRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBclComplainEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询单条交易投诉详情接口
+     * Summary: 查询单条交易投诉详情接口
+     */
+    public QueryBclComplainResponse queryBclComplainEx(QueryBclComplainRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.complain.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBclComplainResponse());
+    }
+
+    /**
+     * Description: 商户上传处理图片
+     * Summary: 商户上传处理图片
+     */
+    public UploadBclComplainimageResponse uploadBclComplainimage(UploadBclComplainimageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadBclComplainimageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商户上传处理图片
+     * Summary: 商户上传处理图片
+     */
+    public UploadBclComplainimageResponse uploadBclComplainimageEx(UploadBclComplainimageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.complainimage.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadBclComplainimageResponse());
+    }
+
+    /**
+     * Description: 商家处理交易投诉
+     * Summary: 商家处理交易投诉
+     */
+    public SubmitBclComplainfeedbackResponse submitBclComplainfeedback(SubmitBclComplainfeedbackRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitBclComplainfeedbackEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商家处理交易投诉
+     * Summary: 商家处理交易投诉
+     */
+    public SubmitBclComplainfeedbackResponse submitBclComplainfeedbackEx(SubmitBclComplainfeedbackRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.complainfeedback.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitBclComplainfeedbackResponse());
+    }
+
+    /**
+     * Description: 查询投诉单id列表
+     * Summary: 查询投诉单id列表
+     */
+    public QueryBclComplaineventidsResponse queryBclComplaineventids(QueryBclComplaineventidsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBclComplaineventidsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询投诉单id列表
+     * Summary: 查询投诉单id列表
+     */
+    public QueryBclComplaineventidsResponse queryBclComplaineventidsEx(QueryBclComplaineventidsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.complaineventids.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBclComplaineventidsResponse());
     }
 
     /**

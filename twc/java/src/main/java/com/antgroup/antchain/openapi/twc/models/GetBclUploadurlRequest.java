@@ -11,7 +11,7 @@ public class GetBclUploadurlRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 文件名称
+    // 文件名称（最长128个字符，需要带文件后缀，不包含中文）
     @NameInMap("file_name")
     @Validation(required = true, maxLength = 128)
     public String fileName;

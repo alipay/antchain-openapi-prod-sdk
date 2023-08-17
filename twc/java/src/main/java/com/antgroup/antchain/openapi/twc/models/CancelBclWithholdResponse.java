@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class ApplyBclFinancingResponse extends TeaModel {
+public class CancelBclWithholdResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,17 +16,12 @@ public class ApplyBclFinancingResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 融资申请单号
-    // 使用方可保存用于与租赁宝PLUS订单关联
-    @NameInMap("financing_apply_no")
-    public String financingApplyNo;
-
-    public static ApplyBclFinancingResponse build(java.util.Map<String, ?> map) throws Exception {
-        ApplyBclFinancingResponse self = new ApplyBclFinancingResponse();
+    public static CancelBclWithholdResponse build(java.util.Map<String, ?> map) throws Exception {
+        CancelBclWithholdResponse self = new CancelBclWithholdResponse();
         return TeaModel.build(map, self);
     }
 
-    public ApplyBclFinancingResponse setReqMsgId(String reqMsgId) {
+    public CancelBclWithholdResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -34,7 +29,7 @@ public class ApplyBclFinancingResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ApplyBclFinancingResponse setResultCode(String resultCode) {
+    public CancelBclWithholdResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -42,20 +37,12 @@ public class ApplyBclFinancingResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ApplyBclFinancingResponse setResultMsg(String resultMsg) {
+    public CancelBclWithholdResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public ApplyBclFinancingResponse setFinancingApplyNo(String financingApplyNo) {
-        this.financingApplyNo = financingApplyNo;
-        return this;
-    }
-    public String getFinancingApplyNo() {
-        return this.financingApplyNo;
     }
 
 }

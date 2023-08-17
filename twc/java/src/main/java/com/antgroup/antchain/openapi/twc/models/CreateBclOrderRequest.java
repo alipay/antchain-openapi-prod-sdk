@@ -118,16 +118,6 @@ public class CreateBclOrderRequest extends TeaModel {
     @NameInMap("contract_flow_info")
     public BclContractFlowInfo contractFlowInfo;
 
-    // 资方定义订单的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-    @NameInMap("order_extra_info")
-    @Validation(maxLength = 4096)
-    public String orderExtraInfo;
-
-    // 资方定义用户的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-    @NameInMap("user_extra_info")
-    @Validation(maxLength = 4096)
-    public String userExtraInfo;
-
     // 是否不需要融资：
     // ● true表示明确这笔订单不需要融资
     // ● false表示该笔订单后续可能融资也可能不融资
@@ -321,22 +311,6 @@ public class CreateBclOrderRequest extends TeaModel {
     }
     public BclContractFlowInfo getContractFlowInfo() {
         return this.contractFlowInfo;
-    }
-
-    public CreateBclOrderRequest setOrderExtraInfo(String orderExtraInfo) {
-        this.orderExtraInfo = orderExtraInfo;
-        return this;
-    }
-    public String getOrderExtraInfo() {
-        return this.orderExtraInfo;
-    }
-
-    public CreateBclOrderRequest setUserExtraInfo(String userExtraInfo) {
-        this.userExtraInfo = userExtraInfo;
-        return this;
-    }
-    public String getUserExtraInfo() {
-        return this.userExtraInfo;
     }
 
     public CreateBclOrderRequest setNoneFinancing(Boolean noneFinancing) {

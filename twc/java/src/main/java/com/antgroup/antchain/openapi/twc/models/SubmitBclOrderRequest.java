@@ -11,7 +11,9 @@ public class SubmitBclOrderRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 订单id,长度不超过32位
+    // 租赁订单ID
+    // 长度不超过32位 
+    // 订单状态为 待发起 PRE_SUBMIT 才可以调用
     @NameInMap("order_id")
     @Validation(required = true, maxLength = 32)
     public String orderId;

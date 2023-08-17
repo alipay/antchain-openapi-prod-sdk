@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class QueryBclProductRequest extends TeaModel {
+public class QueryBclMerchantRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,18 +11,17 @@ public class QueryBclProductRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 商品ID
-    // 最大长度：32
-    @NameInMap("product_id")
-    @Validation(required = true, maxLength = 32)
-    public String productId;
+    // 入驻编号
+    @NameInMap("enrollment_no")
+    @Validation(required = true)
+    public String enrollmentNo;
 
-    public static QueryBclProductRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryBclProductRequest self = new QueryBclProductRequest();
+    public static QueryBclMerchantRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryBclMerchantRequest self = new QueryBclMerchantRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryBclProductRequest setAuthToken(String authToken) {
+    public QueryBclMerchantRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -30,7 +29,7 @@ public class QueryBclProductRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryBclProductRequest setProductInstanceId(String productInstanceId) {
+    public QueryBclMerchantRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -38,12 +37,12 @@ public class QueryBclProductRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryBclProductRequest setProductId(String productId) {
-        this.productId = productId;
+    public QueryBclMerchantRequest setEnrollmentNo(String enrollmentNo) {
+        this.enrollmentNo = enrollmentNo;
         return this;
     }
-    public String getProductId() {
-        return this.productId;
+    public String getEnrollmentNo() {
+        return this.enrollmentNo;
     }
 
 }

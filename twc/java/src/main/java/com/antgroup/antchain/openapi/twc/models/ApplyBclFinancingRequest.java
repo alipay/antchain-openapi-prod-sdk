@@ -16,6 +16,12 @@ public class ApplyBclFinancingRequest extends TeaModel {
     @Validation(required = true)
     public String orderId;
 
+    // 客户端token：
+    // 幂等号，用来保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。更多详情，请参见如何保证幂等性。
+    @NameInMap("client_token")
+    @Validation(required = true)
+    public String clientToken;
+
     public static ApplyBclFinancingRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyBclFinancingRequest self = new ApplyBclFinancingRequest();
         return TeaModel.build(map, self);
@@ -43,6 +49,14 @@ public class ApplyBclFinancingRequest extends TeaModel {
     }
     public String getOrderId() {
         return this.orderId;
+    }
+
+    public ApplyBclFinancingRequest setClientToken(String clientToken) {
+        this.clientToken = clientToken;
+        return this;
+    }
+    public String getClientToken() {
+        return this.clientToken;
     }
 
 }
