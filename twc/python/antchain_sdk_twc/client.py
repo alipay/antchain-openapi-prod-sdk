@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.29',
+                    'sdk_version': '1.11.21',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.29',
+                    'sdk_version': '1.11.21',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -1057,6 +1057,398 @@ class Client:
         return TeaCore.from_map(
             twc_models.ApplyBclFinancingResponse(),
             await self.do_request_async('1.0', 'twc.notary.bcl.financing.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_bcl_merchant(
+        self,
+        request: twc_models.QueryBclMerchantRequest,
+    ) -> twc_models.QueryBclMerchantResponse:
+        """
+        Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+        Summary: 查询商家入驻结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bcl_merchant_ex(request, headers, runtime)
+
+    async def query_bcl_merchant_async(
+        self,
+        request: twc_models.QueryBclMerchantRequest,
+    ) -> twc_models.QueryBclMerchantResponse:
+        """
+        Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+        Summary: 查询商家入驻结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bcl_merchant_ex_async(request, headers, runtime)
+
+    def query_bcl_merchant_ex(
+        self,
+        request: twc_models.QueryBclMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryBclMerchantResponse:
+        """
+        Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+        Summary: 查询商家入驻结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryBclMerchantResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bcl_merchant_ex_async(
+        self,
+        request: twc_models.QueryBclMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryBclMerchantResponse:
+        """
+        Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+        Summary: 查询商家入驻结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryBclMerchantResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_bcl_merchant(
+        self,
+        request: twc_models.RegisterBclMerchantRequest,
+    ) -> twc_models.RegisterBclMerchantResponse:
+        """
+        Description: 商家入驻租赁宝plus平台接口
+        Summary: 商家入驻租赁宝plus平台接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_bcl_merchant_ex(request, headers, runtime)
+
+    async def register_bcl_merchant_async(
+        self,
+        request: twc_models.RegisterBclMerchantRequest,
+    ) -> twc_models.RegisterBclMerchantResponse:
+        """
+        Description: 商家入驻租赁宝plus平台接口
+        Summary: 商家入驻租赁宝plus平台接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_bcl_merchant_ex_async(request, headers, runtime)
+
+    def register_bcl_merchant_ex(
+        self,
+        request: twc_models.RegisterBclMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.RegisterBclMerchantResponse:
+        """
+        Description: 商家入驻租赁宝plus平台接口
+        Summary: 商家入驻租赁宝plus平台接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.RegisterBclMerchantResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.merchant.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_bcl_merchant_ex_async(
+        self,
+        request: twc_models.RegisterBclMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.RegisterBclMerchantResponse:
+        """
+        Description: 商家入驻租赁宝plus平台接口
+        Summary: 商家入驻租赁宝plus平台接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.RegisterBclMerchantResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.merchant.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_bcl_withhold(
+        self,
+        request: twc_models.CancelBclWithholdRequest,
+    ) -> twc_models.CancelBclWithholdResponse:
+        """
+        Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+        Summary: 解除代扣协议
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_bcl_withhold_ex(request, headers, runtime)
+
+    async def cancel_bcl_withhold_async(
+        self,
+        request: twc_models.CancelBclWithholdRequest,
+    ) -> twc_models.CancelBclWithholdResponse:
+        """
+        Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+        Summary: 解除代扣协议
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_bcl_withhold_ex_async(request, headers, runtime)
+
+    def cancel_bcl_withhold_ex(
+        self,
+        request: twc_models.CancelBclWithholdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CancelBclWithholdResponse:
+        """
+        Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+        Summary: 解除代扣协议
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CancelBclWithholdResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.withhold.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_bcl_withhold_ex_async(
+        self,
+        request: twc_models.CancelBclWithholdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CancelBclWithholdResponse:
+        """
+        Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+        Summary: 解除代扣协议
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CancelBclWithholdResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.withhold.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_bcl_complain(
+        self,
+        request: twc_models.QueryBclComplainRequest,
+    ) -> twc_models.QueryBclComplainResponse:
+        """
+        Description: 查询单条交易投诉详情接口
+        Summary: 查询单条交易投诉详情接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bcl_complain_ex(request, headers, runtime)
+
+    async def query_bcl_complain_async(
+        self,
+        request: twc_models.QueryBclComplainRequest,
+    ) -> twc_models.QueryBclComplainResponse:
+        """
+        Description: 查询单条交易投诉详情接口
+        Summary: 查询单条交易投诉详情接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bcl_complain_ex_async(request, headers, runtime)
+
+    def query_bcl_complain_ex(
+        self,
+        request: twc_models.QueryBclComplainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryBclComplainResponse:
+        """
+        Description: 查询单条交易投诉详情接口
+        Summary: 查询单条交易投诉详情接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryBclComplainResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.complain.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bcl_complain_ex_async(
+        self,
+        request: twc_models.QueryBclComplainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryBclComplainResponse:
+        """
+        Description: 查询单条交易投诉详情接口
+        Summary: 查询单条交易投诉详情接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryBclComplainResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.complain.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_bcl_complainimage(
+        self,
+        request: twc_models.UploadBclComplainimageRequest,
+    ) -> twc_models.UploadBclComplainimageResponse:
+        """
+        Description: 商户上传处理图片
+        Summary: 商户上传处理图片
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_bcl_complainimage_ex(request, headers, runtime)
+
+    async def upload_bcl_complainimage_async(
+        self,
+        request: twc_models.UploadBclComplainimageRequest,
+    ) -> twc_models.UploadBclComplainimageResponse:
+        """
+        Description: 商户上传处理图片
+        Summary: 商户上传处理图片
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_bcl_complainimage_ex_async(request, headers, runtime)
+
+    def upload_bcl_complainimage_ex(
+        self,
+        request: twc_models.UploadBclComplainimageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UploadBclComplainimageResponse:
+        """
+        Description: 商户上传处理图片
+        Summary: 商户上传处理图片
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UploadBclComplainimageResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.complainimage.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_bcl_complainimage_ex_async(
+        self,
+        request: twc_models.UploadBclComplainimageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UploadBclComplainimageResponse:
+        """
+        Description: 商户上传处理图片
+        Summary: 商户上传处理图片
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UploadBclComplainimageResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.complainimage.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_bcl_complainfeedback(
+        self,
+        request: twc_models.SubmitBclComplainfeedbackRequest,
+    ) -> twc_models.SubmitBclComplainfeedbackResponse:
+        """
+        Description: 商家处理交易投诉
+        Summary: 商家处理交易投诉
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_bcl_complainfeedback_ex(request, headers, runtime)
+
+    async def submit_bcl_complainfeedback_async(
+        self,
+        request: twc_models.SubmitBclComplainfeedbackRequest,
+    ) -> twc_models.SubmitBclComplainfeedbackResponse:
+        """
+        Description: 商家处理交易投诉
+        Summary: 商家处理交易投诉
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_bcl_complainfeedback_ex_async(request, headers, runtime)
+
+    def submit_bcl_complainfeedback_ex(
+        self,
+        request: twc_models.SubmitBclComplainfeedbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SubmitBclComplainfeedbackResponse:
+        """
+        Description: 商家处理交易投诉
+        Summary: 商家处理交易投诉
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SubmitBclComplainfeedbackResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.complainfeedback.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_bcl_complainfeedback_ex_async(
+        self,
+        request: twc_models.SubmitBclComplainfeedbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SubmitBclComplainfeedbackResponse:
+        """
+        Description: 商家处理交易投诉
+        Summary: 商家处理交易投诉
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SubmitBclComplainfeedbackResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.complainfeedback.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_bcl_complaineventids(
+        self,
+        request: twc_models.QueryBclComplaineventidsRequest,
+    ) -> twc_models.QueryBclComplaineventidsResponse:
+        """
+        Description: 查询投诉单id列表
+        Summary: 查询投诉单id列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bcl_complaineventids_ex(request, headers, runtime)
+
+    async def query_bcl_complaineventids_async(
+        self,
+        request: twc_models.QueryBclComplaineventidsRequest,
+    ) -> twc_models.QueryBclComplaineventidsResponse:
+        """
+        Description: 查询投诉单id列表
+        Summary: 查询投诉单id列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bcl_complaineventids_ex_async(request, headers, runtime)
+
+    def query_bcl_complaineventids_ex(
+        self,
+        request: twc_models.QueryBclComplaineventidsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryBclComplaineventidsResponse:
+        """
+        Description: 查询投诉单id列表
+        Summary: 查询投诉单id列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryBclComplaineventidsResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.complaineventids.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bcl_complaineventids_ex_async(
+        self,
+        request: twc_models.QueryBclComplaineventidsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryBclComplaineventidsResponse:
+        """
+        Description: 查询投诉单id列表
+        Summary: 查询投诉单id列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryBclComplaineventidsResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.complaineventids.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_contract_account(

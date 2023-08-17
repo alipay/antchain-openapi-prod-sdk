@@ -5157,39 +5157,29 @@ class BclContractFlowInfo(TeaModel):
         self,
         business_scene: str = None,
         file_info: List[BclContractFileInfo] = None,
-        sign_platform: str = None,
-        payee_id: str = None,
         redirect_url_on_failure: str = None,
         redirect_url: str = None,
     ):
         # 合同主题
         # 注：名称不支持以下9个字符：/ \ : * " < > | ？
+        # 仅当使用合同服务时必填
         self.business_scene = business_scene
-        # 流程中的签署文件信息，只支持一个文件
+        # 流程中的签署文件信息
+        # 本期只支持一个文件
+        # 仅当使用合同服务时必填
         self.file_info = file_info
-        # 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
-        self.sign_platform = sign_platform
-        # 收款方的ID，调用创建收款方接口获得
-        self.payee_id = payee_id
         # 合同签署失败回调地址
         self.redirect_url_on_failure = redirect_url_on_failure
         # 合同签署成功回调地址
         self.redirect_url = redirect_url
 
     def validate(self):
-        self.validate_required(self.business_scene, 'business_scene')
         if self.business_scene is not None:
             self.validate_max_length(self.business_scene, 'business_scene', 32)
-        self.validate_required(self.file_info, 'file_info')
         if self.file_info:
             for k in self.file_info:
                 if k:
                     k.validate()
-        if self.sign_platform is not None:
-            self.validate_max_length(self.sign_platform, 'sign_platform', 8)
-        self.validate_required(self.payee_id, 'payee_id')
-        if self.payee_id is not None:
-            self.validate_max_length(self.payee_id, 'payee_id', 32)
         if self.redirect_url_on_failure is not None:
             self.validate_max_length(self.redirect_url_on_failure, 'redirect_url_on_failure', 512)
         if self.redirect_url is not None:
@@ -5207,10 +5197,6 @@ class BclContractFlowInfo(TeaModel):
         if self.file_info is not None:
             for k in self.file_info:
                 result['file_info'].append(k.to_map() if k else None)
-        if self.sign_platform is not None:
-            result['sign_platform'] = self.sign_platform
-        if self.payee_id is not None:
-            result['payee_id'] = self.payee_id
         if self.redirect_url_on_failure is not None:
             result['redirect_url_on_failure'] = self.redirect_url_on_failure
         if self.redirect_url is not None:
@@ -5226,10 +5212,6 @@ class BclContractFlowInfo(TeaModel):
             for k in m.get('file_info'):
                 temp_model = BclContractFileInfo()
                 self.file_info.append(temp_model.from_map(k))
-        if m.get('sign_platform') is not None:
-            self.sign_platform = m.get('sign_platform')
-        if m.get('payee_id') is not None:
-            self.payee_id = m.get('payee_id')
         if m.get('redirect_url_on_failure') is not None:
             self.redirect_url_on_failure = m.get('redirect_url_on_failure')
         if m.get('redirect_url') is not None:
@@ -7282,6 +7264,49 @@ class ProductInfo(TeaModel):
             self.supplier_version = m.get('supplier_version')
         if m.get('extra_info') is not None:
             self.extra_info = m.get('extra_info')
+        return self
+
+
+class BclContactInfo(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        mobile: str = None,
+        phone: str = None,
+    ):
+        # 联系人名称，最大长度：128
+        self.name = name
+        # 联系人手机号，最大长度：20
+        self.mobile = mobile
+        # 联系人电话，最大长度：20
+        self.phone = phone
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.mobile, 'mobile')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.phone is not None:
+            result['phone'] = self.phone
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
         return self
 
 
@@ -9960,7 +9985,6 @@ class AddBclLogisticinfoRequest(TeaModel):
         lease_type: str = None,
         deliver_address: str = None,
         arrive_address: str = None,
-        logistic_extra_info: str = None,
         arrive_name: str = None,
         arrive_mobile: str = None,
     ):
@@ -9972,7 +9996,7 @@ class AddBclLogisticinfoRequest(TeaModel):
         # - SHIPPED 已发货
         # - TRANSPORT 运输中
         # - SIGNED 已签收
-        # 当前暂时只支持已签收
+        # 当前暂时只支持已发货和已签收
         self.logistic_status = logistic_status
         # 物流照片网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
         self.logistics_file_id = logistics_file_id
@@ -9996,8 +10020,6 @@ class AddBclLogisticinfoRequest(TeaModel):
         self.deliver_address = deliver_address
         # 收货地址
         self.arrive_address = arrive_address
-        # 物流额外信息,资方定义物流的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-        self.logistic_extra_info = logistic_extra_info
         # 收货人姓名
         self.arrive_name = arrive_name
         # 收货人联系电话
@@ -10014,7 +10036,6 @@ class AddBclLogisticinfoRequest(TeaModel):
             self.validate_max_length(self.logistics_file_id, 'logistics_file_id', 64)
         if self.arrive_confirm_file_id is not None:
             self.validate_max_length(self.arrive_confirm_file_id, 'arrive_confirm_file_id', 64)
-        self.validate_required(self.arrive_confirm_time, 'arrive_confirm_time')
         if self.arrive_confirm_time is not None:
             self.validate_pattern(self.arrive_confirm_time, 'arrive_confirm_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.logistic_company_name, 'logistic_company_name')
@@ -10038,8 +10059,6 @@ class AddBclLogisticinfoRequest(TeaModel):
         self.validate_required(self.arrive_address, 'arrive_address')
         if self.arrive_address is not None:
             self.validate_max_length(self.arrive_address, 'arrive_address', 512)
-        if self.logistic_extra_info is not None:
-            self.validate_max_length(self.logistic_extra_info, 'logistic_extra_info', 4096)
         self.validate_required(self.arrive_name, 'arrive_name')
         if self.arrive_name is not None:
             self.validate_max_length(self.arrive_name, 'arrive_name', 32)
@@ -10081,8 +10100,6 @@ class AddBclLogisticinfoRequest(TeaModel):
             result['deliver_address'] = self.deliver_address
         if self.arrive_address is not None:
             result['arrive_address'] = self.arrive_address
-        if self.logistic_extra_info is not None:
-            result['logistic_extra_info'] = self.logistic_extra_info
         if self.arrive_name is not None:
             result['arrive_name'] = self.arrive_name
         if self.arrive_mobile is not None:
@@ -10119,8 +10136,6 @@ class AddBclLogisticinfoRequest(TeaModel):
             self.deliver_address = m.get('deliver_address')
         if m.get('arrive_address') is not None:
             self.arrive_address = m.get('arrive_address')
-        if m.get('logistic_extra_info') is not None:
-            self.logistic_extra_info = m.get('logistic_extra_info')
         if m.get('arrive_name') is not None:
             self.arrive_name = m.get('arrive_name')
         if m.get('arrive_mobile') is not None:
@@ -10180,7 +10195,9 @@ class SubmitBclOrderRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 订单id,长度不超过32位
+        # 租赁订单ID
+        # 长度不超过32位
+        # 订单状态为 待发起 PRE_SUBMIT 才可以调用
         self.order_id = order_id
 
     def validate(self):
@@ -10288,8 +10305,6 @@ class CreateBclOrderRequest(TeaModel):
         user_ip: str = None,
         real_person_return_url: str = None,
         contract_flow_info: BclContractFlowInfo = None,
-        order_extra_info: str = None,
-        user_extra_info: str = None,
         none_financing: bool = None,
     ):
         # OAuth模式下的授权token
@@ -10346,10 +10361,6 @@ class CreateBclOrderRequest(TeaModel):
         self.real_person_return_url = real_person_return_url
         # 签署流程信息，如果使用租赁代扣创建则必填
         self.contract_flow_info = contract_flow_info
-        # 资方定义订单的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-        self.order_extra_info = order_extra_info
-        # 资方定义用户的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-        self.user_extra_info = user_extra_info
         # 是否不需要融资：
         # ● true表示明确这笔订单不需要融资
         # ● false表示该笔订单后续可能融资也可能不融资
@@ -10410,10 +10421,6 @@ class CreateBclOrderRequest(TeaModel):
             self.validate_max_length(self.real_person_return_url, 'real_person_return_url', 512)
         if self.contract_flow_info:
             self.contract_flow_info.validate()
-        if self.order_extra_info is not None:
-            self.validate_max_length(self.order_extra_info, 'order_extra_info', 4096)
-        if self.user_extra_info is not None:
-            self.validate_max_length(self.user_extra_info, 'user_extra_info', 4096)
 
     def to_map(self):
         _map = super().to_map()
@@ -10471,10 +10478,6 @@ class CreateBclOrderRequest(TeaModel):
             result['real_person_return_url'] = self.real_person_return_url
         if self.contract_flow_info is not None:
             result['contract_flow_info'] = self.contract_flow_info.to_map()
-        if self.order_extra_info is not None:
-            result['order_extra_info'] = self.order_extra_info
-        if self.user_extra_info is not None:
-            result['user_extra_info'] = self.user_extra_info
         if self.none_financing is not None:
             result['none_financing'] = self.none_financing
         return result
@@ -10535,10 +10538,6 @@ class CreateBclOrderRequest(TeaModel):
         if m.get('contract_flow_info') is not None:
             temp_model = BclContractFlowInfo()
             self.contract_flow_info = temp_model.from_map(m['contract_flow_info'])
-        if m.get('order_extra_info') is not None:
-            self.order_extra_info = m.get('order_extra_info')
-        if m.get('user_extra_info') is not None:
-            self.user_extra_info = m.get('user_extra_info')
         if m.get('none_financing') is not None:
             self.none_financing = m.get('none_financing')
         return self
@@ -11248,7 +11247,8 @@ class QueryBclProductRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 商品ID，长度不能超过32为
+        # 商品ID
+        # 最大长度：32
         self.product_id = product_id
 
     def validate(self):
@@ -11581,7 +11581,7 @@ class GetBclUploadurlRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 文件名称
+        # 文件名称（最长128个字符，需要带文件后缀，不包含中文）
         self.file_name = file_name
 
     def validate(self):
@@ -11629,9 +11629,9 @@ class GetBclUploadurlResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 授权访问oss链接
+        # OSS上传链接
         self.url = url
-        # OSS 文件id
+        # 文件OSS ID
         self.file_id = file_id
 
     def validate(self):
@@ -11904,15 +11904,20 @@ class ApplyBclFinancingRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         order_id: str = None,
+        client_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 订单id,长度不超过32位
         self.order_id = order_id
+        # 客户端token：
+        # 幂等号，用来保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。更多详情，请参见如何保证幂等性。
+        self.client_token = client_token
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.client_token, 'client_token')
 
     def to_map(self):
         _map = super().to_map()
@@ -11926,6 +11931,8 @@ class ApplyBclFinancingRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.order_id is not None:
             result['order_id'] = self.order_id
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
         return result
 
     def from_map(self, m: dict = None):
@@ -11936,6 +11943,8 @@ class ApplyBclFinancingRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('order_id') is not None:
             self.order_id = m.get('order_id')
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
         return self
 
 
@@ -11954,6 +11963,7 @@ class ApplyBclFinancingResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # 融资申请单号
+        # 使用方可保存用于与租赁宝PLUS订单关联
         self.financing_apply_no = financing_apply_no
 
     def validate(self):
@@ -11985,6 +11995,951 @@ class ApplyBclFinancingResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('financing_apply_no') is not None:
             self.financing_apply_no = m.get('financing_apply_no')
+        return self
+
+
+class QueryBclMerchantRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        enrollment_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 入驻编号
+        self.enrollment_no = enrollment_no
+
+    def validate(self):
+        self.validate_required(self.enrollment_no, 'enrollment_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.enrollment_no is not None:
+            result['enrollment_no'] = self.enrollment_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('enrollment_no') is not None:
+            self.enrollment_no = m.get('enrollment_no')
+        return self
+
+
+class QueryBclMerchantResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        status: str = None,
+        need_proxy_withholding: bool = None,
+        reason: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 入驻状态：入驻中：EXEC（表示等待商家去支付宝平台签约）；SUCCESS：入驻成功；FAIL：入驻失败
+        self.status = status
+        # 是否需要使用租赁代扣
+        self.need_proxy_withholding = need_proxy_withholding
+        # 入驻失败的原因，在入驻失败时才会有值
+        self.reason = reason
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.status is not None:
+            result['status'] = self.status
+        if self.need_proxy_withholding is not None:
+            result['need_proxy_withholding'] = self.need_proxy_withholding
+        if self.reason is not None:
+            result['reason'] = self.reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('need_proxy_withholding') is not None:
+            self.need_proxy_withholding = m.get('need_proxy_withholding')
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        return self
+
+
+class RegisterBclMerchantRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        name: str = None,
+        alias_name: str = None,
+        merchant_type: str = None,
+        cert_no: str = None,
+        legal_name: str = None,
+        legal_cert_no: str = None,
+        contact_infos: List[BclContactInfo] = None,
+        alipay_logon_id: str = None,
+        management_type: str = None,
+        need_proxy_withholding: bool = None,
+        client_token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商家实体名称
+        # 要与证件的名称相同，会在用户签署代扣协议时或者支付宝扣款账单中展示，请规范填写，最大长度：128
+        self.name = name
+        # 商家实体别名
+        # 会在用户签署代扣协议时或者支付宝扣款账单中展示，请规范填写，最大长度：128
+        # 如果need_proxy_withholding为true则必填
+        self.alias_name = alias_name
+        # 商家实体类型：
+        # 1.企业：ENTERPRISE
+        # 当前暂时只支持企业
+        self.merchant_type = merchant_type
+        # 商家营业执照号
+        # 最大长度20
+        self.cert_no = cert_no
+        # 法人名称
+        # 最大长度64
+        self.legal_name = legal_name
+        # 法人身份证号
+        # 最大长度18
+        self.legal_cert_no = legal_cert_no
+        # 商家联系人信息
+        # 当前只支持一个联系人
+        self.contact_infos = contact_infos
+        # 商家实体支付宝账号
+        # 用作结算账号。本字段支付宝账号实名信息要求与商户名称cert_name同名，且是实名认证支付宝企业账户，最大长度：64
+        # 如果need_proxy_withholding为true则必填
+        self.alipay_logon_id = alipay_logon_id
+        # 租赁经营类型
+        # 1.数码/娱乐设备租赁：DIGITAL_LEASE
+        # 2.共享充电宝及其他共享租赁：SHARE_LEASE
+        # 3.汽车租赁：CAR_LEASE
+        self.management_type = management_type
+        # 是否需要使用租赁代扣
+        # true 为需要使用
+        # false 为不需要使用
+        self.need_proxy_withholding = need_proxy_withholding
+        # 客户端token：
+        # 幂等号，用来保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。更多详情，请参见如何保证幂等性。
+        self.client_token = client_token
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.merchant_type, 'merchant_type')
+        self.validate_required(self.cert_no, 'cert_no')
+        self.validate_required(self.legal_name, 'legal_name')
+        self.validate_required(self.legal_cert_no, 'legal_cert_no')
+        if self.contact_infos:
+            for k in self.contact_infos:
+                if k:
+                    k.validate()
+        self.validate_required(self.management_type, 'management_type')
+        self.validate_required(self.need_proxy_withholding, 'need_proxy_withholding')
+        self.validate_required(self.client_token, 'client_token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.alias_name is not None:
+            result['alias_name'] = self.alias_name
+        if self.merchant_type is not None:
+            result['merchant_type'] = self.merchant_type
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.legal_name is not None:
+            result['legal_name'] = self.legal_name
+        if self.legal_cert_no is not None:
+            result['legal_cert_no'] = self.legal_cert_no
+        result['contact_infos'] = []
+        if self.contact_infos is not None:
+            for k in self.contact_infos:
+                result['contact_infos'].append(k.to_map() if k else None)
+        if self.alipay_logon_id is not None:
+            result['alipay_logon_id'] = self.alipay_logon_id
+        if self.management_type is not None:
+            result['management_type'] = self.management_type
+        if self.need_proxy_withholding is not None:
+            result['need_proxy_withholding'] = self.need_proxy_withholding
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('alias_name') is not None:
+            self.alias_name = m.get('alias_name')
+        if m.get('merchant_type') is not None:
+            self.merchant_type = m.get('merchant_type')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('legal_name') is not None:
+            self.legal_name = m.get('legal_name')
+        if m.get('legal_cert_no') is not None:
+            self.legal_cert_no = m.get('legal_cert_no')
+        self.contact_infos = []
+        if m.get('contact_infos') is not None:
+            for k in m.get('contact_infos'):
+                temp_model = BclContactInfo()
+                self.contact_infos.append(temp_model.from_map(k))
+        if m.get('alipay_logon_id') is not None:
+            self.alipay_logon_id = m.get('alipay_logon_id')
+        if m.get('management_type') is not None:
+            self.management_type = m.get('management_type')
+        if m.get('need_proxy_withholding') is not None:
+            self.need_proxy_withholding = m.get('need_proxy_withholding')
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
+        return self
+
+
+class RegisterBclMerchantResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        enrollment_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 入驻编号，受理成功时才会有值，务必保存，可用于后续查询入驻的结果
+        self.enrollment_no = enrollment_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.enrollment_no is not None:
+            result['enrollment_no'] = self.enrollment_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('enrollment_no') is not None:
+            self.enrollment_no = m.get('enrollment_no')
+        return self
+
+
+class CancelBclWithholdRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        cancel_apply_no: str = None,
+        allow_cancel_withhold: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 解约申请单号
+        self.cancel_apply_no = cancel_apply_no
+        # 是否允许解除代扣
+        self.allow_cancel_withhold = allow_cancel_withhold
+
+    def validate(self):
+        self.validate_required(self.cancel_apply_no, 'cancel_apply_no')
+        self.validate_required(self.allow_cancel_withhold, 'allow_cancel_withhold')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.cancel_apply_no is not None:
+            result['cancel_apply_no'] = self.cancel_apply_no
+        if self.allow_cancel_withhold is not None:
+            result['allow_cancel_withhold'] = self.allow_cancel_withhold
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('cancel_apply_no') is not None:
+            self.cancel_apply_no = m.get('cancel_apply_no')
+        if m.get('allow_cancel_withhold') is not None:
+            self.allow_cancel_withhold = m.get('allow_cancel_withhold')
+        return self
+
+
+class CancelBclWithholdResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryBclComplainRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        complain_event_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 投诉订单号
+        self.complain_event_id = complain_event_id
+
+    def validate(self):
+        self.validate_required(self.complain_event_id, 'complain_event_id')
+        if self.complain_event_id is not None:
+            self.validate_max_length(self.complain_event_id, 'complain_event_id', 64)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.complain_event_id is not None:
+            result['complain_event_id'] = self.complain_event_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('complain_event_id') is not None:
+            self.complain_event_id = m.get('complain_event_id')
+        return self
+
+
+class QueryBclComplainResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_id: str = None,
+        complain_event_id: str = None,
+        status: str = None,
+        third_trade_no: str = None,
+        trade_call_no: str = None,
+        gmt_create: str = None,
+        gmt_modified: str = None,
+        gmt_finished: str = None,
+        leaf_category_name: str = None,
+        complain_reason: str = None,
+        phone_no: str = None,
+        trade_amount: str = None,
+        reply_detail_infos: ReplayDetailInfo = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 租赁订单id
+        self.order_id = order_id
+        # 投诉订单号
+        self.complain_event_id = complain_event_id
+        # 投诉单状态
+        self.status = status
+        # 支付宝交易号
+        self.third_trade_no = third_trade_no
+        # 发起交易流水号
+        self.trade_call_no = trade_call_no
+        # 投诉单创建时间
+        self.gmt_create = gmt_create
+        # 投诉单修改时间
+        self.gmt_modified = gmt_modified
+        # 投诉单修改时间
+        self.gmt_finished = gmt_finished
+        # 用户投诉诉求
+        self.leaf_category_name = leaf_category_name
+        # 用户投诉原因
+        self.complain_reason = complain_reason
+        # 投诉人电话号码
+        self.phone_no = phone_no
+        # 交易金额，单位元
+        self.trade_amount = trade_amount
+        # 用户与商家之间的协商记录
+        self.reply_detail_infos = reply_detail_infos
+
+    def validate(self):
+        if self.reply_detail_infos:
+            self.reply_detail_infos.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.complain_event_id is not None:
+            result['complain_event_id'] = self.complain_event_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.third_trade_no is not None:
+            result['third_trade_no'] = self.third_trade_no
+        if self.trade_call_no is not None:
+            result['trade_call_no'] = self.trade_call_no
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        if self.gmt_finished is not None:
+            result['gmt_finished'] = self.gmt_finished
+        if self.leaf_category_name is not None:
+            result['leaf_category_name'] = self.leaf_category_name
+        if self.complain_reason is not None:
+            result['complain_reason'] = self.complain_reason
+        if self.phone_no is not None:
+            result['phone_no'] = self.phone_no
+        if self.trade_amount is not None:
+            result['trade_amount'] = self.trade_amount
+        if self.reply_detail_infos is not None:
+            result['reply_detail_infos'] = self.reply_detail_infos.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('complain_event_id') is not None:
+            self.complain_event_id = m.get('complain_event_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('third_trade_no') is not None:
+            self.third_trade_no = m.get('third_trade_no')
+        if m.get('trade_call_no') is not None:
+            self.trade_call_no = m.get('trade_call_no')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        if m.get('gmt_finished') is not None:
+            self.gmt_finished = m.get('gmt_finished')
+        if m.get('leaf_category_name') is not None:
+            self.leaf_category_name = m.get('leaf_category_name')
+        if m.get('complain_reason') is not None:
+            self.complain_reason = m.get('complain_reason')
+        if m.get('phone_no') is not None:
+            self.phone_no = m.get('phone_no')
+        if m.get('trade_amount') is not None:
+            self.trade_amount = m.get('trade_amount')
+        if m.get('reply_detail_infos') is not None:
+            temp_model = ReplayDetailInfo()
+            self.reply_detail_infos = temp_model.from_map(m['reply_detail_infos'])
+        return self
+
+
+class UploadBclComplainimageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        image_name: str = None,
+        image_content: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 图片格式，支持格式：jpg、jpeg、png
+        self.image_name = image_name
+        # 图片二进制字节流
+        self.image_content = image_content
+
+    def validate(self):
+        self.validate_required(self.image_name, 'image_name')
+        if self.image_name is not None:
+            self.validate_max_length(self.image_name, 'image_name', 64)
+        self.validate_required(self.image_content, 'image_content')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.image_name is not None:
+            result['image_name'] = self.image_name
+        if self.image_content is not None:
+            result['image_content'] = self.image_content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('image_name') is not None:
+            self.image_name = m.get('image_name')
+        if m.get('image_content') is not None:
+            self.image_content = m.get('image_content')
+        return self
+
+
+class UploadBclComplainimageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        iamge_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 图片在文件存储平台的标识
+        self.iamge_id = iamge_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.iamge_id is not None:
+            result['iamge_id'] = self.iamge_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('iamge_id') is not None:
+            self.iamge_id = m.get('iamge_id')
+        return self
+
+
+class SubmitBclComplainfeedbackRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        complain_event_id: str = None,
+        feedback_code: str = None,
+        feedback_content: str = None,
+        feedback_images: str = None,
+        operator: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 投诉订单号
+        self.complain_event_id = complain_event_id
+        # 反馈类目ID
+        # 00:使用体验保障金退款；
+        # 02:通过其他方式退款;
+        # 03:已发货;
+        # 04:其他;
+        # 05:已完成售后服务;
+        # 06:非我方责任范围；
+        self.feedback_code = feedback_code
+        # 反馈内容，不超过200字
+        self.feedback_content = feedback_content
+        # 商家处理投诉时反馈凭证的图片id，多个逗号隔开（图片id可以通过"商户上传处理图片"接口获取）
+        # 
+        self.feedback_images = feedback_images
+        # 处理投诉人，字数不超过6个字
+        self.operator = operator
+
+    def validate(self):
+        self.validate_required(self.complain_event_id, 'complain_event_id')
+        if self.complain_event_id is not None:
+            self.validate_max_length(self.complain_event_id, 'complain_event_id', 64)
+        self.validate_required(self.feedback_code, 'feedback_code')
+        if self.feedback_code is not None:
+            self.validate_max_length(self.feedback_code, 'feedback_code', 32)
+        self.validate_required(self.feedback_content, 'feedback_content')
+        if self.feedback_content is not None:
+            self.validate_max_length(self.feedback_content, 'feedback_content', 1024)
+        self.validate_required(self.feedback_images, 'feedback_images')
+        if self.feedback_images is not None:
+            self.validate_max_length(self.feedback_images, 'feedback_images', 1024)
+        self.validate_required(self.operator, 'operator')
+        if self.operator is not None:
+            self.validate_max_length(self.operator, 'operator', 32)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.complain_event_id is not None:
+            result['complain_event_id'] = self.complain_event_id
+        if self.feedback_code is not None:
+            result['feedback_code'] = self.feedback_code
+        if self.feedback_content is not None:
+            result['feedback_content'] = self.feedback_content
+        if self.feedback_images is not None:
+            result['feedback_images'] = self.feedback_images
+        if self.operator is not None:
+            result['operator'] = self.operator
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('complain_event_id') is not None:
+            self.complain_event_id = m.get('complain_event_id')
+        if m.get('feedback_code') is not None:
+            self.feedback_code = m.get('feedback_code')
+        if m.get('feedback_content') is not None:
+            self.feedback_content = m.get('feedback_content')
+        if m.get('feedback_images') is not None:
+            self.feedback_images = m.get('feedback_images')
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
+        return self
+
+
+class SubmitBclComplainfeedbackResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否处理成功
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class QueryBclComplaineventidsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        start_date: str = None,
+        end_date: str = None,
+        page_size: int = None,
+        page_num: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 客诉单开始时间
+        self.start_date = start_date
+        # 客诉单结束时间
+        self.end_date = end_date
+        # 每页数量
+        self.page_size = page_size
+        # 页码
+        self.page_num = page_num
+
+    def validate(self):
+        self.validate_required(self.start_date, 'start_date')
+        if self.start_date is not None:
+            self.validate_max_length(self.start_date, 'start_date', 16)
+        self.validate_required(self.end_date, 'end_date')
+        if self.end_date is not None:
+            self.validate_max_length(self.end_date, 'end_date', 16)
+        self.validate_required(self.page_num, 'page_num')
+        if self.page_num is not None:
+            self.validate_minimum(self.page_num, 'page_num', 1)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.start_date is not None:
+            result['start_date'] = self.start_date
+        if self.end_date is not None:
+            result['end_date'] = self.end_date
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('start_date') is not None:
+            self.start_date = m.get('start_date')
+        if m.get('end_date') is not None:
+            self.end_date = m.get('end_date')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        return self
+
+
+class QueryBclComplaineventidsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        complain_event_ids: List[str] = None,
+        count: int = None,
+        page_size: int = None,
+        page_num: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 投诉单id列表
+        self.complain_event_ids = complain_event_ids
+        # 总量
+        self.count = count
+        # 每页数量
+        self.page_size = page_size
+        # 页码
+        self.page_num = page_num
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.complain_event_ids is not None:
+            result['complain_event_ids'] = self.complain_event_ids
+        if self.count is not None:
+            result['count'] = self.count
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('complain_event_ids') is not None:
+            self.complain_event_ids = m.get('complain_event_ids')
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
         return self
 
 
