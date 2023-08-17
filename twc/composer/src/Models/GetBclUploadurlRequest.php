@@ -19,7 +19,7 @@ class GetBclUploadurlRequest extends Model
      */
     public $productInstanceId;
 
-    // 文件名称
+    // 文件名称（最长128个字符，需要带文件后缀，不包含中文）
     /**
      * @var string
      */

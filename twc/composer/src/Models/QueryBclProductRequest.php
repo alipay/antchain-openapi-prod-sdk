@@ -19,7 +19,8 @@ class QueryBclProductRequest extends Model
      */
     public $productInstanceId;
 
-    // 商品ID，长度不能超过32为
+    // 商品ID
+    // 最大长度：32
     /**
      * @var string
      */

@@ -154,18 +154,6 @@ class CreateBclOrderRequest extends Model
      */
     public $contractFlowInfo;
 
-    // 资方定义订单的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-    /**
-     * @var string
-     */
-    public $orderExtraInfo;
-
-    // 资方定义用户的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-    /**
-     * @var string
-     */
-    public $userExtraInfo;
-
     // 是否不需要融资：
     // ● true表示明确这笔订单不需要融资
     // ● false表示该笔订单后续可能融资也可能不融资
@@ -197,8 +185,6 @@ class CreateBclOrderRequest extends Model
         'userIp'                 => 'user_ip',
         'realPersonReturnUrl'    => 'real_person_return_url',
         'contractFlowInfo'       => 'contract_flow_info',
-        'orderExtraInfo'         => 'order_extra_info',
-        'userExtraInfo'          => 'user_extra_info',
         'noneFinancing'          => 'none_financing',
     ];
 
@@ -223,8 +209,6 @@ class CreateBclOrderRequest extends Model
         Model::validateMaxLength('logisticType', $this->logisticType, 16);
         Model::validateMaxLength('userIp', $this->userIp, 32);
         Model::validateMaxLength('realPersonReturnUrl', $this->realPersonReturnUrl, 512);
-        Model::validateMaxLength('orderExtraInfo', $this->orderExtraInfo, 4096);
-        Model::validateMaxLength('userExtraInfo', $this->userExtraInfo, 4096);
         Model::validatePattern('orderCreateTime', $this->orderCreateTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validateMinimum('totalRentMoney', $this->totalRentMoney, 1);
         Model::validateMinimum('rentTerm', $this->rentTerm, 1);
@@ -317,12 +301,6 @@ class CreateBclOrderRequest extends Model
         }
         if (null !== $this->contractFlowInfo) {
             $res['contract_flow_info'] = null !== $this->contractFlowInfo ? $this->contractFlowInfo->toMap() : null;
-        }
-        if (null !== $this->orderExtraInfo) {
-            $res['order_extra_info'] = $this->orderExtraInfo;
-        }
-        if (null !== $this->userExtraInfo) {
-            $res['user_extra_info'] = $this->userExtraInfo;
         }
         if (null !== $this->noneFinancing) {
             $res['none_financing'] = $this->noneFinancing;
@@ -421,12 +399,6 @@ class CreateBclOrderRequest extends Model
         }
         if (isset($map['contract_flow_info'])) {
             $model->contractFlowInfo = BclContractFlowInfo::fromMap($map['contract_flow_info']);
-        }
-        if (isset($map['order_extra_info'])) {
-            $model->orderExtraInfo = $map['order_extra_info'];
-        }
-        if (isset($map['user_extra_info'])) {
-            $model->userExtraInfo = $map['user_extra_info'];
         }
         if (isset($map['none_financing'])) {
             $model->noneFinancing = $map['none_financing'];

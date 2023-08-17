@@ -28,7 +28,7 @@ class AddBclLogisticinfoRequest extends Model
     // - SHIPPED 已发货
     // - TRANSPORT 运输中
     // - SIGNED 已签收
-    // 当前暂时只支持已签收
+    // 当前暂时只支持已发货和已签收
     /**
      * @var string
      */
@@ -96,12 +96,6 @@ class AddBclLogisticinfoRequest extends Model
      */
     public $arriveAddress;
 
-    // 物流额外信息,资方定义物流的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-    /**
-     * @var string
-     */
-    public $logisticExtraInfo;
-
     // 收货人姓名
     /**
      * @var string
@@ -128,7 +122,6 @@ class AddBclLogisticinfoRequest extends Model
         'leaseType'           => 'lease_type',
         'deliverAddress'      => 'deliver_address',
         'arriveAddress'       => 'arrive_address',
-        'logisticExtraInfo'   => 'logistic_extra_info',
         'arriveName'          => 'arrive_name',
         'arriveMobile'        => 'arrive_mobile',
     ];
@@ -137,7 +130,6 @@ class AddBclLogisticinfoRequest extends Model
     {
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('logisticStatus', $this->logisticStatus, true);
-        Model::validateRequired('arriveConfirmTime', $this->arriveConfirmTime, true);
         Model::validateRequired('logisticCompanyName', $this->logisticCompanyName, true);
         Model::validateRequired('logisticCompanyCode', $this->logisticCompanyCode, true);
         Model::validateRequired('logisticsOrderId', $this->logisticsOrderId, true);
@@ -157,7 +149,6 @@ class AddBclLogisticinfoRequest extends Model
         Model::validateMaxLength('leaseType', $this->leaseType, 16);
         Model::validateMaxLength('deliverAddress', $this->deliverAddress, 512);
         Model::validateMaxLength('arriveAddress', $this->arriveAddress, 512);
-        Model::validateMaxLength('logisticExtraInfo', $this->logisticExtraInfo, 4096);
         Model::validateMaxLength('arriveName', $this->arriveName, 32);
         Model::validateMaxLength('arriveMobile', $this->arriveMobile, 32);
         Model::validatePattern('arriveConfirmTime', $this->arriveConfirmTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
@@ -208,9 +199,6 @@ class AddBclLogisticinfoRequest extends Model
         }
         if (null !== $this->arriveAddress) {
             $res['arrive_address'] = $this->arriveAddress;
-        }
-        if (null !== $this->logisticExtraInfo) {
-            $res['logistic_extra_info'] = $this->logisticExtraInfo;
         }
         if (null !== $this->arriveName) {
             $res['arrive_name'] = $this->arriveName;
@@ -271,9 +259,6 @@ class AddBclLogisticinfoRequest extends Model
         }
         if (isset($map['arrive_address'])) {
             $model->arriveAddress = $map['arrive_address'];
-        }
-        if (isset($map['logistic_extra_info'])) {
-            $model->logisticExtraInfo = $map['logistic_extra_info'];
         }
         if (isset($map['arrive_name'])) {
             $model->arriveName = $map['arrive_name'];

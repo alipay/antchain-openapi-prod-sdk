@@ -59,6 +59,8 @@ use AntChain\TWC\Models\CallbackArbitrationSignstatusRequest;
 use AntChain\TWC\Models\CallbackArbitrationSignstatusResponse;
 use AntChain\TWC\Models\CallbackArbitrationStatusRequest;
 use AntChain\TWC\Models\CallbackArbitrationStatusResponse;
+use AntChain\TWC\Models\CancelBclWithholdRequest;
+use AntChain\TWC\Models\CancelBclWithholdResponse;
 use AntChain\TWC\Models\CancelContractPaysingletradeRequest;
 use AntChain\TWC\Models\CancelContractPaysingletradeResponse;
 use AntChain\TWC\Models\CancelContractPaytradeRequest;
@@ -423,6 +425,12 @@ use AntChain\TWC\Models\PushPrivatecontractGaugeRequest;
 use AntChain\TWC\Models\PushPrivatecontractGaugeResponse;
 use AntChain\TWC\Models\PushRefinanceInvalidorderRequest;
 use AntChain\TWC\Models\PushRefinanceInvalidorderResponse;
+use AntChain\TWC\Models\QueryBclComplaineventidsRequest;
+use AntChain\TWC\Models\QueryBclComplaineventidsResponse;
+use AntChain\TWC\Models\QueryBclComplainRequest;
+use AntChain\TWC\Models\QueryBclComplainResponse;
+use AntChain\TWC\Models\QueryBclMerchantRequest;
+use AntChain\TWC\Models\QueryBclMerchantResponse;
 use AntChain\TWC\Models\QueryBclOrderRequest;
 use AntChain\TWC\Models\QueryBclOrderResponse;
 use AntChain\TWC\Models\QueryBclProductRequest;
@@ -573,6 +581,8 @@ use AntChain\TWC\Models\QueryWithholdAgreementurlRequest;
 use AntChain\TWC\Models\QueryWithholdAgreementurlResponse;
 use AntChain\TWC\Models\QueryWithholdPayresultRequest;
 use AntChain\TWC\Models\QueryWithholdPayresultResponse;
+use AntChain\TWC\Models\RegisterBclMerchantRequest;
+use AntChain\TWC\Models\RegisterBclMerchantResponse;
 use AntChain\TWC\Models\ResetContractMerchantapplyRequest;
 use AntChain\TWC\Models\ResetContractMerchantapplyResponse;
 use AntChain\TWC\Models\SaveContractFlowRequest;
@@ -603,6 +613,8 @@ use AntChain\TWC\Models\StartContractHandsignRequest;
 use AntChain\TWC\Models\StartContractHandsignResponse;
 use AntChain\TWC\Models\StartJusticeCaseRequest;
 use AntChain\TWC\Models\StartJusticeCaseResponse;
+use AntChain\TWC\Models\SubmitBclComplainfeedbackRequest;
+use AntChain\TWC\Models\SubmitBclComplainfeedbackResponse;
 use AntChain\TWC\Models\SubmitBclOrderRequest;
 use AntChain\TWC\Models\SubmitBclOrderResponse;
 use AntChain\TWC\Models\SubmitDigitalcontentOrderRequest;
@@ -647,6 +659,8 @@ use AntChain\TWC\Models\UpdateSueExemplaryrevertRequest;
 use AntChain\TWC\Models\UpdateSueExemplaryrevertResponse;
 use AntChain\TWC\Models\UpdateSueExeplarycontractRequest;
 use AntChain\TWC\Models\UpdateSueExeplarycontractResponse;
+use AntChain\TWC\Models\UploadBclComplainimageRequest;
+use AntChain\TWC\Models\UploadBclComplainimageResponse;
 use AntChain\TWC\Models\UploadBclPerformanceRequest;
 use AntChain\TWC\Models\UploadBclPerformanceResponse;
 use AntChain\TWC\Models\UploadContractComplainimageRequest;
@@ -816,7 +830,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.29',
+                    'sdk_version'      => '1.11.21',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1324,6 +1338,237 @@ class Client
         Utils::validateModel($request);
 
         return ApplyBclFinancingResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.financing.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+     * Summary: 查询商家入驻结果.
+     *
+     * @param QueryBclMerchantRequest $request
+     *
+     * @return QueryBclMerchantResponse
+     */
+    public function queryBclMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBclMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+     * Summary: 查询商家入驻结果.
+     *
+     * @param QueryBclMerchantRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryBclMerchantResponse
+     */
+    public function queryBclMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBclMerchantResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.merchant.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家入驻租赁宝plus平台接口
+     * Summary: 商家入驻租赁宝plus平台接口.
+     *
+     * @param RegisterBclMerchantRequest $request
+     *
+     * @return RegisterBclMerchantResponse
+     */
+    public function registerBclMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerBclMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家入驻租赁宝plus平台接口
+     * Summary: 商家入驻租赁宝plus平台接口.
+     *
+     * @param RegisterBclMerchantRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return RegisterBclMerchantResponse
+     */
+    public function registerBclMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterBclMerchantResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.merchant.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+     * Summary: 解除代扣协议.
+     *
+     * @param CancelBclWithholdRequest $request
+     *
+     * @return CancelBclWithholdResponse
+     */
+    public function cancelBclWithhold($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelBclWithholdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+     * Summary: 解除代扣协议.
+     *
+     * @param CancelBclWithholdRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CancelBclWithholdResponse
+     */
+    public function cancelBclWithholdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelBclWithholdResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.withhold.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询单条交易投诉详情接口
+     * Summary: 查询单条交易投诉详情接口.
+     *
+     * @param QueryBclComplainRequest $request
+     *
+     * @return QueryBclComplainResponse
+     */
+    public function queryBclComplain($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBclComplainEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询单条交易投诉详情接口
+     * Summary: 查询单条交易投诉详情接口.
+     *
+     * @param QueryBclComplainRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryBclComplainResponse
+     */
+    public function queryBclComplainEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBclComplainResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.complain.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户上传处理图片
+     * Summary: 商户上传处理图片.
+     *
+     * @param UploadBclComplainimageRequest $request
+     *
+     * @return UploadBclComplainimageResponse
+     */
+    public function uploadBclComplainimage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadBclComplainimageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户上传处理图片
+     * Summary: 商户上传处理图片.
+     *
+     * @param UploadBclComplainimageRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return UploadBclComplainimageResponse
+     */
+    public function uploadBclComplainimageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadBclComplainimageResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.complainimage.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家处理交易投诉
+     * Summary: 商家处理交易投诉.
+     *
+     * @param SubmitBclComplainfeedbackRequest $request
+     *
+     * @return SubmitBclComplainfeedbackResponse
+     */
+    public function submitBclComplainfeedback($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitBclComplainfeedbackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家处理交易投诉
+     * Summary: 商家处理交易投诉.
+     *
+     * @param SubmitBclComplainfeedbackRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return SubmitBclComplainfeedbackResponse
+     */
+    public function submitBclComplainfeedbackEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitBclComplainfeedbackResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.complainfeedback.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询投诉单id列表
+     * Summary: 查询投诉单id列表.
+     *
+     * @param QueryBclComplaineventidsRequest $request
+     *
+     * @return QueryBclComplaineventidsResponse
+     */
+    public function queryBclComplaineventids($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBclComplaineventidsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询投诉单id列表
+     * Summary: 查询投诉单id列表.
+     *
+     * @param QueryBclComplaineventidsRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryBclComplaineventidsResponse
+     */
+    public function queryBclComplaineventidsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBclComplaineventidsResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.complaineventids.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyBclFinancingRequest extends Model
+class QueryBclMerchantRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,29 +19,20 @@ class ApplyBclFinancingRequest extends Model
      */
     public $productInstanceId;
 
-    // 订单id,长度不超过32位
+    // 入驻编号
     /**
      * @var string
      */
-    public $orderId;
-
-    // 客户端token：
-    // 幂等号，用来保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。更多详情，请参见如何保证幂等性。
-    /**
-     * @var string
-     */
-    public $clientToken;
+    public $enrollmentNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'orderId'           => 'order_id',
-        'clientToken'       => 'client_token',
+        'enrollmentNo'      => 'enrollment_no',
     ];
 
     public function validate()
     {
-        Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('clientToken', $this->clientToken, true);
+        Model::validateRequired('enrollmentNo', $this->enrollmentNo, true);
     }
 
     public function toMap()
@@ -53,11 +44,8 @@ class ApplyBclFinancingRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->clientToken) {
-            $res['client_token'] = $this->clientToken;
+        if (null !== $this->enrollmentNo) {
+            $res['enrollment_no'] = $this->enrollmentNo;
         }
 
         return $res;
@@ -66,7 +54,7 @@ class ApplyBclFinancingRequest extends Model
     /**
      * @param array $map
      *
-     * @return ApplyBclFinancingRequest
+     * @return QueryBclMerchantRequest
      */
     public static function fromMap($map = [])
     {
@@ -77,11 +65,8 @@ class ApplyBclFinancingRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['client_token'])) {
-            $model->clientToken = $map['client_token'];
+        if (isset($map['enrollment_no'])) {
+            $model->enrollmentNo = $map['enrollment_no'];
         }
 
         return $model;

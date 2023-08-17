@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetBclUploadurlResponse extends Model
+class UploadBclComplainimageResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,16 @@ class GetBclUploadurlResponse extends Model
      */
     public $resultMsg;
 
-    // OSS上传链接
+    // 图片在文件存储平台的标识
     /**
      * @var string
      */
-    public $url;
-
-    // 文件OSS ID
-    /**
-     * @var string
-     */
-    public $fileId;
+    public $iamgeId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'url'        => 'url',
-        'fileId'     => 'file_id',
+        'iamgeId'    => 'iamge_id',
     ];
 
     public function validate()
@@ -61,11 +54,8 @@ class GetBclUploadurlResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->url) {
-            $res['url'] = $this->url;
-        }
-        if (null !== $this->fileId) {
-            $res['file_id'] = $this->fileId;
+        if (null !== $this->iamgeId) {
+            $res['iamge_id'] = $this->iamgeId;
         }
 
         return $res;
@@ -74,7 +64,7 @@ class GetBclUploadurlResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetBclUploadurlResponse
+     * @return UploadBclComplainimageResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +78,8 @@ class GetBclUploadurlResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['url'])) {
-            $model->url = $map['url'];
-        }
-        if (isset($map['file_id'])) {
-            $model->fileId = $map['file_id'];
+        if (isset($map['iamge_id'])) {
+            $model->iamgeId = $map['iamge_id'];
         }
 
         return $model;

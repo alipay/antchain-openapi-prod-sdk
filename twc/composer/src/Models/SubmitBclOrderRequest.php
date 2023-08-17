@@ -19,7 +19,9 @@ class SubmitBclOrderRequest extends Model
      */
     public $productInstanceId;
 
-    // 订单id,长度不超过32位
+    // 租赁订单ID
+    // 长度不超过32位
+    // 订单状态为 待发起 PRE_SUBMIT 才可以调用
     /**
      * @var string
      */

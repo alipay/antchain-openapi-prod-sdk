@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetBclUploadurlResponse extends Model
+class RegisterBclMerchantResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,16 @@ class GetBclUploadurlResponse extends Model
      */
     public $resultMsg;
 
-    // OSS上传链接
+    // 入驻编号，受理成功时才会有值，务必保存，可用于后续查询入驻的结果
     /**
      * @var string
      */
-    public $url;
-
-    // 文件OSS ID
-    /**
-     * @var string
-     */
-    public $fileId;
+    public $enrollmentNo;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'url'        => 'url',
-        'fileId'     => 'file_id',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'enrollmentNo' => 'enrollment_no',
     ];
 
     public function validate()
@@ -61,11 +54,8 @@ class GetBclUploadurlResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->url) {
-            $res['url'] = $this->url;
-        }
-        if (null !== $this->fileId) {
-            $res['file_id'] = $this->fileId;
+        if (null !== $this->enrollmentNo) {
+            $res['enrollment_no'] = $this->enrollmentNo;
         }
 
         return $res;
@@ -74,7 +64,7 @@ class GetBclUploadurlResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetBclUploadurlResponse
+     * @return RegisterBclMerchantResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +78,8 @@ class GetBclUploadurlResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['url'])) {
-            $model->url = $map['url'];
-        }
-        if (isset($map['file_id'])) {
-            $model->fileId = $map['file_id'];
+        if (isset($map['enrollment_no'])) {
+            $model->enrollmentNo = $map['enrollment_no'];
         }
 
         return $model;

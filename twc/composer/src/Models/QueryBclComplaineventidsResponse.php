@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyBclFinancingResponse extends Model
+class QueryBclComplaineventidsResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,17 +26,37 @@ class ApplyBclFinancingResponse extends Model
      */
     public $resultMsg;
 
-    // 融资申请单号
-    // 使用方可保存用于与租赁宝PLUS订单关联
+    // 投诉单id列表
     /**
-     * @var string
+     * @var string[]
      */
-    public $financingApplyNo;
+    public $complainEventIds;
+
+    // 总量
+    /**
+     * @var int
+     */
+    public $count;
+
+    // 每页数量
+    /**
+     * @var int
+     */
+    public $pageSize;
+
+    // 页码
+    /**
+     * @var int
+     */
+    public $pageNum;
     protected $_name = [
         'reqMsgId'         => 'req_msg_id',
         'resultCode'       => 'result_code',
         'resultMsg'        => 'result_msg',
-        'financingApplyNo' => 'financing_apply_no',
+        'complainEventIds' => 'complain_event_ids',
+        'count'            => 'count',
+        'pageSize'         => 'page_size',
+        'pageNum'          => 'page_num',
     ];
 
     public function validate()
@@ -55,8 +75,17 @@ class ApplyBclFinancingResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->financingApplyNo) {
-            $res['financing_apply_no'] = $this->financingApplyNo;
+        if (null !== $this->complainEventIds) {
+            $res['complain_event_ids'] = $this->complainEventIds;
+        }
+        if (null !== $this->count) {
+            $res['count'] = $this->count;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->pageNum) {
+            $res['page_num'] = $this->pageNum;
         }
 
         return $res;
@@ -65,7 +94,7 @@ class ApplyBclFinancingResponse extends Model
     /**
      * @param array $map
      *
-     * @return ApplyBclFinancingResponse
+     * @return QueryBclComplaineventidsResponse
      */
     public static function fromMap($map = [])
     {
@@ -79,8 +108,19 @@ class ApplyBclFinancingResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['financing_apply_no'])) {
-            $model->financingApplyNo = $map['financing_apply_no'];
+        if (isset($map['complain_event_ids'])) {
+            if (!empty($map['complain_event_ids'])) {
+                $model->complainEventIds = $map['complain_event_ids'];
+            }
+        }
+        if (isset($map['count'])) {
+            $model->count = $map['count'];
+        }
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
+        }
+        if (isset($map['page_num'])) {
+            $model->pageNum = $map['page_num'];
         }
 
         return $model;

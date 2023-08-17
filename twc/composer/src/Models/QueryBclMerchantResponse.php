@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetBclUploadurlResponse extends Model
+class QueryBclMerchantResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,30 @@ class GetBclUploadurlResponse extends Model
      */
     public $resultMsg;
 
-    // OSS上传链接
+    // 入驻状态：入驻中：EXEC（表示等待商家去支付宝平台签约）；SUCCESS：入驻成功；FAIL：入驻失败
     /**
      * @var string
      */
-    public $url;
+    public $status;
 
-    // 文件OSS ID
+    // 是否需要使用租赁代扣
+    /**
+     * @var bool
+     */
+    public $needProxyWithholding;
+
+    // 入驻失败的原因，在入驻失败时才会有值
     /**
      * @var string
      */
-    public $fileId;
+    public $reason;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'url'        => 'url',
-        'fileId'     => 'file_id',
+        'reqMsgId'             => 'req_msg_id',
+        'resultCode'           => 'result_code',
+        'resultMsg'            => 'result_msg',
+        'status'               => 'status',
+        'needProxyWithholding' => 'need_proxy_withholding',
+        'reason'               => 'reason',
     ];
 
     public function validate()
@@ -61,11 +68,14 @@ class GetBclUploadurlResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->url) {
-            $res['url'] = $this->url;
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
         }
-        if (null !== $this->fileId) {
-            $res['file_id'] = $this->fileId;
+        if (null !== $this->needProxyWithholding) {
+            $res['need_proxy_withholding'] = $this->needProxyWithholding;
+        }
+        if (null !== $this->reason) {
+            $res['reason'] = $this->reason;
         }
 
         return $res;
@@ -74,7 +84,7 @@ class GetBclUploadurlResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetBclUploadurlResponse
+     * @return QueryBclMerchantResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +98,14 @@ class GetBclUploadurlResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['url'])) {
-            $model->url = $map['url'];
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
-        if (isset($map['file_id'])) {
-            $model->fileId = $map['file_id'];
+        if (isset($map['need_proxy_withholding'])) {
+            $model->needProxyWithholding = $map['need_proxy_withholding'];
+        }
+        if (isset($map['reason'])) {
+            $model->reason = $map['reason'];
         }
 
         return $model;
