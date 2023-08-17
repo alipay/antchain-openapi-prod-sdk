@@ -18,7 +18,9 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 订单id,长度不超过32位
+        // 租赁订单ID
+        // 长度不超过32位 
+        // 订单状态为 待发起 PRE_SUBMIT 才可以调用
         [NameInMap("order_id")]
         [Validation(Required=true, MaxLength=32)]
         public string OrderId { get; set; }

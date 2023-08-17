@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.29"},
+                        {"sdk_version", "1.11.21"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.29"},
+                        {"sdk_version", "1.11.21"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -907,6 +907,300 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyBclFinancingResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.financing.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+         * Summary: 查询商家入驻结果
+         */
+        public QueryBclMerchantResponse QueryBclMerchant(QueryBclMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBclMerchantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+         * Summary: 查询商家入驻结果
+         */
+        public async Task<QueryBclMerchantResponse> QueryBclMerchantAsync(QueryBclMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBclMerchantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+         * Summary: 查询商家入驻结果
+         */
+        public QueryBclMerchantResponse QueryBclMerchantEx(QueryBclMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBclMerchantResponse>(DoRequest("1.0", "twc.notary.bcl.merchant.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
+         * Summary: 查询商家入驻结果
+         */
+        public async Task<QueryBclMerchantResponse> QueryBclMerchantExAsync(QueryBclMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBclMerchantResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.merchant.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家入驻租赁宝plus平台接口
+         * Summary: 商家入驻租赁宝plus平台接口
+         */
+        public RegisterBclMerchantResponse RegisterBclMerchant(RegisterBclMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterBclMerchantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家入驻租赁宝plus平台接口
+         * Summary: 商家入驻租赁宝plus平台接口
+         */
+        public async Task<RegisterBclMerchantResponse> RegisterBclMerchantAsync(RegisterBclMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterBclMerchantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家入驻租赁宝plus平台接口
+         * Summary: 商家入驻租赁宝plus平台接口
+         */
+        public RegisterBclMerchantResponse RegisterBclMerchantEx(RegisterBclMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterBclMerchantResponse>(DoRequest("1.0", "twc.notary.bcl.merchant.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家入驻租赁宝plus平台接口
+         * Summary: 商家入驻租赁宝plus平台接口
+         */
+        public async Task<RegisterBclMerchantResponse> RegisterBclMerchantExAsync(RegisterBclMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterBclMerchantResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.merchant.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+         * Summary: 解除代扣协议
+         */
+        public CancelBclWithholdResponse CancelBclWithhold(CancelBclWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelBclWithholdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+         * Summary: 解除代扣协议
+         */
+        public async Task<CancelBclWithholdResponse> CancelBclWithholdAsync(CancelBclWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelBclWithholdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+         * Summary: 解除代扣协议
+         */
+        public CancelBclWithholdResponse CancelBclWithholdEx(CancelBclWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelBclWithholdResponse>(DoRequest("1.0", "twc.notary.bcl.withhold.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
+         * Summary: 解除代扣协议
+         */
+        public async Task<CancelBclWithholdResponse> CancelBclWithholdExAsync(CancelBclWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelBclWithholdResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.withhold.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询单条交易投诉详情接口
+         * Summary: 查询单条交易投诉详情接口
+         */
+        public QueryBclComplainResponse QueryBclComplain(QueryBclComplainRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBclComplainEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询单条交易投诉详情接口
+         * Summary: 查询单条交易投诉详情接口
+         */
+        public async Task<QueryBclComplainResponse> QueryBclComplainAsync(QueryBclComplainRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBclComplainExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询单条交易投诉详情接口
+         * Summary: 查询单条交易投诉详情接口
+         */
+        public QueryBclComplainResponse QueryBclComplainEx(QueryBclComplainRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBclComplainResponse>(DoRequest("1.0", "twc.notary.bcl.complain.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询单条交易投诉详情接口
+         * Summary: 查询单条交易投诉详情接口
+         */
+        public async Task<QueryBclComplainResponse> QueryBclComplainExAsync(QueryBclComplainRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBclComplainResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.complain.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户上传处理图片
+         * Summary: 商户上传处理图片
+         */
+        public UploadBclComplainimageResponse UploadBclComplainimage(UploadBclComplainimageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadBclComplainimageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户上传处理图片
+         * Summary: 商户上传处理图片
+         */
+        public async Task<UploadBclComplainimageResponse> UploadBclComplainimageAsync(UploadBclComplainimageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadBclComplainimageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户上传处理图片
+         * Summary: 商户上传处理图片
+         */
+        public UploadBclComplainimageResponse UploadBclComplainimageEx(UploadBclComplainimageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadBclComplainimageResponse>(DoRequest("1.0", "twc.notary.bcl.complainimage.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户上传处理图片
+         * Summary: 商户上传处理图片
+         */
+        public async Task<UploadBclComplainimageResponse> UploadBclComplainimageExAsync(UploadBclComplainimageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadBclComplainimageResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.complainimage.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家处理交易投诉
+         * Summary: 商家处理交易投诉
+         */
+        public SubmitBclComplainfeedbackResponse SubmitBclComplainfeedback(SubmitBclComplainfeedbackRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitBclComplainfeedbackEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家处理交易投诉
+         * Summary: 商家处理交易投诉
+         */
+        public async Task<SubmitBclComplainfeedbackResponse> SubmitBclComplainfeedbackAsync(SubmitBclComplainfeedbackRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitBclComplainfeedbackExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家处理交易投诉
+         * Summary: 商家处理交易投诉
+         */
+        public SubmitBclComplainfeedbackResponse SubmitBclComplainfeedbackEx(SubmitBclComplainfeedbackRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitBclComplainfeedbackResponse>(DoRequest("1.0", "twc.notary.bcl.complainfeedback.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家处理交易投诉
+         * Summary: 商家处理交易投诉
+         */
+        public async Task<SubmitBclComplainfeedbackResponse> SubmitBclComplainfeedbackExAsync(SubmitBclComplainfeedbackRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitBclComplainfeedbackResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.complainfeedback.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询投诉单id列表
+         * Summary: 查询投诉单id列表
+         */
+        public QueryBclComplaineventidsResponse QueryBclComplaineventids(QueryBclComplaineventidsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBclComplaineventidsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询投诉单id列表
+         * Summary: 查询投诉单id列表
+         */
+        public async Task<QueryBclComplaineventidsResponse> QueryBclComplaineventidsAsync(QueryBclComplaineventidsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBclComplaineventidsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询投诉单id列表
+         * Summary: 查询投诉单id列表
+         */
+        public QueryBclComplaineventidsResponse QueryBclComplaineventidsEx(QueryBclComplaineventidsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBclComplaineventidsResponse>(DoRequest("1.0", "twc.notary.bcl.complaineventids.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询投诉单id列表
+         * Summary: 查询投诉单id列表
+         */
+        public async Task<QueryBclComplaineventidsResponse> QueryBclComplaineventidsExAsync(QueryBclComplaineventidsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBclComplaineventidsResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.complaineventids.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

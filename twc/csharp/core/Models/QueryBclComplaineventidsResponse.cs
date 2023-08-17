@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class ApplyBclFinancingResponse : TeaModel {
+    public class QueryBclComplaineventidsResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,11 +24,25 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 融资申请单号
-        // 使用方可保存用于与租赁宝PLUS订单关联
-        [NameInMap("financing_apply_no")]
+        // 投诉单id列表
+        [NameInMap("complain_event_ids")]
         [Validation(Required=false)]
-        public string FinancingApplyNo { get; set; }
+        public List<string> ComplainEventIds { get; set; }
+
+        // 总量
+        [NameInMap("count")]
+        [Validation(Required=false)]
+        public long? Count { get; set; }
+
+        // 每页数量
+        [NameInMap("page_size")]
+        [Validation(Required=false)]
+        public long? PageSize { get; set; }
+
+        // 页码
+        [NameInMap("page_num")]
+        [Validation(Required=false)]
+        public long? PageNum { get; set; }
 
     }
 

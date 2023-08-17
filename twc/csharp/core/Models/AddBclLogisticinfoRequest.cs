@@ -26,7 +26,7 @@ namespace AntChain.SDK.TWC.Models
         // - SHIPPED 已发货 
         // - TRANSPORT 运输中 
         // - SIGNED 已签收  
-        // 当前暂时只支持已签收
+        // 当前暂时只支持已发货和已签收
         [NameInMap("logistic_status")]
         [Validation(Required=true, MaxLength=16)]
         public string LogisticStatus { get; set; }
@@ -43,7 +43,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 用户签收时间格式为2019-8-31 12:00:00
         [NameInMap("arrive_confirm_time")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string ArriveConfirmTime { get; set; }
 
         // 物流公司简称
@@ -82,11 +82,6 @@ namespace AntChain.SDK.TWC.Models
         [NameInMap("arrive_address")]
         [Validation(Required=true, MaxLength=512)]
         public string ArriveAddress { get; set; }
-
-        // 物流额外信息,资方定义物流的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-        [NameInMap("logistic_extra_info")]
-        [Validation(Required=false, MaxLength=4096)]
-        public string LogisticExtraInfo { get; set; }
 
         // 收货人姓名
         [NameInMap("arrive_name")]

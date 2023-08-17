@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class ApplyBclFinancingRequest : TeaModel {
+    public class CancelBclWithholdRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,16 +18,15 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 订单id,长度不超过32位
-        [NameInMap("order_id")]
+        // 解约申请单号
+        [NameInMap("cancel_apply_no")]
         [Validation(Required=true)]
-        public string OrderId { get; set; }
+        public string CancelApplyNo { get; set; }
 
-        // 客户端token：
-        // 幂等号，用来保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。更多详情，请参见如何保证幂等性。
-        [NameInMap("client_token")]
+        // 是否允许解除代扣
+        [NameInMap("allow_cancel_withhold")]
         [Validation(Required=true)]
-        public string ClientToken { get; set; }
+        public bool? AllowCancelWithhold { get; set; }
 
     }
 

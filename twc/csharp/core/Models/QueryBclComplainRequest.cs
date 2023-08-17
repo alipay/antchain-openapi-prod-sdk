@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class GetBclUploadurlRequest : TeaModel {
+    public class QueryBclComplainRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,10 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 文件名称（最长128个字符，需要带文件后缀，不包含中文）
-        [NameInMap("file_name")]
-        [Validation(Required=true, MaxLength=128)]
-        public string FileName { get; set; }
+        // 投诉订单号
+        [NameInMap("complain_event_id")]
+        [Validation(Required=true, MaxLength=64)]
+        public string ComplainEventId { get; set; }
 
     }
 

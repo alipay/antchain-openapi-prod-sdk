@@ -18,7 +18,8 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 商品ID，长度不能超过32为
+        // 商品ID
+        // 最大长度：32
         [NameInMap("product_id")]
         [Validation(Required=true, MaxLength=32)]
         public string ProductId { get; set; }

@@ -132,16 +132,6 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public BclContractFlowInfo ContractFlowInfo { get; set; }
 
-        // 资方定义订单的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-        [NameInMap("order_extra_info")]
-        [Validation(Required=false, MaxLength=4096)]
-        public string OrderExtraInfo { get; set; }
-
-        // 资方定义用户的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
-        [NameInMap("user_extra_info")]
-        [Validation(Required=false, MaxLength=4096)]
-        public string UserExtraInfo { get; set; }
-
         // 是否不需要融资：
         // ● true表示明确这笔订单不需要融资
         // ● false表示该笔订单后续可能融资也可能不融资

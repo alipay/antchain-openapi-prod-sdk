@@ -24,12 +24,12 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 授权访问oss链接
+        // OSS上传链接
         [NameInMap("url")]
         [Validation(Required=false)]
         public string Url { get; set; }
 
-        // OSS 文件id
+        // 文件OSS ID
         [NameInMap("file_id")]
         [Validation(Required=false)]
         public string FileId { get; set; }

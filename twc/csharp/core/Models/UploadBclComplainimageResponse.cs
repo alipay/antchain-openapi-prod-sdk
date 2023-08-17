@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class ApplyBclFinancingResponse : TeaModel {
+    public class UploadBclComplainimageResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,11 +24,10 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 融资申请单号
-        // 使用方可保存用于与租赁宝PLUS订单关联
-        [NameInMap("financing_apply_no")]
+        // 图片在文件存储平台的标识
+        [NameInMap("iamge_id")]
         [Validation(Required=false)]
-        public string FinancingApplyNo { get; set; }
+        public string IamgeId { get; set; }
 
     }
 

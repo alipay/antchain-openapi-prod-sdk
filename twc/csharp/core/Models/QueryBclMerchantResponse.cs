@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class ApplyBclFinancingResponse : TeaModel {
+    public class QueryBclMerchantResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,11 +24,20 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 融资申请单号
-        // 使用方可保存用于与租赁宝PLUS订单关联
-        [NameInMap("financing_apply_no")]
+        // 入驻状态：入驻中：EXEC（表示等待商家去支付宝平台签约）；SUCCESS：入驻成功；FAIL：入驻失败
+        [NameInMap("status")]
         [Validation(Required=false)]
-        public string FinancingApplyNo { get; set; }
+        public string Status { get; set; }
+
+        // 是否需要使用租赁代扣
+        [NameInMap("need_proxy_withholding")]
+        [Validation(Required=false)]
+        public bool? NeedProxyWithholding { get; set; }
+
+        // 入驻失败的原因，在入驻失败时才会有值
+        [NameInMap("reason")]
+        [Validation(Required=false)]
+        public string Reason { get; set; }
 
     }
 
