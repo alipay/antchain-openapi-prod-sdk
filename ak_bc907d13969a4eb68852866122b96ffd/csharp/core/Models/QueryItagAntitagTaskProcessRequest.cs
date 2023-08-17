@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_bc907d13969a4eb68852866122b96ffd.Models
 {
-    public class AuthItagAntitagAcmRequest : TeaModel {
+    public class QueryItagAntitagTaskProcessRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.Ak_bc907d13969a4eb68852866122b96ffd.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 第三方平台用户ID
-        [NameInMap("accountno")]
-        [Validation(Required=true)]
-        public string Accountno { get; set; }
+        // TntInstId
+        [NameInMap("tntinstid")]
+        [Validation(Required=false)]
+        public string Tntinstid { get; set; }
 
-        // 用户来源
-        [NameInMap("accountsource")]
-        [Validation(Required=true)]
-        public string Accountsource { get; set; }
+        // taskid
+        [NameInMap("taskid")]
+        [Validation(Required=false)]
+        public string Taskid { get; set; }
 
     }
 

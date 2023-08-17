@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_bc907d13969a4eb68852866122b96ffd.Models
 {
-    public class AuthItagAntitagAcmResponse : TeaModel {
+    public class AddItagAntitagUserTntResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,20 @@ namespace AntChain.SDK.Ak_bc907d13969a4eb68852866122b96ffd.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 消息ID
-        [NameInMap("reqmsgid")]
+        // TntInstId
+        [NameInMap("tntinstid")]
         [Validation(Required=false)]
-        public string Reqmsgid { get; set; }
+        public string Tntinstid { get; set; }
 
-        // 结果码
-        [NameInMap("resultcode")]
+        // 角色，枚举值：ADMIN|SUPER_ADMIN|ADMINISTRATOR|LEADER|OPERATOR, 默认OPERATOR",
+        [NameInMap("role")]
         [Validation(Required=false)]
-        public string Resultcode { get; set; }
+        public string Role { get; set; }
 
-        // 结果消息
-        [NameInMap("resultmsg")]
+        // 用户信息
+        [NameInMap("result")]
         [Validation(Required=false)]
-        public string Resultmsg { get; set; }
-
-        // 授权码
-        [NameInMap("accesstoken")]
-        [Validation(Required=false)]
-        public string Accesstoken { get; set; }
+        public User Result { get; set; }
 
     }
 

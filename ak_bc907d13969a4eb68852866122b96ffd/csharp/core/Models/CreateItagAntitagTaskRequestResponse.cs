@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_bc907d13969a4eb68852866122b96ffd.Models
 {
-    public class AuthItagAntitagAcmResponse : TeaModel {
+    public class CreateItagAntitagTaskRequestResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,30 @@ namespace AntChain.SDK.Ak_bc907d13969a4eb68852866122b96ffd.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 消息ID
-        [NameInMap("reqmsgid")]
+        // taskId
+        [NameInMap("taskid")]
         [Validation(Required=false)]
-        public string Reqmsgid { get; set; }
+        public string Taskid { get; set; }
 
-        // 结果码
-        [NameInMap("resultcode")]
+        // flowrunid
+        [NameInMap("flowrunid")]
         [Validation(Required=false)]
-        public string Resultcode { get; set; }
+        public string Flowrunid { get; set; }
 
-        // 结果消息
-        [NameInMap("resultmsg")]
+        // msgid
+        [NameInMap("msgid")]
         [Validation(Required=false)]
-        public string Resultmsg { get; set; }
+        public string Msgid { get; set; }
 
-        // 授权码
-        [NameInMap("accesstoken")]
+        // slavemsgid
+        [NameInMap("slavemsgid")]
         [Validation(Required=false)]
-        public string Accesstoken { get; set; }
+        public string Slavemsgid { get; set; }
+
+        // reftaskid
+        [NameInMap("reftaskid")]
+        [Validation(Required=false)]
+        public string Reftaskid { get; set; }
 
     }
 

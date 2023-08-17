@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_bc907d13969a4eb68852866122b96ffd
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_bc907d13969a4eb68852866122b96ffd"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_bc907d13969a4eb68852866122b96ffd
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_bc907d13969a4eb68852866122b96ffd"},
                         {"_prod_channel", "saas"},
                     };
@@ -322,7 +322,7 @@ namespace AntChain.SDK.Ak_bc907d13969a4eb68852866122b96ffd
         }
 
         /**
-         * Description: 获取Token
+         * Description: 通过标注平台ID获取Token
          * Summary: 获取Token
          */
         public AuthItagAntitagAcmResponse AuthItagAntitagAcm(AuthItagAntitagAcmRequest request)
@@ -333,7 +333,7 @@ namespace AntChain.SDK.Ak_bc907d13969a4eb68852866122b96ffd
         }
 
         /**
-         * Description: 获取Token
+         * Description: 通过标注平台ID获取Token
          * Summary: 获取Token
          */
         public async Task<AuthItagAntitagAcmResponse> AuthItagAntitagAcmAsync(AuthItagAntitagAcmRequest request)
@@ -344,7 +344,7 @@ namespace AntChain.SDK.Ak_bc907d13969a4eb68852866122b96ffd
         }
 
         /**
-         * Description: 获取Token
+         * Description: 通过标注平台ID获取Token
          * Summary: 获取Token
          */
         public AuthItagAntitagAcmResponse AuthItagAntitagAcmEx(AuthItagAntitagAcmRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -354,13 +354,307 @@ namespace AntChain.SDK.Ak_bc907d13969a4eb68852866122b96ffd
         }
 
         /**
-         * Description: 获取Token
+         * Description: 通过标注平台ID获取Token
          * Summary: 获取Token
          */
         public async Task<AuthItagAntitagAcmResponse> AuthItagAntitagAcmExAsync(AuthItagAntitagAcmRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<AuthItagAntitagAcmResponse>(await DoRequestAsync("1.0", "itag.antitag.acm.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建标注任务
+         * Summary: 创建标注任务
+         */
+        public CreateItagAntitagTaskRequestResponse CreateItagAntitagTaskRequest(CreateItagAntitagTaskRequestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateItagAntitagTaskRequestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建标注任务
+         * Summary: 创建标注任务
+         */
+        public async Task<CreateItagAntitagTaskRequestResponse> CreateItagAntitagTaskRequestAsync(CreateItagAntitagTaskRequestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateItagAntitagTaskRequestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建标注任务
+         * Summary: 创建标注任务
+         */
+        public CreateItagAntitagTaskRequestResponse CreateItagAntitagTaskRequestEx(CreateItagAntitagTaskRequestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateItagAntitagTaskRequestResponse>(DoRequest("1.0", "itag.antitag.task.request.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建标注任务
+         * Summary: 创建标注任务
+         */
+        public async Task<CreateItagAntitagTaskRequestResponse> CreateItagAntitagTaskRequestExAsync(CreateItagAntitagTaskRequestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateItagAntitagTaskRequestResponse>(await DoRequestAsync("1.0", "itag.antitag.task.request.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 触发数据导出
+         * Summary: 触发数据导出
+         */
+        public ExportItagAntitagTaskDownloadResponse ExportItagAntitagTaskDownload(ExportItagAntitagTaskDownloadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExportItagAntitagTaskDownloadEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 触发数据导出
+         * Summary: 触发数据导出
+         */
+        public async Task<ExportItagAntitagTaskDownloadResponse> ExportItagAntitagTaskDownloadAsync(ExportItagAntitagTaskDownloadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExportItagAntitagTaskDownloadExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 触发数据导出
+         * Summary: 触发数据导出
+         */
+        public ExportItagAntitagTaskDownloadResponse ExportItagAntitagTaskDownloadEx(ExportItagAntitagTaskDownloadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExportItagAntitagTaskDownloadResponse>(DoRequest("1.0", "itag.antitag.task.download.export", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 触发数据导出
+         * Summary: 触发数据导出
+         */
+        public async Task<ExportItagAntitagTaskDownloadResponse> ExportItagAntitagTaskDownloadExAsync(ExportItagAntitagTaskDownloadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExportItagAntitagTaskDownloadResponse>(await DoRequestAsync("1.0", "itag.antitag.task.download.export", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 轮询导出进度 
+         * Summary: 轮询导出进度 
+         */
+        public QueryItagAntitagTaskDownloadResponse QueryItagAntitagTaskDownload(QueryItagAntitagTaskDownloadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryItagAntitagTaskDownloadEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 轮询导出进度 
+         * Summary: 轮询导出进度 
+         */
+        public async Task<QueryItagAntitagTaskDownloadResponse> QueryItagAntitagTaskDownloadAsync(QueryItagAntitagTaskDownloadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryItagAntitagTaskDownloadExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 轮询导出进度 
+         * Summary: 轮询导出进度 
+         */
+        public QueryItagAntitagTaskDownloadResponse QueryItagAntitagTaskDownloadEx(QueryItagAntitagTaskDownloadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryItagAntitagTaskDownloadResponse>(DoRequest("1.0", "itag.antitag.task.download.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 轮询导出进度 
+         * Summary: 轮询导出进度 
+         */
+        public async Task<QueryItagAntitagTaskDownloadResponse> QueryItagAntitagTaskDownloadExAsync(QueryItagAntitagTaskDownloadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryItagAntitagTaskDownloadResponse>(await DoRequestAsync("1.0", "itag.antitag.task.download.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务进度查询
+         * Summary: 任务进度查询
+         */
+        public QueryItagAntitagTaskProcessResponse QueryItagAntitagTaskProcess(QueryItagAntitagTaskProcessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryItagAntitagTaskProcessEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务进度查询
+         * Summary: 任务进度查询
+         */
+        public async Task<QueryItagAntitagTaskProcessResponse> QueryItagAntitagTaskProcessAsync(QueryItagAntitagTaskProcessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryItagAntitagTaskProcessExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务进度查询
+         * Summary: 任务进度查询
+         */
+        public QueryItagAntitagTaskProcessResponse QueryItagAntitagTaskProcessEx(QueryItagAntitagTaskProcessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryItagAntitagTaskProcessResponse>(DoRequest("1.0", "itag.antitag.task.process.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务进度查询
+         * Summary: 任务进度查询
+         */
+        public async Task<QueryItagAntitagTaskProcessResponse> QueryItagAntitagTaskProcessExAsync(QueryItagAntitagTaskProcessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryItagAntitagTaskProcessResponse>(await DoRequestAsync("1.0", "itag.antitag.task.process.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 注册用户到标注平台
+         * Summary: 注册用户
+         */
+        public RegisterItagAntitagUserResponse RegisterItagAntitagUser(RegisterItagAntitagUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterItagAntitagUserEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 注册用户到标注平台
+         * Summary: 注册用户
+         */
+        public async Task<RegisterItagAntitagUserResponse> RegisterItagAntitagUserAsync(RegisterItagAntitagUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterItagAntitagUserExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 注册用户到标注平台
+         * Summary: 注册用户
+         */
+        public RegisterItagAntitagUserResponse RegisterItagAntitagUserEx(RegisterItagAntitagUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterItagAntitagUserResponse>(DoRequest("1.0", "itag.antitag.user.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 注册用户到标注平台
+         * Summary: 注册用户
+         */
+        public async Task<RegisterItagAntitagUserResponse> RegisterItagAntitagUserExAsync(RegisterItagAntitagUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterItagAntitagUserResponse>(await DoRequestAsync("1.0", "itag.antitag.user.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 添加用户到指定租户
+         * Summary: 新用户到租户
+         */
+        public AddItagAntitagUserTntResponse AddItagAntitagUserTnt(AddItagAntitagUserTntRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddItagAntitagUserTntEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 添加用户到指定租户
+         * Summary: 新用户到租户
+         */
+        public async Task<AddItagAntitagUserTntResponse> AddItagAntitagUserTntAsync(AddItagAntitagUserTntRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddItagAntitagUserTntExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 添加用户到指定租户
+         * Summary: 新用户到租户
+         */
+        public AddItagAntitagUserTntResponse AddItagAntitagUserTntEx(AddItagAntitagUserTntRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddItagAntitagUserTntResponse>(DoRequest("1.0", "itag.antitag.user.tnt.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 添加用户到指定租户
+         * Summary: 新用户到租户
+         */
+        public async Task<AddItagAntitagUserTntResponse> AddItagAntitagUserTntExAsync(AddItagAntitagUserTntRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddItagAntitagUserTntResponse>(await DoRequestAsync("1.0", "itag.antitag.user.tnt.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过json方式创建任务
+         * Summary: 创建标注任务json
+         */
+        public CreateItagAntitagTaskJsonResponse CreateItagAntitagTaskJson(CreateItagAntitagTaskJsonRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateItagAntitagTaskJsonEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过json方式创建任务
+         * Summary: 创建标注任务json
+         */
+        public async Task<CreateItagAntitagTaskJsonResponse> CreateItagAntitagTaskJsonAsync(CreateItagAntitagTaskJsonRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateItagAntitagTaskJsonExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过json方式创建任务
+         * Summary: 创建标注任务json
+         */
+        public CreateItagAntitagTaskJsonResponse CreateItagAntitagTaskJsonEx(CreateItagAntitagTaskJsonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateItagAntitagTaskJsonResponse>(DoRequest("1.0", "itag.antitag.task.json.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过json方式创建任务
+         * Summary: 创建标注任务json
+         */
+        public async Task<CreateItagAntitagTaskJsonResponse> CreateItagAntitagTaskJsonExAsync(CreateItagAntitagTaskJsonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateItagAntitagTaskJsonResponse>(await DoRequestAsync("1.0", "itag.antitag.task.json.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
