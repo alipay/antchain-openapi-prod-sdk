@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'ak_bc907d13969a4eb68852866122b96ffd',
     _prod_channel = 'saas'
   };
@@ -161,12 +161,162 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// MapObject
+model MapObject {
+  // key
+  key?: string(name='key', example='key'),
+  // value
+  value?: string(name='value', example='value'),
+}
+
+// TaskTemplateOptionConfig
+model TaskTemplateOptionConfig {
+  // defaultresult
+  defaultresult: string(name='defaultresult', example='defaultresult'),
+  // rule
+  rule?: string(name='rule', example='rule'),
+  // 预制选项，针对填空题的输入题目
+  preoptions?: [ string ](name='preoptions', example=''),
+}
+
+// Groups
+model Groups {
+  // groupid
+  groupid?: string(name='groupid', example='groupid'),
+  // groupname
+  groupname?: string(name='groupname', example='groupname'),
+}
+
+// 模板选项配置映射
+model TemplateOptionMap {
+  // Map<String, TaskTemplateOptionConfig> templateOptionMap中的key
+  key?: string(name='key', example='1-2'),
+  // TaskTemplateOptionConfig
+  value?: TaskTemplateOptionConfig(name='value', example=''),
+}
+
+// Exif
+model Exif {
+  // exif
+  exif: [ MapObject ](name='exif', example='exif'),
+}
+
+// 添加用户至租户
+model User {
+  // 接入标注系统的用户ID
+  accountno?: string(name='accountno', example='jiangwenhua166'),
+  // 用户名称
+  username?: string(name='username', example='张三'),
+  // 用户来源
+  accountsource?: string(name='accountsource', example='lingyang'),
+  // UserId
+  userid?: string(name='userid', example='1689153972611817472'),
+}
+
+// 任务管理员列表
+model Admins {
+  // 管理员列表
+  users?: [ User ](name='users', example='"UserId":"1436266544664641536"'),
+  // 组ID
+  groups?: [ Groups ](name='groups', example='"groupId":"1436266544664641536"'),
+}
+
+// DownloadMarkResult
+model DownloadMarkResult {
+  // TaskId
+  taskid?: string(name='taskid', example='TaskId'),
+  // RunInstId
+  runinstid?: string(name='runinstid', example='RunInstId'),
+  // msgid
+  msgid?: string(name='msgid', example='msgid'),
+}
+
+// 标注工作流，私有化项目只用到 标注MARK、质检CHECK 这两个节点
+model ITagTaskWorkflowConfig {
+  // 标注阶段
+  nodename?: string(name='nodename', example='MARK'),
+  // 标注人员列表
+  users?: [ User ](name='users', example=''),
+  // 分组
+  groups?: [ Groups ](name='groups', example='"groupId":1425378097070583808'),
+  // 扩展参数，例如质检抽样的比例，0~100 %
+  exif?: Exif(name='exif', example=' "CheckRate":100'),
+}
+
+// 模板的可定制部分
+model TaskTemplateConfig {
+  // templateoptionmap
+  templateoptionmap: TemplateOptionMap(name='templateoptionmap', example='templateoptionmap'),
+}
+
+// 任务使用的数据集
+model DatasetProxyRelations {
+  // 来源
+  source?: string(name='source', example='ITAG'),
+  // iTAG数据集的ID
+  datasetid?: string(name='datasetid', example='1501755816871657472'),
+  // 标注类型
+  datasettype?: string(name='datasettype', example='LABEL'),
+  // SourceBizId
+  sourcebizid?: string(name='sourcebizid', example='SourceBizId'),
+}
+
+// ProcessResult
+model ProcessResult {
+  // Node
+  node?: string(name='node', example='Node'),
+  // totalitem
+  totalitem?: long(name='totalitem', example='totalitem'),
+  // finisheditem
+  finisheditem?: long(name='finisheditem', example='finisheditem'),
+  // TotalSubTask
+  totalsubtask?: long(name='totalsubtask', example='TotalSubTask'),
+  // FinishedSubTask
+  finishedsubtask?: long(name='finishedsubtask', example='FinishedSubTask'),
+}
+
+// 轮询导出进度中的RunRet
+model RunRet {
+  // taskid
+  taskid?: string(name='taskid', example='taskid'),
+  // subtaskdistdt
+  subtaskdistdt?: string(name='subtaskdistdt', example='subtaskdistdt'),
+  // requestid
+  requestid?: string(name='requestid', example='requestid'),
+  // taskname
+  taskname?: string(name='taskname', example='taskname'),
+  // msgsenddt
+  msgsenddt?: string(name='msgsenddt', example='msgsenddt'),
+  // msgid
+  msgid?: string(name='msgid', example='msgid'),
+  // resultlink
+  resultlink?: string(name='resultlink', example='resultlink'),
+}
+
+// 防止客户端因bug而瞬间重复创建多个相同的任务
+model BizInfo {
+  // 业务码
+  bizcode?: string(name='bizcode', example='MMC-MAX'),
+  // 可使用时间戳来防止重复
+  bizno?: long(name='bizno', example='1646967459684'),
+}
+
+// AssignConfig
+model AssignConfig {
+  // AVG_SIZE
+  assigntype: string(name='assigntype', example='AVG_SIZE'),
+  // AssignSubTaskCount
+  assignsubtaskcount?: long(name='assignsubtaskcount', example='1'),
+}
+
 model AuthItagAntitagAcmRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 用户ID
-  userid: string(name='userid'),
+  // 第三方平台用户ID
+  accountno: string(name='accountno'),
+  // 用户来源
+  accountsource: string(name='accountsource'),
 }
 
 model AuthItagAntitagAcmResponse = {
@@ -182,14 +332,12 @@ model AuthItagAntitagAcmResponse = {
   resultcode?: string(name='resultcode'),
   // 结果消息
   resultmsg?: string(name='resultmsg'),
-  // 用户ID
-  userid?: string(name='userid'),
   // 授权码
   accesstoken?: string(name='accesstoken'),
 }
 
 /**
- * Description: 获取Token
+ * Description: 通过标注平台ID获取Token
  * Summary: 获取Token
  */
 async function authItagAntitagAcm(request: AuthItagAntitagAcmRequest): AuthItagAntitagAcmResponse {
@@ -199,11 +347,379 @@ async function authItagAntitagAcm(request: AuthItagAntitagAcmRequest): AuthItagA
 }
 
 /**
- * Description: 获取Token
+ * Description: 通过标注平台ID获取Token
  * Summary: 获取Token
  */
 async function authItagAntitagAcmEx(request: AuthItagAntitagAcmRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthItagAntitagAcmResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'itag.antitag.acm.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateItagAntitagTaskRequestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // taskname
+  taskname?: string(name='taskname'),
+  // templateid
+  templateid?: string(name='templateid'),
+  // projectid
+  projectid?: string(name='projectid'),
+  // AssignConfig
+  assignconfig?: AssignConfig(name='assignconfig'),
+  // TaskWorkFlow
+  taskworkflow?: ITagTaskWorkflowConfig(name='taskworkflow'),
+  // admins
+  admins?: [ Admins ](name='admins'),
+  // datasetproxyrelations
+  datasetproxyrelations?: [ DatasetProxyRelations ](name='datasetproxyrelations'),
+  // bizinfo
+  bizinfo?: BizInfo(name='bizinfo'),
+  // tasktemplateconfig
+  tasktemplateconfig?: TaskTemplateConfig(name='tasktemplateconfig'),
+  // Exif
+  exif?: Exif(name='exif'),
+  // tntinstid
+  tntinstid?: string(name='tntinstid'),
+}
+
+model CreateItagAntitagTaskRequestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // taskId
+  taskid?: string(name='taskid'),
+  // flowrunid
+  flowrunid?: string(name='flowrunid'),
+  // msgid
+  msgid?: string(name='msgid'),
+  // slavemsgid
+  slavemsgid?: string(name='slavemsgid'),
+  // reftaskid
+  reftaskid?: string(name='reftaskid'),
+}
+
+/**
+ * Description: 创建标注任务
+ * Summary: 创建标注任务
+ */
+async function createItagAntitagTaskRequest(request: CreateItagAntitagTaskRequestRequest): CreateItagAntitagTaskRequestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createItagAntitagTaskRequestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建标注任务
+ * Summary: 创建标注任务
+ */
+async function createItagAntitagTaskRequestEx(request: CreateItagAntitagTaskRequestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateItagAntitagTaskRequestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'itag.antitag.task.request.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExportItagAntitagTaskDownloadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // iTAG租户id
+  tntinstid?: string(name='tntinstid'),
+  // TaskId
+  taskid?: string(name='taskid'),
+  // Encode
+  encode?: string(name='encode'),
+}
+
+model ExportItagAntitagTaskDownloadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // RequestId
+  requestid?: string(name='requestid'),
+  // Succ
+  succ?: string(name='succ'),
+  // Code
+  code?: string(name='code'),
+  // Msg
+  msg?: string(name='msg'),
+  // errinfo
+  errinfo?: string(name='errinfo'),
+  // result
+  result?: DownloadMarkResult(name='result'),
+}
+
+/**
+ * Description: 触发数据导出
+ * Summary: 触发数据导出
+ */
+async function exportItagAntitagTaskDownload(request: ExportItagAntitagTaskDownloadRequest): ExportItagAntitagTaskDownloadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return exportItagAntitagTaskDownloadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 触发数据导出
+ * Summary: 触发数据导出
+ */
+async function exportItagAntitagTaskDownloadEx(request: ExportItagAntitagTaskDownloadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExportItagAntitagTaskDownloadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'itag.antitag.task.download.export', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryItagAntitagTaskDownloadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // iTAG租户ID
+  tntinstid?: string(name='tntinstid'),
+  // runinstid
+  runinstid?: string(name='runinstid'),
+  // 任务ID
+  taskid?: string(name='taskid'),
+}
+
+model QueryItagAntitagTaskDownloadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // requestid
+  requestid?: string(name='requestid'),
+  // code
+  code?: string(name='code'),
+  // msg
+  msg?: string(name='msg'),
+  // succ
+  succ?: string(name='succ'),
+  // errinfo
+  errinfo?: string(name='errinfo'),
+  // runret
+  runret?: RunRet(name='runret'),
+}
+
+/**
+ * Description: 轮询导出进度 
+ * Summary: 轮询导出进度 
+ */
+async function queryItagAntitagTaskDownload(request: QueryItagAntitagTaskDownloadRequest): QueryItagAntitagTaskDownloadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryItagAntitagTaskDownloadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 轮询导出进度 
+ * Summary: 轮询导出进度 
+ */
+async function queryItagAntitagTaskDownloadEx(request: QueryItagAntitagTaskDownloadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryItagAntitagTaskDownloadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'itag.antitag.task.download.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryItagAntitagTaskProcessRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // TntInstId
+  tntinstid?: string(name='tntinstid'),
+  // taskid
+  taskid?: string(name='taskid'),
+}
+
+model QueryItagAntitagTaskProcessResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // requestid
+  requestid?: string(name='requestid'),
+  // Code
+  code?: string(name='code'),
+  // Msg
+  msg?: string(name='msg'),
+  // succ
+  succ?: string(name='succ'),
+  // ProcessResult
+  result?: ProcessResult(name='result'),
+}
+
+/**
+ * Description: 任务进度查询
+ * Summary: 任务进度查询
+ */
+async function queryItagAntitagTaskProcess(request: QueryItagAntitagTaskProcessRequest): QueryItagAntitagTaskProcessResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryItagAntitagTaskProcessEx(request, headers, runtime);
+}
+
+/**
+ * Description: 任务进度查询
+ * Summary: 任务进度查询
+ */
+async function queryItagAntitagTaskProcessEx(request: QueryItagAntitagTaskProcessRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryItagAntitagTaskProcessResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'itag.antitag.task.process.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterItagAntitagUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 名称
+  name: string(name='name'),
+  // 第三方系统用户账号ID
+  accountno: string(name='accountno'),
+  // 用户来源
+  accountsource: string(name='accountsource'),
+  // 邮箱
+  email?: string(name='email'),
+  // 电话
+  phone?: string(name='phone'),
+}
+
+model RegisterItagAntitagUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求ID
+  requestid?: string(name='requestid'),
+  // 结果码
+  code?: long(name='code'),
+  // 错误信息
+  errmsg?: string(name='errmsg'),
+  // 结果消息
+  msg?: string(name='msg'),
+  // 标注平台userid
+  result?: string(name='result'),
+  // 结果
+  succ?: boolean(name='succ'),
+}
+
+/**
+ * Description: 注册用户到标注平台
+ * Summary: 注册用户
+ */
+async function registerItagAntitagUser(request: RegisterItagAntitagUserRequest): RegisterItagAntitagUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerItagAntitagUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 注册用户到标注平台
+ * Summary: 注册用户
+ */
+async function registerItagAntitagUserEx(request: RegisterItagAntitagUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterItagAntitagUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'itag.antitag.user.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddItagAntitagUserTntRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 标注平台的租户ID
+  tntinstid: string(name='tntinstid'),
+  // 第三方账号
+  accountno: string(name='accountno'),
+  // 用户来源
+  accountsource: string(name='accountsource'),
+  // 角色，枚举值：ADMIN|SUPER_ADMIN|ADMINISTRATOR|LEADER|OPERATOR, 默认OPERATOR",
+  role?: string(name='role'),
+}
+
+model AddItagAntitagUserTntResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // TntInstId
+  tntinstid?: string(name='tntinstid'),
+  // 角色，枚举值：ADMIN|SUPER_ADMIN|ADMINISTRATOR|LEADER|OPERATOR, 默认OPERATOR",
+  role?: string(name='role'),
+  // 用户信息
+  result?: User(name='result'),
+}
+
+/**
+ * Description: 添加用户到指定租户
+ * Summary: 新用户到租户
+ */
+async function addItagAntitagUserTnt(request: AddItagAntitagUserTntRequest): AddItagAntitagUserTntResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addItagAntitagUserTntEx(request, headers, runtime);
+}
+
+/**
+ * Description: 添加用户到指定租户
+ * Summary: 新用户到租户
+ */
+async function addItagAntitagUserTntEx(request: AddItagAntitagUserTntRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddItagAntitagUserTntResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'itag.antitag.user.tnt.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateItagAntitagTaskJsonRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 创建任务参数，格式为JSON
+  params: string(name='params'),
+}
+
+model CreateItagAntitagTaskJsonResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  code?: string(name='code'),
+  // 消息体
+  msg?: string(name='msg'),
+  // 请求ID
+  requestid?: string(name='requestid'),
+  // 成功标识
+  succ?: string(name='succ'),
+  // 任务ID
+  taskid?: string(name='taskid'),
+}
+
+/**
+ * Description: 通过json方式创建任务
+ * Summary: 创建标注任务json
+ */
+async function createItagAntitagTaskJson(request: CreateItagAntitagTaskJsonRequest): CreateItagAntitagTaskJsonResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createItagAntitagTaskJsonEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过json方式创建任务
+ * Summary: 创建标注任务json
+ */
+async function createItagAntitagTaskJsonEx(request: CreateItagAntitagTaskJsonRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateItagAntitagTaskJsonResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'itag.antitag.task.json.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
