@@ -338,35 +338,44 @@ func (s *OrderItem) SetLeaseNumber(v int64) *OrderItem {
 type BclSignField struct {
 	// 页码信息：当签署区sign_type为RIDE_SEAM时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；
 	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty" require:"true" maxLength:"8"`
-	// 非负数,小数位最多两位,x坐标，sign_type为SINGLE_PAGE时必填，sign_type为RIDE_SEAM时不填写
+	// 页面签署位置x坐标
+	// 非负数，小数位最多两位x坐标
+	// sign_type：SINGLE_PAGE 必填
+	// sign_type：RIDE_SEAM  无需填写
 	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty" maxLength:"8"`
-	// 非负数,小数位最多两位,y坐标
+	// 页面签署位置y坐标
+	// 非负数，小数位最多两位，y坐标
 	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true" maxLength:"8"`
-	// 签署类型，
-	// 单页签署: SINGLE_PAGE，
-	// 骑缝签署: RIDE_SEAM，
-	// 默认 SINGLE_PAGE
+	// 签署类型
+	// 1.单页签署: SINGLE_PAGE
+	// 2.骑缝签署: RIDE_SEAM
+	// 默认：SINGLE_PAGE
 	SignFieldType *string `json:"sign_field_type,omitempty" xml:"sign_field_type,omitempty" require:"true" maxLength:"16"`
 	// 是否添加签署时间
-	// 不添加: false 添加: true ， 默认false, 商家不支持指定日期坐标
+	// 1.不添加: false
+	// 2.添加: true
+	// 默认：false
 	AddSignDate *bool `json:"add_sign_date,omitempty" xml:"add_sign_date,omitempty"`
-	// 签章日期字体大小,默认12
+	// 签章日期字体大小
+	// 默认12，范围10-20
 	// 商家签署区不支持
 	SignDateFontSize *int64 `json:"sign_date_font_size,omitempty" xml:"sign_date_font_size,omitempty" maximum:"20" minimum:"10"`
-	// 签章日期格式，
-	// yyyy年MM月dd日（默认值）
-	// yyyy-MM-dd
+	// 签章日期格式
+	// yyyy年MM月dd日（默认值） yyyy-MM-dd
 	// yyyy/MM/dd
 	// yyyy-MM-dd HH:mm:ss
 	// 商家签署区不支持
 	SignDateFormat *string `json:"sign_date_format,omitempty" xml:"sign_date_format,omitempty" maxLength:"32"`
-	// 页码信息，当add_sign_date为true时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
+	// 页码信息
+	// 当add_sign_date为true时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可
 	// 商家签署区不支持
 	SignDatePosPage *int64 `json:"sign_date_pos_page,omitempty" xml:"sign_date_pos_page,omitempty" minimum:"1"`
-	// 非负数,小数位最多两位,签章日期x坐标，默认0
+	// 页面签章日期x坐标
+	// 非负数，小数位最多两位，默认0
 	// 商家签署区不支持
 	SignDatePosX *string `json:"sign_date_pos_x,omitempty" xml:"sign_date_pos_x,omitempty" maxLength:"8"`
-	// 非负数,小数位最多两位,签章日期y坐标，默认0
+	// 页面签章日期y坐标
+	// 非负数，小数位最多两位，默认0
 	// 商家签署区不支持
 	SignDatePosY *string `json:"sign_date_pos_y,omitempty" xml:"sign_date_pos_y,omitempty" maxLength:"8"`
 }
@@ -467,6 +476,7 @@ type BclOrderProductInfo struct {
 	// 创建商品后返回的商品id
 	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true" maxLength:"32"`
 	// 商品数量
+	// 目前只允许一个商品
 	ProductNumber *int64 `json:"product_number,omitempty" xml:"product_number,omitempty" require:"true" minimum:"1"`
 }
 
@@ -872,15 +882,21 @@ type BclPromiseDetailInfo struct {
 	// 承诺金额 单位分
 	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
 	// 本期还款状态
-	// 已还款，PAID
-	// 部分还款，PART_PAID
-	// 未还款，UN_PAID
+	// 1.已还款：PAID
+	// 2.部分还款：PART_PAID
+	// 3.未还款：UN_PAID
 	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 每期约定还款时间
+	// 示例：2023-06-7T10:50:23+08:00
 	PromiseTime *string `json:"promise_time,omitempty" xml:"promise_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 履约日期
+	// 每期应还日期
+	// 示例：2023-06-27T10:50:23+08:00
 	PayTime *string `json:"pay_time,omitempty" xml:"pay_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 归还方式，取值范围如下： ACTIVE_REPAYMENT：主动还款， MY_BANK_PROXY_WITHHOLDING：网商委托代扣, PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
+	// 归还方式
+	// 1.租赁代扣： PROXY_WITHHOLDING
+	// 2.主动还款：ACTIVE_REPAYMENT
+	// 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
+	// 4.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
 	Way *string `json:"way,omitempty" xml:"way,omitempty" require:"true" maxLength:"32"`
 }
 
@@ -1444,15 +1460,20 @@ func (s *PhaseNotary) SetOriginDataId(v string) *PhaseNotary {
 
 // 租赁用户信息
 type BclUserInfo struct {
-	// 用户账号ID,长度不超过64位
+	// 用户账号ID
+	// 长度不超过64位，本期只支持支付宝userid
 	UserAccountId *string `json:"user_account_id,omitempty" xml:"user_account_id,omitempty" require:"true" maxLength:"64"`
-	// 用户账号类型（承租人) ALIPAY.支付宝
+	// 用户账号平台类型
+	// 1.支付宝：ALIPAY
+	// 本期暂时只支持支付宝
 	UserAccountType *string `json:"user_account_type,omitempty" xml:"user_account_type,omitempty" require:"true" maxLength:"16"`
 	// 承租人/企业姓名,长度不超过32位
 	UserCertName *string `json:"user_cert_name,omitempty" xml:"user_cert_name,omitempty" require:"true" maxLength:"32"`
 	// 承租人/企业证件号,长度不超过64位
 	UserCertNo *string `json:"user_cert_no,omitempty" xml:"user_cert_no,omitempty" require:"true" maxLength:"64"`
-	// 承租人/企业证件类型: IDENTITY_CARD 身份证 NATIONAL_LEGAL_MERGE 统一社会信用代码
+	// 承租人/企业证件类型:
+	// 1.身份证：IDENTITY_CARD
+	// 本期暂时只支持个人身份证
 	UserCertType *string `json:"user_cert_type,omitempty" xml:"user_cert_type,omitempty" require:"true" maxLength:"32"`
 	// 承租人/企业手机号,长度不超过32位
 	UserPhoneNumber *string `json:"user_phone_number,omitempty" xml:"user_phone_number,omitempty" require:"true" maxLength:"32"`
@@ -4095,9 +4116,9 @@ type BclCertifyInfo struct {
 	// 认证描述
 	ResultDesc *string `json:"result_desc,omitempty" xml:"result_desc,omitempty"`
 	// 认证状态
-	// 待认证  INIT
-	// 认证成功 PASS
-	// 认证失败 FAIL
+	// 1.待认证：INIT
+	// 2.认证成功：PASS
+	// 3.认证失败：FAIL
 	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
@@ -4139,9 +4160,11 @@ type BclContractFlowInfo struct {
 	// 本期只支持一个文件
 	// 仅当使用合同服务时必填
 	FileInfo []*BclContractFileInfo `json:"file_info,omitempty" xml:"file_info,omitempty" type:"Repeated"`
-	// 合同签署失败回调地址
+	// 签署失败时的跳转地址
+	// 如果不做单独配置，默认与redirect_url一致
 	RedirectUrlOnFailure *string `json:"redirect_url_on_failure,omitempty" xml:"redirect_url_on_failure,omitempty" maxLength:"512"`
-	// 合同签署成功回调地址
+	// 流程结束后的默认重定向地址
+	// 默认签署完成停在当前页面
 	RedirectUrl *string `json:"redirect_url,omitempty" xml:"redirect_url,omitempty" maxLength:"512"`
 }
 
@@ -5458,11 +5481,13 @@ func (s *SupplierProductInfo) SetSupplierVersion(v string) *SupplierProductInfo 
 
 // 承诺详情
 type BclCreatePromiseDetailInfo struct {
-	// 承诺期数
+	// 承诺期数，最小值：1
 	Period *int64 `json:"period,omitempty" xml:"period,omitempty" require:"true" minimum:"1"`
-	// 承诺金额 单位分
+	// 承诺金额，单位：分
+	// 最小值：1，正整数
 	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true" minimum:"1"`
 	// 每期应还的日期
+	// 示例：格式 2023-06-27T10:50:23+08:00
 	PromiseTime *string `json:"promise_time,omitempty" xml:"promise_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
@@ -5672,12 +5697,16 @@ func (s *ContractCreatorApplication) SetCreatorId(v string) *ContractCreatorAppl
 
 // 合同信息
 type BclContractInfo struct {
-	// 待签署,SIGNING
-	// 拒签,REJECT
-	// 签署失败,SIGN_FAIL
-	// 签署完成,FINISH
+	// 签署状态
+	// 1.合同待签署：SIGNING
+	// 2.代扣待签署：PROXY_SIGNING
+	// 3.合同拒签：REJECT
+	// 4.代扣拒签：PROXY_REJECT
+	// 5.合同签署失败：SIGN_FAIL
+	// 6.签署完成：FINISH
 	SignStatus *string `json:"sign_status,omitempty" xml:"sign_status,omitempty" require:"true"`
-	// 签署完成的合同文件 只有签署完成才有
+	// 签署完成的合同文件
+	// 如果使用合同服务，只有签署完成才可获取
 	SignedFiles []*BclFileInfo `json:"signed_files,omitempty" xml:"signed_files,omitempty" type:"Repeated"`
 	// 签署链接，使用租赁宝代扣并且发起订单后才可以查询获取
 	SignUrl *string `json:"sign_url,omitempty" xml:"sign_url,omitempty"`
@@ -5827,9 +5856,13 @@ func (s *ProductInfo) SetExtraInfo(v string) *ProductInfo {
 type BclContactInfo struct {
 	// 联系人名称，最大长度：128
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 联系人手机号，最大长度：20
+	// 联系人手机号
+	// 最大长度：20
+	// 示例：13812348888
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
-	// 联系人电话，最大长度：20
+	// 联系人电话
+	// 最大长度：20
+	// 示例：0571-12345678
 	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
 }
 
@@ -5904,19 +5937,17 @@ type BclRentalInfo struct {
 	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
 	// 租金归还时间
 	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 归还方式
-	// 用英文定义
-	// -预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
-	// -支付宝代扣: ALIPAY_WITHHOLDING
-	// -主动还款：ACTIVE_REPAYMENT
-	// -其他：OTHER
-	// -网商直付通：MY_BANK_DIRECT_PAYMENT
-	// -网商委托代扣：MY_BANK_PROXY_WITHHOLDING
+	// 是	归还方式
+	// 1.租赁代扣: PROXY_WITHHOLDING
+	// 2.主动还款：ACTIVE_REPAYMENT
+	// 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
+	// 4.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
 	Way *string `json:"way,omitempty" xml:"way,omitempty" require:"true"`
-	// -支付宝：ALIPAY
-	// -平台代收（客户主动还款）：PLATFORM_COLLECTION
-	// -其他：OTHER
-	// -网商银行：MY_BANK,
+	// 还款渠道
+	// 1.支付宝：ALIPAY
+	// 2.平台代收（客户主动还款）：PLATFORM_COLLECTION
+	// 3.网商银行：MY_BANK
+	// 4.其他：OTHER
 	VoucherType *string `json:"voucher_type,omitempty" xml:"voucher_type,omitempty" require:"true"`
 	// 还款凭证编号
 	VoucherSerial *string `json:"voucher_serial,omitempty" xml:"voucher_serial,omitempty" require:"true"`
@@ -6352,17 +6383,18 @@ type BclLogisticsInfo struct {
 	// 物流公司
 	LogisticCompany *string `json:"logistic_company,omitempty" xml:"logistic_company,omitempty" require:"true"`
 	// 物流状态
-	// 已发货 SHIPPED
-	// 运输中 TRANSPORT
-	// 已签收 SIGNED
+	// 1.已发货：SHIPPED
+	// 2.已签收：SIGNED
 	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 发货时间
+	// 示例：2023-06-27T10:50:23+08:00
 	DeliverTime *string `json:"deliver_time,omitempty" xml:"deliver_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 租赁类型
-	// 租赁 LEASE
-	// 退租 RETURN_LEASE
+	// 1.租赁：LEASE
+	// 2.退租：RETURN_LEASE
 	LeaseType *string `json:"lease_type,omitempty" xml:"lease_type,omitempty" require:"true"`
 	// 签收时间
+	// 示例：2023-06-27T10:50:23+08:00
 	ArriveConfirmTime *string `json:"arrive_confirm_time,omitempty" xml:"arrive_confirm_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 签收文件下载链接
 	ArriveConfirmFileUrl *string `json:"arrive_confirm_file_url,omitempty" xml:"arrive_confirm_file_url,omitempty" require:"true"`
@@ -7287,23 +7319,24 @@ func (s *CertificateInfo) SetResourceUrl(v string) *CertificateInfo {
 
 // 存证信息
 type BclNotaryInfo struct {
-	// 存证类型，
-	// 文件 FILE
-	// 文本 TEXT
+	// 存证类型
+	// 1.文件：FILE
+	// 2.文本：TEXT
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 存证内容
 	Content *string `json:"content,omitempty" xml:"content,omitempty"`
-	// 文件下载链接 类型为文件有值
+	// 文件下载链接
+	// 存证类型为FILE时此参数必填；
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
 	// 存证内容hash
 	ContentHash *string `json:"content_hash,omitempty" xml:"content_hash,omitempty" require:"true"`
 	// 存证哈希
 	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
 	// 存证阶段描述：
-	// UPLOAD_PROMISE_FLOW：上传履约流水，
-	// UPLOAD_LOGISTIC_INFO：上传物流信息，
-	// SIGNED_CONTRACT_FILE：合同签署后文件存证，
-	// BCL_ORDER_PROMISING：租赁订单履约中存证，
+	// 1.上传履约流水：UPLOAD_PROMISE_FLOW
+	// 2.上传物流信息：UPLOAD_LOGISTIC_INFO
+	// 3.合同签署后文件存证：SIGNED_CONTRACT_FILE
+	// 4.租赁订单履约中存证：BCL_ORDER_PROMISING
 	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
 }
 
@@ -8032,26 +8065,41 @@ type AddBclLogisticinfoRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 订单id
+	// 租赁订单ID
+	// 最大长度：32
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"32"`
-	// - SHIPPED 已发货
-	// - TRANSPORT 运输中
-	// - SIGNED 已签收
-	// 当前暂时只支持已发货和已签收
+	// 物流状态
+	// 1.已发货：SHIPPED
+	// 2.已签收：SIGNED
 	LogisticStatus *string `json:"logistic_status,omitempty" xml:"logistic_status,omitempty" require:"true" maxLength:"16"`
-	// 物流照片网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
+	// 物流照片网关文件ID
+	// 先调用文件上传的接口,这里填上传后返回的fileid
 	LogisticsFileId *string `json:"logistics_file_id,omitempty" xml:"logistics_file_id,omitempty" maxLength:"64"`
-	// 签收记录,网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
+	// 签收记录,网关文件ID
+	// 先调用文件上传的接口,这里填上传后返回的fileid
 	ArriveConfirmFileId *string `json:"arrive_confirm_file_id,omitempty" xml:"arrive_confirm_file_id,omitempty" maxLength:"64"`
-	// 用户签收时间格式为2019-8-31 12:00:00
+	// 用户签收时间
+	// 示例：2023-06-27T10:50:23+08:00
 	ArriveConfirmTime *string `json:"arrive_confirm_time,omitempty" xml:"arrive_confirm_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 物流公司简称
 	LogisticCompanyName *string `json:"logistic_company_name,omitempty" xml:"logistic_company_name,omitempty" require:"true" maxLength:"32"`
-	// 物流公司code
+	// 物流公司code：
+	// 1.圆通速递：YTO
+	// 2.韵达快递：YUNDA
+	// 3.顺丰速运：SF
+	// 4.EMS：EMS
+	// 5.申通快递：STO
+	// 6.中通快递：ZTO
+	// 7.天天快递：TTKDEX
+	// 8.全峰快递：QFKD
+	// 9.中铁物流：ZTKY
+	// 10.其他：OTHER
 	LogisticCompanyCode *string `json:"logistic_company_code,omitempty" xml:"logistic_company_code,omitempty" require:"true" maxLength:"32"`
-	// 物流订单id
+	// 物流订单ID
+	// 最大长度64
 	LogisticsOrderId *string `json:"logistics_order_id,omitempty" xml:"logistics_order_id,omitempty" require:"true" maxLength:"64"`
-	// 物流发货时间,格式为2019-8-31 12:00:00
+	// 物流发货时间
+	// 示例：2023-06-27T10:50:23+08:00
 	DeliverTime *string `json:"deliver_time,omitempty" xml:"deliver_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 租赁状态
 	// LEASE,租赁
@@ -8265,7 +8313,9 @@ type CreateBclOrderRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 订单外部id 商家关联自己的订单,长度不超过64位
 	OrderOuterId *string `json:"order_outer_id,omitempty" xml:"order_outer_id,omitempty" require:"true" maxLength:"64"`
-	// 商家租赁订单创建时间,长度不超过32位
+	// 商家租赁订单创建时间
+	// 长度不超过32位
+	// 示例：2023-06-27T10:50:23+08:00
 	OrderCreateTime *string `json:"order_create_time,omitempty" xml:"order_create_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 承租人用户信息
 	UserInfo *BclUserInfo `json:"user_info,omitempty" xml:"user_info,omitempty" require:"true"`
@@ -8273,50 +8323,66 @@ type CreateBclOrderRequest struct {
 	// DUE_BUYOUT 到期买断
 	// DUE_RETURN 到期归还
 	DueMode *string `json:"due_mode,omitempty" xml:"due_mode,omitempty" require:"true" maxLength:"16"`
-	// 租金总额 单位分
+	// 租金总额，单位：分
+	// 最小值需大于0
 	TotalRentMoney *int64 `json:"total_rent_money,omitempty" xml:"total_rent_money,omitempty" require:"true" minimum:"1"`
-	// 订单租期, 比如6期,12期,24期,36期,填数字
+	// 租期，单位：月
+	// 最小值需大于0
 	RentTerm *int64 `json:"rent_term,omitempty" xml:"rent_term,omitempty" require:"true" minimum:"1"`
-	// 订单租期对应的单位,如果是租期为6,租期单位为MONTH,代表租6个月
-	// 月: MONTH
+	// 订单租期单位，
+	// 1.月：MONTH
+	// 例如：rent_term入参12，rent_unit入参MONTH代表租期12个月
 	RentUnit *string `json:"rent_unit,omitempty" xml:"rent_unit,omitempty" require:"true" maxLength:"16"`
-	// 到期买断价 单位分，若为买断形式传买断金额，否则传到期归还金额
+	// 到期买断价，单位：分
+	// 到期金额，最小值需大于0，若为买断形式传买断金额，否则传到期归还金额
 	BuyOutPrice *int64 `json:"buy_out_price,omitempty" xml:"buy_out_price,omitempty" minimum:"1"`
-	// 芝麻信用 订单免押金额  单位分
+	// 芝麻信用订单免押金额，单位：分
+	// 最小值需大于0
 	DepositFree *int64 `json:"deposit_free,omitempty" xml:"deposit_free,omitempty" minimum:"1"`
-	// 芝麻信用 实际预授权金额  单位分
+	// 芝麻信用实际预授权金额，单位：分
+	// 最小值需大于0
 	AcutalPreAuthFree *int64 `json:"acutal_pre_auth_free,omitempty" xml:"acutal_pre_auth_free,omitempty" minimum:"1"`
-	// 网商代扣协议号或预授权协议号,网商代扣和预授权必填,长度不超过64位
+	// 代扣协议号
+	// 网商代扣和预授权代扣必填，长度不超过64位
 	MybankAgreementNo *string `json:"mybank_agreement_no,omitempty" xml:"mybank_agreement_no,omitempty" maxLength:"64"`
-	// 网商代扣受理订单号,网商代扣必填,长度不超过64位
+	// 网商代扣受理订单号
+	// 网商代扣必填，长度不超过64位
 	MybankAgreementOrderId *string `json:"mybank_agreement_order_id,omitempty" xml:"mybank_agreement_order_id,omitempty" maxLength:"64"`
-	// 用英文单词替代数字
-	// -网商代扣：MY_BANK_PROXY_WITHHOLDING
-	// -合同代扣：CONTRACT_PROXY_WITHHOLDING
+	// 租金支付方式
+	// 1.网商代扣：MY_BANK_PROXY_WITHHOLDING
+	// 2.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
+	// 3.租赁代扣：PROXY_WITHHOLDING
 	OrderWithholdType *string `json:"order_withhold_type,omitempty" xml:"order_withhold_type,omitempty" require:"true" maxLength:"32"`
 	// 首付款金额 单位分
 	DownPayment *int64 `json:"down_payment,omitempty" xml:"down_payment,omitempty" minimum:"1"`
-	// 承诺详情,选择代扣是非必填, 按期数从小到大且连续排序
+	// 承诺详情
+	// 按期数从小到大且连续排序
 	PromiseDetails []*BclCreatePromiseDetailInfo `json:"promise_details,omitempty" xml:"promise_details,omitempty" type:"Repeated"`
-	// 物流方式：
-	// POST 邮寄
-	// OFFLINE 线下自取
+	// 物流方式
+	// 1.邮寄：POST
+	// 2.线下自取：OFFLINE
 	LogisticType *string `json:"logistic_type,omitempty" xml:"logistic_type,omitempty" require:"true" maxLength:"16"`
 	// 商品列表
 	ProductInfos []*BclOrderProductInfo `json:"product_infos,omitempty" xml:"product_infos,omitempty" require:"true" type:"Repeated"`
-	// - 实名：REAL_PERSON,
-	// - 风控：RISK,
-	// - 合同：CONTRACT
+	// 需要使用的增值服务
+	// 1.实名：REAL_PERSON
+	// 2.风控：RISK
+	// 3.租赁合同：CONTRACT
+	// 实人和合同服务使用最长超时时间为72小时
 	ServiceTypes []*string `json:"service_types,omitempty" xml:"service_types,omitempty" type:"Repeated"`
-	// 用户下单时候的ip地址,如果可选服务选择了风控,必填 ,长度不超过32位
+	// 用户下单时的ip地址
+	// 如果可选服务选择了风控，必须填写，长度不超过32位
 	UserIp *string `json:"user_ip,omitempty" xml:"user_ip,omitempty" maxLength:"32"`
-	// 承租人实人认证完成后回跳地址(比如商户小程序下单地址),选择实人认证服务时必填
+	// 承租人实人认证完成后回跳地址
+	// 比如商户小程序下单地址，选择实人认证服务时必填
 	RealPersonReturnUrl *string `json:"real_person_return_url,omitempty" xml:"real_person_return_url,omitempty" maxLength:"512"`
-	// 签署流程信息，如果使用租赁代扣创建则必填
+	// 签署流程信息
+	// 当service_types为包含CONTRACT时或order_withhold_type为PROXY_WITHHOLDING时必填
 	ContractFlowInfo *BclContractFlowInfo `json:"contract_flow_info,omitempty" xml:"contract_flow_info,omitempty"`
-	// 是否不需要融资：
-	// ● true表示明确这笔订单不需要融资
-	// ● false表示该笔订单后续可能融资也可能不融资
+	// 是	是否不需要融资：
+	// 1.明确这笔订单不需要融资：true
+	// 2.该笔订单后续可能融资也可能不融资：false
+	// 注意：标明不需要融资可以提升代扣回款速度
 	NoneFinancing *bool `json:"none_financing,omitempty" xml:"none_financing,omitempty"`
 }
 
@@ -8529,11 +8595,12 @@ type QueryBclOrderResponse struct {
 	OrderInfo *BclOrderInfo `json:"order_info,omitempty" xml:"order_info,omitempty"`
 	// 实人信息
 	CertifyInfo *BclCertifyInfo `json:"certify_info,omitempty" xml:"certify_info,omitempty"`
-	// 风控 决策分数
+	// 风控分数
+	// 分数0-100，小数2位，分数越高风险越大
 	RiskScore *string `json:"risk_score,omitempty" xml:"risk_score,omitempty"`
-	// 用户身份信息和支付宝id的核验
-	// 匹配，PASS
-	// 不匹配，UN_PASS
+	// 用户身份信息和支付宝ID的核验
+	// 1.匹配，PASS
+	// 2.不匹配，UN_PASS
 	IdentityVerification *string `json:"identity_verification,omitempty" xml:"identity_verification,omitempty"`
 	// 合同信息
 	ContractInfo *BclContractInfo `json:"contract_info,omitempty" xml:"contract_info,omitempty"`
@@ -8626,16 +8693,19 @@ type UploadBclPerformanceRequest struct {
 	Period *int64 `json:"period,omitempty" xml:"period,omitempty" require:"true" maximum:"120" minimum:"1"`
 	// 租金归还金额，单位精确到分。如：56309表示563.09元
 	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true" minimum:"1"`
-	// 租金归还时间(格式为"2019-07-31 12:00:00")
+	// 租金归还时间
+	// 示例：2023-06-27T10:50:23+08:00
 	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 归还方式，取值范围如下：
-	// ACTIVE_REPAYMENT：主动还款，
-	// MY_BANK_PROXY_WITHHOLDING：网商委托代扣,
-	// PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
+	// 归还方式
+	// 1.主动还款：ACTIVE_REPAYMENT
+	// 2.网商委托代扣：MY_BANK_PROXY_WITHHOLDING
+	// 3.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
 	Way *string `json:"way,omitempty" xml:"way,omitempty" require:"true" maxLength:"32"`
-	// 还款凭证类型，取值范围如下：
-	// PLATFORM_COLLECTION：平台代收（客户主动还款），
-	// MY_BANK：网商银行
+	// 还款凭证类型
+	// 1.平台代收（客户主动还款）：PLATFORM_COLLECTION
+	// 2.网商银行：MY_BANK
+	// 3.支付宝：ALIPAY
+	// 4.其他：OTHER
 	VoucherType *string `json:"voucher_type,omitempty" xml:"voucher_type,omitempty" require:"true" maxLength:"32"`
 	// 还款凭证编号,
 	// 如支付宝还款时，为支付宝流水编号
@@ -8757,64 +8827,48 @@ type CreateBclProductRequest struct {
 	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true" maxLength:"64"`
 	// 商品官网价格,单位为分。如：856400，表示8564元，大于0
 	ProductPrice *int64 `json:"product_price,omitempty" xml:"product_price,omitempty" require:"true" minimum:"1"`
-	// 一级行业代码。
-	//
-	// 具体参考如下定义
-	// 格式如：【一级行业    ->  	一级行业代码】：
-	// 【3C办公	     ->    3C    】；
-	// 【IOT     ->    IOT  】；
-	// 【新能源	     ->    NE    】；
-	// 【泛行业	     ->     GENERAL    】
+	// 一级行业代码，
+	// 本期暂时只支持 3C，后续扩充
 	MainClass *string `json:"main_class,omitempty" xml:"main_class,omitempty" require:"true" maxLength:"32"`
-	// 二级行业代码。
-	// 具体参考如下：
-	// 【二级行业   ->  二级行业代码】；
-	//
-	// 【手机   ->  3c_mobile】；
-	// 电脑   ->  3c_pc】；
-	// 【摄影   ->  3c_camera】；
-	// 办公设备   ->  3c_office】；
-	// 【3C-其他   ->  3c_other】；
-	//
-	// 【售卖柜   ->  iot_auto_container】；
-	// 【驿站   ->  iot_stage】；
-	// 【IOT-其他   ->  iot_other】；
-	//
-	// 【电池   ->  ne_battery】；
-	// 【电动车   ->  ne_electric_car】；
-	// 【新能源-其他   ->  ne_other】；
-	//
-	// 【家具   ->  general_furniture】；
-	// 【家电   ->  general_tv】；
-	// 【泛其他   ->  general_other】；
-	//
+	// 二级行业代码
+	// 1.手机：3c_mobile
+	// 2.电脑：3c_pc
+	// 3.摄影：3c_camera
+	// 4.办公设备：3c_office
+	// 5.3C其他：3c_other
 	SubClass *string `json:"sub_class,omitempty" xml:"sub_class,omitempty" require:"true" maxLength:"32"`
-	// 供应商名称,(采购模式)供应商模式则为供应商名称，否则平台自己名称
+	// 供应商名称
+	// 商品从供应商采购为供应商名称，否则为平台自己名称，最大长度不能超过64
 	SupplierName *string `json:"supplier_name,omitempty" xml:"supplier_name,omitempty" require:"true" maxLength:"64"`
-	// 金融科技租户id;
-	// 采购模式)提供商品方的金融科技租户id
+	// 供应商数字科技租户ID
+	// 商品从供应商采购为供应商租户ID，否则为平台自己租户ID
 	SupplierId *string `json:"supplier_id,omitempty" xml:"supplier_id,omitempty" require:"true" maxLength:"8"`
 	// 安装服务费，单位为分，150000则表示1500元；
 	// 不能为负数；
 	InstallPrice *int64 `json:"install_price,omitempty" xml:"install_price,omitempty" minimum:"1"`
-	// 商品来源，如 传 SUPPLIER 则表示来源为供应商。长度不超过32位
-	// 取值范围如下：
-	// 【SUPPLIER： 供应商】
-	// 【LEASING_COMPANY  ：租赁机构】
+	// 商品来源
+	// 长度不超过32位
+	// 1.供应商：SUPPLIER
+	// 2.租赁机构：LEASING_COMPANY
 	ProductOrigin *string `json:"product_origin,omitempty" xml:"product_origin,omitempty" require:"true" maxLength:"32"`
 	// 实际库存量，不能为负数
 	RealStock *int64 `json:"real_stock,omitempty" xml:"real_stock,omitempty" require:"true" minimum:"1"`
 	// 预估出货量,不能为负数
 	EstimatedShipment *int64 `json:"estimated_shipment,omitempty" xml:"estimated_shipment,omitempty" require:"true" minimum:"1"`
 	// 商品详情
+	// 最大长度不能超过256
 	ProductDetailInfo *string `json:"product_detail_info,omitempty" xml:"product_detail_info,omitempty" require:"true" maxLength:"256"`
 	// 商品链接
+	// 最大长度不能超过256
 	ProductUrl *string `json:"product_url,omitempty" xml:"product_url,omitempty" require:"true" maxLength:"256"`
 	// 商品品牌
+	// 最大长度不能超过64
 	ProductBrand *string `json:"product_brand,omitempty" xml:"product_brand,omitempty" require:"true" maxLength:"64"`
-	// 产品规格是用来识别物品的编号
+	// 产品规格
+	// 识别物品的编号，最大长度不能超过256
 	ProductModel *string `json:"product_model,omitempty" xml:"product_model,omitempty" require:"true" maxLength:"256"`
-	// 免押金额，单位分。如：15600表示免押金额为156元。
+	// 免押金额，单位：分
+	// 示例：15600表示免押金额为156元，最小值需大于0
 	DepositPrice *int64 `json:"deposit_price,omitempty" xml:"deposit_price,omitempty" minimum:"1"`
 }
 
@@ -8928,8 +8982,8 @@ type CreateBclProductResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 商品的ID。
-	// 租赁维护的商品id,全局唯一,用户后面创建订单和商品查询。
+	// 商品ID
+	// 租赁维护的商品ID，全局唯一，用户后面创建订单和商品查询
 	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty"`
 }
 
@@ -9006,17 +9060,21 @@ type QueryBclProductResponse struct {
 	ProductVersion *string `json:"product_version,omitempty" xml:"product_version,omitempty"`
 	// 商品名称
 	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
-	// 商品价格,单位为分。如：856400，表示8564元
+	// 商品官网价格，单位：分
+	// 示例：856400，表示8564元，必须大于0
 	ProductPrice *int64 `json:"product_price,omitempty" xml:"product_price,omitempty"`
-	// 一级行业代码。 具体参考如下定义 格式如：【一级行业 -> 一级行业代码】： 【3C办公 -> 3C 】； 【IOT -> IOT 】； 【新能源 -> NE 】； 【泛行业 -> GENERAL 】
+	// 一级行业代码
 	MainClass *string `json:"main_class,omitempty" xml:"main_class,omitempty"`
-	// 二级行业代码。 具体参考如下： 【二级行业 -> 二级行业代码】； 【手机 -> 3c_mobile】； 电脑 -> 3c_pc】； 【摄影 -> 3c_camera】； 办公设备 -> 3c_office】； 【3C-其他 -> 3c_other】； 【售卖柜 -> iot_auto_container】； 【驿站 -> iot_stage】； 【IOT-其他 -> iot_other】； 【电池 -> ne_battery】； 【电动车 -> ne_electric_car】； 【新能源-其他 -> ne_other】； 【家具 -> general_furniture】； 【家电 -> general_tv】； 【泛其他 -> general_other】；
+	// 二级行业代码
 	SubClass *string `json:"sub_class,omitempty" xml:"sub_class,omitempty"`
-	// 供应商名称,(采购模式)供应商模式则为供应商名称，否则平台自己名称
+	// 供应商名称
+	// 商品从供应商采购为供应商名称，否则为平台自己名称，最大长度不能超过64
 	SupplierName *string `json:"supplier_name,omitempty" xml:"supplier_name,omitempty"`
-	// 金融科技租户id; 采购模式)提供商品方的金融科技租户id
+	// 供应商数字科技租户ID
+	// 商品从供应商采购为供应商租户ID，否则为平台自己租户ID
 	SupplierId *string `json:"supplier_id,omitempty" xml:"supplier_id,omitempty"`
-	// 安装服务费，单位为分，150000则表示1500元；
+	// 安装服务费，单位：分
+	// 示例：150000则表示1500元，不能为负数
 	InstallPrice *int64 `json:"install_price,omitempty" xml:"install_price,omitempty"`
 	// 商品来源，如 传 SUPPLIER 则表示来源为供应商。 取值范围如下： 【SUPPLIER： 供应商】 【LEASING_COMPANY ：租赁机构】
 	ProductOrigin *string `json:"product_origin,omitempty" xml:"product_origin,omitempty"`
@@ -9030,9 +9088,11 @@ type QueryBclProductResponse struct {
 	ProductUrl *string `json:"product_url,omitempty" xml:"product_url,omitempty"`
 	// 商品品牌
 	ProductBrand *string `json:"product_brand,omitempty" xml:"product_brand,omitempty"`
-	// 产品规格是用来识别物品的编号
+	// 产品规格
+	// 识别物品的编号，最大长度不能超过256
 	ProductModel *string `json:"product_model,omitempty" xml:"product_model,omitempty"`
-	// 免押金额，单位分。如：15600表示免押金额为156元。
+	// 免押金额，单位：分
+	// 示例：15600表示免押金额为156元，不能为负数
 	DepositPrice *int64 `json:"deposit_price,omitempty" xml:"deposit_price,omitempty"`
 }
 
@@ -9683,10 +9743,12 @@ type RegisterBclMerchantRequest struct {
 	// 最大长度64
 	LegalName *string `json:"legal_name,omitempty" xml:"legal_name,omitempty" require:"true"`
 	// 法人身份证号
-	// 最大长度18
+	// 最大长度：18
+	// 当前暂时只支持中国大陆个人身份证
 	LegalCertNo *string `json:"legal_cert_no,omitempty" xml:"legal_cert_no,omitempty" require:"true"`
-	// 商家联系人信息
+	// 商户联系人信息
 	// 当前只支持一个联系人
+	// 如果need_proxy_withholding为true则必填
 	ContactInfos []*BclContactInfo `json:"contact_infos,omitempty" xml:"contact_infos,omitempty" type:"Repeated"`
 	// 商家实体支付宝账号
 	// 用作结算账号。本字段支付宝账号实名信息要求与商户名称cert_name同名，且是实名认证支付宝企业账户，最大长度：64
@@ -46599,7 +46661,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.21"),
+				"sdk_version":      tea.String("1.11.22"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
