@@ -3156,12 +3156,18 @@ export class BclContractFlowInfo extends $tea.Model {
   // 流程结束后的默认重定向地址
   // 默认签署完成停在当前页面
   redirectUrl?: string;
+  // 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
+  signPlatform?: string;
+  // 收款方的ID，调用创建收款方接口获得
+  payeeId?: string;
   static names(): { [key: string]: string } {
     return {
       businessScene: 'business_scene',
       fileInfo: 'file_info',
       redirectUrlOnFailure: 'redirect_url_on_failure',
       redirectUrl: 'redirect_url',
+      signPlatform: 'sign_platform',
+      payeeId: 'payee_id',
     };
   }
 
@@ -3171,6 +3177,8 @@ export class BclContractFlowInfo extends $tea.Model {
       fileInfo: { 'type': 'array', 'itemType': BclContractFileInfo },
       redirectUrlOnFailure: 'string',
       redirectUrl: 'string',
+      signPlatform: 'string',
+      payeeId: 'string',
     };
   }
 
@@ -4486,7 +4494,7 @@ export class BclRentalInfo extends $tea.Model {
   amount: number;
   // 租金归还时间
   time: string;
-  // 是	归还方式
+  // 归还方式
   // 1.租赁代扣: PROXY_WITHHOLDING
   // 2.主动还款：ACTIVE_REPAYMENT  
   // 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
@@ -5223,6 +5231,44 @@ export class RepaymentOrderRequest extends $tea.Model {
       payDate: 'number',
       payMoney: 'number',
       triggerImmediately: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户与商家之间的协商记录
+export class ReplyDetailInfo extends $tea.Model {
+  // 回复人名称
+  replierName: string;
+  // 回复人角色 用户：USER 商家：MERCHANT 系统：SYSTEM 审核小二：AUDITOR 政府单位：GOVERNMENT
+  replierRole: string;
+  // 回复时间
+  // 
+  gmtCreate: string;
+  // 回复内容
+  content: string;
+  // 回复图片
+  images: string[];
+  static names(): { [key: string]: string } {
+    return {
+      replierName: 'replier_name',
+      replierRole: 'replier_role',
+      gmtCreate: 'gmt_create',
+      content: 'content',
+      images: 'images',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      replierName: 'string',
+      replierRole: 'string',
+      gmtCreate: 'string',
+      content: 'string',
+      images: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -6363,7 +6409,7 @@ export class CreateBclOrderRequest extends $tea.Model {
   // 签署流程信息
   // 当service_types为包含CONTRACT时或order_withhold_type为PROXY_WITHHOLDING时必填
   contractFlowInfo?: BclContractFlowInfo;
-  // 是	是否不需要融资：
+  // 是否不需要融资：
   // 1.明确这笔订单不需要融资：true
   // 2.该笔订单后续可能融资也可能不融资：false
   // 注意：标明不需要融资可以提升代扣回款速度
@@ -7577,7 +7623,7 @@ export class QueryBclComplainResponse extends $tea.Model {
   // 交易金额，单位元
   tradeAmount?: string;
   // 用户与商家之间的协商记录
-  replyDetailInfos?: ReplayDetailInfo;
+  replyDetailInfos?: ReplyDetailInfo[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -7616,7 +7662,7 @@ export class QueryBclComplainResponse extends $tea.Model {
       complainReason: 'string',
       phoneNo: 'string',
       tradeAmount: 'string',
-      replyDetailInfos: ReplayDetailInfo,
+      replyDetailInfos: { 'type': 'array', 'itemType': ReplyDetailInfo },
     };
   }
 
@@ -34711,7 +34757,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.22",
+          sdk_version: "1.11.24",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
