@@ -25,22 +25,20 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string Time { get; set; }
 
-        // 归还方式
-        // 用英文定义
-        // -预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
-        // -支付宝代扣: ALIPAY_WITHHOLDING
-        // -主动还款：ACTIVE_REPAYMENT
-        // -其他：OTHER
-        // -网商直付通：MY_BANK_DIRECT_PAYMENT
-        // -网商委托代扣：MY_BANK_PROXY_WITHHOLDING
+        // 是	归还方式
+        // 1.租赁代扣: PROXY_WITHHOLDING
+        // 2.主动还款：ACTIVE_REPAYMENT  
+        // 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
+        // 4.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
         [NameInMap("way")]
         [Validation(Required=true)]
         public string Way { get; set; }
 
-        // -支付宝：ALIPAY
-        // -平台代收（客户主动还款）：PLATFORM_COLLECTION
-        // -其他：OTHER
-        // -网商银行：MY_BANK,
+        // 还款渠道
+        // 1.支付宝：ALIPAY
+        // 2.平台代收（客户主动还款）：PLATFORM_COLLECTION 
+        // 3.网商银行：MY_BANK
+        // 4.其他：OTHER 
         [NameInMap("voucher_type")]
         [Validation(Required=true)]
         public string VoucherType { get; set; }

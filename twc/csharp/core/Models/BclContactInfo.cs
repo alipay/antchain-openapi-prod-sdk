@@ -15,12 +15,16 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string Name { get; set; }
 
-        // 联系人手机号，最大长度：20
+        // 联系人手机号
+        // 最大长度：20
+        // 示例：13812348888
         [NameInMap("mobile")]
         [Validation(Required=true)]
         public string Mobile { get; set; }
 
-        // 联系人电话，最大长度：20
+        // 联系人电话
+        // 最大长度：20
+        // 示例：0571-12345678
         [NameInMap("phone")]
         [Validation(Required=false)]
         public string Phone { get; set; }

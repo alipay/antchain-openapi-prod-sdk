@@ -10,12 +10,15 @@ namespace AntChain.SDK.TWC.Models
 {
     // 租赁用户信息
     public class BclUserInfo : TeaModel {
-        // 用户账号ID,长度不超过64位
+        // 用户账号ID
+        // 长度不超过64位，本期只支持支付宝userid
         [NameInMap("user_account_id")]
         [Validation(Required=true, MaxLength=64)]
         public string UserAccountId { get; set; }
 
-        // 用户账号类型（承租人) ALIPAY.支付宝
+        // 用户账号平台类型
+        // 1.支付宝：ALIPAY
+        // 本期暂时只支持支付宝
         [NameInMap("user_account_type")]
         [Validation(Required=true, MaxLength=16)]
         public string UserAccountType { get; set; }
@@ -30,7 +33,9 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true, MaxLength=64)]
         public string UserCertNo { get; set; }
 
-        // 承租人/企业证件类型: IDENTITY_CARD 身份证 NATIONAL_LEGAL_MERGE 统一社会信用代码
+        // 承租人/企业证件类型:
+        // 1.身份证：IDENTITY_CARD
+        // 本期暂时只支持个人身份证
         [NameInMap("user_cert_type")]
         [Validation(Required=true, MaxLength=32)]
         public string UserCertType { get; set; }

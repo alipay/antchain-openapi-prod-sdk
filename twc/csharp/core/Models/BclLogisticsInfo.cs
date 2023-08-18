@@ -21,26 +21,27 @@ namespace AntChain.SDK.TWC.Models
         public string LogisticCompany { get; set; }
 
         // 物流状态
-        // 已发货 SHIPPED
-        // 运输中 TRANSPORT
-        // 已签收 SIGNED
+        // 1.已发货：SHIPPED
+        // 2.已签收：SIGNED
         [NameInMap("status")]
         [Validation(Required=true)]
         public string Status { get; set; }
 
         // 发货时间
+        // 示例：2023-06-27T10:50:23+08:00
         [NameInMap("deliver_time")]
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string DeliverTime { get; set; }
 
         // 租赁类型
-        // 租赁 LEASE
-        // 退租 RETURN_LEASE
+        // 1.租赁：LEASE
+        // 2.退租：RETURN_LEASE
         [NameInMap("lease_type")]
         [Validation(Required=true)]
         public string LeaseType { get; set; }
 
         // 签收时间
+        // 示例：2023-06-27T10:50:23+08:00
         [NameInMap("arrive_confirm_time")]
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string ArriveConfirmTime { get; set; }

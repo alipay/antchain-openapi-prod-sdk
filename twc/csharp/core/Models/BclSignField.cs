@@ -15,59 +15,68 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true, MaxLength=8)]
         public string PosPage { get; set; }
 
-        // 非负数,小数位最多两位,x坐标，sign_type为SINGLE_PAGE时必填，sign_type为RIDE_SEAM时不填写
+        // 页面签署位置x坐标
+        // 非负数，小数位最多两位x坐标
+        // sign_type：SINGLE_PAGE 必填
+        // sign_type：RIDE_SEAM  无需填写
         [NameInMap("pos_x")]
         [Validation(Required=false, MaxLength=8)]
         public string PosX { get; set; }
 
-        // 非负数,小数位最多两位,y坐标
+        // 页面签署位置y坐标
+        // 非负数，小数位最多两位，y坐标
         [NameInMap("pos_y")]
         [Validation(Required=true, MaxLength=8)]
         public string PosY { get; set; }
 
-        // 签署类型，
-        // 单页签署: SINGLE_PAGE，
-        // 骑缝签署: RIDE_SEAM，
-        // 默认 SINGLE_PAGE
+        // 签署类型
+        // 1.单页签署: SINGLE_PAGE
+        // 2.骑缝签署: RIDE_SEAM
+        // 默认：SINGLE_PAGE
         [NameInMap("sign_field_type")]
         [Validation(Required=true, MaxLength=16)]
         public string SignFieldType { get; set; }
 
         // 是否添加签署时间
-        // 不添加: false 添加: true ， 默认false, 商家不支持指定日期坐标
+        // 1.不添加: false 
+        // 2.添加: true 
+        // 默认：false
         [NameInMap("add_sign_date")]
         [Validation(Required=false)]
         public bool? AddSignDate { get; set; }
 
-        // 签章日期字体大小,默认12
+        // 签章日期字体大小
+        // 默认12，范围10-20
         // 商家签署区不支持
         [NameInMap("sign_date_font_size")]
         [Validation(Required=false)]
         public long? SignDateFontSize { get; set; }
 
-        // 签章日期格式，
-        // yyyy年MM月dd日（默认值）
-        // yyyy-MM-dd
-        // yyyy/MM/dd
-        // yyyy-MM-dd HH:mm:ss
+        // 签章日期格式
+        // yyyy年MM月dd日（默认值） yyyy-MM-dd 
+        // yyyy/MM/dd 
+        // yyyy-MM-dd HH:mm:ss 
         // 商家签署区不支持
         [NameInMap("sign_date_format")]
         [Validation(Required=false, MaxLength=32)]
         public string SignDateFormat { get; set; }
 
-        // 页码信息，当add_sign_date为true时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
+        // 页码信息
+        // 当add_sign_date为true时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可
         // 商家签署区不支持
         [NameInMap("sign_date_pos_page")]
         [Validation(Required=false)]
         public long? SignDatePosPage { get; set; }
 
-        // 非负数,小数位最多两位,签章日期x坐标，默认0
+        // 页面签章日期x坐标
+        // 非负数，小数位最多两位，默认0 
         // 商家签署区不支持
         [NameInMap("sign_date_pos_x")]
         [Validation(Required=false, MaxLength=8)]
         public string SignDatePosX { get; set; }
 
-        // 非负数,小数位最多两位,签章日期y坐标，默认0
+        // 页面签章日期y坐标
+        // 非负数，小数位最多两位，默认0 
         // 商家签署区不支持
         [NameInMap("sign_date_pos_y")]
         [Validation(Required=false, MaxLength=8)]

@@ -39,32 +39,36 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductName { get; set; }
 
-        // 商品价格,单位为分。如：856400，表示8564元
+        // 商品官网价格，单位：分
+        // 示例：856400，表示8564元，必须大于0
         [NameInMap("product_price")]
         [Validation(Required=false)]
         public long? ProductPrice { get; set; }
 
-        // 一级行业代码。 具体参考如下定义 格式如：【一级行业 -> 一级行业代码】： 【3C办公 -> 3C 】； 【IOT -> IOT 】； 【新能源 -> NE 】； 【泛行业 -> GENERAL 】
+        // 一级行业代码
         [NameInMap("main_class")]
         [Validation(Required=false)]
         public string MainClass { get; set; }
 
-        // 二级行业代码。 具体参考如下： 【二级行业 -> 二级行业代码】； 【手机 -> 3c_mobile】； 电脑 -> 3c_pc】； 【摄影 -> 3c_camera】； 办公设备 -> 3c_office】； 【3C-其他 -> 3c_other】； 【售卖柜 -> iot_auto_container】； 【驿站 -> iot_stage】； 【IOT-其他 -> iot_other】； 【电池 -> ne_battery】； 【电动车 -> ne_electric_car】； 【新能源-其他 -> ne_other】； 【家具 -> general_furniture】； 【家电 -> general_tv】； 【泛其他 -> general_other】；
+        // 二级行业代码
         [NameInMap("sub_class")]
         [Validation(Required=false)]
         public string SubClass { get; set; }
 
-        // 供应商名称,(采购模式)供应商模式则为供应商名称，否则平台自己名称
+        // 供应商名称
+        // 商品从供应商采购为供应商名称，否则为平台自己名称，最大长度不能超过64
         [NameInMap("supplier_name")]
         [Validation(Required=false)]
         public string SupplierName { get; set; }
 
-        // 金融科技租户id; 采购模式)提供商品方的金融科技租户id
+        // 供应商数字科技租户ID
+        // 商品从供应商采购为供应商租户ID，否则为平台自己租户ID
         [NameInMap("supplier_id")]
         [Validation(Required=false)]
         public string SupplierId { get; set; }
 
-        // 安装服务费，单位为分，150000则表示1500元；
+        // 安装服务费，单位：分
+        // 示例：150000则表示1500元，不能为负数
         [NameInMap("install_price")]
         [Validation(Required=false)]
         public long? InstallPrice { get; set; }
@@ -99,12 +103,14 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductBrand { get; set; }
 
-        // 产品规格是用来识别物品的编号
+        // 产品规格
+        // 识别物品的编号，最大长度不能超过256
         [NameInMap("product_model")]
         [Validation(Required=false)]
         public string ProductModel { get; set; }
 
-        // 免押金额，单位分。如：15600表示免押金额为156元。
+        // 免押金额，单位：分
+        // 示例：15600表示免押金额为156元，不能为负数
         [NameInMap("deposit_price")]
         [Validation(Required=false)]
         public long? DepositPrice { get; set; }

@@ -24,12 +24,14 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public List<BclContractFileInfo> FileInfo { get; set; }
 
-        // 合同签署失败回调地址
+        // 签署失败时的跳转地址
+        // 如果不做单独配置，默认与redirect_url一致
         [NameInMap("redirect_url_on_failure")]
         [Validation(Required=false, MaxLength=512)]
         public string RedirectUrlOnFailure { get; set; }
 
-        // 合同签署成功回调地址
+        // 流程结束后的默认重定向地址
+        // 默认签署完成停在当前页面
         [NameInMap("redirect_url")]
         [Validation(Required=false, MaxLength=512)]
         public string RedirectUrl { get; set; }

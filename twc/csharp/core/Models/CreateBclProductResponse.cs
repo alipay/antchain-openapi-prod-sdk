@@ -24,8 +24,8 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 商品的ID。
-        // 租赁维护的商品id,全局唯一,用户后面创建订单和商品查询。
+        // 商品ID
+        // 租赁维护的商品ID，全局唯一，用户后面创建订单和商品查询
         [NameInMap("product_id")]
         [Validation(Required=false)]
         public string ProductId { get; set; }

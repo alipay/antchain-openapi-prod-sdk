@@ -16,6 +16,7 @@ namespace AntChain.SDK.TWC.Models
         public string ProductId { get; set; }
 
         // 商品数量
+        // 目前只允许一个商品
         [NameInMap("product_number")]
         [Validation(Required=true)]
         public long? ProductNumber { get; set; }

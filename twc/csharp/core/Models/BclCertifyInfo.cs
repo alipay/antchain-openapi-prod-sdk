@@ -26,10 +26,10 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultDesc { get; set; }
 
-        // 认证状态
-        // 待认证  INIT
-        // 认证成功 PASS
-        // 认证失败 FAIL
+        // 认证状态 
+        // 1.待认证：INIT 
+        // 2.认证成功：PASS 
+        // 3.认证失败：FAIL
         [NameInMap("status")]
         [Validation(Required=true)]
         public string Status { get; set; }
