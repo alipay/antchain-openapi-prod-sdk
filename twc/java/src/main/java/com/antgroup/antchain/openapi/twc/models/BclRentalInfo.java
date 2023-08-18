@@ -19,7 +19,7 @@ public class BclRentalInfo extends TeaModel {
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String time;
 
-    // 是	归还方式
+    // 归还方式
     // 1.租赁代扣: PROXY_WITHHOLDING
     // 2.主动还款：ACTIVE_REPAYMENT  
     // 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT

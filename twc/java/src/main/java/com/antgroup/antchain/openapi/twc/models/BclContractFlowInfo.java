@@ -29,6 +29,14 @@ public class BclContractFlowInfo extends TeaModel {
     @Validation(maxLength = 512)
     public String redirectUrl;
 
+    // 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
+    @NameInMap("sign_platform")
+    public String signPlatform;
+
+    // 收款方的ID，调用创建收款方接口获得
+    @NameInMap("payee_id")
+    public String payeeId;
+
     public static BclContractFlowInfo build(java.util.Map<String, ?> map) throws Exception {
         BclContractFlowInfo self = new BclContractFlowInfo();
         return TeaModel.build(map, self);
@@ -64,6 +72,22 @@ public class BclContractFlowInfo extends TeaModel {
     }
     public String getRedirectUrl() {
         return this.redirectUrl;
+    }
+
+    public BclContractFlowInfo setSignPlatform(String signPlatform) {
+        this.signPlatform = signPlatform;
+        return this;
+    }
+    public String getSignPlatform() {
+        return this.signPlatform;
+    }
+
+    public BclContractFlowInfo setPayeeId(String payeeId) {
+        this.payeeId = payeeId;
+        return this;
+    }
+    public String getPayeeId() {
+        return this.payeeId;
     }
 
 }

@@ -66,7 +66,7 @@ public class QueryBclComplainResponse extends TeaModel {
 
     // 用户与商家之间的协商记录
     @NameInMap("reply_detail_infos")
-    public ReplayDetailInfo replyDetailInfos;
+    public java.util.List<ReplyDetailInfo> replyDetailInfos;
 
     public static QueryBclComplainResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryBclComplainResponse self = new QueryBclComplainResponse();
@@ -193,11 +193,11 @@ public class QueryBclComplainResponse extends TeaModel {
         return this.tradeAmount;
     }
 
-    public QueryBclComplainResponse setReplyDetailInfos(ReplayDetailInfo replyDetailInfos) {
+    public QueryBclComplainResponse setReplyDetailInfos(java.util.List<ReplyDetailInfo> replyDetailInfos) {
         this.replyDetailInfos = replyDetailInfos;
         return this;
     }
-    public ReplayDetailInfo getReplyDetailInfos() {
+    public java.util.List<ReplyDetailInfo> getReplyDetailInfos() {
         return this.replyDetailInfos;
     }
 
