@@ -401,35 +401,44 @@ class BclSignField(TeaModel):
     ):
         # 页码信息：当签署区sign_type为RIDE_SEAM时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；
         self.pos_page = pos_page
-        # 非负数,小数位最多两位,x坐标，sign_type为SINGLE_PAGE时必填，sign_type为RIDE_SEAM时不填写
+        # 页面签署位置x坐标
+        # 非负数，小数位最多两位x坐标
+        # sign_type：SINGLE_PAGE 必填
+        # sign_type：RIDE_SEAM  无需填写
         self.pos_x = pos_x
-        # 非负数,小数位最多两位,y坐标
+        # 页面签署位置y坐标
+        # 非负数，小数位最多两位，y坐标
         self.pos_y = pos_y
-        # 签署类型，
-        # 单页签署: SINGLE_PAGE，
-        # 骑缝签署: RIDE_SEAM，
-        # 默认 SINGLE_PAGE
+        # 签署类型
+        # 1.单页签署: SINGLE_PAGE
+        # 2.骑缝签署: RIDE_SEAM
+        # 默认：SINGLE_PAGE
         self.sign_field_type = sign_field_type
         # 是否添加签署时间
-        # 不添加: false 添加: true ， 默认false, 商家不支持指定日期坐标
+        # 1.不添加: false
+        # 2.添加: true
+        # 默认：false
         self.add_sign_date = add_sign_date
-        # 签章日期字体大小,默认12
+        # 签章日期字体大小
+        # 默认12，范围10-20
         # 商家签署区不支持
         self.sign_date_font_size = sign_date_font_size
-        # 签章日期格式，
-        # yyyy年MM月dd日（默认值）
-        # yyyy-MM-dd
+        # 签章日期格式
+        # yyyy年MM月dd日（默认值） yyyy-MM-dd
         # yyyy/MM/dd
         # yyyy-MM-dd HH:mm:ss
         # 商家签署区不支持
         self.sign_date_format = sign_date_format
-        # 页码信息，当add_sign_date为true时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
+        # 页码信息
+        # 当add_sign_date为true时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可
         # 商家签署区不支持
         self.sign_date_pos_page = sign_date_pos_page
-        # 非负数,小数位最多两位,签章日期x坐标，默认0
+        # 页面签章日期x坐标
+        # 非负数，小数位最多两位，默认0
         # 商家签署区不支持
         self.sign_date_pos_x = sign_date_pos_x
-        # 非负数,小数位最多两位,签章日期y坐标，默认0
+        # 页面签章日期y坐标
+        # 非负数，小数位最多两位，默认0
         # 商家签署区不支持
         self.sign_date_pos_y = sign_date_pos_y
 
@@ -563,6 +572,7 @@ class BclOrderProductInfo(TeaModel):
         # 创建商品后返回的商品id
         self.product_id = product_id
         # 商品数量
+        # 目前只允许一个商品
         self.product_number = product_number
 
     def validate(self):
@@ -1107,15 +1117,21 @@ class BclPromiseDetailInfo(TeaModel):
         # 承诺金额 单位分
         self.amount = amount
         # 本期还款状态
-        # 已还款，PAID
-        # 部分还款，PART_PAID
-        # 未还款，UN_PAID
+        # 1.已还款：PAID
+        # 2.部分还款：PART_PAID
+        # 3.未还款：UN_PAID
         self.status = status
         # 每期约定还款时间
+        # 示例：2023-06-7T10:50:23+08:00
         self.promise_time = promise_time
-        # 履约日期
+        # 每期应还日期
+        # 示例：2023-06-27T10:50:23+08:00
         self.pay_time = pay_time
-        # 归还方式，取值范围如下： ACTIVE_REPAYMENT：主动还款， MY_BANK_PROXY_WITHHOLDING：网商委托代扣, PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
+        # 归还方式
+        # 1.租赁代扣： PROXY_WITHHOLDING
+        # 2.主动还款：ACTIVE_REPAYMENT
+        # 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
+        # 4.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
         self.way = way
 
     def validate(self):
@@ -1823,15 +1839,20 @@ class BclUserInfo(TeaModel):
         user_cert_front_file_id: str = None,
         user_cert_back_file_id: str = None,
     ):
-        # 用户账号ID,长度不超过64位
+        # 用户账号ID
+        # 长度不超过64位，本期只支持支付宝userid
         self.user_account_id = user_account_id
-        # 用户账号类型（承租人) ALIPAY.支付宝
+        # 用户账号平台类型
+        # 1.支付宝：ALIPAY
+        # 本期暂时只支持支付宝
         self.user_account_type = user_account_type
         # 承租人/企业姓名,长度不超过32位
         self.user_cert_name = user_cert_name
         # 承租人/企业证件号,长度不超过64位
         self.user_cert_no = user_cert_no
-        # 承租人/企业证件类型: IDENTITY_CARD 身份证 NATIONAL_LEGAL_MERGE 统一社会信用代码
+        # 承租人/企业证件类型:
+        # 1.身份证：IDENTITY_CARD
+        # 本期暂时只支持个人身份证
         self.user_cert_type = user_cert_type
         # 承租人/企业手机号,长度不超过32位
         self.user_phone_number = user_phone_number
@@ -5115,9 +5136,9 @@ class BclCertifyInfo(TeaModel):
         # 认证描述
         self.result_desc = result_desc
         # 认证状态
-        # 待认证  INIT
-        # 认证成功 PASS
-        # 认证失败 FAIL
+        # 1.待认证：INIT
+        # 2.认证成功：PASS
+        # 3.认证失败：FAIL
         self.status = status
 
     def validate(self):
@@ -5168,9 +5189,11 @@ class BclContractFlowInfo(TeaModel):
         # 本期只支持一个文件
         # 仅当使用合同服务时必填
         self.file_info = file_info
-        # 合同签署失败回调地址
+        # 签署失败时的跳转地址
+        # 如果不做单独配置，默认与redirect_url一致
         self.redirect_url_on_failure = redirect_url_on_failure
-        # 合同签署成功回调地址
+        # 流程结束后的默认重定向地址
+        # 默认签署完成停在当前页面
         self.redirect_url = redirect_url
 
     def validate(self):
@@ -6791,11 +6814,13 @@ class BclCreatePromiseDetailInfo(TeaModel):
         amount: int = None,
         promise_time: str = None,
     ):
-        # 承诺期数
+        # 承诺期数，最小值：1
         self.period = period
-        # 承诺金额 单位分
+        # 承诺金额，单位：分
+        # 最小值：1，正整数
         self.amount = amount
         # 每期应还的日期
+        # 示例：格式 2023-06-27T10:50:23+08:00
         self.promise_time = promise_time
 
     def validate(self):
@@ -7086,12 +7111,16 @@ class BclContractInfo(TeaModel):
         sign_field_infos: List[BclContractSignFieldInfo] = None,
         dest_url: str = None,
     ):
-        # 待签署,SIGNING
-        # 拒签,REJECT
-        # 签署失败,SIGN_FAIL
-        # 签署完成,FINISH
+        # 签署状态
+        # 1.合同待签署：SIGNING
+        # 2.代扣待签署：PROXY_SIGNING
+        # 3.合同拒签：REJECT
+        # 4.代扣拒签：PROXY_REJECT
+        # 5.合同签署失败：SIGN_FAIL
+        # 6.签署完成：FINISH
         self.sign_status = sign_status
-        # 签署完成的合同文件 只有签署完成才有
+        # 签署完成的合同文件
+        # 如果使用合同服务，只有签署完成才可获取
         self.signed_files = signed_files
         # 签署链接，使用租赁宝代扣并且发起订单后才可以查询获取
         self.sign_url = sign_url
@@ -7276,9 +7305,13 @@ class BclContactInfo(TeaModel):
     ):
         # 联系人名称，最大长度：128
         self.name = name
-        # 联系人手机号，最大长度：20
+        # 联系人手机号
+        # 最大长度：20
+        # 示例：13812348888
         self.mobile = mobile
-        # 联系人电话，最大长度：20
+        # 联系人电话
+        # 最大长度：20
+        # 示例：0571-12345678
         self.phone = phone
 
     def validate(self):
@@ -7379,19 +7412,17 @@ class BclRentalInfo(TeaModel):
         self.amount = amount
         # 租金归还时间
         self.time = time
-        # 归还方式
-        # 用英文定义
-        # -预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
-        # -支付宝代扣: ALIPAY_WITHHOLDING
-        # -主动还款：ACTIVE_REPAYMENT
-        # -其他：OTHER
-        # -网商直付通：MY_BANK_DIRECT_PAYMENT
-        # -网商委托代扣：MY_BANK_PROXY_WITHHOLDING
+        # 是	归还方式
+        # 1.租赁代扣: PROXY_WITHHOLDING
+        # 2.主动还款：ACTIVE_REPAYMENT
+        # 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
+        # 4.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
         self.way = way
-        # -支付宝：ALIPAY
-        # -平台代收（客户主动还款）：PLATFORM_COLLECTION
-        # -其他：OTHER
-        # -网商银行：MY_BANK,
+        # 还款渠道
+        # 1.支付宝：ALIPAY
+        # 2.平台代收（客户主动还款）：PLATFORM_COLLECTION
+        # 3.网商银行：MY_BANK
+        # 4.其他：OTHER
         self.voucher_type = voucher_type
         # 还款凭证编号
         self.voucher_serial = voucher_serial
@@ -7947,17 +7978,18 @@ class BclLogisticsInfo(TeaModel):
         # 物流公司
         self.logistic_company = logistic_company
         # 物流状态
-        # 已发货 SHIPPED
-        # 运输中 TRANSPORT
-        # 已签收 SIGNED
+        # 1.已发货：SHIPPED
+        # 2.已签收：SIGNED
         self.status = status
         # 发货时间
+        # 示例：2023-06-27T10:50:23+08:00
         self.deliver_time = deliver_time
         # 租赁类型
-        # 租赁 LEASE
-        # 退租 RETURN_LEASE
+        # 1.租赁：LEASE
+        # 2.退租：RETURN_LEASE
         self.lease_type = lease_type
         # 签收时间
+        # 示例：2023-06-27T10:50:23+08:00
         self.arrive_confirm_time = arrive_confirm_time
         # 签收文件下载链接
         self.arrive_confirm_file_url = arrive_confirm_file_url
@@ -9067,23 +9099,24 @@ class BclNotaryInfo(TeaModel):
         tx_hash: str = None,
         phase: str = None,
     ):
-        # 存证类型，
-        # 文件 FILE
-        # 文本 TEXT
+        # 存证类型
+        # 1.文件：FILE
+        # 2.文本：TEXT
         self.type = type
         # 存证内容
         self.content = content
-        # 文件下载链接 类型为文件有值
+        # 文件下载链接
+        # 存证类型为FILE时此参数必填；
         self.file_url = file_url
         # 存证内容hash
         self.content_hash = content_hash
         # 存证哈希
         self.tx_hash = tx_hash
         # 存证阶段描述：
-        # UPLOAD_PROMISE_FLOW：上传履约流水，
-        # UPLOAD_LOGISTIC_INFO：上传物流信息，
-        # SIGNED_CONTRACT_FILE：合同签署后文件存证，
-        # BCL_ORDER_PROMISING：租赁订单履约中存证，
+        # 1.上传履约流水：UPLOAD_PROMISE_FLOW
+        # 2.上传物流信息：UPLOAD_LOGISTIC_INFO
+        # 3.合同签署后文件存证：SIGNED_CONTRACT_FILE
+        # 4.租赁订单履约中存证：BCL_ORDER_PROMISING
         self.phase = phase
 
     def validate(self):
@@ -9991,26 +10024,41 @@ class AddBclLogisticinfoRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 订单id
+        # 租赁订单ID
+        # 最大长度：32
         self.order_id = order_id
-        # - SHIPPED 已发货
-        # - TRANSPORT 运输中
-        # - SIGNED 已签收
-        # 当前暂时只支持已发货和已签收
+        # 物流状态
+        # 1.已发货：SHIPPED
+        # 2.已签收：SIGNED
         self.logistic_status = logistic_status
-        # 物流照片网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
+        # 物流照片网关文件ID
+        # 先调用文件上传的接口,这里填上传后返回的fileid
         self.logistics_file_id = logistics_file_id
-        # 签收记录,网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
+        # 签收记录,网关文件ID
+        # 先调用文件上传的接口,这里填上传后返回的fileid
         self.arrive_confirm_file_id = arrive_confirm_file_id
-        # 用户签收时间格式为2019-8-31 12:00:00
+        # 用户签收时间
+        # 示例：2023-06-27T10:50:23+08:00
         self.arrive_confirm_time = arrive_confirm_time
         # 物流公司简称
         self.logistic_company_name = logistic_company_name
-        # 物流公司code
+        # 物流公司code：
+        # 1.圆通速递：YTO
+        # 2.韵达快递：YUNDA
+        # 3.顺丰速运：SF
+        # 4.EMS：EMS
+        # 5.申通快递：STO
+        # 6.中通快递：ZTO
+        # 7.天天快递：TTKDEX
+        # 8.全峰快递：QFKD
+        # 9.中铁物流：ZTKY
+        # 10.其他：OTHER
         self.logistic_company_code = logistic_company_code
-        # 物流订单id
+        # 物流订单ID
+        # 最大长度64
         self.logistics_order_id = logistics_order_id
-        # 物流发货时间,格式为2019-8-31 12:00:00
+        # 物流发货时间
+        # 示例：2023-06-27T10:50:23+08:00
         self.deliver_time = deliver_time
         # 租赁状态
         # LEASE,租赁
@@ -10312,7 +10360,9 @@ class CreateBclOrderRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 订单外部id 商家关联自己的订单,长度不超过64位
         self.order_outer_id = order_outer_id
-        # 商家租赁订单创建时间,长度不超过32位
+        # 商家租赁订单创建时间
+        # 长度不超过32位
+        # 示例：2023-06-27T10:50:23+08:00
         self.order_create_time = order_create_time
         # 承租人用户信息
         self.user_info = user_info
@@ -10320,50 +10370,66 @@ class CreateBclOrderRequest(TeaModel):
         # DUE_BUYOUT 到期买断
         # DUE_RETURN 到期归还
         self.due_mode = due_mode
-        # 租金总额 单位分
+        # 租金总额，单位：分
+        # 最小值需大于0
         self.total_rent_money = total_rent_money
-        # 订单租期, 比如6期,12期,24期,36期,填数字
+        # 租期，单位：月
+        # 最小值需大于0
         self.rent_term = rent_term
-        # 订单租期对应的单位,如果是租期为6,租期单位为MONTH,代表租6个月
-        # 月: MONTH
+        # 订单租期单位，
+        # 1.月：MONTH
+        # 例如：rent_term入参12，rent_unit入参MONTH代表租期12个月
         self.rent_unit = rent_unit
-        # 到期买断价 单位分，若为买断形式传买断金额，否则传到期归还金额
+        # 到期买断价，单位：分
+        # 到期金额，最小值需大于0，若为买断形式传买断金额，否则传到期归还金额
         self.buy_out_price = buy_out_price
-        # 芝麻信用 订单免押金额  单位分
+        # 芝麻信用订单免押金额，单位：分
+        # 最小值需大于0
         self.deposit_free = deposit_free
-        # 芝麻信用 实际预授权金额  单位分
+        # 芝麻信用实际预授权金额，单位：分
+        # 最小值需大于0
         self.acutal_pre_auth_free = acutal_pre_auth_free
-        # 网商代扣协议号或预授权协议号,网商代扣和预授权必填,长度不超过64位
+        # 代扣协议号
+        # 网商代扣和预授权代扣必填，长度不超过64位
         self.mybank_agreement_no = mybank_agreement_no
-        # 网商代扣受理订单号,网商代扣必填,长度不超过64位
+        # 网商代扣受理订单号
+        # 网商代扣必填，长度不超过64位
         self.mybank_agreement_order_id = mybank_agreement_order_id
-        # 用英文单词替代数字
-        # -网商代扣：MY_BANK_PROXY_WITHHOLDING
-        # -合同代扣：CONTRACT_PROXY_WITHHOLDING
+        # 租金支付方式
+        # 1.网商代扣：MY_BANK_PROXY_WITHHOLDING
+        # 2.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
+        # 3.租赁代扣：PROXY_WITHHOLDING
         self.order_withhold_type = order_withhold_type
         # 首付款金额 单位分
         self.down_payment = down_payment
-        # 承诺详情,选择代扣是非必填, 按期数从小到大且连续排序
+        # 承诺详情
+        # 按期数从小到大且连续排序
         self.promise_details = promise_details
-        # 物流方式：
-        # POST 邮寄
-        # OFFLINE 线下自取
+        # 物流方式
+        # 1.邮寄：POST
+        # 2.线下自取：OFFLINE
         self.logistic_type = logistic_type
         # 商品列表
         self.product_infos = product_infos
-        # - 实名：REAL_PERSON,
-        # - 风控：RISK,
-        # - 合同：CONTRACT
+        # 需要使用的增值服务
+        # 1.实名：REAL_PERSON
+        # 2.风控：RISK
+        # 3.租赁合同：CONTRACT
+        # 实人和合同服务使用最长超时时间为72小时
         self.service_types = service_types
-        # 用户下单时候的ip地址,如果可选服务选择了风控,必填 ,长度不超过32位
+        # 用户下单时的ip地址
+        # 如果可选服务选择了风控，必须填写，长度不超过32位
         self.user_ip = user_ip
-        # 承租人实人认证完成后回跳地址(比如商户小程序下单地址),选择实人认证服务时必填
+        # 承租人实人认证完成后回跳地址
+        # 比如商户小程序下单地址，选择实人认证服务时必填
         self.real_person_return_url = real_person_return_url
-        # 签署流程信息，如果使用租赁代扣创建则必填
+        # 签署流程信息
+        # 当service_types为包含CONTRACT时或order_withhold_type为PROXY_WITHHOLDING时必填
         self.contract_flow_info = contract_flow_info
-        # 是否不需要融资：
-        # ● true表示明确这笔订单不需要融资
-        # ● false表示该笔订单后续可能融资也可能不融资
+        # 是	是否不需要融资：
+        # 1.明确这笔订单不需要融资：true
+        # 2.该笔订单后续可能融资也可能不融资：false
+        # 注意：标明不需要融资可以提升代扣回款速度
         self.none_financing = none_financing
 
     def validate(self):
@@ -10661,11 +10727,12 @@ class QueryBclOrderResponse(TeaModel):
         self.order_info = order_info
         # 实人信息
         self.certify_info = certify_info
-        # 风控 决策分数
+        # 风控分数
+        # 分数0-100，小数2位，分数越高风险越大
         self.risk_score = risk_score
-        # 用户身份信息和支付宝id的核验
-        # 匹配，PASS
-        # 不匹配，UN_PASS
+        # 用户身份信息和支付宝ID的核验
+        # 1.匹配，PASS
+        # 2.不匹配，UN_PASS
         self.identity_verification = identity_verification
         # 合同信息
         self.contract_info = contract_info
@@ -10804,16 +10871,19 @@ class UploadBclPerformanceRequest(TeaModel):
         self.period = period
         # 租金归还金额，单位精确到分。如：56309表示563.09元
         self.amount = amount
-        # 租金归还时间(格式为"2019-07-31 12:00:00")
+        # 租金归还时间
+        # 示例：2023-06-27T10:50:23+08:00
         self.time = time
-        # 归还方式，取值范围如下：
-        # ACTIVE_REPAYMENT：主动还款，
-        # MY_BANK_PROXY_WITHHOLDING：网商委托代扣,
-        # PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
+        # 归还方式
+        # 1.主动还款：ACTIVE_REPAYMENT
+        # 2.网商委托代扣：MY_BANK_PROXY_WITHHOLDING
+        # 3.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
         self.way = way
-        # 还款凭证类型，取值范围如下：
-        # PLATFORM_COLLECTION：平台代收（客户主动还款），
-        # MY_BANK：网商银行
+        # 还款凭证类型
+        # 1.平台代收（客户主动还款）：PLATFORM_COLLECTION
+        # 2.网商银行：MY_BANK
+        # 3.支付宝：ALIPAY
+        # 4.其他：OTHER
         self.voucher_type = voucher_type
         # 还款凭证编号,
         # 如支付宝还款时，为支付宝流水编号
@@ -10987,64 +11057,48 @@ class CreateBclProductRequest(TeaModel):
         self.product_name = product_name
         # 商品官网价格,单位为分。如：856400，表示8564元，大于0
         self.product_price = product_price
-        # 一级行业代码。
-        # 
-        # 具体参考如下定义
-        # 格式如：【一级行业    ->  	一级行业代码】：
-        # 【3C办公	     ->    3C    】；
-        # 【IOT     ->    IOT  】；
-        # 【新能源	     ->    NE    】；
-        # 【泛行业	     ->     GENERAL    】
+        # 一级行业代码，
+        # 本期暂时只支持 3C，后续扩充
         self.main_class = main_class
-        # 二级行业代码。
-        # 具体参考如下：
-        # 【二级行业   ->  二级行业代码】；
-        # 
-        # 【手机   ->  3c_mobile】；
-        # 电脑   ->  3c_pc】；
-        # 【摄影   ->  3c_camera】；
-        # 办公设备   ->  3c_office】；
-        # 【3C-其他   ->  3c_other】；
-        # 
-        # 【售卖柜   ->  iot_auto_container】；
-        # 【驿站   ->  iot_stage】；
-        # 【IOT-其他   ->  iot_other】；
-        # 
-        # 【电池   ->  ne_battery】；
-        # 【电动车   ->  ne_electric_car】；
-        # 【新能源-其他   ->  ne_other】；
-        # 
-        # 【家具   ->  general_furniture】；
-        # 【家电   ->  general_tv】；
-        # 【泛其他   ->  general_other】；
-        # 
+        # 二级行业代码
+        # 1.手机：3c_mobile
+        # 2.电脑：3c_pc
+        # 3.摄影：3c_camera
+        # 4.办公设备：3c_office
+        # 5.3C其他：3c_other
         self.sub_class = sub_class
-        # 供应商名称,(采购模式)供应商模式则为供应商名称，否则平台自己名称
+        # 供应商名称
+        # 商品从供应商采购为供应商名称，否则为平台自己名称，最大长度不能超过64
         self.supplier_name = supplier_name
-        # 金融科技租户id;
-        # 采购模式)提供商品方的金融科技租户id
+        # 供应商数字科技租户ID
+        # 商品从供应商采购为供应商租户ID，否则为平台自己租户ID
         self.supplier_id = supplier_id
         # 安装服务费，单位为分，150000则表示1500元；
         # 不能为负数；
         self.install_price = install_price
-        # 商品来源，如 传 SUPPLIER 则表示来源为供应商。长度不超过32位
-        # 取值范围如下：
-        # 【SUPPLIER： 供应商】
-        # 【LEASING_COMPANY  ：租赁机构】
+        # 商品来源
+        # 长度不超过32位
+        # 1.供应商：SUPPLIER
+        # 2.租赁机构：LEASING_COMPANY
         self.product_origin = product_origin
         # 实际库存量，不能为负数
         self.real_stock = real_stock
         # 预估出货量,不能为负数
         self.estimated_shipment = estimated_shipment
         # 商品详情
+        # 最大长度不能超过256
         self.product_detail_info = product_detail_info
         # 商品链接
+        # 最大长度不能超过256
         self.product_url = product_url
         # 商品品牌
+        # 最大长度不能超过64
         self.product_brand = product_brand
-        # 产品规格是用来识别物品的编号
+        # 产品规格
+        # 识别物品的编号，最大长度不能超过256
         self.product_model = product_model
-        # 免押金额，单位分。如：15600表示免押金额为156元。
+        # 免押金额，单位：分
+        # 示例：15600表示免押金额为156元，最小值需大于0
         self.deposit_price = deposit_price
 
     def validate(self):
@@ -11201,8 +11255,8 @@ class CreateBclProductResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 商品的ID。
-        # 租赁维护的商品id,全局唯一,用户后面创建订单和商品查询。
+        # 商品ID
+        # 租赁维护的商品ID，全局唯一，用户后面创建订单和商品查询
         self.product_id = product_id
 
     def validate(self):
@@ -11317,17 +11371,21 @@ class QueryBclProductResponse(TeaModel):
         self.product_version = product_version
         # 商品名称
         self.product_name = product_name
-        # 商品价格,单位为分。如：856400，表示8564元
+        # 商品官网价格，单位：分
+        # 示例：856400，表示8564元，必须大于0
         self.product_price = product_price
-        # 一级行业代码。 具体参考如下定义 格式如：【一级行业 -> 一级行业代码】： 【3C办公 -> 3C 】； 【IOT -> IOT 】； 【新能源 -> NE 】； 【泛行业 -> GENERAL 】
+        # 一级行业代码
         self.main_class = main_class
-        # 二级行业代码。 具体参考如下： 【二级行业 -> 二级行业代码】； 【手机 -> 3c_mobile】； 电脑 -> 3c_pc】； 【摄影 -> 3c_camera】； 办公设备 -> 3c_office】； 【3C-其他 -> 3c_other】； 【售卖柜 -> iot_auto_container】； 【驿站 -> iot_stage】； 【IOT-其他 -> iot_other】； 【电池 -> ne_battery】； 【电动车 -> ne_electric_car】； 【新能源-其他 -> ne_other】； 【家具 -> general_furniture】； 【家电 -> general_tv】； 【泛其他 -> general_other】；
+        # 二级行业代码
         self.sub_class = sub_class
-        # 供应商名称,(采购模式)供应商模式则为供应商名称，否则平台自己名称
+        # 供应商名称
+        # 商品从供应商采购为供应商名称，否则为平台自己名称，最大长度不能超过64
         self.supplier_name = supplier_name
-        # 金融科技租户id; 采购模式)提供商品方的金融科技租户id
+        # 供应商数字科技租户ID
+        # 商品从供应商采购为供应商租户ID，否则为平台自己租户ID
         self.supplier_id = supplier_id
-        # 安装服务费，单位为分，150000则表示1500元；
+        # 安装服务费，单位：分
+        # 示例：150000则表示1500元，不能为负数
         self.install_price = install_price
         # 商品来源，如 传 SUPPLIER 则表示来源为供应商。 取值范围如下： 【SUPPLIER： 供应商】 【LEASING_COMPANY ：租赁机构】
         self.product_origin = product_origin
@@ -11341,9 +11399,11 @@ class QueryBclProductResponse(TeaModel):
         self.product_url = product_url
         # 商品品牌
         self.product_brand = product_brand
-        # 产品规格是用来识别物品的编号
+        # 产品规格
+        # 识别物品的编号，最大长度不能超过256
         self.product_model = product_model
-        # 免押金额，单位分。如：15600表示免押金额为156元。
+        # 免押金额，单位：分
+        # 示例：15600表示免押金额为156元，不能为负数
         self.deposit_price = deposit_price
 
     def validate(self):
@@ -12140,10 +12200,12 @@ class RegisterBclMerchantRequest(TeaModel):
         # 最大长度64
         self.legal_name = legal_name
         # 法人身份证号
-        # 最大长度18
+        # 最大长度：18
+        # 当前暂时只支持中国大陆个人身份证
         self.legal_cert_no = legal_cert_no
-        # 商家联系人信息
+        # 商户联系人信息
         # 当前只支持一个联系人
+        # 如果need_proxy_withholding为true则必填
         self.contact_infos = contact_infos
         # 商家实体支付宝账号
         # 用作结算账号。本字段支付宝账号实名信息要求与商户名称cert_name同名，且是实名认证支付宝企业账户，最大长度：64
