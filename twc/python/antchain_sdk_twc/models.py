@@ -5180,6 +5180,8 @@ class BclContractFlowInfo(TeaModel):
         file_info: List[BclContractFileInfo] = None,
         redirect_url_on_failure: str = None,
         redirect_url: str = None,
+        sign_platform: str = None,
+        payee_id: str = None,
     ):
         # 合同主题
         # 注：名称不支持以下9个字符：/ \ : * " < > | ？
@@ -5195,6 +5197,10 @@ class BclContractFlowInfo(TeaModel):
         # 流程结束后的默认重定向地址
         # 默认签署完成停在当前页面
         self.redirect_url = redirect_url
+        # 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
+        self.sign_platform = sign_platform
+        # 收款方的ID，调用创建收款方接口获得
+        self.payee_id = payee_id
 
     def validate(self):
         if self.business_scene is not None:
@@ -5224,6 +5230,10 @@ class BclContractFlowInfo(TeaModel):
             result['redirect_url_on_failure'] = self.redirect_url_on_failure
         if self.redirect_url is not None:
             result['redirect_url'] = self.redirect_url
+        if self.sign_platform is not None:
+            result['sign_platform'] = self.sign_platform
+        if self.payee_id is not None:
+            result['payee_id'] = self.payee_id
         return result
 
     def from_map(self, m: dict = None):
@@ -5239,6 +5249,10 @@ class BclContractFlowInfo(TeaModel):
             self.redirect_url_on_failure = m.get('redirect_url_on_failure')
         if m.get('redirect_url') is not None:
             self.redirect_url = m.get('redirect_url')
+        if m.get('sign_platform') is not None:
+            self.sign_platform = m.get('sign_platform')
+        if m.get('payee_id') is not None:
+            self.payee_id = m.get('payee_id')
         return self
 
 
@@ -7412,7 +7426,7 @@ class BclRentalInfo(TeaModel):
         self.amount = amount
         # 租金归还时间
         self.time = time
-        # 是	归还方式
+        # 归还方式
         # 1.租赁代扣: PROXY_WITHHOLDING
         # 2.主动还款：ACTIVE_REPAYMENT
         # 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
@@ -8618,6 +8632,67 @@ class RepaymentOrderRequest(TeaModel):
             self.pay_money = m.get('pay_money')
         if m.get('trigger_immediately') is not None:
             self.trigger_immediately = m.get('trigger_immediately')
+        return self
+
+
+class ReplyDetailInfo(TeaModel):
+    def __init__(
+        self,
+        replier_name: str = None,
+        replier_role: str = None,
+        gmt_create: str = None,
+        content: str = None,
+        images: List[str] = None,
+    ):
+        # 回复人名称
+        self.replier_name = replier_name
+        # 回复人角色 用户：USER 商家：MERCHANT 系统：SYSTEM 审核小二：AUDITOR 政府单位：GOVERNMENT
+        self.replier_role = replier_role
+        # 回复时间
+        # 
+        self.gmt_create = gmt_create
+        # 回复内容
+        self.content = content
+        # 回复图片
+        self.images = images
+
+    def validate(self):
+        self.validate_required(self.replier_name, 'replier_name')
+        self.validate_required(self.replier_role, 'replier_role')
+        self.validate_required(self.gmt_create, 'gmt_create')
+        self.validate_required(self.content, 'content')
+        self.validate_required(self.images, 'images')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.replier_name is not None:
+            result['replier_name'] = self.replier_name
+        if self.replier_role is not None:
+            result['replier_role'] = self.replier_role
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.content is not None:
+            result['content'] = self.content
+        if self.images is not None:
+            result['images'] = self.images
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('replier_name') is not None:
+            self.replier_name = m.get('replier_name')
+        if m.get('replier_role') is not None:
+            self.replier_role = m.get('replier_role')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('images') is not None:
+            self.images = m.get('images')
         return self
 
 
@@ -10426,7 +10501,7 @@ class CreateBclOrderRequest(TeaModel):
         # 签署流程信息
         # 当service_types为包含CONTRACT时或order_withhold_type为PROXY_WITHHOLDING时必填
         self.contract_flow_info = contract_flow_info
-        # 是	是否不需要融资：
+        # 是否不需要融资：
         # 1.明确这笔订单不需要融资：true
         # 2.该笔订单后续可能融资也可能不融资：false
         # 注意：标明不需要融资可以提升代扣回款速度
@@ -12509,7 +12584,7 @@ class QueryBclComplainResponse(TeaModel):
         complain_reason: str = None,
         phone_no: str = None,
         trade_amount: str = None,
-        reply_detail_infos: ReplayDetailInfo = None,
+        reply_detail_infos: List[ReplyDetailInfo] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -12546,7 +12621,9 @@ class QueryBclComplainResponse(TeaModel):
 
     def validate(self):
         if self.reply_detail_infos:
-            self.reply_detail_infos.validate()
+            for k in self.reply_detail_infos:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -12584,8 +12661,10 @@ class QueryBclComplainResponse(TeaModel):
             result['phone_no'] = self.phone_no
         if self.trade_amount is not None:
             result['trade_amount'] = self.trade_amount
+        result['reply_detail_infos'] = []
         if self.reply_detail_infos is not None:
-            result['reply_detail_infos'] = self.reply_detail_infos.to_map()
+            for k in self.reply_detail_infos:
+                result['reply_detail_infos'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -12620,9 +12699,11 @@ class QueryBclComplainResponse(TeaModel):
             self.phone_no = m.get('phone_no')
         if m.get('trade_amount') is not None:
             self.trade_amount = m.get('trade_amount')
+        self.reply_detail_infos = []
         if m.get('reply_detail_infos') is not None:
-            temp_model = ReplayDetailInfo()
-            self.reply_detail_infos = temp_model.from_map(m['reply_detail_infos'])
+            for k in m.get('reply_detail_infos'):
+                temp_model = ReplyDetailInfo()
+                self.reply_detail_infos.append(temp_model.from_map(k))
         return self
 
 
