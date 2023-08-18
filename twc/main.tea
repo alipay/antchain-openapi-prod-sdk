@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.22',
+    sdk_version = '1.11.24',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -1438,6 +1438,10 @@ model BclContractFlowInfo {
   // 流程结束后的默认重定向地址
   // 默认签署完成停在当前页面
   redirectUrl?: string(maxLength=512, name='redirect_url', example='http://www.xxx.com'),
+  // 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
+  signPlatform?: string(name='sign_platform', example='ALIPAY'),
+  // 收款方的ID，调用创建收款方接口获得
+  payeeId?: string(name='payee_id', example='202308181123XXX'),
 }
 
 // 阶段详情信息
@@ -1984,7 +1988,7 @@ model BclRentalInfo {
   amount: long(name='amount', example='123123'),
   // 租金归还时间
   time: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='time', example='2023-04-05 12:12:23'),
-  // 是	归还方式
+  // 归还方式
   // 1.租赁代扣: PROXY_WITHHOLDING
   // 2.主动还款：ACTIVE_REPAYMENT  
   // 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
@@ -2277,6 +2281,21 @@ model RepaymentOrderRequest {
   payMoney: long(name='pay_money', example='1000'),
   // 是否用户签署成功后立即触发第一期代扣
   triggerImmediately?: long(name='trigger_immediately', example='1'),
+}
+
+// 用户与商家之间的协商记录
+model ReplyDetailInfo {
+  // 回复人名称
+  replierName: string(name='replier_name', example='刘*'),
+  // 回复人角色 用户：USER 商家：MERCHANT 系统：SYSTEM 审核小二：AUDITOR 政府单位：GOVERNMENT
+  replierRole: string(name='replier_role', example='USER'),
+  // 回复时间
+  // 
+  gmtCreate: string(name='gmt_create', example='2020-02-14 14:23:12 '),
+  // 回复内容
+  content: string(name='content', example='已退款退货给您，物流单号为：12344444 '),
+  // 回复图片
+  images: [ string ](name='images', example=''),
 }
 
 // 一步创建签署流程的签署区信息
@@ -2858,7 +2877,7 @@ model CreateBclOrderRequest = {
   // 签署流程信息
   // 当service_types为包含CONTRACT时或order_withhold_type为PROXY_WITHHOLDING时必填
   contractFlowInfo?: BclContractFlowInfo(name='contract_flow_info'),
-  // 是	是否不需要融资：
+  // 是否不需要融资：
   // 1.明确这笔订单不需要融资：true
   // 2.该笔订单后续可能融资也可能不融资：false
   // 注意：标明不需要融资可以提升代扣回款速度
@@ -3598,7 +3617,7 @@ model QueryBclComplainResponse = {
   // 交易金额，单位元
   tradeAmount?: string(name='trade_amount'),
   // 用户与商家之间的协商记录
-  replyDetailInfos?: ReplayDetailInfo(name='reply_detail_infos'),
+  replyDetailInfos?: [ ReplyDetailInfo ](name='reply_detail_infos'),
 }
 
 /**
