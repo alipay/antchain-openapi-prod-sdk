@@ -45,11 +45,29 @@ class BclContractFlowInfo extends Model
      * @var string
      */
     public $redirectUrl;
+
+    // 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
+    /**
+     * @example ALIPAY
+     *
+     * @var string
+     */
+    public $signPlatform;
+
+    // 收款方的ID，调用创建收款方接口获得
+    /**
+     * @example 202308181123XXX
+     *
+     * @var string
+     */
+    public $payeeId;
     protected $_name = [
         'businessScene'        => 'business_scene',
         'fileInfo'             => 'file_info',
         'redirectUrlOnFailure' => 'redirect_url_on_failure',
         'redirectUrl'          => 'redirect_url',
+        'signPlatform'         => 'sign_platform',
+        'payeeId'              => 'payee_id',
     ];
 
     public function validate()
@@ -80,6 +98,12 @@ class BclContractFlowInfo extends Model
         if (null !== $this->redirectUrl) {
             $res['redirect_url'] = $this->redirectUrl;
         }
+        if (null !== $this->signPlatform) {
+            $res['sign_platform'] = $this->signPlatform;
+        }
+        if (null !== $this->payeeId) {
+            $res['payee_id'] = $this->payeeId;
+        }
 
         return $res;
     }
@@ -109,6 +133,12 @@ class BclContractFlowInfo extends Model
         }
         if (isset($map['redirect_url'])) {
             $model->redirectUrl = $map['redirect_url'];
+        }
+        if (isset($map['sign_platform'])) {
+            $model->signPlatform = $map['sign_platform'];
+        }
+        if (isset($map['payee_id'])) {
+            $model->payeeId = $map['payee_id'];
         }
 
         return $model;

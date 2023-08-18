@@ -171,7 +171,7 @@ class CreateBclOrderRequest extends Model
      */
     public $contractFlowInfo;
 
-    // 是	是否不需要融资：
+    // 是否不需要融资：
     // 1.明确这笔订单不需要融资：true
     // 2.该笔订单后续可能融资也可能不融资：false
     // 注意：标明不需要融资可以提升代扣回款速度

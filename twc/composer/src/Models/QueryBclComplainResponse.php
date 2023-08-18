@@ -100,7 +100,7 @@ class QueryBclComplainResponse extends Model
 
     // 用户与商家之间的协商记录
     /**
-     * @var ReplayDetailInfo
+     * @var ReplyDetailInfo[]
      */
     public $replyDetailInfos;
     protected $_name = [
@@ -175,7 +175,13 @@ class QueryBclComplainResponse extends Model
             $res['trade_amount'] = $this->tradeAmount;
         }
         if (null !== $this->replyDetailInfos) {
-            $res['reply_detail_infos'] = null !== $this->replyDetailInfos ? $this->replyDetailInfos->toMap() : null;
+            $res['reply_detail_infos'] = [];
+            if (null !== $this->replyDetailInfos && \is_array($this->replyDetailInfos)) {
+                $n = 0;
+                foreach ($this->replyDetailInfos as $item) {
+                    $res['reply_detail_infos'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -235,7 +241,13 @@ class QueryBclComplainResponse extends Model
             $model->tradeAmount = $map['trade_amount'];
         }
         if (isset($map['reply_detail_infos'])) {
-            $model->replyDetailInfos = ReplayDetailInfo::fromMap($map['reply_detail_infos']);
+            if (!empty($map['reply_detail_infos'])) {
+                $model->replyDetailInfos = [];
+                $n                       = 0;
+                foreach ($map['reply_detail_infos'] as $item) {
+                    $model->replyDetailInfos[$n++] = null !== $item ? ReplyDetailInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
