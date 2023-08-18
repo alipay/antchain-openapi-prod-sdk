@@ -28,7 +28,8 @@ class BclContractFlowInfo extends Model
      */
     public $fileInfo;
 
-    // 合同签署失败回调地址
+    // 签署失败时的跳转地址
+    // 如果不做单独配置，默认与redirect_url一致
     /**
      * @example http://www.xxx.com
      *
@@ -36,7 +37,8 @@ class BclContractFlowInfo extends Model
      */
     public $redirectUrlOnFailure;
 
-    // 合同签署成功回调地址
+    // 流程结束后的默认重定向地址
+    // 默认签署完成停在当前页面
     /**
      * @example http://www.xxx.com
      *

@@ -34,9 +34,9 @@ class BclCertifyInfo extends Model
     public $resultDesc;
 
     // 认证状态
-    // 待认证  INIT
-    // 认证成功 PASS
-    // 认证失败 FAIL
+    // 1.待认证：INIT
+    // 2.认证成功：PASS
+    // 3.认证失败：FAIL
     /**
      * @example INIT
      *

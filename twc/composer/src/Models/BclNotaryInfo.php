@@ -8,9 +8,9 @@ use AlibabaCloud\Tea\Model;
 
 class BclNotaryInfo extends Model
 {
-    // 存证类型，
-    // 文件 FILE
-    // 文本 TEXT
+    // 存证类型
+    // 1.文件：FILE
+    // 2.文本：TEXT
     /**
      * @example FILE
      *
@@ -26,7 +26,8 @@ class BclNotaryInfo extends Model
      */
     public $content;
 
-    // 文件下载链接 类型为文件有值
+    // 文件下载链接
+    // 存证类型为FILE时此参数必填；
     /**
      * @example http://oss.com/asdas
      *
@@ -51,10 +52,10 @@ class BclNotaryInfo extends Model
     public $txHash;
 
     // 存证阶段描述：
-    // UPLOAD_PROMISE_FLOW：上传履约流水，
-    // UPLOAD_LOGISTIC_INFO：上传物流信息，
-    // SIGNED_CONTRACT_FILE：合同签署后文件存证，
-    // BCL_ORDER_PROMISING：租赁订单履约中存证，
+    // 1.上传履约流水：UPLOAD_PROMISE_FLOW
+    // 2.上传物流信息：UPLOAD_LOGISTIC_INFO
+    // 3.合同签署后文件存证：SIGNED_CONTRACT_FILE
+    // 4.租赁订单履约中存证：BCL_ORDER_PROMISING
     /**
      * @example UPLOAD_PROMISE_FLOW
      *

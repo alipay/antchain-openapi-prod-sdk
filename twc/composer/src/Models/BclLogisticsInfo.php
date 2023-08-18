@@ -25,9 +25,8 @@ class BclLogisticsInfo extends Model
     public $logisticCompany;
 
     // 物流状态
-    // 已发货 SHIPPED
-    // 运输中 TRANSPORT
-    // 已签收 SIGNED
+    // 1.已发货：SHIPPED
+    // 2.已签收：SIGNED
     /**
      * @example SHIPPED
      *
@@ -36,16 +35,17 @@ class BclLogisticsInfo extends Model
     public $status;
 
     // 发货时间
+    // 示例：2023-06-27T10:50:23+08:00
     /**
-     * @example 2023-04-05 12:12:23
+     * @example 2023-06-27T10:50:23+08:00
      *
      * @var string
      */
     public $deliverTime;
 
     // 租赁类型
-    // 租赁 LEASE
-    // 退租 RETURN_LEASE
+    // 1.租赁：LEASE
+    // 2.退租：RETURN_LEASE
     /**
      * @example LEASE
      *
@@ -54,8 +54,9 @@ class BclLogisticsInfo extends Model
     public $leaseType;
 
     // 签收时间
+    // 示例：2023-06-27T10:50:23+08:00
     /**
-     * @example 2023-04-05 12:12:23
+     * @example 2023-06-27T10:50:23+08:00
      *
      * @var string
      */

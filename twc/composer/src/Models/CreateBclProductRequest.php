@@ -46,54 +46,33 @@ class CreateBclProductRequest extends Model
      */
     public $productPrice;
 
-    // 一级行业代码。
-    //
-    // 具体参考如下定义
-    // 格式如：【一级行业    ->  	一级行业代码】：
-    // 【3C办公	     ->    3C    】；
-    // 【IOT     ->    IOT  】；
-    // 【新能源	     ->    NE    】；
-    // 【泛行业	     ->     GENERAL    】
+    // 一级行业代码，
+    // 本期暂时只支持 3C，后续扩充
     /**
      * @var string
      */
     public $mainClass;
 
-    // 二级行业代码。
-    // 具体参考如下：
-    // 【二级行业   ->  二级行业代码】；
-    //
-    // 【手机   ->  3c_mobile】；
-    // 电脑   ->  3c_pc】；
-    // 【摄影   ->  3c_camera】；
-    // 办公设备   ->  3c_office】；
-    // 【3C-其他   ->  3c_other】；
-    //
-    // 【售卖柜   ->  iot_auto_container】；
-    // 【驿站   ->  iot_stage】；
-    // 【IOT-其他   ->  iot_other】；
-    //
-    // 【电池   ->  ne_battery】；
-    // 【电动车   ->  ne_electric_car】；
-    // 【新能源-其他   ->  ne_other】；
-    //
-    // 【家具   ->  general_furniture】；
-    // 【家电   ->  general_tv】；
-    // 【泛其他   ->  general_other】；
-    //
+    // 二级行业代码
+    // 1.手机：3c_mobile
+    // 2.电脑：3c_pc
+    // 3.摄影：3c_camera
+    // 4.办公设备：3c_office
+    // 5.3C其他：3c_other
     /**
      * @var string
      */
     public $subClass;
 
-    // 供应商名称,(采购模式)供应商模式则为供应商名称，否则平台自己名称
+    // 供应商名称
+    // 商品从供应商采购为供应商名称，否则为平台自己名称，最大长度不能超过64
     /**
      * @var string
      */
     public $supplierName;
 
-    // 金融科技租户id;
-    // 采购模式)提供商品方的金融科技租户id
+    // 供应商数字科技租户ID
+    // 商品从供应商采购为供应商租户ID，否则为平台自己租户ID
     /**
      * @var string
      */
@@ -106,10 +85,10 @@ class CreateBclProductRequest extends Model
      */
     public $installPrice;
 
-    // 商品来源，如 传 SUPPLIER 则表示来源为供应商。长度不超过32位
-    // 取值范围如下：
-    // 【SUPPLIER： 供应商】
-    // 【LEASING_COMPANY  ：租赁机构】
+    // 商品来源
+    // 长度不超过32位
+    // 1.供应商：SUPPLIER
+    // 2.租赁机构：LEASING_COMPANY
     /**
      * @var string
      */
@@ -128,30 +107,35 @@ class CreateBclProductRequest extends Model
     public $estimatedShipment;
 
     // 商品详情
+    // 最大长度不能超过256
     /**
      * @var string
      */
     public $productDetailInfo;
 
     // 商品链接
+    // 最大长度不能超过256
     /**
      * @var string
      */
     public $productUrl;
 
     // 商品品牌
+    // 最大长度不能超过64
     /**
      * @var string
      */
     public $productBrand;
 
-    // 产品规格是用来识别物品的编号
+    // 产品规格
+    // 识别物品的编号，最大长度不能超过256
     /**
      * @var string
      */
     public $productModel;
 
-    // 免押金额，单位分。如：15600表示免押金额为156元。
+    // 免押金额，单位：分
+    // 示例：15600表示免押金额为156元，最小值需大于0
     /**
      * @var int
      */

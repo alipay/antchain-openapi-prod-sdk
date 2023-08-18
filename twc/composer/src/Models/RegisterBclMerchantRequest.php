@@ -57,14 +57,16 @@ class RegisterBclMerchantRequest extends Model
     public $legalName;
 
     // 法人身份证号
-    // 最大长度18
+    // 最大长度：18
+    // 当前暂时只支持中国大陆个人身份证
     /**
      * @var string
      */
     public $legalCertNo;
 
-    // 商家联系人信息
+    // 商户联系人信息
     // 当前只支持一个联系人
+    // 如果need_proxy_withholding为true则必填
     /**
      * @var BclContactInfo[]
      */

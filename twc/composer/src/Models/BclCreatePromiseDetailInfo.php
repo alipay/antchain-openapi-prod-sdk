@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class BclCreatePromiseDetailInfo extends Model
 {
-    // 承诺期数
+    // 承诺期数，最小值：1
     /**
      * @example 1
      *
@@ -16,7 +16,8 @@ class BclCreatePromiseDetailInfo extends Model
      */
     public $period;
 
-    // 承诺金额 单位分
+    // 承诺金额，单位：分
+    // 最小值：1，正整数
     /**
      * @example 1
      *
@@ -25,8 +26,9 @@ class BclCreatePromiseDetailInfo extends Model
     public $amount;
 
     // 每期应还的日期
+    // 示例：格式 2023-06-27T10:50:23+08:00
     /**
-     * @example 2023-04-05 12:12:23
+     * @example 2023-06-27T10:50:23+08:00
      *
      * @var string
      */

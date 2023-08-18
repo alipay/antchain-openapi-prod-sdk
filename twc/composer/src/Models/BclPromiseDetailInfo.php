@@ -25,9 +25,9 @@ class BclPromiseDetailInfo extends Model
     public $amount;
 
     // 本期还款状态
-    // 已还款，PAID
-    // 部分还款，PART_PAID
-    // 未还款，UN_PAID
+    // 1.已还款：PAID
+    // 2.部分还款：PART_PAID
+    // 3.未还款：UN_PAID
     /**
      * @example UN_PAID
      *
@@ -36,22 +36,28 @@ class BclPromiseDetailInfo extends Model
     public $status;
 
     // 每期约定还款时间
+    // 示例：2023-06-7T10:50:23+08:00
     /**
-     * @example 2023-04-05 12:12:23
+     * @example 2023-06-7T10:50:23+08:00
      *
      * @var string
      */
     public $promiseTime;
 
-    // 履约日期
+    // 每期应还日期
+    // 示例：2023-06-27T10:50:23+08:00
     /**
-     * @example 2023-04-05 12:12:23
+     * @example 2023-06-27T10:50:23+08:00
      *
      * @var string
      */
     public $payTime;
 
-    // 归还方式，取值范围如下： ACTIVE_REPAYMENT：主动还款， MY_BANK_PROXY_WITHHOLDING：网商委托代扣, PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
+    // 归还方式
+    // 1.租赁代扣： PROXY_WITHHOLDING
+    // 2.主动还款：ACTIVE_REPAYMENT
+    // 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
+    // 4.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
     /**
      * @example ACTIVE_REPAYMENT
      *

@@ -38,24 +38,27 @@ class UploadBclPerformanceRequest extends Model
      */
     public $amount;
 
-    // 租金归还时间(格式为"2019-07-31 12:00:00")
+    // 租金归还时间
+    // 示例：2023-06-27T10:50:23+08:00
     /**
      * @var string
      */
     public $time;
 
-    // 归还方式，取值范围如下：
-    // ACTIVE_REPAYMENT：主动还款，
-    // MY_BANK_PROXY_WITHHOLDING：网商委托代扣,
-    // PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
+    // 归还方式
+    // 1.主动还款：ACTIVE_REPAYMENT
+    // 2.网商委托代扣：MY_BANK_PROXY_WITHHOLDING
+    // 3.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
     /**
      * @var string
      */
     public $way;
 
-    // 还款凭证类型，取值范围如下：
-    // PLATFORM_COLLECTION：平台代收（客户主动还款），
-    // MY_BANK：网商银行
+    // 还款凭证类型
+    // 1.平台代收（客户主动还款）：PLATFORM_COLLECTION
+    // 2.网商银行：MY_BANK
+    // 3.支付宝：ALIPAY
+    // 4.其他：OTHER
     /**
      * @var string
      */

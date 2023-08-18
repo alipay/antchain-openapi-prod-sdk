@@ -16,7 +16,9 @@ class BclContactInfo extends Model
      */
     public $name;
 
-    // 联系人手机号，最大长度：20
+    // 联系人手机号
+    // 最大长度：20
+    // 示例：13812348888
     /**
      * @example 138xxxx8888
      *
@@ -24,7 +26,9 @@ class BclContactInfo extends Model
      */
     public $mobile;
 
-    // 联系人电话，最大长度：20
+    // 联系人电话
+    // 最大长度：20
+    // 示例：0571-12345678
     /**
      * @example 0571-12345678
      *

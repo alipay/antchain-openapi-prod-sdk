@@ -19,34 +19,37 @@ class AddBclLogisticinfoRequest extends Model
      */
     public $productInstanceId;
 
-    // 订单id
+    // 租赁订单ID
+    // 最大长度：32
     /**
      * @var string
      */
     public $orderId;
 
-    // - SHIPPED 已发货
-    // - TRANSPORT 运输中
-    // - SIGNED 已签收
-    // 当前暂时只支持已发货和已签收
+    // 物流状态
+    // 1.已发货：SHIPPED
+    // 2.已签收：SIGNED
     /**
      * @var string
      */
     public $logisticStatus;
 
-    // 物流照片网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
+    // 物流照片网关文件ID
+    // 先调用文件上传的接口,这里填上传后返回的fileid
     /**
      * @var string
      */
     public $logisticsFileId;
 
-    // 签收记录,网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
+    // 签收记录,网关文件ID
+    // 先调用文件上传的接口,这里填上传后返回的fileid
     /**
      * @var string
      */
     public $arriveConfirmFileId;
 
-    // 用户签收时间格式为2019-8-31 12:00:00
+    // 用户签收时间
+    // 示例：2023-06-27T10:50:23+08:00
     /**
      * @var string
      */
@@ -58,19 +61,31 @@ class AddBclLogisticinfoRequest extends Model
      */
     public $logisticCompanyName;
 
-    // 物流公司code
+    // 物流公司code：
+    // 1.圆通速递：YTO
+    // 2.韵达快递：YUNDA
+    // 3.顺丰速运：SF
+    // 4.EMS：EMS
+    // 5.申通快递：STO
+    // 6.中通快递：ZTO
+    // 7.天天快递：TTKDEX
+    // 8.全峰快递：QFKD
+    // 9.中铁物流：ZTKY
+    // 10.其他：OTHER
     /**
      * @var string
      */
     public $logisticCompanyCode;
 
-    // 物流订单id
+    // 物流订单ID
+    // 最大长度64
     /**
      * @var string
      */
     public $logisticsOrderId;
 
-    // 物流发货时间,格式为2019-8-31 12:00:00
+    // 物流发货时间
+    // 示例：2023-06-27T10:50:23+08:00
     /**
      * @var string
      */

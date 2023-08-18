@@ -32,14 +32,11 @@ class BclRentalInfo extends Model
      */
     public $time;
 
-    // 归还方式
-    // 用英文定义
-    // -预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
-    // -支付宝代扣: ALIPAY_WITHHOLDING
-    // -主动还款：ACTIVE_REPAYMENT
-    // -其他：OTHER
-    // -网商直付通：MY_BANK_DIRECT_PAYMENT
-    // -网商委托代扣：MY_BANK_PROXY_WITHHOLDING
+    // 是	归还方式
+    // 1.租赁代扣: PROXY_WITHHOLDING
+    // 2.主动还款：ACTIVE_REPAYMENT
+    // 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
+    // 4.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
     /**
      * @example ALIPAY_WITHHOLDING
      *
@@ -47,10 +44,11 @@ class BclRentalInfo extends Model
      */
     public $way;
 
-    // -支付宝：ALIPAY
-    // -平台代收（客户主动还款）：PLATFORM_COLLECTION
-    // -其他：OTHER
-    // -网商银行：MY_BANK,
+    // 还款渠道
+    // 1.支付宝：ALIPAY
+    // 2.平台代收（客户主动还款）：PLATFORM_COLLECTION
+    // 3.网商银行：MY_BANK
+    // 4.其他：OTHER
     /**
      * @example ALIPAY
      *

@@ -17,6 +17,7 @@ class BclOrderProductInfo extends Model
     public $productId;
 
     // 商品数量
+    // 目前只允许一个商品
     /**
      * @example 1
      *
