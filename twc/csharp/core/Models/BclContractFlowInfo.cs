@@ -36,6 +36,16 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false, MaxLength=512)]
         public string RedirectUrl { get; set; }
 
+        // 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
+        [NameInMap("sign_platform")]
+        [Validation(Required=false)]
+        public string SignPlatform { get; set; }
+
+        // 收款方的ID，调用创建收款方接口获得
+        [NameInMap("payee_id")]
+        [Validation(Required=false)]
+        public string PayeeId { get; set; }
+
     }
 
 }

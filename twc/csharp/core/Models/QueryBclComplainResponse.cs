@@ -87,7 +87,7 @@ namespace AntChain.SDK.TWC.Models
         // 用户与商家之间的协商记录
         [NameInMap("reply_detail_infos")]
         [Validation(Required=false)]
-        public ReplayDetailInfo ReplyDetailInfos { get; set; }
+        public List<ReplyDetailInfo> ReplyDetailInfos { get; set; }
 
     }
 
