@@ -4166,6 +4166,10 @@ type BclContractFlowInfo struct {
 	// 流程结束后的默认重定向地址
 	// 默认签署完成停在当前页面
 	RedirectUrl *string `json:"redirect_url,omitempty" xml:"redirect_url,omitempty" maxLength:"512"`
+	// 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
+	SignPlatform *string `json:"sign_platform,omitempty" xml:"sign_platform,omitempty"`
+	// 收款方的ID，调用创建收款方接口获得
+	PayeeId *string `json:"payee_id,omitempty" xml:"payee_id,omitempty"`
 }
 
 func (s BclContractFlowInfo) String() string {
@@ -4193,6 +4197,16 @@ func (s *BclContractFlowInfo) SetRedirectUrlOnFailure(v string) *BclContractFlow
 
 func (s *BclContractFlowInfo) SetRedirectUrl(v string) *BclContractFlowInfo {
 	s.RedirectUrl = &v
+	return s
+}
+
+func (s *BclContractFlowInfo) SetSignPlatform(v string) *BclContractFlowInfo {
+	s.SignPlatform = &v
+	return s
+}
+
+func (s *BclContractFlowInfo) SetPayeeId(v string) *BclContractFlowInfo {
+	s.PayeeId = &v
 	return s
 }
 
@@ -5937,7 +5951,7 @@ type BclRentalInfo struct {
 	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
 	// 租金归还时间
 	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 是	归还方式
+	// 归还方式
 	// 1.租赁代扣: PROXY_WITHHOLDING
 	// 2.主动还款：ACTIVE_REPAYMENT
 	// 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
@@ -6913,6 +6927,54 @@ func (s *RepaymentOrderRequest) SetPayMoney(v int64) *RepaymentOrderRequest {
 
 func (s *RepaymentOrderRequest) SetTriggerImmediately(v int64) *RepaymentOrderRequest {
 	s.TriggerImmediately = &v
+	return s
+}
+
+// 用户与商家之间的协商记录
+type ReplyDetailInfo struct {
+	// 回复人名称
+	ReplierName *string `json:"replier_name,omitempty" xml:"replier_name,omitempty" require:"true"`
+	// 回复人角色 用户：USER 商家：MERCHANT 系统：SYSTEM 审核小二：AUDITOR 政府单位：GOVERNMENT
+	ReplierRole *string `json:"replier_role,omitempty" xml:"replier_role,omitempty" require:"true"`
+	// 回复时间
+	//
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
+	// 回复内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 回复图片
+	Images []*string `json:"images,omitempty" xml:"images,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ReplyDetailInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReplyDetailInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ReplyDetailInfo) SetReplierName(v string) *ReplyDetailInfo {
+	s.ReplierName = &v
+	return s
+}
+
+func (s *ReplyDetailInfo) SetReplierRole(v string) *ReplyDetailInfo {
+	s.ReplierRole = &v
+	return s
+}
+
+func (s *ReplyDetailInfo) SetGmtCreate(v string) *ReplyDetailInfo {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *ReplyDetailInfo) SetContent(v string) *ReplyDetailInfo {
+	s.Content = &v
+	return s
+}
+
+func (s *ReplyDetailInfo) SetImages(v []*string) *ReplyDetailInfo {
+	s.Images = v
 	return s
 }
 
@@ -8379,7 +8441,7 @@ type CreateBclOrderRequest struct {
 	// 签署流程信息
 	// 当service_types为包含CONTRACT时或order_withhold_type为PROXY_WITHHOLDING时必填
 	ContractFlowInfo *BclContractFlowInfo `json:"contract_flow_info,omitempty" xml:"contract_flow_info,omitempty"`
-	// 是	是否不需要融资：
+	// 是否不需要融资：
 	// 1.明确这笔订单不需要融资：true
 	// 2.该笔订单后续可能融资也可能不融资：false
 	// 注意：标明不需要融资可以提升代扣回款速度
@@ -10013,7 +10075,7 @@ type QueryBclComplainResponse struct {
 	// 交易金额，单位元
 	TradeAmount *string `json:"trade_amount,omitempty" xml:"trade_amount,omitempty"`
 	// 用户与商家之间的协商记录
-	ReplyDetailInfos *ReplayDetailInfo `json:"reply_detail_infos,omitempty" xml:"reply_detail_infos,omitempty"`
+	ReplyDetailInfos []*ReplyDetailInfo `json:"reply_detail_infos,omitempty" xml:"reply_detail_infos,omitempty" type:"Repeated"`
 }
 
 func (s QueryBclComplainResponse) String() string {
@@ -10099,7 +10161,7 @@ func (s *QueryBclComplainResponse) SetTradeAmount(v string) *QueryBclComplainRes
 	return s
 }
 
-func (s *QueryBclComplainResponse) SetReplyDetailInfos(v *ReplayDetailInfo) *QueryBclComplainResponse {
+func (s *QueryBclComplainResponse) SetReplyDetailInfos(v []*ReplyDetailInfo) *QueryBclComplainResponse {
 	s.ReplyDetailInfos = v
 	return s
 }
@@ -46661,7 +46723,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.22"),
+				"sdk_version":      tea.String("1.11.24"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
