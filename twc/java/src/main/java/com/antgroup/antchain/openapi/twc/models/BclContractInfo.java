@@ -4,15 +4,19 @@ package com.antgroup.antchain.openapi.twc.models;
 import com.aliyun.tea.*;
 
 public class BclContractInfo extends TeaModel {
-    // 待签署,SIGNING
-    // 拒签,REJECT
-    // 签署失败,SIGN_FAIL
-    // 签署完成,FINISH
+    // 签署状态
+    // 1.合同待签署：SIGNING 
+    // 2.代扣待签署：PROXY_SIGNING 
+    // 3.合同拒签：REJECT 
+    // 4.代扣拒签：PROXY_REJECT 
+    // 5.合同签署失败：SIGN_FAIL 
+    // 6.签署完成：FINISH
     @NameInMap("sign_status")
     @Validation(required = true)
     public String signStatus;
 
-    // 签署完成的合同文件 只有签署完成才有
+    // 签署完成的合同文件
+    // 如果使用合同服务，只有签署完成才可获取
     @NameInMap("signed_files")
     public java.util.List<BclFileInfo> signedFiles;
 

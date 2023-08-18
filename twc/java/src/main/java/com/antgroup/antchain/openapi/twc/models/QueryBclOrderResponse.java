@@ -24,13 +24,14 @@ public class QueryBclOrderResponse extends TeaModel {
     @NameInMap("certify_info")
     public BclCertifyInfo certifyInfo;
 
-    // 风控 决策分数
+    // 风控分数
+    // 分数0-100，小数2位，分数越高风险越大
     @NameInMap("risk_score")
     public String riskScore;
 
-    // 用户身份信息和支付宝id的核验
-    // 匹配，PASS
-    // 不匹配，UN_PASS
+    // 用户身份信息和支付宝ID的核验 
+    // 1.匹配，PASS 
+    // 2.不匹配，UN_PASS
     @NameInMap("identity_verification")
     public String identityVerification;
 

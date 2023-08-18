@@ -43,13 +43,15 @@ public class RegisterBclMerchantRequest extends TeaModel {
     public String legalName;
 
     // 法人身份证号
-    // 最大长度18
+    // 最大长度：18
+    // 当前暂时只支持中国大陆个人身份证
     @NameInMap("legal_cert_no")
     @Validation(required = true)
     public String legalCertNo;
 
-    // 商家联系人信息
+    // 商户联系人信息
     // 当前只支持一个联系人
+    // 如果need_proxy_withholding为true则必填
     @NameInMap("contact_infos")
     public java.util.List<BclContactInfo> contactInfos;
 

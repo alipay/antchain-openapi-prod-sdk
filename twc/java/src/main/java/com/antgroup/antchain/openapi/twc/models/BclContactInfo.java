@@ -9,12 +9,16 @@ public class BclContactInfo extends TeaModel {
     @Validation(required = true)
     public String name;
 
-    // 联系人手机号，最大长度：20
+    // 联系人手机号
+    // 最大长度：20
+    // 示例：13812348888
     @NameInMap("mobile")
     @Validation(required = true)
     public String mobile;
 
-    // 联系人电话，最大长度：20
+    // 联系人电话
+    // 最大长度：20
+    // 示例：0571-12345678
     @NameInMap("phone")
     public String phone;
 

@@ -17,10 +17,10 @@ public class BclCertifyInfo extends TeaModel {
     @NameInMap("result_desc")
     public String resultDesc;
 
-    // 认证状态
-    // 待认证  INIT
-    // 认证成功 PASS
-    // 认证失败 FAIL
+    // 认证状态 
+    // 1.待认证：INIT 
+    // 2.认证成功：PASS 
+    // 3.认证失败：FAIL
     @NameInMap("status")
     @Validation(required = true)
     public String status;

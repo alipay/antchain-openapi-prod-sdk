@@ -16,7 +16,9 @@ public class CreateBclOrderRequest extends TeaModel {
     @Validation(required = true, maxLength = 64)
     public String orderOuterId;
 
-    // 商家租赁订单创建时间,长度不超过32位
+    // 商家租赁订单创建时间
+    // 长度不超过32位 
+    // 示例：2023-06-27T10:50:23+08:00
     @NameInMap("order_create_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String orderCreateTime;
@@ -33,47 +35,56 @@ public class CreateBclOrderRequest extends TeaModel {
     @Validation(required = true, maxLength = 16)
     public String dueMode;
 
-    // 租金总额 单位分
+    // 租金总额，单位：分
+    // 最小值需大于0
     @NameInMap("total_rent_money")
     @Validation(required = true, minimum = 1)
     public Long totalRentMoney;
 
-    // 订单租期, 比如6期,12期,24期,36期,填数字
+    // 租期，单位：月
+    // 最小值需大于0
     @NameInMap("rent_term")
     @Validation(required = true, minimum = 1)
     public Long rentTerm;
 
-    // 订单租期对应的单位,如果是租期为6,租期单位为MONTH,代表租6个月
-    // 月: MONTH
+    // 订单租期单位，
+    // 1.月：MONTH
+    // 例如：rent_term入参12，rent_unit入参MONTH代表租期12个月
     @NameInMap("rent_unit")
     @Validation(required = true, maxLength = 16)
     public String rentUnit;
 
-    // 到期买断价 单位分，若为买断形式传买断金额，否则传到期归还金额
+    // 到期买断价，单位：分
+    // 到期金额，最小值需大于0，若为买断形式传买断金额，否则传到期归还金额
     @NameInMap("buy_out_price")
     public Long buyOutPrice;
 
-    // 芝麻信用 订单免押金额  单位分
+    // 芝麻信用订单免押金额，单位：分
+    // 最小值需大于0
     @NameInMap("deposit_free")
     public Long depositFree;
 
-    // 芝麻信用 实际预授权金额  单位分
+    // 芝麻信用实际预授权金额，单位：分
+    // 最小值需大于0
     @NameInMap("acutal_pre_auth_free")
     public Long acutalPreAuthFree;
 
-    // 网商代扣协议号或预授权协议号,网商代扣和预授权必填,长度不超过64位
+    // 代扣协议号
+    // 网商代扣和预授权代扣必填，长度不超过64位
     @NameInMap("mybank_agreement_no")
     @Validation(maxLength = 64)
     public String mybankAgreementNo;
 
-    // 网商代扣受理订单号,网商代扣必填,长度不超过64位
+    // 网商代扣受理订单号
+    // 网商代扣必填，长度不超过64位
     @NameInMap("mybank_agreement_order_id")
     @Validation(maxLength = 64)
     public String mybankAgreementOrderId;
 
-    // 用英文单词替代数字
-    // -网商代扣：MY_BANK_PROXY_WITHHOLDING
-    // -合同代扣：CONTRACT_PROXY_WITHHOLDING
+    // 租金支付方式
+    // 1.网商代扣：MY_BANK_PROXY_WITHHOLDING 
+    // 2.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
+    // 3.租赁代扣：PROXY_WITHHOLDING
     @NameInMap("order_withhold_type")
     @Validation(required = true, maxLength = 32)
     public String orderWithholdType;
@@ -82,13 +93,14 @@ public class CreateBclOrderRequest extends TeaModel {
     @NameInMap("down_payment")
     public Long downPayment;
 
-    // 承诺详情,选择代扣是非必填, 按期数从小到大且连续排序
+    // 承诺详情
+    // 按期数从小到大且连续排序
     @NameInMap("promise_details")
     public java.util.List<BclCreatePromiseDetailInfo> promiseDetails;
 
-    // 物流方式：
-    // POST 邮寄
-    // OFFLINE 线下自取
+    // 物流方式
+    // 1.邮寄：POST 
+    // 2.线下自取：OFFLINE
     @NameInMap("logistic_type")
     @Validation(required = true, maxLength = 16)
     public String logisticType;
@@ -98,29 +110,35 @@ public class CreateBclOrderRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<BclOrderProductInfo> productInfos;
 
-    // - 实名：REAL_PERSON,
-    // - 风控：RISK,
-    // - 合同：CONTRACT
+    // 需要使用的增值服务
+    // 1.实名：REAL_PERSON
+    // 2.风控：RISK
+    // 3.租赁合同：CONTRACT
+    // 实人和合同服务使用最长超时时间为72小时
     @NameInMap("service_types")
     public java.util.List<String> serviceTypes;
 
-    // 用户下单时候的ip地址,如果可选服务选择了风控,必填 ,长度不超过32位
+    // 用户下单时的ip地址
+    // 如果可选服务选择了风控，必须填写，长度不超过32位
     @NameInMap("user_ip")
     @Validation(maxLength = 32)
     public String userIp;
 
-    // 承租人实人认证完成后回跳地址(比如商户小程序下单地址),选择实人认证服务时必填
+    // 承租人实人认证完成后回跳地址
+    // 比如商户小程序下单地址，选择实人认证服务时必填
     @NameInMap("real_person_return_url")
     @Validation(maxLength = 512)
     public String realPersonReturnUrl;
 
-    // 签署流程信息，如果使用租赁代扣创建则必填
+    // 签署流程信息
+    // 当service_types为包含CONTRACT时或order_withhold_type为PROXY_WITHHOLDING时必填
     @NameInMap("contract_flow_info")
     public BclContractFlowInfo contractFlowInfo;
 
-    // 是否不需要融资：
-    // ● true表示明确这笔订单不需要融资
-    // ● false表示该笔订单后续可能融资也可能不融资
+    // 是	是否不需要融资：
+    // 1.明确这笔订单不需要融资：true
+    // 2.该笔订单后续可能融资也可能不融资：false
+    // 注意：标明不需要融资可以提升代扣回款速度
     @NameInMap("none_financing")
     public Boolean noneFinancing;
 

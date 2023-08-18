@@ -10,6 +10,7 @@ public class BclOrderProductInfo extends TeaModel {
     public String productId;
 
     // 商品数量
+    // 目前只允许一个商品
     @NameInMap("product_number")
     @Validation(required = true, minimum = 1)
     public Long productNumber;

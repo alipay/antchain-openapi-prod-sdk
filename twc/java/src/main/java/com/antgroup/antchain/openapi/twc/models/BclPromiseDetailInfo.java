@@ -15,24 +15,30 @@ public class BclPromiseDetailInfo extends TeaModel {
     public Long amount;
 
     // 本期还款状态
-    // 已还款，PAID
-    // 部分还款，PART_PAID
-    // 未还款，UN_PAID
+    // 1.已还款：PAID 
+    // 2.部分还款：PART_PAID 
+    // 3.未还款：UN_PAID
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 每期约定还款时间
+    // 示例：2023-06-7T10:50:23+08:00
     @NameInMap("promise_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String promiseTime;
 
-    // 履约日期
+    // 每期应还日期
+    // 示例：2023-06-27T10:50:23+08:00
     @NameInMap("pay_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String payTime;
 
-    // 归还方式，取值范围如下： ACTIVE_REPAYMENT：主动还款， MY_BANK_PROXY_WITHHOLDING：网商委托代扣, PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
+    // 归还方式
+    // 1.租赁代扣： PROXY_WITHHOLDING
+    // 2.主动还款：ACTIVE_REPAYMENT  
+    // 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
+    // 4.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
     @NameInMap("way")
     @Validation(required = true, maxLength = 32)
     public String way;

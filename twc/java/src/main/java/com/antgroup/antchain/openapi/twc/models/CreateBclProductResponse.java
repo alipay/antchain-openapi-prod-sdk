@@ -16,8 +16,8 @@ public class CreateBclProductResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 商品的ID。
-    // 租赁维护的商品id,全局唯一,用户后面创建订单和商品查询。
+    // 商品ID
+    // 租赁维护的商品ID，全局唯一，用户后面创建订单和商品查询
     @NameInMap("product_id")
     public String productId;
 
