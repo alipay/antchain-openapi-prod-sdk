@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.6',
+                    'sdk_version': '1.0.8',
                     '_prod_code': 'IDENTITYMARRIAGE',
                     '_prod_channel': 'undefined'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.6',
+                    'sdk_version': '1.0.8',
                     '_prod_code': 'IDENTITYMARRIAGE',
                     '_prod_channel': 'undefined'
                 }
@@ -439,4 +439,60 @@ class Client:
         return TeaCore.from_map(
             identitymarriage_models.UploadFileDataResponse(),
             await self.do_request_async('1.0', 'identity.marriage.file.data.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_marriage_coupleinfo(
+        self,
+        request: identitymarriage_models.CheckMarriageCoupleinfoRequest,
+    ) -> identitymarriage_models.CheckMarriageCoupleinfoResponse:
+        """
+        Description: 双人婚姻状况核查
+        Summary: 双人婚姻状况核查
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_marriage_coupleinfo_ex(request, headers, runtime)
+
+    async def check_marriage_coupleinfo_async(
+        self,
+        request: identitymarriage_models.CheckMarriageCoupleinfoRequest,
+    ) -> identitymarriage_models.CheckMarriageCoupleinfoResponse:
+        """
+        Description: 双人婚姻状况核查
+        Summary: 双人婚姻状况核查
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_marriage_coupleinfo_ex_async(request, headers, runtime)
+
+    def check_marriage_coupleinfo_ex(
+        self,
+        request: identitymarriage_models.CheckMarriageCoupleinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> identitymarriage_models.CheckMarriageCoupleinfoResponse:
+        """
+        Description: 双人婚姻状况核查
+        Summary: 双人婚姻状况核查
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            identitymarriage_models.CheckMarriageCoupleinfoResponse(),
+            self.do_request('1.0', 'identity.marriage.marriage.coupleinfo.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_marriage_coupleinfo_ex_async(
+        self,
+        request: identitymarriage_models.CheckMarriageCoupleinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> identitymarriage_models.CheckMarriageCoupleinfoResponse:
+        """
+        Description: 双人婚姻状况核查
+        Summary: 双人婚姻状况核查
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            identitymarriage_models.CheckMarriageCoupleinfoResponse(),
+            await self.do_request_async('1.0', 'identity.marriage.marriage.coupleinfo.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
