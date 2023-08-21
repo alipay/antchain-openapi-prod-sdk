@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.6"),
+                    new TeaPair("sdk_version", "1.0.8"),
                     new TeaPair("_prod_code", "IDENTITYMARRIAGE"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -216,5 +216,24 @@ public class Client {
     public UploadFileDataResponse uploadFileDataEx(UploadFileDataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "identity.marriage.file.data.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadFileDataResponse());
+    }
+
+    /**
+     * Description: 双人婚姻状况核查
+     * Summary: 双人婚姻状况核查
+     */
+    public CheckMarriageCoupleinfoResponse checkMarriageCoupleinfo(CheckMarriageCoupleinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkMarriageCoupleinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 双人婚姻状况核查
+     * Summary: 双人婚姻状况核查
+     */
+    public CheckMarriageCoupleinfoResponse checkMarriageCoupleinfoEx(CheckMarriageCoupleinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "identity.marriage.marriage.coupleinfo.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckMarriageCoupleinfoResponse());
     }
 }
