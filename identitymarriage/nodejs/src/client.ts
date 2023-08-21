@@ -258,6 +258,65 @@ export class UploadFileDataResponse extends $tea.Model {
   }
 }
 
+export class CheckMarriageCoupleinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 加密字段
+  bizContent: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizContent: 'biz_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckMarriageCoupleinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -371,7 +430,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.6",
+          sdk_version: "1.0.8",
           _prod_code: "IDENTITYMARRIAGE",
           _prod_channel: "undefined",
         };
@@ -474,6 +533,25 @@ export default class Client {
   async uploadFileDataEx(request: UploadFileDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadFileDataResponse> {
     Util.validateModel(request);
     return $tea.cast<UploadFileDataResponse>(await this.doRequest("1.0", "identity.marriage.file.data.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadFileDataResponse({}));
+  }
+
+  /**
+   * Description: 双人婚姻状况核查
+   * Summary: 双人婚姻状况核查
+   */
+  async checkMarriageCoupleinfo(request: CheckMarriageCoupleinfoRequest): Promise<CheckMarriageCoupleinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkMarriageCoupleinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 双人婚姻状况核查
+   * Summary: 双人婚姻状况核查
+   */
+  async checkMarriageCoupleinfoEx(request: CheckMarriageCoupleinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckMarriageCoupleinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckMarriageCoupleinfoResponse>(await this.doRequest("1.0", "identity.marriage.marriage.coupleinfo.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckMarriageCoupleinfoResponse({}));
   }
 
 }
