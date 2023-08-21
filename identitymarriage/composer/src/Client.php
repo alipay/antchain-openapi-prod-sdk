@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\IDENTITYMARRIAGE\Models\CheckMarriageCoupleinfoRequest;
+use AntChain\IDENTITYMARRIAGE\Models\CheckMarriageCoupleinfoResponse;
 use AntChain\IDENTITYMARRIAGE\Models\CheckMarriageInfoRequest;
 use AntChain\IDENTITYMARRIAGE\Models\CheckMarriageInfoResponse;
 use AntChain\IDENTITYMARRIAGE\Models\NotifyMarriageInfoRequest;
@@ -163,7 +165,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.6',
+                    'sdk_version'      => '1.0.8',
                     '_prod_code'       => 'IDENTITYMARRIAGE',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -308,5 +310,38 @@ class Client
         Utils::validateModel($request);
 
         return UploadFileDataResponse::fromMap($this->doRequest('1.0', 'identity.marriage.file.data.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 双人婚姻状况核查
+     * Summary: 双人婚姻状况核查.
+     *
+     * @param CheckMarriageCoupleinfoRequest $request
+     *
+     * @return CheckMarriageCoupleinfoResponse
+     */
+    public function checkMarriageCoupleinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkMarriageCoupleinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 双人婚姻状况核查
+     * Summary: 双人婚姻状况核查.
+     *
+     * @param CheckMarriageCoupleinfoRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CheckMarriageCoupleinfoResponse
+     */
+    public function checkMarriageCoupleinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckMarriageCoupleinfoResponse::fromMap($this->doRequest('1.0', 'identity.marriage.marriage.coupleinfo.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
