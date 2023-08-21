@@ -137,7 +137,7 @@ namespace AntChain.SDK.IDENTITYMARRIAGE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.6"},
+                        {"sdk_version", "1.0.8"},
                         {"_prod_code", "IDENTITYMARRIAGE"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.IDENTITYMARRIAGE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.6"},
+                        {"sdk_version", "1.0.8"},
                         {"_prod_code", "IDENTITYMARRIAGE"},
                         {"_prod_channel", "undefined"},
                     };
@@ -445,6 +445,48 @@ namespace AntChain.SDK.IDENTITYMARRIAGE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadFileDataResponse>(await DoRequestAsync("1.0", "identity.marriage.file.data.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 双人婚姻状况核查
+         * Summary: 双人婚姻状况核查
+         */
+        public CheckMarriageCoupleinfoResponse CheckMarriageCoupleinfo(CheckMarriageCoupleinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckMarriageCoupleinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 双人婚姻状况核查
+         * Summary: 双人婚姻状况核查
+         */
+        public async Task<CheckMarriageCoupleinfoResponse> CheckMarriageCoupleinfoAsync(CheckMarriageCoupleinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckMarriageCoupleinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 双人婚姻状况核查
+         * Summary: 双人婚姻状况核查
+         */
+        public CheckMarriageCoupleinfoResponse CheckMarriageCoupleinfoEx(CheckMarriageCoupleinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckMarriageCoupleinfoResponse>(DoRequest("1.0", "identity.marriage.marriage.coupleinfo.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 双人婚姻状况核查
+         * Summary: 双人婚姻状况核查
+         */
+        public async Task<CheckMarriageCoupleinfoResponse> CheckMarriageCoupleinfoExAsync(CheckMarriageCoupleinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckMarriageCoupleinfoResponse>(await DoRequestAsync("1.0", "identity.marriage.marriage.coupleinfo.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
