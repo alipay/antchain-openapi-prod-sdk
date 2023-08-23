@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.16',
+                    'sdk_version': '1.6.19',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.16',
+                    'sdk_version': '1.6.19',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -1176,8 +1176,8 @@ class Client:
         request: tax_models.MatchIcmSimpleauthRequest,
     ) -> tax_models.MatchIcmSimpleauthResponse:
         """
-        Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
-        Summary: 极简授权-检查数据是否支持接口
+        Description: 极简授权-判断该企业是否支持要素授权
+        Summary: 极简授权-判断该企业是否支持要素授权
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1188,8 +1188,8 @@ class Client:
         request: tax_models.MatchIcmSimpleauthRequest,
     ) -> tax_models.MatchIcmSimpleauthResponse:
         """
-        Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
-        Summary: 极简授权-检查数据是否支持接口
+        Description: 极简授权-判断该企业是否支持要素授权
+        Summary: 极简授权-判断该企业是否支持要素授权
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1202,8 +1202,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> tax_models.MatchIcmSimpleauthResponse:
         """
-        Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
-        Summary: 极简授权-检查数据是否支持接口
+        Description: 极简授权-判断该企业是否支持要素授权
+        Summary: 极简授权-判断该企业是否支持要素授权
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1218,8 +1218,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> tax_models.MatchIcmSimpleauthResponse:
         """
-        Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
-        Summary: 极简授权-检查数据是否支持接口
+        Description: 极简授权-判断该企业是否支持要素授权
+        Summary: 极简授权-判断该企业是否支持要素授权
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1505,4 +1505,60 @@ class Client:
         return TeaCore.from_map(
             tax_models.PullApiSimpleauthasyncpollingResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.api.simpleauthasyncpolling.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_api_simpleauthstandard(
+        self,
+        request: tax_models.QueryApiSimpleauthstandardRequest,
+    ) -> tax_models.QueryApiSimpleauthstandardResponse:
+        """
+        Description: 极简授权异步查询接口
+        Summary: 极简授权-异步获取数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_api_simpleauthstandard_ex(request, headers, runtime)
+
+    async def query_api_simpleauthstandard_async(
+        self,
+        request: tax_models.QueryApiSimpleauthstandardRequest,
+    ) -> tax_models.QueryApiSimpleauthstandardResponse:
+        """
+        Description: 极简授权异步查询接口
+        Summary: 极简授权-异步获取数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_api_simpleauthstandard_ex_async(request, headers, runtime)
+
+    def query_api_simpleauthstandard_ex(
+        self,
+        request: tax_models.QueryApiSimpleauthstandardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryApiSimpleauthstandardResponse:
+        """
+        Description: 极简授权异步查询接口
+        Summary: 极简授权-异步获取数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryApiSimpleauthstandardResponse(),
+            self.do_request('1.0', 'blockchain.tax.api.simpleauthstandard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_api_simpleauthstandard_ex_async(
+        self,
+        request: tax_models.QueryApiSimpleauthstandardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryApiSimpleauthstandardResponse:
+        """
+        Description: 极简授权异步查询接口
+        Summary: 极简授权-异步获取数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryApiSimpleauthstandardResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.api.simpleauthstandard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
