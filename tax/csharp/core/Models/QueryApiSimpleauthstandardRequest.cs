@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TAX.Models
 {
-    public class MatchIcmSimpleauthRequest : TeaModel {
+    public class QueryApiSimpleauthstandardRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -17,11 +17,6 @@ namespace AntChain.SDK.TAX.Models
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
-
-        // 租户号/子租户号，如果为租户号获取，则为租户号，如果为子租户号获取，则传输子租户号
-        [NameInMap("inst_code")]
-        [Validation(Required=true)]
-        public string InstCode { get; set; }
 
         // 纳税人识别号
         [NameInMap("identity_id")]
@@ -33,12 +28,18 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=true)]
         public string BizRequestId { get; set; }
 
-        // 产品类型
+        // 该请求最终发起方(金融机构)的租户号，若是征信通道模式，则是征信机构终端客户的租户号，该租户号由我方分配。
+        [NameInMap("inst_code")]
+        [Validation(Required=true)]
+        public string InstCode { get; set; }
+
+        // 产品类型；
+        // 发票数据：301；税务数据：302；发票及税务数据：303； (通过征信机构链接时请在数字前加“ZX”，如：ZX301)
         [NameInMap("auth_type")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string AuthType { get; set; }
 
-        // 授权编号
+        // 是指行方生成的授权编号
         [NameInMap("auth_code")]
         [Validation(Required=true)]
         public string AuthCode { get; set; }

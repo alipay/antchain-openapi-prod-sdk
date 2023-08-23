@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.16"},
+                        {"sdk_version", "1.6.19"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.16"},
+                        {"sdk_version", "1.6.19"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -994,8 +994,8 @@ namespace AntChain.SDK.TAX
         }
 
         /**
-         * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
-         * Summary: 极简授权-检查数据是否支持接口
+         * Description: 极简授权-判断该企业是否支持要素授权
+         * Summary: 极简授权-判断该企业是否支持要素授权
          */
         public MatchIcmSimpleauthResponse MatchIcmSimpleauth(MatchIcmSimpleauthRequest request)
         {
@@ -1005,8 +1005,8 @@ namespace AntChain.SDK.TAX
         }
 
         /**
-         * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
-         * Summary: 极简授权-检查数据是否支持接口
+         * Description: 极简授权-判断该企业是否支持要素授权
+         * Summary: 极简授权-判断该企业是否支持要素授权
          */
         public async Task<MatchIcmSimpleauthResponse> MatchIcmSimpleauthAsync(MatchIcmSimpleauthRequest request)
         {
@@ -1016,8 +1016,8 @@ namespace AntChain.SDK.TAX
         }
 
         /**
-         * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
-         * Summary: 极简授权-检查数据是否支持接口
+         * Description: 极简授权-判断该企业是否支持要素授权
+         * Summary: 极简授权-判断该企业是否支持要素授权
          */
         public MatchIcmSimpleauthResponse MatchIcmSimpleauthEx(MatchIcmSimpleauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1026,8 +1026,8 @@ namespace AntChain.SDK.TAX
         }
 
         /**
-         * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
-         * Summary: 极简授权-检查数据是否支持接口
+         * Description: 极简授权-判断该企业是否支持要素授权
+         * Summary: 极简授权-判断该企业是否支持要素授权
          */
         public async Task<MatchIcmSimpleauthResponse> MatchIcmSimpleauthExAsync(MatchIcmSimpleauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1243,6 +1243,48 @@ namespace AntChain.SDK.TAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PullApiSimpleauthasyncpollingResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.simpleauthasyncpolling.pull", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 极简授权异步查询接口
+         * Summary: 极简授权-异步获取数据
+         */
+        public QueryApiSimpleauthstandardResponse QueryApiSimpleauthstandard(QueryApiSimpleauthstandardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryApiSimpleauthstandardEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 极简授权异步查询接口
+         * Summary: 极简授权-异步获取数据
+         */
+        public async Task<QueryApiSimpleauthstandardResponse> QueryApiSimpleauthstandardAsync(QueryApiSimpleauthstandardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryApiSimpleauthstandardExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 极简授权异步查询接口
+         * Summary: 极简授权-异步获取数据
+         */
+        public QueryApiSimpleauthstandardResponse QueryApiSimpleauthstandardEx(QueryApiSimpleauthstandardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryApiSimpleauthstandardResponse>(DoRequest("1.0", "blockchain.tax.api.simpleauthstandard.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 极简授权异步查询接口
+         * Summary: 极简授权-异步获取数据
+         */
+        public async Task<QueryApiSimpleauthstandardResponse> QueryApiSimpleauthstandardExAsync(QueryApiSimpleauthstandardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryApiSimpleauthstandardResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.simpleauthstandard.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
