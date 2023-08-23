@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class BindAsdAsdAsdResponse extends TeaModel {
+public class QueryDemoLulinSuccessResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class BindAsdAsdAsdResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static BindAsdAsdAsdResponse build(java.util.Map<String, ?> map) throws Exception {
-        BindAsdAsdAsdResponse self = new BindAsdAsdAsdResponse();
+    public static QueryDemoLulinSuccessResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryDemoLulinSuccessResponse self = new QueryDemoLulinSuccessResponse();
         return TeaModel.build(map, self);
     }
 
-    public BindAsdAsdAsdResponse setReqMsgId(String reqMsgId) {
+    public QueryDemoLulinSuccessResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class BindAsdAsdAsdResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public BindAsdAsdAsdResponse setResultCode(String resultCode) {
+    public QueryDemoLulinSuccessResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class BindAsdAsdAsdResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public BindAsdAsdAsdResponse setResultMsg(String resultMsg) {
+    public QueryDemoLulinSuccessResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class BindAsdAsdAsdRequest extends TeaModel {
+public class QueryDemoDefaultSdkfffRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,12 +11,12 @@ public class BindAsdAsdAsdRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    public static BindAsdAsdAsdRequest build(java.util.Map<String, ?> map) throws Exception {
-        BindAsdAsdAsdRequest self = new BindAsdAsdAsdRequest();
+    public static QueryDemoDefaultSdkfffRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryDemoDefaultSdkfffRequest self = new QueryDemoDefaultSdkfffRequest();
         return TeaModel.build(map, self);
     }
 
-    public BindAsdAsdAsdRequest setAuthToken(String authToken) {
+    public QueryDemoDefaultSdkfffRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -24,7 +24,7 @@ public class BindAsdAsdAsdRequest extends TeaModel {
         return this.authToken;
     }
 
-    public BindAsdAsdAsdRequest setProductInstanceId(String productInstanceId) {
+    public QueryDemoDefaultSdkfffRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }

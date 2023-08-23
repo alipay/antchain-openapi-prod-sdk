@@ -16,6 +16,16 @@ public class QueryApprovalTestRequest extends TeaModel {
     @Validation(required = true)
     public String input;
 
+    // name
+    @NameInMap("name")
+    @Validation(required = true)
+    public String name;
+
+    // age
+    @NameInMap("age")
+    @Validation(required = true)
+    public String age;
+
     public static QueryApprovalTestRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryApprovalTestRequest self = new QueryApprovalTestRequest();
         return TeaModel.build(map, self);
@@ -43,6 +53,22 @@ public class QueryApprovalTestRequest extends TeaModel {
     }
     public String getInput() {
         return this.input;
+    }
+
+    public QueryApprovalTestRequest setName(String name) {
+        this.name = name;
+        return this;
+    }
+    public String getName() {
+        return this.name;
+    }
+
+    public QueryApprovalTestRequest setAge(String age) {
+        this.age = age;
+        return this;
+    }
+    public String getAge() {
+        return this.age;
     }
 
 }

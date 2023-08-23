@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryApiOfflineResponse extends TeaModel {
+public class QueryDemoDefaultSdkcccResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class QueryApiOfflineResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static QueryApiOfflineResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryApiOfflineResponse self = new QueryApiOfflineResponse();
+    public static QueryDemoDefaultSdkcccResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryDemoDefaultSdkcccResponse self = new QueryDemoDefaultSdkcccResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryApiOfflineResponse setReqMsgId(String reqMsgId) {
+    public QueryDemoDefaultSdkcccResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryApiOfflineResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryApiOfflineResponse setResultCode(String resultCode) {
+    public QueryDemoDefaultSdkcccResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryApiOfflineResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryApiOfflineResponse setResultMsg(String resultMsg) {
+    public QueryDemoDefaultSdkcccResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }

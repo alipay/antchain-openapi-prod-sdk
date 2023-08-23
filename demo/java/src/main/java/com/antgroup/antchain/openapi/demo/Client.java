@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.196"),
+                    new TeaPair("sdk_version", "1.0.211"),
                     new TeaPair("_prod_code", "DEMO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -430,8 +430,8 @@ public class Client {
     }
 
     /**
-     * Description: asd
-     * Summary: asdasdasd
+     * Description: 简介简介简介
+     * Summary: 简介简介
      */
     public QueryAdAsdAsdResponse queryAdAsdAsd(QueryAdAsdAsdRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -440,8 +440,8 @@ public class Client {
     }
 
     /**
-     * Description: asd
-     * Summary: asdasdasd
+     * Description: 简介简介简介
+     * Summary: 简介简介
      */
     public QueryAdAsdAsdResponse queryAdAsdAsdEx(QueryAdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -661,7 +661,6 @@ public class Client {
 
     /**
      * Description: api下架测试
-    测试状态
      * Summary: api下架测试测试状态
      */
     public QueryApiOfflineStatusResponse queryApiOfflineStatus(QueryApiOfflineStatusRequest request) throws Exception {
@@ -672,7 +671,6 @@ public class Client {
 
     /**
      * Description: api下架测试
-    测试状态
      * Summary: api下架测试测试状态
      */
     public QueryApiOfflineStatusResponse queryApiOfflineStatusEx(QueryApiOfflineStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
@@ -719,28 +717,85 @@ public class Client {
     }
 
     /**
-     * Description: asd
-     * Summary: asd
+     * Description: aa
+     * Summary: 测试接口
      */
-    public BindAsdAsdAsdResponse bindAsdAsdAsd(BindAsdAsdAsdRequest request) throws Exception {
+    public QueryDemoLulinSuccessResponse queryDemoLulinSuccess(QueryDemoLulinSuccessRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.bindAsdAsdAsdEx(request, headers, runtime);
+        return this.queryDemoLulinSuccessEx(request, headers, runtime);
     }
 
     /**
-     * Description: asd
-     * Summary: asd
+     * Description: aa
+     * Summary: 测试接口
      */
-    public BindAsdAsdAsdResponse bindAsdAsdAsdEx(BindAsdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryDemoLulinSuccessResponse queryDemoLulinSuccessEx(QueryDemoLulinSuccessRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.asd.asd.asd.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindAsdAsdAsdResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.demo.lulin.success.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoLulinSuccessResponse());
+    }
+
+    /**
+     * Description: 11
+     * Summary: 测试接口
+     */
+    public QueryDemoLulinccDataResponse queryDemoLulinccData(QueryDemoLulinccDataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoLulinccDataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 11
+     * Summary: 测试接口
+     */
+    public QueryDemoLulinccDataResponse queryDemoLulinccDataEx(QueryDemoLulinccDataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.demo.lulincc.data.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoLulinccDataResponse());
+    }
+
+    /**
+     * Description: 111
+     * Summary: 测试接口
+     */
+    public QueryDemoDefaultSdkcccResponse queryDemoDefaultSdkccc(QueryDemoDefaultSdkcccRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoDefaultSdkcccEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 111
+     * Summary: 测试接口
+     */
+    public QueryDemoDefaultSdkcccResponse queryDemoDefaultSdkcccEx(QueryDemoDefaultSdkcccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.demo.default.sdkccc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoDefaultSdkcccResponse());
+    }
+
+    /**
+     * Description: 描述
+     * Summary: 测试接口
+     */
+    public QueryDemoDefaultSdkfffResponse queryDemoDefaultSdkfff(QueryDemoDefaultSdkfffRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoDefaultSdkfffEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 描述
+     * Summary: 测试接口
+     */
+    public QueryDemoDefaultSdkfffResponse queryDemoDefaultSdkfffEx(QueryDemoDefaultSdkfffRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.demo.default.sdkfff.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoDefaultSdkfffResponse());
     }
 
     /**
      * Description: 用于测试api评审接入SDL的测试使用
-    测试评审
-     * Summary: api评审测试
+    测试评审。评审字段测试ACCCCC
+     * Summary: api评审测试CCCC
      */
     public QueryApprovalTestResponse queryApprovalTest(QueryApprovalTestRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -750,8 +805,8 @@ public class Client {
 
     /**
      * Description: 用于测试api评审接入SDL的测试使用
-    测试评审
-     * Summary: api评审测试
+    测试评审。评审字段测试ACCCCC
+     * Summary: api评审测试CCCC
      */
     public QueryApprovalTestResponse queryApprovalTestEx(QueryApprovalTestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1041,25 +1096,6 @@ public class Client {
     public QueryAbcAbcAbcResponse queryAbcAbcAbcEx(QueryAbcAbcAbcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAbcAbcAbcResponse());
-    }
-
-    /**
-     * Description: api下架测试使用
-     * Summary: api下架测试
-     */
-    public QueryApiOfflineResponse queryApiOffline(QueryApiOfflineRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryApiOfflineEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: api下架测试使用
-     * Summary: api下架测试
-     */
-    public QueryApiOfflineResponse queryApiOfflineEx(QueryApiOfflineRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.api.offline.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApiOfflineResponse());
     }
 
     /**

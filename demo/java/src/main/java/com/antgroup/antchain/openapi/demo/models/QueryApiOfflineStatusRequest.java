@@ -11,6 +11,11 @@ public class QueryApiOfflineStatusRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // add
+    @NameInMap("name")
+    @Validation(required = true)
+    public String name;
+
     public static QueryApiOfflineStatusRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryApiOfflineStatusRequest self = new QueryApiOfflineStatusRequest();
         return TeaModel.build(map, self);
@@ -30,6 +35,14 @@ public class QueryApiOfflineStatusRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public QueryApiOfflineStatusRequest setName(String name) {
+        this.name = name;
+        return this;
+    }
+    public String getName() {
+        return this.name;
     }
 
 }
