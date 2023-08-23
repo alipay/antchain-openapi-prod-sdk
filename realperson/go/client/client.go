@@ -2724,7 +2724,273 @@ func (s *CheckThreemetaBankcardResponse) SetExternInfo(v string) *CheckThreemeta
 	return s
 }
 
-type QueryThreemetaSeconddistributeRequest struct {
+type QueryDeepsecRiskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 区分不同应用
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// app_key
+	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty"`
+	// 业务数据集合，包括业务数据如zimId，Map<String,String>
+	BizData *string `json:"biz_data,omitempty" xml:"biz_data,omitempty" require:"true"`
+	// 风险数据集合，包括加密的R风险数据、设备染色数据，Map<String, String>
+	RiskData *string `json:"risk_data,omitempty" xml:"risk_data,omitempty" require:"true"`
+}
+
+func (s QueryDeepsecRiskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeepsecRiskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeepsecRiskRequest) SetAuthToken(v string) *QueryDeepsecRiskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskRequest) SetProductInstanceId(v string) *QueryDeepsecRiskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskRequest) SetAppName(v string) *QueryDeepsecRiskRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskRequest) SetAppKey(v string) *QueryDeepsecRiskRequest {
+	s.AppKey = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskRequest) SetBizData(v string) *QueryDeepsecRiskRequest {
+	s.BizData = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskRequest) SetRiskData(v string) *QueryDeepsecRiskRequest {
+	s.RiskData = &v
+	return s
+}
+
+type QueryDeepsecRiskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否调用成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 业务返回码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// message	返回信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 设备风险标签
+	RiskInfo *string `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
+	// 设备染色风险标签
+	DcRisk *string `json:"dc_risk,omitempty" xml:"dc_risk,omitempty"`
+	// 业务风险标签
+	BizRisk *string `json:"biz_risk,omitempty" xml:"biz_risk,omitempty"`
+	// 设备元数据
+	DeviceInfo *string `json:"device_info,omitempty" xml:"device_info,omitempty"`
+}
+
+func (s QueryDeepsecRiskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeepsecRiskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeepsecRiskResponse) SetReqMsgId(v string) *QueryDeepsecRiskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetResultCode(v string) *QueryDeepsecRiskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetResultMsg(v string) *QueryDeepsecRiskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetSuccess(v bool) *QueryDeepsecRiskResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetCode(v string) *QueryDeepsecRiskResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetMessage(v string) *QueryDeepsecRiskResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetRiskInfo(v string) *QueryDeepsecRiskResponse {
+	s.RiskInfo = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetDcRisk(v string) *QueryDeepsecRiskResponse {
+	s.DcRisk = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetBizRisk(v string) *QueryDeepsecRiskResponse {
+	s.BizRisk = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetDeviceInfo(v string) *QueryDeepsecRiskResponse {
+	s.DeviceInfo = &v
+	return s
+}
+
+type QueryDeepsecTsbmrqRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用来源
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// 环境id
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty"`
+	// request id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 租户
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 商户id
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 应用来源名称, 也被用作渠道名称
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// 是否测试流量, 测试流量会在处理过程中有特殊处理
+	TestFlow *bool `json:"test_flow,omitempty" xml:"test_flow,omitempty"`
+	// apdidToken
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+}
+
+func (s QueryDeepsecTsbmrqRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeepsecTsbmrqRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetAuthToken(v string) *QueryDeepsecTsbmrqRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetProductInstanceId(v string) *QueryDeepsecTsbmrqRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetAppId(v string) *QueryDeepsecTsbmrqRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetEnvId(v string) *QueryDeepsecTsbmrqRequest {
+	s.EnvId = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetRequestId(v string) *QueryDeepsecTsbmrqRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetTenantId(v string) *QueryDeepsecTsbmrqRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetMerchantId(v string) *QueryDeepsecTsbmrqRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetAppName(v string) *QueryDeepsecTsbmrqRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetTestFlow(v bool) *QueryDeepsecTsbmrqRequest {
+	s.TestFlow = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetApdidToken(v string) *QueryDeepsecTsbmrqRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+type QueryDeepsecTsbmrqResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备信息
+	DeviceInfo *string `json:"device_info,omitempty" xml:"device_info,omitempty"`
+	// 风险信息标签
+	RiskInfo *string `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
+	// 业务message
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s QueryDeepsecTsbmrqResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeepsecTsbmrqResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeepsecTsbmrqResponse) SetReqMsgId(v string) *QueryDeepsecTsbmrqResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqResponse) SetResultCode(v string) *QueryDeepsecTsbmrqResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqResponse) SetResultMsg(v string) *QueryDeepsecTsbmrqResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqResponse) SetDeviceInfo(v string) *QueryDeepsecTsbmrqResponse {
+	s.DeviceInfo = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqResponse) SetRiskInfo(v string) *QueryDeepsecTsbmrqResponse {
+	s.RiskInfo = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqResponse) SetMessage(v string) *QueryDeepsecTsbmrqResponse {
+	s.Message = &v
+	return s
+}
+
+type QueryThreemetaPhonereuseRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -2734,90 +3000,97 @@ type QueryThreemetaSeconddistributeRequest struct {
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
 	// 日期
 	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
-	// 扩展信息，Map的json格式
+	// 运营商类型
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 扩展参数
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 }
 
-func (s QueryThreemetaSeconddistributeRequest) String() string {
+func (s QueryThreemetaPhonereuseRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryThreemetaSeconddistributeRequest) GoString() string {
+func (s QueryThreemetaPhonereuseRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryThreemetaSeconddistributeRequest) SetAuthToken(v string) *QueryThreemetaSeconddistributeRequest {
+func (s *QueryThreemetaPhonereuseRequest) SetAuthToken(v string) *QueryThreemetaPhonereuseRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryThreemetaSeconddistributeRequest) SetProductInstanceId(v string) *QueryThreemetaSeconddistributeRequest {
+func (s *QueryThreemetaPhonereuseRequest) SetProductInstanceId(v string) *QueryThreemetaPhonereuseRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryThreemetaSeconddistributeRequest) SetOuterOrderNo(v string) *QueryThreemetaSeconddistributeRequest {
+func (s *QueryThreemetaPhonereuseRequest) SetOuterOrderNo(v string) *QueryThreemetaPhonereuseRequest {
 	s.OuterOrderNo = &v
 	return s
 }
 
-func (s *QueryThreemetaSeconddistributeRequest) SetMobile(v string) *QueryThreemetaSeconddistributeRequest {
+func (s *QueryThreemetaPhonereuseRequest) SetMobile(v string) *QueryThreemetaPhonereuseRequest {
 	s.Mobile = &v
 	return s
 }
 
-func (s *QueryThreemetaSeconddistributeRequest) SetDate(v string) *QueryThreemetaSeconddistributeRequest {
+func (s *QueryThreemetaPhonereuseRequest) SetDate(v string) *QueryThreemetaPhonereuseRequest {
 	s.Date = &v
 	return s
 }
 
-func (s *QueryThreemetaSeconddistributeRequest) SetExternParam(v string) *QueryThreemetaSeconddistributeRequest {
+func (s *QueryThreemetaPhonereuseRequest) SetCarrier(v string) *QueryThreemetaPhonereuseRequest {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseRequest) SetExternParam(v string) *QueryThreemetaPhonereuseRequest {
 	s.ExternParam = &v
 	return s
 }
 
-type QueryThreemetaSeconddistributeResponse struct {
+type QueryThreemetaPhonereuseResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// YES：二次放号；NO：不是二次放号；CANCELLED：已销号
-	Result *string `json:"result,omitempty" xml:"result,omitempty"`
-	// 扩展信息，Map的json格式。
+	// 是否二次放号
+	PhoneReuse *string `json:"phone_reuse,omitempty" xml:"phone_reuse,omitempty"`
+	// 扩展参数
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 }
 
-func (s QueryThreemetaSeconddistributeResponse) String() string {
+func (s QueryThreemetaPhonereuseResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryThreemetaSeconddistributeResponse) GoString() string {
+func (s QueryThreemetaPhonereuseResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryThreemetaSeconddistributeResponse) SetReqMsgId(v string) *QueryThreemetaSeconddistributeResponse {
+func (s *QueryThreemetaPhonereuseResponse) SetReqMsgId(v string) *QueryThreemetaPhonereuseResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryThreemetaSeconddistributeResponse) SetResultCode(v string) *QueryThreemetaSeconddistributeResponse {
+func (s *QueryThreemetaPhonereuseResponse) SetResultCode(v string) *QueryThreemetaPhonereuseResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryThreemetaSeconddistributeResponse) SetResultMsg(v string) *QueryThreemetaSeconddistributeResponse {
+func (s *QueryThreemetaPhonereuseResponse) SetResultMsg(v string) *QueryThreemetaPhonereuseResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryThreemetaSeconddistributeResponse) SetResult(v string) *QueryThreemetaSeconddistributeResponse {
-	s.Result = &v
+func (s *QueryThreemetaPhonereuseResponse) SetPhoneReuse(v string) *QueryThreemetaPhonereuseResponse {
+	s.PhoneReuse = &v
 	return s
 }
 
-func (s *QueryThreemetaSeconddistributeResponse) SetExternInfo(v string) *QueryThreemetaSeconddistributeResponse {
+func (s *QueryThreemetaPhonereuseResponse) SetExternInfo(v string) *QueryThreemetaPhonereuseResponse {
 	s.ExternInfo = &v
 	return s
 }
@@ -3020,17 +3293,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -3064,7 +3337,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.3"),
+				"sdk_version":      tea.String("1.12.0"),
+				"_prod_code":       tea.String("REALPERSON"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -3830,14 +4105,82 @@ func (client *Client) CheckThreemetaBankcardEx(request *CheckThreemetaBankcardRe
 }
 
 /**
+ * Description: deepsec终端安全风险标签查询
+ * Summary: deepsec终端安全风险标签查询
+ */
+func (client *Client) QueryDeepsecRisk(request *QueryDeepsecRiskRequest) (_result *QueryDeepsecRiskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeepsecRiskResponse{}
+	_body, _err := client.QueryDeepsecRiskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: deepsec终端安全风险标签查询
+ * Summary: deepsec终端安全风险标签查询
+ */
+func (client *Client) QueryDeepsecRiskEx(request *QueryDeepsecRiskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeepsecRiskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeepsecRiskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.deepsec.risk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: deepsec终端安全api，用于apdid查询
+ * Summary: tsbmrq设备id查询入口
+ */
+func (client *Client) QueryDeepsecTsbmrq(request *QueryDeepsecTsbmrqRequest) (_result *QueryDeepsecTsbmrqResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeepsecTsbmrqResponse{}
+	_body, _err := client.QueryDeepsecTsbmrqEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: deepsec终端安全api，用于apdid查询
+ * Summary: tsbmrq设备id查询入口
+ */
+func (client *Client) QueryDeepsecTsbmrqEx(request *QueryDeepsecTsbmrqRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeepsecTsbmrqResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeepsecTsbmrqResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.deepsec.tsbmrq.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 个人运营商二次放号
  * Summary: 个人运营商二次放号
  */
-func (client *Client) QueryThreemetaSeconddistribute(request *QueryThreemetaSeconddistributeRequest) (_result *QueryThreemetaSeconddistributeResponse, _err error) {
+func (client *Client) QueryThreemetaPhonereuse(request *QueryThreemetaPhonereuseRequest) (_result *QueryThreemetaPhonereuseResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryThreemetaSeconddistributeResponse{}
-	_body, _err := client.QueryThreemetaSeconddistributeEx(request, headers, runtime)
+	_result = &QueryThreemetaPhonereuseResponse{}
+	_body, _err := client.QueryThreemetaPhonereuseEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3849,13 +4192,13 @@ func (client *Client) QueryThreemetaSeconddistribute(request *QueryThreemetaSeco
  * Description: 个人运营商二次放号
  * Summary: 个人运营商二次放号
  */
-func (client *Client) QueryThreemetaSeconddistributeEx(request *QueryThreemetaSeconddistributeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryThreemetaSeconddistributeResponse, _err error) {
+func (client *Client) QueryThreemetaPhonereuseEx(request *QueryThreemetaPhonereuseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryThreemetaPhonereuseResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryThreemetaSeconddistributeResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.threemeta.seconddistribute.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &QueryThreemetaPhonereuseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.threemeta.phonereuse.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
