@@ -3,18 +3,13 @@ package com.antgroup.antchain.openapi.tax.models;
 
 import com.aliyun.tea.*;
 
-public class MatchIcmSimpleauthRequest extends TeaModel {
+public class QueryApiSimpleauthstandardRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
     @NameInMap("product_instance_id")
     public String productInstanceId;
-
-    // 租户号/子租户号，如果为租户号获取，则为租户号，如果为子租户号获取，则传输子租户号
-    @NameInMap("inst_code")
-    @Validation(required = true)
-    public String instCode;
 
     // 纳税人识别号
     @NameInMap("identity_id")
@@ -26,21 +21,28 @@ public class MatchIcmSimpleauthRequest extends TeaModel {
     @Validation(required = true)
     public String bizRequestId;
 
-    // 产品类型
+    // 该请求最终发起方(金融机构)的租户号，若是征信通道模式，则是征信机构终端客户的租户号，该租户号由我方分配。
+    @NameInMap("inst_code")
+    @Validation(required = true)
+    public String instCode;
+
+    // 产品类型；
+    // 发票数据：301；税务数据：302；发票及税务数据：303； (通过征信机构链接时请在数字前加“ZX”，如：ZX301)
     @NameInMap("auth_type")
+    @Validation(required = true)
     public String authType;
 
-    // 授权编号
+    // 是指行方生成的授权编号
     @NameInMap("auth_code")
     @Validation(required = true)
     public String authCode;
 
-    public static MatchIcmSimpleauthRequest build(java.util.Map<String, ?> map) throws Exception {
-        MatchIcmSimpleauthRequest self = new MatchIcmSimpleauthRequest();
+    public static QueryApiSimpleauthstandardRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryApiSimpleauthstandardRequest self = new QueryApiSimpleauthstandardRequest();
         return TeaModel.build(map, self);
     }
 
-    public MatchIcmSimpleauthRequest setAuthToken(String authToken) {
+    public QueryApiSimpleauthstandardRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -48,7 +50,7 @@ public class MatchIcmSimpleauthRequest extends TeaModel {
         return this.authToken;
     }
 
-    public MatchIcmSimpleauthRequest setProductInstanceId(String productInstanceId) {
+    public QueryApiSimpleauthstandardRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -56,15 +58,7 @@ public class MatchIcmSimpleauthRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public MatchIcmSimpleauthRequest setInstCode(String instCode) {
-        this.instCode = instCode;
-        return this;
-    }
-    public String getInstCode() {
-        return this.instCode;
-    }
-
-    public MatchIcmSimpleauthRequest setIdentityId(String identityId) {
+    public QueryApiSimpleauthstandardRequest setIdentityId(String identityId) {
         this.identityId = identityId;
         return this;
     }
@@ -72,7 +66,7 @@ public class MatchIcmSimpleauthRequest extends TeaModel {
         return this.identityId;
     }
 
-    public MatchIcmSimpleauthRequest setBizRequestId(String bizRequestId) {
+    public QueryApiSimpleauthstandardRequest setBizRequestId(String bizRequestId) {
         this.bizRequestId = bizRequestId;
         return this;
     }
@@ -80,7 +74,15 @@ public class MatchIcmSimpleauthRequest extends TeaModel {
         return this.bizRequestId;
     }
 
-    public MatchIcmSimpleauthRequest setAuthType(String authType) {
+    public QueryApiSimpleauthstandardRequest setInstCode(String instCode) {
+        this.instCode = instCode;
+        return this;
+    }
+    public String getInstCode() {
+        return this.instCode;
+    }
+
+    public QueryApiSimpleauthstandardRequest setAuthType(String authType) {
         this.authType = authType;
         return this;
     }
@@ -88,7 +90,7 @@ public class MatchIcmSimpleauthRequest extends TeaModel {
         return this.authType;
     }
 
-    public MatchIcmSimpleauthRequest setAuthCode(String authCode) {
+    public QueryApiSimpleauthstandardRequest setAuthCode(String authCode) {
         this.authCode = authCode;
         return this;
     }
