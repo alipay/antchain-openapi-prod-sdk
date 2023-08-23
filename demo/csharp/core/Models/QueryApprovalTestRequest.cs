@@ -23,6 +23,16 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=true)]
         public string Input { get; set; }
 
+        // name
+        [NameInMap("name")]
+        [Validation(Required=true)]
+        public string Name { get; set; }
+
+        // age
+        [NameInMap("age")]
+        [Validation(Required=true)]
+        public string Age { get; set; }
+
     }
 
 }
