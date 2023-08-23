@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryThreemetaSeconddistributeRequest extends Model
+class QueryThreemetaPhonereuseRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -37,7 +37,13 @@ class QueryThreemetaSeconddistributeRequest extends Model
      */
     public $date;
 
-    // 扩展信息，Map的json格式
+    // 运营商类型
+    /**
+     * @var string
+     */
+    public $carrier;
+
+    // 扩展参数
     /**
      * @var string
      */
@@ -48,6 +54,7 @@ class QueryThreemetaSeconddistributeRequest extends Model
         'outerOrderNo'      => 'outer_order_no',
         'mobile'            => 'mobile',
         'date'              => 'date',
+        'carrier'           => 'carrier',
         'externParam'       => 'extern_param',
     ];
 
@@ -76,6 +83,9 @@ class QueryThreemetaSeconddistributeRequest extends Model
         if (null !== $this->date) {
             $res['date'] = $this->date;
         }
+        if (null !== $this->carrier) {
+            $res['carrier'] = $this->carrier;
+        }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
         }
@@ -86,7 +96,7 @@ class QueryThreemetaSeconddistributeRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryThreemetaSeconddistributeRequest
+     * @return QueryThreemetaPhonereuseRequest
      */
     public static function fromMap($map = [])
     {
@@ -105,6 +115,9 @@ class QueryThreemetaSeconddistributeRequest extends Model
         }
         if (isset($map['date'])) {
             $model->date = $map['date'];
+        }
+        if (isset($map['carrier'])) {
+            $model->carrier = $map['carrier'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];

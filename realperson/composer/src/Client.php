@@ -41,14 +41,18 @@ use AntChain\REALPERSON\Models\GetFacevrfEvidenceRequest;
 use AntChain\REALPERSON\Models\GetFacevrfEvidenceResponse;
 use AntChain\REALPERSON\Models\InitFacevrfZimRequest;
 use AntChain\REALPERSON\Models\InitFacevrfZimResponse;
+use AntChain\REALPERSON\Models\QueryDeepsecRiskRequest;
+use AntChain\REALPERSON\Models\QueryDeepsecRiskResponse;
+use AntChain\REALPERSON\Models\QueryDeepsecTsbmrqRequest;
+use AntChain\REALPERSON\Models\QueryDeepsecTsbmrqResponse;
 use AntChain\REALPERSON\Models\QueryFacevrfServerRequest;
 use AntChain\REALPERSON\Models\QueryFacevrfServerResponse;
 use AntChain\REALPERSON\Models\QueryMobileRiskRequest;
 use AntChain\REALPERSON\Models\QueryMobileRiskResponse;
 use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeRequest;
 use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeResponse;
-use AntChain\REALPERSON\Models\QueryThreemetaSeconddistributeRequest;
-use AntChain\REALPERSON\Models\QueryThreemetaSeconddistributeResponse;
+use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseRequest;
+use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseResponse;
 use AntChain\REALPERSON\Models\RecognizeDocIndividualcardRequest;
 use AntChain\REALPERSON\Models\RecognizeDocIndividualcardResponse;
 use AntChain\REALPERSON\Models\VerifyFacevrfZimRequest;
@@ -154,18 +158,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -202,7 +206,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.3',
+                    'sdk_version'      => '1.12.0',
+                    '_prod_code'       => 'REALPERSON',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -927,36 +933,102 @@ class Client
     }
 
     /**
-     * Description: 个人运营商二次放号
-     * Summary: 个人运营商二次放号.
+     * Description: deepsec终端安全风险标签查询
+     * Summary: deepsec终端安全风险标签查询.
      *
-     * @param QueryThreemetaSeconddistributeRequest $request
+     * @param QueryDeepsecRiskRequest $request
      *
-     * @return QueryThreemetaSeconddistributeResponse
+     * @return QueryDeepsecRiskResponse
      */
-    public function queryThreemetaSeconddistribute($request)
+    public function queryDeepsecRisk($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryThreemetaSeconddistributeEx($request, $headers, $runtime);
+        return $this->queryDeepsecRiskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: deepsec终端安全风险标签查询
+     * Summary: deepsec终端安全风险标签查询.
+     *
+     * @param QueryDeepsecRiskRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryDeepsecRiskResponse
+     */
+    public function queryDeepsecRiskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeepsecRiskResponse::fromMap($this->doRequest('1.0', 'di.realperson.deepsec.risk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: deepsec终端安全api，用于apdid查询
+     * Summary: tsbmrq设备id查询入口.
+     *
+     * @param QueryDeepsecTsbmrqRequest $request
+     *
+     * @return QueryDeepsecTsbmrqResponse
+     */
+    public function queryDeepsecTsbmrq($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeepsecTsbmrqEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: deepsec终端安全api，用于apdid查询
+     * Summary: tsbmrq设备id查询入口.
+     *
+     * @param QueryDeepsecTsbmrqRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryDeepsecTsbmrqResponse
+     */
+    public function queryDeepsecTsbmrqEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeepsecTsbmrqResponse::fromMap($this->doRequest('1.0', 'di.realperson.deepsec.tsbmrq.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 个人运营商二次放号
      * Summary: 个人运营商二次放号.
      *
-     * @param QueryThreemetaSeconddistributeRequest $request
-     * @param string[]                              $headers
-     * @param RuntimeOptions                        $runtime
+     * @param QueryThreemetaPhonereuseRequest $request
      *
-     * @return QueryThreemetaSeconddistributeResponse
+     * @return QueryThreemetaPhonereuseResponse
      */
-    public function queryThreemetaSeconddistributeEx($request, $headers, $runtime)
+    public function queryThreemetaPhonereuse($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryThreemetaPhonereuseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人运营商二次放号
+     * Summary: 个人运营商二次放号.
+     *
+     * @param QueryThreemetaPhonereuseRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryThreemetaPhonereuseResponse
+     */
+    public function queryThreemetaPhonereuseEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryThreemetaSeconddistributeResponse::fromMap($this->doRequest('1.0', 'di.realperson.threemeta.seconddistribute.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryThreemetaPhonereuseResponse::fromMap($this->doRequest('1.0', 'di.realperson.threemeta.phonereuse.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

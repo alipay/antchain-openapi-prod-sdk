@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryThreemetaSeconddistributeResponse extends Model
+class QueryThreemetaPhonereuseResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,13 +26,13 @@ class QueryThreemetaSeconddistributeResponse extends Model
      */
     public $resultMsg;
 
-    // YES：二次放号；NO：不是二次放号；CANCELLED：已销号
+    // 是否二次放号
     /**
      * @var string
      */
-    public $result;
+    public $phoneReuse;
 
-    // 扩展信息，Map的json格式。
+    // 扩展参数
     /**
      * @var string
      */
@@ -41,7 +41,7 @@ class QueryThreemetaSeconddistributeResponse extends Model
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'result'     => 'result',
+        'phoneReuse' => 'phone_reuse',
         'externInfo' => 'extern_info',
     ];
 
@@ -61,8 +61,8 @@ class QueryThreemetaSeconddistributeResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->result) {
-            $res['result'] = $this->result;
+        if (null !== $this->phoneReuse) {
+            $res['phone_reuse'] = $this->phoneReuse;
         }
         if (null !== $this->externInfo) {
             $res['extern_info'] = $this->externInfo;
@@ -74,7 +74,7 @@ class QueryThreemetaSeconddistributeResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryThreemetaSeconddistributeResponse
+     * @return QueryThreemetaPhonereuseResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,8 +88,8 @@ class QueryThreemetaSeconddistributeResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['result'])) {
-            $model->result = $map['result'];
+        if (isset($map['phone_reuse'])) {
+            $model->phoneReuse = $map['phone_reuse'];
         }
         if (isset($map['extern_info'])) {
             $model->externInfo = $map['extern_info'];
