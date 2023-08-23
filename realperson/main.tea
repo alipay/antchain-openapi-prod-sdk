@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.3',
+    sdk_version = '1.12.0',
+    _prod_code = 'REALPERSON',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -145,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -1292,7 +1294,119 @@ async function checkThreemetaBankcardEx(request: CheckThreemetaBankcardRequest, 
   return doRequest('1.0' ,'di.realperson.threemeta.bankcard.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryThreemetaSeconddistributeRequest = {
+model QueryDeepsecRiskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区分不同应用
+  appName: string(name='app_name'),
+  // app_key
+  appKey?: string(name='app_key'),
+  // 业务数据集合，包括业务数据如zimId，Map<String,String>
+  bizData: string(name='biz_data'),
+  // 风险数据集合，包括加密的R风险数据、设备染色数据，Map<String, String>
+  riskData: string(name='risk_data'),
+}
+
+model QueryDeepsecRiskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否调用成功
+  success?: boolean(name='success'),
+  // 业务返回码
+  code?: string(name='code'),
+  // message	返回信息
+  message?: string(name='message'),
+  // 设备风险标签
+  riskInfo?: string(name='risk_info'),
+  // 设备染色风险标签
+  dcRisk?: string(name='dc_risk'),
+  // 业务风险标签
+  bizRisk?: string(name='biz_risk'),
+  // 设备元数据
+  deviceInfo?: string(name='device_info'),
+}
+
+/**
+ * Description: deepsec终端安全风险标签查询
+ * Summary: deepsec终端安全风险标签查询
+ */
+async function queryDeepsecRisk(request: QueryDeepsecRiskRequest): QueryDeepsecRiskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeepsecRiskEx(request, headers, runtime);
+}
+
+/**
+ * Description: deepsec终端安全风险标签查询
+ * Summary: deepsec终端安全风险标签查询
+ */
+async function queryDeepsecRiskEx(request: QueryDeepsecRiskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeepsecRiskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.deepsec.risk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeepsecTsbmrqRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用来源
+  appId?: string(name='app_id'),
+  // 环境id
+  envId?: string(name='env_id'),
+  // request id
+  requestId?: string(name='request_id'),
+  // 租户
+  tenantId: string(name='tenant_id'),
+  // 商户id
+  merchantId: string(name='merchant_id'),
+  // 应用来源名称, 也被用作渠道名称
+  appName?: string(name='app_name'),
+  // 是否测试流量, 测试流量会在处理过程中有特殊处理
+  testFlow?: boolean(name='test_flow'),
+  // apdidToken
+  apdidToken: string(name='apdid_token'),
+}
+
+model QueryDeepsecTsbmrqResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 设备信息
+  deviceInfo?: string(name='device_info'),
+  // 风险信息标签
+  riskInfo?: string(name='risk_info'),
+  // 业务message
+  message?: string(name='message'),
+}
+
+/**
+ * Description: deepsec终端安全api，用于apdid查询
+ * Summary: tsbmrq设备id查询入口
+ */
+async function queryDeepsecTsbmrq(request: QueryDeepsecTsbmrqRequest): QueryDeepsecTsbmrqResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeepsecTsbmrqEx(request, headers, runtime);
+}
+
+/**
+ * Description: deepsec终端安全api，用于apdid查询
+ * Summary: tsbmrq设备id查询入口
+ */
+async function queryDeepsecTsbmrqEx(request: QueryDeepsecTsbmrqRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeepsecTsbmrqResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.deepsec.tsbmrq.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryThreemetaPhonereuseRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -1302,20 +1416,22 @@ model QueryThreemetaSeconddistributeRequest = {
   mobile: string(name='mobile'),
   // 日期
   date: string(name='date'),
-  // 扩展信息，Map的json格式
+  // 运营商类型
+  carrier?: string(name='carrier'),
+  // 扩展参数
   externParam?: string(name='extern_param'),
 }
 
-model QueryThreemetaSeconddistributeResponse = {
+model QueryThreemetaPhonereuseResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // YES：二次放号；NO：不是二次放号；CANCELLED：已销号
-  result?: string(name='result'),
-  // 扩展信息，Map的json格式。
+  // 是否二次放号
+  phoneReuse?: string(name='phone_reuse'),
+  // 扩展参数
   externInfo?: string(name='extern_info'),
 }
 
@@ -1323,19 +1439,19 @@ model QueryThreemetaSeconddistributeResponse = {
  * Description: 个人运营商二次放号
  * Summary: 个人运营商二次放号
  */
-async function queryThreemetaSeconddistribute(request: QueryThreemetaSeconddistributeRequest): QueryThreemetaSeconddistributeResponse {
+async function queryThreemetaPhonereuse(request: QueryThreemetaPhonereuseRequest): QueryThreemetaPhonereuseResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryThreemetaSeconddistributeEx(request, headers, runtime);
+  return queryThreemetaPhonereuseEx(request, headers, runtime);
 }
 
 /**
  * Description: 个人运营商二次放号
  * Summary: 个人运营商二次放号
  */
-async function queryThreemetaSeconddistributeEx(request: QueryThreemetaSeconddistributeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryThreemetaSeconddistributeResponse {
+async function queryThreemetaPhonereuseEx(request: QueryThreemetaPhonereuseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryThreemetaPhonereuseResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'di.realperson.threemeta.seconddistribute.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'di.realperson.threemeta.phonereuse.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
