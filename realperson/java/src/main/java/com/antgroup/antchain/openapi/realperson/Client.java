@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.3")
+                    new TeaPair("sdk_version", "1.12.0"),
+                    new TeaPair("_prod_code", "REALPERSON"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -561,22 +563,60 @@ public class Client {
     }
 
     /**
-     * Description: 个人运营商二次放号
-     * Summary: 个人运营商二次放号
+     * Description: deepsec终端安全风险标签查询
+     * Summary: deepsec终端安全风险标签查询
      */
-    public QueryThreemetaSeconddistributeResponse queryThreemetaSeconddistribute(QueryThreemetaSeconddistributeRequest request) throws Exception {
+    public QueryDeepsecRiskResponse queryDeepsecRisk(QueryDeepsecRiskRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryThreemetaSeconddistributeEx(request, headers, runtime);
+        return this.queryDeepsecRiskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: deepsec终端安全风险标签查询
+     * Summary: deepsec终端安全风险标签查询
+     */
+    public QueryDeepsecRiskResponse queryDeepsecRiskEx(QueryDeepsecRiskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.deepsec.risk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeepsecRiskResponse());
+    }
+
+    /**
+     * Description: deepsec终端安全api，用于apdid查询
+     * Summary: tsbmrq设备id查询入口
+     */
+    public QueryDeepsecTsbmrqResponse queryDeepsecTsbmrq(QueryDeepsecTsbmrqRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDeepsecTsbmrqEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: deepsec终端安全api，用于apdid查询
+     * Summary: tsbmrq设备id查询入口
+     */
+    public QueryDeepsecTsbmrqResponse queryDeepsecTsbmrqEx(QueryDeepsecTsbmrqRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.deepsec.tsbmrq.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeepsecTsbmrqResponse());
     }
 
     /**
      * Description: 个人运营商二次放号
      * Summary: 个人运营商二次放号
      */
-    public QueryThreemetaSeconddistributeResponse queryThreemetaSeconddistributeEx(QueryThreemetaSeconddistributeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryThreemetaPhonereuseResponse queryThreemetaPhonereuse(QueryThreemetaPhonereuseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryThreemetaPhonereuseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人运营商二次放号
+     * Summary: 个人运营商二次放号
+     */
+    public QueryThreemetaPhonereuseResponse queryThreemetaPhonereuseEx(QueryThreemetaPhonereuseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.threemeta.seconddistribute.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryThreemetaSeconddistributeResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.threemeta.phonereuse.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryThreemetaPhonereuseResponse());
     }
 
     /**

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.realperson.models;
 
 import com.aliyun.tea.*;
 
-public class QueryThreemetaSeconddistributeRequest extends TeaModel {
+public class QueryThreemetaPhonereuseRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -26,16 +26,20 @@ public class QueryThreemetaSeconddistributeRequest extends TeaModel {
     @Validation(required = true)
     public String date;
 
-    // 扩展信息，Map的json格式
+    // 运营商类型
+    @NameInMap("carrier")
+    public String carrier;
+
+    // 扩展参数
     @NameInMap("extern_param")
     public String externParam;
 
-    public static QueryThreemetaSeconddistributeRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryThreemetaSeconddistributeRequest self = new QueryThreemetaSeconddistributeRequest();
+    public static QueryThreemetaPhonereuseRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryThreemetaPhonereuseRequest self = new QueryThreemetaPhonereuseRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryThreemetaSeconddistributeRequest setAuthToken(String authToken) {
+    public QueryThreemetaPhonereuseRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -43,7 +47,7 @@ public class QueryThreemetaSeconddistributeRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryThreemetaSeconddistributeRequest setProductInstanceId(String productInstanceId) {
+    public QueryThreemetaPhonereuseRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -51,7 +55,7 @@ public class QueryThreemetaSeconddistributeRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryThreemetaSeconddistributeRequest setOuterOrderNo(String outerOrderNo) {
+    public QueryThreemetaPhonereuseRequest setOuterOrderNo(String outerOrderNo) {
         this.outerOrderNo = outerOrderNo;
         return this;
     }
@@ -59,7 +63,7 @@ public class QueryThreemetaSeconddistributeRequest extends TeaModel {
         return this.outerOrderNo;
     }
 
-    public QueryThreemetaSeconddistributeRequest setMobile(String mobile) {
+    public QueryThreemetaPhonereuseRequest setMobile(String mobile) {
         this.mobile = mobile;
         return this;
     }
@@ -67,7 +71,7 @@ public class QueryThreemetaSeconddistributeRequest extends TeaModel {
         return this.mobile;
     }
 
-    public QueryThreemetaSeconddistributeRequest setDate(String date) {
+    public QueryThreemetaPhonereuseRequest setDate(String date) {
         this.date = date;
         return this;
     }
@@ -75,7 +79,15 @@ public class QueryThreemetaSeconddistributeRequest extends TeaModel {
         return this.date;
     }
 
-    public QueryThreemetaSeconddistributeRequest setExternParam(String externParam) {
+    public QueryThreemetaPhonereuseRequest setCarrier(String carrier) {
+        this.carrier = carrier;
+        return this;
+    }
+    public String getCarrier() {
+        return this.carrier;
+    }
+
+    public QueryThreemetaPhonereuseRequest setExternParam(String externParam) {
         this.externParam = externParam;
         return this;
     }

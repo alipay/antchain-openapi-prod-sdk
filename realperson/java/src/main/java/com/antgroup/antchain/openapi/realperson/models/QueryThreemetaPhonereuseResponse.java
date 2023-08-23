@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.realperson.models;
 
 import com.aliyun.tea.*;
 
-public class QueryThreemetaSeconddistributeResponse extends TeaModel {
+public class QueryThreemetaPhonereuseResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,20 @@ public class QueryThreemetaSeconddistributeResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // YES：二次放号；NO：不是二次放号；CANCELLED：已销号
-    @NameInMap("result")
-    public String result;
+    // 是否二次放号
+    @NameInMap("phone_reuse")
+    public String phoneReuse;
 
-    // 扩展信息，Map的json格式。
+    // 扩展参数
     @NameInMap("extern_info")
     public String externInfo;
 
-    public static QueryThreemetaSeconddistributeResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryThreemetaSeconddistributeResponse self = new QueryThreemetaSeconddistributeResponse();
+    public static QueryThreemetaPhonereuseResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryThreemetaPhonereuseResponse self = new QueryThreemetaPhonereuseResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryThreemetaSeconddistributeResponse setReqMsgId(String reqMsgId) {
+    public QueryThreemetaPhonereuseResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryThreemetaSeconddistributeResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryThreemetaSeconddistributeResponse setResultCode(String resultCode) {
+    public QueryThreemetaPhonereuseResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +45,7 @@ public class QueryThreemetaSeconddistributeResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryThreemetaSeconddistributeResponse setResultMsg(String resultMsg) {
+    public QueryThreemetaPhonereuseResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,15 +53,15 @@ public class QueryThreemetaSeconddistributeResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryThreemetaSeconddistributeResponse setResult(String result) {
-        this.result = result;
+    public QueryThreemetaPhonereuseResponse setPhoneReuse(String phoneReuse) {
+        this.phoneReuse = phoneReuse;
         return this;
     }
-    public String getResult() {
-        return this.result;
+    public String getPhoneReuse() {
+        return this.phoneReuse;
     }
 
-    public QueryThreemetaSeconddistributeResponse setExternInfo(String externInfo) {
+    public QueryThreemetaPhonereuseResponse setExternInfo(String externInfo) {
         this.externInfo = externInfo;
         return this;
     }
