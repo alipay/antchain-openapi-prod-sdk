@@ -2316,6 +2316,10 @@ export class MatchIcmSimpleauthRequest extends $tea.Model {
   identityId: string;
   // 用于幂等控制
   bizRequestId: string;
+  // 产品类型
+  authType?: string;
+  // 授权编号
+  authCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2323,6 +2327,8 @@ export class MatchIcmSimpleauthRequest extends $tea.Model {
       instCode: 'inst_code',
       identityId: 'identity_id',
       bizRequestId: 'biz_request_id',
+      authType: 'auth_type',
+      authCode: 'auth_code',
     };
   }
 
@@ -2333,6 +2339,8 @@ export class MatchIcmSimpleauthRequest extends $tea.Model {
       instCode: 'string',
       identityId: 'string',
       bizRequestId: 'string',
+      authType: 'string',
+      authCode: 'string',
     };
   }
 
@@ -2825,6 +2833,78 @@ export class PullApiSimpleauthasyncpollingResponse extends $tea.Model {
   }
 }
 
+export class QueryApiSimpleauthstandardRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 纳税人识别号
+  identityId: string;
+  // 用于幂等控制
+  bizRequestId: string;
+  // 该请求最终发起方(金融机构)的租户号，若是征信通道模式，则是征信机构终端客户的租户号，该租户号由我方分配。
+  instCode: string;
+  // 产品类型；
+  // 发票数据：301；税务数据：302；发票及税务数据：303； (通过征信机构链接时请在数字前加“ZX”，如：ZX301)
+  authType: string;
+  // 是指行方生成的授权编号
+  authCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      identityId: 'identity_id',
+      bizRequestId: 'biz_request_id',
+      instCode: 'inst_code',
+      authType: 'auth_type',
+      authCode: 'auth_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      identityId: 'string',
+      bizRequestId: 'string',
+      instCode: 'string',
+      authType: 'string',
+      authCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApiSimpleauthstandardResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2938,7 +3018,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.16",
+          sdk_version: "1.6.19",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
@@ -3291,8 +3371,8 @@ export default class Client {
   }
 
   /**
-   * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
-   * Summary: 极简授权-检查数据是否支持接口
+   * Description: 极简授权-判断该企业是否支持要素授权
+   * Summary: 极简授权-判断该企业是否支持要素授权
    */
   async matchIcmSimpleauth(request: MatchIcmSimpleauthRequest): Promise<MatchIcmSimpleauthResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -3301,8 +3381,8 @@ export default class Client {
   }
 
   /**
-   * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
-   * Summary: 极简授权-检查数据是否支持接口
+   * Description: 极简授权-判断该企业是否支持要素授权
+   * Summary: 极简授权-判断该企业是否支持要素授权
    */
   async matchIcmSimpleauthEx(request: MatchIcmSimpleauthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<MatchIcmSimpleauthResponse> {
     Util.validateModel(request);
@@ -3402,6 +3482,25 @@ export default class Client {
   async pullApiSimpleauthasyncpollingEx(request: PullApiSimpleauthasyncpollingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PullApiSimpleauthasyncpollingResponse> {
     Util.validateModel(request);
     return $tea.cast<PullApiSimpleauthasyncpollingResponse>(await this.doRequest("1.0", "blockchain.tax.api.simpleauthasyncpolling.pull", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PullApiSimpleauthasyncpollingResponse({}));
+  }
+
+  /**
+   * Description: 极简授权异步查询接口
+   * Summary: 极简授权-异步获取数据
+   */
+  async queryApiSimpleauthstandard(request: QueryApiSimpleauthstandardRequest): Promise<QueryApiSimpleauthstandardResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryApiSimpleauthstandardEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 极简授权异步查询接口
+   * Summary: 极简授权-异步获取数据
+   */
+  async queryApiSimpleauthstandardEx(request: QueryApiSimpleauthstandardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApiSimpleauthstandardResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryApiSimpleauthstandardResponse>(await this.doRequest("1.0", "blockchain.tax.api.simpleauthstandard.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApiSimpleauthstandardResponse({}));
   }
 
 }

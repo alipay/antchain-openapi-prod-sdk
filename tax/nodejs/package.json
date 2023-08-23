@@ -1,6 +1,6 @@
 {
   "name": "@antchain/tax",
-  "version": "1.6.16",
+  "version": "1.6.19",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
