@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryApiOfflineResponse extends Model
+class QueryDemoLulinccDataResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -54,7 +54,7 @@ class QueryApiOfflineResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryApiOfflineResponse
+     * @return QueryDemoLulinccDataResponse
      */
     public static function fromMap($map = [])
     {

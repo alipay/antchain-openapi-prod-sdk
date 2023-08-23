@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryApiOfflineRequest extends Model
+class QueryDemoDefaultSdkfffRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -43,7 +43,7 @@ class QueryApiOfflineRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryApiOfflineRequest
+     * @return QueryDemoDefaultSdkfffRequest
      */
     public static function fromMap($map = [])
     {

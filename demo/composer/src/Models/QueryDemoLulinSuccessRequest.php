@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BindAsdAsdAsdRequest extends Model
+class QueryDemoLulinSuccessRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -43,7 +43,7 @@ class BindAsdAsdAsdRequest extends Model
     /**
      * @param array $map
      *
-     * @return BindAsdAsdAsdRequest
+     * @return QueryDemoLulinSuccessRequest
      */
     public static function fromMap($map = [])
     {

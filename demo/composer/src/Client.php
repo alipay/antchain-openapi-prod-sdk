@@ -13,8 +13,6 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\DEMO\Models\BindAaaBbbCccRequest;
 use AntChain\DEMO\Models\BindAaaBbbCccResponse;
-use AntChain\DEMO\Models\BindAsdAsdAsdRequest;
-use AntChain\DEMO\Models\BindAsdAsdAsdResponse;
 use AntChain\DEMO\Models\BindCenterAbilityRequest;
 use AntChain\DEMO\Models\BindCenterAbilityResponse;
 use AntChain\DEMO\Models\BindDemoCheckEeeRequest;
@@ -61,14 +59,20 @@ use AntChain\DEMO\Models\QueryAbcAbcAbcRequest;
 use AntChain\DEMO\Models\QueryAbcAbcAbcResponse;
 use AntChain\DEMO\Models\QueryAdAsdAsdRequest;
 use AntChain\DEMO\Models\QueryAdAsdAsdResponse;
-use AntChain\DEMO\Models\QueryApiOfflineRequest;
-use AntChain\DEMO\Models\QueryApiOfflineResponse;
 use AntChain\DEMO\Models\QueryApiOfflineStatusRequest;
 use AntChain\DEMO\Models\QueryApiOfflineStatusResponse;
 use AntChain\DEMO\Models\QueryApprovalTestRequest;
 use AntChain\DEMO\Models\QueryApprovalTestResponse;
 use AntChain\DEMO\Models\QueryCjtestCjResRequest;
 use AntChain\DEMO\Models\QueryCjtestCjResResponse;
+use AntChain\DEMO\Models\QueryDemoDefaultSdkcccRequest;
+use AntChain\DEMO\Models\QueryDemoDefaultSdkcccResponse;
+use AntChain\DEMO\Models\QueryDemoDefaultSdkfffRequest;
+use AntChain\DEMO\Models\QueryDemoDefaultSdkfffResponse;
+use AntChain\DEMO\Models\QueryDemoLulinccDataRequest;
+use AntChain\DEMO\Models\QueryDemoLulinccDataResponse;
+use AntChain\DEMO\Models\QueryDemoLulinSuccessRequest;
+use AntChain\DEMO\Models\QueryDemoLulinSuccessResponse;
 use AntChain\DEMO\Models\QueryGatewayCheckEchotenRequest;
 use AntChain\DEMO\Models\QueryGatewayCheckEchotenResponse;
 use AntChain\DEMO\Models\QueryGatewayCheckEchotimeoutRequest;
@@ -256,7 +260,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.196',
+                    'sdk_version'      => '1.0.211',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -752,8 +756,8 @@ class Client
     }
 
     /**
-     * Description: asd
-     * Summary: asdasdasd.
+     * Description: 简介简介简介
+     * Summary: 简介简介.
      *
      * @param QueryAdAsdAsdRequest $request
      *
@@ -768,8 +772,8 @@ class Client
     }
 
     /**
-     * Description: asd
-     * Summary: asdasdasd.
+     * Description: 简介简介简介
+     * Summary: 简介简介.
      *
      * @param QueryAdAsdAsdRequest $request
      * @param string[]             $headers
@@ -1134,7 +1138,6 @@ class Client
 
     /**
      * Description: api下架测试
-     * 测试状态
      * Summary: api下架测试测试状态
      *
      * @param QueryApiOfflineStatusRequest $request
@@ -1151,7 +1154,6 @@ class Client
 
     /**
      * Description: api下架测试
-     * 测试状态
      * Summary: api下架测试测试状态
      *
      * @param QueryApiOfflineStatusRequest $request
@@ -1234,42 +1236,141 @@ class Client
     }
 
     /**
-     * Description: asd
-     * Summary: asd.
+     * Description: aa
+     * Summary: 测试接口.
      *
-     * @param BindAsdAsdAsdRequest $request
+     * @param QueryDemoLulinSuccessRequest $request
      *
-     * @return BindAsdAsdAsdResponse
+     * @return QueryDemoLulinSuccessResponse
      */
-    public function bindAsdAsdAsd($request)
+    public function queryDemoLulinSuccess($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->bindAsdAsdAsdEx($request, $headers, $runtime);
+        return $this->queryDemoLulinSuccessEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: asd
-     * Summary: asd.
+     * Description: aa
+     * Summary: 测试接口.
      *
-     * @param BindAsdAsdAsdRequest $request
-     * @param string[]             $headers
-     * @param RuntimeOptions       $runtime
+     * @param QueryDemoLulinSuccessRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
      *
-     * @return BindAsdAsdAsdResponse
+     * @return QueryDemoLulinSuccessResponse
      */
-    public function bindAsdAsdAsdEx($request, $headers, $runtime)
+    public function queryDemoLulinSuccessEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return BindAsdAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.asd.asd.asd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryDemoLulinSuccessResponse::fromMap($this->doRequest('1.0', 'demo.demo.lulin.success.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 11
+     * Summary: 测试接口.
+     *
+     * @param QueryDemoLulinccDataRequest $request
+     *
+     * @return QueryDemoLulinccDataResponse
+     */
+    public function queryDemoLulinccData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoLulinccDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 11
+     * Summary: 测试接口.
+     *
+     * @param QueryDemoLulinccDataRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryDemoLulinccDataResponse
+     */
+    public function queryDemoLulinccDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoLulinccDataResponse::fromMap($this->doRequest('1.0', 'demo.demo.lulincc.data.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 111
+     * Summary: 测试接口.
+     *
+     * @param QueryDemoDefaultSdkcccRequest $request
+     *
+     * @return QueryDemoDefaultSdkcccResponse
+     */
+    public function queryDemoDefaultSdkccc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoDefaultSdkcccEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 111
+     * Summary: 测试接口.
+     *
+     * @param QueryDemoDefaultSdkcccRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryDemoDefaultSdkcccResponse
+     */
+    public function queryDemoDefaultSdkcccEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoDefaultSdkcccResponse::fromMap($this->doRequest('1.0', 'demo.demo.default.sdkccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 描述
+     * Summary: 测试接口.
+     *
+     * @param QueryDemoDefaultSdkfffRequest $request
+     *
+     * @return QueryDemoDefaultSdkfffResponse
+     */
+    public function queryDemoDefaultSdkfff($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoDefaultSdkfffEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 描述
+     * Summary: 测试接口.
+     *
+     * @param QueryDemoDefaultSdkfffRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryDemoDefaultSdkfffResponse
+     */
+    public function queryDemoDefaultSdkfffEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoDefaultSdkfffResponse::fromMap($this->doRequest('1.0', 'demo.demo.default.sdkfff.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 用于测试api评审接入SDL的测试使用
-     * 测试评审
-     * Summary: api评审测试.
+     * 测试评审。评审字段测试ACCCCC
+     * Summary: api评审测试CCCC.
      *
      * @param QueryApprovalTestRequest $request
      *
@@ -1285,8 +1386,8 @@ class Client
 
     /**
      * Description: 用于测试api评审接入SDL的测试使用
-     * 测试评审
-     * Summary: api评审测试.
+     * 测试评审。评审字段测试ACCCCC
+     * Summary: api评审测试CCCC.
      *
      * @param QueryApprovalTestRequest $request
      * @param string[]                 $headers
@@ -1794,39 +1895,6 @@ class Client
         Utils::validateModel($request);
 
         return QueryAbcAbcAbcResponse::fromMap($this->doRequest('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: api下架测试使用
-     * Summary: api下架测试.
-     *
-     * @param QueryApiOfflineRequest $request
-     *
-     * @return QueryApiOfflineResponse
-     */
-    public function queryApiOffline($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryApiOfflineEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: api下架测试使用
-     * Summary: api下架测试.
-     *
-     * @param QueryApiOfflineRequest $request
-     * @param string[]               $headers
-     * @param RuntimeOptions         $runtime
-     *
-     * @return QueryApiOfflineResponse
-     */
-    public function queryApiOfflineEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryApiOfflineResponse::fromMap($this->doRequest('1.0', 'demo.api.offline.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
