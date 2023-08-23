@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.196',
+                    'sdk_version': '1.0.211',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.196',
+                    'sdk_version': '1.0.211',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -1042,8 +1042,8 @@ class Client:
         request: demo_models.QueryAdAsdAsdRequest,
     ) -> demo_models.QueryAdAsdAsdResponse:
         """
-        Description: asd
-        Summary: asdasdasd
+        Description: 简介简介简介
+        Summary: 简介简介
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1054,8 +1054,8 @@ class Client:
         request: demo_models.QueryAdAsdAsdRequest,
     ) -> demo_models.QueryAdAsdAsdResponse:
         """
-        Description: asd
-        Summary: asdasdasd
+        Description: 简介简介简介
+        Summary: 简介简介
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1068,8 +1068,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> demo_models.QueryAdAsdAsdResponse:
         """
-        Description: asd
-        Summary: asdasdasd
+        Description: 简介简介简介
+        Summary: 简介简介
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1084,8 +1084,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> demo_models.QueryAdAsdAsdResponse:
         """
-        Description: asd
-        Summary: asdasdasd
+        Description: 简介简介简介
+        Summary: 简介简介
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1693,7 +1693,6 @@ class Client:
     ) -> demo_models.QueryApiOfflineStatusResponse:
         """
         Description: api下架测试
-        测试状态
         Summary: api下架测试测试状态
         """
         runtime = util_models.RuntimeOptions()
@@ -1706,7 +1705,6 @@ class Client:
     ) -> demo_models.QueryApiOfflineStatusResponse:
         """
         Description: api下架测试
-        测试状态
         Summary: api下架测试测试状态
         """
         runtime = util_models.RuntimeOptions()
@@ -1721,7 +1719,6 @@ class Client:
     ) -> demo_models.QueryApiOfflineStatusResponse:
         """
         Description: api下架测试
-        测试状态
         Summary: api下架测试测试状态
         """
         UtilClient.validate_model(request)
@@ -1738,7 +1735,6 @@ class Client:
     ) -> demo_models.QueryApiOfflineStatusResponse:
         """
         Description: api下架测试
-        测试状态
         Summary: api下架测试测试状态
         """
         UtilClient.validate_model(request)
@@ -1859,60 +1855,228 @@ class Client:
             await self.do_request_async('1.0', 'demo.auto.test.code.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def bind_asd_asd_asd(
+    def query_demo_lulin_success(
         self,
-        request: demo_models.BindAsdAsdAsdRequest,
-    ) -> demo_models.BindAsdAsdAsdResponse:
+        request: demo_models.QueryDemoLulinSuccessRequest,
+    ) -> demo_models.QueryDemoLulinSuccessResponse:
         """
-        Description: asd
-        Summary: asd
+        Description: aa
+        Summary: 测试接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.bind_asd_asd_asd_ex(request, headers, runtime)
+        return self.query_demo_lulin_success_ex(request, headers, runtime)
 
-    async def bind_asd_asd_asd_async(
+    async def query_demo_lulin_success_async(
         self,
-        request: demo_models.BindAsdAsdAsdRequest,
-    ) -> demo_models.BindAsdAsdAsdResponse:
+        request: demo_models.QueryDemoLulinSuccessRequest,
+    ) -> demo_models.QueryDemoLulinSuccessResponse:
         """
-        Description: asd
-        Summary: asd
+        Description: aa
+        Summary: 测试接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.bind_asd_asd_asd_ex_async(request, headers, runtime)
+        return await self.query_demo_lulin_success_ex_async(request, headers, runtime)
 
-    def bind_asd_asd_asd_ex(
+    def query_demo_lulin_success_ex(
         self,
-        request: demo_models.BindAsdAsdAsdRequest,
+        request: demo_models.QueryDemoLulinSuccessRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demo_models.BindAsdAsdAsdResponse:
+    ) -> demo_models.QueryDemoLulinSuccessResponse:
         """
-        Description: asd
-        Summary: asd
+        Description: aa
+        Summary: 测试接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demo_models.BindAsdAsdAsdResponse(),
-            self.do_request('1.0', 'demo.asd.asd.asd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demo_models.QueryDemoLulinSuccessResponse(),
+            self.do_request('1.0', 'demo.demo.lulin.success.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def bind_asd_asd_asd_ex_async(
+    async def query_demo_lulin_success_ex_async(
         self,
-        request: demo_models.BindAsdAsdAsdRequest,
+        request: demo_models.QueryDemoLulinSuccessRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demo_models.BindAsdAsdAsdResponse:
+    ) -> demo_models.QueryDemoLulinSuccessResponse:
         """
-        Description: asd
-        Summary: asd
+        Description: aa
+        Summary: 测试接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demo_models.BindAsdAsdAsdResponse(),
-            await self.do_request_async('1.0', 'demo.asd.asd.asd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demo_models.QueryDemoLulinSuccessResponse(),
+            await self.do_request_async('1.0', 'demo.demo.lulin.success.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_demo_lulincc_data(
+        self,
+        request: demo_models.QueryDemoLulinccDataRequest,
+    ) -> demo_models.QueryDemoLulinccDataResponse:
+        """
+        Description: 11
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_lulincc_data_ex(request, headers, runtime)
+
+    async def query_demo_lulincc_data_async(
+        self,
+        request: demo_models.QueryDemoLulinccDataRequest,
+    ) -> demo_models.QueryDemoLulinccDataResponse:
+        """
+        Description: 11
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_lulincc_data_ex_async(request, headers, runtime)
+
+    def query_demo_lulincc_data_ex(
+        self,
+        request: demo_models.QueryDemoLulinccDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryDemoLulinccDataResponse:
+        """
+        Description: 11
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryDemoLulinccDataResponse(),
+            self.do_request('1.0', 'demo.demo.lulincc.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_lulincc_data_ex_async(
+        self,
+        request: demo_models.QueryDemoLulinccDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryDemoLulinccDataResponse:
+        """
+        Description: 11
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryDemoLulinccDataResponse(),
+            await self.do_request_async('1.0', 'demo.demo.lulincc.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_demo_default_sdkccc(
+        self,
+        request: demo_models.QueryDemoDefaultSdkcccRequest,
+    ) -> demo_models.QueryDemoDefaultSdkcccResponse:
+        """
+        Description: 111
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_default_sdkccc_ex(request, headers, runtime)
+
+    async def query_demo_default_sdkccc_async(
+        self,
+        request: demo_models.QueryDemoDefaultSdkcccRequest,
+    ) -> demo_models.QueryDemoDefaultSdkcccResponse:
+        """
+        Description: 111
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_default_sdkccc_ex_async(request, headers, runtime)
+
+    def query_demo_default_sdkccc_ex(
+        self,
+        request: demo_models.QueryDemoDefaultSdkcccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryDemoDefaultSdkcccResponse:
+        """
+        Description: 111
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryDemoDefaultSdkcccResponse(),
+            self.do_request('1.0', 'demo.demo.default.sdkccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_default_sdkccc_ex_async(
+        self,
+        request: demo_models.QueryDemoDefaultSdkcccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryDemoDefaultSdkcccResponse:
+        """
+        Description: 111
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryDemoDefaultSdkcccResponse(),
+            await self.do_request_async('1.0', 'demo.demo.default.sdkccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_demo_default_sdkfff(
+        self,
+        request: demo_models.QueryDemoDefaultSdkfffRequest,
+    ) -> demo_models.QueryDemoDefaultSdkfffResponse:
+        """
+        Description: 描述
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_default_sdkfff_ex(request, headers, runtime)
+
+    async def query_demo_default_sdkfff_async(
+        self,
+        request: demo_models.QueryDemoDefaultSdkfffRequest,
+    ) -> demo_models.QueryDemoDefaultSdkfffResponse:
+        """
+        Description: 描述
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_default_sdkfff_ex_async(request, headers, runtime)
+
+    def query_demo_default_sdkfff_ex(
+        self,
+        request: demo_models.QueryDemoDefaultSdkfffRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryDemoDefaultSdkfffResponse:
+        """
+        Description: 描述
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryDemoDefaultSdkfffResponse(),
+            self.do_request('1.0', 'demo.demo.default.sdkfff.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_default_sdkfff_ex_async(
+        self,
+        request: demo_models.QueryDemoDefaultSdkfffRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryDemoDefaultSdkfffResponse:
+        """
+        Description: 描述
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryDemoDefaultSdkfffResponse(),
+            await self.do_request_async('1.0', 'demo.demo.default.sdkfff.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_approval_test(
@@ -1921,8 +2085,8 @@ class Client:
     ) -> demo_models.QueryApprovalTestResponse:
         """
         Description: 用于测试api评审接入SDL的测试使用
-        测试评审
-        Summary: api评审测试
+        测试评审。评审字段测试ACCCCC
+        Summary: api评审测试CCCC
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1934,8 +2098,8 @@ class Client:
     ) -> demo_models.QueryApprovalTestResponse:
         """
         Description: 用于测试api评审接入SDL的测试使用
-        测试评审
-        Summary: api评审测试
+        测试评审。评审字段测试ACCCCC
+        Summary: api评审测试CCCC
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1949,8 +2113,8 @@ class Client:
     ) -> demo_models.QueryApprovalTestResponse:
         """
         Description: 用于测试api评审接入SDL的测试使用
-        测试评审
-        Summary: api评审测试
+        测试评审。评审字段测试ACCCCC
+        Summary: api评审测试CCCC
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1966,8 +2130,8 @@ class Client:
     ) -> demo_models.QueryApprovalTestResponse:
         """
         Description: 用于测试api评审接入SDL的测试使用
-        测试评审
-        Summary: api评审测试
+        测试评审。评审字段测试ACCCCC
+        Summary: api评审测试CCCC
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2813,62 +2977,6 @@ class Client:
         return TeaCore.from_map(
             demo_models.QueryAbcAbcAbcResponse(),
             await self.do_request_async('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_api_offline(
-        self,
-        request: demo_models.QueryApiOfflineRequest,
-    ) -> demo_models.QueryApiOfflineResponse:
-        """
-        Description: api下架测试使用
-        Summary: api下架测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_api_offline_ex(request, headers, runtime)
-
-    async def query_api_offline_async(
-        self,
-        request: demo_models.QueryApiOfflineRequest,
-    ) -> demo_models.QueryApiOfflineResponse:
-        """
-        Description: api下架测试使用
-        Summary: api下架测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_api_offline_ex_async(request, headers, runtime)
-
-    def query_api_offline_ex(
-        self,
-        request: demo_models.QueryApiOfflineRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.QueryApiOfflineResponse:
-        """
-        Description: api下架测试使用
-        Summary: api下架测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.QueryApiOfflineResponse(),
-            self.do_request('1.0', 'demo.api.offline.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_api_offline_ex_async(
-        self,
-        request: demo_models.QueryApiOfflineRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.QueryApiOfflineResponse:
-        """
-        Description: api下架测试使用
-        Summary: api下架测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.QueryApiOfflineResponse(),
-            await self.do_request_async('1.0', 'demo.api.offline.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def reset_com_cn_cc(
