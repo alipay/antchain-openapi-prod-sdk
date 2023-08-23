@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.3'
+                    'sdk_version': '1.12.0',
+                    '_prod_code': 'REALPERSON',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -200,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.3'
+                    'sdk_version': '1.12.0',
+                    '_prod_code': 'REALPERSON',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1425,60 +1429,172 @@ class Client:
             await self.do_request_async('1.0', 'di.realperson.threemeta.bankcard.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_threemeta_seconddistribute(
+    def query_deepsec_risk(
         self,
-        request: realperson_models.QueryThreemetaSeconddistributeRequest,
-    ) -> realperson_models.QueryThreemetaSeconddistributeResponse:
+        request: realperson_models.QueryDeepsecRiskRequest,
+    ) -> realperson_models.QueryDeepsecRiskResponse:
         """
-        Description: 个人运营商二次放号
-        Summary: 个人运营商二次放号
+        Description: deepsec终端安全风险标签查询
+        Summary: deepsec终端安全风险标签查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_threemeta_seconddistribute_ex(request, headers, runtime)
+        return self.query_deepsec_risk_ex(request, headers, runtime)
 
-    async def query_threemeta_seconddistribute_async(
+    async def query_deepsec_risk_async(
         self,
-        request: realperson_models.QueryThreemetaSeconddistributeRequest,
-    ) -> realperson_models.QueryThreemetaSeconddistributeResponse:
+        request: realperson_models.QueryDeepsecRiskRequest,
+    ) -> realperson_models.QueryDeepsecRiskResponse:
         """
-        Description: 个人运营商二次放号
-        Summary: 个人运营商二次放号
+        Description: deepsec终端安全风险标签查询
+        Summary: deepsec终端安全风险标签查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_threemeta_seconddistribute_ex_async(request, headers, runtime)
+        return await self.query_deepsec_risk_ex_async(request, headers, runtime)
 
-    def query_threemeta_seconddistribute_ex(
+    def query_deepsec_risk_ex(
         self,
-        request: realperson_models.QueryThreemetaSeconddistributeRequest,
+        request: realperson_models.QueryDeepsecRiskRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> realperson_models.QueryThreemetaSeconddistributeResponse:
+    ) -> realperson_models.QueryDeepsecRiskResponse:
         """
-        Description: 个人运营商二次放号
-        Summary: 个人运营商二次放号
+        Description: deepsec终端安全风险标签查询
+        Summary: deepsec终端安全风险标签查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            realperson_models.QueryThreemetaSeconddistributeResponse(),
-            self.do_request('1.0', 'di.realperson.threemeta.seconddistribute.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            realperson_models.QueryDeepsecRiskResponse(),
+            self.do_request('1.0', 'di.realperson.deepsec.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_threemeta_seconddistribute_ex_async(
+    async def query_deepsec_risk_ex_async(
         self,
-        request: realperson_models.QueryThreemetaSeconddistributeRequest,
+        request: realperson_models.QueryDeepsecRiskRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> realperson_models.QueryThreemetaSeconddistributeResponse:
+    ) -> realperson_models.QueryDeepsecRiskResponse:
+        """
+        Description: deepsec终端安全风险标签查询
+        Summary: deepsec终端安全风险标签查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryDeepsecRiskResponse(),
+            await self.do_request_async('1.0', 'di.realperson.deepsec.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_deepsec_tsbmrq(
+        self,
+        request: realperson_models.QueryDeepsecTsbmrqRequest,
+    ) -> realperson_models.QueryDeepsecTsbmrqResponse:
+        """
+        Description: deepsec终端安全api，用于apdid查询
+        Summary: tsbmrq设备id查询入口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_deepsec_tsbmrq_ex(request, headers, runtime)
+
+    async def query_deepsec_tsbmrq_async(
+        self,
+        request: realperson_models.QueryDeepsecTsbmrqRequest,
+    ) -> realperson_models.QueryDeepsecTsbmrqResponse:
+        """
+        Description: deepsec终端安全api，用于apdid查询
+        Summary: tsbmrq设备id查询入口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_deepsec_tsbmrq_ex_async(request, headers, runtime)
+
+    def query_deepsec_tsbmrq_ex(
+        self,
+        request: realperson_models.QueryDeepsecTsbmrqRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryDeepsecTsbmrqResponse:
+        """
+        Description: deepsec终端安全api，用于apdid查询
+        Summary: tsbmrq设备id查询入口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryDeepsecTsbmrqResponse(),
+            self.do_request('1.0', 'di.realperson.deepsec.tsbmrq.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_deepsec_tsbmrq_ex_async(
+        self,
+        request: realperson_models.QueryDeepsecTsbmrqRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryDeepsecTsbmrqResponse:
+        """
+        Description: deepsec终端安全api，用于apdid查询
+        Summary: tsbmrq设备id查询入口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryDeepsecTsbmrqResponse(),
+            await self.do_request_async('1.0', 'di.realperson.deepsec.tsbmrq.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_threemeta_phonereuse(
+        self,
+        request: realperson_models.QueryThreemetaPhonereuseRequest,
+    ) -> realperson_models.QueryThreemetaPhonereuseResponse:
+        """
+        Description: 个人运营商二次放号
+        Summary: 个人运营商二次放号
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_threemeta_phonereuse_ex(request, headers, runtime)
+
+    async def query_threemeta_phonereuse_async(
+        self,
+        request: realperson_models.QueryThreemetaPhonereuseRequest,
+    ) -> realperson_models.QueryThreemetaPhonereuseResponse:
+        """
+        Description: 个人运营商二次放号
+        Summary: 个人运营商二次放号
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_threemeta_phonereuse_ex_async(request, headers, runtime)
+
+    def query_threemeta_phonereuse_ex(
+        self,
+        request: realperson_models.QueryThreemetaPhonereuseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryThreemetaPhonereuseResponse:
         """
         Description: 个人运营商二次放号
         Summary: 个人运营商二次放号
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            realperson_models.QueryThreemetaSeconddistributeResponse(),
-            await self.do_request_async('1.0', 'di.realperson.threemeta.seconddistribute.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            realperson_models.QueryThreemetaPhonereuseResponse(),
+            self.do_request('1.0', 'di.realperson.threemeta.phonereuse.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_threemeta_phonereuse_ex_async(
+        self,
+        request: realperson_models.QueryThreemetaPhonereuseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryThreemetaPhonereuseResponse:
+        """
+        Description: 个人运营商二次放号
+        Summary: 个人运营商二次放号
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryThreemetaPhonereuseResponse(),
+            await self.do_request_async('1.0', 'di.realperson.threemeta.phonereuse.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

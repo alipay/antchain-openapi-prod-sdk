@@ -3224,7 +3224,317 @@ class CheckThreemetaBankcardResponse(TeaModel):
         return self
 
 
-class QueryThreemetaSeconddistributeRequest(TeaModel):
+class QueryDeepsecRiskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        app_name: str = None,
+        app_key: str = None,
+        biz_data: str = None,
+        risk_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 区分不同应用
+        self.app_name = app_name
+        # app_key
+        self.app_key = app_key
+        # 业务数据集合，包括业务数据如zimId，Map<String,String>
+        self.biz_data = biz_data
+        # 风险数据集合，包括加密的R风险数据、设备染色数据，Map<String, String>
+        self.risk_data = risk_data
+
+    def validate(self):
+        self.validate_required(self.app_name, 'app_name')
+        self.validate_required(self.biz_data, 'biz_data')
+        self.validate_required(self.risk_data, 'risk_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.app_name is not None:
+            result['app_name'] = self.app_name
+        if self.app_key is not None:
+            result['app_key'] = self.app_key
+        if self.biz_data is not None:
+            result['biz_data'] = self.biz_data
+        if self.risk_data is not None:
+            result['risk_data'] = self.risk_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('app_name') is not None:
+            self.app_name = m.get('app_name')
+        if m.get('app_key') is not None:
+            self.app_key = m.get('app_key')
+        if m.get('biz_data') is not None:
+            self.biz_data = m.get('biz_data')
+        if m.get('risk_data') is not None:
+            self.risk_data = m.get('risk_data')
+        return self
+
+
+class QueryDeepsecRiskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        code: str = None,
+        message: str = None,
+        risk_info: str = None,
+        dc_risk: str = None,
+        biz_risk: str = None,
+        device_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否调用成功
+        self.success = success
+        # 业务返回码
+        self.code = code
+        # message	返回信息
+        self.message = message
+        # 设备风险标签
+        self.risk_info = risk_info
+        # 设备染色风险标签
+        self.dc_risk = dc_risk
+        # 业务风险标签
+        self.biz_risk = biz_risk
+        # 设备元数据
+        self.device_info = device_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.risk_info is not None:
+            result['risk_info'] = self.risk_info
+        if self.dc_risk is not None:
+            result['dc_risk'] = self.dc_risk
+        if self.biz_risk is not None:
+            result['biz_risk'] = self.biz_risk
+        if self.device_info is not None:
+            result['device_info'] = self.device_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('risk_info') is not None:
+            self.risk_info = m.get('risk_info')
+        if m.get('dc_risk') is not None:
+            self.dc_risk = m.get('dc_risk')
+        if m.get('biz_risk') is not None:
+            self.biz_risk = m.get('biz_risk')
+        if m.get('device_info') is not None:
+            self.device_info = m.get('device_info')
+        return self
+
+
+class QueryDeepsecTsbmrqRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        app_id: str = None,
+        env_id: str = None,
+        request_id: str = None,
+        tenant_id: str = None,
+        merchant_id: str = None,
+        app_name: str = None,
+        test_flow: bool = None,
+        apdid_token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 应用来源
+        self.app_id = app_id
+        # 环境id
+        self.env_id = env_id
+        # request id
+        self.request_id = request_id
+        # 租户
+        self.tenant_id = tenant_id
+        # 商户id
+        self.merchant_id = merchant_id
+        # 应用来源名称, 也被用作渠道名称
+        self.app_name = app_name
+        # 是否测试流量, 测试流量会在处理过程中有特殊处理
+        self.test_flow = test_flow
+        # apdidToken
+        self.apdid_token = apdid_token
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.apdid_token, 'apdid_token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.env_id is not None:
+            result['env_id'] = self.env_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.app_name is not None:
+            result['app_name'] = self.app_name
+        if self.test_flow is not None:
+            result['test_flow'] = self.test_flow
+        if self.apdid_token is not None:
+            result['apdid_token'] = self.apdid_token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('env_id') is not None:
+            self.env_id = m.get('env_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('app_name') is not None:
+            self.app_name = m.get('app_name')
+        if m.get('test_flow') is not None:
+            self.test_flow = m.get('test_flow')
+        if m.get('apdid_token') is not None:
+            self.apdid_token = m.get('apdid_token')
+        return self
+
+
+class QueryDeepsecTsbmrqResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        device_info: str = None,
+        risk_info: str = None,
+        message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 设备信息
+        self.device_info = device_info
+        # 风险信息标签
+        self.risk_info = risk_info
+        # 业务message
+        self.message = message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.device_info is not None:
+            result['device_info'] = self.device_info
+        if self.risk_info is not None:
+            result['risk_info'] = self.risk_info
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('device_info') is not None:
+            self.device_info = m.get('device_info')
+        if m.get('risk_info') is not None:
+            self.risk_info = m.get('risk_info')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
+class QueryThreemetaPhonereuseRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -3232,6 +3542,7 @@ class QueryThreemetaSeconddistributeRequest(TeaModel):
         outer_order_no: str = None,
         mobile: str = None,
         date: str = None,
+        carrier: str = None,
         extern_param: str = None,
     ):
         # OAuth模式下的授权token
@@ -3243,7 +3554,9 @@ class QueryThreemetaSeconddistributeRequest(TeaModel):
         self.mobile = mobile
         # 日期
         self.date = date
-        # 扩展信息，Map的json格式
+        # 运营商类型
+        self.carrier = carrier
+        # 扩展参数
         self.extern_param = extern_param
 
     def validate(self):
@@ -3267,6 +3580,8 @@ class QueryThreemetaSeconddistributeRequest(TeaModel):
             result['mobile'] = self.mobile
         if self.date is not None:
             result['date'] = self.date
+        if self.carrier is not None:
+            result['carrier'] = self.carrier
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
         return result
@@ -3283,18 +3598,20 @@ class QueryThreemetaSeconddistributeRequest(TeaModel):
             self.mobile = m.get('mobile')
         if m.get('date') is not None:
             self.date = m.get('date')
+        if m.get('carrier') is not None:
+            self.carrier = m.get('carrier')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
         return self
 
 
-class QueryThreemetaSeconddistributeResponse(TeaModel):
+class QueryThreemetaPhonereuseResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        result: str = None,
+        phone_reuse: str = None,
         extern_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -3303,9 +3620,9 @@ class QueryThreemetaSeconddistributeResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # YES：二次放号；NO：不是二次放号；CANCELLED：已销号
-        self.result = result
-        # 扩展信息，Map的json格式。
+        # 是否二次放号
+        self.phone_reuse = phone_reuse
+        # 扩展参数
         self.extern_info = extern_info
 
     def validate(self):
@@ -3323,8 +3640,8 @@ class QueryThreemetaSeconddistributeResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.result is not None:
-            result['result'] = self.result
+        if self.phone_reuse is not None:
+            result['phone_reuse'] = self.phone_reuse
         if self.extern_info is not None:
             result['extern_info'] = self.extern_info
         return result
@@ -3337,8 +3654,8 @@ class QueryThreemetaSeconddistributeResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('result') is not None:
-            self.result = m.get('result')
+        if m.get('phone_reuse') is not None:
+            self.phone_reuse = m.get('phone_reuse')
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
         return self
