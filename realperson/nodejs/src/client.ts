@@ -1969,7 +1969,197 @@ export class CheckThreemetaBankcardResponse extends $tea.Model {
   }
 }
 
-export class QueryThreemetaSeconddistributeRequest extends $tea.Model {
+export class QueryDeepsecRiskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 区分不同应用
+  appName: string;
+  // app_key
+  appKey?: string;
+  // 业务数据集合，包括业务数据如zimId，Map<String,String>
+  bizData: string;
+  // 风险数据集合，包括加密的R风险数据、设备染色数据，Map<String, String>
+  riskData: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appName: 'app_name',
+      appKey: 'app_key',
+      bizData: 'biz_data',
+      riskData: 'risk_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appName: 'string',
+      appKey: 'string',
+      bizData: 'string',
+      riskData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeepsecRiskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否调用成功
+  success?: boolean;
+  // 业务返回码
+  code?: string;
+  // message	返回信息
+  message?: string;
+  // 设备风险标签
+  riskInfo?: string;
+  // 设备染色风险标签
+  dcRisk?: string;
+  // 业务风险标签
+  bizRisk?: string;
+  // 设备元数据
+  deviceInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      riskInfo: 'risk_info',
+      dcRisk: 'dc_risk',
+      bizRisk: 'biz_risk',
+      deviceInfo: 'device_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'string',
+      message: 'string',
+      riskInfo: 'string',
+      dcRisk: 'string',
+      bizRisk: 'string',
+      deviceInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeepsecTsbmrqRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 应用来源
+  appId?: string;
+  // 环境id
+  envId?: string;
+  // request id
+  requestId?: string;
+  // 租户
+  tenantId: string;
+  // 商户id
+  merchantId: string;
+  // 应用来源名称, 也被用作渠道名称
+  appName?: string;
+  // 是否测试流量, 测试流量会在处理过程中有特殊处理
+  testFlow?: boolean;
+  // apdidToken
+  apdidToken: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appId: 'app_id',
+      envId: 'env_id',
+      requestId: 'request_id',
+      tenantId: 'tenant_id',
+      merchantId: 'merchant_id',
+      appName: 'app_name',
+      testFlow: 'test_flow',
+      apdidToken: 'apdid_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appId: 'string',
+      envId: 'string',
+      requestId: 'string',
+      tenantId: 'string',
+      merchantId: 'string',
+      appName: 'string',
+      testFlow: 'boolean',
+      apdidToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeepsecTsbmrqResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 设备信息
+  deviceInfo?: string;
+  // 风险信息标签
+  riskInfo?: string;
+  // 业务message
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      deviceInfo: 'device_info',
+      riskInfo: 'risk_info',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      deviceInfo: 'string',
+      riskInfo: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryThreemetaPhonereuseRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -1979,7 +2169,9 @@ export class QueryThreemetaSeconddistributeRequest extends $tea.Model {
   mobile: string;
   // 日期
   date: string;
-  // 扩展信息，Map的json格式
+  // 运营商类型
+  carrier?: string;
+  // 扩展参数
   externParam?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1988,6 +2180,7 @@ export class QueryThreemetaSeconddistributeRequest extends $tea.Model {
       outerOrderNo: 'outer_order_no',
       mobile: 'mobile',
       date: 'date',
+      carrier: 'carrier',
       externParam: 'extern_param',
     };
   }
@@ -1999,6 +2192,7 @@ export class QueryThreemetaSeconddistributeRequest extends $tea.Model {
       outerOrderNo: 'string',
       mobile: 'string',
       date: 'string',
+      carrier: 'string',
       externParam: 'string',
     };
   }
@@ -2008,23 +2202,23 @@ export class QueryThreemetaSeconddistributeRequest extends $tea.Model {
   }
 }
 
-export class QueryThreemetaSeconddistributeResponse extends $tea.Model {
+export class QueryThreemetaPhonereuseResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // YES：二次放号；NO：不是二次放号；CANCELLED：已销号
-  result?: string;
-  // 扩展信息，Map的json格式。
+  // 是否二次放号
+  phoneReuse?: string;
+  // 扩展参数
   externInfo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      result: 'result',
+      phoneReuse: 'phone_reuse',
       externInfo: 'extern_info',
     };
   }
@@ -2034,7 +2228,7 @@ export class QueryThreemetaSeconddistributeResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      result: 'string',
+      phoneReuse: 'string',
       externInfo: 'string',
     };
   }
@@ -2206,7 +2400,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -2245,7 +2439,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.3",
+          sdk_version: "1.12.0",
+          _prod_code: "REALPERSON",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2693,22 +2889,60 @@ export default class Client {
   }
 
   /**
-   * Description: 个人运营商二次放号
-   * Summary: 个人运营商二次放号
+   * Description: deepsec终端安全风险标签查询
+   * Summary: deepsec终端安全风险标签查询
    */
-  async queryThreemetaSeconddistribute(request: QueryThreemetaSeconddistributeRequest): Promise<QueryThreemetaSeconddistributeResponse> {
+  async queryDeepsecRisk(request: QueryDeepsecRiskRequest): Promise<QueryDeepsecRiskResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryThreemetaSeconddistributeEx(request, headers, runtime);
+    return await this.queryDeepsecRiskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: deepsec终端安全风险标签查询
+   * Summary: deepsec终端安全风险标签查询
+   */
+  async queryDeepsecRiskEx(request: QueryDeepsecRiskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDeepsecRiskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDeepsecRiskResponse>(await this.doRequest("1.0", "di.realperson.deepsec.risk.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDeepsecRiskResponse({}));
+  }
+
+  /**
+   * Description: deepsec终端安全api，用于apdid查询
+   * Summary: tsbmrq设备id查询入口
+   */
+  async queryDeepsecTsbmrq(request: QueryDeepsecTsbmrqRequest): Promise<QueryDeepsecTsbmrqResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDeepsecTsbmrqEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: deepsec终端安全api，用于apdid查询
+   * Summary: tsbmrq设备id查询入口
+   */
+  async queryDeepsecTsbmrqEx(request: QueryDeepsecTsbmrqRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDeepsecTsbmrqResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDeepsecTsbmrqResponse>(await this.doRequest("1.0", "di.realperson.deepsec.tsbmrq.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDeepsecTsbmrqResponse({}));
   }
 
   /**
    * Description: 个人运营商二次放号
    * Summary: 个人运营商二次放号
    */
-  async queryThreemetaSeconddistributeEx(request: QueryThreemetaSeconddistributeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryThreemetaSeconddistributeResponse> {
+  async queryThreemetaPhonereuse(request: QueryThreemetaPhonereuseRequest): Promise<QueryThreemetaPhonereuseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryThreemetaPhonereuseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人运营商二次放号
+   * Summary: 个人运营商二次放号
+   */
+  async queryThreemetaPhonereuseEx(request: QueryThreemetaPhonereuseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryThreemetaPhonereuseResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryThreemetaSeconddistributeResponse>(await this.doRequest("1.0", "di.realperson.threemeta.seconddistribute.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryThreemetaSeconddistributeResponse({}));
+    return $tea.cast<QueryThreemetaPhonereuseResponse>(await this.doRequest("1.0", "di.realperson.threemeta.phonereuse.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryThreemetaPhonereuseResponse({}));
   }
 
   /**
