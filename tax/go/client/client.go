@@ -3083,6 +3083,10 @@ type MatchIcmSimpleauthRequest struct {
 	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
 	// 用于幂等控制
 	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty" require:"true"`
+	// 产品类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
+	// 授权编号
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
 }
 
 func (s MatchIcmSimpleauthRequest) String() string {
@@ -3115,6 +3119,16 @@ func (s *MatchIcmSimpleauthRequest) SetIdentityId(v string) *MatchIcmSimpleauthR
 
 func (s *MatchIcmSimpleauthRequest) SetBizRequestId(v string) *MatchIcmSimpleauthRequest {
 	s.BizRequestId = &v
+	return s
+}
+
+func (s *MatchIcmSimpleauthRequest) SetAuthType(v string) *MatchIcmSimpleauthRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *MatchIcmSimpleauthRequest) SetAuthCode(v string) *MatchIcmSimpleauthRequest {
+	s.AuthCode = &v
 	return s
 }
 
@@ -3775,6 +3789,98 @@ func (s *PullApiSimpleauthasyncpollingResponse) SetSecret(v string) *PullApiSimp
 	return s
 }
 
+type QueryApiSimpleauthstandardRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 纳税人识别号
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 用于幂等控制
+	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty" require:"true"`
+	// 该请求最终发起方(金融机构)的租户号，若是征信通道模式，则是征信机构终端客户的租户号，该租户号由我方分配。
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 产品类型；
+	// 发票数据：301；税务数据：302；发票及税务数据：303； (通过征信机构链接时请在数字前加“ZX”，如：ZX301)
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 是指行方生成的授权编号
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
+}
+
+func (s QueryApiSimpleauthstandardRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiSimpleauthstandardRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiSimpleauthstandardRequest) SetAuthToken(v string) *QueryApiSimpleauthstandardRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApiSimpleauthstandardRequest) SetProductInstanceId(v string) *QueryApiSimpleauthstandardRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryApiSimpleauthstandardRequest) SetIdentityId(v string) *QueryApiSimpleauthstandardRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *QueryApiSimpleauthstandardRequest) SetBizRequestId(v string) *QueryApiSimpleauthstandardRequest {
+	s.BizRequestId = &v
+	return s
+}
+
+func (s *QueryApiSimpleauthstandardRequest) SetInstCode(v string) *QueryApiSimpleauthstandardRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *QueryApiSimpleauthstandardRequest) SetAuthType(v string) *QueryApiSimpleauthstandardRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *QueryApiSimpleauthstandardRequest) SetAuthCode(v string) *QueryApiSimpleauthstandardRequest {
+	s.AuthCode = &v
+	return s
+}
+
+type QueryApiSimpleauthstandardResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryApiSimpleauthstandardResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiSimpleauthstandardResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiSimpleauthstandardResponse) SetReqMsgId(v string) *QueryApiSimpleauthstandardResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryApiSimpleauthstandardResponse) SetResultCode(v string) *QueryApiSimpleauthstandardResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryApiSimpleauthstandardResponse) SetResultMsg(v string) *QueryApiSimpleauthstandardResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3897,7 +4003,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.16"),
+				"sdk_version":      tea.String("1.6.19"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4500,8 +4606,8 @@ func (client *Client) CreateApiAuthurlEx(request *CreateApiAuthurlRequest, heade
 }
 
 /**
- * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
- * Summary: 极简授权-检查数据是否支持接口
+ * Description: 极简授权-判断该企业是否支持要素授权
+ * Summary: 极简授权-判断该企业是否支持要素授权
  */
 func (client *Client) MatchIcmSimpleauth(request *MatchIcmSimpleauthRequest) (_result *MatchIcmSimpleauthResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -4516,8 +4622,8 @@ func (client *Client) MatchIcmSimpleauth(request *MatchIcmSimpleauthRequest) (_r
 }
 
 /**
- * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
- * Summary: 极简授权-检查数据是否支持接口
+ * Description: 极简授权-判断该企业是否支持要素授权
+ * Summary: 极简授权-判断该企业是否支持要素授权
  */
 func (client *Client) MatchIcmSimpleauthEx(request *MatchIcmSimpleauthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *MatchIcmSimpleauthResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -4696,6 +4802,40 @@ func (client *Client) PullApiSimpleauthasyncpollingEx(request *PullApiSimpleauth
 	}
 	_result = &PullApiSimpleauthasyncpollingResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.simpleauthasyncpolling.pull"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 极简授权异步查询接口
+ * Summary: 极简授权-异步获取数据
+ */
+func (client *Client) QueryApiSimpleauthstandard(request *QueryApiSimpleauthstandardRequest) (_result *QueryApiSimpleauthstandardResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryApiSimpleauthstandardResponse{}
+	_body, _err := client.QueryApiSimpleauthstandardEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 极简授权异步查询接口
+ * Summary: 极简授权-异步获取数据
+ */
+func (client *Client) QueryApiSimpleauthstandardEx(request *QueryApiSimpleauthstandardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApiSimpleauthstandardResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryApiSimpleauthstandardResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.simpleauthstandard.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
