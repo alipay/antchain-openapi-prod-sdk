@@ -6,7 +6,7 @@ namespace AntChain\TAX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class MatchIcmSimpleauthRequest extends Model
+class QueryApiSimpleauthstandardRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,12 +18,6 @@ class MatchIcmSimpleauthRequest extends Model
      * @var string
      */
     public $productInstanceId;
-
-    // 租户号/子租户号，如果为租户号获取，则为租户号，如果为子租户号获取，则传输子租户号
-    /**
-     * @var string
-     */
-    public $instCode;
 
     // 纳税人识别号
     /**
@@ -37,13 +31,20 @@ class MatchIcmSimpleauthRequest extends Model
      */
     public $bizRequestId;
 
-    // 产品类型
+    // 该请求最终发起方(金融机构)的租户号，若是征信通道模式，则是征信机构终端客户的租户号，该租户号由我方分配。
+    /**
+     * @var string
+     */
+    public $instCode;
+
+    // 产品类型；
+    // 发票数据：301；税务数据：302；发票及税务数据：303； (通过征信机构链接时请在数字前加“ZX”，如：ZX301)
     /**
      * @var string
      */
     public $authType;
 
-    // 授权编号
+    // 是指行方生成的授权编号
     /**
      * @var string
      */
@@ -51,18 +52,19 @@ class MatchIcmSimpleauthRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'instCode'          => 'inst_code',
         'identityId'        => 'identity_id',
         'bizRequestId'      => 'biz_request_id',
+        'instCode'          => 'inst_code',
         'authType'          => 'auth_type',
         'authCode'          => 'auth_code',
     ];
 
     public function validate()
     {
-        Model::validateRequired('instCode', $this->instCode, true);
         Model::validateRequired('identityId', $this->identityId, true);
         Model::validateRequired('bizRequestId', $this->bizRequestId, true);
+        Model::validateRequired('instCode', $this->instCode, true);
+        Model::validateRequired('authType', $this->authType, true);
         Model::validateRequired('authCode', $this->authCode, true);
     }
 
@@ -75,14 +77,14 @@ class MatchIcmSimpleauthRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->instCode) {
-            $res['inst_code'] = $this->instCode;
-        }
         if (null !== $this->identityId) {
             $res['identity_id'] = $this->identityId;
         }
         if (null !== $this->bizRequestId) {
             $res['biz_request_id'] = $this->bizRequestId;
+        }
+        if (null !== $this->instCode) {
+            $res['inst_code'] = $this->instCode;
         }
         if (null !== $this->authType) {
             $res['auth_type'] = $this->authType;
@@ -97,7 +99,7 @@ class MatchIcmSimpleauthRequest extends Model
     /**
      * @param array $map
      *
-     * @return MatchIcmSimpleauthRequest
+     * @return QueryApiSimpleauthstandardRequest
      */
     public static function fromMap($map = [])
     {
@@ -108,14 +110,14 @@ class MatchIcmSimpleauthRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['inst_code'])) {
-            $model->instCode = $map['inst_code'];
-        }
         if (isset($map['identity_id'])) {
             $model->identityId = $map['identity_id'];
         }
         if (isset($map['biz_request_id'])) {
             $model->bizRequestId = $map['biz_request_id'];
+        }
+        if (isset($map['inst_code'])) {
+            $model->instCode = $map['inst_code'];
         }
         if (isset($map['auth_type'])) {
             $model->authType = $map['auth_type'];

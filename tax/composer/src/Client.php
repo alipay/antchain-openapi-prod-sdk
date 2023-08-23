@@ -47,6 +47,8 @@ use AntChain\TAX\Models\QueryApiAuthteplateRequest;
 use AntChain\TAX\Models\QueryApiAuthteplateResponse;
 use AntChain\TAX\Models\QueryApiSimpleauthasyncRequest;
 use AntChain\TAX\Models\QueryApiSimpleauthasyncResponse;
+use AntChain\TAX\Models\QueryApiSimpleauthstandardRequest;
+use AntChain\TAX\Models\QueryApiSimpleauthstandardResponse;
 use AntChain\TAX\Models\QueryChargeAuthRequest;
 use AntChain\TAX\Models\QueryChargeAuthResponse;
 use AntChain\TAX\Models\QueryIcmInvoiceRequest;
@@ -202,7 +204,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.16',
+                    'sdk_version'      => '1.6.19',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -779,8 +781,8 @@ class Client
     }
 
     /**
-     * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
-     * Summary: 极简授权-检查数据是否支持接口.
+     * Description: 极简授权-判断该企业是否支持要素授权
+     * Summary: 极简授权-判断该企业是否支持要素授权.
      *
      * @param MatchIcmSimpleauthRequest $request
      *
@@ -795,8 +797,8 @@ class Client
     }
 
     /**
-     * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
-     * Summary: 极简授权-检查数据是否支持接口.
+     * Description: 极简授权-判断该企业是否支持要素授权
+     * Summary: 极简授权-判断该企业是否支持要素授权.
      *
      * @param MatchIcmSimpleauthRequest $request
      * @param string[]                  $headers
@@ -974,5 +976,38 @@ class Client
         Utils::validateModel($request);
 
         return PullApiSimpleauthasyncpollingResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.simpleauthasyncpolling.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 极简授权异步查询接口
+     * Summary: 极简授权-异步获取数据.
+     *
+     * @param QueryApiSimpleauthstandardRequest $request
+     *
+     * @return QueryApiSimpleauthstandardResponse
+     */
+    public function queryApiSimpleauthstandard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiSimpleauthstandardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 极简授权异步查询接口
+     * Summary: 极简授权-异步获取数据.
+     *
+     * @param QueryApiSimpleauthstandardRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryApiSimpleauthstandardResponse
+     */
+    public function queryApiSimpleauthstandardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiSimpleauthstandardResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.simpleauthstandard.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
