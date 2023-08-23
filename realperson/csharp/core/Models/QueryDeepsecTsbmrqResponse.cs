@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.REALPERSON.Models
 {
-    public class QueryThreemetaSeconddistributeResponse : TeaModel {
+    public class QueryDeepsecTsbmrqResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,20 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // YES：二次放号；NO：不是二次放号；CANCELLED：已销号
-        [NameInMap("result")]
+        // 设备信息
+        [NameInMap("device_info")]
         [Validation(Required=false)]
-        public string Result { get; set; }
+        public string DeviceInfo { get; set; }
 
-        // 扩展信息，Map的json格式。
-        [NameInMap("extern_info")]
+        // 风险信息标签
+        [NameInMap("risk_info")]
         [Validation(Required=false)]
-        public string ExternInfo { get; set; }
+        public string RiskInfo { get; set; }
+
+        // 业务message
+        [NameInMap("message")]
+        [Validation(Required=false)]
+        public string Message { get; set; }
 
     }
 

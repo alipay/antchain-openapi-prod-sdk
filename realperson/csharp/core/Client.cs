@@ -91,7 +91,7 @@ namespace AntChain.SDK.REALPERSON
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,9 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.3"},
+                        {"sdk_version", "1.12.0"},
+                        {"_prod_code", "REALPERSON"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -215,7 +217,7 @@ namespace AntChain.SDK.REALPERSON
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -261,7 +263,9 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.3"},
+                        {"sdk_version", "1.12.0"},
+                        {"_prod_code", "REALPERSON"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1204,45 +1208,129 @@ namespace AntChain.SDK.REALPERSON
         }
 
         /**
-         * Description: 个人运营商二次放号
-         * Summary: 个人运营商二次放号
+         * Description: deepsec终端安全风险标签查询
+         * Summary: deepsec终端安全风险标签查询
          */
-        public QueryThreemetaSeconddistributeResponse QueryThreemetaSeconddistribute(QueryThreemetaSeconddistributeRequest request)
+        public QueryDeepsecRiskResponse QueryDeepsecRisk(QueryDeepsecRiskRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryThreemetaSeconddistributeEx(request, headers, runtime);
+            return QueryDeepsecRiskEx(request, headers, runtime);
         }
 
         /**
-         * Description: 个人运营商二次放号
-         * Summary: 个人运营商二次放号
+         * Description: deepsec终端安全风险标签查询
+         * Summary: deepsec终端安全风险标签查询
          */
-        public async Task<QueryThreemetaSeconddistributeResponse> QueryThreemetaSeconddistributeAsync(QueryThreemetaSeconddistributeRequest request)
+        public async Task<QueryDeepsecRiskResponse> QueryDeepsecRiskAsync(QueryDeepsecRiskRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryThreemetaSeconddistributeExAsync(request, headers, runtime);
+            return await QueryDeepsecRiskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: deepsec终端安全风险标签查询
+         * Summary: deepsec终端安全风险标签查询
+         */
+        public QueryDeepsecRiskResponse QueryDeepsecRiskEx(QueryDeepsecRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeepsecRiskResponse>(DoRequest("1.0", "di.realperson.deepsec.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: deepsec终端安全风险标签查询
+         * Summary: deepsec终端安全风险标签查询
+         */
+        public async Task<QueryDeepsecRiskResponse> QueryDeepsecRiskExAsync(QueryDeepsecRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeepsecRiskResponse>(await DoRequestAsync("1.0", "di.realperson.deepsec.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: deepsec终端安全api，用于apdid查询
+         * Summary: tsbmrq设备id查询入口
+         */
+        public QueryDeepsecTsbmrqResponse QueryDeepsecTsbmrq(QueryDeepsecTsbmrqRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDeepsecTsbmrqEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: deepsec终端安全api，用于apdid查询
+         * Summary: tsbmrq设备id查询入口
+         */
+        public async Task<QueryDeepsecTsbmrqResponse> QueryDeepsecTsbmrqAsync(QueryDeepsecTsbmrqRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDeepsecTsbmrqExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: deepsec终端安全api，用于apdid查询
+         * Summary: tsbmrq设备id查询入口
+         */
+        public QueryDeepsecTsbmrqResponse QueryDeepsecTsbmrqEx(QueryDeepsecTsbmrqRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeepsecTsbmrqResponse>(DoRequest("1.0", "di.realperson.deepsec.tsbmrq.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: deepsec终端安全api，用于apdid查询
+         * Summary: tsbmrq设备id查询入口
+         */
+        public async Task<QueryDeepsecTsbmrqResponse> QueryDeepsecTsbmrqExAsync(QueryDeepsecTsbmrqRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeepsecTsbmrqResponse>(await DoRequestAsync("1.0", "di.realperson.deepsec.tsbmrq.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 个人运营商二次放号
          * Summary: 个人运营商二次放号
          */
-        public QueryThreemetaSeconddistributeResponse QueryThreemetaSeconddistributeEx(QueryThreemetaSeconddistributeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public QueryThreemetaPhonereuseResponse QueryThreemetaPhonereuse(QueryThreemetaPhonereuseRequest request)
         {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryThreemetaSeconddistributeResponse>(DoRequest("1.0", "di.realperson.threemeta.seconddistribute.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryThreemetaPhonereuseEx(request, headers, runtime);
         }
 
         /**
          * Description: 个人运营商二次放号
          * Summary: 个人运营商二次放号
          */
-        public async Task<QueryThreemetaSeconddistributeResponse> QueryThreemetaSeconddistributeExAsync(QueryThreemetaSeconddistributeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<QueryThreemetaPhonereuseResponse> QueryThreemetaPhonereuseAsync(QueryThreemetaPhonereuseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryThreemetaPhonereuseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人运营商二次放号
+         * Summary: 个人运营商二次放号
+         */
+        public QueryThreemetaPhonereuseResponse QueryThreemetaPhonereuseEx(QueryThreemetaPhonereuseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryThreemetaSeconddistributeResponse>(await DoRequestAsync("1.0", "di.realperson.threemeta.seconddistribute.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryThreemetaPhonereuseResponse>(DoRequest("1.0", "di.realperson.threemeta.phonereuse.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人运营商二次放号
+         * Summary: 个人运营商二次放号
+         */
+        public async Task<QueryThreemetaPhonereuseResponse> QueryThreemetaPhonereuseExAsync(QueryThreemetaPhonereuseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryThreemetaPhonereuseResponse>(await DoRequestAsync("1.0", "di.realperson.threemeta.phonereuse.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

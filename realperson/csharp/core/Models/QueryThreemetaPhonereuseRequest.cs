@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.REALPERSON.Models
 {
-    public class QueryThreemetaSeconddistributeRequest : TeaModel {
+    public class QueryThreemetaPhonereuseRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -33,7 +33,12 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=true)]
         public string Date { get; set; }
 
-        // 扩展信息，Map的json格式
+        // 运营商类型
+        [NameInMap("carrier")]
+        [Validation(Required=false)]
+        public string Carrier { get; set; }
+
+        // 扩展参数
         [NameInMap("extern_param")]
         [Validation(Required=false)]
         public string ExternParam { get; set; }
