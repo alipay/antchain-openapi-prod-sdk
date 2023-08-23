@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.16',
+    sdk_version = '1.6.19',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -1358,6 +1358,10 @@ model MatchIcmSimpleauthRequest = {
   identityId: string(name='identity_id'),
   // 用于幂等控制
   bizRequestId: string(name='biz_request_id'),
+  // 产品类型
+  authType?: string(name='auth_type'),
+  // 授权编号
+  authCode: string(name='auth_code'),
 }
 
 model MatchIcmSimpleauthResponse = {
@@ -1372,8 +1376,8 @@ model MatchIcmSimpleauthResponse = {
 }
 
 /**
- * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
- * Summary: 极简授权-检查数据是否支持接口
+ * Description: 极简授权-判断该企业是否支持要素授权
+ * Summary: 极简授权-判断该企业是否支持要素授权
  */
 async function matchIcmSimpleauth(request: MatchIcmSimpleauthRequest): MatchIcmSimpleauthResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -1382,8 +1386,8 @@ async function matchIcmSimpleauth(request: MatchIcmSimpleauthRequest): MatchIcmS
 }
 
 /**
- * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
- * Summary: 极简授权-检查数据是否支持接口
+ * Description: 极简授权-判断该企业是否支持要素授权
+ * Summary: 极简授权-判断该企业是否支持要素授权
  */
 async function matchIcmSimpleauthEx(request: MatchIcmSimpleauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): MatchIcmSimpleauthResponse {
   Util.validateModel(request);
@@ -1661,5 +1665,50 @@ async function pullApiSimpleauthasyncpolling(request: PullApiSimpleauthasyncpoll
 async function pullApiSimpleauthasyncpollingEx(request: PullApiSimpleauthasyncpollingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PullApiSimpleauthasyncpollingResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.tax.api.simpleauthasyncpolling.pull', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApiSimpleauthstandardRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 纳税人识别号
+  identityId: string(name='identity_id'),
+  // 用于幂等控制
+  bizRequestId: string(name='biz_request_id'),
+  // 该请求最终发起方(金融机构)的租户号，若是征信通道模式，则是征信机构终端客户的租户号，该租户号由我方分配。
+  instCode: string(name='inst_code'),
+  // 产品类型；
+  // 发票数据：301；税务数据：302；发票及税务数据：303； (通过征信机构链接时请在数字前加“ZX”，如：ZX301)
+  authType: string(name='auth_type'),
+  // 是指行方生成的授权编号
+  authCode: string(name='auth_code'),
+}
+
+model QueryApiSimpleauthstandardResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 极简授权异步查询接口
+ * Summary: 极简授权-异步获取数据
+ */
+async function queryApiSimpleauthstandard(request: QueryApiSimpleauthstandardRequest): QueryApiSimpleauthstandardResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiSimpleauthstandardEx(request, headers, runtime);
+}
+
+/**
+ * Description: 极简授权异步查询接口
+ * Summary: 极简授权-异步获取数据
+ */
+async function queryApiSimpleauthstandardEx(request: QueryApiSimpleauthstandardRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiSimpleauthstandardResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.simpleauthstandard.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
