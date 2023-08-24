@@ -44,6 +44,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string PretendTenant { get; set; }
 
+        // 圈客接口类型
+        [NameInMap("interface_type")]
+        [Validation(Required=false)]
+        public string InterfaceType { get; set; }
+
     }
 
 }
