@@ -22890,6 +22890,7 @@ class QueryUmktScenestrategyTestRequest(TeaModel):
         customer_keys: List[str] = None,
         biz_serial_no: str = None,
         pretend_tenant: str = None,
+        interface_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -22905,6 +22906,8 @@ class QueryUmktScenestrategyTestRequest(TeaModel):
         self.biz_serial_no = biz_serial_no
         # 伪装租户id
         self.pretend_tenant = pretend_tenant
+        # 圈客接口类型
+        self.interface_type = interface_type
 
     def validate(self):
         self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
@@ -22932,6 +22935,8 @@ class QueryUmktScenestrategyTestRequest(TeaModel):
             result['biz_serial_no'] = self.biz_serial_no
         if self.pretend_tenant is not None:
             result['pretend_tenant'] = self.pretend_tenant
+        if self.interface_type is not None:
+            result['interface_type'] = self.interface_type
         return result
 
     def from_map(self, m: dict = None):
@@ -22950,6 +22955,8 @@ class QueryUmktScenestrategyTestRequest(TeaModel):
             self.biz_serial_no = m.get('biz_serial_no')
         if m.get('pretend_tenant') is not None:
             self.pretend_tenant = m.get('pretend_tenant')
+        if m.get('interface_type') is not None:
+            self.interface_type = m.get('interface_type')
         return self
 
 
