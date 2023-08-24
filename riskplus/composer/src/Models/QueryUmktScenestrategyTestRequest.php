@@ -49,6 +49,12 @@ class QueryUmktScenestrategyTestRequest extends Model
      * @var string
      */
     public $pretendTenant;
+
+    // 圈客接口类型
+    /**
+     * @var string
+     */
+    public $interfaceType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -57,6 +63,7 @@ class QueryUmktScenestrategyTestRequest extends Model
         'customerKeys'      => 'customer_keys',
         'bizSerialNo'       => 'biz_serial_no',
         'pretendTenant'     => 'pretend_tenant',
+        'interfaceType'     => 'interface_type',
     ];
 
     public function validate()
@@ -90,6 +97,9 @@ class QueryUmktScenestrategyTestRequest extends Model
         }
         if (null !== $this->pretendTenant) {
             $res['pretend_tenant'] = $this->pretendTenant;
+        }
+        if (null !== $this->interfaceType) {
+            $res['interface_type'] = $this->interfaceType;
         }
 
         return $res;
@@ -125,6 +135,9 @@ class QueryUmktScenestrategyTestRequest extends Model
         }
         if (isset($map['pretend_tenant'])) {
             $model->pretendTenant = $map['pretend_tenant'];
+        }
+        if (isset($map['interface_type'])) {
+            $model->interfaceType = $map['interface_type'];
         }
 
         return $model;
