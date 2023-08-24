@@ -36,6 +36,10 @@ public class QueryUmktScenestrategyTestRequest extends TeaModel {
     @Validation(required = true)
     public String pretendTenant;
 
+    // 圈客接口类型
+    @NameInMap("interface_type")
+    public String interfaceType;
+
     public static QueryUmktScenestrategyTestRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryUmktScenestrategyTestRequest self = new QueryUmktScenestrategyTestRequest();
         return TeaModel.build(map, self);
@@ -95,6 +99,14 @@ public class QueryUmktScenestrategyTestRequest extends TeaModel {
     }
     public String getPretendTenant() {
         return this.pretendTenant;
+    }
+
+    public QueryUmktScenestrategyTestRequest setInterfaceType(String interfaceType) {
+        this.interfaceType = interfaceType;
+        return this;
+    }
+    public String getInterfaceType() {
+        return this.interfaceType;
     }
 
 }
