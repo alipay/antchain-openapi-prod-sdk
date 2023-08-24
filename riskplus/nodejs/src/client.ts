@@ -13743,6 +13743,8 @@ export class QueryUmktScenestrategyTestRequest extends $tea.Model {
   bizSerialNo: string;
   // 伪装租户id
   pretendTenant: string;
+  // 圈客接口类型
+  interfaceType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13752,6 +13754,7 @@ export class QueryUmktScenestrategyTestRequest extends $tea.Model {
       customerKeys: 'customer_keys',
       bizSerialNo: 'biz_serial_no',
       pretendTenant: 'pretend_tenant',
+      interfaceType: 'interface_type',
     };
   }
 
@@ -13764,6 +13767,7 @@ export class QueryUmktScenestrategyTestRequest extends $tea.Model {
       customerKeys: { 'type': 'array', 'itemType': 'string' },
       bizSerialNo: 'string',
       pretendTenant: 'string',
+      interfaceType: 'string',
     };
   }
 
@@ -15622,7 +15626,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.40",
+          sdk_version: "1.16.41",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
