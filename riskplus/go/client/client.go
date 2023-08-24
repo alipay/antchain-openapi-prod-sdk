@@ -18379,6 +18379,8 @@ type QueryUmktScenestrategyTestRequest struct {
 	BizSerialNo *string `json:"biz_serial_no,omitempty" xml:"biz_serial_no,omitempty" require:"true"`
 	// 伪装租户id
 	PretendTenant *string `json:"pretend_tenant,omitempty" xml:"pretend_tenant,omitempty" require:"true"`
+	// 圈客接口类型
+	InterfaceType *string `json:"interface_type,omitempty" xml:"interface_type,omitempty"`
 }
 
 func (s QueryUmktScenestrategyTestRequest) String() string {
@@ -18421,6 +18423,11 @@ func (s *QueryUmktScenestrategyTestRequest) SetBizSerialNo(v string) *QueryUmktS
 
 func (s *QueryUmktScenestrategyTestRequest) SetPretendTenant(v string) *QueryUmktScenestrategyTestRequest {
 	s.PretendTenant = &v
+	return s
+}
+
+func (s *QueryUmktScenestrategyTestRequest) SetInterfaceType(v string) *QueryUmktScenestrategyTestRequest {
+	s.InterfaceType = &v
 	return s
 }
 
@@ -20897,7 +20904,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.40"),
+				"sdk_version":      tea.String("1.16.41"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
