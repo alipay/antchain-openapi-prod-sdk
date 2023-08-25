@@ -21,6 +21,8 @@ use AntChain\TAX\Models\AuthIcmRealpersonRequest;
 use AntChain\TAX\Models\AuthIcmRealpersonResponse;
 use AntChain\TAX\Models\AuthRiskEvaluationRequest;
 use AntChain\TAX\Models\AuthRiskEvaluationResponse;
+use AntChain\TAX\Models\CheckPdataMarriageRequest;
+use AntChain\TAX\Models\CheckPdataMarriageResponse;
 use AntChain\TAX\Models\CreateApiAuthurlRequest;
 use AntChain\TAX\Models\CreateApiAuthurlResponse;
 use AntChain\TAX\Models\DescribeIcmInvoiceRequest;
@@ -55,6 +57,10 @@ use AntChain\TAX\Models\QueryIcmInvoiceRequest;
 use AntChain\TAX\Models\QueryIcmInvoiceResponse;
 use AntChain\TAX\Models\QueryIcmSimpleauthRequest;
 use AntChain\TAX\Models\QueryIcmSimpleauthResponse;
+use AntChain\TAX\Models\QueryPdataPersonalincomeRequest;
+use AntChain\TAX\Models\QueryPdataPersonalincomeResponse;
+use AntChain\TAX\Models\QueryPersonalSocialincomeRequest;
+use AntChain\TAX\Models\QueryPersonalSocialincomeResponse;
 use AntChain\TAX\Models\QueryRiskEvaluationRequest;
 use AntChain\TAX\Models\QueryRiskEvaluationResponse;
 use AntChain\Util\UtilClient;
@@ -176,7 +182,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 逻辑
+            // 规则
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -204,7 +210,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.19',
+                    'sdk_version'      => '1.7.0',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1009,5 +1015,108 @@ class Client
         Utils::validateModel($request);
 
         return QueryApiSimpleauthstandardResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.simpleauthstandard.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 收入评估服务A
+     * https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+     * Summary: 收入评估服务A.
+     *
+     * @param QueryPdataPersonalincomeRequest $request
+     *
+     * @return QueryPdataPersonalincomeResponse
+     */
+    public function queryPdataPersonalincome($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPdataPersonalincomeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 收入评估服务A
+     * https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+     * Summary: 收入评估服务A.
+     *
+     * @param QueryPdataPersonalincomeRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryPdataPersonalincomeResponse
+     */
+    public function queryPdataPersonalincomeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPdataPersonalincomeResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.pdata.personalincome.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 收入评估服务B
+     * Summary: 收入评估服务B.
+     *
+     * @param QueryPersonalSocialincomeRequest $request
+     *
+     * @return QueryPersonalSocialincomeResponse
+     */
+    public function queryPersonalSocialincome($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPersonalSocialincomeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 收入评估服务B
+     * Summary: 收入评估服务B.
+     *
+     * @param QueryPersonalSocialincomeRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryPersonalSocialincomeResponse
+     */
+    public function queryPersonalSocialincomeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPersonalSocialincomeResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.personal.socialincome.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 婚姻状况查验服务
+     * https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+     * Summary: 婚姻状况查验.
+     *
+     * @param CheckPdataMarriageRequest $request
+     *
+     * @return CheckPdataMarriageResponse
+     */
+    public function checkPdataMarriage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkPdataMarriageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 婚姻状况查验服务
+     * https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+     * Summary: 婚姻状况查验.
+     *
+     * @param CheckPdataMarriageRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CheckPdataMarriageResponse
+     */
+    public function checkPdataMarriageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckPdataMarriageResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.pdata.marriage.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

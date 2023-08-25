@@ -91,13 +91,14 @@ class AuthRiskEvaluationRequest extends Model
 
     public function validate()
     {
-        Model::validateMaxLength('identityId', $this->identityId, 30);
-        Model::validateMaxLength('identityName', $this->identityName, 128);
-        Model::validateMaxLength('enterpriseId', $this->enterpriseId, 64);
+        Model::validateRequired('identityId', $this->identityId, true);
         Model::validateRequired('identityType', $this->identityType, true);
         Model::validateRequired('authType', $this->authType, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
         Model::validateRequired('extendInfo', $this->extendInfo, true);
+        Model::validateMaxLength('identityId', $this->identityId, 30);
+        Model::validateMaxLength('identityName', $this->identityName, 128);
+        Model::validateMaxLength('enterpriseId', $this->enterpriseId, 64);
     }
 
     public function toMap()
