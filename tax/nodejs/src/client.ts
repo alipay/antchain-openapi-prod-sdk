@@ -77,55 +77,6 @@ export class Config extends $tea.Model {
   }
 }
 
-// 逻辑
-export class Logic extends $tea.Model {
-  // 操作符
-  //  equal = _equal_, // 相等比较
-  //   notEqual = _notEqual_, // 不相等比较
-  //   AND = _AND_, // 与逻辑
-  //   OR = _OR_, // 或逻辑
-  op: string;
-  //  只有 op 是 AND 或者 OR 才是可选，其他情况为必选
-  key: string;
-  // 只有 op 是 AND 或者 OR 才是可选，其他情况为必选
-  value: string;
-  // 只有 op 是 AND 或者 OR 才需要这个字段
-  // [{op: _AND_, // 与逻辑
-  //         children: [
-  //           {
-  //             op: _equal_, // 相等比较
-  //             key: _validationMethod_, // 表示：验证方式
-  //             value: _smsCode_  // 表示：短信验证码
-  //           },
-  //           { // 判断登录信息的值不为 null
-  //             op: _notEqual_, // 不相等比较
-  //             key: _username_,  // 表示：登录信息
-  //             value: null
-  //           }]}]
-  children: string;
-  static names(): { [key: string]: string } {
-    return {
-      op: 'op',
-      key: 'key',
-      value: 'value',
-      children: 'children',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      op: 'string',
-      key: 'string',
-      value: 'string',
-      children: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 规则
 export class Rule extends $tea.Model {
   // 字段值的类型，常见有 string | number| boolean | _array_
@@ -188,6 +139,55 @@ export class ForgetMeta extends $tea.Model {
     return {
       label: 'string',
       link: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 逻辑
+export class Logic extends $tea.Model {
+  // 操作符
+  //  equal = _equal_, // 相等比较
+  //   notEqual = _notEqual_, // 不相等比较
+  //   AND = _AND_, // 与逻辑
+  //   OR = _OR_, // 或逻辑
+  op: string;
+  //  只有 op 是 AND 或者 OR 才是可选，其他情况为必选
+  key: string;
+  // 只有 op 是 AND 或者 OR 才是可选，其他情况为必选
+  value: string;
+  // 只有 op 是 AND 或者 OR 才需要这个字段
+  // [{op: _AND_, // 与逻辑
+  //         children: [
+  //           {
+  //             op: _equal_, // 相等比较
+  //             key: _validationMethod_, // 表示：验证方式
+  //             value: _smsCode_  // 表示：短信验证码
+  //           },
+  //           { // 判断登录信息的值不为 null
+  //             op: _notEqual_, // 不相等比较
+  //             key: _username_,  // 表示：登录信息
+  //             value: null
+  //           }]}]
+  children: string;
+  static names(): { [key: string]: string } {
+    return {
+      op: 'op',
+      key: 'key',
+      value: 'value',
+      children: 'children',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      op: 'string',
+      key: 'string',
+      value: 'string',
+      children: 'string',
     };
   }
 
@@ -300,31 +300,6 @@ export class Key extends $tea.Model {
   }
 }
 
-// 配对
-export class Pair extends $tea.Model {
-  // left
-  left: string;
-  // right
-  right: Key;
-  static names(): { [key: string]: string } {
-    return {
-      left: 'left',
-      right: 'right',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      left: 'string',
-      right: Key,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 授权文件信息
 export class AgreementFile extends $tea.Model {
   // 授权文件名称
@@ -350,19 +325,23 @@ export class AgreementFile extends $tea.Model {
   }
 }
 
-// 地区请求
-export class DistrictExtRequest extends $tea.Model {
-  // 地区编码
-  cityCode: string;
+// 配对
+export class Pair extends $tea.Model {
+  // left
+  left: string;
+  // right
+  right: Key;
   static names(): { [key: string]: string } {
     return {
-      cityCode: 'city_code',
+      left: 'left',
+      right: 'right',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      cityCode: 'string',
+      left: 'string',
+      right: Key,
     };
   }
 
@@ -409,6 +388,27 @@ export class Card extends $tea.Model {
   }
 }
 
+// 地区请求
+export class DistrictExtRequest extends $tea.Model {
+  // 地区编码
+  cityCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      cityCode: 'city_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cityCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 通用同步授权扩展字段
 export class AgreementExtRequest extends $tea.Model {
   // 证书类型
@@ -434,6 +434,52 @@ export class AgreementExtRequest extends $tea.Model {
       isSeal: 'string',
       address: 'string',
       agreementFile: AgreementFile,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 地区
+export class RiskEvaluationDistrictExtRequest extends $tea.Model {
+  // 地区编码
+  cityCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      cityCode: 'city_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cityCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授权扩展信息
+export class StandardAuthExtendInfoRequest extends $tea.Model {
+  // 协议列表
+  agreementList: AgreementExtRequest[];
+  // 地区请求
+  districtextRequest: DistrictExtRequest;
+  static names(): { [key: string]: string } {
+    return {
+      agreementList: 'agreement_list',
+      districtextRequest: 'districtext_request',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      agreementList: { 'type': 'array', 'itemType': AgreementExtRequest },
+      districtextRequest: DistrictExtRequest,
     };
   }
 
@@ -513,27 +559,6 @@ export class RiskEvaluationAgreementExtRequest extends $tea.Model {
   }
 }
 
-// 地区
-export class RiskEvaluationDistrictExtRequest extends $tea.Model {
-  // 地区编码
-  cityCode: string;
-  static names(): { [key: string]: string } {
-    return {
-      cityCode: 'city_code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cityCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 发票明细
 export class InvoiceItem extends $tea.Model {
   // 税收分类编码	
@@ -591,23 +616,19 @@ export class InvoiceItem extends $tea.Model {
   }
 }
 
-// 授权扩展信息
-export class StandardAuthExtendInfoRequest extends $tea.Model {
-  // 协议列表
-  agreementList: AgreementExtRequest[];
-  // 地区请求
-  districtextRequest: DistrictExtRequest;
+// 婚姻状况查验服务结果对象
+export class MarriageCheckEvaluationFacade extends $tea.Model {
+  // 婚姻状况查验结果
+  checkResult: string;
   static names(): { [key: string]: string } {
     return {
-      agreementList: 'agreement_list',
-      districtextRequest: 'districtext_request',
+      checkResult: 'check_result',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      agreementList: { 'type': 'array', 'itemType': AgreementExtRequest },
-      districtextRequest: DistrictExtRequest,
+      checkResult: 'string',
     };
   }
 
@@ -649,60 +670,6 @@ export class ReturnDetail extends $tea.Model {
       fileType: 'string',
       encryptModel: 'string',
       secretEnvelope: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 二维码
-export class QrCodeValue extends $tea.Model {
-  // 二维码链接
-  qrCodeUrl: string;
-  // 二维码描述信息。例如：请使用 xxx app 扫码登录
-  desc: string;
-  // 二维码在多长时间后失效，单位：秒
-  timeout: number;
-  static names(): { [key: string]: string } {
-    return {
-      qrCodeUrl: 'qr_code_url',
-      desc: 'desc',
-      timeout: 'timeout',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      qrCodeUrl: 'string',
-      desc: 'string',
-      timeout: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 扩展信息
-export class RiskEvaluationExtendInfoRequest extends $tea.Model {
-  // 协议集合
-  agreementList: RiskEvaluationAgreementExtRequest[];
-  // 地区请求
-  districtExt: RiskEvaluationDistrictExtRequest;
-  static names(): { [key: string]: string } {
-    return {
-      agreementList: 'agreement_list',
-      districtExt: 'district_ext',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      agreementList: { 'type': 'array', 'itemType': RiskEvaluationAgreementExtRequest },
-      districtExt: RiskEvaluationDistrictExtRequest,
     };
   }
 
@@ -769,6 +736,143 @@ export class BaseAuthRequest extends $tea.Model {
       authType: 'string',
       orderNo: 'string',
       extendInfo: StandardAuthExtendInfoRequest,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 个人授权
+export class StandardRealPersonAuthRequest extends $tea.Model {
+  // 个人证件号
+  identityId: string;
+  // 名字
+  identityName: string;
+  static names(): { [key: string]: string } {
+    return {
+      identityId: 'identity_id',
+      identityName: 'identity_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      identityId: 'string',
+      identityName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 收入评估服务B结果对象
+export class SocialIncomeEvaluationFacade extends $tea.Model {
+  // 查询结果
+  scoreResult: string;
+  // 收入评分
+  rangeScore?: string;
+  // 历史稳定性评估
+  historyScore?: string;
+  // 近期稳定性评估
+  stabilityScore?: string;
+  static names(): { [key: string]: string } {
+    return {
+      scoreResult: 'score_result',
+      rangeScore: 'range_score',
+      historyScore: 'history_score',
+      stabilityScore: 'stability_score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      scoreResult: 'string',
+      rangeScore: 'string',
+      historyScore: 'string',
+      stabilityScore: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 收入评估服务A结果
+export class PersonalIncomeEvaluationFacade extends $tea.Model {
+  // 查询结果
+  scoreResult: string;
+  // 收入评分
+  incomeScore?: string;
+  static names(): { [key: string]: string } {
+    return {
+      scoreResult: 'score_result',
+      incomeScore: 'income_score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      scoreResult: 'string',
+      incomeScore: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 二维码
+export class QrCodeValue extends $tea.Model {
+  // 二维码链接
+  qrCodeUrl: string;
+  // 二维码描述信息。例如：请使用 xxx app 扫码登录
+  desc: string;
+  // 二维码在多长时间后失效，单位：秒
+  timeout: number;
+  static names(): { [key: string]: string } {
+    return {
+      qrCodeUrl: 'qr_code_url',
+      desc: 'desc',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      qrCodeUrl: 'string',
+      desc: 'string',
+      timeout: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 扩展信息
+export class RiskEvaluationExtendInfoRequest extends $tea.Model {
+  // 协议集合
+  agreementList: RiskEvaluationAgreementExtRequest[];
+  // 地区请求
+  districtExt: RiskEvaluationDistrictExtRequest;
+  static names(): { [key: string]: string } {
+    return {
+      agreementList: 'agreement_list',
+      districtExt: 'district_ext',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      agreementList: { 'type': 'array', 'itemType': RiskEvaluationAgreementExtRequest },
+      districtExt: RiskEvaluationDistrictExtRequest,
     };
   }
 
@@ -928,31 +1032,6 @@ export class Invoice extends $tea.Model {
       zfbz: 'string',
       zfsj: 'string',
       extFiled: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 个人授权
-export class StandardRealPersonAuthRequest extends $tea.Model {
-  // 个人证件号
-  identityId: string;
-  // 名字
-  identityName: string;
-  static names(): { [key: string]: string } {
-    return {
-      identityId: 'identity_id',
-      identityName: 'identity_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      identityId: 'string',
-      identityName: 'string',
     };
   }
 
@@ -2550,7 +2629,7 @@ export class AuthRiskEvaluationRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 个人身份证号
-  identityId?: string;
+  identityId: string;
   // 个人姓名
   identityName?: string;
   // 企业的统一社会信用编码
@@ -2905,6 +2984,275 @@ export class QueryApiSimpleauthstandardResponse extends $tea.Model {
   }
 }
 
+export class QueryPdataPersonalincomeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务流水号
+  bizId?: string;
+  // 姓名
+  name?: string;
+  // 身份证
+  certNo?: string;
+  // 手机号
+  phoneNo?: string;
+  // 授权编码
+  authorizationCode?: string;
+  // 授权凭证
+  authorizationCredential?: string;
+  // 凭证格式
+  credentialType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      name: 'name',
+      certNo: 'cert_no',
+      phoneNo: 'phone_no',
+      authorizationCode: 'authorization_code',
+      authorizationCredential: 'authorization_credential',
+      credentialType: 'credential_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      name: 'string',
+      certNo: 'string',
+      phoneNo: 'string',
+      authorizationCode: 'string',
+      authorizationCredential: 'string',
+      credentialType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPdataPersonalincomeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询结果
+  scoreResult?: string;
+  // 收入评分
+  incomeScore?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      scoreResult: 'score_result',
+      incomeScore: 'income_score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      scoreResult: 'string',
+      incomeScore: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPersonalSocialincomeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务流水号
+  bizId?: string;
+  // 姓名
+  name?: string;
+  // 身份证
+  certNo?: string;
+  // 手机号
+  phoneNo?: string;
+  // 授权编号
+  authorizationCode?: string;
+  // 授权凭证
+  authorizationCredential?: string;
+  // 凭证格式
+  credentialType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      name: 'name',
+      certNo: 'cert_no',
+      phoneNo: 'phone_no',
+      authorizationCode: 'authorization_code',
+      authorizationCredential: 'authorization_credential',
+      credentialType: 'credential_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      name: 'string',
+      certNo: 'string',
+      phoneNo: 'string',
+      authorizationCode: 'string',
+      authorizationCredential: 'string',
+      credentialType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPersonalSocialincomeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询结果
+  scoreResult?: string;
+  // 收入评分
+  rangeScore?: string;
+  // 历史稳定性评估
+  historyScore?: string;
+  // 近期稳定性评估
+  stabilityScore?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      scoreResult: 'score_result',
+      rangeScore: 'range_score',
+      historyScore: 'history_score',
+      stabilityScore: 'stability_score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      scoreResult: 'string',
+      rangeScore: 'string',
+      historyScore: 'string',
+      stabilityScore: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckPdataMarriageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务流水号
+  bizId?: string;
+  // 姓名
+  name: string;
+  // 身份证
+  certNo: string;
+  // 授权凭证
+  authorizationCredential: string;
+  // 授权编号(同一机构内唯一)
+  authorizationNo: string;
+  // 授权格式
+  credentialType: string;
+  // 授权有效期
+  authorizationExpirationTime?: string;
+  // 授权对象
+  authorizationType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      name: 'name',
+      certNo: 'cert_no',
+      authorizationCredential: 'authorization_credential',
+      authorizationNo: 'authorization_no',
+      credentialType: 'credential_type',
+      authorizationExpirationTime: 'authorization_expiration_time',
+      authorizationType: 'authorization_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      name: 'string',
+      certNo: 'string',
+      authorizationCredential: 'string',
+      authorizationNo: 'string',
+      credentialType: 'string',
+      authorizationExpirationTime: 'string',
+      authorizationType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckPdataMarriageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 婚姻状况查验结果
+  checkResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      checkResult: 'check_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      checkResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -3018,7 +3366,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.19",
+          sdk_version: "1.7.0",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
@@ -3501,6 +3849,67 @@ export default class Client {
   async queryApiSimpleauthstandardEx(request: QueryApiSimpleauthstandardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApiSimpleauthstandardResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryApiSimpleauthstandardResponse>(await this.doRequest("1.0", "blockchain.tax.api.simpleauthstandard.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApiSimpleauthstandardResponse({}));
+  }
+
+  /**
+   * Description: 收入评估服务A
+  https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+   * Summary: 收入评估服务A
+   */
+  async queryPdataPersonalincome(request: QueryPdataPersonalincomeRequest): Promise<QueryPdataPersonalincomeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryPdataPersonalincomeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 收入评估服务A
+  https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+   * Summary: 收入评估服务A
+   */
+  async queryPdataPersonalincomeEx(request: QueryPdataPersonalincomeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPdataPersonalincomeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryPdataPersonalincomeResponse>(await this.doRequest("1.0", "blockchain.tax.pdata.personalincome.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPdataPersonalincomeResponse({}));
+  }
+
+  /**
+   * Description: 收入评估服务B
+   * Summary: 收入评估服务B
+   */
+  async queryPersonalSocialincome(request: QueryPersonalSocialincomeRequest): Promise<QueryPersonalSocialincomeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryPersonalSocialincomeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 收入评估服务B
+   * Summary: 收入评估服务B
+   */
+  async queryPersonalSocialincomeEx(request: QueryPersonalSocialincomeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPersonalSocialincomeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryPersonalSocialincomeResponse>(await this.doRequest("1.0", "blockchain.tax.personal.socialincome.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPersonalSocialincomeResponse({}));
+  }
+
+  /**
+   * Description: 婚姻状况查验服务
+  https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+   * Summary: 婚姻状况查验
+   */
+  async checkPdataMarriage(request: CheckPdataMarriageRequest): Promise<CheckPdataMarriageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkPdataMarriageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 婚姻状况查验服务
+  https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+   * Summary: 婚姻状况查验
+   */
+  async checkPdataMarriageEx(request: CheckPdataMarriageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckPdataMarriageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckPdataMarriageResponse>(await this.doRequest("1.0", "blockchain.tax.pdata.marriage.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckPdataMarriageResponse({}));
   }
 
 }
