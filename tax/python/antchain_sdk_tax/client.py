@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 逻辑
+            # 规则
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.19',
+                    'sdk_version': '1.7.0',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 逻辑
+            # 规则
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.19',
+                    'sdk_version': '1.7.0',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -1561,4 +1561,180 @@ class Client:
         return TeaCore.from_map(
             tax_models.QueryApiSimpleauthstandardResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.api.simpleauthstandard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_pdata_personalincome(
+        self,
+        request: tax_models.QueryPdataPersonalincomeRequest,
+    ) -> tax_models.QueryPdataPersonalincomeResponse:
+        """
+        Description: 收入评估服务A
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+        Summary: 收入评估服务A
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_pdata_personalincome_ex(request, headers, runtime)
+
+    async def query_pdata_personalincome_async(
+        self,
+        request: tax_models.QueryPdataPersonalincomeRequest,
+    ) -> tax_models.QueryPdataPersonalincomeResponse:
+        """
+        Description: 收入评估服务A
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+        Summary: 收入评估服务A
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_pdata_personalincome_ex_async(request, headers, runtime)
+
+    def query_pdata_personalincome_ex(
+        self,
+        request: tax_models.QueryPdataPersonalincomeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryPdataPersonalincomeResponse:
+        """
+        Description: 收入评估服务A
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+        Summary: 收入评估服务A
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryPdataPersonalincomeResponse(),
+            self.do_request('1.0', 'blockchain.tax.pdata.personalincome.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_pdata_personalincome_ex_async(
+        self,
+        request: tax_models.QueryPdataPersonalincomeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryPdataPersonalincomeResponse:
+        """
+        Description: 收入评估服务A
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+        Summary: 收入评估服务A
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryPdataPersonalincomeResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.pdata.personalincome.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_personal_socialincome(
+        self,
+        request: tax_models.QueryPersonalSocialincomeRequest,
+    ) -> tax_models.QueryPersonalSocialincomeResponse:
+        """
+        Description: 收入评估服务B
+        Summary: 收入评估服务B
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_personal_socialincome_ex(request, headers, runtime)
+
+    async def query_personal_socialincome_async(
+        self,
+        request: tax_models.QueryPersonalSocialincomeRequest,
+    ) -> tax_models.QueryPersonalSocialincomeResponse:
+        """
+        Description: 收入评估服务B
+        Summary: 收入评估服务B
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_personal_socialincome_ex_async(request, headers, runtime)
+
+    def query_personal_socialincome_ex(
+        self,
+        request: tax_models.QueryPersonalSocialincomeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryPersonalSocialincomeResponse:
+        """
+        Description: 收入评估服务B
+        Summary: 收入评估服务B
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryPersonalSocialincomeResponse(),
+            self.do_request('1.0', 'blockchain.tax.personal.socialincome.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_personal_socialincome_ex_async(
+        self,
+        request: tax_models.QueryPersonalSocialincomeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryPersonalSocialincomeResponse:
+        """
+        Description: 收入评估服务B
+        Summary: 收入评估服务B
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryPersonalSocialincomeResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.personal.socialincome.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_pdata_marriage(
+        self,
+        request: tax_models.CheckPdataMarriageRequest,
+    ) -> tax_models.CheckPdataMarriageResponse:
+        """
+        Description: 婚姻状况查验服务
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+        Summary: 婚姻状况查验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_pdata_marriage_ex(request, headers, runtime)
+
+    async def check_pdata_marriage_async(
+        self,
+        request: tax_models.CheckPdataMarriageRequest,
+    ) -> tax_models.CheckPdataMarriageResponse:
+        """
+        Description: 婚姻状况查验服务
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+        Summary: 婚姻状况查验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_pdata_marriage_ex_async(request, headers, runtime)
+
+    def check_pdata_marriage_ex(
+        self,
+        request: tax_models.CheckPdataMarriageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.CheckPdataMarriageResponse:
+        """
+        Description: 婚姻状况查验服务
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+        Summary: 婚姻状况查验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.CheckPdataMarriageResponse(),
+            self.do_request('1.0', 'blockchain.tax.pdata.marriage.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_pdata_marriage_ex_async(
+        self,
+        request: tax_models.CheckPdataMarriageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.CheckPdataMarriageResponse:
+        """
+        Description: 婚姻状况查验服务
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+        Summary: 婚姻状况查验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.CheckPdataMarriageResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.pdata.marriage.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
