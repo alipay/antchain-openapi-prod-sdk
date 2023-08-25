@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.19',
+    sdk_version = '1.7.0',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -161,6 +161,32 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 规则
+model Rule {
+  // 字段值的类型，常见有 string | number| boolean | _array_
+  type: string(name='type', example='string'),
+  // type 为 string 类型时，表示字符串长度；number 类型时表示确定数字； array 类型时表示数组长度
+  len: long(name='len', example='11'),
+  // type 为 string 类型时，表示字符串最大长度；number 类型时表示最大值；array 类型时表示数组最大长度
+  max: long(name='max', example='13'),
+  // type 为 string 类型时，表示字符串最小长度；number 类型时表示最小值；array 类型时表示数组最小长度
+  min: long(name='min', example='4'),
+  // 校验出错时显示的错误消息
+  message: string(name='message', example='重新输入'),
+  // 是否必填
+  required: boolean(name='required', example='true, false'),
+  // 正则表达式,
+  regPattern: string(name='reg_pattern', example='d'),
+}
+
+// 忘记密码
+model ForgetMeta {
+  // 字段名称
+  label: string(name='label', example='字段名称 例如：密码'),
+  // 忘记密码的链接地址，供重置用
+  link: string(name='link', example='www.baidu.com'),
+}
+
 // 逻辑
 model Logic {
   // 操作符
@@ -187,32 +213,6 @@ model Logic {
   //             value: null
   //           }]}]
   children: string(name='children', example='[]'),
-}
-
-// 规则
-model Rule {
-  // 字段值的类型，常见有 string | number| boolean | _array_
-  type: string(name='type', example='string'),
-  // type 为 string 类型时，表示字符串长度；number 类型时表示确定数字； array 类型时表示数组长度
-  len: long(name='len', example='11'),
-  // type 为 string 类型时，表示字符串最大长度；number 类型时表示最大值；array 类型时表示数组最大长度
-  max: long(name='max', example='13'),
-  // type 为 string 类型时，表示字符串最小长度；number 类型时表示最小值；array 类型时表示数组最小长度
-  min: long(name='min', example='4'),
-  // 校验出错时显示的错误消息
-  message: string(name='message', example='重新输入'),
-  // 是否必填
-  required: boolean(name='required', example='true, false'),
-  // 正则表达式,
-  regPattern: string(name='reg_pattern', example='d'),
-}
-
-// 忘记密码
-model ForgetMeta {
-  // 字段名称
-  label: string(name='label', example='字段名称 例如：密码'),
-  // 忘记密码的链接地址，供重置用
-  link: string(name='link', example='www.baidu.com'),
 }
 
 // 选择组件
@@ -261,14 +261,6 @@ model Key {
   forgetMeta: ForgetMeta(name='forget_meta', example=''),
 }
 
-// 配对
-model Pair {
-  // left
-  left: string(name='left', example='left'),
-  // right
-  right: Key(name='right', example='right'),
-}
-
 // 授权文件信息
 model AgreementFile {
   // 授权文件名称
@@ -277,10 +269,12 @@ model AgreementFile {
   fileContentBase64String: string(name='file_content_base64_string', example='JVBERi0xLjUKJYCBgoMKMSAwIG9iago8PC9GaWx0ZXIvRmxhdGVEZWNvZGUvRmlyc3QgMTQxL04gMjAvTGVuZ3=='),
 }
 
-// 地区请求
-model DistrictExtRequest {
-  // 地区编码
-  cityCode: string(name='city_code', example='340909'),
+// 配对
+model Pair {
+  // left
+  left: string(name='left', example='left'),
+  // right
+  right: Key(name='right', example='right'),
 }
 
 // card
@@ -298,6 +292,12 @@ model Card {
   returnValueKey: [ string ](name='return_value_key', example='[selectCard1,input1]'),
 }
 
+// 地区请求
+model DistrictExtRequest {
+  // 地区编码
+  cityCode: string(name='city_code', example='340909'),
+}
+
 // 通用同步授权扩展字段
 model AgreementExtRequest {
   // 证书类型
@@ -308,6 +308,20 @@ model AgreementExtRequest {
   address: string(name='address', example='http://sdsdfsd.com'),
   // 授权文件信息
   agreementFile?: AgreementFile(name='agreement_file', example=''),
+}
+
+// 地区
+model RiskEvaluationDistrictExtRequest {
+  // 地区编码
+  cityCode: string(name='city_code', example=' 4301000'),
+}
+
+// 授权扩展信息
+model StandardAuthExtendInfoRequest {
+  // 协议列表
+  agreementList: [ AgreementExtRequest ](name='agreement_list', example='协议列表'),
+  // 地区请求
+  districtextRequest: DistrictExtRequest(name='districtext_request', example='地区请求'),
 }
 
 // 树节点
@@ -339,12 +353,6 @@ model RiskEvaluationAgreementExtRequest {
   content: string(name='content', example='ewronvdnfidonfsidfis'),
 }
 
-// 地区
-model RiskEvaluationDistrictExtRequest {
-  // 地区编码
-  cityCode: string(name='city_code', example=' 4301000'),
-}
-
 // 发票明细
 model InvoiceItem {
   // 税收分类编码	
@@ -369,12 +377,10 @@ model InvoiceItem {
   ggxh?: string(name='ggxh', example='xxx'),
 }
 
-// 授权扩展信息
-model StandardAuthExtendInfoRequest {
-  // 协议列表
-  agreementList: [ AgreementExtRequest ](name='agreement_list', example='协议列表'),
-  // 地区请求
-  districtextRequest: DistrictExtRequest(name='districtext_request', example='地区请求'),
+// 婚姻状况查验服务结果对象
+model MarriageCheckEvaluationFacade {
+  // 婚姻状况查验结果
+  checkResult: string(name='check_result', example='0:结婚 1:离婚 2:未匹配；-1:数据源查询异常；-2:核查中'),
 }
 
 // 返回详情
@@ -391,24 +397,6 @@ model ReturnDetail {
   encryptModel: string(name='encrypt_model', example='LINKS：链接加密 CONTENT：内容加密，使用信封模式，'),
   // 密钥信封
   secretEnvelope: string(name='secret_envelope', example='密钥信封，用RSA将将对内容处理的对称钥加密'),
-}
-
-// 二维码
-model QrCodeValue {
-  // 二维码链接
-  qrCodeUrl: string(name='qr_code_url', example='二维码链接'),
-  // 二维码描述信息。例如：请使用 xxx app 扫码登录
-  desc: string(name='desc', example='二维码描述信息。例如：请使用 xxx app 扫码登录'),
-  // 二维码在多长时间后失效，单位：秒
-  timeout: long(name='timeout', example='60'),
-}
-
-// 扩展信息
-model RiskEvaluationExtendInfoRequest {
-  // 协议集合
-  agreementList: [ RiskEvaluationAgreementExtRequest ](name='agreement_list', example=''),
-  // 地区请求
-  districtExt: RiskEvaluationDistrictExtRequest(name='district_ext', example='地区请求'),
 }
 
 // TreeTemplate
@@ -433,6 +421,52 @@ model BaseAuthRequest {
   orderNo: string(name='order_no', example='订单号'),
   // 扩展信息
   extendInfo: StandardAuthExtendInfoRequest(name='extend_info', example='扩展信息'),
+}
+
+// 个人授权
+model StandardRealPersonAuthRequest {
+  // 个人证件号
+  identityId: string(name='identity_id', example='个人证件号340902xxxx'),
+  // 名字
+  identityName: string(name='identity_name', example='张三'),
+}
+
+// 收入评估服务B结果对象
+model SocialIncomeEvaluationFacade {
+  // 查询结果
+  scoreResult: string(name='score_result', example='00,01'),
+  // 收入评分
+  rangeScore?: string(name='range_score', example='100'),
+  // 历史稳定性评估
+  historyScore?: string(name='history_score', example='90'),
+  // 近期稳定性评估
+  stabilityScore?: string(name='stability_score', example='80'),
+}
+
+// 收入评估服务A结果
+model PersonalIncomeEvaluationFacade {
+  // 查询结果
+  scoreResult: string(name='score_result', example='00,01'),
+  // 收入评分
+  incomeScore?: string(name='income_score', example='100'),
+}
+
+// 二维码
+model QrCodeValue {
+  // 二维码链接
+  qrCodeUrl: string(name='qr_code_url', example='二维码链接'),
+  // 二维码描述信息。例如：请使用 xxx app 扫码登录
+  desc: string(name='desc', example='二维码描述信息。例如：请使用 xxx app 扫码登录'),
+  // 二维码在多长时间后失效，单位：秒
+  timeout: long(name='timeout', example='60'),
+}
+
+// 扩展信息
+model RiskEvaluationExtendInfoRequest {
+  // 协议集合
+  agreementList: [ RiskEvaluationAgreementExtRequest ](name='agreement_list', example=''),
+  // 地区请求
+  districtExt: RiskEvaluationDistrictExtRequest(name='district_ext', example='地区请求'),
 }
 
 // 发票标准模型
@@ -513,14 +547,6 @@ model Invoice {
   zfsj?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='zfsj', example='xxx'),
   // 扩展字段
   extFiled: string(name='ext_filed', example='{abc:123,def:456}'),
-}
-
-// 个人授权
-model StandardRealPersonAuthRequest {
-  // 个人证件号
-  identityId: string(name='identity_id', example='个人证件号340902xxxx'),
-  // 名字
-  identityName: string(name='identity_name', example='张三'),
 }
 
 model AuthCorpRequest = {
@@ -1499,7 +1525,7 @@ model AuthRiskEvaluationRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 个人身份证号
-  identityId?: string(maxLength=30, name='identity_id'),
+  identityId: string(maxLength=30, name='identity_id'),
   // 个人姓名
   identityName?: string(maxLength=128, name='identity_name'),
   // 企业的统一社会信用编码
@@ -1710,5 +1736,169 @@ async function queryApiSimpleauthstandard(request: QueryApiSimpleauthstandardReq
 async function queryApiSimpleauthstandardEx(request: QueryApiSimpleauthstandardRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiSimpleauthstandardResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.tax.api.simpleauthstandard.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPdataPersonalincomeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务流水号
+  bizId?: string(name='biz_id'),
+  // 姓名
+  name?: string(name='name'),
+  // 身份证
+  certNo?: string(name='cert_no'),
+  // 手机号
+  phoneNo?: string(name='phone_no'),
+  // 授权编码
+  authorizationCode?: string(name='authorization_code'),
+  // 授权凭证
+  authorizationCredential?: string(name='authorization_credential'),
+  // 凭证格式
+  credentialType?: string(name='credential_type'),
+}
+
+model QueryPdataPersonalincomeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询结果
+  scoreResult?: string(name='score_result'),
+  // 收入评分
+  incomeScore?: string(name='income_score'),
+}
+
+/**
+ * Description: 收入评估服务A
+https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+ * Summary: 收入评估服务A
+ */
+async function queryPdataPersonalincome(request: QueryPdataPersonalincomeRequest): QueryPdataPersonalincomeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPdataPersonalincomeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 收入评估服务A
+https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+ * Summary: 收入评估服务A
+ */
+async function queryPdataPersonalincomeEx(request: QueryPdataPersonalincomeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPdataPersonalincomeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.pdata.personalincome.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPersonalSocialincomeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务流水号
+  bizId?: string(name='biz_id'),
+  // 姓名
+  name?: string(name='name'),
+  // 身份证
+  certNo?: string(name='cert_no'),
+  // 手机号
+  phoneNo?: string(name='phone_no'),
+  // 授权编号
+  authorizationCode?: string(name='authorization_code'),
+  // 授权凭证
+  authorizationCredential?: string(name='authorization_credential'),
+  // 凭证格式
+  credentialType?: string(name='credential_type'),
+}
+
+model QueryPersonalSocialincomeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询结果
+  scoreResult?: string(name='score_result'),
+  // 收入评分
+  rangeScore?: string(name='range_score'),
+  // 历史稳定性评估
+  historyScore?: string(name='history_score'),
+  // 近期稳定性评估
+  stabilityScore?: string(name='stability_score'),
+}
+
+/**
+ * Description: 收入评估服务B
+ * Summary: 收入评估服务B
+ */
+async function queryPersonalSocialincome(request: QueryPersonalSocialincomeRequest): QueryPersonalSocialincomeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPersonalSocialincomeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 收入评估服务B
+ * Summary: 收入评估服务B
+ */
+async function queryPersonalSocialincomeEx(request: QueryPersonalSocialincomeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPersonalSocialincomeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.personal.socialincome.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckPdataMarriageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务流水号
+  bizId?: string(name='biz_id'),
+  // 姓名
+  name: string(name='name'),
+  // 身份证
+  certNo: string(name='cert_no'),
+  // 授权凭证
+  authorizationCredential: string(name='authorization_credential'),
+  // 授权编号(同一机构内唯一)
+  authorizationNo: string(name='authorization_no'),
+  // 授权格式
+  credentialType: string(name='credential_type'),
+  // 授权有效期
+  authorizationExpirationTime?: string(name='authorization_expiration_time'),
+  // 授权对象
+  authorizationType?: string(name='authorization_type'),
+}
+
+model CheckPdataMarriageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 婚姻状况查验结果
+  checkResult?: string(name='check_result'),
+}
+
+/**
+ * Description: 婚姻状况查验服务
+https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+ * Summary: 婚姻状况查验
+ */
+async function checkPdataMarriage(request: CheckPdataMarriageRequest): CheckPdataMarriageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkPdataMarriageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 婚姻状况查验服务
+https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+ * Summary: 婚姻状况查验
+ */
+async function checkPdataMarriageEx(request: CheckPdataMarriageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckPdataMarriageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.pdata.marriage.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
