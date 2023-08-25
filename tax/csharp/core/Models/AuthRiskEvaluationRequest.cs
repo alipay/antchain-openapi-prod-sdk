@@ -20,7 +20,7 @@ namespace AntChain.SDK.TAX.Models
 
         // 个人身份证号
         [NameInMap("identity_id")]
-        [Validation(Required=false, MaxLength=30)]
+        [Validation(Required=true, MaxLength=30)]
         public string IdentityId { get; set; }
 
         // 个人姓名

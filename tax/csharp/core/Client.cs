@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.19"},
+                        {"sdk_version", "1.7.0"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.19"},
+                        {"sdk_version", "1.7.0"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1285,6 +1285,140 @@ namespace AntChain.SDK.TAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryApiSimpleauthstandardResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.simpleauthstandard.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 收入评估服务A
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+         * Summary: 收入评估服务A
+         */
+        public QueryPdataPersonalincomeResponse QueryPdataPersonalincome(QueryPdataPersonalincomeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryPdataPersonalincomeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 收入评估服务A
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+         * Summary: 收入评估服务A
+         */
+        public async Task<QueryPdataPersonalincomeResponse> QueryPdataPersonalincomeAsync(QueryPdataPersonalincomeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryPdataPersonalincomeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 收入评估服务A
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+         * Summary: 收入评估服务A
+         */
+        public QueryPdataPersonalincomeResponse QueryPdataPersonalincomeEx(QueryPdataPersonalincomeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPdataPersonalincomeResponse>(DoRequest("1.0", "blockchain.tax.pdata.personalincome.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 收入评估服务A
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+         * Summary: 收入评估服务A
+         */
+        public async Task<QueryPdataPersonalincomeResponse> QueryPdataPersonalincomeExAsync(QueryPdataPersonalincomeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPdataPersonalincomeResponse>(await DoRequestAsync("1.0", "blockchain.tax.pdata.personalincome.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 收入评估服务B
+         * Summary: 收入评估服务B
+         */
+        public QueryPersonalSocialincomeResponse QueryPersonalSocialincome(QueryPersonalSocialincomeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryPersonalSocialincomeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 收入评估服务B
+         * Summary: 收入评估服务B
+         */
+        public async Task<QueryPersonalSocialincomeResponse> QueryPersonalSocialincomeAsync(QueryPersonalSocialincomeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryPersonalSocialincomeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 收入评估服务B
+         * Summary: 收入评估服务B
+         */
+        public QueryPersonalSocialincomeResponse QueryPersonalSocialincomeEx(QueryPersonalSocialincomeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPersonalSocialincomeResponse>(DoRequest("1.0", "blockchain.tax.personal.socialincome.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 收入评估服务B
+         * Summary: 收入评估服务B
+         */
+        public async Task<QueryPersonalSocialincomeResponse> QueryPersonalSocialincomeExAsync(QueryPersonalSocialincomeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPersonalSocialincomeResponse>(await DoRequestAsync("1.0", "blockchain.tax.personal.socialincome.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 婚姻状况查验服务
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+         * Summary: 婚姻状况查验
+         */
+        public CheckPdataMarriageResponse CheckPdataMarriage(CheckPdataMarriageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckPdataMarriageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 婚姻状况查验服务
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+         * Summary: 婚姻状况查验
+         */
+        public async Task<CheckPdataMarriageResponse> CheckPdataMarriageAsync(CheckPdataMarriageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckPdataMarriageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 婚姻状况查验服务
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+         * Summary: 婚姻状况查验
+         */
+        public CheckPdataMarriageResponse CheckPdataMarriageEx(CheckPdataMarriageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckPdataMarriageResponse>(DoRequest("1.0", "blockchain.tax.pdata.marriage.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 婚姻状况查验服务
+        https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+         * Summary: 婚姻状况查验
+         */
+        public async Task<CheckPdataMarriageResponse> CheckPdataMarriageExAsync(CheckPdataMarriageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckPdataMarriageResponse>(await DoRequestAsync("1.0", "blockchain.tax.pdata.marriage.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
