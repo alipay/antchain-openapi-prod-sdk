@@ -148,62 +148,6 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// 逻辑
-type Logic struct {
-	// 操作符
-	//  equal = _equal_, // 相等比较
-	//   notEqual = _notEqual_, // 不相等比较
-	//   AND = _AND_, // 与逻辑
-	//   OR = _OR_, // 或逻辑
-	Op *string `json:"op,omitempty" xml:"op,omitempty" require:"true"`
-	//  只有 op 是 AND 或者 OR 才是可选，其他情况为必选
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// 只有 op 是 AND 或者 OR 才是可选，其他情况为必选
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-	// 只有 op 是 AND 或者 OR 才需要这个字段
-	// [{op: _AND_, // 与逻辑
-	//         children: [
-	//           {
-	//             op: _equal_, // 相等比较
-	//             key: _validationMethod_, // 表示：验证方式
-	//             value: _smsCode_  // 表示：短信验证码
-	//           },
-	//           { // 判断登录信息的值不为 null
-	//             op: _notEqual_, // 不相等比较
-	//             key: _username_,  // 表示：登录信息
-	//             value: null
-	//           }]}]
-	Children *string `json:"children,omitempty" xml:"children,omitempty" require:"true"`
-}
-
-func (s Logic) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Logic) GoString() string {
-	return s.String()
-}
-
-func (s *Logic) SetOp(v string) *Logic {
-	s.Op = &v
-	return s
-}
-
-func (s *Logic) SetKey(v string) *Logic {
-	s.Key = &v
-	return s
-}
-
-func (s *Logic) SetValue(v string) *Logic {
-	s.Value = &v
-	return s
-}
-
-func (s *Logic) SetChildren(v string) *Logic {
-	s.Children = &v
-	return s
-}
-
 // 规则
 type Rule struct {
 	// 字段值的类型，常见有 string | number| boolean | _array_
@@ -288,6 +232,62 @@ func (s *ForgetMeta) SetLabel(v string) *ForgetMeta {
 
 func (s *ForgetMeta) SetLink(v string) *ForgetMeta {
 	s.Link = &v
+	return s
+}
+
+// 逻辑
+type Logic struct {
+	// 操作符
+	//  equal = _equal_, // 相等比较
+	//   notEqual = _notEqual_, // 不相等比较
+	//   AND = _AND_, // 与逻辑
+	//   OR = _OR_, // 或逻辑
+	Op *string `json:"op,omitempty" xml:"op,omitempty" require:"true"`
+	//  只有 op 是 AND 或者 OR 才是可选，其他情况为必选
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// 只有 op 是 AND 或者 OR 才是可选，其他情况为必选
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 只有 op 是 AND 或者 OR 才需要这个字段
+	// [{op: _AND_, // 与逻辑
+	//         children: [
+	//           {
+	//             op: _equal_, // 相等比较
+	//             key: _validationMethod_, // 表示：验证方式
+	//             value: _smsCode_  // 表示：短信验证码
+	//           },
+	//           { // 判断登录信息的值不为 null
+	//             op: _notEqual_, // 不相等比较
+	//             key: _username_,  // 表示：登录信息
+	//             value: null
+	//           }]}]
+	Children *string `json:"children,omitempty" xml:"children,omitempty" require:"true"`
+}
+
+func (s Logic) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Logic) GoString() string {
+	return s.String()
+}
+
+func (s *Logic) SetOp(v string) *Logic {
+	s.Op = &v
+	return s
+}
+
+func (s *Logic) SetKey(v string) *Logic {
+	s.Key = &v
+	return s
+}
+
+func (s *Logic) SetValue(v string) *Logic {
+	s.Value = &v
+	return s
+}
+
+func (s *Logic) SetChildren(v string) *Logic {
+	s.Children = &v
 	return s
 }
 
@@ -433,32 +433,6 @@ func (s *Key) SetForgetMeta(v *ForgetMeta) *Key {
 	return s
 }
 
-// 配对
-type Pair struct {
-	// left
-	Left *string `json:"left,omitempty" xml:"left,omitempty" require:"true"`
-	// right
-	Right *Key `json:"right,omitempty" xml:"right,omitempty" require:"true"`
-}
-
-func (s Pair) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Pair) GoString() string {
-	return s.String()
-}
-
-func (s *Pair) SetLeft(v string) *Pair {
-	s.Left = &v
-	return s
-}
-
-func (s *Pair) SetRight(v *Key) *Pair {
-	s.Right = v
-	return s
-}
-
 // 授权文件信息
 type AgreementFile struct {
 	// 授权文件名称
@@ -485,22 +459,29 @@ func (s *AgreementFile) SetFileContentBase64String(v string) *AgreementFile {
 	return s
 }
 
-// 地区请求
-type DistrictExtRequest struct {
-	// 地区编码
-	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+// 配对
+type Pair struct {
+	// left
+	Left *string `json:"left,omitempty" xml:"left,omitempty" require:"true"`
+	// right
+	Right *Key `json:"right,omitempty" xml:"right,omitempty" require:"true"`
 }
 
-func (s DistrictExtRequest) String() string {
+func (s Pair) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DistrictExtRequest) GoString() string {
+func (s Pair) GoString() string {
 	return s.String()
 }
 
-func (s *DistrictExtRequest) SetCityCode(v string) *DistrictExtRequest {
-	s.CityCode = &v
+func (s *Pair) SetLeft(v string) *Pair {
+	s.Left = &v
+	return s
+}
+
+func (s *Pair) SetRight(v *Key) *Pair {
+	s.Right = v
 	return s
 }
 
@@ -552,6 +533,25 @@ func (s *Card) SetReturnValueKey(v []*string) *Card {
 	return s
 }
 
+// 地区请求
+type DistrictExtRequest struct {
+	// 地区编码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+}
+
+func (s DistrictExtRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DistrictExtRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DistrictExtRequest) SetCityCode(v string) *DistrictExtRequest {
+	s.CityCode = &v
+	return s
+}
+
 // 通用同步授权扩展字段
 type AgreementExtRequest struct {
 	// 证书类型
@@ -589,6 +589,51 @@ func (s *AgreementExtRequest) SetAddress(v string) *AgreementExtRequest {
 
 func (s *AgreementExtRequest) SetAgreementFile(v *AgreementFile) *AgreementExtRequest {
 	s.AgreementFile = v
+	return s
+}
+
+// 地区
+type RiskEvaluationDistrictExtRequest struct {
+	// 地区编码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+}
+
+func (s RiskEvaluationDistrictExtRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskEvaluationDistrictExtRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RiskEvaluationDistrictExtRequest) SetCityCode(v string) *RiskEvaluationDistrictExtRequest {
+	s.CityCode = &v
+	return s
+}
+
+// 授权扩展信息
+type StandardAuthExtendInfoRequest struct {
+	// 协议列表
+	AgreementList []*AgreementExtRequest `json:"agreement_list,omitempty" xml:"agreement_list,omitempty" require:"true" type:"Repeated"`
+	// 地区请求
+	DistrictextRequest *DistrictExtRequest `json:"districtext_request,omitempty" xml:"districtext_request,omitempty" require:"true"`
+}
+
+func (s StandardAuthExtendInfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StandardAuthExtendInfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StandardAuthExtendInfoRequest) SetAgreementList(v []*AgreementExtRequest) *StandardAuthExtendInfoRequest {
+	s.AgreementList = v
+	return s
+}
+
+func (s *StandardAuthExtendInfoRequest) SetDistrictextRequest(v *DistrictExtRequest) *StandardAuthExtendInfoRequest {
+	s.DistrictextRequest = v
 	return s
 }
 
@@ -677,25 +722,6 @@ func (s *RiskEvaluationAgreementExtRequest) SetContent(v string) *RiskEvaluation
 	return s
 }
 
-// 地区
-type RiskEvaluationDistrictExtRequest struct {
-	// 地区编码
-	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
-}
-
-func (s RiskEvaluationDistrictExtRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RiskEvaluationDistrictExtRequest) GoString() string {
-	return s.String()
-}
-
-func (s *RiskEvaluationDistrictExtRequest) SetCityCode(v string) *RiskEvaluationDistrictExtRequest {
-	s.CityCode = &v
-	return s
-}
-
 // 发票明细
 type InvoiceItem struct {
 	// 税收分类编码
@@ -778,29 +804,22 @@ func (s *InvoiceItem) SetGgxh(v string) *InvoiceItem {
 	return s
 }
 
-// 授权扩展信息
-type StandardAuthExtendInfoRequest struct {
-	// 协议列表
-	AgreementList []*AgreementExtRequest `json:"agreement_list,omitempty" xml:"agreement_list,omitempty" require:"true" type:"Repeated"`
-	// 地区请求
-	DistrictextRequest *DistrictExtRequest `json:"districtext_request,omitempty" xml:"districtext_request,omitempty" require:"true"`
+// 婚姻状况查验服务结果对象
+type MarriageCheckEvaluationFacade struct {
+	// 婚姻状况查验结果
+	CheckResult *string `json:"check_result,omitempty" xml:"check_result,omitempty" require:"true"`
 }
 
-func (s StandardAuthExtendInfoRequest) String() string {
+func (s MarriageCheckEvaluationFacade) String() string {
 	return tea.Prettify(s)
 }
 
-func (s StandardAuthExtendInfoRequest) GoString() string {
+func (s MarriageCheckEvaluationFacade) GoString() string {
 	return s.String()
 }
 
-func (s *StandardAuthExtendInfoRequest) SetAgreementList(v []*AgreementExtRequest) *StandardAuthExtendInfoRequest {
-	s.AgreementList = v
-	return s
-}
-
-func (s *StandardAuthExtendInfoRequest) SetDistrictextRequest(v *DistrictExtRequest) *StandardAuthExtendInfoRequest {
-	s.DistrictextRequest = v
+func (s *MarriageCheckEvaluationFacade) SetCheckResult(v string) *MarriageCheckEvaluationFacade {
+	s.CheckResult = &v
 	return s
 }
 
@@ -855,65 +874,6 @@ func (s *ReturnDetail) SetEncryptModel(v string) *ReturnDetail {
 
 func (s *ReturnDetail) SetSecretEnvelope(v string) *ReturnDetail {
 	s.SecretEnvelope = &v
-	return s
-}
-
-// 二维码
-type QrCodeValue struct {
-	// 二维码链接
-	QrCodeUrl *string `json:"qr_code_url,omitempty" xml:"qr_code_url,omitempty" require:"true"`
-	// 二维码描述信息。例如：请使用 xxx app 扫码登录
-	Desc *string `json:"desc,omitempty" xml:"desc,omitempty" require:"true"`
-	// 二维码在多长时间后失效，单位：秒
-	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
-}
-
-func (s QrCodeValue) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QrCodeValue) GoString() string {
-	return s.String()
-}
-
-func (s *QrCodeValue) SetQrCodeUrl(v string) *QrCodeValue {
-	s.QrCodeUrl = &v
-	return s
-}
-
-func (s *QrCodeValue) SetDesc(v string) *QrCodeValue {
-	s.Desc = &v
-	return s
-}
-
-func (s *QrCodeValue) SetTimeout(v int64) *QrCodeValue {
-	s.Timeout = &v
-	return s
-}
-
-// 扩展信息
-type RiskEvaluationExtendInfoRequest struct {
-	// 协议集合
-	AgreementList []*RiskEvaluationAgreementExtRequest `json:"agreement_list,omitempty" xml:"agreement_list,omitempty" require:"true" type:"Repeated"`
-	// 地区请求
-	DistrictExt *RiskEvaluationDistrictExtRequest `json:"district_ext,omitempty" xml:"district_ext,omitempty" require:"true"`
-}
-
-func (s RiskEvaluationExtendInfoRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RiskEvaluationExtendInfoRequest) GoString() string {
-	return s.String()
-}
-
-func (s *RiskEvaluationExtendInfoRequest) SetAgreementList(v []*RiskEvaluationAgreementExtRequest) *RiskEvaluationExtendInfoRequest {
-	s.AgreementList = v
-	return s
-}
-
-func (s *RiskEvaluationExtendInfoRequest) SetDistrictExt(v *RiskEvaluationDistrictExtRequest) *RiskEvaluationExtendInfoRequest {
-	s.DistrictExt = v
 	return s
 }
 
@@ -994,6 +954,157 @@ func (s *BaseAuthRequest) SetOrderNo(v string) *BaseAuthRequest {
 
 func (s *BaseAuthRequest) SetExtendInfo(v *StandardAuthExtendInfoRequest) *BaseAuthRequest {
 	s.ExtendInfo = v
+	return s
+}
+
+// 个人授权
+type StandardRealPersonAuthRequest struct {
+	// 个人证件号
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 名字
+	IdentityName *string `json:"identity_name,omitempty" xml:"identity_name,omitempty" require:"true"`
+}
+
+func (s StandardRealPersonAuthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StandardRealPersonAuthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StandardRealPersonAuthRequest) SetIdentityId(v string) *StandardRealPersonAuthRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *StandardRealPersonAuthRequest) SetIdentityName(v string) *StandardRealPersonAuthRequest {
+	s.IdentityName = &v
+	return s
+}
+
+// 收入评估服务B结果对象
+type SocialIncomeEvaluationFacade struct {
+	// 查询结果
+	ScoreResult *string `json:"score_result,omitempty" xml:"score_result,omitempty" require:"true"`
+	// 收入评分
+	RangeScore *string `json:"range_score,omitempty" xml:"range_score,omitempty"`
+	// 历史稳定性评估
+	HistoryScore *string `json:"history_score,omitempty" xml:"history_score,omitempty"`
+	// 近期稳定性评估
+	StabilityScore *string `json:"stability_score,omitempty" xml:"stability_score,omitempty"`
+}
+
+func (s SocialIncomeEvaluationFacade) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SocialIncomeEvaluationFacade) GoString() string {
+	return s.String()
+}
+
+func (s *SocialIncomeEvaluationFacade) SetScoreResult(v string) *SocialIncomeEvaluationFacade {
+	s.ScoreResult = &v
+	return s
+}
+
+func (s *SocialIncomeEvaluationFacade) SetRangeScore(v string) *SocialIncomeEvaluationFacade {
+	s.RangeScore = &v
+	return s
+}
+
+func (s *SocialIncomeEvaluationFacade) SetHistoryScore(v string) *SocialIncomeEvaluationFacade {
+	s.HistoryScore = &v
+	return s
+}
+
+func (s *SocialIncomeEvaluationFacade) SetStabilityScore(v string) *SocialIncomeEvaluationFacade {
+	s.StabilityScore = &v
+	return s
+}
+
+// 收入评估服务A结果
+type PersonalIncomeEvaluationFacade struct {
+	// 查询结果
+	ScoreResult *string `json:"score_result,omitempty" xml:"score_result,omitempty" require:"true"`
+	// 收入评分
+	IncomeScore *string `json:"income_score,omitempty" xml:"income_score,omitempty"`
+}
+
+func (s PersonalIncomeEvaluationFacade) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PersonalIncomeEvaluationFacade) GoString() string {
+	return s.String()
+}
+
+func (s *PersonalIncomeEvaluationFacade) SetScoreResult(v string) *PersonalIncomeEvaluationFacade {
+	s.ScoreResult = &v
+	return s
+}
+
+func (s *PersonalIncomeEvaluationFacade) SetIncomeScore(v string) *PersonalIncomeEvaluationFacade {
+	s.IncomeScore = &v
+	return s
+}
+
+// 二维码
+type QrCodeValue struct {
+	// 二维码链接
+	QrCodeUrl *string `json:"qr_code_url,omitempty" xml:"qr_code_url,omitempty" require:"true"`
+	// 二维码描述信息。例如：请使用 xxx app 扫码登录
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty" require:"true"`
+	// 二维码在多长时间后失效，单位：秒
+	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+}
+
+func (s QrCodeValue) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QrCodeValue) GoString() string {
+	return s.String()
+}
+
+func (s *QrCodeValue) SetQrCodeUrl(v string) *QrCodeValue {
+	s.QrCodeUrl = &v
+	return s
+}
+
+func (s *QrCodeValue) SetDesc(v string) *QrCodeValue {
+	s.Desc = &v
+	return s
+}
+
+func (s *QrCodeValue) SetTimeout(v int64) *QrCodeValue {
+	s.Timeout = &v
+	return s
+}
+
+// 扩展信息
+type RiskEvaluationExtendInfoRequest struct {
+	// 协议集合
+	AgreementList []*RiskEvaluationAgreementExtRequest `json:"agreement_list,omitempty" xml:"agreement_list,omitempty" require:"true" type:"Repeated"`
+	// 地区请求
+	DistrictExt *RiskEvaluationDistrictExtRequest `json:"district_ext,omitempty" xml:"district_ext,omitempty" require:"true"`
+}
+
+func (s RiskEvaluationExtendInfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskEvaluationExtendInfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RiskEvaluationExtendInfoRequest) SetAgreementList(v []*RiskEvaluationAgreementExtRequest) *RiskEvaluationExtendInfoRequest {
+	s.AgreementList = v
+	return s
+}
+
+func (s *RiskEvaluationExtendInfoRequest) SetDistrictExt(v *RiskEvaluationDistrictExtRequest) *RiskEvaluationExtendInfoRequest {
+	s.DistrictExt = v
 	return s
 }
 
@@ -1247,32 +1358,6 @@ func (s *Invoice) SetZfsj(v string) *Invoice {
 
 func (s *Invoice) SetExtFiled(v string) *Invoice {
 	s.ExtFiled = &v
-	return s
-}
-
-// 个人授权
-type StandardRealPersonAuthRequest struct {
-	// 个人证件号
-	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
-	// 名字
-	IdentityName *string `json:"identity_name,omitempty" xml:"identity_name,omitempty" require:"true"`
-}
-
-func (s StandardRealPersonAuthRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s StandardRealPersonAuthRequest) GoString() string {
-	return s.String()
-}
-
-func (s *StandardRealPersonAuthRequest) SetIdentityId(v string) *StandardRealPersonAuthRequest {
-	s.IdentityId = &v
-	return s
-}
-
-func (s *StandardRealPersonAuthRequest) SetIdentityName(v string) *StandardRealPersonAuthRequest {
-	s.IdentityName = &v
 	return s
 }
 
@@ -3395,7 +3480,7 @@ type AuthRiskEvaluationRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 个人身份证号
-	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" maxLength:"30"`
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true" maxLength:"30"`
 	// 个人姓名
 	IdentityName *string `json:"identity_name,omitempty" xml:"identity_name,omitempty" maxLength:"128"`
 	// 企业的统一社会信用编码
@@ -3881,6 +3966,377 @@ func (s *QueryApiSimpleauthstandardResponse) SetResultMsg(v string) *QueryApiSim
 	return s
 }
 
+type QueryPdataPersonalincomeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务流水号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 身份证
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 手机号
+	PhoneNo *string `json:"phone_no,omitempty" xml:"phone_no,omitempty"`
+	// 授权编码
+	AuthorizationCode *string `json:"authorization_code,omitempty" xml:"authorization_code,omitempty"`
+	// 授权凭证
+	AuthorizationCredential *string `json:"authorization_credential,omitempty" xml:"authorization_credential,omitempty"`
+	// 凭证格式
+	CredentialType *string `json:"credential_type,omitempty" xml:"credential_type,omitempty"`
+}
+
+func (s QueryPdataPersonalincomeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdataPersonalincomeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdataPersonalincomeRequest) SetAuthToken(v string) *QueryPdataPersonalincomeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPdataPersonalincomeRequest) SetProductInstanceId(v string) *QueryPdataPersonalincomeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPdataPersonalincomeRequest) SetBizId(v string) *QueryPdataPersonalincomeRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *QueryPdataPersonalincomeRequest) SetName(v string) *QueryPdataPersonalincomeRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryPdataPersonalincomeRequest) SetCertNo(v string) *QueryPdataPersonalincomeRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryPdataPersonalincomeRequest) SetPhoneNo(v string) *QueryPdataPersonalincomeRequest {
+	s.PhoneNo = &v
+	return s
+}
+
+func (s *QueryPdataPersonalincomeRequest) SetAuthorizationCode(v string) *QueryPdataPersonalincomeRequest {
+	s.AuthorizationCode = &v
+	return s
+}
+
+func (s *QueryPdataPersonalincomeRequest) SetAuthorizationCredential(v string) *QueryPdataPersonalincomeRequest {
+	s.AuthorizationCredential = &v
+	return s
+}
+
+func (s *QueryPdataPersonalincomeRequest) SetCredentialType(v string) *QueryPdataPersonalincomeRequest {
+	s.CredentialType = &v
+	return s
+}
+
+type QueryPdataPersonalincomeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询结果
+	ScoreResult *string `json:"score_result,omitempty" xml:"score_result,omitempty"`
+	// 收入评分
+	IncomeScore *string `json:"income_score,omitempty" xml:"income_score,omitempty"`
+}
+
+func (s QueryPdataPersonalincomeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdataPersonalincomeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdataPersonalincomeResponse) SetReqMsgId(v string) *QueryPdataPersonalincomeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPdataPersonalincomeResponse) SetResultCode(v string) *QueryPdataPersonalincomeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPdataPersonalincomeResponse) SetResultMsg(v string) *QueryPdataPersonalincomeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryPdataPersonalincomeResponse) SetScoreResult(v string) *QueryPdataPersonalincomeResponse {
+	s.ScoreResult = &v
+	return s
+}
+
+func (s *QueryPdataPersonalincomeResponse) SetIncomeScore(v string) *QueryPdataPersonalincomeResponse {
+	s.IncomeScore = &v
+	return s
+}
+
+type QueryPersonalSocialincomeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务流水号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 身份证
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 手机号
+	PhoneNo *string `json:"phone_no,omitempty" xml:"phone_no,omitempty"`
+	// 授权编号
+	AuthorizationCode *string `json:"authorization_code,omitempty" xml:"authorization_code,omitempty"`
+	// 授权凭证
+	AuthorizationCredential *string `json:"authorization_credential,omitempty" xml:"authorization_credential,omitempty"`
+	// 凭证格式
+	CredentialType *string `json:"credential_type,omitempty" xml:"credential_type,omitempty"`
+}
+
+func (s QueryPersonalSocialincomeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPersonalSocialincomeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPersonalSocialincomeRequest) SetAuthToken(v string) *QueryPersonalSocialincomeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPersonalSocialincomeRequest) SetProductInstanceId(v string) *QueryPersonalSocialincomeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPersonalSocialincomeRequest) SetBizId(v string) *QueryPersonalSocialincomeRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *QueryPersonalSocialincomeRequest) SetName(v string) *QueryPersonalSocialincomeRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryPersonalSocialincomeRequest) SetCertNo(v string) *QueryPersonalSocialincomeRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryPersonalSocialincomeRequest) SetPhoneNo(v string) *QueryPersonalSocialincomeRequest {
+	s.PhoneNo = &v
+	return s
+}
+
+func (s *QueryPersonalSocialincomeRequest) SetAuthorizationCode(v string) *QueryPersonalSocialincomeRequest {
+	s.AuthorizationCode = &v
+	return s
+}
+
+func (s *QueryPersonalSocialincomeRequest) SetAuthorizationCredential(v string) *QueryPersonalSocialincomeRequest {
+	s.AuthorizationCredential = &v
+	return s
+}
+
+func (s *QueryPersonalSocialincomeRequest) SetCredentialType(v string) *QueryPersonalSocialincomeRequest {
+	s.CredentialType = &v
+	return s
+}
+
+type QueryPersonalSocialincomeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询结果
+	ScoreResult *string `json:"score_result,omitempty" xml:"score_result,omitempty"`
+	// 收入评分
+	RangeScore *string `json:"range_score,omitempty" xml:"range_score,omitempty"`
+	// 历史稳定性评估
+	HistoryScore *string `json:"history_score,omitempty" xml:"history_score,omitempty"`
+	// 近期稳定性评估
+	StabilityScore *string `json:"stability_score,omitempty" xml:"stability_score,omitempty"`
+}
+
+func (s QueryPersonalSocialincomeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPersonalSocialincomeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPersonalSocialincomeResponse) SetReqMsgId(v string) *QueryPersonalSocialincomeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPersonalSocialincomeResponse) SetResultCode(v string) *QueryPersonalSocialincomeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPersonalSocialincomeResponse) SetResultMsg(v string) *QueryPersonalSocialincomeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryPersonalSocialincomeResponse) SetScoreResult(v string) *QueryPersonalSocialincomeResponse {
+	s.ScoreResult = &v
+	return s
+}
+
+func (s *QueryPersonalSocialincomeResponse) SetRangeScore(v string) *QueryPersonalSocialincomeResponse {
+	s.RangeScore = &v
+	return s
+}
+
+func (s *QueryPersonalSocialincomeResponse) SetHistoryScore(v string) *QueryPersonalSocialincomeResponse {
+	s.HistoryScore = &v
+	return s
+}
+
+func (s *QueryPersonalSocialincomeResponse) SetStabilityScore(v string) *QueryPersonalSocialincomeResponse {
+	s.StabilityScore = &v
+	return s
+}
+
+type CheckPdataMarriageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务流水号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 身份证
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 授权凭证
+	AuthorizationCredential *string `json:"authorization_credential,omitempty" xml:"authorization_credential,omitempty" require:"true"`
+	// 授权编号(同一机构内唯一)
+	AuthorizationNo *string `json:"authorization_no,omitempty" xml:"authorization_no,omitempty" require:"true"`
+	// 授权格式
+	CredentialType *string `json:"credential_type,omitempty" xml:"credential_type,omitempty" require:"true"`
+	// 授权有效期
+	AuthorizationExpirationTime *string `json:"authorization_expiration_time,omitempty" xml:"authorization_expiration_time,omitempty"`
+	// 授权对象
+	AuthorizationType *string `json:"authorization_type,omitempty" xml:"authorization_type,omitempty"`
+}
+
+func (s CheckPdataMarriageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckPdataMarriageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckPdataMarriageRequest) SetAuthToken(v string) *CheckPdataMarriageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckPdataMarriageRequest) SetProductInstanceId(v string) *CheckPdataMarriageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckPdataMarriageRequest) SetBizId(v string) *CheckPdataMarriageRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *CheckPdataMarriageRequest) SetName(v string) *CheckPdataMarriageRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *CheckPdataMarriageRequest) SetCertNo(v string) *CheckPdataMarriageRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckPdataMarriageRequest) SetAuthorizationCredential(v string) *CheckPdataMarriageRequest {
+	s.AuthorizationCredential = &v
+	return s
+}
+
+func (s *CheckPdataMarriageRequest) SetAuthorizationNo(v string) *CheckPdataMarriageRequest {
+	s.AuthorizationNo = &v
+	return s
+}
+
+func (s *CheckPdataMarriageRequest) SetCredentialType(v string) *CheckPdataMarriageRequest {
+	s.CredentialType = &v
+	return s
+}
+
+func (s *CheckPdataMarriageRequest) SetAuthorizationExpirationTime(v string) *CheckPdataMarriageRequest {
+	s.AuthorizationExpirationTime = &v
+	return s
+}
+
+func (s *CheckPdataMarriageRequest) SetAuthorizationType(v string) *CheckPdataMarriageRequest {
+	s.AuthorizationType = &v
+	return s
+}
+
+type CheckPdataMarriageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 婚姻状况查验结果
+	CheckResult *string `json:"check_result,omitempty" xml:"check_result,omitempty"`
+}
+
+func (s CheckPdataMarriageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckPdataMarriageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckPdataMarriageResponse) SetReqMsgId(v string) *CheckPdataMarriageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckPdataMarriageResponse) SetResultCode(v string) *CheckPdataMarriageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckPdataMarriageResponse) SetResultMsg(v string) *CheckPdataMarriageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckPdataMarriageResponse) SetCheckResult(v string) *CheckPdataMarriageResponse {
+	s.CheckResult = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -4003,7 +4459,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.19"),
+				"sdk_version":      tea.String("1.7.0"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4836,6 +5292,112 @@ func (client *Client) QueryApiSimpleauthstandardEx(request *QueryApiSimpleauthst
 	}
 	_result = &QueryApiSimpleauthstandardResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.simpleauthstandard.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 收入评估服务A
+https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+ * Summary: 收入评估服务A
+*/
+func (client *Client) QueryPdataPersonalincome(request *QueryPdataPersonalincomeRequest) (_result *QueryPdataPersonalincomeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPdataPersonalincomeResponse{}
+	_body, _err := client.QueryPdataPersonalincomeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 收入评估服务A
+https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
+ * Summary: 收入评估服务A
+*/
+func (client *Client) QueryPdataPersonalincomeEx(request *QueryPdataPersonalincomeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPdataPersonalincomeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPdataPersonalincomeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.pdata.personalincome.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 收入评估服务B
+ * Summary: 收入评估服务B
+ */
+func (client *Client) QueryPersonalSocialincome(request *QueryPersonalSocialincomeRequest) (_result *QueryPersonalSocialincomeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPersonalSocialincomeResponse{}
+	_body, _err := client.QueryPersonalSocialincomeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 收入评估服务B
+ * Summary: 收入评估服务B
+ */
+func (client *Client) QueryPersonalSocialincomeEx(request *QueryPersonalSocialincomeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPersonalSocialincomeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPersonalSocialincomeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.personal.socialincome.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 婚姻状况查验服务
+https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+ * Summary: 婚姻状况查验
+*/
+func (client *Client) CheckPdataMarriage(request *CheckPdataMarriageRequest) (_result *CheckPdataMarriageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckPdataMarriageResponse{}
+	_body, _err := client.CheckPdataMarriageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 婚姻状况查验服务
+https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
+ * Summary: 婚姻状况查验
+*/
+func (client *Client) CheckPdataMarriageEx(request *CheckPdataMarriageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckPdataMarriageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckPdataMarriageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.pdata.marriage.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
