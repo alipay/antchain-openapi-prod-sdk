@@ -13,7 +13,7 @@ public class AuthRiskEvaluationRequest extends TeaModel {
 
     // 个人身份证号
     @NameInMap("identity_id")
-    @Validation(maxLength = 30)
+    @Validation(required = true, maxLength = 30)
     public String identityId;
 
     // 个人姓名
