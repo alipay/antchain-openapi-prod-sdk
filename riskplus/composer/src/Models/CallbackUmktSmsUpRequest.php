@@ -87,6 +87,7 @@ class CallbackUmktSmsUpRequest extends Model
         Model::validateRequired('content', $this->content, true);
         Model::validateRequired('signName', $this->signName, true);
         Model::validateRequired('appKey', $this->appKey, true);
+        Model::validateRequired('destCode', $this->destCode, true);
         Model::validateRequired('sequenceId', $this->sequenceId, true);
     }
 
