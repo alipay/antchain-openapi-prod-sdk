@@ -50,7 +50,7 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 上行短信扩展号码
         [NameInMap("dest_code")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string DestCode { get; set; }
 
         // 学历噩耗
