@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.16.41"),
+                    new TeaPair("sdk_version", "1.16.42"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2983,6 +2983,44 @@ public class Client {
     public CallbackUmktRobotcallResponse callbackUmktRobotcallEx(CallbackUmktRobotcallRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.robotcall.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackUmktRobotcallResponse());
+    }
+
+    /**
+     * Description: 营销盾上行短信回调接口
+     * Summary: 营销盾上行短信回调
+     */
+    public CallbackUmktSmsUpResponse callbackUmktSmsUp(CallbackUmktSmsUpRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackUmktSmsUpEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾上行短信回调接口
+     * Summary: 营销盾上行短信回调
+     */
+    public CallbackUmktSmsUpResponse callbackUmktSmsUpEx(CallbackUmktSmsUpRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.sms.up.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackUmktSmsUpResponse());
+    }
+
+    /**
+     * Description: 营销盾短信状态回调接口
+     * Summary: 营销盾短信状态回调
+     */
+    public CallbackUmktSmsReportResponse callbackUmktSmsReport(CallbackUmktSmsReportRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackUmktSmsReportEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾短信状态回调接口
+     * Summary: 营销盾短信状态回调
+     */
+    public CallbackUmktSmsReportResponse callbackUmktSmsReportEx(CallbackUmktSmsReportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.sms.report.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackUmktSmsReportResponse());
     }
 
     /**
