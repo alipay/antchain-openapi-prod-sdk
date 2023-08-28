@@ -435,6 +435,216 @@ func (s *CheckMarriageCoupleinfoResponse) SetData(v string) *CheckMarriageCouple
 	return s
 }
 
+type SubmitMarriageInfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 加密字段
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
+}
+
+func (s SubmitMarriageInfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitMarriageInfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitMarriageInfoRequest) SetAuthToken(v string) *SubmitMarriageInfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitMarriageInfoRequest) SetProductInstanceId(v string) *SubmitMarriageInfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitMarriageInfoRequest) SetBizContent(v string) *SubmitMarriageInfoRequest {
+	s.BizContent = &v
+	return s
+}
+
+type SubmitMarriageInfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s SubmitMarriageInfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitMarriageInfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitMarriageInfoResponse) SetReqMsgId(v string) *SubmitMarriageInfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitMarriageInfoResponse) SetResultCode(v string) *SubmitMarriageInfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitMarriageInfoResponse) SetResultMsg(v string) *SubmitMarriageInfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitMarriageInfoResponse) SetData(v string) *SubmitMarriageInfoResponse {
+	s.Data = &v
+	return s
+}
+
+type SubmitMarriageCoupleinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 加密字段
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
+}
+
+func (s SubmitMarriageCoupleinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitMarriageCoupleinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitMarriageCoupleinfoRequest) SetAuthToken(v string) *SubmitMarriageCoupleinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitMarriageCoupleinfoRequest) SetProductInstanceId(v string) *SubmitMarriageCoupleinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitMarriageCoupleinfoRequest) SetBizContent(v string) *SubmitMarriageCoupleinfoRequest {
+	s.BizContent = &v
+	return s
+}
+
+type SubmitMarriageCoupleinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s SubmitMarriageCoupleinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitMarriageCoupleinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitMarriageCoupleinfoResponse) SetReqMsgId(v string) *SubmitMarriageCoupleinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitMarriageCoupleinfoResponse) SetResultCode(v string) *SubmitMarriageCoupleinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitMarriageCoupleinfoResponse) SetResultMsg(v string) *SubmitMarriageCoupleinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitMarriageCoupleinfoResponse) SetData(v string) *SubmitMarriageCoupleinfoResponse {
+	s.Data = &v
+	return s
+}
+
+type QueryMarriageInfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 加密字段
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
+}
+
+func (s QueryMarriageInfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMarriageInfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMarriageInfoRequest) SetAuthToken(v string) *QueryMarriageInfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMarriageInfoRequest) SetProductInstanceId(v string) *QueryMarriageInfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMarriageInfoRequest) SetBizContent(v string) *QueryMarriageInfoRequest {
+	s.BizContent = &v
+	return s
+}
+
+type QueryMarriageInfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryMarriageInfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMarriageInfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMarriageInfoResponse) SetReqMsgId(v string) *QueryMarriageInfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMarriageInfoResponse) SetResultCode(v string) *QueryMarriageInfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMarriageInfoResponse) SetResultMsg(v string) *QueryMarriageInfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMarriageInfoResponse) SetData(v string) *QueryMarriageInfoResponse {
+	s.Data = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -557,7 +767,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.8"),
+				"sdk_version":      tea.String("1.0.9"),
 				"_prod_code":       tea.String("IDENTITYMARRIAGE"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -744,6 +954,108 @@ func (client *Client) CheckMarriageCoupleinfoEx(request *CheckMarriageCoupleinfo
 	}
 	_result = &CheckMarriageCoupleinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("identity.marriage.marriage.coupleinfo.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 单人婚姻状况核查异步提交
+ * Summary: 单人婚姻状况核查异步提交
+ */
+func (client *Client) SubmitMarriageInfo(request *SubmitMarriageInfoRequest) (_result *SubmitMarriageInfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitMarriageInfoResponse{}
+	_body, _err := client.SubmitMarriageInfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 单人婚姻状况核查异步提交
+ * Summary: 单人婚姻状况核查异步提交
+ */
+func (client *Client) SubmitMarriageInfoEx(request *SubmitMarriageInfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitMarriageInfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitMarriageInfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("identity.marriage.marriage.info.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 双人婚姻状况核查异步提交
+ * Summary: 双人婚姻状况核查异步提交
+ */
+func (client *Client) SubmitMarriageCoupleinfo(request *SubmitMarriageCoupleinfoRequest) (_result *SubmitMarriageCoupleinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitMarriageCoupleinfoResponse{}
+	_body, _err := client.SubmitMarriageCoupleinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 双人婚姻状况核查异步提交
+ * Summary: 双人婚姻状况核查异步提交
+ */
+func (client *Client) SubmitMarriageCoupleinfoEx(request *SubmitMarriageCoupleinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitMarriageCoupleinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitMarriageCoupleinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("identity.marriage.marriage.coupleinfo.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 婚姻状况核查异步查询
+ * Summary: 婚姻状况核查异步查询
+ */
+func (client *Client) QueryMarriageInfo(request *QueryMarriageInfoRequest) (_result *QueryMarriageInfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMarriageInfoResponse{}
+	_body, _err := client.QueryMarriageInfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 婚姻状况核查异步查询
+ * Summary: 婚姻状况核查异步查询
+ */
+func (client *Client) QueryMarriageInfoEx(request *QueryMarriageInfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMarriageInfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMarriageInfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("identity.marriage.marriage.info.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
