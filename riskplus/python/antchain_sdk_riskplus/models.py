@@ -25763,6 +25763,7 @@ class CallbackUmktSmsUpRequest(TeaModel):
         self.validate_required(self.content, 'content')
         self.validate_required(self.sign_name, 'sign_name')
         self.validate_required(self.app_key, 'app_key')
+        self.validate_required(self.dest_code, 'dest_code')
         self.validate_required(self.sequence_id, 'sequence_id')
 
     def to_map(self):
