@@ -317,6 +317,183 @@ export class CheckMarriageCoupleinfoResponse extends $tea.Model {
   }
 }
 
+export class SubmitMarriageInfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 加密字段
+  bizContent: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizContent: 'biz_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitMarriageInfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitMarriageCoupleinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 加密字段
+  bizContent: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizContent: 'biz_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitMarriageCoupleinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMarriageInfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 加密字段
+  bizContent: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizContent: 'biz_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMarriageInfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -430,7 +607,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.8",
+          sdk_version: "1.0.9",
           _prod_code: "IDENTITYMARRIAGE",
           _prod_channel: "undefined",
         };
@@ -552,6 +729,63 @@ export default class Client {
   async checkMarriageCoupleinfoEx(request: CheckMarriageCoupleinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckMarriageCoupleinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<CheckMarriageCoupleinfoResponse>(await this.doRequest("1.0", "identity.marriage.marriage.coupleinfo.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckMarriageCoupleinfoResponse({}));
+  }
+
+  /**
+   * Description: 单人婚姻状况核查异步提交
+   * Summary: 单人婚姻状况核查异步提交
+   */
+  async submitMarriageInfo(request: SubmitMarriageInfoRequest): Promise<SubmitMarriageInfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitMarriageInfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 单人婚姻状况核查异步提交
+   * Summary: 单人婚姻状况核查异步提交
+   */
+  async submitMarriageInfoEx(request: SubmitMarriageInfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitMarriageInfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitMarriageInfoResponse>(await this.doRequest("1.0", "identity.marriage.marriage.info.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitMarriageInfoResponse({}));
+  }
+
+  /**
+   * Description: 双人婚姻状况核查异步提交
+   * Summary: 双人婚姻状况核查异步提交
+   */
+  async submitMarriageCoupleinfo(request: SubmitMarriageCoupleinfoRequest): Promise<SubmitMarriageCoupleinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitMarriageCoupleinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 双人婚姻状况核查异步提交
+   * Summary: 双人婚姻状况核查异步提交
+   */
+  async submitMarriageCoupleinfoEx(request: SubmitMarriageCoupleinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitMarriageCoupleinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitMarriageCoupleinfoResponse>(await this.doRequest("1.0", "identity.marriage.marriage.coupleinfo.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitMarriageCoupleinfoResponse({}));
+  }
+
+  /**
+   * Description: 婚姻状况核查异步查询
+   * Summary: 婚姻状况核查异步查询
+   */
+  async queryMarriageInfo(request: QueryMarriageInfoRequest): Promise<QueryMarriageInfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMarriageInfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 婚姻状况核查异步查询
+   * Summary: 婚姻状况核查异步查询
+   */
+  async queryMarriageInfoEx(request: QueryMarriageInfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMarriageInfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMarriageInfoResponse>(await this.doRequest("1.0", "identity.marriage.marriage.info.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMarriageInfoResponse({}));
   }
 
 }
