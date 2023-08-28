@@ -43,6 +43,7 @@ public class CallbackUmktSmsUpRequest extends TeaModel {
 
     // 上行短信扩展号码
     @NameInMap("dest_code")
+    @Validation(required = true)
     public String destCode;
 
     // 学历噩耗
