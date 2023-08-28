@@ -20662,6 +20662,251 @@ func (s *CallbackUmktRobotcallResponse) SetResultMsg(v string) *CallbackUmktRobo
 	return s
 }
 
+type CallbackUmktSmsUpRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 回执类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 手机号码
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 发送时间
+	SendTime *string `json:"send_time,omitempty" xml:"send_time,omitempty" require:"true"`
+	// 发送内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 签名信息
+	SignName *string `json:"sign_name,omitempty" xml:"sign_name,omitempty" require:"true"`
+	// 签名对应的客户ak
+	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty" require:"true"`
+	// 上行短信扩展号码
+	DestCode *string `json:"dest_code,omitempty" xml:"dest_code,omitempty"`
+	// 学历噩耗
+	SequenceId *int64 `json:"sequence_id,omitempty" xml:"sequence_id,omitempty" require:"true"`
+}
+
+func (s CallbackUmktSmsUpRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackUmktSmsUpRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackUmktSmsUpRequest) SetAuthToken(v string) *CallbackUmktSmsUpRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackUmktSmsUpRequest) SetProductInstanceId(v string) *CallbackUmktSmsUpRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackUmktSmsUpRequest) SetType(v string) *CallbackUmktSmsUpRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *CallbackUmktSmsUpRequest) SetPhoneNumber(v string) *CallbackUmktSmsUpRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *CallbackUmktSmsUpRequest) SetSendTime(v string) *CallbackUmktSmsUpRequest {
+	s.SendTime = &v
+	return s
+}
+
+func (s *CallbackUmktSmsUpRequest) SetContent(v string) *CallbackUmktSmsUpRequest {
+	s.Content = &v
+	return s
+}
+
+func (s *CallbackUmktSmsUpRequest) SetSignName(v string) *CallbackUmktSmsUpRequest {
+	s.SignName = &v
+	return s
+}
+
+func (s *CallbackUmktSmsUpRequest) SetAppKey(v string) *CallbackUmktSmsUpRequest {
+	s.AppKey = &v
+	return s
+}
+
+func (s *CallbackUmktSmsUpRequest) SetDestCode(v string) *CallbackUmktSmsUpRequest {
+	s.DestCode = &v
+	return s
+}
+
+func (s *CallbackUmktSmsUpRequest) SetSequenceId(v int64) *CallbackUmktSmsUpRequest {
+	s.SequenceId = &v
+	return s
+}
+
+type CallbackUmktSmsUpResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CallbackUmktSmsUpResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackUmktSmsUpResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackUmktSmsUpResponse) SetReqMsgId(v string) *CallbackUmktSmsUpResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackUmktSmsUpResponse) SetResultCode(v string) *CallbackUmktSmsUpResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackUmktSmsUpResponse) SetResultMsg(v string) *CallbackUmktSmsUpResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CallbackUmktSmsReportRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 短信回执类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 手机号码
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 发送时间
+	SendTime *string `json:"send_time,omitempty" xml:"send_time,omitempty" require:"true"`
+	// 状态报告时间
+	ReportTime *string `json:"report_time,omitempty" xml:"report_time,omitempty" require:"true"`
+	// 是否接收成功。取值：true：接收成功false：接收失败
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 状态报告编码
+	ErrCode *string `json:"err_code,omitempty" xml:"err_code,omitempty" require:"true"`
+	// 状态报告说明
+	ErrMsg *string `json:"err_msg,omitempty" xml:"err_msg,omitempty" require:"true"`
+	// 短信长度
+	SmsSize *string `json:"sms_size,omitempty" xml:"sms_size,omitempty" require:"true"`
+	// 发送回执ID，即发送流水号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 业务扩展字段，回执时透传，JSON格式
+	BizProperties *string `json:"biz_properties,omitempty" xml:"biz_properties,omitempty" require:"true"`
+	// 发送卡片短信时，文本短信状态报告中才会有该字段，且取值为CARD_SMS，发送纯文本短信时，状态报告中没有该字段
+	SmsType *string `json:"sms_type,omitempty" xml:"sms_type,omitempty"`
+}
+
+func (s CallbackUmktSmsReportRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackUmktSmsReportRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackUmktSmsReportRequest) SetAuthToken(v string) *CallbackUmktSmsReportRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetProductInstanceId(v string) *CallbackUmktSmsReportRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetType(v string) *CallbackUmktSmsReportRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetPhoneNumber(v string) *CallbackUmktSmsReportRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetSendTime(v string) *CallbackUmktSmsReportRequest {
+	s.SendTime = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetReportTime(v string) *CallbackUmktSmsReportRequest {
+	s.ReportTime = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetSuccess(v bool) *CallbackUmktSmsReportRequest {
+	s.Success = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetErrCode(v string) *CallbackUmktSmsReportRequest {
+	s.ErrCode = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetErrMsg(v string) *CallbackUmktSmsReportRequest {
+	s.ErrMsg = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetSmsSize(v string) *CallbackUmktSmsReportRequest {
+	s.SmsSize = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetBizId(v string) *CallbackUmktSmsReportRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetBizProperties(v string) *CallbackUmktSmsReportRequest {
+	s.BizProperties = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetSmsType(v string) *CallbackUmktSmsReportRequest {
+	s.SmsType = &v
+	return s
+}
+
+type CallbackUmktSmsReportResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CallbackUmktSmsReportResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackUmktSmsReportResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackUmktSmsReportResponse) SetReqMsgId(v string) *CallbackUmktSmsReportResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportResponse) SetResultCode(v string) *CallbackUmktSmsReportResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportResponse) SetResultMsg(v string) *CallbackUmktSmsReportResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -20904,7 +21149,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.41"),
+				"sdk_version":      tea.String("1.16.42"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -25964,6 +26209,74 @@ func (client *Client) CallbackUmktRobotcallEx(request *CallbackUmktRobotcallRequ
 	}
 	_result = &CallbackUmktRobotcallResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.robotcall.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾上行短信回调接口
+ * Summary: 营销盾上行短信回调
+ */
+func (client *Client) CallbackUmktSmsUp(request *CallbackUmktSmsUpRequest) (_result *CallbackUmktSmsUpResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackUmktSmsUpResponse{}
+	_body, _err := client.CallbackUmktSmsUpEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾上行短信回调接口
+ * Summary: 营销盾上行短信回调
+ */
+func (client *Client) CallbackUmktSmsUpEx(request *CallbackUmktSmsUpRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackUmktSmsUpResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackUmktSmsUpResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.sms.up.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾短信状态回调接口
+ * Summary: 营销盾短信状态回调
+ */
+func (client *Client) CallbackUmktSmsReport(request *CallbackUmktSmsReportRequest) (_result *CallbackUmktSmsReportResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackUmktSmsReportResponse{}
+	_body, _err := client.CallbackUmktSmsReportEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾短信状态回调接口
+ * Summary: 营销盾短信状态回调
+ */
+func (client *Client) CallbackUmktSmsReportEx(request *CallbackUmktSmsReportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackUmktSmsReportResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackUmktSmsReportResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.sms.report.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
