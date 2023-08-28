@@ -15425,6 +15425,184 @@ export class CallbackUmktRobotcallResponse extends $tea.Model {
   }
 }
 
+export class CallbackUmktSmsUpRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 回执类型
+  type: string;
+  // 手机号码
+  phoneNumber: string;
+  // 发送时间
+  sendTime: string;
+  // 发送内容
+  content: string;
+  // 签名信息
+  signName: string;
+  // 签名对应的客户ak
+  appKey: string;
+  // 上行短信扩展号码
+  destCode?: string;
+  // 学历噩耗
+  sequenceId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      type: 'type',
+      phoneNumber: 'phone_number',
+      sendTime: 'send_time',
+      content: 'content',
+      signName: 'sign_name',
+      appKey: 'app_key',
+      destCode: 'dest_code',
+      sequenceId: 'sequence_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      type: 'string',
+      phoneNumber: 'string',
+      sendTime: 'string',
+      content: 'string',
+      signName: 'string',
+      appKey: 'string',
+      destCode: 'string',
+      sequenceId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackUmktSmsUpResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackUmktSmsReportRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 短信回执类型
+  type: string;
+  // 手机号码
+  phoneNumber: string;
+  // 发送时间
+  sendTime: string;
+  // 状态报告时间
+  reportTime: string;
+  // 是否接收成功。取值：true：接收成功false：接收失败
+  success: boolean;
+  // 状态报告编码
+  errCode: string;
+  // 状态报告说明
+  errMsg: string;
+  // 短信长度
+  smsSize: string;
+  // 发送回执ID，即发送流水号
+  bizId: string;
+  // 业务扩展字段，回执时透传，JSON格式
+  bizProperties: string;
+  // 发送卡片短信时，文本短信状态报告中才会有该字段，且取值为CARD_SMS，发送纯文本短信时，状态报告中没有该字段
+  smsType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      type: 'type',
+      phoneNumber: 'phone_number',
+      sendTime: 'send_time',
+      reportTime: 'report_time',
+      success: 'success',
+      errCode: 'err_code',
+      errMsg: 'err_msg',
+      smsSize: 'sms_size',
+      bizId: 'biz_id',
+      bizProperties: 'biz_properties',
+      smsType: 'sms_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      type: 'string',
+      phoneNumber: 'string',
+      sendTime: 'string',
+      reportTime: 'string',
+      success: 'boolean',
+      errCode: 'string',
+      errMsg: 'string',
+      smsSize: 'string',
+      bizId: 'string',
+      bizProperties: 'string',
+      smsType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackUmktSmsReportResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -15626,7 +15804,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.41",
+          sdk_version: "1.16.42",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -18496,6 +18674,44 @@ export default class Client {
   async callbackUmktRobotcallEx(request: CallbackUmktRobotcallRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackUmktRobotcallResponse> {
     Util.validateModel(request);
     return $tea.cast<CallbackUmktRobotcallResponse>(await this.doRequest("1.0", "riskplus.umkt.robotcall.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackUmktRobotcallResponse({}));
+  }
+
+  /**
+   * Description: 营销盾上行短信回调接口
+   * Summary: 营销盾上行短信回调
+   */
+  async callbackUmktSmsUp(request: CallbackUmktSmsUpRequest): Promise<CallbackUmktSmsUpResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackUmktSmsUpEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾上行短信回调接口
+   * Summary: 营销盾上行短信回调
+   */
+  async callbackUmktSmsUpEx(request: CallbackUmktSmsUpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackUmktSmsUpResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackUmktSmsUpResponse>(await this.doRequest("1.0", "riskplus.umkt.sms.up.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackUmktSmsUpResponse({}));
+  }
+
+  /**
+   * Description: 营销盾短信状态回调接口
+   * Summary: 营销盾短信状态回调
+   */
+  async callbackUmktSmsReport(request: CallbackUmktSmsReportRequest): Promise<CallbackUmktSmsReportResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackUmktSmsReportEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾短信状态回调接口
+   * Summary: 营销盾短信状态回调
+   */
+  async callbackUmktSmsReportEx(request: CallbackUmktSmsReportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackUmktSmsReportResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackUmktSmsReportResponse>(await this.doRequest("1.0", "riskplus.umkt.sms.report.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackUmktSmsReportResponse({}));
   }
 
   /**
