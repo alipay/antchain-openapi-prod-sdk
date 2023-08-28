@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.8',
+    sdk_version = '1.0.9',
     _prod_code = 'IDENTITYMARRIAGE',
     _prod_channel = 'undefined'
   };
@@ -313,5 +313,119 @@ async function checkMarriageCoupleinfo(request: CheckMarriageCoupleinfoRequest):
 async function checkMarriageCoupleinfoEx(request: CheckMarriageCoupleinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckMarriageCoupleinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'identity.marriage.marriage.coupleinfo.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitMarriageInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 加密字段
+  bizContent: string(name='biz_content'),
+}
+
+model SubmitMarriageInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 单人婚姻状况核查异步提交
+ * Summary: 单人婚姻状况核查异步提交
+ */
+async function submitMarriageInfo(request: SubmitMarriageInfoRequest): SubmitMarriageInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitMarriageInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单人婚姻状况核查异步提交
+ * Summary: 单人婚姻状况核查异步提交
+ */
+async function submitMarriageInfoEx(request: SubmitMarriageInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitMarriageInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'identity.marriage.marriage.info.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitMarriageCoupleinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 加密字段
+  bizContent: string(name='biz_content'),
+}
+
+model SubmitMarriageCoupleinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 双人婚姻状况核查异步提交
+ * Summary: 双人婚姻状况核查异步提交
+ */
+async function submitMarriageCoupleinfo(request: SubmitMarriageCoupleinfoRequest): SubmitMarriageCoupleinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitMarriageCoupleinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 双人婚姻状况核查异步提交
+ * Summary: 双人婚姻状况核查异步提交
+ */
+async function submitMarriageCoupleinfoEx(request: SubmitMarriageCoupleinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitMarriageCoupleinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'identity.marriage.marriage.coupleinfo.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMarriageInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 加密字段
+  bizContent: string(name='biz_content'),
+}
+
+model QueryMarriageInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 婚姻状况核查异步查询
+ * Summary: 婚姻状况核查异步查询
+ */
+async function queryMarriageInfo(request: QueryMarriageInfoRequest): QueryMarriageInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMarriageInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 婚姻状况核查异步查询
+ * Summary: 婚姻状况核查异步查询
+ */
+async function queryMarriageInfoEx(request: QueryMarriageInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMarriageInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'identity.marriage.marriage.info.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
