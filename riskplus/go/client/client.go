@@ -20679,7 +20679,7 @@ type CallbackUmktSmsUpRequest struct {
 	// 签名对应的客户ak
 	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty" require:"true"`
 	// 上行短信扩展号码
-	DestCode *string `json:"dest_code,omitempty" xml:"dest_code,omitempty"`
+	DestCode *string `json:"dest_code,omitempty" xml:"dest_code,omitempty" require:"true"`
 	// 学历噩耗
 	SequenceId *int64 `json:"sequence_id,omitempty" xml:"sequence_id,omitempty" require:"true"`
 }
@@ -21149,7 +21149,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.42"),
+				"sdk_version":      tea.String("1.16.43"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
