@@ -15442,7 +15442,7 @@ export class CallbackUmktSmsUpRequest extends $tea.Model {
   // 签名对应的客户ak
   appKey: string;
   // 上行短信扩展号码
-  destCode?: string;
+  destCode: string;
   // 学历噩耗
   sequenceId: number;
   static names(): { [key: string]: string } {
@@ -15804,7 +15804,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.42",
+          sdk_version: "1.16.43",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
