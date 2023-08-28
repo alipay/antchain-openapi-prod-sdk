@@ -47,6 +47,10 @@ use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardRequest;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardResponse;
 use AntChain\RISKPLUS\Models\CallbackUmktRobotcallRequest;
 use AntChain\RISKPLUS\Models\CallbackUmktRobotcallResponse;
+use AntChain\RISKPLUS\Models\CallbackUmktSmsReportRequest;
+use AntChain\RISKPLUS\Models\CallbackUmktSmsReportResponse;
+use AntChain\RISKPLUS\Models\CallbackUmktSmsUpRequest;
+use AntChain\RISKPLUS\Models\CallbackUmktSmsUpResponse;
 use AntChain\RISKPLUS\Models\CancelUmktDataaccessOfflinetaskRequest;
 use AntChain\RISKPLUS\Models\CancelUmktDataaccessOfflinetaskResponse;
 use AntChain\RISKPLUS\Models\CheckSecurityDataRequest;
@@ -446,7 +450,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.41',
+                    'sdk_version'      => '1.16.42',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5303,6 +5307,72 @@ class Client
         Utils::validateModel($request);
 
         return CallbackUmktRobotcallResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.robotcall.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾上行短信回调接口
+     * Summary: 营销盾上行短信回调.
+     *
+     * @param CallbackUmktSmsUpRequest $request
+     *
+     * @return CallbackUmktSmsUpResponse
+     */
+    public function callbackUmktSmsUp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackUmktSmsUpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾上行短信回调接口
+     * Summary: 营销盾上行短信回调.
+     *
+     * @param CallbackUmktSmsUpRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CallbackUmktSmsUpResponse
+     */
+    public function callbackUmktSmsUpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackUmktSmsUpResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.sms.up.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾短信状态回调接口
+     * Summary: 营销盾短信状态回调.
+     *
+     * @param CallbackUmktSmsReportRequest $request
+     *
+     * @return CallbackUmktSmsReportResponse
+     */
+    public function callbackUmktSmsReport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackUmktSmsReportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾短信状态回调接口
+     * Summary: 营销盾短信状态回调.
+     *
+     * @param CallbackUmktSmsReportRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CallbackUmktSmsReportResponse
+     */
+    public function callbackUmktSmsReportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackUmktSmsReportResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.sms.report.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
