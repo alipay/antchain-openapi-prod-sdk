@@ -25722,6 +25722,306 @@ class CallbackUmktRobotcallResponse(TeaModel):
         return self
 
 
+class CallbackUmktSmsUpRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        type: str = None,
+        phone_number: str = None,
+        send_time: str = None,
+        content: str = None,
+        sign_name: str = None,
+        app_key: str = None,
+        dest_code: str = None,
+        sequence_id: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 回执类型
+        self.type = type
+        # 手机号码
+        self.phone_number = phone_number
+        # 发送时间
+        self.send_time = send_time
+        # 发送内容
+        self.content = content
+        # 签名信息
+        self.sign_name = sign_name
+        # 签名对应的客户ak
+        self.app_key = app_key
+        # 上行短信扩展号码
+        self.dest_code = dest_code
+        # 学历噩耗
+        self.sequence_id = sequence_id
+
+    def validate(self):
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.phone_number, 'phone_number')
+        self.validate_required(self.send_time, 'send_time')
+        self.validate_required(self.content, 'content')
+        self.validate_required(self.sign_name, 'sign_name')
+        self.validate_required(self.app_key, 'app_key')
+        self.validate_required(self.sequence_id, 'sequence_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
+        if self.send_time is not None:
+            result['send_time'] = self.send_time
+        if self.content is not None:
+            result['content'] = self.content
+        if self.sign_name is not None:
+            result['sign_name'] = self.sign_name
+        if self.app_key is not None:
+            result['app_key'] = self.app_key
+        if self.dest_code is not None:
+            result['dest_code'] = self.dest_code
+        if self.sequence_id is not None:
+            result['sequence_id'] = self.sequence_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        if m.get('send_time') is not None:
+            self.send_time = m.get('send_time')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('sign_name') is not None:
+            self.sign_name = m.get('sign_name')
+        if m.get('app_key') is not None:
+            self.app_key = m.get('app_key')
+        if m.get('dest_code') is not None:
+            self.dest_code = m.get('dest_code')
+        if m.get('sequence_id') is not None:
+            self.sequence_id = m.get('sequence_id')
+        return self
+
+
+class CallbackUmktSmsUpResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class CallbackUmktSmsReportRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        type: str = None,
+        phone_number: str = None,
+        send_time: str = None,
+        report_time: str = None,
+        success: bool = None,
+        err_code: str = None,
+        err_msg: str = None,
+        sms_size: str = None,
+        biz_id: str = None,
+        biz_properties: str = None,
+        sms_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 短信回执类型
+        self.type = type
+        # 手机号码
+        self.phone_number = phone_number
+        # 发送时间
+        self.send_time = send_time
+        # 状态报告时间
+        self.report_time = report_time
+        # 是否接收成功。取值：true：接收成功false：接收失败
+        self.success = success
+        # 状态报告编码
+        self.err_code = err_code
+        # 状态报告说明
+        self.err_msg = err_msg
+        # 短信长度
+        self.sms_size = sms_size
+        # 发送回执ID，即发送流水号
+        self.biz_id = biz_id
+        # 业务扩展字段，回执时透传，JSON格式
+        self.biz_properties = biz_properties
+        # 发送卡片短信时，文本短信状态报告中才会有该字段，且取值为CARD_SMS，发送纯文本短信时，状态报告中没有该字段
+        self.sms_type = sms_type
+
+    def validate(self):
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.phone_number, 'phone_number')
+        self.validate_required(self.send_time, 'send_time')
+        self.validate_required(self.report_time, 'report_time')
+        self.validate_required(self.success, 'success')
+        self.validate_required(self.err_code, 'err_code')
+        self.validate_required(self.err_msg, 'err_msg')
+        self.validate_required(self.sms_size, 'sms_size')
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.biz_properties, 'biz_properties')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
+        if self.send_time is not None:
+            result['send_time'] = self.send_time
+        if self.report_time is not None:
+            result['report_time'] = self.report_time
+        if self.success is not None:
+            result['success'] = self.success
+        if self.err_code is not None:
+            result['err_code'] = self.err_code
+        if self.err_msg is not None:
+            result['err_msg'] = self.err_msg
+        if self.sms_size is not None:
+            result['sms_size'] = self.sms_size
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.biz_properties is not None:
+            result['biz_properties'] = self.biz_properties
+        if self.sms_type is not None:
+            result['sms_type'] = self.sms_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        if m.get('send_time') is not None:
+            self.send_time = m.get('send_time')
+        if m.get('report_time') is not None:
+            self.report_time = m.get('report_time')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('err_code') is not None:
+            self.err_code = m.get('err_code')
+        if m.get('err_msg') is not None:
+            self.err_msg = m.get('err_msg')
+        if m.get('sms_size') is not None:
+            self.sms_size = m.get('sms_size')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('biz_properties') is not None:
+            self.biz_properties = m.get('biz_properties')
+        if m.get('sms_type') is not None:
+            self.sms_type = m.get('sms_type')
+        return self
+
+
+class CallbackUmktSmsReportResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,

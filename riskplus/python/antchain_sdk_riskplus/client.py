@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.41',
+                    'sdk_version': '1.16.42',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.41',
+                    'sdk_version': '1.16.42',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -8455,6 +8455,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.CallbackUmktRobotcallResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.robotcall.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_umkt_sms_up(
+        self,
+        request: riskplus_models.CallbackUmktSmsUpRequest,
+    ) -> riskplus_models.CallbackUmktSmsUpResponse:
+        """
+        Description: 营销盾上行短信回调接口
+        Summary: 营销盾上行短信回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_umkt_sms_up_ex(request, headers, runtime)
+
+    async def callback_umkt_sms_up_async(
+        self,
+        request: riskplus_models.CallbackUmktSmsUpRequest,
+    ) -> riskplus_models.CallbackUmktSmsUpResponse:
+        """
+        Description: 营销盾上行短信回调接口
+        Summary: 营销盾上行短信回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_umkt_sms_up_ex_async(request, headers, runtime)
+
+    def callback_umkt_sms_up_ex(
+        self,
+        request: riskplus_models.CallbackUmktSmsUpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackUmktSmsUpResponse:
+        """
+        Description: 营销盾上行短信回调接口
+        Summary: 营销盾上行短信回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackUmktSmsUpResponse(),
+            self.do_request('1.0', 'riskplus.umkt.sms.up.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_umkt_sms_up_ex_async(
+        self,
+        request: riskplus_models.CallbackUmktSmsUpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackUmktSmsUpResponse:
+        """
+        Description: 营销盾上行短信回调接口
+        Summary: 营销盾上行短信回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackUmktSmsUpResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.sms.up.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_umkt_sms_report(
+        self,
+        request: riskplus_models.CallbackUmktSmsReportRequest,
+    ) -> riskplus_models.CallbackUmktSmsReportResponse:
+        """
+        Description: 营销盾短信状态回调接口
+        Summary: 营销盾短信状态回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_umkt_sms_report_ex(request, headers, runtime)
+
+    async def callback_umkt_sms_report_async(
+        self,
+        request: riskplus_models.CallbackUmktSmsReportRequest,
+    ) -> riskplus_models.CallbackUmktSmsReportResponse:
+        """
+        Description: 营销盾短信状态回调接口
+        Summary: 营销盾短信状态回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_umkt_sms_report_ex_async(request, headers, runtime)
+
+    def callback_umkt_sms_report_ex(
+        self,
+        request: riskplus_models.CallbackUmktSmsReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackUmktSmsReportResponse:
+        """
+        Description: 营销盾短信状态回调接口
+        Summary: 营销盾短信状态回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackUmktSmsReportResponse(),
+            self.do_request('1.0', 'riskplus.umkt.sms.report.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_umkt_sms_report_ex_async(
+        self,
+        request: riskplus_models.CallbackUmktSmsReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackUmktSmsReportResponse:
+        """
+        Description: 营销盾短信状态回调接口
+        Summary: 营销盾短信状态回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackUmktSmsReportResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.sms.report.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
