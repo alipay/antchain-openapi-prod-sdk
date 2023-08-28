@@ -17,6 +17,12 @@ use AntChain\IDENTITYMARRIAGE\Models\CheckMarriageInfoRequest;
 use AntChain\IDENTITYMARRIAGE\Models\CheckMarriageInfoResponse;
 use AntChain\IDENTITYMARRIAGE\Models\NotifyMarriageInfoRequest;
 use AntChain\IDENTITYMARRIAGE\Models\NotifyMarriageInfoResponse;
+use AntChain\IDENTITYMARRIAGE\Models\QueryMarriageInfoRequest;
+use AntChain\IDENTITYMARRIAGE\Models\QueryMarriageInfoResponse;
+use AntChain\IDENTITYMARRIAGE\Models\SubmitMarriageCoupleinfoRequest;
+use AntChain\IDENTITYMARRIAGE\Models\SubmitMarriageCoupleinfoResponse;
+use AntChain\IDENTITYMARRIAGE\Models\SubmitMarriageInfoRequest;
+use AntChain\IDENTITYMARRIAGE\Models\SubmitMarriageInfoResponse;
 use AntChain\IDENTITYMARRIAGE\Models\UploadFileDataRequest;
 use AntChain\IDENTITYMARRIAGE\Models\UploadFileDataResponse;
 use AntChain\Util\UtilClient;
@@ -165,7 +171,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.8',
+                    'sdk_version'      => '1.0.9',
                     '_prod_code'       => 'IDENTITYMARRIAGE',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -343,5 +349,104 @@ class Client
         Utils::validateModel($request);
 
         return CheckMarriageCoupleinfoResponse::fromMap($this->doRequest('1.0', 'identity.marriage.marriage.coupleinfo.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 单人婚姻状况核查异步提交
+     * Summary: 单人婚姻状况核查异步提交.
+     *
+     * @param SubmitMarriageInfoRequest $request
+     *
+     * @return SubmitMarriageInfoResponse
+     */
+    public function submitMarriageInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitMarriageInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 单人婚姻状况核查异步提交
+     * Summary: 单人婚姻状况核查异步提交.
+     *
+     * @param SubmitMarriageInfoRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return SubmitMarriageInfoResponse
+     */
+    public function submitMarriageInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitMarriageInfoResponse::fromMap($this->doRequest('1.0', 'identity.marriage.marriage.info.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 双人婚姻状况核查异步提交
+     * Summary: 双人婚姻状况核查异步提交.
+     *
+     * @param SubmitMarriageCoupleinfoRequest $request
+     *
+     * @return SubmitMarriageCoupleinfoResponse
+     */
+    public function submitMarriageCoupleinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitMarriageCoupleinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 双人婚姻状况核查异步提交
+     * Summary: 双人婚姻状况核查异步提交.
+     *
+     * @param SubmitMarriageCoupleinfoRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return SubmitMarriageCoupleinfoResponse
+     */
+    public function submitMarriageCoupleinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitMarriageCoupleinfoResponse::fromMap($this->doRequest('1.0', 'identity.marriage.marriage.coupleinfo.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 婚姻状况核查异步查询
+     * Summary: 婚姻状况核查异步查询.
+     *
+     * @param QueryMarriageInfoRequest $request
+     *
+     * @return QueryMarriageInfoResponse
+     */
+    public function queryMarriageInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMarriageInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 婚姻状况核查异步查询
+     * Summary: 婚姻状况核查异步查询.
+     *
+     * @param QueryMarriageInfoRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryMarriageInfoResponse
+     */
+    public function queryMarriageInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMarriageInfoResponse::fromMap($this->doRequest('1.0', 'identity.marriage.marriage.info.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
