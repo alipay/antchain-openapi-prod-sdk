@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.41"},
+                        {"sdk_version", "1.16.42"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.41"},
+                        {"sdk_version", "1.16.42"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6559,6 +6559,90 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackUmktRobotcallResponse>(await DoRequestAsync("1.0", "riskplus.umkt.robotcall.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾上行短信回调接口
+         * Summary: 营销盾上行短信回调
+         */
+        public CallbackUmktSmsUpResponse CallbackUmktSmsUp(CallbackUmktSmsUpRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackUmktSmsUpEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾上行短信回调接口
+         * Summary: 营销盾上行短信回调
+         */
+        public async Task<CallbackUmktSmsUpResponse> CallbackUmktSmsUpAsync(CallbackUmktSmsUpRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackUmktSmsUpExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾上行短信回调接口
+         * Summary: 营销盾上行短信回调
+         */
+        public CallbackUmktSmsUpResponse CallbackUmktSmsUpEx(CallbackUmktSmsUpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackUmktSmsUpResponse>(DoRequest("1.0", "riskplus.umkt.sms.up.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾上行短信回调接口
+         * Summary: 营销盾上行短信回调
+         */
+        public async Task<CallbackUmktSmsUpResponse> CallbackUmktSmsUpExAsync(CallbackUmktSmsUpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackUmktSmsUpResponse>(await DoRequestAsync("1.0", "riskplus.umkt.sms.up.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾短信状态回调接口
+         * Summary: 营销盾短信状态回调
+         */
+        public CallbackUmktSmsReportResponse CallbackUmktSmsReport(CallbackUmktSmsReportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackUmktSmsReportEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾短信状态回调接口
+         * Summary: 营销盾短信状态回调
+         */
+        public async Task<CallbackUmktSmsReportResponse> CallbackUmktSmsReportAsync(CallbackUmktSmsReportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackUmktSmsReportExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾短信状态回调接口
+         * Summary: 营销盾短信状态回调
+         */
+        public CallbackUmktSmsReportResponse CallbackUmktSmsReportEx(CallbackUmktSmsReportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackUmktSmsReportResponse>(DoRequest("1.0", "riskplus.umkt.sms.report.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾短信状态回调接口
+         * Summary: 营销盾短信状态回调
+         */
+        public async Task<CallbackUmktSmsReportResponse> CallbackUmktSmsReportExAsync(CallbackUmktSmsReportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackUmktSmsReportResponse>(await DoRequestAsync("1.0", "riskplus.umkt.sms.report.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
