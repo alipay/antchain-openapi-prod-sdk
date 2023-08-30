@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.0"),
+                    new TeaPair("sdk_version", "1.7.2"),
                     new TeaPair("_prod_code", "TAX"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -623,19 +623,19 @@ public class Client {
      * Description: 收入评估服务B
      * Summary: 收入评估服务B
      */
-    public QueryPersonalSocialincomeResponse queryPersonalSocialincome(QueryPersonalSocialincomeRequest request) throws Exception {
+    public QueryPdataSocialincomeResponse queryPdataSocialincome(QueryPdataSocialincomeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryPersonalSocialincomeEx(request, headers, runtime);
+        return this.queryPdataSocialincomeEx(request, headers, runtime);
     }
 
     /**
      * Description: 收入评估服务B
      * Summary: 收入评估服务B
      */
-    public QueryPersonalSocialincomeResponse queryPersonalSocialincomeEx(QueryPersonalSocialincomeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryPdataSocialincomeResponse queryPdataSocialincomeEx(QueryPdataSocialincomeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.personal.socialincome.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPersonalSocialincomeResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.pdata.socialincome.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPdataSocialincomeResponse());
     }
 
     /**

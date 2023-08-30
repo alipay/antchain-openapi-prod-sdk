@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.tax.models;
 
 import com.aliyun.tea.*;
 
-public class QueryPersonalSocialincomeRequest extends TeaModel {
+public class QueryPdataSocialincomeRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -39,12 +39,12 @@ public class QueryPersonalSocialincomeRequest extends TeaModel {
     @NameInMap("credential_type")
     public String credentialType;
 
-    public static QueryPersonalSocialincomeRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryPersonalSocialincomeRequest self = new QueryPersonalSocialincomeRequest();
+    public static QueryPdataSocialincomeRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryPdataSocialincomeRequest self = new QueryPdataSocialincomeRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryPersonalSocialincomeRequest setAuthToken(String authToken) {
+    public QueryPdataSocialincomeRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -52,7 +52,7 @@ public class QueryPersonalSocialincomeRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryPersonalSocialincomeRequest setProductInstanceId(String productInstanceId) {
+    public QueryPdataSocialincomeRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -60,7 +60,7 @@ public class QueryPersonalSocialincomeRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryPersonalSocialincomeRequest setBizId(String bizId) {
+    public QueryPdataSocialincomeRequest setBizId(String bizId) {
         this.bizId = bizId;
         return this;
     }
@@ -68,7 +68,7 @@ public class QueryPersonalSocialincomeRequest extends TeaModel {
         return this.bizId;
     }
 
-    public QueryPersonalSocialincomeRequest setName(String name) {
+    public QueryPdataSocialincomeRequest setName(String name) {
         this.name = name;
         return this;
     }
@@ -76,7 +76,7 @@ public class QueryPersonalSocialincomeRequest extends TeaModel {
         return this.name;
     }
 
-    public QueryPersonalSocialincomeRequest setCertNo(String certNo) {
+    public QueryPdataSocialincomeRequest setCertNo(String certNo) {
         this.certNo = certNo;
         return this;
     }
@@ -84,7 +84,7 @@ public class QueryPersonalSocialincomeRequest extends TeaModel {
         return this.certNo;
     }
 
-    public QueryPersonalSocialincomeRequest setPhoneNo(String phoneNo) {
+    public QueryPdataSocialincomeRequest setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
         return this;
     }
@@ -92,7 +92,7 @@ public class QueryPersonalSocialincomeRequest extends TeaModel {
         return this.phoneNo;
     }
 
-    public QueryPersonalSocialincomeRequest setAuthorizationCode(String authorizationCode) {
+    public QueryPdataSocialincomeRequest setAuthorizationCode(String authorizationCode) {
         this.authorizationCode = authorizationCode;
         return this;
     }
@@ -100,7 +100,7 @@ public class QueryPersonalSocialincomeRequest extends TeaModel {
         return this.authorizationCode;
     }
 
-    public QueryPersonalSocialincomeRequest setAuthorizationCredential(String authorizationCredential) {
+    public QueryPdataSocialincomeRequest setAuthorizationCredential(String authorizationCredential) {
         this.authorizationCredential = authorizationCredential;
         return this;
     }
@@ -108,7 +108,7 @@ public class QueryPersonalSocialincomeRequest extends TeaModel {
         return this.authorizationCredential;
     }
 
-    public QueryPersonalSocialincomeRequest setCredentialType(String credentialType) {
+    public QueryPdataSocialincomeRequest setCredentialType(String credentialType) {
         this.credentialType = credentialType;
         return this;
     }

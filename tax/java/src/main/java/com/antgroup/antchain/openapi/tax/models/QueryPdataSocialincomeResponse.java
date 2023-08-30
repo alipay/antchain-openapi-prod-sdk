@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.tax.models;
 
 import com.aliyun.tea.*;
 
-public class QueryPersonalSocialincomeResponse extends TeaModel {
+public class QueryPdataSocialincomeResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -32,12 +32,12 @@ public class QueryPersonalSocialincomeResponse extends TeaModel {
     @NameInMap("stability_score")
     public String stabilityScore;
 
-    public static QueryPersonalSocialincomeResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryPersonalSocialincomeResponse self = new QueryPersonalSocialincomeResponse();
+    public static QueryPdataSocialincomeResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryPdataSocialincomeResponse self = new QueryPdataSocialincomeResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryPersonalSocialincomeResponse setReqMsgId(String reqMsgId) {
+    public QueryPdataSocialincomeResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -45,7 +45,7 @@ public class QueryPersonalSocialincomeResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryPersonalSocialincomeResponse setResultCode(String resultCode) {
+    public QueryPdataSocialincomeResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -53,7 +53,7 @@ public class QueryPersonalSocialincomeResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryPersonalSocialincomeResponse setResultMsg(String resultMsg) {
+    public QueryPdataSocialincomeResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -61,7 +61,7 @@ public class QueryPersonalSocialincomeResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryPersonalSocialincomeResponse setScoreResult(String scoreResult) {
+    public QueryPdataSocialincomeResponse setScoreResult(String scoreResult) {
         this.scoreResult = scoreResult;
         return this;
     }
@@ -69,7 +69,7 @@ public class QueryPersonalSocialincomeResponse extends TeaModel {
         return this.scoreResult;
     }
 
-    public QueryPersonalSocialincomeResponse setRangeScore(String rangeScore) {
+    public QueryPdataSocialincomeResponse setRangeScore(String rangeScore) {
         this.rangeScore = rangeScore;
         return this;
     }
@@ -77,7 +77,7 @@ public class QueryPersonalSocialincomeResponse extends TeaModel {
         return this.rangeScore;
     }
 
-    public QueryPersonalSocialincomeResponse setHistoryScore(String historyScore) {
+    public QueryPdataSocialincomeResponse setHistoryScore(String historyScore) {
         this.historyScore = historyScore;
         return this;
     }
@@ -85,7 +85,7 @@ public class QueryPersonalSocialincomeResponse extends TeaModel {
         return this.historyScore;
     }
 
-    public QueryPersonalSocialincomeResponse setStabilityScore(String stabilityScore) {
+    public QueryPdataSocialincomeResponse setStabilityScore(String stabilityScore) {
         this.stabilityScore = stabilityScore;
         return this;
     }
