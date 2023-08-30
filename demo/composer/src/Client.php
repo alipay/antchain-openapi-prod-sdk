@@ -25,8 +25,6 @@ use AntChain\DEMO\Models\BindQweQweRequest;
 use AntChain\DEMO\Models\BindQweQweResponse;
 use AntChain\DEMO\Models\BindSdfSssSssRequest;
 use AntChain\DEMO\Models\BindSdfSssSssResponse;
-use AntChain\DEMO\Models\BindSssSsSsRequest;
-use AntChain\DEMO\Models\BindSssSsSsResponse;
 use AntChain\DEMO\Models\BindTestTestTestRequest;
 use AntChain\DEMO\Models\BindTestTestTestResponse;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadRequest;
@@ -260,7 +258,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.211',
+                    'sdk_version'      => '1.0.212',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -525,39 +523,6 @@ class Client
     }
 
     /**
-     * Description: sss
-     * Summary: ss.
-     *
-     * @param BindSssSsSsRequest $request
-     *
-     * @return BindSssSsSsResponse
-     */
-    public function bindSssSsSs($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->bindSssSsSsEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: sss
-     * Summary: ss.
-     *
-     * @param BindSssSsSsRequest $request
-     * @param string[]           $headers
-     * @param RuntimeOptions     $runtime
-     *
-     * @return BindSssSsSsResponse
-     */
-    public function bindSssSsSsEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BindSssSsSsResponse::fromMap($this->doRequest('1.0', 'demo.sss.ss.ss.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: aaa
      * Summary: 测试demo.
      *
@@ -756,7 +721,7 @@ class Client
     }
 
     /**
-     * Description: 简介简介简介
+     * Description: 简介简介简介s
      * Summary: 简介简介.
      *
      * @param QueryAdAsdAsdRequest $request
@@ -772,7 +737,7 @@ class Client
     }
 
     /**
-     * Description: 简介简介简介
+     * Description: 简介简介简介s
      * Summary: 简介简介.
      *
      * @param QueryAdAsdAsdRequest $request
