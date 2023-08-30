@@ -1929,82 +1929,6 @@ class QueryGatewayTestResponse(TeaModel):
         return self
 
 
-class BindSssSsSsRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        return self
-
-
-class BindSssSsSsResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        return self
-
-
 class QueryGatewayMyRequest(TeaModel):
     def __init__(
         self,
@@ -4623,6 +4547,8 @@ class QueryCjtestCjResRequest(TeaModel):
         product_instance_id: str = None,
         test_1: int = None,
         test_2: int = None,
+        test_3: List[int] = None,
+        testclass: Host = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4631,6 +4557,10 @@ class QueryCjtestCjResRequest(TeaModel):
         self.test_1 = test_1
         # 2
         self.test_2 = test_2
+        # test
+        self.test_3 = test_3
+        # testclass
+        self.testclass = testclass
 
     def validate(self):
         self.validate_required(self.test_1, 'test_1')
@@ -4641,6 +4571,10 @@ class QueryCjtestCjResRequest(TeaModel):
         if self.test_2 is not None:
             self.validate_maximum(self.test_2, 'test_2', 200)
             self.validate_minimum(self.test_2, 'test_2', 100)
+        self.validate_required(self.test_3, 'test_3')
+        self.validate_required(self.testclass, 'testclass')
+        if self.testclass:
+            self.testclass.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -4656,6 +4590,10 @@ class QueryCjtestCjResRequest(TeaModel):
             result['test1'] = self.test_1
         if self.test_2 is not None:
             result['test2'] = self.test_2
+        if self.test_3 is not None:
+            result['test3'] = self.test_3
+        if self.testclass is not None:
+            result['testclass'] = self.testclass.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -4668,6 +4606,11 @@ class QueryCjtestCjResRequest(TeaModel):
             self.test_1 = m.get('test1')
         if m.get('test2') is not None:
             self.test_2 = m.get('test2')
+        if m.get('test3') is not None:
+            self.test_3 = m.get('test3')
+        if m.get('testclass') is not None:
+            temp_model = Host()
+            self.testclass = temp_model.from_map(m['testclass'])
         return self
 
 
