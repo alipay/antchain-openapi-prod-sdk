@@ -3071,7 +3071,7 @@ export class QueryPdataPersonalincomeResponse extends $tea.Model {
   }
 }
 
-export class QueryPersonalSocialincomeRequest extends $tea.Model {
+export class QueryPdataSocialincomeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -3122,7 +3122,7 @@ export class QueryPersonalSocialincomeRequest extends $tea.Model {
   }
 }
 
-export class QueryPersonalSocialincomeResponse extends $tea.Model {
+export class QueryPdataSocialincomeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -3366,7 +3366,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.0",
+          sdk_version: "1.7.2",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
@@ -3876,19 +3876,19 @@ export default class Client {
    * Description: 收入评估服务B
    * Summary: 收入评估服务B
    */
-  async queryPersonalSocialincome(request: QueryPersonalSocialincomeRequest): Promise<QueryPersonalSocialincomeResponse> {
+  async queryPdataSocialincome(request: QueryPdataSocialincomeRequest): Promise<QueryPdataSocialincomeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryPersonalSocialincomeEx(request, headers, runtime);
+    return await this.queryPdataSocialincomeEx(request, headers, runtime);
   }
 
   /**
    * Description: 收入评估服务B
    * Summary: 收入评估服务B
    */
-  async queryPersonalSocialincomeEx(request: QueryPersonalSocialincomeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPersonalSocialincomeResponse> {
+  async queryPdataSocialincomeEx(request: QueryPdataSocialincomeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPdataSocialincomeResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryPersonalSocialincomeResponse>(await this.doRequest("1.0", "blockchain.tax.personal.socialincome.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPersonalSocialincomeResponse({}));
+    return $tea.cast<QueryPdataSocialincomeResponse>(await this.doRequest("1.0", "blockchain.tax.pdata.socialincome.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPdataSocialincomeResponse({}));
   }
 
   /**
