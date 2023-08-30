@@ -1411,62 +1411,6 @@ func (s *QueryGatewayTestResponse) SetResultMsg(v string) *QueryGatewayTestRespo
 	return s
 }
 
-type BindSssSsSsRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s BindSssSsSsRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindSssSsSsRequest) GoString() string {
-	return s.String()
-}
-
-func (s *BindSssSsSsRequest) SetAuthToken(v string) *BindSssSsSsRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *BindSssSsSsRequest) SetProductInstanceId(v string) *BindSssSsSsRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type BindSssSsSsResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s BindSssSsSsResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindSssSsSsResponse) GoString() string {
-	return s.String()
-}
-
-func (s *BindSssSsSsResponse) SetReqMsgId(v string) *BindSssSsSsResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *BindSssSsSsResponse) SetResultCode(v string) *BindSssSsSsResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *BindSssSsSsResponse) SetResultMsg(v string) *BindSssSsSsResponse {
-	s.ResultMsg = &v
-	return s
-}
-
 type QueryGatewayMyRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3477,6 +3421,10 @@ type QueryCjtestCjResRequest struct {
 	Test1 *int64 `json:"test1,omitempty" xml:"test1,omitempty" require:"true" maximum:"100" minimum:"1"`
 	// 2
 	Test2 *int64 `json:"test2,omitempty" xml:"test2,omitempty" require:"true" maximum:"200" minimum:"100"`
+	// test
+	Test3 []*int64 `json:"test3,omitempty" xml:"test3,omitempty" require:"true" type:"Repeated"`
+	// testclass
+	Testclass *Host `json:"testclass,omitempty" xml:"testclass,omitempty" require:"true"`
 }
 
 func (s QueryCjtestCjResRequest) String() string {
@@ -3504,6 +3452,16 @@ func (s *QueryCjtestCjResRequest) SetTest1(v int64) *QueryCjtestCjResRequest {
 
 func (s *QueryCjtestCjResRequest) SetTest2(v int64) *QueryCjtestCjResRequest {
 	s.Test2 = &v
+	return s
+}
+
+func (s *QueryCjtestCjResRequest) SetTest3(v []*int64) *QueryCjtestCjResRequest {
+	s.Test3 = v
+	return s
+}
+
+func (s *QueryCjtestCjResRequest) SetTestclass(v *Host) *QueryCjtestCjResRequest {
+	s.Testclass = v
 	return s
 }
 
@@ -4782,7 +4740,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.211"),
+				"sdk_version":      tea.String("1.0.212"),
 				"_prod_code":       tea.String("DEMO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5074,40 +5032,6 @@ func (client *Client) QueryGatewayTestEx(request *QueryGatewayTestRequest, heade
 }
 
 /**
- * Description: sss
- * Summary: ss
- */
-func (client *Client) BindSssSsSs(request *BindSssSsSsRequest) (_result *BindSssSsSsResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &BindSssSsSsResponse{}
-	_body, _err := client.BindSssSsSsEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: sss
- * Summary: ss
- */
-func (client *Client) BindSssSsSsEx(request *BindSssSsSsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindSssSsSsResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &BindSssSsSsResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.sss.ss.ss.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
  * Description: aaa
  * Summary: 测试demo
  */
@@ -5312,7 +5236,7 @@ func (client *Client) QueryGatewayCheckEchotenEx(request *QueryGatewayCheckEchot
 }
 
 /**
- * Description: 简介简介简介
+ * Description: 简介简介简介s
  * Summary: 简介简介
  */
 func (client *Client) QueryAdAsdAsd(request *QueryAdAsdAsdRequest) (_result *QueryAdAsdAsdResponse, _err error) {
@@ -5328,7 +5252,7 @@ func (client *Client) QueryAdAsdAsd(request *QueryAdAsdAsdRequest) (_result *Que
 }
 
 /**
- * Description: 简介简介简介
+ * Description: 简介简介简介s
  * Summary: 简介简介
  */
 func (client *Client) QueryAdAsdAsdEx(request *QueryAdAsdAsdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAdAsdAsdResponse, _err error) {
