@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.0',
+                    'sdk_version': '1.7.2',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.0',
+                    'sdk_version': '1.7.2',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -1623,60 +1623,60 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.tax.pdata.personalincome.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_personal_socialincome(
+    def query_pdata_socialincome(
         self,
-        request: tax_models.QueryPersonalSocialincomeRequest,
-    ) -> tax_models.QueryPersonalSocialincomeResponse:
+        request: tax_models.QueryPdataSocialincomeRequest,
+    ) -> tax_models.QueryPdataSocialincomeResponse:
         """
         Description: 收入评估服务B
         Summary: 收入评估服务B
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_personal_socialincome_ex(request, headers, runtime)
+        return self.query_pdata_socialincome_ex(request, headers, runtime)
 
-    async def query_personal_socialincome_async(
+    async def query_pdata_socialincome_async(
         self,
-        request: tax_models.QueryPersonalSocialincomeRequest,
-    ) -> tax_models.QueryPersonalSocialincomeResponse:
+        request: tax_models.QueryPdataSocialincomeRequest,
+    ) -> tax_models.QueryPdataSocialincomeResponse:
         """
         Description: 收入评估服务B
         Summary: 收入评估服务B
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_personal_socialincome_ex_async(request, headers, runtime)
+        return await self.query_pdata_socialincome_ex_async(request, headers, runtime)
 
-    def query_personal_socialincome_ex(
+    def query_pdata_socialincome_ex(
         self,
-        request: tax_models.QueryPersonalSocialincomeRequest,
+        request: tax_models.QueryPdataSocialincomeRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> tax_models.QueryPersonalSocialincomeResponse:
+    ) -> tax_models.QueryPdataSocialincomeResponse:
         """
         Description: 收入评估服务B
         Summary: 收入评估服务B
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            tax_models.QueryPersonalSocialincomeResponse(),
-            self.do_request('1.0', 'blockchain.tax.personal.socialincome.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            tax_models.QueryPdataSocialincomeResponse(),
+            self.do_request('1.0', 'blockchain.tax.pdata.socialincome.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_personal_socialincome_ex_async(
+    async def query_pdata_socialincome_ex_async(
         self,
-        request: tax_models.QueryPersonalSocialincomeRequest,
+        request: tax_models.QueryPdataSocialincomeRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> tax_models.QueryPersonalSocialincomeResponse:
+    ) -> tax_models.QueryPdataSocialincomeResponse:
         """
         Description: 收入评估服务B
         Summary: 收入评估服务B
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            tax_models.QueryPersonalSocialincomeResponse(),
-            await self.do_request_async('1.0', 'blockchain.tax.personal.socialincome.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            tax_models.QueryPdataSocialincomeResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.pdata.socialincome.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def check_pdata_marriage(

@@ -5080,7 +5080,7 @@ class QueryPdataPersonalincomeResponse(TeaModel):
         return self
 
 
-class QueryPersonalSocialincomeRequest(TeaModel):
+class QueryPdataSocialincomeRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -5163,7 +5163,7 @@ class QueryPersonalSocialincomeRequest(TeaModel):
         return self
 
 
-class QueryPersonalSocialincomeResponse(TeaModel):
+class QueryPdataSocialincomeResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
