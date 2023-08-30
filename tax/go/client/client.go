@@ -4085,7 +4085,7 @@ func (s *QueryPdataPersonalincomeResponse) SetIncomeScore(v string) *QueryPdataP
 	return s
 }
 
-type QueryPersonalSocialincomeRequest struct {
+type QueryPdataSocialincomeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -4105,60 +4105,60 @@ type QueryPersonalSocialincomeRequest struct {
 	CredentialType *string `json:"credential_type,omitempty" xml:"credential_type,omitempty"`
 }
 
-func (s QueryPersonalSocialincomeRequest) String() string {
+func (s QueryPdataSocialincomeRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryPersonalSocialincomeRequest) GoString() string {
+func (s QueryPdataSocialincomeRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryPersonalSocialincomeRequest) SetAuthToken(v string) *QueryPersonalSocialincomeRequest {
+func (s *QueryPdataSocialincomeRequest) SetAuthToken(v string) *QueryPdataSocialincomeRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryPersonalSocialincomeRequest) SetProductInstanceId(v string) *QueryPersonalSocialincomeRequest {
+func (s *QueryPdataSocialincomeRequest) SetProductInstanceId(v string) *QueryPdataSocialincomeRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryPersonalSocialincomeRequest) SetBizId(v string) *QueryPersonalSocialincomeRequest {
+func (s *QueryPdataSocialincomeRequest) SetBizId(v string) *QueryPdataSocialincomeRequest {
 	s.BizId = &v
 	return s
 }
 
-func (s *QueryPersonalSocialincomeRequest) SetName(v string) *QueryPersonalSocialincomeRequest {
+func (s *QueryPdataSocialincomeRequest) SetName(v string) *QueryPdataSocialincomeRequest {
 	s.Name = &v
 	return s
 }
 
-func (s *QueryPersonalSocialincomeRequest) SetCertNo(v string) *QueryPersonalSocialincomeRequest {
+func (s *QueryPdataSocialincomeRequest) SetCertNo(v string) *QueryPdataSocialincomeRequest {
 	s.CertNo = &v
 	return s
 }
 
-func (s *QueryPersonalSocialincomeRequest) SetPhoneNo(v string) *QueryPersonalSocialincomeRequest {
+func (s *QueryPdataSocialincomeRequest) SetPhoneNo(v string) *QueryPdataSocialincomeRequest {
 	s.PhoneNo = &v
 	return s
 }
 
-func (s *QueryPersonalSocialincomeRequest) SetAuthorizationCode(v string) *QueryPersonalSocialincomeRequest {
+func (s *QueryPdataSocialincomeRequest) SetAuthorizationCode(v string) *QueryPdataSocialincomeRequest {
 	s.AuthorizationCode = &v
 	return s
 }
 
-func (s *QueryPersonalSocialincomeRequest) SetAuthorizationCredential(v string) *QueryPersonalSocialincomeRequest {
+func (s *QueryPdataSocialincomeRequest) SetAuthorizationCredential(v string) *QueryPdataSocialincomeRequest {
 	s.AuthorizationCredential = &v
 	return s
 }
 
-func (s *QueryPersonalSocialincomeRequest) SetCredentialType(v string) *QueryPersonalSocialincomeRequest {
+func (s *QueryPdataSocialincomeRequest) SetCredentialType(v string) *QueryPdataSocialincomeRequest {
 	s.CredentialType = &v
 	return s
 }
 
-type QueryPersonalSocialincomeResponse struct {
+type QueryPdataSocialincomeResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -4175,45 +4175,45 @@ type QueryPersonalSocialincomeResponse struct {
 	StabilityScore *string `json:"stability_score,omitempty" xml:"stability_score,omitempty"`
 }
 
-func (s QueryPersonalSocialincomeResponse) String() string {
+func (s QueryPdataSocialincomeResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryPersonalSocialincomeResponse) GoString() string {
+func (s QueryPdataSocialincomeResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryPersonalSocialincomeResponse) SetReqMsgId(v string) *QueryPersonalSocialincomeResponse {
+func (s *QueryPdataSocialincomeResponse) SetReqMsgId(v string) *QueryPdataSocialincomeResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryPersonalSocialincomeResponse) SetResultCode(v string) *QueryPersonalSocialincomeResponse {
+func (s *QueryPdataSocialincomeResponse) SetResultCode(v string) *QueryPdataSocialincomeResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryPersonalSocialincomeResponse) SetResultMsg(v string) *QueryPersonalSocialincomeResponse {
+func (s *QueryPdataSocialincomeResponse) SetResultMsg(v string) *QueryPdataSocialincomeResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryPersonalSocialincomeResponse) SetScoreResult(v string) *QueryPersonalSocialincomeResponse {
+func (s *QueryPdataSocialincomeResponse) SetScoreResult(v string) *QueryPdataSocialincomeResponse {
 	s.ScoreResult = &v
 	return s
 }
 
-func (s *QueryPersonalSocialincomeResponse) SetRangeScore(v string) *QueryPersonalSocialincomeResponse {
+func (s *QueryPdataSocialincomeResponse) SetRangeScore(v string) *QueryPdataSocialincomeResponse {
 	s.RangeScore = &v
 	return s
 }
 
-func (s *QueryPersonalSocialincomeResponse) SetHistoryScore(v string) *QueryPersonalSocialincomeResponse {
+func (s *QueryPdataSocialincomeResponse) SetHistoryScore(v string) *QueryPdataSocialincomeResponse {
 	s.HistoryScore = &v
 	return s
 }
 
-func (s *QueryPersonalSocialincomeResponse) SetStabilityScore(v string) *QueryPersonalSocialincomeResponse {
+func (s *QueryPdataSocialincomeResponse) SetStabilityScore(v string) *QueryPdataSocialincomeResponse {
 	s.StabilityScore = &v
 	return s
 }
@@ -4459,7 +4459,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.0"),
+				"sdk_version":      tea.String("1.7.2"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5339,11 +5339,11 @@ func (client *Client) QueryPdataPersonalincomeEx(request *QueryPdataPersonalinco
  * Description: 收入评估服务B
  * Summary: 收入评估服务B
  */
-func (client *Client) QueryPersonalSocialincome(request *QueryPersonalSocialincomeRequest) (_result *QueryPersonalSocialincomeResponse, _err error) {
+func (client *Client) QueryPdataSocialincome(request *QueryPdataSocialincomeRequest) (_result *QueryPdataSocialincomeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryPersonalSocialincomeResponse{}
-	_body, _err := client.QueryPersonalSocialincomeEx(request, headers, runtime)
+	_result = &QueryPdataSocialincomeResponse{}
+	_body, _err := client.QueryPdataSocialincomeEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -5355,13 +5355,13 @@ func (client *Client) QueryPersonalSocialincome(request *QueryPersonalSocialinco
  * Description: 收入评估服务B
  * Summary: 收入评估服务B
  */
-func (client *Client) QueryPersonalSocialincomeEx(request *QueryPersonalSocialincomeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPersonalSocialincomeResponse, _err error) {
+func (client *Client) QueryPdataSocialincomeEx(request *QueryPdataSocialincomeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPdataSocialincomeResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryPersonalSocialincomeResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.personal.socialincome.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &QueryPdataSocialincomeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.pdata.socialincome.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
