@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.0',
+    sdk_version = '1.7.2',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -1792,7 +1792,7 @@ async function queryPdataPersonalincomeEx(request: QueryPdataPersonalincomeReque
   return doRequest('1.0' ,'blockchain.tax.pdata.personalincome.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryPersonalSocialincomeRequest = {
+model QueryPdataSocialincomeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -1812,7 +1812,7 @@ model QueryPersonalSocialincomeRequest = {
   credentialType?: string(name='credential_type'),
 }
 
-model QueryPersonalSocialincomeResponse = {
+model QueryPdataSocialincomeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -1833,19 +1833,19 @@ model QueryPersonalSocialincomeResponse = {
  * Description: 收入评估服务B
  * Summary: 收入评估服务B
  */
-async function queryPersonalSocialincome(request: QueryPersonalSocialincomeRequest): QueryPersonalSocialincomeResponse {
+async function queryPdataSocialincome(request: QueryPdataSocialincomeRequest): QueryPdataSocialincomeResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryPersonalSocialincomeEx(request, headers, runtime);
+  return queryPdataSocialincomeEx(request, headers, runtime);
 }
 
 /**
  * Description: 收入评估服务B
  * Summary: 收入评估服务B
  */
-async function queryPersonalSocialincomeEx(request: QueryPersonalSocialincomeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPersonalSocialincomeResponse {
+async function queryPdataSocialincomeEx(request: QueryPdataSocialincomeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPdataSocialincomeResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.tax.personal.socialincome.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.tax.pdata.socialincome.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CheckPdataMarriageRequest = {
