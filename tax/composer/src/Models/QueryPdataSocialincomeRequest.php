@@ -6,7 +6,7 @@ namespace AntChain\TAX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryPersonalSocialincomeRequest extends Model
+class QueryPdataSocialincomeRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -113,7 +113,7 @@ class QueryPersonalSocialincomeRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryPersonalSocialincomeRequest
+     * @return QueryPdataSocialincomeRequest
      */
     public static function fromMap($map = [])
     {

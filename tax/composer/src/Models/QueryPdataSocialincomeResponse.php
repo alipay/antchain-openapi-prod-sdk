@@ -6,7 +6,7 @@ namespace AntChain\TAX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryPersonalSocialincomeResponse extends Model
+class QueryPdataSocialincomeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -94,7 +94,7 @@ class QueryPersonalSocialincomeResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryPersonalSocialincomeResponse
+     * @return QueryPdataSocialincomeResponse
      */
     public static function fromMap($map = [])
     {

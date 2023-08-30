@@ -59,8 +59,8 @@ use AntChain\TAX\Models\QueryIcmSimpleauthRequest;
 use AntChain\TAX\Models\QueryIcmSimpleauthResponse;
 use AntChain\TAX\Models\QueryPdataPersonalincomeRequest;
 use AntChain\TAX\Models\QueryPdataPersonalincomeResponse;
-use AntChain\TAX\Models\QueryPersonalSocialincomeRequest;
-use AntChain\TAX\Models\QueryPersonalSocialincomeResponse;
+use AntChain\TAX\Models\QueryPdataSocialincomeRequest;
+use AntChain\TAX\Models\QueryPdataSocialincomeResponse;
 use AntChain\TAX\Models\QueryRiskEvaluationRequest;
 use AntChain\TAX\Models\QueryRiskEvaluationResponse;
 use AntChain\Util\UtilClient;
@@ -210,7 +210,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.0',
+                    'sdk_version'      => '1.7.2',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1056,33 +1056,33 @@ class Client
      * Description: 收入评估服务B
      * Summary: 收入评估服务B.
      *
-     * @param QueryPersonalSocialincomeRequest $request
+     * @param QueryPdataSocialincomeRequest $request
      *
-     * @return QueryPersonalSocialincomeResponse
+     * @return QueryPdataSocialincomeResponse
      */
-    public function queryPersonalSocialincome($request)
+    public function queryPdataSocialincome($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryPersonalSocialincomeEx($request, $headers, $runtime);
+        return $this->queryPdataSocialincomeEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 收入评估服务B
      * Summary: 收入评估服务B.
      *
-     * @param QueryPersonalSocialincomeRequest $request
-     * @param string[]                         $headers
-     * @param RuntimeOptions                   $runtime
+     * @param QueryPdataSocialincomeRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
      *
-     * @return QueryPersonalSocialincomeResponse
+     * @return QueryPdataSocialincomeResponse
      */
-    public function queryPersonalSocialincomeEx($request, $headers, $runtime)
+    public function queryPdataSocialincomeEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryPersonalSocialincomeResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.personal.socialincome.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryPdataSocialincomeResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.pdata.socialincome.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
