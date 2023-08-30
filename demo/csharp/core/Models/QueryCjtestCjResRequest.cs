@@ -28,6 +28,16 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=true)]
         public long? Test2 { get; set; }
 
+        // test
+        [NameInMap("test3")]
+        [Validation(Required=true)]
+        public List<long?> Test3 { get; set; }
+
+        // testclass
+        [NameInMap("testclass")]
+        [Validation(Required=true)]
+        public Host Testclass { get; set; }
+
     }
 
 }

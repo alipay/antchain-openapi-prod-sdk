@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.211"},
+                        {"sdk_version", "1.0.212"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.211"},
+                        {"sdk_version", "1.0.212"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -620,48 +620,6 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: sss
-         * Summary: ss
-         */
-        public BindSssSsSsResponse BindSssSsSs(BindSssSsSsRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return BindSssSsSsEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: sss
-         * Summary: ss
-         */
-        public async Task<BindSssSsSsResponse> BindSssSsSsAsync(BindSssSsSsRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await BindSssSsSsExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: sss
-         * Summary: ss
-         */
-        public BindSssSsSsResponse BindSssSsSsEx(BindSssSsSsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<BindSssSsSsResponse>(DoRequest("1.0", "demo.sss.ss.ss.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: sss
-         * Summary: ss
-         */
-        public async Task<BindSssSsSsResponse> BindSssSsSsExAsync(BindSssSsSsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<BindSssSsSsResponse>(await DoRequestAsync("1.0", "demo.sss.ss.ss.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
          * Description: aaa
          * Summary: 测试demo
          */
@@ -914,7 +872,7 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: 简介简介简介
+         * Description: 简介简介简介s
          * Summary: 简介简介
          */
         public QueryAdAsdAsdResponse QueryAdAsdAsd(QueryAdAsdAsdRequest request)
@@ -925,7 +883,7 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: 简介简介简介
+         * Description: 简介简介简介s
          * Summary: 简介简介
          */
         public async Task<QueryAdAsdAsdResponse> QueryAdAsdAsdAsync(QueryAdAsdAsdRequest request)
@@ -936,7 +894,7 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: 简介简介简介
+         * Description: 简介简介简介s
          * Summary: 简介简介
          */
         public QueryAdAsdAsdResponse QueryAdAsdAsdEx(QueryAdAsdAsdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -946,7 +904,7 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: 简介简介简介
+         * Description: 简介简介简介s
          * Summary: 简介简介
          */
         public async Task<QueryAdAsdAsdResponse> QueryAdAsdAsdExAsync(QueryAdAsdAsdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
