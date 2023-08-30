@@ -21,6 +21,16 @@ public class QueryCjtestCjResRequest extends TeaModel {
     @Validation(required = true, maximum = 200, minimum = 100)
     public Long test2;
 
+    // test
+    @NameInMap("test3")
+    @Validation(required = true)
+    public java.util.List<Long> test3;
+
+    // testclass
+    @NameInMap("testclass")
+    @Validation(required = true)
+    public Host testclass;
+
     public static QueryCjtestCjResRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryCjtestCjResRequest self = new QueryCjtestCjResRequest();
         return TeaModel.build(map, self);
@@ -56,6 +66,22 @@ public class QueryCjtestCjResRequest extends TeaModel {
     }
     public Long getTest2() {
         return this.test2;
+    }
+
+    public QueryCjtestCjResRequest setTest3(java.util.List<Long> test3) {
+        this.test3 = test3;
+        return this;
+    }
+    public java.util.List<Long> getTest3() {
+        return this.test3;
+    }
+
+    public QueryCjtestCjResRequest setTestclass(Host testclass) {
+        this.testclass = testclass;
+        return this;
+    }
+    public Host getTestclass() {
+        return this.testclass;
     }
 
 }
