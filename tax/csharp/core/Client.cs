@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.0"},
+                        {"sdk_version", "1.7.2"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.0"},
+                        {"sdk_version", "1.7.2"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1337,42 +1337,42 @@ namespace AntChain.SDK.TAX
          * Description: 收入评估服务B
          * Summary: 收入评估服务B
          */
-        public QueryPersonalSocialincomeResponse QueryPersonalSocialincome(QueryPersonalSocialincomeRequest request)
+        public QueryPdataSocialincomeResponse QueryPdataSocialincome(QueryPdataSocialincomeRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryPersonalSocialincomeEx(request, headers, runtime);
+            return QueryPdataSocialincomeEx(request, headers, runtime);
         }
 
         /**
          * Description: 收入评估服务B
          * Summary: 收入评估服务B
          */
-        public async Task<QueryPersonalSocialincomeResponse> QueryPersonalSocialincomeAsync(QueryPersonalSocialincomeRequest request)
+        public async Task<QueryPdataSocialincomeResponse> QueryPdataSocialincomeAsync(QueryPdataSocialincomeRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryPersonalSocialincomeExAsync(request, headers, runtime);
+            return await QueryPdataSocialincomeExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 收入评估服务B
          * Summary: 收入评估服务B
          */
-        public QueryPersonalSocialincomeResponse QueryPersonalSocialincomeEx(QueryPersonalSocialincomeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public QueryPdataSocialincomeResponse QueryPdataSocialincomeEx(QueryPdataSocialincomeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryPersonalSocialincomeResponse>(DoRequest("1.0", "blockchain.tax.personal.socialincome.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryPdataSocialincomeResponse>(DoRequest("1.0", "blockchain.tax.pdata.socialincome.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 收入评估服务B
          * Summary: 收入评估服务B
          */
-        public async Task<QueryPersonalSocialincomeResponse> QueryPersonalSocialincomeExAsync(QueryPersonalSocialincomeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<QueryPdataSocialincomeResponse> QueryPdataSocialincomeExAsync(QueryPdataSocialincomeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryPersonalSocialincomeResponse>(await DoRequestAsync("1.0", "blockchain.tax.personal.socialincome.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryPdataSocialincomeResponse>(await DoRequestAsync("1.0", "blockchain.tax.pdata.socialincome.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
