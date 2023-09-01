@@ -53,6 +53,8 @@ use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeRequest;
 use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeResponse;
 use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseRequest;
 use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseResponse;
+use AntChain\REALPERSON\Models\QueryTscenterDeviceRequest;
+use AntChain\REALPERSON\Models\QueryTscenterDeviceResponse;
 use AntChain\REALPERSON\Models\RecognizeDocIndividualcardRequest;
 use AntChain\REALPERSON\Models\RecognizeDocIndividualcardResponse;
 use AntChain\REALPERSON\Models\VerifyFacevrfZimRequest;
@@ -206,7 +208,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.0',
+                    'sdk_version'      => '1.13.0',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1029,6 +1031,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryThreemetaPhonereuseResponse::fromMap($this->doRequest('1.0', 'di.realperson.threemeta.phonereuse.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询设备信息
+     * Summary: 设备信息查询for蚁盾.
+     *
+     * @param QueryTscenterDeviceRequest $request
+     *
+     * @return QueryTscenterDeviceResponse
+     */
+    public function queryTscenterDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTscenterDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询设备信息
+     * Summary: 设备信息查询for蚁盾.
+     *
+     * @param QueryTscenterDeviceRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryTscenterDeviceResponse
+     */
+    public function queryTscenterDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTscenterDeviceResponse::fromMap($this->doRequest('1.0', 'di.realperson.tscenter.device.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
