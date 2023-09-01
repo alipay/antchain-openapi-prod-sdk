@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.0"},
+                        {"sdk_version", "1.13.0"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.0"},
+                        {"sdk_version", "1.13.0"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1331,6 +1331,48 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryThreemetaPhonereuseResponse>(await DoRequestAsync("1.0", "di.realperson.threemeta.phonereuse.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询设备信息
+         * Summary: 设备信息查询for蚁盾
+         */
+        public QueryTscenterDeviceResponse QueryTscenterDevice(QueryTscenterDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTscenterDeviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询设备信息
+         * Summary: 设备信息查询for蚁盾
+         */
+        public async Task<QueryTscenterDeviceResponse> QueryTscenterDeviceAsync(QueryTscenterDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTscenterDeviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询设备信息
+         * Summary: 设备信息查询for蚁盾
+         */
+        public QueryTscenterDeviceResponse QueryTscenterDeviceEx(QueryTscenterDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTscenterDeviceResponse>(DoRequest("1.0", "di.realperson.tscenter.device.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询设备信息
+         * Summary: 设备信息查询for蚁盾
+         */
+        public async Task<QueryTscenterDeviceResponse> QueryTscenterDeviceExAsync(QueryTscenterDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTscenterDeviceResponse>(await DoRequestAsync("1.0", "di.realperson.tscenter.device.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
