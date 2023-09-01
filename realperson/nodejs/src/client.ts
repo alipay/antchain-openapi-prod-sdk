@@ -2238,6 +2238,77 @@ export class QueryThreemetaPhonereuseResponse extends $tea.Model {
   }
 }
 
+export class QueryTscenterDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备token
+  apdidToken?: string;
+  // appname
+  appName?: string;
+  // app key client
+  appKeyClient?: string;
+  // app key server
+  appKeyServer?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      apdidToken: 'apdid_token',
+      appName: 'app_name',
+      appKeyClient: 'app_key_client',
+      appKeyServer: 'app_key_server',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      apdidToken: 'string',
+      appName: 'string',
+      appKeyClient: 'string',
+      appKeyServer: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTscenterDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 设备信息字符串
+  deviceInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      deviceInfo: 'device_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      deviceInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2439,7 +2510,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.0",
+          sdk_version: "1.13.0",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -2943,6 +3014,25 @@ export default class Client {
   async queryThreemetaPhonereuseEx(request: QueryThreemetaPhonereuseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryThreemetaPhonereuseResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryThreemetaPhonereuseResponse>(await this.doRequest("1.0", "di.realperson.threemeta.phonereuse.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryThreemetaPhonereuseResponse({}));
+  }
+
+  /**
+   * Description: 查询设备信息
+   * Summary: 设备信息查询for蚁盾
+   */
+  async queryTscenterDevice(request: QueryTscenterDeviceRequest): Promise<QueryTscenterDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTscenterDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询设备信息
+   * Summary: 设备信息查询for蚁盾
+   */
+  async queryTscenterDeviceEx(request: QueryTscenterDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTscenterDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTscenterDeviceResponse>(await this.doRequest("1.0", "di.realperson.tscenter.device.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTscenterDeviceResponse({}));
   }
 
   /**
