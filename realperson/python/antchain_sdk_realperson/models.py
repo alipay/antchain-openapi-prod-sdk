@@ -3661,6 +3661,117 @@ class QueryThreemetaPhonereuseResponse(TeaModel):
         return self
 
 
+class QueryTscenterDeviceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        apdid_token: str = None,
+        app_name: str = None,
+        app_key_client: str = None,
+        app_key_server: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备token
+        self.apdid_token = apdid_token
+        # appname
+        self.app_name = app_name
+        # app key client
+        self.app_key_client = app_key_client
+        # app key server
+        self.app_key_server = app_key_server
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.apdid_token is not None:
+            result['apdid_token'] = self.apdid_token
+        if self.app_name is not None:
+            result['app_name'] = self.app_name
+        if self.app_key_client is not None:
+            result['app_key_client'] = self.app_key_client
+        if self.app_key_server is not None:
+            result['app_key_server'] = self.app_key_server
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('apdid_token') is not None:
+            self.apdid_token = m.get('apdid_token')
+        if m.get('app_name') is not None:
+            self.app_name = m.get('app_name')
+        if m.get('app_key_client') is not None:
+            self.app_key_client = m.get('app_key_client')
+        if m.get('app_key_server') is not None:
+            self.app_key_server = m.get('app_key_server')
+        return self
+
+
+class QueryTscenterDeviceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        device_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 设备信息字符串
+        self.device_info = device_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.device_info is not None:
+            result['device_info'] = self.device_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('device_info') is not None:
+            self.device_info = m.get('device_info')
+        return self
+
+
 class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,
