@@ -3095,6 +3095,97 @@ func (s *QueryThreemetaPhonereuseResponse) SetExternInfo(v string) *QueryThreeme
 	return s
 }
 
+type QueryTscenterDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备token
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty"`
+	// appname
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// app key client
+	AppKeyClient *string `json:"app_key_client,omitempty" xml:"app_key_client,omitempty"`
+	// app key server
+	AppKeyServer *string `json:"app_key_server,omitempty" xml:"app_key_server,omitempty"`
+}
+
+func (s QueryTscenterDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTscenterDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTscenterDeviceRequest) SetAuthToken(v string) *QueryTscenterDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceRequest) SetProductInstanceId(v string) *QueryTscenterDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceRequest) SetApdidToken(v string) *QueryTscenterDeviceRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceRequest) SetAppName(v string) *QueryTscenterDeviceRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceRequest) SetAppKeyClient(v string) *QueryTscenterDeviceRequest {
+	s.AppKeyClient = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceRequest) SetAppKeyServer(v string) *QueryTscenterDeviceRequest {
+	s.AppKeyServer = &v
+	return s
+}
+
+type QueryTscenterDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备信息字符串
+	DeviceInfo *string `json:"device_info,omitempty" xml:"device_info,omitempty"`
+}
+
+func (s QueryTscenterDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTscenterDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTscenterDeviceResponse) SetReqMsgId(v string) *QueryTscenterDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceResponse) SetResultCode(v string) *QueryTscenterDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceResponse) SetResultMsg(v string) *QueryTscenterDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceResponse) SetDeviceInfo(v string) *QueryTscenterDeviceResponse {
+	s.DeviceInfo = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3337,7 +3428,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.0"),
+				"sdk_version":      tea.String("1.13.0"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4199,6 +4290,40 @@ func (client *Client) QueryThreemetaPhonereuseEx(request *QueryThreemetaPhonereu
 	}
 	_result = &QueryThreemetaPhonereuseResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.threemeta.phonereuse.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询设备信息
+ * Summary: 设备信息查询for蚁盾
+ */
+func (client *Client) QueryTscenterDevice(request *QueryTscenterDeviceRequest) (_result *QueryTscenterDeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTscenterDeviceResponse{}
+	_body, _err := client.QueryTscenterDeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询设备信息
+ * Summary: 设备信息查询for蚁盾
+ */
+func (client *Client) QueryTscenterDeviceEx(request *QueryTscenterDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTscenterDeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTscenterDeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.tscenter.device.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
