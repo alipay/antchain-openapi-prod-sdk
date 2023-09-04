@@ -243,6 +243,32 @@ func (s *SignUrlResp) SetSignFiledId(v string) *SignUrlResp {
 	return s
 }
 
+// 退保失败订单信息
+type FailOrderInfo struct {
+	// 退保失败订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 失败原因
+	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty" require:"true"`
+}
+
+func (s FailOrderInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FailOrderInfo) GoString() string {
+	return s.String()
+}
+
+func (s *FailOrderInfo) SetOrderNo(v string) *FailOrderInfo {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *FailOrderInfo) SetFailReason(v string) *FailOrderInfo {
+	s.FailReason = &v
+	return s
+}
+
 // 用户签署信息
 type SignUserInfo struct {
 	// 身份证号
@@ -273,6 +299,46 @@ func (s *SignUserInfo) SetName(v string) *SignUserInfo {
 
 func (s *SignUserInfo) SetSignAreaList(v []*SignatoryInfo) *SignUserInfo {
 	s.SignAreaList = v
+	return s
+}
+
+// 员工信息
+type InsureEmployeeInfo struct {
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 额外信息
+	ExtraMsg *string `json:"extra_msg,omitempty" xml:"extra_msg,omitempty" require:"true"`
+}
+
+func (s InsureEmployeeInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InsureEmployeeInfo) GoString() string {
+	return s.String()
+}
+
+func (s *InsureEmployeeInfo) SetName(v string) *InsureEmployeeInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *InsureEmployeeInfo) SetCertNo(v string) *InsureEmployeeInfo {
+	s.CertNo = &v
+	return s
+}
+
+func (s *InsureEmployeeInfo) SetMobile(v string) *InsureEmployeeInfo {
+	s.Mobile = &v
+	return s
+}
+
+func (s *InsureEmployeeInfo) SetExtraMsg(v string) *InsureEmployeeInfo {
+	s.ExtraMsg = &v
 	return s
 }
 
@@ -354,6 +420,62 @@ func (s *SignEnterpriseInfo) SetSignType(v int64) *SignEnterpriseInfo {
 
 func (s *SignEnterpriseInfo) SetSignAreaList(v []*SignatoryInfo) *SignEnterpriseInfo {
 	s.SignAreaList = v
+	return s
+}
+
+// 保险产品类
+type InsureProductInfo struct {
+	// 产品名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 产品id
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true"`
+	// 险种编码:
+	// ACCIDENT: 意外险
+	// EMPLOYER: 雇主险
+	InsuranceTypeCode *string `json:"insurance_type_code,omitempty" xml:"insurance_type_code,omitempty" require:"true"`
+	// 推荐编码
+	RecomFlowNo *string `json:"recom_flow_no,omitempty" xml:"recom_flow_no,omitempty"`
+	// 最低价格（分）
+	Premium *int64 `json:"premium,omitempty" xml:"premium,omitempty"`
+	// 保额（分）
+	SumInsured *int64 `json:"sum_insured,omitempty" xml:"sum_insured,omitempty"`
+}
+
+func (s InsureProductInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InsureProductInfo) GoString() string {
+	return s.String()
+}
+
+func (s *InsureProductInfo) SetName(v string) *InsureProductInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *InsureProductInfo) SetProductId(v string) *InsureProductInfo {
+	s.ProductId = &v
+	return s
+}
+
+func (s *InsureProductInfo) SetInsuranceTypeCode(v string) *InsureProductInfo {
+	s.InsuranceTypeCode = &v
+	return s
+}
+
+func (s *InsureProductInfo) SetRecomFlowNo(v string) *InsureProductInfo {
+	s.RecomFlowNo = &v
+	return s
+}
+
+func (s *InsureProductInfo) SetPremium(v int64) *InsureProductInfo {
+	s.Premium = &v
+	return s
+}
+
+func (s *InsureProductInfo) SetSumInsured(v int64) *InsureProductInfo {
+	s.SumInsured = &v
 	return s
 }
 
@@ -656,6 +778,883 @@ func (s *QueryAntsaasStaffingcContractSignResponse) SetSignUrlList(v []*SignUrlR
 	return s
 }
 
+type QueryAntsaasStaffingcEpcertificationUrlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 一次认证的唯一标识,在商户调用认证初始化接口的时候获取
+	// (如果接口创建接口发生未知异常，可使用out_biz_no替代，查询状态）
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true"`
+}
+
+func (s QueryAntsaasStaffingcEpcertificationUrlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntsaasStaffingcEpcertificationUrlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationUrlRequest) SetAuthToken(v string) *QueryAntsaasStaffingcEpcertificationUrlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationUrlRequest) SetProductInstanceId(v string) *QueryAntsaasStaffingcEpcertificationUrlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationUrlRequest) SetBizNo(v string) *QueryAntsaasStaffingcEpcertificationUrlRequest {
+	s.BizNo = &v
+	return s
+}
+
+type QueryAntsaasStaffingcEpcertificationUrlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// // 响应为表单格式，可嵌入页面，具体以返回的结果为准
+	ResultBody *string `json:"result_body,omitempty" xml:"result_body,omitempty"`
+	// 订单号（但入参为out_biz_no时传入）
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty"`
+}
+
+func (s QueryAntsaasStaffingcEpcertificationUrlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntsaasStaffingcEpcertificationUrlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationUrlResponse) SetReqMsgId(v string) *QueryAntsaasStaffingcEpcertificationUrlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationUrlResponse) SetResultCode(v string) *QueryAntsaasStaffingcEpcertificationUrlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationUrlResponse) SetResultMsg(v string) *QueryAntsaasStaffingcEpcertificationUrlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationUrlResponse) SetResultBody(v string) *QueryAntsaasStaffingcEpcertificationUrlResponse {
+	s.ResultBody = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationUrlResponse) SetBizNo(v string) *QueryAntsaasStaffingcEpcertificationUrlResponse {
+	s.BizNo = &v
+	return s
+}
+
+type CreateAntsaasStaffingcEpcertificationAuthorizeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 需要保证唯一，外部订单号
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+	// 企业全称
+	EpName *string `json:"ep_name,omitempty" xml:"ep_name,omitempty" require:"true"`
+	// 统一社会信用代码或营业执照注册号
+	EpCertNo *string `json:"ep_cert_no,omitempty" xml:"ep_cert_no,omitempty" require:"true"`
+	// 认证完成后，跳转到指定url地址
+	ReturnUrl *string `json:"return_url,omitempty" xml:"return_url,omitempty"`
+}
+
+func (s CreateAntsaasStaffingcEpcertificationAuthorizeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntsaasStaffingcEpcertificationAuthorizeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntsaasStaffingcEpcertificationAuthorizeRequest) SetAuthToken(v string) *CreateAntsaasStaffingcEpcertificationAuthorizeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntsaasStaffingcEpcertificationAuthorizeRequest) SetProductInstanceId(v string) *CreateAntsaasStaffingcEpcertificationAuthorizeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateAntsaasStaffingcEpcertificationAuthorizeRequest) SetOutBizNo(v string) *CreateAntsaasStaffingcEpcertificationAuthorizeRequest {
+	s.OutBizNo = &v
+	return s
+}
+
+func (s *CreateAntsaasStaffingcEpcertificationAuthorizeRequest) SetEpName(v string) *CreateAntsaasStaffingcEpcertificationAuthorizeRequest {
+	s.EpName = &v
+	return s
+}
+
+func (s *CreateAntsaasStaffingcEpcertificationAuthorizeRequest) SetEpCertNo(v string) *CreateAntsaasStaffingcEpcertificationAuthorizeRequest {
+	s.EpCertNo = &v
+	return s
+}
+
+func (s *CreateAntsaasStaffingcEpcertificationAuthorizeRequest) SetReturnUrl(v string) *CreateAntsaasStaffingcEpcertificationAuthorizeRequest {
+	s.ReturnUrl = &v
+	return s
+}
+
+type CreateAntsaasStaffingcEpcertificationAuthorizeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 一次认证的唯一标识
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty"`
+}
+
+func (s CreateAntsaasStaffingcEpcertificationAuthorizeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntsaasStaffingcEpcertificationAuthorizeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntsaasStaffingcEpcertificationAuthorizeResponse) SetReqMsgId(v string) *CreateAntsaasStaffingcEpcertificationAuthorizeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntsaasStaffingcEpcertificationAuthorizeResponse) SetResultCode(v string) *CreateAntsaasStaffingcEpcertificationAuthorizeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntsaasStaffingcEpcertificationAuthorizeResponse) SetResultMsg(v string) *CreateAntsaasStaffingcEpcertificationAuthorizeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntsaasStaffingcEpcertificationAuthorizeResponse) SetBizNo(v string) *CreateAntsaasStaffingcEpcertificationAuthorizeResponse {
+	s.BizNo = &v
+	return s
+}
+
+type QueryAntsaasStaffingcEpcertificationRiskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 一次认证的唯一标识,在调用认证初始化接口的时候获取
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true"`
+	// 企业全称
+	EpName *string `json:"ep_name,omitempty" xml:"ep_name,omitempty" require:"true"`
+	// 统一社会信用代码或营业执照注册号
+	EpCertNo *string `json:"ep_cert_no,omitempty" xml:"ep_cert_no,omitempty" require:"true"`
+}
+
+func (s QueryAntsaasStaffingcEpcertificationRiskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntsaasStaffingcEpcertificationRiskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskRequest) SetAuthToken(v string) *QueryAntsaasStaffingcEpcertificationRiskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskRequest) SetProductInstanceId(v string) *QueryAntsaasStaffingcEpcertificationRiskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskRequest) SetBizNo(v string) *QueryAntsaasStaffingcEpcertificationRiskRequest {
+	s.BizNo = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskRequest) SetEpName(v string) *QueryAntsaasStaffingcEpcertificationRiskRequest {
+	s.EpName = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskRequest) SetEpCertNo(v string) *QueryAntsaasStaffingcEpcertificationRiskRequest {
+	s.EpCertNo = &v
+	return s
+}
+
+type QueryAntsaasStaffingcEpcertificationRiskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证状态，取值如下： SUCCESS，代表成功 INIT，代表初始化 CERTIFYING，代表认证中 FAIL，代表失败
+	CertifyStatus *string `json:"certify_status,omitempty" xml:"certify_status,omitempty"`
+	// 授权状态，从用户授权开始计时，时间窗口3天 取值如下： SUCCESS，代表用户已授权 FAIL，代表用户未授权或授权失效
+	AuthStatus *string `json:"auth_status,omitempty" xml:"auth_status,omitempty"`
+	// 企业全称，字段auth_status为SUCCESS时返回
+	EpName *string `json:"ep_name,omitempty" xml:"ep_name,omitempty"`
+	// 统一社会信用代码或营业执照注册号，字段auth_status为SUCCESS时返回
+	EpCertNo *string `json:"ep_cert_no,omitempty" xml:"ep_cert_no,omitempty"`
+	// 法人认证姓名，字段auth_status为SUCCESS时返回
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
+	// 法人认证身份证号
+	CertifyPersonCardNoPostfix *string `json:"certify_person_card_no_postfix,omitempty" xml:"certify_person_card_no_postfix,omitempty"`
+	// 认证失败原因列表，当certify_status=FAIL时返回
+	CertifyFailReasons []*string `json:"certify_fail_reasons,omitempty" xml:"certify_fail_reasons,omitempty" type:"Repeated"`
+	// 认证风险识别结果集合
+	// 枚举值
+	// 低风险认证: CERTIFICATION_LOW_RISK
+	// 中风险认证: CERTIFICATION_MID_RISK2
+	// 高风险认证: CERTIFICATION_HIGH_RISK
+	// 批量注册: ONE_ADDR_MULTI_COMP
+	// 经营异常: OPERATION_ABNORMAL
+	// 交叉任职: CROSS_POSITION
+	// 涉嫌洗钱: SUSPECTED_MONEY_LAUNDERING
+	// 空壳公司: SHELL_COMPANY
+	// 失信被执行: BREACH_PROMISE_EXECUTION
+	// 严重违法失信: SERIOUS_BREACH_TRUST
+	// 行政处罚: ADMINISTRATIVE_SANCTION
+	// 司法冻结: JUDICIAL_FREEZE
+	// 违规违禁: VIOLATION_BAN
+	// 信贷逾期: CREDIT_OVERDUE
+	// 多头借贷: LONG_BORROWING
+	// 疑似欺诈: SUSPECTED_FRAUD
+	// 疑似涉赌博: SUSPECTED_GAMBLING
+	// 企业芝麻证: LI_XIN_CERTIFICATE
+	RiskIdentifyResult []*string `json:"risk_identify_result,omitempty" xml:"risk_identify_result,omitempty" type:"Repeated"`
+	// 空壳企业等级，描述企业空壳程度。
+	// 枚举值
+	// 优秀企业，没有空壳企业的常见特征，且有很多正向特征证明其正常经营: A+
+	// 较为优秀的企业，没有空壳企业的常见特征，且有较多正向特征证明其正常经营: A
+	// 较为优秀的企业，几乎没有空壳企业的常见特征，或者有较多正向特征证明其正常经营: B
+	// 普通企业，一般没有空壳企业的常见特征，或者有很少量能反映其正常经营的数据: M+
+	// 普通企业或者新注册的企业，一般没有空壳企业的常见特征，但是也没有太多能反映其在正常生产经营的数据: M
+	// 普通企业，一般没有明显空壳企业的常见特征，也没有太多能反映其在正常生产经营的数据，可能和空壳企业有少量交集: M-
+	// 较差企业，有部分空壳企业特征，可能有较少能反映其在正常生产经营的数据。建议这部分企业酌情考虑风险: C+
+	// 差企业，有较多空壳企业特征，几乎没有能反映其在正常生产经营的数据: C
+	// 差企业，有很多明显空壳企业特征，几乎没有能反映其在正常生产经营的数据: D
+	ShellCompanyLevel *string `json:"shell_company_level,omitempty" xml:"shell_company_level,omitempty"`
+}
+
+func (s QueryAntsaasStaffingcEpcertificationRiskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntsaasStaffingcEpcertificationRiskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskResponse) SetReqMsgId(v string) *QueryAntsaasStaffingcEpcertificationRiskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskResponse) SetResultCode(v string) *QueryAntsaasStaffingcEpcertificationRiskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskResponse) SetResultMsg(v string) *QueryAntsaasStaffingcEpcertificationRiskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskResponse) SetCertifyStatus(v string) *QueryAntsaasStaffingcEpcertificationRiskResponse {
+	s.CertifyStatus = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskResponse) SetAuthStatus(v string) *QueryAntsaasStaffingcEpcertificationRiskResponse {
+	s.AuthStatus = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskResponse) SetEpName(v string) *QueryAntsaasStaffingcEpcertificationRiskResponse {
+	s.EpName = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskResponse) SetEpCertNo(v string) *QueryAntsaasStaffingcEpcertificationRiskResponse {
+	s.EpCertNo = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskResponse) SetUserName(v string) *QueryAntsaasStaffingcEpcertificationRiskResponse {
+	s.UserName = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskResponse) SetCertifyPersonCardNoPostfix(v string) *QueryAntsaasStaffingcEpcertificationRiskResponse {
+	s.CertifyPersonCardNoPostfix = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskResponse) SetCertifyFailReasons(v []*string) *QueryAntsaasStaffingcEpcertificationRiskResponse {
+	s.CertifyFailReasons = v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskResponse) SetRiskIdentifyResult(v []*string) *QueryAntsaasStaffingcEpcertificationRiskResponse {
+	s.RiskIdentifyResult = v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcEpcertificationRiskResponse) SetShellCompanyLevel(v string) *QueryAntsaasStaffingcEpcertificationRiskResponse {
+	s.ShellCompanyLevel = &v
+	return s
+}
+
+type ApplyAntsaasStaffingcInsureSignurlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业名称
+	EnterpriseName *string `json:"enterprise_name,omitempty" xml:"enterprise_name,omitempty" require:"true"`
+	// 社会信用代码
+	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty" require:"true"`
+	// 签约支付宝账号（企业支付宝是邮箱）
+	AuthAccount *string `json:"auth_account,omitempty" xml:"auth_account,omitempty" require:"true"`
+	// 联系手机号（用于接收投保失败等短信通知）
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 外部业务号(64长度以内）
+	//
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+}
+
+func (s ApplyAntsaasStaffingcInsureSignurlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyAntsaasStaffingcInsureSignurlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyAntsaasStaffingcInsureSignurlRequest) SetAuthToken(v string) *ApplyAntsaasStaffingcInsureSignurlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyAntsaasStaffingcInsureSignurlRequest) SetProductInstanceId(v string) *ApplyAntsaasStaffingcInsureSignurlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyAntsaasStaffingcInsureSignurlRequest) SetEnterpriseName(v string) *ApplyAntsaasStaffingcInsureSignurlRequest {
+	s.EnterpriseName = &v
+	return s
+}
+
+func (s *ApplyAntsaasStaffingcInsureSignurlRequest) SetSocialCreditCode(v string) *ApplyAntsaasStaffingcInsureSignurlRequest {
+	s.SocialCreditCode = &v
+	return s
+}
+
+func (s *ApplyAntsaasStaffingcInsureSignurlRequest) SetAuthAccount(v string) *ApplyAntsaasStaffingcInsureSignurlRequest {
+	s.AuthAccount = &v
+	return s
+}
+
+func (s *ApplyAntsaasStaffingcInsureSignurlRequest) SetMobile(v string) *ApplyAntsaasStaffingcInsureSignurlRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *ApplyAntsaasStaffingcInsureSignurlRequest) SetOutBizNo(v string) *ApplyAntsaasStaffingcInsureSignurlRequest {
+	s.OutBizNo = &v
+	return s
+}
+
+type ApplyAntsaasStaffingcInsureSignurlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 签约地址
+	SignUrl *string `json:"sign_url,omitempty" xml:"sign_url,omitempty"`
+}
+
+func (s ApplyAntsaasStaffingcInsureSignurlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyAntsaasStaffingcInsureSignurlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyAntsaasStaffingcInsureSignurlResponse) SetReqMsgId(v string) *ApplyAntsaasStaffingcInsureSignurlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyAntsaasStaffingcInsureSignurlResponse) SetResultCode(v string) *ApplyAntsaasStaffingcInsureSignurlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyAntsaasStaffingcInsureSignurlResponse) SetResultMsg(v string) *ApplyAntsaasStaffingcInsureSignurlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyAntsaasStaffingcInsureSignurlResponse) SetSignUrl(v string) *ApplyAntsaasStaffingcInsureSignurlResponse {
+	s.SignUrl = &v
+	return s
+}
+
+type ListAntsaasStaffingcInsureProductRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业名称
+	EnterpriseName *string `json:"enterprise_name,omitempty" xml:"enterprise_name,omitempty" require:"true"`
+	// 统一社会信用代码
+	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty" require:"true"`
+	// 保险场景码:
+	// FLEXIBLE_EMPLOYMENT-日单（实时生效）
+	// INITIATIVE_EMPLOYMENT-长期（次日0点生效）
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
+	// 险种编码:
+	//  ACCIDENT: 意外险
+	//  EMPLOYER_LIABILITY: 雇主险
+	InsuranceTypeCode *string `json:"insurance_type_code,omitempty" xml:"insurance_type_code,omitempty" require:"true"`
+}
+
+func (s ListAntsaasStaffingcInsureProductRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAntsaasStaffingcInsureProductRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListAntsaasStaffingcInsureProductRequest) SetAuthToken(v string) *ListAntsaasStaffingcInsureProductRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAntsaasStaffingcInsureProductRequest) SetProductInstanceId(v string) *ListAntsaasStaffingcInsureProductRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListAntsaasStaffingcInsureProductRequest) SetEnterpriseName(v string) *ListAntsaasStaffingcInsureProductRequest {
+	s.EnterpriseName = &v
+	return s
+}
+
+func (s *ListAntsaasStaffingcInsureProductRequest) SetSocialCreditCode(v string) *ListAntsaasStaffingcInsureProductRequest {
+	s.SocialCreditCode = &v
+	return s
+}
+
+func (s *ListAntsaasStaffingcInsureProductRequest) SetBizCode(v string) *ListAntsaasStaffingcInsureProductRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *ListAntsaasStaffingcInsureProductRequest) SetInsuranceTypeCode(v string) *ListAntsaasStaffingcInsureProductRequest {
+	s.InsuranceTypeCode = &v
+	return s
+}
+
+type ListAntsaasStaffingcInsureProductResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 保险产品列表
+	ProductList []*InsureProductInfo `json:"product_list,omitempty" xml:"product_list,omitempty" type:"Repeated"`
+}
+
+func (s ListAntsaasStaffingcInsureProductResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAntsaasStaffingcInsureProductResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListAntsaasStaffingcInsureProductResponse) SetReqMsgId(v string) *ListAntsaasStaffingcInsureProductResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListAntsaasStaffingcInsureProductResponse) SetResultCode(v string) *ListAntsaasStaffingcInsureProductResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListAntsaasStaffingcInsureProductResponse) SetResultMsg(v string) *ListAntsaasStaffingcInsureProductResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListAntsaasStaffingcInsureProductResponse) SetProductList(v []*InsureProductInfo) *ListAntsaasStaffingcInsureProductResponse {
+	s.ProductList = v
+	return s
+}
+
+type QueryAntsaasStaffingcInsurePriceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业名称
+	EnterpriseName *string `json:"enterprise_name,omitempty" xml:"enterprise_name,omitempty" require:"true"`
+	// 统一社会信用代码
+	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty" require:"true"`
+	// 产品ID
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true"`
+	// 职业编码:
+	// default-1-一类职业;
+	// default-2-二类职业;
+	// default-3-三类职业;
+	// default-4-四类职业;
+	JobCode *string `json:"job_code,omitempty" xml:"job_code,omitempty" require:"true"`
+	// 周期：
+	// 1D、
+	// 30D、
+	// 360D
+	Period *string `json:"period,omitempty" xml:"period,omitempty" require:"true"`
+}
+
+func (s QueryAntsaasStaffingcInsurePriceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntsaasStaffingcInsurePriceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntsaasStaffingcInsurePriceRequest) SetAuthToken(v string) *QueryAntsaasStaffingcInsurePriceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcInsurePriceRequest) SetProductInstanceId(v string) *QueryAntsaasStaffingcInsurePriceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcInsurePriceRequest) SetEnterpriseName(v string) *QueryAntsaasStaffingcInsurePriceRequest {
+	s.EnterpriseName = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcInsurePriceRequest) SetSocialCreditCode(v string) *QueryAntsaasStaffingcInsurePriceRequest {
+	s.SocialCreditCode = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcInsurePriceRequest) SetProductId(v string) *QueryAntsaasStaffingcInsurePriceRequest {
+	s.ProductId = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcInsurePriceRequest) SetJobCode(v string) *QueryAntsaasStaffingcInsurePriceRequest {
+	s.JobCode = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcInsurePriceRequest) SetPeriod(v string) *QueryAntsaasStaffingcInsurePriceRequest {
+	s.Period = &v
+	return s
+}
+
+type QueryAntsaasStaffingcInsurePriceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 价格
+	Price *int64 `json:"price,omitempty" xml:"price,omitempty"`
+}
+
+func (s QueryAntsaasStaffingcInsurePriceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntsaasStaffingcInsurePriceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntsaasStaffingcInsurePriceResponse) SetReqMsgId(v string) *QueryAntsaasStaffingcInsurePriceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcInsurePriceResponse) SetResultCode(v string) *QueryAntsaasStaffingcInsurePriceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcInsurePriceResponse) SetResultMsg(v string) *QueryAntsaasStaffingcInsurePriceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcInsurePriceResponse) SetPrice(v int64) *QueryAntsaasStaffingcInsurePriceResponse {
+	s.Price = &v
+	return s
+}
+
+type SendAntsaasStaffingcInsureRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部业务号（幂等、异步通知回传）
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+	// 企业名称
+	EnterpriseName *string `json:"enterprise_name,omitempty" xml:"enterprise_name,omitempty" require:"true"`
+	// 统一社会信用代码
+	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty" require:"true"`
+	// 保险场景码:
+	// FLEXIBLE_EMPLOYMENT-日单（实时生效）
+	// INITIATIVE_EMPLOYMENT- 长期（次日0点生效）
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
+	// 投保的险种编码:
+	// ACCIDENT: 意外险,
+	// EMPLOYER_LIABILITY: 雇主险
+	InsuranceTypeCode *string `json:"insurance_type_code,omitempty" xml:"insurance_type_code,omitempty" require:"true"`
+	// 产品ID
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true"`
+	// 职业编码:
+	// default-1-一类职业;
+	// default-2-二类职业;
+	// default-3-三类职业;
+	// default-4-四类职业;
+	// default-5-五类职业（雇主险60万和80万保额暂不支持）
+	JobCode *string `json:"job_code,omitempty" xml:"job_code,omitempty" require:"true"`
+	// 保障周期：30D、360D（bizCode为长期时必传）
+	Period *string `json:"period,omitempty" xml:"period,omitempty"`
+	// 推荐编码
+	RecomFlowNo *string `json:"recom_flow_no,omitempty" xml:"recom_flow_no,omitempty"`
+	// 地址（bizCode为日单必传）
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 投保人列表，extra_msg需传递out_sub_biz_no，外部明细业务号（投保结果通知会回传，自行定义）
+	EmployeeList []*InsureEmployeeInfo `json:"employee_list,omitempty" xml:"employee_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SendAntsaasStaffingcInsureRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendAntsaasStaffingcInsureRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendAntsaasStaffingcInsureRequest) SetAuthToken(v string) *SendAntsaasStaffingcInsureRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRequest) SetProductInstanceId(v string) *SendAntsaasStaffingcInsureRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRequest) SetOutBizNo(v string) *SendAntsaasStaffingcInsureRequest {
+	s.OutBizNo = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRequest) SetEnterpriseName(v string) *SendAntsaasStaffingcInsureRequest {
+	s.EnterpriseName = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRequest) SetSocialCreditCode(v string) *SendAntsaasStaffingcInsureRequest {
+	s.SocialCreditCode = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRequest) SetBizCode(v string) *SendAntsaasStaffingcInsureRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRequest) SetInsuranceTypeCode(v string) *SendAntsaasStaffingcInsureRequest {
+	s.InsuranceTypeCode = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRequest) SetProductId(v string) *SendAntsaasStaffingcInsureRequest {
+	s.ProductId = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRequest) SetJobCode(v string) *SendAntsaasStaffingcInsureRequest {
+	s.JobCode = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRequest) SetPeriod(v string) *SendAntsaasStaffingcInsureRequest {
+	s.Period = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRequest) SetRecomFlowNo(v string) *SendAntsaasStaffingcInsureRequest {
+	s.RecomFlowNo = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRequest) SetAddress(v string) *SendAntsaasStaffingcInsureRequest {
+	s.Address = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRequest) SetEmployeeList(v []*InsureEmployeeInfo) *SendAntsaasStaffingcInsureRequest {
+	s.EmployeeList = v
+	return s
+}
+
+type SendAntsaasStaffingcInsureResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 投保失败人员信息，extra_msg会返回failReason，投保失败原因
+	FailEmployeeList []*InsureEmployeeInfo `json:"fail_employee_list,omitempty" xml:"fail_employee_list,omitempty" type:"Repeated"`
+}
+
+func (s SendAntsaasStaffingcInsureResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendAntsaasStaffingcInsureResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendAntsaasStaffingcInsureResponse) SetReqMsgId(v string) *SendAntsaasStaffingcInsureResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureResponse) SetResultCode(v string) *SendAntsaasStaffingcInsureResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureResponse) SetResultMsg(v string) *SendAntsaasStaffingcInsureResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureResponse) SetFailEmployeeList(v []*InsureEmployeeInfo) *SendAntsaasStaffingcInsureResponse {
+	s.FailEmployeeList = v
+	return s
+}
+
+type SendAntsaasStaffingcInsureRefundRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部业务号
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+	// 企业名称
+	EnterpriseName *string `json:"enterprise_name,omitempty" xml:"enterprise_name,omitempty" require:"true"`
+	// 统一社会信用代码
+	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty" require:"true"`
+	// 退保订单号列表
+	OrderNoList []*int64 `json:"order_no_list,omitempty" xml:"order_no_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SendAntsaasStaffingcInsureRefundRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendAntsaasStaffingcInsureRefundRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendAntsaasStaffingcInsureRefundRequest) SetAuthToken(v string) *SendAntsaasStaffingcInsureRefundRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRefundRequest) SetProductInstanceId(v string) *SendAntsaasStaffingcInsureRefundRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRefundRequest) SetOutBizNo(v string) *SendAntsaasStaffingcInsureRefundRequest {
+	s.OutBizNo = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRefundRequest) SetEnterpriseName(v string) *SendAntsaasStaffingcInsureRefundRequest {
+	s.EnterpriseName = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRefundRequest) SetSocialCreditCode(v string) *SendAntsaasStaffingcInsureRefundRequest {
+	s.SocialCreditCode = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRefundRequest) SetOrderNoList(v []*int64) *SendAntsaasStaffingcInsureRefundRequest {
+	s.OrderNoList = v
+	return s
+}
+
+type SendAntsaasStaffingcInsureRefundResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 失败原因列表
+	FailOrderInfoList []*FailOrderInfo `json:"fail_order_info_list,omitempty" xml:"fail_order_info_list,omitempty" type:"Repeated"`
+}
+
+func (s SendAntsaasStaffingcInsureRefundResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendAntsaasStaffingcInsureRefundResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendAntsaasStaffingcInsureRefundResponse) SetReqMsgId(v string) *SendAntsaasStaffingcInsureRefundResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRefundResponse) SetResultCode(v string) *SendAntsaasStaffingcInsureRefundResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRefundResponse) SetResultMsg(v string) *SendAntsaasStaffingcInsureRefundResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendAntsaasStaffingcInsureRefundResponse) SetFailOrderInfoList(v []*FailOrderInfo) *SendAntsaasStaffingcInsureRefundResponse {
+	s.FailOrderInfoList = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -898,7 +1897,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.1"),
+				"sdk_version":      tea.String("1.2.0"),
 				"_prod_code":       tea.String("ak_320bc483f2434f39a3af9ec9f04d3cc0"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -1046,6 +2045,278 @@ func (client *Client) QueryAntsaasStaffingcContractSignEx(request *QueryAntsaasS
 	}
 	_result = &QueryAntsaasStaffingcContractSignResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsaas.staffingc.contract.sign.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业认证授权url查询接口
+ * Summary: 企业认证授权url查询接口
+ */
+func (client *Client) QueryAntsaasStaffingcEpcertificationUrl(request *QueryAntsaasStaffingcEpcertificationUrlRequest) (_result *QueryAntsaasStaffingcEpcertificationUrlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntsaasStaffingcEpcertificationUrlResponse{}
+	_body, _err := client.QueryAntsaasStaffingcEpcertificationUrlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业认证授权url查询接口
+ * Summary: 企业认证授权url查询接口
+ */
+func (client *Client) QueryAntsaasStaffingcEpcertificationUrlEx(request *QueryAntsaasStaffingcEpcertificationUrlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntsaasStaffingcEpcertificationUrlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntsaasStaffingcEpcertificationUrlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsaas.staffingc.epcertification.url.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业认证创建接口
+ * Summary: 企业认证创建接口
+ */
+func (client *Client) CreateAntsaasStaffingcEpcertificationAuthorize(request *CreateAntsaasStaffingcEpcertificationAuthorizeRequest) (_result *CreateAntsaasStaffingcEpcertificationAuthorizeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntsaasStaffingcEpcertificationAuthorizeResponse{}
+	_body, _err := client.CreateAntsaasStaffingcEpcertificationAuthorizeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业认证创建接口
+ * Summary: 企业认证创建接口
+ */
+func (client *Client) CreateAntsaasStaffingcEpcertificationAuthorizeEx(request *CreateAntsaasStaffingcEpcertificationAuthorizeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntsaasStaffingcEpcertificationAuthorizeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntsaasStaffingcEpcertificationAuthorizeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsaas.staffingc.epcertification.authorize.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业认证风险查询接口
+ * Summary: 企业认证风险查询接口
+ */
+func (client *Client) QueryAntsaasStaffingcEpcertificationRisk(request *QueryAntsaasStaffingcEpcertificationRiskRequest) (_result *QueryAntsaasStaffingcEpcertificationRiskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntsaasStaffingcEpcertificationRiskResponse{}
+	_body, _err := client.QueryAntsaasStaffingcEpcertificationRiskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业认证风险查询接口
+ * Summary: 企业认证风险查询接口
+ */
+func (client *Client) QueryAntsaasStaffingcEpcertificationRiskEx(request *QueryAntsaasStaffingcEpcertificationRiskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntsaasStaffingcEpcertificationRiskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntsaasStaffingcEpcertificationRiskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsaas.staffingc.epcertification.risk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取保险签约认证连接
+ * Summary: 获取保险签约认证连接
+ */
+func (client *Client) ApplyAntsaasStaffingcInsureSignurl(request *ApplyAntsaasStaffingcInsureSignurlRequest) (_result *ApplyAntsaasStaffingcInsureSignurlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyAntsaasStaffingcInsureSignurlResponse{}
+	_body, _err := client.ApplyAntsaasStaffingcInsureSignurlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取保险签约认证连接
+ * Summary: 获取保险签约认证连接
+ */
+func (client *Client) ApplyAntsaasStaffingcInsureSignurlEx(request *ApplyAntsaasStaffingcInsureSignurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyAntsaasStaffingcInsureSignurlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyAntsaasStaffingcInsureSignurlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsaas.staffingc.insure.signurl.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询可投保的保险产品
+ * Summary: 查询可投保的保险产品
+ */
+func (client *Client) ListAntsaasStaffingcInsureProduct(request *ListAntsaasStaffingcInsureProductRequest) (_result *ListAntsaasStaffingcInsureProductResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListAntsaasStaffingcInsureProductResponse{}
+	_body, _err := client.ListAntsaasStaffingcInsureProductEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询可投保的保险产品
+ * Summary: 查询可投保的保险产品
+ */
+func (client *Client) ListAntsaasStaffingcInsureProductEx(request *ListAntsaasStaffingcInsureProductRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAntsaasStaffingcInsureProductResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListAntsaasStaffingcInsureProductResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsaas.staffingc.insure.product.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询保险产品价格相关信息
+ * Summary: 查询保险产品价格相关信息
+ */
+func (client *Client) QueryAntsaasStaffingcInsurePrice(request *QueryAntsaasStaffingcInsurePriceRequest) (_result *QueryAntsaasStaffingcInsurePriceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntsaasStaffingcInsurePriceResponse{}
+	_body, _err := client.QueryAntsaasStaffingcInsurePriceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询保险产品价格相关信息
+ * Summary: 查询保险产品价格相关信息
+ */
+func (client *Client) QueryAntsaasStaffingcInsurePriceEx(request *QueryAntsaasStaffingcInsurePriceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntsaasStaffingcInsurePriceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntsaasStaffingcInsurePriceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsaas.staffingc.insure.price.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 执行投保
+ * Summary: 执行投保
+ */
+func (client *Client) SendAntsaasStaffingcInsure(request *SendAntsaasStaffingcInsureRequest) (_result *SendAntsaasStaffingcInsureResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendAntsaasStaffingcInsureResponse{}
+	_body, _err := client.SendAntsaasStaffingcInsureEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 执行投保
+ * Summary: 执行投保
+ */
+func (client *Client) SendAntsaasStaffingcInsureEx(request *SendAntsaasStaffingcInsureRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendAntsaasStaffingcInsureResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendAntsaasStaffingcInsureResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsaas.staffingc.insure.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 退保接口
+ * Summary: 退保接口
+ */
+func (client *Client) SendAntsaasStaffingcInsureRefund(request *SendAntsaasStaffingcInsureRefundRequest) (_result *SendAntsaasStaffingcInsureRefundResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendAntsaasStaffingcInsureRefundResponse{}
+	_body, _err := client.SendAntsaasStaffingcInsureRefundEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 退保接口
+ * Summary: 退保接口
+ */
+func (client *Client) SendAntsaasStaffingcInsureRefundEx(request *SendAntsaasStaffingcInsureRefundRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendAntsaasStaffingcInsureRefundResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendAntsaasStaffingcInsureRefundResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsaas.staffingc.insure.refund.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
