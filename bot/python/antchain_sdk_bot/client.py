@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.95',
+                    'sdk_version': '1.8.103',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.95',
+                    'sdk_version': '1.8.103',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -10163,6 +10163,286 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryCollectorJtmediaResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.collector.jtmedia.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_onlinepressuretest(
+        self,
+        request: bot_models.QueryOnlinepressuretestRequest,
+    ) -> bot_models.QueryOnlinepressuretestResponse:
+        """
+        Description: 查询产线压测任务
+        Summary: 查询项目关联的产线压测任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_onlinepressuretest_ex(request, headers, runtime)
+
+    async def query_onlinepressuretest_async(
+        self,
+        request: bot_models.QueryOnlinepressuretestRequest,
+    ) -> bot_models.QueryOnlinepressuretestResponse:
+        """
+        Description: 查询产线压测任务
+        Summary: 查询项目关联的产线压测任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_onlinepressuretest_ex_async(request, headers, runtime)
+
+    def query_onlinepressuretest_ex(
+        self,
+        request: bot_models.QueryOnlinepressuretestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryOnlinepressuretestResponse:
+        """
+        Description: 查询产线压测任务
+        Summary: 查询项目关联的产线压测任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryOnlinepressuretestResponse(),
+            self.do_request('1.0', 'blockchain.bot.onlinepressuretest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_onlinepressuretest_ex_async(
+        self,
+        request: bot_models.QueryOnlinepressuretestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryOnlinepressuretestResponse:
+        """
+        Description: 查询产线压测任务
+        Summary: 查询项目关联的产线压测任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryOnlinepressuretestResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.onlinepressuretest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_onlinepressuretest(
+        self,
+        request: bot_models.CreateOnlinepressuretestRequest,
+    ) -> bot_models.CreateOnlinepressuretestResponse:
+        """
+        Description:  【自主联调平台】创建产线压测任务
+        Summary:  【自主联调平台】创建产线压测任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_onlinepressuretest_ex(request, headers, runtime)
+
+    async def create_onlinepressuretest_async(
+        self,
+        request: bot_models.CreateOnlinepressuretestRequest,
+    ) -> bot_models.CreateOnlinepressuretestResponse:
+        """
+        Description:  【自主联调平台】创建产线压测任务
+        Summary:  【自主联调平台】创建产线压测任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_onlinepressuretest_ex_async(request, headers, runtime)
+
+    def create_onlinepressuretest_ex(
+        self,
+        request: bot_models.CreateOnlinepressuretestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateOnlinepressuretestResponse:
+        """
+        Description:  【自主联调平台】创建产线压测任务
+        Summary:  【自主联调平台】创建产线压测任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateOnlinepressuretestResponse(),
+            self.do_request('1.0', 'blockchain.bot.onlinepressuretest.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_onlinepressuretest_ex_async(
+        self,
+        request: bot_models.CreateOnlinepressuretestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateOnlinepressuretestResponse:
+        """
+        Description:  【自主联调平台】创建产线压测任务
+        Summary:  【自主联调平台】创建产线压测任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateOnlinepressuretestResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.onlinepressuretest.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_onlinepressuretest_customerreport(
+        self,
+        request: bot_models.UpdateOnlinepressuretestCustomerreportRequest,
+    ) -> bot_models.UpdateOnlinepressuretestCustomerreportResponse:
+        """
+        Description: 更新客户侧的压测报告
+        Summary: 更新客户侧的压测报告
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_onlinepressuretest_customerreport_ex(request, headers, runtime)
+
+    async def update_onlinepressuretest_customerreport_async(
+        self,
+        request: bot_models.UpdateOnlinepressuretestCustomerreportRequest,
+    ) -> bot_models.UpdateOnlinepressuretestCustomerreportResponse:
+        """
+        Description: 更新客户侧的压测报告
+        Summary: 更新客户侧的压测报告
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_onlinepressuretest_customerreport_ex_async(request, headers, runtime)
+
+    def update_onlinepressuretest_customerreport_ex(
+        self,
+        request: bot_models.UpdateOnlinepressuretestCustomerreportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateOnlinepressuretestCustomerreportResponse:
+        """
+        Description: 更新客户侧的压测报告
+        Summary: 更新客户侧的压测报告
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateOnlinepressuretestCustomerreportResponse(),
+            self.do_request('1.0', 'blockchain.bot.onlinepressuretest.customerreport.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_onlinepressuretest_customerreport_ex_async(
+        self,
+        request: bot_models.UpdateOnlinepressuretestCustomerreportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateOnlinepressuretestCustomerreportResponse:
+        """
+        Description: 更新客户侧的压测报告
+        Summary: 更新客户侧的压测报告
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateOnlinepressuretestCustomerreportResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.onlinepressuretest.customerreport.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_thingmodelevent_bycustomertenant(
+        self,
+        request: bot_models.QueryThingmodeleventBycustomertenantRequest,
+    ) -> bot_models.QueryThingmodeleventBycustomertenantResponse:
+        """
+        Description: 查询客户的物模型事件
+        Summary: 查询客户的物模型事件列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_thingmodelevent_bycustomertenant_ex(request, headers, runtime)
+
+    async def query_thingmodelevent_bycustomertenant_async(
+        self,
+        request: bot_models.QueryThingmodeleventBycustomertenantRequest,
+    ) -> bot_models.QueryThingmodeleventBycustomertenantResponse:
+        """
+        Description: 查询客户的物模型事件
+        Summary: 查询客户的物模型事件列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_thingmodelevent_bycustomertenant_ex_async(request, headers, runtime)
+
+    def query_thingmodelevent_bycustomertenant_ex(
+        self,
+        request: bot_models.QueryThingmodeleventBycustomertenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryThingmodeleventBycustomertenantResponse:
+        """
+        Description: 查询客户的物模型事件
+        Summary: 查询客户的物模型事件列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryThingmodeleventBycustomertenantResponse(),
+            self.do_request('1.0', 'blockchain.bot.thingmodelevent.bycustomertenant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_thingmodelevent_bycustomertenant_ex_async(
+        self,
+        request: bot_models.QueryThingmodeleventBycustomertenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryThingmodeleventBycustomertenantResponse:
+        """
+        Description: 查询客户的物模型事件
+        Summary: 查询客户的物模型事件列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryThingmodeleventBycustomertenantResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.thingmodelevent.bycustomertenant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def deploy_thingudf(
+        self,
+        request: bot_models.DeployThingudfRequest,
+    ) -> bot_models.DeployThingudfResponse:
+        """
+        Description: 从联调环境部署物模型UDF到生产环境
+        Summary: 从联调环境部署物模型UDF到生产环境
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.deploy_thingudf_ex(request, headers, runtime)
+
+    async def deploy_thingudf_async(
+        self,
+        request: bot_models.DeployThingudfRequest,
+    ) -> bot_models.DeployThingudfResponse:
+        """
+        Description: 从联调环境部署物模型UDF到生产环境
+        Summary: 从联调环境部署物模型UDF到生产环境
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.deploy_thingudf_ex_async(request, headers, runtime)
+
+    def deploy_thingudf_ex(
+        self,
+        request: bot_models.DeployThingudfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeployThingudfResponse:
+        """
+        Description: 从联调环境部署物模型UDF到生产环境
+        Summary: 从联调环境部署物模型UDF到生产环境
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeployThingudfResponse(),
+            self.do_request('1.0', 'blockchain.bot.thingudf.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def deploy_thingudf_ex_async(
+        self,
+        request: bot_models.DeployThingudfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeployThingudfResponse:
+        """
+        Description: 从联调环境部署物模型UDF到生产环境
+        Summary: 从联调环境部署物模型UDF到生产环境
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeployThingudfResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.thingudf.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(

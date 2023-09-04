@@ -7058,6 +7058,58 @@ class DeviceOrderResult(TeaModel):
         return self
 
 
+class ThingModelEventVO(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        feature_id: str = None,
+        biz_type: str = None,
+        event_properties: str = None,
+    ):
+        # 名称
+        self.name = name
+        # 物模型功能Id
+        self.feature_id = feature_id
+        # 业务标识
+        self.biz_type = biz_type
+        # 事件属性列表
+        self.event_properties = event_properties
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.feature_id, 'feature_id')
+        self.validate_required(self.biz_type, 'biz_type')
+        self.validate_required(self.event_properties, 'event_properties')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.feature_id is not None:
+            result['feature_id'] = self.feature_id
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.event_properties is not None:
+            result['event_properties'] = self.event_properties
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('feature_id') is not None:
+            self.feature_id = m.get('feature_id')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('event_properties') is not None:
+            self.event_properties = m.get('event_properties')
+        return self
+
+
 class IotBasicDeviceRegisterResult(TeaModel):
     def __init__(
         self,
@@ -7343,6 +7395,135 @@ class ScenePageResponse(TeaModel):
             for k in m.get('page_data'):
                 temp_model = SceneModel()
                 self.page_data.append(temp_model.from_map(k))
+        return self
+
+
+class OnlinePressureTestTask(TeaModel):
+    def __init__(
+        self,
+        gmt_create: str = None,
+        gmt_modified: str = None,
+        scene: str = None,
+        component_id_list: str = None,
+        customer_pt_report: str = None,
+        pt_start_time: str = None,
+        pt_end_time: str = None,
+        pt_status: str = None,
+        work_order_id: str = None,
+        project_id: str = None,
+        pt_task_id: str = None,
+        failure_reason: str = None,
+    ):
+        # DATE
+        self.gmt_create = gmt_create
+        # 修改时间
+        # 
+        self.gmt_modified = gmt_modified
+        # 产线场景码
+        # 
+        self.scene = scene
+        # 压测的目标设备可信信根设备的唯一标识，JSONArray字符串
+        # 
+        self.component_id_list = component_id_list
+        # 客户侧的压测报告
+        # 
+        self.customer_pt_report = customer_pt_report
+        # 压测开始时间
+        # 
+        self.pt_start_time = pt_start_time
+        # 压测结束时间
+        # 
+        self.pt_end_time = pt_end_time
+        # RUNNING: 正在执行 SUCCESS : 测试通过 FAILED : 测试不通过
+        # 
+        self.pt_status = pt_status
+        # 关联SIT环境的工单ID
+        # 
+        self.work_order_id = work_order_id
+        # 关联SIT环境的项目ID
+        # 
+        self.project_id = project_id
+        # 产线压测任务ID
+        self.pt_task_id = pt_task_id
+        # 压测不通过的原因
+        self.failure_reason = failure_reason
+
+    def validate(self):
+        if self.gmt_create is not None:
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.scene, 'scene')
+        self.validate_required(self.component_id_list, 'component_id_list')
+        self.validate_required(self.pt_start_time, 'pt_start_time')
+        if self.pt_start_time is not None:
+            self.validate_pattern(self.pt_start_time, 'pt_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.pt_end_time, 'pt_end_time')
+        if self.pt_end_time is not None:
+            self.validate_pattern(self.pt_end_time, 'pt_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.pt_status, 'pt_status')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.pt_task_id, 'pt_task_id')
+        self.validate_required(self.failure_reason, 'failure_reason')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.component_id_list is not None:
+            result['component_id_list'] = self.component_id_list
+        if self.customer_pt_report is not None:
+            result['customer_pt_report'] = self.customer_pt_report
+        if self.pt_start_time is not None:
+            result['pt_start_time'] = self.pt_start_time
+        if self.pt_end_time is not None:
+            result['pt_end_time'] = self.pt_end_time
+        if self.pt_status is not None:
+            result['pt_status'] = self.pt_status
+        if self.work_order_id is not None:
+            result['work_order_id'] = self.work_order_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.pt_task_id is not None:
+            result['pt_task_id'] = self.pt_task_id
+        if self.failure_reason is not None:
+            result['failure_reason'] = self.failure_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('component_id_list') is not None:
+            self.component_id_list = m.get('component_id_list')
+        if m.get('customer_pt_report') is not None:
+            self.customer_pt_report = m.get('customer_pt_report')
+        if m.get('pt_start_time') is not None:
+            self.pt_start_time = m.get('pt_start_time')
+        if m.get('pt_end_time') is not None:
+            self.pt_end_time = m.get('pt_end_time')
+        if m.get('pt_status') is not None:
+            self.pt_status = m.get('pt_status')
+        if m.get('work_order_id') is not None:
+            self.work_order_id = m.get('work_order_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('pt_task_id') is not None:
+            self.pt_task_id = m.get('pt_task_id')
+        if m.get('failure_reason') is not None:
+            self.failure_reason = m.get('failure_reason')
         return self
 
 
@@ -31183,6 +31364,504 @@ class QueryCollectorJtmediaResponse(TeaModel):
             for k in m.get('media_list'):
                 temp_model = JtMedia()
                 self.media_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryOnlinepressuretestRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        project_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 项目ID
+        self.project_id = project_id
+
+    def validate(self):
+        self.validate_required(self.project_id, 'project_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        return self
+
+
+class QueryOnlinepressuretestResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        test_task: OnlinePressureTestTask = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 产线压测任务对象
+        self.test_task = test_task
+
+    def validate(self):
+        if self.test_task:
+            self.test_task.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.test_task is not None:
+            result['test_task'] = self.test_task.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('test_task') is not None:
+            temp_model = OnlinePressureTestTask()
+            self.test_task = temp_model.from_map(m['test_task'])
+        return self
+
+
+class CreateOnlinepressuretestRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        test_task: OnlinePressureTestTask = None,
+        project_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 产线压测任务对象
+        # 
+        self.test_task = test_task
+        # 项目ID
+        self.project_id = project_id
+
+    def validate(self):
+        self.validate_required(self.test_task, 'test_task')
+        if self.test_task:
+            self.test_task.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.test_task is not None:
+            result['test_task'] = self.test_task.to_map()
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('test_task') is not None:
+            temp_model = OnlinePressureTestTask()
+            self.test_task = temp_model.from_map(m['test_task'])
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        return self
+
+
+class CreateOnlinepressuretestResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class UpdateOnlinepressuretestCustomerreportRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        project_id: str = None,
+        customer_pt_report: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联调项目ID
+        self.project_id = project_id
+        # 客户侧的压测报告
+        self.customer_pt_report = customer_pt_report
+
+    def validate(self):
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.customer_pt_report, 'customer_pt_report')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.customer_pt_report is not None:
+            result['customer_pt_report'] = self.customer_pt_report
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('customer_pt_report') is not None:
+            self.customer_pt_report = m.get('customer_pt_report')
+        return self
+
+
+class UpdateOnlinepressuretestCustomerreportResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryThingmodeleventBycustomertenantRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        customer_tenant: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 客户的租户ID
+        self.customer_tenant = customer_tenant
+
+    def validate(self):
+        self.validate_required(self.customer_tenant, 'customer_tenant')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.customer_tenant is not None:
+            result['customer_tenant'] = self.customer_tenant
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('customer_tenant') is not None:
+            self.customer_tenant = m.get('customer_tenant')
+        return self
+
+
+class QueryThingmodeleventBycustomertenantResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        event_list: List[ThingModelEventVO] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 物模型事件列表
+        self.event_list = event_list
+
+    def validate(self):
+        if self.event_list:
+            for k in self.event_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['event_list'] = []
+        if self.event_list is not None:
+            for k in self.event_list:
+                result['event_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.event_list = []
+        if m.get('event_list') is not None:
+            for k in m.get('event_list'):
+                temp_model = ThingModelEventVO()
+                self.event_list.append(temp_model.from_map(k))
+        return self
+
+
+class DeployThingudfRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        udf_id: str = None,
+        scene: str = None,
+        feature_id: str = None,
+        customer_tenant: str = None,
+        udf_type: str = None,
+        value: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # UDF 唯一ID
+        self.udf_id = udf_id
+        # 场景码
+        self.scene = scene
+        # 物模型功能ID
+        self.feature_id = feature_id
+        # 租户ID
+        self.customer_tenant = customer_tenant
+        # UDF类型枚举
+        self.udf_type = udf_type
+        # 物模型UDF实例表
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.udf_id, 'udf_id')
+        self.validate_required(self.scene, 'scene')
+        self.validate_required(self.feature_id, 'feature_id')
+        self.validate_required(self.customer_tenant, 'customer_tenant')
+        self.validate_required(self.udf_type, 'udf_type')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.udf_id is not None:
+            result['udf_id'] = self.udf_id
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.feature_id is not None:
+            result['feature_id'] = self.feature_id
+        if self.customer_tenant is not None:
+            result['customer_tenant'] = self.customer_tenant
+        if self.udf_type is not None:
+            result['udf_type'] = self.udf_type
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('udf_id') is not None:
+            self.udf_id = m.get('udf_id')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('feature_id') is not None:
+            self.feature_id = m.get('feature_id')
+        if m.get('customer_tenant') is not None:
+            self.customer_tenant = m.get('customer_tenant')
+        if m.get('udf_type') is not None:
+            self.udf_type = m.get('udf_type')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class DeployThingudfResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
