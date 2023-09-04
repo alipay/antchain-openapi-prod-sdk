@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.95"},
+                        {"sdk_version", "1.8.103"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.95"},
+                        {"sdk_version", "1.8.103"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -7757,6 +7757,216 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryCollectorJtmediaResponse>(await DoRequestAsync("1.0", "blockchain.bot.collector.jtmedia.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询产线压测任务
+         * Summary: 查询项目关联的产线压测任务
+         */
+        public QueryOnlinepressuretestResponse QueryOnlinepressuretest(QueryOnlinepressuretestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryOnlinepressuretestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询产线压测任务
+         * Summary: 查询项目关联的产线压测任务
+         */
+        public async Task<QueryOnlinepressuretestResponse> QueryOnlinepressuretestAsync(QueryOnlinepressuretestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryOnlinepressuretestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询产线压测任务
+         * Summary: 查询项目关联的产线压测任务
+         */
+        public QueryOnlinepressuretestResponse QueryOnlinepressuretestEx(QueryOnlinepressuretestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOnlinepressuretestResponse>(DoRequest("1.0", "blockchain.bot.onlinepressuretest.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询产线压测任务
+         * Summary: 查询项目关联的产线压测任务
+         */
+        public async Task<QueryOnlinepressuretestResponse> QueryOnlinepressuretestExAsync(QueryOnlinepressuretestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOnlinepressuretestResponse>(await DoRequestAsync("1.0", "blockchain.bot.onlinepressuretest.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description:  【自主联调平台】创建产线压测任务
+         * Summary:  【自主联调平台】创建产线压测任务
+         */
+        public CreateOnlinepressuretestResponse CreateOnlinepressuretest(CreateOnlinepressuretestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateOnlinepressuretestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description:  【自主联调平台】创建产线压测任务
+         * Summary:  【自主联调平台】创建产线压测任务
+         */
+        public async Task<CreateOnlinepressuretestResponse> CreateOnlinepressuretestAsync(CreateOnlinepressuretestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateOnlinepressuretestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description:  【自主联调平台】创建产线压测任务
+         * Summary:  【自主联调平台】创建产线压测任务
+         */
+        public CreateOnlinepressuretestResponse CreateOnlinepressuretestEx(CreateOnlinepressuretestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateOnlinepressuretestResponse>(DoRequest("1.0", "blockchain.bot.onlinepressuretest.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description:  【自主联调平台】创建产线压测任务
+         * Summary:  【自主联调平台】创建产线压测任务
+         */
+        public async Task<CreateOnlinepressuretestResponse> CreateOnlinepressuretestExAsync(CreateOnlinepressuretestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateOnlinepressuretestResponse>(await DoRequestAsync("1.0", "blockchain.bot.onlinepressuretest.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新客户侧的压测报告
+         * Summary: 更新客户侧的压测报告
+         */
+        public UpdateOnlinepressuretestCustomerreportResponse UpdateOnlinepressuretestCustomerreport(UpdateOnlinepressuretestCustomerreportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateOnlinepressuretestCustomerreportEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新客户侧的压测报告
+         * Summary: 更新客户侧的压测报告
+         */
+        public async Task<UpdateOnlinepressuretestCustomerreportResponse> UpdateOnlinepressuretestCustomerreportAsync(UpdateOnlinepressuretestCustomerreportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateOnlinepressuretestCustomerreportExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新客户侧的压测报告
+         * Summary: 更新客户侧的压测报告
+         */
+        public UpdateOnlinepressuretestCustomerreportResponse UpdateOnlinepressuretestCustomerreportEx(UpdateOnlinepressuretestCustomerreportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateOnlinepressuretestCustomerreportResponse>(DoRequest("1.0", "blockchain.bot.onlinepressuretest.customerreport.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新客户侧的压测报告
+         * Summary: 更新客户侧的压测报告
+         */
+        public async Task<UpdateOnlinepressuretestCustomerreportResponse> UpdateOnlinepressuretestCustomerreportExAsync(UpdateOnlinepressuretestCustomerreportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateOnlinepressuretestCustomerreportResponse>(await DoRequestAsync("1.0", "blockchain.bot.onlinepressuretest.customerreport.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询客户的物模型事件
+         * Summary: 查询客户的物模型事件列表
+         */
+        public QueryThingmodeleventBycustomertenantResponse QueryThingmodeleventBycustomertenant(QueryThingmodeleventBycustomertenantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryThingmodeleventBycustomertenantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询客户的物模型事件
+         * Summary: 查询客户的物模型事件列表
+         */
+        public async Task<QueryThingmodeleventBycustomertenantResponse> QueryThingmodeleventBycustomertenantAsync(QueryThingmodeleventBycustomertenantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryThingmodeleventBycustomertenantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询客户的物模型事件
+         * Summary: 查询客户的物模型事件列表
+         */
+        public QueryThingmodeleventBycustomertenantResponse QueryThingmodeleventBycustomertenantEx(QueryThingmodeleventBycustomertenantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryThingmodeleventBycustomertenantResponse>(DoRequest("1.0", "blockchain.bot.thingmodelevent.bycustomertenant.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询客户的物模型事件
+         * Summary: 查询客户的物模型事件列表
+         */
+        public async Task<QueryThingmodeleventBycustomertenantResponse> QueryThingmodeleventBycustomertenantExAsync(QueryThingmodeleventBycustomertenantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryThingmodeleventBycustomertenantResponse>(await DoRequestAsync("1.0", "blockchain.bot.thingmodelevent.bycustomertenant.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 从联调环境部署物模型UDF到生产环境
+         * Summary: 从联调环境部署物模型UDF到生产环境
+         */
+        public DeployThingudfResponse DeployThingudf(DeployThingudfRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeployThingudfEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 从联调环境部署物模型UDF到生产环境
+         * Summary: 从联调环境部署物模型UDF到生产环境
+         */
+        public async Task<DeployThingudfResponse> DeployThingudfAsync(DeployThingudfRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeployThingudfExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 从联调环境部署物模型UDF到生产环境
+         * Summary: 从联调环境部署物模型UDF到生产环境
+         */
+        public DeployThingudfResponse DeployThingudfEx(DeployThingudfRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeployThingudfResponse>(DoRequest("1.0", "blockchain.bot.thingudf.deploy", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 从联调环境部署物模型UDF到生产环境
+         * Summary: 从联调环境部署物模型UDF到生产环境
+         */
+        public async Task<DeployThingudfResponse> DeployThingudfExAsync(DeployThingudfRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeployThingudfResponse>(await DoRequestAsync("1.0", "blockchain.bot.thingudf.deploy", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
