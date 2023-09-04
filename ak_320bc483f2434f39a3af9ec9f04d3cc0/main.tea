@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.1',
+    sdk_version = '1.2.0',
     _prod_code = 'ak_320bc483f2434f39a3af9ec9f04d3cc0',
     _prod_channel = 'saas'
   };
@@ -189,6 +189,14 @@ model SignUrlResp {
   signFiledId: string(name='sign_filed_id', example='asdassdsa'),
 }
 
+// 退保失败订单信息
+model FailOrderInfo {
+  // 退保失败订单号
+  orderNo: string(name='order_no', example='1311313'),
+  // 失败原因
+  failReason: string(name='fail_reason', example='超出退保期限'),
+}
+
 // 用户签署信息
 model SignUserInfo {
   // 身份证号
@@ -197,6 +205,18 @@ model SignUserInfo {
   name: string(name='name', example='张三'),
   // 签署区列表
   signAreaList: [ SignatoryInfo ](name='sign_area_list', example='-'),
+}
+
+// 员工信息
+model InsureEmployeeInfo {
+  // 姓名
+  name: string(name='name', example='张三'),
+  // 身份证号
+  certNo: string(name='cert_no', example='330105XXXXXXXXXXXX'),
+  // 手机号
+  mobile: string(name='mobile', example='18611111111'),
+  // 额外信息
+  extraMsg: string(name='extra_msg', example='-'),
 }
 
 // 签署发起返回类
@@ -222,6 +242,24 @@ model SignEnterpriseInfo {
   signType: long(name='sign_type', example='0'),
   // 签署区列表
   signAreaList: [ SignatoryInfo ](name='sign_area_list', example='-'),
+}
+
+// 保险产品类
+model InsureProductInfo {
+  // 产品名称
+  name: string(name='name', example='雇主责任险-通用24小时十万版'),
+  // 产品id
+  productId: string(name='product_id', example='PP2023010500106845'),
+  // 险种编码: 
+  // ACCIDENT: 意外险
+  // EMPLOYER: 雇主险
+  insuranceTypeCode: string(name='insurance_type_code', example='ACCIDENT'),
+  // 推荐编码
+  recomFlowNo?: string(name='recom_flow_no', example='AF2023051705052635767237'),
+  // 最低价格（分）
+  premium?: long(name='premium', example='100'),
+  // 保额（分）
+  sumInsured?: long(name='sum_insured', example='30000000'),
 }
 
 // 键值对
@@ -361,6 +399,437 @@ async function queryAntsaasStaffingcContractSign(request: QueryAntsaasStaffingcC
 async function queryAntsaasStaffingcContractSignEx(request: QueryAntsaasStaffingcContractSignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntsaasStaffingcContractSignResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsaas.staffingc.contract.sign.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntsaasStaffingcEpcertificationUrlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 一次认证的唯一标识,在商户调用认证初始化接口的时候获取
+  // (如果接口创建接口发生未知异常，可使用out_biz_no替代，查询状态）
+  bizNo: string(name='biz_no'),
+}
+
+model QueryAntsaasStaffingcEpcertificationUrlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // // 响应为表单格式，可嵌入页面，具体以返回的结果为准
+  resultBody?: string(name='result_body'),
+  // 订单号（但入参为out_biz_no时传入）
+  bizNo?: string(name='biz_no'),
+}
+
+/**
+ * Description: 企业认证授权url查询接口
+ * Summary: 企业认证授权url查询接口
+ */
+async function queryAntsaasStaffingcEpcertificationUrl(request: QueryAntsaasStaffingcEpcertificationUrlRequest): QueryAntsaasStaffingcEpcertificationUrlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntsaasStaffingcEpcertificationUrlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证授权url查询接口
+ * Summary: 企业认证授权url查询接口
+ */
+async function queryAntsaasStaffingcEpcertificationUrlEx(request: QueryAntsaasStaffingcEpcertificationUrlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntsaasStaffingcEpcertificationUrlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsaas.staffingc.epcertification.url.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntsaasStaffingcEpcertificationAuthorizeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 需要保证唯一，外部订单号
+  outBizNo: string(name='out_biz_no'),
+  // 企业全称
+  epName: string(name='ep_name'),
+  // 统一社会信用代码或营业执照注册号
+  epCertNo: string(name='ep_cert_no'),
+  // 认证完成后，跳转到指定url地址
+  returnUrl?: string(name='return_url'),
+}
+
+model CreateAntsaasStaffingcEpcertificationAuthorizeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 一次认证的唯一标识
+  bizNo?: string(name='biz_no'),
+}
+
+/**
+ * Description: 企业认证创建接口
+ * Summary: 企业认证创建接口
+ */
+async function createAntsaasStaffingcEpcertificationAuthorize(request: CreateAntsaasStaffingcEpcertificationAuthorizeRequest): CreateAntsaasStaffingcEpcertificationAuthorizeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntsaasStaffingcEpcertificationAuthorizeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证创建接口
+ * Summary: 企业认证创建接口
+ */
+async function createAntsaasStaffingcEpcertificationAuthorizeEx(request: CreateAntsaasStaffingcEpcertificationAuthorizeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntsaasStaffingcEpcertificationAuthorizeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsaas.staffingc.epcertification.authorize.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntsaasStaffingcEpcertificationRiskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 一次认证的唯一标识,在调用认证初始化接口的时候获取
+  bizNo: string(name='biz_no'),
+  // 企业全称
+  epName: string(name='ep_name'),
+  // 统一社会信用代码或营业执照注册号
+  epCertNo: string(name='ep_cert_no'),
+}
+
+model QueryAntsaasStaffingcEpcertificationRiskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证状态，取值如下： SUCCESS，代表成功 INIT，代表初始化 CERTIFYING，代表认证中 FAIL，代表失败
+  certifyStatus?: string(name='certify_status'),
+  // 授权状态，从用户授权开始计时，时间窗口3天 取值如下： SUCCESS，代表用户已授权 FAIL，代表用户未授权或授权失效
+  authStatus?: string(name='auth_status'),
+  // 企业全称，字段auth_status为SUCCESS时返回
+  epName?: string(name='ep_name'),
+  // 统一社会信用代码或营业执照注册号，字段auth_status为SUCCESS时返回
+  epCertNo?: string(name='ep_cert_no'),
+  // 法人认证姓名，字段auth_status为SUCCESS时返回
+  userName?: string(name='user_name'),
+  // 法人认证身份证号
+  certifyPersonCardNoPostfix?: string(name='certify_person_card_no_postfix'),
+  // 认证失败原因列表，当certify_status=FAIL时返回
+  certifyFailReasons?: [ string ](name='certify_fail_reasons'),
+  // 认证风险识别结果集合
+  // 枚举值
+  // 低风险认证: CERTIFICATION_LOW_RISK
+  // 中风险认证: CERTIFICATION_MID_RISK2
+  // 高风险认证: CERTIFICATION_HIGH_RISK
+  // 批量注册: ONE_ADDR_MULTI_COMP
+  // 经营异常: OPERATION_ABNORMAL
+  // 交叉任职: CROSS_POSITION
+  // 涉嫌洗钱: SUSPECTED_MONEY_LAUNDERING
+  // 空壳公司: SHELL_COMPANY
+  // 失信被执行: BREACH_PROMISE_EXECUTION
+  // 严重违法失信: SERIOUS_BREACH_TRUST
+  // 行政处罚: ADMINISTRATIVE_SANCTION
+  // 司法冻结: JUDICIAL_FREEZE
+  // 违规违禁: VIOLATION_BAN
+  // 信贷逾期: CREDIT_OVERDUE
+  // 多头借贷: LONG_BORROWING
+  // 疑似欺诈: SUSPECTED_FRAUD
+  // 疑似涉赌博: SUSPECTED_GAMBLING
+  // 企业芝麻证: LI_XIN_CERTIFICATE
+  riskIdentifyResult?: [ string ](name='risk_identify_result'),
+  // 空壳企业等级，描述企业空壳程度。
+  // 枚举值
+  // 优秀企业，没有空壳企业的常见特征，且有很多正向特征证明其正常经营: A+
+  // 较为优秀的企业，没有空壳企业的常见特征，且有较多正向特征证明其正常经营: A
+  // 较为优秀的企业，几乎没有空壳企业的常见特征，或者有较多正向特征证明其正常经营: B
+  // 普通企业，一般没有空壳企业的常见特征，或者有很少量能反映其正常经营的数据: M+
+  // 普通企业或者新注册的企业，一般没有空壳企业的常见特征，但是也没有太多能反映其在正常生产经营的数据: M
+  // 普通企业，一般没有明显空壳企业的常见特征，也没有太多能反映其在正常生产经营的数据，可能和空壳企业有少量交集: M-
+  // 较差企业，有部分空壳企业特征，可能有较少能反映其在正常生产经营的数据。建议这部分企业酌情考虑风险: C+
+  // 差企业，有较多空壳企业特征，几乎没有能反映其在正常生产经营的数据: C
+  // 差企业，有很多明显空壳企业特征，几乎没有能反映其在正常生产经营的数据: D
+  shellCompanyLevel?: string(name='shell_company_level'),
+}
+
+/**
+ * Description: 企业认证风险查询接口
+ * Summary: 企业认证风险查询接口
+ */
+async function queryAntsaasStaffingcEpcertificationRisk(request: QueryAntsaasStaffingcEpcertificationRiskRequest): QueryAntsaasStaffingcEpcertificationRiskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntsaasStaffingcEpcertificationRiskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证风险查询接口
+ * Summary: 企业认证风险查询接口
+ */
+async function queryAntsaasStaffingcEpcertificationRiskEx(request: QueryAntsaasStaffingcEpcertificationRiskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntsaasStaffingcEpcertificationRiskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsaas.staffingc.epcertification.risk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyAntsaasStaffingcInsureSignurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  enterpriseName: string(name='enterprise_name'),
+  // 社会信用代码
+  socialCreditCode: string(name='social_credit_code'),
+  // 签约支付宝账号（企业支付宝是邮箱）
+  authAccount: string(name='auth_account'),
+  // 联系手机号（用于接收投保失败等短信通知）
+  mobile?: string(name='mobile'),
+  // 外部业务号(64长度以内）
+  // 
+  outBizNo: string(name='out_biz_no'),
+}
+
+model ApplyAntsaasStaffingcInsureSignurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 签约地址
+  signUrl?: string(name='sign_url'),
+}
+
+/**
+ * Description: 获取保险签约认证连接
+ * Summary: 获取保险签约认证连接
+ */
+async function applyAntsaasStaffingcInsureSignurl(request: ApplyAntsaasStaffingcInsureSignurlRequest): ApplyAntsaasStaffingcInsureSignurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyAntsaasStaffingcInsureSignurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取保险签约认证连接
+ * Summary: 获取保险签约认证连接
+ */
+async function applyAntsaasStaffingcInsureSignurlEx(request: ApplyAntsaasStaffingcInsureSignurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyAntsaasStaffingcInsureSignurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsaas.staffingc.insure.signurl.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAntsaasStaffingcInsureProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  enterpriseName: string(name='enterprise_name'),
+  // 统一社会信用代码
+  socialCreditCode: string(name='social_credit_code'),
+  // 保险场景码: 
+  // FLEXIBLE_EMPLOYMENT-日单（实时生效）
+  // INITIATIVE_EMPLOYMENT-长期（次日0点生效）
+  bizCode: string(name='biz_code'),
+  // 险种编码:
+  //  ACCIDENT: 意外险
+  //  EMPLOYER_LIABILITY: 雇主险
+  insuranceTypeCode: string(name='insurance_type_code'),
+}
+
+model ListAntsaasStaffingcInsureProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 保险产品列表
+  productList?: [ InsureProductInfo ](name='product_list'),
+}
+
+/**
+ * Description: 查询可投保的保险产品
+ * Summary: 查询可投保的保险产品
+ */
+async function listAntsaasStaffingcInsureProduct(request: ListAntsaasStaffingcInsureProductRequest): ListAntsaasStaffingcInsureProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAntsaasStaffingcInsureProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询可投保的保险产品
+ * Summary: 查询可投保的保险产品
+ */
+async function listAntsaasStaffingcInsureProductEx(request: ListAntsaasStaffingcInsureProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntsaasStaffingcInsureProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsaas.staffingc.insure.product.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntsaasStaffingcInsurePriceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  enterpriseName: string(name='enterprise_name'),
+  // 统一社会信用代码
+  socialCreditCode: string(name='social_credit_code'),
+  // 产品ID
+  productId: string(name='product_id'),
+  // 职业编码: 
+  // default-1-一类职业;
+  // default-2-二类职业;
+  // default-3-三类职业;
+  // default-4-四类职业;
+  jobCode: string(name='job_code'),
+  // 周期：
+  // 1D、
+  // 30D、
+  // 360D
+  period: string(name='period'),
+}
+
+model QueryAntsaasStaffingcInsurePriceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 价格
+  price?: long(name='price'),
+}
+
+/**
+ * Description: 查询保险产品价格相关信息
+ * Summary: 查询保险产品价格相关信息
+ */
+async function queryAntsaasStaffingcInsurePrice(request: QueryAntsaasStaffingcInsurePriceRequest): QueryAntsaasStaffingcInsurePriceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntsaasStaffingcInsurePriceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询保险产品价格相关信息
+ * Summary: 查询保险产品价格相关信息
+ */
+async function queryAntsaasStaffingcInsurePriceEx(request: QueryAntsaasStaffingcInsurePriceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntsaasStaffingcInsurePriceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsaas.staffingc.insure.price.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendAntsaasStaffingcInsureRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部业务号（幂等、异步通知回传）
+  outBizNo: string(name='out_biz_no'),
+  // 企业名称
+  enterpriseName: string(name='enterprise_name'),
+  // 统一社会信用代码
+  socialCreditCode: string(name='social_credit_code'),
+  // 保险场景码: 
+  // FLEXIBLE_EMPLOYMENT-日单（实时生效）
+  // INITIATIVE_EMPLOYMENT- 长期（次日0点生效）
+  bizCode: string(name='biz_code'),
+  // 投保的险种编码:
+  // ACCIDENT: 意外险,
+  // EMPLOYER_LIABILITY: 雇主险
+  insuranceTypeCode: string(name='insurance_type_code'),
+  // 产品ID
+  productId: string(name='product_id'),
+  // 职业编码: 
+  // default-1-一类职业; 
+  // default-2-二类职业;
+  // default-3-三类职业;
+  // default-4-四类职业;
+  // default-5-五类职业（雇主险60万和80万保额暂不支持）
+  jobCode: string(name='job_code'),
+  // 保障周期：30D、360D（bizCode为长期时必传）
+  period?: string(name='period'),
+  // 推荐编码
+  recomFlowNo?: string(name='recom_flow_no'),
+  // 地址（bizCode为日单必传）
+  address?: string(name='address'),
+  // 投保人列表，extra_msg需传递out_sub_biz_no，外部明细业务号（投保结果通知会回传，自行定义）
+  employeeList: [ InsureEmployeeInfo ](name='employee_list'),
+}
+
+model SendAntsaasStaffingcInsureResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 投保失败人员信息，extra_msg会返回failReason，投保失败原因
+  failEmployeeList?: [ InsureEmployeeInfo ](name='fail_employee_list'),
+}
+
+/**
+ * Description: 执行投保
+ * Summary: 执行投保
+ */
+async function sendAntsaasStaffingcInsure(request: SendAntsaasStaffingcInsureRequest): SendAntsaasStaffingcInsureResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendAntsaasStaffingcInsureEx(request, headers, runtime);
+}
+
+/**
+ * Description: 执行投保
+ * Summary: 执行投保
+ */
+async function sendAntsaasStaffingcInsureEx(request: SendAntsaasStaffingcInsureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendAntsaasStaffingcInsureResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsaas.staffingc.insure.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendAntsaasStaffingcInsureRefundRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部业务号
+  outBizNo: string(name='out_biz_no'),
+  // 企业名称
+  enterpriseName: string(name='enterprise_name'),
+  // 统一社会信用代码
+  socialCreditCode: string(name='social_credit_code'),
+  // 退保订单号列表
+  orderNoList: [ long ](name='order_no_list'),
+}
+
+model SendAntsaasStaffingcInsureRefundResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 失败原因列表
+  failOrderInfoList?: [ FailOrderInfo ](name='fail_order_info_list'),
+}
+
+/**
+ * Description: 退保接口
+ * Summary: 退保接口
+ */
+async function sendAntsaasStaffingcInsureRefund(request: SendAntsaasStaffingcInsureRefundRequest): SendAntsaasStaffingcInsureRefundResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendAntsaasStaffingcInsureRefundEx(request, headers, runtime);
+}
+
+/**
+ * Description: 退保接口
+ * Summary: 退保接口
+ */
+async function sendAntsaasStaffingcInsureRefundEx(request: SendAntsaasStaffingcInsureRefundRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendAntsaasStaffingcInsureRefundResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsaas.staffingc.insure.refund.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
