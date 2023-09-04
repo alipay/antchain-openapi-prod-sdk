@@ -11,10 +11,26 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\ApplyAntsaasStaffingcInsureSignurlRequest;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\ApplyAntsaasStaffingcInsureSignurlResponse;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\CreateAntsaasStaffingcEpcertificationAuthorizeRequest;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\CreateAntsaasStaffingcEpcertificationAuthorizeResponse;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\ListAntsaasStaffingcInsureProductRequest;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\ListAntsaasStaffingcInsureProductResponse;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\QueryAntsaasStaffingcContractSignRequest;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\QueryAntsaasStaffingcContractSignResponse;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\QueryAntsaasStaffingcEpcertificationRiskRequest;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\QueryAntsaasStaffingcEpcertificationRiskResponse;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\QueryAntsaasStaffingcEpcertificationUrlRequest;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\QueryAntsaasStaffingcEpcertificationUrlResponse;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\QueryAntsaasStaffingcInsurePriceRequest;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\QueryAntsaasStaffingcInsurePriceResponse;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\SendAntsaasStaffingcInsureRefundRequest;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\SendAntsaasStaffingcInsureRefundResponse;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\SendAntsaasStaffingcInsureRequest;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\SendAntsaasStaffingcInsureResponse;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\SignAntsaasStaffingcContractSendRequest;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\SignAntsaasStaffingcContractSendResponse;
 use AntChain\Util\UtilClient;
@@ -164,7 +180,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.1',
+                    'sdk_version'      => '1.2.0',
                     '_prod_code'       => 'ak_320bc483f2434f39a3af9ec9f04d3cc0',
                     '_prod_channel'    => 'saas',
                 ];
@@ -294,6 +310,270 @@ class Client
         Utils::validateModel($request);
 
         return QueryAntsaasStaffingcContractSignResponse::fromMap($this->doRequest('1.0', 'antsaas.staffingc.contract.sign.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业认证授权url查询接口
+     * Summary: 企业认证授权url查询接口.
+     *
+     * @param QueryAntsaasStaffingcEpcertificationUrlRequest $request
+     *
+     * @return QueryAntsaasStaffingcEpcertificationUrlResponse
+     */
+    public function queryAntsaasStaffingcEpcertificationUrl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntsaasStaffingcEpcertificationUrlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业认证授权url查询接口
+     * Summary: 企业认证授权url查询接口.
+     *
+     * @param QueryAntsaasStaffingcEpcertificationUrlRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return QueryAntsaasStaffingcEpcertificationUrlResponse
+     */
+    public function queryAntsaasStaffingcEpcertificationUrlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntsaasStaffingcEpcertificationUrlResponse::fromMap($this->doRequest('1.0', 'antsaas.staffingc.epcertification.url.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业认证创建接口
+     * Summary: 企业认证创建接口.
+     *
+     * @param CreateAntsaasStaffingcEpcertificationAuthorizeRequest $request
+     *
+     * @return CreateAntsaasStaffingcEpcertificationAuthorizeResponse
+     */
+    public function createAntsaasStaffingcEpcertificationAuthorize($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntsaasStaffingcEpcertificationAuthorizeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业认证创建接口
+     * Summary: 企业认证创建接口.
+     *
+     * @param CreateAntsaasStaffingcEpcertificationAuthorizeRequest $request
+     * @param string[]                                              $headers
+     * @param RuntimeOptions                                        $runtime
+     *
+     * @return CreateAntsaasStaffingcEpcertificationAuthorizeResponse
+     */
+    public function createAntsaasStaffingcEpcertificationAuthorizeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntsaasStaffingcEpcertificationAuthorizeResponse::fromMap($this->doRequest('1.0', 'antsaas.staffingc.epcertification.authorize.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业认证风险查询接口
+     * Summary: 企业认证风险查询接口.
+     *
+     * @param QueryAntsaasStaffingcEpcertificationRiskRequest $request
+     *
+     * @return QueryAntsaasStaffingcEpcertificationRiskResponse
+     */
+    public function queryAntsaasStaffingcEpcertificationRisk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntsaasStaffingcEpcertificationRiskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业认证风险查询接口
+     * Summary: 企业认证风险查询接口.
+     *
+     * @param QueryAntsaasStaffingcEpcertificationRiskRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return QueryAntsaasStaffingcEpcertificationRiskResponse
+     */
+    public function queryAntsaasStaffingcEpcertificationRiskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntsaasStaffingcEpcertificationRiskResponse::fromMap($this->doRequest('1.0', 'antsaas.staffingc.epcertification.risk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取保险签约认证连接
+     * Summary: 获取保险签约认证连接.
+     *
+     * @param ApplyAntsaasStaffingcInsureSignurlRequest $request
+     *
+     * @return ApplyAntsaasStaffingcInsureSignurlResponse
+     */
+    public function applyAntsaasStaffingcInsureSignurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyAntsaasStaffingcInsureSignurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取保险签约认证连接
+     * Summary: 获取保险签约认证连接.
+     *
+     * @param ApplyAntsaasStaffingcInsureSignurlRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return ApplyAntsaasStaffingcInsureSignurlResponse
+     */
+    public function applyAntsaasStaffingcInsureSignurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyAntsaasStaffingcInsureSignurlResponse::fromMap($this->doRequest('1.0', 'antsaas.staffingc.insure.signurl.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询可投保的保险产品
+     * Summary: 查询可投保的保险产品
+     *
+     * @param ListAntsaasStaffingcInsureProductRequest $request
+     *
+     * @return ListAntsaasStaffingcInsureProductResponse
+     */
+    public function listAntsaasStaffingcInsureProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAntsaasStaffingcInsureProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询可投保的保险产品
+     * Summary: 查询可投保的保险产品
+     *
+     * @param ListAntsaasStaffingcInsureProductRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return ListAntsaasStaffingcInsureProductResponse
+     */
+    public function listAntsaasStaffingcInsureProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAntsaasStaffingcInsureProductResponse::fromMap($this->doRequest('1.0', 'antsaas.staffingc.insure.product.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询保险产品价格相关信息
+     * Summary: 查询保险产品价格相关信息.
+     *
+     * @param QueryAntsaasStaffingcInsurePriceRequest $request
+     *
+     * @return QueryAntsaasStaffingcInsurePriceResponse
+     */
+    public function queryAntsaasStaffingcInsurePrice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntsaasStaffingcInsurePriceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询保险产品价格相关信息
+     * Summary: 查询保险产品价格相关信息.
+     *
+     * @param QueryAntsaasStaffingcInsurePriceRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return QueryAntsaasStaffingcInsurePriceResponse
+     */
+    public function queryAntsaasStaffingcInsurePriceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntsaasStaffingcInsurePriceResponse::fromMap($this->doRequest('1.0', 'antsaas.staffingc.insure.price.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 执行投保
+     * Summary: 执行投保.
+     *
+     * @param SendAntsaasStaffingcInsureRequest $request
+     *
+     * @return SendAntsaasStaffingcInsureResponse
+     */
+    public function sendAntsaasStaffingcInsure($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendAntsaasStaffingcInsureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 执行投保
+     * Summary: 执行投保.
+     *
+     * @param SendAntsaasStaffingcInsureRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return SendAntsaasStaffingcInsureResponse
+     */
+    public function sendAntsaasStaffingcInsureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendAntsaasStaffingcInsureResponse::fromMap($this->doRequest('1.0', 'antsaas.staffingc.insure.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退保接口
+     * Summary: 退保接口.
+     *
+     * @param SendAntsaasStaffingcInsureRefundRequest $request
+     *
+     * @return SendAntsaasStaffingcInsureRefundResponse
+     */
+    public function sendAntsaasStaffingcInsureRefund($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendAntsaasStaffingcInsureRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退保接口
+     * Summary: 退保接口.
+     *
+     * @param SendAntsaasStaffingcInsureRefundRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return SendAntsaasStaffingcInsureRefundResponse
+     */
+    public function sendAntsaasStaffingcInsureRefundEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendAntsaasStaffingcInsureRefundResponse::fromMap($this->doRequest('1.0', 'antsaas.staffingc.insure.refund.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
