@@ -4384,6 +4384,39 @@ export class DeviceOrderResult extends $tea.Model {
   }
 }
 
+// 物模型事件VO
+export class ThingModelEventVO extends $tea.Model {
+  // 名称
+  name: string;
+  // 物模型功能Id
+  featureId: string;
+  // 业务标识
+  bizType: string;
+  // 事件属性列表
+  eventProperties: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      featureId: 'feature_id',
+      bizType: 'biz_type',
+      eventProperties: 'event_properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      featureId: 'string',
+      bizType: 'string',
+      eventProperties: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 设备注册结果对象
 export class IotBasicDeviceRegisterResult extends $tea.Model {
   // 设备did
@@ -4550,6 +4583,80 @@ export class ScenePageResponse extends $tea.Model {
       totalSize: 'number',
       totalPages: 'number',
       pageData: { 'type': 'array', 'itemType': SceneModel },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 产线压测任务对象
+export class OnlinePressureTestTask extends $tea.Model {
+  // DATE
+  gmtCreate?: string;
+  // 修改时间	
+  // 
+  gmtModified?: string;
+  // 产线场景码	
+  // 
+  scene: string;
+  // 压测的目标设备可信信根设备的唯一标识，JSONArray字符串	
+  // 
+  componentIdList: string;
+  // 客户侧的压测报告	
+  // 
+  customerPtReport?: string;
+  // 压测开始时间	
+  // 
+  ptStartTime: string;
+  // 压测结束时间	
+  // 
+  ptEndTime: string;
+  // RUNNING: 正在执行 SUCCESS : 测试通过 FAILED : 测试不通过	
+  // 
+  ptStatus: string;
+  // 关联SIT环境的工单ID	
+  // 
+  workOrderId?: string;
+  // 关联SIT环境的项目ID	
+  // 
+  projectId: string;
+  // 产线压测任务ID
+  ptTaskId: string;
+  // 压测不通过的原因
+  failureReason: string;
+  static names(): { [key: string]: string } {
+    return {
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      scene: 'scene',
+      componentIdList: 'component_id_list',
+      customerPtReport: 'customer_pt_report',
+      ptStartTime: 'pt_start_time',
+      ptEndTime: 'pt_end_time',
+      ptStatus: 'pt_status',
+      workOrderId: 'work_order_id',
+      projectId: 'project_id',
+      ptTaskId: 'pt_task_id',
+      failureReason: 'failure_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      scene: 'string',
+      componentIdList: 'string',
+      customerPtReport: 'string',
+      ptStartTime: 'string',
+      ptEndTime: 'string',
+      ptStatus: 'string',
+      workOrderId: 'string',
+      projectId: 'string',
+      ptTaskId: 'string',
+      failureReason: 'string',
     };
   }
 
@@ -19053,6 +19160,318 @@ export class QueryCollectorJtmediaResponse extends $tea.Model {
   }
 }
 
+export class QueryOnlinepressuretestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 项目ID
+  projectId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      projectId: 'project_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      projectId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryOnlinepressuretestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 产线压测任务对象
+  testTask?: OnlinePressureTestTask;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      testTask: 'test_task',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      testTask: OnlinePressureTestTask,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateOnlinepressuretestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 产线压测任务对象
+  // 
+  testTask: OnlinePressureTestTask;
+  // 项目ID
+  projectId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      testTask: 'test_task',
+      projectId: 'project_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      testTask: OnlinePressureTestTask,
+      projectId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateOnlinepressuretestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateOnlinepressuretestCustomerreportRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 联调项目ID
+  projectId: string;
+  // 客户侧的压测报告
+  customerPtReport: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      projectId: 'project_id',
+      customerPtReport: 'customer_pt_report',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      projectId: 'string',
+      customerPtReport: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateOnlinepressuretestCustomerreportResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryThingmodeleventBycustomertenantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户的租户ID
+  customerTenant: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customerTenant: 'customer_tenant',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customerTenant: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryThingmodeleventBycustomertenantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 物模型事件列表
+  eventList?: ThingModelEventVO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      eventList: 'event_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      eventList: { 'type': 'array', 'itemType': ThingModelEventVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeployThingudfRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // UDF 唯一ID
+  udfId: string;
+  // 场景码
+  scene: string;
+  // 物模型功能ID
+  featureId: string;
+  // 租户ID
+  customerTenant: string;
+  // UDF类型枚举
+  udfType: string;
+  // 物模型UDF实例表
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      udfId: 'udf_id',
+      scene: 'scene',
+      featureId: 'feature_id',
+      customerTenant: 'customer_tenant',
+      udfType: 'udf_type',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      udfId: 'string',
+      scene: 'string',
+      featureId: 'string',
+      customerTenant: 'string',
+      udfType: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeployThingudfResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -20435,7 +20854,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.95",
+          sdk_version: "1.8.103",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -23846,6 +24265,101 @@ export default class Client {
   async queryCollectorJtmediaEx(request: QueryCollectorJtmediaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCollectorJtmediaResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryCollectorJtmediaResponse>(await this.doRequest("1.0", "blockchain.bot.collector.jtmedia.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCollectorJtmediaResponse({}));
+  }
+
+  /**
+   * Description: 查询产线压测任务
+   * Summary: 查询项目关联的产线压测任务
+   */
+  async queryOnlinepressuretest(request: QueryOnlinepressuretestRequest): Promise<QueryOnlinepressuretestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryOnlinepressuretestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询产线压测任务
+   * Summary: 查询项目关联的产线压测任务
+   */
+  async queryOnlinepressuretestEx(request: QueryOnlinepressuretestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryOnlinepressuretestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryOnlinepressuretestResponse>(await this.doRequest("1.0", "blockchain.bot.onlinepressuretest.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryOnlinepressuretestResponse({}));
+  }
+
+  /**
+   * Description:  【自主联调平台】创建产线压测任务
+   * Summary:  【自主联调平台】创建产线压测任务
+   */
+  async createOnlinepressuretest(request: CreateOnlinepressuretestRequest): Promise<CreateOnlinepressuretestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createOnlinepressuretestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description:  【自主联调平台】创建产线压测任务
+   * Summary:  【自主联调平台】创建产线压测任务
+   */
+  async createOnlinepressuretestEx(request: CreateOnlinepressuretestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateOnlinepressuretestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateOnlinepressuretestResponse>(await this.doRequest("1.0", "blockchain.bot.onlinepressuretest.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateOnlinepressuretestResponse({}));
+  }
+
+  /**
+   * Description: 更新客户侧的压测报告
+   * Summary: 更新客户侧的压测报告
+   */
+  async updateOnlinepressuretestCustomerreport(request: UpdateOnlinepressuretestCustomerreportRequest): Promise<UpdateOnlinepressuretestCustomerreportResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateOnlinepressuretestCustomerreportEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 更新客户侧的压测报告
+   * Summary: 更新客户侧的压测报告
+   */
+  async updateOnlinepressuretestCustomerreportEx(request: UpdateOnlinepressuretestCustomerreportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateOnlinepressuretestCustomerreportResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateOnlinepressuretestCustomerreportResponse>(await this.doRequest("1.0", "blockchain.bot.onlinepressuretest.customerreport.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateOnlinepressuretestCustomerreportResponse({}));
+  }
+
+  /**
+   * Description: 查询客户的物模型事件
+   * Summary: 查询客户的物模型事件列表
+   */
+  async queryThingmodeleventBycustomertenant(request: QueryThingmodeleventBycustomertenantRequest): Promise<QueryThingmodeleventBycustomertenantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryThingmodeleventBycustomertenantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询客户的物模型事件
+   * Summary: 查询客户的物模型事件列表
+   */
+  async queryThingmodeleventBycustomertenantEx(request: QueryThingmodeleventBycustomertenantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryThingmodeleventBycustomertenantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryThingmodeleventBycustomertenantResponse>(await this.doRequest("1.0", "blockchain.bot.thingmodelevent.bycustomertenant.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryThingmodeleventBycustomertenantResponse({}));
+  }
+
+  /**
+   * Description: 从联调环境部署物模型UDF到生产环境
+   * Summary: 从联调环境部署物模型UDF到生产环境
+   */
+  async deployThingudf(request: DeployThingudfRequest): Promise<DeployThingudfResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deployThingudfEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 从联调环境部署物模型UDF到生产环境
+   * Summary: 从联调环境部署物模型UDF到生产环境
+   */
+  async deployThingudfEx(request: DeployThingudfRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeployThingudfResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeployThingudfResponse>(await this.doRequest("1.0", "blockchain.bot.thingudf.deploy", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeployThingudfResponse({}));
   }
 
   /**
