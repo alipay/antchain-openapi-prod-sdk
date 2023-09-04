@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.95',
+    sdk_version = '1.8.103',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -1932,6 +1932,18 @@ model DeviceOrderResult {
   orderId: string(name='order_id', example='34'),
 }
 
+// 物模型事件VO
+model ThingModelEventVO {
+  // 名称
+  name: string(name='name', example='设备状态数据'),
+  // 物模型功能Id
+  featureId: string(name='feature_id', example='7067312861108285440'),
+  // 业务标识
+  bizType: string(name='biz_type', example='LOCATION'),
+  // 事件属性列表
+  eventProperties: string(name='event_properties', example='[...]'),
+}
+
 // 设备注册结果对象
 model IotBasicDeviceRegisterResult {
   // 设备did
@@ -2008,6 +2020,43 @@ model ScenePageResponse {
   totalPages: long(name='total_pages', example='10'),
   // 数据
   pageData: [ SceneModel ](name='page_data', example='{...}'),
+}
+
+// 产线压测任务对象
+model OnlinePressureTestTask {
+  // DATE
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example=''),
+  // 修改时间	
+  // 
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 产线场景码	
+  // 
+  scene: string(name='scene', example='MAYI-0001 '),
+  // 压测的目标设备可信信根设备的唯一标识，JSONArray字符串	
+  // 
+  componentIdList: string(name='component_id_list', example='[ {"componentId": "864964060327592"} {"componentId": "864964060327592"} ]'),
+  // 客户侧的压测报告	
+  // 
+  customerPtReport?: string(name='customer_pt_report', example='[ { "name":"流量消耗", "consumption":"100KB", "asExpected":true }, { "name":"功耗", "consumption":"25mA", "asExpected":true }, { "name":"OTA升级" "asExpected":true } ] } '),
+  // 压测开始时间	
+  // 
+  ptStartTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='pt_start_time', example='2018-10-10T10:10:00Z'),
+  // 压测结束时间	
+  // 
+  ptEndTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='pt_end_time', example='2018-10-10T10:10:00Z'),
+  // RUNNING: 正在执行 SUCCESS : 测试通过 FAILED : 测试不通过	
+  // 
+  ptStatus: string(name='pt_status', example='RUNNING'),
+  // 关联SIT环境的工单ID	
+  // 
+  workOrderId?: string(name='work_order_id', example='1122'),
+  // 关联SIT环境的项目ID	
+  // 
+  projectId: string(name='project_id', example='11223344'),
+  // 产线压测任务ID
+  ptTaskId: string(name='pt_task_id', example='11223344566'),
+  // 压测不通过的原因
+  failureReason: string(name='failure_reason', example='数据验签失败'),
 }
 
 // 客户对应设备
@@ -10850,6 +10899,205 @@ async function queryCollectorJtmedia(request: QueryCollectorJtmediaRequest): Que
 async function queryCollectorJtmediaEx(request: QueryCollectorJtmediaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCollectorJtmediaResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.collector.jtmedia.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryOnlinepressuretestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(name='project_id'),
+}
+
+model QueryOnlinepressuretestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 产线压测任务对象
+  testTask?: OnlinePressureTestTask(name='test_task'),
+}
+
+/**
+ * Description: 查询产线压测任务
+ * Summary: 查询项目关联的产线压测任务
+ */
+async function queryOnlinepressuretest(request: QueryOnlinepressuretestRequest): QueryOnlinepressuretestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryOnlinepressuretestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询产线压测任务
+ * Summary: 查询项目关联的产线压测任务
+ */
+async function queryOnlinepressuretestEx(request: QueryOnlinepressuretestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryOnlinepressuretestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.onlinepressuretest.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateOnlinepressuretestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产线压测任务对象
+  // 
+  testTask: OnlinePressureTestTask(name='test_task'),
+  // 项目ID
+  projectId?: string(name='project_id'),
+}
+
+model CreateOnlinepressuretestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description:  【自主联调平台】创建产线压测任务
+ * Summary:  【自主联调平台】创建产线压测任务
+ */
+async function createOnlinepressuretest(request: CreateOnlinepressuretestRequest): CreateOnlinepressuretestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createOnlinepressuretestEx(request, headers, runtime);
+}
+
+/**
+ * Description:  【自主联调平台】创建产线压测任务
+ * Summary:  【自主联调平台】创建产线压测任务
+ */
+async function createOnlinepressuretestEx(request: CreateOnlinepressuretestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateOnlinepressuretestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.onlinepressuretest.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateOnlinepressuretestCustomerreportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联调项目ID
+  projectId: string(name='project_id'),
+  // 客户侧的压测报告
+  customerPtReport: string(name='customer_pt_report'),
+}
+
+model UpdateOnlinepressuretestCustomerreportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新客户侧的压测报告
+ * Summary: 更新客户侧的压测报告
+ */
+async function updateOnlinepressuretestCustomerreport(request: UpdateOnlinepressuretestCustomerreportRequest): UpdateOnlinepressuretestCustomerreportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateOnlinepressuretestCustomerreportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新客户侧的压测报告
+ * Summary: 更新客户侧的压测报告
+ */
+async function updateOnlinepressuretestCustomerreportEx(request: UpdateOnlinepressuretestCustomerreportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateOnlinepressuretestCustomerreportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.onlinepressuretest.customerreport.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryThingmodeleventBycustomertenantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户的租户ID
+  customerTenant: string(name='customer_tenant'),
+}
+
+model QueryThingmodeleventBycustomertenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 物模型事件列表
+  eventList?: [ ThingModelEventVO ](name='event_list'),
+}
+
+/**
+ * Description: 查询客户的物模型事件
+ * Summary: 查询客户的物模型事件列表
+ */
+async function queryThingmodeleventBycustomertenant(request: QueryThingmodeleventBycustomertenantRequest): QueryThingmodeleventBycustomertenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryThingmodeleventBycustomertenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询客户的物模型事件
+ * Summary: 查询客户的物模型事件列表
+ */
+async function queryThingmodeleventBycustomertenantEx(request: QueryThingmodeleventBycustomertenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryThingmodeleventBycustomertenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.thingmodelevent.bycustomertenant.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeployThingudfRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // UDF 唯一ID
+  udfId: string(name='udf_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 物模型功能ID
+  featureId: string(name='feature_id'),
+  // 租户ID
+  customerTenant: string(name='customer_tenant'),
+  // UDF类型枚举
+  udfType: string(name='udf_type'),
+  // 物模型UDF实例表
+  value: string(name='value'),
+}
+
+model DeployThingudfResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 从联调环境部署物模型UDF到生产环境
+ * Summary: 从联调环境部署物模型UDF到生产环境
+ */
+async function deployThingudf(request: DeployThingudfRequest): DeployThingudfResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deployThingudfEx(request, headers, runtime);
+}
+
+/**
+ * Description: 从联调环境部署物模型UDF到生产环境
+ * Summary: 从联调环境部署物模型UDF到生产环境
+ */
+async function deployThingudfEx(request: DeployThingudfRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeployThingudfResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.thingudf.deploy', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
