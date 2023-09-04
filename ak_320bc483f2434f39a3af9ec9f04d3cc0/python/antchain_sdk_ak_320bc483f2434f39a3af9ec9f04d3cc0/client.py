@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.1',
+                    'sdk_version': '1.2.0',
                     '_prod_code': 'ak_320bc483f2434f39a3af9ec9f04d3cc0',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.1',
+                    'sdk_version': '1.2.0',
                     '_prod_code': 'ak_320bc483f2434f39a3af9ec9f04d3cc0',
                     '_prod_channel': 'saas'
                 }
@@ -419,6 +419,454 @@ class Client:
         return TeaCore.from_map(
             ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcContractSignResponse(),
             await self.do_request_async('1.0', 'antsaas.staffingc.contract.sign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antsaas_staffingc_epcertification_url(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationUrlRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationUrlResponse:
+        """
+        Description: 企业认证授权url查询接口
+        Summary: 企业认证授权url查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antsaas_staffingc_epcertification_url_ex(request, headers, runtime)
+
+    async def query_antsaas_staffingc_epcertification_url_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationUrlRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationUrlResponse:
+        """
+        Description: 企业认证授权url查询接口
+        Summary: 企业认证授权url查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antsaas_staffingc_epcertification_url_ex_async(request, headers, runtime)
+
+    def query_antsaas_staffingc_epcertification_url_ex(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationUrlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationUrlResponse:
+        """
+        Description: 企业认证授权url查询接口
+        Summary: 企业认证授权url查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationUrlResponse(),
+            self.do_request('1.0', 'antsaas.staffingc.epcertification.url.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antsaas_staffingc_epcertification_url_ex_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationUrlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationUrlResponse:
+        """
+        Description: 企业认证授权url查询接口
+        Summary: 企业认证授权url查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationUrlResponse(),
+            await self.do_request_async('1.0', 'antsaas.staffingc.epcertification.url.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antsaas_staffingc_epcertification_authorize(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.CreateAntsaasStaffingcEpcertificationAuthorizeRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.CreateAntsaasStaffingcEpcertificationAuthorizeResponse:
+        """
+        Description: 企业认证创建接口
+        Summary: 企业认证创建接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antsaas_staffingc_epcertification_authorize_ex(request, headers, runtime)
+
+    async def create_antsaas_staffingc_epcertification_authorize_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.CreateAntsaasStaffingcEpcertificationAuthorizeRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.CreateAntsaasStaffingcEpcertificationAuthorizeResponse:
+        """
+        Description: 企业认证创建接口
+        Summary: 企业认证创建接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antsaas_staffingc_epcertification_authorize_ex_async(request, headers, runtime)
+
+    def create_antsaas_staffingc_epcertification_authorize_ex(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.CreateAntsaasStaffingcEpcertificationAuthorizeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.CreateAntsaasStaffingcEpcertificationAuthorizeResponse:
+        """
+        Description: 企业认证创建接口
+        Summary: 企业认证创建接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.CreateAntsaasStaffingcEpcertificationAuthorizeResponse(),
+            self.do_request('1.0', 'antsaas.staffingc.epcertification.authorize.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antsaas_staffingc_epcertification_authorize_ex_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.CreateAntsaasStaffingcEpcertificationAuthorizeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.CreateAntsaasStaffingcEpcertificationAuthorizeResponse:
+        """
+        Description: 企业认证创建接口
+        Summary: 企业认证创建接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.CreateAntsaasStaffingcEpcertificationAuthorizeResponse(),
+            await self.do_request_async('1.0', 'antsaas.staffingc.epcertification.authorize.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antsaas_staffingc_epcertification_risk(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationRiskRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationRiskResponse:
+        """
+        Description: 企业认证风险查询接口
+        Summary: 企业认证风险查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antsaas_staffingc_epcertification_risk_ex(request, headers, runtime)
+
+    async def query_antsaas_staffingc_epcertification_risk_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationRiskRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationRiskResponse:
+        """
+        Description: 企业认证风险查询接口
+        Summary: 企业认证风险查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antsaas_staffingc_epcertification_risk_ex_async(request, headers, runtime)
+
+    def query_antsaas_staffingc_epcertification_risk_ex(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationRiskResponse:
+        """
+        Description: 企业认证风险查询接口
+        Summary: 企业认证风险查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationRiskResponse(),
+            self.do_request('1.0', 'antsaas.staffingc.epcertification.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antsaas_staffingc_epcertification_risk_ex_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationRiskResponse:
+        """
+        Description: 企业认证风险查询接口
+        Summary: 企业认证风险查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcEpcertificationRiskResponse(),
+            await self.do_request_async('1.0', 'antsaas.staffingc.epcertification.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_antsaas_staffingc_insure_signurl(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ApplyAntsaasStaffingcInsureSignurlRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ApplyAntsaasStaffingcInsureSignurlResponse:
+        """
+        Description: 获取保险签约认证连接
+        Summary: 获取保险签约认证连接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_antsaas_staffingc_insure_signurl_ex(request, headers, runtime)
+
+    async def apply_antsaas_staffingc_insure_signurl_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ApplyAntsaasStaffingcInsureSignurlRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ApplyAntsaasStaffingcInsureSignurlResponse:
+        """
+        Description: 获取保险签约认证连接
+        Summary: 获取保险签约认证连接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_antsaas_staffingc_insure_signurl_ex_async(request, headers, runtime)
+
+    def apply_antsaas_staffingc_insure_signurl_ex(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ApplyAntsaasStaffingcInsureSignurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ApplyAntsaasStaffingcInsureSignurlResponse:
+        """
+        Description: 获取保险签约认证连接
+        Summary: 获取保险签约认证连接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ApplyAntsaasStaffingcInsureSignurlResponse(),
+            self.do_request('1.0', 'antsaas.staffingc.insure.signurl.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_antsaas_staffingc_insure_signurl_ex_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ApplyAntsaasStaffingcInsureSignurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ApplyAntsaasStaffingcInsureSignurlResponse:
+        """
+        Description: 获取保险签约认证连接
+        Summary: 获取保险签约认证连接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ApplyAntsaasStaffingcInsureSignurlResponse(),
+            await self.do_request_async('1.0', 'antsaas.staffingc.insure.signurl.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_antsaas_staffingc_insure_product(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ListAntsaasStaffingcInsureProductRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ListAntsaasStaffingcInsureProductResponse:
+        """
+        Description: 查询可投保的保险产品
+        Summary: 查询可投保的保险产品
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_antsaas_staffingc_insure_product_ex(request, headers, runtime)
+
+    async def list_antsaas_staffingc_insure_product_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ListAntsaasStaffingcInsureProductRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ListAntsaasStaffingcInsureProductResponse:
+        """
+        Description: 查询可投保的保险产品
+        Summary: 查询可投保的保险产品
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_antsaas_staffingc_insure_product_ex_async(request, headers, runtime)
+
+    def list_antsaas_staffingc_insure_product_ex(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ListAntsaasStaffingcInsureProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ListAntsaasStaffingcInsureProductResponse:
+        """
+        Description: 查询可投保的保险产品
+        Summary: 查询可投保的保险产品
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ListAntsaasStaffingcInsureProductResponse(),
+            self.do_request('1.0', 'antsaas.staffingc.insure.product.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_antsaas_staffingc_insure_product_ex_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ListAntsaasStaffingcInsureProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ListAntsaasStaffingcInsureProductResponse:
+        """
+        Description: 查询可投保的保险产品
+        Summary: 查询可投保的保险产品
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.ListAntsaasStaffingcInsureProductResponse(),
+            await self.do_request_async('1.0', 'antsaas.staffingc.insure.product.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antsaas_staffingc_insure_price(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcInsurePriceRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcInsurePriceResponse:
+        """
+        Description: 查询保险产品价格相关信息
+        Summary: 查询保险产品价格相关信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antsaas_staffingc_insure_price_ex(request, headers, runtime)
+
+    async def query_antsaas_staffingc_insure_price_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcInsurePriceRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcInsurePriceResponse:
+        """
+        Description: 查询保险产品价格相关信息
+        Summary: 查询保险产品价格相关信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antsaas_staffingc_insure_price_ex_async(request, headers, runtime)
+
+    def query_antsaas_staffingc_insure_price_ex(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcInsurePriceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcInsurePriceResponse:
+        """
+        Description: 查询保险产品价格相关信息
+        Summary: 查询保险产品价格相关信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcInsurePriceResponse(),
+            self.do_request('1.0', 'antsaas.staffingc.insure.price.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antsaas_staffingc_insure_price_ex_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcInsurePriceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcInsurePriceResponse:
+        """
+        Description: 查询保险产品价格相关信息
+        Summary: 查询保险产品价格相关信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcInsurePriceResponse(),
+            await self.do_request_async('1.0', 'antsaas.staffingc.insure.price.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_antsaas_staffingc_insure(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureResponse:
+        """
+        Description: 执行投保
+        Summary: 执行投保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_antsaas_staffingc_insure_ex(request, headers, runtime)
+
+    async def send_antsaas_staffingc_insure_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureResponse:
+        """
+        Description: 执行投保
+        Summary: 执行投保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_antsaas_staffingc_insure_ex_async(request, headers, runtime)
+
+    def send_antsaas_staffingc_insure_ex(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureResponse:
+        """
+        Description: 执行投保
+        Summary: 执行投保
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureResponse(),
+            self.do_request('1.0', 'antsaas.staffingc.insure.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_antsaas_staffingc_insure_ex_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureResponse:
+        """
+        Description: 执行投保
+        Summary: 执行投保
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureResponse(),
+            await self.do_request_async('1.0', 'antsaas.staffingc.insure.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_antsaas_staffingc_insure_refund(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRefundRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRefundResponse:
+        """
+        Description: 退保接口
+        Summary: 退保接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_antsaas_staffingc_insure_refund_ex(request, headers, runtime)
+
+    async def send_antsaas_staffingc_insure_refund_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRefundRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRefundResponse:
+        """
+        Description: 退保接口
+        Summary: 退保接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_antsaas_staffingc_insure_refund_ex_async(request, headers, runtime)
+
+    def send_antsaas_staffingc_insure_refund_ex(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRefundResponse:
+        """
+        Description: 退保接口
+        Summary: 退保接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRefundResponse(),
+            self.do_request('1.0', 'antsaas.staffingc.insure.refund.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_antsaas_staffingc_insure_refund_ex_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRefundResponse:
+        """
+        Description: 退保接口
+        Summary: 退保接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRefundResponse(),
+            await self.do_request_async('1.0', 'antsaas.staffingc.insure.refund.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

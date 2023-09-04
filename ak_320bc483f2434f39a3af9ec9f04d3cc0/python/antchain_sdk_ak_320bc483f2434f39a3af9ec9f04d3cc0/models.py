@@ -271,6 +271,42 @@ class SignUrlResp(TeaModel):
         return self
 
 
+class FailOrderInfo(TeaModel):
+    def __init__(
+        self,
+        order_no: str = None,
+        fail_reason: str = None,
+    ):
+        # 退保失败订单号
+        self.order_no = order_no
+        # 失败原因
+        self.fail_reason = fail_reason
+
+    def validate(self):
+        self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.fail_reason, 'fail_reason')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.fail_reason is not None:
+            result['fail_reason'] = self.fail_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('fail_reason') is not None:
+            self.fail_reason = m.get('fail_reason')
+        return self
+
+
 class SignUserInfo(TeaModel):
     def __init__(
         self,
@@ -321,6 +357,58 @@ class SignUserInfo(TeaModel):
             for k in m.get('sign_area_list'):
                 temp_model = SignatoryInfo()
                 self.sign_area_list.append(temp_model.from_map(k))
+        return self
+
+
+class InsureEmployeeInfo(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        cert_no: str = None,
+        mobile: str = None,
+        extra_msg: str = None,
+    ):
+        # 姓名
+        self.name = name
+        # 身份证号
+        self.cert_no = cert_no
+        # 手机号
+        self.mobile = mobile
+        # 额外信息
+        self.extra_msg = extra_msg
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.cert_no, 'cert_no')
+        self.validate_required(self.mobile, 'mobile')
+        self.validate_required(self.extra_msg, 'extra_msg')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.extra_msg is not None:
+            result['extra_msg'] = self.extra_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('extra_msg') is not None:
+            self.extra_msg = m.get('extra_msg')
         return self
 
 
@@ -444,6 +532,73 @@ class SignEnterpriseInfo(TeaModel):
             for k in m.get('sign_area_list'):
                 temp_model = SignatoryInfo()
                 self.sign_area_list.append(temp_model.from_map(k))
+        return self
+
+
+class InsureProductInfo(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        product_id: str = None,
+        insurance_type_code: str = None,
+        recom_flow_no: str = None,
+        premium: int = None,
+        sum_insured: int = None,
+    ):
+        # 产品名称
+        self.name = name
+        # 产品id
+        self.product_id = product_id
+        # 险种编码:
+        # ACCIDENT: 意外险
+        # EMPLOYER: 雇主险
+        self.insurance_type_code = insurance_type_code
+        # 推荐编码
+        self.recom_flow_no = recom_flow_no
+        # 最低价格（分）
+        self.premium = premium
+        # 保额（分）
+        self.sum_insured = sum_insured
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.product_id, 'product_id')
+        self.validate_required(self.insurance_type_code, 'insurance_type_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.insurance_type_code is not None:
+            result['insurance_type_code'] = self.insurance_type_code
+        if self.recom_flow_no is not None:
+            result['recom_flow_no'] = self.recom_flow_no
+        if self.premium is not None:
+            result['premium'] = self.premium
+        if self.sum_insured is not None:
+            result['sum_insured'] = self.sum_insured
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('insurance_type_code') is not None:
+            self.insurance_type_code = m.get('insurance_type_code')
+        if m.get('recom_flow_no') is not None:
+            self.recom_flow_no = m.get('recom_flow_no')
+        if m.get('premium') is not None:
+            self.premium = m.get('premium')
+        if m.get('sum_insured') is not None:
+            self.sum_insured = m.get('sum_insured')
         return self
 
 
@@ -827,6 +982,1100 @@ class QueryAntsaasStaffingcContractSignResponse(TeaModel):
             for k in m.get('sign_url_list'):
                 temp_model = SignUrlResp()
                 self.sign_url_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryAntsaasStaffingcEpcertificationUrlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 一次认证的唯一标识,在商户调用认证初始化接口的时候获取
+        # (如果接口创建接口发生未知异常，可使用out_biz_no替代，查询状态）
+        self.biz_no = biz_no
+
+    def validate(self):
+        self.validate_required(self.biz_no, 'biz_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        return self
+
+
+class QueryAntsaasStaffingcEpcertificationUrlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result_body: str = None,
+        biz_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # // 响应为表单格式，可嵌入页面，具体以返回的结果为准
+        self.result_body = result_body
+        # 订单号（但入参为out_biz_no时传入）
+        self.biz_no = biz_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result_body is not None:
+            result['result_body'] = self.result_body
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result_body') is not None:
+            self.result_body = m.get('result_body')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        return self
+
+
+class CreateAntsaasStaffingcEpcertificationAuthorizeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        out_biz_no: str = None,
+        ep_name: str = None,
+        ep_cert_no: str = None,
+        return_url: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 需要保证唯一，外部订单号
+        self.out_biz_no = out_biz_no
+        # 企业全称
+        self.ep_name = ep_name
+        # 统一社会信用代码或营业执照注册号
+        self.ep_cert_no = ep_cert_no
+        # 认证完成后，跳转到指定url地址
+        self.return_url = return_url
+
+    def validate(self):
+        self.validate_required(self.out_biz_no, 'out_biz_no')
+        self.validate_required(self.ep_name, 'ep_name')
+        self.validate_required(self.ep_cert_no, 'ep_cert_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
+        if self.ep_name is not None:
+            result['ep_name'] = self.ep_name
+        if self.ep_cert_no is not None:
+            result['ep_cert_no'] = self.ep_cert_no
+        if self.return_url is not None:
+            result['return_url'] = self.return_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
+        if m.get('ep_name') is not None:
+            self.ep_name = m.get('ep_name')
+        if m.get('ep_cert_no') is not None:
+            self.ep_cert_no = m.get('ep_cert_no')
+        if m.get('return_url') is not None:
+            self.return_url = m.get('return_url')
+        return self
+
+
+class CreateAntsaasStaffingcEpcertificationAuthorizeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 一次认证的唯一标识
+        self.biz_no = biz_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        return self
+
+
+class QueryAntsaasStaffingcEpcertificationRiskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_no: str = None,
+        ep_name: str = None,
+        ep_cert_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 一次认证的唯一标识,在调用认证初始化接口的时候获取
+        self.biz_no = biz_no
+        # 企业全称
+        self.ep_name = ep_name
+        # 统一社会信用代码或营业执照注册号
+        self.ep_cert_no = ep_cert_no
+
+    def validate(self):
+        self.validate_required(self.biz_no, 'biz_no')
+        self.validate_required(self.ep_name, 'ep_name')
+        self.validate_required(self.ep_cert_no, 'ep_cert_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        if self.ep_name is not None:
+            result['ep_name'] = self.ep_name
+        if self.ep_cert_no is not None:
+            result['ep_cert_no'] = self.ep_cert_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        if m.get('ep_name') is not None:
+            self.ep_name = m.get('ep_name')
+        if m.get('ep_cert_no') is not None:
+            self.ep_cert_no = m.get('ep_cert_no')
+        return self
+
+
+class QueryAntsaasStaffingcEpcertificationRiskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        certify_status: str = None,
+        auth_status: str = None,
+        ep_name: str = None,
+        ep_cert_no: str = None,
+        user_name: str = None,
+        certify_person_card_no_postfix: str = None,
+        certify_fail_reasons: List[str] = None,
+        risk_identify_result: List[str] = None,
+        shell_company_level: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 认证状态，取值如下： SUCCESS，代表成功 INIT，代表初始化 CERTIFYING，代表认证中 FAIL，代表失败
+        self.certify_status = certify_status
+        # 授权状态，从用户授权开始计时，时间窗口3天 取值如下： SUCCESS，代表用户已授权 FAIL，代表用户未授权或授权失效
+        self.auth_status = auth_status
+        # 企业全称，字段auth_status为SUCCESS时返回
+        self.ep_name = ep_name
+        # 统一社会信用代码或营业执照注册号，字段auth_status为SUCCESS时返回
+        self.ep_cert_no = ep_cert_no
+        # 法人认证姓名，字段auth_status为SUCCESS时返回
+        self.user_name = user_name
+        # 法人认证身份证号
+        self.certify_person_card_no_postfix = certify_person_card_no_postfix
+        # 认证失败原因列表，当certify_status=FAIL时返回
+        self.certify_fail_reasons = certify_fail_reasons
+        # 认证风险识别结果集合
+        # 枚举值
+        # 低风险认证: CERTIFICATION_LOW_RISK
+        # 中风险认证: CERTIFICATION_MID_RISK2
+        # 高风险认证: CERTIFICATION_HIGH_RISK
+        # 批量注册: ONE_ADDR_MULTI_COMP
+        # 经营异常: OPERATION_ABNORMAL
+        # 交叉任职: CROSS_POSITION
+        # 涉嫌洗钱: SUSPECTED_MONEY_LAUNDERING
+        # 空壳公司: SHELL_COMPANY
+        # 失信被执行: BREACH_PROMISE_EXECUTION
+        # 严重违法失信: SERIOUS_BREACH_TRUST
+        # 行政处罚: ADMINISTRATIVE_SANCTION
+        # 司法冻结: JUDICIAL_FREEZE
+        # 违规违禁: VIOLATION_BAN
+        # 信贷逾期: CREDIT_OVERDUE
+        # 多头借贷: LONG_BORROWING
+        # 疑似欺诈: SUSPECTED_FRAUD
+        # 疑似涉赌博: SUSPECTED_GAMBLING
+        # 企业芝麻证: LI_XIN_CERTIFICATE
+        self.risk_identify_result = risk_identify_result
+        # 空壳企业等级，描述企业空壳程度。
+        # 枚举值
+        # 优秀企业，没有空壳企业的常见特征，且有很多正向特征证明其正常经营: A+\
+        # 较为优秀的企业，没有空壳企业的常见特征，且有较多正向特征证明其正常经营: A
+        # 较为优秀的企业，几乎没有空壳企业的常见特征，或者有较多正向特征证明其正常经营: B
+        # 普通企业，一般没有空壳企业的常见特征，或者有很少量能反映其正常经营的数据: M+\
+        # 普通企业或者新注册的企业，一般没有空壳企业的常见特征，但是也没有太多能反映其在正常生产经营的数据: M
+        # 普通企业，一般没有明显空壳企业的常见特征，也没有太多能反映其在正常生产经营的数据，可能和空壳企业有少量交集: M-\
+        # 较差企业，有部分空壳企业特征，可能有较少能反映其在正常生产经营的数据。建议这部分企业酌情考虑风险: C+\
+        # 差企业，有较多空壳企业特征，几乎没有能反映其在正常生产经营的数据: C
+        # 差企业，有很多明显空壳企业特征，几乎没有能反映其在正常生产经营的数据: D
+        self.shell_company_level = shell_company_level
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.certify_status is not None:
+            result['certify_status'] = self.certify_status
+        if self.auth_status is not None:
+            result['auth_status'] = self.auth_status
+        if self.ep_name is not None:
+            result['ep_name'] = self.ep_name
+        if self.ep_cert_no is not None:
+            result['ep_cert_no'] = self.ep_cert_no
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.certify_person_card_no_postfix is not None:
+            result['certify_person_card_no_postfix'] = self.certify_person_card_no_postfix
+        if self.certify_fail_reasons is not None:
+            result['certify_fail_reasons'] = self.certify_fail_reasons
+        if self.risk_identify_result is not None:
+            result['risk_identify_result'] = self.risk_identify_result
+        if self.shell_company_level is not None:
+            result['shell_company_level'] = self.shell_company_level
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('certify_status') is not None:
+            self.certify_status = m.get('certify_status')
+        if m.get('auth_status') is not None:
+            self.auth_status = m.get('auth_status')
+        if m.get('ep_name') is not None:
+            self.ep_name = m.get('ep_name')
+        if m.get('ep_cert_no') is not None:
+            self.ep_cert_no = m.get('ep_cert_no')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('certify_person_card_no_postfix') is not None:
+            self.certify_person_card_no_postfix = m.get('certify_person_card_no_postfix')
+        if m.get('certify_fail_reasons') is not None:
+            self.certify_fail_reasons = m.get('certify_fail_reasons')
+        if m.get('risk_identify_result') is not None:
+            self.risk_identify_result = m.get('risk_identify_result')
+        if m.get('shell_company_level') is not None:
+            self.shell_company_level = m.get('shell_company_level')
+        return self
+
+
+class ApplyAntsaasStaffingcInsureSignurlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        enterprise_name: str = None,
+        social_credit_code: str = None,
+        auth_account: str = None,
+        mobile: str = None,
+        out_biz_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 企业名称
+        self.enterprise_name = enterprise_name
+        # 社会信用代码
+        self.social_credit_code = social_credit_code
+        # 签约支付宝账号（企业支付宝是邮箱）
+        self.auth_account = auth_account
+        # 联系手机号（用于接收投保失败等短信通知）
+        self.mobile = mobile
+        # 外部业务号(64长度以内）
+        # 
+        self.out_biz_no = out_biz_no
+
+    def validate(self):
+        self.validate_required(self.enterprise_name, 'enterprise_name')
+        self.validate_required(self.social_credit_code, 'social_credit_code')
+        self.validate_required(self.auth_account, 'auth_account')
+        self.validate_required(self.out_biz_no, 'out_biz_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.enterprise_name is not None:
+            result['enterprise_name'] = self.enterprise_name
+        if self.social_credit_code is not None:
+            result['social_credit_code'] = self.social_credit_code
+        if self.auth_account is not None:
+            result['auth_account'] = self.auth_account
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('enterprise_name') is not None:
+            self.enterprise_name = m.get('enterprise_name')
+        if m.get('social_credit_code') is not None:
+            self.social_credit_code = m.get('social_credit_code')
+        if m.get('auth_account') is not None:
+            self.auth_account = m.get('auth_account')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
+        return self
+
+
+class ApplyAntsaasStaffingcInsureSignurlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sign_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 签约地址
+        self.sign_url = sign_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.sign_url is not None:
+            result['sign_url'] = self.sign_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('sign_url') is not None:
+            self.sign_url = m.get('sign_url')
+        return self
+
+
+class ListAntsaasStaffingcInsureProductRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        enterprise_name: str = None,
+        social_credit_code: str = None,
+        biz_code: str = None,
+        insurance_type_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 企业名称
+        self.enterprise_name = enterprise_name
+        # 统一社会信用代码
+        self.social_credit_code = social_credit_code
+        # 保险场景码:
+        # FLEXIBLE_EMPLOYMENT-日单（实时生效）
+        # INITIATIVE_EMPLOYMENT-长期（次日0点生效）
+        self.biz_code = biz_code
+        # 险种编码:
+        # ACCIDENT: 意外险
+        # EMPLOYER_LIABILITY: 雇主险
+        self.insurance_type_code = insurance_type_code
+
+    def validate(self):
+        self.validate_required(self.enterprise_name, 'enterprise_name')
+        self.validate_required(self.social_credit_code, 'social_credit_code')
+        self.validate_required(self.biz_code, 'biz_code')
+        self.validate_required(self.insurance_type_code, 'insurance_type_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.enterprise_name is not None:
+            result['enterprise_name'] = self.enterprise_name
+        if self.social_credit_code is not None:
+            result['social_credit_code'] = self.social_credit_code
+        if self.biz_code is not None:
+            result['biz_code'] = self.biz_code
+        if self.insurance_type_code is not None:
+            result['insurance_type_code'] = self.insurance_type_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('enterprise_name') is not None:
+            self.enterprise_name = m.get('enterprise_name')
+        if m.get('social_credit_code') is not None:
+            self.social_credit_code = m.get('social_credit_code')
+        if m.get('biz_code') is not None:
+            self.biz_code = m.get('biz_code')
+        if m.get('insurance_type_code') is not None:
+            self.insurance_type_code = m.get('insurance_type_code')
+        return self
+
+
+class ListAntsaasStaffingcInsureProductResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        product_list: List[InsureProductInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 保险产品列表
+        self.product_list = product_list
+
+    def validate(self):
+        if self.product_list:
+            for k in self.product_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['product_list'] = []
+        if self.product_list is not None:
+            for k in self.product_list:
+                result['product_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.product_list = []
+        if m.get('product_list') is not None:
+            for k in m.get('product_list'):
+                temp_model = InsureProductInfo()
+                self.product_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryAntsaasStaffingcInsurePriceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        enterprise_name: str = None,
+        social_credit_code: str = None,
+        product_id: str = None,
+        job_code: str = None,
+        period: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 企业名称
+        self.enterprise_name = enterprise_name
+        # 统一社会信用代码
+        self.social_credit_code = social_credit_code
+        # 产品ID
+        self.product_id = product_id
+        # 职业编码:
+        # default-1-一类职业;
+        # default-2-二类职业;
+        # default-3-三类职业;
+        # default-4-四类职业;
+        self.job_code = job_code
+        # 周期：
+        # 1D、
+        # 30D、
+        # 360D
+        self.period = period
+
+    def validate(self):
+        self.validate_required(self.enterprise_name, 'enterprise_name')
+        self.validate_required(self.social_credit_code, 'social_credit_code')
+        self.validate_required(self.product_id, 'product_id')
+        self.validate_required(self.job_code, 'job_code')
+        self.validate_required(self.period, 'period')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.enterprise_name is not None:
+            result['enterprise_name'] = self.enterprise_name
+        if self.social_credit_code is not None:
+            result['social_credit_code'] = self.social_credit_code
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.job_code is not None:
+            result['job_code'] = self.job_code
+        if self.period is not None:
+            result['period'] = self.period
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('enterprise_name') is not None:
+            self.enterprise_name = m.get('enterprise_name')
+        if m.get('social_credit_code') is not None:
+            self.social_credit_code = m.get('social_credit_code')
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('job_code') is not None:
+            self.job_code = m.get('job_code')
+        if m.get('period') is not None:
+            self.period = m.get('period')
+        return self
+
+
+class QueryAntsaasStaffingcInsurePriceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        price: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 价格
+        self.price = price
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.price is not None:
+            result['price'] = self.price
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('price') is not None:
+            self.price = m.get('price')
+        return self
+
+
+class SendAntsaasStaffingcInsureRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        out_biz_no: str = None,
+        enterprise_name: str = None,
+        social_credit_code: str = None,
+        biz_code: str = None,
+        insurance_type_code: str = None,
+        product_id: str = None,
+        job_code: str = None,
+        period: str = None,
+        recom_flow_no: str = None,
+        address: str = None,
+        employee_list: List[InsureEmployeeInfo] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 外部业务号（幂等、异步通知回传）
+        self.out_biz_no = out_biz_no
+        # 企业名称
+        self.enterprise_name = enterprise_name
+        # 统一社会信用代码
+        self.social_credit_code = social_credit_code
+        # 保险场景码:
+        # FLEXIBLE_EMPLOYMENT-日单（实时生效）
+        # INITIATIVE_EMPLOYMENT- 长期（次日0点生效）
+        self.biz_code = biz_code
+        # 投保的险种编码:
+        # ACCIDENT: 意外险,
+        # EMPLOYER_LIABILITY: 雇主险
+        self.insurance_type_code = insurance_type_code
+        # 产品ID
+        self.product_id = product_id
+        # 职业编码:
+        # default-1-一类职业;
+        # default-2-二类职业;
+        # default-3-三类职业;
+        # default-4-四类职业;
+        # default-5-五类职业（雇主险60万和80万保额暂不支持）
+        self.job_code = job_code
+        # 保障周期：30D、360D（bizCode为长期时必传）
+        self.period = period
+        # 推荐编码
+        self.recom_flow_no = recom_flow_no
+        # 地址（bizCode为日单必传）
+        self.address = address
+        # 投保人列表，extra_msg需传递out_sub_biz_no，外部明细业务号（投保结果通知会回传，自行定义）
+        self.employee_list = employee_list
+
+    def validate(self):
+        self.validate_required(self.out_biz_no, 'out_biz_no')
+        self.validate_required(self.enterprise_name, 'enterprise_name')
+        self.validate_required(self.social_credit_code, 'social_credit_code')
+        self.validate_required(self.biz_code, 'biz_code')
+        self.validate_required(self.insurance_type_code, 'insurance_type_code')
+        self.validate_required(self.product_id, 'product_id')
+        self.validate_required(self.job_code, 'job_code')
+        self.validate_required(self.employee_list, 'employee_list')
+        if self.employee_list:
+            for k in self.employee_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
+        if self.enterprise_name is not None:
+            result['enterprise_name'] = self.enterprise_name
+        if self.social_credit_code is not None:
+            result['social_credit_code'] = self.social_credit_code
+        if self.biz_code is not None:
+            result['biz_code'] = self.biz_code
+        if self.insurance_type_code is not None:
+            result['insurance_type_code'] = self.insurance_type_code
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.job_code is not None:
+            result['job_code'] = self.job_code
+        if self.period is not None:
+            result['period'] = self.period
+        if self.recom_flow_no is not None:
+            result['recom_flow_no'] = self.recom_flow_no
+        if self.address is not None:
+            result['address'] = self.address
+        result['employee_list'] = []
+        if self.employee_list is not None:
+            for k in self.employee_list:
+                result['employee_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
+        if m.get('enterprise_name') is not None:
+            self.enterprise_name = m.get('enterprise_name')
+        if m.get('social_credit_code') is not None:
+            self.social_credit_code = m.get('social_credit_code')
+        if m.get('biz_code') is not None:
+            self.biz_code = m.get('biz_code')
+        if m.get('insurance_type_code') is not None:
+            self.insurance_type_code = m.get('insurance_type_code')
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('job_code') is not None:
+            self.job_code = m.get('job_code')
+        if m.get('period') is not None:
+            self.period = m.get('period')
+        if m.get('recom_flow_no') is not None:
+            self.recom_flow_no = m.get('recom_flow_no')
+        if m.get('address') is not None:
+            self.address = m.get('address')
+        self.employee_list = []
+        if m.get('employee_list') is not None:
+            for k in m.get('employee_list'):
+                temp_model = InsureEmployeeInfo()
+                self.employee_list.append(temp_model.from_map(k))
+        return self
+
+
+class SendAntsaasStaffingcInsureResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        fail_employee_list: List[InsureEmployeeInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 投保失败人员信息，extra_msg会返回failReason，投保失败原因
+        self.fail_employee_list = fail_employee_list
+
+    def validate(self):
+        if self.fail_employee_list:
+            for k in self.fail_employee_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['fail_employee_list'] = []
+        if self.fail_employee_list is not None:
+            for k in self.fail_employee_list:
+                result['fail_employee_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.fail_employee_list = []
+        if m.get('fail_employee_list') is not None:
+            for k in m.get('fail_employee_list'):
+                temp_model = InsureEmployeeInfo()
+                self.fail_employee_list.append(temp_model.from_map(k))
+        return self
+
+
+class SendAntsaasStaffingcInsureRefundRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        out_biz_no: str = None,
+        enterprise_name: str = None,
+        social_credit_code: str = None,
+        order_no_list: List[int] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 外部业务号
+        self.out_biz_no = out_biz_no
+        # 企业名称
+        self.enterprise_name = enterprise_name
+        # 统一社会信用代码
+        self.social_credit_code = social_credit_code
+        # 退保订单号列表
+        self.order_no_list = order_no_list
+
+    def validate(self):
+        self.validate_required(self.out_biz_no, 'out_biz_no')
+        self.validate_required(self.enterprise_name, 'enterprise_name')
+        self.validate_required(self.social_credit_code, 'social_credit_code')
+        self.validate_required(self.order_no_list, 'order_no_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
+        if self.enterprise_name is not None:
+            result['enterprise_name'] = self.enterprise_name
+        if self.social_credit_code is not None:
+            result['social_credit_code'] = self.social_credit_code
+        if self.order_no_list is not None:
+            result['order_no_list'] = self.order_no_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
+        if m.get('enterprise_name') is not None:
+            self.enterprise_name = m.get('enterprise_name')
+        if m.get('social_credit_code') is not None:
+            self.social_credit_code = m.get('social_credit_code')
+        if m.get('order_no_list') is not None:
+            self.order_no_list = m.get('order_no_list')
+        return self
+
+
+class SendAntsaasStaffingcInsureRefundResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        fail_order_info_list: List[FailOrderInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 失败原因列表
+        self.fail_order_info_list = fail_order_info_list
+
+    def validate(self):
+        if self.fail_order_info_list:
+            for k in self.fail_order_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['fail_order_info_list'] = []
+        if self.fail_order_info_list is not None:
+            for k in self.fail_order_info_list:
+                result['fail_order_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.fail_order_info_list = []
+        if m.get('fail_order_info_list') is not None:
+            for k in m.get('fail_order_info_list'):
+                temp_model = FailOrderInfo()
+                self.fail_order_info_list.append(temp_model.from_map(k))
         return self
 
 
