@@ -5685,6 +5685,46 @@ func (s *DeviceOrderResult) SetOrderId(v string) *DeviceOrderResult {
 	return s
 }
 
+// 物模型事件VO
+type ThingModelEventVO struct {
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 物模型功能Id
+	FeatureId *string `json:"feature_id,omitempty" xml:"feature_id,omitempty" require:"true"`
+	// 业务标识
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 事件属性列表
+	EventProperties *string `json:"event_properties,omitempty" xml:"event_properties,omitempty" require:"true"`
+}
+
+func (s ThingModelEventVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ThingModelEventVO) GoString() string {
+	return s.String()
+}
+
+func (s *ThingModelEventVO) SetName(v string) *ThingModelEventVO {
+	s.Name = &v
+	return s
+}
+
+func (s *ThingModelEventVO) SetFeatureId(v string) *ThingModelEventVO {
+	s.FeatureId = &v
+	return s
+}
+
+func (s *ThingModelEventVO) SetBizType(v string) *ThingModelEventVO {
+	s.BizType = &v
+	return s
+}
+
+func (s *ThingModelEventVO) SetEventProperties(v string) *ThingModelEventVO {
+	s.EventProperties = &v
+	return s
+}
+
 // 设备注册结果对象
 type IotBasicDeviceRegisterResult struct {
 	// 设备did
@@ -5902,6 +5942,111 @@ func (s *ScenePageResponse) SetTotalPages(v int64) *ScenePageResponse {
 
 func (s *ScenePageResponse) SetPageData(v []*SceneModel) *ScenePageResponse {
 	s.PageData = v
+	return s
+}
+
+// 产线压测任务对象
+type OnlinePressureTestTask struct {
+	// DATE
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 修改时间
+	//
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 产线场景码
+	//
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 压测的目标设备可信信根设备的唯一标识，JSONArray字符串
+	//
+	ComponentIdList *string `json:"component_id_list,omitempty" xml:"component_id_list,omitempty" require:"true"`
+	// 客户侧的压测报告
+	//
+	CustomerPtReport *string `json:"customer_pt_report,omitempty" xml:"customer_pt_report,omitempty"`
+	// 压测开始时间
+	//
+	PtStartTime *string `json:"pt_start_time,omitempty" xml:"pt_start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 压测结束时间
+	//
+	PtEndTime *string `json:"pt_end_time,omitempty" xml:"pt_end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// RUNNING: 正在执行 SUCCESS : 测试通过 FAILED : 测试不通过
+	//
+	PtStatus *string `json:"pt_status,omitempty" xml:"pt_status,omitempty" require:"true"`
+	// 关联SIT环境的工单ID
+	//
+	WorkOrderId *string `json:"work_order_id,omitempty" xml:"work_order_id,omitempty"`
+	// 关联SIT环境的项目ID
+	//
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 产线压测任务ID
+	PtTaskId *string `json:"pt_task_id,omitempty" xml:"pt_task_id,omitempty" require:"true"`
+	// 压测不通过的原因
+	FailureReason *string `json:"failure_reason,omitempty" xml:"failure_reason,omitempty" require:"true"`
+}
+
+func (s OnlinePressureTestTask) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OnlinePressureTestTask) GoString() string {
+	return s.String()
+}
+
+func (s *OnlinePressureTestTask) SetGmtCreate(v string) *OnlinePressureTestTask {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetGmtModified(v string) *OnlinePressureTestTask {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetScene(v string) *OnlinePressureTestTask {
+	s.Scene = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetComponentIdList(v string) *OnlinePressureTestTask {
+	s.ComponentIdList = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetCustomerPtReport(v string) *OnlinePressureTestTask {
+	s.CustomerPtReport = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetPtStartTime(v string) *OnlinePressureTestTask {
+	s.PtStartTime = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetPtEndTime(v string) *OnlinePressureTestTask {
+	s.PtEndTime = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetPtStatus(v string) *OnlinePressureTestTask {
+	s.PtStatus = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetWorkOrderId(v string) *OnlinePressureTestTask {
+	s.WorkOrderId = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetProjectId(v string) *OnlinePressureTestTask {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetPtTaskId(v string) *OnlinePressureTestTask {
+	s.PtTaskId = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetFailureReason(v string) *OnlinePressureTestTask {
+	s.FailureReason = &v
 	return s
 }
 
@@ -24812,6 +24957,385 @@ func (s *QueryCollectorJtmediaResponse) SetMediaList(v []*JtMedia) *QueryCollect
 	return s
 }
 
+type QueryOnlinepressuretestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+}
+
+func (s QueryOnlinepressuretestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOnlinepressuretestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOnlinepressuretestRequest) SetAuthToken(v string) *QueryOnlinepressuretestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryOnlinepressuretestRequest) SetProductInstanceId(v string) *QueryOnlinepressuretestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryOnlinepressuretestRequest) SetProjectId(v string) *QueryOnlinepressuretestRequest {
+	s.ProjectId = &v
+	return s
+}
+
+type QueryOnlinepressuretestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 产线压测任务对象
+	TestTask *OnlinePressureTestTask `json:"test_task,omitempty" xml:"test_task,omitempty"`
+}
+
+func (s QueryOnlinepressuretestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOnlinepressuretestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOnlinepressuretestResponse) SetReqMsgId(v string) *QueryOnlinepressuretestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryOnlinepressuretestResponse) SetResultCode(v string) *QueryOnlinepressuretestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryOnlinepressuretestResponse) SetResultMsg(v string) *QueryOnlinepressuretestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryOnlinepressuretestResponse) SetTestTask(v *OnlinePressureTestTask) *QueryOnlinepressuretestResponse {
+	s.TestTask = v
+	return s
+}
+
+type CreateOnlinepressuretestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产线压测任务对象
+	//
+	TestTask *OnlinePressureTestTask `json:"test_task,omitempty" xml:"test_task,omitempty" require:"true"`
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
+}
+
+func (s CreateOnlinepressuretestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateOnlinepressuretestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateOnlinepressuretestRequest) SetAuthToken(v string) *CreateOnlinepressuretestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateOnlinepressuretestRequest) SetProductInstanceId(v string) *CreateOnlinepressuretestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateOnlinepressuretestRequest) SetTestTask(v *OnlinePressureTestTask) *CreateOnlinepressuretestRequest {
+	s.TestTask = v
+	return s
+}
+
+func (s *CreateOnlinepressuretestRequest) SetProjectId(v string) *CreateOnlinepressuretestRequest {
+	s.ProjectId = &v
+	return s
+}
+
+type CreateOnlinepressuretestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CreateOnlinepressuretestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateOnlinepressuretestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateOnlinepressuretestResponse) SetReqMsgId(v string) *CreateOnlinepressuretestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateOnlinepressuretestResponse) SetResultCode(v string) *CreateOnlinepressuretestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateOnlinepressuretestResponse) SetResultMsg(v string) *CreateOnlinepressuretestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UpdateOnlinepressuretestCustomerreportRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联调项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 客户侧的压测报告
+	CustomerPtReport *string `json:"customer_pt_report,omitempty" xml:"customer_pt_report,omitempty" require:"true"`
+}
+
+func (s UpdateOnlinepressuretestCustomerreportRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateOnlinepressuretestCustomerreportRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateOnlinepressuretestCustomerreportRequest) SetAuthToken(v string) *UpdateOnlinepressuretestCustomerreportRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateOnlinepressuretestCustomerreportRequest) SetProductInstanceId(v string) *UpdateOnlinepressuretestCustomerreportRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateOnlinepressuretestCustomerreportRequest) SetProjectId(v string) *UpdateOnlinepressuretestCustomerreportRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *UpdateOnlinepressuretestCustomerreportRequest) SetCustomerPtReport(v string) *UpdateOnlinepressuretestCustomerreportRequest {
+	s.CustomerPtReport = &v
+	return s
+}
+
+type UpdateOnlinepressuretestCustomerreportResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateOnlinepressuretestCustomerreportResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateOnlinepressuretestCustomerreportResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateOnlinepressuretestCustomerreportResponse) SetReqMsgId(v string) *UpdateOnlinepressuretestCustomerreportResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateOnlinepressuretestCustomerreportResponse) SetResultCode(v string) *UpdateOnlinepressuretestCustomerreportResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateOnlinepressuretestCustomerreportResponse) SetResultMsg(v string) *UpdateOnlinepressuretestCustomerreportResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryThingmodeleventBycustomertenantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客户的租户ID
+	CustomerTenant *string `json:"customer_tenant,omitempty" xml:"customer_tenant,omitempty" require:"true"`
+}
+
+func (s QueryThingmodeleventBycustomertenantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThingmodeleventBycustomertenantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThingmodeleventBycustomertenantRequest) SetAuthToken(v string) *QueryThingmodeleventBycustomertenantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryThingmodeleventBycustomertenantRequest) SetProductInstanceId(v string) *QueryThingmodeleventBycustomertenantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryThingmodeleventBycustomertenantRequest) SetCustomerTenant(v string) *QueryThingmodeleventBycustomertenantRequest {
+	s.CustomerTenant = &v
+	return s
+}
+
+type QueryThingmodeleventBycustomertenantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 物模型事件列表
+	EventList []*ThingModelEventVO `json:"event_list,omitempty" xml:"event_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryThingmodeleventBycustomertenantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThingmodeleventBycustomertenantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThingmodeleventBycustomertenantResponse) SetReqMsgId(v string) *QueryThingmodeleventBycustomertenantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryThingmodeleventBycustomertenantResponse) SetResultCode(v string) *QueryThingmodeleventBycustomertenantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryThingmodeleventBycustomertenantResponse) SetResultMsg(v string) *QueryThingmodeleventBycustomertenantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryThingmodeleventBycustomertenantResponse) SetEventList(v []*ThingModelEventVO) *QueryThingmodeleventBycustomertenantResponse {
+	s.EventList = v
+	return s
+}
+
+type DeployThingudfRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// UDF 唯一ID
+	UdfId *string `json:"udf_id,omitempty" xml:"udf_id,omitempty" require:"true"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 物模型功能ID
+	FeatureId *string `json:"feature_id,omitempty" xml:"feature_id,omitempty" require:"true"`
+	// 租户ID
+	CustomerTenant *string `json:"customer_tenant,omitempty" xml:"customer_tenant,omitempty" require:"true"`
+	// UDF类型枚举
+	UdfType *string `json:"udf_type,omitempty" xml:"udf_type,omitempty" require:"true"`
+	// 物模型UDF实例表
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s DeployThingudfRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeployThingudfRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeployThingudfRequest) SetAuthToken(v string) *DeployThingudfRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeployThingudfRequest) SetProductInstanceId(v string) *DeployThingudfRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeployThingudfRequest) SetUdfId(v string) *DeployThingudfRequest {
+	s.UdfId = &v
+	return s
+}
+
+func (s *DeployThingudfRequest) SetScene(v string) *DeployThingudfRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *DeployThingudfRequest) SetFeatureId(v string) *DeployThingudfRequest {
+	s.FeatureId = &v
+	return s
+}
+
+func (s *DeployThingudfRequest) SetCustomerTenant(v string) *DeployThingudfRequest {
+	s.CustomerTenant = &v
+	return s
+}
+
+func (s *DeployThingudfRequest) SetUdfType(v string) *DeployThingudfRequest {
+	s.UdfType = &v
+	return s
+}
+
+func (s *DeployThingudfRequest) SetValue(v string) *DeployThingudfRequest {
+	s.Value = &v
+	return s
+}
+
+type DeployThingudfResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeployThingudfResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeployThingudfResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeployThingudfResponse) SetReqMsgId(v string) *DeployThingudfResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeployThingudfResponse) SetResultCode(v string) *DeployThingudfResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeployThingudfResponse) SetResultMsg(v string) *DeployThingudfResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -26582,7 +27106,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.95"),
+				"sdk_version":      tea.String("1.8.103"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -32646,6 +33170,176 @@ func (client *Client) QueryCollectorJtmediaEx(request *QueryCollectorJtmediaRequ
 	}
 	_result = &QueryCollectorJtmediaResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.collector.jtmedia.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询产线压测任务
+ * Summary: 查询项目关联的产线压测任务
+ */
+func (client *Client) QueryOnlinepressuretest(request *QueryOnlinepressuretestRequest) (_result *QueryOnlinepressuretestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryOnlinepressuretestResponse{}
+	_body, _err := client.QueryOnlinepressuretestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询产线压测任务
+ * Summary: 查询项目关联的产线压测任务
+ */
+func (client *Client) QueryOnlinepressuretestEx(request *QueryOnlinepressuretestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryOnlinepressuretestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryOnlinepressuretestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.onlinepressuretest.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description:  【自主联调平台】创建产线压测任务
+ * Summary:  【自主联调平台】创建产线压测任务
+ */
+func (client *Client) CreateOnlinepressuretest(request *CreateOnlinepressuretestRequest) (_result *CreateOnlinepressuretestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateOnlinepressuretestResponse{}
+	_body, _err := client.CreateOnlinepressuretestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description:  【自主联调平台】创建产线压测任务
+ * Summary:  【自主联调平台】创建产线压测任务
+ */
+func (client *Client) CreateOnlinepressuretestEx(request *CreateOnlinepressuretestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateOnlinepressuretestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateOnlinepressuretestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.onlinepressuretest.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新客户侧的压测报告
+ * Summary: 更新客户侧的压测报告
+ */
+func (client *Client) UpdateOnlinepressuretestCustomerreport(request *UpdateOnlinepressuretestCustomerreportRequest) (_result *UpdateOnlinepressuretestCustomerreportResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateOnlinepressuretestCustomerreportResponse{}
+	_body, _err := client.UpdateOnlinepressuretestCustomerreportEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新客户侧的压测报告
+ * Summary: 更新客户侧的压测报告
+ */
+func (client *Client) UpdateOnlinepressuretestCustomerreportEx(request *UpdateOnlinepressuretestCustomerreportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateOnlinepressuretestCustomerreportResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateOnlinepressuretestCustomerreportResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.onlinepressuretest.customerreport.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询客户的物模型事件
+ * Summary: 查询客户的物模型事件列表
+ */
+func (client *Client) QueryThingmodeleventBycustomertenant(request *QueryThingmodeleventBycustomertenantRequest) (_result *QueryThingmodeleventBycustomertenantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryThingmodeleventBycustomertenantResponse{}
+	_body, _err := client.QueryThingmodeleventBycustomertenantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询客户的物模型事件
+ * Summary: 查询客户的物模型事件列表
+ */
+func (client *Client) QueryThingmodeleventBycustomertenantEx(request *QueryThingmodeleventBycustomertenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryThingmodeleventBycustomertenantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryThingmodeleventBycustomertenantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thingmodelevent.bycustomertenant.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 从联调环境部署物模型UDF到生产环境
+ * Summary: 从联调环境部署物模型UDF到生产环境
+ */
+func (client *Client) DeployThingudf(request *DeployThingudfRequest) (_result *DeployThingudfResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeployThingudfResponse{}
+	_body, _err := client.DeployThingudfEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 从联调环境部署物模型UDF到生产环境
+ * Summary: 从联调环境部署物模型UDF到生产环境
+ */
+func (client *Client) DeployThingudfEx(request *DeployThingudfRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeployThingudfResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeployThingudfResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thingudf.deploy"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
