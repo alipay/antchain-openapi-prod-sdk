@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.1"},
+                        {"sdk_version", "1.2.0"},
                         {"_prod_code", "ak_320bc483f2434f39a3af9ec9f04d3cc0"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.1"},
+                        {"sdk_version", "1.2.0"},
                         {"_prod_code", "ak_320bc483f2434f39a3af9ec9f04d3cc0"},
                         {"_prod_channel", "saas"},
                     };
@@ -449,6 +449,342 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAntsaasStaffingcContractSignResponse>(await DoRequestAsync("1.0", "antsaas.staffingc.contract.sign.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业认证授权url查询接口
+         * Summary: 企业认证授权url查询接口
+         */
+        public QueryAntsaasStaffingcEpcertificationUrlResponse QueryAntsaasStaffingcEpcertificationUrl(QueryAntsaasStaffingcEpcertificationUrlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntsaasStaffingcEpcertificationUrlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业认证授权url查询接口
+         * Summary: 企业认证授权url查询接口
+         */
+        public async Task<QueryAntsaasStaffingcEpcertificationUrlResponse> QueryAntsaasStaffingcEpcertificationUrlAsync(QueryAntsaasStaffingcEpcertificationUrlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntsaasStaffingcEpcertificationUrlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业认证授权url查询接口
+         * Summary: 企业认证授权url查询接口
+         */
+        public QueryAntsaasStaffingcEpcertificationUrlResponse QueryAntsaasStaffingcEpcertificationUrlEx(QueryAntsaasStaffingcEpcertificationUrlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntsaasStaffingcEpcertificationUrlResponse>(DoRequest("1.0", "antsaas.staffingc.epcertification.url.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业认证授权url查询接口
+         * Summary: 企业认证授权url查询接口
+         */
+        public async Task<QueryAntsaasStaffingcEpcertificationUrlResponse> QueryAntsaasStaffingcEpcertificationUrlExAsync(QueryAntsaasStaffingcEpcertificationUrlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntsaasStaffingcEpcertificationUrlResponse>(await DoRequestAsync("1.0", "antsaas.staffingc.epcertification.url.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业认证创建接口
+         * Summary: 企业认证创建接口
+         */
+        public CreateAntsaasStaffingcEpcertificationAuthorizeResponse CreateAntsaasStaffingcEpcertificationAuthorize(CreateAntsaasStaffingcEpcertificationAuthorizeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAntsaasStaffingcEpcertificationAuthorizeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业认证创建接口
+         * Summary: 企业认证创建接口
+         */
+        public async Task<CreateAntsaasStaffingcEpcertificationAuthorizeResponse> CreateAntsaasStaffingcEpcertificationAuthorizeAsync(CreateAntsaasStaffingcEpcertificationAuthorizeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAntsaasStaffingcEpcertificationAuthorizeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业认证创建接口
+         * Summary: 企业认证创建接口
+         */
+        public CreateAntsaasStaffingcEpcertificationAuthorizeResponse CreateAntsaasStaffingcEpcertificationAuthorizeEx(CreateAntsaasStaffingcEpcertificationAuthorizeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntsaasStaffingcEpcertificationAuthorizeResponse>(DoRequest("1.0", "antsaas.staffingc.epcertification.authorize.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业认证创建接口
+         * Summary: 企业认证创建接口
+         */
+        public async Task<CreateAntsaasStaffingcEpcertificationAuthorizeResponse> CreateAntsaasStaffingcEpcertificationAuthorizeExAsync(CreateAntsaasStaffingcEpcertificationAuthorizeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntsaasStaffingcEpcertificationAuthorizeResponse>(await DoRequestAsync("1.0", "antsaas.staffingc.epcertification.authorize.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业认证风险查询接口
+         * Summary: 企业认证风险查询接口
+         */
+        public QueryAntsaasStaffingcEpcertificationRiskResponse QueryAntsaasStaffingcEpcertificationRisk(QueryAntsaasStaffingcEpcertificationRiskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntsaasStaffingcEpcertificationRiskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业认证风险查询接口
+         * Summary: 企业认证风险查询接口
+         */
+        public async Task<QueryAntsaasStaffingcEpcertificationRiskResponse> QueryAntsaasStaffingcEpcertificationRiskAsync(QueryAntsaasStaffingcEpcertificationRiskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntsaasStaffingcEpcertificationRiskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业认证风险查询接口
+         * Summary: 企业认证风险查询接口
+         */
+        public QueryAntsaasStaffingcEpcertificationRiskResponse QueryAntsaasStaffingcEpcertificationRiskEx(QueryAntsaasStaffingcEpcertificationRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntsaasStaffingcEpcertificationRiskResponse>(DoRequest("1.0", "antsaas.staffingc.epcertification.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业认证风险查询接口
+         * Summary: 企业认证风险查询接口
+         */
+        public async Task<QueryAntsaasStaffingcEpcertificationRiskResponse> QueryAntsaasStaffingcEpcertificationRiskExAsync(QueryAntsaasStaffingcEpcertificationRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntsaasStaffingcEpcertificationRiskResponse>(await DoRequestAsync("1.0", "antsaas.staffingc.epcertification.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取保险签约认证连接
+         * Summary: 获取保险签约认证连接
+         */
+        public ApplyAntsaasStaffingcInsureSignurlResponse ApplyAntsaasStaffingcInsureSignurl(ApplyAntsaasStaffingcInsureSignurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyAntsaasStaffingcInsureSignurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取保险签约认证连接
+         * Summary: 获取保险签约认证连接
+         */
+        public async Task<ApplyAntsaasStaffingcInsureSignurlResponse> ApplyAntsaasStaffingcInsureSignurlAsync(ApplyAntsaasStaffingcInsureSignurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyAntsaasStaffingcInsureSignurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取保险签约认证连接
+         * Summary: 获取保险签约认证连接
+         */
+        public ApplyAntsaasStaffingcInsureSignurlResponse ApplyAntsaasStaffingcInsureSignurlEx(ApplyAntsaasStaffingcInsureSignurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyAntsaasStaffingcInsureSignurlResponse>(DoRequest("1.0", "antsaas.staffingc.insure.signurl.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取保险签约认证连接
+         * Summary: 获取保险签约认证连接
+         */
+        public async Task<ApplyAntsaasStaffingcInsureSignurlResponse> ApplyAntsaasStaffingcInsureSignurlExAsync(ApplyAntsaasStaffingcInsureSignurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyAntsaasStaffingcInsureSignurlResponse>(await DoRequestAsync("1.0", "antsaas.staffingc.insure.signurl.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询可投保的保险产品
+         * Summary: 查询可投保的保险产品
+         */
+        public ListAntsaasStaffingcInsureProductResponse ListAntsaasStaffingcInsureProduct(ListAntsaasStaffingcInsureProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAntsaasStaffingcInsureProductEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询可投保的保险产品
+         * Summary: 查询可投保的保险产品
+         */
+        public async Task<ListAntsaasStaffingcInsureProductResponse> ListAntsaasStaffingcInsureProductAsync(ListAntsaasStaffingcInsureProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAntsaasStaffingcInsureProductExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询可投保的保险产品
+         * Summary: 查询可投保的保险产品
+         */
+        public ListAntsaasStaffingcInsureProductResponse ListAntsaasStaffingcInsureProductEx(ListAntsaasStaffingcInsureProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAntsaasStaffingcInsureProductResponse>(DoRequest("1.0", "antsaas.staffingc.insure.product.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询可投保的保险产品
+         * Summary: 查询可投保的保险产品
+         */
+        public async Task<ListAntsaasStaffingcInsureProductResponse> ListAntsaasStaffingcInsureProductExAsync(ListAntsaasStaffingcInsureProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAntsaasStaffingcInsureProductResponse>(await DoRequestAsync("1.0", "antsaas.staffingc.insure.product.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询保险产品价格相关信息
+         * Summary: 查询保险产品价格相关信息
+         */
+        public QueryAntsaasStaffingcInsurePriceResponse QueryAntsaasStaffingcInsurePrice(QueryAntsaasStaffingcInsurePriceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntsaasStaffingcInsurePriceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询保险产品价格相关信息
+         * Summary: 查询保险产品价格相关信息
+         */
+        public async Task<QueryAntsaasStaffingcInsurePriceResponse> QueryAntsaasStaffingcInsurePriceAsync(QueryAntsaasStaffingcInsurePriceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntsaasStaffingcInsurePriceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询保险产品价格相关信息
+         * Summary: 查询保险产品价格相关信息
+         */
+        public QueryAntsaasStaffingcInsurePriceResponse QueryAntsaasStaffingcInsurePriceEx(QueryAntsaasStaffingcInsurePriceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntsaasStaffingcInsurePriceResponse>(DoRequest("1.0", "antsaas.staffingc.insure.price.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询保险产品价格相关信息
+         * Summary: 查询保险产品价格相关信息
+         */
+        public async Task<QueryAntsaasStaffingcInsurePriceResponse> QueryAntsaasStaffingcInsurePriceExAsync(QueryAntsaasStaffingcInsurePriceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntsaasStaffingcInsurePriceResponse>(await DoRequestAsync("1.0", "antsaas.staffingc.insure.price.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 执行投保
+         * Summary: 执行投保
+         */
+        public SendAntsaasStaffingcInsureResponse SendAntsaasStaffingcInsure(SendAntsaasStaffingcInsureRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SendAntsaasStaffingcInsureEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 执行投保
+         * Summary: 执行投保
+         */
+        public async Task<SendAntsaasStaffingcInsureResponse> SendAntsaasStaffingcInsureAsync(SendAntsaasStaffingcInsureRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SendAntsaasStaffingcInsureExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 执行投保
+         * Summary: 执行投保
+         */
+        public SendAntsaasStaffingcInsureResponse SendAntsaasStaffingcInsureEx(SendAntsaasStaffingcInsureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendAntsaasStaffingcInsureResponse>(DoRequest("1.0", "antsaas.staffingc.insure.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 执行投保
+         * Summary: 执行投保
+         */
+        public async Task<SendAntsaasStaffingcInsureResponse> SendAntsaasStaffingcInsureExAsync(SendAntsaasStaffingcInsureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendAntsaasStaffingcInsureResponse>(await DoRequestAsync("1.0", "antsaas.staffingc.insure.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 退保接口
+         * Summary: 退保接口
+         */
+        public SendAntsaasStaffingcInsureRefundResponse SendAntsaasStaffingcInsureRefund(SendAntsaasStaffingcInsureRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SendAntsaasStaffingcInsureRefundEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 退保接口
+         * Summary: 退保接口
+         */
+        public async Task<SendAntsaasStaffingcInsureRefundResponse> SendAntsaasStaffingcInsureRefundAsync(SendAntsaasStaffingcInsureRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SendAntsaasStaffingcInsureRefundExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 退保接口
+         * Summary: 退保接口
+         */
+        public SendAntsaasStaffingcInsureRefundResponse SendAntsaasStaffingcInsureRefundEx(SendAntsaasStaffingcInsureRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendAntsaasStaffingcInsureRefundResponse>(DoRequest("1.0", "antsaas.staffingc.insure.refund.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 退保接口
+         * Summary: 退保接口
+         */
+        public async Task<SendAntsaasStaffingcInsureRefundResponse> SendAntsaasStaffingcInsureRefundExAsync(SendAntsaasStaffingcInsureRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendAntsaasStaffingcInsureRefundResponse>(await DoRequestAsync("1.0", "antsaas.staffingc.insure.refund.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
