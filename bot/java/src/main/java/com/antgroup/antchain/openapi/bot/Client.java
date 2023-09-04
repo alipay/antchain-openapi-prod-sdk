@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.95"),
+                    new TeaPair("sdk_version", "1.8.103"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -3524,6 +3524,101 @@ public class Client {
     public QueryCollectorJtmediaResponse queryCollectorJtmediaEx(QueryCollectorJtmediaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.collector.jtmedia.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCollectorJtmediaResponse());
+    }
+
+    /**
+     * Description: 查询产线压测任务
+     * Summary: 查询项目关联的产线压测任务
+     */
+    public QueryOnlinepressuretestResponse queryOnlinepressuretest(QueryOnlinepressuretestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOnlinepressuretestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询产线压测任务
+     * Summary: 查询项目关联的产线压测任务
+     */
+    public QueryOnlinepressuretestResponse queryOnlinepressuretestEx(QueryOnlinepressuretestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.onlinepressuretest.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOnlinepressuretestResponse());
+    }
+
+    /**
+     * Description:  【自主联调平台】创建产线压测任务
+     * Summary:  【自主联调平台】创建产线压测任务
+     */
+    public CreateOnlinepressuretestResponse createOnlinepressuretest(CreateOnlinepressuretestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createOnlinepressuretestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description:  【自主联调平台】创建产线压测任务
+     * Summary:  【自主联调平台】创建产线压测任务
+     */
+    public CreateOnlinepressuretestResponse createOnlinepressuretestEx(CreateOnlinepressuretestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.onlinepressuretest.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateOnlinepressuretestResponse());
+    }
+
+    /**
+     * Description: 更新客户侧的压测报告
+     * Summary: 更新客户侧的压测报告
+     */
+    public UpdateOnlinepressuretestCustomerreportResponse updateOnlinepressuretestCustomerreport(UpdateOnlinepressuretestCustomerreportRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateOnlinepressuretestCustomerreportEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新客户侧的压测报告
+     * Summary: 更新客户侧的压测报告
+     */
+    public UpdateOnlinepressuretestCustomerreportResponse updateOnlinepressuretestCustomerreportEx(UpdateOnlinepressuretestCustomerreportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.onlinepressuretest.customerreport.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateOnlinepressuretestCustomerreportResponse());
+    }
+
+    /**
+     * Description: 查询客户的物模型事件
+     * Summary: 查询客户的物模型事件列表
+     */
+    public QueryThingmodeleventBycustomertenantResponse queryThingmodeleventBycustomertenant(QueryThingmodeleventBycustomertenantRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryThingmodeleventBycustomertenantEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询客户的物模型事件
+     * Summary: 查询客户的物模型事件列表
+     */
+    public QueryThingmodeleventBycustomertenantResponse queryThingmodeleventBycustomertenantEx(QueryThingmodeleventBycustomertenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.thingmodelevent.bycustomertenant.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryThingmodeleventBycustomertenantResponse());
+    }
+
+    /**
+     * Description: 从联调环境部署物模型UDF到生产环境
+     * Summary: 从联调环境部署物模型UDF到生产环境
+     */
+    public DeployThingudfResponse deployThingudf(DeployThingudfRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deployThingudfEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 从联调环境部署物模型UDF到生产环境
+     * Summary: 从联调环境部署物模型UDF到生产环境
+     */
+    public DeployThingudfResponse deployThingudfEx(DeployThingudfRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.thingudf.deploy", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeployThingudfResponse());
     }
 
     /**
