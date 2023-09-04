@@ -83,6 +83,8 @@ use AntChain\BOT\Models\CreateIotbasicDeviceRequest;
 use AntChain\BOT\Models\CreateIotbasicDeviceResponse;
 use AntChain\BOT\Models\CreateLeaseRealpersonRequest;
 use AntChain\BOT\Models\CreateLeaseRealpersonResponse;
+use AntChain\BOT\Models\CreateOnlinepressuretestRequest;
+use AntChain\BOT\Models\CreateOnlinepressuretestResponse;
 use AntChain\BOT\Models\CreateTaskRequest;
 use AntChain\BOT\Models\CreateTaskResponse;
 use AntChain\BOT\Models\CreateTenantProjectRequest;
@@ -101,6 +103,8 @@ use AntChain\BOT\Models\DeleteIotbasicDeviceRequest;
 use AntChain\BOT\Models\DeleteIotbasicDeviceResponse;
 use AntChain\BOT\Models\DeploySceneRequest;
 use AntChain\BOT\Models\DeploySceneResponse;
+use AntChain\BOT\Models\DeployThingudfRequest;
+use AntChain\BOT\Models\DeployThingudfResponse;
 use AntChain\BOT\Models\DetailThingmodelDeviceRequest;
 use AntChain\BOT\Models\DetailThingmodelDeviceResponse;
 use AntChain\BOT\Models\DetailXrXrticketpoolRequest;
@@ -289,10 +293,14 @@ use AntChain\BOT\Models\QueryLeaseRealpersonRequest;
 use AntChain\BOT\Models\QueryLeaseRealpersonResponse;
 use AntChain\BOT\Models\QueryLeaseRiskRequest;
 use AntChain\BOT\Models\QueryLeaseRiskResponse;
+use AntChain\BOT\Models\QueryOnlinepressuretestRequest;
+use AntChain\BOT\Models\QueryOnlinepressuretestResponse;
 use AntChain\BOT\Models\QueryScfleaseEqpinfoRequest;
 use AntChain\BOT\Models\QueryScfleaseEqpinfoResponse;
 use AntChain\BOT\Models\QueryTaskRequest;
 use AntChain\BOT\Models\QueryTaskResponse;
+use AntChain\BOT\Models\QueryThingmodeleventBycustomertenantRequest;
+use AntChain\BOT\Models\QueryThingmodeleventBycustomertenantResponse;
 use AntChain\BOT\Models\QueryThingmodelEventRequest;
 use AntChain\BOT\Models\QueryThingmodelEventResponse;
 use AntChain\BOT\Models\QueryThingmodelRequest;
@@ -375,6 +383,8 @@ use AntChain\BOT\Models\UpdateDeviceInfoRequest;
 use AntChain\BOT\Models\UpdateDeviceInfoResponse;
 use AntChain\BOT\Models\UpdateIotbasicDeviceRequest;
 use AntChain\BOT\Models\UpdateIotbasicDeviceResponse;
+use AntChain\BOT\Models\UpdateOnlinepressuretestCustomerreportRequest;
+use AntChain\BOT\Models\UpdateOnlinepressuretestCustomerreportResponse;
 use AntChain\BOT\Models\UpdateProductkeyRequest;
 use AntChain\BOT\Models\UpdateProductkeyResponse;
 use AntChain\BOT\Models\UpdateSceneRequest;
@@ -544,7 +554,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.95',
+                    'sdk_version'      => '1.8.103',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -6416,6 +6426,171 @@ class Client
         Utils::validateModel($request);
 
         return QueryCollectorJtmediaResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.collector.jtmedia.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询产线压测任务
+     * Summary: 查询项目关联的产线压测任务
+     *
+     * @param QueryOnlinepressuretestRequest $request
+     *
+     * @return QueryOnlinepressuretestResponse
+     */
+    public function queryOnlinepressuretest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOnlinepressuretestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询产线压测任务
+     * Summary: 查询项目关联的产线压测任务
+     *
+     * @param QueryOnlinepressuretestRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryOnlinepressuretestResponse
+     */
+    public function queryOnlinepressuretestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOnlinepressuretestResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.onlinepressuretest.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description:  【自主联调平台】创建产线压测任务
+     * Summary:  【自主联调平台】创建产线压测任务
+     *
+     * @param CreateOnlinepressuretestRequest $request
+     *
+     * @return CreateOnlinepressuretestResponse
+     */
+    public function createOnlinepressuretest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createOnlinepressuretestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description:  【自主联调平台】创建产线压测任务
+     * Summary:  【自主联调平台】创建产线压测任务
+     *
+     * @param CreateOnlinepressuretestRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CreateOnlinepressuretestResponse
+     */
+    public function createOnlinepressuretestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateOnlinepressuretestResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.onlinepressuretest.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新客户侧的压测报告
+     * Summary: 更新客户侧的压测报告.
+     *
+     * @param UpdateOnlinepressuretestCustomerreportRequest $request
+     *
+     * @return UpdateOnlinepressuretestCustomerreportResponse
+     */
+    public function updateOnlinepressuretestCustomerreport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateOnlinepressuretestCustomerreportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新客户侧的压测报告
+     * Summary: 更新客户侧的压测报告.
+     *
+     * @param UpdateOnlinepressuretestCustomerreportRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return UpdateOnlinepressuretestCustomerreportResponse
+     */
+    public function updateOnlinepressuretestCustomerreportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateOnlinepressuretestCustomerreportResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.onlinepressuretest.customerreport.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询客户的物模型事件
+     * Summary: 查询客户的物模型事件列表.
+     *
+     * @param QueryThingmodeleventBycustomertenantRequest $request
+     *
+     * @return QueryThingmodeleventBycustomertenantResponse
+     */
+    public function queryThingmodeleventBycustomertenant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryThingmodeleventBycustomertenantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询客户的物模型事件
+     * Summary: 查询客户的物模型事件列表.
+     *
+     * @param QueryThingmodeleventBycustomertenantRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return QueryThingmodeleventBycustomertenantResponse
+     */
+    public function queryThingmodeleventBycustomertenantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryThingmodeleventBycustomertenantResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thingmodelevent.bycustomertenant.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 从联调环境部署物模型UDF到生产环境
+     * Summary: 从联调环境部署物模型UDF到生产环境.
+     *
+     * @param DeployThingudfRequest $request
+     *
+     * @return DeployThingudfResponse
+     */
+    public function deployThingudf($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deployThingudfEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 从联调环境部署物模型UDF到生产环境
+     * Summary: 从联调环境部署物模型UDF到生产环境.
+     *
+     * @param DeployThingudfRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return DeployThingudfResponse
+     */
+    public function deployThingudfEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeployThingudfResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thingudf.deploy', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
