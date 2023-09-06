@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.8',
+    sdk_version = '1.8.10',
     _prod_code = 'NFTX',
     _prod_channel = 'undefined'
   };
@@ -1055,6 +1055,52 @@ async function queryResourceImage(request: QueryResourceImageRequest): QueryReso
 async function queryResourceImageEx(request: QueryResourceImageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryResourceImageResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftx.resource.image.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportResourceConsigneeinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 姓名
+  name: string(name='name'),
+  // 手机号
+  phone: string(name='phone'),
+  // 收货地址
+  deliveryAddress: string(name='delivery_address'),
+  // email
+  email: string(name='email'),
+  // 中奖人手机号
+  luckyPhone: string(name='lucky_phone'),
+  // 单据号，幂等用
+  bizNo: string(name='biz_no'),
+}
+
+model ImportResourceConsigneeinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用户收货信息存档
+ * Summary: 用户收货信息存档
+ */
+async function importResourceConsigneeinfo(request: ImportResourceConsigneeinfoRequest): ImportResourceConsigneeinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importResourceConsigneeinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户收货信息存档
+ * Summary: 用户收货信息存档
+ */
+async function importResourceConsigneeinfoEx(request: ImportResourceConsigneeinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportResourceConsigneeinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftx.resource.consigneeinfo.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ApplyOauthTokenRequest = {
