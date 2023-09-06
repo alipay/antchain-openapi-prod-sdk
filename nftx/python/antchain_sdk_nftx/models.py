@@ -2725,6 +2725,129 @@ class QueryResourceImageResponse(TeaModel):
         return self
 
 
+class ImportResourceConsigneeinfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        name: str = None,
+        phone: str = None,
+        delivery_address: str = None,
+        email: str = None,
+        lucky_phone: str = None,
+        biz_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 姓名
+        self.name = name
+        # 手机号
+        self.phone = phone
+        # 收货地址
+        self.delivery_address = delivery_address
+        # email
+        self.email = email
+        # 中奖人手机号
+        self.lucky_phone = lucky_phone
+        # 单据号，幂等用
+        self.biz_no = biz_no
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.phone, 'phone')
+        self.validate_required(self.delivery_address, 'delivery_address')
+        self.validate_required(self.email, 'email')
+        self.validate_required(self.lucky_phone, 'lucky_phone')
+        self.validate_required(self.biz_no, 'biz_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.phone is not None:
+            result['phone'] = self.phone
+        if self.delivery_address is not None:
+            result['delivery_address'] = self.delivery_address
+        if self.email is not None:
+            result['email'] = self.email
+        if self.lucky_phone is not None:
+            result['lucky_phone'] = self.lucky_phone
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        if m.get('delivery_address') is not None:
+            self.delivery_address = m.get('delivery_address')
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        if m.get('lucky_phone') is not None:
+            self.lucky_phone = m.get('lucky_phone')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        return self
+
+
+class ImportResourceConsigneeinfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class ApplyOauthTokenRequest(TeaModel):
     def __init__(
         self,

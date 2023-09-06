@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.8',
+                    'sdk_version': '1.8.10',
                     '_prod_code': 'NFTX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.8',
+                    'sdk_version': '1.8.10',
                     '_prod_code': 'NFTX',
                     '_prod_channel': 'undefined'
                 }
@@ -1169,6 +1169,62 @@ class Client:
         return TeaCore.from_map(
             nftx_models.QueryResourceImageResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.resource.image.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_resource_consigneeinfo(
+        self,
+        request: nftx_models.ImportResourceConsigneeinfoRequest,
+    ) -> nftx_models.ImportResourceConsigneeinfoResponse:
+        """
+        Description: 用户收货信息存档
+        Summary: 用户收货信息存档
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_resource_consigneeinfo_ex(request, headers, runtime)
+
+    async def import_resource_consigneeinfo_async(
+        self,
+        request: nftx_models.ImportResourceConsigneeinfoRequest,
+    ) -> nftx_models.ImportResourceConsigneeinfoResponse:
+        """
+        Description: 用户收货信息存档
+        Summary: 用户收货信息存档
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_resource_consigneeinfo_ex_async(request, headers, runtime)
+
+    def import_resource_consigneeinfo_ex(
+        self,
+        request: nftx_models.ImportResourceConsigneeinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.ImportResourceConsigneeinfoResponse:
+        """
+        Description: 用户收货信息存档
+        Summary: 用户收货信息存档
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.ImportResourceConsigneeinfoResponse(),
+            self.do_request('1.0', 'antchain.nftx.resource.consigneeinfo.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_resource_consigneeinfo_ex_async(
+        self,
+        request: nftx_models.ImportResourceConsigneeinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.ImportResourceConsigneeinfoResponse:
+        """
+        Description: 用户收货信息存档
+        Summary: 用户收货信息存档
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.ImportResourceConsigneeinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.nftx.resource.consigneeinfo.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_oauth_token(
