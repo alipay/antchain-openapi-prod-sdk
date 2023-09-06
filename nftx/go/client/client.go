@@ -2245,6 +2245,104 @@ func (s *QueryResourceImageResponse) SetHighDefinitionStatus(v int64) *QueryReso
 	return s
 }
 
+type ImportResourceConsigneeinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 手机号
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty" require:"true"`
+	// 收货地址
+	DeliveryAddress *string `json:"delivery_address,omitempty" xml:"delivery_address,omitempty" require:"true"`
+	// email
+	Email *string `json:"email,omitempty" xml:"email,omitempty" require:"true"`
+	// 中奖人手机号
+	LuckyPhone *string `json:"lucky_phone,omitempty" xml:"lucky_phone,omitempty" require:"true"`
+	// 单据号，幂等用
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true"`
+}
+
+func (s ImportResourceConsigneeinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportResourceConsigneeinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportResourceConsigneeinfoRequest) SetAuthToken(v string) *ImportResourceConsigneeinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportResourceConsigneeinfoRequest) SetProductInstanceId(v string) *ImportResourceConsigneeinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ImportResourceConsigneeinfoRequest) SetName(v string) *ImportResourceConsigneeinfoRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *ImportResourceConsigneeinfoRequest) SetPhone(v string) *ImportResourceConsigneeinfoRequest {
+	s.Phone = &v
+	return s
+}
+
+func (s *ImportResourceConsigneeinfoRequest) SetDeliveryAddress(v string) *ImportResourceConsigneeinfoRequest {
+	s.DeliveryAddress = &v
+	return s
+}
+
+func (s *ImportResourceConsigneeinfoRequest) SetEmail(v string) *ImportResourceConsigneeinfoRequest {
+	s.Email = &v
+	return s
+}
+
+func (s *ImportResourceConsigneeinfoRequest) SetLuckyPhone(v string) *ImportResourceConsigneeinfoRequest {
+	s.LuckyPhone = &v
+	return s
+}
+
+func (s *ImportResourceConsigneeinfoRequest) SetBizNo(v string) *ImportResourceConsigneeinfoRequest {
+	s.BizNo = &v
+	return s
+}
+
+type ImportResourceConsigneeinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ImportResourceConsigneeinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportResourceConsigneeinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportResourceConsigneeinfoResponse) SetReqMsgId(v string) *ImportResourceConsigneeinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportResourceConsigneeinfoResponse) SetResultCode(v string) *ImportResourceConsigneeinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportResourceConsigneeinfoResponse) SetResultMsg(v string) *ImportResourceConsigneeinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type ApplyOauthTokenRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2566,7 +2664,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.8"),
+				"sdk_version":      tea.String("1.8.10"),
 				"_prod_code":       tea.String("NFTX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3161,6 +3259,40 @@ func (client *Client) QueryResourceImageEx(request *QueryResourceImageRequest, h
 	}
 	_result = &QueryResourceImageResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.resource.image.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户收货信息存档
+ * Summary: 用户收货信息存档
+ */
+func (client *Client) ImportResourceConsigneeinfo(request *ImportResourceConsigneeinfoRequest) (_result *ImportResourceConsigneeinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportResourceConsigneeinfoResponse{}
+	_body, _err := client.ImportResourceConsigneeinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户收货信息存档
+ * Summary: 用户收货信息存档
+ */
+func (client *Client) ImportResourceConsigneeinfoEx(request *ImportResourceConsigneeinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportResourceConsigneeinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportResourceConsigneeinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.resource.consigneeinfo.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
