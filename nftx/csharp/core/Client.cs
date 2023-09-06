@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.8"},
+                        {"sdk_version", "1.8.10"},
                         {"_prod_code", "NFTX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.8"},
+                        {"sdk_version", "1.8.10"},
                         {"_prod_code", "NFTX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -991,6 +991,48 @@ namespace AntChain.SDK.NFTX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryResourceImageResponse>(await DoRequestAsync("1.0", "antchain.nftx.resource.image.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户收货信息存档
+         * Summary: 用户收货信息存档
+         */
+        public ImportResourceConsigneeinfoResponse ImportResourceConsigneeinfo(ImportResourceConsigneeinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportResourceConsigneeinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户收货信息存档
+         * Summary: 用户收货信息存档
+         */
+        public async Task<ImportResourceConsigneeinfoResponse> ImportResourceConsigneeinfoAsync(ImportResourceConsigneeinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportResourceConsigneeinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户收货信息存档
+         * Summary: 用户收货信息存档
+         */
+        public ImportResourceConsigneeinfoResponse ImportResourceConsigneeinfoEx(ImportResourceConsigneeinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportResourceConsigneeinfoResponse>(DoRequest("1.0", "antchain.nftx.resource.consigneeinfo.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户收货信息存档
+         * Summary: 用户收货信息存档
+         */
+        public async Task<ImportResourceConsigneeinfoResponse> ImportResourceConsigneeinfoExAsync(ImportResourceConsigneeinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportResourceConsigneeinfoResponse>(await DoRequestAsync("1.0", "antchain.nftx.resource.consigneeinfo.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
