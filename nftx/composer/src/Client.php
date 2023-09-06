@@ -25,6 +25,8 @@ use AntChain\NFTX\Models\ExecNftTransferRequest;
 use AntChain\NFTX\Models\ExecNftTransferResponse;
 use AntChain\NFTX\Models\ImportNftCreateRequest;
 use AntChain\NFTX\Models\ImportNftCreateResponse;
+use AntChain\NFTX\Models\ImportResourceConsigneeinfoRequest;
+use AntChain\NFTX\Models\ImportResourceConsigneeinfoResponse;
 use AntChain\NFTX\Models\PagequeryNftCustomerRequest;
 use AntChain\NFTX\Models\PagequeryNftCustomerResponse;
 use AntChain\NFTX\Models\PayOrderDataRequest;
@@ -194,7 +196,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.8',
+                    'sdk_version'      => '1.8.10',
                     '_prod_code'       => 'NFTX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -768,6 +770,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryResourceImageResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.resource.image.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户收货信息存档
+     * Summary: 用户收货信息存档.
+     *
+     * @param ImportResourceConsigneeinfoRequest $request
+     *
+     * @return ImportResourceConsigneeinfoResponse
+     */
+    public function importResourceConsigneeinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importResourceConsigneeinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户收货信息存档
+     * Summary: 用户收货信息存档.
+     *
+     * @param ImportResourceConsigneeinfoRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return ImportResourceConsigneeinfoResponse
+     */
+    public function importResourceConsigneeinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportResourceConsigneeinfoResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.resource.consigneeinfo.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
