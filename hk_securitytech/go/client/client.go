@@ -230,6 +230,67 @@ func (s *DeviceRiskReportResultData) SetResultType(v string) *DeviceRiskReportRe
 	return s
 }
 
+// 终端安全-Android应用加固-RuntimeProtectConfig
+type RuntimeProtectConfig struct {
+	// 重打包,签名校验,AndroidManifest防篡改,签名文件保护,0为检测到风险退出,1不处理
+	AntiSignature *int64 `json:"anti_signature,omitempty" xml:"anti_signature,omitempty" require:"true"`
+	// 防调试,0为检测到风险退出,1不处理
+	AntiDebug *int64 `json:"anti_debug,omitempty" xml:"anti_debug,omitempty" require:"true"`
+	// 防hook,0为检测到风险退出,1不处理
+	AntiHook *int64 `json:"anti_hook,omitempty" xml:"anti_hook,omitempty" require:"true"`
+	// 防注入,防内存dump,防内存数据修改,读取,0为检测到风险退出,1不处理
+	AntiInject *int64 `json:"anti_inject,omitempty" xml:"anti_inject,omitempty" require:"true"`
+	// 模拟器检查,0为检测到风险退出,1不处理
+	AntiEmulator *int64 `json:"anti_emulator,omitempty" xml:"anti_emulator,omitempty" require:"true"`
+	// 防root,0为检测到风险退出,1不处理
+	AntiRoot *int64 `json:"anti_root,omitempty" xml:"anti_root,omitempty" require:"true"`
+	// 防多开软件运行,0为检测到风险退出,1不处理
+	AntiMultiApp *int64 `json:"anti_multi_app,omitempty" xml:"anti_multi_app,omitempty" require:"true"`
+}
+
+func (s RuntimeProtectConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RuntimeProtectConfig) GoString() string {
+	return s.String()
+}
+
+func (s *RuntimeProtectConfig) SetAntiSignature(v int64) *RuntimeProtectConfig {
+	s.AntiSignature = &v
+	return s
+}
+
+func (s *RuntimeProtectConfig) SetAntiDebug(v int64) *RuntimeProtectConfig {
+	s.AntiDebug = &v
+	return s
+}
+
+func (s *RuntimeProtectConfig) SetAntiHook(v int64) *RuntimeProtectConfig {
+	s.AntiHook = &v
+	return s
+}
+
+func (s *RuntimeProtectConfig) SetAntiInject(v int64) *RuntimeProtectConfig {
+	s.AntiInject = &v
+	return s
+}
+
+func (s *RuntimeProtectConfig) SetAntiEmulator(v int64) *RuntimeProtectConfig {
+	s.AntiEmulator = &v
+	return s
+}
+
+func (s *RuntimeProtectConfig) SetAntiRoot(v int64) *RuntimeProtectConfig {
+	s.AntiRoot = &v
+	return s
+}
+
+func (s *RuntimeProtectConfig) SetAntiMultiApp(v int64) *RuntimeProtectConfig {
+	s.AntiMultiApp = &v
+	return s
+}
+
 // 人脸盾结果
 //
 type FaceShieldResult struct {
@@ -271,6 +332,302 @@ func (s *FaceShieldResult) SetRiskDesc(v string) *FaceShieldResult {
 
 func (s *FaceShieldResult) SetSugAction(v string) *FaceShieldResult {
 	s.SugAction = &v
+	return s
+}
+
+// 终端安全-Android加固-Response
+type FileTokenForUpload struct {
+	// ·
+	AccessId *string `json:"access_id,omitempty" xml:"access_id,omitempty" require:"true"`
+	// dir
+	Dir *string `json:"dir,omitempty" xml:"dir,omitempty" require:"true"`
+	// expire
+	Expire *string `json:"expire,omitempty" xml:"expire,omitempty" require:"true"`
+	// host
+	Host *string `json:"host,omitempty" xml:"host,omitempty" require:"true"`
+	// policy
+	Policy *string `json:"policy,omitempty" xml:"policy,omitempty" require:"true"`
+	// signature
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+}
+
+func (s FileTokenForUpload) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FileTokenForUpload) GoString() string {
+	return s.String()
+}
+
+func (s *FileTokenForUpload) SetAccessId(v string) *FileTokenForUpload {
+	s.AccessId = &v
+	return s
+}
+
+func (s *FileTokenForUpload) SetDir(v string) *FileTokenForUpload {
+	s.Dir = &v
+	return s
+}
+
+func (s *FileTokenForUpload) SetExpire(v string) *FileTokenForUpload {
+	s.Expire = &v
+	return s
+}
+
+func (s *FileTokenForUpload) SetHost(v string) *FileTokenForUpload {
+	s.Host = &v
+	return s
+}
+
+func (s *FileTokenForUpload) SetPolicy(v string) *FileTokenForUpload {
+	s.Policy = &v
+	return s
+}
+
+func (s *FileTokenForUpload) SetSignature(v string) *FileTokenForUpload {
+	s.Signature = &v
+	return s
+}
+
+// aml_extend_data
+type ExtendData struct {
+	// user_id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// cert_name
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+}
+
+func (s ExtendData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExtendData) GoString() string {
+	return s.String()
+}
+
+func (s *ExtendData) SetUserId(v string) *ExtendData {
+	s.UserId = &v
+	return s
+}
+
+func (s *ExtendData) SetCertName(v string) *ExtendData {
+	s.CertName = &v
+	return s
+}
+
+// 安卓加固HardeningTaskResponse
+type HardeningTaskResponse struct {
+	// 加固任务的 ID，后续用来轮询调用
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 加固任务的状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 加固后 APK/ABB 的 MD5
+	AfterMdFive *string `json:"after_md_five,omitempty" xml:"after_md_five,omitempty" require:"true"`
+	// 加固后 APK/ABB 的大小
+	AfterSize *int64 `json:"after_size,omitempty" xml:"after_size,omitempty" require:"true"`
+}
+
+func (s HardeningTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HardeningTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *HardeningTaskResponse) SetTaskId(v string) *HardeningTaskResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *HardeningTaskResponse) SetStatus(v int64) *HardeningTaskResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *HardeningTaskResponse) SetAfterMdFive(v string) *HardeningTaskResponse {
+	s.AfterMdFive = &v
+	return s
+}
+
+func (s *HardeningTaskResponse) SetAfterSize(v int64) *HardeningTaskResponse {
+	s.AfterSize = &v
+	return s
+}
+
+// 终端安全MarketingRiskData
+type MarketingRiskData struct {
+	// risk_level
+	RiskLevel *int64 `json:"risk_level,omitempty" xml:"risk_level,omitempty" require:"true"`
+	// sug_action
+	SugAction *string `json:"sug_action,omitempty" xml:"sug_action,omitempty" require:"true"`
+	// `
+	RiskLabels []*string `json:"risk_labels,omitempty" xml:"risk_labels,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s MarketingRiskData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MarketingRiskData) GoString() string {
+	return s.String()
+}
+
+func (s *MarketingRiskData) SetRiskLevel(v int64) *MarketingRiskData {
+	s.RiskLevel = &v
+	return s
+}
+
+func (s *MarketingRiskData) SetSugAction(v string) *MarketingRiskData {
+	s.SugAction = &v
+	return s
+}
+
+func (s *MarketingRiskData) SetRiskLabels(v []*string) *MarketingRiskData {
+	s.RiskLabels = v
+	return s
+}
+
+// ZolozAlertTaskBO
+type ZolozAlertTaskBO struct {
+	// request_id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// decision
+	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// taskId
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// type
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// userId
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// source
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// crrRiskLevel
+	CrrRiskLevel *string `json:"crr_risk_level,omitempty" xml:"crr_risk_level,omitempty" require:"true"`
+	// createTime
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// updateTime
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// modifier
+	Modifier *string `json:"modifier,omitempty" xml:"modifier,omitempty" require:"true"`
+}
+
+func (s ZolozAlertTaskBO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ZolozAlertTaskBO) GoString() string {
+	return s.String()
+}
+
+func (s *ZolozAlertTaskBO) SetRequestId(v string) *ZolozAlertTaskBO {
+	s.RequestId = &v
+	return s
+}
+
+func (s *ZolozAlertTaskBO) SetDecision(v string) *ZolozAlertTaskBO {
+	s.Decision = &v
+	return s
+}
+
+func (s *ZolozAlertTaskBO) SetStatus(v string) *ZolozAlertTaskBO {
+	s.Status = &v
+	return s
+}
+
+func (s *ZolozAlertTaskBO) SetTaskId(v string) *ZolozAlertTaskBO {
+	s.TaskId = &v
+	return s
+}
+
+func (s *ZolozAlertTaskBO) SetType(v string) *ZolozAlertTaskBO {
+	s.Type = &v
+	return s
+}
+
+func (s *ZolozAlertTaskBO) SetUserId(v string) *ZolozAlertTaskBO {
+	s.UserId = &v
+	return s
+}
+
+func (s *ZolozAlertTaskBO) SetSource(v string) *ZolozAlertTaskBO {
+	s.Source = &v
+	return s
+}
+
+func (s *ZolozAlertTaskBO) SetCrrRiskLevel(v string) *ZolozAlertTaskBO {
+	s.CrrRiskLevel = &v
+	return s
+}
+
+func (s *ZolozAlertTaskBO) SetCreateTime(v string) *ZolozAlertTaskBO {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *ZolozAlertTaskBO) SetUpdateTime(v string) *ZolozAlertTaskBO {
+	s.UpdateTime = &v
+	return s
+}
+
+func (s *ZolozAlertTaskBO) SetModifier(v string) *ZolozAlertTaskBO {
+	s.Modifier = &v
+	return s
+}
+
+// 设备风险查询data
+type DeviceRiskResp struct {
+	// apdid
+	Apdid *string `json:"apdid,omitempty" xml:"apdid,omitempty" require:"true"`
+	// apdid
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+	// riskLevel
+	RiskLevel *int64 `json:"risk_level,omitempty" xml:"risk_level,omitempty" require:"true"`
+	// risk_desc
+	RiskDesc *string `json:"risk_desc,omitempty" xml:"risk_desc,omitempty" require:"true"`
+	// sug_action
+	SugAction *string `json:"sug_action,omitempty" xml:"sug_action,omitempty" require:"true"`
+	// risk_labels
+	RiskLabels []*string `json:"risk_labels,omitempty" xml:"risk_labels,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s DeviceRiskResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceRiskResp) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceRiskResp) SetApdid(v string) *DeviceRiskResp {
+	s.Apdid = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetApdidToken(v string) *DeviceRiskResp {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetRiskLevel(v int64) *DeviceRiskResp {
+	s.RiskLevel = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetRiskDesc(v string) *DeviceRiskResp {
+	s.RiskDesc = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetSugAction(v string) *DeviceRiskResp {
+	s.SugAction = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetRiskLabels(v []*string) *DeviceRiskResp {
+	s.RiskLabels = v
 	return s
 }
 
@@ -370,7 +727,7 @@ func (s *DeviceRiskReportResult) SetResultData(v *DeviceRiskReportResultData) *D
 	return s
 }
 
-// 安卓加固ClassMethodConfig
+// 终端安全-Android应用加固-ClassMethodConfig
 type ClassMethodConfig struct {
 	// 加固类名
 	ClassName *string `json:"class_name,omitempty" xml:"class_name,omitempty" require:"true"`
@@ -396,123 +753,44 @@ func (s *ClassMethodConfig) SetMethods(v string) *ClassMethodConfig {
 	return s
 }
 
-// 安卓加固HardeningTaskResponse
-type HardeningTaskResponse struct {
-	// 加固任务的 ID，后续用来轮询调用
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
-	// 加固任务的状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 加固后 APK/ABB 的 MD5
-	AfterMdFive *string `json:"after_md_five,omitempty" xml:"after_md_five,omitempty" require:"true"`
-	// 加固后 APK/ABB 的大小
-	AfterSize *int64 `json:"after_size,omitempty" xml:"after_size,omitempty" require:"true"`
+// Hit details
+type HitResults struct {
+	// Reason for the screening decision. See more details in API-specific result codes.
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty" require:"true"`
+	// Result status. Possible values and their meanings are as below:
+	//
+	// "S": successful
+	//
+	// "F": failed
+	//
+	// "U": unknown issue
+	ResultStatus *string `json:"result_status,omitempty" xml:"result_status,omitempty" require:"true"`
+	// Result message.
+	//
+	// See more details in API-specific result codes.
+	ResultMessage *string `json:"result_message,omitempty" xml:"result_message,omitempty" require:"true"`
 }
 
-func (s HardeningTaskResponse) String() string {
+func (s HitResults) String() string {
 	return tea.Prettify(s)
 }
 
-func (s HardeningTaskResponse) GoString() string {
+func (s HitResults) GoString() string {
 	return s.String()
 }
 
-func (s *HardeningTaskResponse) SetTaskId(v string) *HardeningTaskResponse {
-	s.TaskId = &v
+func (s *HitResults) SetResultCode(v string) *HitResults {
+	s.ResultCode = &v
 	return s
 }
 
-func (s *HardeningTaskResponse) SetStatus(v int64) *HardeningTaskResponse {
-	s.Status = &v
+func (s *HitResults) SetResultStatus(v string) *HitResults {
+	s.ResultStatus = &v
 	return s
 }
 
-func (s *HardeningTaskResponse) SetAfterMdFive(v string) *HardeningTaskResponse {
-	s.AfterMdFive = &v
-	return s
-}
-
-func (s *HardeningTaskResponse) SetAfterSize(v int64) *HardeningTaskResponse {
-	s.AfterSize = &v
-	return s
-}
-
-// 终端安全MarketingRiskData
-type MarketingRiskData struct {
-	// risk_level
-	RiskLevel *int64 `json:"risk_level,omitempty" xml:"risk_level,omitempty" require:"true"`
-	// sug_action
-	SugAction *string `json:"sug_action,omitempty" xml:"sug_action,omitempty" require:"true"`
-}
-
-func (s MarketingRiskData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MarketingRiskData) GoString() string {
-	return s.String()
-}
-
-func (s *MarketingRiskData) SetRiskLevel(v int64) *MarketingRiskData {
-	s.RiskLevel = &v
-	return s
-}
-
-func (s *MarketingRiskData) SetSugAction(v string) *MarketingRiskData {
-	s.SugAction = &v
-	return s
-}
-
-// 设备风险查询data
-type DeviceRiskResp struct {
-	// apdid
-	Apdid *string `json:"apdid,omitempty" xml:"apdid,omitempty" require:"true"`
-	// apdid
-	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
-	// riskLevel
-	RiskLevel *int64 `json:"risk_level,omitempty" xml:"risk_level,omitempty" require:"true"`
-	// risk_desc
-	RiskDesc *string `json:"risk_desc,omitempty" xml:"risk_desc,omitempty" require:"true"`
-	// sug_action
-	SugAction *string `json:"sug_action,omitempty" xml:"sug_action,omitempty" require:"true"`
-	// risk_labels
-	RiskLabels []*string `json:"risk_labels,omitempty" xml:"risk_labels,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s DeviceRiskResp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeviceRiskResp) GoString() string {
-	return s.String()
-}
-
-func (s *DeviceRiskResp) SetApdid(v string) *DeviceRiskResp {
-	s.Apdid = &v
-	return s
-}
-
-func (s *DeviceRiskResp) SetApdidToken(v string) *DeviceRiskResp {
-	s.ApdidToken = &v
-	return s
-}
-
-func (s *DeviceRiskResp) SetRiskLevel(v int64) *DeviceRiskResp {
-	s.RiskLevel = &v
-	return s
-}
-
-func (s *DeviceRiskResp) SetRiskDesc(v string) *DeviceRiskResp {
-	s.RiskDesc = &v
-	return s
-}
-
-func (s *DeviceRiskResp) SetSugAction(v string) *DeviceRiskResp {
-	s.SugAction = &v
-	return s
-}
-
-func (s *DeviceRiskResp) SetRiskLabels(v []*string) *DeviceRiskResp {
-	s.RiskLabels = v
+func (s *HitResults) SetResultMessage(v string) *HitResults {
+	s.ResultMessage = &v
 	return s
 }
 
@@ -839,10 +1117,24 @@ type SubmitAshieldHardeningtaskRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// APK/ABB 上传后的地址
+	// APK,ABB 上传后的地址
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 开启so加固
+	SoProtect *string `json:"so_protect,omitempty" xml:"so_protect,omitempty"`
+	// 开启so加固后,设置的so加固配置文件,默认对apk中libs目录下所有so进行加固,以逗号分隔
+	SoProtectConfig *string `json:"so_protect_config,omitempty" xml:"so_protect_config,omitempty"`
+	// 开启对assets下的资源文件进行加固
+	AssetsProtect *string `json:"assets_protect,omitempty" xml:"assets_protect,omitempty"`
+	// 开启assets加固后,指定要对apk中assets目录下的哪些文件做加固,默认对assets下所有的文件进行保护,以逗号分隔
+	AssetsProtectConfing *string `json:"assets_protect_confing,omitempty" xml:"assets_protect_confing,omitempty"`
+	// 开启运行时保护,需要填写的参数,具体参数见下方,json格式
+	RuntimeProtectConfig *RuntimeProtectConfig `json:"runtime_protect_config,omitempty" xml:"runtime_protect_config,omitempty"`
+	// 对生命周期函数进行java2jni保护
+	EnableLifeFunc *string `json:"enable_life_func,omitempty" xml:"enable_life_func,omitempty"`
 	// java2jni配置文件
-	JavatocJniConfig []*ClassMethodConfig `json:"javatoc_jni_config,omitempty" xml:"javatoc_jni_config,omitempty" require:"true" type:"Repeated"`
+	JavatocJniConfig []*ClassMethodConfig `json:"javatoc_jni_config,omitempty" xml:"javatoc_jni_config,omitempty" type:"Repeated"`
+	// 扩展信息,json字符串,暂不使用
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s SubmitAshieldHardeningtaskRequest) String() string {
@@ -868,8 +1160,43 @@ func (s *SubmitAshieldHardeningtaskRequest) SetFileUrl(v string) *SubmitAshieldH
 	return s
 }
 
+func (s *SubmitAshieldHardeningtaskRequest) SetSoProtect(v string) *SubmitAshieldHardeningtaskRequest {
+	s.SoProtect = &v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskRequest) SetSoProtectConfig(v string) *SubmitAshieldHardeningtaskRequest {
+	s.SoProtectConfig = &v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskRequest) SetAssetsProtect(v string) *SubmitAshieldHardeningtaskRequest {
+	s.AssetsProtect = &v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskRequest) SetAssetsProtectConfing(v string) *SubmitAshieldHardeningtaskRequest {
+	s.AssetsProtectConfing = &v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskRequest) SetRuntimeProtectConfig(v *RuntimeProtectConfig) *SubmitAshieldHardeningtaskRequest {
+	s.RuntimeProtectConfig = v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskRequest) SetEnableLifeFunc(v string) *SubmitAshieldHardeningtaskRequest {
+	s.EnableLifeFunc = &v
+	return s
+}
+
 func (s *SubmitAshieldHardeningtaskRequest) SetJavatocJniConfig(v []*ClassMethodConfig) *SubmitAshieldHardeningtaskRequest {
 	s.JavatocJniConfig = v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskRequest) SetExtInfo(v string) *SubmitAshieldHardeningtaskRequest {
+	s.ExtInfo = &v
 	return s
 }
 
@@ -880,7 +1207,15 @@ type SubmitAshieldHardeningtaskResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回的具体对象，具体含义见下表。
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 查询是否成功
+	ResSuccess *bool `json:"res_success,omitempty" xml:"res_success,omitempty"`
+	// SUCCESS为成功,其他为失败
+	ResCode *string `json:"res_code,omitempty" xml:"res_code,omitempty"`
+	// 返回信息描述
+	ResMessage *string `json:"res_message,omitempty" xml:"res_message,omitempty"`
+	// 返回的具体对象
 	ResData *HardeningTaskResponse `json:"res_data,omitempty" xml:"res_data,omitempty"`
 }
 
@@ -907,6 +1242,26 @@ func (s *SubmitAshieldHardeningtaskResponse) SetResultMsg(v string) *SubmitAshie
 	return s
 }
 
+func (s *SubmitAshieldHardeningtaskResponse) SetRequestId(v string) *SubmitAshieldHardeningtaskResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskResponse) SetResSuccess(v bool) *SubmitAshieldHardeningtaskResponse {
+	s.ResSuccess = &v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskResponse) SetResCode(v string) *SubmitAshieldHardeningtaskResponse {
+	s.ResCode = &v
+	return s
+}
+
+func (s *SubmitAshieldHardeningtaskResponse) SetResMessage(v string) *SubmitAshieldHardeningtaskResponse {
+	s.ResMessage = &v
+	return s
+}
+
 func (s *SubmitAshieldHardeningtaskResponse) SetResData(v *HardeningTaskResponse) *SubmitAshieldHardeningtaskResponse {
 	s.ResData = v
 	return s
@@ -920,6 +1275,8 @@ type QueryDeviceriskFingerRequest struct {
 	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
 	// client_id
 	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+	// terminal_type
+	TerminalType *string `json:"terminal_type,omitempty" xml:"terminal_type,omitempty"`
 }
 
 func (s QueryDeviceriskFingerRequest) String() string {
@@ -947,6 +1304,11 @@ func (s *QueryDeviceriskFingerRequest) SetApdidToken(v string) *QueryDeviceriskF
 
 func (s *QueryDeviceriskFingerRequest) SetClientId(v string) *QueryDeviceriskFingerRequest {
 	s.ClientId = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerRequest) SetTerminalType(v string) *QueryDeviceriskFingerRequest {
+	s.TerminalType = &v
 	return s
 }
 
@@ -1035,6 +1397,8 @@ type QueryDeviceriskDeviceriskRequest struct {
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
 	// app_name
 	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// terminal_type
+	TerminalType *string `json:"terminal_type,omitempty" xml:"terminal_type,omitempty"`
 }
 
 func (s QueryDeviceriskDeviceriskRequest) String() string {
@@ -1087,6 +1451,11 @@ func (s *QueryDeviceriskDeviceriskRequest) SetMerchantId(v string) *QueryDevicer
 
 func (s *QueryDeviceriskDeviceriskRequest) SetAppName(v string) *QueryDeviceriskDeviceriskRequest {
 	s.AppName = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetTerminalType(v string) *QueryDeviceriskDeviceriskRequest {
+	s.TerminalType = &v
 	return s
 }
 
@@ -1421,7 +1790,7 @@ type QueryEaglepromoMarketingriskRequest struct {
 	// biz_code
 	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
 	// terminal_type
-	TerminalType *string `json:"terminal_type,omitempty" xml:"terminal_type,omitempty" require:"true"`
+	TerminalType *string `json:"terminal_type,omitempty" xml:"terminal_type,omitempty"`
 }
 
 func (s QueryEaglepromoMarketingriskRequest) String() string {
@@ -1528,6 +1897,938 @@ func (s *QueryEaglepromoMarketingriskResponse) SetCode(v int64) *QueryEaglepromo
 }
 
 func (s *QueryEaglepromoMarketingriskResponse) SetData(v *MarketingRiskData) *QueryEaglepromoMarketingriskResponse {
+	s.Data = v
+	return s
+}
+
+type SubmitAmlcloudAnalyzeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// biz_code
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// tnt_inst_id
+	TntInstId *string `json:"tnt_inst_id,omitempty" xml:"tnt_inst_id,omitempty" require:"true"`
+	// extendData
+	ExtendData *ExtendData `json:"extend_data,omitempty" xml:"extend_data,omitempty" require:"true"`
+}
+
+func (s SubmitAmlcloudAnalyzeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAmlcloudAnalyzeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAmlcloudAnalyzeRequest) SetAuthToken(v string) *SubmitAmlcloudAnalyzeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAmlcloudAnalyzeRequest) SetProductInstanceId(v string) *SubmitAmlcloudAnalyzeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitAmlcloudAnalyzeRequest) SetBizCode(v string) *SubmitAmlcloudAnalyzeRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *SubmitAmlcloudAnalyzeRequest) SetTenantId(v string) *SubmitAmlcloudAnalyzeRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *SubmitAmlcloudAnalyzeRequest) SetTntInstId(v string) *SubmitAmlcloudAnalyzeRequest {
+	s.TntInstId = &v
+	return s
+}
+
+func (s *SubmitAmlcloudAnalyzeRequest) SetExtendData(v *ExtendData) *SubmitAmlcloudAnalyzeRequest {
+	s.ExtendData = v
+	return s
+}
+
+type SubmitAmlcloudAnalyzeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// Unique business ID for tracing purposes
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// Screening decisions:
+	//
+	// ACCEPT: Did not hit any watchlist
+	//
+	// REJECT: Hit some watchlists
+	//
+	// REVIEW: Potentially hit some watchlists
+	Decision *string `json:"decision,omitempty" xml:"decision,omitempty"`
+	// Hit details
+	HitResults *HitResults `json:"hit_results,omitempty" xml:"hit_results,omitempty"`
+}
+
+func (s SubmitAmlcloudAnalyzeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAmlcloudAnalyzeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAmlcloudAnalyzeResponse) SetReqMsgId(v string) *SubmitAmlcloudAnalyzeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAmlcloudAnalyzeResponse) SetResultCode(v string) *SubmitAmlcloudAnalyzeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAmlcloudAnalyzeResponse) SetResultMsg(v string) *SubmitAmlcloudAnalyzeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitAmlcloudAnalyzeResponse) SetRequestId(v string) *SubmitAmlcloudAnalyzeResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *SubmitAmlcloudAnalyzeResponse) SetDecision(v string) *SubmitAmlcloudAnalyzeResponse {
+	s.Decision = &v
+	return s
+}
+
+func (s *SubmitAmlcloudAnalyzeResponse) SetHitResults(v *HitResults) *SubmitAmlcloudAnalyzeResponse {
+	s.HitResults = v
+	return s
+}
+
+type QueryAmlcloudAnalyzeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryAmlcloudAnalyzeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAmlcloudAnalyzeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAmlcloudAnalyzeRequest) SetAuthToken(v string) *QueryAmlcloudAnalyzeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAmlcloudAnalyzeRequest) SetProductInstanceId(v string) *QueryAmlcloudAnalyzeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryAmlcloudAnalyzeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryAmlcloudAnalyzeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAmlcloudAnalyzeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAmlcloudAnalyzeResponse) SetReqMsgId(v string) *QueryAmlcloudAnalyzeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAmlcloudAnalyzeResponse) SetResultCode(v string) *QueryAmlcloudAnalyzeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAmlcloudAnalyzeResponse) SetResultMsg(v string) *QueryAmlcloudAnalyzeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryAmlcloudCheckcaseresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryAmlcloudCheckcaseresultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAmlcloudCheckcaseresultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAmlcloudCheckcaseresultRequest) SetAuthToken(v string) *QueryAmlcloudCheckcaseresultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAmlcloudCheckcaseresultRequest) SetProductInstanceId(v string) *QueryAmlcloudCheckcaseresultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryAmlcloudCheckcaseresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryAmlcloudCheckcaseresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAmlcloudCheckcaseresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAmlcloudCheckcaseresultResponse) SetReqMsgId(v string) *QueryAmlcloudCheckcaseresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAmlcloudCheckcaseresultResponse) SetResultCode(v string) *QueryAmlcloudCheckcaseresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAmlcloudCheckcaseresultResponse) SetResultMsg(v string) *QueryAmlcloudCheckcaseresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SubmitAmlcloudCheckcaseresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，业务的唯一标识，用于追踪业务。
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 客户的租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 任务来源。取值如下：
+	// ● REALTIME：来源于扫描信息接口。
+	// ● BATCH：来源于数据仓库。
+	// ● ALL：包含以上所有的任务来源
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 任务类型。取值如下：
+	// ● PEP：政治高风险人物。
+	// ● SANCTION：制裁名单。
+	// ● NEGATIVE_NEWS：负面新闻。
+	// ● INTERNAL_LIST：自定义名单。
+	// ● EDD：加强尽职调查。
+	// ● ALL：包含以上所有的任务类型。
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s SubmitAmlcloudCheckcaseresultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAmlcloudCheckcaseresultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAmlcloudCheckcaseresultRequest) SetAuthToken(v string) *SubmitAmlcloudCheckcaseresultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAmlcloudCheckcaseresultRequest) SetProductInstanceId(v string) *SubmitAmlcloudCheckcaseresultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitAmlcloudCheckcaseresultRequest) SetRequestId(v string) *SubmitAmlcloudCheckcaseresultRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *SubmitAmlcloudCheckcaseresultRequest) SetTenantId(v string) *SubmitAmlcloudCheckcaseresultRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *SubmitAmlcloudCheckcaseresultRequest) SetSource(v string) *SubmitAmlcloudCheckcaseresultRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *SubmitAmlcloudCheckcaseresultRequest) SetType(v string) *SubmitAmlcloudCheckcaseresultRequest {
+	s.Type = &v
+	return s
+}
+
+type SubmitAmlcloudCheckcaseresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务结果详情
+	CaseDetails []*ZolozAlertTaskBO `json:"case_details,omitempty" xml:"case_details,omitempty" type:"Repeated"`
+}
+
+func (s SubmitAmlcloudCheckcaseresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAmlcloudCheckcaseresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAmlcloudCheckcaseresultResponse) SetReqMsgId(v string) *SubmitAmlcloudCheckcaseresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAmlcloudCheckcaseresultResponse) SetResultCode(v string) *SubmitAmlcloudCheckcaseresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAmlcloudCheckcaseresultResponse) SetResultMsg(v string) *SubmitAmlcloudCheckcaseresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitAmlcloudCheckcaseresultResponse) SetCaseDetails(v []*ZolozAlertTaskBO) *SubmitAmlcloudCheckcaseresultResponse {
+	s.CaseDetails = v
+	return s
+}
+
+type QueryAmlclouduatAnalyzeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryAmlclouduatAnalyzeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAmlclouduatAnalyzeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAmlclouduatAnalyzeRequest) SetAuthToken(v string) *QueryAmlclouduatAnalyzeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAmlclouduatAnalyzeRequest) SetProductInstanceId(v string) *QueryAmlclouduatAnalyzeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryAmlclouduatAnalyzeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryAmlclouduatAnalyzeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAmlclouduatAnalyzeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAmlclouduatAnalyzeResponse) SetReqMsgId(v string) *QueryAmlclouduatAnalyzeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAmlclouduatAnalyzeResponse) SetResultCode(v string) *QueryAmlclouduatAnalyzeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAmlclouduatAnalyzeResponse) SetResultMsg(v string) *QueryAmlclouduatAnalyzeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryAmlclouduatCheckcaseresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryAmlclouduatCheckcaseresultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAmlclouduatCheckcaseresultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAmlclouduatCheckcaseresultRequest) SetAuthToken(v string) *QueryAmlclouduatCheckcaseresultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAmlclouduatCheckcaseresultRequest) SetProductInstanceId(v string) *QueryAmlclouduatCheckcaseresultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryAmlclouduatCheckcaseresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryAmlclouduatCheckcaseresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAmlclouduatCheckcaseresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAmlclouduatCheckcaseresultResponse) SetReqMsgId(v string) *QueryAmlclouduatCheckcaseresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAmlclouduatCheckcaseresultResponse) SetResultCode(v string) *QueryAmlclouduatCheckcaseresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAmlclouduatCheckcaseresultResponse) SetResultMsg(v string) *QueryAmlclouduatCheckcaseresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type GetAshieldFiletokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s GetAshieldFiletokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAshieldFiletokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetAshieldFiletokenRequest) SetAuthToken(v string) *GetAshieldFiletokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetAshieldFiletokenRequest) SetProductInstanceId(v string) *GetAshieldFiletokenRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type GetAshieldFiletokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// ·
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// res_success
+	ResSuccess *bool `json:"res_success,omitempty" xml:"res_success,omitempty"`
+	// res_code
+	ResCode *string `json:"res_code,omitempty" xml:"res_code,omitempty"`
+	// res_message
+	ResMessage *string `json:"res_message,omitempty" xml:"res_message,omitempty"`
+	// ·
+	ResData *FileTokenForUpload `json:"res_data,omitempty" xml:"res_data,omitempty"`
+}
+
+func (s GetAshieldFiletokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAshieldFiletokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetAshieldFiletokenResponse) SetReqMsgId(v string) *GetAshieldFiletokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetAshieldFiletokenResponse) SetResultCode(v string) *GetAshieldFiletokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetAshieldFiletokenResponse) SetResultMsg(v string) *GetAshieldFiletokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetAshieldFiletokenResponse) SetRequestId(v string) *GetAshieldFiletokenResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *GetAshieldFiletokenResponse) SetResSuccess(v bool) *GetAshieldFiletokenResponse {
+	s.ResSuccess = &v
+	return s
+}
+
+func (s *GetAshieldFiletokenResponse) SetResCode(v string) *GetAshieldFiletokenResponse {
+	s.ResCode = &v
+	return s
+}
+
+func (s *GetAshieldFiletokenResponse) SetResMessage(v string) *GetAshieldFiletokenResponse {
+	s.ResMessage = &v
+	return s
+}
+
+func (s *GetAshieldFiletokenResponse) SetResData(v *FileTokenForUpload) *GetAshieldFiletokenResponse {
+	s.ResData = v
+	return s
+}
+
+type GetAshieldHardeningtaskprocessRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 加固任务 ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s GetAshieldHardeningtaskprocessRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAshieldHardeningtaskprocessRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetAshieldHardeningtaskprocessRequest) SetAuthToken(v string) *GetAshieldHardeningtaskprocessRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetAshieldHardeningtaskprocessRequest) SetProductInstanceId(v string) *GetAshieldHardeningtaskprocessRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetAshieldHardeningtaskprocessRequest) SetTaskId(v string) *GetAshieldHardeningtaskprocessRequest {
+	s.TaskId = &v
+	return s
+}
+
+type GetAshieldHardeningtaskprocessResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 查询是否成功
+	ResSuccess *bool `json:"res_success,omitempty" xml:"res_success,omitempty"`
+	// SUCCESS为成功，其他为失败
+	ResCode *string `json:"res_code,omitempty" xml:"res_code,omitempty"`
+	// 返回信息描述
+	ResMessage *string `json:"res_message,omitempty" xml:"res_message,omitempty"`
+	// 返回的具体对象
+	ResData *HardeningTaskResponse `json:"res_data,omitempty" xml:"res_data,omitempty"`
+}
+
+func (s GetAshieldHardeningtaskprocessResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAshieldHardeningtaskprocessResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetAshieldHardeningtaskprocessResponse) SetReqMsgId(v string) *GetAshieldHardeningtaskprocessResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetAshieldHardeningtaskprocessResponse) SetResultCode(v string) *GetAshieldHardeningtaskprocessResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetAshieldHardeningtaskprocessResponse) SetResultMsg(v string) *GetAshieldHardeningtaskprocessResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetAshieldHardeningtaskprocessResponse) SetRequestId(v string) *GetAshieldHardeningtaskprocessResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *GetAshieldHardeningtaskprocessResponse) SetResSuccess(v bool) *GetAshieldHardeningtaskprocessResponse {
+	s.ResSuccess = &v
+	return s
+}
+
+func (s *GetAshieldHardeningtaskprocessResponse) SetResCode(v string) *GetAshieldHardeningtaskprocessResponse {
+	s.ResCode = &v
+	return s
+}
+
+func (s *GetAshieldHardeningtaskprocessResponse) SetResMessage(v string) *GetAshieldHardeningtaskprocessResponse {
+	s.ResMessage = &v
+	return s
+}
+
+func (s *GetAshieldHardeningtaskprocessResponse) SetResData(v *HardeningTaskResponse) *GetAshieldHardeningtaskprocessResponse {
+	s.ResData = v
+	return s
+}
+
+type GetAshieldHardeningresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 加固任务 ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s GetAshieldHardeningresultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAshieldHardeningresultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetAshieldHardeningresultRequest) SetAuthToken(v string) *GetAshieldHardeningresultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetAshieldHardeningresultRequest) SetProductInstanceId(v string) *GetAshieldHardeningresultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetAshieldHardeningresultRequest) SetTaskId(v string) *GetAshieldHardeningresultRequest {
+	s.TaskId = &v
+	return s
+}
+
+type GetAshieldHardeningresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 查询是否成功
+	ResSuccess *bool `json:"res_success,omitempty" xml:"res_success,omitempty"`
+	// SUCCESS为成功，其他为失败
+	ResCode *string `json:"res_code,omitempty" xml:"res_code,omitempty"`
+	// 返回信息描述
+	ResMessage *string `json:"res_message,omitempty" xml:"res_message,omitempty"`
+	// 返回的下载链接
+	ResData *string `json:"res_data,omitempty" xml:"res_data,omitempty"`
+}
+
+func (s GetAshieldHardeningresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAshieldHardeningresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetAshieldHardeningresultResponse) SetReqMsgId(v string) *GetAshieldHardeningresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetAshieldHardeningresultResponse) SetResultCode(v string) *GetAshieldHardeningresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetAshieldHardeningresultResponse) SetResultMsg(v string) *GetAshieldHardeningresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetAshieldHardeningresultResponse) SetRequestId(v string) *GetAshieldHardeningresultResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *GetAshieldHardeningresultResponse) SetResSuccess(v bool) *GetAshieldHardeningresultResponse {
+	s.ResSuccess = &v
+	return s
+}
+
+func (s *GetAshieldHardeningresultResponse) SetResCode(v string) *GetAshieldHardeningresultResponse {
+	s.ResCode = &v
+	return s
+}
+
+func (s *GetAshieldHardeningresultResponse) SetResMessage(v string) *GetAshieldHardeningresultResponse {
+	s.ResMessage = &v
+	return s
+}
+
+func (s *GetAshieldHardeningresultResponse) SetResData(v string) *GetAshieldHardeningresultResponse {
+	s.ResData = &v
+	return s
+}
+
+type GetAshieldHardeninglogRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 加固任务 ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s GetAshieldHardeninglogRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAshieldHardeninglogRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetAshieldHardeninglogRequest) SetAuthToken(v string) *GetAshieldHardeninglogRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetAshieldHardeninglogRequest) SetProductInstanceId(v string) *GetAshieldHardeninglogRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetAshieldHardeninglogRequest) SetTaskId(v string) *GetAshieldHardeninglogRequest {
+	s.TaskId = &v
+	return s
+}
+
+type GetAshieldHardeninglogResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 查询是否成功
+	ResSuccess *bool `json:"res_success,omitempty" xml:"res_success,omitempty"`
+	// SUCCESS为成功，其他为失败
+	ResCode *string `json:"res_code,omitempty" xml:"res_code,omitempty"`
+	// 返回信息描述
+	ResMessage *string `json:"res_message,omitempty" xml:"res_message,omitempty"`
+	// 返回的下载链接
+	ResData *string `json:"res_data,omitempty" xml:"res_data,omitempty"`
+}
+
+func (s GetAshieldHardeninglogResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAshieldHardeninglogResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetAshieldHardeninglogResponse) SetReqMsgId(v string) *GetAshieldHardeninglogResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetAshieldHardeninglogResponse) SetResultCode(v string) *GetAshieldHardeninglogResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetAshieldHardeninglogResponse) SetResultMsg(v string) *GetAshieldHardeninglogResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetAshieldHardeninglogResponse) SetRequestId(v string) *GetAshieldHardeninglogResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *GetAshieldHardeninglogResponse) SetResSuccess(v bool) *GetAshieldHardeninglogResponse {
+	s.ResSuccess = &v
+	return s
+}
+
+func (s *GetAshieldHardeninglogResponse) SetResCode(v string) *GetAshieldHardeninglogResponse {
+	s.ResCode = &v
+	return s
+}
+
+func (s *GetAshieldHardeninglogResponse) SetResMessage(v string) *GetAshieldHardeninglogResponse {
+	s.ResMessage = &v
+	return s
+}
+
+func (s *GetAshieldHardeninglogResponse) SetResData(v string) *GetAshieldHardeninglogResponse {
+	s.ResData = &v
+	return s
+}
+
+type QueryDeviceriskRisklabelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// apdid_token
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+	// client_id
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+	// terminal_type
+	TerminalType *string `json:"terminal_type,omitempty" xml:"terminal_type,omitempty"`
+}
+
+func (s QueryDeviceriskRisklabelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceriskRisklabelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceriskRisklabelRequest) SetAuthToken(v string) *QueryDeviceriskRisklabelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelRequest) SetProductInstanceId(v string) *QueryDeviceriskRisklabelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelRequest) SetApdidToken(v string) *QueryDeviceriskRisklabelRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelRequest) SetClientId(v string) *QueryDeviceriskRisklabelRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelRequest) SetTerminalType(v string) *QueryDeviceriskRisklabelRequest {
+	s.TerminalType = &v
+	return s
+}
+
+type QueryDeviceriskRisklabelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// code
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// message
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// request_id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// data
+	Data *DeviceRiskResp `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryDeviceriskRisklabelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceriskRisklabelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetReqMsgId(v string) *QueryDeviceriskRisklabelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetResultCode(v string) *QueryDeviceriskRisklabelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetResultMsg(v string) *QueryDeviceriskRisklabelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetCode(v int64) *QueryDeviceriskRisklabelResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetMessage(v string) *QueryDeviceriskRisklabelResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetRequestId(v string) *QueryDeviceriskRisklabelResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetSuccess(v bool) *QueryDeviceriskRisklabelResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetData(v *DeviceRiskResp) *QueryDeviceriskRisklabelResponse {
 	s.Data = v
 	return s
 }
@@ -1654,7 +2955,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.6"),
+				"sdk_version":      tea.String("1.5.9"),
 				"_prod_code":       tea.String("HK_SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -1781,7 +3082,7 @@ func (client *Client) QueryFaceshieldNativeEx(request *QueryFaceshieldNativeRequ
 }
 
 /**
- * Description: 启动加固任务
+ * Description: 终端安全-Android应用加固-启动加固任务
  * Summary: 启动加固任务
  */
 func (client *Client) SubmitAshieldHardeningtask(request *SubmitAshieldHardeningtaskRequest) (_result *SubmitAshieldHardeningtaskResponse, _err error) {
@@ -1797,7 +3098,7 @@ func (client *Client) SubmitAshieldHardeningtask(request *SubmitAshieldHardening
 }
 
 /**
- * Description: 启动加固任务
+ * Description: 终端安全-Android应用加固-启动加固任务
  * Summary: 启动加固任务
  */
 func (client *Client) SubmitAshieldHardeningtaskEx(request *SubmitAshieldHardeningtaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAshieldHardeningtaskResponse, _err error) {
@@ -1977,6 +3278,380 @@ func (client *Client) QueryEaglepromoMarketingriskEx(request *QueryEaglepromoMar
 	}
 	_result = &QueryEaglepromoMarketingriskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.eaglepromo.marketingrisk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aml analyze v2 form
+ * Summary: aml analyze v2 form
+ */
+func (client *Client) SubmitAmlcloudAnalyze(request *SubmitAmlcloudAnalyzeRequest) (_result *SubmitAmlcloudAnalyzeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAmlcloudAnalyzeResponse{}
+	_body, _err := client.SubmitAmlcloudAnalyzeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aml analyze v2 form
+ * Summary: aml analyze v2 form
+ */
+func (client *Client) SubmitAmlcloudAnalyzeEx(request *SubmitAmlcloudAnalyzeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAmlcloudAnalyzeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAmlcloudAnalyzeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.amlcloud.analyze.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户
+ * Summary: aml analyze v2 rest
+ */
+func (client *Client) QueryAmlcloudAnalyze(request *QueryAmlcloudAnalyzeRequest) (_result *QueryAmlcloudAnalyzeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAmlcloudAnalyzeResponse{}
+	_body, _err := client.QueryAmlcloudAnalyzeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户
+ * Summary: aml analyze v2 rest
+ */
+func (client *Client) QueryAmlcloudAnalyzeEx(request *QueryAmlcloudAnalyzeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAmlcloudAnalyzeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAmlcloudAnalyzeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.amlcloud.analyze.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户
+ * Summary: aml check v2 rest
+ */
+func (client *Client) QueryAmlcloudCheckcaseresult(request *QueryAmlcloudCheckcaseresultRequest) (_result *QueryAmlcloudCheckcaseresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAmlcloudCheckcaseresultResponse{}
+	_body, _err := client.QueryAmlcloudCheckcaseresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户
+ * Summary: aml check v2 rest
+ */
+func (client *Client) QueryAmlcloudCheckcaseresultEx(request *QueryAmlcloudCheckcaseresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAmlcloudCheckcaseresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAmlcloudCheckcaseresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.amlcloud.checkcaseresult.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aml check v2 form
+ * Summary: aml check v2 form
+ */
+func (client *Client) SubmitAmlcloudCheckcaseresult(request *SubmitAmlcloudCheckcaseresultRequest) (_result *SubmitAmlcloudCheckcaseresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAmlcloudCheckcaseresultResponse{}
+	_body, _err := client.SubmitAmlcloudCheckcaseresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aml check v2 form
+ * Summary: aml check v2 form
+ */
+func (client *Client) SubmitAmlcloudCheckcaseresultEx(request *SubmitAmlcloudCheckcaseresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAmlcloudCheckcaseresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAmlcloudCheckcaseresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.amlcloud.checkcaseresult.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+ * Summary: aml analyze v2 rest
+ */
+func (client *Client) QueryAmlclouduatAnalyze(request *QueryAmlclouduatAnalyzeRequest) (_result *QueryAmlclouduatAnalyzeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAmlclouduatAnalyzeResponse{}
+	_body, _err := client.QueryAmlclouduatAnalyzeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+ * Summary: aml analyze v2 rest
+ */
+func (client *Client) QueryAmlclouduatAnalyzeEx(request *QueryAmlclouduatAnalyzeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAmlclouduatAnalyzeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAmlclouduatAnalyzeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.amlclouduat.analyze.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+ * Summary: aml check v2 rest
+ */
+func (client *Client) QueryAmlclouduatCheckcaseresult(request *QueryAmlclouduatCheckcaseresultRequest) (_result *QueryAmlclouduatCheckcaseresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAmlclouduatCheckcaseresultResponse{}
+	_body, _err := client.QueryAmlclouduatCheckcaseresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+ * Summary: aml check v2 rest
+ */
+func (client *Client) QueryAmlclouduatCheckcaseresultEx(request *QueryAmlclouduatCheckcaseresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAmlclouduatCheckcaseresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAmlclouduatCheckcaseresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.amlclouduat.checkcaseresult.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+ * Summary: 获取上传文件的临时URL
+ */
+func (client *Client) GetAshieldFiletoken(request *GetAshieldFiletokenRequest) (_result *GetAshieldFiletokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetAshieldFiletokenResponse{}
+	_body, _err := client.GetAshieldFiletokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+ * Summary: 获取上传文件的临时URL
+ */
+func (client *Client) GetAshieldFiletokenEx(request *GetAshieldFiletokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAshieldFiletokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetAshieldFiletokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.ashield.filetoken.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固任务进度
+ * Summary: 查询加固任务进度
+ */
+func (client *Client) GetAshieldHardeningtaskprocess(request *GetAshieldHardeningtaskprocessRequest) (_result *GetAshieldHardeningtaskprocessResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetAshieldHardeningtaskprocessResponse{}
+	_body, _err := client.GetAshieldHardeningtaskprocessEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固任务进度
+ * Summary: 查询加固任务进度
+ */
+func (client *Client) GetAshieldHardeningtaskprocessEx(request *GetAshieldHardeningtaskprocessRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAshieldHardeningtaskprocessResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetAshieldHardeningtaskprocessResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.ashield.hardeningtaskprocess.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+ * Summary: 查询加固后的产物下载链接
+ */
+func (client *Client) GetAshieldHardeningresult(request *GetAshieldHardeningresultRequest) (_result *GetAshieldHardeningresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetAshieldHardeningresultResponse{}
+	_body, _err := client.GetAshieldHardeningresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+ * Summary: 查询加固后的产物下载链接
+ */
+func (client *Client) GetAshieldHardeningresultEx(request *GetAshieldHardeningresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAshieldHardeningresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetAshieldHardeningresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.ashield.hardeningresult.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+ * Summary: 查询加固后的日志下载链接
+ */
+func (client *Client) GetAshieldHardeninglog(request *GetAshieldHardeninglogRequest) (_result *GetAshieldHardeninglogResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetAshieldHardeninglogResponse{}
+	_body, _err := client.GetAshieldHardeninglogEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+ * Summary: 查询加固后的日志下载链接
+ */
+func (client *Client) GetAshieldHardeninglogEx(request *GetAshieldHardeninglogRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAshieldHardeninglogResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetAshieldHardeninglogResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.ashield.hardeninglog.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 风险标签查询
+ * Summary: 风险标签查询
+ */
+func (client *Client) QueryDeviceriskRisklabel(request *QueryDeviceriskRisklabelRequest) (_result *QueryDeviceriskRisklabelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeviceriskRisklabelResponse{}
+	_body, _err := client.QueryDeviceriskRisklabelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 风险标签查询
+ * Summary: 风险标签查询
+ */
+func (client *Client) QueryDeviceriskRisklabelEx(request *QueryDeviceriskRisklabelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeviceriskRisklabelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeviceriskRisklabelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.devicerisk.risklabel.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
