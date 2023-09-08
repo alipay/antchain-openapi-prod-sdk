@@ -14,6 +14,11 @@ public class MarketingRiskData extends TeaModel {
     @Validation(required = true)
     public String sugAction;
 
+    // `
+    @NameInMap("risk_labels")
+    @Validation(required = true)
+    public java.util.List<String> riskLabels;
+
     public static MarketingRiskData build(java.util.Map<String, ?> map) throws Exception {
         MarketingRiskData self = new MarketingRiskData();
         return TeaModel.build(map, self);
@@ -33,6 +38,14 @@ public class MarketingRiskData extends TeaModel {
     }
     public String getSugAction() {
         return this.sugAction;
+    }
+
+    public MarketingRiskData setRiskLabels(java.util.List<String> riskLabels) {
+        this.riskLabels = riskLabels;
+        return this;
+    }
+    public java.util.List<String> getRiskLabels() {
+        return this.riskLabels;
     }
 
 }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.hk_securitytech.models;
 
 import com.aliyun.tea.*;
 
-public class QueryDeviceriskFingerRequest extends TeaModel {
+public class QueryDeviceriskRisklabelRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -24,12 +24,12 @@ public class QueryDeviceriskFingerRequest extends TeaModel {
     @NameInMap("terminal_type")
     public String terminalType;
 
-    public static QueryDeviceriskFingerRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryDeviceriskFingerRequest self = new QueryDeviceriskFingerRequest();
+    public static QueryDeviceriskRisklabelRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryDeviceriskRisklabelRequest self = new QueryDeviceriskRisklabelRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryDeviceriskFingerRequest setAuthToken(String authToken) {
+    public QueryDeviceriskRisklabelRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryDeviceriskFingerRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryDeviceriskFingerRequest setProductInstanceId(String productInstanceId) {
+    public QueryDeviceriskRisklabelRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -45,7 +45,7 @@ public class QueryDeviceriskFingerRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryDeviceriskFingerRequest setApdidToken(String apdidToken) {
+    public QueryDeviceriskRisklabelRequest setApdidToken(String apdidToken) {
         this.apdidToken = apdidToken;
         return this;
     }
@@ -53,7 +53,7 @@ public class QueryDeviceriskFingerRequest extends TeaModel {
         return this.apdidToken;
     }
 
-    public QueryDeviceriskFingerRequest setClientId(String clientId) {
+    public QueryDeviceriskRisklabelRequest setClientId(String clientId) {
         this.clientId = clientId;
         return this;
     }
@@ -61,7 +61,7 @@ public class QueryDeviceriskFingerRequest extends TeaModel {
         return this.clientId;
     }
 
-    public QueryDeviceriskFingerRequest setTerminalType(String terminalType) {
+    public QueryDeviceriskRisklabelRequest setTerminalType(String terminalType) {
         this.terminalType = terminalType;
         return this;
     }

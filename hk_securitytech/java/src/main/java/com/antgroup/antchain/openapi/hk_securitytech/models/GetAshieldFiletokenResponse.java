@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.hk_securitytech.models;
 
 import com.aliyun.tea.*;
 
-public class SubmitAshieldHardeningtaskResponse extends TeaModel {
+public class GetAshieldFiletokenResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,32 +16,32 @@ public class SubmitAshieldHardeningtaskResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 请求id
+    // ·
     @NameInMap("request_id")
     public String requestId;
 
-    // 查询是否成功
+    // res_success
     @NameInMap("res_success")
     public Boolean resSuccess;
 
-    // SUCCESS为成功,其他为失败
+    // res_code
     @NameInMap("res_code")
     public String resCode;
 
-    // 返回信息描述
+    // res_message
     @NameInMap("res_message")
     public String resMessage;
 
-    // 返回的具体对象
+    // ·
     @NameInMap("res_data")
-    public HardeningTaskResponse resData;
+    public FileTokenForUpload resData;
 
-    public static SubmitAshieldHardeningtaskResponse build(java.util.Map<String, ?> map) throws Exception {
-        SubmitAshieldHardeningtaskResponse self = new SubmitAshieldHardeningtaskResponse();
+    public static GetAshieldFiletokenResponse build(java.util.Map<String, ?> map) throws Exception {
+        GetAshieldFiletokenResponse self = new GetAshieldFiletokenResponse();
         return TeaModel.build(map, self);
     }
 
-    public SubmitAshieldHardeningtaskResponse setReqMsgId(String reqMsgId) {
+    public GetAshieldFiletokenResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -49,7 +49,7 @@ public class SubmitAshieldHardeningtaskResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public SubmitAshieldHardeningtaskResponse setResultCode(String resultCode) {
+    public GetAshieldFiletokenResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -57,7 +57,7 @@ public class SubmitAshieldHardeningtaskResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public SubmitAshieldHardeningtaskResponse setResultMsg(String resultMsg) {
+    public GetAshieldFiletokenResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -65,7 +65,7 @@ public class SubmitAshieldHardeningtaskResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public SubmitAshieldHardeningtaskResponse setRequestId(String requestId) {
+    public GetAshieldFiletokenResponse setRequestId(String requestId) {
         this.requestId = requestId;
         return this;
     }
@@ -73,7 +73,7 @@ public class SubmitAshieldHardeningtaskResponse extends TeaModel {
         return this.requestId;
     }
 
-    public SubmitAshieldHardeningtaskResponse setResSuccess(Boolean resSuccess) {
+    public GetAshieldFiletokenResponse setResSuccess(Boolean resSuccess) {
         this.resSuccess = resSuccess;
         return this;
     }
@@ -81,7 +81,7 @@ public class SubmitAshieldHardeningtaskResponse extends TeaModel {
         return this.resSuccess;
     }
 
-    public SubmitAshieldHardeningtaskResponse setResCode(String resCode) {
+    public GetAshieldFiletokenResponse setResCode(String resCode) {
         this.resCode = resCode;
         return this;
     }
@@ -89,7 +89,7 @@ public class SubmitAshieldHardeningtaskResponse extends TeaModel {
         return this.resCode;
     }
 
-    public SubmitAshieldHardeningtaskResponse setResMessage(String resMessage) {
+    public GetAshieldFiletokenResponse setResMessage(String resMessage) {
         this.resMessage = resMessage;
         return this;
     }
@@ -97,11 +97,11 @@ public class SubmitAshieldHardeningtaskResponse extends TeaModel {
         return this.resMessage;
     }
 
-    public SubmitAshieldHardeningtaskResponse setResData(HardeningTaskResponse resData) {
+    public GetAshieldFiletokenResponse setResData(FileTokenForUpload resData) {
         this.resData = resData;
         return this;
     }
-    public HardeningTaskResponse getResData() {
+    public FileTokenForUpload getResData() {
         return this.resData;
     }
 

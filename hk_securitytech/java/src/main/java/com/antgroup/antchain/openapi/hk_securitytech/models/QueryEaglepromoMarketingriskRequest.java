@@ -36,7 +36,6 @@ public class QueryEaglepromoMarketingriskRequest extends TeaModel {
 
     // terminal_type
     @NameInMap("terminal_type")
-    @Validation(required = true)
     public String terminalType;
 
     public static QueryEaglepromoMarketingriskRequest build(java.util.Map<String, ?> map) throws Exception {

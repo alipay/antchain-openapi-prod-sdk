@@ -40,6 +40,10 @@ public class QueryDeviceriskDeviceriskRequest extends TeaModel {
     @NameInMap("app_name")
     public String appName;
 
+    // terminal_type
+    @NameInMap("terminal_type")
+    public String terminalType;
+
     public static QueryDeviceriskDeviceriskRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDeviceriskDeviceriskRequest self = new QueryDeviceriskDeviceriskRequest();
         return TeaModel.build(map, self);
@@ -115,6 +119,14 @@ public class QueryDeviceriskDeviceriskRequest extends TeaModel {
     }
     public String getAppName() {
         return this.appName;
+    }
+
+    public QueryDeviceriskDeviceriskRequest setTerminalType(String terminalType) {
+        this.terminalType = terminalType;
+        return this;
+    }
+    public String getTerminalType() {
+        return this.terminalType;
     }
 
 }

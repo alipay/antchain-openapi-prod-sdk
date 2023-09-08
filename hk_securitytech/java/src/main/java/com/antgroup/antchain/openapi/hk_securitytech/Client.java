@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.6"),
+                    new TeaPair("sdk_version", "1.5.9"),
                     new TeaPair("_prod_code", "HK_SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -200,7 +200,7 @@ public class Client {
     }
 
     /**
-     * Description: 启动加固任务
+     * Description: 终端安全-Android应用加固-启动加固任务
      * Summary: 启动加固任务
      */
     public SubmitAshieldHardeningtaskResponse submitAshieldHardeningtask(SubmitAshieldHardeningtaskRequest request) throws Exception {
@@ -210,7 +210,7 @@ public class Client {
     }
 
     /**
-     * Description: 启动加固任务
+     * Description: 终端安全-Android应用加固-启动加固任务
      * Summary: 启动加固任务
      */
     public SubmitAshieldHardeningtaskResponse submitAshieldHardeningtaskEx(SubmitAshieldHardeningtaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
@@ -311,5 +311,214 @@ public class Client {
     public QueryEaglepromoMarketingriskResponse queryEaglepromoMarketingriskEx(QueryEaglepromoMarketingriskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.eaglepromo.marketingrisk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEaglepromoMarketingriskResponse());
+    }
+
+    /**
+     * Description: aml analyze v2 form
+     * Summary: aml analyze v2 form
+     */
+    public SubmitAmlcloudAnalyzeResponse submitAmlcloudAnalyze(SubmitAmlcloudAnalyzeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAmlcloudAnalyzeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aml analyze v2 form
+     * Summary: aml analyze v2 form
+     */
+    public SubmitAmlcloudAnalyzeResponse submitAmlcloudAnalyzeEx(SubmitAmlcloudAnalyzeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.amlcloud.analyze.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAmlcloudAnalyzeResponse());
+    }
+
+    /**
+     * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户
+     * Summary: aml analyze v2 rest
+     */
+    public QueryAmlcloudAnalyzeResponse queryAmlcloudAnalyze(QueryAmlcloudAnalyzeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAmlcloudAnalyzeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户
+     * Summary: aml analyze v2 rest
+     */
+    public QueryAmlcloudAnalyzeResponse queryAmlcloudAnalyzeEx(QueryAmlcloudAnalyzeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.amlcloud.analyze.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAmlcloudAnalyzeResponse());
+    }
+
+    /**
+     * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户
+     * Summary: aml check v2 rest
+     */
+    public QueryAmlcloudCheckcaseresultResponse queryAmlcloudCheckcaseresult(QueryAmlcloudCheckcaseresultRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAmlcloudCheckcaseresultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户
+     * Summary: aml check v2 rest
+     */
+    public QueryAmlcloudCheckcaseresultResponse queryAmlcloudCheckcaseresultEx(QueryAmlcloudCheckcaseresultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.amlcloud.checkcaseresult.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAmlcloudCheckcaseresultResponse());
+    }
+
+    /**
+     * Description: aml check v2 form
+     * Summary: aml check v2 form
+     */
+    public SubmitAmlcloudCheckcaseresultResponse submitAmlcloudCheckcaseresult(SubmitAmlcloudCheckcaseresultRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAmlcloudCheckcaseresultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aml check v2 form
+     * Summary: aml check v2 form
+     */
+    public SubmitAmlcloudCheckcaseresultResponse submitAmlcloudCheckcaseresultEx(SubmitAmlcloudCheckcaseresultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.amlcloud.checkcaseresult.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAmlcloudCheckcaseresultResponse());
+    }
+
+    /**
+     * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+     * Summary: aml analyze v2 rest
+     */
+    public QueryAmlclouduatAnalyzeResponse queryAmlclouduatAnalyze(QueryAmlclouduatAnalyzeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAmlclouduatAnalyzeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+     * Summary: aml analyze v2 rest
+     */
+    public QueryAmlclouduatAnalyzeResponse queryAmlclouduatAnalyzeEx(QueryAmlclouduatAnalyzeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.amlclouduat.analyze.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAmlclouduatAnalyzeResponse());
+    }
+
+    /**
+     * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+     * Summary: aml check v2 rest
+     */
+    public QueryAmlclouduatCheckcaseresultResponse queryAmlclouduatCheckcaseresult(QueryAmlclouduatCheckcaseresultRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAmlclouduatCheckcaseresultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+     * Summary: aml check v2 rest
+     */
+    public QueryAmlclouduatCheckcaseresultResponse queryAmlclouduatCheckcaseresultEx(QueryAmlclouduatCheckcaseresultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.amlclouduat.checkcaseresult.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAmlclouduatCheckcaseresultResponse());
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+     * Summary: 获取上传文件的临时URL
+     */
+    public GetAshieldFiletokenResponse getAshieldFiletoken(GetAshieldFiletokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAshieldFiletokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+     * Summary: 获取上传文件的临时URL
+     */
+    public GetAshieldFiletokenResponse getAshieldFiletokenEx(GetAshieldFiletokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.ashield.filetoken.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAshieldFiletokenResponse());
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固任务进度
+     * Summary: 查询加固任务进度
+     */
+    public GetAshieldHardeningtaskprocessResponse getAshieldHardeningtaskprocess(GetAshieldHardeningtaskprocessRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAshieldHardeningtaskprocessEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固任务进度
+     * Summary: 查询加固任务进度
+     */
+    public GetAshieldHardeningtaskprocessResponse getAshieldHardeningtaskprocessEx(GetAshieldHardeningtaskprocessRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.ashield.hardeningtaskprocess.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAshieldHardeningtaskprocessResponse());
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+     * Summary: 查询加固后的产物下载链接
+     */
+    public GetAshieldHardeningresultResponse getAshieldHardeningresult(GetAshieldHardeningresultRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAshieldHardeningresultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+     * Summary: 查询加固后的产物下载链接
+     */
+    public GetAshieldHardeningresultResponse getAshieldHardeningresultEx(GetAshieldHardeningresultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.ashield.hardeningresult.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAshieldHardeningresultResponse());
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+     * Summary: 查询加固后的日志下载链接
+     */
+    public GetAshieldHardeninglogResponse getAshieldHardeninglog(GetAshieldHardeninglogRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAshieldHardeninglogEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+     * Summary: 查询加固后的日志下载链接
+     */
+    public GetAshieldHardeninglogResponse getAshieldHardeninglogEx(GetAshieldHardeninglogRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.ashield.hardeninglog.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAshieldHardeninglogResponse());
+    }
+
+    /**
+     * Description: 风险标签查询
+     * Summary: 风险标签查询
+     */
+    public QueryDeviceriskRisklabelResponse queryDeviceriskRisklabel(QueryDeviceriskRisklabelRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDeviceriskRisklabelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 风险标签查询
+     * Summary: 风险标签查询
+     */
+    public QueryDeviceriskRisklabelResponse queryDeviceriskRisklabelEx(QueryDeviceriskRisklabelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "hksecuritytech.gateway.devicerisk.risklabel.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceriskRisklabelResponse());
     }
 }
