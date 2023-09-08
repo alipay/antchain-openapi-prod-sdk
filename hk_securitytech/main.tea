@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.6',
+    sdk_version = '1.5.9',
     _prod_code = 'HK_SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -185,6 +185,24 @@ model DeviceRiskReportResultData {
   resultType: string(name='result_type', example='result_type'),
 }
 
+// 终端安全-Android应用加固-RuntimeProtectConfig
+model RuntimeProtectConfig {
+  // 重打包,签名校验,AndroidManifest防篡改,签名文件保护,0为检测到风险退出,1不处理
+  antiSignature: long(name='anti_signature', example='.'),
+  // 防调试,0为检测到风险退出,1不处理
+  antiDebug: long(name='anti_debug', example='.'),
+  // 防hook,0为检测到风险退出,1不处理
+  antiHook: long(name='anti_hook', example='.'),
+  // 防注入,防内存dump,防内存数据修改,读取,0为检测到风险退出,1不处理
+  antiInject: long(name='anti_inject', example='.'),
+  // 模拟器检查,0为检测到风险退出,1不处理
+  antiEmulator: long(name='anti_emulator', example='.'),
+  // 防root,0为检测到风险退出,1不处理
+  antiRoot: long(name='anti_root', example='.'),
+  // 防多开软件运行,0为检测到风险退出,1不处理
+  antiMultiApp: long(name='anti_multi_app', example='.'),
+}
+
 // 人脸盾结果
 // 
 model FaceShieldResult {
@@ -199,6 +217,94 @@ model FaceShieldResult {
   riskDesc: string(name='risk_desc', example='本次咨询设备风险水平很高,风险编号:10000010.8.0 '),
   // 处理的建议，如PAAS
   sugAction: string(name='sug_action', example='建议直接拦截 '),
+}
+
+// 终端安全-Android加固-Response
+model FileTokenForUpload {
+  // ·
+  accessId: string(name='access_id', example='·'),
+  // dir
+  dir: string(name='dir', example='dir'),
+  // expire
+  expire: string(name='expire', example='expire'),
+  // host
+  host: string(name='host', example='host'),
+  // policy
+  policy: string(name='policy', example='policy'),
+  // signature
+  signature: string(name='signature', example='signature'),
+}
+
+// aml_extend_data
+model ExtendData {
+  // user_id
+  userId: string(name='user_id', example='user_id'),
+  // cert_name
+  certName: string(name='cert_name', example='cert_name'),
+}
+
+// 安卓加固HardeningTaskResponse
+model HardeningTaskResponse {
+  // 加固任务的 ID，后续用来轮询调用
+  taskId: string(name='task_id', example='task_id'),
+  // 加固任务的状态
+  status: long(name='status', example=''),
+  // 加固后 APK/ABB 的 MD5
+  afterMdFive: string(name='after_md_five', example='after_md_five'),
+  // 加固后 APK/ABB 的大小
+  afterSize: long(name='after_size', example=''),
+}
+
+// 终端安全MarketingRiskData
+model MarketingRiskData {
+  // risk_level
+  riskLevel: long(name='risk_level', example=''),
+  // sug_action
+  sugAction: string(name='sug_action', example='sug_action'),
+  // `
+  riskLabels: [ string ](name='risk_labels', example=''),
+}
+
+// ZolozAlertTaskBO
+model ZolozAlertTaskBO {
+  // request_id
+  requestId: string(name='request_id', example='6728d09e2113b33b6cc7e47a361c3a5a'),
+  // decision
+  decision: string(name='decision', example='REJECT'),
+  // status
+  status: string(name='status', example='CLOSED'),
+  // taskId
+  taskId: string(name='task_id', example='A2022112130307183A'),
+  // type
+  type: string(name='type', example='SANCTION'),
+  // userId
+  userId: string(name='user_id', example='20880000001'),
+  // source
+  source: string(name='source', example='REALTIME'),
+  // crrRiskLevel
+  crrRiskLevel: string(name='crr_risk_level', example='""'),
+  // createTime
+  createTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time', example='2018-10-10T10:10:00Z'),
+  // updateTime
+  updateTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='update_time', example='1693221462732'),
+  // modifier
+  modifier: string(name='modifier', example='12345678@163.com'),
+}
+
+// 设备风险查询data
+model DeviceRiskResp {
+  // apdid
+  apdid: string(name='apdid', example='-'),
+  // apdid
+  apdidToken: string(name='apdid_token', example='-'),
+  // riskLevel
+  riskLevel: long(name='risk_level', example=''),
+  // risk_desc
+  riskDesc: string(name='risk_desc', example='-'),
+  // sug_action
+  sugAction: string(name='sug_action', example='-'),
+  // risk_labels
+  riskLabels: [ string ](name='risk_labels', example=''),
 }
 
 // 设备信息上报
@@ -229,7 +335,7 @@ model DeviceRiskReportResult {
   resultData: DeviceRiskReportResultData(name='result_data', example=''),
 }
 
-// 安卓加固ClassMethodConfig
+// 终端安全-Android应用加固-ClassMethodConfig
 model ClassMethodConfig {
   // 加固类名
   className: string(name='class_name', example='class_name'),
@@ -237,40 +343,22 @@ model ClassMethodConfig {
   methods: string(name='methods', example='methods'),
 }
 
-// 安卓加固HardeningTaskResponse
-model HardeningTaskResponse {
-  // 加固任务的 ID，后续用来轮询调用
-  taskId: string(name='task_id', example='task_id'),
-  // 加固任务的状态
-  status: long(name='status', example=''),
-  // 加固后 APK/ABB 的 MD5
-  afterMdFive: string(name='after_md_five', example='after_md_five'),
-  // 加固后 APK/ABB 的大小
-  afterSize: long(name='after_size', example=''),
-}
-
-// 终端安全MarketingRiskData
-model MarketingRiskData {
-  // risk_level
-  riskLevel: long(name='risk_level', example=''),
-  // sug_action
-  sugAction: string(name='sug_action', example='sug_action'),
-}
-
-// 设备风险查询data
-model DeviceRiskResp {
-  // apdid
-  apdid: string(name='apdid', example='-'),
-  // apdid
-  apdidToken: string(name='apdid_token', example='-'),
-  // riskLevel
-  riskLevel: long(name='risk_level', example=''),
-  // risk_desc
-  riskDesc: string(name='risk_desc', example='-'),
-  // sug_action
-  sugAction: string(name='sug_action', example='-'),
-  // risk_labels
-  riskLabels: [ string ](name='risk_labels', example=''),
+// Hit details
+model HitResults {
+  // Reason for the screening decision. See more details in API-specific result codes. 
+  resultCode: string(name='result_code', example='AML_CLEAN'),
+  // Result status. Possible values and their meanings are as below: 
+  // 
+  // "S": successful
+  // 
+  // "F": failed
+  // 
+  // "U": unknown issue
+  resultStatus: string(name='result_status', example='S'),
+  // Result message.
+  // 
+  // See more details in API-specific result codes.
+  resultMessage: string(name='result_message', example='No hit found.'),
 }
 
 // MarketingRiskSecurityData
@@ -419,10 +507,24 @@ model SubmitAshieldHardeningtaskRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // APK/ABB 上传后的地址
+  // APK,ABB 上传后的地址
   fileUrl: string(name='file_url'),
+  // 开启so加固
+  soProtect?: string(name='so_protect'),
+  // 开启so加固后,设置的so加固配置文件,默认对apk中libs目录下所有so进行加固,以逗号分隔
+  soProtectConfig?: string(name='so_protect_config'),
+  // 开启对assets下的资源文件进行加固
+  assetsProtect?: string(name='assets_protect'),
+  // 开启assets加固后,指定要对apk中assets目录下的哪些文件做加固,默认对assets下所有的文件进行保护,以逗号分隔
+  assetsProtectConfing?: string(name='assets_protect_confing'),
+  // 开启运行时保护,需要填写的参数,具体参数见下方,json格式
+  runtimeProtectConfig?: RuntimeProtectConfig(name='runtime_protect_config'),
+  // 对生命周期函数进行java2jni保护
+  enableLifeFunc?: string(name='enable_life_func'),
   // java2jni配置文件
-  javatocJniConfig: [ ClassMethodConfig ](name='javatoc_jni_config'),
+  javatocJniConfig?: [ ClassMethodConfig ](name='javatoc_jni_config'),
+  // 扩展信息,json字符串,暂不使用
+  extInfo?: string(name='ext_info'),
 }
 
 model SubmitAshieldHardeningtaskResponse = {
@@ -432,12 +534,20 @@ model SubmitAshieldHardeningtaskResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 返回的具体对象，具体含义见下表。
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 查询是否成功
+  resSuccess?: boolean(name='res_success'),
+  // SUCCESS为成功,其他为失败
+  resCode?: string(name='res_code'),
+  // 返回信息描述
+  resMessage?: string(name='res_message'),
+  // 返回的具体对象
   resData?: HardeningTaskResponse(name='res_data'),
 }
 
 /**
- * Description: 启动加固任务
+ * Description: 终端安全-Android应用加固-启动加固任务
  * Summary: 启动加固任务
  */
 async function submitAshieldHardeningtask(request: SubmitAshieldHardeningtaskRequest): SubmitAshieldHardeningtaskResponse {
@@ -447,7 +557,7 @@ async function submitAshieldHardeningtask(request: SubmitAshieldHardeningtaskReq
 }
 
 /**
- * Description: 启动加固任务
+ * Description: 终端安全-Android应用加固-启动加固任务
  * Summary: 启动加固任务
  */
 async function submitAshieldHardeningtaskEx(request: SubmitAshieldHardeningtaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAshieldHardeningtaskResponse {
@@ -463,6 +573,8 @@ model QueryDeviceriskFingerRequest = {
   apdidToken: string(name='apdid_token'),
   // client_id
   clientId?: string(name='client_id'),
+  // terminal_type
+  terminalType?: string(name='terminal_type'),
 }
 
 model QueryDeviceriskFingerResponse = {
@@ -521,6 +633,8 @@ model QueryDeviceriskDeviceriskRequest = {
   merchantId?: string(name='merchant_id'),
   // app_name
   appName?: string(name='app_name'),
+  // terminal_type
+  terminalType?: string(name='terminal_type'),
 }
 
 model QueryDeviceriskDeviceriskResponse = {
@@ -686,7 +800,7 @@ model QueryEaglepromoMarketingriskRequest = {
   // biz_code
   bizCode?: string(name='biz_code'),
   // terminal_type
-  terminalType: string(name='terminal_type'),
+  terminalType?: string(name='terminal_type'),
 }
 
 model QueryEaglepromoMarketingriskResponse = {
@@ -723,5 +837,480 @@ async function queryEaglepromoMarketingrisk(request: QueryEaglepromoMarketingris
 async function queryEaglepromoMarketingriskEx(request: QueryEaglepromoMarketingriskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEaglepromoMarketingriskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'hksecuritytech.gateway.eaglepromo.marketingrisk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAmlcloudAnalyzeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // biz_code
+  bizCode: string(name='biz_code'),
+  // tenant_id
+  tenantId: string(name='tenant_id'),
+  // tnt_inst_id
+  tntInstId: string(name='tnt_inst_id'),
+  // extendData
+  extendData: ExtendData(name='extend_data'),
+}
+
+model SubmitAmlcloudAnalyzeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // Unique business ID for tracing purposes
+  requestId?: string(name='request_id'),
+  // Screening decisions: 
+  // 
+  // ACCEPT: Did not hit any watchlist
+  // 
+  // REJECT: Hit some watchlists
+  // 
+  // REVIEW: Potentially hit some watchlists
+  decision?: string(name='decision'),
+  // Hit details
+  hitResults?: HitResults(name='hit_results'),
+}
+
+/**
+ * Description: aml analyze v2 form
+ * Summary: aml analyze v2 form
+ */
+async function submitAmlcloudAnalyze(request: SubmitAmlcloudAnalyzeRequest): SubmitAmlcloudAnalyzeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAmlcloudAnalyzeEx(request, headers, runtime);
+}
+
+/**
+ * Description: aml analyze v2 form
+ * Summary: aml analyze v2 form
+ */
+async function submitAmlcloudAnalyzeEx(request: SubmitAmlcloudAnalyzeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAmlcloudAnalyzeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.amlcloud.analyze.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAmlcloudAnalyzeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryAmlcloudAnalyzeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户
+ * Summary: aml analyze v2 rest
+ */
+async function queryAmlcloudAnalyze(request: QueryAmlcloudAnalyzeRequest): QueryAmlcloudAnalyzeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAmlcloudAnalyzeEx(request, headers, runtime);
+}
+
+/**
+ * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户
+ * Summary: aml analyze v2 rest
+ */
+async function queryAmlcloudAnalyzeEx(request: QueryAmlcloudAnalyzeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAmlcloudAnalyzeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.amlcloud.analyze.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAmlcloudCheckcaseresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryAmlcloudCheckcaseresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户
+ * Summary: aml check v2 rest
+ */
+async function queryAmlcloudCheckcaseresult(request: QueryAmlcloudCheckcaseresultRequest): QueryAmlcloudCheckcaseresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAmlcloudCheckcaseresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户
+ * Summary: aml check v2 rest
+ */
+async function queryAmlcloudCheckcaseresultEx(request: QueryAmlcloudCheckcaseresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAmlcloudCheckcaseresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.amlcloud.checkcaseresult.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAmlcloudCheckcaseresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求ID，业务的唯一标识，用于追踪业务。
+  requestId: string(name='request_id'),
+  // 客户的租户ID
+  tenantId: string(name='tenant_id'),
+  // 任务来源。取值如下：
+  // ● REALTIME：来源于扫描信息接口。
+  // ● BATCH：来源于数据仓库。
+  // ● ALL：包含以上所有的任务来源
+  source: string(name='source'),
+  // 任务类型。取值如下：
+  // ● PEP：政治高风险人物。
+  // ● SANCTION：制裁名单。
+  // ● NEGATIVE_NEWS：负面新闻。
+  // ● INTERNAL_LIST：自定义名单。
+  // ● EDD：加强尽职调查。
+  // ● ALL：包含以上所有的任务类型。
+  type: string(name='type'),
+}
+
+model SubmitAmlcloudCheckcaseresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务结果详情
+  caseDetails?: [ ZolozAlertTaskBO ](name='case_details'),
+}
+
+/**
+ * Description: aml check v2 form
+ * Summary: aml check v2 form
+ */
+async function submitAmlcloudCheckcaseresult(request: SubmitAmlcloudCheckcaseresultRequest): SubmitAmlcloudCheckcaseresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAmlcloudCheckcaseresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: aml check v2 form
+ * Summary: aml check v2 form
+ */
+async function submitAmlcloudCheckcaseresultEx(request: SubmitAmlcloudCheckcaseresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAmlcloudCheckcaseresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.amlcloud.checkcaseresult.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAmlclouduatAnalyzeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryAmlclouduatAnalyzeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+ * Summary: aml analyze v2 rest
+ */
+async function queryAmlclouduatAnalyze(request: QueryAmlclouduatAnalyzeRequest): QueryAmlclouduatAnalyzeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAmlclouduatAnalyzeEx(request, headers, runtime);
+}
+
+/**
+ * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+ * Summary: aml analyze v2 rest
+ */
+async function queryAmlclouduatAnalyzeEx(request: QueryAmlclouduatAnalyzeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAmlclouduatAnalyzeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.amlclouduat.analyze.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAmlclouduatCheckcaseresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryAmlclouduatCheckcaseresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+ * Summary: aml check v2 rest
+ */
+async function queryAmlclouduatCheckcaseresult(request: QueryAmlclouduatCheckcaseresultRequest): QueryAmlclouduatCheckcaseresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAmlclouduatCheckcaseresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+ * Summary: aml check v2 rest
+ */
+async function queryAmlclouduatCheckcaseresultEx(request: QueryAmlclouduatCheckcaseresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAmlclouduatCheckcaseresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.amlclouduat.checkcaseresult.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAshieldFiletokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model GetAshieldFiletokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // ·
+  requestId?: string(name='request_id'),
+  // res_success
+  resSuccess?: boolean(name='res_success'),
+  // res_code
+  resCode?: string(name='res_code'),
+  // res_message
+  resMessage?: string(name='res_message'),
+  // ·
+  resData?: FileTokenForUpload(name='res_data'),
+}
+
+/**
+ * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+ * Summary: 获取上传文件的临时URL
+ */
+async function getAshieldFiletoken(request: GetAshieldFiletokenRequest): GetAshieldFiletokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAshieldFiletokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+ * Summary: 获取上传文件的临时URL
+ */
+async function getAshieldFiletokenEx(request: GetAshieldFiletokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAshieldFiletokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.ashield.filetoken.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAshieldHardeningtaskprocessRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 加固任务 ID
+  taskId: string(name='task_id'),
+}
+
+model GetAshieldHardeningtaskprocessResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 查询是否成功
+  resSuccess?: boolean(name='res_success'),
+  // SUCCESS为成功，其他为失败
+  resCode?: string(name='res_code'),
+  // 返回信息描述
+  resMessage?: string(name='res_message'),
+  // 返回的具体对象
+  resData?: HardeningTaskResponse(name='res_data'),
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固任务进度
+ * Summary: 查询加固任务进度
+ */
+async function getAshieldHardeningtaskprocess(request: GetAshieldHardeningtaskprocessRequest): GetAshieldHardeningtaskprocessResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAshieldHardeningtaskprocessEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固任务进度
+ * Summary: 查询加固任务进度
+ */
+async function getAshieldHardeningtaskprocessEx(request: GetAshieldHardeningtaskprocessRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAshieldHardeningtaskprocessResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.ashield.hardeningtaskprocess.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAshieldHardeningresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 加固任务 ID
+  taskId: string(name='task_id'),
+}
+
+model GetAshieldHardeningresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 查询是否成功
+  resSuccess?: boolean(name='res_success'),
+  // SUCCESS为成功，其他为失败
+  resCode?: string(name='res_code'),
+  // 返回信息描述
+  resMessage?: string(name='res_message'),
+  // 返回的下载链接
+  resData?: string(name='res_data'),
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+ * Summary: 查询加固后的产物下载链接
+ */
+async function getAshieldHardeningresult(request: GetAshieldHardeningresultRequest): GetAshieldHardeningresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAshieldHardeningresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+ * Summary: 查询加固后的产物下载链接
+ */
+async function getAshieldHardeningresultEx(request: GetAshieldHardeningresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAshieldHardeningresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.ashield.hardeningresult.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAshieldHardeninglogRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 加固任务 ID
+  taskId: string(name='task_id'),
+}
+
+model GetAshieldHardeninglogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 查询是否成功
+  resSuccess?: boolean(name='res_success'),
+  // SUCCESS为成功，其他为失败
+  resCode?: string(name='res_code'),
+  // 返回信息描述
+  resMessage?: string(name='res_message'),
+  // 返回的下载链接
+  resData?: string(name='res_data'),
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+ * Summary: 查询加固后的日志下载链接
+ */
+async function getAshieldHardeninglog(request: GetAshieldHardeninglogRequest): GetAshieldHardeninglogResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAshieldHardeninglogEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+ * Summary: 查询加固后的日志下载链接
+ */
+async function getAshieldHardeninglogEx(request: GetAshieldHardeninglogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAshieldHardeninglogResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.ashield.hardeninglog.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeviceriskRisklabelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // apdid_token
+  apdidToken: string(name='apdid_token'),
+  // client_id
+  clientId?: string(name='client_id'),
+  // terminal_type
+  terminalType?: string(name='terminal_type'),
+}
+
+model QueryDeviceriskRisklabelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // code
+  code?: long(name='code'),
+  // message
+  message?: string(name='message'),
+  // request_id
+  requestId?: string(name='request_id'),
+  // success
+  success?: boolean(name='success'),
+  // data
+  data?: DeviceRiskResp(name='data'),
+}
+
+/**
+ * Description: 风险标签查询
+ * Summary: 风险标签查询
+ */
+async function queryDeviceriskRisklabel(request: QueryDeviceriskRisklabelRequest): QueryDeviceriskRisklabelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeviceriskRisklabelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风险标签查询
+ * Summary: 风险标签查询
+ */
+async function queryDeviceriskRisklabelEx(request: QueryDeviceriskRisklabelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceriskRisklabelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.devicerisk.risklabel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
