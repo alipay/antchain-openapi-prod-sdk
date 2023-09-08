@@ -13,16 +13,38 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\HK_SECURITYTECH\Models\CreateBlueshieldSecuritypictureRequest;
 use AntChain\HK_SECURITYTECH\Models\CreateBlueshieldSecuritypictureResponse;
+use AntChain\HK_SECURITYTECH\Models\GetAshieldFiletokenRequest;
+use AntChain\HK_SECURITYTECH\Models\GetAshieldFiletokenResponse;
+use AntChain\HK_SECURITYTECH\Models\GetAshieldHardeninglogRequest;
+use AntChain\HK_SECURITYTECH\Models\GetAshieldHardeninglogResponse;
+use AntChain\HK_SECURITYTECH\Models\GetAshieldHardeningresultRequest;
+use AntChain\HK_SECURITYTECH\Models\GetAshieldHardeningresultResponse;
+use AntChain\HK_SECURITYTECH\Models\GetAshieldHardeningtaskprocessRequest;
+use AntChain\HK_SECURITYTECH\Models\GetAshieldHardeningtaskprocessResponse;
+use AntChain\HK_SECURITYTECH\Models\QueryAmlcloudAnalyzeRequest;
+use AntChain\HK_SECURITYTECH\Models\QueryAmlcloudAnalyzeResponse;
+use AntChain\HK_SECURITYTECH\Models\QueryAmlcloudCheckcaseresultRequest;
+use AntChain\HK_SECURITYTECH\Models\QueryAmlcloudCheckcaseresultResponse;
+use AntChain\HK_SECURITYTECH\Models\QueryAmlclouduatAnalyzeRequest;
+use AntChain\HK_SECURITYTECH\Models\QueryAmlclouduatAnalyzeResponse;
+use AntChain\HK_SECURITYTECH\Models\QueryAmlclouduatCheckcaseresultRequest;
+use AntChain\HK_SECURITYTECH\Models\QueryAmlclouduatCheckcaseresultResponse;
 use AntChain\HK_SECURITYTECH\Models\QueryDeviceriskDeviceriskRequest;
 use AntChain\HK_SECURITYTECH\Models\QueryDeviceriskDeviceriskResponse;
 use AntChain\HK_SECURITYTECH\Models\QueryDeviceriskFingerRequest;
 use AntChain\HK_SECURITYTECH\Models\QueryDeviceriskFingerResponse;
+use AntChain\HK_SECURITYTECH\Models\QueryDeviceriskRisklabelRequest;
+use AntChain\HK_SECURITYTECH\Models\QueryDeviceriskRisklabelResponse;
 use AntChain\HK_SECURITYTECH\Models\QueryEaglepromoMarketingriskRequest;
 use AntChain\HK_SECURITYTECH\Models\QueryEaglepromoMarketingriskResponse;
 use AntChain\HK_SECURITYTECH\Models\QueryFaceshieldNativeRequest;
 use AntChain\HK_SECURITYTECH\Models\QueryFaceshieldNativeResponse;
 use AntChain\HK_SECURITYTECH\Models\QueryFaceshieldWebRequest;
 use AntChain\HK_SECURITYTECH\Models\QueryFaceshieldWebResponse;
+use AntChain\HK_SECURITYTECH\Models\SubmitAmlcloudAnalyzeRequest;
+use AntChain\HK_SECURITYTECH\Models\SubmitAmlcloudAnalyzeResponse;
+use AntChain\HK_SECURITYTECH\Models\SubmitAmlcloudCheckcaseresultRequest;
+use AntChain\HK_SECURITYTECH\Models\SubmitAmlcloudCheckcaseresultResponse;
 use AntChain\HK_SECURITYTECH\Models\SubmitAshieldHardeningtaskRequest;
 use AntChain\HK_SECURITYTECH\Models\SubmitAshieldHardeningtaskResponse;
 use AntChain\HK_SECURITYTECH\Models\SubmitDeviceriskReportRequest;
@@ -174,7 +196,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.6',
+                    'sdk_version'      => '1.5.9',
                     '_prod_code'       => 'HK_SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -289,7 +311,7 @@ class Client
     }
 
     /**
-     * Description: 启动加固任务
+     * Description: 终端安全-Android应用加固-启动加固任务
      * Summary: 启动加固任务
      *
      * @param SubmitAshieldHardeningtaskRequest $request
@@ -305,7 +327,7 @@ class Client
     }
 
     /**
-     * Description: 启动加固任务
+     * Description: 终端安全-Android应用加固-启动加固任务
      * Summary: 启动加固任务
      *
      * @param SubmitAshieldHardeningtaskRequest $request
@@ -484,5 +506,368 @@ class Client
         Utils::validateModel($request);
 
         return QueryEaglepromoMarketingriskResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.eaglepromo.marketingrisk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aml analyze v2 form
+     * Summary: aml analyze v2 form.
+     *
+     * @param SubmitAmlcloudAnalyzeRequest $request
+     *
+     * @return SubmitAmlcloudAnalyzeResponse
+     */
+    public function submitAmlcloudAnalyze($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAmlcloudAnalyzeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aml analyze v2 form
+     * Summary: aml analyze v2 form.
+     *
+     * @param SubmitAmlcloudAnalyzeRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SubmitAmlcloudAnalyzeResponse
+     */
+    public function submitAmlcloudAnalyzeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAmlcloudAnalyzeResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.amlcloud.analyze.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户
+     * Summary: aml analyze v2 rest.
+     *
+     * @param QueryAmlcloudAnalyzeRequest $request
+     *
+     * @return QueryAmlcloudAnalyzeResponse
+     */
+    public function queryAmlcloudAnalyze($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAmlcloudAnalyzeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户
+     * Summary: aml analyze v2 rest.
+     *
+     * @param QueryAmlcloudAnalyzeRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryAmlcloudAnalyzeResponse
+     */
+    public function queryAmlcloudAnalyzeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAmlcloudAnalyzeResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.amlcloud.analyze.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户
+     * Summary: aml check v2 rest.
+     *
+     * @param QueryAmlcloudCheckcaseresultRequest $request
+     *
+     * @return QueryAmlcloudCheckcaseresultResponse
+     */
+    public function queryAmlcloudCheckcaseresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAmlcloudCheckcaseresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户
+     * Summary: aml check v2 rest.
+     *
+     * @param QueryAmlcloudCheckcaseresultRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryAmlcloudCheckcaseresultResponse
+     */
+    public function queryAmlcloudCheckcaseresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAmlcloudCheckcaseresultResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.amlcloud.checkcaseresult.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aml check v2 form
+     * Summary: aml check v2 form.
+     *
+     * @param SubmitAmlcloudCheckcaseresultRequest $request
+     *
+     * @return SubmitAmlcloudCheckcaseresultResponse
+     */
+    public function submitAmlcloudCheckcaseresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAmlcloudCheckcaseresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aml check v2 form
+     * Summary: aml check v2 form.
+     *
+     * @param SubmitAmlcloudCheckcaseresultRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return SubmitAmlcloudCheckcaseresultResponse
+     */
+    public function submitAmlcloudCheckcaseresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAmlcloudCheckcaseresultResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.amlcloud.checkcaseresult.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+     * Summary: aml analyze v2 rest.
+     *
+     * @param QueryAmlclouduatAnalyzeRequest $request
+     *
+     * @return QueryAmlclouduatAnalyzeResponse
+     */
+    public function queryAmlclouduatAnalyze($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAmlclouduatAnalyzeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+     * Summary: aml analyze v2 rest.
+     *
+     * @param QueryAmlclouduatAnalyzeRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryAmlclouduatAnalyzeResponse
+     */
+    public function queryAmlclouduatAnalyzeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAmlclouduatAnalyzeResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.amlclouduat.analyze.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+     * Summary: aml check v2 rest.
+     *
+     * @param QueryAmlclouduatCheckcaseresultRequest $request
+     *
+     * @return QueryAmlclouduatCheckcaseresultResponse
+     */
+    public function queryAmlclouduatCheckcaseresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAmlclouduatCheckcaseresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+     * Summary: aml check v2 rest.
+     *
+     * @param QueryAmlclouduatCheckcaseresultRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryAmlclouduatCheckcaseresultResponse
+     */
+    public function queryAmlclouduatCheckcaseresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAmlclouduatCheckcaseresultResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.amlclouduat.checkcaseresult.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+     * Summary: 获取上传文件的临时URL.
+     *
+     * @param GetAshieldFiletokenRequest $request
+     *
+     * @return GetAshieldFiletokenResponse
+     */
+    public function getAshieldFiletoken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAshieldFiletokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+     * Summary: 获取上传文件的临时URL.
+     *
+     * @param GetAshieldFiletokenRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return GetAshieldFiletokenResponse
+     */
+    public function getAshieldFiletokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAshieldFiletokenResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.ashield.filetoken.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固任务进度
+     * Summary: 查询加固任务进度.
+     *
+     * @param GetAshieldHardeningtaskprocessRequest $request
+     *
+     * @return GetAshieldHardeningtaskprocessResponse
+     */
+    public function getAshieldHardeningtaskprocess($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAshieldHardeningtaskprocessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固任务进度
+     * Summary: 查询加固任务进度.
+     *
+     * @param GetAshieldHardeningtaskprocessRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return GetAshieldHardeningtaskprocessResponse
+     */
+    public function getAshieldHardeningtaskprocessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAshieldHardeningtaskprocessResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.ashield.hardeningtaskprocess.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+     * Summary: 查询加固后的产物下载链接.
+     *
+     * @param GetAshieldHardeningresultRequest $request
+     *
+     * @return GetAshieldHardeningresultResponse
+     */
+    public function getAshieldHardeningresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAshieldHardeningresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+     * Summary: 查询加固后的产物下载链接.
+     *
+     * @param GetAshieldHardeningresultRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return GetAshieldHardeningresultResponse
+     */
+    public function getAshieldHardeningresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAshieldHardeningresultResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.ashield.hardeningresult.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+     * Summary: 查询加固后的日志下载链接.
+     *
+     * @param GetAshieldHardeninglogRequest $request
+     *
+     * @return GetAshieldHardeninglogResponse
+     */
+    public function getAshieldHardeninglog($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAshieldHardeninglogEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+     * Summary: 查询加固后的日志下载链接.
+     *
+     * @param GetAshieldHardeninglogRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return GetAshieldHardeninglogResponse
+     */
+    public function getAshieldHardeninglogEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAshieldHardeninglogResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.ashield.hardeninglog.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 风险标签查询
+     * Summary: 风险标签查询.
+     *
+     * @param QueryDeviceriskRisklabelRequest $request
+     *
+     * @return QueryDeviceriskRisklabelResponse
+     */
+    public function queryDeviceriskRisklabel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeviceriskRisklabelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 风险标签查询
+     * Summary: 风险标签查询.
+     *
+     * @param QueryDeviceriskRisklabelRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryDeviceriskRisklabelResponse
+     */
+    public function queryDeviceriskRisklabelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeviceriskRisklabelResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.devicerisk.risklabel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

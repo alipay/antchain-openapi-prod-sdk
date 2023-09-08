@@ -6,7 +6,7 @@ namespace AntChain\HK_SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitAshieldHardeningtaskResponse extends Model
+class QueryDeviceriskRisklabelResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,44 +26,44 @@ class SubmitAshieldHardeningtaskResponse extends Model
      */
     public $resultMsg;
 
-    // 请求id
+    // code
+    /**
+     * @var int
+     */
+    public $code;
+
+    // message
+    /**
+     * @var string
+     */
+    public $message;
+
+    // request_id
     /**
      * @var string
      */
     public $requestId;
 
-    // 查询是否成功
+    // success
     /**
      * @var bool
      */
-    public $resSuccess;
+    public $success;
 
-    // SUCCESS为成功,其他为失败
+    // data
     /**
-     * @var string
+     * @var DeviceRiskResp
      */
-    public $resCode;
-
-    // 返回信息描述
-    /**
-     * @var string
-     */
-    public $resMessage;
-
-    // 返回的具体对象
-    /**
-     * @var HardeningTaskResponse
-     */
-    public $resData;
+    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'code'       => 'code',
+        'message'    => 'message',
         'requestId'  => 'request_id',
-        'resSuccess' => 'res_success',
-        'resCode'    => 'res_code',
-        'resMessage' => 'res_message',
-        'resData'    => 'res_data',
+        'success'    => 'success',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -82,20 +82,20 @@ class SubmitAshieldHardeningtaskResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
+        }
+        if (null !== $this->message) {
+            $res['message'] = $this->message;
+        }
         if (null !== $this->requestId) {
             $res['request_id'] = $this->requestId;
         }
-        if (null !== $this->resSuccess) {
-            $res['res_success'] = $this->resSuccess;
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
         }
-        if (null !== $this->resCode) {
-            $res['res_code'] = $this->resCode;
-        }
-        if (null !== $this->resMessage) {
-            $res['res_message'] = $this->resMessage;
-        }
-        if (null !== $this->resData) {
-            $res['res_data'] = null !== $this->resData ? $this->resData->toMap() : null;
+        if (null !== $this->data) {
+            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -104,7 +104,7 @@ class SubmitAshieldHardeningtaskResponse extends Model
     /**
      * @param array $map
      *
-     * @return SubmitAshieldHardeningtaskResponse
+     * @return QueryDeviceriskRisklabelResponse
      */
     public static function fromMap($map = [])
     {
@@ -118,20 +118,20 @@ class SubmitAshieldHardeningtaskResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
+        }
+        if (isset($map['message'])) {
+            $model->message = $map['message'];
+        }
         if (isset($map['request_id'])) {
             $model->requestId = $map['request_id'];
         }
-        if (isset($map['res_success'])) {
-            $model->resSuccess = $map['res_success'];
+        if (isset($map['success'])) {
+            $model->success = $map['success'];
         }
-        if (isset($map['res_code'])) {
-            $model->resCode = $map['res_code'];
-        }
-        if (isset($map['res_message'])) {
-            $model->resMessage = $map['res_message'];
-        }
-        if (isset($map['res_data'])) {
-            $model->resData = HardeningTaskResponse::fromMap($map['res_data']);
+        if (isset($map['data'])) {
+            $model->data = DeviceRiskResp::fromMap($map['data']);
         }
 
         return $model;

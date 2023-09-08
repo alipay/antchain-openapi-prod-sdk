@@ -6,7 +6,7 @@ namespace AntChain\HK_SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitAshieldHardeningtaskResponse extends Model
+class SubmitAmlcloudAnalyzeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,44 +26,36 @@ class SubmitAshieldHardeningtaskResponse extends Model
      */
     public $resultMsg;
 
-    // 请求id
+    // Unique business ID for tracing purposes
     /**
      * @var string
      */
     public $requestId;
 
-    // 查询是否成功
-    /**
-     * @var bool
-     */
-    public $resSuccess;
-
-    // SUCCESS为成功,其他为失败
-    /**
-     * @var string
-     */
-    public $resCode;
-
-    // 返回信息描述
+    // Screening decisions:
+    //
+    // ACCEPT: Did not hit any watchlist
+    //
+    // REJECT: Hit some watchlists
+    //
+    // REVIEW: Potentially hit some watchlists
     /**
      * @var string
      */
-    public $resMessage;
+    public $decision;
 
-    // 返回的具体对象
+    // Hit details
     /**
-     * @var HardeningTaskResponse
+     * @var HitResults
      */
-    public $resData;
+    public $hitResults;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'requestId'  => 'request_id',
-        'resSuccess' => 'res_success',
-        'resCode'    => 'res_code',
-        'resMessage' => 'res_message',
-        'resData'    => 'res_data',
+        'decision'   => 'decision',
+        'hitResults' => 'hit_results',
     ];
 
     public function validate()
@@ -85,17 +77,11 @@ class SubmitAshieldHardeningtaskResponse extends Model
         if (null !== $this->requestId) {
             $res['request_id'] = $this->requestId;
         }
-        if (null !== $this->resSuccess) {
-            $res['res_success'] = $this->resSuccess;
+        if (null !== $this->decision) {
+            $res['decision'] = $this->decision;
         }
-        if (null !== $this->resCode) {
-            $res['res_code'] = $this->resCode;
-        }
-        if (null !== $this->resMessage) {
-            $res['res_message'] = $this->resMessage;
-        }
-        if (null !== $this->resData) {
-            $res['res_data'] = null !== $this->resData ? $this->resData->toMap() : null;
+        if (null !== $this->hitResults) {
+            $res['hit_results'] = null !== $this->hitResults ? $this->hitResults->toMap() : null;
         }
 
         return $res;
@@ -104,7 +90,7 @@ class SubmitAshieldHardeningtaskResponse extends Model
     /**
      * @param array $map
      *
-     * @return SubmitAshieldHardeningtaskResponse
+     * @return SubmitAmlcloudAnalyzeResponse
      */
     public static function fromMap($map = [])
     {
@@ -121,17 +107,11 @@ class SubmitAshieldHardeningtaskResponse extends Model
         if (isset($map['request_id'])) {
             $model->requestId = $map['request_id'];
         }
-        if (isset($map['res_success'])) {
-            $model->resSuccess = $map['res_success'];
+        if (isset($map['decision'])) {
+            $model->decision = $map['decision'];
         }
-        if (isset($map['res_code'])) {
-            $model->resCode = $map['res_code'];
-        }
-        if (isset($map['res_message'])) {
-            $model->resMessage = $map['res_message'];
-        }
-        if (isset($map['res_data'])) {
-            $model->resData = HardeningTaskResponse::fromMap($map['res_data']);
+        if (isset($map['hit_results'])) {
+            $model->hitResults = HitResults::fromMap($map['hit_results']);
         }
 
         return $model;

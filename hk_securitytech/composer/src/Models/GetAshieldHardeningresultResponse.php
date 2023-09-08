@@ -6,7 +6,7 @@ namespace AntChain\HK_SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitAshieldHardeningtaskResponse extends Model
+class GetAshieldHardeningresultResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -38,7 +38,7 @@ class SubmitAshieldHardeningtaskResponse extends Model
      */
     public $resSuccess;
 
-    // SUCCESS为成功,其他为失败
+    // SUCCESS为成功，其他为失败
     /**
      * @var string
      */
@@ -50,9 +50,9 @@ class SubmitAshieldHardeningtaskResponse extends Model
      */
     public $resMessage;
 
-    // 返回的具体对象
+    // 返回的下载链接
     /**
-     * @var HardeningTaskResponse
+     * @var string
      */
     public $resData;
     protected $_name = [
@@ -95,7 +95,7 @@ class SubmitAshieldHardeningtaskResponse extends Model
             $res['res_message'] = $this->resMessage;
         }
         if (null !== $this->resData) {
-            $res['res_data'] = null !== $this->resData ? $this->resData->toMap() : null;
+            $res['res_data'] = $this->resData;
         }
 
         return $res;
@@ -104,7 +104,7 @@ class SubmitAshieldHardeningtaskResponse extends Model
     /**
      * @param array $map
      *
-     * @return SubmitAshieldHardeningtaskResponse
+     * @return GetAshieldHardeningresultResponse
      */
     public static function fromMap($map = [])
     {
@@ -131,7 +131,7 @@ class SubmitAshieldHardeningtaskResponse extends Model
             $model->resMessage = $map['res_message'];
         }
         if (isset($map['res_data'])) {
-            $model->resData = HardeningTaskResponse::fromMap($map['res_data']);
+            $model->resData = $map['res_data'];
         }
 
         return $model;

@@ -70,7 +70,6 @@ class QueryEaglepromoMarketingriskRequest extends Model
         Model::validateRequired('securityData', $this->securityData, true);
         Model::validateRequired('signFactor', $this->signFactor, true);
         Model::validateRequired('clientId', $this->clientId, true);
-        Model::validateRequired('terminalType', $this->terminalType, true);
     }
 
     public function toMap()

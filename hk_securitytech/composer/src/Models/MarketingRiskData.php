@@ -23,15 +23,25 @@ class MarketingRiskData extends Model
      * @var string
      */
     public $sugAction;
+
+    // `
+    /**
+     * @example
+     *
+     * @var string[]
+     */
+    public $riskLabels;
     protected $_name = [
-        'riskLevel' => 'risk_level',
-        'sugAction' => 'sug_action',
+        'riskLevel'  => 'risk_level',
+        'sugAction'  => 'sug_action',
+        'riskLabels' => 'risk_labels',
     ];
 
     public function validate()
     {
         Model::validateRequired('riskLevel', $this->riskLevel, true);
         Model::validateRequired('sugAction', $this->sugAction, true);
+        Model::validateRequired('riskLabels', $this->riskLabels, true);
     }
 
     public function toMap()
@@ -42,6 +52,9 @@ class MarketingRiskData extends Model
         }
         if (null !== $this->sugAction) {
             $res['sug_action'] = $this->sugAction;
+        }
+        if (null !== $this->riskLabels) {
+            $res['risk_labels'] = $this->riskLabels;
         }
 
         return $res;
@@ -60,6 +73,11 @@ class MarketingRiskData extends Model
         }
         if (isset($map['sug_action'])) {
             $model->sugAction = $map['sug_action'];
+        }
+        if (isset($map['risk_labels'])) {
+            if (!empty($map['risk_labels'])) {
+                $model->riskLabels = $map['risk_labels'];
+            }
         }
 
         return $model;

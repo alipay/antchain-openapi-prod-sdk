@@ -6,7 +6,7 @@ namespace AntChain\HK_SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitAshieldHardeningtaskResponse extends Model
+class GetAshieldHardeningtaskprocessResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -38,7 +38,7 @@ class SubmitAshieldHardeningtaskResponse extends Model
      */
     public $resSuccess;
 
-    // SUCCESS为成功,其他为失败
+    // SUCCESS为成功，其他为失败
     /**
      * @var string
      */
@@ -104,7 +104,7 @@ class SubmitAshieldHardeningtaskResponse extends Model
     /**
      * @param array $map
      *
-     * @return SubmitAshieldHardeningtaskResponse
+     * @return GetAshieldHardeningtaskprocessResponse
      */
     public static function fromMap($map = [])
     {

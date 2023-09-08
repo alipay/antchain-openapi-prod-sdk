@@ -6,7 +6,7 @@ namespace AntChain\HK_SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDeviceriskFingerRequest extends Model
+class QueryDeviceriskRisklabelRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -74,7 +74,7 @@ class QueryDeviceriskFingerRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryDeviceriskFingerRequest
+     * @return QueryDeviceriskRisklabelRequest
      */
     public static function fromMap($map = [])
     {

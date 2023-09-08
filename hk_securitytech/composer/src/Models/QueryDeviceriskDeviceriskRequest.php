@@ -60,6 +60,12 @@ class QueryDeviceriskDeviceriskRequest extends Model
      * @var string
      */
     public $appName;
+
+    // terminal_type
+    /**
+     * @var string
+     */
+    public $terminalType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +76,7 @@ class QueryDeviceriskDeviceriskRequest extends Model
         'tenantId'          => 'tenant_id',
         'merchantId'        => 'merchant_id',
         'appName'           => 'app_name',
+        'terminalType'      => 'terminal_type',
     ];
 
     public function validate()
@@ -106,6 +113,9 @@ class QueryDeviceriskDeviceriskRequest extends Model
         }
         if (null !== $this->appName) {
             $res['app_name'] = $this->appName;
+        }
+        if (null !== $this->terminalType) {
+            $res['terminal_type'] = $this->terminalType;
         }
 
         return $res;
@@ -145,6 +155,9 @@ class QueryDeviceriskDeviceriskRequest extends Model
         }
         if (isset($map['app_name'])) {
             $model->appName = $map['app_name'];
+        }
+        if (isset($map['terminal_type'])) {
+            $model->terminalType = $map['terminal_type'];
         }
 
         return $model;
