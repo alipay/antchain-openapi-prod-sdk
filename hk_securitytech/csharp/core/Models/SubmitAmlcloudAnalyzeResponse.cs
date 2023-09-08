@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.HK_SECURITYTECH.Models
 {
-    public class SubmitAshieldHardeningtaskResponse : TeaModel {
+    public class SubmitAmlcloudAnalyzeResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,30 +24,26 @@ namespace AntChain.SDK.HK_SECURITYTECH.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 请求id
+        // Unique business ID for tracing purposes
         [NameInMap("request_id")]
         [Validation(Required=false)]
         public string RequestId { get; set; }
 
-        // 查询是否成功
-        [NameInMap("res_success")]
+        // Screening decisions: 
+        // 
+        // ACCEPT: Did not hit any watchlist
+        // 
+        // REJECT: Hit some watchlists
+        // 
+        // REVIEW: Potentially hit some watchlists
+        [NameInMap("decision")]
         [Validation(Required=false)]
-        public bool? ResSuccess { get; set; }
+        public string Decision { get; set; }
 
-        // SUCCESS为成功,其他为失败
-        [NameInMap("res_code")]
+        // Hit details
+        [NameInMap("hit_results")]
         [Validation(Required=false)]
-        public string ResCode { get; set; }
-
-        // 返回信息描述
-        [NameInMap("res_message")]
-        [Validation(Required=false)]
-        public string ResMessage { get; set; }
-
-        // 返回的具体对象
-        [NameInMap("res_data")]
-        [Validation(Required=false)]
-        public HardeningTaskResponse ResData { get; set; }
+        public HitResults HitResults { get; set; }
 
     }
 

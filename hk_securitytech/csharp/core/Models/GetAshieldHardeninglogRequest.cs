@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.HK_SECURITYTECH.Models
 {
-    public class QueryDeviceriskFingerRequest : TeaModel {
+    public class GetAshieldHardeninglogRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,10 @@ namespace AntChain.SDK.HK_SECURITYTECH.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // apdid_token
-        [NameInMap("apdid_token")]
+        // 加固任务 ID
+        [NameInMap("task_id")]
         [Validation(Required=true)]
-        public string ApdidToken { get; set; }
-
-        // client_id
-        [NameInMap("client_id")]
-        [Validation(Required=false)]
-        public string ClientId { get; set; }
-
-        // terminal_type
-        [NameInMap("terminal_type")]
-        [Validation(Required=false)]
-        public string TerminalType { get; set; }
+        public string TaskId { get; set; }
 
     }
 

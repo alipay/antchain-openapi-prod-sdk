@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.HK_SECURITYTECH.Models
 {
-    public class SubmitAshieldHardeningtaskResponse : TeaModel {
+    public class GetAshieldHardeninglogResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -34,7 +34,7 @@ namespace AntChain.SDK.HK_SECURITYTECH.Models
         [Validation(Required=false)]
         public bool? ResSuccess { get; set; }
 
-        // SUCCESS为成功,其他为失败
+        // SUCCESS为成功，其他为失败
         [NameInMap("res_code")]
         [Validation(Required=false)]
         public string ResCode { get; set; }
@@ -44,10 +44,10 @@ namespace AntChain.SDK.HK_SECURITYTECH.Models
         [Validation(Required=false)]
         public string ResMessage { get; set; }
 
-        // 返回的具体对象
+        // 返回的下载链接
         [NameInMap("res_data")]
         [Validation(Required=false)]
-        public HardeningTaskResponse ResData { get; set; }
+        public string ResData { get; set; }
 
     }
 

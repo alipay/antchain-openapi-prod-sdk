@@ -20,6 +20,11 @@ namespace AntChain.SDK.HK_SECURITYTECH.Models
         [Validation(Required=true)]
         public string SugAction { get; set; }
 
+        // `
+        [NameInMap("risk_labels")]
+        [Validation(Required=true)]
+        public List<string> RiskLabels { get; set; }
+
     }
 
 }

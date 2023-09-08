@@ -45,7 +45,7 @@ namespace AntChain.SDK.HK_SECURITYTECH.Models
 
         // terminal_type
         [NameInMap("terminal_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TerminalType { get; set; }
 
     }

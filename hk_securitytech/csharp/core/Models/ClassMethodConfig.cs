@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.HK_SECURITYTECH.Models
 {
-    // 安卓加固ClassMethodConfig
+    // 终端安全-Android应用加固-ClassMethodConfig
     public class ClassMethodConfig : TeaModel {
         // 加固类名
         [NameInMap("class_name")]
