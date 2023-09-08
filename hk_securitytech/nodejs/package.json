@@ -1,6 +1,6 @@
 {
   "name": "@antchain/hk_securitytech",
-  "version": "1.3.6",
+  "version": "1.5.9",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
