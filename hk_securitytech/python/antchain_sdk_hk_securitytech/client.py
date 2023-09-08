@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.6',
+                    'sdk_version': '1.5.9',
                     '_prod_code': 'HK_SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.6',
+                    'sdk_version': '1.5.9',
                     '_prod_code': 'HK_SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -392,7 +392,7 @@ class Client:
         request: hk__securitytech_models.SubmitAshieldHardeningtaskRequest,
     ) -> hk__securitytech_models.SubmitAshieldHardeningtaskResponse:
         """
-        Description: 启动加固任务
+        Description: 终端安全-Android应用加固-启动加固任务
         Summary: 启动加固任务
         """
         runtime = util_models.RuntimeOptions()
@@ -404,7 +404,7 @@ class Client:
         request: hk__securitytech_models.SubmitAshieldHardeningtaskRequest,
     ) -> hk__securitytech_models.SubmitAshieldHardeningtaskResponse:
         """
-        Description: 启动加固任务
+        Description: 终端安全-Android应用加固-启动加固任务
         Summary: 启动加固任务
         """
         runtime = util_models.RuntimeOptions()
@@ -418,7 +418,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> hk__securitytech_models.SubmitAshieldHardeningtaskResponse:
         """
-        Description: 启动加固任务
+        Description: 终端安全-Android应用加固-启动加固任务
         Summary: 启动加固任务
         """
         UtilClient.validate_model(request)
@@ -434,7 +434,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> hk__securitytech_models.SubmitAshieldHardeningtaskResponse:
         """
-        Description: 启动加固任务
+        Description: 终端安全-Android应用加固-启动加固任务
         Summary: 启动加固任务
         """
         UtilClient.validate_model(request)
@@ -721,4 +721,620 @@ class Client:
         return TeaCore.from_map(
             hk__securitytech_models.QueryEaglepromoMarketingriskResponse(),
             await self.do_request_async('1.0', 'hksecuritytech.gateway.eaglepromo.marketingrisk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_amlcloud_analyze(
+        self,
+        request: hk__securitytech_models.SubmitAmlcloudAnalyzeRequest,
+    ) -> hk__securitytech_models.SubmitAmlcloudAnalyzeResponse:
+        """
+        Description: aml analyze v2 form
+        Summary: aml analyze v2 form
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_amlcloud_analyze_ex(request, headers, runtime)
+
+    async def submit_amlcloud_analyze_async(
+        self,
+        request: hk__securitytech_models.SubmitAmlcloudAnalyzeRequest,
+    ) -> hk__securitytech_models.SubmitAmlcloudAnalyzeResponse:
+        """
+        Description: aml analyze v2 form
+        Summary: aml analyze v2 form
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_amlcloud_analyze_ex_async(request, headers, runtime)
+
+    def submit_amlcloud_analyze_ex(
+        self,
+        request: hk__securitytech_models.SubmitAmlcloudAnalyzeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.SubmitAmlcloudAnalyzeResponse:
+        """
+        Description: aml analyze v2 form
+        Summary: aml analyze v2 form
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.SubmitAmlcloudAnalyzeResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.amlcloud.analyze.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_amlcloud_analyze_ex_async(
+        self,
+        request: hk__securitytech_models.SubmitAmlcloudAnalyzeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.SubmitAmlcloudAnalyzeResponse:
+        """
+        Description: aml analyze v2 form
+        Summary: aml analyze v2 form
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.SubmitAmlcloudAnalyzeResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.amlcloud.analyze.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_amlcloud_analyze(
+        self,
+        request: hk__securitytech_models.QueryAmlcloudAnalyzeRequest,
+    ) -> hk__securitytech_models.QueryAmlcloudAnalyzeResponse:
+        """
+        Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户
+        Summary: aml analyze v2 rest
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_amlcloud_analyze_ex(request, headers, runtime)
+
+    async def query_amlcloud_analyze_async(
+        self,
+        request: hk__securitytech_models.QueryAmlcloudAnalyzeRequest,
+    ) -> hk__securitytech_models.QueryAmlcloudAnalyzeResponse:
+        """
+        Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户
+        Summary: aml analyze v2 rest
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_amlcloud_analyze_ex_async(request, headers, runtime)
+
+    def query_amlcloud_analyze_ex(
+        self,
+        request: hk__securitytech_models.QueryAmlcloudAnalyzeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryAmlcloudAnalyzeResponse:
+        """
+        Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户
+        Summary: aml analyze v2 rest
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryAmlcloudAnalyzeResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.amlcloud.analyze.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_amlcloud_analyze_ex_async(
+        self,
+        request: hk__securitytech_models.QueryAmlcloudAnalyzeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryAmlcloudAnalyzeResponse:
+        """
+        Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户
+        Summary: aml analyze v2 rest
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryAmlcloudAnalyzeResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.amlcloud.analyze.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_amlcloud_checkcaseresult(
+        self,
+        request: hk__securitytech_models.QueryAmlcloudCheckcaseresultRequest,
+    ) -> hk__securitytech_models.QueryAmlcloudCheckcaseresultResponse:
+        """
+        Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户
+        Summary: aml check v2 rest
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_amlcloud_checkcaseresult_ex(request, headers, runtime)
+
+    async def query_amlcloud_checkcaseresult_async(
+        self,
+        request: hk__securitytech_models.QueryAmlcloudCheckcaseresultRequest,
+    ) -> hk__securitytech_models.QueryAmlcloudCheckcaseresultResponse:
+        """
+        Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户
+        Summary: aml check v2 rest
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_amlcloud_checkcaseresult_ex_async(request, headers, runtime)
+
+    def query_amlcloud_checkcaseresult_ex(
+        self,
+        request: hk__securitytech_models.QueryAmlcloudCheckcaseresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryAmlcloudCheckcaseresultResponse:
+        """
+        Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户
+        Summary: aml check v2 rest
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryAmlcloudCheckcaseresultResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.amlcloud.checkcaseresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_amlcloud_checkcaseresult_ex_async(
+        self,
+        request: hk__securitytech_models.QueryAmlcloudCheckcaseresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryAmlcloudCheckcaseresultResponse:
+        """
+        Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户
+        Summary: aml check v2 rest
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryAmlcloudCheckcaseresultResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.amlcloud.checkcaseresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_amlcloud_checkcaseresult(
+        self,
+        request: hk__securitytech_models.SubmitAmlcloudCheckcaseresultRequest,
+    ) -> hk__securitytech_models.SubmitAmlcloudCheckcaseresultResponse:
+        """
+        Description: aml check v2 form
+        Summary: aml check v2 form
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_amlcloud_checkcaseresult_ex(request, headers, runtime)
+
+    async def submit_amlcloud_checkcaseresult_async(
+        self,
+        request: hk__securitytech_models.SubmitAmlcloudCheckcaseresultRequest,
+    ) -> hk__securitytech_models.SubmitAmlcloudCheckcaseresultResponse:
+        """
+        Description: aml check v2 form
+        Summary: aml check v2 form
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_amlcloud_checkcaseresult_ex_async(request, headers, runtime)
+
+    def submit_amlcloud_checkcaseresult_ex(
+        self,
+        request: hk__securitytech_models.SubmitAmlcloudCheckcaseresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.SubmitAmlcloudCheckcaseresultResponse:
+        """
+        Description: aml check v2 form
+        Summary: aml check v2 form
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.SubmitAmlcloudCheckcaseresultResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.amlcloud.checkcaseresult.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_amlcloud_checkcaseresult_ex_async(
+        self,
+        request: hk__securitytech_models.SubmitAmlcloudCheckcaseresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.SubmitAmlcloudCheckcaseresultResponse:
+        """
+        Description: aml check v2 form
+        Summary: aml check v2 form
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.SubmitAmlcloudCheckcaseresultResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.amlcloud.checkcaseresult.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_amlclouduat_analyze(
+        self,
+        request: hk__securitytech_models.QueryAmlclouduatAnalyzeRequest,
+    ) -> hk__securitytech_models.QueryAmlclouduatAnalyzeResponse:
+        """
+        Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+        Summary: aml analyze v2 rest
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_amlclouduat_analyze_ex(request, headers, runtime)
+
+    async def query_amlclouduat_analyze_async(
+        self,
+        request: hk__securitytech_models.QueryAmlclouduatAnalyzeRequest,
+    ) -> hk__securitytech_models.QueryAmlclouduatAnalyzeResponse:
+        """
+        Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+        Summary: aml analyze v2 rest
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_amlclouduat_analyze_ex_async(request, headers, runtime)
+
+    def query_amlclouduat_analyze_ex(
+        self,
+        request: hk__securitytech_models.QueryAmlclouduatAnalyzeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryAmlclouduatAnalyzeResponse:
+        """
+        Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+        Summary: aml analyze v2 rest
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryAmlclouduatAnalyzeResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.amlclouduat.analyze.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_amlclouduat_analyze_ex_async(
+        self,
+        request: hk__securitytech_models.QueryAmlclouduatAnalyzeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryAmlclouduatAnalyzeResponse:
+        """
+        Description: aml analyze v2 rest风格，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+        Summary: aml analyze v2 rest
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryAmlclouduatAnalyzeResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.amlclouduat.analyze.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_amlclouduat_checkcaseresult(
+        self,
+        request: hk__securitytech_models.QueryAmlclouduatCheckcaseresultRequest,
+    ) -> hk__securitytech_models.QueryAmlclouduatCheckcaseresultResponse:
+        """
+        Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+        Summary: aml check v2 rest
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_amlclouduat_checkcaseresult_ex(request, headers, runtime)
+
+    async def query_amlclouduat_checkcaseresult_async(
+        self,
+        request: hk__securitytech_models.QueryAmlclouduatCheckcaseresultRequest,
+    ) -> hk__securitytech_models.QueryAmlclouduatCheckcaseresultResponse:
+        """
+        Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+        Summary: aml check v2 rest
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_amlclouduat_checkcaseresult_ex_async(request, headers, runtime)
+
+    def query_amlclouduat_checkcaseresult_ex(
+        self,
+        request: hk__securitytech_models.QueryAmlclouduatCheckcaseresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryAmlclouduatCheckcaseresultResponse:
+        """
+        Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+        Summary: aml check v2 rest
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryAmlclouduatCheckcaseresultResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.amlclouduat.checkcaseresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_amlclouduat_checkcaseresult_ex_async(
+        self,
+        request: hk__securitytech_models.QueryAmlclouduatCheckcaseresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryAmlclouduatCheckcaseresultResponse:
+        """
+        Description: aml check v2 rest，适配ekyc接口，适配已签约但未调用的aml租户 - uat版本
+        Summary: aml check v2 rest
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryAmlclouduatCheckcaseresultResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.amlclouduat.checkcaseresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_ashield_filetoken(
+        self,
+        request: hk__securitytech_models.GetAshieldFiletokenRequest,
+    ) -> hk__securitytech_models.GetAshieldFiletokenResponse:
+        """
+        Description: 终端安全-Android应用加固-获取上传文件的临时URL
+        Summary: 获取上传文件的临时URL
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_ashield_filetoken_ex(request, headers, runtime)
+
+    async def get_ashield_filetoken_async(
+        self,
+        request: hk__securitytech_models.GetAshieldFiletokenRequest,
+    ) -> hk__securitytech_models.GetAshieldFiletokenResponse:
+        """
+        Description: 终端安全-Android应用加固-获取上传文件的临时URL
+        Summary: 获取上传文件的临时URL
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_ashield_filetoken_ex_async(request, headers, runtime)
+
+    def get_ashield_filetoken_ex(
+        self,
+        request: hk__securitytech_models.GetAshieldFiletokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.GetAshieldFiletokenResponse:
+        """
+        Description: 终端安全-Android应用加固-获取上传文件的临时URL
+        Summary: 获取上传文件的临时URL
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.GetAshieldFiletokenResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.ashield.filetoken.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_ashield_filetoken_ex_async(
+        self,
+        request: hk__securitytech_models.GetAshieldFiletokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.GetAshieldFiletokenResponse:
+        """
+        Description: 终端安全-Android应用加固-获取上传文件的临时URL
+        Summary: 获取上传文件的临时URL
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.GetAshieldFiletokenResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.ashield.filetoken.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_ashield_hardeningtaskprocess(
+        self,
+        request: hk__securitytech_models.GetAshieldHardeningtaskprocessRequest,
+    ) -> hk__securitytech_models.GetAshieldHardeningtaskprocessResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固任务进度
+        Summary: 查询加固任务进度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_ashield_hardeningtaskprocess_ex(request, headers, runtime)
+
+    async def get_ashield_hardeningtaskprocess_async(
+        self,
+        request: hk__securitytech_models.GetAshieldHardeningtaskprocessRequest,
+    ) -> hk__securitytech_models.GetAshieldHardeningtaskprocessResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固任务进度
+        Summary: 查询加固任务进度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_ashield_hardeningtaskprocess_ex_async(request, headers, runtime)
+
+    def get_ashield_hardeningtaskprocess_ex(
+        self,
+        request: hk__securitytech_models.GetAshieldHardeningtaskprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.GetAshieldHardeningtaskprocessResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固任务进度
+        Summary: 查询加固任务进度
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.GetAshieldHardeningtaskprocessResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.ashield.hardeningtaskprocess.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_ashield_hardeningtaskprocess_ex_async(
+        self,
+        request: hk__securitytech_models.GetAshieldHardeningtaskprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.GetAshieldHardeningtaskprocessResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固任务进度
+        Summary: 查询加固任务进度
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.GetAshieldHardeningtaskprocessResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.ashield.hardeningtaskprocess.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_ashield_hardeningresult(
+        self,
+        request: hk__securitytech_models.GetAshieldHardeningresultRequest,
+    ) -> hk__securitytech_models.GetAshieldHardeningresultResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+        Summary: 查询加固后的产物下载链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_ashield_hardeningresult_ex(request, headers, runtime)
+
+    async def get_ashield_hardeningresult_async(
+        self,
+        request: hk__securitytech_models.GetAshieldHardeningresultRequest,
+    ) -> hk__securitytech_models.GetAshieldHardeningresultResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+        Summary: 查询加固后的产物下载链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_ashield_hardeningresult_ex_async(request, headers, runtime)
+
+    def get_ashield_hardeningresult_ex(
+        self,
+        request: hk__securitytech_models.GetAshieldHardeningresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.GetAshieldHardeningresultResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+        Summary: 查询加固后的产物下载链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.GetAshieldHardeningresultResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.ashield.hardeningresult.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_ashield_hardeningresult_ex_async(
+        self,
+        request: hk__securitytech_models.GetAshieldHardeningresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.GetAshieldHardeningresultResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+        Summary: 查询加固后的产物下载链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.GetAshieldHardeningresultResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.ashield.hardeningresult.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_ashield_hardeninglog(
+        self,
+        request: hk__securitytech_models.GetAshieldHardeninglogRequest,
+    ) -> hk__securitytech_models.GetAshieldHardeninglogResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+        Summary: 查询加固后的日志下载链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_ashield_hardeninglog_ex(request, headers, runtime)
+
+    async def get_ashield_hardeninglog_async(
+        self,
+        request: hk__securitytech_models.GetAshieldHardeninglogRequest,
+    ) -> hk__securitytech_models.GetAshieldHardeninglogResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+        Summary: 查询加固后的日志下载链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_ashield_hardeninglog_ex_async(request, headers, runtime)
+
+    def get_ashield_hardeninglog_ex(
+        self,
+        request: hk__securitytech_models.GetAshieldHardeninglogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.GetAshieldHardeninglogResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+        Summary: 查询加固后的日志下载链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.GetAshieldHardeninglogResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.ashield.hardeninglog.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_ashield_hardeninglog_ex_async(
+        self,
+        request: hk__securitytech_models.GetAshieldHardeninglogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.GetAshieldHardeninglogResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+        Summary: 查询加固后的日志下载链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.GetAshieldHardeninglogResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.ashield.hardeninglog.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_devicerisk_risklabel(
+        self,
+        request: hk__securitytech_models.QueryDeviceriskRisklabelRequest,
+    ) -> hk__securitytech_models.QueryDeviceriskRisklabelResponse:
+        """
+        Description: 风险标签查询
+        Summary: 风险标签查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_devicerisk_risklabel_ex(request, headers, runtime)
+
+    async def query_devicerisk_risklabel_async(
+        self,
+        request: hk__securitytech_models.QueryDeviceriskRisklabelRequest,
+    ) -> hk__securitytech_models.QueryDeviceriskRisklabelResponse:
+        """
+        Description: 风险标签查询
+        Summary: 风险标签查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_devicerisk_risklabel_ex_async(request, headers, runtime)
+
+    def query_devicerisk_risklabel_ex(
+        self,
+        request: hk__securitytech_models.QueryDeviceriskRisklabelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryDeviceriskRisklabelResponse:
+        """
+        Description: 风险标签查询
+        Summary: 风险标签查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryDeviceriskRisklabelResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.devicerisk.risklabel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_devicerisk_risklabel_ex_async(
+        self,
+        request: hk__securitytech_models.QueryDeviceriskRisklabelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.QueryDeviceriskRisklabelResponse:
+        """
+        Description: 风险标签查询
+        Summary: 风险标签查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.QueryDeviceriskRisklabelResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.devicerisk.risklabel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
