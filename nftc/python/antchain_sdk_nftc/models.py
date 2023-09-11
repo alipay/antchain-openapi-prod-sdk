@@ -154,6 +154,58 @@ class Config(TeaModel):
         return self
 
 
+class GeneralResourcePatch(TeaModel):
+    def __init__(
+        self,
+        url: str = None,
+        old_version: int = None,
+        md_5: str = None,
+        size: int = None,
+    ):
+        # 差量包文件下载地址
+        self.url = url
+        # 差量包的旧版本号
+        self.old_version = old_version
+        # md5摘要值
+        self.md_5 = md_5
+        # 差量包文件大小
+        self.size = size
+
+    def validate(self):
+        self.validate_required(self.url, 'url')
+        self.validate_required(self.old_version, 'old_version')
+        self.validate_required(self.md_5, 'md_5')
+        self.validate_required(self.size, 'size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.url is not None:
+            result['url'] = self.url
+        if self.old_version is not None:
+            result['old_version'] = self.old_version
+        if self.md_5 is not None:
+            result['md5'] = self.md_5
+        if self.size is not None:
+            result['size'] = self.size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('old_version') is not None:
+            self.old_version = m.get('old_version')
+        if m.get('md5') is not None:
+            self.md_5 = m.get('md5')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        return self
+
+
 class PublishMerchantDiyskuRequest(TeaModel):
     def __init__(
         self,
@@ -543,6 +595,544 @@ class QueryMerchantUgcimagesResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('img_list') is not None:
             self.img_list = m.get('img_list')
+        return self
+
+
+class CreateResourceGeneralresourceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        app_id: str = None,
+        biz_id: str = None,
+        need_patch: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 小程序的APP ID
+        self.app_id = app_id
+        # 业务幂等ID
+        self.biz_id = biz_id
+        # 是否需要生成差量包
+        self.need_patch = need_patch
+
+    def validate(self):
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.need_patch, 'need_patch')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.need_patch is not None:
+            result['need_patch'] = self.need_patch
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('need_patch') is not None:
+            self.need_patch = m.get('need_patch')
+        return self
+
+
+class CreateResourceGeneralresourceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        resource_id: str = None,
+        url: str = None,
+        maas_token: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 资源ID
+        self.resource_id = resource_id
+        # 文件上传地址
+        self.url = url
+        # 资源上传的授权token，上传文件时需要将该值放入header中进行鉴权
+        self.maas_token = maas_token
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.resource_id is not None:
+            result['resource_id'] = self.resource_id
+        if self.url is not None:
+            result['url'] = self.url
+        if self.maas_token is not None:
+            result['maas_token'] = self.maas_token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('resource_id') is not None:
+            self.resource_id = m.get('resource_id')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('maas_token') is not None:
+            self.maas_token = m.get('maas_token')
+        return self
+
+
+class BindResourceGeneralresourcefileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        app_id: str = None,
+        resource_id: str = None,
+        file_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 小程序的APP ID
+        self.app_id = app_id
+        # 资源ID
+        self.resource_id = resource_id
+        # 文件ID
+        self.file_id = file_id
+
+    def validate(self):
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.resource_id, 'resource_id')
+        self.validate_required(self.file_id, 'file_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.resource_id is not None:
+            result['resource_id'] = self.resource_id
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('resource_id') is not None:
+            self.resource_id = m.get('resource_id')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        return self
+
+
+class BindResourceGeneralresourcefileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        version: int = None,
+        url: str = None,
+        md_5: str = None,
+        size: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 版本号
+        self.version = version
+        # 文件下载地址
+        self.url = url
+        # md5摘要值
+        self.md_5 = md_5
+        # 文件大小
+        self.size = size
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.version is not None:
+            result['version'] = self.version
+        if self.url is not None:
+            result['url'] = self.url
+        if self.md_5 is not None:
+            result['md5'] = self.md_5
+        if self.size is not None:
+            result['size'] = self.size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('md5') is not None:
+            self.md_5 = m.get('md5')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        return self
+
+
+class PublishResourceGeneralresourcefileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        app_id: str = None,
+        biz_id: str = None,
+        resource_id: str = None,
+        file_version: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 小程序的APP ID
+        self.app_id = app_id
+        # 业务幂等ID
+        self.biz_id = biz_id
+        # 资源ID
+        self.resource_id = resource_id
+        # 版本号
+        self.file_version = file_version
+
+    def validate(self):
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.resource_id, 'resource_id')
+        self.validate_required(self.file_version, 'file_version')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.resource_id is not None:
+            result['resource_id'] = self.resource_id
+        if self.file_version is not None:
+            result['file_version'] = self.file_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('resource_id') is not None:
+            self.resource_id = m.get('resource_id')
+        if m.get('file_version') is not None:
+            self.file_version = m.get('file_version')
+        return self
+
+
+class PublishResourceGeneralresourcefileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        version: int = None,
+        url: str = None,
+        md_5: str = None,
+        size: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 版本号
+        self.version = version
+        # 资源文件下载地址
+        self.url = url
+        # md5摘要值
+        self.md_5 = md_5
+        # 文件大小
+        self.size = size
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.version is not None:
+            result['version'] = self.version
+        if self.url is not None:
+            result['url'] = self.url
+        if self.md_5 is not None:
+            result['md5'] = self.md_5
+        if self.size is not None:
+            result['size'] = self.size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('md5') is not None:
+            self.md_5 = m.get('md5')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        return self
+
+
+class QueryResourcePatchlistRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        app_id: str = None,
+        resource_id: str = None,
+        file_version: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 小程序的APP ID
+        self.app_id = app_id
+        # 资源ID
+        self.resource_id = resource_id
+        # 版本号
+        self.file_version = file_version
+
+    def validate(self):
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.resource_id, 'resource_id')
+        self.validate_required(self.file_version, 'file_version')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.resource_id is not None:
+            result['resource_id'] = self.resource_id
+        if self.file_version is not None:
+            result['file_version'] = self.file_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('resource_id') is not None:
+            self.resource_id = m.get('resource_id')
+        if m.get('file_version') is not None:
+            self.file_version = m.get('file_version')
+        return self
+
+
+class QueryResourcePatchlistResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        patch_status: str = None,
+        url: str = None,
+        resource_id: str = None,
+        version: int = None,
+        md_5: str = None,
+        size: int = None,
+        patch_list: List[GeneralResourcePatch] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 差量包生成状态，包括PATCHING（生成中）和FINISHED（生成完成）
+        self.patch_status = patch_status
+        # 全量包下载地址
+        self.url = url
+        # 资源ID
+        self.resource_id = resource_id
+        # 全量包版本号
+        self.version = version
+        # 全量包md5摘要值
+        self.md_5 = md_5
+        # 全量包文件大小
+        self.size = size
+        # 差量包文件信息列表
+        self.patch_list = patch_list
+
+    def validate(self):
+        if self.patch_list:
+            for k in self.patch_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.patch_status is not None:
+            result['patch_status'] = self.patch_status
+        if self.url is not None:
+            result['url'] = self.url
+        if self.resource_id is not None:
+            result['resource_id'] = self.resource_id
+        if self.version is not None:
+            result['version'] = self.version
+        if self.md_5 is not None:
+            result['md5'] = self.md_5
+        if self.size is not None:
+            result['size'] = self.size
+        result['patch_list'] = []
+        if self.patch_list is not None:
+            for k in self.patch_list:
+                result['patch_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('patch_status') is not None:
+            self.patch_status = m.get('patch_status')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('resource_id') is not None:
+            self.resource_id = m.get('resource_id')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        if m.get('md5') is not None:
+            self.md_5 = m.get('md5')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        self.patch_list = []
+        if m.get('patch_list') is not None:
+            for k in m.get('patch_list'):
+                temp_model = GeneralResourcePatch()
+                self.patch_list.append(temp_model.from_map(k))
         return self
 
 

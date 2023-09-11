@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 通用资源差量包信息
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3',
+                    'sdk_version': '1.0.4',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 通用资源差量包信息
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3',
+                    'sdk_version': '1.0.4',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -439,4 +441,228 @@ class Client:
         return TeaCore.from_map(
             nftc_models.QueryMerchantUgcimagesResponse(),
             await self.do_request_async('1.0', 'antchain.nftc.merchant.ugcimages.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_resource_generalresource(
+        self,
+        request: nftc_models.CreateResourceGeneralresourceRequest,
+    ) -> nftc_models.CreateResourceGeneralresourceResponse:
+        """
+        Description: 创建通用资源
+        Summary: 创建通用资源
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_resource_generalresource_ex(request, headers, runtime)
+
+    async def create_resource_generalresource_async(
+        self,
+        request: nftc_models.CreateResourceGeneralresourceRequest,
+    ) -> nftc_models.CreateResourceGeneralresourceResponse:
+        """
+        Description: 创建通用资源
+        Summary: 创建通用资源
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_resource_generalresource_ex_async(request, headers, runtime)
+
+    def create_resource_generalresource_ex(
+        self,
+        request: nftc_models.CreateResourceGeneralresourceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.CreateResourceGeneralresourceResponse:
+        """
+        Description: 创建通用资源
+        Summary: 创建通用资源
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.CreateResourceGeneralresourceResponse(),
+            self.do_request('1.0', 'antchain.nftc.resource.generalresource.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_resource_generalresource_ex_async(
+        self,
+        request: nftc_models.CreateResourceGeneralresourceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.CreateResourceGeneralresourceResponse:
+        """
+        Description: 创建通用资源
+        Summary: 创建通用资源
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.CreateResourceGeneralresourceResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.resource.generalresource.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_resource_generalresourcefile(
+        self,
+        request: nftc_models.BindResourceGeneralresourcefileRequest,
+    ) -> nftc_models.BindResourceGeneralresourcefileResponse:
+        """
+        Description: 绑定文件到通用资源ID
+        Summary: 绑定文件到通用资源ID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_resource_generalresourcefile_ex(request, headers, runtime)
+
+    async def bind_resource_generalresourcefile_async(
+        self,
+        request: nftc_models.BindResourceGeneralresourcefileRequest,
+    ) -> nftc_models.BindResourceGeneralresourcefileResponse:
+        """
+        Description: 绑定文件到通用资源ID
+        Summary: 绑定文件到通用资源ID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_resource_generalresourcefile_ex_async(request, headers, runtime)
+
+    def bind_resource_generalresourcefile_ex(
+        self,
+        request: nftc_models.BindResourceGeneralresourcefileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.BindResourceGeneralresourcefileResponse:
+        """
+        Description: 绑定文件到通用资源ID
+        Summary: 绑定文件到通用资源ID
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.BindResourceGeneralresourcefileResponse(),
+            self.do_request('1.0', 'antchain.nftc.resource.generalresourcefile.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_resource_generalresourcefile_ex_async(
+        self,
+        request: nftc_models.BindResourceGeneralresourcefileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.BindResourceGeneralresourcefileResponse:
+        """
+        Description: 绑定文件到通用资源ID
+        Summary: 绑定文件到通用资源ID
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.BindResourceGeneralresourcefileResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.resource.generalresourcefile.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def publish_resource_generalresourcefile(
+        self,
+        request: nftc_models.PublishResourceGeneralresourcefileRequest,
+    ) -> nftc_models.PublishResourceGeneralresourcefileResponse:
+        """
+        Description: 发布通用资源文件
+        Summary: 发布通用资源文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.publish_resource_generalresourcefile_ex(request, headers, runtime)
+
+    async def publish_resource_generalresourcefile_async(
+        self,
+        request: nftc_models.PublishResourceGeneralresourcefileRequest,
+    ) -> nftc_models.PublishResourceGeneralresourcefileResponse:
+        """
+        Description: 发布通用资源文件
+        Summary: 发布通用资源文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.publish_resource_generalresourcefile_ex_async(request, headers, runtime)
+
+    def publish_resource_generalresourcefile_ex(
+        self,
+        request: nftc_models.PublishResourceGeneralresourcefileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.PublishResourceGeneralresourcefileResponse:
+        """
+        Description: 发布通用资源文件
+        Summary: 发布通用资源文件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.PublishResourceGeneralresourcefileResponse(),
+            self.do_request('1.0', 'antchain.nftc.resource.generalresourcefile.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def publish_resource_generalresourcefile_ex_async(
+        self,
+        request: nftc_models.PublishResourceGeneralresourcefileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.PublishResourceGeneralresourcefileResponse:
+        """
+        Description: 发布通用资源文件
+        Summary: 发布通用资源文件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.PublishResourceGeneralresourcefileResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.resource.generalresourcefile.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_resource_patchlist(
+        self,
+        request: nftc_models.QueryResourcePatchlistRequest,
+    ) -> nftc_models.QueryResourcePatchlistResponse:
+        """
+        Description: 查询资源文件差量包列表
+        Summary: 查询资源文件差量包列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_resource_patchlist_ex(request, headers, runtime)
+
+    async def query_resource_patchlist_async(
+        self,
+        request: nftc_models.QueryResourcePatchlistRequest,
+    ) -> nftc_models.QueryResourcePatchlistResponse:
+        """
+        Description: 查询资源文件差量包列表
+        Summary: 查询资源文件差量包列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_resource_patchlist_ex_async(request, headers, runtime)
+
+    def query_resource_patchlist_ex(
+        self,
+        request: nftc_models.QueryResourcePatchlistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryResourcePatchlistResponse:
+        """
+        Description: 查询资源文件差量包列表
+        Summary: 查询资源文件差量包列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryResourcePatchlistResponse(),
+            self.do_request('1.0', 'antchain.nftc.resource.patchlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_resource_patchlist_ex_async(
+        self,
+        request: nftc_models.QueryResourcePatchlistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryResourcePatchlistResponse:
+        """
+        Description: 查询资源文件差量包列表
+        Summary: 查询资源文件差量包列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryResourcePatchlistResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.resource.patchlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
