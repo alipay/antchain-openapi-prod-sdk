@@ -148,6 +148,46 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 通用资源差量包信息
+type GeneralResourcePatch struct {
+	// 差量包文件下载地址
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 差量包的旧版本号
+	OldVersion *int64 `json:"old_version,omitempty" xml:"old_version,omitempty" require:"true"`
+	// md5摘要值
+	Md5 *string `json:"md5,omitempty" xml:"md5,omitempty" require:"true"`
+	// 差量包文件大小
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
+}
+
+func (s GeneralResourcePatch) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GeneralResourcePatch) GoString() string {
+	return s.String()
+}
+
+func (s *GeneralResourcePatch) SetUrl(v string) *GeneralResourcePatch {
+	s.Url = &v
+	return s
+}
+
+func (s *GeneralResourcePatch) SetOldVersion(v int64) *GeneralResourcePatch {
+	s.OldVersion = &v
+	return s
+}
+
+func (s *GeneralResourcePatch) SetMd5(v string) *GeneralResourcePatch {
+	s.Md5 = &v
+	return s
+}
+
+func (s *GeneralResourcePatch) SetSize(v int64) *GeneralResourcePatch {
+	s.Size = &v
+	return s
+}
+
 type PublishMerchantDiyskuRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -469,6 +509,447 @@ func (s *QueryMerchantUgcimagesResponse) SetImgList(v []*string) *QueryMerchantU
 	return s
 }
 
+type CreateResourceGeneralresourceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 小程序的APP ID
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 业务幂等ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 是否需要生成差量包
+	NeedPatch *bool `json:"need_patch,omitempty" xml:"need_patch,omitempty" require:"true"`
+}
+
+func (s CreateResourceGeneralresourceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateResourceGeneralresourceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateResourceGeneralresourceRequest) SetAuthToken(v string) *CreateResourceGeneralresourceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateResourceGeneralresourceRequest) SetProductInstanceId(v string) *CreateResourceGeneralresourceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateResourceGeneralresourceRequest) SetAppId(v string) *CreateResourceGeneralresourceRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *CreateResourceGeneralresourceRequest) SetBizId(v string) *CreateResourceGeneralresourceRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *CreateResourceGeneralresourceRequest) SetNeedPatch(v bool) *CreateResourceGeneralresourceRequest {
+	s.NeedPatch = &v
+	return s
+}
+
+type CreateResourceGeneralresourceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 资源ID
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty"`
+	// 文件上传地址
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 资源上传的授权token，上传文件时需要将该值放入header中进行鉴权
+	MaasToken *string `json:"maas_token,omitempty" xml:"maas_token,omitempty"`
+}
+
+func (s CreateResourceGeneralresourceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateResourceGeneralresourceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateResourceGeneralresourceResponse) SetReqMsgId(v string) *CreateResourceGeneralresourceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateResourceGeneralresourceResponse) SetResultCode(v string) *CreateResourceGeneralresourceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateResourceGeneralresourceResponse) SetResultMsg(v string) *CreateResourceGeneralresourceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateResourceGeneralresourceResponse) SetResourceId(v string) *CreateResourceGeneralresourceResponse {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *CreateResourceGeneralresourceResponse) SetUrl(v string) *CreateResourceGeneralresourceResponse {
+	s.Url = &v
+	return s
+}
+
+func (s *CreateResourceGeneralresourceResponse) SetMaasToken(v string) *CreateResourceGeneralresourceResponse {
+	s.MaasToken = &v
+	return s
+}
+
+type BindResourceGeneralresourcefileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 小程序的APP ID
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 资源ID
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	// 文件ID
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s BindResourceGeneralresourcefileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindResourceGeneralresourcefileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindResourceGeneralresourcefileRequest) SetAuthToken(v string) *BindResourceGeneralresourcefileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindResourceGeneralresourcefileRequest) SetProductInstanceId(v string) *BindResourceGeneralresourcefileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindResourceGeneralresourcefileRequest) SetAppId(v string) *BindResourceGeneralresourcefileRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *BindResourceGeneralresourcefileRequest) SetResourceId(v string) *BindResourceGeneralresourcefileRequest {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *BindResourceGeneralresourcefileRequest) SetFileId(v string) *BindResourceGeneralresourcefileRequest {
+	s.FileId = &v
+	return s
+}
+
+type BindResourceGeneralresourcefileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 版本号
+	Version *int64 `json:"version,omitempty" xml:"version,omitempty"`
+	// 文件下载地址
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// md5摘要值
+	Md5 *string `json:"md5,omitempty" xml:"md5,omitempty"`
+	// 文件大小
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty"`
+}
+
+func (s BindResourceGeneralresourcefileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindResourceGeneralresourcefileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindResourceGeneralresourcefileResponse) SetReqMsgId(v string) *BindResourceGeneralresourcefileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindResourceGeneralresourcefileResponse) SetResultCode(v string) *BindResourceGeneralresourcefileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindResourceGeneralresourcefileResponse) SetResultMsg(v string) *BindResourceGeneralresourcefileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BindResourceGeneralresourcefileResponse) SetVersion(v int64) *BindResourceGeneralresourcefileResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *BindResourceGeneralresourcefileResponse) SetUrl(v string) *BindResourceGeneralresourcefileResponse {
+	s.Url = &v
+	return s
+}
+
+func (s *BindResourceGeneralresourcefileResponse) SetMd5(v string) *BindResourceGeneralresourcefileResponse {
+	s.Md5 = &v
+	return s
+}
+
+func (s *BindResourceGeneralresourcefileResponse) SetSize(v int64) *BindResourceGeneralresourcefileResponse {
+	s.Size = &v
+	return s
+}
+
+type PublishResourceGeneralresourcefileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 小程序的APP ID
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 业务幂等ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 资源ID
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	// 版本号
+	FileVersion *int64 `json:"file_version,omitempty" xml:"file_version,omitempty" require:"true"`
+}
+
+func (s PublishResourceGeneralresourcefileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PublishResourceGeneralresourcefileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PublishResourceGeneralresourcefileRequest) SetAuthToken(v string) *PublishResourceGeneralresourcefileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PublishResourceGeneralresourcefileRequest) SetProductInstanceId(v string) *PublishResourceGeneralresourcefileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PublishResourceGeneralresourcefileRequest) SetAppId(v string) *PublishResourceGeneralresourcefileRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *PublishResourceGeneralresourcefileRequest) SetBizId(v string) *PublishResourceGeneralresourcefileRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *PublishResourceGeneralresourcefileRequest) SetResourceId(v string) *PublishResourceGeneralresourcefileRequest {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *PublishResourceGeneralresourcefileRequest) SetFileVersion(v int64) *PublishResourceGeneralresourcefileRequest {
+	s.FileVersion = &v
+	return s
+}
+
+type PublishResourceGeneralresourcefileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 版本号
+	Version *int64 `json:"version,omitempty" xml:"version,omitempty"`
+	// 资源文件下载地址
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// md5摘要值
+	Md5 *string `json:"md5,omitempty" xml:"md5,omitempty"`
+	// 文件大小
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty"`
+}
+
+func (s PublishResourceGeneralresourcefileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PublishResourceGeneralresourcefileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PublishResourceGeneralresourcefileResponse) SetReqMsgId(v string) *PublishResourceGeneralresourcefileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PublishResourceGeneralresourcefileResponse) SetResultCode(v string) *PublishResourceGeneralresourcefileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PublishResourceGeneralresourcefileResponse) SetResultMsg(v string) *PublishResourceGeneralresourcefileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PublishResourceGeneralresourcefileResponse) SetVersion(v int64) *PublishResourceGeneralresourcefileResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *PublishResourceGeneralresourcefileResponse) SetUrl(v string) *PublishResourceGeneralresourcefileResponse {
+	s.Url = &v
+	return s
+}
+
+func (s *PublishResourceGeneralresourcefileResponse) SetMd5(v string) *PublishResourceGeneralresourcefileResponse {
+	s.Md5 = &v
+	return s
+}
+
+func (s *PublishResourceGeneralresourcefileResponse) SetSize(v int64) *PublishResourceGeneralresourcefileResponse {
+	s.Size = &v
+	return s
+}
+
+type QueryResourcePatchlistRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 小程序的APP ID
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 资源ID
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	// 版本号
+	FileVersion *int64 `json:"file_version,omitempty" xml:"file_version,omitempty" require:"true"`
+}
+
+func (s QueryResourcePatchlistRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryResourcePatchlistRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryResourcePatchlistRequest) SetAuthToken(v string) *QueryResourcePatchlistRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryResourcePatchlistRequest) SetProductInstanceId(v string) *QueryResourcePatchlistRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryResourcePatchlistRequest) SetAppId(v string) *QueryResourcePatchlistRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *QueryResourcePatchlistRequest) SetResourceId(v string) *QueryResourcePatchlistRequest {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *QueryResourcePatchlistRequest) SetFileVersion(v int64) *QueryResourcePatchlistRequest {
+	s.FileVersion = &v
+	return s
+}
+
+type QueryResourcePatchlistResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 差量包生成状态，包括PATCHING（生成中）和FINISHED（生成完成）
+	PatchStatus *string `json:"patch_status,omitempty" xml:"patch_status,omitempty"`
+	// 全量包下载地址
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 资源ID
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty"`
+	// 全量包版本号
+	Version *int64 `json:"version,omitempty" xml:"version,omitempty"`
+	// 全量包md5摘要值
+	Md5 *string `json:"md5,omitempty" xml:"md5,omitempty"`
+	// 全量包文件大小
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty"`
+	// 差量包文件信息列表
+	PatchList []*GeneralResourcePatch `json:"patch_list,omitempty" xml:"patch_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryResourcePatchlistResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryResourcePatchlistResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryResourcePatchlistResponse) SetReqMsgId(v string) *QueryResourcePatchlistResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryResourcePatchlistResponse) SetResultCode(v string) *QueryResourcePatchlistResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryResourcePatchlistResponse) SetResultMsg(v string) *QueryResourcePatchlistResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryResourcePatchlistResponse) SetPatchStatus(v string) *QueryResourcePatchlistResponse {
+	s.PatchStatus = &v
+	return s
+}
+
+func (s *QueryResourcePatchlistResponse) SetUrl(v string) *QueryResourcePatchlistResponse {
+	s.Url = &v
+	return s
+}
+
+func (s *QueryResourcePatchlistResponse) SetResourceId(v string) *QueryResourcePatchlistResponse {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *QueryResourcePatchlistResponse) SetVersion(v int64) *QueryResourcePatchlistResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *QueryResourcePatchlistResponse) SetMd5(v string) *QueryResourcePatchlistResponse {
+	s.Md5 = &v
+	return s
+}
+
+func (s *QueryResourcePatchlistResponse) SetSize(v int64) *QueryResourcePatchlistResponse {
+	s.Size = &v
+	return s
+}
+
+func (s *QueryResourcePatchlistResponse) SetPatchList(v []*GeneralResourcePatch) *QueryResourcePatchlistResponse {
+	s.PatchList = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -591,7 +1072,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.0.4"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -744,6 +1225,142 @@ func (client *Client) QueryMerchantUgcimagesEx(request *QueryMerchantUgcimagesRe
 	}
 	_result = &QueryMerchantUgcimagesResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.merchant.ugcimages.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建通用资源
+ * Summary: 创建通用资源
+ */
+func (client *Client) CreateResourceGeneralresource(request *CreateResourceGeneralresourceRequest) (_result *CreateResourceGeneralresourceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateResourceGeneralresourceResponse{}
+	_body, _err := client.CreateResourceGeneralresourceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建通用资源
+ * Summary: 创建通用资源
+ */
+func (client *Client) CreateResourceGeneralresourceEx(request *CreateResourceGeneralresourceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateResourceGeneralresourceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateResourceGeneralresourceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.resource.generalresource.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 绑定文件到通用资源ID
+ * Summary: 绑定文件到通用资源ID
+ */
+func (client *Client) BindResourceGeneralresourcefile(request *BindResourceGeneralresourcefileRequest) (_result *BindResourceGeneralresourcefileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindResourceGeneralresourcefileResponse{}
+	_body, _err := client.BindResourceGeneralresourcefileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 绑定文件到通用资源ID
+ * Summary: 绑定文件到通用资源ID
+ */
+func (client *Client) BindResourceGeneralresourcefileEx(request *BindResourceGeneralresourcefileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindResourceGeneralresourcefileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindResourceGeneralresourcefileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.resource.generalresourcefile.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发布通用资源文件
+ * Summary: 发布通用资源文件
+ */
+func (client *Client) PublishResourceGeneralresourcefile(request *PublishResourceGeneralresourcefileRequest) (_result *PublishResourceGeneralresourcefileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PublishResourceGeneralresourcefileResponse{}
+	_body, _err := client.PublishResourceGeneralresourcefileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发布通用资源文件
+ * Summary: 发布通用资源文件
+ */
+func (client *Client) PublishResourceGeneralresourcefileEx(request *PublishResourceGeneralresourcefileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PublishResourceGeneralresourcefileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PublishResourceGeneralresourcefileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.resource.generalresourcefile.publish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询资源文件差量包列表
+ * Summary: 查询资源文件差量包列表
+ */
+func (client *Client) QueryResourcePatchlist(request *QueryResourcePatchlistRequest) (_result *QueryResourcePatchlistResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryResourcePatchlistResponse{}
+	_body, _err := client.QueryResourcePatchlistEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询资源文件差量包列表
+ * Summary: 查询资源文件差量包列表
+ */
+func (client *Client) QueryResourcePatchlistEx(request *QueryResourcePatchlistRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryResourcePatchlistResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryResourcePatchlistResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.resource.patchlist.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
