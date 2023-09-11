@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.3',
+    sdk_version = '1.0.4',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -159,6 +159,18 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 通用资源差量包信息
+model GeneralResourcePatch {
+  // 差量包文件下载地址
+  url: string(name='url', example='https://download.address'),
+  // 差量包的旧版本号
+  oldVersion: long(name='old_version', example='1'),
+  // md5摘要值
+  md5: string(name='md5', example='9d5f26c7469ea9699a6e5f03ecfce24d'),
+  // 差量包文件大小
+  size: long(name='size', example='123'),
 }
 
 model PublishMerchantDiyskuRequest = {
@@ -319,5 +331,203 @@ async function queryMerchantUgcimages(request: QueryMerchantUgcimagesRequest): Q
 async function queryMerchantUgcimagesEx(request: QueryMerchantUgcimagesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMerchantUgcimagesResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftc.merchant.ugcimages.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateResourceGeneralresourceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 小程序的APP ID
+  appId: string(name='app_id'),
+  // 业务幂等ID
+  bizId: string(name='biz_id'),
+  // 是否需要生成差量包
+  needPatch: boolean(name='need_patch'),
+}
+
+model CreateResourceGeneralresourceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 资源ID
+  resourceId?: string(name='resource_id'),
+  // 文件上传地址
+  url?: string(name='url'),
+  // 资源上传的授权token，上传文件时需要将该值放入header中进行鉴权
+  maasToken?: string(name='maas_token'),
+}
+
+/**
+ * Description: 创建通用资源
+ * Summary: 创建通用资源
+ */
+async function createResourceGeneralresource(request: CreateResourceGeneralresourceRequest): CreateResourceGeneralresourceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createResourceGeneralresourceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建通用资源
+ * Summary: 创建通用资源
+ */
+async function createResourceGeneralresourceEx(request: CreateResourceGeneralresourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateResourceGeneralresourceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.resource.generalresource.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindResourceGeneralresourcefileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 小程序的APP ID
+  appId: string(name='app_id'),
+  // 资源ID
+  resourceId: string(name='resource_id'),
+  // 文件ID
+  fileId: string(name='file_id'),
+}
+
+model BindResourceGeneralresourcefileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 版本号
+  version?: long(name='version'),
+  // 文件下载地址
+  url?: string(name='url'),
+  // md5摘要值
+  md5?: string(name='md5'),
+  // 文件大小
+  size?: long(name='size'),
+}
+
+/**
+ * Description: 绑定文件到通用资源ID
+ * Summary: 绑定文件到通用资源ID
+ */
+async function bindResourceGeneralresourcefile(request: BindResourceGeneralresourcefileRequest): BindResourceGeneralresourcefileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindResourceGeneralresourcefileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 绑定文件到通用资源ID
+ * Summary: 绑定文件到通用资源ID
+ */
+async function bindResourceGeneralresourcefileEx(request: BindResourceGeneralresourcefileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindResourceGeneralresourcefileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.resource.generalresourcefile.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PublishResourceGeneralresourcefileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 小程序的APP ID
+  appId: string(name='app_id'),
+  // 业务幂等ID
+  bizId: string(name='biz_id'),
+  // 资源ID
+  resourceId: string(name='resource_id'),
+  // 版本号
+  fileVersion: long(name='file_version'),
+}
+
+model PublishResourceGeneralresourcefileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 版本号
+  version?: long(name='version'),
+  // 资源文件下载地址
+  url?: string(name='url'),
+  // md5摘要值
+  md5?: string(name='md5'),
+  // 文件大小
+  size?: long(name='size'),
+}
+
+/**
+ * Description: 发布通用资源文件
+ * Summary: 发布通用资源文件
+ */
+async function publishResourceGeneralresourcefile(request: PublishResourceGeneralresourcefileRequest): PublishResourceGeneralresourcefileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return publishResourceGeneralresourcefileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发布通用资源文件
+ * Summary: 发布通用资源文件
+ */
+async function publishResourceGeneralresourcefileEx(request: PublishResourceGeneralresourcefileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishResourceGeneralresourcefileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.resource.generalresourcefile.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryResourcePatchlistRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 小程序的APP ID
+  appId: string(name='app_id'),
+  // 资源ID
+  resourceId: string(name='resource_id'),
+  // 版本号
+  fileVersion: long(name='file_version'),
+}
+
+model QueryResourcePatchlistResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 差量包生成状态，包括PATCHING（生成中）和FINISHED（生成完成）
+  patchStatus?: string(name='patch_status'),
+  // 全量包下载地址
+  url?: string(name='url'),
+  // 资源ID
+  resourceId?: string(name='resource_id'),
+  // 全量包版本号
+  version?: long(name='version'),
+  // 全量包md5摘要值
+  md5?: string(name='md5'),
+  // 全量包文件大小
+  size?: long(name='size'),
+  // 差量包文件信息列表
+  patchList?: [ GeneralResourcePatch ](name='patch_list'),
+}
+
+/**
+ * Description: 查询资源文件差量包列表
+ * Summary: 查询资源文件差量包列表
+ */
+async function queryResourcePatchlist(request: QueryResourcePatchlistRequest): QueryResourcePatchlistResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryResourcePatchlistEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询资源文件差量包列表
+ * Summary: 查询资源文件差量包列表
+ */
+async function queryResourcePatchlistEx(request: QueryResourcePatchlistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryResourcePatchlistResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.resource.patchlist.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
