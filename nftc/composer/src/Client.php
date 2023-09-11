@@ -11,12 +11,20 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\NFTC\Models\BindResourceGeneralresourcefileRequest;
+use AntChain\NFTC\Models\BindResourceGeneralresourcefileResponse;
+use AntChain\NFTC\Models\CreateResourceGeneralresourceRequest;
+use AntChain\NFTC\Models\CreateResourceGeneralresourceResponse;
 use AntChain\NFTC\Models\PublishMerchantDiyskuRequest;
 use AntChain\NFTC\Models\PublishMerchantDiyskuResponse;
+use AntChain\NFTC\Models\PublishResourceGeneralresourcefileRequest;
+use AntChain\NFTC\Models\PublishResourceGeneralresourcefileResponse;
 use AntChain\NFTC\Models\QueryMerchantDiyskuRequest;
 use AntChain\NFTC\Models\QueryMerchantDiyskuResponse;
 use AntChain\NFTC\Models\QueryMerchantUgcimagesRequest;
 use AntChain\NFTC\Models\QueryMerchantUgcimagesResponse;
+use AntChain\NFTC\Models\QueryResourcePatchlistRequest;
+use AntChain\NFTC\Models\QueryResourcePatchlistResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -136,6 +144,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 通用资源差量包信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -163,7 +172,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.3',
+                    'sdk_version'      => '1.0.4',
                     '_prod_code'       => 'NFTC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -308,5 +317,137 @@ class Client
         Utils::validateModel($request);
 
         return QueryMerchantUgcimagesResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.merchant.ugcimages.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建通用资源
+     * Summary: 创建通用资源.
+     *
+     * @param CreateResourceGeneralresourceRequest $request
+     *
+     * @return CreateResourceGeneralresourceResponse
+     */
+    public function createResourceGeneralresource($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createResourceGeneralresourceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建通用资源
+     * Summary: 创建通用资源.
+     *
+     * @param CreateResourceGeneralresourceRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CreateResourceGeneralresourceResponse
+     */
+    public function createResourceGeneralresourceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateResourceGeneralresourceResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.resource.generalresource.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 绑定文件到通用资源ID
+     * Summary: 绑定文件到通用资源ID.
+     *
+     * @param BindResourceGeneralresourcefileRequest $request
+     *
+     * @return BindResourceGeneralresourcefileResponse
+     */
+    public function bindResourceGeneralresourcefile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindResourceGeneralresourcefileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 绑定文件到通用资源ID
+     * Summary: 绑定文件到通用资源ID.
+     *
+     * @param BindResourceGeneralresourcefileRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return BindResourceGeneralresourcefileResponse
+     */
+    public function bindResourceGeneralresourcefileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindResourceGeneralresourcefileResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.resource.generalresourcefile.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发布通用资源文件
+     * Summary: 发布通用资源文件.
+     *
+     * @param PublishResourceGeneralresourcefileRequest $request
+     *
+     * @return PublishResourceGeneralresourcefileResponse
+     */
+    public function publishResourceGeneralresourcefile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->publishResourceGeneralresourcefileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发布通用资源文件
+     * Summary: 发布通用资源文件.
+     *
+     * @param PublishResourceGeneralresourcefileRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return PublishResourceGeneralresourcefileResponse
+     */
+    public function publishResourceGeneralresourcefileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PublishResourceGeneralresourcefileResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.resource.generalresourcefile.publish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询资源文件差量包列表
+     * Summary: 查询资源文件差量包列表.
+     *
+     * @param QueryResourcePatchlistRequest $request
+     *
+     * @return QueryResourcePatchlistResponse
+     */
+    public function queryResourcePatchlist($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryResourcePatchlistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询资源文件差量包列表
+     * Summary: 查询资源文件差量包列表.
+     *
+     * @param QueryResourcePatchlistRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryResourcePatchlistResponse
+     */
+    public function queryResourcePatchlistEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryResourcePatchlistResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.resource.patchlist.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
