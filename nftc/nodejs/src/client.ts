@@ -77,6 +77,39 @@ export class Config extends $tea.Model {
   }
 }
 
+// 通用资源差量包信息
+export class GeneralResourcePatch extends $tea.Model {
+  // 差量包文件下载地址
+  url: string;
+  // 差量包的旧版本号
+  oldVersion: number;
+  // md5摘要值
+  md5: string;
+  // 差量包文件大小
+  size: number;
+  static names(): { [key: string]: string } {
+    return {
+      url: 'url',
+      oldVersion: 'old_version',
+      md5: 'md5',
+      size: 'size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      url: 'string',
+      oldVersion: 'number',
+      md5: 'string',
+      size: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class PublishMerchantDiyskuRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -326,6 +359,334 @@ export class QueryMerchantUgcimagesResponse extends $tea.Model {
   }
 }
 
+export class CreateResourceGeneralresourceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 小程序的APP ID
+  appId: string;
+  // 业务幂等ID
+  bizId: string;
+  // 是否需要生成差量包
+  needPatch: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appId: 'app_id',
+      bizId: 'biz_id',
+      needPatch: 'need_patch',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appId: 'string',
+      bizId: 'string',
+      needPatch: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateResourceGeneralresourceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 资源ID
+  resourceId?: string;
+  // 文件上传地址
+  url?: string;
+  // 资源上传的授权token，上传文件时需要将该值放入header中进行鉴权
+  maasToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resourceId: 'resource_id',
+      url: 'url',
+      maasToken: 'maas_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resourceId: 'string',
+      url: 'string',
+      maasToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindResourceGeneralresourcefileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 小程序的APP ID
+  appId: string;
+  // 资源ID
+  resourceId: string;
+  // 文件ID
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appId: 'app_id',
+      resourceId: 'resource_id',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appId: 'string',
+      resourceId: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindResourceGeneralresourcefileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 版本号
+  version?: number;
+  // 文件下载地址
+  url?: string;
+  // md5摘要值
+  md5?: string;
+  // 文件大小
+  size?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      url: 'url',
+      md5: 'md5',
+      size: 'size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'number',
+      url: 'string',
+      md5: 'string',
+      size: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PublishResourceGeneralresourcefileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 小程序的APP ID
+  appId: string;
+  // 业务幂等ID
+  bizId: string;
+  // 资源ID
+  resourceId: string;
+  // 版本号
+  fileVersion: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appId: 'app_id',
+      bizId: 'biz_id',
+      resourceId: 'resource_id',
+      fileVersion: 'file_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appId: 'string',
+      bizId: 'string',
+      resourceId: 'string',
+      fileVersion: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PublishResourceGeneralresourcefileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 版本号
+  version?: number;
+  // 资源文件下载地址
+  url?: string;
+  // md5摘要值
+  md5?: string;
+  // 文件大小
+  size?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      version: 'version',
+      url: 'url',
+      md5: 'md5',
+      size: 'size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      version: 'number',
+      url: 'string',
+      md5: 'string',
+      size: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryResourcePatchlistRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 小程序的APP ID
+  appId: string;
+  // 资源ID
+  resourceId: string;
+  // 版本号
+  fileVersion: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appId: 'app_id',
+      resourceId: 'resource_id',
+      fileVersion: 'file_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appId: 'string',
+      resourceId: 'string',
+      fileVersion: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryResourcePatchlistResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 差量包生成状态，包括PATCHING（生成中）和FINISHED（生成完成）
+  patchStatus?: string;
+  // 全量包下载地址
+  url?: string;
+  // 资源ID
+  resourceId?: string;
+  // 全量包版本号
+  version?: number;
+  // 全量包md5摘要值
+  md5?: string;
+  // 全量包文件大小
+  size?: number;
+  // 差量包文件信息列表
+  patchList?: GeneralResourcePatch[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      patchStatus: 'patch_status',
+      url: 'url',
+      resourceId: 'resource_id',
+      version: 'version',
+      md5: 'md5',
+      size: 'size',
+      patchList: 'patch_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      patchStatus: 'string',
+      url: 'string',
+      resourceId: 'string',
+      version: 'number',
+      md5: 'string',
+      size: 'number',
+      patchList: { 'type': 'array', 'itemType': GeneralResourcePatch },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -439,7 +800,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.3",
+          sdk_version: "1.0.4",
           _prod_code: "NFTC",
           _prod_channel: "undefined",
         };
@@ -542,6 +903,82 @@ export default class Client {
   async queryMerchantUgcimagesEx(request: QueryMerchantUgcimagesRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMerchantUgcimagesResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryMerchantUgcimagesResponse>(await this.doRequest("1.0", "antchain.nftc.merchant.ugcimages.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMerchantUgcimagesResponse({}));
+  }
+
+  /**
+   * Description: 创建通用资源
+   * Summary: 创建通用资源
+   */
+  async createResourceGeneralresource(request: CreateResourceGeneralresourceRequest): Promise<CreateResourceGeneralresourceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createResourceGeneralresourceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建通用资源
+   * Summary: 创建通用资源
+   */
+  async createResourceGeneralresourceEx(request: CreateResourceGeneralresourceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateResourceGeneralresourceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateResourceGeneralresourceResponse>(await this.doRequest("1.0", "antchain.nftc.resource.generalresource.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateResourceGeneralresourceResponse({}));
+  }
+
+  /**
+   * Description: 绑定文件到通用资源ID
+   * Summary: 绑定文件到通用资源ID
+   */
+  async bindResourceGeneralresourcefile(request: BindResourceGeneralresourcefileRequest): Promise<BindResourceGeneralresourcefileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindResourceGeneralresourcefileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 绑定文件到通用资源ID
+   * Summary: 绑定文件到通用资源ID
+   */
+  async bindResourceGeneralresourcefileEx(request: BindResourceGeneralresourcefileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindResourceGeneralresourcefileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindResourceGeneralresourcefileResponse>(await this.doRequest("1.0", "antchain.nftc.resource.generalresourcefile.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindResourceGeneralresourcefileResponse({}));
+  }
+
+  /**
+   * Description: 发布通用资源文件
+   * Summary: 发布通用资源文件
+   */
+  async publishResourceGeneralresourcefile(request: PublishResourceGeneralresourcefileRequest): Promise<PublishResourceGeneralresourcefileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.publishResourceGeneralresourcefileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发布通用资源文件
+   * Summary: 发布通用资源文件
+   */
+  async publishResourceGeneralresourcefileEx(request: PublishResourceGeneralresourcefileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PublishResourceGeneralresourcefileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PublishResourceGeneralresourcefileResponse>(await this.doRequest("1.0", "antchain.nftc.resource.generalresourcefile.publish", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PublishResourceGeneralresourcefileResponse({}));
+  }
+
+  /**
+   * Description: 查询资源文件差量包列表
+   * Summary: 查询资源文件差量包列表
+   */
+  async queryResourcePatchlist(request: QueryResourcePatchlistRequest): Promise<QueryResourcePatchlistResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryResourcePatchlistEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询资源文件差量包列表
+   * Summary: 查询资源文件差量包列表
+   */
+  async queryResourcePatchlistEx(request: QueryResourcePatchlistRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryResourcePatchlistResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryResourcePatchlistResponse>(await this.doRequest("1.0", "antchain.nftc.resource.patchlist.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryResourcePatchlistResponse({}));
   }
 
 }
