@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.3"),
+                    new TeaPair("sdk_version", "1.0.4"),
                     new TeaPair("_prod_code", "NFTC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -216,5 +216,81 @@ public class Client {
     public QueryMerchantUgcimagesResponse queryMerchantUgcimagesEx(QueryMerchantUgcimagesRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.merchant.ugcimages.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMerchantUgcimagesResponse());
+    }
+
+    /**
+     * Description: 创建通用资源
+     * Summary: 创建通用资源
+     */
+    public CreateResourceGeneralresourceResponse createResourceGeneralresource(CreateResourceGeneralresourceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createResourceGeneralresourceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建通用资源
+     * Summary: 创建通用资源
+     */
+    public CreateResourceGeneralresourceResponse createResourceGeneralresourceEx(CreateResourceGeneralresourceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.resource.generalresource.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateResourceGeneralresourceResponse());
+    }
+
+    /**
+     * Description: 绑定文件到通用资源ID
+     * Summary: 绑定文件到通用资源ID
+     */
+    public BindResourceGeneralresourcefileResponse bindResourceGeneralresourcefile(BindResourceGeneralresourcefileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindResourceGeneralresourcefileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 绑定文件到通用资源ID
+     * Summary: 绑定文件到通用资源ID
+     */
+    public BindResourceGeneralresourcefileResponse bindResourceGeneralresourcefileEx(BindResourceGeneralresourcefileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.resource.generalresourcefile.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindResourceGeneralresourcefileResponse());
+    }
+
+    /**
+     * Description: 发布通用资源文件
+     * Summary: 发布通用资源文件
+     */
+    public PublishResourceGeneralresourcefileResponse publishResourceGeneralresourcefile(PublishResourceGeneralresourcefileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.publishResourceGeneralresourcefileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 发布通用资源文件
+     * Summary: 发布通用资源文件
+     */
+    public PublishResourceGeneralresourcefileResponse publishResourceGeneralresourcefileEx(PublishResourceGeneralresourcefileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.resource.generalresourcefile.publish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PublishResourceGeneralresourcefileResponse());
+    }
+
+    /**
+     * Description: 查询资源文件差量包列表
+     * Summary: 查询资源文件差量包列表
+     */
+    public QueryResourcePatchlistResponse queryResourcePatchlist(QueryResourcePatchlistRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryResourcePatchlistEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询资源文件差量包列表
+     * Summary: 查询资源文件差量包列表
+     */
+    public QueryResourcePatchlistResponse queryResourcePatchlistEx(QueryResourcePatchlistRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.resource.patchlist.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryResourcePatchlistResponse());
     }
 }
