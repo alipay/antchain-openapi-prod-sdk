@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.4"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.4"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -445,6 +445,174 @@ namespace AntChain.SDK.NFTC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryMerchantUgcimagesResponse>(await DoRequestAsync("1.0", "antchain.nftc.merchant.ugcimages.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建通用资源
+         * Summary: 创建通用资源
+         */
+        public CreateResourceGeneralresourceResponse CreateResourceGeneralresource(CreateResourceGeneralresourceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateResourceGeneralresourceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建通用资源
+         * Summary: 创建通用资源
+         */
+        public async Task<CreateResourceGeneralresourceResponse> CreateResourceGeneralresourceAsync(CreateResourceGeneralresourceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateResourceGeneralresourceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建通用资源
+         * Summary: 创建通用资源
+         */
+        public CreateResourceGeneralresourceResponse CreateResourceGeneralresourceEx(CreateResourceGeneralresourceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateResourceGeneralresourceResponse>(DoRequest("1.0", "antchain.nftc.resource.generalresource.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建通用资源
+         * Summary: 创建通用资源
+         */
+        public async Task<CreateResourceGeneralresourceResponse> CreateResourceGeneralresourceExAsync(CreateResourceGeneralresourceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateResourceGeneralresourceResponse>(await DoRequestAsync("1.0", "antchain.nftc.resource.generalresource.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 绑定文件到通用资源ID
+         * Summary: 绑定文件到通用资源ID
+         */
+        public BindResourceGeneralresourcefileResponse BindResourceGeneralresourcefile(BindResourceGeneralresourcefileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BindResourceGeneralresourcefileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 绑定文件到通用资源ID
+         * Summary: 绑定文件到通用资源ID
+         */
+        public async Task<BindResourceGeneralresourcefileResponse> BindResourceGeneralresourcefileAsync(BindResourceGeneralresourcefileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BindResourceGeneralresourcefileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 绑定文件到通用资源ID
+         * Summary: 绑定文件到通用资源ID
+         */
+        public BindResourceGeneralresourcefileResponse BindResourceGeneralresourcefileEx(BindResourceGeneralresourcefileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindResourceGeneralresourcefileResponse>(DoRequest("1.0", "antchain.nftc.resource.generalresourcefile.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 绑定文件到通用资源ID
+         * Summary: 绑定文件到通用资源ID
+         */
+        public async Task<BindResourceGeneralresourcefileResponse> BindResourceGeneralresourcefileExAsync(BindResourceGeneralresourcefileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindResourceGeneralresourcefileResponse>(await DoRequestAsync("1.0", "antchain.nftc.resource.generalresourcefile.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发布通用资源文件
+         * Summary: 发布通用资源文件
+         */
+        public PublishResourceGeneralresourcefileResponse PublishResourceGeneralresourcefile(PublishResourceGeneralresourcefileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PublishResourceGeneralresourcefileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发布通用资源文件
+         * Summary: 发布通用资源文件
+         */
+        public async Task<PublishResourceGeneralresourcefileResponse> PublishResourceGeneralresourcefileAsync(PublishResourceGeneralresourcefileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PublishResourceGeneralresourcefileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发布通用资源文件
+         * Summary: 发布通用资源文件
+         */
+        public PublishResourceGeneralresourcefileResponse PublishResourceGeneralresourcefileEx(PublishResourceGeneralresourcefileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PublishResourceGeneralresourcefileResponse>(DoRequest("1.0", "antchain.nftc.resource.generalresourcefile.publish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发布通用资源文件
+         * Summary: 发布通用资源文件
+         */
+        public async Task<PublishResourceGeneralresourcefileResponse> PublishResourceGeneralresourcefileExAsync(PublishResourceGeneralresourcefileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PublishResourceGeneralresourcefileResponse>(await DoRequestAsync("1.0", "antchain.nftc.resource.generalresourcefile.publish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询资源文件差量包列表
+         * Summary: 查询资源文件差量包列表
+         */
+        public QueryResourcePatchlistResponse QueryResourcePatchlist(QueryResourcePatchlistRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryResourcePatchlistEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询资源文件差量包列表
+         * Summary: 查询资源文件差量包列表
+         */
+        public async Task<QueryResourcePatchlistResponse> QueryResourcePatchlistAsync(QueryResourcePatchlistRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryResourcePatchlistExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询资源文件差量包列表
+         * Summary: 查询资源文件差量包列表
+         */
+        public QueryResourcePatchlistResponse QueryResourcePatchlistEx(QueryResourcePatchlistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryResourcePatchlistResponse>(DoRequest("1.0", "antchain.nftc.resource.patchlist.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询资源文件差量包列表
+         * Summary: 查询资源文件差量包列表
+         */
+        public async Task<QueryResourcePatchlistResponse> QueryResourcePatchlistExAsync(QueryResourcePatchlistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryResourcePatchlistResponse>(await DoRequestAsync("1.0", "antchain.nftc.resource.patchlist.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
