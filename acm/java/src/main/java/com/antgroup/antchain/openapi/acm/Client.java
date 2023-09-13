@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.3"),
+                    new TeaPair("sdk_version", "1.4.8"),
                     new TeaPair("_prod_code", "acm"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -843,5 +843,62 @@ public class Client {
     public VerifyTrustloginTokenResponse verifyTrustloginTokenEx(VerifyTrustloginTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.trustlogin.token.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyTrustloginTokenResponse());
+    }
+
+    /**
+     * Description: 一方化会员创建的服务账号授权
+     * Summary: 一方化会员创建的服务账号授权
+     */
+    public AddServiceaccountAuthpolicyResponse addServiceaccountAuthpolicy(AddServiceaccountAuthpolicyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addServiceaccountAuthpolicyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 一方化会员创建的服务账号授权
+     * Summary: 一方化会员创建的服务账号授权
+     */
+    public AddServiceaccountAuthpolicyResponse addServiceaccountAuthpolicyEx(AddServiceaccountAuthpolicyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.serviceaccount.authpolicy.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddServiceaccountAuthpolicyResponse());
+    }
+
+    /**
+     * Description: 查询用户所具有的角色，用于平台型产品管控用户
+     * Summary: 查询用户所具有的角色
+     */
+    public QueryUserRoleResponse queryUserRole(QueryUserRoleRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUserRoleEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询用户所具有的角色，用于平台型产品管控用户
+     * Summary: 查询用户所具有的角色
+     */
+    public QueryUserRoleResponse queryUserRoleEx(QueryUserRoleRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.user.role.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUserRoleResponse());
+    }
+
+    /**
+     * Description: 角色权限点查询，用于平台型产品
+     * Summary: 角色权限点查询
+     */
+    public QueryRoleActionResponse queryRoleAction(QueryRoleActionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRoleActionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 角色权限点查询，用于平台型产品
+     * Summary: 角色权限点查询
+     */
+    public QueryRoleActionResponse queryRoleActionEx(QueryRoleActionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.role.action.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRoleActionResponse());
     }
 }
