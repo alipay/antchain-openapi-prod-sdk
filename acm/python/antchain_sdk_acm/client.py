@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.3',
+                    'sdk_version': '1.4.8',
                     '_prod_code': 'acm',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.3',
+                    'sdk_version': '1.4.8',
                     '_prod_code': 'acm',
                     '_prod_channel': 'undefined'
                 }
@@ -2289,4 +2289,172 @@ class Client:
         return TeaCore.from_map(
             acm_models.VerifyTrustloginTokenResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.trustlogin.token.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_serviceaccount_authpolicy(
+        self,
+        request: acm_models.AddServiceaccountAuthpolicyRequest,
+    ) -> acm_models.AddServiceaccountAuthpolicyResponse:
+        """
+        Description: 一方化会员创建的服务账号授权
+        Summary: 一方化会员创建的服务账号授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_serviceaccount_authpolicy_ex(request, headers, runtime)
+
+    async def add_serviceaccount_authpolicy_async(
+        self,
+        request: acm_models.AddServiceaccountAuthpolicyRequest,
+    ) -> acm_models.AddServiceaccountAuthpolicyResponse:
+        """
+        Description: 一方化会员创建的服务账号授权
+        Summary: 一方化会员创建的服务账号授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_serviceaccount_authpolicy_ex_async(request, headers, runtime)
+
+    def add_serviceaccount_authpolicy_ex(
+        self,
+        request: acm_models.AddServiceaccountAuthpolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.AddServiceaccountAuthpolicyResponse:
+        """
+        Description: 一方化会员创建的服务账号授权
+        Summary: 一方化会员创建的服务账号授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.AddServiceaccountAuthpolicyResponse(),
+            self.do_request('1.0', 'antcloud.acm.serviceaccount.authpolicy.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_serviceaccount_authpolicy_ex_async(
+        self,
+        request: acm_models.AddServiceaccountAuthpolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.AddServiceaccountAuthpolicyResponse:
+        """
+        Description: 一方化会员创建的服务账号授权
+        Summary: 一方化会员创建的服务账号授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.AddServiceaccountAuthpolicyResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.serviceaccount.authpolicy.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_user_role(
+        self,
+        request: acm_models.QueryUserRoleRequest,
+    ) -> acm_models.QueryUserRoleResponse:
+        """
+        Description: 查询用户所具有的角色，用于平台型产品管控用户
+        Summary: 查询用户所具有的角色
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_user_role_ex(request, headers, runtime)
+
+    async def query_user_role_async(
+        self,
+        request: acm_models.QueryUserRoleRequest,
+    ) -> acm_models.QueryUserRoleResponse:
+        """
+        Description: 查询用户所具有的角色，用于平台型产品管控用户
+        Summary: 查询用户所具有的角色
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_user_role_ex_async(request, headers, runtime)
+
+    def query_user_role_ex(
+        self,
+        request: acm_models.QueryUserRoleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.QueryUserRoleResponse:
+        """
+        Description: 查询用户所具有的角色，用于平台型产品管控用户
+        Summary: 查询用户所具有的角色
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.QueryUserRoleResponse(),
+            self.do_request('1.0', 'antcloud.acm.user.role.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_user_role_ex_async(
+        self,
+        request: acm_models.QueryUserRoleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.QueryUserRoleResponse:
+        """
+        Description: 查询用户所具有的角色，用于平台型产品管控用户
+        Summary: 查询用户所具有的角色
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.QueryUserRoleResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.user.role.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_role_action(
+        self,
+        request: acm_models.QueryRoleActionRequest,
+    ) -> acm_models.QueryRoleActionResponse:
+        """
+        Description: 角色权限点查询，用于平台型产品
+        Summary: 角色权限点查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_role_action_ex(request, headers, runtime)
+
+    async def query_role_action_async(
+        self,
+        request: acm_models.QueryRoleActionRequest,
+    ) -> acm_models.QueryRoleActionResponse:
+        """
+        Description: 角色权限点查询，用于平台型产品
+        Summary: 角色权限点查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_role_action_ex_async(request, headers, runtime)
+
+    def query_role_action_ex(
+        self,
+        request: acm_models.QueryRoleActionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.QueryRoleActionResponse:
+        """
+        Description: 角色权限点查询，用于平台型产品
+        Summary: 角色权限点查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.QueryRoleActionResponse(),
+            self.do_request('1.0', 'antcloud.acm.role.action.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_role_action_ex_async(
+        self,
+        request: acm_models.QueryRoleActionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.QueryRoleActionResponse:
+        """
+        Description: 角色权限点查询，用于平台型产品
+        Summary: 角色权限点查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.QueryRoleActionResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.role.action.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

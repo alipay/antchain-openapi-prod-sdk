@@ -449,6 +449,162 @@ class Tenant(TeaModel):
         return self
 
 
+class Action(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        name: str = None,
+        type: str = None,
+        status: str = None,
+        description: str = None,
+    ):
+        # 权限点ID
+        self.id = id
+        # 权限点名称
+        self.name = name
+        # 类型
+        self.type = type
+        # 状态
+        self.status = status
+        # 描述
+        self.description = description
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.type is not None:
+            result['type'] = self.type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.description is not None:
+            result['description'] = self.description
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        return self
+
+
+class Condition(TeaModel):
+    def __init__(
+        self,
+        key: str = None,
+        value: List[str] = None,
+    ):
+        # 
+        self.key = key
+        # 
+        self.value = value
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class Role(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        name: str = None,
+        type: str = None,
+        description: str = None,
+        status: str = None,
+        owner: str = None,
+    ):
+        # 角色ID
+        self.id = id
+        # 角色名称
+        # 
+        self.name = name
+        # 角色类型，CUSTOM:自定义角色，COMMON:系统通用角色
+        self.type = type
+        # 角色描述
+        # 
+        self.description = description
+        # 状态
+        self.status = status
+        # 所有者
+        self.owner = owner
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.type is not None:
+            result['type'] = self.type
+        if self.description is not None:
+            result['description'] = self.description
+        if self.status is not None:
+            result['status'] = self.status
+        if self.owner is not None:
+            result['owner'] = self.owner
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('owner') is not None:
+            self.owner = m.get('owner')
+        return self
+
+
 class Operator(TeaModel):
     def __init__(
         self,
@@ -4871,6 +5027,352 @@ class VerifyTrustloginTokenResponse(TeaModel):
             self.user_id = m.get('user_id')
         if m.get('result') is not None:
             self.result = m.get('result')
+        return self
+
+
+class AddServiceaccountAuthpolicyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        iam_access_key: str = None,
+        source_system: str = None,
+        ability_id: str = None,
+        ability_type: str = None,
+        conditions: List[Condition] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 服务账号对应的AccessKey
+        self.iam_access_key = iam_access_key
+        # 系统来源
+        self.source_system = source_system
+        # 能力ID（权限点或角色ID）
+        self.ability_id = ability_id
+        # 授权能力类型
+        self.ability_type = ability_type
+        # 授权策略的限制条件
+        # 
+        self.conditions = conditions
+
+    def validate(self):
+        self.validate_required(self.iam_access_key, 'iam_access_key')
+        self.validate_required(self.source_system, 'source_system')
+        self.validate_required(self.ability_id, 'ability_id')
+        self.validate_required(self.ability_type, 'ability_type')
+        if self.conditions:
+            for k in self.conditions:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.iam_access_key is not None:
+            result['iam_access_key'] = self.iam_access_key
+        if self.source_system is not None:
+            result['source_system'] = self.source_system
+        if self.ability_id is not None:
+            result['ability_id'] = self.ability_id
+        if self.ability_type is not None:
+            result['ability_type'] = self.ability_type
+        result['conditions'] = []
+        if self.conditions is not None:
+            for k in self.conditions:
+                result['conditions'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('iam_access_key') is not None:
+            self.iam_access_key = m.get('iam_access_key')
+        if m.get('source_system') is not None:
+            self.source_system = m.get('source_system')
+        if m.get('ability_id') is not None:
+            self.ability_id = m.get('ability_id')
+        if m.get('ability_type') is not None:
+            self.ability_type = m.get('ability_type')
+        self.conditions = []
+        if m.get('conditions') is not None:
+            for k in m.get('conditions'):
+                temp_model = Condition()
+                self.conditions.append(temp_model.from_map(k))
+        return self
+
+
+class AddServiceaccountAuthpolicyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 授权是否成功
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class QueryUserRoleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        user_id: str = None,
+        user_type: str = None,
+        source_system: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 用户ID
+        self.user_id = user_id
+        # 用户类型
+        self.user_type = user_type
+        # 系统来源
+        self.source_system = source_system
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.user_type, 'user_type')
+        self.validate_required(self.source_system, 'source_system')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        if self.source_system is not None:
+            result['source_system'] = self.source_system
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        if m.get('source_system') is not None:
+            self.source_system = m.get('source_system')
+        return self
+
+
+class QueryUserRoleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        roles: List[Role] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 角色列表
+        self.roles = roles
+
+    def validate(self):
+        if self.roles:
+            for k in self.roles:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['roles'] = []
+        if self.roles is not None:
+            for k in self.roles:
+                result['roles'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.roles = []
+        if m.get('roles') is not None:
+            for k in m.get('roles'):
+                temp_model = Role()
+                self.roles.append(temp_model.from_map(k))
+        return self
+
+
+class QueryRoleActionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        source_system: str = None,
+        role_id: str = None,
+        role_name: str = None,
+        role_owner: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 系统来源
+        self.source_system = source_system
+        # 角色ID
+        self.role_id = role_id
+        # 角色名称，查询时和owner配套使用
+        self.role_name = role_name
+        # 角色所有者
+        self.role_owner = role_owner
+
+    def validate(self):
+        self.validate_required(self.source_system, 'source_system')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.source_system is not None:
+            result['source_system'] = self.source_system
+        if self.role_id is not None:
+            result['role_id'] = self.role_id
+        if self.role_name is not None:
+            result['role_name'] = self.role_name
+        if self.role_owner is not None:
+            result['role_owner'] = self.role_owner
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('source_system') is not None:
+            self.source_system = m.get('source_system')
+        if m.get('role_id') is not None:
+            self.role_id = m.get('role_id')
+        if m.get('role_name') is not None:
+            self.role_name = m.get('role_name')
+        if m.get('role_owner') is not None:
+            self.role_owner = m.get('role_owner')
+        return self
+
+
+class QueryRoleActionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        actions: List[Action] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回有权限的权限点
+        self.actions = actions
+
+    def validate(self):
+        if self.actions:
+            for k in self.actions:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['actions'] = []
+        if self.actions is not None:
+            for k in self.actions:
+                result['actions'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.actions = []
+        if m.get('actions') is not None:
+            for k in m.get('actions'):
+                temp_model = Action()
+                self.actions.append(temp_model.from_map(k))
         return self
 
 
