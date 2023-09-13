@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Acm\Models\AddServiceaccountAuthpolicyRequest;
+use AntChain\Acm\Models\AddServiceaccountAuthpolicyResponse;
 use AntChain\Acm\Models\AddTenantBusinesstagRequest;
 use AntChain\Acm\Models\AddTenantBusinesstagResponse;
 use AntChain\Acm\Models\AddTenantMemberRequest;
@@ -63,12 +65,16 @@ use AntChain\Acm\Models\QueryAdminRequest;
 use AntChain\Acm\Models\QueryAdminResponse;
 use AntChain\Acm\Models\QueryOperatorRequest;
 use AntChain\Acm\Models\QueryOperatorResponse;
+use AntChain\Acm\Models\QueryRoleActionRequest;
+use AntChain\Acm\Models\QueryRoleActionResponse;
 use AntChain\Acm\Models\QueryTenantRequest;
 use AntChain\Acm\Models\QueryTenantResponse;
 use AntChain\Acm\Models\QueryTenantStatusRequest;
 use AntChain\Acm\Models\QueryTenantStatusResponse;
 use AntChain\Acm\Models\QueryTenantTagRequest;
 use AntChain\Acm\Models\QueryTenantTagResponse;
+use AntChain\Acm\Models\QueryUserRoleRequest;
+use AntChain\Acm\Models\QueryUserRoleResponse;
 use AntChain\Acm\Models\RemoveTenantBusinesstagRequest;
 use AntChain\Acm\Models\RemoveTenantBusinesstagResponse;
 use AntChain\Acm\Models\SearchOperatorRequest;
@@ -230,7 +236,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.3',
+                    'sdk_version'      => '1.4.8',
                     '_prod_code'       => 'acm',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1464,5 +1470,104 @@ class Client
         Utils::validateModel($request);
 
         return VerifyTrustloginTokenResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.trustlogin.token.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一方化会员创建的服务账号授权
+     * Summary: 一方化会员创建的服务账号授权.
+     *
+     * @param AddServiceaccountAuthpolicyRequest $request
+     *
+     * @return AddServiceaccountAuthpolicyResponse
+     */
+    public function addServiceaccountAuthpolicy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addServiceaccountAuthpolicyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一方化会员创建的服务账号授权
+     * Summary: 一方化会员创建的服务账号授权.
+     *
+     * @param AddServiceaccountAuthpolicyRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return AddServiceaccountAuthpolicyResponse
+     */
+    public function addServiceaccountAuthpolicyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddServiceaccountAuthpolicyResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.serviceaccount.authpolicy.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询用户所具有的角色，用于平台型产品管控用户
+     * Summary: 查询用户所具有的角色.
+     *
+     * @param QueryUserRoleRequest $request
+     *
+     * @return QueryUserRoleResponse
+     */
+    public function queryUserRole($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUserRoleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询用户所具有的角色，用于平台型产品管控用户
+     * Summary: 查询用户所具有的角色.
+     *
+     * @param QueryUserRoleRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryUserRoleResponse
+     */
+    public function queryUserRoleEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUserRoleResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.user.role.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 角色权限点查询，用于平台型产品
+     * Summary: 角色权限点查询.
+     *
+     * @param QueryRoleActionRequest $request
+     *
+     * @return QueryRoleActionResponse
+     */
+    public function queryRoleAction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRoleActionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 角色权限点查询，用于平台型产品
+     * Summary: 角色权限点查询.
+     *
+     * @param QueryRoleActionRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryRoleActionResponse
+     */
+    public function queryRoleActionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRoleActionResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.role.action.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
