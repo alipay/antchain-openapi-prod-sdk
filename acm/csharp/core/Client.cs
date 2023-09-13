@@ -137,7 +137,7 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.3"},
+                        {"sdk_version", "1.4.8"},
                         {"_prod_code", "acm"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.3"},
+                        {"sdk_version", "1.4.8"},
                         {"_prod_code", "acm"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1831,6 +1831,132 @@ namespace AntChain.SDK.Acm
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<VerifyTrustloginTokenResponse>(await DoRequestAsync("1.0", "antcloud.acm.trustlogin.token.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 一方化会员创建的服务账号授权
+         * Summary: 一方化会员创建的服务账号授权
+         */
+        public AddServiceaccountAuthpolicyResponse AddServiceaccountAuthpolicy(AddServiceaccountAuthpolicyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddServiceaccountAuthpolicyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 一方化会员创建的服务账号授权
+         * Summary: 一方化会员创建的服务账号授权
+         */
+        public async Task<AddServiceaccountAuthpolicyResponse> AddServiceaccountAuthpolicyAsync(AddServiceaccountAuthpolicyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddServiceaccountAuthpolicyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 一方化会员创建的服务账号授权
+         * Summary: 一方化会员创建的服务账号授权
+         */
+        public AddServiceaccountAuthpolicyResponse AddServiceaccountAuthpolicyEx(AddServiceaccountAuthpolicyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddServiceaccountAuthpolicyResponse>(DoRequest("1.0", "antcloud.acm.serviceaccount.authpolicy.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 一方化会员创建的服务账号授权
+         * Summary: 一方化会员创建的服务账号授权
+         */
+        public async Task<AddServiceaccountAuthpolicyResponse> AddServiceaccountAuthpolicyExAsync(AddServiceaccountAuthpolicyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddServiceaccountAuthpolicyResponse>(await DoRequestAsync("1.0", "antcloud.acm.serviceaccount.authpolicy.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询用户所具有的角色，用于平台型产品管控用户
+         * Summary: 查询用户所具有的角色
+         */
+        public QueryUserRoleResponse QueryUserRole(QueryUserRoleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUserRoleEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询用户所具有的角色，用于平台型产品管控用户
+         * Summary: 查询用户所具有的角色
+         */
+        public async Task<QueryUserRoleResponse> QueryUserRoleAsync(QueryUserRoleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUserRoleExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询用户所具有的角色，用于平台型产品管控用户
+         * Summary: 查询用户所具有的角色
+         */
+        public QueryUserRoleResponse QueryUserRoleEx(QueryUserRoleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUserRoleResponse>(DoRequest("1.0", "antcloud.acm.user.role.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询用户所具有的角色，用于平台型产品管控用户
+         * Summary: 查询用户所具有的角色
+         */
+        public async Task<QueryUserRoleResponse> QueryUserRoleExAsync(QueryUserRoleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUserRoleResponse>(await DoRequestAsync("1.0", "antcloud.acm.user.role.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 角色权限点查询，用于平台型产品
+         * Summary: 角色权限点查询
+         */
+        public QueryRoleActionResponse QueryRoleAction(QueryRoleActionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryRoleActionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 角色权限点查询，用于平台型产品
+         * Summary: 角色权限点查询
+         */
+        public async Task<QueryRoleActionResponse> QueryRoleActionAsync(QueryRoleActionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryRoleActionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 角色权限点查询，用于平台型产品
+         * Summary: 角色权限点查询
+         */
+        public QueryRoleActionResponse QueryRoleActionEx(QueryRoleActionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRoleActionResponse>(DoRequest("1.0", "antcloud.acm.role.action.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 角色权限点查询，用于平台型产品
+         * Summary: 角色权限点查询
+         */
+        public async Task<QueryRoleActionResponse> QueryRoleActionExAsync(QueryRoleActionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRoleActionResponse>(await DoRequestAsync("1.0", "antcloud.acm.role.action.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
