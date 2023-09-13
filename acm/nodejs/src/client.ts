@@ -270,6 +270,111 @@ export class Tenant extends $tea.Model {
   }
 }
 
+// 权限点
+export class Action extends $tea.Model {
+  // 权限点ID
+  id?: string;
+  // 权限点名称
+  name?: string;
+  // 类型
+  type?: string;
+  // 状态
+  status?: string;
+  // 描述
+  description?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+      type: 'type',
+      status: 'status',
+      description: 'description',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      name: 'string',
+      type: 'string',
+      status: 'string',
+      description: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授权条件
+export class Condition extends $tea.Model {
+  //  
+  key?: string;
+  //  
+  value?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 角色
+export class Role extends $tea.Model {
+  // 角色ID
+  id?: string;
+  // 角色名称
+  // 
+  name?: string;
+  // 角色类型，CUSTOM:自定义角色，COMMON:系统通用角色
+  type?: string;
+  // 角色描述
+  // 
+  description?: string;
+  // 状态
+  status?: string;
+  // 所有者
+  owner?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+      type: 'type',
+      description: 'description',
+      status: 'status',
+      owner: 'owner',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      name: 'string',
+      type: 'string',
+      description: 'string',
+      status: 'string',
+      owner: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 操作员
 export class Operator extends $tea.Model {
   // 操作员创建时间，ISO8601格式
@@ -3031,6 +3136,211 @@ export class VerifyTrustloginTokenResponse extends $tea.Model {
   }
 }
 
+export class AddServiceaccountAuthpolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 服务账号对应的AccessKey
+  iamAccessKey: string;
+  // 系统来源
+  sourceSystem: string;
+  // 能力ID（权限点或角色ID）
+  abilityId: string;
+  // 授权能力类型
+  abilityType: string;
+  // 授权策略的限制条件
+  // 
+  conditions?: Condition[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      iamAccessKey: 'iam_access_key',
+      sourceSystem: 'source_system',
+      abilityId: 'ability_id',
+      abilityType: 'ability_type',
+      conditions: 'conditions',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      iamAccessKey: 'string',
+      sourceSystem: 'string',
+      abilityId: 'string',
+      abilityType: 'string',
+      conditions: { 'type': 'array', 'itemType': Condition },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddServiceaccountAuthpolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授权是否成功
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUserRoleRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 用户ID
+  userId: string;
+  // 用户类型
+  userType: string;
+  // 系统来源
+  sourceSystem: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+      userType: 'user_type',
+      sourceSystem: 'source_system',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+      userType: 'string',
+      sourceSystem: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUserRoleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 角色列表
+  roles?: Role[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      roles: 'roles',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      roles: { 'type': 'array', 'itemType': Role },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRoleActionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 系统来源
+  sourceSystem: string;
+  // 角色ID
+  roleId?: string;
+  // 角色名称，查询时和owner配套使用
+  roleName?: string;
+  // 角色所有者
+  roleOwner?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      sourceSystem: 'source_system',
+      roleId: 'role_id',
+      roleName: 'role_name',
+      roleOwner: 'role_owner',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      sourceSystem: 'string',
+      roleId: 'string',
+      roleName: 'string',
+      roleOwner: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRoleActionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回有权限的权限点
+  actions?: Action[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      actions: 'actions',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      actions: { 'type': 'array', 'itemType': Action },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -3144,7 +3454,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.3",
+          sdk_version: "1.4.8",
           _prod_code: "acm",
           _prod_channel: "undefined",
         };
@@ -3874,6 +4184,63 @@ export default class Client {
   async verifyTrustloginTokenEx(request: VerifyTrustloginTokenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyTrustloginTokenResponse> {
     Util.validateModel(request);
     return $tea.cast<VerifyTrustloginTokenResponse>(await this.doRequest("1.0", "antcloud.acm.trustlogin.token.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyTrustloginTokenResponse({}));
+  }
+
+  /**
+   * Description: 一方化会员创建的服务账号授权
+   * Summary: 一方化会员创建的服务账号授权
+   */
+  async addServiceaccountAuthpolicy(request: AddServiceaccountAuthpolicyRequest): Promise<AddServiceaccountAuthpolicyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addServiceaccountAuthpolicyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 一方化会员创建的服务账号授权
+   * Summary: 一方化会员创建的服务账号授权
+   */
+  async addServiceaccountAuthpolicyEx(request: AddServiceaccountAuthpolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddServiceaccountAuthpolicyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddServiceaccountAuthpolicyResponse>(await this.doRequest("1.0", "antcloud.acm.serviceaccount.authpolicy.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddServiceaccountAuthpolicyResponse({}));
+  }
+
+  /**
+   * Description: 查询用户所具有的角色，用于平台型产品管控用户
+   * Summary: 查询用户所具有的角色
+   */
+  async queryUserRole(request: QueryUserRoleRequest): Promise<QueryUserRoleResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUserRoleEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询用户所具有的角色，用于平台型产品管控用户
+   * Summary: 查询用户所具有的角色
+   */
+  async queryUserRoleEx(request: QueryUserRoleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUserRoleResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUserRoleResponse>(await this.doRequest("1.0", "antcloud.acm.user.role.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUserRoleResponse({}));
+  }
+
+  /**
+   * Description: 角色权限点查询，用于平台型产品
+   * Summary: 角色权限点查询
+   */
+  async queryRoleAction(request: QueryRoleActionRequest): Promise<QueryRoleActionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRoleActionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 角色权限点查询，用于平台型产品
+   * Summary: 角色权限点查询
+   */
+  async queryRoleActionEx(request: QueryRoleActionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRoleActionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRoleActionResponse>(await this.doRequest("1.0", "antcloud.acm.role.action.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRoleActionResponse({}));
   }
 
 }
