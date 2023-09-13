@@ -397,6 +397,135 @@ func (s *Tenant) SetUpdateTime(v string) *Tenant {
 	return s
 }
 
+// 权限点
+type Action struct {
+	// 权限点ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 权限点名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+}
+
+func (s Action) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Action) GoString() string {
+	return s.String()
+}
+
+func (s *Action) SetId(v string) *Action {
+	s.Id = &v
+	return s
+}
+
+func (s *Action) SetName(v string) *Action {
+	s.Name = &v
+	return s
+}
+
+func (s *Action) SetType(v string) *Action {
+	s.Type = &v
+	return s
+}
+
+func (s *Action) SetStatus(v string) *Action {
+	s.Status = &v
+	return s
+}
+
+func (s *Action) SetDescription(v string) *Action {
+	s.Description = &v
+	return s
+}
+
+// 授权条件
+type Condition struct {
+	//
+	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	//
+	Value []*string `json:"value,omitempty" xml:"value,omitempty" type:"Repeated"`
+}
+
+func (s Condition) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Condition) GoString() string {
+	return s.String()
+}
+
+func (s *Condition) SetKey(v string) *Condition {
+	s.Key = &v
+	return s
+}
+
+func (s *Condition) SetValue(v []*string) *Condition {
+	s.Value = v
+	return s
+}
+
+// 角色
+type Role struct {
+	// 角色ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 角色名称
+	//
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 角色类型，CUSTOM:自定义角色，COMMON:系统通用角色
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 角色描述
+	//
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 所有者
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
+}
+
+func (s Role) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Role) GoString() string {
+	return s.String()
+}
+
+func (s *Role) SetId(v string) *Role {
+	s.Id = &v
+	return s
+}
+
+func (s *Role) SetName(v string) *Role {
+	s.Name = &v
+	return s
+}
+
+func (s *Role) SetType(v string) *Role {
+	s.Type = &v
+	return s
+}
+
+func (s *Role) SetDescription(v string) *Role {
+	s.Description = &v
+	return s
+}
+
+func (s *Role) SetStatus(v string) *Role {
+	s.Status = &v
+	return s
+}
+
+func (s *Role) SetOwner(v string) *Role {
+	s.Owner = &v
+	return s
+}
+
 // 操作员
 type Operator struct {
 	// 操作员创建时间，ISO8601格式
@@ -3981,6 +4110,262 @@ func (s *VerifyTrustloginTokenResponse) SetResult(v string) *VerifyTrustloginTok
 	return s
 }
 
+type AddServiceaccountAuthpolicyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 服务账号对应的AccessKey
+	IamAccessKey *string `json:"iam_access_key,omitempty" xml:"iam_access_key,omitempty" require:"true"`
+	// 系统来源
+	SourceSystem *string `json:"source_system,omitempty" xml:"source_system,omitempty" require:"true"`
+	// 能力ID（权限点或角色ID）
+	AbilityId *string `json:"ability_id,omitempty" xml:"ability_id,omitempty" require:"true"`
+	// 授权能力类型
+	AbilityType *string `json:"ability_type,omitempty" xml:"ability_type,omitempty" require:"true"`
+	// 授权策略的限制条件
+	//
+	Conditions []*Condition `json:"conditions,omitempty" xml:"conditions,omitempty" type:"Repeated"`
+}
+
+func (s AddServiceaccountAuthpolicyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddServiceaccountAuthpolicyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddServiceaccountAuthpolicyRequest) SetAuthToken(v string) *AddServiceaccountAuthpolicyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddServiceaccountAuthpolicyRequest) SetIamAccessKey(v string) *AddServiceaccountAuthpolicyRequest {
+	s.IamAccessKey = &v
+	return s
+}
+
+func (s *AddServiceaccountAuthpolicyRequest) SetSourceSystem(v string) *AddServiceaccountAuthpolicyRequest {
+	s.SourceSystem = &v
+	return s
+}
+
+func (s *AddServiceaccountAuthpolicyRequest) SetAbilityId(v string) *AddServiceaccountAuthpolicyRequest {
+	s.AbilityId = &v
+	return s
+}
+
+func (s *AddServiceaccountAuthpolicyRequest) SetAbilityType(v string) *AddServiceaccountAuthpolicyRequest {
+	s.AbilityType = &v
+	return s
+}
+
+func (s *AddServiceaccountAuthpolicyRequest) SetConditions(v []*Condition) *AddServiceaccountAuthpolicyRequest {
+	s.Conditions = v
+	return s
+}
+
+type AddServiceaccountAuthpolicyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权是否成功
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s AddServiceaccountAuthpolicyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddServiceaccountAuthpolicyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddServiceaccountAuthpolicyResponse) SetReqMsgId(v string) *AddServiceaccountAuthpolicyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddServiceaccountAuthpolicyResponse) SetResultCode(v string) *AddServiceaccountAuthpolicyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddServiceaccountAuthpolicyResponse) SetResultMsg(v string) *AddServiceaccountAuthpolicyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AddServiceaccountAuthpolicyResponse) SetResult(v bool) *AddServiceaccountAuthpolicyResponse {
+	s.Result = &v
+	return s
+}
+
+type QueryUserRoleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户类型
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+	// 系统来源
+	SourceSystem *string `json:"source_system,omitempty" xml:"source_system,omitempty" require:"true"`
+}
+
+func (s QueryUserRoleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUserRoleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUserRoleRequest) SetAuthToken(v string) *QueryUserRoleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUserRoleRequest) SetUserId(v string) *QueryUserRoleRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryUserRoleRequest) SetUserType(v string) *QueryUserRoleRequest {
+	s.UserType = &v
+	return s
+}
+
+func (s *QueryUserRoleRequest) SetSourceSystem(v string) *QueryUserRoleRequest {
+	s.SourceSystem = &v
+	return s
+}
+
+type QueryUserRoleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 角色列表
+	Roles []*Role `json:"roles,omitempty" xml:"roles,omitempty" type:"Repeated"`
+}
+
+func (s QueryUserRoleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUserRoleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUserRoleResponse) SetReqMsgId(v string) *QueryUserRoleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUserRoleResponse) SetResultCode(v string) *QueryUserRoleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUserRoleResponse) SetResultMsg(v string) *QueryUserRoleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUserRoleResponse) SetRoles(v []*Role) *QueryUserRoleResponse {
+	s.Roles = v
+	return s
+}
+
+type QueryRoleActionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 系统来源
+	SourceSystem *string `json:"source_system,omitempty" xml:"source_system,omitempty" require:"true"`
+	// 角色ID
+	RoleId *string `json:"role_id,omitempty" xml:"role_id,omitempty"`
+	// 角色名称，查询时和owner配套使用
+	RoleName *string `json:"role_name,omitempty" xml:"role_name,omitempty"`
+	// 角色所有者
+	RoleOwner *string `json:"role_owner,omitempty" xml:"role_owner,omitempty"`
+}
+
+func (s QueryRoleActionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRoleActionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRoleActionRequest) SetAuthToken(v string) *QueryRoleActionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRoleActionRequest) SetSourceSystem(v string) *QueryRoleActionRequest {
+	s.SourceSystem = &v
+	return s
+}
+
+func (s *QueryRoleActionRequest) SetRoleId(v string) *QueryRoleActionRequest {
+	s.RoleId = &v
+	return s
+}
+
+func (s *QueryRoleActionRequest) SetRoleName(v string) *QueryRoleActionRequest {
+	s.RoleName = &v
+	return s
+}
+
+func (s *QueryRoleActionRequest) SetRoleOwner(v string) *QueryRoleActionRequest {
+	s.RoleOwner = &v
+	return s
+}
+
+type QueryRoleActionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回有权限的权限点
+	Actions []*Action `json:"actions,omitempty" xml:"actions,omitempty" type:"Repeated"`
+}
+
+func (s QueryRoleActionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRoleActionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRoleActionResponse) SetReqMsgId(v string) *QueryRoleActionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRoleActionResponse) SetResultCode(v string) *QueryRoleActionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRoleActionResponse) SetResultMsg(v string) *QueryRoleActionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRoleActionResponse) SetActions(v []*Action) *QueryRoleActionResponse {
+	s.Actions = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -4103,7 +4488,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.3"),
+				"sdk_version":      tea.String("1.4.8"),
 				"_prod_code":       tea.String("acm"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5378,6 +5763,108 @@ func (client *Client) VerifyTrustloginTokenEx(request *VerifyTrustloginTokenRequ
 	}
 	_result = &VerifyTrustloginTokenResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.trustlogin.token.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 一方化会员创建的服务账号授权
+ * Summary: 一方化会员创建的服务账号授权
+ */
+func (client *Client) AddServiceaccountAuthpolicy(request *AddServiceaccountAuthpolicyRequest) (_result *AddServiceaccountAuthpolicyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddServiceaccountAuthpolicyResponse{}
+	_body, _err := client.AddServiceaccountAuthpolicyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 一方化会员创建的服务账号授权
+ * Summary: 一方化会员创建的服务账号授权
+ */
+func (client *Client) AddServiceaccountAuthpolicyEx(request *AddServiceaccountAuthpolicyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddServiceaccountAuthpolicyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddServiceaccountAuthpolicyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.serviceaccount.authpolicy.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询用户所具有的角色，用于平台型产品管控用户
+ * Summary: 查询用户所具有的角色
+ */
+func (client *Client) QueryUserRole(request *QueryUserRoleRequest) (_result *QueryUserRoleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUserRoleResponse{}
+	_body, _err := client.QueryUserRoleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询用户所具有的角色，用于平台型产品管控用户
+ * Summary: 查询用户所具有的角色
+ */
+func (client *Client) QueryUserRoleEx(request *QueryUserRoleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUserRoleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUserRoleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.user.role.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 角色权限点查询，用于平台型产品
+ * Summary: 角色权限点查询
+ */
+func (client *Client) QueryRoleAction(request *QueryRoleActionRequest) (_result *QueryRoleActionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRoleActionResponse{}
+	_body, _err := client.QueryRoleActionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 角色权限点查询，用于平台型产品
+ * Summary: 角色权限点查询
+ */
+func (client *Client) QueryRoleActionEx(request *QueryRoleActionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRoleActionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRoleActionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.role.action.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
