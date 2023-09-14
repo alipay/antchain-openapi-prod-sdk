@@ -1500,6 +1500,10 @@ export class QueryThreemetaOnlinetimeRequest extends $tea.Model {
   certNo: string;
   // 手机号码
   phoneNo: string;
+  // 是否区分运营商
+  divCarrier?: boolean;
+  // 运营商类型
+  carrier?: string;
   // 扩展参数
   externParam?: string;
   static names(): { [key: string]: string } {
@@ -1510,6 +1514,8 @@ export class QueryThreemetaOnlinetimeRequest extends $tea.Model {
       certName: 'cert_name',
       certNo: 'cert_no',
       phoneNo: 'phone_no',
+      divCarrier: 'div_carrier',
+      carrier: 'carrier',
       externParam: 'extern_param',
     };
   }
@@ -1522,6 +1528,8 @@ export class QueryThreemetaOnlinetimeRequest extends $tea.Model {
       certName: 'string',
       certNo: 'string',
       phoneNo: 'string',
+      divCarrier: 'boolean',
+      carrier: 'string',
       externParam: 'string',
     };
   }
@@ -2309,6 +2317,85 @@ export class QueryTscenterDeviceResponse extends $tea.Model {
   }
 }
 
+export class QueryEducationInfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string;
+  // 身份证号
+  certNo: string;
+  // 姓名
+  certName: string;
+  // 用户是否授权
+  authorized: boolean;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      certNo: 'cert_no',
+      certName: 'cert_name',
+      authorized: 'authorized',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      certNo: 'string',
+      certName: 'string',
+      authorized: 'boolean',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEducationInfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 学历信息
+  educationInfo?: string;
+  // 扩展信息，预留字段
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      educationInfo: 'education_info',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      educationInfo: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2510,7 +2597,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.0",
+          sdk_version: "1.13.2",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -3033,6 +3120,25 @@ export default class Client {
   async queryTscenterDeviceEx(request: QueryTscenterDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTscenterDeviceResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryTscenterDeviceResponse>(await this.doRequest("1.0", "di.realperson.tscenter.device.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTscenterDeviceResponse({}));
+  }
+
+  /**
+   * Description: 学历验证
+   * Summary: 学历验证
+   */
+  async queryEducationInfo(request: QueryEducationInfoRequest): Promise<QueryEducationInfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEducationInfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 学历验证
+   * Summary: 学历验证
+   */
+  async queryEducationInfoEx(request: QueryEducationInfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEducationInfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEducationInfoResponse>(await this.doRequest("1.0", "di.realperson.education.info.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEducationInfoResponse({}));
   }
 
   /**
