@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.0"},
+                        {"sdk_version", "1.13.2"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.0"},
+                        {"sdk_version", "1.13.2"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1373,6 +1373,48 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryTscenterDeviceResponse>(await DoRequestAsync("1.0", "di.realperson.tscenter.device.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 学历验证
+         * Summary: 学历验证
+         */
+        public QueryEducationInfoResponse QueryEducationInfo(QueryEducationInfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEducationInfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 学历验证
+         * Summary: 学历验证
+         */
+        public async Task<QueryEducationInfoResponse> QueryEducationInfoAsync(QueryEducationInfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEducationInfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 学历验证
+         * Summary: 学历验证
+         */
+        public QueryEducationInfoResponse QueryEducationInfoEx(QueryEducationInfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEducationInfoResponse>(DoRequest("1.0", "di.realperson.education.info.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 学历验证
+         * Summary: 学历验证
+         */
+        public async Task<QueryEducationInfoResponse> QueryEducationInfoExAsync(QueryEducationInfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEducationInfoResponse>(await DoRequestAsync("1.0", "di.realperson.education.info.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
