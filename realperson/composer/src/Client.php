@@ -45,6 +45,8 @@ use AntChain\REALPERSON\Models\QueryDeepsecRiskRequest;
 use AntChain\REALPERSON\Models\QueryDeepsecRiskResponse;
 use AntChain\REALPERSON\Models\QueryDeepsecTsbmrqRequest;
 use AntChain\REALPERSON\Models\QueryDeepsecTsbmrqResponse;
+use AntChain\REALPERSON\Models\QueryEducationInfoRequest;
+use AntChain\REALPERSON\Models\QueryEducationInfoResponse;
 use AntChain\REALPERSON\Models\QueryFacevrfServerRequest;
 use AntChain\REALPERSON\Models\QueryFacevrfServerResponse;
 use AntChain\REALPERSON\Models\QueryMobileRiskRequest;
@@ -208,7 +210,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.13.0',
+                    'sdk_version'      => '1.13.2',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1064,6 +1066,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryTscenterDeviceResponse::fromMap($this->doRequest('1.0', 'di.realperson.tscenter.device.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 学历验证
+     * Summary: 学历验证
+     *
+     * @param QueryEducationInfoRequest $request
+     *
+     * @return QueryEducationInfoResponse
+     */
+    public function queryEducationInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEducationInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 学历验证
+     * Summary: 学历验证
+     *
+     * @param QueryEducationInfoRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryEducationInfoResponse
+     */
+    public function queryEducationInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEducationInfoResponse::fromMap($this->doRequest('1.0', 'di.realperson.education.info.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryThreemetaOnlinetimeRequest extends Model
+class QueryEducationInfoRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,17 +19,11 @@ class QueryThreemetaOnlinetimeRequest extends Model
      */
     public $productInstanceId;
 
-    // 外部请求id
+    // 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
     /**
      * @var string
      */
     public $outerOrderNo;
-
-    // 姓名
-    /**
-     * @var string
-     */
-    public $certName;
 
     // 身份证号
     /**
@@ -37,25 +31,19 @@ class QueryThreemetaOnlinetimeRequest extends Model
      */
     public $certNo;
 
-    // 手机号码
+    // 姓名
     /**
      * @var string
      */
-    public $phoneNo;
+    public $certName;
 
-    // 是否区分运营商
+    // 用户是否授权
     /**
      * @var bool
      */
-    public $divCarrier;
+    public $authorized;
 
-    // 运营商类型
-    /**
-     * @var string
-     */
-    public $carrier;
-
-    // 扩展参数
+    // 扩展信息，预留字段
     /**
      * @var string
      */
@@ -64,20 +52,18 @@ class QueryThreemetaOnlinetimeRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'outerOrderNo'      => 'outer_order_no',
-        'certName'          => 'cert_name',
         'certNo'            => 'cert_no',
-        'phoneNo'           => 'phone_no',
-        'divCarrier'        => 'div_carrier',
-        'carrier'           => 'carrier',
+        'certName'          => 'cert_name',
+        'authorized'        => 'authorized',
         'externParam'       => 'extern_param',
     ];
 
     public function validate()
     {
         Model::validateRequired('outerOrderNo', $this->outerOrderNo, true);
-        Model::validateRequired('certName', $this->certName, true);
         Model::validateRequired('certNo', $this->certNo, true);
-        Model::validateRequired('phoneNo', $this->phoneNo, true);
+        Model::validateRequired('certName', $this->certName, true);
+        Model::validateRequired('authorized', $this->authorized, true);
     }
 
     public function toMap()
@@ -92,20 +78,14 @@ class QueryThreemetaOnlinetimeRequest extends Model
         if (null !== $this->outerOrderNo) {
             $res['outer_order_no'] = $this->outerOrderNo;
         }
-        if (null !== $this->certName) {
-            $res['cert_name'] = $this->certName;
-        }
         if (null !== $this->certNo) {
             $res['cert_no'] = $this->certNo;
         }
-        if (null !== $this->phoneNo) {
-            $res['phone_no'] = $this->phoneNo;
+        if (null !== $this->certName) {
+            $res['cert_name'] = $this->certName;
         }
-        if (null !== $this->divCarrier) {
-            $res['div_carrier'] = $this->divCarrier;
-        }
-        if (null !== $this->carrier) {
-            $res['carrier'] = $this->carrier;
+        if (null !== $this->authorized) {
+            $res['authorized'] = $this->authorized;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
@@ -117,7 +97,7 @@ class QueryThreemetaOnlinetimeRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryThreemetaOnlinetimeRequest
+     * @return QueryEducationInfoRequest
      */
     public static function fromMap($map = [])
     {
@@ -131,20 +111,14 @@ class QueryThreemetaOnlinetimeRequest extends Model
         if (isset($map['outer_order_no'])) {
             $model->outerOrderNo = $map['outer_order_no'];
         }
-        if (isset($map['cert_name'])) {
-            $model->certName = $map['cert_name'];
-        }
         if (isset($map['cert_no'])) {
             $model->certNo = $map['cert_no'];
         }
-        if (isset($map['phone_no'])) {
-            $model->phoneNo = $map['phone_no'];
+        if (isset($map['cert_name'])) {
+            $model->certName = $map['cert_name'];
         }
-        if (isset($map['div_carrier'])) {
-            $model->divCarrier = $map['div_carrier'];
-        }
-        if (isset($map['carrier'])) {
-            $model->carrier = $map['carrier'];
+        if (isset($map['authorized'])) {
+            $model->authorized = $map['authorized'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];
