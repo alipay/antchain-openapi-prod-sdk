@@ -31,6 +31,14 @@ public class QueryThreemetaOnlinetimeRequest extends TeaModel {
     @Validation(required = true)
     public String phoneNo;
 
+    // 是否区分运营商
+    @NameInMap("div_carrier")
+    public Boolean divCarrier;
+
+    // 运营商类型
+    @NameInMap("carrier")
+    public String carrier;
+
     // 扩展参数
     @NameInMap("extern_param")
     public String externParam;
@@ -86,6 +94,22 @@ public class QueryThreemetaOnlinetimeRequest extends TeaModel {
     }
     public String getPhoneNo() {
         return this.phoneNo;
+    }
+
+    public QueryThreemetaOnlinetimeRequest setDivCarrier(Boolean divCarrier) {
+        this.divCarrier = divCarrier;
+        return this;
+    }
+    public Boolean getDivCarrier() {
+        return this.divCarrier;
+    }
+
+    public QueryThreemetaOnlinetimeRequest setCarrier(String carrier) {
+        this.carrier = carrier;
+        return this;
+    }
+    public String getCarrier() {
+        return this.carrier;
     }
 
     public QueryThreemetaOnlinetimeRequest setExternParam(String externParam) {
