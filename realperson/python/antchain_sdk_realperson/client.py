@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.0',
+                    'sdk_version': '1.13.2',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.0',
+                    'sdk_version': '1.13.2',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -1651,6 +1651,62 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QueryTscenterDeviceResponse(),
             await self.do_request_async('1.0', 'di.realperson.tscenter.device.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_education_info(
+        self,
+        request: realperson_models.QueryEducationInfoRequest,
+    ) -> realperson_models.QueryEducationInfoResponse:
+        """
+        Description: 学历验证
+        Summary: 学历验证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_education_info_ex(request, headers, runtime)
+
+    async def query_education_info_async(
+        self,
+        request: realperson_models.QueryEducationInfoRequest,
+    ) -> realperson_models.QueryEducationInfoResponse:
+        """
+        Description: 学历验证
+        Summary: 学历验证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_education_info_ex_async(request, headers, runtime)
+
+    def query_education_info_ex(
+        self,
+        request: realperson_models.QueryEducationInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryEducationInfoResponse:
+        """
+        Description: 学历验证
+        Summary: 学历验证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryEducationInfoResponse(),
+            self.do_request('1.0', 'di.realperson.education.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_education_info_ex_async(
+        self,
+        request: realperson_models.QueryEducationInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryEducationInfoResponse:
+        """
+        Description: 学历验证
+        Summary: 学历验证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryEducationInfoResponse(),
+            await self.do_request_async('1.0', 'di.realperson.education.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

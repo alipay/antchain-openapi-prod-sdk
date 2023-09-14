@@ -2454,6 +2454,8 @@ class QueryThreemetaOnlinetimeRequest(TeaModel):
         cert_name: str = None,
         cert_no: str = None,
         phone_no: str = None,
+        div_carrier: bool = None,
+        carrier: str = None,
         extern_param: str = None,
     ):
         # OAuth模式下的授权token
@@ -2467,6 +2469,10 @@ class QueryThreemetaOnlinetimeRequest(TeaModel):
         self.cert_no = cert_no
         # 手机号码
         self.phone_no = phone_no
+        # 是否区分运营商
+        self.div_carrier = div_carrier
+        # 运营商类型
+        self.carrier = carrier
         # 扩展参数
         self.extern_param = extern_param
 
@@ -2494,6 +2500,10 @@ class QueryThreemetaOnlinetimeRequest(TeaModel):
             result['cert_no'] = self.cert_no
         if self.phone_no is not None:
             result['phone_no'] = self.phone_no
+        if self.div_carrier is not None:
+            result['div_carrier'] = self.div_carrier
+        if self.carrier is not None:
+            result['carrier'] = self.carrier
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
         return result
@@ -2512,6 +2522,10 @@ class QueryThreemetaOnlinetimeRequest(TeaModel):
             self.cert_no = m.get('cert_no')
         if m.get('phone_no') is not None:
             self.phone_no = m.get('phone_no')
+        if m.get('div_carrier') is not None:
+            self.div_carrier = m.get('div_carrier')
+        if m.get('carrier') is not None:
+            self.carrier = m.get('carrier')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
         return self
@@ -3769,6 +3783,134 @@ class QueryTscenterDeviceResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('device_info') is not None:
             self.device_info = m.get('device_info')
+        return self
+
+
+class QueryEducationInfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        cert_no: str = None,
+        cert_name: str = None,
+        authorized: bool = None,
+        extern_param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+        self.outer_order_no = outer_order_no
+        # 身份证号
+        self.cert_no = cert_no
+        # 姓名
+        self.cert_name = cert_name
+        # 用户是否授权
+        self.authorized = authorized
+        # 扩展信息，预留字段
+        self.extern_param = extern_param
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.cert_no, 'cert_no')
+        self.validate_required(self.cert_name, 'cert_name')
+        self.validate_required(self.authorized, 'authorized')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.authorized is not None:
+            result['authorized'] = self.authorized
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('authorized') is not None:
+            self.authorized = m.get('authorized')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        return self
+
+
+class QueryEducationInfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        education_info: str = None,
+        extern_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 学历信息
+        self.education_info = education_info
+        # 扩展信息，预留字段
+        self.extern_info = extern_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.education_info is not None:
+            result['education_info'] = self.education_info
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('education_info') is not None:
+            self.education_info = m.get('education_info')
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
         return self
 
 
