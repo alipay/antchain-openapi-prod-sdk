@@ -2068,6 +2068,10 @@ type QueryThreemetaOnlinetimeRequest struct {
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
 	// 手机号码
 	PhoneNo *string `json:"phone_no,omitempty" xml:"phone_no,omitempty" require:"true"`
+	// 是否区分运营商
+	DivCarrier *bool `json:"div_carrier,omitempty" xml:"div_carrier,omitempty"`
+	// 运营商类型
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
 	// 扩展参数
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 }
@@ -2107,6 +2111,16 @@ func (s *QueryThreemetaOnlinetimeRequest) SetCertNo(v string) *QueryThreemetaOnl
 
 func (s *QueryThreemetaOnlinetimeRequest) SetPhoneNo(v string) *QueryThreemetaOnlinetimeRequest {
 	s.PhoneNo = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetDivCarrier(v bool) *QueryThreemetaOnlinetimeRequest {
+	s.DivCarrier = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetCarrier(v string) *QueryThreemetaOnlinetimeRequest {
+	s.Carrier = &v
 	return s
 }
 
@@ -3186,6 +3200,111 @@ func (s *QueryTscenterDeviceResponse) SetDeviceInfo(v string) *QueryTscenterDevi
 	return s
 }
 
+type QueryEducationInfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 用户是否授权
+	Authorized *bool `json:"authorized,omitempty" xml:"authorized,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryEducationInfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEducationInfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEducationInfoRequest) SetAuthToken(v string) *QueryEducationInfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEducationInfoRequest) SetProductInstanceId(v string) *QueryEducationInfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEducationInfoRequest) SetOuterOrderNo(v string) *QueryEducationInfoRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryEducationInfoRequest) SetCertNo(v string) *QueryEducationInfoRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryEducationInfoRequest) SetCertName(v string) *QueryEducationInfoRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QueryEducationInfoRequest) SetAuthorized(v bool) *QueryEducationInfoRequest {
+	s.Authorized = &v
+	return s
+}
+
+func (s *QueryEducationInfoRequest) SetExternParam(v string) *QueryEducationInfoRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryEducationInfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 学历信息
+	EducationInfo *string `json:"education_info,omitempty" xml:"education_info,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryEducationInfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEducationInfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEducationInfoResponse) SetReqMsgId(v string) *QueryEducationInfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEducationInfoResponse) SetResultCode(v string) *QueryEducationInfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEducationInfoResponse) SetResultMsg(v string) *QueryEducationInfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEducationInfoResponse) SetEducationInfo(v string) *QueryEducationInfoResponse {
+	s.EducationInfo = &v
+	return s
+}
+
+func (s *QueryEducationInfoResponse) SetExternInfo(v string) *QueryEducationInfoResponse {
+	s.ExternInfo = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3428,7 +3547,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.0"),
+				"sdk_version":      tea.String("1.13.2"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4324,6 +4443,40 @@ func (client *Client) QueryTscenterDeviceEx(request *QueryTscenterDeviceRequest,
 	}
 	_result = &QueryTscenterDeviceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.tscenter.device.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 学历验证
+ * Summary: 学历验证
+ */
+func (client *Client) QueryEducationInfo(request *QueryEducationInfoRequest) (_result *QueryEducationInfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEducationInfoResponse{}
+	_body, _err := client.QueryEducationInfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 学历验证
+ * Summary: 学历验证
+ */
+func (client *Client) QueryEducationInfoEx(request *QueryEducationInfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEducationInfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEducationInfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.education.info.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
