@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.2',
+                    'sdk_version': '1.7.3',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.2',
+                    'sdk_version': '1.7.3',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -1563,6 +1563,118 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.tax.api.simpleauthstandard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def exec_api_simpleauthmark(
+        self,
+        request: tax_models.ExecApiSimpleauthmarkRequest,
+    ) -> tax_models.ExecApiSimpleauthmarkResponse:
+        """
+        Description: 给对应的税号进行打标
+        Summary: 要素授权打标接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_api_simpleauthmark_ex(request, headers, runtime)
+
+    async def exec_api_simpleauthmark_async(
+        self,
+        request: tax_models.ExecApiSimpleauthmarkRequest,
+    ) -> tax_models.ExecApiSimpleauthmarkResponse:
+        """
+        Description: 给对应的税号进行打标
+        Summary: 要素授权打标接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_api_simpleauthmark_ex_async(request, headers, runtime)
+
+    def exec_api_simpleauthmark_ex(
+        self,
+        request: tax_models.ExecApiSimpleauthmarkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.ExecApiSimpleauthmarkResponse:
+        """
+        Description: 给对应的税号进行打标
+        Summary: 要素授权打标接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.ExecApiSimpleauthmarkResponse(),
+            self.do_request('1.0', 'blockchain.tax.api.simpleauthmark.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_api_simpleauthmark_ex_async(
+        self,
+        request: tax_models.ExecApiSimpleauthmarkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.ExecApiSimpleauthmarkResponse:
+        """
+        Description: 给对应的税号进行打标
+        Summary: 要素授权打标接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.ExecApiSimpleauthmarkResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.api.simpleauthmark.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_api_simpleauthmark(
+        self,
+        request: tax_models.SubmitApiSimpleauthmarkRequest,
+    ) -> tax_models.SubmitApiSimpleauthmarkResponse:
+        """
+        Description: 提交打标结果，仅限内部使用
+        Summary: 提交打标结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_api_simpleauthmark_ex(request, headers, runtime)
+
+    async def submit_api_simpleauthmark_async(
+        self,
+        request: tax_models.SubmitApiSimpleauthmarkRequest,
+    ) -> tax_models.SubmitApiSimpleauthmarkResponse:
+        """
+        Description: 提交打标结果，仅限内部使用
+        Summary: 提交打标结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_api_simpleauthmark_ex_async(request, headers, runtime)
+
+    def submit_api_simpleauthmark_ex(
+        self,
+        request: tax_models.SubmitApiSimpleauthmarkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.SubmitApiSimpleauthmarkResponse:
+        """
+        Description: 提交打标结果，仅限内部使用
+        Summary: 提交打标结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.SubmitApiSimpleauthmarkResponse(),
+            self.do_request('1.0', 'blockchain.tax.api.simpleauthmark.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_api_simpleauthmark_ex_async(
+        self,
+        request: tax_models.SubmitApiSimpleauthmarkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.SubmitApiSimpleauthmarkResponse:
+        """
+        Description: 提交打标结果，仅限内部使用
+        Summary: 提交打标结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.SubmitApiSimpleauthmarkResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.api.simpleauthmark.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_pdata_personalincome(
         self,
         request: tax_models.QueryPdataPersonalincomeRequest,
@@ -1737,4 +1849,60 @@ class Client:
         return TeaCore.from_map(
             tax_models.CheckPdataMarriageResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.pdata.marriage.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_pdata_risk(
+        self,
+        request: tax_models.QueryPdataRiskRequest,
+    ) -> tax_models.QueryPdataRiskResponse:
+        """
+        Description: 断卡行动风险识别服务
+        Summary: 断卡行动风险识别服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_pdata_risk_ex(request, headers, runtime)
+
+    async def query_pdata_risk_async(
+        self,
+        request: tax_models.QueryPdataRiskRequest,
+    ) -> tax_models.QueryPdataRiskResponse:
+        """
+        Description: 断卡行动风险识别服务
+        Summary: 断卡行动风险识别服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_pdata_risk_ex_async(request, headers, runtime)
+
+    def query_pdata_risk_ex(
+        self,
+        request: tax_models.QueryPdataRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryPdataRiskResponse:
+        """
+        Description: 断卡行动风险识别服务
+        Summary: 断卡行动风险识别服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryPdataRiskResponse(),
+            self.do_request('1.0', 'blockchain.tax.pdata.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_pdata_risk_ex_async(
+        self,
+        request: tax_models.QueryPdataRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryPdataRiskResponse:
+        """
+        Description: 断卡行动风险识别服务
+        Summary: 断卡行动风险识别服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryPdataRiskResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.pdata.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
