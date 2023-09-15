@@ -29,6 +29,8 @@ use AntChain\TAX\Models\DescribeIcmInvoiceRequest;
 use AntChain\TAX\Models\DescribeIcmInvoiceResponse;
 use AntChain\TAX\Models\ExecApiAuthtemplateRequest;
 use AntChain\TAX\Models\ExecApiAuthtemplateResponse;
+use AntChain\TAX\Models\ExecApiSimpleauthmarkRequest;
+use AntChain\TAX\Models\ExecApiSimpleauthmarkResponse;
 use AntChain\TAX\Models\ExecIcmSyncgatheringRequest;
 use AntChain\TAX\Models\ExecIcmSyncgatheringResponse;
 use AntChain\TAX\Models\MatchIcmSimpleauthRequest;
@@ -59,10 +61,14 @@ use AntChain\TAX\Models\QueryIcmSimpleauthRequest;
 use AntChain\TAX\Models\QueryIcmSimpleauthResponse;
 use AntChain\TAX\Models\QueryPdataPersonalincomeRequest;
 use AntChain\TAX\Models\QueryPdataPersonalincomeResponse;
+use AntChain\TAX\Models\QueryPdataRiskRequest;
+use AntChain\TAX\Models\QueryPdataRiskResponse;
 use AntChain\TAX\Models\QueryPdataSocialincomeRequest;
 use AntChain\TAX\Models\QueryPdataSocialincomeResponse;
 use AntChain\TAX\Models\QueryRiskEvaluationRequest;
 use AntChain\TAX\Models\QueryRiskEvaluationResponse;
+use AntChain\TAX\Models\SubmitApiSimpleauthmarkRequest;
+use AntChain\TAX\Models\SubmitApiSimpleauthmarkResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -210,7 +216,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.2',
+                    'sdk_version'      => '1.7.3',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1018,6 +1024,72 @@ class Client
     }
 
     /**
+     * Description: 给对应的税号进行打标
+     * Summary: 要素授权打标接口.
+     *
+     * @param ExecApiSimpleauthmarkRequest $request
+     *
+     * @return ExecApiSimpleauthmarkResponse
+     */
+    public function execApiSimpleauthmark($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execApiSimpleauthmarkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 给对应的税号进行打标
+     * Summary: 要素授权打标接口.
+     *
+     * @param ExecApiSimpleauthmarkRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ExecApiSimpleauthmarkResponse
+     */
+    public function execApiSimpleauthmarkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecApiSimpleauthmarkResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.simpleauthmark.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提交打标结果，仅限内部使用
+     * Summary: 提交打标结果.
+     *
+     * @param SubmitApiSimpleauthmarkRequest $request
+     *
+     * @return SubmitApiSimpleauthmarkResponse
+     */
+    public function submitApiSimpleauthmark($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitApiSimpleauthmarkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交打标结果，仅限内部使用
+     * Summary: 提交打标结果.
+     *
+     * @param SubmitApiSimpleauthmarkRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SubmitApiSimpleauthmarkResponse
+     */
+    public function submitApiSimpleauthmarkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitApiSimpleauthmarkResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.simpleauthmark.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 收入评估服务A
      * https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
      * Summary: 收入评估服务A.
@@ -1118,5 +1190,38 @@ class Client
         Utils::validateModel($request);
 
         return CheckPdataMarriageResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.pdata.marriage.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 断卡行动风险识别服务
+     * Summary: 断卡行动风险识别服务
+     *
+     * @param QueryPdataRiskRequest $request
+     *
+     * @return QueryPdataRiskResponse
+     */
+    public function queryPdataRisk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPdataRiskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 断卡行动风险识别服务
+     * Summary: 断卡行动风险识别服务
+     *
+     * @param QueryPdataRiskRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryPdataRiskResponse
+     */
+    public function queryPdataRiskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPdataRiskResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.pdata.risk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
