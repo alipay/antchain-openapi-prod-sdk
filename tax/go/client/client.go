@@ -804,6 +804,32 @@ func (s *InvoiceItem) SetGgxh(v string) *InvoiceItem {
 	return s
 }
 
+// 税号信息
+type IdentityInfo struct {
+	// 需要打标的税号
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 授权编号
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
+}
+
+func (s IdentityInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IdentityInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IdentityInfo) SetIdentityId(v string) *IdentityInfo {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *IdentityInfo) SetAuthCode(v string) *IdentityInfo {
+	s.AuthCode = &v
+	return s
+}
+
 // 婚姻状况查验服务结果对象
 type MarriageCheckEvaluationFacade struct {
 	// 婚姻状况查验结果
@@ -820,6 +846,32 @@ func (s MarriageCheckEvaluationFacade) GoString() string {
 
 func (s *MarriageCheckEvaluationFacade) SetCheckResult(v string) *MarriageCheckEvaluationFacade {
 	s.CheckResult = &v
+	return s
+}
+
+// 税号批次清单
+type IdentityIdGroup struct {
+	// 44-20230810-9-channel
+	GroupId *string `json:"group_id,omitempty" xml:"group_id,omitempty" require:"true"`
+	// 打标数据返回的url
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+}
+
+func (s IdentityIdGroup) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IdentityIdGroup) GoString() string {
+	return s.String()
+}
+
+func (s *IdentityIdGroup) SetGroupId(v string) *IdentityIdGroup {
+	s.GroupId = &v
+	return s
+}
+
+func (s *IdentityIdGroup) SetFileUrl(v string) *IdentityIdGroup {
+	s.FileUrl = &v
 	return s
 }
 
@@ -3966,6 +4018,160 @@ func (s *QueryApiSimpleauthstandardResponse) SetResultMsg(v string) *QueryApiSim
 	return s
 }
 
+type ExecApiSimpleauthmarkRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 税号清单
+	IdentityIdList []*IdentityInfo `json:"identity_id_list,omitempty" xml:"identity_id_list,omitempty" require:"true" type:"Repeated"`
+	// 租户号
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 请求id
+	BizUniqueId *string `json:"biz_unique_id,omitempty" xml:"biz_unique_id,omitempty" require:"true"`
+	// 产品类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+}
+
+func (s ExecApiSimpleauthmarkRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecApiSimpleauthmarkRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecApiSimpleauthmarkRequest) SetAuthToken(v string) *ExecApiSimpleauthmarkRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecApiSimpleauthmarkRequest) SetProductInstanceId(v string) *ExecApiSimpleauthmarkRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecApiSimpleauthmarkRequest) SetIdentityIdList(v []*IdentityInfo) *ExecApiSimpleauthmarkRequest {
+	s.IdentityIdList = v
+	return s
+}
+
+func (s *ExecApiSimpleauthmarkRequest) SetInstCode(v string) *ExecApiSimpleauthmarkRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *ExecApiSimpleauthmarkRequest) SetBizUniqueId(v string) *ExecApiSimpleauthmarkRequest {
+	s.BizUniqueId = &v
+	return s
+}
+
+func (s *ExecApiSimpleauthmarkRequest) SetAuthType(v string) *ExecApiSimpleauthmarkRequest {
+	s.AuthType = &v
+	return s
+}
+
+type ExecApiSimpleauthmarkResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ExecApiSimpleauthmarkResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecApiSimpleauthmarkResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecApiSimpleauthmarkResponse) SetReqMsgId(v string) *ExecApiSimpleauthmarkResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecApiSimpleauthmarkResponse) SetResultCode(v string) *ExecApiSimpleauthmarkResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecApiSimpleauthmarkResponse) SetResultMsg(v string) *ExecApiSimpleauthmarkResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SubmitApiSimpleauthmarkRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 打标之后的结果
+	IdentityGroupList *IdentityIdGroup `json:"identity_group_list,omitempty" xml:"identity_group_list,omitempty" require:"true"`
+	// 产品类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
+}
+
+func (s SubmitApiSimpleauthmarkRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitApiSimpleauthmarkRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitApiSimpleauthmarkRequest) SetAuthToken(v string) *SubmitApiSimpleauthmarkRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitApiSimpleauthmarkRequest) SetProductInstanceId(v string) *SubmitApiSimpleauthmarkRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitApiSimpleauthmarkRequest) SetIdentityGroupList(v *IdentityIdGroup) *SubmitApiSimpleauthmarkRequest {
+	s.IdentityGroupList = v
+	return s
+}
+
+func (s *SubmitApiSimpleauthmarkRequest) SetAuthType(v string) *SubmitApiSimpleauthmarkRequest {
+	s.AuthType = &v
+	return s
+}
+
+type SubmitApiSimpleauthmarkResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SubmitApiSimpleauthmarkResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitApiSimpleauthmarkResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitApiSimpleauthmarkResponse) SetReqMsgId(v string) *SubmitApiSimpleauthmarkResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitApiSimpleauthmarkResponse) SetResultCode(v string) *SubmitApiSimpleauthmarkResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitApiSimpleauthmarkResponse) SetResultMsg(v string) *SubmitApiSimpleauthmarkResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type QueryPdataPersonalincomeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4337,6 +4543,139 @@ func (s *CheckPdataMarriageResponse) SetCheckResult(v string) *CheckPdataMarriag
 	return s
 }
 
+type QueryPdataRiskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务流水号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 手机号
+	PhoneNo *string `json:"phone_no,omitempty" xml:"phone_no,omitempty"`
+	// 渠道编码
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	// 模型id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// 授权编号
+	AuthorizationCode *string `json:"authorization_code,omitempty" xml:"authorization_code,omitempty"`
+	// 授权凭证
+	AuthorizationCredential *string `json:"authorization_credential,omitempty" xml:"authorization_credential,omitempty"`
+	// 凭证格式
+	CredentialType *string `json:"credential_type,omitempty" xml:"credential_type,omitempty"`
+}
+
+func (s QueryPdataRiskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdataRiskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdataRiskRequest) SetAuthToken(v string) *QueryPdataRiskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPdataRiskRequest) SetProductInstanceId(v string) *QueryPdataRiskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPdataRiskRequest) SetBizId(v string) *QueryPdataRiskRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *QueryPdataRiskRequest) SetName(v string) *QueryPdataRiskRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryPdataRiskRequest) SetCertNo(v string) *QueryPdataRiskRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryPdataRiskRequest) SetPhoneNo(v string) *QueryPdataRiskRequest {
+	s.PhoneNo = &v
+	return s
+}
+
+func (s *QueryPdataRiskRequest) SetChannelCode(v string) *QueryPdataRiskRequest {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *QueryPdataRiskRequest) SetModelId(v string) *QueryPdataRiskRequest {
+	s.ModelId = &v
+	return s
+}
+
+func (s *QueryPdataRiskRequest) SetAuthorizationCode(v string) *QueryPdataRiskRequest {
+	s.AuthorizationCode = &v
+	return s
+}
+
+func (s *QueryPdataRiskRequest) SetAuthorizationCredential(v string) *QueryPdataRiskRequest {
+	s.AuthorizationCredential = &v
+	return s
+}
+
+func (s *QueryPdataRiskRequest) SetCredentialType(v string) *QueryPdataRiskRequest {
+	s.CredentialType = &v
+	return s
+}
+
+type QueryPdataRiskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询结果
+	ScoreResult *string `json:"score_result,omitempty" xml:"score_result,omitempty"`
+	// 风险评分
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
+}
+
+func (s QueryPdataRiskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdataRiskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdataRiskResponse) SetReqMsgId(v string) *QueryPdataRiskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPdataRiskResponse) SetResultCode(v string) *QueryPdataRiskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPdataRiskResponse) SetResultMsg(v string) *QueryPdataRiskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryPdataRiskResponse) SetScoreResult(v string) *QueryPdataRiskResponse {
+	s.ScoreResult = &v
+	return s
+}
+
+func (s *QueryPdataRiskResponse) SetScore(v string) *QueryPdataRiskResponse {
+	s.Score = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -4459,7 +4798,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.2"),
+				"sdk_version":      tea.String("1.7.3"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5300,6 +5639,74 @@ func (client *Client) QueryApiSimpleauthstandardEx(request *QueryApiSimpleauthst
 }
 
 /**
+ * Description: 给对应的税号进行打标
+ * Summary: 要素授权打标接口
+ */
+func (client *Client) ExecApiSimpleauthmark(request *ExecApiSimpleauthmarkRequest) (_result *ExecApiSimpleauthmarkResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecApiSimpleauthmarkResponse{}
+	_body, _err := client.ExecApiSimpleauthmarkEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 给对应的税号进行打标
+ * Summary: 要素授权打标接口
+ */
+func (client *Client) ExecApiSimpleauthmarkEx(request *ExecApiSimpleauthmarkRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecApiSimpleauthmarkResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecApiSimpleauthmarkResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.simpleauthmark.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 提交打标结果，仅限内部使用
+ * Summary: 提交打标结果
+ */
+func (client *Client) SubmitApiSimpleauthmark(request *SubmitApiSimpleauthmarkRequest) (_result *SubmitApiSimpleauthmarkResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitApiSimpleauthmarkResponse{}
+	_body, _err := client.SubmitApiSimpleauthmarkEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提交打标结果，仅限内部使用
+ * Summary: 提交打标结果
+ */
+func (client *Client) SubmitApiSimpleauthmarkEx(request *SubmitApiSimpleauthmarkRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitApiSimpleauthmarkResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitApiSimpleauthmarkResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.simpleauthmark.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 收入评估服务A
 https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
  * Summary: 收入评估服务A
@@ -5398,6 +5805,40 @@ func (client *Client) CheckPdataMarriageEx(request *CheckPdataMarriageRequest, h
 	}
 	_result = &CheckPdataMarriageResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.pdata.marriage.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 断卡行动风险识别服务
+ * Summary: 断卡行动风险识别服务
+ */
+func (client *Client) QueryPdataRisk(request *QueryPdataRiskRequest) (_result *QueryPdataRiskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPdataRiskResponse{}
+	_body, _err := client.QueryPdataRiskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 断卡行动风险识别服务
+ * Summary: 断卡行动风险识别服务
+ */
+func (client *Client) QueryPdataRiskEx(request *QueryPdataRiskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPdataRiskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPdataRiskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.pdata.risk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
