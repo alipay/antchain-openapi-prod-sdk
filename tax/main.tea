@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.2',
+    sdk_version = '1.7.3',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -377,10 +377,26 @@ model InvoiceItem {
   ggxh?: string(name='ggxh', example='xxx'),
 }
 
+// 税号信息
+model IdentityInfo {
+  // 需要打标的税号
+  identityId: string(name='identity_id', example='税号'),
+  // 授权编号
+  authCode: string(name='auth_code', example='授权编号'),
+}
+
 // 婚姻状况查验服务结果对象
 model MarriageCheckEvaluationFacade {
   // 婚姻状况查验结果
   checkResult: string(name='check_result', example='0:结婚 1:离婚 2:未匹配；-1:数据源查询异常；-2:核查中'),
+}
+
+// 税号批次清单
+model IdentityIdGroup {
+  // 44-20230810-9-channel
+  groupId: string(name='group_id', example='批次id'),
+  // 打标数据返回的url
+  fileUrl: string(name='file_url', example='http://aaaa/dddd'),
 }
 
 // 返回详情
@@ -1738,6 +1754,86 @@ async function queryApiSimpleauthstandardEx(request: QueryApiSimpleauthstandardR
   return doRequest('1.0' ,'blockchain.tax.api.simpleauthstandard.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model ExecApiSimpleauthmarkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 税号清单
+  identityIdList: [ IdentityInfo ](name='identity_id_list'),
+  // 租户号
+  instCode: string(name='inst_code'),
+  // 请求id
+  bizUniqueId: string(name='biz_unique_id'),
+  // 产品类型
+  authType: string(name='auth_type'),
+}
+
+model ExecApiSimpleauthmarkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 给对应的税号进行打标
+ * Summary: 要素授权打标接口
+ */
+async function execApiSimpleauthmark(request: ExecApiSimpleauthmarkRequest): ExecApiSimpleauthmarkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execApiSimpleauthmarkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 给对应的税号进行打标
+ * Summary: 要素授权打标接口
+ */
+async function execApiSimpleauthmarkEx(request: ExecApiSimpleauthmarkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecApiSimpleauthmarkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.simpleauthmark.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitApiSimpleauthmarkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 打标之后的结果
+  identityGroupList: IdentityIdGroup(name='identity_group_list'),
+  // 产品类型
+  authType?: string(name='auth_type'),
+}
+
+model SubmitApiSimpleauthmarkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 提交打标结果，仅限内部使用
+ * Summary: 提交打标结果
+ */
+async function submitApiSimpleauthmark(request: SubmitApiSimpleauthmarkRequest): SubmitApiSimpleauthmarkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitApiSimpleauthmarkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交打标结果，仅限内部使用
+ * Summary: 提交打标结果
+ */
+async function submitApiSimpleauthmarkEx(request: SubmitApiSimpleauthmarkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitApiSimpleauthmarkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.simpleauthmark.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryPdataPersonalincomeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1900,5 +1996,61 @@ https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
 async function checkPdataMarriageEx(request: CheckPdataMarriageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckPdataMarriageResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.tax.pdata.marriage.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPdataRiskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务流水号
+  bizId: string(name='biz_id'),
+  // 姓名
+  name?: string(name='name'),
+  // 身份证号
+  certNo?: string(name='cert_no'),
+  // 手机号
+  phoneNo?: string(name='phone_no'),
+  // 渠道编码
+  channelCode: string(name='channel_code'),
+  // 模型id
+  modelId: string(name='model_id'),
+  // 授权编号
+  authorizationCode?: string(name='authorization_code'),
+  // 授权凭证
+  authorizationCredential?: string(name='authorization_credential'),
+  // 凭证格式
+  credentialType?: string(name='credential_type'),
+}
+
+model QueryPdataRiskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询结果
+  scoreResult?: string(name='score_result'),
+  // 风险评分
+  score?: string(name='score'),
+}
+
+/**
+ * Description: 断卡行动风险识别服务
+ * Summary: 断卡行动风险识别服务
+ */
+async function queryPdataRisk(request: QueryPdataRiskRequest): QueryPdataRiskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPdataRiskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 断卡行动风险识别服务
+ * Summary: 断卡行动风险识别服务
+ */
+async function queryPdataRiskEx(request: QueryPdataRiskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPdataRiskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.pdata.risk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
