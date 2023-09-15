@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.2"},
+                        {"sdk_version", "1.7.3"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.2"},
+                        {"sdk_version", "1.7.3"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1288,6 +1288,90 @@ namespace AntChain.SDK.TAX
         }
 
         /**
+         * Description: 给对应的税号进行打标
+         * Summary: 要素授权打标接口
+         */
+        public ExecApiSimpleauthmarkResponse ExecApiSimpleauthmark(ExecApiSimpleauthmarkRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecApiSimpleauthmarkEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 给对应的税号进行打标
+         * Summary: 要素授权打标接口
+         */
+        public async Task<ExecApiSimpleauthmarkResponse> ExecApiSimpleauthmarkAsync(ExecApiSimpleauthmarkRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecApiSimpleauthmarkExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 给对应的税号进行打标
+         * Summary: 要素授权打标接口
+         */
+        public ExecApiSimpleauthmarkResponse ExecApiSimpleauthmarkEx(ExecApiSimpleauthmarkRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecApiSimpleauthmarkResponse>(DoRequest("1.0", "blockchain.tax.api.simpleauthmark.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 给对应的税号进行打标
+         * Summary: 要素授权打标接口
+         */
+        public async Task<ExecApiSimpleauthmarkResponse> ExecApiSimpleauthmarkExAsync(ExecApiSimpleauthmarkRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecApiSimpleauthmarkResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.simpleauthmark.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提交打标结果，仅限内部使用
+         * Summary: 提交打标结果
+         */
+        public SubmitApiSimpleauthmarkResponse SubmitApiSimpleauthmark(SubmitApiSimpleauthmarkRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitApiSimpleauthmarkEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提交打标结果，仅限内部使用
+         * Summary: 提交打标结果
+         */
+        public async Task<SubmitApiSimpleauthmarkResponse> SubmitApiSimpleauthmarkAsync(SubmitApiSimpleauthmarkRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitApiSimpleauthmarkExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提交打标结果，仅限内部使用
+         * Summary: 提交打标结果
+         */
+        public SubmitApiSimpleauthmarkResponse SubmitApiSimpleauthmarkEx(SubmitApiSimpleauthmarkRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitApiSimpleauthmarkResponse>(DoRequest("1.0", "blockchain.tax.api.simpleauthmark.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提交打标结果，仅限内部使用
+         * Summary: 提交打标结果
+         */
+        public async Task<SubmitApiSimpleauthmarkResponse> SubmitApiSimpleauthmarkExAsync(SubmitApiSimpleauthmarkRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitApiSimpleauthmarkResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.simpleauthmark.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 收入评估服务A
         https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
          * Summary: 收入评估服务A
@@ -1419,6 +1503,48 @@ namespace AntChain.SDK.TAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckPdataMarriageResponse>(await DoRequestAsync("1.0", "blockchain.tax.pdata.marriage.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 断卡行动风险识别服务
+         * Summary: 断卡行动风险识别服务
+         */
+        public QueryPdataRiskResponse QueryPdataRisk(QueryPdataRiskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryPdataRiskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 断卡行动风险识别服务
+         * Summary: 断卡行动风险识别服务
+         */
+        public async Task<QueryPdataRiskResponse> QueryPdataRiskAsync(QueryPdataRiskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryPdataRiskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 断卡行动风险识别服务
+         * Summary: 断卡行动风险识别服务
+         */
+        public QueryPdataRiskResponse QueryPdataRiskEx(QueryPdataRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPdataRiskResponse>(DoRequest("1.0", "blockchain.tax.pdata.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 断卡行动风险识别服务
+         * Summary: 断卡行动风险识别服务
+         */
+        public async Task<QueryPdataRiskResponse> QueryPdataRiskExAsync(QueryPdataRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPdataRiskResponse>(await DoRequestAsync("1.0", "blockchain.tax.pdata.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
