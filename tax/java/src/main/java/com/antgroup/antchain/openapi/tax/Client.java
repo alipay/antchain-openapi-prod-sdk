@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.2"),
+                    new TeaPair("sdk_version", "1.7.3"),
                     new TeaPair("_prod_code", "TAX"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -599,6 +599,44 @@ public class Client {
     }
 
     /**
+     * Description: 给对应的税号进行打标
+     * Summary: 要素授权打标接口
+     */
+    public ExecApiSimpleauthmarkResponse execApiSimpleauthmark(ExecApiSimpleauthmarkRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execApiSimpleauthmarkEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 给对应的税号进行打标
+     * Summary: 要素授权打标接口
+     */
+    public ExecApiSimpleauthmarkResponse execApiSimpleauthmarkEx(ExecApiSimpleauthmarkRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.simpleauthmark.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecApiSimpleauthmarkResponse());
+    }
+
+    /**
+     * Description: 提交打标结果，仅限内部使用
+     * Summary: 提交打标结果
+     */
+    public SubmitApiSimpleauthmarkResponse submitApiSimpleauthmark(SubmitApiSimpleauthmarkRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitApiSimpleauthmarkEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 提交打标结果，仅限内部使用
+     * Summary: 提交打标结果
+     */
+    public SubmitApiSimpleauthmarkResponse submitApiSimpleauthmarkEx(SubmitApiSimpleauthmarkRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.simpleauthmark.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitApiSimpleauthmarkResponse());
+    }
+
+    /**
      * Description: 收入评估服务A
     https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
      * Summary: 收入评估服务A
@@ -657,5 +695,24 @@ public class Client {
     public CheckPdataMarriageResponse checkPdataMarriageEx(CheckPdataMarriageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.pdata.marriage.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckPdataMarriageResponse());
+    }
+
+    /**
+     * Description: 断卡行动风险识别服务
+     * Summary: 断卡行动风险识别服务
+     */
+    public QueryPdataRiskResponse queryPdataRisk(QueryPdataRiskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPdataRiskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 断卡行动风险识别服务
+     * Summary: 断卡行动风险识别服务
+     */
+    public QueryPdataRiskResponse queryPdataRiskEx(QueryPdataRiskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.pdata.risk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPdataRiskResponse());
     }
 }
