@@ -49,6 +49,8 @@ use AntChain\NFTX\Models\SendNftTransferRequest;
 use AntChain\NFTX\Models\SendNftTransferResponse;
 use AntChain\NFTX\Models\SyncOrderDataRequest;
 use AntChain\NFTX\Models\SyncOrderDataResponse;
+use AntChain\NFTX\Models\UpdateNftPropertyRequest;
+use AntChain\NFTX\Models\UpdateNftPropertyResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -196,7 +198,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.10',
+                    'sdk_version'      => '1.9.0',
                     '_prod_code'       => 'NFTX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -803,6 +805,39 @@ class Client
         Utils::validateModel($request);
 
         return ImportResourceConsigneeinfoResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.resource.consigneeinfo.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资产属性更新开放接口
+     * Summary: 资产属性更新.
+     *
+     * @param UpdateNftPropertyRequest $request
+     *
+     * @return UpdateNftPropertyResponse
+     */
+    public function updateNftProperty($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateNftPropertyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资产属性更新开放接口
+     * Summary: 资产属性更新.
+     *
+     * @param UpdateNftPropertyRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return UpdateNftPropertyResponse
+     */
+    public function updateNftPropertyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateNftPropertyResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.property.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
