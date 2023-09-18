@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.10"),
+                    new TeaPair("sdk_version", "1.9.0"),
                     new TeaPair("_prod_code", "NFTX"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -482,6 +482,25 @@ public class Client {
     public ImportResourceConsigneeinfoResponse importResourceConsigneeinfoEx(ImportResourceConsigneeinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.resource.consigneeinfo.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportResourceConsigneeinfoResponse());
+    }
+
+    /**
+     * Description: 资产属性更新开放接口
+     * Summary: 资产属性更新
+     */
+    public UpdateNftPropertyResponse updateNftProperty(UpdateNftPropertyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateNftPropertyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 资产属性更新开放接口
+     * Summary: 资产属性更新
+     */
+    public UpdateNftPropertyResponse updateNftPropertyEx(UpdateNftPropertyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.nft.property.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateNftPropertyResponse());
     }
 
     /**
