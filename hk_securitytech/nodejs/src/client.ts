@@ -2126,6 +2126,113 @@ export class QueryDeviceriskRisklabelResponse extends $tea.Model {
   }
 }
 
+export class SubmitAshieldPeriodhardeningtaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // APK,ABB 上传后的地址
+  fileUrl: string;
+  // 开启so加固
+  soProtect?: string;
+  // 开启so加固后,设置的so加固配置文件,默认对apk中libs目录下所有so进行加固,以逗号分隔
+  soProtectConfig?: string;
+  // 开启对assets下的资源文件进行加固
+  assetsProtect?: string;
+  // 开启assets加固后,指定要对apk中assets目录下的哪些文件做加固,默认对assets下所有的文件进行保护,以逗号分隔
+  assetsProtectConfing?: string;
+  // 开启运行时保护,需要填写的参数,具体参数见下方,json格式
+  runtimeProtectConfig?: RuntimeProtectConfig;
+  // 对生命周期函数进行java2jni保护
+  enableLifeFunc?: string;
+  // java2jni配置文件
+  javatocJniConfig?: ClassMethodConfig[];
+  // 扩展信息,json字符串,暂不使用
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileUrl: 'file_url',
+      soProtect: 'so_protect',
+      soProtectConfig: 'so_protect_config',
+      assetsProtect: 'assets_protect',
+      assetsProtectConfing: 'assets_protect_confing',
+      runtimeProtectConfig: 'runtime_protect_config',
+      enableLifeFunc: 'enable_life_func',
+      javatocJniConfig: 'javatoc_jni_config',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileUrl: 'string',
+      soProtect: 'string',
+      soProtectConfig: 'string',
+      assetsProtect: 'string',
+      assetsProtectConfing: 'string',
+      runtimeProtectConfig: RuntimeProtectConfig,
+      enableLifeFunc: 'string',
+      javatocJniConfig: { 'type': 'array', 'itemType': ClassMethodConfig },
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAshieldPeriodhardeningtaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  // 查询是否成功
+  resSuccess?: boolean;
+  // SUCCESS为成功,其他为失败
+  resCode?: string;
+  // 返回信息描述
+  resMessage?: string;
+  // 返回的具体对象
+  resData?: HardeningTaskResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      resSuccess: 'res_success',
+      resCode: 'res_code',
+      resMessage: 'res_message',
+      resData: 'res_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      resSuccess: 'boolean',
+      resCode: 'string',
+      resMessage: 'string',
+      resData: HardeningTaskResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2239,7 +2346,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.9",
+          sdk_version: "1.5.10",
           _prod_code: "HK_SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -2646,6 +2753,25 @@ export default class Client {
   async queryDeviceriskRisklabelEx(request: QueryDeviceriskRisklabelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDeviceriskRisklabelResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDeviceriskRisklabelResponse>(await this.doRequest("1.0", "hksecuritytech.gateway.devicerisk.risklabel.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDeviceriskRisklabelResponse({}));
+  }
+
+  /**
+   * Description: 终端安全-Android应用加固-启动加固任务(包月)
+   * Summary: 启动加固任务(包月)
+   */
+  async submitAshieldPeriodhardeningtask(request: SubmitAshieldPeriodhardeningtaskRequest): Promise<SubmitAshieldPeriodhardeningtaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAshieldPeriodhardeningtaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 终端安全-Android应用加固-启动加固任务(包月)
+   * Summary: 启动加固任务(包月)
+   */
+  async submitAshieldPeriodhardeningtaskEx(request: SubmitAshieldPeriodhardeningtaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAshieldPeriodhardeningtaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAshieldPeriodhardeningtaskResponse>(await this.doRequest("1.0", "hksecuritytech.gateway.ashield.periodhardeningtask.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAshieldPeriodhardeningtaskResponse({}));
   }
 
 }
