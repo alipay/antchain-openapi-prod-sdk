@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.10"},
+                        {"sdk_version", "1.9.0"},
                         {"_prod_code", "NFTX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.10"},
+                        {"sdk_version", "1.9.0"},
                         {"_prod_code", "NFTX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1033,6 +1033,48 @@ namespace AntChain.SDK.NFTX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ImportResourceConsigneeinfoResponse>(await DoRequestAsync("1.0", "antchain.nftx.resource.consigneeinfo.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产属性更新开放接口
+         * Summary: 资产属性更新
+         */
+        public UpdateNftPropertyResponse UpdateNftProperty(UpdateNftPropertyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateNftPropertyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产属性更新开放接口
+         * Summary: 资产属性更新
+         */
+        public async Task<UpdateNftPropertyResponse> UpdateNftPropertyAsync(UpdateNftPropertyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateNftPropertyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产属性更新开放接口
+         * Summary: 资产属性更新
+         */
+        public UpdateNftPropertyResponse UpdateNftPropertyEx(UpdateNftPropertyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateNftPropertyResponse>(DoRequest("1.0", "antchain.nftx.nft.property.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产属性更新开放接口
+         * Summary: 资产属性更新
+         */
+        public async Task<UpdateNftPropertyResponse> UpdateNftPropertyExAsync(UpdateNftPropertyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateNftPropertyResponse>(await DoRequestAsync("1.0", "antchain.nftx.nft.property.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
