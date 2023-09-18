@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.9',
+    sdk_version = '1.5.10',
     _prod_code = 'HK_SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -1312,5 +1312,67 @@ async function queryDeviceriskRisklabel(request: QueryDeviceriskRisklabelRequest
 async function queryDeviceriskRisklabelEx(request: QueryDeviceriskRisklabelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceriskRisklabelResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'hksecuritytech.gateway.devicerisk.risklabel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAshieldPeriodhardeningtaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // APK,ABB 上传后的地址
+  fileUrl: string(name='file_url'),
+  // 开启so加固
+  soProtect?: string(name='so_protect'),
+  // 开启so加固后,设置的so加固配置文件,默认对apk中libs目录下所有so进行加固,以逗号分隔
+  soProtectConfig?: string(name='so_protect_config'),
+  // 开启对assets下的资源文件进行加固
+  assetsProtect?: string(name='assets_protect'),
+  // 开启assets加固后,指定要对apk中assets目录下的哪些文件做加固,默认对assets下所有的文件进行保护,以逗号分隔
+  assetsProtectConfing?: string(name='assets_protect_confing'),
+  // 开启运行时保护,需要填写的参数,具体参数见下方,json格式
+  runtimeProtectConfig?: RuntimeProtectConfig(name='runtime_protect_config'),
+  // 对生命周期函数进行java2jni保护
+  enableLifeFunc?: string(name='enable_life_func'),
+  // java2jni配置文件
+  javatocJniConfig?: [ ClassMethodConfig ](name='javatoc_jni_config'),
+  // 扩展信息,json字符串,暂不使用
+  extInfo?: string(name='ext_info'),
+}
+
+model SubmitAshieldPeriodhardeningtaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 查询是否成功
+  resSuccess?: boolean(name='res_success'),
+  // SUCCESS为成功,其他为失败
+  resCode?: string(name='res_code'),
+  // 返回信息描述
+  resMessage?: string(name='res_message'),
+  // 返回的具体对象
+  resData?: HardeningTaskResponse(name='res_data'),
+}
+
+/**
+ * Description: 终端安全-Android应用加固-启动加固任务(包月)
+ * Summary: 启动加固任务(包月)
+ */
+async function submitAshieldPeriodhardeningtask(request: SubmitAshieldPeriodhardeningtaskRequest): SubmitAshieldPeriodhardeningtaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAshieldPeriodhardeningtaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全-Android应用加固-启动加固任务(包月)
+ * Summary: 启动加固任务(包月)
+ */
+async function submitAshieldPeriodhardeningtaskEx(request: SubmitAshieldPeriodhardeningtaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAshieldPeriodhardeningtaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'hksecuritytech.gateway.ashield.periodhardeningtask.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
