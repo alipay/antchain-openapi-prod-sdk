@@ -47,6 +47,8 @@ use AntChain\HK_SECURITYTECH\Models\SubmitAmlcloudCheckcaseresultRequest;
 use AntChain\HK_SECURITYTECH\Models\SubmitAmlcloudCheckcaseresultResponse;
 use AntChain\HK_SECURITYTECH\Models\SubmitAshieldHardeningtaskRequest;
 use AntChain\HK_SECURITYTECH\Models\SubmitAshieldHardeningtaskResponse;
+use AntChain\HK_SECURITYTECH\Models\SubmitAshieldPeriodhardeningtaskRequest;
+use AntChain\HK_SECURITYTECH\Models\SubmitAshieldPeriodhardeningtaskResponse;
 use AntChain\HK_SECURITYTECH\Models\SubmitDeviceriskReportRequest;
 use AntChain\HK_SECURITYTECH\Models\SubmitDeviceriskReportResponse;
 use AntChain\Util\UtilClient;
@@ -196,7 +198,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.9',
+                    'sdk_version'      => '1.5.10',
                     '_prod_code'       => 'HK_SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -869,5 +871,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryDeviceriskRisklabelResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.devicerisk.risklabel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-启动加固任务(包月)
+     * Summary: 启动加固任务(包月).
+     *
+     * @param SubmitAshieldPeriodhardeningtaskRequest $request
+     *
+     * @return SubmitAshieldPeriodhardeningtaskResponse
+     */
+    public function submitAshieldPeriodhardeningtask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAshieldPeriodhardeningtaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-启动加固任务(包月)
+     * Summary: 启动加固任务(包月).
+     *
+     * @param SubmitAshieldPeriodhardeningtaskRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return SubmitAshieldPeriodhardeningtaskResponse
+     */
+    public function submitAshieldPeriodhardeningtaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAshieldPeriodhardeningtaskResponse::fromMap($this->doRequest('1.0', 'hksecuritytech.gateway.ashield.periodhardeningtask.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
