@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.9',
+                    'sdk_version': '1.5.10',
                     '_prod_code': 'HK_SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.9',
+                    'sdk_version': '1.5.10',
                     '_prod_code': 'HK_SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -1337,4 +1337,60 @@ class Client:
         return TeaCore.from_map(
             hk__securitytech_models.QueryDeviceriskRisklabelResponse(),
             await self.do_request_async('1.0', 'hksecuritytech.gateway.devicerisk.risklabel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_ashield_periodhardeningtask(
+        self,
+        request: hk__securitytech_models.SubmitAshieldPeriodhardeningtaskRequest,
+    ) -> hk__securitytech_models.SubmitAshieldPeriodhardeningtaskResponse:
+        """
+        Description: 终端安全-Android应用加固-启动加固任务(包月)
+        Summary: 启动加固任务(包月)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_ashield_periodhardeningtask_ex(request, headers, runtime)
+
+    async def submit_ashield_periodhardeningtask_async(
+        self,
+        request: hk__securitytech_models.SubmitAshieldPeriodhardeningtaskRequest,
+    ) -> hk__securitytech_models.SubmitAshieldPeriodhardeningtaskResponse:
+        """
+        Description: 终端安全-Android应用加固-启动加固任务(包月)
+        Summary: 启动加固任务(包月)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_ashield_periodhardeningtask_ex_async(request, headers, runtime)
+
+    def submit_ashield_periodhardeningtask_ex(
+        self,
+        request: hk__securitytech_models.SubmitAshieldPeriodhardeningtaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.SubmitAshieldPeriodhardeningtaskResponse:
+        """
+        Description: 终端安全-Android应用加固-启动加固任务(包月)
+        Summary: 启动加固任务(包月)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.SubmitAshieldPeriodhardeningtaskResponse(),
+            self.do_request('1.0', 'hksecuritytech.gateway.ashield.periodhardeningtask.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_ashield_periodhardeningtask_ex_async(
+        self,
+        request: hk__securitytech_models.SubmitAshieldPeriodhardeningtaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> hk__securitytech_models.SubmitAshieldPeriodhardeningtaskResponse:
+        """
+        Description: 终端安全-Android应用加固-启动加固任务(包月)
+        Summary: 启动加固任务(包月)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            hk__securitytech_models.SubmitAshieldPeriodhardeningtaskResponse(),
+            await self.do_request_async('1.0', 'hksecuritytech.gateway.ashield.periodhardeningtask.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

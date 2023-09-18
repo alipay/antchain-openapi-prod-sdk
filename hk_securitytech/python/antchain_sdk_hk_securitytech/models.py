@@ -3460,3 +3460,191 @@ class QueryDeviceriskRisklabelResponse(TeaModel):
         return self
 
 
+class SubmitAshieldPeriodhardeningtaskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_url: str = None,
+        so_protect: str = None,
+        so_protect_config: str = None,
+        assets_protect: str = None,
+        assets_protect_confing: str = None,
+        runtime_protect_config: RuntimeProtectConfig = None,
+        enable_life_func: str = None,
+        javatoc_jni_config: List[ClassMethodConfig] = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # APK,ABB 上传后的地址
+        self.file_url = file_url
+        # 开启so加固
+        self.so_protect = so_protect
+        # 开启so加固后,设置的so加固配置文件,默认对apk中libs目录下所有so进行加固,以逗号分隔
+        self.so_protect_config = so_protect_config
+        # 开启对assets下的资源文件进行加固
+        self.assets_protect = assets_protect
+        # 开启assets加固后,指定要对apk中assets目录下的哪些文件做加固,默认对assets下所有的文件进行保护,以逗号分隔
+        self.assets_protect_confing = assets_protect_confing
+        # 开启运行时保护,需要填写的参数,具体参数见下方,json格式
+        self.runtime_protect_config = runtime_protect_config
+        # 对生命周期函数进行java2jni保护
+        self.enable_life_func = enable_life_func
+        # java2jni配置文件
+        self.javatoc_jni_config = javatoc_jni_config
+        # 扩展信息,json字符串,暂不使用
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.file_url, 'file_url')
+        if self.runtime_protect_config:
+            self.runtime_protect_config.validate()
+        if self.javatoc_jni_config:
+            for k in self.javatoc_jni_config:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_url is not None:
+            result['file_url'] = self.file_url
+        if self.so_protect is not None:
+            result['so_protect'] = self.so_protect
+        if self.so_protect_config is not None:
+            result['so_protect_config'] = self.so_protect_config
+        if self.assets_protect is not None:
+            result['assets_protect'] = self.assets_protect
+        if self.assets_protect_confing is not None:
+            result['assets_protect_confing'] = self.assets_protect_confing
+        if self.runtime_protect_config is not None:
+            result['runtime_protect_config'] = self.runtime_protect_config.to_map()
+        if self.enable_life_func is not None:
+            result['enable_life_func'] = self.enable_life_func
+        result['javatoc_jni_config'] = []
+        if self.javatoc_jni_config is not None:
+            for k in self.javatoc_jni_config:
+                result['javatoc_jni_config'].append(k.to_map() if k else None)
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('file_url') is not None:
+            self.file_url = m.get('file_url')
+        if m.get('so_protect') is not None:
+            self.so_protect = m.get('so_protect')
+        if m.get('so_protect_config') is not None:
+            self.so_protect_config = m.get('so_protect_config')
+        if m.get('assets_protect') is not None:
+            self.assets_protect = m.get('assets_protect')
+        if m.get('assets_protect_confing') is not None:
+            self.assets_protect_confing = m.get('assets_protect_confing')
+        if m.get('runtime_protect_config') is not None:
+            temp_model = RuntimeProtectConfig()
+            self.runtime_protect_config = temp_model.from_map(m['runtime_protect_config'])
+        if m.get('enable_life_func') is not None:
+            self.enable_life_func = m.get('enable_life_func')
+        self.javatoc_jni_config = []
+        if m.get('javatoc_jni_config') is not None:
+            for k in m.get('javatoc_jni_config'):
+                temp_model = ClassMethodConfig()
+                self.javatoc_jni_config.append(temp_model.from_map(k))
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class SubmitAshieldPeriodhardeningtaskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+        res_success: bool = None,
+        res_code: str = None,
+        res_message: str = None,
+        res_data: HardeningTaskResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id
+        self.request_id = request_id
+        # 查询是否成功
+        self.res_success = res_success
+        # SUCCESS为成功,其他为失败
+        self.res_code = res_code
+        # 返回信息描述
+        self.res_message = res_message
+        # 返回的具体对象
+        self.res_data = res_data
+
+    def validate(self):
+        if self.res_data:
+            self.res_data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.res_success is not None:
+            result['res_success'] = self.res_success
+        if self.res_code is not None:
+            result['res_code'] = self.res_code
+        if self.res_message is not None:
+            result['res_message'] = self.res_message
+        if self.res_data is not None:
+            result['res_data'] = self.res_data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('res_success') is not None:
+            self.res_success = m.get('res_success')
+        if m.get('res_code') is not None:
+            self.res_code = m.get('res_code')
+        if m.get('res_message') is not None:
+            self.res_message = m.get('res_message')
+        if m.get('res_data') is not None:
+            temp_model = HardeningTaskResponse()
+            self.res_data = temp_model.from_map(m['res_data'])
+        return self
+
+
