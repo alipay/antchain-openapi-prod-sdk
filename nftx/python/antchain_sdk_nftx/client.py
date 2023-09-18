@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.10',
+                    'sdk_version': '1.9.0',
                     '_prod_code': 'NFTX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.10',
+                    'sdk_version': '1.9.0',
                     '_prod_code': 'NFTX',
                     '_prod_channel': 'undefined'
                 }
@@ -1225,6 +1225,62 @@ class Client:
         return TeaCore.from_map(
             nftx_models.ImportResourceConsigneeinfoResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.resource.consigneeinfo.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_nft_property(
+        self,
+        request: nftx_models.UpdateNftPropertyRequest,
+    ) -> nftx_models.UpdateNftPropertyResponse:
+        """
+        Description: 资产属性更新开放接口
+        Summary: 资产属性更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_nft_property_ex(request, headers, runtime)
+
+    async def update_nft_property_async(
+        self,
+        request: nftx_models.UpdateNftPropertyRequest,
+    ) -> nftx_models.UpdateNftPropertyResponse:
+        """
+        Description: 资产属性更新开放接口
+        Summary: 资产属性更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_nft_property_ex_async(request, headers, runtime)
+
+    def update_nft_property_ex(
+        self,
+        request: nftx_models.UpdateNftPropertyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.UpdateNftPropertyResponse:
+        """
+        Description: 资产属性更新开放接口
+        Summary: 资产属性更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.UpdateNftPropertyResponse(),
+            self.do_request('1.0', 'antchain.nftx.nft.property.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_nft_property_ex_async(
+        self,
+        request: nftx_models.UpdateNftPropertyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.UpdateNftPropertyResponse:
+        """
+        Description: 资产属性更新开放接口
+        Summary: 资产属性更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.UpdateNftPropertyResponse(),
+            await self.do_request_async('1.0', 'antchain.nftx.nft.property.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_oauth_token(
