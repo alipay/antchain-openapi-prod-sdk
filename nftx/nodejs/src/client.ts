@@ -1689,6 +1689,77 @@ export class ImportResourceConsigneeinfoResponse extends $tea.Model {
   }
 }
 
+export class UpdateNftPropertyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户id标识
+  idNo: string;
+  // 用户id类型
+  idType: string;
+  // 资产标识
+  nftId: string;
+  // 更新的来源
+  source: string;
+  // Json字符串：通过解析该字段，根据提前约定的key进行取值操作
+  updateInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      idNo: 'id_no',
+      idType: 'id_type',
+      nftId: 'nft_id',
+      source: 'source',
+      updateInfo: 'update_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      idNo: 'string',
+      idType: 'string',
+      nftId: 'string',
+      source: 'string',
+      updateInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateNftPropertyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ApplyOauthTokenRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1955,7 +2026,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.10",
+          sdk_version: "1.9.0",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
@@ -2324,6 +2395,25 @@ export default class Client {
   async importResourceConsigneeinfoEx(request: ImportResourceConsigneeinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportResourceConsigneeinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<ImportResourceConsigneeinfoResponse>(await this.doRequest("1.0", "antchain.nftx.resource.consigneeinfo.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportResourceConsigneeinfoResponse({}));
+  }
+
+  /**
+   * Description: 资产属性更新开放接口
+   * Summary: 资产属性更新
+   */
+  async updateNftProperty(request: UpdateNftPropertyRequest): Promise<UpdateNftPropertyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateNftPropertyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 资产属性更新开放接口
+   * Summary: 资产属性更新
+   */
+  async updateNftPropertyEx(request: UpdateNftPropertyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateNftPropertyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateNftPropertyResponse>(await this.doRequest("1.0", "antchain.nftx.nft.property.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateNftPropertyResponse({}));
   }
 
   /**
