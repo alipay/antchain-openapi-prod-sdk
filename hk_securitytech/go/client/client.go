@@ -2833,6 +2833,160 @@ func (s *QueryDeviceriskRisklabelResponse) SetData(v *DeviceRiskResp) *QueryDevi
 	return s
 }
 
+type SubmitAshieldPeriodhardeningtaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// APK,ABB 上传后的地址
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 开启so加固
+	SoProtect *string `json:"so_protect,omitempty" xml:"so_protect,omitempty"`
+	// 开启so加固后,设置的so加固配置文件,默认对apk中libs目录下所有so进行加固,以逗号分隔
+	SoProtectConfig *string `json:"so_protect_config,omitempty" xml:"so_protect_config,omitempty"`
+	// 开启对assets下的资源文件进行加固
+	AssetsProtect *string `json:"assets_protect,omitempty" xml:"assets_protect,omitempty"`
+	// 开启assets加固后,指定要对apk中assets目录下的哪些文件做加固,默认对assets下所有的文件进行保护,以逗号分隔
+	AssetsProtectConfing *string `json:"assets_protect_confing,omitempty" xml:"assets_protect_confing,omitempty"`
+	// 开启运行时保护,需要填写的参数,具体参数见下方,json格式
+	RuntimeProtectConfig *RuntimeProtectConfig `json:"runtime_protect_config,omitempty" xml:"runtime_protect_config,omitempty"`
+	// 对生命周期函数进行java2jni保护
+	EnableLifeFunc *string `json:"enable_life_func,omitempty" xml:"enable_life_func,omitempty"`
+	// java2jni配置文件
+	JavatocJniConfig []*ClassMethodConfig `json:"javatoc_jni_config,omitempty" xml:"javatoc_jni_config,omitempty" type:"Repeated"`
+	// 扩展信息,json字符串,暂不使用
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s SubmitAshieldPeriodhardeningtaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAshieldPeriodhardeningtaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskRequest) SetAuthToken(v string) *SubmitAshieldPeriodhardeningtaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskRequest) SetProductInstanceId(v string) *SubmitAshieldPeriodhardeningtaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskRequest) SetFileUrl(v string) *SubmitAshieldPeriodhardeningtaskRequest {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskRequest) SetSoProtect(v string) *SubmitAshieldPeriodhardeningtaskRequest {
+	s.SoProtect = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskRequest) SetSoProtectConfig(v string) *SubmitAshieldPeriodhardeningtaskRequest {
+	s.SoProtectConfig = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskRequest) SetAssetsProtect(v string) *SubmitAshieldPeriodhardeningtaskRequest {
+	s.AssetsProtect = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskRequest) SetAssetsProtectConfing(v string) *SubmitAshieldPeriodhardeningtaskRequest {
+	s.AssetsProtectConfing = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskRequest) SetRuntimeProtectConfig(v *RuntimeProtectConfig) *SubmitAshieldPeriodhardeningtaskRequest {
+	s.RuntimeProtectConfig = v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskRequest) SetEnableLifeFunc(v string) *SubmitAshieldPeriodhardeningtaskRequest {
+	s.EnableLifeFunc = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskRequest) SetJavatocJniConfig(v []*ClassMethodConfig) *SubmitAshieldPeriodhardeningtaskRequest {
+	s.JavatocJniConfig = v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskRequest) SetExtInfo(v string) *SubmitAshieldPeriodhardeningtaskRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type SubmitAshieldPeriodhardeningtaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 查询是否成功
+	ResSuccess *bool `json:"res_success,omitempty" xml:"res_success,omitempty"`
+	// SUCCESS为成功,其他为失败
+	ResCode *string `json:"res_code,omitempty" xml:"res_code,omitempty"`
+	// 返回信息描述
+	ResMessage *string `json:"res_message,omitempty" xml:"res_message,omitempty"`
+	// 返回的具体对象
+	ResData *HardeningTaskResponse `json:"res_data,omitempty" xml:"res_data,omitempty"`
+}
+
+func (s SubmitAshieldPeriodhardeningtaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAshieldPeriodhardeningtaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskResponse) SetReqMsgId(v string) *SubmitAshieldPeriodhardeningtaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskResponse) SetResultCode(v string) *SubmitAshieldPeriodhardeningtaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskResponse) SetResultMsg(v string) *SubmitAshieldPeriodhardeningtaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskResponse) SetRequestId(v string) *SubmitAshieldPeriodhardeningtaskResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskResponse) SetResSuccess(v bool) *SubmitAshieldPeriodhardeningtaskResponse {
+	s.ResSuccess = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskResponse) SetResCode(v string) *SubmitAshieldPeriodhardeningtaskResponse {
+	s.ResCode = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskResponse) SetResMessage(v string) *SubmitAshieldPeriodhardeningtaskResponse {
+	s.ResMessage = &v
+	return s
+}
+
+func (s *SubmitAshieldPeriodhardeningtaskResponse) SetResData(v *HardeningTaskResponse) *SubmitAshieldPeriodhardeningtaskResponse {
+	s.ResData = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2955,7 +3109,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.9"),
+				"sdk_version":      tea.String("1.5.10"),
 				"_prod_code":       tea.String("HK_SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3652,6 +3806,40 @@ func (client *Client) QueryDeviceriskRisklabelEx(request *QueryDeviceriskRisklab
 	}
 	_result = &QueryDeviceriskRisklabelResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.devicerisk.risklabel.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全-Android应用加固-启动加固任务(包月)
+ * Summary: 启动加固任务(包月)
+ */
+func (client *Client) SubmitAshieldPeriodhardeningtask(request *SubmitAshieldPeriodhardeningtaskRequest) (_result *SubmitAshieldPeriodhardeningtaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAshieldPeriodhardeningtaskResponse{}
+	_body, _err := client.SubmitAshieldPeriodhardeningtaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 终端安全-Android应用加固-启动加固任务(包月)
+ * Summary: 启动加固任务(包月)
+ */
+func (client *Client) SubmitAshieldPeriodhardeningtaskEx(request *SubmitAshieldPeriodhardeningtaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAshieldPeriodhardeningtaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAshieldPeriodhardeningtaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("hksecuritytech.gateway.ashield.periodhardeningtask.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
