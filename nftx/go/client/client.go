@@ -238,6 +238,8 @@ type UserAsset struct {
 	IssuerName *string `json:"issuer_name,omitempty" xml:"issuer_name,omitempty" require:"true"`
 	// 缩略图url，带5分钟鉴权
 	MiniImagePath *string `json:"mini_image_path,omitempty" xml:"mini_image_path,omitempty" require:"true"`
+	// 用户活动资产的场景
+	AssetScene *string `json:"asset_scene,omitempty" xml:"asset_scene,omitempty"`
 }
 
 func (s UserAsset) String() string {
@@ -275,6 +277,11 @@ func (s *UserAsset) SetIssuerName(v string) *UserAsset {
 
 func (s *UserAsset) SetMiniImagePath(v string) *UserAsset {
 	s.MiniImagePath = &v
+	return s
+}
+
+func (s *UserAsset) SetAssetScene(v string) *UserAsset {
+	s.AssetScene = &v
 	return s
 }
 
@@ -1851,6 +1858,90 @@ func (s *QueryNftAssetResponse) SetCreationTime(v string) *QueryNftAssetResponse
 	return s
 }
 
+type QueryNftAssetbyskuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 手机号或者支付宝uid或者open_uid
+	IdNo *string `json:"id_no,omitempty" xml:"id_no,omitempty" require:"true"`
+	// 用户id类型
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
+	// sku_meta的ip_id
+	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty" require:"true"`
+}
+
+func (s QueryNftAssetbyskuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryNftAssetbyskuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryNftAssetbyskuRequest) SetAuthToken(v string) *QueryNftAssetbyskuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuRequest) SetProductInstanceId(v string) *QueryNftAssetbyskuRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuRequest) SetIdNo(v string) *QueryNftAssetbyskuRequest {
+	s.IdNo = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuRequest) SetIdType(v string) *QueryNftAssetbyskuRequest {
+	s.IdType = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuRequest) SetSkuId(v string) *QueryNftAssetbyskuRequest {
+	s.SkuId = &v
+	return s
+}
+
+type QueryNftAssetbyskuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户资产列表信息
+	AssetList []*UserAsset `json:"asset_list,omitempty" xml:"asset_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryNftAssetbyskuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryNftAssetbyskuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryNftAssetbyskuResponse) SetReqMsgId(v string) *QueryNftAssetbyskuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuResponse) SetResultCode(v string) *QueryNftAssetbyskuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuResponse) SetResultMsg(v string) *QueryNftAssetbyskuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuResponse) SetAssetList(v []*UserAsset) *QueryNftAssetbyskuResponse {
+	s.AssetList = v
+	return s
+}
+
 type PayOrderDataRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2755,7 +2846,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.1"),
+				"sdk_version":      tea.String("1.9.2"),
 				"_prod_code":       tea.String("NFTX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3248,6 +3339,40 @@ func (client *Client) QueryNftAssetEx(request *QueryNftAssetRequest, headers map
 	}
 	_result = &QueryNftAssetResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.nft.asset.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 基于sku查询用户资产信息
+ * Summary: 基于sku查询用户资产信息
+ */
+func (client *Client) QueryNftAssetbysku(request *QueryNftAssetbyskuRequest) (_result *QueryNftAssetbyskuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryNftAssetbyskuResponse{}
+	_body, _err := client.QueryNftAssetbyskuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 基于sku查询用户资产信息
+ * Summary: 基于sku查询用户资产信息
+ */
+func (client *Client) QueryNftAssetbyskuEx(request *QueryNftAssetbyskuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryNftAssetbyskuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryNftAssetbyskuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.nft.assetbysku.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
