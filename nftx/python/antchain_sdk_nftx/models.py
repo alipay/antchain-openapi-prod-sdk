@@ -262,6 +262,7 @@ class UserAsset(TeaModel):
         author_name: str = None,
         issuer_name: str = None,
         mini_image_path: str = None,
+        asset_scene: str = None,
     ):
         # NFT商品的商品编码
         self.sku_id = sku_id
@@ -275,6 +276,8 @@ class UserAsset(TeaModel):
         self.issuer_name = issuer_name
         # 缩略图url，带5分钟鉴权
         self.mini_image_path = mini_image_path
+        # 用户活动资产的场景
+        self.asset_scene = asset_scene
 
     def validate(self):
         self.validate_required(self.sku_id, 'sku_id')
@@ -302,6 +305,8 @@ class UserAsset(TeaModel):
             result['issuer_name'] = self.issuer_name
         if self.mini_image_path is not None:
             result['mini_image_path'] = self.mini_image_path
+        if self.asset_scene is not None:
+            result['asset_scene'] = self.asset_scene
         return result
 
     def from_map(self, m: dict = None):
@@ -318,6 +323,8 @@ class UserAsset(TeaModel):
             self.issuer_name = m.get('issuer_name')
         if m.get('mini_image_path') is not None:
             self.mini_image_path = m.get('mini_image_path')
+        if m.get('asset_scene') is not None:
+            self.asset_scene = m.get('asset_scene')
         return self
 
 
@@ -2247,6 +2254,120 @@ class QueryNftAssetResponse(TeaModel):
             self.uni_hash = m.get('uni_hash')
         if m.get('creation_time') is not None:
             self.creation_time = m.get('creation_time')
+        return self
+
+
+class QueryNftAssetbyskuRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        id_no: str = None,
+        id_type: str = None,
+        sku_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 手机号或者支付宝uid或者open_uid
+        self.id_no = id_no
+        # 用户id类型
+        self.id_type = id_type
+        # sku_meta的ip_id
+        self.sku_id = sku_id
+
+    def validate(self):
+        self.validate_required(self.id_no, 'id_no')
+        self.validate_required(self.id_type, 'id_type')
+        self.validate_required(self.sku_id, 'sku_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.id_no is not None:
+            result['id_no'] = self.id_no
+        if self.id_type is not None:
+            result['id_type'] = self.id_type
+        if self.sku_id is not None:
+            result['sku_id'] = self.sku_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('id_no') is not None:
+            self.id_no = m.get('id_no')
+        if m.get('id_type') is not None:
+            self.id_type = m.get('id_type')
+        if m.get('sku_id') is not None:
+            self.sku_id = m.get('sku_id')
+        return self
+
+
+class QueryNftAssetbyskuResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        asset_list: List[UserAsset] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用户资产列表信息
+        self.asset_list = asset_list
+
+    def validate(self):
+        if self.asset_list:
+            for k in self.asset_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['asset_list'] = []
+        if self.asset_list is not None:
+            for k in self.asset_list:
+                result['asset_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.asset_list = []
+        if m.get('asset_list') is not None:
+            for k in m.get('asset_list'):
+                temp_model = UserAsset()
+                self.asset_list.append(temp_model.from_map(k))
         return self
 
 

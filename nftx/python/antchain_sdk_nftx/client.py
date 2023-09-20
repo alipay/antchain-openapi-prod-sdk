@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.1',
+                    'sdk_version': '1.9.2',
                     '_prod_code': 'NFTX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.1',
+                    'sdk_version': '1.9.2',
                     '_prod_code': 'NFTX',
                     '_prod_channel': 'undefined'
                 }
@@ -1001,6 +1001,62 @@ class Client:
         return TeaCore.from_map(
             nftx_models.QueryNftAssetResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.nft.asset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_nft_assetbysku(
+        self,
+        request: nftx_models.QueryNftAssetbyskuRequest,
+    ) -> nftx_models.QueryNftAssetbyskuResponse:
+        """
+        Description: 基于sku查询用户资产信息
+        Summary: 基于sku查询用户资产信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_nft_assetbysku_ex(request, headers, runtime)
+
+    async def query_nft_assetbysku_async(
+        self,
+        request: nftx_models.QueryNftAssetbyskuRequest,
+    ) -> nftx_models.QueryNftAssetbyskuResponse:
+        """
+        Description: 基于sku查询用户资产信息
+        Summary: 基于sku查询用户资产信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_nft_assetbysku_ex_async(request, headers, runtime)
+
+    def query_nft_assetbysku_ex(
+        self,
+        request: nftx_models.QueryNftAssetbyskuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.QueryNftAssetbyskuResponse:
+        """
+        Description: 基于sku查询用户资产信息
+        Summary: 基于sku查询用户资产信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.QueryNftAssetbyskuResponse(),
+            self.do_request('1.0', 'antchain.nftx.nft.assetbysku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_nft_assetbysku_ex_async(
+        self,
+        request: nftx_models.QueryNftAssetbyskuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.QueryNftAssetbyskuResponse:
+        """
+        Description: 基于sku查询用户资产信息
+        Summary: 基于sku查询用户资产信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.QueryNftAssetbyskuResponse(),
+            await self.do_request_async('1.0', 'antchain.nftx.nft.assetbysku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def pay_order_data(
