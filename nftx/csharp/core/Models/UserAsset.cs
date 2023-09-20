@@ -40,6 +40,11 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=true)]
         public string MiniImagePath { get; set; }
 
+        // 用户活动资产的场景
+        [NameInMap("asset_scene")]
+        [Validation(Required=false)]
+        public string AssetScene { get; set; }
+
     }
 
 }

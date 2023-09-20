@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.9.1"},
+                        {"sdk_version", "1.9.2"},
                         {"_prod_code", "NFTX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.9.1"},
+                        {"sdk_version", "1.9.2"},
                         {"_prod_code", "NFTX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -865,6 +865,48 @@ namespace AntChain.SDK.NFTX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryNftAssetResponse>(await DoRequestAsync("1.0", "antchain.nftx.nft.asset.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 基于sku查询用户资产信息
+         * Summary: 基于sku查询用户资产信息
+         */
+        public QueryNftAssetbyskuResponse QueryNftAssetbysku(QueryNftAssetbyskuRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryNftAssetbyskuEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 基于sku查询用户资产信息
+         * Summary: 基于sku查询用户资产信息
+         */
+        public async Task<QueryNftAssetbyskuResponse> QueryNftAssetbyskuAsync(QueryNftAssetbyskuRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryNftAssetbyskuExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 基于sku查询用户资产信息
+         * Summary: 基于sku查询用户资产信息
+         */
+        public QueryNftAssetbyskuResponse QueryNftAssetbyskuEx(QueryNftAssetbyskuRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNftAssetbyskuResponse>(DoRequest("1.0", "antchain.nftx.nft.assetbysku.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 基于sku查询用户资产信息
+         * Summary: 基于sku查询用户资产信息
+         */
+        public async Task<QueryNftAssetbyskuResponse> QueryNftAssetbyskuExAsync(QueryNftAssetbyskuRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNftAssetbyskuResponse>(await DoRequestAsync("1.0", "antchain.nftx.nft.assetbysku.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
