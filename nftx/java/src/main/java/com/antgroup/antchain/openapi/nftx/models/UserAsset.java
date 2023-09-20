@@ -34,6 +34,10 @@ public class UserAsset extends TeaModel {
     @Validation(required = true)
     public String miniImagePath;
 
+    // 用户活动资产的场景
+    @NameInMap("asset_scene")
+    public String assetScene;
+
     public static UserAsset build(java.util.Map<String, ?> map) throws Exception {
         UserAsset self = new UserAsset();
         return TeaModel.build(map, self);
@@ -85,6 +89,14 @@ public class UserAsset extends TeaModel {
     }
     public String getMiniImagePath() {
         return this.miniImagePath;
+    }
+
+    public UserAsset setAssetScene(String assetScene) {
+        this.assetScene = assetScene;
+        return this;
+    }
+    public String getAssetScene() {
+        return this.assetScene;
     }
 
 }

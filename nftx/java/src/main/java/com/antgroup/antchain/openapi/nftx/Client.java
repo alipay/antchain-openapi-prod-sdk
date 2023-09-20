@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.9.1"),
+                    new TeaPair("sdk_version", "1.9.2"),
                     new TeaPair("_prod_code", "NFTX"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -406,6 +406,25 @@ public class Client {
     public QueryNftAssetResponse queryNftAssetEx(QueryNftAssetRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.nft.asset.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNftAssetResponse());
+    }
+
+    /**
+     * Description: 基于sku查询用户资产信息
+     * Summary: 基于sku查询用户资产信息
+     */
+    public QueryNftAssetbyskuResponse queryNftAssetbysku(QueryNftAssetbyskuRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryNftAssetbyskuEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 基于sku查询用户资产信息
+     * Summary: 基于sku查询用户资产信息
+     */
+    public QueryNftAssetbyskuResponse queryNftAssetbyskuEx(QueryNftAssetbyskuRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.nft.assetbysku.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNftAssetbyskuResponse());
     }
 
     /**
