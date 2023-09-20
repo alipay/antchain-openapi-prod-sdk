@@ -156,6 +156,8 @@ export class UserAsset extends $tea.Model {
   issuerName: string;
   // 缩略图url，带5分钟鉴权
   miniImagePath: string;
+  // 用户活动资产的场景
+  assetScene?: string;
   static names(): { [key: string]: string } {
     return {
       skuId: 'sku_id',
@@ -164,6 +166,7 @@ export class UserAsset extends $tea.Model {
       authorName: 'author_name',
       issuerName: 'issuer_name',
       miniImagePath: 'mini_image_path',
+      assetScene: 'asset_scene',
     };
   }
 
@@ -175,6 +178,7 @@ export class UserAsset extends $tea.Model {
       authorName: 'string',
       issuerName: 'string',
       miniImagePath: 'string',
+      assetScene: 'string',
     };
   }
 
@@ -1331,6 +1335,73 @@ export class QueryNftAssetResponse extends $tea.Model {
   }
 }
 
+export class QueryNftAssetbyskuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 手机号或者支付宝uid或者open_uid
+  idNo: string;
+  // 用户id类型
+  idType: string;
+  // sku_meta的ip_id
+  skuId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      idNo: 'id_no',
+      idType: 'id_type',
+      skuId: 'sku_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      idNo: 'string',
+      idType: 'string',
+      skuId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNftAssetbyskuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户资产列表信息
+  assetList?: UserAsset[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      assetList: 'asset_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      assetList: { 'type': 'array', 'itemType': UserAsset },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class PayOrderDataRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2026,7 +2097,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.1",
+          sdk_version: "1.9.2",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
@@ -2319,6 +2390,25 @@ export default class Client {
   async queryNftAssetEx(request: QueryNftAssetRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNftAssetResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryNftAssetResponse>(await this.doRequest("1.0", "antchain.nftx.nft.asset.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNftAssetResponse({}));
+  }
+
+  /**
+   * Description: 基于sku查询用户资产信息
+   * Summary: 基于sku查询用户资产信息
+   */
+  async queryNftAssetbysku(request: QueryNftAssetbyskuRequest): Promise<QueryNftAssetbyskuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryNftAssetbyskuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 基于sku查询用户资产信息
+   * Summary: 基于sku查询用户资产信息
+   */
+  async queryNftAssetbyskuEx(request: QueryNftAssetbyskuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNftAssetbyskuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryNftAssetbyskuResponse>(await this.doRequest("1.0", "antchain.nftx.nft.assetbysku.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNftAssetbyskuResponse({}));
   }
 
   /**
