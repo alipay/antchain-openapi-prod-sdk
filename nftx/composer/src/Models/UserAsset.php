@@ -55,6 +55,14 @@ class UserAsset extends Model
      * @var string
      */
     public $miniImagePath;
+
+    // 用户活动资产的场景
+    /**
+     * @example USER_GET
+     *
+     * @var string
+     */
+    public $assetScene;
     protected $_name = [
         'skuId'         => 'sku_id',
         'nftId'         => 'nft_id',
@@ -62,6 +70,7 @@ class UserAsset extends Model
         'authorName'    => 'author_name',
         'issuerName'    => 'issuer_name',
         'miniImagePath' => 'mini_image_path',
+        'assetScene'    => 'asset_scene',
     ];
 
     public function validate()
@@ -95,6 +104,9 @@ class UserAsset extends Model
         if (null !== $this->miniImagePath) {
             $res['mini_image_path'] = $this->miniImagePath;
         }
+        if (null !== $this->assetScene) {
+            $res['asset_scene'] = $this->assetScene;
+        }
 
         return $res;
     }
@@ -124,6 +136,9 @@ class UserAsset extends Model
         }
         if (isset($map['mini_image_path'])) {
             $model->miniImagePath = $map['mini_image_path'];
+        }
+        if (isset($map['asset_scene'])) {
+            $model->assetScene = $map['asset_scene'];
         }
 
         return $model;

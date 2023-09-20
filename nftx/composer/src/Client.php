@@ -31,6 +31,8 @@ use AntChain\NFTX\Models\PagequeryNftCustomerRequest;
 use AntChain\NFTX\Models\PagequeryNftCustomerResponse;
 use AntChain\NFTX\Models\PayOrderDataRequest;
 use AntChain\NFTX\Models\PayOrderDataResponse;
+use AntChain\NFTX\Models\QueryNftAssetbyskuRequest;
+use AntChain\NFTX\Models\QueryNftAssetbyskuResponse;
 use AntChain\NFTX\Models\QueryNftAssetRequest;
 use AntChain\NFTX\Models\QueryNftAssetResponse;
 use AntChain\NFTX\Models\QueryNftCreateRequest;
@@ -198,7 +200,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.9.1',
+                    'sdk_version'      => '1.9.2',
                     '_prod_code'       => 'NFTX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -673,6 +675,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryNftAssetResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.asset.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 基于sku查询用户资产信息
+     * Summary: 基于sku查询用户资产信息.
+     *
+     * @param QueryNftAssetbyskuRequest $request
+     *
+     * @return QueryNftAssetbyskuResponse
+     */
+    public function queryNftAssetbysku($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNftAssetbyskuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 基于sku查询用户资产信息
+     * Summary: 基于sku查询用户资产信息.
+     *
+     * @param QueryNftAssetbyskuRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryNftAssetbyskuResponse
+     */
+    public function queryNftAssetbyskuEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNftAssetbyskuResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.assetbysku.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
