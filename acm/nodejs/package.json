@@ -1,6 +1,6 @@
 {
   "name": "@antchain/acm",
-  "version": "1.4.9",
+  "version": "1.5.2",
   "description": "",
   "main": "dist/client.js",
   "scripts": {

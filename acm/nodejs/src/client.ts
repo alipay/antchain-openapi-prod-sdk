@@ -3341,6 +3341,83 @@ export class QueryRoleActionResponse extends $tea.Model {
   }
 }
 
+export class VerifyServiceaccountSignatureRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 系统来源
+  sourceSystem: string;
+  // AK
+  // 
+  userAccessKey: string;
+  // aksk加签结果
+  signatureResult: string;
+  // 待加签内容
+  signatureText: string;
+  // 加签算法
+  signatureAlgorithm: string;
+  // 租户名称，八位字母
+  tenantName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      sourceSystem: 'source_system',
+      userAccessKey: 'user_access_key',
+      signatureResult: 'signature_result',
+      signatureText: 'signature_text',
+      signatureAlgorithm: 'signature_algorithm',
+      tenantName: 'tenant_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      sourceSystem: 'string',
+      userAccessKey: 'string',
+      signatureResult: 'string',
+      signatureText: 'string',
+      signatureAlgorithm: 'string',
+      tenantName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyServiceaccountSignatureResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 验签结果
+  verifyResult?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      verifyResult: 'verify_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      verifyResult: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -3454,7 +3531,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.9",
+          sdk_version: "1.5.2",
           _prod_code: "acm",
           _prod_channel: "undefined",
         };
@@ -4241,6 +4318,25 @@ export default class Client {
   async queryRoleActionEx(request: QueryRoleActionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRoleActionResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryRoleActionResponse>(await this.doRequest("1.0", "antcloud.acm.role.action.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRoleActionResponse({}));
+  }
+
+  /**
+   * Description: 服务账号（AK）验签
+   * Summary: 服务账号（AK）验签
+   */
+  async verifyServiceaccountSignature(request: VerifyServiceaccountSignatureRequest): Promise<VerifyServiceaccountSignatureResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.verifyServiceaccountSignatureEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 服务账号（AK）验签
+   * Summary: 服务账号（AK）验签
+   */
+  async verifyServiceaccountSignatureEx(request: VerifyServiceaccountSignatureRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyServiceaccountSignatureResponse> {
+    Util.validateModel(request);
+    return $tea.cast<VerifyServiceaccountSignatureResponse>(await this.doRequest("1.0", "antcloud.acm.serviceaccount.signature.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyServiceaccountSignatureResponse({}));
   }
 
 }
