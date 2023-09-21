@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.9',
+                    'sdk_version': '1.5.2',
                     '_prod_code': 'acm',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.9',
+                    'sdk_version': '1.5.2',
                     '_prod_code': 'acm',
                     '_prod_channel': 'undefined'
                 }
@@ -2457,4 +2457,60 @@ class Client:
         return TeaCore.from_map(
             acm_models.QueryRoleActionResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.role.action.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_serviceaccount_signature(
+        self,
+        request: acm_models.VerifyServiceaccountSignatureRequest,
+    ) -> acm_models.VerifyServiceaccountSignatureResponse:
+        """
+        Description: 服务账号（AK）验签
+        Summary: 服务账号（AK）验签
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_serviceaccount_signature_ex(request, headers, runtime)
+
+    async def verify_serviceaccount_signature_async(
+        self,
+        request: acm_models.VerifyServiceaccountSignatureRequest,
+    ) -> acm_models.VerifyServiceaccountSignatureResponse:
+        """
+        Description: 服务账号（AK）验签
+        Summary: 服务账号（AK）验签
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_serviceaccount_signature_ex_async(request, headers, runtime)
+
+    def verify_serviceaccount_signature_ex(
+        self,
+        request: acm_models.VerifyServiceaccountSignatureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.VerifyServiceaccountSignatureResponse:
+        """
+        Description: 服务账号（AK）验签
+        Summary: 服务账号（AK）验签
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.VerifyServiceaccountSignatureResponse(),
+            self.do_request('1.0', 'antcloud.acm.serviceaccount.signature.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_serviceaccount_signature_ex_async(
+        self,
+        request: acm_models.VerifyServiceaccountSignatureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.VerifyServiceaccountSignatureResponse:
+        """
+        Description: 服务账号（AK）验签
+        Summary: 服务账号（AK）验签
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.VerifyServiceaccountSignatureResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.serviceaccount.signature.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

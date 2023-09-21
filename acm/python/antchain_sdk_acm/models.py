@@ -5376,3 +5376,127 @@ class QueryRoleActionResponse(TeaModel):
         return self
 
 
+class VerifyServiceaccountSignatureRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        source_system: str = None,
+        user_access_key: str = None,
+        signature_result: str = None,
+        signature_text: str = None,
+        signature_algorithm: str = None,
+        tenant_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 系统来源
+        self.source_system = source_system
+        # AK
+        # 
+        self.user_access_key = user_access_key
+        # aksk加签结果
+        self.signature_result = signature_result
+        # 待加签内容
+        self.signature_text = signature_text
+        # 加签算法
+        self.signature_algorithm = signature_algorithm
+        # 租户名称，八位字母
+        self.tenant_name = tenant_name
+
+    def validate(self):
+        self.validate_required(self.source_system, 'source_system')
+        self.validate_required(self.user_access_key, 'user_access_key')
+        self.validate_required(self.signature_result, 'signature_result')
+        self.validate_required(self.signature_text, 'signature_text')
+        self.validate_required(self.signature_algorithm, 'signature_algorithm')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.source_system is not None:
+            result['source_system'] = self.source_system
+        if self.user_access_key is not None:
+            result['user_access_key'] = self.user_access_key
+        if self.signature_result is not None:
+            result['signature_result'] = self.signature_result
+        if self.signature_text is not None:
+            result['signature_text'] = self.signature_text
+        if self.signature_algorithm is not None:
+            result['signature_algorithm'] = self.signature_algorithm
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('source_system') is not None:
+            self.source_system = m.get('source_system')
+        if m.get('user_access_key') is not None:
+            self.user_access_key = m.get('user_access_key')
+        if m.get('signature_result') is not None:
+            self.signature_result = m.get('signature_result')
+        if m.get('signature_text') is not None:
+            self.signature_text = m.get('signature_text')
+        if m.get('signature_algorithm') is not None:
+            self.signature_algorithm = m.get('signature_algorithm')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        return self
+
+
+class VerifyServiceaccountSignatureResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        verify_result: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 验签结果
+        self.verify_result = verify_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.verify_result is not None:
+            result['verify_result'] = self.verify_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('verify_result') is not None:
+            self.verify_result = m.get('verify_result')
+        return self
+
+
