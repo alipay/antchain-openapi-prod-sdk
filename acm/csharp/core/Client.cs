@@ -137,7 +137,7 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.9"},
+                        {"sdk_version", "1.5.2"},
                         {"_prod_code", "acm"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.9"},
+                        {"sdk_version", "1.5.2"},
                         {"_prod_code", "acm"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1957,6 +1957,48 @@ namespace AntChain.SDK.Acm
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryRoleActionResponse>(await DoRequestAsync("1.0", "antcloud.acm.role.action.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 服务账号（AK）验签
+         * Summary: 服务账号（AK）验签
+         */
+        public VerifyServiceaccountSignatureResponse VerifyServiceaccountSignature(VerifyServiceaccountSignatureRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return VerifyServiceaccountSignatureEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 服务账号（AK）验签
+         * Summary: 服务账号（AK）验签
+         */
+        public async Task<VerifyServiceaccountSignatureResponse> VerifyServiceaccountSignatureAsync(VerifyServiceaccountSignatureRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await VerifyServiceaccountSignatureExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 服务账号（AK）验签
+         * Summary: 服务账号（AK）验签
+         */
+        public VerifyServiceaccountSignatureResponse VerifyServiceaccountSignatureEx(VerifyServiceaccountSignatureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyServiceaccountSignatureResponse>(DoRequest("1.0", "antcloud.acm.serviceaccount.signature.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 服务账号（AK）验签
+         * Summary: 服务账号（AK）验签
+         */
+        public async Task<VerifyServiceaccountSignatureResponse> VerifyServiceaccountSignatureExAsync(VerifyServiceaccountSignatureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyServiceaccountSignatureResponse>(await DoRequestAsync("1.0", "antcloud.acm.serviceaccount.signature.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
