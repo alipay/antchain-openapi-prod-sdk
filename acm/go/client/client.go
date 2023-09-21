@@ -4366,6 +4366,106 @@ func (s *QueryRoleActionResponse) SetActions(v []*Action) *QueryRoleActionRespon
 	return s
 }
 
+type VerifyServiceaccountSignatureRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 系统来源
+	SourceSystem *string `json:"source_system,omitempty" xml:"source_system,omitempty" require:"true"`
+	// AK
+	//
+	UserAccessKey *string `json:"user_access_key,omitempty" xml:"user_access_key,omitempty" require:"true"`
+	// aksk加签结果
+	SignatureResult *string `json:"signature_result,omitempty" xml:"signature_result,omitempty" require:"true"`
+	// 待加签内容
+	SignatureText *string `json:"signature_text,omitempty" xml:"signature_text,omitempty" require:"true"`
+	// 加签算法
+	SignatureAlgorithm *string `json:"signature_algorithm,omitempty" xml:"signature_algorithm,omitempty" require:"true"`
+	// 租户名称，八位字母
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+}
+
+func (s VerifyServiceaccountSignatureRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyServiceaccountSignatureRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyServiceaccountSignatureRequest) SetAuthToken(v string) *VerifyServiceaccountSignatureRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyServiceaccountSignatureRequest) SetSourceSystem(v string) *VerifyServiceaccountSignatureRequest {
+	s.SourceSystem = &v
+	return s
+}
+
+func (s *VerifyServiceaccountSignatureRequest) SetUserAccessKey(v string) *VerifyServiceaccountSignatureRequest {
+	s.UserAccessKey = &v
+	return s
+}
+
+func (s *VerifyServiceaccountSignatureRequest) SetSignatureResult(v string) *VerifyServiceaccountSignatureRequest {
+	s.SignatureResult = &v
+	return s
+}
+
+func (s *VerifyServiceaccountSignatureRequest) SetSignatureText(v string) *VerifyServiceaccountSignatureRequest {
+	s.SignatureText = &v
+	return s
+}
+
+func (s *VerifyServiceaccountSignatureRequest) SetSignatureAlgorithm(v string) *VerifyServiceaccountSignatureRequest {
+	s.SignatureAlgorithm = &v
+	return s
+}
+
+func (s *VerifyServiceaccountSignatureRequest) SetTenantName(v string) *VerifyServiceaccountSignatureRequest {
+	s.TenantName = &v
+	return s
+}
+
+type VerifyServiceaccountSignatureResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 验签结果
+	VerifyResult *bool `json:"verify_result,omitempty" xml:"verify_result,omitempty"`
+}
+
+func (s VerifyServiceaccountSignatureResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyServiceaccountSignatureResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyServiceaccountSignatureResponse) SetReqMsgId(v string) *VerifyServiceaccountSignatureResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyServiceaccountSignatureResponse) SetResultCode(v string) *VerifyServiceaccountSignatureResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyServiceaccountSignatureResponse) SetResultMsg(v string) *VerifyServiceaccountSignatureResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyServiceaccountSignatureResponse) SetVerifyResult(v bool) *VerifyServiceaccountSignatureResponse {
+	s.VerifyResult = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -4488,7 +4588,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.9"),
+				"sdk_version":      tea.String("1.5.2"),
 				"_prod_code":       tea.String("acm"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5865,6 +5965,40 @@ func (client *Client) QueryRoleActionEx(request *QueryRoleActionRequest, headers
 	}
 	_result = &QueryRoleActionResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.role.action.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 服务账号（AK）验签
+ * Summary: 服务账号（AK）验签
+ */
+func (client *Client) VerifyServiceaccountSignature(request *VerifyServiceaccountSignatureRequest) (_result *VerifyServiceaccountSignatureResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyServiceaccountSignatureResponse{}
+	_body, _err := client.VerifyServiceaccountSignatureEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 服务账号（AK）验签
+ * Summary: 服务账号（AK）验签
+ */
+func (client *Client) VerifyServiceaccountSignatureEx(request *VerifyServiceaccountSignatureRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyServiceaccountSignatureResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyServiceaccountSignatureResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.serviceaccount.signature.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
