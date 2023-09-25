@@ -15,6 +15,8 @@ use AntChain\IDENTITYMARRIAGE\Models\CheckMarriageCoupleinfoRequest;
 use AntChain\IDENTITYMARRIAGE\Models\CheckMarriageCoupleinfoResponse;
 use AntChain\IDENTITYMARRIAGE\Models\CheckMarriageInfoRequest;
 use AntChain\IDENTITYMARRIAGE\Models\CheckMarriageInfoResponse;
+use AntChain\IDENTITYMARRIAGE\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\IDENTITYMARRIAGE\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\IDENTITYMARRIAGE\Models\NotifyMarriageInfoRequest;
 use AntChain\IDENTITYMARRIAGE\Models\NotifyMarriageInfoResponse;
 use AntChain\IDENTITYMARRIAGE\Models\QueryMarriageInfoRequest;
@@ -25,6 +27,8 @@ use AntChain\IDENTITYMARRIAGE\Models\SubmitMarriageInfoRequest;
 use AntChain\IDENTITYMARRIAGE\Models\SubmitMarriageInfoResponse;
 use AntChain\IDENTITYMARRIAGE\Models\UploadFileDataRequest;
 use AntChain\IDENTITYMARRIAGE\Models\UploadFileDataResponse;
+use AntChain\IDENTITYMARRIAGE\Models\UploadMarriageFileRequest;
+use AntChain\IDENTITYMARRIAGE\Models\UploadMarriageFileResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -144,6 +148,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 键值对
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -171,7 +176,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.9',
+                    'sdk_version'      => '1.0.10',
                     '_prod_code'       => 'IDENTITYMARRIAGE',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -448,5 +453,89 @@ class Client
         Utils::validateModel($request);
 
         return QueryMarriageInfoResponse::fromMap($this->doRequest('1.0', 'identity.marriage.marriage.info.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权文件上传接口
+     * Summary: 上传文件接口.
+     *
+     * @param UploadMarriageFileRequest $request
+     *
+     * @return UploadMarriageFileResponse
+     */
+    public function uploadMarriageFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadMarriageFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权文件上传接口
+     * Summary: 上传文件接口.
+     *
+     * @param UploadMarriageFileRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return UploadMarriageFileResponse
+     */
+    public function uploadMarriageFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'identity.marriage.marriage.file.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadMarriageFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadMarriageFileResponse::fromMap($this->doRequest('1.0', 'identity.marriage.marriage.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
