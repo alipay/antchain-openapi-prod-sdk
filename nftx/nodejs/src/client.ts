@@ -1379,12 +1379,15 @@ export class QueryNftAssetbyskuResponse extends $tea.Model {
   resultMsg?: string;
   // 用户资产列表信息
   assetList?: UserAsset[];
+  // 支付宝账户id，特殊场景返回
+  alipayUid?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       assetList: 'asset_list',
+      alipayUid: 'alipay_uid',
     };
   }
 
@@ -1394,6 +1397,7 @@ export class QueryNftAssetbyskuResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       assetList: { 'type': 'array', 'itemType': UserAsset },
+      alipayUid: 'string',
     };
   }
 
@@ -2097,7 +2101,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.2",
+          sdk_version: "1.9.3",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
