@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 键值对
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9',
+                    'sdk_version': '1.0.10',
                     '_prod_code': 'IDENTITYMARRIAGE',
                     '_prod_channel': 'undefined'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 键值对
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9',
+                    'sdk_version': '1.0.10',
                     '_prod_code': 'IDENTITYMARRIAGE',
                     '_prod_channel': 'undefined'
                 }
@@ -663,4 +665,150 @@ class Client:
         return TeaCore.from_map(
             identitymarriage_models.QueryMarriageInfoResponse(),
             await self.do_request_async('1.0', 'identity.marriage.marriage.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_marriage_file(
+        self,
+        request: identitymarriage_models.UploadMarriageFileRequest,
+    ) -> identitymarriage_models.UploadMarriageFileResponse:
+        """
+        Description: 授权文件上传接口
+        Summary: 上传文件接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_marriage_file_ex(request, headers, runtime)
+
+    async def upload_marriage_file_async(
+        self,
+        request: identitymarriage_models.UploadMarriageFileRequest,
+    ) -> identitymarriage_models.UploadMarriageFileResponse:
+        """
+        Description: 授权文件上传接口
+        Summary: 上传文件接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_marriage_file_ex_async(request, headers, runtime)
+
+    def upload_marriage_file_ex(
+        self,
+        request: identitymarriage_models.UploadMarriageFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> identitymarriage_models.UploadMarriageFileResponse:
+        """
+        Description: 授权文件上传接口
+        Summary: 上传文件接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = identitymarriage_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='identity.marriage.marriage.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_marriage_file_response = identitymarriage_models.UploadMarriageFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_marriage_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            identitymarriage_models.UploadMarriageFileResponse(),
+            self.do_request('1.0', 'identity.marriage.marriage.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_marriage_file_ex_async(
+        self,
+        request: identitymarriage_models.UploadMarriageFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> identitymarriage_models.UploadMarriageFileResponse:
+        """
+        Description: 授权文件上传接口
+        Summary: 上传文件接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = identitymarriage_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='identity.marriage.marriage.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_marriage_file_response = identitymarriage_models.UploadMarriageFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_marriage_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            identitymarriage_models.UploadMarriageFileResponse(),
+            await self.do_request_async('1.0', 'identity.marriage.marriage.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: identitymarriage_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> identitymarriage_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: identitymarriage_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> identitymarriage_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: identitymarriage_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> identitymarriage_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            identitymarriage_models.CreateAntcloudGatewayxFileUploadResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: identitymarriage_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> identitymarriage_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            identitymarriage_models.CreateAntcloudGatewayxFileUploadResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
