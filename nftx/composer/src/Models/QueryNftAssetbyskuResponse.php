@@ -31,11 +31,18 @@ class QueryNftAssetbyskuResponse extends Model
      * @var UserAsset[]
      */
     public $assetList;
+
+    // 支付宝账户id，特殊场景返回
+    /**
+     * @var string
+     */
+    public $alipayUid;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'assetList'  => 'asset_list',
+        'alipayUid'  => 'alipay_uid',
     ];
 
     public function validate()
@@ -62,6 +69,9 @@ class QueryNftAssetbyskuResponse extends Model
                     $res['asset_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->alipayUid) {
+            $res['alipay_uid'] = $this->alipayUid;
         }
 
         return $res;
@@ -92,6 +102,9 @@ class QueryNftAssetbyskuResponse extends Model
                     $model->assetList[$n++] = null !== $item ? UserAsset::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['alipay_uid'])) {
+            $model->alipayUid = $map['alipay_uid'];
         }
 
         return $model;
