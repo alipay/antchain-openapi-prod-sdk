@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "NFTX",
-  "version": "1.0.43",
+  "version": "1.0.44",
   "main": "./main.tea",
   "maintainers": [
     {
