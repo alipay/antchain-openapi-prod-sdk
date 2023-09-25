@@ -20,6 +20,10 @@ public class QueryNftAssetbyskuResponse extends TeaModel {
     @NameInMap("asset_list")
     public java.util.List<UserAsset> assetList;
 
+    // 支付宝账户id，特殊场景返回
+    @NameInMap("alipay_uid")
+    public String alipayUid;
+
     public static QueryNftAssetbyskuResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryNftAssetbyskuResponse self = new QueryNftAssetbyskuResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class QueryNftAssetbyskuResponse extends TeaModel {
     }
     public java.util.List<UserAsset> getAssetList() {
         return this.assetList;
+    }
+
+    public QueryNftAssetbyskuResponse setAlipayUid(String alipayUid) {
+        this.alipayUid = alipayUid;
+        return this;
+    }
+    public String getAlipayUid() {
+        return this.alipayUid;
     }
 
 }
