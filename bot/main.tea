@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.103',
+    sdk_version = '1.8.104',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -1490,6 +1490,8 @@ model RegByDeviceParm {
   ownerName?: string(name='owner_name', example='蚂蚁区块链科技（上海）有限公司 '),
   // 设备名称/型号
   deviceName?: string(name='device_name', example='64.0V30AH'),
+  // 设备IMEI
+  deviceImei?: string(name='device_imei', example='823456712312345'),
 }
 
 // xr通行证券池分页返回
@@ -7907,6 +7909,8 @@ model CreateDistributedeviceBydeviceRequest = {
   ownerName?: string(name='owner_name'),
   // 额外信息
   extraInfo?: string(name='extra_info'),
+  // 设备IMEI
+  deviceImei?: string(name='device_imei'),
 }
 
 model CreateDistributedeviceBydeviceResponse = {
