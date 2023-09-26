@@ -30,11 +30,18 @@ class QueryChaininsightAddressRequest extends Model
      * @var string
      */
     public $hexAddress;
+
+    // 租户ID，留空
+    /**
+     * @var string
+     */
+    public $tenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'bizId'             => 'biz_id',
         'hexAddress'        => 'hex_address',
+        'tenantId'          => 'tenant_id',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class QueryChaininsightAddressRequest extends Model
         }
         if (null !== $this->hexAddress) {
             $res['hex_address'] = $this->hexAddress;
+        }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
         }
 
         return $res;
@@ -81,6 +91,9 @@ class QueryChaininsightAddressRequest extends Model
         }
         if (isset($map['hex_address'])) {
             $model->hexAddress = $map['hex_address'];
+        }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
 
         return $model;

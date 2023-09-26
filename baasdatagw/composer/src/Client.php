@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\BAASDATAGW\Models\AddChaininsightStatisticRequest;
 use AntChain\BAASDATAGW\Models\AddChaininsightStatisticResponse;
+use AntChain\BAASDATAGW\Models\AddChaininsightWidgetsRequest;
+use AntChain\BAASDATAGW\Models\AddChaininsightWidgetsResponse;
 use AntChain\BAASDATAGW\Models\AddContractmetaRequest;
 use AntChain\BAASDATAGW\Models\AddContractmetaResponse;
 use AntChain\BAASDATAGW\Models\BatchqueryChaininsightTransactionRequest;
@@ -23,10 +25,14 @@ use AntChain\BAASDATAGW\Models\CreateDataexportPreviewdataRequest;
 use AntChain\BAASDATAGW\Models\CreateDataexportPreviewdataResponse;
 use AntChain\BAASDATAGW\Models\CreateDataexportTriggerRequest;
 use AntChain\BAASDATAGW\Models\CreateDataexportTriggerResponse;
+use AntChain\BAASDATAGW\Models\DeleteChaininsightWidgetsRequest;
+use AntChain\BAASDATAGW\Models\DeleteChaininsightWidgetsResponse;
 use AntChain\BAASDATAGW\Models\DeleteContractmetaRequest;
 use AntChain\BAASDATAGW\Models\DeleteContractmetaResponse;
 use AntChain\BAASDATAGW\Models\DetailChaininsightContractinterfaceRequest;
 use AntChain\BAASDATAGW\Models\DetailChaininsightContractinterfaceResponse;
+use AntChain\BAASDATAGW\Models\DownloadChaininsightContractRequest;
+use AntChain\BAASDATAGW\Models\DownloadChaininsightContractResponse;
 use AntChain\BAASDATAGW\Models\GetChainsStatusRequest;
 use AntChain\BAASDATAGW\Models\GetChainsStatusResponse;
 use AntChain\BAASDATAGW\Models\GetContractmetaRequest;
@@ -35,18 +41,26 @@ use AntChain\BAASDATAGW\Models\GetDataexportPreviewsmappingRequest;
 use AntChain\BAASDATAGW\Models\GetDataexportPreviewsmappingResponse;
 use AntChain\BAASDATAGW\Models\GetDatasearchIndexRequest;
 use AntChain\BAASDATAGW\Models\GetDatasearchIndexResponse;
+use AntChain\BAASDATAGW\Models\ListChaininsightAssetinterfacesrequiredRequest;
+use AntChain\BAASDATAGW\Models\ListChaininsightAssetinterfacesrequiredResponse;
 use AntChain\BAASDATAGW\Models\ListChaininsightContractinterfaceRequest;
 use AntChain\BAASDATAGW\Models\ListChaininsightContractinterfaceResponse;
 use AntChain\BAASDATAGW\Models\ListChaininsightStatisticRequest;
 use AntChain\BAASDATAGW\Models\ListChaininsightStatisticResponse;
+use AntChain\BAASDATAGW\Models\ListChaininsightWidgetsRequest;
+use AntChain\BAASDATAGW\Models\ListChaininsightWidgetsResponse;
 use AntChain\BAASDATAGW\Models\ListContractmetaRequest;
 use AntChain\BAASDATAGW\Models\ListContractmetaResponse;
 use AntChain\BAASDATAGW\Models\ListDataexportTriggerlogRequest;
 use AntChain\BAASDATAGW\Models\ListDataexportTriggerlogResponse;
 use AntChain\BAASDATAGW\Models\ListDataexportTriggerRequest;
 use AntChain\BAASDATAGW\Models\ListDataexportTriggerResponse;
+use AntChain\BAASDATAGW\Models\OpenChaininsightDatasearchRequest;
+use AntChain\BAASDATAGW\Models\OpenChaininsightDatasearchResponse;
 use AntChain\BAASDATAGW\Models\OperateChaininsightStatisticRequest;
 use AntChain\BAASDATAGW\Models\OperateChaininsightStatisticResponse;
+use AntChain\BAASDATAGW\Models\OperateChaininsightWidgetsmoveRequest;
+use AntChain\BAASDATAGW\Models\OperateChaininsightWidgetsmoveResponse;
 use AntChain\BAASDATAGW\Models\OperateChainsRequest;
 use AntChain\BAASDATAGW\Models\OperateChainsResponse;
 use AntChain\BAASDATAGW\Models\OperateDataexportTriggerconfigRequest;
@@ -55,6 +69,22 @@ use AntChain\BAASDATAGW\Models\OperateDataexportTriggerlogRequest;
 use AntChain\BAASDATAGW\Models\OperateDataexportTriggerlogResponse;
 use AntChain\BAASDATAGW\Models\OperateDataexportTriggerstatusRequest;
 use AntChain\BAASDATAGW\Models\OperateDataexportTriggerstatusResponse;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightAccountmodifytxRequest;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightAccountmodifytxResponse;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightContractmodifytxRequest;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightContractmodifytxResponse;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightLatestcontractsRequest;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightLatestcontractsResponse;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightLatesttxsRequest;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightLatesttxsResponse;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightStatisticassethistoryassetRequest;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightStatisticassethistoryassetResponse;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightStatisticassethistorycontractRequest;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightStatisticassethistorycontractResponse;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightStatisticassetinventoryaccountRequest;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightStatisticassetinventoryaccountResponse;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightStatisticassetownerRequest;
+use AntChain\BAASDATAGW\Models\PagequeryChaininsightStatisticassetownerResponse;
 use AntChain\BAASDATAGW\Models\QueryChaininsightAddresshistogramrxRequest;
 use AntChain\BAASDATAGW\Models\QueryChaininsightAddresshistogramrxResponse;
 use AntChain\BAASDATAGW\Models\QueryChaininsightAddresshistogramtxRequest;
@@ -69,12 +99,26 @@ use AntChain\BAASDATAGW\Models\QueryChaininsightChaintxhistogramRequest;
 use AntChain\BAASDATAGW\Models\QueryChaininsightChaintxhistogramResponse;
 use AntChain\BAASDATAGW\Models\QueryChaininsightLabelsRequest;
 use AntChain\BAASDATAGW\Models\QueryChaininsightLabelsResponse;
+use AntChain\BAASDATAGW\Models\QueryChaininsightPrivatechainsstatusRequest;
+use AntChain\BAASDATAGW\Models\QueryChaininsightPrivatechainsstatusResponse;
+use AntChain\BAASDATAGW\Models\QueryChaininsightPrivatechaintxhistogramRequest;
+use AntChain\BAASDATAGW\Models\QueryChaininsightPrivatechaintxhistogramResponse;
+use AntChain\BAASDATAGW\Models\QueryChaininsightPrivatedatasearchstatusRequest;
+use AntChain\BAASDATAGW\Models\QueryChaininsightPrivatedatasearchstatusResponse;
 use AntChain\BAASDATAGW\Models\QueryChaininsightSearchRequest;
 use AntChain\BAASDATAGW\Models\QueryChaininsightSearchResponse;
+use AntChain\BAASDATAGW\Models\QueryChaininsightStatisticassetdetailRequest;
+use AntChain\BAASDATAGW\Models\QueryChaininsightStatisticassetdetailResponse;
+use AntChain\BAASDATAGW\Models\QueryChaininsightStatisticassetmetaRequest;
+use AntChain\BAASDATAGW\Models\QueryChaininsightStatisticassetmetaResponse;
 use AntChain\BAASDATAGW\Models\QueryChaininsightStatistichistogramRequest;
 use AntChain\BAASDATAGW\Models\QueryChaininsightStatistichistogramResponse;
 use AntChain\BAASDATAGW\Models\QueryChaininsightStatistictableRequest;
 use AntChain\BAASDATAGW\Models\QueryChaininsightStatistictableResponse;
+use AntChain\BAASDATAGW\Models\QueryChaininsightTablesactivereceiverRequest;
+use AntChain\BAASDATAGW\Models\QueryChaininsightTablesactivereceiverResponse;
+use AntChain\BAASDATAGW\Models\QueryChaininsightTablesactivesenderRequest;
+use AntChain\BAASDATAGW\Models\QueryChaininsightTablesactivesenderResponse;
 use AntChain\BAASDATAGW\Models\QueryChaininsightTransactionRequest;
 use AntChain\BAASDATAGW\Models\QueryChaininsightTransactionResponse;
 use AntChain\BAASDATAGW\Models\QueryDataexportPreviewdataRequest;
@@ -95,6 +139,8 @@ use AntChain\BAASDATAGW\Models\UpdateChaininsightContractinterfaceRequest;
 use AntChain\BAASDATAGW\Models\UpdateChaininsightContractinterfaceResponse;
 use AntChain\BAASDATAGW\Models\UpdateChaininsightLabelsRequest;
 use AntChain\BAASDATAGW\Models\UpdateChaininsightLabelsResponse;
+use AntChain\BAASDATAGW\Models\UpdateChaininsightWidgetsRequest;
+use AntChain\BAASDATAGW\Models\UpdateChaininsightWidgetsResponse;
 use AntChain\BAASDATAGW\Models\UploadChaininsightAbiRequest;
 use AntChain\BAASDATAGW\Models\UploadChaininsightAbiResponse;
 use AntChain\Util\UtilClient;
@@ -196,18 +242,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -244,7 +290,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.1',
+                    'sdk_version'      => '1.4.2',
                     '_prod_code'       => 'BAASDATAGW',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1610,6 +1656,765 @@ class Client
         Utils::validateModel($request);
 
         return CreateChaininsightQrcodeResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.qrcode.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 开通数据搜索服务
+     * Summary: 开通数据搜索服务
+     *
+     * @param OpenChaininsightDatasearchRequest $request
+     *
+     * @return OpenChaininsightDatasearchResponse
+     */
+    public function openChaininsightDatasearch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->openChaininsightDatasearchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 开通数据搜索服务
+     * Summary: 开通数据搜索服务
+     *
+     * @param OpenChaininsightDatasearchRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return OpenChaininsightDatasearchResponse
+     */
+    public function openChaininsightDatasearchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OpenChaininsightDatasearchResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.datasearch.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 私有化场景下查询所有链的数据搜索服务状态
+     * Summary: 私有化场景下查询所有链的数据搜索服务状态
+     *
+     * @param QueryChaininsightPrivatedatasearchstatusRequest $request
+     *
+     * @return QueryChaininsightPrivatedatasearchstatusResponse
+     */
+    public function queryChaininsightPrivatedatasearchstatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChaininsightPrivatedatasearchstatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 私有化场景下查询所有链的数据搜索服务状态
+     * Summary: 私有化场景下查询所有链的数据搜索服务状态
+     *
+     * @param QueryChaininsightPrivatedatasearchstatusRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return QueryChaininsightPrivatedatasearchstatusResponse
+     */
+    public function queryChaininsightPrivatedatasearchstatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChaininsightPrivatedatasearchstatusResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.privatedatasearchstatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 添加看板
+     * Summary: 添加看板
+     *
+     * @param AddChaininsightWidgetsRequest $request
+     *
+     * @return AddChaininsightWidgetsResponse
+     */
+    public function addChaininsightWidgets($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addChaininsightWidgetsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 添加看板
+     * Summary: 添加看板
+     *
+     * @param AddChaininsightWidgetsRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return AddChaininsightWidgetsResponse
+     */
+    public function addChaininsightWidgetsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddChaininsightWidgetsResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.widgets.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取看板列表
+     * Summary: 获取看板列表.
+     *
+     * @param ListChaininsightWidgetsRequest $request
+     *
+     * @return ListChaininsightWidgetsResponse
+     */
+    public function listChaininsightWidgets($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listChaininsightWidgetsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取看板列表
+     * Summary: 获取看板列表.
+     *
+     * @param ListChaininsightWidgetsRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ListChaininsightWidgetsResponse
+     */
+    public function listChaininsightWidgetsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListChaininsightWidgetsResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.widgets.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询链上活跃接收地址
+     * Summary: 分页查询链上活跃接收地址
+     *
+     * @param QueryChaininsightTablesactivereceiverRequest $request
+     *
+     * @return QueryChaininsightTablesactivereceiverResponse
+     */
+    public function queryChaininsightTablesactivereceiver($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChaininsightTablesactivereceiverEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询链上活跃接收地址
+     * Summary: 分页查询链上活跃接收地址
+     *
+     * @param QueryChaininsightTablesactivereceiverRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return QueryChaininsightTablesactivereceiverResponse
+     */
+    public function queryChaininsightTablesactivereceiverEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChaininsightTablesactivereceiverResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.tablesactivereceiver.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询链上活跃发送地址
+     * Summary: 分页查询链上活跃发送地址
+     *
+     * @param QueryChaininsightTablesactivesenderRequest $request
+     *
+     * @return QueryChaininsightTablesactivesenderResponse
+     */
+    public function queryChaininsightTablesactivesender($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChaininsightTablesactivesenderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询链上活跃发送地址
+     * Summary: 分页查询链上活跃发送地址
+     *
+     * @param QueryChaininsightTablesactivesenderRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return QueryChaininsightTablesactivesenderResponse
+     */
+    public function queryChaininsightTablesactivesenderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChaininsightTablesactivesenderResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.tablesactivesender.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询链上近期合约
+     * Summary: 分页查询链上近期合约.
+     *
+     * @param PagequeryChaininsightLatestcontractsRequest $request
+     *
+     * @return PagequeryChaininsightLatestcontractsResponse
+     */
+    public function pagequeryChaininsightLatestcontracts($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryChaininsightLatestcontractsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询链上近期合约
+     * Summary: 分页查询链上近期合约.
+     *
+     * @param PagequeryChaininsightLatestcontractsRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return PagequeryChaininsightLatestcontractsResponse
+     */
+    public function pagequeryChaininsightLatestcontractsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryChaininsightLatestcontractsResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.latestcontracts.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询链上近期交易
+     * Summary: 分页查询链上近期交易.
+     *
+     * @param PagequeryChaininsightLatesttxsRequest $request
+     *
+     * @return PagequeryChaininsightLatesttxsResponse
+     */
+    public function pagequeryChaininsightLatesttxs($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryChaininsightLatesttxsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询链上近期交易
+     * Summary: 分页查询链上近期交易.
+     *
+     * @param PagequeryChaininsightLatesttxsRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return PagequeryChaininsightLatesttxsResponse
+     */
+    public function pagequeryChaininsightLatesttxsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryChaininsightLatesttxsResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.latesttxs.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 私有化场景下查询区块链整体状态
+     * Summary: 私有化场景下查询区块链整体状态
+     *
+     * @param QueryChaininsightPrivatechainsstatusRequest $request
+     *
+     * @return QueryChaininsightPrivatechainsstatusResponse
+     */
+    public function queryChaininsightPrivatechainsstatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChaininsightPrivatechainsstatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 私有化场景下查询区块链整体状态
+     * Summary: 私有化场景下查询区块链整体状态
+     *
+     * @param QueryChaininsightPrivatechainsstatusRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return QueryChaininsightPrivatechainsstatusResponse
+     */
+    public function queryChaininsightPrivatechainsstatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChaininsightPrivatechainsstatusResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.privatechainsstatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 私有化场景下查询链交易数量趋势
+     * Summary: 私有化场景下查询链交易数量趋势
+     *
+     * @param QueryChaininsightPrivatechaintxhistogramRequest $request
+     *
+     * @return QueryChaininsightPrivatechaintxhistogramResponse
+     */
+    public function queryChaininsightPrivatechaintxhistogram($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChaininsightPrivatechaintxhistogramEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 私有化场景下查询链交易数量趋势
+     * Summary: 私有化场景下查询链交易数量趋势
+     *
+     * @param QueryChaininsightPrivatechaintxhistogramRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return QueryChaininsightPrivatechaintxhistogramResponse
+     */
+    public function queryChaininsightPrivatechaintxhistogramEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChaininsightPrivatechaintxhistogramResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.privatechaintxhistogram.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除数据洞察看板
+     * Summary: 删除数据洞察看板
+     *
+     * @param DeleteChaininsightWidgetsRequest $request
+     *
+     * @return DeleteChaininsightWidgetsResponse
+     */
+    public function deleteChaininsightWidgets($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteChaininsightWidgetsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除数据洞察看板
+     * Summary: 删除数据洞察看板
+     *
+     * @param DeleteChaininsightWidgetsRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return DeleteChaininsightWidgetsResponse
+     */
+    public function deleteChaininsightWidgetsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteChaininsightWidgetsResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.widgets.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 移动看板
+     * Summary: 移动看板
+     *
+     * @param OperateChaininsightWidgetsmoveRequest $request
+     *
+     * @return OperateChaininsightWidgetsmoveResponse
+     */
+    public function operateChaininsightWidgetsmove($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateChaininsightWidgetsmoveEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 移动看板
+     * Summary: 移动看板
+     *
+     * @param OperateChaininsightWidgetsmoveRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return OperateChaininsightWidgetsmoveResponse
+     */
+    public function operateChaininsightWidgetsmoveEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateChaininsightWidgetsmoveResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.widgetsmove.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 修改看板
+     * Summary: 修改看板
+     *
+     * @param UpdateChaininsightWidgetsRequest $request
+     *
+     * @return UpdateChaininsightWidgetsResponse
+     */
+    public function updateChaininsightWidgets($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateChaininsightWidgetsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 修改看板
+     * Summary: 修改看板
+     *
+     * @param UpdateChaininsightWidgetsRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UpdateChaininsightWidgetsResponse
+     */
+    public function updateChaininsightWidgetsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateChaininsightWidgetsResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.widgets.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 下载合约
+     * Summary: 下载合约.
+     *
+     * @param DownloadChaininsightContractRequest $request
+     *
+     * @return DownloadChaininsightContractResponse
+     */
+    public function downloadChaininsightContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->downloadChaininsightContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 下载合约
+     * Summary: 下载合约.
+     *
+     * @param DownloadChaininsightContractRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return DownloadChaininsightContractResponse
+     */
+    public function downloadChaininsightContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DownloadChaininsightContractResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.contract.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询修改合约的交易
+     * Summary: 查询修改合约的交易.
+     *
+     * @param PagequeryChaininsightContractmodifytxRequest $request
+     *
+     * @return PagequeryChaininsightContractmodifytxResponse
+     */
+    public function pagequeryChaininsightContractmodifytx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryChaininsightContractmodifytxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询修改合约的交易
+     * Summary: 查询修改合约的交易.
+     *
+     * @param PagequeryChaininsightContractmodifytxRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return PagequeryChaininsightContractmodifytxResponse
+     */
+    public function pagequeryChaininsightContractmodifytxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryChaininsightContractmodifytxResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.contractmodifytx.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询账户的修改交易
+     * Summary: 分页查询账户的修改交易.
+     *
+     * @param PagequeryChaininsightAccountmodifytxRequest $request
+     *
+     * @return PagequeryChaininsightAccountmodifytxResponse
+     */
+    public function pagequeryChaininsightAccountmodifytx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryChaininsightAccountmodifytxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询账户的修改交易
+     * Summary: 分页查询账户的修改交易.
+     *
+     * @param PagequeryChaininsightAccountmodifytxRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return PagequeryChaininsightAccountmodifytxResponse
+     */
+    public function pagequeryChaininsightAccountmodifytxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryChaininsightAccountmodifytxResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.accountmodifytx.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 返回对应 ERC 类型资产统计所必须的接口
+     * Summary: 查询资产统计所必须的接口.
+     *
+     * @param ListChaininsightAssetinterfacesrequiredRequest $request
+     *
+     * @return ListChaininsightAssetinterfacesrequiredResponse
+     */
+    public function listChaininsightAssetinterfacesrequired($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listChaininsightAssetinterfacesrequiredEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 返回对应 ERC 类型资产统计所必须的接口
+     * Summary: 查询资产统计所必须的接口.
+     *
+     * @param ListChaininsightAssetinterfacesrequiredRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return ListChaininsightAssetinterfacesrequiredResponse
+     */
+    public function listChaininsightAssetinterfacesrequiredEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListChaininsightAssetinterfacesrequiredResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.assetinterfacesrequired.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询链上资产的详情
+     * Summary: 查询资产详情.
+     *
+     * @param QueryChaininsightStatisticassetdetailRequest $request
+     *
+     * @return QueryChaininsightStatisticassetdetailResponse
+     */
+    public function queryChaininsightStatisticassetdetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChaininsightStatisticassetdetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询链上资产的详情
+     * Summary: 查询资产详情.
+     *
+     * @param QueryChaininsightStatisticassetdetailRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return QueryChaininsightStatisticassetdetailResponse
+     */
+    public function queryChaininsightStatisticassetdetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChaininsightStatisticassetdetailResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.statisticassetdetail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询链上资产合约中资产的元信息
+     * Summary: 查询链上资产元信息.
+     *
+     * @param QueryChaininsightStatisticassetmetaRequest $request
+     *
+     * @return QueryChaininsightStatisticassetmetaResponse
+     */
+    public function queryChaininsightStatisticassetmeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChaininsightStatisticassetmetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询链上资产合约中资产的元信息
+     * Summary: 查询链上资产元信息.
+     *
+     * @param QueryChaininsightStatisticassetmetaRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return QueryChaininsightStatisticassetmetaResponse
+     */
+    public function queryChaininsightStatisticassetmetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChaininsightStatisticassetmetaResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.statisticassetmeta.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询链上资产合约中资产的持有者信息，按最近一次交易时间降序
+     * Summary: 查询链上资产的持有者信息.
+     *
+     * @param PagequeryChaininsightStatisticassetownerRequest $request
+     *
+     * @return PagequeryChaininsightStatisticassetownerResponse
+     */
+    public function pagequeryChaininsightStatisticassetowner($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryChaininsightStatisticassetownerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询链上资产合约中资产的持有者信息，按最近一次交易时间降序
+     * Summary: 查询链上资产的持有者信息.
+     *
+     * @param PagequeryChaininsightStatisticassetownerRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return PagequeryChaininsightStatisticassetownerResponse
+     */
+    public function pagequeryChaininsightStatisticassetownerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryChaininsightStatisticassetownerResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.statisticassetowner.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询链上账户的资产列表，按最近一次交易时间降序
+     * Summary: 查询链上账户的资产列表.
+     *
+     * @param PagequeryChaininsightStatisticassetinventoryaccountRequest $request
+     *
+     * @return PagequeryChaininsightStatisticassetinventoryaccountResponse
+     */
+    public function pagequeryChaininsightStatisticassetinventoryaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryChaininsightStatisticassetinventoryaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询链上账户的资产列表，按最近一次交易时间降序
+     * Summary: 查询链上账户的资产列表.
+     *
+     * @param PagequeryChaininsightStatisticassetinventoryaccountRequest $request
+     * @param string[]                                                   $headers
+     * @param RuntimeOptions                                             $runtime
+     *
+     * @return PagequeryChaininsightStatisticassetinventoryaccountResponse
+     */
+    public function pagequeryChaininsightStatisticassetinventoryaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryChaininsightStatisticassetinventoryaccountResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.statisticassetinventoryaccount.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询链上资产合约中资产的流转信息，按交易时间降序
+     * Summary: 查询链上资产的流转信息.
+     *
+     * @param PagequeryChaininsightStatisticassethistoryassetRequest $request
+     *
+     * @return PagequeryChaininsightStatisticassethistoryassetResponse
+     */
+    public function pagequeryChaininsightStatisticassethistoryasset($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryChaininsightStatisticassethistoryassetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询链上资产合约中资产的流转信息，按交易时间降序
+     * Summary: 查询链上资产的流转信息.
+     *
+     * @param PagequeryChaininsightStatisticassethistoryassetRequest $request
+     * @param string[]                                               $headers
+     * @param RuntimeOptions                                         $runtime
+     *
+     * @return PagequeryChaininsightStatisticassethistoryassetResponse
+     */
+    public function pagequeryChaininsightStatisticassethistoryassetEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryChaininsightStatisticassethistoryassetResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.statisticassethistoryasset.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询链上资产合约的资产流转信息，按交易时间降序
+     * Summary: 查询链上资产合约的资产流转信息.
+     *
+     * @param PagequeryChaininsightStatisticassethistorycontractRequest $request
+     *
+     * @return PagequeryChaininsightStatisticassethistorycontractResponse
+     */
+    public function pagequeryChaininsightStatisticassethistorycontract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryChaininsightStatisticassethistorycontractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询链上资产合约的资产流转信息，按交易时间降序
+     * Summary: 查询链上资产合约的资产流转信息.
+     *
+     * @param PagequeryChaininsightStatisticassethistorycontractRequest $request
+     * @param string[]                                                  $headers
+     * @param RuntimeOptions                                            $runtime
+     *
+     * @return PagequeryChaininsightStatisticassethistorycontractResponse
+     */
+    public function pagequeryChaininsightStatisticassethistorycontractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryChaininsightStatisticassethistorycontractResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.statisticassethistorycontract.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

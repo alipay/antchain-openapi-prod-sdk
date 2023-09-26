@@ -36,12 +36,19 @@ class ListChaininsightContractinterfaceRequest extends Model
      * @var string
      */
     public $ver;
+
+    // 租户ID，留空
+    /**
+     * @var string
+     */
+    public $tenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'bizId'             => 'biz_id',
         'hexAddress'        => 'hex_address',
         'ver'               => 'ver',
+        'tenantId'          => 'tenant_id',
     ];
 
     public function validate()
@@ -69,6 +76,9 @@ class ListChaininsightContractinterfaceRequest extends Model
         if (null !== $this->ver) {
             $res['ver'] = $this->ver;
         }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
 
         return $res;
     }
@@ -95,6 +105,9 @@ class ListChaininsightContractinterfaceRequest extends Model
         }
         if (isset($map['ver'])) {
             $model->ver = $map['ver'];
+        }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
 
         return $model;

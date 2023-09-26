@@ -64,7 +64,7 @@ class ChainInsightSearchRequest extends Model
      */
     public $endTime;
 
-    // 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline
+    // 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline、DigitalAsset
     /**
      * @example ChainAddress
      *

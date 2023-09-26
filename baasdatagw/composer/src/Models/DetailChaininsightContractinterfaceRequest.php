@@ -42,6 +42,12 @@ class DetailChaininsightContractinterfaceRequest extends Model
      * @var ChainInsightContractInterface
      */
     public $contractInterface;
+
+    // 租户ID，留空
+    /**
+     * @var string
+     */
+    public $tenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class DetailChaininsightContractinterfaceRequest extends Model
         'hexAddress'        => 'hex_address',
         'ver'               => 'ver',
         'contractInterface' => 'contract_interface',
+        'tenantId'          => 'tenant_id',
     ];
 
     public function validate()
@@ -80,6 +87,9 @@ class DetailChaininsightContractinterfaceRequest extends Model
         if (null !== $this->contractInterface) {
             $res['contract_interface'] = null !== $this->contractInterface ? $this->contractInterface->toMap() : null;
         }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
 
         return $res;
     }
@@ -109,6 +119,9 @@ class DetailChaininsightContractinterfaceRequest extends Model
         }
         if (isset($map['contract_interface'])) {
             $model->contractInterface = ChainInsightContractInterface::fromMap($map['contract_interface']);
+        }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
 
         return $model;

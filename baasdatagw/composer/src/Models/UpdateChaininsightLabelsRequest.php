@@ -36,12 +36,19 @@ class UpdateChaininsightLabelsRequest extends Model
      * @var ChainInsightAddressLabel
      */
     public $label;
+
+    // 租户ID，留空
+    /**
+     * @var string
+     */
+    public $tenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'bizId'             => 'biz_id',
         'hexAddress'        => 'hex_address',
         'label'             => 'label',
+        'tenantId'          => 'tenant_id',
     ];
 
     public function validate()
@@ -69,6 +76,9 @@ class UpdateChaininsightLabelsRequest extends Model
         if (null !== $this->label) {
             $res['label'] = null !== $this->label ? $this->label->toMap() : null;
         }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
 
         return $res;
     }
@@ -95,6 +105,9 @@ class UpdateChaininsightLabelsRequest extends Model
         }
         if (isset($map['label'])) {
             $model->label = ChainInsightAddressLabel::fromMap($map['label']);
+        }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
 
         return $model;

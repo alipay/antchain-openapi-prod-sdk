@@ -39,11 +39,20 @@ class ChainInsightContractInterfaceArgument extends Model
      * @var string
      */
     public $comment;
+
+    // 对应的标准 ERC 参数的名称，例如：标准ERC1155 TransferBatch事件中的operator
+    /**
+     * @example operator
+     *
+     * @var string
+     */
+    public $standardErcName;
     protected $_name = [
-        'name'     => 'name',
-        'type'     => 'type',
-        'location' => 'location',
-        'comment'  => 'comment',
+        'name'            => 'name',
+        'type'            => 'type',
+        'location'        => 'location',
+        'comment'         => 'comment',
+        'standardErcName' => 'standard_erc_name',
     ];
 
     public function validate()
@@ -68,6 +77,9 @@ class ChainInsightContractInterfaceArgument extends Model
         if (null !== $this->comment) {
             $res['comment'] = $this->comment;
         }
+        if (null !== $this->standardErcName) {
+            $res['standard_erc_name'] = $this->standardErcName;
+        }
 
         return $res;
     }
@@ -91,6 +103,9 @@ class ChainInsightContractInterfaceArgument extends Model
         }
         if (isset($map['comment'])) {
             $model->comment = $map['comment'];
+        }
+        if (isset($map['standard_erc_name'])) {
+            $model->standardErcName = $map['standard_erc_name'];
         }
 
         return $model;

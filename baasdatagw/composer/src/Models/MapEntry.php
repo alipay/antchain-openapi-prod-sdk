@@ -23,9 +23,18 @@ class MapEntry extends Model
      * @var string
      */
     public $value;
+
+    // 声明 value 的类型，包括 String / Double / Long / Bool / JSONObject / JSONArray
+    /**
+     * @example String
+     *
+     * @var string
+     */
+    public $type;
     protected $_name = [
         'key'   => 'key',
         'value' => 'value',
+        'type'  => 'type',
     ];
 
     public function validate()
@@ -42,6 +51,9 @@ class MapEntry extends Model
         }
         if (null !== $this->value) {
             $res['value'] = $this->value;
+        }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
         }
 
         return $res;
@@ -60,6 +72,9 @@ class MapEntry extends Model
         }
         if (isset($map['value'])) {
             $model->value = $map['value'];
+        }
+        if (isset($map['type'])) {
+            $model->type = $map['type'];
         }
 
         return $model;

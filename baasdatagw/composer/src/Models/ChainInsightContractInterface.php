@@ -31,10 +31,28 @@ class ChainInsightContractInterface extends Model
      * @var string
      */
     public $type;
+
+    // 对应的标准 ERC 事件/方法 的名称
+    /**
+     * @example TransferBatch
+     *
+     * @var string
+     */
+    public $standardErcName;
+
+    // 参数列表
+    /**
+     * @example
+     *
+     * @var ChainInsightContractInterfaceArgument[]
+     */
+    public $args;
     protected $_name = [
-        'name'    => 'name',
-        'nameSig' => 'name_sig',
-        'type'    => 'type',
+        'name'            => 'name',
+        'nameSig'         => 'name_sig',
+        'type'            => 'type',
+        'standardErcName' => 'standard_erc_name',
+        'args'            => 'args',
     ];
 
     public function validate()
@@ -54,6 +72,18 @@ class ChainInsightContractInterface extends Model
         }
         if (null !== $this->type) {
             $res['type'] = $this->type;
+        }
+        if (null !== $this->standardErcName) {
+            $res['standard_erc_name'] = $this->standardErcName;
+        }
+        if (null !== $this->args) {
+            $res['args'] = [];
+            if (null !== $this->args && \is_array($this->args)) {
+                $n = 0;
+                foreach ($this->args as $item) {
+                    $res['args'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -75,6 +105,18 @@ class ChainInsightContractInterface extends Model
         }
         if (isset($map['type'])) {
             $model->type = $map['type'];
+        }
+        if (isset($map['standard_erc_name'])) {
+            $model->standardErcName = $map['standard_erc_name'];
+        }
+        if (isset($map['args'])) {
+            if (!empty($map['args'])) {
+                $model->args = [];
+                $n           = 0;
+                foreach ($map['args'] as $item) {
+                    $model->args[$n++] = null !== $item ? ChainInsightContractInterfaceArgument::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

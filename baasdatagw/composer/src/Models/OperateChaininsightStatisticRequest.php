@@ -36,12 +36,19 @@ class OperateChaininsightStatisticRequest extends Model
      * @var string
      */
     public $operation;
+
+    // 租户ID，留空
+    /**
+     * @var string
+     */
+    public $tenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'bizId'             => 'biz_id',
         'taskId'            => 'task_id',
         'operation'         => 'operation',
+        'tenantId'          => 'tenant_id',
     ];
 
     public function validate()
@@ -69,6 +76,9 @@ class OperateChaininsightStatisticRequest extends Model
         if (null !== $this->operation) {
             $res['operation'] = $this->operation;
         }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
 
         return $res;
     }
@@ -95,6 +105,9 @@ class OperateChaininsightStatisticRequest extends Model
         }
         if (isset($map['operation'])) {
             $model->operation = $map['operation'];
+        }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
 
         return $model;

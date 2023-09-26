@@ -24,6 +24,14 @@ class ChainInsightSearchResultItem extends Model
      */
     public $bizId;
 
+    // 结果链ID对应的区块链名称
+    /**
+     * @example 测试链
+     *
+     * @var string
+     */
+    public $bizName;
+
     // 结果与搜索请求的相关性程度，(0, 10000000]
     /**
      * @example 9500000
@@ -40,10 +48,11 @@ class ChainInsightSearchResultItem extends Model
      */
     public $values;
     protected $_name = [
-        'type'   => 'type',
-        'bizId'  => 'biz_id',
-        'score'  => 'score',
-        'values' => 'values',
+        'type'    => 'type',
+        'bizId'   => 'biz_id',
+        'bizName' => 'biz_name',
+        'score'   => 'score',
+        'values'  => 'values',
     ];
 
     public function validate()
@@ -62,6 +71,9 @@ class ChainInsightSearchResultItem extends Model
         }
         if (null !== $this->bizId) {
             $res['biz_id'] = $this->bizId;
+        }
+        if (null !== $this->bizName) {
+            $res['biz_name'] = $this->bizName;
         }
         if (null !== $this->score) {
             $res['score'] = $this->score;
@@ -92,6 +104,9 @@ class ChainInsightSearchResultItem extends Model
         }
         if (isset($map['biz_id'])) {
             $model->bizId = $map['biz_id'];
+        }
+        if (isset($map['biz_name'])) {
+            $model->bizName = $map['biz_name'];
         }
         if (isset($map['score'])) {
             $model->score = $map['score'];

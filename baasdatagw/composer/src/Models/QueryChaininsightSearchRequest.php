@@ -36,12 +36,19 @@ class QueryChaininsightSearchRequest extends Model
      * @var ChainInsightSearchRequest
      */
     public $request;
+
+    // 租户ID，留空
+    /**
+     * @var string
+     */
+    public $tenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'unionId'           => 'union_id',
         'bizIds'            => 'biz_ids',
         'request'           => 'request',
+        'tenantId'          => 'tenant_id',
     ];
 
     public function validate()
@@ -67,6 +74,9 @@ class QueryChaininsightSearchRequest extends Model
         }
         if (null !== $this->request) {
             $res['request'] = null !== $this->request ? $this->request->toMap() : null;
+        }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
         }
 
         return $res;
@@ -96,6 +106,9 @@ class QueryChaininsightSearchRequest extends Model
         }
         if (isset($map['request'])) {
             $model->request = ChainInsightSearchRequest::fromMap($map['request']);
+        }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
 
         return $model;

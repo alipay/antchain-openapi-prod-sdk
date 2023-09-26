@@ -48,6 +48,12 @@ class QueryChaininsightStatistichistogramRequest extends Model
      * @var int
      */
     public $endTime;
+
+    // 点集类型，枚举：Amount、Increment、GrowthRate，默认为Amount
+    /**
+     * @var string
+     */
+    public $type;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class QueryChaininsightStatistichistogramRequest extends Model
         'dimensions'        => 'dimensions',
         'startTime'         => 'start_time',
         'endTime'           => 'end_time',
+        'type'              => 'type',
     ];
 
     public function validate()
@@ -89,6 +96,9 @@ class QueryChaininsightStatistichistogramRequest extends Model
         }
         if (null !== $this->endTime) {
             $res['end_time'] = $this->endTime;
+        }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
         }
 
         return $res;
@@ -124,6 +134,9 @@ class QueryChaininsightStatistichistogramRequest extends Model
         }
         if (isset($map['end_time'])) {
             $model->endTime = $map['end_time'];
+        }
+        if (isset($map['type'])) {
+            $model->type = $map['type'];
         }
 
         return $model;

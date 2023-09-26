@@ -135,6 +135,14 @@ class ChainInsightTransaction extends Model
      * @var ChainInsightEvent[]
      */
     public $events;
+
+    // 交易时间戳（单位：毫秒）
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $timestamp;
     protected $_name = [
         'bizId'         => 'biz_id',
         'bizIdName'     => 'biz_id_name',
@@ -152,6 +160,7 @@ class ChainInsightTransaction extends Model
         'txIndex'       => 'tx_index',
         'data'          => 'data',
         'events'        => 'events',
+        'timestamp'     => 'timestamp',
     ];
 
     public function validate()
@@ -165,6 +174,7 @@ class ChainInsightTransaction extends Model
         Model::validateRequired('input', $this->input, true);
         Model::validateRequired('blockNum', $this->blockNum, true);
         Model::validateRequired('txIndex', $this->txIndex, true);
+        Model::validateRequired('timestamp', $this->timestamp, true);
     }
 
     public function toMap()
@@ -223,6 +233,9 @@ class ChainInsightTransaction extends Model
                     $res['events'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->timestamp) {
+            $res['timestamp'] = $this->timestamp;
         }
 
         return $res;
@@ -289,6 +302,9 @@ class ChainInsightTransaction extends Model
                     $model->events[$n++] = null !== $item ? ChainInsightEvent::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['timestamp'])) {
+            $model->timestamp = $map['timestamp'];
         }
 
         return $model;

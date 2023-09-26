@@ -127,6 +127,14 @@ class ChainInsightAddress extends Model
      * @var string
      */
     public $contractType;
+
+    // 资产合约相关信息
+    /**
+     * @example
+     *
+     * @var ChainInsightAssetContractInfo
+     */
+    public $assetContractInfo;
     protected $_name = [
         'bizId'               => 'biz_id',
         'bizIdName'           => 'biz_id_name',
@@ -143,6 +151,7 @@ class ChainInsightAddress extends Model
         'authMap'             => 'auth_map',
         'recoverKey'          => 'recover_key',
         'contractType'        => 'contract_type',
+        'assetContractInfo'   => 'asset_contract_info',
     ];
 
     public function validate()
@@ -215,6 +224,9 @@ class ChainInsightAddress extends Model
         if (null !== $this->contractType) {
             $res['contract_type'] = $this->contractType;
         }
+        if (null !== $this->assetContractInfo) {
+            $res['asset_contract_info'] = null !== $this->assetContractInfo ? $this->assetContractInfo->toMap() : null;
+        }
 
         return $res;
     }
@@ -277,6 +289,9 @@ class ChainInsightAddress extends Model
         }
         if (isset($map['contract_type'])) {
             $model->contractType = $map['contract_type'];
+        }
+        if (isset($map['asset_contract_info'])) {
+            $model->assetContractInfo = ChainInsightAssetContractInfo::fromMap($map['asset_contract_info']);
         }
 
         return $model;

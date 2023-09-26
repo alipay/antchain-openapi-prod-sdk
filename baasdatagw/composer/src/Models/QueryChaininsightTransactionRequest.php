@@ -36,12 +36,19 @@ class QueryChaininsightTransactionRequest extends Model
      * @var string
      */
     public $teeKey;
+
+    // 租户ID，留空
+    /**
+     * @var string
+     */
+    public $tenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'bizId'             => 'biz_id',
         'txId'              => 'tx_id',
         'teeKey'            => 'tee_key',
+        'tenantId'          => 'tenant_id',
     ];
 
     public function validate()
@@ -67,6 +74,9 @@ class QueryChaininsightTransactionRequest extends Model
         }
         if (null !== $this->teeKey) {
             $res['tee_key'] = $this->teeKey;
+        }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
         }
 
         return $res;
@@ -94,6 +104,9 @@ class QueryChaininsightTransactionRequest extends Model
         }
         if (isset($map['tee_key'])) {
             $model->teeKey = $map['tee_key'];
+        }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
 
         return $model;

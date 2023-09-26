@@ -42,6 +42,12 @@ class UploadChaininsightAbiRequest extends Model
      * @var string
      */
     public $file;
+
+    // 租户ID，留空
+    /**
+     * @var string
+     */
+    public $tenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class UploadChaininsightAbiRequest extends Model
         'hexAddress'        => 'hex_address',
         'ver'               => 'ver',
         'file'              => 'file',
+        'tenantId'          => 'tenant_id',
     ];
 
     public function validate()
@@ -80,6 +87,9 @@ class UploadChaininsightAbiRequest extends Model
         if (null !== $this->file) {
             $res['file'] = $this->file;
         }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
 
         return $res;
     }
@@ -109,6 +119,9 @@ class UploadChaininsightAbiRequest extends Model
         }
         if (isset($map['file'])) {
             $model->file = $map['file'];
+        }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
 
         return $model;

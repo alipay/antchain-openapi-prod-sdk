@@ -42,6 +42,12 @@ class QueryChaininsightAddresshistogramrxRequest extends Model
      * @var int
      */
     public $endTime;
+
+    // 点集类型，枚举：Amount、Increment、GrowthRate，默认Amount
+    /**
+     * @var string
+     */
+    public $type;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class QueryChaininsightAddresshistogramrxRequest extends Model
         'hexAddress'        => 'hex_address',
         'startTime'         => 'start_time',
         'endTime'           => 'end_time',
+        'type'              => 'type',
     ];
 
     public function validate()
@@ -80,6 +87,9 @@ class QueryChaininsightAddresshistogramrxRequest extends Model
         if (null !== $this->endTime) {
             $res['end_time'] = $this->endTime;
         }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
+        }
 
         return $res;
     }
@@ -109,6 +119,9 @@ class QueryChaininsightAddresshistogramrxRequest extends Model
         }
         if (isset($map['end_time'])) {
             $model->endTime = $map['end_time'];
+        }
+        if (isset($map['type'])) {
+            $model->type = $map['type'];
         }
 
         return $model;
