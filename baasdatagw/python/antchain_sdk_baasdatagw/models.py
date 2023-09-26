@@ -209,11 +209,14 @@ class MapEntry(TeaModel):
         self,
         key: str = None,
         value: str = None,
+        type: str = None,
     ):
         # Key
         self.key = key
         # value
         self.value = value
+        # 声明 value 的类型，包括 String / Double / Long / Bool / JSONObject / JSONArray
+        self.type = type
 
     def validate(self):
         self.validate_required(self.key, 'key')
@@ -229,6 +232,8 @@ class MapEntry(TeaModel):
             result['key'] = self.key
         if self.value is not None:
             result['value'] = self.value
+        if self.type is not None:
+            result['type'] = self.type
         return result
 
     def from_map(self, m: dict = None):
@@ -237,6 +242,66 @@ class MapEntry(TeaModel):
             self.key = m.get('key')
         if m.get('value') is not None:
             self.value = m.get('value')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class ChainInsightContractInterfaceArgument(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        location: str = None,
+        comment: str = None,
+        standard_erc_name: str = None,
+    ):
+        # 参数名
+        self.name = name
+        # 参数类型
+        self.type = type
+        # 参数位置，枚举：input，output，deposit
+        self.location = location
+        # 参数的业务名称
+        self.comment = comment
+        # 对应的标准 ERC 参数的名称，例如：标准ERC1155 TransferBatch事件中的operator
+        self.standard_erc_name = standard_erc_name
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.location, 'location')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.type is not None:
+            result['type'] = self.type
+        if self.location is not None:
+            result['location'] = self.location
+        if self.comment is not None:
+            result['comment'] = self.comment
+        if self.standard_erc_name is not None:
+            result['standard_erc_name'] = self.standard_erc_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('location') is not None:
+            self.location = m.get('location')
+        if m.get('comment') is not None:
+            self.comment = m.get('comment')
+        if m.get('standard_erc_name') is not None:
+            self.standard_erc_name = m.get('standard_erc_name')
         return self
 
 
@@ -321,6 +386,97 @@ class ChainInsightStatisticCustomTableRow(TeaModel):
         return self
 
 
+class ChainInsightAssetOwner(TeaModel):
+    def __init__(
+        self,
+        owner: str = None,
+        contract_addr: str = None,
+        asset_id: str = None,
+        shard_id: str = None,
+        erc_type: str = None,
+        balance: int = None,
+        update_tx_hash: str = None,
+        update_block_height: int = None,
+        update_block_time: int = None,
+    ):
+        # 持有者地址
+        self.owner = owner
+        # 合约地址
+        self.contract_addr = contract_addr
+        # 资产ID
+        self.asset_id = asset_id
+        # 数字权证链1155合约特有的分片ID
+        self.shard_id = shard_id
+        # 资产类型：ERC721 / ERC1155
+        self.erc_type = erc_type
+        # 数字资产余额
+        self.balance = balance
+        # 该账户对该资产最近一次转让交易的哈希
+        self.update_tx_hash = update_tx_hash
+        # 该账户对该资产最近一次转让交易所在区块高度
+        self.update_block_height = update_block_height
+        # 该账户对该资产最近一次转让交易所在区块的创建时间，单位：毫秒
+        self.update_block_time = update_block_time
+
+    def validate(self):
+        self.validate_required(self.owner, 'owner')
+        self.validate_required(self.contract_addr, 'contract_addr')
+        self.validate_required(self.asset_id, 'asset_id')
+        self.validate_required(self.erc_type, 'erc_type')
+        self.validate_required(self.balance, 'balance')
+        self.validate_required(self.update_tx_hash, 'update_tx_hash')
+        self.validate_required(self.update_block_height, 'update_block_height')
+        self.validate_required(self.update_block_time, 'update_block_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner is not None:
+            result['owner'] = self.owner
+        if self.contract_addr is not None:
+            result['contract_addr'] = self.contract_addr
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        if self.shard_id is not None:
+            result['shard_id'] = self.shard_id
+        if self.erc_type is not None:
+            result['erc_type'] = self.erc_type
+        if self.balance is not None:
+            result['balance'] = self.balance
+        if self.update_tx_hash is not None:
+            result['update_tx_hash'] = self.update_tx_hash
+        if self.update_block_height is not None:
+            result['update_block_height'] = self.update_block_height
+        if self.update_block_time is not None:
+            result['update_block_time'] = self.update_block_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('owner') is not None:
+            self.owner = m.get('owner')
+        if m.get('contract_addr') is not None:
+            self.contract_addr = m.get('contract_addr')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        if m.get('shard_id') is not None:
+            self.shard_id = m.get('shard_id')
+        if m.get('erc_type') is not None:
+            self.erc_type = m.get('erc_type')
+        if m.get('balance') is not None:
+            self.balance = m.get('balance')
+        if m.get('update_tx_hash') is not None:
+            self.update_tx_hash = m.get('update_tx_hash')
+        if m.get('update_block_height') is not None:
+            self.update_block_height = m.get('update_block_height')
+        if m.get('update_block_time') is not None:
+            self.update_block_time = m.get('update_block_time')
+        return self
+
+
 class TriggerCheckpoint(TeaModel):
     def __init__(
         self,
@@ -389,6 +545,7 @@ class ChainInsightSearchResultItem(TeaModel):
         self,
         type: str = None,
         biz_id: str = None,
+        biz_name: str = None,
         score: int = None,
         values: List[MapEntry] = None,
     ):
@@ -396,6 +553,8 @@ class ChainInsightSearchResultItem(TeaModel):
         self.type = type
         # 结果所在的链ID
         self.biz_id = biz_id
+        # 结果链ID对应的区块链名称
+        self.biz_name = biz_name
         # 结果与搜索请求的相关性程度，(0, 10000000]
         self.score = score
         # 搜索结果值
@@ -421,6 +580,8 @@ class ChainInsightSearchResultItem(TeaModel):
             result['type'] = self.type
         if self.biz_id is not None:
             result['biz_id'] = self.biz_id
+        if self.biz_name is not None:
+            result['biz_name'] = self.biz_name
         if self.score is not None:
             result['score'] = self.score
         result['values'] = []
@@ -435,6 +596,8 @@ class ChainInsightSearchResultItem(TeaModel):
             self.type = m.get('type')
         if m.get('biz_id') is not None:
             self.biz_id = m.get('biz_id')
+        if m.get('biz_name') is not None:
+            self.biz_name = m.get('biz_name')
         if m.get('score') is not None:
             self.score = m.get('score')
         self.values = []
@@ -442,6 +605,237 @@ class ChainInsightSearchResultItem(TeaModel):
             for k in m.get('values'):
                 temp_model = MapEntry()
                 self.values.append(temp_model.from_map(k))
+        return self
+
+
+class ChainStatus(TeaModel):
+    def __init__(
+        self,
+        biz_id: str = None,
+        biz_id_name: str = None,
+        parent_biz_id: str = None,
+        ledger_height: int = None,
+        tx_count: int = None,
+        status: str = None,
+    ):
+        # 链ID
+        self.biz_id = biz_id
+        # 链名称
+        self.biz_id_name = biz_id_name
+        # 主链ID
+        self.parent_biz_id = parent_biz_id
+        # 当前区块高度
+        self.ledger_height = ledger_height
+        # 交易总量
+        self.tx_count = tx_count
+        # 链状态，ok, fail
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.biz_id_name is not None:
+            result['biz_id_name'] = self.biz_id_name
+        if self.parent_biz_id is not None:
+            result['parent_biz_id'] = self.parent_biz_id
+        if self.ledger_height is not None:
+            result['ledger_height'] = self.ledger_height
+        if self.tx_count is not None:
+            result['tx_count'] = self.tx_count
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('biz_id_name') is not None:
+            self.biz_id_name = m.get('biz_id_name')
+        if m.get('parent_biz_id') is not None:
+            self.parent_biz_id = m.get('parent_biz_id')
+        if m.get('ledger_height') is not None:
+            self.ledger_height = m.get('ledger_height')
+        if m.get('tx_count') is not None:
+            self.tx_count = m.get('tx_count')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class ChainInsightTransactionInfo(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        type: str = None,
+        from_: str = None,
+        to: str = None,
+        height: int = None,
+        timestamp: int = None,
+        abi_status: str = None,
+    ):
+        # 交易ID
+        self.id = id
+        # 交易类型
+        self.type = type
+        # 交易发起者
+        self.from_ = from_
+        # 交易接收者
+        self.to = to
+        # 交易成块高度
+        self.height = height
+        # 交易成块时间，毫秒时间戳
+        self.timestamp = timestamp
+        # 合约中 ABI 的状态  (无需上传) none / （可以上传）pending / （可以更新）uploaded
+        self.abi_status = abi_status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.from_ is not None:
+            result['from'] = self.from_
+        if self.to is not None:
+            result['to'] = self.to
+        if self.height is not None:
+            result['height'] = self.height
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        if self.abi_status is not None:
+            result['abi_status'] = self.abi_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('from') is not None:
+            self.from_ = m.get('from')
+        if m.get('to') is not None:
+            self.to = m.get('to')
+        if m.get('height') is not None:
+            self.height = m.get('height')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        if m.get('abi_status') is not None:
+            self.abi_status = m.get('abi_status')
+        return self
+
+
+class ChainInsightAssetOperation(TeaModel):
+    def __init__(
+        self,
+        contract_addr: str = None,
+        tx_id: str = None,
+        operator: str = None,
+        from_: str = None,
+        to: str = None,
+        asset_id: str = None,
+        shard_id: str = None,
+        asset_value: int = None,
+        timestamp: int = None,
+        block_height: int = None,
+    ):
+        # 合约地址
+        self.contract_addr = contract_addr
+        # 流转交易哈希
+        self.tx_id = tx_id
+        # 转让执行者地址，ERC1155资产会有
+        self.operator = operator
+        # 资产转出地址
+        self.from_ = from_
+        # 资产转入地址
+        self.to = to
+        # 资产ID
+        self.asset_id = asset_id
+        # 数字权证链的1155资产的分片ID
+        self.shard_id = shard_id
+        # 资产转让数量
+        self.asset_value = asset_value
+        # 资产流转交易所在区块的创建时间，单位：毫秒
+        self.timestamp = timestamp
+        # 流转交易所在块高
+        self.block_height = block_height
+
+    def validate(self):
+        self.validate_required(self.contract_addr, 'contract_addr')
+        self.validate_required(self.tx_id, 'tx_id')
+        self.validate_required(self.from_, 'from_')
+        self.validate_required(self.to, 'to')
+        self.validate_required(self.asset_id, 'asset_id')
+        self.validate_required(self.asset_value, 'asset_value')
+        self.validate_required(self.timestamp, 'timestamp')
+        self.validate_required(self.block_height, 'block_height')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contract_addr is not None:
+            result['contract_addr'] = self.contract_addr
+        if self.tx_id is not None:
+            result['tx_id'] = self.tx_id
+        if self.operator is not None:
+            result['operator'] = self.operator
+        if self.from_ is not None:
+            result['from'] = self.from_
+        if self.to is not None:
+            result['to'] = self.to
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        if self.shard_id is not None:
+            result['shard_id'] = self.shard_id
+        if self.asset_value is not None:
+            result['asset_value'] = self.asset_value
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        if self.block_height is not None:
+            result['block_height'] = self.block_height
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('contract_addr') is not None:
+            self.contract_addr = m.get('contract_addr')
+        if m.get('tx_id') is not None:
+            self.tx_id = m.get('tx_id')
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
+        if m.get('from') is not None:
+            self.from_ = m.get('from')
+        if m.get('to') is not None:
+            self.to = m.get('to')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        if m.get('shard_id') is not None:
+            self.shard_id = m.get('shard_id')
+        if m.get('asset_value') is not None:
+            self.asset_value = m.get('asset_value')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        if m.get('block_height') is not None:
+            self.block_height = m.get('block_height')
         return self
 
 
@@ -500,6 +894,7 @@ class ChainInsightTransaction(TeaModel):
         tx_index: int = None,
         data: str = None,
         events: List[ChainInsightEvent] = None,
+        timestamp: int = None,
     ):
         # 链ID
         self.biz_id = biz_id
@@ -533,6 +928,8 @@ class ChainInsightTransaction(TeaModel):
         self.data = data
         # 交易中的事件
         self.events = events
+        # 交易时间戳（单位：毫秒）
+        self.timestamp = timestamp
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -548,6 +945,7 @@ class ChainInsightTransaction(TeaModel):
             for k in self.events:
                 if k:
                     k.validate()
+        self.validate_required(self.timestamp, 'timestamp')
 
     def to_map(self):
         _map = super().to_map()
@@ -589,6 +987,8 @@ class ChainInsightTransaction(TeaModel):
         if self.events is not None:
             for k in self.events:
                 result['events'].append(k.to_map() if k else None)
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
         return result
 
     def from_map(self, m: dict = None):
@@ -628,6 +1028,258 @@ class ChainInsightTransaction(TeaModel):
             for k in m.get('events'):
                 temp_model = ChainInsightEvent()
                 self.events.append(temp_model.from_map(k))
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
+class ChainInsightNodeInfo(TeaModel):
+    def __init__(
+        self,
+        biz_id: str = None,
+        name: str = None,
+        ip: str = None,
+        height: int = None,
+        status: str = None,
+    ):
+        # 链ID
+        self.biz_id = biz_id
+        # 节点名称
+        self.name = name
+        # 节点IP
+        self.ip = ip
+        # 节点当前区块高度
+        self.height = height
+        # 节点状态，ok, fail
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.ip is not None:
+            result['ip'] = self.ip
+        if self.height is not None:
+            result['height'] = self.height
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('ip') is not None:
+            self.ip = m.get('ip')
+        if m.get('height') is not None:
+            self.height = m.get('height')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class MapEntryList(TeaModel):
+    def __init__(
+        self,
+        element: List[MapEntry] = None,
+    ):
+        # MapEntry列表
+        self.element = element
+
+    def validate(self):
+        if self.element:
+            for k in self.element:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['element'] = []
+        if self.element is not None:
+            for k in self.element:
+                result['element'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.element = []
+        if m.get('element') is not None:
+            for k in m.get('element'):
+                temp_model = MapEntry()
+                self.element.append(temp_model.from_map(k))
+        return self
+
+
+class ChainInsightAssetContractInfo(TeaModel):
+    def __init__(
+        self,
+        erc_type: str = None,
+        asset_count: int = None,
+        owner_count: int = None,
+    ):
+        # 资产类型：ERC721 / ERC1155
+        self.erc_type = erc_type
+        # 资产总量
+        self.asset_count = asset_count
+        # 持有者总量
+        self.owner_count = owner_count
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.erc_type is not None:
+            result['erc_type'] = self.erc_type
+        if self.asset_count is not None:
+            result['asset_count'] = self.asset_count
+        if self.owner_count is not None:
+            result['owner_count'] = self.owner_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('erc_type') is not None:
+            self.erc_type = m.get('erc_type')
+        if m.get('asset_count') is not None:
+            self.asset_count = m.get('asset_count')
+        if m.get('owner_count') is not None:
+            self.owner_count = m.get('owner_count')
+        return self
+
+
+class ChainInsightAsset(TeaModel):
+    def __init__(
+        self,
+        biz_id: str = None,
+        biz_id_name: str = None,
+        contract_addr: str = None,
+        asset_id: str = None,
+        shard_id: str = None,
+        erc_type: str = None,
+        create_time: int = None,
+        owner_count: int = None,
+        meta_data: str = None,
+        uri: str = None,
+        balance: int = None,
+        latest_tx_hash: str = None,
+        latest_tx_time: int = None,
+    ):
+        # 链ID
+        self.biz_id = biz_id
+        # 链名称
+        self.biz_id_name = biz_id_name
+        # 资产合约地址
+        self.contract_addr = contract_addr
+        # 资产ID
+        self.asset_id = asset_id
+        # 数字权证链上的1155资产分片ID
+        self.shard_id = shard_id
+        # 资产类型：ERC721 / ERC1155
+        self.erc_type = erc_type
+        # 创建时间，取值为创建时交易所在区块创建的时间，单位：毫秒
+        self.create_time = create_time
+        # 持有者数量
+        self.owner_count = owner_count
+        # 资产元信息
+        self.meta_data = meta_data
+        # 资产元信息链接
+        self.uri = uri
+        # 账户名下该资产的余额 / 合约下该资产的总供应量
+        self.balance = balance
+        # 该资产最近一笔交易的哈希
+        self.latest_tx_hash = latest_tx_hash
+        # 该资产最近一笔交易所在区块的创建时间
+        self.latest_tx_time = latest_tx_time
+
+    def validate(self):
+        self.validate_required(self.contract_addr, 'contract_addr')
+        self.validate_required(self.asset_id, 'asset_id')
+        self.validate_required(self.erc_type, 'erc_type')
+        self.validate_required(self.latest_tx_hash, 'latest_tx_hash')
+        self.validate_required(self.latest_tx_time, 'latest_tx_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.biz_id_name is not None:
+            result['biz_id_name'] = self.biz_id_name
+        if self.contract_addr is not None:
+            result['contract_addr'] = self.contract_addr
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        if self.shard_id is not None:
+            result['shard_id'] = self.shard_id
+        if self.erc_type is not None:
+            result['erc_type'] = self.erc_type
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.owner_count is not None:
+            result['owner_count'] = self.owner_count
+        if self.meta_data is not None:
+            result['meta_data'] = self.meta_data
+        if self.uri is not None:
+            result['uri'] = self.uri
+        if self.balance is not None:
+            result['balance'] = self.balance
+        if self.latest_tx_hash is not None:
+            result['latest_tx_hash'] = self.latest_tx_hash
+        if self.latest_tx_time is not None:
+            result['latest_tx_time'] = self.latest_tx_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('biz_id_name') is not None:
+            self.biz_id_name = m.get('biz_id_name')
+        if m.get('contract_addr') is not None:
+            self.contract_addr = m.get('contract_addr')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        if m.get('shard_id') is not None:
+            self.shard_id = m.get('shard_id')
+        if m.get('erc_type') is not None:
+            self.erc_type = m.get('erc_type')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('owner_count') is not None:
+            self.owner_count = m.get('owner_count')
+        if m.get('meta_data') is not None:
+            self.meta_data = m.get('meta_data')
+        if m.get('uri') is not None:
+            self.uri = m.get('uri')
+        if m.get('balance') is not None:
+            self.balance = m.get('balance')
+        if m.get('latest_tx_hash') is not None:
+            self.latest_tx_hash = m.get('latest_tx_hash')
+        if m.get('latest_tx_time') is not None:
+            self.latest_tx_time = m.get('latest_tx_time')
         return self
 
 
@@ -657,7 +1309,7 @@ class ChainInsightSearchRequest(TeaModel):
         self.start_time = start_time
         # 查询范围的终止时间戳，单位毫秒
         self.end_time = end_time
-        # 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline
+        # 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline、DigitalAsset
         self.enabled_types = enabled_types
 
     def validate(self):
@@ -712,27 +1364,28 @@ class ChainInsightSearchRequest(TeaModel):
         return self
 
 
-class ChainInsightContractInterfaceArgument(TeaModel):
+class ChainInsightTransactionInfoPageableResponse(TeaModel):
     def __init__(
         self,
-        name: str = None,
-        type: str = None,
-        location: str = None,
-        comment: str = None,
+        page_size: int = None,
+        current: int = None,
+        total: int = None,
+        list: List[ChainInsightTransactionInfo] = None,
     ):
-        # 参数名
-        self.name = name
-        # 参数类型
-        self.type = type
-        # 参数位置，枚举：input，output，deposit
-        self.location = location
-        # 参数的业务名称
-        self.comment = comment
+        # 页面大小
+        self.page_size = page_size
+        # 当前页码
+        self.current = current
+        # 合计
+        self.total = total
+        # ChainInsightTransactionInfo列表
+        self.list = list
 
     def validate(self):
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.type, 'type')
-        self.validate_required(self.location, 'location')
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -740,26 +1393,88 @@ class ChainInsightContractInterfaceArgument(TeaModel):
             return _map
 
         result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        if self.type is not None:
-            result['type'] = self.type
-        if self.location is not None:
-            result['location'] = self.location
-        if self.comment is not None:
-            result['comment'] = self.comment
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.current is not None:
+            result['current'] = self.current
+        if self.total is not None:
+            result['total'] = self.total
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('location') is not None:
-            self.location = m.get('location')
-        if m.get('comment') is not None:
-            self.comment = m.get('comment')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = ChainInsightTransactionInfo()
+                self.list.append(temp_model.from_map(k))
+        return self
+
+
+class ChainInsightActiveAddressesResponse(TeaModel):
+    def __init__(
+        self,
+        page_size: int = None,
+        current: int = None,
+        total: int = None,
+        list: List[MapEntryList] = None,
+    ):
+        # 页面大小
+        self.page_size = page_size
+        # 当前页码
+        self.current = current
+        # 合计
+        self.total = total
+        # 结果列表
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.current is not None:
+            result['current'] = self.current
+        if self.total is not None:
+            result['total'] = self.total
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = MapEntryList()
+                self.list.append(temp_model.from_map(k))
         return self
 
 
@@ -853,6 +1568,55 @@ class ChainInsightStatisticTask(TeaModel):
         return self
 
 
+class ChainInsightAssetMeta(TeaModel):
+    def __init__(
+        self,
+        uri: str = None,
+        meta_data: str = None,
+        resource_type: str = None,
+        resource_data: str = None,
+    ):
+        # 资产元信息链接
+        self.uri = uri
+        # 资产元信息
+        self.meta_data = meta_data
+        # 资源类型：Image / Audio / Video / Unknown
+        self.resource_type = resource_type
+        # 资源详细数据，如图片、视频的链接
+        self.resource_data = resource_data
+
+    def validate(self):
+        self.validate_required(self.resource_type, 'resource_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.uri is not None:
+            result['uri'] = self.uri
+        if self.meta_data is not None:
+            result['meta_data'] = self.meta_data
+        if self.resource_type is not None:
+            result['resource_type'] = self.resource_type
+        if self.resource_data is not None:
+            result['resource_data'] = self.resource_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('uri') is not None:
+            self.uri = m.get('uri')
+        if m.get('meta_data') is not None:
+            self.meta_data = m.get('meta_data')
+        if m.get('resource_type') is not None:
+            self.resource_type = m.get('resource_type')
+        if m.get('resource_data') is not None:
+            self.resource_data = m.get('resource_data')
+        return self
+
+
 class ChainInsightHistogram(TeaModel):
     def __init__(
         self,
@@ -908,6 +1672,67 @@ class ChainInsightHistogram(TeaModel):
                 self.points.append(temp_model.from_map(k))
         if m.get('name') is not None:
             self.name = m.get('name')
+        return self
+
+
+class ChainInsightAssetOwnersResponse(TeaModel):
+    def __init__(
+        self,
+        page_size: int = None,
+        current: int = None,
+        total: int = None,
+        list: List[ChainInsightAssetOwner] = None,
+    ):
+        # 页面大小
+        self.page_size = page_size
+        # 当前页码
+        self.current = current
+        # 合计
+        self.total = total
+        # 结果列表
+        self.list = list
+
+    def validate(self):
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.current, 'current')
+        self.validate_required(self.total, 'total')
+        self.validate_required(self.list, 'list')
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.current is not None:
+            result['current'] = self.current
+        if self.total is not None:
+            result['total'] = self.total
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = ChainInsightAssetOwner()
+                self.list.append(temp_model.from_map(k))
         return self
 
 
@@ -1225,6 +2050,8 @@ class ChainInsightContractInterface(TeaModel):
         name: str = None,
         name_sig: str = None,
         type: str = None,
+        standard_erc_name: str = None,
+        args: List[ChainInsightContractInterfaceArgument] = None,
     ):
         # 展示的函数名称
         self.name = name
@@ -1232,10 +2059,18 @@ class ChainInsightContractInterface(TeaModel):
         self.name_sig = name_sig
         # 接口的类型，枚举：function, event, deposit
         self.type = type
+        # 对应的标准 ERC 事件/方法 的名称
+        self.standard_erc_name = standard_erc_name
+        # 参数列表
+        self.args = args
 
     def validate(self):
         self.validate_required(self.name_sig, 'name_sig')
         self.validate_required(self.type, 'type')
+        if self.args:
+            for k in self.args:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1249,6 +2084,12 @@ class ChainInsightContractInterface(TeaModel):
             result['name_sig'] = self.name_sig
         if self.type is not None:
             result['type'] = self.type
+        if self.standard_erc_name is not None:
+            result['standard_erc_name'] = self.standard_erc_name
+        result['args'] = []
+        if self.args is not None:
+            for k in self.args:
+                result['args'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1259,6 +2100,13 @@ class ChainInsightContractInterface(TeaModel):
             self.name_sig = m.get('name_sig')
         if m.get('type') is not None:
             self.type = m.get('type')
+        if m.get('standard_erc_name') is not None:
+            self.standard_erc_name = m.get('standard_erc_name')
+        self.args = []
+        if m.get('args') is not None:
+            for k in m.get('args'):
+                temp_model = ChainInsightContractInterfaceArgument()
+                self.args.append(temp_model.from_map(k))
         return self
 
 
@@ -1322,6 +2170,58 @@ class DataSearchRequest(TeaModel):
             self.to = m.get('to')
         if m.get('total') is not None:
             self.total = m.get('total')
+        return self
+
+
+class ChainInsightChainStatus(TeaModel):
+    def __init__(
+        self,
+        node_infos: List[ChainInsightNodeInfo] = None,
+        chain_statuses: List[ChainStatus] = None,
+    ):
+        # 节点信息
+        self.node_infos = node_infos
+        # 链状态
+        self.chain_statuses = chain_statuses
+
+    def validate(self):
+        if self.node_infos:
+            for k in self.node_infos:
+                if k:
+                    k.validate()
+        if self.chain_statuses:
+            for k in self.chain_statuses:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['node_infos'] = []
+        if self.node_infos is not None:
+            for k in self.node_infos:
+                result['node_infos'].append(k.to_map() if k else None)
+        result['chain_statuses'] = []
+        if self.chain_statuses is not None:
+            for k in self.chain_statuses:
+                result['chain_statuses'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.node_infos = []
+        if m.get('node_infos') is not None:
+            for k in m.get('node_infos'):
+                temp_model = ChainInsightNodeInfo()
+                self.node_infos.append(temp_model.from_map(k))
+        self.chain_statuses = []
+        if m.get('chain_statuses') is not None:
+            for k in m.get('chain_statuses'):
+                temp_model = ChainStatus()
+                self.chain_statuses.append(temp_model.from_map(k))
         return self
 
 
@@ -1444,6 +2344,67 @@ class ChainInsightSearchResponse(TeaModel):
             for k in m.get('items'):
                 temp_model = ChainInsightSearchResultItem()
                 self.items.append(temp_model.from_map(k))
+        return self
+
+
+class ChainInsightAssetOperationsResponse(TeaModel):
+    def __init__(
+        self,
+        page_size: int = None,
+        current: int = None,
+        total: int = None,
+        list: List[ChainInsightAssetOperation] = None,
+    ):
+        # 页面大小
+        self.page_size = page_size
+        # 当前页码
+        self.current = current
+        # 合计
+        self.total = total
+        # 结果列表
+        self.list = list
+
+    def validate(self):
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.current, 'current')
+        self.validate_required(self.total, 'total')
+        self.validate_required(self.list, 'list')
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.current is not None:
+            result['current'] = self.current
+        if self.total is not None:
+            result['total'] = self.total
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = ChainInsightAssetOperation()
+                self.list.append(temp_model.from_map(k))
         return self
 
 
@@ -1763,6 +2724,7 @@ class ChainInsightAddress(TeaModel):
         auth_map: List[MapEntry] = None,
         recover_key: str = None,
         contract_type: str = None,
+        asset_contract_info: ChainInsightAssetContractInfo = None,
     ):
         # 链ID
         self.biz_id = biz_id
@@ -1794,6 +2756,8 @@ class ChainInsightAddress(TeaModel):
         self.recover_key = recover_key
         # 合约类型，仅当地址为合约时返回：WASM、SOLIDITY
         self.contract_type = contract_type
+        # 资产合约相关信息
+        self.asset_contract_info = asset_contract_info
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -1812,6 +2776,8 @@ class ChainInsightAddress(TeaModel):
                 if k:
                     k.validate()
         self.validate_required(self.recover_key, 'recover_key')
+        if self.asset_contract_info:
+            self.asset_contract_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1851,6 +2817,8 @@ class ChainInsightAddress(TeaModel):
             result['recover_key'] = self.recover_key
         if self.contract_type is not None:
             result['contract_type'] = self.contract_type
+        if self.asset_contract_info is not None:
+            result['asset_contract_info'] = self.asset_contract_info.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -1888,6 +2856,120 @@ class ChainInsightAddress(TeaModel):
             self.recover_key = m.get('recover_key')
         if m.get('contract_type') is not None:
             self.contract_type = m.get('contract_type')
+        if m.get('asset_contract_info') is not None:
+            temp_model = ChainInsightAssetContractInfo()
+            self.asset_contract_info = temp_model.from_map(m['asset_contract_info'])
+        return self
+
+
+class ChainInsightWidget(TeaModel):
+    def __init__(
+        self,
+        widget_type: str = None,
+        type: str = None,
+        time_range: int = None,
+        id: str = None,
+        name: str = None,
+        description: str = None,
+        create_time: int = None,
+        modify_time: int = None,
+        biz_id: str = None,
+        biz_id_name: str = None,
+        hex_address: str = None,
+        query: str = None,
+    ):
+        # 看版类型，内置看版类型为Default
+        self.widget_type = widget_type
+        # 看版子类型；ChainIdWidget, ChainAccountWidget, ChainContractWidget, ChainTotalTransactionWidget, ChainActiveAddressWidget, ChainTxTimeLineWidget
+        self.type = type
+        # 看版时间范围，单位小时
+        self.time_range = time_range
+        # 看板ID
+        self.id = id
+        # 看版名称，最大32字符
+        self.name = name
+        # 看版描述，最大 255 字符
+        self.description = description
+        # 看版创建时间，单位毫秒时间戳
+        self.create_time = create_time
+        # 看版修改时间，单位毫秒时间戳
+        self.modify_time = modify_time
+        # 看版对应的链ID，空表示联盟下所有的链
+        self.biz_id = biz_id
+        # 链名称
+        self.biz_id_name = biz_id_name
+        # 看版对应的链上账户地址，hex编码
+        self.hex_address = hex_address
+        # 时间轴搜索的请求
+        self.query = query
+
+    def validate(self):
+        self.validate_required(self.widget_type, 'widget_type')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.time_range, 'time_range')
+        if self.name is not None:
+            self.validate_max_length(self.name, 'name', 32)
+        if self.description is not None:
+            self.validate_max_length(self.description, 'description', 255)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.widget_type is not None:
+            result['widget_type'] = self.widget_type
+        if self.type is not None:
+            result['type'] = self.type
+        if self.time_range is not None:
+            result['time_range'] = self.time_range
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.modify_time is not None:
+            result['modify_time'] = self.modify_time
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.biz_id_name is not None:
+            result['biz_id_name'] = self.biz_id_name
+        if self.hex_address is not None:
+            result['hex_address'] = self.hex_address
+        if self.query is not None:
+            result['query'] = self.query
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('widget_type') is not None:
+            self.widget_type = m.get('widget_type')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('time_range') is not None:
+            self.time_range = m.get('time_range')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('modify_time') is not None:
+            self.modify_time = m.get('modify_time')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('biz_id_name') is not None:
+            self.biz_id_name = m.get('biz_id_name')
+        if m.get('hex_address') is not None:
+            self.hex_address = m.get('hex_address')
+        if m.get('query') is not None:
+            self.query = m.get('query')
         return self
 
 
@@ -1944,6 +3026,131 @@ class DataExportTableField(TeaModel):
             self.column_size = m.get('column_size')
         if m.get('column_description') is not None:
             self.column_description = m.get('column_description')
+        return self
+
+
+class ChainInsightSearchStatus(TeaModel):
+    def __init__(
+        self,
+        biz_id: str = None,
+        biz_id_name: str = None,
+        status: str = None,
+        current_height: int = None,
+        ledger_height: int = None,
+        estimate_time: int = None,
+    ):
+        # 链ID
+        self.biz_id = biz_id
+        # 链名称
+        self.biz_id_name = biz_id_name
+        # Indexing,Enabled,Disabled
+        self.status = status
+        # 当前索引的区块高度
+        self.current_height = current_height
+        # 当前区块链高度
+        self.ledger_height = ledger_height
+        # 预计索引完成的时间，单位秒
+        self.estimate_time = estimate_time
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.biz_id_name is not None:
+            result['biz_id_name'] = self.biz_id_name
+        if self.status is not None:
+            result['status'] = self.status
+        if self.current_height is not None:
+            result['current_height'] = self.current_height
+        if self.ledger_height is not None:
+            result['ledger_height'] = self.ledger_height
+        if self.estimate_time is not None:
+            result['estimate_time'] = self.estimate_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('biz_id_name') is not None:
+            self.biz_id_name = m.get('biz_id_name')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('current_height') is not None:
+            self.current_height = m.get('current_height')
+        if m.get('ledger_height') is not None:
+            self.ledger_height = m.get('ledger_height')
+        if m.get('estimate_time') is not None:
+            self.estimate_time = m.get('estimate_time')
+        return self
+
+
+class ChainInsightAssetsResponse(TeaModel):
+    def __init__(
+        self,
+        page_size: int = None,
+        current: int = None,
+        total: int = None,
+        list: List[ChainInsightAsset] = None,
+    ):
+        # 页面大小
+        self.page_size = page_size
+        # 当前页码
+        self.current = current
+        # 合计
+        self.total = total
+        # 结果列表
+        self.list = list
+
+    def validate(self):
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.current, 'current')
+        self.validate_required(self.total, 'total')
+        self.validate_required(self.list, 'list')
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.current is not None:
+            result['current'] = self.current
+        if self.total is not None:
+            result['total'] = self.total
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = ChainInsightAsset()
+                self.list.append(temp_model.from_map(k))
         return self
 
 
@@ -4159,6 +5366,7 @@ class QueryChaininsightLabelsRequest(TeaModel):
         product_instance_id: str = None,
         biz_id: str = None,
         hex_addresses: List[str] = None,
+        tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4167,6 +5375,8 @@ class QueryChaininsightLabelsRequest(TeaModel):
         self.biz_id = biz_id
         # 需要查询的地址列表
         self.hex_addresses = hex_addresses
+        # 租户ID，留空
+        self.tenant_id = tenant_id
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -4186,6 +5396,8 @@ class QueryChaininsightLabelsRequest(TeaModel):
             result['biz_id'] = self.biz_id
         if self.hex_addresses is not None:
             result['hex_addresses'] = self.hex_addresses
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -4198,6 +5410,8 @@ class QueryChaininsightLabelsRequest(TeaModel):
             self.biz_id = m.get('biz_id')
         if m.get('hex_addresses') is not None:
             self.hex_addresses = m.get('hex_addresses')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
         return self
 
 
@@ -4266,6 +5480,7 @@ class UpdateChaininsightLabelsRequest(TeaModel):
         biz_id: str = None,
         hex_address: str = None,
         label: ChainInsightAddressLabel = None,
+        tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4276,6 +5491,8 @@ class UpdateChaininsightLabelsRequest(TeaModel):
         self.hex_address = hex_address
         # 更新的 label 内容
         self.label = label
+        # 租户ID，留空
+        self.tenant_id = tenant_id
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -4300,6 +5517,8 @@ class UpdateChaininsightLabelsRequest(TeaModel):
             result['hex_address'] = self.hex_address
         if self.label is not None:
             result['label'] = self.label.to_map()
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -4315,6 +5534,8 @@ class UpdateChaininsightLabelsRequest(TeaModel):
         if m.get('label') is not None:
             temp_model = ChainInsightAddressLabel()
             self.label = temp_model.from_map(m['label'])
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
         return self
 
 
@@ -4375,6 +5596,7 @@ class QueryChaininsightSearchRequest(TeaModel):
         union_id: str = None,
         biz_ids: List[str] = None,
         request: ChainInsightSearchRequest = None,
+        tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4385,6 +5607,8 @@ class QueryChaininsightSearchRequest(TeaModel):
         self.biz_ids = biz_ids
         # 搜索请求
         self.request = request
+        # 租户ID，留空
+        self.tenant_id = tenant_id
 
     def validate(self):
         self.validate_required(self.union_id, 'union_id')
@@ -4408,6 +5632,8 @@ class QueryChaininsightSearchRequest(TeaModel):
             result['biz_ids'] = self.biz_ids
         if self.request is not None:
             result['request'] = self.request.to_map()
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -4423,6 +5649,8 @@ class QueryChaininsightSearchRequest(TeaModel):
         if m.get('request') is not None:
             temp_model = ChainInsightSearchRequest()
             self.request = temp_model.from_map(m['request'])
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
         return self
 
 
@@ -4484,6 +5712,7 @@ class QueryChaininsightAddressRequest(TeaModel):
         product_instance_id: str = None,
         biz_id: str = None,
         hex_address: str = None,
+        tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4492,6 +5721,8 @@ class QueryChaininsightAddressRequest(TeaModel):
         self.biz_id = biz_id
         # 链上地址
         self.hex_address = hex_address
+        # 租户ID，留空
+        self.tenant_id = tenant_id
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -4511,6 +5742,8 @@ class QueryChaininsightAddressRequest(TeaModel):
             result['biz_id'] = self.biz_id
         if self.hex_address is not None:
             result['hex_address'] = self.hex_address
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -4523,6 +5756,8 @@ class QueryChaininsightAddressRequest(TeaModel):
             self.biz_id = m.get('biz_id')
         if m.get('hex_address') is not None:
             self.hex_address = m.get('hex_address')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
         return self
 
 
@@ -4585,6 +5820,7 @@ class QueryChaininsightTransactionRequest(TeaModel):
         biz_id: str = None,
         tx_id: str = None,
         tee_key: str = None,
+        tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4595,6 +5831,8 @@ class QueryChaininsightTransactionRequest(TeaModel):
         self.tx_id = tx_id
         # hex编码的TEE交易解密Key，留空表示不解密
         self.tee_key = tee_key
+        # 租户ID，留空
+        self.tenant_id = tenant_id
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -4616,6 +5854,8 @@ class QueryChaininsightTransactionRequest(TeaModel):
             result['tx_id'] = self.tx_id
         if self.tee_key is not None:
             result['tee_key'] = self.tee_key
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -4630,6 +5870,8 @@ class QueryChaininsightTransactionRequest(TeaModel):
             self.tx_id = m.get('tx_id')
         if m.get('tee_key') is not None:
             self.tee_key = m.get('tee_key')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
         return self
 
 
@@ -4906,6 +6148,7 @@ class ListChaininsightContractinterfaceRequest(TeaModel):
         biz_id: str = None,
         hex_address: str = None,
         ver: str = None,
+        tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4916,6 +6159,8 @@ class ListChaininsightContractinterfaceRequest(TeaModel):
         self.hex_address = hex_address
         # 需要查询的版本信息，0表示最新
         self.ver = ver
+        # 租户ID，留空
+        self.tenant_id = tenant_id
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -4938,6 +6183,8 @@ class ListChaininsightContractinterfaceRequest(TeaModel):
             result['hex_address'] = self.hex_address
         if self.ver is not None:
             result['ver'] = self.ver
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -4952,6 +6199,8 @@ class ListChaininsightContractinterfaceRequest(TeaModel):
             self.hex_address = m.get('hex_address')
         if m.get('ver') is not None:
             self.ver = m.get('ver')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
         return self
 
 
@@ -5021,6 +6270,7 @@ class DetailChaininsightContractinterfaceRequest(TeaModel):
         hex_address: str = None,
         ver: str = None,
         contract_interface: ChainInsightContractInterface = None,
+        tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -5033,6 +6283,8 @@ class DetailChaininsightContractinterfaceRequest(TeaModel):
         self.ver = ver
         # 接口
         self.contract_interface = contract_interface
+        # 租户ID，留空
+        self.tenant_id = tenant_id
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -5060,6 +6312,8 @@ class DetailChaininsightContractinterfaceRequest(TeaModel):
             result['ver'] = self.ver
         if self.contract_interface is not None:
             result['contract_interface'] = self.contract_interface.to_map()
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -5077,6 +6331,8 @@ class DetailChaininsightContractinterfaceRequest(TeaModel):
         if m.get('contract_interface') is not None:
             temp_model = ChainInsightContractInterface()
             self.contract_interface = temp_model.from_map(m['contract_interface'])
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
         return self
 
 
@@ -5147,6 +6403,7 @@ class UpdateChaininsightContractinterfaceRequest(TeaModel):
         ver: str = None,
         contract_interface: ChainInsightContractInterface = None,
         interface_argument: ChainInsightContractInterfaceArgument = None,
+        tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -5161,6 +6418,8 @@ class UpdateChaininsightContractinterfaceRequest(TeaModel):
         self.contract_interface = contract_interface
         # 新的接口参数信息
         self.interface_argument = interface_argument
+        # 租户ID，留空
+        self.tenant_id = tenant_id
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -5193,6 +6452,8 @@ class UpdateChaininsightContractinterfaceRequest(TeaModel):
             result['contract_interface'] = self.contract_interface.to_map()
         if self.interface_argument is not None:
             result['interface_argument'] = self.interface_argument.to_map()
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -5213,6 +6474,8 @@ class UpdateChaininsightContractinterfaceRequest(TeaModel):
         if m.get('interface_argument') is not None:
             temp_model = ChainInsightContractInterfaceArgument()
             self.interface_argument = temp_model.from_map(m['interface_argument'])
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
         return self
 
 
@@ -5274,6 +6537,7 @@ class UploadChaininsightAbiRequest(TeaModel):
         hex_address: str = None,
         ver: str = None,
         file: str = None,
+        tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -5286,6 +6550,8 @@ class UploadChaininsightAbiRequest(TeaModel):
         self.ver = ver
         # ABI文件原始内容
         self.file = file
+        # 租户ID，留空
+        self.tenant_id = tenant_id
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -5311,6 +6577,8 @@ class UploadChaininsightAbiRequest(TeaModel):
             result['ver'] = self.ver
         if self.file is not None:
             result['file'] = self.file
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -5327,6 +6595,8 @@ class UploadChaininsightAbiRequest(TeaModel):
             self.ver = m.get('ver')
         if m.get('file') is not None:
             self.file = m.get('file')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
         return self
 
 
@@ -5388,6 +6658,7 @@ class QueryChaininsightAddresshistogramrxRequest(TeaModel):
         hex_address: str = None,
         start_time: int = None,
         end_time: int = None,
+        type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -5400,6 +6671,8 @@ class QueryChaininsightAddresshistogramrxRequest(TeaModel):
         self.start_time = start_time
         # 结束时间戳，毫秒
         self.end_time = end_time
+        # 点集类型，枚举：Amount、Increment、GrowthRate，默认Amount
+        self.type = type
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -5425,6 +6698,8 @@ class QueryChaininsightAddresshistogramrxRequest(TeaModel):
             result['start_time'] = self.start_time
         if self.end_time is not None:
             result['end_time'] = self.end_time
+        if self.type is not None:
+            result['type'] = self.type
         return result
 
     def from_map(self, m: dict = None):
@@ -5441,6 +6716,8 @@ class QueryChaininsightAddresshistogramrxRequest(TeaModel):
             self.start_time = m.get('start_time')
         if m.get('end_time') is not None:
             self.end_time = m.get('end_time')
+        if m.get('type') is not None:
+            self.type = m.get('type')
         return self
 
 
@@ -5504,6 +6781,7 @@ class QueryChaininsightAddresshistogramtxRequest(TeaModel):
         hex_address: str = None,
         start_time: int = None,
         end_time: int = None,
+        type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -5516,6 +6794,8 @@ class QueryChaininsightAddresshistogramtxRequest(TeaModel):
         self.start_time = start_time
         # 结束时间戳
         self.end_time = end_time
+        # 点集类型，枚举：Amount、Increment、GrowthRate，默认Amount
+        self.type = type
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -5541,6 +6821,8 @@ class QueryChaininsightAddresshistogramtxRequest(TeaModel):
             result['start_time'] = self.start_time
         if self.end_time is not None:
             result['end_time'] = self.end_time
+        if self.type is not None:
+            result['type'] = self.type
         return result
 
     def from_map(self, m: dict = None):
@@ -5557,6 +6839,8 @@ class QueryChaininsightAddresshistogramtxRequest(TeaModel):
             self.start_time = m.get('start_time')
         if m.get('end_time') is not None:
             self.end_time = m.get('end_time')
+        if m.get('type') is not None:
+            self.type = m.get('type')
         return self
 
 
@@ -5620,6 +6904,7 @@ class QueryChaininsightChaintxhistogramRequest(TeaModel):
         biz_id: str = None,
         start_time: int = None,
         end_time: int = None,
+        type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -5632,6 +6917,8 @@ class QueryChaininsightChaintxhistogramRequest(TeaModel):
         self.start_time = start_time
         # 结束时间戳
         self.end_time = end_time
+        # 点集类型，枚举：Amount、Increment、GrowthRate，默认Amount
+        self.type = type
 
     def validate(self):
         self.validate_required(self.union_id, 'union_id')
@@ -5656,6 +6943,8 @@ class QueryChaininsightChaintxhistogramRequest(TeaModel):
             result['start_time'] = self.start_time
         if self.end_time is not None:
             result['end_time'] = self.end_time
+        if self.type is not None:
+            result['type'] = self.type
         return result
 
     def from_map(self, m: dict = None):
@@ -5672,6 +6961,8 @@ class QueryChaininsightChaintxhistogramRequest(TeaModel):
             self.start_time = m.get('start_time')
         if m.get('end_time') is not None:
             self.end_time = m.get('end_time')
+        if m.get('type') is not None:
+            self.type = m.get('type')
         return self
 
 
@@ -5922,6 +7213,7 @@ class AddChaininsightStatisticRequest(TeaModel):
         biz_id: str = None,
         type: str = None,
         hex_address: str = None,
+        tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -5932,6 +7224,8 @@ class AddChaininsightStatisticRequest(TeaModel):
         self.type = type
         # 链上合约地址
         self.hex_address = hex_address
+        # 租户ID，留空
+        self.tenant_id = tenant_id
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -5953,6 +7247,8 @@ class AddChaininsightStatisticRequest(TeaModel):
             result['type'] = self.type
         if self.hex_address is not None:
             result['hex_address'] = self.hex_address
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -5967,6 +7263,8 @@ class AddChaininsightStatisticRequest(TeaModel):
             self.type = m.get('type')
         if m.get('hex_address') is not None:
             self.hex_address = m.get('hex_address')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
         return self
 
 
@@ -6029,6 +7327,7 @@ class OperateChaininsightStatisticRequest(TeaModel):
         biz_id: str = None,
         task_id: str = None,
         operation: str = None,
+        tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6039,6 +7338,8 @@ class OperateChaininsightStatisticRequest(TeaModel):
         self.task_id = task_id
         # 操作方式； Delete 删除
         self.operation = operation
+        # 租户ID，留空
+        self.tenant_id = tenant_id
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -6061,6 +7362,8 @@ class OperateChaininsightStatisticRequest(TeaModel):
             result['task_id'] = self.task_id
         if self.operation is not None:
             result['operation'] = self.operation
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -6075,6 +7378,8 @@ class OperateChaininsightStatisticRequest(TeaModel):
             self.task_id = m.get('task_id')
         if m.get('operation') is not None:
             self.operation = m.get('operation')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
         return self
 
 
@@ -6139,6 +7444,7 @@ class QueryChaininsightStatistichistogramRequest(TeaModel):
         dimensions: List[str] = None,
         start_time: int = None,
         end_time: int = None,
+        type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6153,6 +7459,8 @@ class QueryChaininsightStatistichistogramRequest(TeaModel):
         self.start_time = start_time
         # 查询结束时间，毫秒时间戳
         self.end_time = end_time
+        # 点集类型，枚举：Amount、Increment、GrowthRate，默认为Amount
+        self.type = type
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -6180,6 +7488,8 @@ class QueryChaininsightStatistichistogramRequest(TeaModel):
             result['start_time'] = self.start_time
         if self.end_time is not None:
             result['end_time'] = self.end_time
+        if self.type is not None:
+            result['type'] = self.type
         return result
 
     def from_map(self, m: dict = None):
@@ -6198,6 +7508,8 @@ class QueryChaininsightStatistichistogramRequest(TeaModel):
             self.start_time = m.get('start_time')
         if m.get('end_time') is not None:
             self.end_time = m.get('end_time')
+        if m.get('type') is not None:
+            self.type = m.get('type')
         return self
 
 
@@ -6494,6 +7806,2693 @@ class CreateChaininsightQrcodeResponse(TeaModel):
         return self
 
 
+class OpenChaininsightDatasearchRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        union_id: str = None,
+        biz_id: str = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟ID
+        self.union_id = union_id
+        # 链ID
+        self.biz_id = biz_id
+        # 租户ID，留空
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.union_id, 'union_id')
+        self.validate_required(self.biz_id, 'biz_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.union_id is not None:
+            result['union_id'] = self.union_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('union_id') is not None:
+            self.union_id = m.get('union_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class OpenChaininsightDatasearchResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class QueryChaininsightPrivatedatasearchstatusRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        union_id: str = None,
+        tenant_id: str = None,
+        biz_ids: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟ID
+        self.union_id = union_id
+        # 租户ID，留空
+        self.tenant_id = tenant_id
+        # 链ID列表
+        self.biz_ids = biz_ids
+
+    def validate(self):
+        self.validate_required(self.union_id, 'union_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.union_id is not None:
+            result['union_id'] = self.union_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.biz_ids is not None:
+            result['biz_ids'] = self.biz_ids
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('union_id') is not None:
+            self.union_id = m.get('union_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('biz_ids') is not None:
+            self.biz_ids = m.get('biz_ids')
+        return self
+
+
+class QueryChaininsightPrivatedatasearchstatusResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: List[ChainInsightSearchStatus] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 链搜索状态列表
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['result'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.result = []
+        if m.get('result') is not None:
+            for k in m.get('result'):
+                temp_model = ChainInsightSearchStatus()
+                self.result.append(temp_model.from_map(k))
+        return self
+
+
+class AddChaininsightWidgetsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        union_id: str = None,
+        tenant_id: str = None,
+        widget: ChainInsightWidget = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟ID
+        self.union_id = union_id
+        # 租户ID，留空
+        self.tenant_id = tenant_id
+        # 数据洞察看板
+        self.widget = widget
+
+    def validate(self):
+        self.validate_required(self.union_id, 'union_id')
+        self.validate_required(self.widget, 'widget')
+        if self.widget:
+            self.widget.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.union_id is not None:
+            result['union_id'] = self.union_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.widget is not None:
+            result['widget'] = self.widget.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('union_id') is not None:
+            self.union_id = m.get('union_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('widget') is not None:
+            temp_model = ChainInsightWidget()
+            self.widget = temp_model.from_map(m['widget'])
+        return self
+
+
+class AddChaininsightWidgetsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightWidget = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 数据洞察看板
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightWidget()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class ListChaininsightWidgetsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        union_id: str = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟ID
+        self.union_id = union_id
+        # 租户ID，留空
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.union_id, 'union_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.union_id is not None:
+            result['union_id'] = self.union_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('union_id') is not None:
+            self.union_id = m.get('union_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class ListChaininsightWidgetsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: List[ChainInsightWidget] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 数据洞察看板列表
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['result'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.result = []
+        if m.get('result') is not None:
+            for k in m.get('result'):
+                temp_model = ChainInsightWidget()
+                self.result.append(temp_model.from_map(k))
+        return self
+
+
+class QueryChaininsightTablesactivereceiverRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        union_id: str = None,
+        biz_ids: List[str] = None,
+        time_range: int = None,
+        page_no: int = None,
+        page_size: int = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟ID
+        self.union_id = union_id
+        # 链ID列表
+        self.biz_ids = biz_ids
+        # 时间范围，单位小时，默认24小时
+        self.time_range = time_range
+        # 页码，默认1
+        self.page_no = page_no
+        # 页面大小，默认10
+        self.page_size = page_size
+        # 租户ID，留空
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.union_id, 'union_id')
+        if self.time_range is not None:
+            self.validate_maximum(self.time_range, 'time_range', 168)
+            self.validate_minimum(self.time_range, 'time_range', 0)
+        if self.page_no is not None:
+            self.validate_minimum(self.page_no, 'page_no', 1)
+        if self.page_size is not None:
+            self.validate_maximum(self.page_size, 'page_size', 100)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.union_id is not None:
+            result['union_id'] = self.union_id
+        if self.biz_ids is not None:
+            result['biz_ids'] = self.biz_ids
+        if self.time_range is not None:
+            result['time_range'] = self.time_range
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('union_id') is not None:
+            self.union_id = m.get('union_id')
+        if m.get('biz_ids') is not None:
+            self.biz_ids = m.get('biz_ids')
+        if m.get('time_range') is not None:
+            self.time_range = m.get('time_range')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class QueryChaininsightTablesactivereceiverResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightActiveAddressesResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 数据洞察链上活跃接收地址响应
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightActiveAddressesResponse()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class QueryChaininsightTablesactivesenderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        union_id: str = None,
+        biz_ids: List[str] = None,
+        time_range: int = None,
+        page_no: int = None,
+        page_size: int = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟ID
+        self.union_id = union_id
+        # 链ID列表
+        self.biz_ids = biz_ids
+        # 时间范围，单位小时，默认24小时
+        self.time_range = time_range
+        # 页码，默认1
+        self.page_no = page_no
+        # 页面大小，默认10
+        self.page_size = page_size
+        # 租户ID，留空
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.union_id, 'union_id')
+        if self.time_range is not None:
+            self.validate_maximum(self.time_range, 'time_range', 168)
+            self.validate_minimum(self.time_range, 'time_range', 0)
+        if self.page_no is not None:
+            self.validate_minimum(self.page_no, 'page_no', 1)
+        if self.page_size is not None:
+            self.validate_maximum(self.page_size, 'page_size', 100)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.union_id is not None:
+            result['union_id'] = self.union_id
+        if self.biz_ids is not None:
+            result['biz_ids'] = self.biz_ids
+        if self.time_range is not None:
+            result['time_range'] = self.time_range
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('union_id') is not None:
+            self.union_id = m.get('union_id')
+        if m.get('biz_ids') is not None:
+            self.biz_ids = m.get('biz_ids')
+        if m.get('time_range') is not None:
+            self.time_range = m.get('time_range')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class QueryChaininsightTablesactivesenderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightActiveAddressesResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 数据洞察链上活跃发送地址响应
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightActiveAddressesResponse()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class PagequeryChaininsightLatestcontractsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        page_no: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.biz_id = biz_id
+        # 页码
+        self.page_no = page_no
+        # 页面大小，默认为5
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        if self.page_no is not None:
+            self.validate_minimum(self.page_no, 'page_no', 1)
+        if self.page_size is not None:
+            self.validate_maximum(self.page_size, 'page_size', 100)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PagequeryChaininsightLatestcontractsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightTransactionInfoPageableResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightTransactionInfoPageableResponse()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class PagequeryChaininsightLatesttxsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        page_size: int = None,
+        page_no: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.biz_id = biz_id
+        # 页面大小，默认为5
+        self.page_size = page_size
+        # 页码，默认为1
+        self.page_no = page_no
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        if self.page_size is not None:
+            self.validate_maximum(self.page_size, 'page_size', 100)
+        if self.page_no is not None:
+            self.validate_minimum(self.page_no, 'page_no', 1)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        return self
+
+
+class PagequeryChaininsightLatesttxsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightAddressLatestTxsResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightAddressLatestTxsResponse()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class QueryChaininsightPrivatechainsstatusRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        union_id: str = None,
+        biz_ids: List[str] = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟ID
+        self.union_id = union_id
+        # 链ID列表
+        self.biz_ids = biz_ids
+        # 租户ID，留空
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.union_id, 'union_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.union_id is not None:
+            result['union_id'] = self.union_id
+        if self.biz_ids is not None:
+            result['biz_ids'] = self.biz_ids
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('union_id') is not None:
+            self.union_id = m.get('union_id')
+        if m.get('biz_ids') is not None:
+            self.biz_ids = m.get('biz_ids')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class QueryChaininsightPrivatechainsstatusResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightChainStatus = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightChainStatus()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class QueryChaininsightPrivatechaintxhistogramRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        union_id: str = None,
+        biz_ids: List[str] = None,
+        start_time: int = None,
+        end_time: int = None,
+        type: str = None,
+        interval: int = None,
+        interval_unit: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟ID
+        self.union_id = union_id
+        # 链ID列表
+        self.biz_ids = biz_ids
+        # 开始时间戳
+        self.start_time = start_time
+        # 结束时间戳
+        self.end_time = end_time
+        # 点集类型，枚举：Amount、Increment、GrowthRate，默认为Amount
+        self.type = type
+        # 统计间隔
+        self.interval = interval
+        # 枚举值，统计间隔的时间单位：Second / Hour / Day / Month / Year
+        self.interval_unit = interval_unit
+
+    def validate(self):
+        self.validate_required(self.union_id, 'union_id')
+        self.validate_required(self.biz_ids, 'biz_ids')
+        self.validate_required(self.start_time, 'start_time')
+        self.validate_required(self.end_time, 'end_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.union_id is not None:
+            result['union_id'] = self.union_id
+        if self.biz_ids is not None:
+            result['biz_ids'] = self.biz_ids
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.type is not None:
+            result['type'] = self.type
+        if self.interval is not None:
+            result['interval'] = self.interval
+        if self.interval_unit is not None:
+            result['interval_unit'] = self.interval_unit
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('union_id') is not None:
+            self.union_id = m.get('union_id')
+        if m.get('biz_ids') is not None:
+            self.biz_ids = m.get('biz_ids')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('interval') is not None:
+            self.interval = m.get('interval')
+        if m.get('interval_unit') is not None:
+            self.interval_unit = m.get('interval_unit')
+        return self
+
+
+class QueryChaininsightPrivatechaintxhistogramResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightHistogram = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightHistogram()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class DeleteChaininsightWidgetsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        union_id: str = None,
+        widget_id: str = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟ID
+        self.union_id = union_id
+        # 看板ID
+        self.widget_id = widget_id
+        # 租户ID，留空
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.union_id, 'union_id')
+        self.validate_required(self.widget_id, 'widget_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.union_id is not None:
+            result['union_id'] = self.union_id
+        if self.widget_id is not None:
+            result['widget_id'] = self.widget_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('union_id') is not None:
+            self.union_id = m.get('union_id')
+        if m.get('widget_id') is not None:
+            self.widget_id = m.get('widget_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class DeleteChaininsightWidgetsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class OperateChaininsightWidgetsmoveRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        union_id: str = None,
+        widget_id: str = None,
+        type: str = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟ID
+        self.union_id = union_id
+        # 看板ID
+        self.widget_id = widget_id
+        # 移动类型， 向上移动（MoveUp） / 向下移动（MoveDown）
+        self.type = type
+        # 租户ID，留空
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.union_id, 'union_id')
+        self.validate_required(self.widget_id, 'widget_id')
+        self.validate_required(self.type, 'type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.union_id is not None:
+            result['union_id'] = self.union_id
+        if self.widget_id is not None:
+            result['widget_id'] = self.widget_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('union_id') is not None:
+            self.union_id = m.get('union_id')
+        if m.get('widget_id') is not None:
+            self.widget_id = m.get('widget_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class OperateChaininsightWidgetsmoveResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: List[ChainInsightWidget] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 移动后的看板列表
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['result'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.result = []
+        if m.get('result') is not None:
+            for k in m.get('result'):
+                temp_model = ChainInsightWidget()
+                self.result.append(temp_model.from_map(k))
+        return self
+
+
+class UpdateChaininsightWidgetsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        union_id: str = None,
+        widget: ChainInsightWidget = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟ID
+        self.union_id = union_id
+        # 要修改的看板信息
+        self.widget = widget
+        # 租户ID，留空
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.union_id, 'union_id')
+        self.validate_required(self.widget, 'widget')
+        if self.widget:
+            self.widget.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.union_id is not None:
+            result['union_id'] = self.union_id
+        if self.widget is not None:
+            result['widget'] = self.widget.to_map()
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('union_id') is not None:
+            self.union_id = m.get('union_id')
+        if m.get('widget') is not None:
+            temp_model = ChainInsightWidget()
+            self.widget = temp_model.from_map(m['widget'])
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class UpdateChaininsightWidgetsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightWidget = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 修改后的看板信息
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightWidget()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class DownloadChaininsightContractRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        hex_address: str = None,
+        height: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.biz_id = biz_id
+        # 合约地址
+        self.hex_address = hex_address
+        # 合约部署交易所在区块范围的最大值，默认为0，即小于当前区块
+        self.height = height
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.hex_address, 'hex_address')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.hex_address is not None:
+            result['hex_address'] = self.hex_address
+        if self.height is not None:
+            result['height'] = self.height
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('hex_address') is not None:
+            self.hex_address = m.get('hex_address')
+        if m.get('height') is not None:
+            self.height = m.get('height')
+        return self
+
+
+class DownloadChaininsightContractResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # base64编码的合约信息
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class PagequeryChaininsightContractmodifytxRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        tenant_id: str = None,
+        hex_address: str = None,
+        page_no: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.biz_id = biz_id
+        # 租户ID，留空
+        self.tenant_id = tenant_id
+        # 合约地址
+        self.hex_address = hex_address
+        # 页码，默认为1
+        self.page_no = page_no
+        # 页面大小，默认为10
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.hex_address, 'hex_address')
+        if self.page_no is not None:
+            self.validate_minimum(self.page_no, 'page_no', 1)
+        if self.page_size is not None:
+            self.validate_maximum(self.page_size, 'page_size', 100)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.hex_address is not None:
+            result['hex_address'] = self.hex_address
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('hex_address') is not None:
+            self.hex_address = m.get('hex_address')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PagequeryChaininsightContractmodifytxResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightTransactionInfoPageableResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightTransactionInfoPageableResponse()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class PagequeryChaininsightAccountmodifytxRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        hex_address: str = None,
+        page_no: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.biz_id = biz_id
+        # 账户地址
+        self.hex_address = hex_address
+        # 页码，默认为1
+        self.page_no = page_no
+        # 页面大小，默认为10
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.hex_address, 'hex_address')
+        if self.page_no is not None:
+            self.validate_minimum(self.page_no, 'page_no', 1)
+        if self.page_size is not None:
+            self.validate_maximum(self.page_size, 'page_size', 100)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.hex_address is not None:
+            result['hex_address'] = self.hex_address
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('hex_address') is not None:
+            self.hex_address = m.get('hex_address')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PagequeryChaininsightAccountmodifytxResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightTransactionInfoPageableResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightTransactionInfoPageableResponse()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class ListChaininsightAssetinterfacesrequiredRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        erc_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # ERC标准类型：ERC721 / ERC1155
+        self.erc_type = erc_type
+
+    def validate(self):
+        self.validate_required(self.erc_type, 'erc_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.erc_type is not None:
+            result['erc_type'] = self.erc_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('erc_type') is not None:
+            self.erc_type = m.get('erc_type')
+        return self
+
+
+class ListChaininsightAssetinterfacesrequiredResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: List[ChainInsightContractInterface] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['result'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.result = []
+        if m.get('result') is not None:
+            for k in m.get('result'):
+                temp_model = ChainInsightContractInterface()
+                self.result.append(temp_model.from_map(k))
+        return self
+
+
+class QueryChaininsightStatisticassetdetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        contract: str = None,
+        asset_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.biz_id = biz_id
+        # 合约地址
+        self.contract = contract
+        # 资产ID
+        self.asset_id = asset_id
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.contract, 'contract')
+        self.validate_required(self.asset_id, 'asset_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.contract is not None:
+            result['contract'] = self.contract
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('contract') is not None:
+            self.contract = m.get('contract')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        return self
+
+
+class QueryChaininsightStatisticassetdetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightAsset = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightAsset()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class QueryChaininsightStatisticassetmetaRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        contract: str = None,
+        asset_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.biz_id = biz_id
+        # 合约地址
+        self.contract = contract
+        # 资产ID
+        self.asset_id = asset_id
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.contract, 'contract')
+        self.validate_required(self.asset_id, 'asset_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.contract is not None:
+            result['contract'] = self.contract
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('contract') is not None:
+            self.contract = m.get('contract')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        return self
+
+
+class QueryChaininsightStatisticassetmetaResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightAssetMeta = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightAssetMeta()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class PagequeryChaininsightStatisticassetownerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        contract: str = None,
+        asset_id: str = None,
+        shard_id: str = None,
+        page_no: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.biz_id = biz_id
+        # 合约地址
+        self.contract = contract
+        # 资产ID，可空，支持模糊搜索（既可以是assetId，也可以是数字权证链1155资产特有的shardId）
+        self.asset_id = asset_id
+        # 数字权证链1155合约的分片ID
+        self.shard_id = shard_id
+        # 页数，从 1 开始，缺省值为1
+        self.page_no = page_no
+        # 页面大小，缺省值为10
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.contract, 'contract')
+        if self.page_no is not None:
+            self.validate_minimum(self.page_no, 'page_no', 1)
+        if self.page_size is not None:
+            self.validate_maximum(self.page_size, 'page_size', 100)
+            self.validate_minimum(self.page_size, 'page_size', 1)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.contract is not None:
+            result['contract'] = self.contract
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        if self.shard_id is not None:
+            result['shard_id'] = self.shard_id
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('contract') is not None:
+            self.contract = m.get('contract')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        if m.get('shard_id') is not None:
+            self.shard_id = m.get('shard_id')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PagequeryChaininsightStatisticassetownerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightAssetOwnersResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightAssetOwnersResponse()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class PagequeryChaininsightStatisticassetinventoryaccountRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        account: str = None,
+        asset_id: str = None,
+        page_no: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.biz_id = biz_id
+        # 账户地址
+        self.account = account
+        # 资产ID，可空，支持模糊搜索（既可以是assetId，也可以是数字权证链1155资产特有的shardId）
+        self.asset_id = asset_id
+        # 页数，从1开始，缺省值为1
+        self.page_no = page_no
+        # 页面大小，缺省值为10
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.account, 'account')
+        if self.page_no is not None:
+            self.validate_minimum(self.page_no, 'page_no', 1)
+        if self.page_size is not None:
+            self.validate_maximum(self.page_size, 'page_size', 100)
+            self.validate_minimum(self.page_size, 'page_size', 1)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.account is not None:
+            result['account'] = self.account
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('account') is not None:
+            self.account = m.get('account')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PagequeryChaininsightStatisticassetinventoryaccountResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightAssetsResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightAssetsResponse()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class PagequeryChaininsightStatisticassethistoryassetRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        contract: str = None,
+        asset_id: str = None,
+        shard_id: str = None,
+        page_no: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.biz_id = biz_id
+        # 合约地址
+        self.contract = contract
+        # 资产ID，支持模糊搜索（既可以是assetId，也可以是数字权证链1155合约特有的shardId）
+        self.asset_id = asset_id
+        # 分片ID，可空
+        self.shard_id = shard_id
+        # 页数，从 1 开始，缺省值为1
+        self.page_no = page_no
+        # 页面大小，缺省值为10
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.contract, 'contract')
+        self.validate_required(self.asset_id, 'asset_id')
+        if self.page_no is not None:
+            self.validate_minimum(self.page_no, 'page_no', 1)
+        if self.page_size is not None:
+            self.validate_maximum(self.page_size, 'page_size', 100)
+            self.validate_minimum(self.page_size, 'page_size', 1)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.contract is not None:
+            result['contract'] = self.contract
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        if self.shard_id is not None:
+            result['shard_id'] = self.shard_id
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('contract') is not None:
+            self.contract = m.get('contract')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        if m.get('shard_id') is not None:
+            self.shard_id = m.get('shard_id')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PagequeryChaininsightStatisticassethistoryassetResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightAssetOperationsResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightAssetOperationsResponse()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class PagequeryChaininsightStatisticassethistorycontractRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        contract: str = None,
+        asset_id: str = None,
+        shard_id: str = None,
+        page_no: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.biz_id = biz_id
+        # 合约地址
+        self.contract = contract
+        # 资产ID，支持模糊搜索（既可以是assetId，也可以是数字权证链1155资产特有的shardId）
+        self.asset_id = asset_id
+        # 数字权证链1155资产的分片ID
+        self.shard_id = shard_id
+        # 页数，从 1 开始，缺省值：1
+        self.page_no = page_no
+        # 页面大小，缺省值：10
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.contract, 'contract')
+        if self.page_no is not None:
+            self.validate_minimum(self.page_no, 'page_no', 1)
+        if self.page_size is not None:
+            self.validate_maximum(self.page_size, 'page_size', 100)
+            self.validate_minimum(self.page_size, 'page_size', 1)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.contract is not None:
+            result['contract'] = self.contract
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        if self.shard_id is not None:
+            result['shard_id'] = self.shard_id
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('contract') is not None:
+            self.contract = m.get('contract')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        if m.get('shard_id') is not None:
+            self.shard_id = m.get('shard_id')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PagequeryChaininsightStatisticassethistorycontractResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: ChainInsightAssetOperationsResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = ChainInsightAssetOperationsResponse()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
 class RegisterChainsRequest(TeaModel):
     def __init__(
         self,
@@ -6513,6 +10512,15 @@ class RegisterChainsRequest(TeaModel):
         mychain_identity_algo: str = None,
         mychain_groupid: str = None,
         mychain_parent_bizid: str = None,
+        aldaba_nodes: List[str] = None,
+        aldaba_network_protocol: str = None,
+        aldaba_tls_root_truststore: str = None,
+        aldaba_tls_root_truststore_password: str = None,
+        aldaba_tls_client_certificate: str = None,
+        aldaba_tls_client_key: str = None,
+        aldaba_tls_client_key_password: str = None,
+        aldaba_sender_key: str = None,
+        aldaba_sender_key_password: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6545,6 +10553,24 @@ class RegisterChainsRequest(TeaModel):
         self.mychain_groupid = mychain_groupid
         # 子链的父链ID
         self.mychain_parent_bizid = mychain_parent_bizid
+        # Aldaba 链节点地址
+        self.aldaba_nodes = aldaba_nodes
+        # Aldaba 链使用的协议，支持 WebSocket / Tcp; 默认 WebSocket
+        self.aldaba_network_protocol = aldaba_network_protocol
+        # Aldaba 链base64编码的JDS
+        self.aldaba_tls_root_truststore = aldaba_tls_root_truststore
+        # Aldaba 链 JDS 密码
+        self.aldaba_tls_root_truststore_password = aldaba_tls_root_truststore_password
+        # Aldaba 链 base64编码的证书
+        self.aldaba_tls_client_certificate = aldaba_tls_client_certificate
+        # Aldaba 链 base64编码的密钥
+        self.aldaba_tls_client_key = aldaba_tls_client_key
+        # Aldaba 链密钥密码
+        self.aldaba_tls_client_key_password = aldaba_tls_client_key_password
+        # Aldaba 链 base64 编码的 sender 密钥
+        self.aldaba_sender_key = aldaba_sender_key
+        # Aldaba 链 sender 密钥的密码
+        self.aldaba_sender_key_password = aldaba_sender_key_password
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -6589,6 +10615,24 @@ class RegisterChainsRequest(TeaModel):
             result['mychain_groupid'] = self.mychain_groupid
         if self.mychain_parent_bizid is not None:
             result['mychain_parent_bizid'] = self.mychain_parent_bizid
+        if self.aldaba_nodes is not None:
+            result['aldaba_nodes'] = self.aldaba_nodes
+        if self.aldaba_network_protocol is not None:
+            result['aldaba_network_protocol'] = self.aldaba_network_protocol
+        if self.aldaba_tls_root_truststore is not None:
+            result['aldaba_tls_root_truststore'] = self.aldaba_tls_root_truststore
+        if self.aldaba_tls_root_truststore_password is not None:
+            result['aldaba_tls_root_truststore_password'] = self.aldaba_tls_root_truststore_password
+        if self.aldaba_tls_client_certificate is not None:
+            result['aldaba_tls_client_certificate'] = self.aldaba_tls_client_certificate
+        if self.aldaba_tls_client_key is not None:
+            result['aldaba_tls_client_key'] = self.aldaba_tls_client_key
+        if self.aldaba_tls_client_key_password is not None:
+            result['aldaba_tls_client_key_password'] = self.aldaba_tls_client_key_password
+        if self.aldaba_sender_key is not None:
+            result['aldaba_sender_key'] = self.aldaba_sender_key
+        if self.aldaba_sender_key_password is not None:
+            result['aldaba_sender_key_password'] = self.aldaba_sender_key_password
         return result
 
     def from_map(self, m: dict = None):
@@ -6625,6 +10669,24 @@ class RegisterChainsRequest(TeaModel):
             self.mychain_groupid = m.get('mychain_groupid')
         if m.get('mychain_parent_bizid') is not None:
             self.mychain_parent_bizid = m.get('mychain_parent_bizid')
+        if m.get('aldaba_nodes') is not None:
+            self.aldaba_nodes = m.get('aldaba_nodes')
+        if m.get('aldaba_network_protocol') is not None:
+            self.aldaba_network_protocol = m.get('aldaba_network_protocol')
+        if m.get('aldaba_tls_root_truststore') is not None:
+            self.aldaba_tls_root_truststore = m.get('aldaba_tls_root_truststore')
+        if m.get('aldaba_tls_root_truststore_password') is not None:
+            self.aldaba_tls_root_truststore_password = m.get('aldaba_tls_root_truststore_password')
+        if m.get('aldaba_tls_client_certificate') is not None:
+            self.aldaba_tls_client_certificate = m.get('aldaba_tls_client_certificate')
+        if m.get('aldaba_tls_client_key') is not None:
+            self.aldaba_tls_client_key = m.get('aldaba_tls_client_key')
+        if m.get('aldaba_tls_client_key_password') is not None:
+            self.aldaba_tls_client_key_password = m.get('aldaba_tls_client_key_password')
+        if m.get('aldaba_sender_key') is not None:
+            self.aldaba_sender_key = m.get('aldaba_sender_key')
+        if m.get('aldaba_sender_key_password') is not None:
+            self.aldaba_sender_key_password = m.get('aldaba_sender_key_password')
         return self
 
 

@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.1',
+                    'sdk_version': '1.4.2',
                     '_prod_code': 'BAASDATAGW',
                     '_prod_channel': 'undefined'
                 }
@@ -202,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.1',
+                    'sdk_version': '1.4.2',
                     '_prod_code': 'BAASDATAGW',
                     '_prod_channel': 'undefined'
                 }
@@ -2513,6 +2513,1294 @@ class Client:
         return TeaCore.from_map(
             baasdatagw_models.CreateChaininsightQrcodeResponse(),
             await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.qrcode.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def open_chaininsight_datasearch(
+        self,
+        request: baasdatagw_models.OpenChaininsightDatasearchRequest,
+    ) -> baasdatagw_models.OpenChaininsightDatasearchResponse:
+        """
+        Description: 开通数据搜索服务
+        Summary: 开通数据搜索服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.open_chaininsight_datasearch_ex(request, headers, runtime)
+
+    async def open_chaininsight_datasearch_async(
+        self,
+        request: baasdatagw_models.OpenChaininsightDatasearchRequest,
+    ) -> baasdatagw_models.OpenChaininsightDatasearchResponse:
+        """
+        Description: 开通数据搜索服务
+        Summary: 开通数据搜索服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.open_chaininsight_datasearch_ex_async(request, headers, runtime)
+
+    def open_chaininsight_datasearch_ex(
+        self,
+        request: baasdatagw_models.OpenChaininsightDatasearchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.OpenChaininsightDatasearchResponse:
+        """
+        Description: 开通数据搜索服务
+        Summary: 开通数据搜索服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.OpenChaininsightDatasearchResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.datasearch.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def open_chaininsight_datasearch_ex_async(
+        self,
+        request: baasdatagw_models.OpenChaininsightDatasearchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.OpenChaininsightDatasearchResponse:
+        """
+        Description: 开通数据搜索服务
+        Summary: 开通数据搜索服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.OpenChaininsightDatasearchResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.datasearch.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chaininsight_privatedatasearchstatus(
+        self,
+        request: baasdatagw_models.QueryChaininsightPrivatedatasearchstatusRequest,
+    ) -> baasdatagw_models.QueryChaininsightPrivatedatasearchstatusResponse:
+        """
+        Description: 私有化场景下查询所有链的数据搜索服务状态
+        Summary: 私有化场景下查询所有链的数据搜索服务状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chaininsight_privatedatasearchstatus_ex(request, headers, runtime)
+
+    async def query_chaininsight_privatedatasearchstatus_async(
+        self,
+        request: baasdatagw_models.QueryChaininsightPrivatedatasearchstatusRequest,
+    ) -> baasdatagw_models.QueryChaininsightPrivatedatasearchstatusResponse:
+        """
+        Description: 私有化场景下查询所有链的数据搜索服务状态
+        Summary: 私有化场景下查询所有链的数据搜索服务状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chaininsight_privatedatasearchstatus_ex_async(request, headers, runtime)
+
+    def query_chaininsight_privatedatasearchstatus_ex(
+        self,
+        request: baasdatagw_models.QueryChaininsightPrivatedatasearchstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.QueryChaininsightPrivatedatasearchstatusResponse:
+        """
+        Description: 私有化场景下查询所有链的数据搜索服务状态
+        Summary: 私有化场景下查询所有链的数据搜索服务状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.QueryChaininsightPrivatedatasearchstatusResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.privatedatasearchstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chaininsight_privatedatasearchstatus_ex_async(
+        self,
+        request: baasdatagw_models.QueryChaininsightPrivatedatasearchstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.QueryChaininsightPrivatedatasearchstatusResponse:
+        """
+        Description: 私有化场景下查询所有链的数据搜索服务状态
+        Summary: 私有化场景下查询所有链的数据搜索服务状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.QueryChaininsightPrivatedatasearchstatusResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.privatedatasearchstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_chaininsight_widgets(
+        self,
+        request: baasdatagw_models.AddChaininsightWidgetsRequest,
+    ) -> baasdatagw_models.AddChaininsightWidgetsResponse:
+        """
+        Description: 添加看板
+        Summary: 添加看板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_chaininsight_widgets_ex(request, headers, runtime)
+
+    async def add_chaininsight_widgets_async(
+        self,
+        request: baasdatagw_models.AddChaininsightWidgetsRequest,
+    ) -> baasdatagw_models.AddChaininsightWidgetsResponse:
+        """
+        Description: 添加看板
+        Summary: 添加看板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_chaininsight_widgets_ex_async(request, headers, runtime)
+
+    def add_chaininsight_widgets_ex(
+        self,
+        request: baasdatagw_models.AddChaininsightWidgetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.AddChaininsightWidgetsResponse:
+        """
+        Description: 添加看板
+        Summary: 添加看板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.AddChaininsightWidgetsResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.widgets.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_chaininsight_widgets_ex_async(
+        self,
+        request: baasdatagw_models.AddChaininsightWidgetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.AddChaininsightWidgetsResponse:
+        """
+        Description: 添加看板
+        Summary: 添加看板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.AddChaininsightWidgetsResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.widgets.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_chaininsight_widgets(
+        self,
+        request: baasdatagw_models.ListChaininsightWidgetsRequest,
+    ) -> baasdatagw_models.ListChaininsightWidgetsResponse:
+        """
+        Description: 获取看板列表
+        Summary: 获取看板列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_chaininsight_widgets_ex(request, headers, runtime)
+
+    async def list_chaininsight_widgets_async(
+        self,
+        request: baasdatagw_models.ListChaininsightWidgetsRequest,
+    ) -> baasdatagw_models.ListChaininsightWidgetsResponse:
+        """
+        Description: 获取看板列表
+        Summary: 获取看板列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_chaininsight_widgets_ex_async(request, headers, runtime)
+
+    def list_chaininsight_widgets_ex(
+        self,
+        request: baasdatagw_models.ListChaininsightWidgetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.ListChaininsightWidgetsResponse:
+        """
+        Description: 获取看板列表
+        Summary: 获取看板列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.ListChaininsightWidgetsResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.widgets.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_chaininsight_widgets_ex_async(
+        self,
+        request: baasdatagw_models.ListChaininsightWidgetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.ListChaininsightWidgetsResponse:
+        """
+        Description: 获取看板列表
+        Summary: 获取看板列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.ListChaininsightWidgetsResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.widgets.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chaininsight_tablesactivereceiver(
+        self,
+        request: baasdatagw_models.QueryChaininsightTablesactivereceiverRequest,
+    ) -> baasdatagw_models.QueryChaininsightTablesactivereceiverResponse:
+        """
+        Description: 分页查询链上活跃接收地址
+        Summary: 分页查询链上活跃接收地址
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chaininsight_tablesactivereceiver_ex(request, headers, runtime)
+
+    async def query_chaininsight_tablesactivereceiver_async(
+        self,
+        request: baasdatagw_models.QueryChaininsightTablesactivereceiverRequest,
+    ) -> baasdatagw_models.QueryChaininsightTablesactivereceiverResponse:
+        """
+        Description: 分页查询链上活跃接收地址
+        Summary: 分页查询链上活跃接收地址
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chaininsight_tablesactivereceiver_ex_async(request, headers, runtime)
+
+    def query_chaininsight_tablesactivereceiver_ex(
+        self,
+        request: baasdatagw_models.QueryChaininsightTablesactivereceiverRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.QueryChaininsightTablesactivereceiverResponse:
+        """
+        Description: 分页查询链上活跃接收地址
+        Summary: 分页查询链上活跃接收地址
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.QueryChaininsightTablesactivereceiverResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.tablesactivereceiver.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chaininsight_tablesactivereceiver_ex_async(
+        self,
+        request: baasdatagw_models.QueryChaininsightTablesactivereceiverRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.QueryChaininsightTablesactivereceiverResponse:
+        """
+        Description: 分页查询链上活跃接收地址
+        Summary: 分页查询链上活跃接收地址
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.QueryChaininsightTablesactivereceiverResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.tablesactivereceiver.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chaininsight_tablesactivesender(
+        self,
+        request: baasdatagw_models.QueryChaininsightTablesactivesenderRequest,
+    ) -> baasdatagw_models.QueryChaininsightTablesactivesenderResponse:
+        """
+        Description: 分页查询链上活跃发送地址
+        Summary: 分页查询链上活跃发送地址
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chaininsight_tablesactivesender_ex(request, headers, runtime)
+
+    async def query_chaininsight_tablesactivesender_async(
+        self,
+        request: baasdatagw_models.QueryChaininsightTablesactivesenderRequest,
+    ) -> baasdatagw_models.QueryChaininsightTablesactivesenderResponse:
+        """
+        Description: 分页查询链上活跃发送地址
+        Summary: 分页查询链上活跃发送地址
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chaininsight_tablesactivesender_ex_async(request, headers, runtime)
+
+    def query_chaininsight_tablesactivesender_ex(
+        self,
+        request: baasdatagw_models.QueryChaininsightTablesactivesenderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.QueryChaininsightTablesactivesenderResponse:
+        """
+        Description: 分页查询链上活跃发送地址
+        Summary: 分页查询链上活跃发送地址
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.QueryChaininsightTablesactivesenderResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.tablesactivesender.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chaininsight_tablesactivesender_ex_async(
+        self,
+        request: baasdatagw_models.QueryChaininsightTablesactivesenderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.QueryChaininsightTablesactivesenderResponse:
+        """
+        Description: 分页查询链上活跃发送地址
+        Summary: 分页查询链上活跃发送地址
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.QueryChaininsightTablesactivesenderResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.tablesactivesender.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_chaininsight_latestcontracts(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightLatestcontractsRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightLatestcontractsResponse:
+        """
+        Description: 分页查询链上近期合约
+        Summary: 分页查询链上近期合约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_chaininsight_latestcontracts_ex(request, headers, runtime)
+
+    async def pagequery_chaininsight_latestcontracts_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightLatestcontractsRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightLatestcontractsResponse:
+        """
+        Description: 分页查询链上近期合约
+        Summary: 分页查询链上近期合约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_chaininsight_latestcontracts_ex_async(request, headers, runtime)
+
+    def pagequery_chaininsight_latestcontracts_ex(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightLatestcontractsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightLatestcontractsResponse:
+        """
+        Description: 分页查询链上近期合约
+        Summary: 分页查询链上近期合约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightLatestcontractsResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.latestcontracts.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_chaininsight_latestcontracts_ex_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightLatestcontractsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightLatestcontractsResponse:
+        """
+        Description: 分页查询链上近期合约
+        Summary: 分页查询链上近期合约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightLatestcontractsResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.latestcontracts.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_chaininsight_latesttxs(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightLatesttxsRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightLatesttxsResponse:
+        """
+        Description: 分页查询链上近期交易
+        Summary: 分页查询链上近期交易
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_chaininsight_latesttxs_ex(request, headers, runtime)
+
+    async def pagequery_chaininsight_latesttxs_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightLatesttxsRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightLatesttxsResponse:
+        """
+        Description: 分页查询链上近期交易
+        Summary: 分页查询链上近期交易
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_chaininsight_latesttxs_ex_async(request, headers, runtime)
+
+    def pagequery_chaininsight_latesttxs_ex(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightLatesttxsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightLatesttxsResponse:
+        """
+        Description: 分页查询链上近期交易
+        Summary: 分页查询链上近期交易
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightLatesttxsResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.latesttxs.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_chaininsight_latesttxs_ex_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightLatesttxsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightLatesttxsResponse:
+        """
+        Description: 分页查询链上近期交易
+        Summary: 分页查询链上近期交易
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightLatesttxsResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.latesttxs.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chaininsight_privatechainsstatus(
+        self,
+        request: baasdatagw_models.QueryChaininsightPrivatechainsstatusRequest,
+    ) -> baasdatagw_models.QueryChaininsightPrivatechainsstatusResponse:
+        """
+        Description: 私有化场景下查询区块链整体状态
+        Summary: 私有化场景下查询区块链整体状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chaininsight_privatechainsstatus_ex(request, headers, runtime)
+
+    async def query_chaininsight_privatechainsstatus_async(
+        self,
+        request: baasdatagw_models.QueryChaininsightPrivatechainsstatusRequest,
+    ) -> baasdatagw_models.QueryChaininsightPrivatechainsstatusResponse:
+        """
+        Description: 私有化场景下查询区块链整体状态
+        Summary: 私有化场景下查询区块链整体状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chaininsight_privatechainsstatus_ex_async(request, headers, runtime)
+
+    def query_chaininsight_privatechainsstatus_ex(
+        self,
+        request: baasdatagw_models.QueryChaininsightPrivatechainsstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.QueryChaininsightPrivatechainsstatusResponse:
+        """
+        Description: 私有化场景下查询区块链整体状态
+        Summary: 私有化场景下查询区块链整体状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.QueryChaininsightPrivatechainsstatusResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.privatechainsstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chaininsight_privatechainsstatus_ex_async(
+        self,
+        request: baasdatagw_models.QueryChaininsightPrivatechainsstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.QueryChaininsightPrivatechainsstatusResponse:
+        """
+        Description: 私有化场景下查询区块链整体状态
+        Summary: 私有化场景下查询区块链整体状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.QueryChaininsightPrivatechainsstatusResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.privatechainsstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chaininsight_privatechaintxhistogram(
+        self,
+        request: baasdatagw_models.QueryChaininsightPrivatechaintxhistogramRequest,
+    ) -> baasdatagw_models.QueryChaininsightPrivatechaintxhistogramResponse:
+        """
+        Description: 私有化场景下查询链交易数量趋势
+        Summary: 私有化场景下查询链交易数量趋势
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chaininsight_privatechaintxhistogram_ex(request, headers, runtime)
+
+    async def query_chaininsight_privatechaintxhistogram_async(
+        self,
+        request: baasdatagw_models.QueryChaininsightPrivatechaintxhistogramRequest,
+    ) -> baasdatagw_models.QueryChaininsightPrivatechaintxhistogramResponse:
+        """
+        Description: 私有化场景下查询链交易数量趋势
+        Summary: 私有化场景下查询链交易数量趋势
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chaininsight_privatechaintxhistogram_ex_async(request, headers, runtime)
+
+    def query_chaininsight_privatechaintxhistogram_ex(
+        self,
+        request: baasdatagw_models.QueryChaininsightPrivatechaintxhistogramRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.QueryChaininsightPrivatechaintxhistogramResponse:
+        """
+        Description: 私有化场景下查询链交易数量趋势
+        Summary: 私有化场景下查询链交易数量趋势
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.QueryChaininsightPrivatechaintxhistogramResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.privatechaintxhistogram.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chaininsight_privatechaintxhistogram_ex_async(
+        self,
+        request: baasdatagw_models.QueryChaininsightPrivatechaintxhistogramRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.QueryChaininsightPrivatechaintxhistogramResponse:
+        """
+        Description: 私有化场景下查询链交易数量趋势
+        Summary: 私有化场景下查询链交易数量趋势
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.QueryChaininsightPrivatechaintxhistogramResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.privatechaintxhistogram.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_chaininsight_widgets(
+        self,
+        request: baasdatagw_models.DeleteChaininsightWidgetsRequest,
+    ) -> baasdatagw_models.DeleteChaininsightWidgetsResponse:
+        """
+        Description: 删除数据洞察看板
+        Summary: 删除数据洞察看板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_chaininsight_widgets_ex(request, headers, runtime)
+
+    async def delete_chaininsight_widgets_async(
+        self,
+        request: baasdatagw_models.DeleteChaininsightWidgetsRequest,
+    ) -> baasdatagw_models.DeleteChaininsightWidgetsResponse:
+        """
+        Description: 删除数据洞察看板
+        Summary: 删除数据洞察看板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_chaininsight_widgets_ex_async(request, headers, runtime)
+
+    def delete_chaininsight_widgets_ex(
+        self,
+        request: baasdatagw_models.DeleteChaininsightWidgetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.DeleteChaininsightWidgetsResponse:
+        """
+        Description: 删除数据洞察看板
+        Summary: 删除数据洞察看板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.DeleteChaininsightWidgetsResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.widgets.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_chaininsight_widgets_ex_async(
+        self,
+        request: baasdatagw_models.DeleteChaininsightWidgetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.DeleteChaininsightWidgetsResponse:
+        """
+        Description: 删除数据洞察看板
+        Summary: 删除数据洞察看板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.DeleteChaininsightWidgetsResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.widgets.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_chaininsight_widgetsmove(
+        self,
+        request: baasdatagw_models.OperateChaininsightWidgetsmoveRequest,
+    ) -> baasdatagw_models.OperateChaininsightWidgetsmoveResponse:
+        """
+        Description: 移动看板
+        Summary: 移动看板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_chaininsight_widgetsmove_ex(request, headers, runtime)
+
+    async def operate_chaininsight_widgetsmove_async(
+        self,
+        request: baasdatagw_models.OperateChaininsightWidgetsmoveRequest,
+    ) -> baasdatagw_models.OperateChaininsightWidgetsmoveResponse:
+        """
+        Description: 移动看板
+        Summary: 移动看板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_chaininsight_widgetsmove_ex_async(request, headers, runtime)
+
+    def operate_chaininsight_widgetsmove_ex(
+        self,
+        request: baasdatagw_models.OperateChaininsightWidgetsmoveRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.OperateChaininsightWidgetsmoveResponse:
+        """
+        Description: 移动看板
+        Summary: 移动看板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.OperateChaininsightWidgetsmoveResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.widgetsmove.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_chaininsight_widgetsmove_ex_async(
+        self,
+        request: baasdatagw_models.OperateChaininsightWidgetsmoveRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.OperateChaininsightWidgetsmoveResponse:
+        """
+        Description: 移动看板
+        Summary: 移动看板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.OperateChaininsightWidgetsmoveResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.widgetsmove.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_chaininsight_widgets(
+        self,
+        request: baasdatagw_models.UpdateChaininsightWidgetsRequest,
+    ) -> baasdatagw_models.UpdateChaininsightWidgetsResponse:
+        """
+        Description: 修改看板
+        Summary: 修改看板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_chaininsight_widgets_ex(request, headers, runtime)
+
+    async def update_chaininsight_widgets_async(
+        self,
+        request: baasdatagw_models.UpdateChaininsightWidgetsRequest,
+    ) -> baasdatagw_models.UpdateChaininsightWidgetsResponse:
+        """
+        Description: 修改看板
+        Summary: 修改看板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_chaininsight_widgets_ex_async(request, headers, runtime)
+
+    def update_chaininsight_widgets_ex(
+        self,
+        request: baasdatagw_models.UpdateChaininsightWidgetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.UpdateChaininsightWidgetsResponse:
+        """
+        Description: 修改看板
+        Summary: 修改看板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.UpdateChaininsightWidgetsResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.widgets.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_chaininsight_widgets_ex_async(
+        self,
+        request: baasdatagw_models.UpdateChaininsightWidgetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.UpdateChaininsightWidgetsResponse:
+        """
+        Description: 修改看板
+        Summary: 修改看板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.UpdateChaininsightWidgetsResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.widgets.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def download_chaininsight_contract(
+        self,
+        request: baasdatagw_models.DownloadChaininsightContractRequest,
+    ) -> baasdatagw_models.DownloadChaininsightContractResponse:
+        """
+        Description: 下载合约
+        Summary: 下载合约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.download_chaininsight_contract_ex(request, headers, runtime)
+
+    async def download_chaininsight_contract_async(
+        self,
+        request: baasdatagw_models.DownloadChaininsightContractRequest,
+    ) -> baasdatagw_models.DownloadChaininsightContractResponse:
+        """
+        Description: 下载合约
+        Summary: 下载合约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.download_chaininsight_contract_ex_async(request, headers, runtime)
+
+    def download_chaininsight_contract_ex(
+        self,
+        request: baasdatagw_models.DownloadChaininsightContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.DownloadChaininsightContractResponse:
+        """
+        Description: 下载合约
+        Summary: 下载合约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.DownloadChaininsightContractResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.contract.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def download_chaininsight_contract_ex_async(
+        self,
+        request: baasdatagw_models.DownloadChaininsightContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.DownloadChaininsightContractResponse:
+        """
+        Description: 下载合约
+        Summary: 下载合约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.DownloadChaininsightContractResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.contract.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_chaininsight_contractmodifytx(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightContractmodifytxRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightContractmodifytxResponse:
+        """
+        Description: 查询修改合约的交易
+        Summary: 查询修改合约的交易
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_chaininsight_contractmodifytx_ex(request, headers, runtime)
+
+    async def pagequery_chaininsight_contractmodifytx_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightContractmodifytxRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightContractmodifytxResponse:
+        """
+        Description: 查询修改合约的交易
+        Summary: 查询修改合约的交易
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_chaininsight_contractmodifytx_ex_async(request, headers, runtime)
+
+    def pagequery_chaininsight_contractmodifytx_ex(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightContractmodifytxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightContractmodifytxResponse:
+        """
+        Description: 查询修改合约的交易
+        Summary: 查询修改合约的交易
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightContractmodifytxResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.contractmodifytx.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_chaininsight_contractmodifytx_ex_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightContractmodifytxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightContractmodifytxResponse:
+        """
+        Description: 查询修改合约的交易
+        Summary: 查询修改合约的交易
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightContractmodifytxResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.contractmodifytx.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_chaininsight_accountmodifytx(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightAccountmodifytxRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightAccountmodifytxResponse:
+        """
+        Description: 分页查询账户的修改交易
+        Summary: 分页查询账户的修改交易
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_chaininsight_accountmodifytx_ex(request, headers, runtime)
+
+    async def pagequery_chaininsight_accountmodifytx_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightAccountmodifytxRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightAccountmodifytxResponse:
+        """
+        Description: 分页查询账户的修改交易
+        Summary: 分页查询账户的修改交易
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_chaininsight_accountmodifytx_ex_async(request, headers, runtime)
+
+    def pagequery_chaininsight_accountmodifytx_ex(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightAccountmodifytxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightAccountmodifytxResponse:
+        """
+        Description: 分页查询账户的修改交易
+        Summary: 分页查询账户的修改交易
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightAccountmodifytxResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.accountmodifytx.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_chaininsight_accountmodifytx_ex_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightAccountmodifytxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightAccountmodifytxResponse:
+        """
+        Description: 分页查询账户的修改交易
+        Summary: 分页查询账户的修改交易
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightAccountmodifytxResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.accountmodifytx.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_chaininsight_assetinterfacesrequired(
+        self,
+        request: baasdatagw_models.ListChaininsightAssetinterfacesrequiredRequest,
+    ) -> baasdatagw_models.ListChaininsightAssetinterfacesrequiredResponse:
+        """
+        Description: 返回对应 ERC 类型资产统计所必须的接口
+        Summary: 查询资产统计所必须的接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_chaininsight_assetinterfacesrequired_ex(request, headers, runtime)
+
+    async def list_chaininsight_assetinterfacesrequired_async(
+        self,
+        request: baasdatagw_models.ListChaininsightAssetinterfacesrequiredRequest,
+    ) -> baasdatagw_models.ListChaininsightAssetinterfacesrequiredResponse:
+        """
+        Description: 返回对应 ERC 类型资产统计所必须的接口
+        Summary: 查询资产统计所必须的接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_chaininsight_assetinterfacesrequired_ex_async(request, headers, runtime)
+
+    def list_chaininsight_assetinterfacesrequired_ex(
+        self,
+        request: baasdatagw_models.ListChaininsightAssetinterfacesrequiredRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.ListChaininsightAssetinterfacesrequiredResponse:
+        """
+        Description: 返回对应 ERC 类型资产统计所必须的接口
+        Summary: 查询资产统计所必须的接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.ListChaininsightAssetinterfacesrequiredResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.assetinterfacesrequired.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_chaininsight_assetinterfacesrequired_ex_async(
+        self,
+        request: baasdatagw_models.ListChaininsightAssetinterfacesrequiredRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.ListChaininsightAssetinterfacesrequiredResponse:
+        """
+        Description: 返回对应 ERC 类型资产统计所必须的接口
+        Summary: 查询资产统计所必须的接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.ListChaininsightAssetinterfacesrequiredResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.assetinterfacesrequired.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chaininsight_statisticassetdetail(
+        self,
+        request: baasdatagw_models.QueryChaininsightStatisticassetdetailRequest,
+    ) -> baasdatagw_models.QueryChaininsightStatisticassetdetailResponse:
+        """
+        Description: 查询链上资产的详情
+        Summary: 查询资产详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chaininsight_statisticassetdetail_ex(request, headers, runtime)
+
+    async def query_chaininsight_statisticassetdetail_async(
+        self,
+        request: baasdatagw_models.QueryChaininsightStatisticassetdetailRequest,
+    ) -> baasdatagw_models.QueryChaininsightStatisticassetdetailResponse:
+        """
+        Description: 查询链上资产的详情
+        Summary: 查询资产详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chaininsight_statisticassetdetail_ex_async(request, headers, runtime)
+
+    def query_chaininsight_statisticassetdetail_ex(
+        self,
+        request: baasdatagw_models.QueryChaininsightStatisticassetdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.QueryChaininsightStatisticassetdetailResponse:
+        """
+        Description: 查询链上资产的详情
+        Summary: 查询资产详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.QueryChaininsightStatisticassetdetailResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.statisticassetdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chaininsight_statisticassetdetail_ex_async(
+        self,
+        request: baasdatagw_models.QueryChaininsightStatisticassetdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.QueryChaininsightStatisticassetdetailResponse:
+        """
+        Description: 查询链上资产的详情
+        Summary: 查询资产详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.QueryChaininsightStatisticassetdetailResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.statisticassetdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chaininsight_statisticassetmeta(
+        self,
+        request: baasdatagw_models.QueryChaininsightStatisticassetmetaRequest,
+    ) -> baasdatagw_models.QueryChaininsightStatisticassetmetaResponse:
+        """
+        Description: 查询链上资产合约中资产的元信息
+        Summary: 查询链上资产元信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chaininsight_statisticassetmeta_ex(request, headers, runtime)
+
+    async def query_chaininsight_statisticassetmeta_async(
+        self,
+        request: baasdatagw_models.QueryChaininsightStatisticassetmetaRequest,
+    ) -> baasdatagw_models.QueryChaininsightStatisticassetmetaResponse:
+        """
+        Description: 查询链上资产合约中资产的元信息
+        Summary: 查询链上资产元信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chaininsight_statisticassetmeta_ex_async(request, headers, runtime)
+
+    def query_chaininsight_statisticassetmeta_ex(
+        self,
+        request: baasdatagw_models.QueryChaininsightStatisticassetmetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.QueryChaininsightStatisticassetmetaResponse:
+        """
+        Description: 查询链上资产合约中资产的元信息
+        Summary: 查询链上资产元信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.QueryChaininsightStatisticassetmetaResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.statisticassetmeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chaininsight_statisticassetmeta_ex_async(
+        self,
+        request: baasdatagw_models.QueryChaininsightStatisticassetmetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.QueryChaininsightStatisticassetmetaResponse:
+        """
+        Description: 查询链上资产合约中资产的元信息
+        Summary: 查询链上资产元信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.QueryChaininsightStatisticassetmetaResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.statisticassetmeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_chaininsight_statisticassetowner(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassetownerRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassetownerResponse:
+        """
+        Description: 分页查询链上资产合约中资产的持有者信息，按最近一次交易时间降序
+        Summary: 查询链上资产的持有者信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_chaininsight_statisticassetowner_ex(request, headers, runtime)
+
+    async def pagequery_chaininsight_statisticassetowner_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassetownerRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassetownerResponse:
+        """
+        Description: 分页查询链上资产合约中资产的持有者信息，按最近一次交易时间降序
+        Summary: 查询链上资产的持有者信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_chaininsight_statisticassetowner_ex_async(request, headers, runtime)
+
+    def pagequery_chaininsight_statisticassetowner_ex(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassetownerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassetownerResponse:
+        """
+        Description: 分页查询链上资产合约中资产的持有者信息，按最近一次交易时间降序
+        Summary: 查询链上资产的持有者信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightStatisticassetownerResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.statisticassetowner.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_chaininsight_statisticassetowner_ex_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassetownerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassetownerResponse:
+        """
+        Description: 分页查询链上资产合约中资产的持有者信息，按最近一次交易时间降序
+        Summary: 查询链上资产的持有者信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightStatisticassetownerResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.statisticassetowner.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_chaininsight_statisticassetinventoryaccount(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassetinventoryaccountRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassetinventoryaccountResponse:
+        """
+        Description: 分页查询链上账户的资产列表，按最近一次交易时间降序
+        Summary: 查询链上账户的资产列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_chaininsight_statisticassetinventoryaccount_ex(request, headers, runtime)
+
+    async def pagequery_chaininsight_statisticassetinventoryaccount_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassetinventoryaccountRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassetinventoryaccountResponse:
+        """
+        Description: 分页查询链上账户的资产列表，按最近一次交易时间降序
+        Summary: 查询链上账户的资产列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_chaininsight_statisticassetinventoryaccount_ex_async(request, headers, runtime)
+
+    def pagequery_chaininsight_statisticassetinventoryaccount_ex(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassetinventoryaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassetinventoryaccountResponse:
+        """
+        Description: 分页查询链上账户的资产列表，按最近一次交易时间降序
+        Summary: 查询链上账户的资产列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightStatisticassetinventoryaccountResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.statisticassetinventoryaccount.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_chaininsight_statisticassetinventoryaccount_ex_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassetinventoryaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassetinventoryaccountResponse:
+        """
+        Description: 分页查询链上账户的资产列表，按最近一次交易时间降序
+        Summary: 查询链上账户的资产列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightStatisticassetinventoryaccountResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.statisticassetinventoryaccount.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_chaininsight_statisticassethistoryasset(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassethistoryassetRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassethistoryassetResponse:
+        """
+        Description: 分页查询链上资产合约中资产的流转信息，按交易时间降序
+        Summary: 查询链上资产的流转信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_chaininsight_statisticassethistoryasset_ex(request, headers, runtime)
+
+    async def pagequery_chaininsight_statisticassethistoryasset_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassethistoryassetRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassethistoryassetResponse:
+        """
+        Description: 分页查询链上资产合约中资产的流转信息，按交易时间降序
+        Summary: 查询链上资产的流转信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_chaininsight_statisticassethistoryasset_ex_async(request, headers, runtime)
+
+    def pagequery_chaininsight_statisticassethistoryasset_ex(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassethistoryassetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassethistoryassetResponse:
+        """
+        Description: 分页查询链上资产合约中资产的流转信息，按交易时间降序
+        Summary: 查询链上资产的流转信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightStatisticassethistoryassetResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.statisticassethistoryasset.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_chaininsight_statisticassethistoryasset_ex_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassethistoryassetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassethistoryassetResponse:
+        """
+        Description: 分页查询链上资产合约中资产的流转信息，按交易时间降序
+        Summary: 查询链上资产的流转信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightStatisticassethistoryassetResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.statisticassethistoryasset.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_chaininsight_statisticassethistorycontract(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassethistorycontractRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassethistorycontractResponse:
+        """
+        Description: 分页查询链上资产合约的资产流转信息，按交易时间降序
+        Summary: 查询链上资产合约的资产流转信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_chaininsight_statisticassethistorycontract_ex(request, headers, runtime)
+
+    async def pagequery_chaininsight_statisticassethistorycontract_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassethistorycontractRequest,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassethistorycontractResponse:
+        """
+        Description: 分页查询链上资产合约的资产流转信息，按交易时间降序
+        Summary: 查询链上资产合约的资产流转信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_chaininsight_statisticassethistorycontract_ex_async(request, headers, runtime)
+
+    def pagequery_chaininsight_statisticassethistorycontract_ex(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassethistorycontractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassethistorycontractResponse:
+        """
+        Description: 分页查询链上资产合约的资产流转信息，按交易时间降序
+        Summary: 查询链上资产合约的资产流转信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightStatisticassethistorycontractResponse(),
+            self.do_request('1.0', 'antchain.baasdatagw.chaininsight.statisticassethistorycontract.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_chaininsight_statisticassethistorycontract_ex_async(
+        self,
+        request: baasdatagw_models.PagequeryChaininsightStatisticassethistorycontractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdatagw_models.PagequeryChaininsightStatisticassethistorycontractResponse:
+        """
+        Description: 分页查询链上资产合约的资产流转信息，按交易时间降序
+        Summary: 查询链上资产合约的资产流转信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdatagw_models.PagequeryChaininsightStatisticassethistorycontractResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdatagw.chaininsight.statisticassethistorycontract.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def register_chains(
