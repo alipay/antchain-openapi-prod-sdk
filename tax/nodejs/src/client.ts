@@ -668,10 +668,13 @@ export class IdentityIdGroup extends $tea.Model {
   groupId: string;
   // 打标数据返回的url
   fileUrl: string;
+  // 请求id，用于幂等控制
+  bizUniqueId: string;
   static names(): { [key: string]: string } {
     return {
       groupId: 'group_id',
       fileUrl: 'file_url',
+      bizUniqueId: 'biz_unique_id',
     };
   }
 
@@ -679,6 +682,7 @@ export class IdentityIdGroup extends $tea.Model {
     return {
       groupId: 'string',
       fileUrl: 'string',
+      bizUniqueId: 'string',
     };
   }
 
@@ -3039,7 +3043,7 @@ export class ExecApiSimpleauthmarkRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 税号清单
-  identityIdList: IdentityInfo[];
+  identityInfo: string;
   // 租户号
   instCode: string;
   // 请求id
@@ -3050,7 +3054,7 @@ export class ExecApiSimpleauthmarkRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      identityIdList: 'identity_id_list',
+      identityInfo: 'identity_info',
       instCode: 'inst_code',
       bizUniqueId: 'biz_unique_id',
       authType: 'auth_type',
@@ -3061,7 +3065,7 @@ export class ExecApiSimpleauthmarkRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      identityIdList: { 'type': 'array', 'itemType': IdentityInfo },
+      identityInfo: 'string',
       instCode: 'string',
       bizUniqueId: 'string',
       authType: 'string',
@@ -3106,7 +3110,7 @@ export class SubmitApiSimpleauthmarkRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 打标之后的结果
-  identityGroupList: IdentityIdGroup;
+  identityGroupList: IdentityIdGroup[];
   // 产品类型
   authType?: string;
   static names(): { [key: string]: string } {
@@ -3122,7 +3126,7 @@ export class SubmitApiSimpleauthmarkRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      identityGroupList: IdentityIdGroup,
+      identityGroupList: { 'type': 'array', 'itemType': IdentityIdGroup },
       authType: 'string',
     };
   }
@@ -3152,6 +3156,92 @@ export class SubmitApiSimpleauthmarkResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PullApiSimpleauthmarkRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 调用租户
+  instCode: string;
+  // 请求id，用于幂等控制
+  bizUniqueId: string;
+  // 产品类型
+  authType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      instCode: 'inst_code',
+      bizUniqueId: 'biz_unique_id',
+      authType: 'auth_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      instCode: 'string',
+      bizUniqueId: 'string',
+      authType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PullApiSimpleauthmarkResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 拉取推送系统时间
+  timestamp?: string;
+  // 请求id，幂等控制
+  bizRequestId?: string;
+  // 调用的租户
+  instCode?: string;
+  // oss文件的域名地址
+  // 测试环境域名：http://invoice-oss-sit.oss-cn-hangzhou.aliyuncs.com
+  // 生产环境域名：http://invoice-commercial-prod.oss-cn-hangzhou.aliyuncs.com
+  // 端口是默认的80
+  resultList?: string[];
+  // 解密的秘钥
+  secret?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      timestamp: 'timestamp',
+      bizRequestId: 'biz_request_id',
+      instCode: 'inst_code',
+      resultList: 'result_list',
+      secret: 'secret',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      timestamp: 'string',
+      bizRequestId: 'string',
+      instCode: 'string',
+      resultList: { 'type': 'array', 'itemType': 'string' },
+      secret: 'string',
     };
   }
 
@@ -3451,6 +3541,8 @@ export class QueryPdataRiskRequest extends $tea.Model {
   authorizationCredential?: string;
   // 凭证格式
   credentialType?: string;
+  // 主键类型
+  keyType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3464,6 +3556,7 @@ export class QueryPdataRiskRequest extends $tea.Model {
       authorizationCode: 'authorization_code',
       authorizationCredential: 'authorization_credential',
       credentialType: 'credential_type',
+      keyType: 'key_type',
     };
   }
 
@@ -3480,6 +3573,7 @@ export class QueryPdataRiskRequest extends $tea.Model {
       authorizationCode: 'string',
       authorizationCredential: 'string',
       credentialType: 'string',
+      keyType: 'string',
     };
   }
 
@@ -3637,7 +3731,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.3",
+          sdk_version: "1.7.10",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
@@ -4158,6 +4252,25 @@ export default class Client {
   async submitApiSimpleauthmarkEx(request: SubmitApiSimpleauthmarkRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitApiSimpleauthmarkResponse> {
     Util.validateModel(request);
     return $tea.cast<SubmitApiSimpleauthmarkResponse>(await this.doRequest("1.0", "blockchain.tax.api.simpleauthmark.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitApiSimpleauthmarkResponse({}));
+  }
+
+  /**
+   * Description: blockchain.tax.api.simpleauthmark.exec
+   * Summary: 数据打标拉取接口
+   */
+  async pullApiSimpleauthmark(request: PullApiSimpleauthmarkRequest): Promise<PullApiSimpleauthmarkResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pullApiSimpleauthmarkEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: blockchain.tax.api.simpleauthmark.exec
+   * Summary: 数据打标拉取接口
+   */
+  async pullApiSimpleauthmarkEx(request: PullApiSimpleauthmarkRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PullApiSimpleauthmarkResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PullApiSimpleauthmarkResponse>(await this.doRequest("1.0", "blockchain.tax.api.simpleauthmark.pull", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PullApiSimpleauthmarkResponse({}));
   }
 
   /**
