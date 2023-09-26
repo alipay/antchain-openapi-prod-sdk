@@ -5244,6 +5244,7 @@ class RegByDeviceParm(TeaModel):
         owner: str = None,
         owner_name: str = None,
         device_name: str = None,
+        device_imei: str = None,
     ):
         # 一般是业务上唯一的设备ID/资产编码
         # 
@@ -5278,6 +5279,8 @@ class RegByDeviceParm(TeaModel):
         self.owner_name = owner_name
         # 设备名称/型号
         self.device_name = device_name
+        # 设备IMEI
+        self.device_imei = device_imei
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
@@ -5323,6 +5326,8 @@ class RegByDeviceParm(TeaModel):
             result['owner_name'] = self.owner_name
         if self.device_name is not None:
             result['device_name'] = self.device_name
+        if self.device_imei is not None:
+            result['device_imei'] = self.device_imei
         return result
 
     def from_map(self, m: dict = None):
@@ -5353,6 +5358,8 @@ class RegByDeviceParm(TeaModel):
             self.owner_name = m.get('owner_name')
         if m.get('device_name') is not None:
             self.device_name = m.get('device_name')
+        if m.get('device_imei') is not None:
+            self.device_imei = m.get('device_imei')
         return self
 
 
@@ -23498,6 +23505,7 @@ class CreateDistributedeviceBydeviceRequest(TeaModel):
         owner: str = None,
         owner_name: str = None,
         extra_info: str = None,
+        device_imei: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -23573,6 +23581,8 @@ class CreateDistributedeviceBydeviceRequest(TeaModel):
         self.owner_name = owner_name
         # 额外信息
         self.extra_info = extra_info
+        # 设备IMEI
+        self.device_imei = device_imei
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
@@ -23624,6 +23634,8 @@ class CreateDistributedeviceBydeviceRequest(TeaModel):
             result['owner_name'] = self.owner_name
         if self.extra_info is not None:
             result['extra_info'] = self.extra_info
+        if self.device_imei is not None:
+            result['device_imei'] = self.device_imei
         return result
 
     def from_map(self, m: dict = None):
@@ -23660,6 +23672,8 @@ class CreateDistributedeviceBydeviceRequest(TeaModel):
             self.owner_name = m.get('owner_name')
         if m.get('extra_info') is not None:
             self.extra_info = m.get('extra_info')
+        if m.get('device_imei') is not None:
+            self.device_imei = m.get('device_imei')
         return self
 
 
