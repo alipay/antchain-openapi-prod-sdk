@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.3',
+                    'sdk_version': '1.7.10',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.3',
+                    'sdk_version': '1.7.10',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -1673,6 +1673,62 @@ class Client:
         return TeaCore.from_map(
             tax_models.SubmitApiSimpleauthmarkResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.api.simpleauthmark.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pull_api_simpleauthmark(
+        self,
+        request: tax_models.PullApiSimpleauthmarkRequest,
+    ) -> tax_models.PullApiSimpleauthmarkResponse:
+        """
+        Description: blockchain.tax.api.simpleauthmark.exec
+        Summary: 数据打标拉取接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pull_api_simpleauthmark_ex(request, headers, runtime)
+
+    async def pull_api_simpleauthmark_async(
+        self,
+        request: tax_models.PullApiSimpleauthmarkRequest,
+    ) -> tax_models.PullApiSimpleauthmarkResponse:
+        """
+        Description: blockchain.tax.api.simpleauthmark.exec
+        Summary: 数据打标拉取接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pull_api_simpleauthmark_ex_async(request, headers, runtime)
+
+    def pull_api_simpleauthmark_ex(
+        self,
+        request: tax_models.PullApiSimpleauthmarkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.PullApiSimpleauthmarkResponse:
+        """
+        Description: blockchain.tax.api.simpleauthmark.exec
+        Summary: 数据打标拉取接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.PullApiSimpleauthmarkResponse(),
+            self.do_request('1.0', 'blockchain.tax.api.simpleauthmark.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pull_api_simpleauthmark_ex_async(
+        self,
+        request: tax_models.PullApiSimpleauthmarkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.PullApiSimpleauthmarkResponse:
+        """
+        Description: blockchain.tax.api.simpleauthmark.exec
+        Summary: 数据打标拉取接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.PullApiSimpleauthmarkResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.api.simpleauthmark.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_pdata_personalincome(
