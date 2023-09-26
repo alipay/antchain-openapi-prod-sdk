@@ -14,6 +14,11 @@ public class IdentityIdGroup extends TeaModel {
     @Validation(required = true)
     public String fileUrl;
 
+    // 请求id，用于幂等控制
+    @NameInMap("biz_unique_id")
+    @Validation(required = true)
+    public String bizUniqueId;
+
     public static IdentityIdGroup build(java.util.Map<String, ?> map) throws Exception {
         IdentityIdGroup self = new IdentityIdGroup();
         return TeaModel.build(map, self);
@@ -33,6 +38,14 @@ public class IdentityIdGroup extends TeaModel {
     }
     public String getFileUrl() {
         return this.fileUrl;
+    }
+
+    public IdentityIdGroup setBizUniqueId(String bizUniqueId) {
+        this.bizUniqueId = bizUniqueId;
+        return this;
+    }
+    public String getBizUniqueId() {
+        return this.bizUniqueId;
     }
 
 }

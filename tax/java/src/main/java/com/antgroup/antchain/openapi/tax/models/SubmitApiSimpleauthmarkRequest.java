@@ -14,7 +14,7 @@ public class SubmitApiSimpleauthmarkRequest extends TeaModel {
     // 打标之后的结果
     @NameInMap("identity_group_list")
     @Validation(required = true)
-    public IdentityIdGroup identityGroupList;
+    public java.util.List<IdentityIdGroup> identityGroupList;
 
     // 产品类型
     @NameInMap("auth_type")
@@ -41,11 +41,11 @@ public class SubmitApiSimpleauthmarkRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public SubmitApiSimpleauthmarkRequest setIdentityGroupList(IdentityIdGroup identityGroupList) {
+    public SubmitApiSimpleauthmarkRequest setIdentityGroupList(java.util.List<IdentityIdGroup> identityGroupList) {
         this.identityGroupList = identityGroupList;
         return this;
     }
-    public IdentityIdGroup getIdentityGroupList() {
+    public java.util.List<IdentityIdGroup> getIdentityGroupList() {
         return this.identityGroupList;
     }
 

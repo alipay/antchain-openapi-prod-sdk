@@ -50,6 +50,11 @@ public class QueryPdataRiskRequest extends TeaModel {
     @NameInMap("credential_type")
     public String credentialType;
 
+    // 主键类型
+    @NameInMap("key_type")
+    @Validation(required = true)
+    public String keyType;
+
     public static QueryPdataRiskRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryPdataRiskRequest self = new QueryPdataRiskRequest();
         return TeaModel.build(map, self);
@@ -141,6 +146,14 @@ public class QueryPdataRiskRequest extends TeaModel {
     }
     public String getCredentialType() {
         return this.credentialType;
+    }
+
+    public QueryPdataRiskRequest setKeyType(String keyType) {
+        this.keyType = keyType;
+        return this;
+    }
+    public String getKeyType() {
+        return this.keyType;
     }
 
 }

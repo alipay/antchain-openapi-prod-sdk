@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.tax.models;
 
 import com.aliyun.tea.*;
 
-public class ExecApiSimpleauthmarkRequest extends TeaModel {
+public class PullApiSimpleauthmarkRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,12 @@ public class ExecApiSimpleauthmarkRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 税号清单
-    @NameInMap("identity_info")
-    @Validation(required = true)
-    public String identityInfo;
-
-    // 租户号
+    // 调用租户
     @NameInMap("inst_code")
     @Validation(required = true)
     public String instCode;
 
-    // 请求id
+    // 请求id，用于幂等控制
     @NameInMap("biz_unique_id")
     @Validation(required = true)
     public String bizUniqueId;
@@ -31,12 +26,12 @@ public class ExecApiSimpleauthmarkRequest extends TeaModel {
     @Validation(required = true)
     public String authType;
 
-    public static ExecApiSimpleauthmarkRequest build(java.util.Map<String, ?> map) throws Exception {
-        ExecApiSimpleauthmarkRequest self = new ExecApiSimpleauthmarkRequest();
+    public static PullApiSimpleauthmarkRequest build(java.util.Map<String, ?> map) throws Exception {
+        PullApiSimpleauthmarkRequest self = new PullApiSimpleauthmarkRequest();
         return TeaModel.build(map, self);
     }
 
-    public ExecApiSimpleauthmarkRequest setAuthToken(String authToken) {
+    public PullApiSimpleauthmarkRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -44,7 +39,7 @@ public class ExecApiSimpleauthmarkRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ExecApiSimpleauthmarkRequest setProductInstanceId(String productInstanceId) {
+    public PullApiSimpleauthmarkRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -52,15 +47,7 @@ public class ExecApiSimpleauthmarkRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ExecApiSimpleauthmarkRequest setIdentityInfo(String identityInfo) {
-        this.identityInfo = identityInfo;
-        return this;
-    }
-    public String getIdentityInfo() {
-        return this.identityInfo;
-    }
-
-    public ExecApiSimpleauthmarkRequest setInstCode(String instCode) {
+    public PullApiSimpleauthmarkRequest setInstCode(String instCode) {
         this.instCode = instCode;
         return this;
     }
@@ -68,7 +55,7 @@ public class ExecApiSimpleauthmarkRequest extends TeaModel {
         return this.instCode;
     }
 
-    public ExecApiSimpleauthmarkRequest setBizUniqueId(String bizUniqueId) {
+    public PullApiSimpleauthmarkRequest setBizUniqueId(String bizUniqueId) {
         this.bizUniqueId = bizUniqueId;
         return this;
     }
@@ -76,7 +63,7 @@ public class ExecApiSimpleauthmarkRequest extends TeaModel {
         return this.bizUniqueId;
     }
 
-    public ExecApiSimpleauthmarkRequest setAuthType(String authType) {
+    public PullApiSimpleauthmarkRequest setAuthType(String authType) {
         this.authType = authType;
         return this;
     }

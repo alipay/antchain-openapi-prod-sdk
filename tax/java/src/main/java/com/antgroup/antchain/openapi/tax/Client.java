@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.3"),
+                    new TeaPair("sdk_version", "1.7.10"),
                     new TeaPair("_prod_code", "TAX"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -634,6 +634,25 @@ public class Client {
     public SubmitApiSimpleauthmarkResponse submitApiSimpleauthmarkEx(SubmitApiSimpleauthmarkRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.simpleauthmark.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitApiSimpleauthmarkResponse());
+    }
+
+    /**
+     * Description: blockchain.tax.api.simpleauthmark.exec
+     * Summary: 数据打标拉取接口
+     */
+    public PullApiSimpleauthmarkResponse pullApiSimpleauthmark(PullApiSimpleauthmarkRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pullApiSimpleauthmarkEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: blockchain.tax.api.simpleauthmark.exec
+     * Summary: 数据打标拉取接口
+     */
+    public PullApiSimpleauthmarkResponse pullApiSimpleauthmarkEx(PullApiSimpleauthmarkRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.simpleauthmark.pull", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PullApiSimpleauthmarkResponse());
     }
 
     /**
