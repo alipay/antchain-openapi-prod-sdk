@@ -4241,6 +4241,8 @@ type RegByDeviceParm struct {
 	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
 	// 设备名称/型号
 	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+	// 设备IMEI
+	DeviceImei *string `json:"device_imei,omitempty" xml:"device_imei,omitempty"`
 }
 
 func (s RegByDeviceParm) String() string {
@@ -4313,6 +4315,11 @@ func (s *RegByDeviceParm) SetOwnerName(v string) *RegByDeviceParm {
 
 func (s *RegByDeviceParm) SetDeviceName(v string) *RegByDeviceParm {
 	s.DeviceName = &v
+	return s
+}
+
+func (s *RegByDeviceParm) SetDeviceImei(v string) *RegByDeviceParm {
+	s.DeviceImei = &v
 	return s
 }
 
@@ -18750,6 +18757,8 @@ type CreateDistributedeviceBydeviceRequest struct {
 	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
 	// 额外信息
 	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+	// 设备IMEI
+	DeviceImei *string `json:"device_imei,omitempty" xml:"device_imei,omitempty"`
 }
 
 func (s CreateDistributedeviceBydeviceRequest) String() string {
@@ -18837,6 +18846,11 @@ func (s *CreateDistributedeviceBydeviceRequest) SetOwnerName(v string) *CreateDi
 
 func (s *CreateDistributedeviceBydeviceRequest) SetExtraInfo(v string) *CreateDistributedeviceBydeviceRequest {
 	s.ExtraInfo = &v
+	return s
+}
+
+func (s *CreateDistributedeviceBydeviceRequest) SetDeviceImei(v string) *CreateDistributedeviceBydeviceRequest {
+	s.DeviceImei = &v
 	return s
 }
 
@@ -27106,7 +27120,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.103"),
+				"sdk_version":      tea.String("1.8.104"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
