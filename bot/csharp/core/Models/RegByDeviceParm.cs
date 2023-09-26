@@ -83,6 +83,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string DeviceName { get; set; }
 
+        // 设备IMEI
+        [NameInMap("device_imei")]
+        [Validation(Required=false)]
+        public string DeviceImei { get; set; }
+
     }
 
 }
