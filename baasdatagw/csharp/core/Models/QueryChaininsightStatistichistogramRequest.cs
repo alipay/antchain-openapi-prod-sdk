@@ -43,6 +43,11 @@ namespace AntChain.SDK.BAASDATAGW.Models
         [Validation(Required=true)]
         public long? EndTime { get; set; }
 
+        // 点集类型，枚举：Amount、Increment、GrowthRate，默认为Amount
+        [NameInMap("type")]
+        [Validation(Required=false)]
+        public string Type { get; set; }
+
     }
 
 }

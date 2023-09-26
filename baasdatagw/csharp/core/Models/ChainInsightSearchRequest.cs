@@ -45,7 +45,7 @@ namespace AntChain.SDK.BAASDATAGW.Models
         [Validation(Required=true)]
         public long? EndTime { get; set; }
 
-        // 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline
+        // 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline、DigitalAsset
         [NameInMap("enabled_types")]
         [Validation(Required=false)]
         public List<string> EnabledTypes { get; set; }

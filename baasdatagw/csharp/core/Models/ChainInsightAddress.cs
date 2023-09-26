@@ -85,6 +85,11 @@ namespace AntChain.SDK.BAASDATAGW.Models
         [Validation(Required=false)]
         public string ContractType { get; set; }
 
+        // 资产合约相关信息
+        [NameInMap("asset_contract_info")]
+        [Validation(Required=false)]
+        public ChainInsightAssetContractInfo AssetContractInfo { get; set; }
+
     }
 
 }

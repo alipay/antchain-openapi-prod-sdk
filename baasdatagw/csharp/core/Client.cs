@@ -91,7 +91,7 @@ namespace AntChain.SDK.BAASDATAGW
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,7 @@ namespace AntChain.SDK.BAASDATAGW
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.1"},
+                        {"sdk_version", "1.4.2"},
                         {"_prod_code", "BAASDATAGW"},
                         {"_prod_channel", "undefined"},
                     };
@@ -217,7 +217,7 @@ namespace AntChain.SDK.BAASDATAGW
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BAASDATAGW
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.1"},
+                        {"sdk_version", "1.4.2"},
                         {"_prod_code", "BAASDATAGW"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1999,6 +1999,972 @@ namespace AntChain.SDK.BAASDATAGW
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateChaininsightQrcodeResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.qrcode.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 开通数据搜索服务
+         * Summary: 开通数据搜索服务
+         */
+        public OpenChaininsightDatasearchResponse OpenChaininsightDatasearch(OpenChaininsightDatasearchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OpenChaininsightDatasearchEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 开通数据搜索服务
+         * Summary: 开通数据搜索服务
+         */
+        public async Task<OpenChaininsightDatasearchResponse> OpenChaininsightDatasearchAsync(OpenChaininsightDatasearchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OpenChaininsightDatasearchExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 开通数据搜索服务
+         * Summary: 开通数据搜索服务
+         */
+        public OpenChaininsightDatasearchResponse OpenChaininsightDatasearchEx(OpenChaininsightDatasearchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OpenChaininsightDatasearchResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.datasearch.open", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 开通数据搜索服务
+         * Summary: 开通数据搜索服务
+         */
+        public async Task<OpenChaininsightDatasearchResponse> OpenChaininsightDatasearchExAsync(OpenChaininsightDatasearchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OpenChaininsightDatasearchResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.datasearch.open", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 私有化场景下查询所有链的数据搜索服务状态
+         * Summary: 私有化场景下查询所有链的数据搜索服务状态
+         */
+        public QueryChaininsightPrivatedatasearchstatusResponse QueryChaininsightPrivatedatasearchstatus(QueryChaininsightPrivatedatasearchstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryChaininsightPrivatedatasearchstatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 私有化场景下查询所有链的数据搜索服务状态
+         * Summary: 私有化场景下查询所有链的数据搜索服务状态
+         */
+        public async Task<QueryChaininsightPrivatedatasearchstatusResponse> QueryChaininsightPrivatedatasearchstatusAsync(QueryChaininsightPrivatedatasearchstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryChaininsightPrivatedatasearchstatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 私有化场景下查询所有链的数据搜索服务状态
+         * Summary: 私有化场景下查询所有链的数据搜索服务状态
+         */
+        public QueryChaininsightPrivatedatasearchstatusResponse QueryChaininsightPrivatedatasearchstatusEx(QueryChaininsightPrivatedatasearchstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightPrivatedatasearchstatusResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.privatedatasearchstatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 私有化场景下查询所有链的数据搜索服务状态
+         * Summary: 私有化场景下查询所有链的数据搜索服务状态
+         */
+        public async Task<QueryChaininsightPrivatedatasearchstatusResponse> QueryChaininsightPrivatedatasearchstatusExAsync(QueryChaininsightPrivatedatasearchstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightPrivatedatasearchstatusResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.privatedatasearchstatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 添加看板
+         * Summary: 添加看板
+         */
+        public AddChaininsightWidgetsResponse AddChaininsightWidgets(AddChaininsightWidgetsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddChaininsightWidgetsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 添加看板
+         * Summary: 添加看板
+         */
+        public async Task<AddChaininsightWidgetsResponse> AddChaininsightWidgetsAsync(AddChaininsightWidgetsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddChaininsightWidgetsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 添加看板
+         * Summary: 添加看板
+         */
+        public AddChaininsightWidgetsResponse AddChaininsightWidgetsEx(AddChaininsightWidgetsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddChaininsightWidgetsResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.widgets.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 添加看板
+         * Summary: 添加看板
+         */
+        public async Task<AddChaininsightWidgetsResponse> AddChaininsightWidgetsExAsync(AddChaininsightWidgetsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddChaininsightWidgetsResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.widgets.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取看板列表
+         * Summary: 获取看板列表
+         */
+        public ListChaininsightWidgetsResponse ListChaininsightWidgets(ListChaininsightWidgetsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListChaininsightWidgetsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取看板列表
+         * Summary: 获取看板列表
+         */
+        public async Task<ListChaininsightWidgetsResponse> ListChaininsightWidgetsAsync(ListChaininsightWidgetsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListChaininsightWidgetsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取看板列表
+         * Summary: 获取看板列表
+         */
+        public ListChaininsightWidgetsResponse ListChaininsightWidgetsEx(ListChaininsightWidgetsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListChaininsightWidgetsResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.widgets.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取看板列表
+         * Summary: 获取看板列表
+         */
+        public async Task<ListChaininsightWidgetsResponse> ListChaininsightWidgetsExAsync(ListChaininsightWidgetsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListChaininsightWidgetsResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.widgets.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上活跃接收地址
+         * Summary: 分页查询链上活跃接收地址
+         */
+        public QueryChaininsightTablesactivereceiverResponse QueryChaininsightTablesactivereceiver(QueryChaininsightTablesactivereceiverRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryChaininsightTablesactivereceiverEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上活跃接收地址
+         * Summary: 分页查询链上活跃接收地址
+         */
+        public async Task<QueryChaininsightTablesactivereceiverResponse> QueryChaininsightTablesactivereceiverAsync(QueryChaininsightTablesactivereceiverRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryChaininsightTablesactivereceiverExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上活跃接收地址
+         * Summary: 分页查询链上活跃接收地址
+         */
+        public QueryChaininsightTablesactivereceiverResponse QueryChaininsightTablesactivereceiverEx(QueryChaininsightTablesactivereceiverRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightTablesactivereceiverResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.tablesactivereceiver.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上活跃接收地址
+         * Summary: 分页查询链上活跃接收地址
+         */
+        public async Task<QueryChaininsightTablesactivereceiverResponse> QueryChaininsightTablesactivereceiverExAsync(QueryChaininsightTablesactivereceiverRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightTablesactivereceiverResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.tablesactivereceiver.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上活跃发送地址
+         * Summary: 分页查询链上活跃发送地址
+         */
+        public QueryChaininsightTablesactivesenderResponse QueryChaininsightTablesactivesender(QueryChaininsightTablesactivesenderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryChaininsightTablesactivesenderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上活跃发送地址
+         * Summary: 分页查询链上活跃发送地址
+         */
+        public async Task<QueryChaininsightTablesactivesenderResponse> QueryChaininsightTablesactivesenderAsync(QueryChaininsightTablesactivesenderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryChaininsightTablesactivesenderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上活跃发送地址
+         * Summary: 分页查询链上活跃发送地址
+         */
+        public QueryChaininsightTablesactivesenderResponse QueryChaininsightTablesactivesenderEx(QueryChaininsightTablesactivesenderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightTablesactivesenderResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.tablesactivesender.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上活跃发送地址
+         * Summary: 分页查询链上活跃发送地址
+         */
+        public async Task<QueryChaininsightTablesactivesenderResponse> QueryChaininsightTablesactivesenderExAsync(QueryChaininsightTablesactivesenderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightTablesactivesenderResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.tablesactivesender.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上近期合约
+         * Summary: 分页查询链上近期合约
+         */
+        public PagequeryChaininsightLatestcontractsResponse PagequeryChaininsightLatestcontracts(PagequeryChaininsightLatestcontractsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryChaininsightLatestcontractsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上近期合约
+         * Summary: 分页查询链上近期合约
+         */
+        public async Task<PagequeryChaininsightLatestcontractsResponse> PagequeryChaininsightLatestcontractsAsync(PagequeryChaininsightLatestcontractsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryChaininsightLatestcontractsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上近期合约
+         * Summary: 分页查询链上近期合约
+         */
+        public PagequeryChaininsightLatestcontractsResponse PagequeryChaininsightLatestcontractsEx(PagequeryChaininsightLatestcontractsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightLatestcontractsResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.latestcontracts.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上近期合约
+         * Summary: 分页查询链上近期合约
+         */
+        public async Task<PagequeryChaininsightLatestcontractsResponse> PagequeryChaininsightLatestcontractsExAsync(PagequeryChaininsightLatestcontractsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightLatestcontractsResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.latestcontracts.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上近期交易
+         * Summary: 分页查询链上近期交易
+         */
+        public PagequeryChaininsightLatesttxsResponse PagequeryChaininsightLatesttxs(PagequeryChaininsightLatesttxsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryChaininsightLatesttxsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上近期交易
+         * Summary: 分页查询链上近期交易
+         */
+        public async Task<PagequeryChaininsightLatesttxsResponse> PagequeryChaininsightLatesttxsAsync(PagequeryChaininsightLatesttxsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryChaininsightLatesttxsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上近期交易
+         * Summary: 分页查询链上近期交易
+         */
+        public PagequeryChaininsightLatesttxsResponse PagequeryChaininsightLatesttxsEx(PagequeryChaininsightLatesttxsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightLatesttxsResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.latesttxs.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上近期交易
+         * Summary: 分页查询链上近期交易
+         */
+        public async Task<PagequeryChaininsightLatesttxsResponse> PagequeryChaininsightLatesttxsExAsync(PagequeryChaininsightLatesttxsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightLatesttxsResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.latesttxs.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 私有化场景下查询区块链整体状态
+         * Summary: 私有化场景下查询区块链整体状态
+         */
+        public QueryChaininsightPrivatechainsstatusResponse QueryChaininsightPrivatechainsstatus(QueryChaininsightPrivatechainsstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryChaininsightPrivatechainsstatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 私有化场景下查询区块链整体状态
+         * Summary: 私有化场景下查询区块链整体状态
+         */
+        public async Task<QueryChaininsightPrivatechainsstatusResponse> QueryChaininsightPrivatechainsstatusAsync(QueryChaininsightPrivatechainsstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryChaininsightPrivatechainsstatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 私有化场景下查询区块链整体状态
+         * Summary: 私有化场景下查询区块链整体状态
+         */
+        public QueryChaininsightPrivatechainsstatusResponse QueryChaininsightPrivatechainsstatusEx(QueryChaininsightPrivatechainsstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightPrivatechainsstatusResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.privatechainsstatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 私有化场景下查询区块链整体状态
+         * Summary: 私有化场景下查询区块链整体状态
+         */
+        public async Task<QueryChaininsightPrivatechainsstatusResponse> QueryChaininsightPrivatechainsstatusExAsync(QueryChaininsightPrivatechainsstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightPrivatechainsstatusResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.privatechainsstatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 私有化场景下查询链交易数量趋势
+         * Summary: 私有化场景下查询链交易数量趋势
+         */
+        public QueryChaininsightPrivatechaintxhistogramResponse QueryChaininsightPrivatechaintxhistogram(QueryChaininsightPrivatechaintxhistogramRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryChaininsightPrivatechaintxhistogramEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 私有化场景下查询链交易数量趋势
+         * Summary: 私有化场景下查询链交易数量趋势
+         */
+        public async Task<QueryChaininsightPrivatechaintxhistogramResponse> QueryChaininsightPrivatechaintxhistogramAsync(QueryChaininsightPrivatechaintxhistogramRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryChaininsightPrivatechaintxhistogramExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 私有化场景下查询链交易数量趋势
+         * Summary: 私有化场景下查询链交易数量趋势
+         */
+        public QueryChaininsightPrivatechaintxhistogramResponse QueryChaininsightPrivatechaintxhistogramEx(QueryChaininsightPrivatechaintxhistogramRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightPrivatechaintxhistogramResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.privatechaintxhistogram.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 私有化场景下查询链交易数量趋势
+         * Summary: 私有化场景下查询链交易数量趋势
+         */
+        public async Task<QueryChaininsightPrivatechaintxhistogramResponse> QueryChaininsightPrivatechaintxhistogramExAsync(QueryChaininsightPrivatechaintxhistogramRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightPrivatechaintxhistogramResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.privatechaintxhistogram.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除数据洞察看板
+         * Summary: 删除数据洞察看板
+         */
+        public DeleteChaininsightWidgetsResponse DeleteChaininsightWidgets(DeleteChaininsightWidgetsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteChaininsightWidgetsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除数据洞察看板
+         * Summary: 删除数据洞察看板
+         */
+        public async Task<DeleteChaininsightWidgetsResponse> DeleteChaininsightWidgetsAsync(DeleteChaininsightWidgetsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteChaininsightWidgetsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除数据洞察看板
+         * Summary: 删除数据洞察看板
+         */
+        public DeleteChaininsightWidgetsResponse DeleteChaininsightWidgetsEx(DeleteChaininsightWidgetsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteChaininsightWidgetsResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.widgets.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除数据洞察看板
+         * Summary: 删除数据洞察看板
+         */
+        public async Task<DeleteChaininsightWidgetsResponse> DeleteChaininsightWidgetsExAsync(DeleteChaininsightWidgetsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteChaininsightWidgetsResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.widgets.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 移动看板
+         * Summary: 移动看板
+         */
+        public OperateChaininsightWidgetsmoveResponse OperateChaininsightWidgetsmove(OperateChaininsightWidgetsmoveRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateChaininsightWidgetsmoveEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 移动看板
+         * Summary: 移动看板
+         */
+        public async Task<OperateChaininsightWidgetsmoveResponse> OperateChaininsightWidgetsmoveAsync(OperateChaininsightWidgetsmoveRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateChaininsightWidgetsmoveExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 移动看板
+         * Summary: 移动看板
+         */
+        public OperateChaininsightWidgetsmoveResponse OperateChaininsightWidgetsmoveEx(OperateChaininsightWidgetsmoveRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateChaininsightWidgetsmoveResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.widgetsmove.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 移动看板
+         * Summary: 移动看板
+         */
+        public async Task<OperateChaininsightWidgetsmoveResponse> OperateChaininsightWidgetsmoveExAsync(OperateChaininsightWidgetsmoveRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateChaininsightWidgetsmoveResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.widgetsmove.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 修改看板
+         * Summary: 修改看板
+         */
+        public UpdateChaininsightWidgetsResponse UpdateChaininsightWidgets(UpdateChaininsightWidgetsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateChaininsightWidgetsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 修改看板
+         * Summary: 修改看板
+         */
+        public async Task<UpdateChaininsightWidgetsResponse> UpdateChaininsightWidgetsAsync(UpdateChaininsightWidgetsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateChaininsightWidgetsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 修改看板
+         * Summary: 修改看板
+         */
+        public UpdateChaininsightWidgetsResponse UpdateChaininsightWidgetsEx(UpdateChaininsightWidgetsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateChaininsightWidgetsResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.widgets.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 修改看板
+         * Summary: 修改看板
+         */
+        public async Task<UpdateChaininsightWidgetsResponse> UpdateChaininsightWidgetsExAsync(UpdateChaininsightWidgetsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateChaininsightWidgetsResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.widgets.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 下载合约
+         * Summary: 下载合约
+         */
+        public DownloadChaininsightContractResponse DownloadChaininsightContract(DownloadChaininsightContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DownloadChaininsightContractEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 下载合约
+         * Summary: 下载合约
+         */
+        public async Task<DownloadChaininsightContractResponse> DownloadChaininsightContractAsync(DownloadChaininsightContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DownloadChaininsightContractExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 下载合约
+         * Summary: 下载合约
+         */
+        public DownloadChaininsightContractResponse DownloadChaininsightContractEx(DownloadChaininsightContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadChaininsightContractResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.contract.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 下载合约
+         * Summary: 下载合约
+         */
+        public async Task<DownloadChaininsightContractResponse> DownloadChaininsightContractExAsync(DownloadChaininsightContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadChaininsightContractResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.contract.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询修改合约的交易
+         * Summary: 查询修改合约的交易
+         */
+        public PagequeryChaininsightContractmodifytxResponse PagequeryChaininsightContractmodifytx(PagequeryChaininsightContractmodifytxRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryChaininsightContractmodifytxEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询修改合约的交易
+         * Summary: 查询修改合约的交易
+         */
+        public async Task<PagequeryChaininsightContractmodifytxResponse> PagequeryChaininsightContractmodifytxAsync(PagequeryChaininsightContractmodifytxRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryChaininsightContractmodifytxExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询修改合约的交易
+         * Summary: 查询修改合约的交易
+         */
+        public PagequeryChaininsightContractmodifytxResponse PagequeryChaininsightContractmodifytxEx(PagequeryChaininsightContractmodifytxRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightContractmodifytxResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.contractmodifytx.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询修改合约的交易
+         * Summary: 查询修改合约的交易
+         */
+        public async Task<PagequeryChaininsightContractmodifytxResponse> PagequeryChaininsightContractmodifytxExAsync(PagequeryChaininsightContractmodifytxRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightContractmodifytxResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.contractmodifytx.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询账户的修改交易
+         * Summary: 分页查询账户的修改交易
+         */
+        public PagequeryChaininsightAccountmodifytxResponse PagequeryChaininsightAccountmodifytx(PagequeryChaininsightAccountmodifytxRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryChaininsightAccountmodifytxEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询账户的修改交易
+         * Summary: 分页查询账户的修改交易
+         */
+        public async Task<PagequeryChaininsightAccountmodifytxResponse> PagequeryChaininsightAccountmodifytxAsync(PagequeryChaininsightAccountmodifytxRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryChaininsightAccountmodifytxExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询账户的修改交易
+         * Summary: 分页查询账户的修改交易
+         */
+        public PagequeryChaininsightAccountmodifytxResponse PagequeryChaininsightAccountmodifytxEx(PagequeryChaininsightAccountmodifytxRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightAccountmodifytxResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.accountmodifytx.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询账户的修改交易
+         * Summary: 分页查询账户的修改交易
+         */
+        public async Task<PagequeryChaininsightAccountmodifytxResponse> PagequeryChaininsightAccountmodifytxExAsync(PagequeryChaininsightAccountmodifytxRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightAccountmodifytxResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.accountmodifytx.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 返回对应 ERC 类型资产统计所必须的接口
+         * Summary: 查询资产统计所必须的接口
+         */
+        public ListChaininsightAssetinterfacesrequiredResponse ListChaininsightAssetinterfacesrequired(ListChaininsightAssetinterfacesrequiredRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListChaininsightAssetinterfacesrequiredEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 返回对应 ERC 类型资产统计所必须的接口
+         * Summary: 查询资产统计所必须的接口
+         */
+        public async Task<ListChaininsightAssetinterfacesrequiredResponse> ListChaininsightAssetinterfacesrequiredAsync(ListChaininsightAssetinterfacesrequiredRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListChaininsightAssetinterfacesrequiredExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 返回对应 ERC 类型资产统计所必须的接口
+         * Summary: 查询资产统计所必须的接口
+         */
+        public ListChaininsightAssetinterfacesrequiredResponse ListChaininsightAssetinterfacesrequiredEx(ListChaininsightAssetinterfacesrequiredRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListChaininsightAssetinterfacesrequiredResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.assetinterfacesrequired.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 返回对应 ERC 类型资产统计所必须的接口
+         * Summary: 查询资产统计所必须的接口
+         */
+        public async Task<ListChaininsightAssetinterfacesrequiredResponse> ListChaininsightAssetinterfacesrequiredExAsync(ListChaininsightAssetinterfacesrequiredRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListChaininsightAssetinterfacesrequiredResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.assetinterfacesrequired.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询链上资产的详情
+         * Summary: 查询资产详情
+         */
+        public QueryChaininsightStatisticassetdetailResponse QueryChaininsightStatisticassetdetail(QueryChaininsightStatisticassetdetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryChaininsightStatisticassetdetailEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询链上资产的详情
+         * Summary: 查询资产详情
+         */
+        public async Task<QueryChaininsightStatisticassetdetailResponse> QueryChaininsightStatisticassetdetailAsync(QueryChaininsightStatisticassetdetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryChaininsightStatisticassetdetailExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询链上资产的详情
+         * Summary: 查询资产详情
+         */
+        public QueryChaininsightStatisticassetdetailResponse QueryChaininsightStatisticassetdetailEx(QueryChaininsightStatisticassetdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightStatisticassetdetailResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.statisticassetdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询链上资产的详情
+         * Summary: 查询资产详情
+         */
+        public async Task<QueryChaininsightStatisticassetdetailResponse> QueryChaininsightStatisticassetdetailExAsync(QueryChaininsightStatisticassetdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightStatisticassetdetailResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.statisticassetdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询链上资产合约中资产的元信息
+         * Summary: 查询链上资产元信息
+         */
+        public QueryChaininsightStatisticassetmetaResponse QueryChaininsightStatisticassetmeta(QueryChaininsightStatisticassetmetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryChaininsightStatisticassetmetaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询链上资产合约中资产的元信息
+         * Summary: 查询链上资产元信息
+         */
+        public async Task<QueryChaininsightStatisticassetmetaResponse> QueryChaininsightStatisticassetmetaAsync(QueryChaininsightStatisticassetmetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryChaininsightStatisticassetmetaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询链上资产合约中资产的元信息
+         * Summary: 查询链上资产元信息
+         */
+        public QueryChaininsightStatisticassetmetaResponse QueryChaininsightStatisticassetmetaEx(QueryChaininsightStatisticassetmetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightStatisticassetmetaResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.statisticassetmeta.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询链上资产合约中资产的元信息
+         * Summary: 查询链上资产元信息
+         */
+        public async Task<QueryChaininsightStatisticassetmetaResponse> QueryChaininsightStatisticassetmetaExAsync(QueryChaininsightStatisticassetmetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightStatisticassetmetaResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.statisticassetmeta.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上资产合约中资产的持有者信息，按最近一次交易时间降序
+         * Summary: 查询链上资产的持有者信息
+         */
+        public PagequeryChaininsightStatisticassetownerResponse PagequeryChaininsightStatisticassetowner(PagequeryChaininsightStatisticassetownerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryChaininsightStatisticassetownerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上资产合约中资产的持有者信息，按最近一次交易时间降序
+         * Summary: 查询链上资产的持有者信息
+         */
+        public async Task<PagequeryChaininsightStatisticassetownerResponse> PagequeryChaininsightStatisticassetownerAsync(PagequeryChaininsightStatisticassetownerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryChaininsightStatisticassetownerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上资产合约中资产的持有者信息，按最近一次交易时间降序
+         * Summary: 查询链上资产的持有者信息
+         */
+        public PagequeryChaininsightStatisticassetownerResponse PagequeryChaininsightStatisticassetownerEx(PagequeryChaininsightStatisticassetownerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightStatisticassetownerResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.statisticassetowner.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上资产合约中资产的持有者信息，按最近一次交易时间降序
+         * Summary: 查询链上资产的持有者信息
+         */
+        public async Task<PagequeryChaininsightStatisticassetownerResponse> PagequeryChaininsightStatisticassetownerExAsync(PagequeryChaininsightStatisticassetownerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightStatisticassetownerResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.statisticassetowner.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上账户的资产列表，按最近一次交易时间降序
+         * Summary: 查询链上账户的资产列表
+         */
+        public PagequeryChaininsightStatisticassetinventoryaccountResponse PagequeryChaininsightStatisticassetinventoryaccount(PagequeryChaininsightStatisticassetinventoryaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryChaininsightStatisticassetinventoryaccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上账户的资产列表，按最近一次交易时间降序
+         * Summary: 查询链上账户的资产列表
+         */
+        public async Task<PagequeryChaininsightStatisticassetinventoryaccountResponse> PagequeryChaininsightStatisticassetinventoryaccountAsync(PagequeryChaininsightStatisticassetinventoryaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryChaininsightStatisticassetinventoryaccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上账户的资产列表，按最近一次交易时间降序
+         * Summary: 查询链上账户的资产列表
+         */
+        public PagequeryChaininsightStatisticassetinventoryaccountResponse PagequeryChaininsightStatisticassetinventoryaccountEx(PagequeryChaininsightStatisticassetinventoryaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightStatisticassetinventoryaccountResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.statisticassetinventoryaccount.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上账户的资产列表，按最近一次交易时间降序
+         * Summary: 查询链上账户的资产列表
+         */
+        public async Task<PagequeryChaininsightStatisticassetinventoryaccountResponse> PagequeryChaininsightStatisticassetinventoryaccountExAsync(PagequeryChaininsightStatisticassetinventoryaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightStatisticassetinventoryaccountResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.statisticassetinventoryaccount.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上资产合约中资产的流转信息，按交易时间降序
+         * Summary: 查询链上资产的流转信息
+         */
+        public PagequeryChaininsightStatisticassethistoryassetResponse PagequeryChaininsightStatisticassethistoryasset(PagequeryChaininsightStatisticassethistoryassetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryChaininsightStatisticassethistoryassetEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上资产合约中资产的流转信息，按交易时间降序
+         * Summary: 查询链上资产的流转信息
+         */
+        public async Task<PagequeryChaininsightStatisticassethistoryassetResponse> PagequeryChaininsightStatisticassethistoryassetAsync(PagequeryChaininsightStatisticassethistoryassetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryChaininsightStatisticassethistoryassetExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上资产合约中资产的流转信息，按交易时间降序
+         * Summary: 查询链上资产的流转信息
+         */
+        public PagequeryChaininsightStatisticassethistoryassetResponse PagequeryChaininsightStatisticassethistoryassetEx(PagequeryChaininsightStatisticassethistoryassetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightStatisticassethistoryassetResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.statisticassethistoryasset.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上资产合约中资产的流转信息，按交易时间降序
+         * Summary: 查询链上资产的流转信息
+         */
+        public async Task<PagequeryChaininsightStatisticassethistoryassetResponse> PagequeryChaininsightStatisticassethistoryassetExAsync(PagequeryChaininsightStatisticassethistoryassetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightStatisticassethistoryassetResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.statisticassethistoryasset.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上资产合约的资产流转信息，按交易时间降序
+         * Summary: 查询链上资产合约的资产流转信息
+         */
+        public PagequeryChaininsightStatisticassethistorycontractResponse PagequeryChaininsightStatisticassethistorycontract(PagequeryChaininsightStatisticassethistorycontractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryChaininsightStatisticassethistorycontractEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上资产合约的资产流转信息，按交易时间降序
+         * Summary: 查询链上资产合约的资产流转信息
+         */
+        public async Task<PagequeryChaininsightStatisticassethistorycontractResponse> PagequeryChaininsightStatisticassethistorycontractAsync(PagequeryChaininsightStatisticassethistorycontractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryChaininsightStatisticassethistorycontractExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询链上资产合约的资产流转信息，按交易时间降序
+         * Summary: 查询链上资产合约的资产流转信息
+         */
+        public PagequeryChaininsightStatisticassethistorycontractResponse PagequeryChaininsightStatisticassethistorycontractEx(PagequeryChaininsightStatisticassethistorycontractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightStatisticassethistorycontractResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.statisticassethistorycontract.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询链上资产合约的资产流转信息，按交易时间降序
+         * Summary: 查询链上资产合约的资产流转信息
+         */
+        public async Task<PagequeryChaininsightStatisticassethistorycontractResponse> PagequeryChaininsightStatisticassethistorycontractExAsync(PagequeryChaininsightStatisticassethistorycontractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryChaininsightStatisticassethistorycontractResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.statisticassethistorycontract.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

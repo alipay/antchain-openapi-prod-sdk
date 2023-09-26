@@ -88,6 +88,51 @@ namespace AntChain.SDK.BAASDATAGW.Models
         [Validation(Required=false)]
         public string MychainParentBizid { get; set; }
 
+        // Aldaba 链节点地址
+        [NameInMap("aldaba_nodes")]
+        [Validation(Required=false)]
+        public List<string> AldabaNodes { get; set; }
+
+        // Aldaba 链使用的协议，支持 WebSocket / Tcp; 默认 WebSocket
+        [NameInMap("aldaba_network_protocol")]
+        [Validation(Required=false)]
+        public string AldabaNetworkProtocol { get; set; }
+
+        // Aldaba 链base64编码的JDS
+        [NameInMap("aldaba_tls_root_truststore")]
+        [Validation(Required=false)]
+        public string AldabaTlsRootTruststore { get; set; }
+
+        // Aldaba 链 JDS 密码
+        [NameInMap("aldaba_tls_root_truststore_password")]
+        [Validation(Required=false)]
+        public string AldabaTlsRootTruststorePassword { get; set; }
+
+        // Aldaba 链 base64编码的证书
+        [NameInMap("aldaba_tls_client_certificate")]
+        [Validation(Required=false)]
+        public string AldabaTlsClientCertificate { get; set; }
+
+        // Aldaba 链 base64编码的密钥
+        [NameInMap("aldaba_tls_client_key")]
+        [Validation(Required=false)]
+        public string AldabaTlsClientKey { get; set; }
+
+        // Aldaba 链密钥密码
+        [NameInMap("aldaba_tls_client_key_password")]
+        [Validation(Required=false)]
+        public string AldabaTlsClientKeyPassword { get; set; }
+
+        // Aldaba 链 base64 编码的 sender 密钥
+        [NameInMap("aldaba_sender_key")]
+        [Validation(Required=false)]
+        public string AldabaSenderKey { get; set; }
+
+        // Aldaba 链 sender 密钥的密码
+        [NameInMap("aldaba_sender_key_password")]
+        [Validation(Required=false)]
+        public string AldabaSenderKeyPassword { get; set; }
+
     }
 
 }

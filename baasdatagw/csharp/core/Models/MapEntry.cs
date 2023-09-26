@@ -20,6 +20,11 @@ namespace AntChain.SDK.BAASDATAGW.Models
         [Validation(Required=true)]
         public string Value { get; set; }
 
+        // 声明 value 的类型，包括 String / Double / Long / Bool / JSONObject / JSONArray
+        [NameInMap("type")]
+        [Validation(Required=false)]
+        public string Type { get; set; }
+
     }
 
 }

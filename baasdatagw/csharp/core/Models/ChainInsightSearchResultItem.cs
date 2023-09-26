@@ -20,6 +20,11 @@ namespace AntChain.SDK.BAASDATAGW.Models
         [Validation(Required=true)]
         public string BizId { get; set; }
 
+        // 结果链ID对应的区块链名称
+        [NameInMap("biz_name")]
+        [Validation(Required=false)]
+        public string BizName { get; set; }
+
         // 结果与搜索请求的相关性程度，(0, 10000000]
         [NameInMap("score")]
         [Validation(Required=true)]

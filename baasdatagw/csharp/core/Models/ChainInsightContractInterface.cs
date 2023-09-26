@@ -25,6 +25,16 @@ namespace AntChain.SDK.BAASDATAGW.Models
         [Validation(Required=true)]
         public string Type { get; set; }
 
+        // 对应的标准 ERC 事件/方法 的名称
+        [NameInMap("standard_erc_name")]
+        [Validation(Required=false)]
+        public string StandardErcName { get; set; }
+
+        // 参数列表
+        [NameInMap("args")]
+        [Validation(Required=false)]
+        public List<ChainInsightContractInterfaceArgument> Args { get; set; }
+
     }
 
 }

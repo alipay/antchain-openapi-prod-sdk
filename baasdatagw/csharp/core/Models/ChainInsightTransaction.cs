@@ -90,6 +90,11 @@ namespace AntChain.SDK.BAASDATAGW.Models
         [Validation(Required=false)]
         public List<ChainInsightEvent> Events { get; set; }
 
+        // 交易时间戳（单位：毫秒）
+        [NameInMap("timestamp")]
+        [Validation(Required=true)]
+        public long? Timestamp { get; set; }
+
     }
 
 }

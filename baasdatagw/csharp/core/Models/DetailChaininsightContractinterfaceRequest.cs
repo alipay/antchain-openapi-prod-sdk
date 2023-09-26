@@ -38,6 +38,11 @@ namespace AntChain.SDK.BAASDATAGW.Models
         [Validation(Required=true)]
         public ChainInsightContractInterface ContractInterface { get; set; }
 
+        // 租户ID，留空
+        [NameInMap("tenant_id")]
+        [Validation(Required=false)]
+        public string TenantId { get; set; }
+
     }
 
 }

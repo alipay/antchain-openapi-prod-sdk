@@ -30,6 +30,11 @@ namespace AntChain.SDK.BAASDATAGW.Models
         [Validation(Required=false)]
         public string Comment { get; set; }
 
+        // 对应的标准 ERC 参数的名称，例如：标准ERC1155 TransferBatch事件中的operator
+        [NameInMap("standard_erc_name")]
+        [Validation(Required=false)]
+        public string StandardErcName { get; set; }
+
     }
 
 }
