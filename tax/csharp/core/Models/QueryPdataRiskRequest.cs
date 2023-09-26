@@ -63,6 +63,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string CredentialType { get; set; }
 
+        // 主键类型
+        [NameInMap("key_type")]
+        [Validation(Required=true)]
+        public string KeyType { get; set; }
+
     }
 
 }

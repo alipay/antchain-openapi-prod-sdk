@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TAX.Models
 {
-    public class ExecApiSimpleauthmarkRequest : TeaModel {
+    public class PullApiSimpleauthmarkRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,17 +18,12 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 税号清单
-        [NameInMap("identity_info")]
-        [Validation(Required=true)]
-        public string IdentityInfo { get; set; }
-
-        // 租户号
+        // 调用租户
         [NameInMap("inst_code")]
         [Validation(Required=true)]
         public string InstCode { get; set; }
 
-        // 请求id
+        // 请求id，用于幂等控制
         [NameInMap("biz_unique_id")]
         [Validation(Required=true)]
         public string BizUniqueId { get; set; }

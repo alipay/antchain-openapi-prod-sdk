@@ -21,7 +21,7 @@ namespace AntChain.SDK.TAX.Models
         // 打标之后的结果
         [NameInMap("identity_group_list")]
         [Validation(Required=true)]
-        public IdentityIdGroup IdentityGroupList { get; set; }
+        public List<IdentityIdGroup> IdentityGroupList { get; set; }
 
         // 产品类型
         [NameInMap("auth_type")]

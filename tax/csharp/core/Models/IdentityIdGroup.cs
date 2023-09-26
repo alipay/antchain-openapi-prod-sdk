@@ -20,6 +20,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=true)]
         public string FileUrl { get; set; }
 
+        // 请求id，用于幂等控制
+        [NameInMap("biz_unique_id")]
+        [Validation(Required=true)]
+        public string BizUniqueId { get; set; }
+
     }
 
 }
