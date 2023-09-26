@@ -145,6 +145,12 @@ class CreateDistributedeviceBydeviceRequest extends Model
      * @var string
      */
     public $extraInfo;
+
+    // 设备IMEI
+    /**
+     * @var string
+     */
+    public $deviceImei;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -162,6 +168,7 @@ class CreateDistributedeviceBydeviceRequest extends Model
         'owner'             => 'owner',
         'ownerName'         => 'owner_name',
         'extraInfo'         => 'extra_info',
+        'deviceImei'        => 'device_imei',
     ];
 
     public function validate()
@@ -227,6 +234,9 @@ class CreateDistributedeviceBydeviceRequest extends Model
         if (null !== $this->extraInfo) {
             $res['extra_info'] = $this->extraInfo;
         }
+        if (null !== $this->deviceImei) {
+            $res['device_imei'] = $this->deviceImei;
+        }
 
         return $res;
     }
@@ -286,6 +296,9 @@ class CreateDistributedeviceBydeviceRequest extends Model
         }
         if (isset($map['extra_info'])) {
             $model->extraInfo = $map['extra_info'];
+        }
+        if (isset($map['device_imei'])) {
+            $model->deviceImei = $map['device_imei'];
         }
 
         return $model;

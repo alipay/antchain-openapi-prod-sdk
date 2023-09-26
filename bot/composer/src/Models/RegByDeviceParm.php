@@ -118,6 +118,14 @@ class RegByDeviceParm extends Model
      * @var string
      */
     public $deviceName;
+
+    // 设备IMEI
+    /**
+     * @example 823456712312345
+     *
+     * @var string
+     */
+    public $deviceImei;
     protected $_name = [
         'deviceId'           => 'device_id',
         'deviceDataModelId'  => 'device_data_model_id',
@@ -132,6 +140,7 @@ class RegByDeviceParm extends Model
         'owner'              => 'owner',
         'ownerName'          => 'owner_name',
         'deviceName'         => 'device_name',
+        'deviceImei'         => 'device_imei',
     ];
 
     public function validate()
@@ -188,6 +197,9 @@ class RegByDeviceParm extends Model
         if (null !== $this->deviceName) {
             $res['device_name'] = $this->deviceName;
         }
+        if (null !== $this->deviceImei) {
+            $res['device_imei'] = $this->deviceImei;
+        }
 
         return $res;
     }
@@ -238,6 +250,9 @@ class RegByDeviceParm extends Model
         }
         if (isset($map['device_name'])) {
             $model->deviceName = $map['device_name'];
+        }
+        if (isset($map['device_imei'])) {
+            $model->deviceImei = $map['device_imei'];
         }
 
         return $model;
