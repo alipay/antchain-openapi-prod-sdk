@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "BAASDATAGW",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-baasdatagw:1.3.1",
-    "go": "github.com/antchain-openapi-sdk-go/baasdatagw/client:v1.3.1",
-    "csharp": "AntChain.SDK.BAASDATAGW:1.3.1",
-    "ts": "@antchain/baasdatagw:1.3.1",
-    "php": "antchain/baasdatagw:1.3.1",
-    "python": "antchain_sdk_baasdatagw:1.3.1"
+    "java": "com.antgroup.antchain.openapi:openapi-baasdatagw:1.4.2",
+    "go": "github.com/antchain-openapi-sdk-go/baasdatagw/client:v1.4.2",
+    "csharp": "AntChain.SDK.BAASDATAGW:1.4.2",
+    "ts": "@antchain/baasdatagw:1.4.2",
+    "php": "antchain/baasdatagw:1.4.2",
+    "python": "antchain_sdk_baasdatagw:1.4.2"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
