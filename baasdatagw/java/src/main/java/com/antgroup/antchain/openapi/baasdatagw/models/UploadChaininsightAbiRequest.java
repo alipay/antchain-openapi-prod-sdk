@@ -31,6 +31,10 @@ public class UploadChaininsightAbiRequest extends TeaModel {
     @Validation(required = true)
     public String file;
 
+    // 租户ID，留空
+    @NameInMap("tenant_id")
+    public String tenantId;
+
     public static UploadChaininsightAbiRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadChaininsightAbiRequest self = new UploadChaininsightAbiRequest();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class UploadChaininsightAbiRequest extends TeaModel {
     }
     public String getFile() {
         return this.file;
+    }
+
+    public UploadChaininsightAbiRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }

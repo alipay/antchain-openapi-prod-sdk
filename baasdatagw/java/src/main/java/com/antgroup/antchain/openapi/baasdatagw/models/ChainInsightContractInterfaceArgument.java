@@ -23,6 +23,10 @@ public class ChainInsightContractInterfaceArgument extends TeaModel {
     @NameInMap("comment")
     public String comment;
 
+    // 对应的标准 ERC 参数的名称，例如：标准ERC1155 TransferBatch事件中的operator
+    @NameInMap("standard_erc_name")
+    public String standardErcName;
+
     public static ChainInsightContractInterfaceArgument build(java.util.Map<String, ?> map) throws Exception {
         ChainInsightContractInterfaceArgument self = new ChainInsightContractInterfaceArgument();
         return TeaModel.build(map, self);
@@ -58,6 +62,14 @@ public class ChainInsightContractInterfaceArgument extends TeaModel {
     }
     public String getComment() {
         return this.comment;
+    }
+
+    public ChainInsightContractInterfaceArgument setStandardErcName(String standardErcName) {
+        this.standardErcName = standardErcName;
+        return this;
+    }
+    public String getStandardErcName() {
+        return this.standardErcName;
     }
 
 }

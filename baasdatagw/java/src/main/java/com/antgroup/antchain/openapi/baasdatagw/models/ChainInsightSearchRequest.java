@@ -37,7 +37,7 @@ public class ChainInsightSearchRequest extends TeaModel {
     @Validation(required = true)
     public Long endTime;
 
-    // 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline
+    // 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline、DigitalAsset
     @NameInMap("enabled_types")
     public java.util.List<String> enabledTypes;
 

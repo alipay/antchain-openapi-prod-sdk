@@ -14,6 +14,10 @@ public class MapEntry extends TeaModel {
     @Validation(required = true)
     public String value;
 
+    // 声明 value 的类型，包括 String / Double / Long / Bool / JSONObject / JSONArray
+    @NameInMap("type")
+    public String type;
+
     public static MapEntry build(java.util.Map<String, ?> map) throws Exception {
         MapEntry self = new MapEntry();
         return TeaModel.build(map, self);
@@ -33,6 +37,14 @@ public class MapEntry extends TeaModel {
     }
     public String getValue() {
         return this.value;
+    }
+
+    public MapEntry setType(String type) {
+        this.type = type;
+        return this;
+    }
+    public String getType() {
+        return this.type;
     }
 
 }

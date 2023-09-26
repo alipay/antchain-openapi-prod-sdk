@@ -31,6 +31,10 @@ public class QueryChaininsightAddresshistogramtxRequest extends TeaModel {
     @Validation(required = true)
     public Long endTime;
 
+    // 点集类型，枚举：Amount、Increment、GrowthRate，默认Amount
+    @NameInMap("type")
+    public String type;
+
     public static QueryChaininsightAddresshistogramtxRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryChaininsightAddresshistogramtxRequest self = new QueryChaininsightAddresshistogramtxRequest();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class QueryChaininsightAddresshistogramtxRequest extends TeaModel {
     }
     public Long getEndTime() {
         return this.endTime;
+    }
+
+    public QueryChaininsightAddresshistogramtxRequest setType(String type) {
+        this.type = type;
+        return this;
+    }
+    public String getType() {
+        return this.type;
     }
 
 }

@@ -18,6 +18,14 @@ public class ChainInsightContractInterface extends TeaModel {
     @Validation(required = true)
     public String type;
 
+    // 对应的标准 ERC 事件/方法 的名称
+    @NameInMap("standard_erc_name")
+    public String standardErcName;
+
+    // 参数列表
+    @NameInMap("args")
+    public java.util.List<ChainInsightContractInterfaceArgument> args;
+
     public static ChainInsightContractInterface build(java.util.Map<String, ?> map) throws Exception {
         ChainInsightContractInterface self = new ChainInsightContractInterface();
         return TeaModel.build(map, self);
@@ -45,6 +53,22 @@ public class ChainInsightContractInterface extends TeaModel {
     }
     public String getType() {
         return this.type;
+    }
+
+    public ChainInsightContractInterface setStandardErcName(String standardErcName) {
+        this.standardErcName = standardErcName;
+        return this;
+    }
+    public String getStandardErcName() {
+        return this.standardErcName;
+    }
+
+    public ChainInsightContractInterface setArgs(java.util.List<ChainInsightContractInterfaceArgument> args) {
+        this.args = args;
+        return this;
+    }
+    public java.util.List<ChainInsightContractInterfaceArgument> getArgs() {
+        return this.args;
     }
 
 }

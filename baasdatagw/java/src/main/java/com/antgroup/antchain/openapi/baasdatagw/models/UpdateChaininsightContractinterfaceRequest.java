@@ -36,6 +36,10 @@ public class UpdateChaininsightContractinterfaceRequest extends TeaModel {
     @Validation(required = true)
     public ChainInsightContractInterfaceArgument interfaceArgument;
 
+    // 租户ID，留空
+    @NameInMap("tenant_id")
+    public String tenantId;
+
     public static UpdateChaininsightContractinterfaceRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateChaininsightContractinterfaceRequest self = new UpdateChaininsightContractinterfaceRequest();
         return TeaModel.build(map, self);
@@ -95,6 +99,14 @@ public class UpdateChaininsightContractinterfaceRequest extends TeaModel {
     }
     public ChainInsightContractInterfaceArgument getInterfaceArgument() {
         return this.interfaceArgument;
+    }
+
+    public UpdateChaininsightContractinterfaceRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }

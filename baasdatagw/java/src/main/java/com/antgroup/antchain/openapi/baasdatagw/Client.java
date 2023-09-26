@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.1"),
+                    new TeaPair("sdk_version", "1.4.2"),
                     new TeaPair("_prod_code", "BAASDATAGW"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -919,6 +919,443 @@ public class Client {
     public CreateChaininsightQrcodeResponse createChaininsightQrcodeEx(CreateChaininsightQrcodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.qrcode.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateChaininsightQrcodeResponse());
+    }
+
+    /**
+     * Description: 开通数据搜索服务
+     * Summary: 开通数据搜索服务
+     */
+    public OpenChaininsightDatasearchResponse openChaininsightDatasearch(OpenChaininsightDatasearchRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.openChaininsightDatasearchEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 开通数据搜索服务
+     * Summary: 开通数据搜索服务
+     */
+    public OpenChaininsightDatasearchResponse openChaininsightDatasearchEx(OpenChaininsightDatasearchRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.datasearch.open", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OpenChaininsightDatasearchResponse());
+    }
+
+    /**
+     * Description: 私有化场景下查询所有链的数据搜索服务状态
+     * Summary: 私有化场景下查询所有链的数据搜索服务状态
+     */
+    public QueryChaininsightPrivatedatasearchstatusResponse queryChaininsightPrivatedatasearchstatus(QueryChaininsightPrivatedatasearchstatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChaininsightPrivatedatasearchstatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 私有化场景下查询所有链的数据搜索服务状态
+     * Summary: 私有化场景下查询所有链的数据搜索服务状态
+     */
+    public QueryChaininsightPrivatedatasearchstatusResponse queryChaininsightPrivatedatasearchstatusEx(QueryChaininsightPrivatedatasearchstatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.privatedatasearchstatus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChaininsightPrivatedatasearchstatusResponse());
+    }
+
+    /**
+     * Description: 添加看板
+     * Summary: 添加看板
+     */
+    public AddChaininsightWidgetsResponse addChaininsightWidgets(AddChaininsightWidgetsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addChaininsightWidgetsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 添加看板
+     * Summary: 添加看板
+     */
+    public AddChaininsightWidgetsResponse addChaininsightWidgetsEx(AddChaininsightWidgetsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.widgets.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddChaininsightWidgetsResponse());
+    }
+
+    /**
+     * Description: 获取看板列表
+     * Summary: 获取看板列表
+     */
+    public ListChaininsightWidgetsResponse listChaininsightWidgets(ListChaininsightWidgetsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listChaininsightWidgetsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取看板列表
+     * Summary: 获取看板列表
+     */
+    public ListChaininsightWidgetsResponse listChaininsightWidgetsEx(ListChaininsightWidgetsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.widgets.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListChaininsightWidgetsResponse());
+    }
+
+    /**
+     * Description: 分页查询链上活跃接收地址
+     * Summary: 分页查询链上活跃接收地址
+     */
+    public QueryChaininsightTablesactivereceiverResponse queryChaininsightTablesactivereceiver(QueryChaininsightTablesactivereceiverRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChaininsightTablesactivereceiverEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询链上活跃接收地址
+     * Summary: 分页查询链上活跃接收地址
+     */
+    public QueryChaininsightTablesactivereceiverResponse queryChaininsightTablesactivereceiverEx(QueryChaininsightTablesactivereceiverRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.tablesactivereceiver.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChaininsightTablesactivereceiverResponse());
+    }
+
+    /**
+     * Description: 分页查询链上活跃发送地址
+     * Summary: 分页查询链上活跃发送地址
+     */
+    public QueryChaininsightTablesactivesenderResponse queryChaininsightTablesactivesender(QueryChaininsightTablesactivesenderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChaininsightTablesactivesenderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询链上活跃发送地址
+     * Summary: 分页查询链上活跃发送地址
+     */
+    public QueryChaininsightTablesactivesenderResponse queryChaininsightTablesactivesenderEx(QueryChaininsightTablesactivesenderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.tablesactivesender.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChaininsightTablesactivesenderResponse());
+    }
+
+    /**
+     * Description: 分页查询链上近期合约
+     * Summary: 分页查询链上近期合约
+     */
+    public PagequeryChaininsightLatestcontractsResponse pagequeryChaininsightLatestcontracts(PagequeryChaininsightLatestcontractsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryChaininsightLatestcontractsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询链上近期合约
+     * Summary: 分页查询链上近期合约
+     */
+    public PagequeryChaininsightLatestcontractsResponse pagequeryChaininsightLatestcontractsEx(PagequeryChaininsightLatestcontractsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.latestcontracts.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryChaininsightLatestcontractsResponse());
+    }
+
+    /**
+     * Description: 分页查询链上近期交易
+     * Summary: 分页查询链上近期交易
+     */
+    public PagequeryChaininsightLatesttxsResponse pagequeryChaininsightLatesttxs(PagequeryChaininsightLatesttxsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryChaininsightLatesttxsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询链上近期交易
+     * Summary: 分页查询链上近期交易
+     */
+    public PagequeryChaininsightLatesttxsResponse pagequeryChaininsightLatesttxsEx(PagequeryChaininsightLatesttxsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.latesttxs.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryChaininsightLatesttxsResponse());
+    }
+
+    /**
+     * Description: 私有化场景下查询区块链整体状态
+     * Summary: 私有化场景下查询区块链整体状态
+     */
+    public QueryChaininsightPrivatechainsstatusResponse queryChaininsightPrivatechainsstatus(QueryChaininsightPrivatechainsstatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChaininsightPrivatechainsstatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 私有化场景下查询区块链整体状态
+     * Summary: 私有化场景下查询区块链整体状态
+     */
+    public QueryChaininsightPrivatechainsstatusResponse queryChaininsightPrivatechainsstatusEx(QueryChaininsightPrivatechainsstatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.privatechainsstatus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChaininsightPrivatechainsstatusResponse());
+    }
+
+    /**
+     * Description: 私有化场景下查询链交易数量趋势
+     * Summary: 私有化场景下查询链交易数量趋势
+     */
+    public QueryChaininsightPrivatechaintxhistogramResponse queryChaininsightPrivatechaintxhistogram(QueryChaininsightPrivatechaintxhistogramRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChaininsightPrivatechaintxhistogramEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 私有化场景下查询链交易数量趋势
+     * Summary: 私有化场景下查询链交易数量趋势
+     */
+    public QueryChaininsightPrivatechaintxhistogramResponse queryChaininsightPrivatechaintxhistogramEx(QueryChaininsightPrivatechaintxhistogramRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.privatechaintxhistogram.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChaininsightPrivatechaintxhistogramResponse());
+    }
+
+    /**
+     * Description: 删除数据洞察看板
+     * Summary: 删除数据洞察看板
+     */
+    public DeleteChaininsightWidgetsResponse deleteChaininsightWidgets(DeleteChaininsightWidgetsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteChaininsightWidgetsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除数据洞察看板
+     * Summary: 删除数据洞察看板
+     */
+    public DeleteChaininsightWidgetsResponse deleteChaininsightWidgetsEx(DeleteChaininsightWidgetsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.widgets.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteChaininsightWidgetsResponse());
+    }
+
+    /**
+     * Description: 移动看板
+     * Summary: 移动看板
+     */
+    public OperateChaininsightWidgetsmoveResponse operateChaininsightWidgetsmove(OperateChaininsightWidgetsmoveRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateChaininsightWidgetsmoveEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 移动看板
+     * Summary: 移动看板
+     */
+    public OperateChaininsightWidgetsmoveResponse operateChaininsightWidgetsmoveEx(OperateChaininsightWidgetsmoveRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.widgetsmove.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateChaininsightWidgetsmoveResponse());
+    }
+
+    /**
+     * Description: 修改看板
+     * Summary: 修改看板
+     */
+    public UpdateChaininsightWidgetsResponse updateChaininsightWidgets(UpdateChaininsightWidgetsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateChaininsightWidgetsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 修改看板
+     * Summary: 修改看板
+     */
+    public UpdateChaininsightWidgetsResponse updateChaininsightWidgetsEx(UpdateChaininsightWidgetsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.widgets.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateChaininsightWidgetsResponse());
+    }
+
+    /**
+     * Description: 下载合约
+     * Summary: 下载合约
+     */
+    public DownloadChaininsightContractResponse downloadChaininsightContract(DownloadChaininsightContractRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.downloadChaininsightContractEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 下载合约
+     * Summary: 下载合约
+     */
+    public DownloadChaininsightContractResponse downloadChaininsightContractEx(DownloadChaininsightContractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.contract.download", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DownloadChaininsightContractResponse());
+    }
+
+    /**
+     * Description: 查询修改合约的交易
+     * Summary: 查询修改合约的交易
+     */
+    public PagequeryChaininsightContractmodifytxResponse pagequeryChaininsightContractmodifytx(PagequeryChaininsightContractmodifytxRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryChaininsightContractmodifytxEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询修改合约的交易
+     * Summary: 查询修改合约的交易
+     */
+    public PagequeryChaininsightContractmodifytxResponse pagequeryChaininsightContractmodifytxEx(PagequeryChaininsightContractmodifytxRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.contractmodifytx.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryChaininsightContractmodifytxResponse());
+    }
+
+    /**
+     * Description: 分页查询账户的修改交易
+     * Summary: 分页查询账户的修改交易
+     */
+    public PagequeryChaininsightAccountmodifytxResponse pagequeryChaininsightAccountmodifytx(PagequeryChaininsightAccountmodifytxRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryChaininsightAccountmodifytxEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询账户的修改交易
+     * Summary: 分页查询账户的修改交易
+     */
+    public PagequeryChaininsightAccountmodifytxResponse pagequeryChaininsightAccountmodifytxEx(PagequeryChaininsightAccountmodifytxRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.accountmodifytx.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryChaininsightAccountmodifytxResponse());
+    }
+
+    /**
+     * Description: 返回对应 ERC 类型资产统计所必须的接口
+     * Summary: 查询资产统计所必须的接口
+     */
+    public ListChaininsightAssetinterfacesrequiredResponse listChaininsightAssetinterfacesrequired(ListChaininsightAssetinterfacesrequiredRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listChaininsightAssetinterfacesrequiredEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 返回对应 ERC 类型资产统计所必须的接口
+     * Summary: 查询资产统计所必须的接口
+     */
+    public ListChaininsightAssetinterfacesrequiredResponse listChaininsightAssetinterfacesrequiredEx(ListChaininsightAssetinterfacesrequiredRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.assetinterfacesrequired.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListChaininsightAssetinterfacesrequiredResponse());
+    }
+
+    /**
+     * Description: 查询链上资产的详情
+     * Summary: 查询资产详情
+     */
+    public QueryChaininsightStatisticassetdetailResponse queryChaininsightStatisticassetdetail(QueryChaininsightStatisticassetdetailRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChaininsightStatisticassetdetailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询链上资产的详情
+     * Summary: 查询资产详情
+     */
+    public QueryChaininsightStatisticassetdetailResponse queryChaininsightStatisticassetdetailEx(QueryChaininsightStatisticassetdetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.statisticassetdetail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChaininsightStatisticassetdetailResponse());
+    }
+
+    /**
+     * Description: 查询链上资产合约中资产的元信息
+     * Summary: 查询链上资产元信息
+     */
+    public QueryChaininsightStatisticassetmetaResponse queryChaininsightStatisticassetmeta(QueryChaininsightStatisticassetmetaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChaininsightStatisticassetmetaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询链上资产合约中资产的元信息
+     * Summary: 查询链上资产元信息
+     */
+    public QueryChaininsightStatisticassetmetaResponse queryChaininsightStatisticassetmetaEx(QueryChaininsightStatisticassetmetaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.statisticassetmeta.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChaininsightStatisticassetmetaResponse());
+    }
+
+    /**
+     * Description: 分页查询链上资产合约中资产的持有者信息，按最近一次交易时间降序
+     * Summary: 查询链上资产的持有者信息
+     */
+    public PagequeryChaininsightStatisticassetownerResponse pagequeryChaininsightStatisticassetowner(PagequeryChaininsightStatisticassetownerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryChaininsightStatisticassetownerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询链上资产合约中资产的持有者信息，按最近一次交易时间降序
+     * Summary: 查询链上资产的持有者信息
+     */
+    public PagequeryChaininsightStatisticassetownerResponse pagequeryChaininsightStatisticassetownerEx(PagequeryChaininsightStatisticassetownerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.statisticassetowner.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryChaininsightStatisticassetownerResponse());
+    }
+
+    /**
+     * Description: 分页查询链上账户的资产列表，按最近一次交易时间降序
+     * Summary: 查询链上账户的资产列表
+     */
+    public PagequeryChaininsightStatisticassetinventoryaccountResponse pagequeryChaininsightStatisticassetinventoryaccount(PagequeryChaininsightStatisticassetinventoryaccountRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryChaininsightStatisticassetinventoryaccountEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询链上账户的资产列表，按最近一次交易时间降序
+     * Summary: 查询链上账户的资产列表
+     */
+    public PagequeryChaininsightStatisticassetinventoryaccountResponse pagequeryChaininsightStatisticassetinventoryaccountEx(PagequeryChaininsightStatisticassetinventoryaccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.statisticassetinventoryaccount.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryChaininsightStatisticassetinventoryaccountResponse());
+    }
+
+    /**
+     * Description: 分页查询链上资产合约中资产的流转信息，按交易时间降序
+     * Summary: 查询链上资产的流转信息
+     */
+    public PagequeryChaininsightStatisticassethistoryassetResponse pagequeryChaininsightStatisticassethistoryasset(PagequeryChaininsightStatisticassethistoryassetRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryChaininsightStatisticassethistoryassetEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询链上资产合约中资产的流转信息，按交易时间降序
+     * Summary: 查询链上资产的流转信息
+     */
+    public PagequeryChaininsightStatisticassethistoryassetResponse pagequeryChaininsightStatisticassethistoryassetEx(PagequeryChaininsightStatisticassethistoryassetRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.statisticassethistoryasset.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryChaininsightStatisticassethistoryassetResponse());
+    }
+
+    /**
+     * Description: 分页查询链上资产合约的资产流转信息，按交易时间降序
+     * Summary: 查询链上资产合约的资产流转信息
+     */
+    public PagequeryChaininsightStatisticassethistorycontractResponse pagequeryChaininsightStatisticassethistorycontract(PagequeryChaininsightStatisticassethistorycontractRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryChaininsightStatisticassethistorycontractEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询链上资产合约的资产流转信息，按交易时间降序
+     * Summary: 查询链上资产合约的资产流转信息
+     */
+    public PagequeryChaininsightStatisticassethistorycontractResponse pagequeryChaininsightStatisticassethistorycontractEx(PagequeryChaininsightStatisticassethistorycontractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdatagw.chaininsight.statisticassethistorycontract.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryChaininsightStatisticassethistorycontractResponse());
     }
 
     /**

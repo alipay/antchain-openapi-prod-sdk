@@ -77,6 +77,11 @@ public class ChainInsightTransaction extends TeaModel {
     @NameInMap("events")
     public java.util.List<ChainInsightEvent> events;
 
+    // 交易时间戳（单位：毫秒）
+    @NameInMap("timestamp")
+    @Validation(required = true)
+    public Long timestamp;
+
     public static ChainInsightTransaction build(java.util.Map<String, ?> map) throws Exception {
         ChainInsightTransaction self = new ChainInsightTransaction();
         return TeaModel.build(map, self);
@@ -208,6 +213,14 @@ public class ChainInsightTransaction extends TeaModel {
     }
     public java.util.List<ChainInsightEvent> getEvents() {
         return this.events;
+    }
+
+    public ChainInsightTransaction setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+    public Long getTimestamp() {
+        return this.timestamp;
     }
 
 }

@@ -25,6 +25,10 @@ public class QueryChaininsightTransactionRequest extends TeaModel {
     @NameInMap("tee_key")
     public String teeKey;
 
+    // 租户ID，留空
+    @NameInMap("tenant_id")
+    public String tenantId;
+
     public static QueryChaininsightTransactionRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryChaininsightTransactionRequest self = new QueryChaininsightTransactionRequest();
         return TeaModel.build(map, self);
@@ -68,6 +72,14 @@ public class QueryChaininsightTransactionRequest extends TeaModel {
     }
     public String getTeeKey() {
         return this.teeKey;
+    }
+
+    public QueryChaininsightTransactionRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }

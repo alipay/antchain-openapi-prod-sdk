@@ -30,6 +30,10 @@ public class QueryChaininsightChaintxhistogramRequest extends TeaModel {
     @Validation(required = true)
     public Long endTime;
 
+    // 点集类型，枚举：Amount、Increment、GrowthRate，默认Amount
+    @NameInMap("type")
+    public String type;
+
     public static QueryChaininsightChaintxhistogramRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryChaininsightChaintxhistogramRequest self = new QueryChaininsightChaintxhistogramRequest();
         return TeaModel.build(map, self);
@@ -81,6 +85,14 @@ public class QueryChaininsightChaintxhistogramRequest extends TeaModel {
     }
     public Long getEndTime() {
         return this.endTime;
+    }
+
+    public QueryChaininsightChaintxhistogramRequest setType(String type) {
+        this.type = type;
+        return this;
+    }
+    public String getType() {
+        return this.type;
     }
 
 }

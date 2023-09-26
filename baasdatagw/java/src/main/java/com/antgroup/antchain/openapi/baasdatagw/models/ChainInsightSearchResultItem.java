@@ -14,6 +14,10 @@ public class ChainInsightSearchResultItem extends TeaModel {
     @Validation(required = true)
     public String bizId;
 
+    // 结果链ID对应的区块链名称
+    @NameInMap("biz_name")
+    public String bizName;
+
     // 结果与搜索请求的相关性程度，(0, 10000000]
     @NameInMap("score")
     @Validation(required = true)
@@ -43,6 +47,14 @@ public class ChainInsightSearchResultItem extends TeaModel {
     }
     public String getBizId() {
         return this.bizId;
+    }
+
+    public ChainInsightSearchResultItem setBizName(String bizName) {
+        this.bizName = bizName;
+        return this;
+    }
+    public String getBizName() {
+        return this.bizName;
     }
 
     public ChainInsightSearchResultItem setScore(Long score) {

@@ -25,6 +25,10 @@ public class AddChaininsightStatisticRequest extends TeaModel {
     @NameInMap("hex_address")
     public String hexAddress;
 
+    // 租户ID，留空
+    @NameInMap("tenant_id")
+    public String tenantId;
+
     public static AddChaininsightStatisticRequest build(java.util.Map<String, ?> map) throws Exception {
         AddChaininsightStatisticRequest self = new AddChaininsightStatisticRequest();
         return TeaModel.build(map, self);
@@ -68,6 +72,14 @@ public class AddChaininsightStatisticRequest extends TeaModel {
     }
     public String getHexAddress() {
         return this.hexAddress;
+    }
+
+    public AddChaininsightStatisticRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }

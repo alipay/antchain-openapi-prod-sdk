@@ -70,6 +70,42 @@ public class RegisterChainsRequest extends TeaModel {
     @NameInMap("mychain_parent_bizid")
     public String mychainParentBizid;
 
+    // Aldaba 链节点地址
+    @NameInMap("aldaba_nodes")
+    public java.util.List<String> aldabaNodes;
+
+    // Aldaba 链使用的协议，支持 WebSocket / Tcp; 默认 WebSocket
+    @NameInMap("aldaba_network_protocol")
+    public String aldabaNetworkProtocol;
+
+    // Aldaba 链base64编码的JDS
+    @NameInMap("aldaba_tls_root_truststore")
+    public String aldabaTlsRootTruststore;
+
+    // Aldaba 链 JDS 密码
+    @NameInMap("aldaba_tls_root_truststore_password")
+    public String aldabaTlsRootTruststorePassword;
+
+    // Aldaba 链 base64编码的证书
+    @NameInMap("aldaba_tls_client_certificate")
+    public String aldabaTlsClientCertificate;
+
+    // Aldaba 链 base64编码的密钥
+    @NameInMap("aldaba_tls_client_key")
+    public String aldabaTlsClientKey;
+
+    // Aldaba 链密钥密码
+    @NameInMap("aldaba_tls_client_key_password")
+    public String aldabaTlsClientKeyPassword;
+
+    // Aldaba 链 base64 编码的 sender 密钥
+    @NameInMap("aldaba_sender_key")
+    public String aldabaSenderKey;
+
+    // Aldaba 链 sender 密钥的密码
+    @NameInMap("aldaba_sender_key_password")
+    public String aldabaSenderKeyPassword;
+
     public static RegisterChainsRequest build(java.util.Map<String, ?> map) throws Exception {
         RegisterChainsRequest self = new RegisterChainsRequest();
         return TeaModel.build(map, self);
@@ -201,6 +237,78 @@ public class RegisterChainsRequest extends TeaModel {
     }
     public String getMychainParentBizid() {
         return this.mychainParentBizid;
+    }
+
+    public RegisterChainsRequest setAldabaNodes(java.util.List<String> aldabaNodes) {
+        this.aldabaNodes = aldabaNodes;
+        return this;
+    }
+    public java.util.List<String> getAldabaNodes() {
+        return this.aldabaNodes;
+    }
+
+    public RegisterChainsRequest setAldabaNetworkProtocol(String aldabaNetworkProtocol) {
+        this.aldabaNetworkProtocol = aldabaNetworkProtocol;
+        return this;
+    }
+    public String getAldabaNetworkProtocol() {
+        return this.aldabaNetworkProtocol;
+    }
+
+    public RegisterChainsRequest setAldabaTlsRootTruststore(String aldabaTlsRootTruststore) {
+        this.aldabaTlsRootTruststore = aldabaTlsRootTruststore;
+        return this;
+    }
+    public String getAldabaTlsRootTruststore() {
+        return this.aldabaTlsRootTruststore;
+    }
+
+    public RegisterChainsRequest setAldabaTlsRootTruststorePassword(String aldabaTlsRootTruststorePassword) {
+        this.aldabaTlsRootTruststorePassword = aldabaTlsRootTruststorePassword;
+        return this;
+    }
+    public String getAldabaTlsRootTruststorePassword() {
+        return this.aldabaTlsRootTruststorePassword;
+    }
+
+    public RegisterChainsRequest setAldabaTlsClientCertificate(String aldabaTlsClientCertificate) {
+        this.aldabaTlsClientCertificate = aldabaTlsClientCertificate;
+        return this;
+    }
+    public String getAldabaTlsClientCertificate() {
+        return this.aldabaTlsClientCertificate;
+    }
+
+    public RegisterChainsRequest setAldabaTlsClientKey(String aldabaTlsClientKey) {
+        this.aldabaTlsClientKey = aldabaTlsClientKey;
+        return this;
+    }
+    public String getAldabaTlsClientKey() {
+        return this.aldabaTlsClientKey;
+    }
+
+    public RegisterChainsRequest setAldabaTlsClientKeyPassword(String aldabaTlsClientKeyPassword) {
+        this.aldabaTlsClientKeyPassword = aldabaTlsClientKeyPassword;
+        return this;
+    }
+    public String getAldabaTlsClientKeyPassword() {
+        return this.aldabaTlsClientKeyPassword;
+    }
+
+    public RegisterChainsRequest setAldabaSenderKey(String aldabaSenderKey) {
+        this.aldabaSenderKey = aldabaSenderKey;
+        return this;
+    }
+    public String getAldabaSenderKey() {
+        return this.aldabaSenderKey;
+    }
+
+    public RegisterChainsRequest setAldabaSenderKeyPassword(String aldabaSenderKeyPassword) {
+        this.aldabaSenderKeyPassword = aldabaSenderKeyPassword;
+        return this;
+    }
+    public String getAldabaSenderKeyPassword() {
+        return this.aldabaSenderKeyPassword;
     }
 
 }

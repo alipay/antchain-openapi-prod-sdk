@@ -76,6 +76,10 @@ public class ChainInsightAddress extends TeaModel {
     @NameInMap("contract_type")
     public String contractType;
 
+    // 资产合约相关信息
+    @NameInMap("asset_contract_info")
+    public ChainInsightAssetContractInfo assetContractInfo;
+
     public static ChainInsightAddress build(java.util.Map<String, ?> map) throws Exception {
         ChainInsightAddress self = new ChainInsightAddress();
         return TeaModel.build(map, self);
@@ -199,6 +203,14 @@ public class ChainInsightAddress extends TeaModel {
     }
     public String getContractType() {
         return this.contractType;
+    }
+
+    public ChainInsightAddress setAssetContractInfo(ChainInsightAssetContractInfo assetContractInfo) {
+        this.assetContractInfo = assetContractInfo;
+        return this;
+    }
+    public ChainInsightAssetContractInfo getAssetContractInfo() {
+        return this.assetContractInfo;
     }
 
 }

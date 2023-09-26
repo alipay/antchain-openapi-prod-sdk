@@ -21,6 +21,10 @@ public class QueryChaininsightLabelsRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> hexAddresses;
 
+    // 租户ID，留空
+    @NameInMap("tenant_id")
+    public String tenantId;
+
     public static QueryChaininsightLabelsRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryChaininsightLabelsRequest self = new QueryChaininsightLabelsRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class QueryChaininsightLabelsRequest extends TeaModel {
     }
     public java.util.List<String> getHexAddresses() {
         return this.hexAddresses;
+    }
+
+    public QueryChaininsightLabelsRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }
