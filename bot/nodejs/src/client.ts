@@ -3257,6 +3257,8 @@ export class RegByDeviceParm extends $tea.Model {
   ownerName?: string;
   // 设备名称/型号
   deviceName?: string;
+  // 设备IMEI
+  deviceImei?: string;
   static names(): { [key: string]: string } {
     return {
       deviceId: 'device_id',
@@ -3272,6 +3274,7 @@ export class RegByDeviceParm extends $tea.Model {
       owner: 'owner',
       ownerName: 'owner_name',
       deviceName: 'device_name',
+      deviceImei: 'device_imei',
     };
   }
 
@@ -3290,6 +3293,7 @@ export class RegByDeviceParm extends $tea.Model {
       owner: 'string',
       ownerName: 'string',
       deviceName: 'string',
+      deviceImei: 'string',
     };
   }
 
@@ -14356,6 +14360,8 @@ export class CreateDistributedeviceBydeviceRequest extends $tea.Model {
   ownerName?: string;
   // 额外信息
   extraInfo?: string;
+  // 设备IMEI
+  deviceImei?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -14374,6 +14380,7 @@ export class CreateDistributedeviceBydeviceRequest extends $tea.Model {
       owner: 'owner',
       ownerName: 'owner_name',
       extraInfo: 'extra_info',
+      deviceImei: 'device_imei',
     };
   }
 
@@ -14395,6 +14402,7 @@ export class CreateDistributedeviceBydeviceRequest extends $tea.Model {
       owner: 'string',
       ownerName: 'string',
       extraInfo: 'string',
+      deviceImei: 'string',
     };
   }
 
@@ -20854,7 +20862,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.103",
+          sdk_version: "1.8.104",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
