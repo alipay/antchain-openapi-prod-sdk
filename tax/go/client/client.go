@@ -855,6 +855,8 @@ type IdentityIdGroup struct {
 	GroupId *string `json:"group_id,omitempty" xml:"group_id,omitempty" require:"true"`
 	// 打标数据返回的url
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 请求id，用于幂等控制
+	BizUniqueId *string `json:"biz_unique_id,omitempty" xml:"biz_unique_id,omitempty" require:"true"`
 }
 
 func (s IdentityIdGroup) String() string {
@@ -872,6 +874,11 @@ func (s *IdentityIdGroup) SetGroupId(v string) *IdentityIdGroup {
 
 func (s *IdentityIdGroup) SetFileUrl(v string) *IdentityIdGroup {
 	s.FileUrl = &v
+	return s
+}
+
+func (s *IdentityIdGroup) SetBizUniqueId(v string) *IdentityIdGroup {
+	s.BizUniqueId = &v
 	return s
 }
 
@@ -4023,7 +4030,7 @@ type ExecApiSimpleauthmarkRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 税号清单
-	IdentityIdList []*IdentityInfo `json:"identity_id_list,omitempty" xml:"identity_id_list,omitempty" require:"true" type:"Repeated"`
+	IdentityInfo *string `json:"identity_info,omitempty" xml:"identity_info,omitempty" require:"true"`
 	// 租户号
 	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
 	// 请求id
@@ -4050,8 +4057,8 @@ func (s *ExecApiSimpleauthmarkRequest) SetProductInstanceId(v string) *ExecApiSi
 	return s
 }
 
-func (s *ExecApiSimpleauthmarkRequest) SetIdentityIdList(v []*IdentityInfo) *ExecApiSimpleauthmarkRequest {
-	s.IdentityIdList = v
+func (s *ExecApiSimpleauthmarkRequest) SetIdentityInfo(v string) *ExecApiSimpleauthmarkRequest {
+	s.IdentityInfo = &v
 	return s
 }
 
@@ -4107,7 +4114,7 @@ type SubmitApiSimpleauthmarkRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 打标之后的结果
-	IdentityGroupList *IdentityIdGroup `json:"identity_group_list,omitempty" xml:"identity_group_list,omitempty" require:"true"`
+	IdentityGroupList []*IdentityIdGroup `json:"identity_group_list,omitempty" xml:"identity_group_list,omitempty" require:"true" type:"Repeated"`
 	// 产品类型
 	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
 }
@@ -4130,7 +4137,7 @@ func (s *SubmitApiSimpleauthmarkRequest) SetProductInstanceId(v string) *SubmitA
 	return s
 }
 
-func (s *SubmitApiSimpleauthmarkRequest) SetIdentityGroupList(v *IdentityIdGroup) *SubmitApiSimpleauthmarkRequest {
+func (s *SubmitApiSimpleauthmarkRequest) SetIdentityGroupList(v []*IdentityIdGroup) *SubmitApiSimpleauthmarkRequest {
 	s.IdentityGroupList = v
 	return s
 }
@@ -4169,6 +4176,121 @@ func (s *SubmitApiSimpleauthmarkResponse) SetResultCode(v string) *SubmitApiSimp
 
 func (s *SubmitApiSimpleauthmarkResponse) SetResultMsg(v string) *SubmitApiSimpleauthmarkResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type PullApiSimpleauthmarkRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 调用租户
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 请求id，用于幂等控制
+	BizUniqueId *string `json:"biz_unique_id,omitempty" xml:"biz_unique_id,omitempty" require:"true"`
+	// 产品类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+}
+
+func (s PullApiSimpleauthmarkRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PullApiSimpleauthmarkRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PullApiSimpleauthmarkRequest) SetAuthToken(v string) *PullApiSimpleauthmarkRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PullApiSimpleauthmarkRequest) SetProductInstanceId(v string) *PullApiSimpleauthmarkRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PullApiSimpleauthmarkRequest) SetInstCode(v string) *PullApiSimpleauthmarkRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *PullApiSimpleauthmarkRequest) SetBizUniqueId(v string) *PullApiSimpleauthmarkRequest {
+	s.BizUniqueId = &v
+	return s
+}
+
+func (s *PullApiSimpleauthmarkRequest) SetAuthType(v string) *PullApiSimpleauthmarkRequest {
+	s.AuthType = &v
+	return s
+}
+
+type PullApiSimpleauthmarkResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 拉取推送系统时间
+	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 请求id，幂等控制
+	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty"`
+	// 调用的租户
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty"`
+	// oss文件的域名地址
+	// 测试环境域名：http://invoice-oss-sit.oss-cn-hangzhou.aliyuncs.com
+	// 生产环境域名：http://invoice-commercial-prod.oss-cn-hangzhou.aliyuncs.com
+	// 端口是默认的80
+	ResultList []*string `json:"result_list,omitempty" xml:"result_list,omitempty" type:"Repeated"`
+	// 解密的秘钥
+	Secret *string `json:"secret,omitempty" xml:"secret,omitempty"`
+}
+
+func (s PullApiSimpleauthmarkResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PullApiSimpleauthmarkResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PullApiSimpleauthmarkResponse) SetReqMsgId(v string) *PullApiSimpleauthmarkResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PullApiSimpleauthmarkResponse) SetResultCode(v string) *PullApiSimpleauthmarkResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PullApiSimpleauthmarkResponse) SetResultMsg(v string) *PullApiSimpleauthmarkResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PullApiSimpleauthmarkResponse) SetTimestamp(v string) *PullApiSimpleauthmarkResponse {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *PullApiSimpleauthmarkResponse) SetBizRequestId(v string) *PullApiSimpleauthmarkResponse {
+	s.BizRequestId = &v
+	return s
+}
+
+func (s *PullApiSimpleauthmarkResponse) SetInstCode(v string) *PullApiSimpleauthmarkResponse {
+	s.InstCode = &v
+	return s
+}
+
+func (s *PullApiSimpleauthmarkResponse) SetResultList(v []*string) *PullApiSimpleauthmarkResponse {
+	s.ResultList = v
+	return s
+}
+
+func (s *PullApiSimpleauthmarkResponse) SetSecret(v string) *PullApiSimpleauthmarkResponse {
+	s.Secret = &v
 	return s
 }
 
@@ -4565,6 +4687,8 @@ type QueryPdataRiskRequest struct {
 	AuthorizationCredential *string `json:"authorization_credential,omitempty" xml:"authorization_credential,omitempty"`
 	// 凭证格式
 	CredentialType *string `json:"credential_type,omitempty" xml:"credential_type,omitempty"`
+	// 主键类型
+	KeyType *string `json:"key_type,omitempty" xml:"key_type,omitempty" require:"true"`
 }
 
 func (s QueryPdataRiskRequest) String() string {
@@ -4627,6 +4751,11 @@ func (s *QueryPdataRiskRequest) SetAuthorizationCredential(v string) *QueryPdata
 
 func (s *QueryPdataRiskRequest) SetCredentialType(v string) *QueryPdataRiskRequest {
 	s.CredentialType = &v
+	return s
+}
+
+func (s *QueryPdataRiskRequest) SetKeyType(v string) *QueryPdataRiskRequest {
+	s.KeyType = &v
 	return s
 }
 
@@ -4798,7 +4927,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.3"),
+				"sdk_version":      tea.String("1.7.10"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5699,6 +5828,40 @@ func (client *Client) SubmitApiSimpleauthmarkEx(request *SubmitApiSimpleauthmark
 	}
 	_result = &SubmitApiSimpleauthmarkResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.simpleauthmark.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: blockchain.tax.api.simpleauthmark.exec
+ * Summary: 数据打标拉取接口
+ */
+func (client *Client) PullApiSimpleauthmark(request *PullApiSimpleauthmarkRequest) (_result *PullApiSimpleauthmarkResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PullApiSimpleauthmarkResponse{}
+	_body, _err := client.PullApiSimpleauthmarkEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: blockchain.tax.api.simpleauthmark.exec
+ * Summary: 数据打标拉取接口
+ */
+func (client *Client) PullApiSimpleauthmarkEx(request *PullApiSimpleauthmarkRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PullApiSimpleauthmarkResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PullApiSimpleauthmarkResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.simpleauthmark.pull"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
