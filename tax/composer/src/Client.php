@@ -37,6 +37,8 @@ use AntChain\TAX\Models\MatchIcmSimpleauthRequest;
 use AntChain\TAX\Models\MatchIcmSimpleauthResponse;
 use AntChain\TAX\Models\PullApiSimpleauthasyncpollingRequest;
 use AntChain\TAX\Models\PullApiSimpleauthasyncpollingResponse;
+use AntChain\TAX\Models\PullApiSimpleauthmarkRequest;
+use AntChain\TAX\Models\PullApiSimpleauthmarkResponse;
 use AntChain\TAX\Models\PushChargeRequest;
 use AntChain\TAX\Models\PushChargeResponse;
 use AntChain\TAX\Models\PushIcmInvoiceinfoRequest;
@@ -216,7 +218,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.3',
+                    'sdk_version'      => '1.7.10',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1087,6 +1089,39 @@ class Client
         Utils::validateModel($request);
 
         return SubmitApiSimpleauthmarkResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.simpleauthmark.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: blockchain.tax.api.simpleauthmark.exec
+     * Summary: 数据打标拉取接口.
+     *
+     * @param PullApiSimpleauthmarkRequest $request
+     *
+     * @return PullApiSimpleauthmarkResponse
+     */
+    public function pullApiSimpleauthmark($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pullApiSimpleauthmarkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: blockchain.tax.api.simpleauthmark.exec
+     * Summary: 数据打标拉取接口.
+     *
+     * @param PullApiSimpleauthmarkRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return PullApiSimpleauthmarkResponse
+     */
+    public function pullApiSimpleauthmarkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PullApiSimpleauthmarkResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.simpleauthmark.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

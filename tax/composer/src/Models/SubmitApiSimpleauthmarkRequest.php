@@ -21,7 +21,7 @@ class SubmitApiSimpleauthmarkRequest extends Model
 
     // 打标之后的结果
     /**
-     * @var IdentityIdGroup
+     * @var IdentityIdGroup[]
      */
     public $identityGroupList;
 
@@ -52,7 +52,13 @@ class SubmitApiSimpleauthmarkRequest extends Model
             $res['product_instance_id'] = $this->productInstanceId;
         }
         if (null !== $this->identityGroupList) {
-            $res['identity_group_list'] = null !== $this->identityGroupList ? $this->identityGroupList->toMap() : null;
+            $res['identity_group_list'] = [];
+            if (null !== $this->identityGroupList && \is_array($this->identityGroupList)) {
+                $n = 0;
+                foreach ($this->identityGroupList as $item) {
+                    $res['identity_group_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->authType) {
             $res['auth_type'] = $this->authType;
@@ -76,7 +82,13 @@ class SubmitApiSimpleauthmarkRequest extends Model
             $model->productInstanceId = $map['product_instance_id'];
         }
         if (isset($map['identity_group_list'])) {
-            $model->identityGroupList = IdentityIdGroup::fromMap($map['identity_group_list']);
+            if (!empty($map['identity_group_list'])) {
+                $model->identityGroupList = [];
+                $n                        = 0;
+                foreach ($map['identity_group_list'] as $item) {
+                    $model->identityGroupList[$n++] = null !== $item ? IdentityIdGroup::fromMap($item) : $item;
+                }
+            }
         }
         if (isset($map['auth_type'])) {
             $model->authType = $map['auth_type'];

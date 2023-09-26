@@ -72,6 +72,12 @@ class QueryPdataRiskRequest extends Model
      * @var string
      */
     public $credentialType;
+
+    // 主键类型
+    /**
+     * @var string
+     */
+    public $keyType;
     protected $_name = [
         'authToken'               => 'auth_token',
         'productInstanceId'       => 'product_instance_id',
@@ -84,6 +90,7 @@ class QueryPdataRiskRequest extends Model
         'authorizationCode'       => 'authorization_code',
         'authorizationCredential' => 'authorization_credential',
         'credentialType'          => 'credential_type',
+        'keyType'                 => 'key_type',
     ];
 
     public function validate()
@@ -91,6 +98,7 @@ class QueryPdataRiskRequest extends Model
         Model::validateRequired('bizId', $this->bizId, true);
         Model::validateRequired('channelCode', $this->channelCode, true);
         Model::validateRequired('modelId', $this->modelId, true);
+        Model::validateRequired('keyType', $this->keyType, true);
     }
 
     public function toMap()
@@ -128,6 +136,9 @@ class QueryPdataRiskRequest extends Model
         }
         if (null !== $this->credentialType) {
             $res['credential_type'] = $this->credentialType;
+        }
+        if (null !== $this->keyType) {
+            $res['key_type'] = $this->keyType;
         }
 
         return $res;
@@ -173,6 +184,9 @@ class QueryPdataRiskRequest extends Model
         }
         if (isset($map['credential_type'])) {
             $model->credentialType = $map['credential_type'];
+        }
+        if (isset($map['key_type'])) {
+            $model->keyType = $map['key_type'];
         }
 
         return $model;

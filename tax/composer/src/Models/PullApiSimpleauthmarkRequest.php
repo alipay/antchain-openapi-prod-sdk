@@ -6,7 +6,7 @@ namespace AntChain\TAX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecApiSimpleauthmarkRequest extends Model
+class PullApiSimpleauthmarkRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,19 +19,13 @@ class ExecApiSimpleauthmarkRequest extends Model
      */
     public $productInstanceId;
 
-    // 税号清单
-    /**
-     * @var string
-     */
-    public $identityInfo;
-
-    // 租户号
+    // 调用租户
     /**
      * @var string
      */
     public $instCode;
 
-    // 请求id
+    // 请求id，用于幂等控制
     /**
      * @var string
      */
@@ -45,7 +39,6 @@ class ExecApiSimpleauthmarkRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'identityInfo'      => 'identity_info',
         'instCode'          => 'inst_code',
         'bizUniqueId'       => 'biz_unique_id',
         'authType'          => 'auth_type',
@@ -53,7 +46,6 @@ class ExecApiSimpleauthmarkRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('identityInfo', $this->identityInfo, true);
         Model::validateRequired('instCode', $this->instCode, true);
         Model::validateRequired('bizUniqueId', $this->bizUniqueId, true);
         Model::validateRequired('authType', $this->authType, true);
@@ -67,9 +59,6 @@ class ExecApiSimpleauthmarkRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->identityInfo) {
-            $res['identity_info'] = $this->identityInfo;
         }
         if (null !== $this->instCode) {
             $res['inst_code'] = $this->instCode;
@@ -87,7 +76,7 @@ class ExecApiSimpleauthmarkRequest extends Model
     /**
      * @param array $map
      *
-     * @return ExecApiSimpleauthmarkRequest
+     * @return PullApiSimpleauthmarkRequest
      */
     public static function fromMap($map = [])
     {
@@ -97,9 +86,6 @@ class ExecApiSimpleauthmarkRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['identity_info'])) {
-            $model->identityInfo = $map['identity_info'];
         }
         if (isset($map['inst_code'])) {
             $model->instCode = $map['inst_code'];

@@ -23,15 +23,25 @@ class IdentityIdGroup extends Model
      * @var string
      */
     public $fileUrl;
+
+    // 请求id，用于幂等控制
+    /**
+     * @example f8b63ae0ad8d406ebf60eb8835afeba9
+     *
+     * @var string
+     */
+    public $bizUniqueId;
     protected $_name = [
-        'groupId' => 'group_id',
-        'fileUrl' => 'file_url',
+        'groupId'     => 'group_id',
+        'fileUrl'     => 'file_url',
+        'bizUniqueId' => 'biz_unique_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('groupId', $this->groupId, true);
         Model::validateRequired('fileUrl', $this->fileUrl, true);
+        Model::validateRequired('bizUniqueId', $this->bizUniqueId, true);
     }
 
     public function toMap()
@@ -42,6 +52,9 @@ class IdentityIdGroup extends Model
         }
         if (null !== $this->fileUrl) {
             $res['file_url'] = $this->fileUrl;
+        }
+        if (null !== $this->bizUniqueId) {
+            $res['biz_unique_id'] = $this->bizUniqueId;
         }
 
         return $res;
@@ -60,6 +73,9 @@ class IdentityIdGroup extends Model
         }
         if (isset($map['file_url'])) {
             $model->fileUrl = $map['file_url'];
+        }
+        if (isset($map['biz_unique_id'])) {
+            $model->bizUniqueId = $map['biz_unique_id'];
         }
 
         return $model;
