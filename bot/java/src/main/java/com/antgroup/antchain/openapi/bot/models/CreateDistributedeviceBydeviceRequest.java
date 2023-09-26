@@ -118,6 +118,10 @@ public class CreateDistributedeviceBydeviceRequest extends TeaModel {
     @NameInMap("extra_info")
     public String extraInfo;
 
+    // 设备IMEI
+    @NameInMap("device_imei")
+    public String deviceImei;
+
     public static CreateDistributedeviceBydeviceRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDistributedeviceBydeviceRequest self = new CreateDistributedeviceBydeviceRequest();
         return TeaModel.build(map, self);
@@ -249,6 +253,14 @@ public class CreateDistributedeviceBydeviceRequest extends TeaModel {
     }
     public String getExtraInfo() {
         return this.extraInfo;
+    }
+
+    public CreateDistributedeviceBydeviceRequest setDeviceImei(String deviceImei) {
+        this.deviceImei = deviceImei;
+        return this;
+    }
+    public String getDeviceImei() {
+        return this.deviceImei;
     }
 
 }

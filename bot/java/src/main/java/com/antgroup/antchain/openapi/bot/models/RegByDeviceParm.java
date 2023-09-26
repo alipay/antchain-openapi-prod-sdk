@@ -71,6 +71,10 @@ public class RegByDeviceParm extends TeaModel {
     @NameInMap("device_name")
     public String deviceName;
 
+    // 设备IMEI
+    @NameInMap("device_imei")
+    public String deviceImei;
+
     public static RegByDeviceParm build(java.util.Map<String, ?> map) throws Exception {
         RegByDeviceParm self = new RegByDeviceParm();
         return TeaModel.build(map, self);
@@ -178,6 +182,14 @@ public class RegByDeviceParm extends TeaModel {
     }
     public String getDeviceName() {
         return this.deviceName;
+    }
+
+    public RegByDeviceParm setDeviceImei(String deviceImei) {
+        this.deviceImei = deviceImei;
+        return this;
+    }
+    public String getDeviceImei() {
+        return this.deviceImei;
     }
 
 }
