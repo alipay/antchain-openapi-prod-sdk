@@ -194,6 +194,8 @@ type MapEntry struct {
 	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
 	// value
 	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 声明 value 的类型，包括 String / Double / Long / Bool / JSONObject / JSONArray
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 }
 
 func (s MapEntry) String() string {
@@ -211,6 +213,58 @@ func (s *MapEntry) SetKey(v string) *MapEntry {
 
 func (s *MapEntry) SetValue(v string) *MapEntry {
 	s.Value = &v
+	return s
+}
+
+func (s *MapEntry) SetType(v string) *MapEntry {
+	s.Type = &v
+	return s
+}
+
+// 数据洞察合约接口参数信息
+type ChainInsightContractInterfaceArgument struct {
+	// 参数名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 参数类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 参数位置，枚举：input，output，deposit
+	Location *string `json:"location,omitempty" xml:"location,omitempty" require:"true"`
+	// 参数的业务名称
+	Comment *string `json:"comment,omitempty" xml:"comment,omitempty"`
+	// 对应的标准 ERC 参数的名称，例如：标准ERC1155 TransferBatch事件中的operator
+	StandardErcName *string `json:"standard_erc_name,omitempty" xml:"standard_erc_name,omitempty"`
+}
+
+func (s ChainInsightContractInterfaceArgument) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightContractInterfaceArgument) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightContractInterfaceArgument) SetName(v string) *ChainInsightContractInterfaceArgument {
+	s.Name = &v
+	return s
+}
+
+func (s *ChainInsightContractInterfaceArgument) SetType(v string) *ChainInsightContractInterfaceArgument {
+	s.Type = &v
+	return s
+}
+
+func (s *ChainInsightContractInterfaceArgument) SetLocation(v string) *ChainInsightContractInterfaceArgument {
+	s.Location = &v
+	return s
+}
+
+func (s *ChainInsightContractInterfaceArgument) SetComment(v string) *ChainInsightContractInterfaceArgument {
+	s.Comment = &v
+	return s
+}
+
+func (s *ChainInsightContractInterfaceArgument) SetStandardErcName(v string) *ChainInsightContractInterfaceArgument {
+	s.StandardErcName = &v
 	return s
 }
 
@@ -263,6 +317,81 @@ func (s ChainInsightStatisticCustomTableRow) GoString() string {
 
 func (s *ChainInsightStatisticCustomTableRow) SetRow(v []*MapEntry) *ChainInsightStatisticCustomTableRow {
 	s.Row = v
+	return s
+}
+
+// 链上资产持有者信息
+type ChainInsightAssetOwner struct {
+	// 持有者地址
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty" require:"true"`
+	// 合约地址
+	ContractAddr *string `json:"contract_addr,omitempty" xml:"contract_addr,omitempty" require:"true"`
+	// 资产ID
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+	// 数字权证链1155合约特有的分片ID
+	ShardId *string `json:"shard_id,omitempty" xml:"shard_id,omitempty"`
+	// 资产类型：ERC721 / ERC1155
+	ErcType *string `json:"erc_type,omitempty" xml:"erc_type,omitempty" require:"true"`
+	// 数字资产余额
+	Balance *int64 `json:"balance,omitempty" xml:"balance,omitempty" require:"true"`
+	// 该账户对该资产最近一次转让交易的哈希
+	UpdateTxHash *string `json:"update_tx_hash,omitempty" xml:"update_tx_hash,omitempty" require:"true"`
+	// 该账户对该资产最近一次转让交易所在区块高度
+	UpdateBlockHeight *int64 `json:"update_block_height,omitempty" xml:"update_block_height,omitempty" require:"true"`
+	// 该账户对该资产最近一次转让交易所在区块的创建时间，单位：毫秒
+	UpdateBlockTime *int64 `json:"update_block_time,omitempty" xml:"update_block_time,omitempty" require:"true"`
+}
+
+func (s ChainInsightAssetOwner) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightAssetOwner) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightAssetOwner) SetOwner(v string) *ChainInsightAssetOwner {
+	s.Owner = &v
+	return s
+}
+
+func (s *ChainInsightAssetOwner) SetContractAddr(v string) *ChainInsightAssetOwner {
+	s.ContractAddr = &v
+	return s
+}
+
+func (s *ChainInsightAssetOwner) SetAssetId(v string) *ChainInsightAssetOwner {
+	s.AssetId = &v
+	return s
+}
+
+func (s *ChainInsightAssetOwner) SetShardId(v string) *ChainInsightAssetOwner {
+	s.ShardId = &v
+	return s
+}
+
+func (s *ChainInsightAssetOwner) SetErcType(v string) *ChainInsightAssetOwner {
+	s.ErcType = &v
+	return s
+}
+
+func (s *ChainInsightAssetOwner) SetBalance(v int64) *ChainInsightAssetOwner {
+	s.Balance = &v
+	return s
+}
+
+func (s *ChainInsightAssetOwner) SetUpdateTxHash(v string) *ChainInsightAssetOwner {
+	s.UpdateTxHash = &v
+	return s
+}
+
+func (s *ChainInsightAssetOwner) SetUpdateBlockHeight(v int64) *ChainInsightAssetOwner {
+	s.UpdateBlockHeight = &v
+	return s
+}
+
+func (s *ChainInsightAssetOwner) SetUpdateBlockTime(v int64) *ChainInsightAssetOwner {
+	s.UpdateBlockTime = &v
 	return s
 }
 
@@ -326,6 +455,8 @@ type ChainInsightSearchResultItem struct {
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 结果所在的链ID
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 结果链ID对应的区块链名称
+	BizName *string `json:"biz_name,omitempty" xml:"biz_name,omitempty"`
 	// 结果与搜索请求的相关性程度，(0, 10000000]
 	Score *int64 `json:"score,omitempty" xml:"score,omitempty" require:"true"`
 	// 搜索结果值
@@ -350,6 +481,11 @@ func (s *ChainInsightSearchResultItem) SetBizId(v string) *ChainInsightSearchRes
 	return s
 }
 
+func (s *ChainInsightSearchResultItem) SetBizName(v string) *ChainInsightSearchResultItem {
+	s.BizName = &v
+	return s
+}
+
 func (s *ChainInsightSearchResultItem) SetScore(v int64) *ChainInsightSearchResultItem {
 	s.Score = &v
 	return s
@@ -357,6 +493,203 @@ func (s *ChainInsightSearchResultItem) SetScore(v int64) *ChainInsightSearchResu
 
 func (s *ChainInsightSearchResultItem) SetValues(v []*MapEntry) *ChainInsightSearchResultItem {
 	s.Values = v
+	return s
+}
+
+// 链状态
+type ChainStatus struct {
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 链名称
+	BizIdName *string `json:"biz_id_name,omitempty" xml:"biz_id_name,omitempty"`
+	// 主链ID
+	ParentBizId *string `json:"parent_biz_id,omitempty" xml:"parent_biz_id,omitempty"`
+	// 当前区块高度
+	LedgerHeight *int64 `json:"ledger_height,omitempty" xml:"ledger_height,omitempty"`
+	// 交易总量
+	TxCount *int64 `json:"tx_count,omitempty" xml:"tx_count,omitempty"`
+	// 链状态，ok, fail
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ChainStatus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainStatus) GoString() string {
+	return s.String()
+}
+
+func (s *ChainStatus) SetBizId(v string) *ChainStatus {
+	s.BizId = &v
+	return s
+}
+
+func (s *ChainStatus) SetBizIdName(v string) *ChainStatus {
+	s.BizIdName = &v
+	return s
+}
+
+func (s *ChainStatus) SetParentBizId(v string) *ChainStatus {
+	s.ParentBizId = &v
+	return s
+}
+
+func (s *ChainStatus) SetLedgerHeight(v int64) *ChainStatus {
+	s.LedgerHeight = &v
+	return s
+}
+
+func (s *ChainStatus) SetTxCount(v int64) *ChainStatus {
+	s.TxCount = &v
+	return s
+}
+
+func (s *ChainStatus) SetStatus(v string) *ChainStatus {
+	s.Status = &v
+	return s
+}
+
+// 链上交易基础信息
+type ChainInsightTransactionInfo struct {
+	// 交易ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 交易类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 交易发起者
+	From *string `json:"from,omitempty" xml:"from,omitempty"`
+	// 交易接收者
+	To *string `json:"to,omitempty" xml:"to,omitempty"`
+	// 交易成块高度
+	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
+	// 交易成块时间，毫秒时间戳
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
+	// 合约中 ABI 的状态  (无需上传) none / （可以上传）pending / （可以更新）uploaded
+	AbiStatus *string `json:"abi_status,omitempty" xml:"abi_status,omitempty"`
+}
+
+func (s ChainInsightTransactionInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightTransactionInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightTransactionInfo) SetId(v string) *ChainInsightTransactionInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *ChainInsightTransactionInfo) SetType(v string) *ChainInsightTransactionInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *ChainInsightTransactionInfo) SetFrom(v string) *ChainInsightTransactionInfo {
+	s.From = &v
+	return s
+}
+
+func (s *ChainInsightTransactionInfo) SetTo(v string) *ChainInsightTransactionInfo {
+	s.To = &v
+	return s
+}
+
+func (s *ChainInsightTransactionInfo) SetHeight(v int64) *ChainInsightTransactionInfo {
+	s.Height = &v
+	return s
+}
+
+func (s *ChainInsightTransactionInfo) SetTimestamp(v int64) *ChainInsightTransactionInfo {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *ChainInsightTransactionInfo) SetAbiStatus(v string) *ChainInsightTransactionInfo {
+	s.AbiStatus = &v
+	return s
+}
+
+// 链上资产流转信息
+type ChainInsightAssetOperation struct {
+	// 合约地址
+	ContractAddr *string `json:"contract_addr,omitempty" xml:"contract_addr,omitempty" require:"true"`
+	// 流转交易哈希
+	TxId *string `json:"tx_id,omitempty" xml:"tx_id,omitempty" require:"true"`
+	// 转让执行者地址，ERC1155资产会有
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// 资产转出地址
+	From *string `json:"from,omitempty" xml:"from,omitempty" require:"true"`
+	// 资产转入地址
+	To *string `json:"to,omitempty" xml:"to,omitempty" require:"true"`
+	// 资产ID
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+	// 数字权证链的1155资产的分片ID
+	ShardId *string `json:"shard_id,omitempty" xml:"shard_id,omitempty"`
+	// 资产转让数量
+	AssetValue *int64 `json:"asset_value,omitempty" xml:"asset_value,omitempty" require:"true"`
+	// 资产流转交易所在区块的创建时间，单位：毫秒
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+	// 流转交易所在块高
+	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty" require:"true"`
+}
+
+func (s ChainInsightAssetOperation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightAssetOperation) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightAssetOperation) SetContractAddr(v string) *ChainInsightAssetOperation {
+	s.ContractAddr = &v
+	return s
+}
+
+func (s *ChainInsightAssetOperation) SetTxId(v string) *ChainInsightAssetOperation {
+	s.TxId = &v
+	return s
+}
+
+func (s *ChainInsightAssetOperation) SetOperator(v string) *ChainInsightAssetOperation {
+	s.Operator = &v
+	return s
+}
+
+func (s *ChainInsightAssetOperation) SetFrom(v string) *ChainInsightAssetOperation {
+	s.From = &v
+	return s
+}
+
+func (s *ChainInsightAssetOperation) SetTo(v string) *ChainInsightAssetOperation {
+	s.To = &v
+	return s
+}
+
+func (s *ChainInsightAssetOperation) SetAssetId(v string) *ChainInsightAssetOperation {
+	s.AssetId = &v
+	return s
+}
+
+func (s *ChainInsightAssetOperation) SetShardId(v string) *ChainInsightAssetOperation {
+	s.ShardId = &v
+	return s
+}
+
+func (s *ChainInsightAssetOperation) SetAssetValue(v int64) *ChainInsightAssetOperation {
+	s.AssetValue = &v
+	return s
+}
+
+func (s *ChainInsightAssetOperation) SetTimestamp(v int64) *ChainInsightAssetOperation {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *ChainInsightAssetOperation) SetBlockHeight(v int64) *ChainInsightAssetOperation {
+	s.BlockHeight = &v
 	return s
 }
 
@@ -420,6 +753,8 @@ type ChainInsightTransaction struct {
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 	// 交易中的事件
 	Events []*ChainInsightEvent `json:"events,omitempty" xml:"events,omitempty" type:"Repeated"`
+	// 交易时间戳（单位：毫秒）
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
 }
 
 func (s ChainInsightTransaction) String() string {
@@ -510,6 +845,213 @@ func (s *ChainInsightTransaction) SetEvents(v []*ChainInsightEvent) *ChainInsigh
 	return s
 }
 
+func (s *ChainInsightTransaction) SetTimestamp(v int64) *ChainInsightTransaction {
+	s.Timestamp = &v
+	return s
+}
+
+// 区块链节点信息
+type ChainInsightNodeInfo struct {
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 节点名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 节点IP
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
+	// 节点当前区块高度
+	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
+	// 节点状态，ok, fail
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ChainInsightNodeInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightNodeInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightNodeInfo) SetBizId(v string) *ChainInsightNodeInfo {
+	s.BizId = &v
+	return s
+}
+
+func (s *ChainInsightNodeInfo) SetName(v string) *ChainInsightNodeInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *ChainInsightNodeInfo) SetIp(v string) *ChainInsightNodeInfo {
+	s.Ip = &v
+	return s
+}
+
+func (s *ChainInsightNodeInfo) SetHeight(v int64) *ChainInsightNodeInfo {
+	s.Height = &v
+	return s
+}
+
+func (s *ChainInsightNodeInfo) SetStatus(v string) *ChainInsightNodeInfo {
+	s.Status = &v
+	return s
+}
+
+// MapEntry列表，对应一个Map
+type MapEntryList struct {
+	// MapEntry列表
+	Element []*MapEntry `json:"element,omitempty" xml:"element,omitempty" type:"Repeated"`
+}
+
+func (s MapEntryList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MapEntryList) GoString() string {
+	return s.String()
+}
+
+func (s *MapEntryList) SetElement(v []*MapEntry) *MapEntryList {
+	s.Element = v
+	return s
+}
+
+// 资产合约信息
+type ChainInsightAssetContractInfo struct {
+	// 资产类型：ERC721 / ERC1155
+	ErcType *string `json:"erc_type,omitempty" xml:"erc_type,omitempty"`
+	// 资产总量
+	AssetCount *int64 `json:"asset_count,omitempty" xml:"asset_count,omitempty"`
+	// 持有者总量
+	OwnerCount *int64 `json:"owner_count,omitempty" xml:"owner_count,omitempty"`
+}
+
+func (s ChainInsightAssetContractInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightAssetContractInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightAssetContractInfo) SetErcType(v string) *ChainInsightAssetContractInfo {
+	s.ErcType = &v
+	return s
+}
+
+func (s *ChainInsightAssetContractInfo) SetAssetCount(v int64) *ChainInsightAssetContractInfo {
+	s.AssetCount = &v
+	return s
+}
+
+func (s *ChainInsightAssetContractInfo) SetOwnerCount(v int64) *ChainInsightAssetContractInfo {
+	s.OwnerCount = &v
+	return s
+}
+
+// 链上资产信息
+type ChainInsightAsset struct {
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 链名称
+	BizIdName *string `json:"biz_id_name,omitempty" xml:"biz_id_name,omitempty"`
+	// 资产合约地址
+	ContractAddr *string `json:"contract_addr,omitempty" xml:"contract_addr,omitempty" require:"true"`
+	// 资产ID
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+	// 数字权证链上的1155资产分片ID
+	ShardId *string `json:"shard_id,omitempty" xml:"shard_id,omitempty"`
+	// 资产类型：ERC721 / ERC1155
+	ErcType *string `json:"erc_type,omitempty" xml:"erc_type,omitempty" require:"true"`
+	// 创建时间，取值为创建时交易所在区块创建的时间，单位：毫秒
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 持有者数量
+	OwnerCount *int64 `json:"owner_count,omitempty" xml:"owner_count,omitempty"`
+	// 资产元信息
+	MetaData *string `json:"meta_data,omitempty" xml:"meta_data,omitempty"`
+	// 资产元信息链接
+	Uri *string `json:"uri,omitempty" xml:"uri,omitempty"`
+	// 账户名下该资产的余额 / 合约下该资产的总供应量
+	Balance *int64 `json:"balance,omitempty" xml:"balance,omitempty"`
+	// 该资产最近一笔交易的哈希
+	LatestTxHash *string `json:"latest_tx_hash,omitempty" xml:"latest_tx_hash,omitempty" require:"true"`
+	// 该资产最近一笔交易所在区块的创建时间
+	LatestTxTime *int64 `json:"latest_tx_time,omitempty" xml:"latest_tx_time,omitempty" require:"true"`
+}
+
+func (s ChainInsightAsset) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightAsset) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightAsset) SetBizId(v string) *ChainInsightAsset {
+	s.BizId = &v
+	return s
+}
+
+func (s *ChainInsightAsset) SetBizIdName(v string) *ChainInsightAsset {
+	s.BizIdName = &v
+	return s
+}
+
+func (s *ChainInsightAsset) SetContractAddr(v string) *ChainInsightAsset {
+	s.ContractAddr = &v
+	return s
+}
+
+func (s *ChainInsightAsset) SetAssetId(v string) *ChainInsightAsset {
+	s.AssetId = &v
+	return s
+}
+
+func (s *ChainInsightAsset) SetShardId(v string) *ChainInsightAsset {
+	s.ShardId = &v
+	return s
+}
+
+func (s *ChainInsightAsset) SetErcType(v string) *ChainInsightAsset {
+	s.ErcType = &v
+	return s
+}
+
+func (s *ChainInsightAsset) SetCreateTime(v int64) *ChainInsightAsset {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *ChainInsightAsset) SetOwnerCount(v int64) *ChainInsightAsset {
+	s.OwnerCount = &v
+	return s
+}
+
+func (s *ChainInsightAsset) SetMetaData(v string) *ChainInsightAsset {
+	s.MetaData = &v
+	return s
+}
+
+func (s *ChainInsightAsset) SetUri(v string) *ChainInsightAsset {
+	s.Uri = &v
+	return s
+}
+
+func (s *ChainInsightAsset) SetBalance(v int64) *ChainInsightAsset {
+	s.Balance = &v
+	return s
+}
+
+func (s *ChainInsightAsset) SetLatestTxHash(v string) *ChainInsightAsset {
+	s.LatestTxHash = &v
+	return s
+}
+
+func (s *ChainInsightAsset) SetLatestTxTime(v int64) *ChainInsightAsset {
+	s.LatestTxTime = &v
+	return s
+}
+
 // 数据洞察搜索请求
 type ChainInsightSearchRequest struct {
 	// 插叙偏移量，用于分页；= (pageNo - 1 * pageSize); 最大值 500
@@ -526,7 +1068,7 @@ type ChainInsightSearchRequest struct {
 	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
 	// 查询范围的终止时间戳，单位毫秒
 	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
-	// 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline
+	// 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline、DigitalAsset
 	EnabledTypes []*string `json:"enabled_types,omitempty" xml:"enabled_types,omitempty" type:"Repeated"`
 }
 
@@ -578,43 +1120,83 @@ func (s *ChainInsightSearchRequest) SetEnabledTypes(v []*string) *ChainInsightSe
 	return s
 }
 
-// 数据洞察合约接口参数信息
-type ChainInsightContractInterfaceArgument struct {
-	// 参数名
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 参数类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 参数位置，枚举：input，output，deposit
-	Location *string `json:"location,omitempty" xml:"location,omitempty" require:"true"`
-	// 参数的业务名称
-	Comment *string `json:"comment,omitempty" xml:"comment,omitempty"`
+// ChainInsightTransactionInfo分页结构体
+type ChainInsightTransactionInfoPageableResponse struct {
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 当前页码
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty"`
+	// 合计
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// ChainInsightTransactionInfo列表
+	List []*ChainInsightTransactionInfo `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
 }
 
-func (s ChainInsightContractInterfaceArgument) String() string {
+func (s ChainInsightTransactionInfoPageableResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ChainInsightContractInterfaceArgument) GoString() string {
+func (s ChainInsightTransactionInfoPageableResponse) GoString() string {
 	return s.String()
 }
 
-func (s *ChainInsightContractInterfaceArgument) SetName(v string) *ChainInsightContractInterfaceArgument {
-	s.Name = &v
+func (s *ChainInsightTransactionInfoPageableResponse) SetPageSize(v int64) *ChainInsightTransactionInfoPageableResponse {
+	s.PageSize = &v
 	return s
 }
 
-func (s *ChainInsightContractInterfaceArgument) SetType(v string) *ChainInsightContractInterfaceArgument {
-	s.Type = &v
+func (s *ChainInsightTransactionInfoPageableResponse) SetCurrent(v int64) *ChainInsightTransactionInfoPageableResponse {
+	s.Current = &v
 	return s
 }
 
-func (s *ChainInsightContractInterfaceArgument) SetLocation(v string) *ChainInsightContractInterfaceArgument {
-	s.Location = &v
+func (s *ChainInsightTransactionInfoPageableResponse) SetTotal(v int64) *ChainInsightTransactionInfoPageableResponse {
+	s.Total = &v
 	return s
 }
 
-func (s *ChainInsightContractInterfaceArgument) SetComment(v string) *ChainInsightContractInterfaceArgument {
-	s.Comment = &v
+func (s *ChainInsightTransactionInfoPageableResponse) SetList(v []*ChainInsightTransactionInfo) *ChainInsightTransactionInfoPageableResponse {
+	s.List = v
+	return s
+}
+
+// 链上近期活跃地址响应
+type ChainInsightActiveAddressesResponse struct {
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 当前页码
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty"`
+	// 合计
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 结果列表
+	List []*MapEntryList `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s ChainInsightActiveAddressesResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightActiveAddressesResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightActiveAddressesResponse) SetPageSize(v int64) *ChainInsightActiveAddressesResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ChainInsightActiveAddressesResponse) SetCurrent(v int64) *ChainInsightActiveAddressesResponse {
+	s.Current = &v
+	return s
+}
+
+func (s *ChainInsightActiveAddressesResponse) SetTotal(v int64) *ChainInsightActiveAddressesResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *ChainInsightActiveAddressesResponse) SetList(v []*MapEntryList) *ChainInsightActiveAddressesResponse {
+	s.List = v
 	return s
 }
 
@@ -686,6 +1268,46 @@ func (s *ChainInsightStatisticTask) SetStatus(v string) *ChainInsightStatisticTa
 	return s
 }
 
+// 链上资产元信息
+type ChainInsightAssetMeta struct {
+	// 资产元信息链接
+	Uri *string `json:"uri,omitempty" xml:"uri,omitempty"`
+	// 资产元信息
+	MetaData *string `json:"meta_data,omitempty" xml:"meta_data,omitempty"`
+	// 资源类型：Image / Audio / Video / Unknown
+	ResourceType *string `json:"resource_type,omitempty" xml:"resource_type,omitempty" require:"true"`
+	// 资源详细数据，如图片、视频的链接
+	ResourceData *string `json:"resource_data,omitempty" xml:"resource_data,omitempty"`
+}
+
+func (s ChainInsightAssetMeta) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightAssetMeta) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightAssetMeta) SetUri(v string) *ChainInsightAssetMeta {
+	s.Uri = &v
+	return s
+}
+
+func (s *ChainInsightAssetMeta) SetMetaData(v string) *ChainInsightAssetMeta {
+	s.MetaData = &v
+	return s
+}
+
+func (s *ChainInsightAssetMeta) SetResourceType(v string) *ChainInsightAssetMeta {
+	s.ResourceType = &v
+	return s
+}
+
+func (s *ChainInsightAssetMeta) SetResourceData(v string) *ChainInsightAssetMeta {
+	s.ResourceData = &v
+	return s
+}
+
 // 数据洞察折线图
 type ChainInsightHistogram struct {
 	// 横坐标名称
@@ -723,6 +1345,46 @@ func (s *ChainInsightHistogram) SetPoints(v []*ChainInsightPoint) *ChainInsightH
 
 func (s *ChainInsightHistogram) SetName(v string) *ChainInsightHistogram {
 	s.Name = &v
+	return s
+}
+
+// 链上资产持有者信息响应
+type ChainInsightAssetOwnersResponse struct {
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 当前页码
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 合计
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+	// 结果列表
+	List []*ChainInsightAssetOwner `json:"list,omitempty" xml:"list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ChainInsightAssetOwnersResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightAssetOwnersResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightAssetOwnersResponse) SetPageSize(v int64) *ChainInsightAssetOwnersResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ChainInsightAssetOwnersResponse) SetCurrent(v int64) *ChainInsightAssetOwnersResponse {
+	s.Current = &v
+	return s
+}
+
+func (s *ChainInsightAssetOwnersResponse) SetTotal(v int64) *ChainInsightAssetOwnersResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *ChainInsightAssetOwnersResponse) SetList(v []*ChainInsightAssetOwner) *ChainInsightAssetOwnersResponse {
+	s.List = v
 	return s
 }
 
@@ -978,6 +1640,10 @@ type ChainInsightContractInterface struct {
 	NameSig *string `json:"name_sig,omitempty" xml:"name_sig,omitempty" require:"true"`
 	// 接口的类型，枚举：function, event, deposit
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 对应的标准 ERC 事件/方法 的名称
+	StandardErcName *string `json:"standard_erc_name,omitempty" xml:"standard_erc_name,omitempty"`
+	// 参数列表
+	Args []*ChainInsightContractInterfaceArgument `json:"args,omitempty" xml:"args,omitempty" type:"Repeated"`
 }
 
 func (s ChainInsightContractInterface) String() string {
@@ -1000,6 +1666,16 @@ func (s *ChainInsightContractInterface) SetNameSig(v string) *ChainInsightContra
 
 func (s *ChainInsightContractInterface) SetType(v string) *ChainInsightContractInterface {
 	s.Type = &v
+	return s
+}
+
+func (s *ChainInsightContractInterface) SetStandardErcName(v string) *ChainInsightContractInterface {
+	s.StandardErcName = &v
+	return s
+}
+
+func (s *ChainInsightContractInterface) SetArgs(v []*ChainInsightContractInterfaceArgument) *ChainInsightContractInterface {
+	s.Args = v
 	return s
 }
 
@@ -1054,6 +1730,32 @@ func (s *DataSearchRequest) SetTo(v int64) *DataSearchRequest {
 
 func (s *DataSearchRequest) SetTotal(v int64) *DataSearchRequest {
 	s.Total = &v
+	return s
+}
+
+// 链状态信息
+type ChainInsightChainStatus struct {
+	// 节点信息
+	NodeInfos []*ChainInsightNodeInfo `json:"node_infos,omitempty" xml:"node_infos,omitempty" type:"Repeated"`
+	// 链状态
+	ChainStatuses []*ChainStatus `json:"chain_statuses,omitempty" xml:"chain_statuses,omitempty" type:"Repeated"`
+}
+
+func (s ChainInsightChainStatus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightChainStatus) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightChainStatus) SetNodeInfos(v []*ChainInsightNodeInfo) *ChainInsightChainStatus {
+	s.NodeInfos = v
+	return s
+}
+
+func (s *ChainInsightChainStatus) SetChainStatuses(v []*ChainStatus) *ChainInsightChainStatus {
+	s.ChainStatuses = v
 	return s
 }
 
@@ -1141,6 +1843,46 @@ func (s *ChainInsightSearchResponse) SetContext(v string) *ChainInsightSearchRes
 
 func (s *ChainInsightSearchResponse) SetItems(v []*ChainInsightSearchResultItem) *ChainInsightSearchResponse {
 	s.Items = v
+	return s
+}
+
+// 链上资产流转交易响应
+type ChainInsightAssetOperationsResponse struct {
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 当前页码
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 合计
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+	// 结果列表
+	List []*ChainInsightAssetOperation `json:"list,omitempty" xml:"list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ChainInsightAssetOperationsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightAssetOperationsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightAssetOperationsResponse) SetPageSize(v int64) *ChainInsightAssetOperationsResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ChainInsightAssetOperationsResponse) SetCurrent(v int64) *ChainInsightAssetOperationsResponse {
+	s.Current = &v
+	return s
+}
+
+func (s *ChainInsightAssetOperationsResponse) SetTotal(v int64) *ChainInsightAssetOperationsResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *ChainInsightAssetOperationsResponse) SetList(v []*ChainInsightAssetOperation) *ChainInsightAssetOperationsResponse {
+	s.List = v
 	return s
 }
 
@@ -1399,6 +2141,8 @@ type ChainInsightAddress struct {
 	RecoverKey *string `json:"recover_key,omitempty" xml:"recover_key,omitempty" require:"true"`
 	// 合约类型，仅当地址为合约时返回：WASM、SOLIDITY
 	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty"`
+	// 资产合约相关信息
+	AssetContractInfo *ChainInsightAssetContractInfo `json:"asset_contract_info,omitempty" xml:"asset_contract_info,omitempty"`
 }
 
 func (s ChainInsightAddress) String() string {
@@ -1484,6 +2228,107 @@ func (s *ChainInsightAddress) SetContractType(v string) *ChainInsightAddress {
 	return s
 }
 
+func (s *ChainInsightAddress) SetAssetContractInfo(v *ChainInsightAssetContractInfo) *ChainInsightAddress {
+	s.AssetContractInfo = v
+	return s
+}
+
+// 数据洞察看板
+type ChainInsightWidget struct {
+	// 看版类型，内置看版类型为Default
+	WidgetType *string `json:"widget_type,omitempty" xml:"widget_type,omitempty" require:"true"`
+	// 看版子类型；ChainIdWidget, ChainAccountWidget, ChainContractWidget, ChainTotalTransactionWidget, ChainActiveAddressWidget, ChainTxTimeLineWidget
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 看版时间范围，单位小时
+	TimeRange *int64 `json:"time_range,omitempty" xml:"time_range,omitempty" require:"true"`
+	// 看板ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 看版名称，最大32字符
+	Name *string `json:"name,omitempty" xml:"name,omitempty" maxLength:"32"`
+	// 看版描述，最大 255 字符
+	Description *string `json:"description,omitempty" xml:"description,omitempty" maxLength:"255"`
+	// 看版创建时间，单位毫秒时间戳
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 看版修改时间，单位毫秒时间戳
+	ModifyTime *int64 `json:"modify_time,omitempty" xml:"modify_time,omitempty"`
+	// 看版对应的链ID，空表示联盟下所有的链
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 链名称
+	BizIdName *string `json:"biz_id_name,omitempty" xml:"biz_id_name,omitempty"`
+	// 看版对应的链上账户地址，hex编码
+	HexAddress *string `json:"hex_address,omitempty" xml:"hex_address,omitempty"`
+	// 时间轴搜索的请求
+	Query *string `json:"query,omitempty" xml:"query,omitempty"`
+}
+
+func (s ChainInsightWidget) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightWidget) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightWidget) SetWidgetType(v string) *ChainInsightWidget {
+	s.WidgetType = &v
+	return s
+}
+
+func (s *ChainInsightWidget) SetType(v string) *ChainInsightWidget {
+	s.Type = &v
+	return s
+}
+
+func (s *ChainInsightWidget) SetTimeRange(v int64) *ChainInsightWidget {
+	s.TimeRange = &v
+	return s
+}
+
+func (s *ChainInsightWidget) SetId(v string) *ChainInsightWidget {
+	s.Id = &v
+	return s
+}
+
+func (s *ChainInsightWidget) SetName(v string) *ChainInsightWidget {
+	s.Name = &v
+	return s
+}
+
+func (s *ChainInsightWidget) SetDescription(v string) *ChainInsightWidget {
+	s.Description = &v
+	return s
+}
+
+func (s *ChainInsightWidget) SetCreateTime(v int64) *ChainInsightWidget {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *ChainInsightWidget) SetModifyTime(v int64) *ChainInsightWidget {
+	s.ModifyTime = &v
+	return s
+}
+
+func (s *ChainInsightWidget) SetBizId(v string) *ChainInsightWidget {
+	s.BizId = &v
+	return s
+}
+
+func (s *ChainInsightWidget) SetBizIdName(v string) *ChainInsightWidget {
+	s.BizIdName = &v
+	return s
+}
+
+func (s *ChainInsightWidget) SetHexAddress(v string) *ChainInsightWidget {
+	s.HexAddress = &v
+	return s
+}
+
+func (s *ChainInsightWidget) SetQuery(v string) *ChainInsightWidget {
+	s.Query = &v
+	return s
+}
+
 // 数据导出映射关系
 type DataExportTableField struct {
 	// 列名称
@@ -1528,6 +2373,100 @@ func (s *DataExportTableField) SetColumnSize(v int64) *DataExportTableField {
 
 func (s *DataExportTableField) SetColumnDescription(v string) *DataExportTableField {
 	s.ColumnDescription = &v
+	return s
+}
+
+// 数据搜索状态
+type ChainInsightSearchStatus struct {
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 链名称
+	BizIdName *string `json:"biz_id_name,omitempty" xml:"biz_id_name,omitempty"`
+	// Indexing,Enabled,Disabled
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 当前索引的区块高度
+	CurrentHeight *int64 `json:"current_height,omitempty" xml:"current_height,omitempty"`
+	// 当前区块链高度
+	LedgerHeight *int64 `json:"ledger_height,omitempty" xml:"ledger_height,omitempty"`
+	// 预计索引完成的时间，单位秒
+	EstimateTime *int64 `json:"estimate_time,omitempty" xml:"estimate_time,omitempty"`
+}
+
+func (s ChainInsightSearchStatus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightSearchStatus) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightSearchStatus) SetBizId(v string) *ChainInsightSearchStatus {
+	s.BizId = &v
+	return s
+}
+
+func (s *ChainInsightSearchStatus) SetBizIdName(v string) *ChainInsightSearchStatus {
+	s.BizIdName = &v
+	return s
+}
+
+func (s *ChainInsightSearchStatus) SetStatus(v string) *ChainInsightSearchStatus {
+	s.Status = &v
+	return s
+}
+
+func (s *ChainInsightSearchStatus) SetCurrentHeight(v int64) *ChainInsightSearchStatus {
+	s.CurrentHeight = &v
+	return s
+}
+
+func (s *ChainInsightSearchStatus) SetLedgerHeight(v int64) *ChainInsightSearchStatus {
+	s.LedgerHeight = &v
+	return s
+}
+
+func (s *ChainInsightSearchStatus) SetEstimateTime(v int64) *ChainInsightSearchStatus {
+	s.EstimateTime = &v
+	return s
+}
+
+// 链上资产信息响应
+type ChainInsightAssetsResponse struct {
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 当前页码
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 合计
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+	// 结果列表
+	List []*ChainInsightAsset `json:"list,omitempty" xml:"list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ChainInsightAssetsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainInsightAssetsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ChainInsightAssetsResponse) SetPageSize(v int64) *ChainInsightAssetsResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ChainInsightAssetsResponse) SetCurrent(v int64) *ChainInsightAssetsResponse {
+	s.Current = &v
+	return s
+}
+
+func (s *ChainInsightAssetsResponse) SetTotal(v int64) *ChainInsightAssetsResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *ChainInsightAssetsResponse) SetList(v []*ChainInsightAsset) *ChainInsightAssetsResponse {
+	s.List = v
 	return s
 }
 
@@ -3247,6 +4186,8 @@ type QueryChaininsightLabelsRequest struct {
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
 	// 需要查询的地址列表
 	HexAddresses []*string `json:"hex_addresses,omitempty" xml:"hex_addresses,omitempty" require:"true" type:"Repeated"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 }
 
 func (s QueryChaininsightLabelsRequest) String() string {
@@ -3274,6 +4215,11 @@ func (s *QueryChaininsightLabelsRequest) SetBizId(v string) *QueryChaininsightLa
 
 func (s *QueryChaininsightLabelsRequest) SetHexAddresses(v []*string) *QueryChaininsightLabelsRequest {
 	s.HexAddresses = v
+	return s
+}
+
+func (s *QueryChaininsightLabelsRequest) SetTenantId(v string) *QueryChaininsightLabelsRequest {
+	s.TenantId = &v
 	return s
 }
 
@@ -3326,6 +4272,8 @@ type UpdateChaininsightLabelsRequest struct {
 	HexAddress *string `json:"hex_address,omitempty" xml:"hex_address,omitempty" require:"true"`
 	// 更新的 label 内容
 	Label *ChainInsightAddressLabel `json:"label,omitempty" xml:"label,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 }
 
 func (s UpdateChaininsightLabelsRequest) String() string {
@@ -3358,6 +4306,11 @@ func (s *UpdateChaininsightLabelsRequest) SetHexAddress(v string) *UpdateChainin
 
 func (s *UpdateChaininsightLabelsRequest) SetLabel(v *ChainInsightAddressLabel) *UpdateChaininsightLabelsRequest {
 	s.Label = v
+	return s
+}
+
+func (s *UpdateChaininsightLabelsRequest) SetTenantId(v string) *UpdateChaininsightLabelsRequest {
+	s.TenantId = &v
 	return s
 }
 
@@ -3410,6 +4363,8 @@ type QueryChaininsightSearchRequest struct {
 	BizIds []*string `json:"biz_ids,omitempty" xml:"biz_ids,omitempty" type:"Repeated"`
 	// 搜索请求
 	Request *ChainInsightSearchRequest `json:"request,omitempty" xml:"request,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 }
 
 func (s QueryChaininsightSearchRequest) String() string {
@@ -3442,6 +4397,11 @@ func (s *QueryChaininsightSearchRequest) SetBizIds(v []*string) *QueryChaininsig
 
 func (s *QueryChaininsightSearchRequest) SetRequest(v *ChainInsightSearchRequest) *QueryChaininsightSearchRequest {
 	s.Request = v
+	return s
+}
+
+func (s *QueryChaininsightSearchRequest) SetTenantId(v string) *QueryChaininsightSearchRequest {
+	s.TenantId = &v
 	return s
 }
 
@@ -3492,6 +4452,8 @@ type QueryChaininsightAddressRequest struct {
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
 	// 链上地址
 	HexAddress *string `json:"hex_address,omitempty" xml:"hex_address,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 }
 
 func (s QueryChaininsightAddressRequest) String() string {
@@ -3519,6 +4481,11 @@ func (s *QueryChaininsightAddressRequest) SetBizId(v string) *QueryChaininsightA
 
 func (s *QueryChaininsightAddressRequest) SetHexAddress(v string) *QueryChaininsightAddressRequest {
 	s.HexAddress = &v
+	return s
+}
+
+func (s *QueryChaininsightAddressRequest) SetTenantId(v string) *QueryChaininsightAddressRequest {
+	s.TenantId = &v
 	return s
 }
 
@@ -3571,6 +4538,8 @@ type QueryChaininsightTransactionRequest struct {
 	TxId *string `json:"tx_id,omitempty" xml:"tx_id,omitempty" require:"true"`
 	// hex编码的TEE交易解密Key，留空表示不解密
 	TeeKey *string `json:"tee_key,omitempty" xml:"tee_key,omitempty"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 }
 
 func (s QueryChaininsightTransactionRequest) String() string {
@@ -3603,6 +4572,11 @@ func (s *QueryChaininsightTransactionRequest) SetTxId(v string) *QueryChaininsig
 
 func (s *QueryChaininsightTransactionRequest) SetTeeKey(v string) *QueryChaininsightTransactionRequest {
 	s.TeeKey = &v
+	return s
+}
+
+func (s *QueryChaininsightTransactionRequest) SetTenantId(v string) *QueryChaininsightTransactionRequest {
+	s.TenantId = &v
 	return s
 }
 
@@ -3823,6 +4797,8 @@ type ListChaininsightContractinterfaceRequest struct {
 	HexAddress *string `json:"hex_address,omitempty" xml:"hex_address,omitempty" require:"true"`
 	// 需要查询的版本信息，0表示最新
 	Ver *string `json:"ver,omitempty" xml:"ver,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 }
 
 func (s ListChaininsightContractinterfaceRequest) String() string {
@@ -3855,6 +4831,11 @@ func (s *ListChaininsightContractinterfaceRequest) SetHexAddress(v string) *List
 
 func (s *ListChaininsightContractinterfaceRequest) SetVer(v string) *ListChaininsightContractinterfaceRequest {
 	s.Ver = &v
+	return s
+}
+
+func (s *ListChaininsightContractinterfaceRequest) SetTenantId(v string) *ListChaininsightContractinterfaceRequest {
+	s.TenantId = &v
 	return s
 }
 
@@ -3909,6 +4890,8 @@ type DetailChaininsightContractinterfaceRequest struct {
 	Ver *string `json:"ver,omitempty" xml:"ver,omitempty" require:"true"`
 	// 接口
 	ContractInterface *ChainInsightContractInterface `json:"contract_interface,omitempty" xml:"contract_interface,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 }
 
 func (s DetailChaininsightContractinterfaceRequest) String() string {
@@ -3946,6 +4929,11 @@ func (s *DetailChaininsightContractinterfaceRequest) SetVer(v string) *DetailCha
 
 func (s *DetailChaininsightContractinterfaceRequest) SetContractInterface(v *ChainInsightContractInterface) *DetailChaininsightContractinterfaceRequest {
 	s.ContractInterface = v
+	return s
+}
+
+func (s *DetailChaininsightContractinterfaceRequest) SetTenantId(v string) *DetailChaininsightContractinterfaceRequest {
+	s.TenantId = &v
 	return s
 }
 
@@ -4002,6 +4990,8 @@ type UpdateChaininsightContractinterfaceRequest struct {
 	ContractInterface *ChainInsightContractInterface `json:"contract_interface,omitempty" xml:"contract_interface,omitempty" require:"true"`
 	// 新的接口参数信息
 	InterfaceArgument *ChainInsightContractInterfaceArgument `json:"interface_argument,omitempty" xml:"interface_argument,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 }
 
 func (s UpdateChaininsightContractinterfaceRequest) String() string {
@@ -4044,6 +5034,11 @@ func (s *UpdateChaininsightContractinterfaceRequest) SetContractInterface(v *Cha
 
 func (s *UpdateChaininsightContractinterfaceRequest) SetInterfaceArgument(v *ChainInsightContractInterfaceArgument) *UpdateChaininsightContractinterfaceRequest {
 	s.InterfaceArgument = v
+	return s
+}
+
+func (s *UpdateChaininsightContractinterfaceRequest) SetTenantId(v string) *UpdateChaininsightContractinterfaceRequest {
+	s.TenantId = &v
 	return s
 }
 
@@ -4098,6 +5093,8 @@ type UploadChaininsightAbiRequest struct {
 	Ver *string `json:"ver,omitempty" xml:"ver,omitempty" require:"true"`
 	// ABI文件原始内容
 	File *string `json:"file,omitempty" xml:"file,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 }
 
 func (s UploadChaininsightAbiRequest) String() string {
@@ -4135,6 +5132,11 @@ func (s *UploadChaininsightAbiRequest) SetVer(v string) *UploadChaininsightAbiRe
 
 func (s *UploadChaininsightAbiRequest) SetFile(v string) *UploadChaininsightAbiRequest {
 	s.File = &v
+	return s
+}
+
+func (s *UploadChaininsightAbiRequest) SetTenantId(v string) *UploadChaininsightAbiRequest {
+	s.TenantId = &v
 	return s
 }
 
@@ -4189,6 +5191,8 @@ type QueryChaininsightAddresshistogramrxRequest struct {
 	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
 	// 结束时间戳，毫秒
 	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 点集类型，枚举：Amount、Increment、GrowthRate，默认Amount
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 }
 
 func (s QueryChaininsightAddresshistogramrxRequest) String() string {
@@ -4226,6 +5230,11 @@ func (s *QueryChaininsightAddresshistogramrxRequest) SetStartTime(v int64) *Quer
 
 func (s *QueryChaininsightAddresshistogramrxRequest) SetEndTime(v int64) *QueryChaininsightAddresshistogramrxRequest {
 	s.EndTime = &v
+	return s
+}
+
+func (s *QueryChaininsightAddresshistogramrxRequest) SetType(v string) *QueryChaininsightAddresshistogramrxRequest {
+	s.Type = &v
 	return s
 }
 
@@ -4280,6 +5289,8 @@ type QueryChaininsightAddresshistogramtxRequest struct {
 	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
 	// 结束时间戳
 	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 点集类型，枚举：Amount、Increment、GrowthRate，默认Amount
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 }
 
 func (s QueryChaininsightAddresshistogramtxRequest) String() string {
@@ -4317,6 +5328,11 @@ func (s *QueryChaininsightAddresshistogramtxRequest) SetStartTime(v int64) *Quer
 
 func (s *QueryChaininsightAddresshistogramtxRequest) SetEndTime(v int64) *QueryChaininsightAddresshistogramtxRequest {
 	s.EndTime = &v
+	return s
+}
+
+func (s *QueryChaininsightAddresshistogramtxRequest) SetType(v string) *QueryChaininsightAddresshistogramtxRequest {
+	s.Type = &v
 	return s
 }
 
@@ -4371,6 +5387,8 @@ type QueryChaininsightChaintxhistogramRequest struct {
 	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
 	// 结束时间戳
 	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 点集类型，枚举：Amount、Increment、GrowthRate，默认Amount
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 }
 
 func (s QueryChaininsightChaintxhistogramRequest) String() string {
@@ -4408,6 +5426,11 @@ func (s *QueryChaininsightChaintxhistogramRequest) SetStartTime(v int64) *QueryC
 
 func (s *QueryChaininsightChaintxhistogramRequest) SetEndTime(v int64) *QueryChaininsightChaintxhistogramRequest {
 	s.EndTime = &v
+	return s
+}
+
+func (s *QueryChaininsightChaintxhistogramRequest) SetType(v string) *QueryChaininsightChaintxhistogramRequest {
+	s.Type = &v
 	return s
 }
 
@@ -4600,6 +5623,8 @@ type AddChaininsightStatisticRequest struct {
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 链上合约地址
 	HexAddress *string `json:"hex_address,omitempty" xml:"hex_address,omitempty"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 }
 
 func (s AddChaininsightStatisticRequest) String() string {
@@ -4632,6 +5657,11 @@ func (s *AddChaininsightStatisticRequest) SetType(v string) *AddChaininsightStat
 
 func (s *AddChaininsightStatisticRequest) SetHexAddress(v string) *AddChaininsightStatisticRequest {
 	s.HexAddress = &v
+	return s
+}
+
+func (s *AddChaininsightStatisticRequest) SetTenantId(v string) *AddChaininsightStatisticRequest {
+	s.TenantId = &v
 	return s
 }
 
@@ -4684,6 +5714,8 @@ type OperateChaininsightStatisticRequest struct {
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 	// 操作方式； Delete 删除
 	Operation *string `json:"operation,omitempty" xml:"operation,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 }
 
 func (s OperateChaininsightStatisticRequest) String() string {
@@ -4716,6 +5748,11 @@ func (s *OperateChaininsightStatisticRequest) SetTaskId(v string) *OperateChaini
 
 func (s *OperateChaininsightStatisticRequest) SetOperation(v string) *OperateChaininsightStatisticRequest {
 	s.Operation = &v
+	return s
+}
+
+func (s *OperateChaininsightStatisticRequest) SetTenantId(v string) *OperateChaininsightStatisticRequest {
+	s.TenantId = &v
 	return s
 }
 
@@ -4772,6 +5809,8 @@ type QueryChaininsightStatistichistogramRequest struct {
 	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
 	// 查询结束时间，毫秒时间戳
 	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 点集类型，枚举：Amount、Increment、GrowthRate，默认为Amount
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 }
 
 func (s QueryChaininsightStatistichistogramRequest) String() string {
@@ -4814,6 +5853,11 @@ func (s *QueryChaininsightStatistichistogramRequest) SetStartTime(v int64) *Quer
 
 func (s *QueryChaininsightStatistichistogramRequest) SetEndTime(v int64) *QueryChaininsightStatistichistogramRequest {
 	s.EndTime = &v
+	return s
+}
+
+func (s *QueryChaininsightStatistichistogramRequest) SetType(v string) *QueryChaininsightStatistichistogramRequest {
+	s.Type = &v
 	return s
 }
 
@@ -5038,6 +6082,2092 @@ func (s *CreateChaininsightQrcodeResponse) SetResult(v string) *CreateChaininsig
 	return s
 }
 
+type OpenChaininsightDatasearchRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联盟ID
+	UnionId *string `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s OpenChaininsightDatasearchRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenChaininsightDatasearchRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OpenChaininsightDatasearchRequest) SetAuthToken(v string) *OpenChaininsightDatasearchRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OpenChaininsightDatasearchRequest) SetProductInstanceId(v string) *OpenChaininsightDatasearchRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OpenChaininsightDatasearchRequest) SetUnionId(v string) *OpenChaininsightDatasearchRequest {
+	s.UnionId = &v
+	return s
+}
+
+func (s *OpenChaininsightDatasearchRequest) SetBizId(v string) *OpenChaininsightDatasearchRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *OpenChaininsightDatasearchRequest) SetTenantId(v string) *OpenChaininsightDatasearchRequest {
+	s.TenantId = &v
+	return s
+}
+
+type OpenChaininsightDatasearchResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s OpenChaininsightDatasearchResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenChaininsightDatasearchResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OpenChaininsightDatasearchResponse) SetReqMsgId(v string) *OpenChaininsightDatasearchResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OpenChaininsightDatasearchResponse) SetResultCode(v string) *OpenChaininsightDatasearchResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OpenChaininsightDatasearchResponse) SetResultMsg(v string) *OpenChaininsightDatasearchResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OpenChaininsightDatasearchResponse) SetResult(v string) *OpenChaininsightDatasearchResponse {
+	s.Result = &v
+	return s
+}
+
+type QueryChaininsightPrivatedatasearchstatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联盟ID
+	UnionId *string `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 链ID列表
+	BizIds []*string `json:"biz_ids,omitempty" xml:"biz_ids,omitempty" type:"Repeated"`
+}
+
+func (s QueryChaininsightPrivatedatasearchstatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryChaininsightPrivatedatasearchstatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryChaininsightPrivatedatasearchstatusRequest) SetAuthToken(v string) *QueryChaininsightPrivatedatasearchstatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatedatasearchstatusRequest) SetProductInstanceId(v string) *QueryChaininsightPrivatedatasearchstatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatedatasearchstatusRequest) SetUnionId(v string) *QueryChaininsightPrivatedatasearchstatusRequest {
+	s.UnionId = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatedatasearchstatusRequest) SetTenantId(v string) *QueryChaininsightPrivatedatasearchstatusRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatedatasearchstatusRequest) SetBizIds(v []*string) *QueryChaininsightPrivatedatasearchstatusRequest {
+	s.BizIds = v
+	return s
+}
+
+type QueryChaininsightPrivatedatasearchstatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 链搜索状态列表
+	Result []*ChainInsightSearchStatus `json:"result,omitempty" xml:"result,omitempty" type:"Repeated"`
+}
+
+func (s QueryChaininsightPrivatedatasearchstatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryChaininsightPrivatedatasearchstatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryChaininsightPrivatedatasearchstatusResponse) SetReqMsgId(v string) *QueryChaininsightPrivatedatasearchstatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatedatasearchstatusResponse) SetResultCode(v string) *QueryChaininsightPrivatedatasearchstatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatedatasearchstatusResponse) SetResultMsg(v string) *QueryChaininsightPrivatedatasearchstatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatedatasearchstatusResponse) SetResult(v []*ChainInsightSearchStatus) *QueryChaininsightPrivatedatasearchstatusResponse {
+	s.Result = v
+	return s
+}
+
+type AddChaininsightWidgetsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联盟ID
+	UnionId *string `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 数据洞察看板
+	Widget *ChainInsightWidget `json:"widget,omitempty" xml:"widget,omitempty" require:"true"`
+}
+
+func (s AddChaininsightWidgetsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddChaininsightWidgetsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddChaininsightWidgetsRequest) SetAuthToken(v string) *AddChaininsightWidgetsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddChaininsightWidgetsRequest) SetProductInstanceId(v string) *AddChaininsightWidgetsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddChaininsightWidgetsRequest) SetUnionId(v string) *AddChaininsightWidgetsRequest {
+	s.UnionId = &v
+	return s
+}
+
+func (s *AddChaininsightWidgetsRequest) SetTenantId(v string) *AddChaininsightWidgetsRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *AddChaininsightWidgetsRequest) SetWidget(v *ChainInsightWidget) *AddChaininsightWidgetsRequest {
+	s.Widget = v
+	return s
+}
+
+type AddChaininsightWidgetsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数据洞察看板
+	Result *ChainInsightWidget `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s AddChaininsightWidgetsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddChaininsightWidgetsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddChaininsightWidgetsResponse) SetReqMsgId(v string) *AddChaininsightWidgetsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddChaininsightWidgetsResponse) SetResultCode(v string) *AddChaininsightWidgetsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddChaininsightWidgetsResponse) SetResultMsg(v string) *AddChaininsightWidgetsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AddChaininsightWidgetsResponse) SetResult(v *ChainInsightWidget) *AddChaininsightWidgetsResponse {
+	s.Result = v
+	return s
+}
+
+type ListChaininsightWidgetsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联盟ID
+	UnionId *string `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s ListChaininsightWidgetsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListChaininsightWidgetsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListChaininsightWidgetsRequest) SetAuthToken(v string) *ListChaininsightWidgetsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListChaininsightWidgetsRequest) SetProductInstanceId(v string) *ListChaininsightWidgetsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListChaininsightWidgetsRequest) SetUnionId(v string) *ListChaininsightWidgetsRequest {
+	s.UnionId = &v
+	return s
+}
+
+func (s *ListChaininsightWidgetsRequest) SetTenantId(v string) *ListChaininsightWidgetsRequest {
+	s.TenantId = &v
+	return s
+}
+
+type ListChaininsightWidgetsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数据洞察看板列表
+	Result []*ChainInsightWidget `json:"result,omitempty" xml:"result,omitempty" type:"Repeated"`
+}
+
+func (s ListChaininsightWidgetsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListChaininsightWidgetsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListChaininsightWidgetsResponse) SetReqMsgId(v string) *ListChaininsightWidgetsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListChaininsightWidgetsResponse) SetResultCode(v string) *ListChaininsightWidgetsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListChaininsightWidgetsResponse) SetResultMsg(v string) *ListChaininsightWidgetsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListChaininsightWidgetsResponse) SetResult(v []*ChainInsightWidget) *ListChaininsightWidgetsResponse {
+	s.Result = v
+	return s
+}
+
+type QueryChaininsightTablesactivereceiverRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联盟ID
+	UnionId *string `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
+	// 链ID列表
+	BizIds []*string `json:"biz_ids,omitempty" xml:"biz_ids,omitempty" type:"Repeated"`
+	// 时间范围，单位小时，默认24小时
+	TimeRange *int64 `json:"time_range,omitempty" xml:"time_range,omitempty" maximum:"168" minimum:"0"`
+	// 页码，默认1
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" minimum:"1"`
+	// 页面大小，默认10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" maximum:"100"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s QueryChaininsightTablesactivereceiverRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryChaininsightTablesactivereceiverRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryChaininsightTablesactivereceiverRequest) SetAuthToken(v string) *QueryChaininsightTablesactivereceiverRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivereceiverRequest) SetProductInstanceId(v string) *QueryChaininsightTablesactivereceiverRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivereceiverRequest) SetUnionId(v string) *QueryChaininsightTablesactivereceiverRequest {
+	s.UnionId = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivereceiverRequest) SetBizIds(v []*string) *QueryChaininsightTablesactivereceiverRequest {
+	s.BizIds = v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivereceiverRequest) SetTimeRange(v int64) *QueryChaininsightTablesactivereceiverRequest {
+	s.TimeRange = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivereceiverRequest) SetPageNo(v int64) *QueryChaininsightTablesactivereceiverRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivereceiverRequest) SetPageSize(v int64) *QueryChaininsightTablesactivereceiverRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivereceiverRequest) SetTenantId(v string) *QueryChaininsightTablesactivereceiverRequest {
+	s.TenantId = &v
+	return s
+}
+
+type QueryChaininsightTablesactivereceiverResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数据洞察链上活跃接收地址响应
+	Result *ChainInsightActiveAddressesResponse `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryChaininsightTablesactivereceiverResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryChaininsightTablesactivereceiverResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryChaininsightTablesactivereceiverResponse) SetReqMsgId(v string) *QueryChaininsightTablesactivereceiverResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivereceiverResponse) SetResultCode(v string) *QueryChaininsightTablesactivereceiverResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivereceiverResponse) SetResultMsg(v string) *QueryChaininsightTablesactivereceiverResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivereceiverResponse) SetResult(v *ChainInsightActiveAddressesResponse) *QueryChaininsightTablesactivereceiverResponse {
+	s.Result = v
+	return s
+}
+
+type QueryChaininsightTablesactivesenderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联盟ID
+	UnionId *string `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
+	// 链ID列表
+	BizIds []*string `json:"biz_ids,omitempty" xml:"biz_ids,omitempty" type:"Repeated"`
+	// 时间范围，单位小时，默认24小时
+	TimeRange *int64 `json:"time_range,omitempty" xml:"time_range,omitempty" maximum:"168" minimum:"0"`
+	// 页码，默认1
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" minimum:"1"`
+	// 页面大小，默认10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" maximum:"100"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s QueryChaininsightTablesactivesenderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryChaininsightTablesactivesenderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryChaininsightTablesactivesenderRequest) SetAuthToken(v string) *QueryChaininsightTablesactivesenderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivesenderRequest) SetProductInstanceId(v string) *QueryChaininsightTablesactivesenderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivesenderRequest) SetUnionId(v string) *QueryChaininsightTablesactivesenderRequest {
+	s.UnionId = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivesenderRequest) SetBizIds(v []*string) *QueryChaininsightTablesactivesenderRequest {
+	s.BizIds = v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivesenderRequest) SetTimeRange(v int64) *QueryChaininsightTablesactivesenderRequest {
+	s.TimeRange = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivesenderRequest) SetPageNo(v int64) *QueryChaininsightTablesactivesenderRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivesenderRequest) SetPageSize(v int64) *QueryChaininsightTablesactivesenderRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivesenderRequest) SetTenantId(v string) *QueryChaininsightTablesactivesenderRequest {
+	s.TenantId = &v
+	return s
+}
+
+type QueryChaininsightTablesactivesenderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数据洞察链上活跃发送地址响应
+	Result *ChainInsightActiveAddressesResponse `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryChaininsightTablesactivesenderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryChaininsightTablesactivesenderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryChaininsightTablesactivesenderResponse) SetReqMsgId(v string) *QueryChaininsightTablesactivesenderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivesenderResponse) SetResultCode(v string) *QueryChaininsightTablesactivesenderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivesenderResponse) SetResultMsg(v string) *QueryChaininsightTablesactivesenderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryChaininsightTablesactivesenderResponse) SetResult(v *ChainInsightActiveAddressesResponse) *QueryChaininsightTablesactivesenderResponse {
+	s.Result = v
+	return s
+}
+
+type PagequeryChaininsightLatestcontractsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 页码
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" minimum:"1"`
+	// 页面大小，默认为5
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" maximum:"100"`
+}
+
+func (s PagequeryChaininsightLatestcontractsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightLatestcontractsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightLatestcontractsRequest) SetAuthToken(v string) *PagequeryChaininsightLatestcontractsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryChaininsightLatestcontractsRequest) SetProductInstanceId(v string) *PagequeryChaininsightLatestcontractsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightLatestcontractsRequest) SetBizId(v string) *PagequeryChaininsightLatestcontractsRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightLatestcontractsRequest) SetPageNo(v int64) *PagequeryChaininsightLatestcontractsRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *PagequeryChaininsightLatestcontractsRequest) SetPageSize(v int64) *PagequeryChaininsightLatestcontractsRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryChaininsightLatestcontractsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ChainInsightTransactionInfoPageableResponse `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s PagequeryChaininsightLatestcontractsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightLatestcontractsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightLatestcontractsResponse) SetReqMsgId(v string) *PagequeryChaininsightLatestcontractsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightLatestcontractsResponse) SetResultCode(v string) *PagequeryChaininsightLatestcontractsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryChaininsightLatestcontractsResponse) SetResultMsg(v string) *PagequeryChaininsightLatestcontractsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryChaininsightLatestcontractsResponse) SetResult(v *ChainInsightTransactionInfoPageableResponse) *PagequeryChaininsightLatestcontractsResponse {
+	s.Result = v
+	return s
+}
+
+type PagequeryChaininsightLatesttxsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 页面大小，默认为5
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" maximum:"100"`
+	// 页码，默认为1
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" minimum:"1"`
+}
+
+func (s PagequeryChaininsightLatesttxsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightLatesttxsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightLatesttxsRequest) SetAuthToken(v string) *PagequeryChaininsightLatesttxsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryChaininsightLatesttxsRequest) SetProductInstanceId(v string) *PagequeryChaininsightLatesttxsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightLatesttxsRequest) SetBizId(v string) *PagequeryChaininsightLatesttxsRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightLatesttxsRequest) SetPageSize(v int64) *PagequeryChaininsightLatesttxsRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryChaininsightLatesttxsRequest) SetPageNo(v int64) *PagequeryChaininsightLatesttxsRequest {
+	s.PageNo = &v
+	return s
+}
+
+type PagequeryChaininsightLatesttxsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ChainInsightAddressLatestTxsResponse `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s PagequeryChaininsightLatesttxsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightLatesttxsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightLatesttxsResponse) SetReqMsgId(v string) *PagequeryChaininsightLatesttxsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightLatesttxsResponse) SetResultCode(v string) *PagequeryChaininsightLatesttxsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryChaininsightLatesttxsResponse) SetResultMsg(v string) *PagequeryChaininsightLatesttxsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryChaininsightLatesttxsResponse) SetResult(v *ChainInsightAddressLatestTxsResponse) *PagequeryChaininsightLatesttxsResponse {
+	s.Result = v
+	return s
+}
+
+type QueryChaininsightPrivatechainsstatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联盟ID
+	UnionId *string `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
+	// 链ID列表
+	BizIds []*string `json:"biz_ids,omitempty" xml:"biz_ids,omitempty" type:"Repeated"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s QueryChaininsightPrivatechainsstatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryChaininsightPrivatechainsstatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryChaininsightPrivatechainsstatusRequest) SetAuthToken(v string) *QueryChaininsightPrivatechainsstatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechainsstatusRequest) SetProductInstanceId(v string) *QueryChaininsightPrivatechainsstatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechainsstatusRequest) SetUnionId(v string) *QueryChaininsightPrivatechainsstatusRequest {
+	s.UnionId = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechainsstatusRequest) SetBizIds(v []*string) *QueryChaininsightPrivatechainsstatusRequest {
+	s.BizIds = v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechainsstatusRequest) SetTenantId(v string) *QueryChaininsightPrivatechainsstatusRequest {
+	s.TenantId = &v
+	return s
+}
+
+type QueryChaininsightPrivatechainsstatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ChainInsightChainStatus `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryChaininsightPrivatechainsstatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryChaininsightPrivatechainsstatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryChaininsightPrivatechainsstatusResponse) SetReqMsgId(v string) *QueryChaininsightPrivatechainsstatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechainsstatusResponse) SetResultCode(v string) *QueryChaininsightPrivatechainsstatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechainsstatusResponse) SetResultMsg(v string) *QueryChaininsightPrivatechainsstatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechainsstatusResponse) SetResult(v *ChainInsightChainStatus) *QueryChaininsightPrivatechainsstatusResponse {
+	s.Result = v
+	return s
+}
+
+type QueryChaininsightPrivatechaintxhistogramRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联盟ID
+	UnionId *string `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
+	// 链ID列表
+	BizIds []*string `json:"biz_ids,omitempty" xml:"biz_ids,omitempty" require:"true" type:"Repeated"`
+	// 开始时间戳
+	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	// 结束时间戳
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 点集类型，枚举：Amount、Increment、GrowthRate，默认为Amount
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 统计间隔
+	Interval *int64 `json:"interval,omitempty" xml:"interval,omitempty"`
+	// 枚举值，统计间隔的时间单位：Second / Hour / Day / Month / Year
+	IntervalUnit *string `json:"interval_unit,omitempty" xml:"interval_unit,omitempty"`
+}
+
+func (s QueryChaininsightPrivatechaintxhistogramRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryChaininsightPrivatechaintxhistogramRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryChaininsightPrivatechaintxhistogramRequest) SetAuthToken(v string) *QueryChaininsightPrivatechaintxhistogramRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechaintxhistogramRequest) SetProductInstanceId(v string) *QueryChaininsightPrivatechaintxhistogramRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechaintxhistogramRequest) SetUnionId(v string) *QueryChaininsightPrivatechaintxhistogramRequest {
+	s.UnionId = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechaintxhistogramRequest) SetBizIds(v []*string) *QueryChaininsightPrivatechaintxhistogramRequest {
+	s.BizIds = v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechaintxhistogramRequest) SetStartTime(v int64) *QueryChaininsightPrivatechaintxhistogramRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechaintxhistogramRequest) SetEndTime(v int64) *QueryChaininsightPrivatechaintxhistogramRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechaintxhistogramRequest) SetType(v string) *QueryChaininsightPrivatechaintxhistogramRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechaintxhistogramRequest) SetInterval(v int64) *QueryChaininsightPrivatechaintxhistogramRequest {
+	s.Interval = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechaintxhistogramRequest) SetIntervalUnit(v string) *QueryChaininsightPrivatechaintxhistogramRequest {
+	s.IntervalUnit = &v
+	return s
+}
+
+type QueryChaininsightPrivatechaintxhistogramResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ChainInsightHistogram `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryChaininsightPrivatechaintxhistogramResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryChaininsightPrivatechaintxhistogramResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryChaininsightPrivatechaintxhistogramResponse) SetReqMsgId(v string) *QueryChaininsightPrivatechaintxhistogramResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechaintxhistogramResponse) SetResultCode(v string) *QueryChaininsightPrivatechaintxhistogramResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechaintxhistogramResponse) SetResultMsg(v string) *QueryChaininsightPrivatechaintxhistogramResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryChaininsightPrivatechaintxhistogramResponse) SetResult(v *ChainInsightHistogram) *QueryChaininsightPrivatechaintxhistogramResponse {
+	s.Result = v
+	return s
+}
+
+type DeleteChaininsightWidgetsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联盟ID
+	UnionId *string `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
+	// 看板ID
+	WidgetId *string `json:"widget_id,omitempty" xml:"widget_id,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s DeleteChaininsightWidgetsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteChaininsightWidgetsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteChaininsightWidgetsRequest) SetAuthToken(v string) *DeleteChaininsightWidgetsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteChaininsightWidgetsRequest) SetProductInstanceId(v string) *DeleteChaininsightWidgetsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteChaininsightWidgetsRequest) SetUnionId(v string) *DeleteChaininsightWidgetsRequest {
+	s.UnionId = &v
+	return s
+}
+
+func (s *DeleteChaininsightWidgetsRequest) SetWidgetId(v string) *DeleteChaininsightWidgetsRequest {
+	s.WidgetId = &v
+	return s
+}
+
+func (s *DeleteChaininsightWidgetsRequest) SetTenantId(v string) *DeleteChaininsightWidgetsRequest {
+	s.TenantId = &v
+	return s
+}
+
+type DeleteChaininsightWidgetsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s DeleteChaininsightWidgetsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteChaininsightWidgetsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteChaininsightWidgetsResponse) SetReqMsgId(v string) *DeleteChaininsightWidgetsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteChaininsightWidgetsResponse) SetResultCode(v string) *DeleteChaininsightWidgetsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteChaininsightWidgetsResponse) SetResultMsg(v string) *DeleteChaininsightWidgetsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeleteChaininsightWidgetsResponse) SetResult(v string) *DeleteChaininsightWidgetsResponse {
+	s.Result = &v
+	return s
+}
+
+type OperateChaininsightWidgetsmoveRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联盟ID
+	UnionId *string `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
+	// 看板ID
+	WidgetId *string `json:"widget_id,omitempty" xml:"widget_id,omitempty" require:"true"`
+	// 移动类型， 向上移动（MoveUp） / 向下移动（MoveDown）
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s OperateChaininsightWidgetsmoveRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateChaininsightWidgetsmoveRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateChaininsightWidgetsmoveRequest) SetAuthToken(v string) *OperateChaininsightWidgetsmoveRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateChaininsightWidgetsmoveRequest) SetProductInstanceId(v string) *OperateChaininsightWidgetsmoveRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateChaininsightWidgetsmoveRequest) SetUnionId(v string) *OperateChaininsightWidgetsmoveRequest {
+	s.UnionId = &v
+	return s
+}
+
+func (s *OperateChaininsightWidgetsmoveRequest) SetWidgetId(v string) *OperateChaininsightWidgetsmoveRequest {
+	s.WidgetId = &v
+	return s
+}
+
+func (s *OperateChaininsightWidgetsmoveRequest) SetType(v string) *OperateChaininsightWidgetsmoveRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *OperateChaininsightWidgetsmoveRequest) SetTenantId(v string) *OperateChaininsightWidgetsmoveRequest {
+	s.TenantId = &v
+	return s
+}
+
+type OperateChaininsightWidgetsmoveResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 移动后的看板列表
+	Result []*ChainInsightWidget `json:"result,omitempty" xml:"result,omitempty" type:"Repeated"`
+}
+
+func (s OperateChaininsightWidgetsmoveResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateChaininsightWidgetsmoveResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateChaininsightWidgetsmoveResponse) SetReqMsgId(v string) *OperateChaininsightWidgetsmoveResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateChaininsightWidgetsmoveResponse) SetResultCode(v string) *OperateChaininsightWidgetsmoveResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateChaininsightWidgetsmoveResponse) SetResultMsg(v string) *OperateChaininsightWidgetsmoveResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateChaininsightWidgetsmoveResponse) SetResult(v []*ChainInsightWidget) *OperateChaininsightWidgetsmoveResponse {
+	s.Result = v
+	return s
+}
+
+type UpdateChaininsightWidgetsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联盟ID
+	UnionId *string `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
+	// 要修改的看板信息
+	Widget *ChainInsightWidget `json:"widget,omitempty" xml:"widget,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s UpdateChaininsightWidgetsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateChaininsightWidgetsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateChaininsightWidgetsRequest) SetAuthToken(v string) *UpdateChaininsightWidgetsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateChaininsightWidgetsRequest) SetProductInstanceId(v string) *UpdateChaininsightWidgetsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateChaininsightWidgetsRequest) SetUnionId(v string) *UpdateChaininsightWidgetsRequest {
+	s.UnionId = &v
+	return s
+}
+
+func (s *UpdateChaininsightWidgetsRequest) SetWidget(v *ChainInsightWidget) *UpdateChaininsightWidgetsRequest {
+	s.Widget = v
+	return s
+}
+
+func (s *UpdateChaininsightWidgetsRequest) SetTenantId(v string) *UpdateChaininsightWidgetsRequest {
+	s.TenantId = &v
+	return s
+}
+
+type UpdateChaininsightWidgetsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 修改后的看板信息
+	Result *ChainInsightWidget `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s UpdateChaininsightWidgetsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateChaininsightWidgetsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateChaininsightWidgetsResponse) SetReqMsgId(v string) *UpdateChaininsightWidgetsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateChaininsightWidgetsResponse) SetResultCode(v string) *UpdateChaininsightWidgetsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateChaininsightWidgetsResponse) SetResultMsg(v string) *UpdateChaininsightWidgetsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateChaininsightWidgetsResponse) SetResult(v *ChainInsightWidget) *UpdateChaininsightWidgetsResponse {
+	s.Result = v
+	return s
+}
+
+type DownloadChaininsightContractRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 合约地址
+	HexAddress *string `json:"hex_address,omitempty" xml:"hex_address,omitempty" require:"true"`
+	// 合约部署交易所在区块范围的最大值，默认为0，即小于当前区块
+	Height *string `json:"height,omitempty" xml:"height,omitempty"`
+}
+
+func (s DownloadChaininsightContractRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DownloadChaininsightContractRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DownloadChaininsightContractRequest) SetAuthToken(v string) *DownloadChaininsightContractRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DownloadChaininsightContractRequest) SetProductInstanceId(v string) *DownloadChaininsightContractRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DownloadChaininsightContractRequest) SetBizId(v string) *DownloadChaininsightContractRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *DownloadChaininsightContractRequest) SetHexAddress(v string) *DownloadChaininsightContractRequest {
+	s.HexAddress = &v
+	return s
+}
+
+func (s *DownloadChaininsightContractRequest) SetHeight(v string) *DownloadChaininsightContractRequest {
+	s.Height = &v
+	return s
+}
+
+type DownloadChaininsightContractResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// base64编码的合约信息
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s DownloadChaininsightContractResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DownloadChaininsightContractResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DownloadChaininsightContractResponse) SetReqMsgId(v string) *DownloadChaininsightContractResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DownloadChaininsightContractResponse) SetResultCode(v string) *DownloadChaininsightContractResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DownloadChaininsightContractResponse) SetResultMsg(v string) *DownloadChaininsightContractResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DownloadChaininsightContractResponse) SetResult(v string) *DownloadChaininsightContractResponse {
+	s.Result = &v
+	return s
+}
+
+type PagequeryChaininsightContractmodifytxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 租户ID，留空
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 合约地址
+	HexAddress *string `json:"hex_address,omitempty" xml:"hex_address,omitempty" require:"true"`
+	// 页码，默认为1
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" minimum:"1"`
+	// 页面大小，默认为10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" maximum:"100"`
+}
+
+func (s PagequeryChaininsightContractmodifytxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightContractmodifytxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightContractmodifytxRequest) SetAuthToken(v string) *PagequeryChaininsightContractmodifytxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryChaininsightContractmodifytxRequest) SetProductInstanceId(v string) *PagequeryChaininsightContractmodifytxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightContractmodifytxRequest) SetBizId(v string) *PagequeryChaininsightContractmodifytxRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightContractmodifytxRequest) SetTenantId(v string) *PagequeryChaininsightContractmodifytxRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightContractmodifytxRequest) SetHexAddress(v string) *PagequeryChaininsightContractmodifytxRequest {
+	s.HexAddress = &v
+	return s
+}
+
+func (s *PagequeryChaininsightContractmodifytxRequest) SetPageNo(v int64) *PagequeryChaininsightContractmodifytxRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *PagequeryChaininsightContractmodifytxRequest) SetPageSize(v int64) *PagequeryChaininsightContractmodifytxRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryChaininsightContractmodifytxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ChainInsightTransactionInfoPageableResponse `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s PagequeryChaininsightContractmodifytxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightContractmodifytxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightContractmodifytxResponse) SetReqMsgId(v string) *PagequeryChaininsightContractmodifytxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightContractmodifytxResponse) SetResultCode(v string) *PagequeryChaininsightContractmodifytxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryChaininsightContractmodifytxResponse) SetResultMsg(v string) *PagequeryChaininsightContractmodifytxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryChaininsightContractmodifytxResponse) SetResult(v *ChainInsightTransactionInfoPageableResponse) *PagequeryChaininsightContractmodifytxResponse {
+	s.Result = v
+	return s
+}
+
+type PagequeryChaininsightAccountmodifytxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 账户地址
+	HexAddress *string `json:"hex_address,omitempty" xml:"hex_address,omitempty" require:"true"`
+	// 页码，默认为1
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" minimum:"1"`
+	// 页面大小，默认为10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" maximum:"100"`
+}
+
+func (s PagequeryChaininsightAccountmodifytxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightAccountmodifytxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightAccountmodifytxRequest) SetAuthToken(v string) *PagequeryChaininsightAccountmodifytxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryChaininsightAccountmodifytxRequest) SetProductInstanceId(v string) *PagequeryChaininsightAccountmodifytxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightAccountmodifytxRequest) SetBizId(v string) *PagequeryChaininsightAccountmodifytxRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightAccountmodifytxRequest) SetHexAddress(v string) *PagequeryChaininsightAccountmodifytxRequest {
+	s.HexAddress = &v
+	return s
+}
+
+func (s *PagequeryChaininsightAccountmodifytxRequest) SetPageNo(v int64) *PagequeryChaininsightAccountmodifytxRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *PagequeryChaininsightAccountmodifytxRequest) SetPageSize(v int64) *PagequeryChaininsightAccountmodifytxRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryChaininsightAccountmodifytxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ChainInsightTransactionInfoPageableResponse `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s PagequeryChaininsightAccountmodifytxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightAccountmodifytxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightAccountmodifytxResponse) SetReqMsgId(v string) *PagequeryChaininsightAccountmodifytxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightAccountmodifytxResponse) SetResultCode(v string) *PagequeryChaininsightAccountmodifytxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryChaininsightAccountmodifytxResponse) SetResultMsg(v string) *PagequeryChaininsightAccountmodifytxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryChaininsightAccountmodifytxResponse) SetResult(v *ChainInsightTransactionInfoPageableResponse) *PagequeryChaininsightAccountmodifytxResponse {
+	s.Result = v
+	return s
+}
+
+type ListChaininsightAssetinterfacesrequiredRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// ERC标准类型：ERC721 / ERC1155
+	ErcType *string `json:"erc_type,omitempty" xml:"erc_type,omitempty" require:"true"`
+}
+
+func (s ListChaininsightAssetinterfacesrequiredRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListChaininsightAssetinterfacesrequiredRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListChaininsightAssetinterfacesrequiredRequest) SetAuthToken(v string) *ListChaininsightAssetinterfacesrequiredRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListChaininsightAssetinterfacesrequiredRequest) SetProductInstanceId(v string) *ListChaininsightAssetinterfacesrequiredRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListChaininsightAssetinterfacesrequiredRequest) SetErcType(v string) *ListChaininsightAssetinterfacesrequiredRequest {
+	s.ErcType = &v
+	return s
+}
+
+type ListChaininsightAssetinterfacesrequiredResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result []*ChainInsightContractInterface `json:"result,omitempty" xml:"result,omitempty" type:"Repeated"`
+}
+
+func (s ListChaininsightAssetinterfacesrequiredResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListChaininsightAssetinterfacesrequiredResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListChaininsightAssetinterfacesrequiredResponse) SetReqMsgId(v string) *ListChaininsightAssetinterfacesrequiredResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListChaininsightAssetinterfacesrequiredResponse) SetResultCode(v string) *ListChaininsightAssetinterfacesrequiredResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListChaininsightAssetinterfacesrequiredResponse) SetResultMsg(v string) *ListChaininsightAssetinterfacesrequiredResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListChaininsightAssetinterfacesrequiredResponse) SetResult(v []*ChainInsightContractInterface) *ListChaininsightAssetinterfacesrequiredResponse {
+	s.Result = v
+	return s
+}
+
+type QueryChaininsightStatisticassetdetailRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 合约地址
+	Contract *string `json:"contract,omitempty" xml:"contract,omitempty" require:"true"`
+	// 资产ID
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+}
+
+func (s QueryChaininsightStatisticassetdetailRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryChaininsightStatisticassetdetailRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryChaininsightStatisticassetdetailRequest) SetAuthToken(v string) *QueryChaininsightStatisticassetdetailRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryChaininsightStatisticassetdetailRequest) SetProductInstanceId(v string) *QueryChaininsightStatisticassetdetailRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryChaininsightStatisticassetdetailRequest) SetBizId(v string) *QueryChaininsightStatisticassetdetailRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *QueryChaininsightStatisticassetdetailRequest) SetContract(v string) *QueryChaininsightStatisticassetdetailRequest {
+	s.Contract = &v
+	return s
+}
+
+func (s *QueryChaininsightStatisticassetdetailRequest) SetAssetId(v string) *QueryChaininsightStatisticassetdetailRequest {
+	s.AssetId = &v
+	return s
+}
+
+type QueryChaininsightStatisticassetdetailResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ChainInsightAsset `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryChaininsightStatisticassetdetailResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryChaininsightStatisticassetdetailResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryChaininsightStatisticassetdetailResponse) SetReqMsgId(v string) *QueryChaininsightStatisticassetdetailResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryChaininsightStatisticassetdetailResponse) SetResultCode(v string) *QueryChaininsightStatisticassetdetailResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryChaininsightStatisticassetdetailResponse) SetResultMsg(v string) *QueryChaininsightStatisticassetdetailResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryChaininsightStatisticassetdetailResponse) SetResult(v *ChainInsightAsset) *QueryChaininsightStatisticassetdetailResponse {
+	s.Result = v
+	return s
+}
+
+type QueryChaininsightStatisticassetmetaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 合约地址
+	Contract *string `json:"contract,omitempty" xml:"contract,omitempty" require:"true"`
+	// 资产ID
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+}
+
+func (s QueryChaininsightStatisticassetmetaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryChaininsightStatisticassetmetaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryChaininsightStatisticassetmetaRequest) SetAuthToken(v string) *QueryChaininsightStatisticassetmetaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryChaininsightStatisticassetmetaRequest) SetProductInstanceId(v string) *QueryChaininsightStatisticassetmetaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryChaininsightStatisticassetmetaRequest) SetBizId(v string) *QueryChaininsightStatisticassetmetaRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *QueryChaininsightStatisticassetmetaRequest) SetContract(v string) *QueryChaininsightStatisticassetmetaRequest {
+	s.Contract = &v
+	return s
+}
+
+func (s *QueryChaininsightStatisticassetmetaRequest) SetAssetId(v string) *QueryChaininsightStatisticassetmetaRequest {
+	s.AssetId = &v
+	return s
+}
+
+type QueryChaininsightStatisticassetmetaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ChainInsightAssetMeta `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryChaininsightStatisticassetmetaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryChaininsightStatisticassetmetaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryChaininsightStatisticassetmetaResponse) SetReqMsgId(v string) *QueryChaininsightStatisticassetmetaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryChaininsightStatisticassetmetaResponse) SetResultCode(v string) *QueryChaininsightStatisticassetmetaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryChaininsightStatisticassetmetaResponse) SetResultMsg(v string) *QueryChaininsightStatisticassetmetaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryChaininsightStatisticassetmetaResponse) SetResult(v *ChainInsightAssetMeta) *QueryChaininsightStatisticassetmetaResponse {
+	s.Result = v
+	return s
+}
+
+type PagequeryChaininsightStatisticassetownerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 合约地址
+	Contract *string `json:"contract,omitempty" xml:"contract,omitempty" require:"true"`
+	// 资产ID，可空，支持模糊搜索（既可以是assetId，也可以是数字权证链1155资产特有的shardId）
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
+	// 数字权证链1155合约的分片ID
+	ShardId *string `json:"shard_id,omitempty" xml:"shard_id,omitempty"`
+	// 页数，从 1 开始，缺省值为1
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" minimum:"1"`
+	// 页面大小，缺省值为10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" maximum:"100" minimum:"1"`
+}
+
+func (s PagequeryChaininsightStatisticassetownerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightStatisticassetownerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightStatisticassetownerRequest) SetAuthToken(v string) *PagequeryChaininsightStatisticassetownerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetownerRequest) SetProductInstanceId(v string) *PagequeryChaininsightStatisticassetownerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetownerRequest) SetBizId(v string) *PagequeryChaininsightStatisticassetownerRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetownerRequest) SetContract(v string) *PagequeryChaininsightStatisticassetownerRequest {
+	s.Contract = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetownerRequest) SetAssetId(v string) *PagequeryChaininsightStatisticassetownerRequest {
+	s.AssetId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetownerRequest) SetShardId(v string) *PagequeryChaininsightStatisticassetownerRequest {
+	s.ShardId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetownerRequest) SetPageNo(v int64) *PagequeryChaininsightStatisticassetownerRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetownerRequest) SetPageSize(v int64) *PagequeryChaininsightStatisticassetownerRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryChaininsightStatisticassetownerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ChainInsightAssetOwnersResponse `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s PagequeryChaininsightStatisticassetownerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightStatisticassetownerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightStatisticassetownerResponse) SetReqMsgId(v string) *PagequeryChaininsightStatisticassetownerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetownerResponse) SetResultCode(v string) *PagequeryChaininsightStatisticassetownerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetownerResponse) SetResultMsg(v string) *PagequeryChaininsightStatisticassetownerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetownerResponse) SetResult(v *ChainInsightAssetOwnersResponse) *PagequeryChaininsightStatisticassetownerResponse {
+	s.Result = v
+	return s
+}
+
+type PagequeryChaininsightStatisticassetinventoryaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 账户地址
+	Account *string `json:"account,omitempty" xml:"account,omitempty" require:"true"`
+	// 资产ID，可空，支持模糊搜索（既可以是assetId，也可以是数字权证链1155资产特有的shardId）
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
+	// 页数，从1开始，缺省值为1
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" minimum:"1"`
+	// 页面大小，缺省值为10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" maximum:"100" minimum:"1"`
+}
+
+func (s PagequeryChaininsightStatisticassetinventoryaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightStatisticassetinventoryaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightStatisticassetinventoryaccountRequest) SetAuthToken(v string) *PagequeryChaininsightStatisticassetinventoryaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetinventoryaccountRequest) SetProductInstanceId(v string) *PagequeryChaininsightStatisticassetinventoryaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetinventoryaccountRequest) SetBizId(v string) *PagequeryChaininsightStatisticassetinventoryaccountRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetinventoryaccountRequest) SetAccount(v string) *PagequeryChaininsightStatisticassetinventoryaccountRequest {
+	s.Account = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetinventoryaccountRequest) SetAssetId(v string) *PagequeryChaininsightStatisticassetinventoryaccountRequest {
+	s.AssetId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetinventoryaccountRequest) SetPageNo(v int64) *PagequeryChaininsightStatisticassetinventoryaccountRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetinventoryaccountRequest) SetPageSize(v int64) *PagequeryChaininsightStatisticassetinventoryaccountRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryChaininsightStatisticassetinventoryaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ChainInsightAssetsResponse `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s PagequeryChaininsightStatisticassetinventoryaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightStatisticassetinventoryaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightStatisticassetinventoryaccountResponse) SetReqMsgId(v string) *PagequeryChaininsightStatisticassetinventoryaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetinventoryaccountResponse) SetResultCode(v string) *PagequeryChaininsightStatisticassetinventoryaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetinventoryaccountResponse) SetResultMsg(v string) *PagequeryChaininsightStatisticassetinventoryaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassetinventoryaccountResponse) SetResult(v *ChainInsightAssetsResponse) *PagequeryChaininsightStatisticassetinventoryaccountResponse {
+	s.Result = v
+	return s
+}
+
+type PagequeryChaininsightStatisticassethistoryassetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 合约地址
+	Contract *string `json:"contract,omitempty" xml:"contract,omitempty" require:"true"`
+	// 资产ID，支持模糊搜索（既可以是assetId，也可以是数字权证链1155合约特有的shardId）
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+	// 分片ID，可空
+	ShardId *string `json:"shard_id,omitempty" xml:"shard_id,omitempty"`
+	// 页数，从 1 开始，缺省值为1
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" minimum:"1"`
+	// 页面大小，缺省值为10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" maximum:"100" minimum:"1"`
+}
+
+func (s PagequeryChaininsightStatisticassethistoryassetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightStatisticassethistoryassetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightStatisticassethistoryassetRequest) SetAuthToken(v string) *PagequeryChaininsightStatisticassethistoryassetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistoryassetRequest) SetProductInstanceId(v string) *PagequeryChaininsightStatisticassethistoryassetRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistoryassetRequest) SetBizId(v string) *PagequeryChaininsightStatisticassethistoryassetRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistoryassetRequest) SetContract(v string) *PagequeryChaininsightStatisticassethistoryassetRequest {
+	s.Contract = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistoryassetRequest) SetAssetId(v string) *PagequeryChaininsightStatisticassethistoryassetRequest {
+	s.AssetId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistoryassetRequest) SetShardId(v string) *PagequeryChaininsightStatisticassethistoryassetRequest {
+	s.ShardId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistoryassetRequest) SetPageNo(v int64) *PagequeryChaininsightStatisticassethistoryassetRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistoryassetRequest) SetPageSize(v int64) *PagequeryChaininsightStatisticassethistoryassetRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryChaininsightStatisticassethistoryassetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ChainInsightAssetOperationsResponse `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s PagequeryChaininsightStatisticassethistoryassetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightStatisticassethistoryassetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightStatisticassethistoryassetResponse) SetReqMsgId(v string) *PagequeryChaininsightStatisticassethistoryassetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistoryassetResponse) SetResultCode(v string) *PagequeryChaininsightStatisticassethistoryassetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistoryassetResponse) SetResultMsg(v string) *PagequeryChaininsightStatisticassethistoryassetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistoryassetResponse) SetResult(v *ChainInsightAssetOperationsResponse) *PagequeryChaininsightStatisticassethistoryassetResponse {
+	s.Result = v
+	return s
+}
+
+type PagequeryChaininsightStatisticassethistorycontractRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 合约地址
+	Contract *string `json:"contract,omitempty" xml:"contract,omitempty" require:"true"`
+	// 资产ID，支持模糊搜索（既可以是assetId，也可以是数字权证链1155资产特有的shardId）
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
+	// 数字权证链1155资产的分片ID
+	ShardId *string `json:"shard_id,omitempty" xml:"shard_id,omitempty"`
+	// 页数，从 1 开始，缺省值：1
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" minimum:"1"`
+	// 页面大小，缺省值：10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" maximum:"100" minimum:"1"`
+}
+
+func (s PagequeryChaininsightStatisticassethistorycontractRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightStatisticassethistorycontractRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightStatisticassethistorycontractRequest) SetAuthToken(v string) *PagequeryChaininsightStatisticassethistorycontractRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistorycontractRequest) SetProductInstanceId(v string) *PagequeryChaininsightStatisticassethistorycontractRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistorycontractRequest) SetBizId(v string) *PagequeryChaininsightStatisticassethistorycontractRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistorycontractRequest) SetContract(v string) *PagequeryChaininsightStatisticassethistorycontractRequest {
+	s.Contract = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistorycontractRequest) SetAssetId(v string) *PagequeryChaininsightStatisticassethistorycontractRequest {
+	s.AssetId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistorycontractRequest) SetShardId(v string) *PagequeryChaininsightStatisticassethistorycontractRequest {
+	s.ShardId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistorycontractRequest) SetPageNo(v int64) *PagequeryChaininsightStatisticassethistorycontractRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistorycontractRequest) SetPageSize(v int64) *PagequeryChaininsightStatisticassethistorycontractRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryChaininsightStatisticassethistorycontractResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ChainInsightAssetOperationsResponse `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s PagequeryChaininsightStatisticassethistorycontractResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryChaininsightStatisticassethistorycontractResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryChaininsightStatisticassethistorycontractResponse) SetReqMsgId(v string) *PagequeryChaininsightStatisticassethistorycontractResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistorycontractResponse) SetResultCode(v string) *PagequeryChaininsightStatisticassethistorycontractResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistorycontractResponse) SetResultMsg(v string) *PagequeryChaininsightStatisticassethistorycontractResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryChaininsightStatisticassethistorycontractResponse) SetResult(v *ChainInsightAssetOperationsResponse) *PagequeryChaininsightStatisticassethistorycontractResponse {
+	s.Result = v
+	return s
+}
+
 type RegisterChainsRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5070,6 +8200,24 @@ type RegisterChainsRequest struct {
 	MychainGroupid *string `json:"mychain_groupid,omitempty" xml:"mychain_groupid,omitempty"`
 	// 子链的父链ID
 	MychainParentBizid *string `json:"mychain_parent_bizid,omitempty" xml:"mychain_parent_bizid,omitempty"`
+	// Aldaba 链节点地址
+	AldabaNodes []*string `json:"aldaba_nodes,omitempty" xml:"aldaba_nodes,omitempty" type:"Repeated"`
+	// Aldaba 链使用的协议，支持 WebSocket / Tcp; 默认 WebSocket
+	AldabaNetworkProtocol *string `json:"aldaba_network_protocol,omitempty" xml:"aldaba_network_protocol,omitempty"`
+	// Aldaba 链base64编码的JDS
+	AldabaTlsRootTruststore *string `json:"aldaba_tls_root_truststore,omitempty" xml:"aldaba_tls_root_truststore,omitempty"`
+	// Aldaba 链 JDS 密码
+	AldabaTlsRootTruststorePassword *string `json:"aldaba_tls_root_truststore_password,omitempty" xml:"aldaba_tls_root_truststore_password,omitempty"`
+	// Aldaba 链 base64编码的证书
+	AldabaTlsClientCertificate *string `json:"aldaba_tls_client_certificate,omitempty" xml:"aldaba_tls_client_certificate,omitempty"`
+	// Aldaba 链 base64编码的密钥
+	AldabaTlsClientKey *string `json:"aldaba_tls_client_key,omitempty" xml:"aldaba_tls_client_key,omitempty"`
+	// Aldaba 链密钥密码
+	AldabaTlsClientKeyPassword *string `json:"aldaba_tls_client_key_password,omitempty" xml:"aldaba_tls_client_key_password,omitempty"`
+	// Aldaba 链 base64 编码的 sender 密钥
+	AldabaSenderKey *string `json:"aldaba_sender_key,omitempty" xml:"aldaba_sender_key,omitempty"`
+	// Aldaba 链 sender 密钥的密码
+	AldabaSenderKeyPassword *string `json:"aldaba_sender_key_password,omitempty" xml:"aldaba_sender_key_password,omitempty"`
 }
 
 func (s RegisterChainsRequest) String() string {
@@ -5157,6 +8305,51 @@ func (s *RegisterChainsRequest) SetMychainGroupid(v string) *RegisterChainsReque
 
 func (s *RegisterChainsRequest) SetMychainParentBizid(v string) *RegisterChainsRequest {
 	s.MychainParentBizid = &v
+	return s
+}
+
+func (s *RegisterChainsRequest) SetAldabaNodes(v []*string) *RegisterChainsRequest {
+	s.AldabaNodes = v
+	return s
+}
+
+func (s *RegisterChainsRequest) SetAldabaNetworkProtocol(v string) *RegisterChainsRequest {
+	s.AldabaNetworkProtocol = &v
+	return s
+}
+
+func (s *RegisterChainsRequest) SetAldabaTlsRootTruststore(v string) *RegisterChainsRequest {
+	s.AldabaTlsRootTruststore = &v
+	return s
+}
+
+func (s *RegisterChainsRequest) SetAldabaTlsRootTruststorePassword(v string) *RegisterChainsRequest {
+	s.AldabaTlsRootTruststorePassword = &v
+	return s
+}
+
+func (s *RegisterChainsRequest) SetAldabaTlsClientCertificate(v string) *RegisterChainsRequest {
+	s.AldabaTlsClientCertificate = &v
+	return s
+}
+
+func (s *RegisterChainsRequest) SetAldabaTlsClientKey(v string) *RegisterChainsRequest {
+	s.AldabaTlsClientKey = &v
+	return s
+}
+
+func (s *RegisterChainsRequest) SetAldabaTlsClientKeyPassword(v string) *RegisterChainsRequest {
+	s.AldabaTlsClientKeyPassword = &v
+	return s
+}
+
+func (s *RegisterChainsRequest) SetAldabaSenderKey(v string) *RegisterChainsRequest {
+	s.AldabaSenderKey = &v
+	return s
+}
+
+func (s *RegisterChainsRequest) SetAldabaSenderKeyPassword(v string) *RegisterChainsRequest {
+	s.AldabaSenderKeyPassword = &v
 	return s
 }
 
@@ -5424,17 +8617,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -5468,7 +8661,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.1"),
+				"sdk_version":      tea.String("1.4.2"),
 				"_prod_code":       tea.String("BAASDATAGW"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6879,6 +10072,788 @@ func (client *Client) CreateChaininsightQrcodeEx(request *CreateChaininsightQrco
 	}
 	_result = &CreateChaininsightQrcodeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.qrcode.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 开通数据搜索服务
+ * Summary: 开通数据搜索服务
+ */
+func (client *Client) OpenChaininsightDatasearch(request *OpenChaininsightDatasearchRequest) (_result *OpenChaininsightDatasearchResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OpenChaininsightDatasearchResponse{}
+	_body, _err := client.OpenChaininsightDatasearchEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 开通数据搜索服务
+ * Summary: 开通数据搜索服务
+ */
+func (client *Client) OpenChaininsightDatasearchEx(request *OpenChaininsightDatasearchRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OpenChaininsightDatasearchResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OpenChaininsightDatasearchResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.datasearch.open"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 私有化场景下查询所有链的数据搜索服务状态
+ * Summary: 私有化场景下查询所有链的数据搜索服务状态
+ */
+func (client *Client) QueryChaininsightPrivatedatasearchstatus(request *QueryChaininsightPrivatedatasearchstatusRequest) (_result *QueryChaininsightPrivatedatasearchstatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryChaininsightPrivatedatasearchstatusResponse{}
+	_body, _err := client.QueryChaininsightPrivatedatasearchstatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 私有化场景下查询所有链的数据搜索服务状态
+ * Summary: 私有化场景下查询所有链的数据搜索服务状态
+ */
+func (client *Client) QueryChaininsightPrivatedatasearchstatusEx(request *QueryChaininsightPrivatedatasearchstatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryChaininsightPrivatedatasearchstatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryChaininsightPrivatedatasearchstatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.privatedatasearchstatus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 添加看板
+ * Summary: 添加看板
+ */
+func (client *Client) AddChaininsightWidgets(request *AddChaininsightWidgetsRequest) (_result *AddChaininsightWidgetsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddChaininsightWidgetsResponse{}
+	_body, _err := client.AddChaininsightWidgetsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 添加看板
+ * Summary: 添加看板
+ */
+func (client *Client) AddChaininsightWidgetsEx(request *AddChaininsightWidgetsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddChaininsightWidgetsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddChaininsightWidgetsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.widgets.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取看板列表
+ * Summary: 获取看板列表
+ */
+func (client *Client) ListChaininsightWidgets(request *ListChaininsightWidgetsRequest) (_result *ListChaininsightWidgetsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListChaininsightWidgetsResponse{}
+	_body, _err := client.ListChaininsightWidgetsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取看板列表
+ * Summary: 获取看板列表
+ */
+func (client *Client) ListChaininsightWidgetsEx(request *ListChaininsightWidgetsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListChaininsightWidgetsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListChaininsightWidgetsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.widgets.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上活跃接收地址
+ * Summary: 分页查询链上活跃接收地址
+ */
+func (client *Client) QueryChaininsightTablesactivereceiver(request *QueryChaininsightTablesactivereceiverRequest) (_result *QueryChaininsightTablesactivereceiverResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryChaininsightTablesactivereceiverResponse{}
+	_body, _err := client.QueryChaininsightTablesactivereceiverEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上活跃接收地址
+ * Summary: 分页查询链上活跃接收地址
+ */
+func (client *Client) QueryChaininsightTablesactivereceiverEx(request *QueryChaininsightTablesactivereceiverRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryChaininsightTablesactivereceiverResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryChaininsightTablesactivereceiverResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.tablesactivereceiver.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上活跃发送地址
+ * Summary: 分页查询链上活跃发送地址
+ */
+func (client *Client) QueryChaininsightTablesactivesender(request *QueryChaininsightTablesactivesenderRequest) (_result *QueryChaininsightTablesactivesenderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryChaininsightTablesactivesenderResponse{}
+	_body, _err := client.QueryChaininsightTablesactivesenderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上活跃发送地址
+ * Summary: 分页查询链上活跃发送地址
+ */
+func (client *Client) QueryChaininsightTablesactivesenderEx(request *QueryChaininsightTablesactivesenderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryChaininsightTablesactivesenderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryChaininsightTablesactivesenderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.tablesactivesender.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上近期合约
+ * Summary: 分页查询链上近期合约
+ */
+func (client *Client) PagequeryChaininsightLatestcontracts(request *PagequeryChaininsightLatestcontractsRequest) (_result *PagequeryChaininsightLatestcontractsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryChaininsightLatestcontractsResponse{}
+	_body, _err := client.PagequeryChaininsightLatestcontractsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上近期合约
+ * Summary: 分页查询链上近期合约
+ */
+func (client *Client) PagequeryChaininsightLatestcontractsEx(request *PagequeryChaininsightLatestcontractsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryChaininsightLatestcontractsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryChaininsightLatestcontractsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.latestcontracts.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上近期交易
+ * Summary: 分页查询链上近期交易
+ */
+func (client *Client) PagequeryChaininsightLatesttxs(request *PagequeryChaininsightLatesttxsRequest) (_result *PagequeryChaininsightLatesttxsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryChaininsightLatesttxsResponse{}
+	_body, _err := client.PagequeryChaininsightLatesttxsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上近期交易
+ * Summary: 分页查询链上近期交易
+ */
+func (client *Client) PagequeryChaininsightLatesttxsEx(request *PagequeryChaininsightLatesttxsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryChaininsightLatesttxsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryChaininsightLatesttxsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.latesttxs.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 私有化场景下查询区块链整体状态
+ * Summary: 私有化场景下查询区块链整体状态
+ */
+func (client *Client) QueryChaininsightPrivatechainsstatus(request *QueryChaininsightPrivatechainsstatusRequest) (_result *QueryChaininsightPrivatechainsstatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryChaininsightPrivatechainsstatusResponse{}
+	_body, _err := client.QueryChaininsightPrivatechainsstatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 私有化场景下查询区块链整体状态
+ * Summary: 私有化场景下查询区块链整体状态
+ */
+func (client *Client) QueryChaininsightPrivatechainsstatusEx(request *QueryChaininsightPrivatechainsstatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryChaininsightPrivatechainsstatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryChaininsightPrivatechainsstatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.privatechainsstatus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 私有化场景下查询链交易数量趋势
+ * Summary: 私有化场景下查询链交易数量趋势
+ */
+func (client *Client) QueryChaininsightPrivatechaintxhistogram(request *QueryChaininsightPrivatechaintxhistogramRequest) (_result *QueryChaininsightPrivatechaintxhistogramResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryChaininsightPrivatechaintxhistogramResponse{}
+	_body, _err := client.QueryChaininsightPrivatechaintxhistogramEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 私有化场景下查询链交易数量趋势
+ * Summary: 私有化场景下查询链交易数量趋势
+ */
+func (client *Client) QueryChaininsightPrivatechaintxhistogramEx(request *QueryChaininsightPrivatechaintxhistogramRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryChaininsightPrivatechaintxhistogramResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryChaininsightPrivatechaintxhistogramResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.privatechaintxhistogram.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除数据洞察看板
+ * Summary: 删除数据洞察看板
+ */
+func (client *Client) DeleteChaininsightWidgets(request *DeleteChaininsightWidgetsRequest) (_result *DeleteChaininsightWidgetsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteChaininsightWidgetsResponse{}
+	_body, _err := client.DeleteChaininsightWidgetsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除数据洞察看板
+ * Summary: 删除数据洞察看板
+ */
+func (client *Client) DeleteChaininsightWidgetsEx(request *DeleteChaininsightWidgetsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteChaininsightWidgetsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteChaininsightWidgetsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.widgets.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 移动看板
+ * Summary: 移动看板
+ */
+func (client *Client) OperateChaininsightWidgetsmove(request *OperateChaininsightWidgetsmoveRequest) (_result *OperateChaininsightWidgetsmoveResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateChaininsightWidgetsmoveResponse{}
+	_body, _err := client.OperateChaininsightWidgetsmoveEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 移动看板
+ * Summary: 移动看板
+ */
+func (client *Client) OperateChaininsightWidgetsmoveEx(request *OperateChaininsightWidgetsmoveRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateChaininsightWidgetsmoveResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateChaininsightWidgetsmoveResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.widgetsmove.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 修改看板
+ * Summary: 修改看板
+ */
+func (client *Client) UpdateChaininsightWidgets(request *UpdateChaininsightWidgetsRequest) (_result *UpdateChaininsightWidgetsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateChaininsightWidgetsResponse{}
+	_body, _err := client.UpdateChaininsightWidgetsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 修改看板
+ * Summary: 修改看板
+ */
+func (client *Client) UpdateChaininsightWidgetsEx(request *UpdateChaininsightWidgetsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateChaininsightWidgetsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateChaininsightWidgetsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.widgets.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 下载合约
+ * Summary: 下载合约
+ */
+func (client *Client) DownloadChaininsightContract(request *DownloadChaininsightContractRequest) (_result *DownloadChaininsightContractResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DownloadChaininsightContractResponse{}
+	_body, _err := client.DownloadChaininsightContractEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 下载合约
+ * Summary: 下载合约
+ */
+func (client *Client) DownloadChaininsightContractEx(request *DownloadChaininsightContractRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DownloadChaininsightContractResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DownloadChaininsightContractResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.contract.download"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询修改合约的交易
+ * Summary: 查询修改合约的交易
+ */
+func (client *Client) PagequeryChaininsightContractmodifytx(request *PagequeryChaininsightContractmodifytxRequest) (_result *PagequeryChaininsightContractmodifytxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryChaininsightContractmodifytxResponse{}
+	_body, _err := client.PagequeryChaininsightContractmodifytxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询修改合约的交易
+ * Summary: 查询修改合约的交易
+ */
+func (client *Client) PagequeryChaininsightContractmodifytxEx(request *PagequeryChaininsightContractmodifytxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryChaininsightContractmodifytxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryChaininsightContractmodifytxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.contractmodifytx.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询账户的修改交易
+ * Summary: 分页查询账户的修改交易
+ */
+func (client *Client) PagequeryChaininsightAccountmodifytx(request *PagequeryChaininsightAccountmodifytxRequest) (_result *PagequeryChaininsightAccountmodifytxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryChaininsightAccountmodifytxResponse{}
+	_body, _err := client.PagequeryChaininsightAccountmodifytxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询账户的修改交易
+ * Summary: 分页查询账户的修改交易
+ */
+func (client *Client) PagequeryChaininsightAccountmodifytxEx(request *PagequeryChaininsightAccountmodifytxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryChaininsightAccountmodifytxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryChaininsightAccountmodifytxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.accountmodifytx.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 返回对应 ERC 类型资产统计所必须的接口
+ * Summary: 查询资产统计所必须的接口
+ */
+func (client *Client) ListChaininsightAssetinterfacesrequired(request *ListChaininsightAssetinterfacesrequiredRequest) (_result *ListChaininsightAssetinterfacesrequiredResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListChaininsightAssetinterfacesrequiredResponse{}
+	_body, _err := client.ListChaininsightAssetinterfacesrequiredEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 返回对应 ERC 类型资产统计所必须的接口
+ * Summary: 查询资产统计所必须的接口
+ */
+func (client *Client) ListChaininsightAssetinterfacesrequiredEx(request *ListChaininsightAssetinterfacesrequiredRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListChaininsightAssetinterfacesrequiredResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListChaininsightAssetinterfacesrequiredResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.assetinterfacesrequired.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询链上资产的详情
+ * Summary: 查询资产详情
+ */
+func (client *Client) QueryChaininsightStatisticassetdetail(request *QueryChaininsightStatisticassetdetailRequest) (_result *QueryChaininsightStatisticassetdetailResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryChaininsightStatisticassetdetailResponse{}
+	_body, _err := client.QueryChaininsightStatisticassetdetailEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询链上资产的详情
+ * Summary: 查询资产详情
+ */
+func (client *Client) QueryChaininsightStatisticassetdetailEx(request *QueryChaininsightStatisticassetdetailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryChaininsightStatisticassetdetailResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryChaininsightStatisticassetdetailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.statisticassetdetail.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询链上资产合约中资产的元信息
+ * Summary: 查询链上资产元信息
+ */
+func (client *Client) QueryChaininsightStatisticassetmeta(request *QueryChaininsightStatisticassetmetaRequest) (_result *QueryChaininsightStatisticassetmetaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryChaininsightStatisticassetmetaResponse{}
+	_body, _err := client.QueryChaininsightStatisticassetmetaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询链上资产合约中资产的元信息
+ * Summary: 查询链上资产元信息
+ */
+func (client *Client) QueryChaininsightStatisticassetmetaEx(request *QueryChaininsightStatisticassetmetaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryChaininsightStatisticassetmetaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryChaininsightStatisticassetmetaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.statisticassetmeta.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上资产合约中资产的持有者信息，按最近一次交易时间降序
+ * Summary: 查询链上资产的持有者信息
+ */
+func (client *Client) PagequeryChaininsightStatisticassetowner(request *PagequeryChaininsightStatisticassetownerRequest) (_result *PagequeryChaininsightStatisticassetownerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryChaininsightStatisticassetownerResponse{}
+	_body, _err := client.PagequeryChaininsightStatisticassetownerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上资产合约中资产的持有者信息，按最近一次交易时间降序
+ * Summary: 查询链上资产的持有者信息
+ */
+func (client *Client) PagequeryChaininsightStatisticassetownerEx(request *PagequeryChaininsightStatisticassetownerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryChaininsightStatisticassetownerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryChaininsightStatisticassetownerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.statisticassetowner.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上账户的资产列表，按最近一次交易时间降序
+ * Summary: 查询链上账户的资产列表
+ */
+func (client *Client) PagequeryChaininsightStatisticassetinventoryaccount(request *PagequeryChaininsightStatisticassetinventoryaccountRequest) (_result *PagequeryChaininsightStatisticassetinventoryaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryChaininsightStatisticassetinventoryaccountResponse{}
+	_body, _err := client.PagequeryChaininsightStatisticassetinventoryaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上账户的资产列表，按最近一次交易时间降序
+ * Summary: 查询链上账户的资产列表
+ */
+func (client *Client) PagequeryChaininsightStatisticassetinventoryaccountEx(request *PagequeryChaininsightStatisticassetinventoryaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryChaininsightStatisticassetinventoryaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryChaininsightStatisticassetinventoryaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.statisticassetinventoryaccount.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上资产合约中资产的流转信息，按交易时间降序
+ * Summary: 查询链上资产的流转信息
+ */
+func (client *Client) PagequeryChaininsightStatisticassethistoryasset(request *PagequeryChaininsightStatisticassethistoryassetRequest) (_result *PagequeryChaininsightStatisticassethistoryassetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryChaininsightStatisticassethistoryassetResponse{}
+	_body, _err := client.PagequeryChaininsightStatisticassethistoryassetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上资产合约中资产的流转信息，按交易时间降序
+ * Summary: 查询链上资产的流转信息
+ */
+func (client *Client) PagequeryChaininsightStatisticassethistoryassetEx(request *PagequeryChaininsightStatisticassethistoryassetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryChaininsightStatisticassethistoryassetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryChaininsightStatisticassethistoryassetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.statisticassethistoryasset.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上资产合约的资产流转信息，按交易时间降序
+ * Summary: 查询链上资产合约的资产流转信息
+ */
+func (client *Client) PagequeryChaininsightStatisticassethistorycontract(request *PagequeryChaininsightStatisticassethistorycontractRequest) (_result *PagequeryChaininsightStatisticassethistorycontractResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryChaininsightStatisticassethistorycontractResponse{}
+	_body, _err := client.PagequeryChaininsightStatisticassethistorycontractEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询链上资产合约的资产流转信息，按交易时间降序
+ * Summary: 查询链上资产合约的资产流转信息
+ */
+func (client *Client) PagequeryChaininsightStatisticassethistorycontractEx(request *PagequeryChaininsightStatisticassethistorycontractRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryChaininsightStatisticassethistorycontractResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryChaininsightStatisticassethistorycontractResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdatagw.chaininsight.statisticassethistorycontract.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
