@@ -91,7 +91,7 @@ namespace AntChain.SDK.TRADE
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,9 @@ namespace AntChain.SDK.TRADE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.6.3"},
+                        {"sdk_version", "3.11.0"},
+                        {"_prod_code", "TRADE"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -215,7 +217,7 @@ namespace AntChain.SDK.TRADE
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -261,7 +263,9 @@ namespace AntChain.SDK.TRADE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.6.3"},
+                        {"sdk_version", "3.11.0"},
+                        {"_prod_code", "TRADE"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -780,7 +784,7 @@ namespace AntChain.SDK.TRADE
         }
 
         /**
-         * Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+         * Description: 单商品通用下单接口
          * Summary: 通用下单接口
          */
         public CreateOrderResponse CreateOrder(CreateOrderRequest request)
@@ -791,7 +795,7 @@ namespace AntChain.SDK.TRADE
         }
 
         /**
-         * Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+         * Description: 单商品通用下单接口
          * Summary: 通用下单接口
          */
         public async Task<CreateOrderResponse> CreateOrderAsync(CreateOrderRequest request)
@@ -802,7 +806,7 @@ namespace AntChain.SDK.TRADE
         }
 
         /**
-         * Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+         * Description: 单商品通用下单接口
          * Summary: 通用下单接口
          */
         public CreateOrderResponse CreateOrderEx(CreateOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -812,13 +816,55 @@ namespace AntChain.SDK.TRADE
         }
 
         /**
-         * Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+         * Description: 单商品通用下单接口
          * Summary: 通用下单接口
          */
         public async Task<CreateOrderResponse> CreateOrderExAsync(CreateOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateOrderResponse>(await DoRequestAsync("1.0", "antcloud.trade.order.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 套餐订单详情查询接口
+         * Summary: 套餐订单详情查询接口
+         */
+        public GetComboOrderResponse GetComboOrder(GetComboOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetComboOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 套餐订单详情查询接口
+         * Summary: 套餐订单详情查询接口
+         */
+        public async Task<GetComboOrderResponse> GetComboOrderAsync(GetComboOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetComboOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 套餐订单详情查询接口
+         * Summary: 套餐订单详情查询接口
+         */
+        public GetComboOrderResponse GetComboOrderEx(GetComboOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetComboOrderResponse>(DoRequest("1.0", "antcloud.trade.combo.order.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 套餐订单详情查询接口
+         * Summary: 套餐订单详情查询接口
+         */
+        public async Task<GetComboOrderResponse> GetComboOrderExAsync(GetComboOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetComboOrderResponse>(await DoRequestAsync("1.0", "antcloud.trade.combo.order.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -864,7 +910,7 @@ namespace AntChain.SDK.TRADE
         }
 
         /**
-         * Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+         * Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
          * Summary: 商品询价接口
          */
         public QueryPriceResponse QueryPrice(QueryPriceRequest request)
@@ -875,7 +921,7 @@ namespace AntChain.SDK.TRADE
         }
 
         /**
-         * Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+         * Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
          * Summary: 商品询价接口
          */
         public async Task<QueryPriceResponse> QueryPriceAsync(QueryPriceRequest request)
@@ -886,7 +932,7 @@ namespace AntChain.SDK.TRADE
         }
 
         /**
-         * Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+         * Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
          * Summary: 商品询价接口
          */
         public QueryPriceResponse QueryPriceEx(QueryPriceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -896,7 +942,7 @@ namespace AntChain.SDK.TRADE
         }
 
         /**
-         * Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+         * Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
          * Summary: 商品询价接口
          */
         public async Task<QueryPriceResponse> QueryPriceExAsync(QueryPriceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)

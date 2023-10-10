@@ -39,14 +39,14 @@ namespace AntChain.SDK.TRADE.Models
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string BizTime { get; set; }
 
-        // 订购周期，周期型商品必填，如资源包/包年包月商品
+        // 订购周期，基于周期定价的商品必填
         [NameInMap("order_duration")]
         [Validation(Required=false)]
         public OrderDuration OrderDuration { get; set; }
 
-        // 商品规格列表
-        // 针对量价型商品，统一使用SYS_USAGE_AMOUNT
-        // 针对资源包商品，统一使用CAPACITY
+        // 商品规格列表，按实际商品定义的和价格相关的属性传入
+        // 1.续费询价不需要传
+        // 2.变配询价需要传入变化的规格属性
         [NameInMap("commodity_order_attrs")]
         [Validation(Required=false)]
         public List<CommodityOrderAttribute> CommodityOrderAttrs { get; set; }
@@ -60,6 +60,16 @@ namespace AntChain.SDK.TRADE.Models
         [NameInMap("coupon_id")]
         [Validation(Required=false)]
         public string CouponId { get; set; }
+
+        // 不填默认为NEW；NEW：新购；RENEW：续费；MODIFY：变配
+        [NameInMap("order_type")]
+        [Validation(Required=false)]
+        public string OrderType { get; set; }
+
+        // 实例ID，续费/变配场景必传
+        [NameInMap("instance_id")]
+        [Validation(Required=false)]
+        public string InstanceId { get; set; }
 
     }
 

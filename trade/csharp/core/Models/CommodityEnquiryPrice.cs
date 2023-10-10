@@ -35,6 +35,16 @@ namespace AntChain.SDK.TRADE.Models
         [Validation(Required=true)]
         public string DiscountAmount { get; set; }
 
+        // 预付费-优惠券抵扣金额
+        [NameInMap("coupon_amount")]
+        [Validation(Required=true)]
+        public string CouponAmount { get; set; }
+
+        // 原订购剩余价值，用于变配场景
+        [NameInMap("subscription_unused_amount")]
+        [Validation(Required=true)]
+        public string SubscriptionUnusedAmount { get; set; }
+
         // 命中的活动编码
         [NameInMap("activity_code")]
         [Validation(Required=true)]
@@ -59,6 +69,11 @@ namespace AntChain.SDK.TRADE.Models
         [NameInMap("currency")]
         [Validation(Required=true)]
         public string Currency { get; set; }
+
+        // 基于剩余价值变配场景下，预测的支付金额正常的最小订购周期
+        [NameInMap("min_duration_of_valid_pay_amount")]
+        [Validation(Required=false)]
+        public OrderDuration MinDurationOfValidPayAmount { get; set; }
 
     }
 

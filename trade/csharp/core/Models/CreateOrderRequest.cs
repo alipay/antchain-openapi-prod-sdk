@@ -39,7 +39,12 @@ namespace AntChain.SDK.TRADE.Models
         [Validation(Required=true)]
         public string CommodityCode { get; set; }
 
-        // 订单类型，NEW：新购；RENEW：续费
+        // 销售主体，不传默认ZL6
+        [NameInMap("ou")]
+        [Validation(Required=false)]
+        public string Ou { get; set; }
+
+        // 订单类型，NEW：新购；RENEW：续费； MODIFY：变配
         // 不填默认新购
         [NameInMap("order_type")]
         [Validation(Required=false)]
@@ -74,6 +79,26 @@ namespace AntChain.SDK.TRADE.Models
         [NameInMap("pay_options")]
         [Validation(Required=false)]
         public PayOptions PayOptions { get; set; }
+
+        // 价格策略
+        [NameInMap("price_strategy")]
+        [Validation(Required=false)]
+        public PriceStrategy PriceStrategy { get; set; }
+
+        // 实例ID，续费/变配场景必传
+        [NameInMap("instance_id")]
+        [Validation(Required=false)]
+        public string InstanceId { get; set; }
+
+        // 售卖市场。10100000：鹊凿市场；12000002：国际ZAN市场；其他市场编码请联系中台获取
+        [NameInMap("sale_market")]
+        [Validation(Required=true)]
+        public string SaleMarket { get; set; }
+
+        // 扩展属性，JSON字符串
+        [NameInMap("extended_properties")]
+        [Validation(Required=false)]
+        public string ExtendedProperties { get; set; }
 
     }
 
