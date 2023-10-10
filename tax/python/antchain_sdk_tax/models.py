@@ -5365,6 +5365,135 @@ class PullApiSimpleauthmarkResponse(TeaModel):
         return self
 
 
+class SyncRiskEvaluationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_request_id: str = None,
+        identity_id: str = None,
+        auth_type: str = None,
+        order_no: str = None,
+        inst_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求流水号(必填),调用方保证每次请求号唯一，受理方用来校验唯一性，同一受理号返回请求结果一致
+        self.biz_request_id = biz_request_id
+        # 信贷用户的纳税人识别号或者身份证号
+        self.identity_id = identity_id
+        # 授权类型
+        self.auth_type = auth_type
+        # 授权订单号
+        self.order_no = order_no
+        # 机构编码
+        self.inst_code = inst_code
+
+    def validate(self):
+        self.validate_required(self.biz_request_id, 'biz_request_id')
+        self.validate_required(self.identity_id, 'identity_id')
+        self.validate_required(self.auth_type, 'auth_type')
+        self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.inst_code, 'inst_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_request_id is not None:
+            result['biz_request_id'] = self.biz_request_id
+        if self.identity_id is not None:
+            result['identity_id'] = self.identity_id
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.inst_code is not None:
+            result['inst_code'] = self.inst_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_request_id') is not None:
+            self.biz_request_id = m.get('biz_request_id')
+        if m.get('identity_id') is not None:
+            self.identity_id = m.get('identity_id')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('inst_code') is not None:
+            self.inst_code = m.get('inst_code')
+        return self
+
+
+class SyncRiskEvaluationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        query_time: str = None,
+        biz_content: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 1322324243	unix秒时间戳,查询时间，用来对账使用
+        self.query_time = query_time
+        # 内容，List<JsonObject>
+        self.biz_content = biz_content
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.query_time is not None:
+            result['query_time'] = self.query_time
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('query_time') is not None:
+            self.query_time = m.get('query_time')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        return self
+
+
 class QueryPdataPersonalincomeRequest(TeaModel):
     def __init__(
         self,

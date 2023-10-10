@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.10',
+                    'sdk_version': '1.7.11',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.10',
+                    'sdk_version': '1.7.11',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -1729,6 +1729,62 @@ class Client:
         return TeaCore.from_map(
             tax_models.PullApiSimpleauthmarkResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.api.simpleauthmark.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_risk_evaluation(
+        self,
+        request: tax_models.SyncRiskEvaluationRequest,
+    ) -> tax_models.SyncRiskEvaluationResponse:
+        """
+        Description: 查询-同步返回提额数据
+        Summary: 查询-同步提额数据返回
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_risk_evaluation_ex(request, headers, runtime)
+
+    async def sync_risk_evaluation_async(
+        self,
+        request: tax_models.SyncRiskEvaluationRequest,
+    ) -> tax_models.SyncRiskEvaluationResponse:
+        """
+        Description: 查询-同步返回提额数据
+        Summary: 查询-同步提额数据返回
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_risk_evaluation_ex_async(request, headers, runtime)
+
+    def sync_risk_evaluation_ex(
+        self,
+        request: tax_models.SyncRiskEvaluationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.SyncRiskEvaluationResponse:
+        """
+        Description: 查询-同步返回提额数据
+        Summary: 查询-同步提额数据返回
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.SyncRiskEvaluationResponse(),
+            self.do_request('1.0', 'blockchain.tax.risk.evaluation.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_risk_evaluation_ex_async(
+        self,
+        request: tax_models.SyncRiskEvaluationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.SyncRiskEvaluationResponse:
+        """
+        Description: 查询-同步返回提额数据
+        Summary: 查询-同步提额数据返回
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.SyncRiskEvaluationResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.risk.evaluation.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_pdata_personalincome(
