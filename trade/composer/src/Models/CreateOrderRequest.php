@@ -44,7 +44,13 @@ class CreateOrderRequest extends Model
      */
     public $commodityCode;
 
-    // 订单类型，NEW：新购；RENEW：续费
+    // 销售主体，不传默认ZL6
+    /**
+     * @var string
+     */
+    public $ou;
+
+    // 订单类型，NEW：新购；RENEW：续费； MODIFY：变配
     // 不填默认新购
     /**
      * @var string
@@ -86,6 +92,30 @@ class CreateOrderRequest extends Model
      * @var PayOptions
      */
     public $payOptions;
+
+    // 价格策略
+    /**
+     * @var PriceStrategy
+     */
+    public $priceStrategy;
+
+    // 实例ID，续费/变配场景必传
+    /**
+     * @var string
+     */
+    public $instanceId;
+
+    // 售卖市场。10100000：鹊凿市场；12000002：国际ZAN市场；其他市场编码请联系中台获取
+    /**
+     * @var string
+     */
+    public $saleMarket;
+
+    // 扩展属性，JSON字符串
+    /**
+     * @var string
+     */
+    public $extendedProperties;
     protected $_name = [
         'authToken'          => 'auth_token',
         'bizNo'              => 'biz_no',
@@ -93,6 +123,7 @@ class CreateOrderRequest extends Model
         'tenantName'         => 'tenant_name',
         'operatorId'         => 'operator_id',
         'commodityCode'      => 'commodity_code',
+        'ou'                 => 'ou',
         'orderType'          => 'order_type',
         'duration'           => 'duration',
         'couponId'           => 'coupon_id',
@@ -100,12 +131,17 @@ class CreateOrderRequest extends Model
         'commodityAttrs'     => 'commodity_attrs',
         'fulfillmentOptions' => 'fulfillment_options',
         'payOptions'         => 'pay_options',
+        'priceStrategy'      => 'price_strategy',
+        'instanceId'         => 'instance_id',
+        'saleMarket'         => 'sale_market',
+        'extendedProperties' => 'extended_properties',
     ];
 
     public function validate()
     {
         Model::validateRequired('bizNo', $this->bizNo, true);
         Model::validateRequired('commodityCode', $this->commodityCode, true);
+        Model::validateRequired('saleMarket', $this->saleMarket, true);
     }
 
     public function toMap()
@@ -128,6 +164,9 @@ class CreateOrderRequest extends Model
         }
         if (null !== $this->commodityCode) {
             $res['commodity_code'] = $this->commodityCode;
+        }
+        if (null !== $this->ou) {
+            $res['ou'] = $this->ou;
         }
         if (null !== $this->orderType) {
             $res['order_type'] = $this->orderType;
@@ -155,6 +194,18 @@ class CreateOrderRequest extends Model
         }
         if (null !== $this->payOptions) {
             $res['pay_options'] = null !== $this->payOptions ? $this->payOptions->toMap() : null;
+        }
+        if (null !== $this->priceStrategy) {
+            $res['price_strategy'] = null !== $this->priceStrategy ? $this->priceStrategy->toMap() : null;
+        }
+        if (null !== $this->instanceId) {
+            $res['instance_id'] = $this->instanceId;
+        }
+        if (null !== $this->saleMarket) {
+            $res['sale_market'] = $this->saleMarket;
+        }
+        if (null !== $this->extendedProperties) {
+            $res['extended_properties'] = $this->extendedProperties;
         }
 
         return $res;
@@ -186,6 +237,9 @@ class CreateOrderRequest extends Model
         if (isset($map['commodity_code'])) {
             $model->commodityCode = $map['commodity_code'];
         }
+        if (isset($map['ou'])) {
+            $model->ou = $map['ou'];
+        }
         if (isset($map['order_type'])) {
             $model->orderType = $map['order_type'];
         }
@@ -212,6 +266,18 @@ class CreateOrderRequest extends Model
         }
         if (isset($map['pay_options'])) {
             $model->payOptions = PayOptions::fromMap($map['pay_options']);
+        }
+        if (isset($map['price_strategy'])) {
+            $model->priceStrategy = PriceStrategy::fromMap($map['price_strategy']);
+        }
+        if (isset($map['instance_id'])) {
+            $model->instanceId = $map['instance_id'];
+        }
+        if (isset($map['sale_market'])) {
+            $model->saleMarket = $map['sale_market'];
+        }
+        if (isset($map['extended_properties'])) {
+            $model->extendedProperties = $map['extended_properties'];
         }
 
         return $model;

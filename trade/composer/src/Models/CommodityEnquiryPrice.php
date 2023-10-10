@@ -48,6 +48,22 @@ class CommodityEnquiryPrice extends Model
      */
     public $discountAmount;
 
+    // 预付费-优惠券抵扣金额
+    /**
+     * @example 0.00
+     *
+     * @var string
+     */
+    public $couponAmount;
+
+    // 原订购剩余价值，用于变配场景
+    /**
+     * @example 50.00
+     *
+     * @var string
+     */
+    public $subscriptionUnusedAmount;
+
     // 命中的活动编码
     /**
      * @example a05d8efc-b1c8-42a0-9666-98f419d4e2eb
@@ -87,17 +103,28 @@ class CommodityEnquiryPrice extends Model
      * @var string
      */
     public $currency;
+
+    // 基于剩余价值变配场景下，预测的支付金额正常的最小订购周期
+    /**
+     * @example
+     *
+     * @var OrderDuration
+     */
+    public $minDurationOfValidPayAmount;
     protected $_name = [
-        'commodityCode'     => 'commodity_code',
-        'commodityName'     => 'commodity_name',
-        'payAmount'         => 'pay_amount',
-        'originalAmount'    => 'original_amount',
-        'discountAmount'    => 'discount_amount',
-        'activityCode'      => 'activity_code',
-        'activityName'      => 'activity_name',
-        'pricePlanId'       => 'price_plan_id',
-        'priceConstraintId' => 'price_constraint_id',
-        'currency'          => 'currency',
+        'commodityCode'               => 'commodity_code',
+        'commodityName'               => 'commodity_name',
+        'payAmount'                   => 'pay_amount',
+        'originalAmount'              => 'original_amount',
+        'discountAmount'              => 'discount_amount',
+        'couponAmount'                => 'coupon_amount',
+        'subscriptionUnusedAmount'    => 'subscription_unused_amount',
+        'activityCode'                => 'activity_code',
+        'activityName'                => 'activity_name',
+        'pricePlanId'                 => 'price_plan_id',
+        'priceConstraintId'           => 'price_constraint_id',
+        'currency'                    => 'currency',
+        'minDurationOfValidPayAmount' => 'min_duration_of_valid_pay_amount',
     ];
 
     public function validate()
@@ -107,6 +134,8 @@ class CommodityEnquiryPrice extends Model
         Model::validateRequired('payAmount', $this->payAmount, true);
         Model::validateRequired('originalAmount', $this->originalAmount, true);
         Model::validateRequired('discountAmount', $this->discountAmount, true);
+        Model::validateRequired('couponAmount', $this->couponAmount, true);
+        Model::validateRequired('subscriptionUnusedAmount', $this->subscriptionUnusedAmount, true);
         Model::validateRequired('activityCode', $this->activityCode, true);
         Model::validateRequired('activityName', $this->activityName, true);
         Model::validateRequired('pricePlanId', $this->pricePlanId, true);
@@ -132,6 +161,12 @@ class CommodityEnquiryPrice extends Model
         if (null !== $this->discountAmount) {
             $res['discount_amount'] = $this->discountAmount;
         }
+        if (null !== $this->couponAmount) {
+            $res['coupon_amount'] = $this->couponAmount;
+        }
+        if (null !== $this->subscriptionUnusedAmount) {
+            $res['subscription_unused_amount'] = $this->subscriptionUnusedAmount;
+        }
         if (null !== $this->activityCode) {
             $res['activity_code'] = $this->activityCode;
         }
@@ -146,6 +181,9 @@ class CommodityEnquiryPrice extends Model
         }
         if (null !== $this->currency) {
             $res['currency'] = $this->currency;
+        }
+        if (null !== $this->minDurationOfValidPayAmount) {
+            $res['min_duration_of_valid_pay_amount'] = null !== $this->minDurationOfValidPayAmount ? $this->minDurationOfValidPayAmount->toMap() : null;
         }
 
         return $res;
@@ -174,6 +212,12 @@ class CommodityEnquiryPrice extends Model
         if (isset($map['discount_amount'])) {
             $model->discountAmount = $map['discount_amount'];
         }
+        if (isset($map['coupon_amount'])) {
+            $model->couponAmount = $map['coupon_amount'];
+        }
+        if (isset($map['subscription_unused_amount'])) {
+            $model->subscriptionUnusedAmount = $map['subscription_unused_amount'];
+        }
         if (isset($map['activity_code'])) {
             $model->activityCode = $map['activity_code'];
         }
@@ -188,6 +232,9 @@ class CommodityEnquiryPrice extends Model
         }
         if (isset($map['currency'])) {
             $model->currency = $map['currency'];
+        }
+        if (isset($map['min_duration_of_valid_pay_amount'])) {
+            $model->minDurationOfValidPayAmount = OrderDuration::fromMap($map['min_duration_of_valid_pay_amount']);
         }
 
         return $model;

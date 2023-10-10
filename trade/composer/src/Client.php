@@ -21,6 +21,8 @@ use AntChain\TRADE\Models\CreateOrderWorkflowRequest;
 use AntChain\TRADE\Models\CreateOrderWorkflowResponse;
 use AntChain\TRADE\Models\ExistPricePersonalizedRequest;
 use AntChain\TRADE\Models\ExistPricePersonalizedResponse;
+use AntChain\TRADE\Models\GetComboOrderRequest;
+use AntChain\TRADE\Models\GetComboOrderResponse;
 use AntChain\TRADE\Models\GetComboRequest;
 use AntChain\TRADE\Models\GetComboResponse;
 use AntChain\TRADE\Models\PayComboOrderRequest;
@@ -140,18 +142,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -188,7 +190,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '3.6.3',
+                    'sdk_version'      => '3.11.0',
+                    '_prod_code'       => 'TRADE',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -598,7 +602,7 @@ class Client
     }
 
     /**
-     * Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+     * Description: 单商品通用下单接口
      * Summary: 通用下单接口.
      *
      * @param CreateOrderRequest $request
@@ -614,7 +618,7 @@ class Client
     }
 
     /**
-     * Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+     * Description: 单商品通用下单接口
      * Summary: 通用下单接口.
      *
      * @param CreateOrderRequest $request
@@ -628,6 +632,39 @@ class Client
         Utils::validateModel($request);
 
         return CreateOrderResponse::fromMap($this->doRequest('1.0', 'antcloud.trade.order.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 套餐订单详情查询接口
+     * Summary: 套餐订单详情查询接口.
+     *
+     * @param GetComboOrderRequest $request
+     *
+     * @return GetComboOrderResponse
+     */
+    public function getComboOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getComboOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 套餐订单详情查询接口
+     * Summary: 套餐订单详情查询接口.
+     *
+     * @param GetComboOrderRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return GetComboOrderResponse
+     */
+    public function getComboOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetComboOrderResponse::fromMap($this->doRequest('1.0', 'antcloud.trade.combo.order.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -664,7 +701,7 @@ class Client
     }
 
     /**
-     * Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+     * Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
      * Summary: 商品询价接口.
      *
      * @param QueryPriceRequest $request
@@ -680,7 +717,7 @@ class Client
     }
 
     /**
-     * Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+     * Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
      * Summary: 商品询价接口.
      *
      * @param QueryPriceRequest $request

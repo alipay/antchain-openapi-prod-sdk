@@ -44,15 +44,15 @@ class QueryPriceRequest extends Model
      */
     public $bizTime;
 
-    // 订购周期，周期型商品必填，如资源包/包年包月商品
+    // 订购周期，基于周期定价的商品必填
     /**
      * @var OrderDuration
      */
     public $orderDuration;
 
-    // 商品规格列表
-    // 针对量价型商品，统一使用SYS_USAGE_AMOUNT
-    // 针对资源包商品，统一使用CAPACITY
+    // 商品规格列表，按实际商品定义的和价格相关的属性传入
+    // 1.续费询价不需要传
+    // 2.变配询价需要传入变化的规格属性
     /**
      * @var CommodityOrderAttribute[]
      */
@@ -69,6 +69,18 @@ class QueryPriceRequest extends Model
      * @var string
      */
     public $couponId;
+
+    // 不填默认为NEW；NEW：新购；RENEW：续费；MODIFY：变配
+    /**
+     * @var string
+     */
+    public $orderType;
+
+    // 实例ID，续费/变配场景必传
+    /**
+     * @var string
+     */
+    public $instanceId;
     protected $_name = [
         'authToken'           => 'auth_token',
         'commodityCode'       => 'commodity_code',
@@ -80,6 +92,8 @@ class QueryPriceRequest extends Model
         'commodityOrderAttrs' => 'commodity_order_attrs',
         'currency'            => 'currency',
         'couponId'            => 'coupon_id',
+        'orderType'           => 'order_type',
+        'instanceId'          => 'instance_id',
     ];
 
     public function validate()
@@ -126,6 +140,12 @@ class QueryPriceRequest extends Model
         }
         if (null !== $this->couponId) {
             $res['coupon_id'] = $this->couponId;
+        }
+        if (null !== $this->orderType) {
+            $res['order_type'] = $this->orderType;
+        }
+        if (null !== $this->instanceId) {
+            $res['instance_id'] = $this->instanceId;
         }
 
         return $res;
@@ -174,6 +194,12 @@ class QueryPriceRequest extends Model
         }
         if (isset($map['coupon_id'])) {
             $model->couponId = $map['coupon_id'];
+        }
+        if (isset($map['order_type'])) {
+            $model->orderType = $map['order_type'];
+        }
+        if (isset($map['instance_id'])) {
+            $model->instanceId = $map['instance_id'];
         }
 
         return $model;
