@@ -3250,6 +3250,85 @@ export class PullApiSimpleauthmarkResponse extends $tea.Model {
   }
 }
 
+export class SyncRiskEvaluationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求流水号(必填),调用方保证每次请求号唯一，受理方用来校验唯一性，同一受理号返回请求结果一致
+  bizRequestId: string;
+  // 信贷用户的纳税人识别号或者身份证号
+  identityId: string;
+  // 授权类型
+  authType: string;
+  // 授权订单号
+  orderNo: string;
+  // 机构编码
+  instCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizRequestId: 'biz_request_id',
+      identityId: 'identity_id',
+      authType: 'auth_type',
+      orderNo: 'order_no',
+      instCode: 'inst_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizRequestId: 'string',
+      identityId: 'string',
+      authType: 'string',
+      orderNo: 'string',
+      instCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncRiskEvaluationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 1322324243	unix秒时间戳,查询时间，用来对账使用
+  queryTime?: string;
+  // 内容，List<JsonObject>
+  bizContent?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      queryTime: 'query_time',
+      bizContent: 'biz_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      queryTime: 'string',
+      bizContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryPdataPersonalincomeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3731,7 +3810,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.10",
+          sdk_version: "1.7.11",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
@@ -4271,6 +4350,25 @@ export default class Client {
   async pullApiSimpleauthmarkEx(request: PullApiSimpleauthmarkRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PullApiSimpleauthmarkResponse> {
     Util.validateModel(request);
     return $tea.cast<PullApiSimpleauthmarkResponse>(await this.doRequest("1.0", "blockchain.tax.api.simpleauthmark.pull", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PullApiSimpleauthmarkResponse({}));
+  }
+
+  /**
+   * Description: 查询-同步返回提额数据
+   * Summary: 查询-同步提额数据返回
+   */
+  async syncRiskEvaluation(request: SyncRiskEvaluationRequest): Promise<SyncRiskEvaluationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncRiskEvaluationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询-同步返回提额数据
+   * Summary: 查询-同步提额数据返回
+   */
+  async syncRiskEvaluationEx(request: SyncRiskEvaluationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncRiskEvaluationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncRiskEvaluationResponse>(await this.doRequest("1.0", "blockchain.tax.risk.evaluation.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncRiskEvaluationResponse({}));
   }
 
   /**
