@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -217,39 +217,6 @@ func (s *CommodityAttribute) SetUnit(v string) *CommodityAttribute {
 	return s
 }
 
-// 套餐内商品订单结构
-type ComboCommodityOrder struct {
-	// 商品编码
-	CommodityCode *string `json:"commodity_code,omitempty" xml:"commodity_code,omitempty" require:"true"`
-	// 状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 实例ID列表
-	InstanceIds []*string `json:"instance_ids,omitempty" xml:"instance_ids,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s ComboCommodityOrder) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ComboCommodityOrder) GoString() string {
-	return s.String()
-}
-
-func (s *ComboCommodityOrder) SetCommodityCode(v string) *ComboCommodityOrder {
-	s.CommodityCode = &v
-	return s
-}
-
-func (s *ComboCommodityOrder) SetStatus(v string) *ComboCommodityOrder {
-	s.Status = &v
-	return s
-}
-
-func (s *ComboCommodityOrder) SetInstanceIds(v []*string) *ComboCommodityOrder {
-	s.InstanceIds = v
-	return s
-}
-
 // 套餐内商品结构
 type ComboCommodity struct {
 	// 商品名称
@@ -315,6 +282,311 @@ func (s *ComboCommodity) SetQuantity(v int64) *ComboCommodity {
 
 func (s *ComboCommodity) SetExtendsConfig(v string) *ComboCommodity {
 	s.ExtendsConfig = &v
+	return s
+}
+
+// 订单周期结构
+type OrderDuration struct {
+	// 周期类型，YEAR：年；MONTH：月；DAY：日
+	DurationType *string `json:"duration_type,omitempty" xml:"duration_type,omitempty" require:"true"`
+	// 订购周期值
+	DurationValue *int64 `json:"duration_value,omitempty" xml:"duration_value,omitempty" require:"true"`
+}
+
+func (s OrderDuration) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderDuration) GoString() string {
+	return s.String()
+}
+
+func (s *OrderDuration) SetDurationType(v string) *OrderDuration {
+	s.DurationType = &v
+	return s
+}
+
+func (s *OrderDuration) SetDurationValue(v int64) *OrderDuration {
+	s.DurationValue = &v
+	return s
+}
+
+// 套餐内商品订单结构
+type ComboCommodityOrder struct {
+	// 商品编码
+	CommodityCode *string `json:"commodity_code,omitempty" xml:"commodity_code,omitempty" require:"true"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 实例ID列表
+	InstanceIds []*string `json:"instance_ids,omitempty" xml:"instance_ids,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ComboCommodityOrder) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ComboCommodityOrder) GoString() string {
+	return s.String()
+}
+
+func (s *ComboCommodityOrder) SetCommodityCode(v string) *ComboCommodityOrder {
+	s.CommodityCode = &v
+	return s
+}
+
+func (s *ComboCommodityOrder) SetStatus(v string) *ComboCommodityOrder {
+	s.Status = &v
+	return s
+}
+
+func (s *ComboCommodityOrder) SetInstanceIds(v []*string) *ComboCommodityOrder {
+	s.InstanceIds = v
+	return s
+}
+
+// 商品定价结构
+type CommodityPricing struct {
+}
+
+func (s CommodityPricing) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CommodityPricing) GoString() string {
+	return s.String()
+}
+
+// 标签对象
+type InstanceLabel struct {
+	// 标签名。
+	// 传递isvId
+	InstanceKey *string `json:"instance_key,omitempty" xml:"instance_key,omitempty" require:"true"`
+	// 标签值
+	InstanceValue *string `json:"instance_value,omitempty" xml:"instance_value,omitempty" require:"true"`
+}
+
+func (s InstanceLabel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InstanceLabel) GoString() string {
+	return s.String()
+}
+
+func (s *InstanceLabel) SetInstanceKey(v string) *InstanceLabel {
+	s.InstanceKey = &v
+	return s
+}
+
+func (s *InstanceLabel) SetInstanceValue(v string) *InstanceLabel {
+	s.InstanceValue = &v
+	return s
+}
+
+// 支付选项
+type PayOptions struct {
+	// 系统自动会根据账号类型、当前OU进行付费渠道判定；如果传入的付款渠道不满足，则报错
+	PayChannel *string `json:"pay_channel,omitempty" xml:"pay_channel,omitempty"`
+}
+
+func (s PayOptions) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PayOptions) GoString() string {
+	return s.String()
+}
+
+func (s *PayOptions) SetPayChannel(v string) *PayOptions {
+	s.PayChannel = &v
+	return s
+}
+
+// 价格策略
+type PriceStrategy struct {
+	// 继承租户在商品下的价格
+	FollowTenantId *string `json:"follow_tenant_id,omitempty" xml:"follow_tenant_id,omitempty"`
+}
+
+func (s PriceStrategy) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PriceStrategy) GoString() string {
+	return s.String()
+}
+
+func (s *PriceStrategy) SetFollowTenantId(v string) *PriceStrategy {
+	s.FollowTenantId = &v
+	return s
+}
+
+// 商品订购属性结构
+type CommodityOrderAttribute struct {
+	// 属性编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 属性值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 属性值单位，部分数值型属性有多种单位，需要填入；其他情况不需要填
+	ValueUnit *string `json:"value_unit,omitempty" xml:"value_unit,omitempty" require:"true"`
+}
+
+func (s CommodityOrderAttribute) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CommodityOrderAttribute) GoString() string {
+	return s.String()
+}
+
+func (s *CommodityOrderAttribute) SetCode(v string) *CommodityOrderAttribute {
+	s.Code = &v
+	return s
+}
+
+func (s *CommodityOrderAttribute) SetValue(v string) *CommodityOrderAttribute {
+	s.Value = &v
+	return s
+}
+
+func (s *CommodityOrderAttribute) SetValueUnit(v string) *CommodityOrderAttribute {
+	s.ValueUnit = &v
+	return s
+}
+
+// 履约选项
+type FulfillmentOptions struct {
+	// 是否延迟履约，默认false
+	Deplay *bool `json:"deplay,omitempty" xml:"deplay,omitempty"`
+	// 实际履约开始时间，默认支付完成时间；只有deplay=true时，start_time才生效
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 跳过SPI回调，默认false，优先级高于商品上默认的接入属性
+	SpiSkip *bool `json:"spi_skip,omitempty" xml:"spi_skip,omitempty"`
+}
+
+func (s FulfillmentOptions) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FulfillmentOptions) GoString() string {
+	return s.String()
+}
+
+func (s *FulfillmentOptions) SetDeplay(v bool) *FulfillmentOptions {
+	s.Deplay = &v
+	return s
+}
+
+func (s *FulfillmentOptions) SetStartTime(v string) *FulfillmentOptions {
+	s.StartTime = &v
+	return s
+}
+
+func (s *FulfillmentOptions) SetSpiSkip(v bool) *FulfillmentOptions {
+	s.SpiSkip = &v
+	return s
+}
+
+// 商品询价结构
+type CommodityEnquiryPrice struct {
+	// 商品主数据编码
+	CommodityCode *string `json:"commodity_code,omitempty" xml:"commodity_code,omitempty" require:"true"`
+	// 商品名称
+	CommodityName *string `json:"commodity_name,omitempty" xml:"commodity_name,omitempty" require:"true"`
+	// 预付-支付金额
+	PayAmount *string `json:"pay_amount,omitempty" xml:"pay_amount,omitempty" require:"true"`
+	// 预付费-原始金额
+	OriginalAmount *string `json:"original_amount,omitempty" xml:"original_amount,omitempty" require:"true"`
+	// 预付费-折扣金额
+	DiscountAmount *string `json:"discount_amount,omitempty" xml:"discount_amount,omitempty" require:"true"`
+	// 预付费-优惠券抵扣金额
+	CouponAmount *string `json:"coupon_amount,omitempty" xml:"coupon_amount,omitempty" require:"true"`
+	// 原订购剩余价值，用于变配场景
+	SubscriptionUnusedAmount *string `json:"subscription_unused_amount,omitempty" xml:"subscription_unused_amount,omitempty" require:"true"`
+	// 命中的活动编码
+	ActivityCode *string `json:"activity_code,omitempty" xml:"activity_code,omitempty" require:"true"`
+	// 命中的活动名称
+	ActivityName *string `json:"activity_name,omitempty" xml:"activity_name,omitempty" require:"true"`
+	// 命中的定价计划ID
+	PricePlanId *int64 `json:"price_plan_id,omitempty" xml:"price_plan_id,omitempty" require:"true"`
+	// 命中的定价约束ID
+	PriceConstraintId *int64 `json:"price_constraint_id,omitempty" xml:"price_constraint_id,omitempty" require:"true"`
+	// 币种，元：CNY
+	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
+	// 基于剩余价值变配场景下，预测的支付金额正常的最小订购周期
+	MinDurationOfValidPayAmount *OrderDuration `json:"min_duration_of_valid_pay_amount,omitempty" xml:"min_duration_of_valid_pay_amount,omitempty"`
+}
+
+func (s CommodityEnquiryPrice) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CommodityEnquiryPrice) GoString() string {
+	return s.String()
+}
+
+func (s *CommodityEnquiryPrice) SetCommodityCode(v string) *CommodityEnquiryPrice {
+	s.CommodityCode = &v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetCommodityName(v string) *CommodityEnquiryPrice {
+	s.CommodityName = &v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetPayAmount(v string) *CommodityEnquiryPrice {
+	s.PayAmount = &v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetOriginalAmount(v string) *CommodityEnquiryPrice {
+	s.OriginalAmount = &v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetDiscountAmount(v string) *CommodityEnquiryPrice {
+	s.DiscountAmount = &v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetCouponAmount(v string) *CommodityEnquiryPrice {
+	s.CouponAmount = &v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetSubscriptionUnusedAmount(v string) *CommodityEnquiryPrice {
+	s.SubscriptionUnusedAmount = &v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetActivityCode(v string) *CommodityEnquiryPrice {
+	s.ActivityCode = &v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetActivityName(v string) *CommodityEnquiryPrice {
+	s.ActivityName = &v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetPricePlanId(v int64) *CommodityEnquiryPrice {
+	s.PricePlanId = &v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetPriceConstraintId(v int64) *CommodityEnquiryPrice {
+	s.PriceConstraintId = &v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetCurrency(v string) *CommodityEnquiryPrice {
+	s.Currency = &v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetMinDurationOfValidPayAmount(v *OrderDuration) *CommodityEnquiryPrice {
+	s.MinDurationOfValidPayAmount = v
 	return s
 }
 
@@ -447,16 +719,112 @@ func (s *InstanceCapacity) SetRelPostpayCommodity(v string) *InstanceCapacity {
 	return s
 }
 
-// 商品定价结构
-type CommodityPricing struct {
+// 实例
+type Instance struct {
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 商品code
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	// 付费类型 PREPAY_BY_MONTH 预付 AFTER_PAY_BY_HOUR 后付 MIX_PAY 混合付
+	ChargeType *string `json:"charge_type,omitempty" xml:"charge_type,omitempty" require:"true"`
+	// 状态 CREATING 创建中 FAILED 创建失败  STARTED 运行中 STOPPED 已停服  RELEASED 已释放
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
-func (s CommodityPricing) String() string {
+func (s Instance) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CommodityPricing) GoString() string {
+func (s Instance) GoString() string {
 	return s.String()
+}
+
+func (s *Instance) SetTenantId(v string) *Instance {
+	s.TenantId = &v
+	return s
+}
+
+func (s *Instance) SetInstanceId(v string) *Instance {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *Instance) SetProductName(v string) *Instance {
+	s.ProductName = &v
+	return s
+}
+
+func (s *Instance) SetChargeType(v string) *Instance {
+	s.ChargeType = &v
+	return s
+}
+
+func (s *Instance) SetStatus(v string) *Instance {
+	s.Status = &v
+	return s
+}
+
+// 下单返回接口
+type CreateOrderResult struct {
+	// 下单时指定的业务流水号。二级订单号
+	BsnNo *string `json:"bsn_no,omitempty" xml:"bsn_no,omitempty" require:"true"`
+	// 一级订单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 二级订单号
+	NormalOrderLineId *string `json:"normal_order_line_id,omitempty" xml:"normal_order_line_id,omitempty" require:"true"`
+	// 订单状态
+	OrderStatus *string `json:"order_status,omitempty" xml:"order_status,omitempty" require:"true"`
+	// 实例列表
+	InstanceIds *string `json:"instance_ids,omitempty" xml:"instance_ids,omitempty" require:"true"`
+	// 订购错误码
+	OrderErrorCode *string `json:"order_error_code,omitempty" xml:"order_error_code,omitempty" require:"true"`
+	// 订购错误描述
+	OrderErrorDescription *string `json:"order_error_description,omitempty" xml:"order_error_description,omitempty" require:"true"`
+}
+
+func (s CreateOrderResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateOrderResult) GoString() string {
+	return s.String()
+}
+
+func (s *CreateOrderResult) SetBsnNo(v string) *CreateOrderResult {
+	s.BsnNo = &v
+	return s
+}
+
+func (s *CreateOrderResult) SetOrderId(v string) *CreateOrderResult {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CreateOrderResult) SetNormalOrderLineId(v string) *CreateOrderResult {
+	s.NormalOrderLineId = &v
+	return s
+}
+
+func (s *CreateOrderResult) SetOrderStatus(v string) *CreateOrderResult {
+	s.OrderStatus = &v
+	return s
+}
+
+func (s *CreateOrderResult) SetInstanceIds(v string) *CreateOrderResult {
+	s.InstanceIds = &v
+	return s
+}
+
+func (s *CreateOrderResult) SetOrderErrorCode(v string) *CreateOrderResult {
+	s.OrderErrorCode = &v
+	return s
+}
+
+func (s *CreateOrderResult) SetOrderErrorDescription(v string) *CreateOrderResult {
+	s.OrderErrorDescription = &v
+	return s
 }
 
 // 优惠券模型
@@ -598,287 +966,6 @@ func (s *Coupon) SetOrderTypeList(v string) *Coupon {
 	return s
 }
 
-// 商品询价结构
-type CommodityEnquiryPrice struct {
-	// 商品主数据编码
-	CommodityCode *string `json:"commodity_code,omitempty" xml:"commodity_code,omitempty" require:"true"`
-	// 商品名称
-	CommodityName *string `json:"commodity_name,omitempty" xml:"commodity_name,omitempty" require:"true"`
-	// 预付-支付金额
-	PayAmount *string `json:"pay_amount,omitempty" xml:"pay_amount,omitempty" require:"true"`
-	// 预付费-原始金额
-	OriginalAmount *string `json:"original_amount,omitempty" xml:"original_amount,omitempty" require:"true"`
-	// 预付费-折扣金额
-	DiscountAmount *string `json:"discount_amount,omitempty" xml:"discount_amount,omitempty" require:"true"`
-	// 命中的活动编码
-	ActivityCode *string `json:"activity_code,omitempty" xml:"activity_code,omitempty" require:"true"`
-	// 命中的活动名称
-	ActivityName *string `json:"activity_name,omitempty" xml:"activity_name,omitempty" require:"true"`
-	// 命中的定价计划ID
-	PricePlanId *int64 `json:"price_plan_id,omitempty" xml:"price_plan_id,omitempty" require:"true"`
-	// 命中的定价约束ID
-	PriceConstraintId *int64 `json:"price_constraint_id,omitempty" xml:"price_constraint_id,omitempty" require:"true"`
-	// 币种，元：CNY
-	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
-}
-
-func (s CommodityEnquiryPrice) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CommodityEnquiryPrice) GoString() string {
-	return s.String()
-}
-
-func (s *CommodityEnquiryPrice) SetCommodityCode(v string) *CommodityEnquiryPrice {
-	s.CommodityCode = &v
-	return s
-}
-
-func (s *CommodityEnquiryPrice) SetCommodityName(v string) *CommodityEnquiryPrice {
-	s.CommodityName = &v
-	return s
-}
-
-func (s *CommodityEnquiryPrice) SetPayAmount(v string) *CommodityEnquiryPrice {
-	s.PayAmount = &v
-	return s
-}
-
-func (s *CommodityEnquiryPrice) SetOriginalAmount(v string) *CommodityEnquiryPrice {
-	s.OriginalAmount = &v
-	return s
-}
-
-func (s *CommodityEnquiryPrice) SetDiscountAmount(v string) *CommodityEnquiryPrice {
-	s.DiscountAmount = &v
-	return s
-}
-
-func (s *CommodityEnquiryPrice) SetActivityCode(v string) *CommodityEnquiryPrice {
-	s.ActivityCode = &v
-	return s
-}
-
-func (s *CommodityEnquiryPrice) SetActivityName(v string) *CommodityEnquiryPrice {
-	s.ActivityName = &v
-	return s
-}
-
-func (s *CommodityEnquiryPrice) SetPricePlanId(v int64) *CommodityEnquiryPrice {
-	s.PricePlanId = &v
-	return s
-}
-
-func (s *CommodityEnquiryPrice) SetPriceConstraintId(v int64) *CommodityEnquiryPrice {
-	s.PriceConstraintId = &v
-	return s
-}
-
-func (s *CommodityEnquiryPrice) SetCurrency(v string) *CommodityEnquiryPrice {
-	s.Currency = &v
-	return s
-}
-
-// 支付选项
-type PayOptions struct {
-	// 系统自动会根据账号类型、当前OU进行付费渠道判定；如果传入的付款渠道不满足，则报错
-	PayChannel *string `json:"pay_channel,omitempty" xml:"pay_channel,omitempty"`
-}
-
-func (s PayOptions) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PayOptions) GoString() string {
-	return s.String()
-}
-
-func (s *PayOptions) SetPayChannel(v string) *PayOptions {
-	s.PayChannel = &v
-	return s
-}
-
-// 下单返回接口
-type CreateOrderResult struct {
-	// 下单时指定的业务流水号。二级订单号
-	BsnNo *string `json:"bsn_no,omitempty" xml:"bsn_no,omitempty" require:"true"`
-	// 一级订单号
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
-	// 二级订单号
-	NormalOrderLineId *string `json:"normal_order_line_id,omitempty" xml:"normal_order_line_id,omitempty" require:"true"`
-	// 订单状态
-	OrderStatus *string `json:"order_status,omitempty" xml:"order_status,omitempty" require:"true"`
-	// 实例列表
-	InstanceIds *string `json:"instance_ids,omitempty" xml:"instance_ids,omitempty" require:"true"`
-	// 订购错误码
-	OrderErrorCode *string `json:"order_error_code,omitempty" xml:"order_error_code,omitempty" require:"true"`
-	// 订购错误描述
-	OrderErrorDescription *string `json:"order_error_description,omitempty" xml:"order_error_description,omitempty" require:"true"`
-}
-
-func (s CreateOrderResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreateOrderResult) GoString() string {
-	return s.String()
-}
-
-func (s *CreateOrderResult) SetBsnNo(v string) *CreateOrderResult {
-	s.BsnNo = &v
-	return s
-}
-
-func (s *CreateOrderResult) SetOrderId(v string) *CreateOrderResult {
-	s.OrderId = &v
-	return s
-}
-
-func (s *CreateOrderResult) SetNormalOrderLineId(v string) *CreateOrderResult {
-	s.NormalOrderLineId = &v
-	return s
-}
-
-func (s *CreateOrderResult) SetOrderStatus(v string) *CreateOrderResult {
-	s.OrderStatus = &v
-	return s
-}
-
-func (s *CreateOrderResult) SetInstanceIds(v string) *CreateOrderResult {
-	s.InstanceIds = &v
-	return s
-}
-
-func (s *CreateOrderResult) SetOrderErrorCode(v string) *CreateOrderResult {
-	s.OrderErrorCode = &v
-	return s
-}
-
-func (s *CreateOrderResult) SetOrderErrorDescription(v string) *CreateOrderResult {
-	s.OrderErrorDescription = &v
-	return s
-}
-
-// 订单周期结构
-type OrderDuration struct {
-	// 周期类型，YEAR：年；MONTH：月；DAY：日
-	DurationType *string `json:"duration_type,omitempty" xml:"duration_type,omitempty" require:"true"`
-	// 订购周期值
-	DurationValue *int64 `json:"duration_value,omitempty" xml:"duration_value,omitempty" require:"true"`
-}
-
-func (s OrderDuration) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OrderDuration) GoString() string {
-	return s.String()
-}
-
-func (s *OrderDuration) SetDurationType(v string) *OrderDuration {
-	s.DurationType = &v
-	return s
-}
-
-func (s *OrderDuration) SetDurationValue(v int64) *OrderDuration {
-	s.DurationValue = &v
-	return s
-}
-
-// 标签对象
-type InstanceLabel struct {
-	// 标签名。
-	// 传递isvId
-	InstanceKey *string `json:"instance_key,omitempty" xml:"instance_key,omitempty" require:"true"`
-	// 标签值
-	InstanceValue *string `json:"instance_value,omitempty" xml:"instance_value,omitempty" require:"true"`
-}
-
-func (s InstanceLabel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s InstanceLabel) GoString() string {
-	return s.String()
-}
-
-func (s *InstanceLabel) SetInstanceKey(v string) *InstanceLabel {
-	s.InstanceKey = &v
-	return s
-}
-
-func (s *InstanceLabel) SetInstanceValue(v string) *InstanceLabel {
-	s.InstanceValue = &v
-	return s
-}
-
-// 商品订购属性结构
-type CommodityOrderAttribute struct {
-	// 属性编码
-	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
-	// 属性值
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-	// 属性值单位，部分数值型属性有多种单位，需要填入；其他情况不需要填
-	ValueUnit *string `json:"value_unit,omitempty" xml:"value_unit,omitempty" require:"true"`
-}
-
-func (s CommodityOrderAttribute) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CommodityOrderAttribute) GoString() string {
-	return s.String()
-}
-
-func (s *CommodityOrderAttribute) SetCode(v string) *CommodityOrderAttribute {
-	s.Code = &v
-	return s
-}
-
-func (s *CommodityOrderAttribute) SetValue(v string) *CommodityOrderAttribute {
-	s.Value = &v
-	return s
-}
-
-func (s *CommodityOrderAttribute) SetValueUnit(v string) *CommodityOrderAttribute {
-	s.ValueUnit = &v
-	return s
-}
-
-// 履约选项
-type FulfillmentOptions struct {
-	// 是否延迟履约，默认false
-	Deplay *bool `json:"deplay,omitempty" xml:"deplay,omitempty"`
-	// 实际履约开始时间，默认支付完成时间；只有deplay=true时，start_time才生效
-	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 跳过SPI回调，默认false，优先级高于商品上默认的接入属性
-	SpiSkip *bool `json:"spi_skip,omitempty" xml:"spi_skip,omitempty"`
-}
-
-func (s FulfillmentOptions) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FulfillmentOptions) GoString() string {
-	return s.String()
-}
-
-func (s *FulfillmentOptions) SetDeplay(v bool) *FulfillmentOptions {
-	s.Deplay = &v
-	return s
-}
-
-func (s *FulfillmentOptions) SetStartTime(v string) *FulfillmentOptions {
-	s.StartTime = &v
-	return s
-}
-
-func (s *FulfillmentOptions) SetSpiSkip(v bool) *FulfillmentOptions {
-	s.SpiSkip = &v
-	return s
-}
-
 // 套餐订单结构
 type ComboOrder struct {
 	// 租户ID
@@ -993,53 +1080,6 @@ func (s *ComboOrder) SetPayTime(v string) *ComboOrder {
 
 func (s *ComboOrder) SetPayChannel(v string) *ComboOrder {
 	s.PayChannel = &v
-	return s
-}
-
-// 实例
-type Instance struct {
-	// 租户id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 实例id
-	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
-	// 商品code
-	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
-	// 付费类型 PREPAY_BY_MONTH 预付 AFTER_PAY_BY_HOUR 后付 MIX_PAY 混合付
-	ChargeType *string `json:"charge_type,omitempty" xml:"charge_type,omitempty" require:"true"`
-	// 状态 CREATING 创建中 FAILED 创建失败  STARTED 运行中 STOPPED 已停服  RELEASED 已释放
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-}
-
-func (s Instance) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Instance) GoString() string {
-	return s.String()
-}
-
-func (s *Instance) SetTenantId(v string) *Instance {
-	s.TenantId = &v
-	return s
-}
-
-func (s *Instance) SetInstanceId(v string) *Instance {
-	s.InstanceId = &v
-	return s
-}
-
-func (s *Instance) SetProductName(v string) *Instance {
-	s.ProductName = &v
-	return s
-}
-
-func (s *Instance) SetChargeType(v string) *Instance {
-	s.ChargeType = &v
-	return s
-}
-
-func (s *Instance) SetStatus(v string) *Instance {
-	s.Status = &v
 	return s
 }
 
@@ -2108,7 +2148,9 @@ type CreateOrderRequest struct {
 	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty"`
 	// 商品编码
 	CommodityCode *string `json:"commodity_code,omitempty" xml:"commodity_code,omitempty" require:"true"`
-	// 订单类型，NEW：新购；RENEW：续费
+	// 销售主体，不传默认ZL6
+	Ou *string `json:"ou,omitempty" xml:"ou,omitempty"`
+	// 订单类型，NEW：新购；RENEW：续费； MODIFY：变配
 	// 不填默认新购
 	OrderType *string `json:"order_type,omitempty" xml:"order_type,omitempty"`
 	// 订购周期对象，当商品是周期订阅类型时，必填
@@ -2123,6 +2165,14 @@ type CreateOrderRequest struct {
 	FulfillmentOptions *FulfillmentOptions `json:"fulfillment_options,omitempty" xml:"fulfillment_options,omitempty"`
 	// 支付选项
 	PayOptions *PayOptions `json:"pay_options,omitempty" xml:"pay_options,omitempty"`
+	// 价格策略
+	PriceStrategy *PriceStrategy `json:"price_strategy,omitempty" xml:"price_strategy,omitempty"`
+	// 实例ID，续费/变配场景必传
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// 售卖市场。10100000：鹊凿市场；12000002：国际ZAN市场；其他市场编码请联系中台获取
+	SaleMarket *string `json:"sale_market,omitempty" xml:"sale_market,omitempty" require:"true"`
+	// 扩展属性，JSON字符串
+	ExtendedProperties *string `json:"extended_properties,omitempty" xml:"extended_properties,omitempty"`
 }
 
 func (s CreateOrderRequest) String() string {
@@ -2163,6 +2213,11 @@ func (s *CreateOrderRequest) SetCommodityCode(v string) *CreateOrderRequest {
 	return s
 }
 
+func (s *CreateOrderRequest) SetOu(v string) *CreateOrderRequest {
+	s.Ou = &v
+	return s
+}
+
 func (s *CreateOrderRequest) SetOrderType(v string) *CreateOrderRequest {
 	s.OrderType = &v
 	return s
@@ -2195,6 +2250,26 @@ func (s *CreateOrderRequest) SetFulfillmentOptions(v *FulfillmentOptions) *Creat
 
 func (s *CreateOrderRequest) SetPayOptions(v *PayOptions) *CreateOrderRequest {
 	s.PayOptions = v
+	return s
+}
+
+func (s *CreateOrderRequest) SetPriceStrategy(v *PriceStrategy) *CreateOrderRequest {
+	s.PriceStrategy = v
+	return s
+}
+
+func (s *CreateOrderRequest) SetInstanceId(v string) *CreateOrderRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *CreateOrderRequest) SetSaleMarket(v string) *CreateOrderRequest {
+	s.SaleMarket = &v
+	return s
+}
+
+func (s *CreateOrderRequest) SetExtendedProperties(v string) *CreateOrderRequest {
+	s.ExtendedProperties = &v
 	return s
 }
 
@@ -2248,6 +2323,77 @@ func (s *CreateOrderResponse) SetInstanceIds(v []*string) *CreateOrderResponse {
 
 func (s *CreateOrderResponse) SetPayStatus(v string) *CreateOrderResponse {
 	s.PayStatus = &v
+	return s
+}
+
+type GetComboOrderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 套餐订单ID
+	ComboOrderId *string `json:"combo_order_id,omitempty" xml:"combo_order_id,omitempty" require:"true"`
+	// 是否包含履约信息
+	IncludeFulfillInfo *bool `json:"include_fulfill_info,omitempty" xml:"include_fulfill_info,omitempty" require:"true"`
+}
+
+func (s GetComboOrderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetComboOrderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetComboOrderRequest) SetAuthToken(v string) *GetComboOrderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetComboOrderRequest) SetComboOrderId(v string) *GetComboOrderRequest {
+	s.ComboOrderId = &v
+	return s
+}
+
+func (s *GetComboOrderRequest) SetIncludeFulfillInfo(v bool) *GetComboOrderRequest {
+	s.IncludeFulfillInfo = &v
+	return s
+}
+
+type GetComboOrderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 套餐订单详情
+	Order *ComboOrder `json:"order,omitempty" xml:"order,omitempty"`
+}
+
+func (s GetComboOrderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetComboOrderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetComboOrderResponse) SetReqMsgId(v string) *GetComboOrderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetComboOrderResponse) SetResultCode(v string) *GetComboOrderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetComboOrderResponse) SetResultMsg(v string) *GetComboOrderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetComboOrderResponse) SetOrder(v *ComboOrder) *GetComboOrderResponse {
+	s.Order = v
 	return s
 }
 
@@ -2342,16 +2488,20 @@ type QueryPriceRequest struct {
 	Quantity *int64 `json:"quantity,omitempty" xml:"quantity,omitempty"`
 	// 业务发生时间，不传则默认当前时间
 	BizTime *string `json:"biz_time,omitempty" xml:"biz_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 订购周期，周期型商品必填，如资源包/包年包月商品
+	// 订购周期，基于周期定价的商品必填
 	OrderDuration *OrderDuration `json:"order_duration,omitempty" xml:"order_duration,omitempty"`
-	// 商品规格列表
-	// 针对量价型商品，统一使用SYS_USAGE_AMOUNT
-	// 针对资源包商品，统一使用CAPACITY
+	// 商品规格列表，按实际商品定义的和价格相关的属性传入
+	// 1.续费询价不需要传
+	// 2.变配询价需要传入变化的规格属性
 	CommodityOrderAttrs []*CommodityOrderAttribute `json:"commodity_order_attrs,omitempty" xml:"commodity_order_attrs,omitempty" type:"Repeated"`
 	// 币种，元：CNY，不传默认CNY
 	Currency *string `json:"currency,omitempty" xml:"currency,omitempty"`
 	// 优惠券ID
 	CouponId *string `json:"coupon_id,omitempty" xml:"coupon_id,omitempty"`
+	// 不填默认为NEW；NEW：新购；RENEW：续费；MODIFY：变配
+	OrderType *string `json:"order_type,omitempty" xml:"order_type,omitempty"`
+	// 实例ID，续费/变配场景必传
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
 }
 
 func (s QueryPriceRequest) String() string {
@@ -2409,6 +2559,16 @@ func (s *QueryPriceRequest) SetCurrency(v string) *QueryPriceRequest {
 
 func (s *QueryPriceRequest) SetCouponId(v string) *QueryPriceRequest {
 	s.CouponId = &v
+	return s
+}
+
+func (s *QueryPriceRequest) SetOrderType(v string) *QueryPriceRequest {
+	s.OrderType = &v
+	return s
+}
+
+func (s *QueryPriceRequest) SetInstanceId(v string) *QueryPriceRequest {
+	s.InstanceId = &v
 	return s
 }
 
@@ -2600,17 +2760,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -2644,7 +2804,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.6.3"),
+				"sdk_version":      tea.String("3.11.0"),
+				"_prod_code":       tea.String("TRADE"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2670,8 +2832,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -3067,7 +3237,7 @@ func (client *Client) PayComboOrderEx(request *PayComboOrderRequest, headers map
 }
 
 /**
- * Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+ * Description: 单商品通用下单接口
  * Summary: 通用下单接口
  */
 func (client *Client) CreateOrder(request *CreateOrderRequest) (_result *CreateOrderResponse, _err error) {
@@ -3083,7 +3253,7 @@ func (client *Client) CreateOrder(request *CreateOrderRequest) (_result *CreateO
 }
 
 /**
- * Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+ * Description: 单商品通用下单接口
  * Summary: 通用下单接口
  */
 func (client *Client) CreateOrderEx(request *CreateOrderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateOrderResponse, _err error) {
@@ -3093,6 +3263,40 @@ func (client *Client) CreateOrderEx(request *CreateOrderRequest, headers map[str
 	}
 	_result = &CreateOrderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.trade.order.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 套餐订单详情查询接口
+ * Summary: 套餐订单详情查询接口
+ */
+func (client *Client) GetComboOrder(request *GetComboOrderRequest) (_result *GetComboOrderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetComboOrderResponse{}
+	_body, _err := client.GetComboOrderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 套餐订单详情查询接口
+ * Summary: 套餐订单详情查询接口
+ */
+func (client *Client) GetComboOrderEx(request *GetComboOrderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetComboOrderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetComboOrderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.trade.combo.order.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3135,7 +3339,7 @@ func (client *Client) ExistPricePersonalizedEx(request *ExistPricePersonalizedRe
 }
 
 /**
- * Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+ * Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
  * Summary: 商品询价接口
  */
 func (client *Client) QueryPrice(request *QueryPriceRequest) (_result *QueryPriceResponse, _err error) {
@@ -3151,7 +3355,7 @@ func (client *Client) QueryPrice(request *QueryPriceRequest) (_result *QueryPric
 }
 
 /**
- * Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+ * Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
  * Summary: 商品询价接口
  */
 func (client *Client) QueryPriceEx(request *QueryPriceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPriceResponse, _err error) {
