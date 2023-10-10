@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.6.3',
+    sdk_version = '3.11.0',
+    _prod_code = 'TRADE',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -145,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -180,16 +182,6 @@ model CommodityAttribute {
   unit: string(name='unit', example='次、分钟'),
 }
 
-// 套餐内商品订单结构
-model ComboCommodityOrder {
-  // 商品编码
-  commodityCode: string(name='commodity_code', example='KXSFFM00264687'),
-  // 状态
-  status: string(name='status', example='COMPLETE'),
-  // 实例ID列表
-  instanceIds: [ string ](name='instance_ids', example='A0BLOCKCHAINAXAXVZSE1ZXEMO6HM2S'),
-}
-
 // 套餐内商品结构
 model ComboCommodity {
   // 商品名称
@@ -208,6 +200,99 @@ model ComboCommodity {
   quantity: long(name='quantity', example='1'),
   // 扩展信息，JSON结构，包含标签、个性化配置等数据
   extendsConfig: string(name='extends_config', example='{"key":"name"}'),
+}
+
+// 订单周期结构
+model OrderDuration {
+  // 周期类型，YEAR：年；MONTH：月；DAY：日
+  durationType: string(name='duration_type', example='YEAR'),
+  // 订购周期值
+  durationValue: long(name='duration_value', example='1'),
+}
+
+// 套餐内商品订单结构
+model ComboCommodityOrder {
+  // 商品编码
+  commodityCode: string(name='commodity_code', example='KXSFFM00264687'),
+  // 状态
+  status: string(name='status', example='COMPLETE'),
+  // 实例ID列表
+  instanceIds: [ string ](name='instance_ids', example='A0BLOCKCHAINAXAXVZSE1ZXEMO6HM2S'),
+}
+
+// 商品定价结构
+model CommodityPricing {
+}
+
+// 标签对象
+model InstanceLabel {
+  // 标签名。
+  // 传递isvId
+  instanceKey: string(name='instance_key', example='isvId'),
+  // 标签值
+  instanceValue: string(name='instance_value', example='邀请码'),
+}
+
+// 支付选项
+model PayOptions {
+  // 系统自动会根据账号类型、当前OU进行付费渠道判定；如果传入的付款渠道不满足，则报错
+  payChannel?: string(name='pay_channel', example='CUSTOMER_FUND'),
+}
+
+// 价格策略
+model PriceStrategy {
+  // 继承租户在商品下的价格
+  followTenantId?: string(name='follow_tenant_id', example='2088123412341234'),
+}
+
+// 商品订购属性结构
+model CommodityOrderAttribute {
+  // 属性编码
+  code: string(name='code', example='SYS_USAGE_AMOUNT'),
+  // 属性值
+  value: string(name='value', example='abc'),
+  // 属性值单位，部分数值型属性有多种单位，需要填入；其他情况不需要填
+  valueUnit: string(name='value_unit', example='MB'),
+}
+
+// 履约选项
+model FulfillmentOptions {
+  // 是否延迟履约，默认false
+  deplay?: boolean(name='deplay', example='true, false'),
+  // 实际履约开始时间，默认支付完成时间；只有deplay=true时，start_time才生效
+  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2018-10-10T10:10:00Z'),
+  // 跳过SPI回调，默认false，优先级高于商品上默认的接入属性
+  spiSkip?: boolean(name='spi_skip', example='true,false'),
+}
+
+// 商品询价结构
+model CommodityEnquiryPrice {
+  // 商品主数据编码
+  commodityCode: string(name='commodity_code', example='KXSFFM00264687'),
+  // 商品名称
+  commodityName: string(name='commodity_name', example='测试商品'),
+  // 预付-支付金额
+  payAmount: string(name='pay_amount', example='100.00'),
+  // 预付费-原始金额
+  originalAmount: string(name='original_amount', example='200.00'),
+  // 预付费-折扣金额
+  discountAmount: string(name='discount_amount', example='100.00'),
+  // 预付费-优惠券抵扣金额
+  couponAmount: string(name='coupon_amount', example='0.00'),
+  // 原订购剩余价值，用于变配场景
+  subscriptionUnusedAmount: string(name='subscription_unused_amount', example='50.00'),
+  // 命中的活动编码
+  activityCode: string(name='activity_code', example='a05d8efc-b1c8-42a0-9666-98f419d4e2eb'),
+  // 命中的活动名称
+  activityName: string(name='activity_name', example='测试折扣活动'),
+  // 命中的定价计划ID
+  pricePlanId: long(name='price_plan_id', example='1000'),
+  // 命中的定价约束ID
+  priceConstraintId: long(name='price_constraint_id', example='2000'),
+  // 币种，元：CNY
+  currency: string(name='currency', example='CNY'),
+  // 基于剩余价值变配场景下，预测的支付金额正常的最小订购周期
+  minDurationOfValidPayAmount?: OrderDuration(name='min_duration_of_valid_pay_amount', example=''),
 }
 
 // 套餐结构
@@ -248,8 +333,36 @@ model InstanceCapacity {
   relPostpayCommodity: string(name='rel_postpay_commodity', example='KKAASP00000001'),
 }
 
-// 商品定价结构
-model CommodityPricing {
+// 实例
+model Instance {
+  // 租户id
+  tenantId: string(name='tenant_id', example='2088*****'),
+  // 实例id
+  instanceId: string(name='instance_id', example='实例id'),
+  // 商品code
+  productName: string(name='product_name', example='ECS'),
+  // 付费类型 PREPAY_BY_MONTH 预付 AFTER_PAY_BY_HOUR 后付 MIX_PAY 混合付
+  chargeType: string(name='charge_type', example='PREPAY_BY_MONTH'),
+  // 状态 CREATING 创建中 FAILED 创建失败  STARTED 运行中 STOPPED 已停服  RELEASED 已释放
+  status: string(name='status', example='STARTED'),
+}
+
+// 下单返回接口
+model CreateOrderResult {
+  // 下单时指定的业务流水号。二级订单号
+  bsnNo: string(name='bsn_no', example='2088****'),
+  // 一级订单号
+  orderId: string(name='order_id', example='2088*****'),
+  // 二级订单号
+  normalOrderLineId: string(name='normal_order_line_id', example='2088*****'),
+  // 订单状态
+  orderStatus: string(name='order_status', example='ORDER_INIT'),
+  // 实例列表
+  instanceIds: string(name='instance_ids', example='A0****'),
+  // 订购错误码
+  orderErrorCode: string(name='order_error_code', example='订购错误码'),
+  // 订购错误描述
+  orderErrorDescription: string(name='order_error_description', example='订购错误描述'),
 }
 
 // 优惠券模型
@@ -303,91 +416,6 @@ model Coupon {
   orderTypeList: string(name='order_type_list', example='BUY'),
 }
 
-// 商品询价结构
-model CommodityEnquiryPrice {
-  // 商品主数据编码
-  commodityCode: string(name='commodity_code', example='KXSFFM00264687'),
-  // 商品名称
-  commodityName: string(name='commodity_name', example='测试商品'),
-  // 预付-支付金额
-  payAmount: string(name='pay_amount', example='100.00'),
-  // 预付费-原始金额
-  originalAmount: string(name='original_amount', example='200.00'),
-  // 预付费-折扣金额
-  discountAmount: string(name='discount_amount', example='100.00'),
-  // 命中的活动编码
-  activityCode: string(name='activity_code', example='a05d8efc-b1c8-42a0-9666-98f419d4e2eb'),
-  // 命中的活动名称
-  activityName: string(name='activity_name', example='测试折扣活动'),
-  // 命中的定价计划ID
-  pricePlanId: long(name='price_plan_id', example='1000'),
-  // 命中的定价约束ID
-  priceConstraintId: long(name='price_constraint_id', example='2000'),
-  // 币种，元：CNY
-  currency: string(name='currency', example='CNY'),
-}
-
-// 支付选项
-model PayOptions {
-  // 系统自动会根据账号类型、当前OU进行付费渠道判定；如果传入的付款渠道不满足，则报错
-  payChannel?: string(name='pay_channel', example='CUSTOMER_FUND'),
-}
-
-// 下单返回接口
-model CreateOrderResult {
-  // 下单时指定的业务流水号。二级订单号
-  bsnNo: string(name='bsn_no', example='2088****'),
-  // 一级订单号
-  orderId: string(name='order_id', example='2088*****'),
-  // 二级订单号
-  normalOrderLineId: string(name='normal_order_line_id', example='2088*****'),
-  // 订单状态
-  orderStatus: string(name='order_status', example='ORDER_INIT'),
-  // 实例列表
-  instanceIds: string(name='instance_ids', example='A0****'),
-  // 订购错误码
-  orderErrorCode: string(name='order_error_code', example='订购错误码'),
-  // 订购错误描述
-  orderErrorDescription: string(name='order_error_description', example='订购错误描述'),
-}
-
-// 订单周期结构
-model OrderDuration {
-  // 周期类型，YEAR：年；MONTH：月；DAY：日
-  durationType: string(name='duration_type', example='YEAR'),
-  // 订购周期值
-  durationValue: long(name='duration_value', example='1'),
-}
-
-// 标签对象
-model InstanceLabel {
-  // 标签名。
-  // 传递isvId
-  instanceKey: string(name='instance_key', example='isvId'),
-  // 标签值
-  instanceValue: string(name='instance_value', example='邀请码'),
-}
-
-// 商品订购属性结构
-model CommodityOrderAttribute {
-  // 属性编码
-  code: string(name='code', example='SYS_USAGE_AMOUNT'),
-  // 属性值
-  value: string(name='value', example='abc'),
-  // 属性值单位，部分数值型属性有多种单位，需要填入；其他情况不需要填
-  valueUnit: string(name='value_unit', example='MB'),
-}
-
-// 履约选项
-model FulfillmentOptions {
-  // 是否延迟履约，默认false
-  deplay?: boolean(name='deplay', example='true, false'),
-  // 实际履约开始时间，默认支付完成时间；只有deplay=true时，start_time才生效
-  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2018-10-10T10:10:00Z'),
-  // 跳过SPI回调，默认false，优先级高于商品上默认的接入属性
-  spiSkip?: boolean(name='spi_skip', example='true,false'),
-}
-
 // 套餐订单结构
 model ComboOrder {
   // 租户ID
@@ -420,20 +448,6 @@ model ComboOrder {
   payTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='pay_time', example='2018-10-10T10:10:00Z'),
   // 支付渠道
   payChannel: string(name='pay_channel', example='CUSTOMER_FUND'),
-}
-
-// 实例
-model Instance {
-  // 租户id
-  tenantId: string(name='tenant_id', example='2088*****'),
-  // 实例id
-  instanceId: string(name='instance_id', example='实例id'),
-  // 商品code
-  productName: string(name='product_name', example='ECS'),
-  // 付费类型 PREPAY_BY_MONTH 预付 AFTER_PAY_BY_HOUR 后付 MIX_PAY 混合付
-  chargeType: string(name='charge_type', example='PREPAY_BY_MONTH'),
-  // 状态 CREATING 创建中 FAILED 创建失败  STARTED 运行中 STOPPED 已停服  RELEASED 已释放
-  status: string(name='status', example='STARTED'),
 }
 
 model QueryInstanceCapacityRequest = {
@@ -964,7 +978,9 @@ model CreateOrderRequest = {
   operatorId?: string(name='operator_id'),
   // 商品编码
   commodityCode: string(name='commodity_code'),
-  // 订单类型，NEW：新购；RENEW：续费
+  // 销售主体，不传默认ZL6
+  ou?: string(name='ou'),
+  // 订单类型，NEW：新购；RENEW：续费； MODIFY：变配
   // 不填默认新购
   orderType?: string(name='order_type'),
   // 订购周期对象，当商品是周期订阅类型时，必填
@@ -979,6 +995,14 @@ model CreateOrderRequest = {
   fulfillmentOptions?: FulfillmentOptions(name='fulfillment_options'),
   // 支付选项
   payOptions?: PayOptions(name='pay_options'),
+  // 价格策略
+  priceStrategy?: PriceStrategy(name='price_strategy'),
+  // 实例ID，续费/变配场景必传
+  instanceId?: string(name='instance_id'),
+  // 售卖市场。10100000：鹊凿市场；12000002：国际ZAN市场；其他市场编码请联系中台获取
+  saleMarket: string(name='sale_market'),
+  // 扩展属性，JSON字符串
+  extendedProperties?: string(name='extended_properties'),
 }
 
 model CreateOrderResponse = {
@@ -997,7 +1021,7 @@ model CreateOrderResponse = {
 }
 
 /**
- * Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+ * Description: 单商品通用下单接口
  * Summary: 通用下单接口
  */
 async function createOrder(request: CreateOrderRequest): CreateOrderResponse {
@@ -1007,12 +1031,51 @@ async function createOrder(request: CreateOrderRequest): CreateOrderResponse {
 }
 
 /**
- * Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+ * Description: 单商品通用下单接口
  * Summary: 通用下单接口
  */
 async function createOrderEx(request: CreateOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateOrderResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.trade.order.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetComboOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 套餐订单ID
+  comboOrderId: string(name='combo_order_id'),
+  // 是否包含履约信息
+  includeFulfillInfo: boolean(name='include_fulfill_info'),
+}
+
+model GetComboOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 套餐订单详情
+  order?: ComboOrder(name='order'),
+}
+
+/**
+ * Description: 套餐订单详情查询接口
+ * Summary: 套餐订单详情查询接口
+ */
+async function getComboOrder(request: GetComboOrderRequest): GetComboOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getComboOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 套餐订单详情查询接口
+ * Summary: 套餐订单详情查询接口
+ */
+async function getComboOrderEx(request: GetComboOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetComboOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.combo.order.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExistPricePersonalizedRequest = {
@@ -1069,16 +1132,20 @@ model QueryPriceRequest = {
   quantity?: long(name='quantity'),
   // 业务发生时间，不传则默认当前时间
   bizTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='biz_time'),
-  // 订购周期，周期型商品必填，如资源包/包年包月商品
+  // 订购周期，基于周期定价的商品必填
   orderDuration?: OrderDuration(name='order_duration'),
-  // 商品规格列表
-  // 针对量价型商品，统一使用SYS_USAGE_AMOUNT
-  // 针对资源包商品，统一使用CAPACITY
+  // 商品规格列表，按实际商品定义的和价格相关的属性传入
+  // 1.续费询价不需要传
+  // 2.变配询价需要传入变化的规格属性
   commodityOrderAttrs?: [ CommodityOrderAttribute ](name='commodity_order_attrs'),
   // 币种，元：CNY，不传默认CNY
   currency?: string(name='currency'),
   // 优惠券ID
   couponId?: string(name='coupon_id'),
+  // 不填默认为NEW；NEW：新购；RENEW：续费；MODIFY：变配
+  orderType?: string(name='order_type'),
+  // 实例ID，续费/变配场景必传
+  instanceId?: string(name='instance_id'),
 }
 
 model QueryPriceResponse = {
@@ -1093,7 +1160,7 @@ model QueryPriceResponse = {
 }
 
 /**
- * Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+ * Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
  * Summary: 商品询价接口
  */
 async function queryPrice(request: QueryPriceRequest): QueryPriceResponse {
@@ -1103,7 +1170,7 @@ async function queryPrice(request: QueryPriceRequest): QueryPriceResponse {
 }
 
 /**
- * Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+ * Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
  * Summary: 商品询价接口
  */
 async function queryPriceEx(request: QueryPriceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPriceResponse {
