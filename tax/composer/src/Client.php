@@ -71,6 +71,8 @@ use AntChain\TAX\Models\QueryRiskEvaluationRequest;
 use AntChain\TAX\Models\QueryRiskEvaluationResponse;
 use AntChain\TAX\Models\SubmitApiSimpleauthmarkRequest;
 use AntChain\TAX\Models\SubmitApiSimpleauthmarkResponse;
+use AntChain\TAX\Models\SyncRiskEvaluationRequest;
+use AntChain\TAX\Models\SyncRiskEvaluationResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -218,7 +220,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.10',
+                    'sdk_version'      => '1.7.11',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1122,6 +1124,39 @@ class Client
         Utils::validateModel($request);
 
         return PullApiSimpleauthmarkResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.simpleauthmark.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询-同步返回提额数据
+     * Summary: 查询-同步提额数据返回.
+     *
+     * @param SyncRiskEvaluationRequest $request
+     *
+     * @return SyncRiskEvaluationResponse
+     */
+    public function syncRiskEvaluation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncRiskEvaluationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询-同步返回提额数据
+     * Summary: 查询-同步提额数据返回.
+     *
+     * @param SyncRiskEvaluationRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return SyncRiskEvaluationResponse
+     */
+    public function syncRiskEvaluationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncRiskEvaluationResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.risk.evaluation.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
