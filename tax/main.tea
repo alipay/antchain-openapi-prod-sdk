@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.10',
+    sdk_version = '1.7.11',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -1887,6 +1887,54 @@ async function pullApiSimpleauthmark(request: PullApiSimpleauthmarkRequest): Pul
 async function pullApiSimpleauthmarkEx(request: PullApiSimpleauthmarkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PullApiSimpleauthmarkResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.tax.api.simpleauthmark.pull', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncRiskEvaluationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求流水号(必填),调用方保证每次请求号唯一，受理方用来校验唯一性，同一受理号返回请求结果一致
+  bizRequestId: string(name='biz_request_id'),
+  // 信贷用户的纳税人识别号或者身份证号
+  identityId: string(name='identity_id'),
+  // 授权类型
+  authType: string(name='auth_type'),
+  // 授权订单号
+  orderNo: string(name='order_no'),
+  // 机构编码
+  instCode: string(name='inst_code'),
+}
+
+model SyncRiskEvaluationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 1322324243	unix秒时间戳,查询时间，用来对账使用
+  queryTime?: string(name='query_time'),
+  // 内容，List<JsonObject>
+  bizContent?: string(name='biz_content'),
+}
+
+/**
+ * Description: 查询-同步返回提额数据
+ * Summary: 查询-同步提额数据返回
+ */
+async function syncRiskEvaluation(request: SyncRiskEvaluationRequest): SyncRiskEvaluationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncRiskEvaluationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询-同步返回提额数据
+ * Summary: 查询-同步提额数据返回
+ */
+async function syncRiskEvaluationEx(request: SyncRiskEvaluationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncRiskEvaluationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.risk.evaluation.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryPdataPersonalincomeRequest = {
