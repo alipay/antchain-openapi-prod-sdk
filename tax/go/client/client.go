@@ -4294,6 +4294,111 @@ func (s *PullApiSimpleauthmarkResponse) SetSecret(v string) *PullApiSimpleauthma
 	return s
 }
 
+type SyncRiskEvaluationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求流水号(必填),调用方保证每次请求号唯一，受理方用来校验唯一性，同一受理号返回请求结果一致
+	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty" require:"true"`
+	// 信贷用户的纳税人识别号或者身份证号
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 授权类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 授权订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 机构编码
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+}
+
+func (s SyncRiskEvaluationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncRiskEvaluationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncRiskEvaluationRequest) SetAuthToken(v string) *SyncRiskEvaluationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncRiskEvaluationRequest) SetProductInstanceId(v string) *SyncRiskEvaluationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncRiskEvaluationRequest) SetBizRequestId(v string) *SyncRiskEvaluationRequest {
+	s.BizRequestId = &v
+	return s
+}
+
+func (s *SyncRiskEvaluationRequest) SetIdentityId(v string) *SyncRiskEvaluationRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *SyncRiskEvaluationRequest) SetAuthType(v string) *SyncRiskEvaluationRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *SyncRiskEvaluationRequest) SetOrderNo(v string) *SyncRiskEvaluationRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *SyncRiskEvaluationRequest) SetInstCode(v string) *SyncRiskEvaluationRequest {
+	s.InstCode = &v
+	return s
+}
+
+type SyncRiskEvaluationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 1322324243	unix秒时间戳,查询时间，用来对账使用
+	QueryTime *string `json:"query_time,omitempty" xml:"query_time,omitempty"`
+	// 内容，List<JsonObject>
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
+}
+
+func (s SyncRiskEvaluationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncRiskEvaluationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncRiskEvaluationResponse) SetReqMsgId(v string) *SyncRiskEvaluationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncRiskEvaluationResponse) SetResultCode(v string) *SyncRiskEvaluationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncRiskEvaluationResponse) SetResultMsg(v string) *SyncRiskEvaluationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SyncRiskEvaluationResponse) SetQueryTime(v string) *SyncRiskEvaluationResponse {
+	s.QueryTime = &v
+	return s
+}
+
+func (s *SyncRiskEvaluationResponse) SetBizContent(v string) *SyncRiskEvaluationResponse {
+	s.BizContent = &v
+	return s
+}
+
 type QueryPdataPersonalincomeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4927,7 +5032,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.10"),
+				"sdk_version":      tea.String("1.7.11"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5862,6 +5967,40 @@ func (client *Client) PullApiSimpleauthmarkEx(request *PullApiSimpleauthmarkRequ
 	}
 	_result = &PullApiSimpleauthmarkResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.simpleauthmark.pull"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询-同步返回提额数据
+ * Summary: 查询-同步提额数据返回
+ */
+func (client *Client) SyncRiskEvaluation(request *SyncRiskEvaluationRequest) (_result *SyncRiskEvaluationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncRiskEvaluationResponse{}
+	_body, _err := client.SyncRiskEvaluationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询-同步返回提额数据
+ * Summary: 查询-同步提额数据返回
+ */
+func (client *Client) SyncRiskEvaluationEx(request *SyncRiskEvaluationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncRiskEvaluationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncRiskEvaluationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.risk.evaluation.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
