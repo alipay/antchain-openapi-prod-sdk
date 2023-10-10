@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "3.6.3")
+                    new TeaPair("sdk_version", "3.11.0"),
+                    new TeaPair("_prod_code", "TRADE"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -369,7 +371,7 @@ public class Client {
     }
 
     /**
-     * Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+     * Description: 单商品通用下单接口
      * Summary: 通用下单接口
      */
     public CreateOrderResponse createOrder(CreateOrderRequest request) throws Exception {
@@ -379,12 +381,31 @@ public class Client {
     }
 
     /**
-     * Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+     * Description: 单商品通用下单接口
      * Summary: 通用下单接口
      */
     public CreateOrderResponse createOrderEx(CreateOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.trade.order.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateOrderResponse());
+    }
+
+    /**
+     * Description: 套餐订单详情查询接口
+     * Summary: 套餐订单详情查询接口
+     */
+    public GetComboOrderResponse getComboOrder(GetComboOrderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getComboOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 套餐订单详情查询接口
+     * Summary: 套餐订单详情查询接口
+     */
+    public GetComboOrderResponse getComboOrderEx(GetComboOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.trade.combo.order.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetComboOrderResponse());
     }
 
     /**
@@ -407,7 +428,7 @@ public class Client {
     }
 
     /**
-     * Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+     * Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
      * Summary: 商品询价接口
      */
     public QueryPriceResponse queryPrice(QueryPriceRequest request) throws Exception {
@@ -417,7 +438,7 @@ public class Client {
     }
 
     /**
-     * Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+     * Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
      * Summary: 商品询价接口
      */
     public QueryPriceResponse queryPriceEx(QueryPriceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {

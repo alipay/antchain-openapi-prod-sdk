@@ -29,6 +29,16 @@ public class CommodityEnquiryPrice extends TeaModel {
     @Validation(required = true)
     public String discountAmount;
 
+    // 预付费-优惠券抵扣金额
+    @NameInMap("coupon_amount")
+    @Validation(required = true)
+    public String couponAmount;
+
+    // 原订购剩余价值，用于变配场景
+    @NameInMap("subscription_unused_amount")
+    @Validation(required = true)
+    public String subscriptionUnusedAmount;
+
     // 命中的活动编码
     @NameInMap("activity_code")
     @Validation(required = true)
@@ -53,6 +63,10 @@ public class CommodityEnquiryPrice extends TeaModel {
     @NameInMap("currency")
     @Validation(required = true)
     public String currency;
+
+    // 基于剩余价值变配场景下，预测的支付金额正常的最小订购周期
+    @NameInMap("min_duration_of_valid_pay_amount")
+    public OrderDuration minDurationOfValidPayAmount;
 
     public static CommodityEnquiryPrice build(java.util.Map<String, ?> map) throws Exception {
         CommodityEnquiryPrice self = new CommodityEnquiryPrice();
@@ -99,6 +113,22 @@ public class CommodityEnquiryPrice extends TeaModel {
         return this.discountAmount;
     }
 
+    public CommodityEnquiryPrice setCouponAmount(String couponAmount) {
+        this.couponAmount = couponAmount;
+        return this;
+    }
+    public String getCouponAmount() {
+        return this.couponAmount;
+    }
+
+    public CommodityEnquiryPrice setSubscriptionUnusedAmount(String subscriptionUnusedAmount) {
+        this.subscriptionUnusedAmount = subscriptionUnusedAmount;
+        return this;
+    }
+    public String getSubscriptionUnusedAmount() {
+        return this.subscriptionUnusedAmount;
+    }
+
     public CommodityEnquiryPrice setActivityCode(String activityCode) {
         this.activityCode = activityCode;
         return this;
@@ -137,6 +167,14 @@ public class CommodityEnquiryPrice extends TeaModel {
     }
     public String getCurrency() {
         return this.currency;
+    }
+
+    public CommodityEnquiryPrice setMinDurationOfValidPayAmount(OrderDuration minDurationOfValidPayAmount) {
+        this.minDurationOfValidPayAmount = minDurationOfValidPayAmount;
+        return this;
+    }
+    public OrderDuration getMinDurationOfValidPayAmount() {
+        return this.minDurationOfValidPayAmount;
     }
 
 }

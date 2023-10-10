@@ -30,13 +30,13 @@ public class QueryPriceRequest extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String bizTime;
 
-    // 订购周期，周期型商品必填，如资源包/包年包月商品
+    // 订购周期，基于周期定价的商品必填
     @NameInMap("order_duration")
     public OrderDuration orderDuration;
 
-    // 商品规格列表
-    // 针对量价型商品，统一使用SYS_USAGE_AMOUNT
-    // 针对资源包商品，统一使用CAPACITY
+    // 商品规格列表，按实际商品定义的和价格相关的属性传入
+    // 1.续费询价不需要传
+    // 2.变配询价需要传入变化的规格属性
     @NameInMap("commodity_order_attrs")
     public java.util.List<CommodityOrderAttribute> commodityOrderAttrs;
 
@@ -47,6 +47,14 @@ public class QueryPriceRequest extends TeaModel {
     // 优惠券ID
     @NameInMap("coupon_id")
     public String couponId;
+
+    // 不填默认为NEW；NEW：新购；RENEW：续费；MODIFY：变配
+    @NameInMap("order_type")
+    public String orderType;
+
+    // 实例ID，续费/变配场景必传
+    @NameInMap("instance_id")
+    public String instanceId;
 
     public static QueryPriceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryPriceRequest self = new QueryPriceRequest();
@@ -131,6 +139,22 @@ public class QueryPriceRequest extends TeaModel {
     }
     public String getCouponId() {
         return this.couponId;
+    }
+
+    public QueryPriceRequest setOrderType(String orderType) {
+        this.orderType = orderType;
+        return this;
+    }
+    public String getOrderType() {
+        return this.orderType;
+    }
+
+    public QueryPriceRequest setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
+        return this;
+    }
+    public String getInstanceId() {
+        return this.instanceId;
     }
 
 }

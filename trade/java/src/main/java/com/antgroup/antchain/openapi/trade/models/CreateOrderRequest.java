@@ -30,7 +30,11 @@ public class CreateOrderRequest extends TeaModel {
     @Validation(required = true)
     public String commodityCode;
 
-    // 订单类型，NEW：新购；RENEW：续费
+    // 销售主体，不传默认ZL6
+    @NameInMap("ou")
+    public String ou;
+
+    // 订单类型，NEW：新购；RENEW：续费； MODIFY：变配
     // 不填默认新购
     @NameInMap("order_type")
     public String orderType;
@@ -58,6 +62,23 @@ public class CreateOrderRequest extends TeaModel {
     // 支付选项
     @NameInMap("pay_options")
     public PayOptions payOptions;
+
+    // 价格策略
+    @NameInMap("price_strategy")
+    public PriceStrategy priceStrategy;
+
+    // 实例ID，续费/变配场景必传
+    @NameInMap("instance_id")
+    public String instanceId;
+
+    // 售卖市场。10100000：鹊凿市场；12000002：国际ZAN市场；其他市场编码请联系中台获取
+    @NameInMap("sale_market")
+    @Validation(required = true)
+    public String saleMarket;
+
+    // 扩展属性，JSON字符串
+    @NameInMap("extended_properties")
+    public String extendedProperties;
 
     public static CreateOrderRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateOrderRequest self = new CreateOrderRequest();
@@ -110,6 +131,14 @@ public class CreateOrderRequest extends TeaModel {
     }
     public String getCommodityCode() {
         return this.commodityCode;
+    }
+
+    public CreateOrderRequest setOu(String ou) {
+        this.ou = ou;
+        return this;
+    }
+    public String getOu() {
+        return this.ou;
     }
 
     public CreateOrderRequest setOrderType(String orderType) {
@@ -166,6 +195,38 @@ public class CreateOrderRequest extends TeaModel {
     }
     public PayOptions getPayOptions() {
         return this.payOptions;
+    }
+
+    public CreateOrderRequest setPriceStrategy(PriceStrategy priceStrategy) {
+        this.priceStrategy = priceStrategy;
+        return this;
+    }
+    public PriceStrategy getPriceStrategy() {
+        return this.priceStrategy;
+    }
+
+    public CreateOrderRequest setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
+        return this;
+    }
+    public String getInstanceId() {
+        return this.instanceId;
+    }
+
+    public CreateOrderRequest setSaleMarket(String saleMarket) {
+        this.saleMarket = saleMarket;
+        return this;
+    }
+    public String getSaleMarket() {
+        return this.saleMarket;
+    }
+
+    public CreateOrderRequest setExtendedProperties(String extendedProperties) {
+        this.extendedProperties = extendedProperties;
+        return this;
+    }
+    public String getExtendedProperties() {
+        return this.extendedProperties;
     }
 
 }
