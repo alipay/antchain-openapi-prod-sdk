@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.6.3'
+                    'sdk_version': '3.11.0',
+                    '_prod_code': 'TRADE',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -200,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.6.3'
+                    'sdk_version': '3.11.0',
+                    '_prod_code': 'TRADE',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +310,8 @@ class Client:
         Summary: 查询租户实例容量信息
         """
         UtilClient.validate_model(request)
-        return trade_models.QueryInstanceCapacityResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.QueryInstanceCapacityResponse(),
             self.do_request('1.0', 'antcloud.trade.instance.capacity.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +326,8 @@ class Client:
         Summary: 查询租户实例容量信息
         """
         UtilClient.validate_model(request)
-        return trade_models.QueryInstanceCapacityResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.QueryInstanceCapacityResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.instance.capacity.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +366,8 @@ class Client:
         Summary: 优惠券列表查询接口
         """
         UtilClient.validate_model(request)
-        return trade_models.QueryMarketingCouponResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.QueryMarketingCouponResponse(),
             self.do_request('1.0', 'antcloud.trade.marketing.coupon.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +382,8 @@ class Client:
         Summary: 优惠券列表查询接口
         """
         UtilClient.validate_model(request)
-        return trade_models.QueryMarketingCouponResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.QueryMarketingCouponResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.marketing.coupon.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +422,8 @@ class Client:
         Summary: 优惠券发放接口
         """
         UtilClient.validate_model(request)
-        return trade_models.SendMarketingCouponResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.SendMarketingCouponResponse(),
             self.do_request('1.0', 'antcloud.trade.marketing.coupon.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +438,8 @@ class Client:
         Summary: 优惠券发放接口
         """
         UtilClient.validate_model(request)
-        return trade_models.SendMarketingCouponResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.SendMarketingCouponResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.marketing.coupon.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +478,8 @@ class Client:
         Summary: 开通类商品自动下单接口
         """
         UtilClient.validate_model(request)
-        return trade_models.CreateOrderAfterResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.CreateOrderAfterResponse(),
             self.do_request('1.0', 'antcloud.trade.order.after.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +494,8 @@ class Client:
         Summary: 开通类商品自动下单接口
         """
         UtilClient.validate_model(request)
-        return trade_models.CreateOrderAfterResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.CreateOrderAfterResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.order.after.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +534,8 @@ class Client:
         Summary: 能力编排-商品开通
         """
         UtilClient.validate_model(request)
-        return trade_models.CreateOrderWorkflowResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.CreateOrderWorkflowResponse(),
             self.do_request('1.0', 'antcloud.trade.order.workflow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +550,8 @@ class Client:
         Summary: 能力编排-商品开通
         """
         UtilClient.validate_model(request)
-        return trade_models.CreateOrderWorkflowResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.CreateOrderWorkflowResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.order.workflow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +590,8 @@ class Client:
         Summary: 获取套餐详情
         """
         UtilClient.validate_model(request)
-        return trade_models.GetComboResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.GetComboResponse(),
             self.do_request('1.0', 'antcloud.trade.combo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +606,8 @@ class Client:
         Summary: 获取套餐详情
         """
         UtilClient.validate_model(request)
-        return trade_models.GetComboResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.GetComboResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.combo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +646,8 @@ class Client:
         Summary: 套餐询价接口
         """
         UtilClient.validate_model(request)
-        return trade_models.QueryComboPriceResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.QueryComboPriceResponse(),
             self.do_request('1.0', 'antcloud.trade.combo.price.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +662,8 @@ class Client:
         Summary: 套餐询价接口
         """
         UtilClient.validate_model(request)
-        return trade_models.QueryComboPriceResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.QueryComboPriceResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.combo.price.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +702,8 @@ class Client:
         Summary: 套餐下单接口
         """
         UtilClient.validate_model(request)
-        return trade_models.CreateComboOrderResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.CreateComboOrderResponse(),
             self.do_request('1.0', 'antcloud.trade.combo.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +718,8 @@ class Client:
         Summary: 套餐下单接口
         """
         UtilClient.validate_model(request)
-        return trade_models.CreateComboOrderResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.CreateComboOrderResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.combo.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +758,8 @@ class Client:
         Summary: 套餐订单列表分页查询接口
         """
         UtilClient.validate_model(request)
-        return trade_models.QueryComboOrderResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.QueryComboOrderResponse(),
             self.do_request('1.0', 'antcloud.trade.combo.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +774,8 @@ class Client:
         Summary: 套餐订单列表分页查询接口
         """
         UtilClient.validate_model(request)
-        return trade_models.QueryComboOrderResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.QueryComboOrderResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.combo.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +814,8 @@ class Client:
         Summary: 查询套餐列表
         """
         UtilClient.validate_model(request)
-        return trade_models.QueryComboResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.QueryComboResponse(),
             self.do_request('1.0', 'antcloud.trade.combo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +830,8 @@ class Client:
         Summary: 查询套餐列表
         """
         UtilClient.validate_model(request)
-        return trade_models.QueryComboResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.QueryComboResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.combo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +870,8 @@ class Client:
         Summary: 套餐订单支付接口
         """
         UtilClient.validate_model(request)
-        return trade_models.PayComboOrderResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.PayComboOrderResponse(),
             self.do_request('1.0', 'antcloud.trade.combo.order.pay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +886,8 @@ class Client:
         Summary: 套餐订单支付接口
         """
         UtilClient.validate_model(request)
-        return trade_models.PayComboOrderResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.PayComboOrderResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.combo.order.pay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -870,7 +896,7 @@ class Client:
         request: trade_models.CreateOrderRequest,
     ) -> trade_models.CreateOrderResponse:
         """
-        Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+        Description: 单商品通用下单接口
         Summary: 通用下单接口
         """
         runtime = util_models.RuntimeOptions()
@@ -882,7 +908,7 @@ class Client:
         request: trade_models.CreateOrderRequest,
     ) -> trade_models.CreateOrderResponse:
         """
-        Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+        Description: 单商品通用下单接口
         Summary: 通用下单接口
         """
         runtime = util_models.RuntimeOptions()
@@ -896,11 +922,12 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> trade_models.CreateOrderResponse:
         """
-        Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+        Description: 单商品通用下单接口
         Summary: 通用下单接口
         """
         UtilClient.validate_model(request)
-        return trade_models.CreateOrderResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.CreateOrderResponse(),
             self.do_request('1.0', 'antcloud.trade.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -911,12 +938,69 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> trade_models.CreateOrderResponse:
         """
-        Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+        Description: 单商品通用下单接口
         Summary: 通用下单接口
         """
         UtilClient.validate_model(request)
-        return trade_models.CreateOrderResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.CreateOrderResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_combo_order(
+        self,
+        request: trade_models.GetComboOrderRequest,
+    ) -> trade_models.GetComboOrderResponse:
+        """
+        Description: 套餐订单详情查询接口
+        Summary: 套餐订单详情查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_combo_order_ex(request, headers, runtime)
+
+    async def get_combo_order_async(
+        self,
+        request: trade_models.GetComboOrderRequest,
+    ) -> trade_models.GetComboOrderResponse:
+        """
+        Description: 套餐订单详情查询接口
+        Summary: 套餐订单详情查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_combo_order_ex_async(request, headers, runtime)
+
+    def get_combo_order_ex(
+        self,
+        request: trade_models.GetComboOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> trade_models.GetComboOrderResponse:
+        """
+        Description: 套餐订单详情查询接口
+        Summary: 套餐订单详情查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            trade_models.GetComboOrderResponse(),
+            self.do_request('1.0', 'antcloud.trade.combo.order.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_combo_order_ex_async(
+        self,
+        request: trade_models.GetComboOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> trade_models.GetComboOrderResponse:
+        """
+        Description: 套餐订单详情查询接口
+        Summary: 套餐订单详情查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            trade_models.GetComboOrderResponse(),
+            await self.do_request_async('1.0', 'antcloud.trade.combo.order.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exist_price_personalized(
@@ -954,7 +1038,8 @@ class Client:
         Summary: 判断租户是否存在个性化定价
         """
         UtilClient.validate_model(request)
-        return trade_models.ExistPricePersonalizedResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.ExistPricePersonalizedResponse(),
             self.do_request('1.0', 'antcloud.trade.price.personalized.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -969,7 +1054,8 @@ class Client:
         Summary: 判断租户是否存在个性化定价
         """
         UtilClient.validate_model(request)
-        return trade_models.ExistPricePersonalizedResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.ExistPricePersonalizedResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.price.personalized.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -978,7 +1064,7 @@ class Client:
         request: trade_models.QueryPriceRequest,
     ) -> trade_models.QueryPriceResponse:
         """
-        Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+        Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
         Summary: 商品询价接口
         """
         runtime = util_models.RuntimeOptions()
@@ -990,7 +1076,7 @@ class Client:
         request: trade_models.QueryPriceRequest,
     ) -> trade_models.QueryPriceResponse:
         """
-        Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+        Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
         Summary: 商品询价接口
         """
         runtime = util_models.RuntimeOptions()
@@ -1004,11 +1090,12 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> trade_models.QueryPriceResponse:
         """
-        Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+        Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
         Summary: 商品询价接口
         """
         UtilClient.validate_model(request)
-        return trade_models.QueryPriceResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.QueryPriceResponse(),
             self.do_request('1.0', 'antcloud.trade.price.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1019,11 +1106,12 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> trade_models.QueryPriceResponse:
         """
-        Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+        Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
         Summary: 商品询价接口
         """
         UtilClient.validate_model(request)
-        return trade_models.QueryPriceResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.QueryPriceResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.price.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1062,7 +1150,8 @@ class Client:
         Summary: 实例接口查询
         """
         UtilClient.validate_model(request)
-        return trade_models.QueryWareslifeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.QueryWareslifeInstanceResponse(),
             self.do_request('1.0', 'antcloud.trade.wareslife.instance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1077,6 +1166,7 @@ class Client:
         Summary: 实例接口查询
         """
         UtilClient.validate_model(request)
-        return trade_models.QueryWareslifeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            trade_models.QueryWareslifeInstanceResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.wareslife.instance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

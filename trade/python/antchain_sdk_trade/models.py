@@ -70,6 +70,10 @@ class Config(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.access_key_id is not None:
             result['accessKeyId'] = self.access_key_id
@@ -191,6 +195,10 @@ class CommodityAttribute(TeaModel):
         self.validate_required(self.unit, 'unit')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.code is not None:
             result['code'] = self.code
@@ -228,46 +236,6 @@ class CommodityAttribute(TeaModel):
             self.tips = m.get('tips')
         if m.get('unit') is not None:
             self.unit = m.get('unit')
-        return self
-
-
-class ComboCommodityOrder(TeaModel):
-    def __init__(
-        self,
-        commodity_code: str = None,
-        status: str = None,
-        instance_ids: List[str] = None,
-    ):
-        # 商品编码
-        self.commodity_code = commodity_code
-        # 状态
-        self.status = status
-        # 实例ID列表
-        self.instance_ids = instance_ids
-
-    def validate(self):
-        self.validate_required(self.commodity_code, 'commodity_code')
-        self.validate_required(self.status, 'status')
-        self.validate_required(self.instance_ids, 'instance_ids')
-
-    def to_map(self):
-        result = dict()
-        if self.commodity_code is not None:
-            result['commodity_code'] = self.commodity_code
-        if self.status is not None:
-            result['status'] = self.status
-        if self.instance_ids is not None:
-            result['instance_ids'] = self.instance_ids
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('commodity_code') is not None:
-            self.commodity_code = m.get('commodity_code')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('instance_ids') is not None:
-            self.instance_ids = m.get('instance_ids')
         return self
 
 
@@ -315,6 +283,10 @@ class ComboCommodity(TeaModel):
         self.validate_required(self.extends_config, 'extends_config')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -360,6 +332,412 @@ class ComboCommodity(TeaModel):
         return self
 
 
+class OrderDuration(TeaModel):
+    def __init__(
+        self,
+        duration_type: str = None,
+        duration_value: int = None,
+    ):
+        # 周期类型，YEAR：年；MONTH：月；DAY：日
+        self.duration_type = duration_type
+        # 订购周期值
+        self.duration_value = duration_value
+
+    def validate(self):
+        self.validate_required(self.duration_type, 'duration_type')
+        self.validate_required(self.duration_value, 'duration_value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.duration_type is not None:
+            result['duration_type'] = self.duration_type
+        if self.duration_value is not None:
+            result['duration_value'] = self.duration_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('duration_type') is not None:
+            self.duration_type = m.get('duration_type')
+        if m.get('duration_value') is not None:
+            self.duration_value = m.get('duration_value')
+        return self
+
+
+class ComboCommodityOrder(TeaModel):
+    def __init__(
+        self,
+        commodity_code: str = None,
+        status: str = None,
+        instance_ids: List[str] = None,
+    ):
+        # 商品编码
+        self.commodity_code = commodity_code
+        # 状态
+        self.status = status
+        # 实例ID列表
+        self.instance_ids = instance_ids
+
+    def validate(self):
+        self.validate_required(self.commodity_code, 'commodity_code')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.instance_ids, 'instance_ids')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['commodity_code'] = self.commodity_code
+        if self.status is not None:
+            result['status'] = self.status
+        if self.instance_ids is not None:
+            result['instance_ids'] = self.instance_ids
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('commodity_code') is not None:
+            self.commodity_code = m.get('commodity_code')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('instance_ids') is not None:
+            self.instance_ids = m.get('instance_ids')
+        return self
+
+
+class CommodityPricing(TeaModel):
+    def __init__(self):
+        pass
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        return self
+
+
+class InstanceLabel(TeaModel):
+    def __init__(
+        self,
+        instance_key: str = None,
+        instance_value: str = None,
+    ):
+        # 标签名。
+        # 传递isvId
+        self.instance_key = instance_key
+        # 标签值
+        self.instance_value = instance_value
+
+    def validate(self):
+        self.validate_required(self.instance_key, 'instance_key')
+        self.validate_required(self.instance_value, 'instance_value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_key is not None:
+            result['instance_key'] = self.instance_key
+        if self.instance_value is not None:
+            result['instance_value'] = self.instance_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('instance_key') is not None:
+            self.instance_key = m.get('instance_key')
+        if m.get('instance_value') is not None:
+            self.instance_value = m.get('instance_value')
+        return self
+
+
+class PayOptions(TeaModel):
+    def __init__(
+        self,
+        pay_channel: str = None,
+    ):
+        # 系统自动会根据账号类型、当前OU进行付费渠道判定；如果传入的付款渠道不满足，则报错
+        self.pay_channel = pay_channel
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pay_channel is not None:
+            result['pay_channel'] = self.pay_channel
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('pay_channel') is not None:
+            self.pay_channel = m.get('pay_channel')
+        return self
+
+
+class PriceStrategy(TeaModel):
+    def __init__(
+        self,
+        follow_tenant_id: str = None,
+    ):
+        # 继承租户在商品下的价格
+        self.follow_tenant_id = follow_tenant_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.follow_tenant_id is not None:
+            result['follow_tenant_id'] = self.follow_tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('follow_tenant_id') is not None:
+            self.follow_tenant_id = m.get('follow_tenant_id')
+        return self
+
+
+class CommodityOrderAttribute(TeaModel):
+    def __init__(
+        self,
+        code: str = None,
+        value: str = None,
+        value_unit: str = None,
+    ):
+        # 属性编码
+        self.code = code
+        # 属性值
+        self.value = value
+        # 属性值单位，部分数值型属性有多种单位，需要填入；其他情况不需要填
+        self.value_unit = value_unit
+
+    def validate(self):
+        self.validate_required(self.code, 'code')
+        self.validate_required(self.value, 'value')
+        self.validate_required(self.value_unit, 'value_unit')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.value is not None:
+            result['value'] = self.value
+        if self.value_unit is not None:
+            result['value_unit'] = self.value_unit
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        if m.get('value_unit') is not None:
+            self.value_unit = m.get('value_unit')
+        return self
+
+
+class FulfillmentOptions(TeaModel):
+    def __init__(
+        self,
+        deplay: bool = None,
+        start_time: str = None,
+        spi_skip: bool = None,
+    ):
+        # 是否延迟履约，默认false
+        self.deplay = deplay
+        # 实际履约开始时间，默认支付完成时间；只有deplay=true时，start_time才生效
+        self.start_time = start_time
+        # 跳过SPI回调，默认false，优先级高于商品上默认的接入属性
+        self.spi_skip = spi_skip
+
+    def validate(self):
+        if self.start_time is not None:
+            self.validate_pattern(self.start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deplay is not None:
+            result['deplay'] = self.deplay
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.spi_skip is not None:
+            result['spi_skip'] = self.spi_skip
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('deplay') is not None:
+            self.deplay = m.get('deplay')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('spi_skip') is not None:
+            self.spi_skip = m.get('spi_skip')
+        return self
+
+
+class CommodityEnquiryPrice(TeaModel):
+    def __init__(
+        self,
+        commodity_code: str = None,
+        commodity_name: str = None,
+        pay_amount: str = None,
+        original_amount: str = None,
+        discount_amount: str = None,
+        coupon_amount: str = None,
+        subscription_unused_amount: str = None,
+        activity_code: str = None,
+        activity_name: str = None,
+        price_plan_id: int = None,
+        price_constraint_id: int = None,
+        currency: str = None,
+        min_duration_of_valid_pay_amount: OrderDuration = None,
+    ):
+        # 商品主数据编码
+        self.commodity_code = commodity_code
+        # 商品名称
+        self.commodity_name = commodity_name
+        # 预付-支付金额
+        self.pay_amount = pay_amount
+        # 预付费-原始金额
+        self.original_amount = original_amount
+        # 预付费-折扣金额
+        self.discount_amount = discount_amount
+        # 预付费-优惠券抵扣金额
+        self.coupon_amount = coupon_amount
+        # 原订购剩余价值，用于变配场景
+        self.subscription_unused_amount = subscription_unused_amount
+        # 命中的活动编码
+        self.activity_code = activity_code
+        # 命中的活动名称
+        self.activity_name = activity_name
+        # 命中的定价计划ID
+        self.price_plan_id = price_plan_id
+        # 命中的定价约束ID
+        self.price_constraint_id = price_constraint_id
+        # 币种，元：CNY
+        self.currency = currency
+        # 基于剩余价值变配场景下，预测的支付金额正常的最小订购周期
+        self.min_duration_of_valid_pay_amount = min_duration_of_valid_pay_amount
+
+    def validate(self):
+        self.validate_required(self.commodity_code, 'commodity_code')
+        self.validate_required(self.commodity_name, 'commodity_name')
+        self.validate_required(self.pay_amount, 'pay_amount')
+        self.validate_required(self.original_amount, 'original_amount')
+        self.validate_required(self.discount_amount, 'discount_amount')
+        self.validate_required(self.coupon_amount, 'coupon_amount')
+        self.validate_required(self.subscription_unused_amount, 'subscription_unused_amount')
+        self.validate_required(self.activity_code, 'activity_code')
+        self.validate_required(self.activity_name, 'activity_name')
+        self.validate_required(self.price_plan_id, 'price_plan_id')
+        self.validate_required(self.price_constraint_id, 'price_constraint_id')
+        self.validate_required(self.currency, 'currency')
+        if self.min_duration_of_valid_pay_amount:
+            self.min_duration_of_valid_pay_amount.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['commodity_code'] = self.commodity_code
+        if self.commodity_name is not None:
+            result['commodity_name'] = self.commodity_name
+        if self.pay_amount is not None:
+            result['pay_amount'] = self.pay_amount
+        if self.original_amount is not None:
+            result['original_amount'] = self.original_amount
+        if self.discount_amount is not None:
+            result['discount_amount'] = self.discount_amount
+        if self.coupon_amount is not None:
+            result['coupon_amount'] = self.coupon_amount
+        if self.subscription_unused_amount is not None:
+            result['subscription_unused_amount'] = self.subscription_unused_amount
+        if self.activity_code is not None:
+            result['activity_code'] = self.activity_code
+        if self.activity_name is not None:
+            result['activity_name'] = self.activity_name
+        if self.price_plan_id is not None:
+            result['price_plan_id'] = self.price_plan_id
+        if self.price_constraint_id is not None:
+            result['price_constraint_id'] = self.price_constraint_id
+        if self.currency is not None:
+            result['currency'] = self.currency
+        if self.min_duration_of_valid_pay_amount is not None:
+            result['min_duration_of_valid_pay_amount'] = self.min_duration_of_valid_pay_amount.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('commodity_code') is not None:
+            self.commodity_code = m.get('commodity_code')
+        if m.get('commodity_name') is not None:
+            self.commodity_name = m.get('commodity_name')
+        if m.get('pay_amount') is not None:
+            self.pay_amount = m.get('pay_amount')
+        if m.get('original_amount') is not None:
+            self.original_amount = m.get('original_amount')
+        if m.get('discount_amount') is not None:
+            self.discount_amount = m.get('discount_amount')
+        if m.get('coupon_amount') is not None:
+            self.coupon_amount = m.get('coupon_amount')
+        if m.get('subscription_unused_amount') is not None:
+            self.subscription_unused_amount = m.get('subscription_unused_amount')
+        if m.get('activity_code') is not None:
+            self.activity_code = m.get('activity_code')
+        if m.get('activity_name') is not None:
+            self.activity_name = m.get('activity_name')
+        if m.get('price_plan_id') is not None:
+            self.price_plan_id = m.get('price_plan_id')
+        if m.get('price_constraint_id') is not None:
+            self.price_constraint_id = m.get('price_constraint_id')
+        if m.get('currency') is not None:
+            self.currency = m.get('currency')
+        if m.get('min_duration_of_valid_pay_amount') is not None:
+            temp_model = OrderDuration()
+            self.min_duration_of_valid_pay_amount = temp_model.from_map(m['min_duration_of_valid_pay_amount'])
+        return self
+
+
 class Combo(TeaModel):
     def __init__(
         self,
@@ -400,6 +778,10 @@ class Combo(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.code is not None:
             result['code'] = self.code
@@ -485,6 +867,10 @@ class InstanceCapacity(TeaModel):
         self.validate_required(self.rel_postpay_commodity, 'rel_postpay_commodity')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.instance_id is not None:
             result['instance_id'] = self.instance_id
@@ -525,19 +911,139 @@ class InstanceCapacity(TeaModel):
         return self
 
 
-class CommodityPricing(TeaModel):
-    def __init__(self):
-        pass
+class Instance(TeaModel):
+    def __init__(
+        self,
+        tenant_id: str = None,
+        instance_id: str = None,
+        product_name: str = None,
+        charge_type: str = None,
+        status: str = None,
+    ):
+        # 租户id
+        self.tenant_id = tenant_id
+        # 实例id
+        self.instance_id = instance_id
+        # 商品code
+        self.product_name = product_name
+        # 付费类型 PREPAY_BY_MONTH 预付 AFTER_PAY_BY_HOUR 后付 MIX_PAY 混合付
+        self.charge_type = charge_type
+        # 状态 CREATING 创建中 FAILED 创建失败  STARTED 运行中 STOPPED 已停服  RELEASED 已释放
+        self.status = status
 
     def validate(self):
-        pass
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.product_name, 'product_name')
+        self.validate_required(self.charge_type, 'charge_type')
+        self.validate_required(self.status, 'status')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.charge_type is not None:
+            result['charge_type'] = self.charge_type
+        if self.status is not None:
+            result['status'] = self.status
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('charge_type') is not None:
+            self.charge_type = m.get('charge_type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class CreateOrderResult(TeaModel):
+    def __init__(
+        self,
+        bsn_no: str = None,
+        order_id: str = None,
+        normal_order_line_id: str = None,
+        order_status: str = None,
+        instance_ids: str = None,
+        order_error_code: str = None,
+        order_error_description: str = None,
+    ):
+        # 下单时指定的业务流水号。二级订单号
+        self.bsn_no = bsn_no
+        # 一级订单号
+        self.order_id = order_id
+        # 二级订单号
+        self.normal_order_line_id = normal_order_line_id
+        # 订单状态
+        self.order_status = order_status
+        # 实例列表
+        self.instance_ids = instance_ids
+        # 订购错误码
+        self.order_error_code = order_error_code
+        # 订购错误描述
+        self.order_error_description = order_error_description
+
+    def validate(self):
+        self.validate_required(self.bsn_no, 'bsn_no')
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.normal_order_line_id, 'normal_order_line_id')
+        self.validate_required(self.order_status, 'order_status')
+        self.validate_required(self.instance_ids, 'instance_ids')
+        self.validate_required(self.order_error_code, 'order_error_code')
+        self.validate_required(self.order_error_description, 'order_error_description')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bsn_no is not None:
+            result['bsn_no'] = self.bsn_no
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.normal_order_line_id is not None:
+            result['normal_order_line_id'] = self.normal_order_line_id
+        if self.order_status is not None:
+            result['order_status'] = self.order_status
+        if self.instance_ids is not None:
+            result['instance_ids'] = self.instance_ids
+        if self.order_error_code is not None:
+            result['order_error_code'] = self.order_error_code
+        if self.order_error_description is not None:
+            result['order_error_description'] = self.order_error_description
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('bsn_no') is not None:
+            self.bsn_no = m.get('bsn_no')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('normal_order_line_id') is not None:
+            self.normal_order_line_id = m.get('normal_order_line_id')
+        if m.get('order_status') is not None:
+            self.order_status = m.get('order_status')
+        if m.get('instance_ids') is not None:
+            self.instance_ids = m.get('instance_ids')
+        if m.get('order_error_code') is not None:
+            self.order_error_code = m.get('order_error_code')
+        if m.get('order_error_description') is not None:
+            self.order_error_description = m.get('order_error_description')
         return self
 
 
@@ -628,6 +1134,10 @@ class Coupon(TeaModel):
         self.validate_required(self.order_type_list, 'order_type_list')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.id is not None:
             result['id'] = self.id
@@ -697,342 +1207,6 @@ class Coupon(TeaModel):
             self.product_list = m.get('product_list')
         if m.get('order_type_list') is not None:
             self.order_type_list = m.get('order_type_list')
-        return self
-
-
-class CommodityEnquiryPrice(TeaModel):
-    def __init__(
-        self,
-        commodity_code: str = None,
-        commodity_name: str = None,
-        pay_amount: str = None,
-        original_amount: str = None,
-        discount_amount: str = None,
-        activity_code: str = None,
-        activity_name: str = None,
-        price_plan_id: int = None,
-        price_constraint_id: int = None,
-        currency: str = None,
-    ):
-        # 商品主数据编码
-        self.commodity_code = commodity_code
-        # 商品名称
-        self.commodity_name = commodity_name
-        # 预付-支付金额
-        self.pay_amount = pay_amount
-        # 预付费-原始金额
-        self.original_amount = original_amount
-        # 预付费-折扣金额
-        self.discount_amount = discount_amount
-        # 命中的活动编码
-        self.activity_code = activity_code
-        # 命中的活动名称
-        self.activity_name = activity_name
-        # 命中的定价计划ID
-        self.price_plan_id = price_plan_id
-        # 命中的定价约束ID
-        self.price_constraint_id = price_constraint_id
-        # 币种，元：CNY
-        self.currency = currency
-
-    def validate(self):
-        self.validate_required(self.commodity_code, 'commodity_code')
-        self.validate_required(self.commodity_name, 'commodity_name')
-        self.validate_required(self.pay_amount, 'pay_amount')
-        self.validate_required(self.original_amount, 'original_amount')
-        self.validate_required(self.discount_amount, 'discount_amount')
-        self.validate_required(self.activity_code, 'activity_code')
-        self.validate_required(self.activity_name, 'activity_name')
-        self.validate_required(self.price_plan_id, 'price_plan_id')
-        self.validate_required(self.price_constraint_id, 'price_constraint_id')
-        self.validate_required(self.currency, 'currency')
-
-    def to_map(self):
-        result = dict()
-        if self.commodity_code is not None:
-            result['commodity_code'] = self.commodity_code
-        if self.commodity_name is not None:
-            result['commodity_name'] = self.commodity_name
-        if self.pay_amount is not None:
-            result['pay_amount'] = self.pay_amount
-        if self.original_amount is not None:
-            result['original_amount'] = self.original_amount
-        if self.discount_amount is not None:
-            result['discount_amount'] = self.discount_amount
-        if self.activity_code is not None:
-            result['activity_code'] = self.activity_code
-        if self.activity_name is not None:
-            result['activity_name'] = self.activity_name
-        if self.price_plan_id is not None:
-            result['price_plan_id'] = self.price_plan_id
-        if self.price_constraint_id is not None:
-            result['price_constraint_id'] = self.price_constraint_id
-        if self.currency is not None:
-            result['currency'] = self.currency
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('commodity_code') is not None:
-            self.commodity_code = m.get('commodity_code')
-        if m.get('commodity_name') is not None:
-            self.commodity_name = m.get('commodity_name')
-        if m.get('pay_amount') is not None:
-            self.pay_amount = m.get('pay_amount')
-        if m.get('original_amount') is not None:
-            self.original_amount = m.get('original_amount')
-        if m.get('discount_amount') is not None:
-            self.discount_amount = m.get('discount_amount')
-        if m.get('activity_code') is not None:
-            self.activity_code = m.get('activity_code')
-        if m.get('activity_name') is not None:
-            self.activity_name = m.get('activity_name')
-        if m.get('price_plan_id') is not None:
-            self.price_plan_id = m.get('price_plan_id')
-        if m.get('price_constraint_id') is not None:
-            self.price_constraint_id = m.get('price_constraint_id')
-        if m.get('currency') is not None:
-            self.currency = m.get('currency')
-        return self
-
-
-class PayOptions(TeaModel):
-    def __init__(
-        self,
-        pay_channel: str = None,
-    ):
-        # 系统自动会根据账号类型、当前OU进行付费渠道判定；如果传入的付款渠道不满足，则报错
-        self.pay_channel = pay_channel
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.pay_channel is not None:
-            result['pay_channel'] = self.pay_channel
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('pay_channel') is not None:
-            self.pay_channel = m.get('pay_channel')
-        return self
-
-
-class CreateOrderResult(TeaModel):
-    def __init__(
-        self,
-        bsn_no: str = None,
-        order_id: str = None,
-        normal_order_line_id: str = None,
-        order_status: str = None,
-        instance_ids: str = None,
-        order_error_code: str = None,
-        order_error_description: str = None,
-    ):
-        # 下单时指定的业务流水号。二级订单号
-        self.bsn_no = bsn_no
-        # 一级订单号
-        self.order_id = order_id
-        # 二级订单号
-        self.normal_order_line_id = normal_order_line_id
-        # 订单状态
-        self.order_status = order_status
-        # 实例列表
-        self.instance_ids = instance_ids
-        # 订购错误码
-        self.order_error_code = order_error_code
-        # 订购错误描述
-        self.order_error_description = order_error_description
-
-    def validate(self):
-        self.validate_required(self.bsn_no, 'bsn_no')
-        self.validate_required(self.order_id, 'order_id')
-        self.validate_required(self.normal_order_line_id, 'normal_order_line_id')
-        self.validate_required(self.order_status, 'order_status')
-        self.validate_required(self.instance_ids, 'instance_ids')
-        self.validate_required(self.order_error_code, 'order_error_code')
-        self.validate_required(self.order_error_description, 'order_error_description')
-
-    def to_map(self):
-        result = dict()
-        if self.bsn_no is not None:
-            result['bsn_no'] = self.bsn_no
-        if self.order_id is not None:
-            result['order_id'] = self.order_id
-        if self.normal_order_line_id is not None:
-            result['normal_order_line_id'] = self.normal_order_line_id
-        if self.order_status is not None:
-            result['order_status'] = self.order_status
-        if self.instance_ids is not None:
-            result['instance_ids'] = self.instance_ids
-        if self.order_error_code is not None:
-            result['order_error_code'] = self.order_error_code
-        if self.order_error_description is not None:
-            result['order_error_description'] = self.order_error_description
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('bsn_no') is not None:
-            self.bsn_no = m.get('bsn_no')
-        if m.get('order_id') is not None:
-            self.order_id = m.get('order_id')
-        if m.get('normal_order_line_id') is not None:
-            self.normal_order_line_id = m.get('normal_order_line_id')
-        if m.get('order_status') is not None:
-            self.order_status = m.get('order_status')
-        if m.get('instance_ids') is not None:
-            self.instance_ids = m.get('instance_ids')
-        if m.get('order_error_code') is not None:
-            self.order_error_code = m.get('order_error_code')
-        if m.get('order_error_description') is not None:
-            self.order_error_description = m.get('order_error_description')
-        return self
-
-
-class OrderDuration(TeaModel):
-    def __init__(
-        self,
-        duration_type: str = None,
-        duration_value: int = None,
-    ):
-        # 周期类型，YEAR：年；MONTH：月；DAY：日
-        self.duration_type = duration_type
-        # 订购周期值
-        self.duration_value = duration_value
-
-    def validate(self):
-        self.validate_required(self.duration_type, 'duration_type')
-        self.validate_required(self.duration_value, 'duration_value')
-
-    def to_map(self):
-        result = dict()
-        if self.duration_type is not None:
-            result['duration_type'] = self.duration_type
-        if self.duration_value is not None:
-            result['duration_value'] = self.duration_value
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('duration_type') is not None:
-            self.duration_type = m.get('duration_type')
-        if m.get('duration_value') is not None:
-            self.duration_value = m.get('duration_value')
-        return self
-
-
-class InstanceLabel(TeaModel):
-    def __init__(
-        self,
-        instance_key: str = None,
-        instance_value: str = None,
-    ):
-        # 标签名。
-        # 传递isvId
-        self.instance_key = instance_key
-        # 标签值
-        self.instance_value = instance_value
-
-    def validate(self):
-        self.validate_required(self.instance_key, 'instance_key')
-        self.validate_required(self.instance_value, 'instance_value')
-
-    def to_map(self):
-        result = dict()
-        if self.instance_key is not None:
-            result['instance_key'] = self.instance_key
-        if self.instance_value is not None:
-            result['instance_value'] = self.instance_value
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('instance_key') is not None:
-            self.instance_key = m.get('instance_key')
-        if m.get('instance_value') is not None:
-            self.instance_value = m.get('instance_value')
-        return self
-
-
-class CommodityOrderAttribute(TeaModel):
-    def __init__(
-        self,
-        code: str = None,
-        value: str = None,
-        value_unit: str = None,
-    ):
-        # 属性编码
-        self.code = code
-        # 属性值
-        self.value = value
-        # 属性值单位，部分数值型属性有多种单位，需要填入；其他情况不需要填
-        self.value_unit = value_unit
-
-    def validate(self):
-        self.validate_required(self.code, 'code')
-        self.validate_required(self.value, 'value')
-        self.validate_required(self.value_unit, 'value_unit')
-
-    def to_map(self):
-        result = dict()
-        if self.code is not None:
-            result['code'] = self.code
-        if self.value is not None:
-            result['value'] = self.value
-        if self.value_unit is not None:
-            result['value_unit'] = self.value_unit
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('code') is not None:
-            self.code = m.get('code')
-        if m.get('value') is not None:
-            self.value = m.get('value')
-        if m.get('value_unit') is not None:
-            self.value_unit = m.get('value_unit')
-        return self
-
-
-class FulfillmentOptions(TeaModel):
-    def __init__(
-        self,
-        deplay: bool = None,
-        start_time: str = None,
-        spi_skip: bool = None,
-    ):
-        # 是否延迟履约，默认false
-        self.deplay = deplay
-        # 实际履约开始时间，默认支付完成时间；只有deplay=true时，start_time才生效
-        self.start_time = start_time
-        # 跳过SPI回调，默认false，优先级高于商品上默认的接入属性
-        self.spi_skip = spi_skip
-
-    def validate(self):
-        if self.start_time is not None:
-            self.validate_pattern(self.start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        result = dict()
-        if self.deplay is not None:
-            result['deplay'] = self.deplay
-        if self.start_time is not None:
-            result['start_time'] = self.start_time
-        if self.spi_skip is not None:
-            result['spi_skip'] = self.spi_skip
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('deplay') is not None:
-            self.deplay = m.get('deplay')
-        if m.get('start_time') is not None:
-            self.start_time = m.get('start_time')
-        if m.get('spi_skip') is not None:
-            self.spi_skip = m.get('spi_skip')
         return self
 
 
@@ -1112,6 +1286,10 @@ class ComboOrder(TeaModel):
         self.validate_required(self.pay_channel, 'pay_channel')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.tenant_id is not None:
             result['tenant_id'] = self.tenant_id
@@ -1185,62 +1363,6 @@ class ComboOrder(TeaModel):
         return self
 
 
-class Instance(TeaModel):
-    def __init__(
-        self,
-        tenant_id: str = None,
-        instance_id: str = None,
-        product_name: str = None,
-        charge_type: str = None,
-        status: str = None,
-    ):
-        # 租户id
-        self.tenant_id = tenant_id
-        # 实例id
-        self.instance_id = instance_id
-        # 商品code
-        self.product_name = product_name
-        # 付费类型 PREPAY_BY_MONTH 预付 AFTER_PAY_BY_HOUR 后付 MIX_PAY 混合付
-        self.charge_type = charge_type
-        # 状态 CREATING 创建中 FAILED 创建失败  STARTED 运行中 STOPPED 已停服  RELEASED 已释放
-        self.status = status
-
-    def validate(self):
-        self.validate_required(self.tenant_id, 'tenant_id')
-        self.validate_required(self.instance_id, 'instance_id')
-        self.validate_required(self.product_name, 'product_name')
-        self.validate_required(self.charge_type, 'charge_type')
-        self.validate_required(self.status, 'status')
-
-    def to_map(self):
-        result = dict()
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        if self.instance_id is not None:
-            result['instance_id'] = self.instance_id
-        if self.product_name is not None:
-            result['product_name'] = self.product_name
-        if self.charge_type is not None:
-            result['charge_type'] = self.charge_type
-        if self.status is not None:
-            result['status'] = self.status
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
-        if m.get('instance_id') is not None:
-            self.instance_id = m.get('instance_id')
-        if m.get('product_name') is not None:
-            self.product_name = m.get('product_name')
-        if m.get('charge_type') is not None:
-            self.charge_type = m.get('charge_type')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        return self
-
-
 class QueryInstanceCapacityRequest(TeaModel):
     def __init__(
         self,
@@ -1266,6 +1388,10 @@ class QueryInstanceCapacityRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1318,6 +1444,10 @@ class QueryInstanceCapacityResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1375,6 +1505,10 @@ class QueryMarketingCouponRequest(TeaModel):
             self.validate_pattern(self.biz_time, 'biz_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1427,6 +1561,10 @@ class QueryMarketingCouponResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1482,6 +1620,10 @@ class SendMarketingCouponRequest(TeaModel):
         self.validate_required(self.template_id, 'template_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1528,6 +1670,10 @@ class SendMarketingCouponResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1582,6 +1728,10 @@ class CreateOrderAfterRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1642,6 +1792,10 @@ class CreateOrderAfterResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1706,6 +1860,10 @@ class CreateOrderWorkflowRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1766,6 +1924,10 @@ class CreateOrderWorkflowResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1814,6 +1976,10 @@ class GetComboRequest(TeaModel):
         self.validate_required(self.combo_code, 'combo_code')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1852,6 +2018,10 @@ class GetComboResponse(TeaModel):
             self.combo.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1904,6 +2074,10 @@ class QueryComboPriceRequest(TeaModel):
         self.validate_required(self.combo_code, 'combo_code')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1975,6 +2149,10 @@ class QueryComboPriceResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2073,6 +2251,10 @@ class CreateComboOrderRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2148,6 +2330,10 @@ class CreateComboOrderResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2211,6 +2397,10 @@ class QueryComboOrderRequest(TeaModel):
             self.validate_pattern(self.end_time, 'end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2288,6 +2478,10 @@ class QueryComboOrderResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2344,6 +2538,10 @@ class QueryComboRequest(TeaModel):
         self.validate_required(self.category_code, 'category_code')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2384,6 +2582,10 @@ class QueryComboResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2440,6 +2642,10 @@ class PayComboOrderRequest(TeaModel):
         self.validate_required(self.pay_mode, 'pay_mode')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2499,6 +2705,10 @@ class PayComboOrderResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2540,6 +2750,7 @@ class CreateOrderRequest(TeaModel):
         tenant_name: str = None,
         operator_id: str = None,
         commodity_code: str = None,
+        ou: str = None,
         order_type: str = None,
         duration: OrderDuration = None,
         coupon_id: str = None,
@@ -2547,6 +2758,10 @@ class CreateOrderRequest(TeaModel):
         commodity_attrs: List[CommodityOrderAttribute] = None,
         fulfillment_options: FulfillmentOptions = None,
         pay_options: PayOptions = None,
+        price_strategy: PriceStrategy = None,
+        instance_id: str = None,
+        sale_market: str = None,
+        extended_properties: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2560,7 +2775,9 @@ class CreateOrderRequest(TeaModel):
         self.operator_id = operator_id
         # 商品编码
         self.commodity_code = commodity_code
-        # 订单类型，NEW：新购；RENEW：续费
+        # 销售主体，不传默认ZL6
+        self.ou = ou
+        # 订单类型，NEW：新购；RENEW：续费； MODIFY：变配
         # 不填默认新购
         self.order_type = order_type
         # 订购周期对象，当商品是周期订阅类型时，必填
@@ -2575,6 +2792,14 @@ class CreateOrderRequest(TeaModel):
         self.fulfillment_options = fulfillment_options
         # 支付选项
         self.pay_options = pay_options
+        # 价格策略
+        self.price_strategy = price_strategy
+        # 实例ID，续费/变配场景必传
+        self.instance_id = instance_id
+        # 售卖市场。10100000：鹊凿市场；12000002：国际ZAN市场；其他市场编码请联系中台获取
+        self.sale_market = sale_market
+        # 扩展属性，JSON字符串
+        self.extended_properties = extended_properties
 
     def validate(self):
         self.validate_required(self.biz_no, 'biz_no')
@@ -2589,8 +2814,15 @@ class CreateOrderRequest(TeaModel):
             self.fulfillment_options.validate()
         if self.pay_options:
             self.pay_options.validate()
+        if self.price_strategy:
+            self.price_strategy.validate()
+        self.validate_required(self.sale_market, 'sale_market')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2604,6 +2836,8 @@ class CreateOrderRequest(TeaModel):
             result['operator_id'] = self.operator_id
         if self.commodity_code is not None:
             result['commodity_code'] = self.commodity_code
+        if self.ou is not None:
+            result['ou'] = self.ou
         if self.order_type is not None:
             result['order_type'] = self.order_type
         if self.duration is not None:
@@ -2620,6 +2854,14 @@ class CreateOrderRequest(TeaModel):
             result['fulfillment_options'] = self.fulfillment_options.to_map()
         if self.pay_options is not None:
             result['pay_options'] = self.pay_options.to_map()
+        if self.price_strategy is not None:
+            result['price_strategy'] = self.price_strategy.to_map()
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.sale_market is not None:
+            result['sale_market'] = self.sale_market
+        if self.extended_properties is not None:
+            result['extended_properties'] = self.extended_properties
         return result
 
     def from_map(self, m: dict = None):
@@ -2636,6 +2878,8 @@ class CreateOrderRequest(TeaModel):
             self.operator_id = m.get('operator_id')
         if m.get('commodity_code') is not None:
             self.commodity_code = m.get('commodity_code')
+        if m.get('ou') is not None:
+            self.ou = m.get('ou')
         if m.get('order_type') is not None:
             self.order_type = m.get('order_type')
         if m.get('duration') is not None:
@@ -2656,6 +2900,15 @@ class CreateOrderRequest(TeaModel):
         if m.get('pay_options') is not None:
             temp_model = PayOptions()
             self.pay_options = temp_model.from_map(m['pay_options'])
+        if m.get('price_strategy') is not None:
+            temp_model = PriceStrategy()
+            self.price_strategy = temp_model.from_map(m['price_strategy'])
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('sale_market') is not None:
+            self.sale_market = m.get('sale_market')
+        if m.get('extended_properties') is not None:
+            self.extended_properties = m.get('extended_properties')
         return self
 
 
@@ -2686,6 +2939,10 @@ class CreateOrderResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2718,6 +2975,100 @@ class CreateOrderResponse(TeaModel):
         return self
 
 
+class GetComboOrderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        combo_order_id: str = None,
+        include_fulfill_info: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 套餐订单ID
+        self.combo_order_id = combo_order_id
+        # 是否包含履约信息
+        self.include_fulfill_info = include_fulfill_info
+
+    def validate(self):
+        self.validate_required(self.combo_order_id, 'combo_order_id')
+        self.validate_required(self.include_fulfill_info, 'include_fulfill_info')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.combo_order_id is not None:
+            result['combo_order_id'] = self.combo_order_id
+        if self.include_fulfill_info is not None:
+            result['include_fulfill_info'] = self.include_fulfill_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('combo_order_id') is not None:
+            self.combo_order_id = m.get('combo_order_id')
+        if m.get('include_fulfill_info') is not None:
+            self.include_fulfill_info = m.get('include_fulfill_info')
+        return self
+
+
+class GetComboOrderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order: ComboOrder = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 套餐订单详情
+        self.order = order
+
+    def validate(self):
+        if self.order:
+            self.order.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order is not None:
+            result['order'] = self.order.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order') is not None:
+            temp_model = ComboOrder()
+            self.order = temp_model.from_map(m['order'])
+        return self
+
+
 class ExistPricePersonalizedRequest(TeaModel):
     def __init__(
         self,
@@ -2740,6 +3091,10 @@ class ExistPricePersonalizedRequest(TeaModel):
         self.validate_required(self.product_code, 'product_code')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2785,6 +3140,10 @@ class ExistPricePersonalizedResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2822,6 +3181,8 @@ class QueryPriceRequest(TeaModel):
         commodity_order_attrs: List[CommodityOrderAttribute] = None,
         currency: str = None,
         coupon_id: str = None,
+        order_type: str = None,
+        instance_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2835,16 +3196,20 @@ class QueryPriceRequest(TeaModel):
         self.quantity = quantity
         # 业务发生时间，不传则默认当前时间
         self.biz_time = biz_time
-        # 订购周期，周期型商品必填，如资源包/包年包月商品
+        # 订购周期，基于周期定价的商品必填
         self.order_duration = order_duration
-        # 商品规格列表
-        # 针对量价型商品，统一使用SYS_USAGE_AMOUNT
-        # 针对资源包商品，统一使用CAPACITY
+        # 商品规格列表，按实际商品定义的和价格相关的属性传入
+        # 1.续费询价不需要传
+        # 2.变配询价需要传入变化的规格属性
         self.commodity_order_attrs = commodity_order_attrs
         # 币种，元：CNY，不传默认CNY
         self.currency = currency
         # 优惠券ID
         self.coupon_id = coupon_id
+        # 不填默认为NEW；NEW：新购；RENEW：续费；MODIFY：变配
+        self.order_type = order_type
+        # 实例ID，续费/变配场景必传
+        self.instance_id = instance_id
 
     def validate(self):
         self.validate_required(self.commodity_code, 'commodity_code')
@@ -2858,6 +3223,10 @@ class QueryPriceRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2881,6 +3250,10 @@ class QueryPriceRequest(TeaModel):
             result['currency'] = self.currency
         if self.coupon_id is not None:
             result['coupon_id'] = self.coupon_id
+        if self.order_type is not None:
+            result['order_type'] = self.order_type
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
         return result
 
     def from_map(self, m: dict = None):
@@ -2909,6 +3282,10 @@ class QueryPriceRequest(TeaModel):
             self.currency = m.get('currency')
         if m.get('coupon_id') is not None:
             self.coupon_id = m.get('coupon_id')
+        if m.get('order_type') is not None:
+            self.order_type = m.get('order_type')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
         return self
 
 
@@ -2934,6 +3311,10 @@ class QueryPriceResponse(TeaModel):
             self.commodity_enquiry_price.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2978,6 +3359,10 @@ class QueryWareslifeInstanceRequest(TeaModel):
         self.validate_required(self.product_codes, 'product_codes')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -3022,6 +3407,10 @@ class QueryWareslifeInstanceResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
