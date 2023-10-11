@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class CancelBclWithholdRequest : TeaModel {
+    public class UploadBclFileRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,20 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 解约申请单号
-        [NameInMap("cancel_apply_no")]
+        // 文件名称
+        [NameInMap("file_name")]
         [Validation(Required=true)]
-        public string CancelApplyNo { get; set; }
+        public string FileName { get; set; }
 
-        // 是否允许解除代扣
-        [NameInMap("allow_cancel_withhold")]
+        // 文件的Base64编码，需小于1M
+        [NameInMap("file_content")]
         [Validation(Required=true)]
-        public bool? AllowCancelWithhold { get; set; }
+        public string FileContent { get; set; }
 
-        // 拒绝解约的原因,拒绝解约时必传
-        [NameInMap("reject_reason")]
-        [Validation(Required=false, MaxLength=128)]
-        public string RejectReason { get; set; }
+        // 文件类型
+        [NameInMap("file_type")]
+        [Validation(Required=true)]
+        public string FileType { get; set; }
 
     }
 

@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.24"},
+                        {"sdk_version", "1.12.5"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.24"},
+                        {"sdk_version", "1.12.5"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1201,6 +1201,90 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryBclComplaineventidsResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.complaineventids.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁宝plus文件上传接口
+         * Summary: 租赁文件上传接口
+         */
+        public UploadBclFileResponse UploadBclFile(UploadBclFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadBclFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁宝plus文件上传接口
+         * Summary: 租赁文件上传接口
+         */
+        public async Task<UploadBclFileResponse> UploadBclFileAsync(UploadBclFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadBclFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁宝plus文件上传接口
+         * Summary: 租赁文件上传接口
+         */
+        public UploadBclFileResponse UploadBclFileEx(UploadBclFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadBclFileResponse>(DoRequest("1.0", "twc.notary.bcl.file.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁宝plus文件上传接口
+         * Summary: 租赁文件上传接口
+         */
+        public async Task<UploadBclFileResponse> UploadBclFileExAsync(UploadBclFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadBclFileResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.file.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
+         * Summary: 完结租赁单
+         */
+        public FinishBclOrderResponse FinishBclOrder(FinishBclOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return FinishBclOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
+         * Summary: 完结租赁单
+         */
+        public async Task<FinishBclOrderResponse> FinishBclOrderAsync(FinishBclOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await FinishBclOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
+         * Summary: 完结租赁单
+         */
+        public FinishBclOrderResponse FinishBclOrderEx(FinishBclOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishBclOrderResponse>(DoRequest("1.0", "twc.notary.bcl.order.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
+         * Summary: 完结租赁单
+         */
+        public async Task<FinishBclOrderResponse> FinishBclOrderExAsync(FinishBclOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishBclOrderResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.order.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -47,7 +47,8 @@ namespace AntChain.SDK.TWC.Models
 
         // 签章日期字体大小
         // 默认12，范围10-20
-        // 商家签署区不支持
+        // 商家签署区不支持；
+        // 当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
         [NameInMap("sign_date_font_size")]
         [Validation(Required=false)]
         public long? SignDateFontSize { get; set; }
@@ -56,28 +57,32 @@ namespace AntChain.SDK.TWC.Models
         // yyyy年MM月dd日（默认值） yyyy-MM-dd 
         // yyyy/MM/dd 
         // yyyy-MM-dd HH:mm:ss 
-        // 商家签署区不支持
+        // 商家签署区不支持；
+        //  当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
         [NameInMap("sign_date_format")]
         [Validation(Required=false, MaxLength=32)]
         public string SignDateFormat { get; set; }
 
         // 页码信息
         // 当add_sign_date为true时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可
-        // 商家签署区不支持
+        // 商家签署区不支持；
+        //  当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
         [NameInMap("sign_date_pos_page")]
         [Validation(Required=false)]
         public long? SignDatePosPage { get; set; }
 
         // 页面签章日期x坐标
         // 非负数，小数位最多两位，默认0 
-        // 商家签署区不支持
+        // 商家签署区不支持；
+        //  当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
         [NameInMap("sign_date_pos_x")]
         [Validation(Required=false, MaxLength=8)]
         public string SignDatePosX { get; set; }
 
         // 页面签章日期y坐标
         // 非负数，小数位最多两位，默认0 
-        // 商家签署区不支持
+        // 商家签署区不支持；
+        //  当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
         [NameInMap("sign_date_pos_y")]
         [Validation(Required=false, MaxLength=8)]
         public string SignDatePosY { get; set; }

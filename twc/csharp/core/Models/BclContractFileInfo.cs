@@ -25,6 +25,13 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public List<BclSignField> MerchantSignFields { get; set; }
 
+        // 合同模板填充项内容扩展字段:
+        // 以key:value传入，JSON对象模板签署链路，不能传"  "或空"{}"，k-v模式，k和v都必须有。
+        // 当订单创建选择是模板签署时，该字段必填。
+        [NameInMap("simple_form_fields")]
+        [Validation(Required=false, MaxLength=2048)]
+        public string SimpleFormFields { get; set; }
+
     }
 
 }

@@ -40,14 +40,9 @@ namespace AntChain.SDK.TWC.Models
         public string Status { get; set; }
 
         // 支付宝交易号
-        [NameInMap("third_trade_no")]
+        [NameInMap("alipay_trade_no")]
         [Validation(Required=false)]
-        public string ThirdTradeNo { get; set; }
-
-        // 发起交易流水号
-        [NameInMap("trade_call_no")]
-        [Validation(Required=false)]
-        public string TradeCallNo { get; set; }
+        public string AlipayTradeNo { get; set; }
 
         // 投诉单创建时间
         [NameInMap("gmt_create")]

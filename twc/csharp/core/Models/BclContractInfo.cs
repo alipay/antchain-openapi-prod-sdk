@@ -52,6 +52,13 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string DestUrl { get; set; }
 
+        // 签署模式：
+        // 模板签署:TEMPLATE_SIGN,使用同模板流程创建合同信息；
+        // 原文签署:ORIGINAL_SIGN，使用原来的流程创建合同信息
+        [NameInMap("sign_mode")]
+        [Validation(Required=false)]
+        public string SignMode { get; set; }
+
     }
 
 }
