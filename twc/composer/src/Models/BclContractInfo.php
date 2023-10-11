@@ -70,6 +70,16 @@ class BclContractInfo extends Model
      * @var string
      */
     public $destUrl;
+
+    // 签署模式：
+    // 模板签署:TEMPLATE_SIGN,使用同模板流程创建合同信息；
+    // 原文签署:ORIGINAL_SIGN，使用原来的流程创建合同信息
+    /**
+     * @example TEMPLATE_SIGN
+     *
+     * @var string
+     */
+    public $signMode;
     protected $_name = [
         'signStatus'     => 'sign_status',
         'signedFiles'    => 'signed_files',
@@ -78,6 +88,7 @@ class BclContractInfo extends Model
         'flowErrMsg'     => 'flow_err_msg',
         'signFieldInfos' => 'sign_field_infos',
         'destUrl'        => 'dest_url',
+        'signMode'       => 'sign_mode',
     ];
 
     public function validate()
@@ -120,6 +131,9 @@ class BclContractInfo extends Model
         }
         if (null !== $this->destUrl) {
             $res['dest_url'] = $this->destUrl;
+        }
+        if (null !== $this->signMode) {
+            $res['sign_mode'] = $this->signMode;
         }
 
         return $res;
@@ -165,6 +179,9 @@ class BclContractInfo extends Model
         }
         if (isset($map['dest_url'])) {
             $model->destUrl = $map['dest_url'];
+        }
+        if (isset($map['sign_mode'])) {
+            $model->signMode = $map['sign_mode'];
         }
 
         return $model;

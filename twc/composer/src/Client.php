@@ -333,6 +333,8 @@ use AntChain\TWC\Models\ExecContractPayRequest;
 use AntChain\TWC\Models\ExecContractPayResponse;
 use AntChain\TWC\Models\ExistStubRequest;
 use AntChain\TWC\Models\ExistStubResponse;
+use AntChain\TWC\Models\FinishBclOrderRequest;
+use AntChain\TWC\Models\FinishBclOrderResponse;
 use AntChain\TWC\Models\FinishFileIntegrationRequest;
 use AntChain\TWC\Models\FinishFileIntegrationResponse;
 use AntChain\TWC\Models\FinishFlowInstanceRequest;
@@ -661,6 +663,8 @@ use AntChain\TWC\Models\UpdateSueExeplarycontractRequest;
 use AntChain\TWC\Models\UpdateSueExeplarycontractResponse;
 use AntChain\TWC\Models\UploadBclComplainimageRequest;
 use AntChain\TWC\Models\UploadBclComplainimageResponse;
+use AntChain\TWC\Models\UploadBclFileRequest;
+use AntChain\TWC\Models\UploadBclFileResponse;
 use AntChain\TWC\Models\UploadBclPerformanceRequest;
 use AntChain\TWC\Models\UploadBclPerformanceResponse;
 use AntChain\TWC\Models\UploadContractComplainimageRequest;
@@ -830,7 +834,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.24',
+                    'sdk_version'      => '1.12.5',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1569,6 +1573,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryBclComplaineventidsResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.complaineventids.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁宝plus文件上传接口
+     * Summary: 租赁文件上传接口.
+     *
+     * @param UploadBclFileRequest $request
+     *
+     * @return UploadBclFileResponse
+     */
+    public function uploadBclFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadBclFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁宝plus文件上传接口
+     * Summary: 租赁文件上传接口.
+     *
+     * @param UploadBclFileRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return UploadBclFileResponse
+     */
+    public function uploadBclFileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadBclFileResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
+     * Summary: 完结租赁单.
+     *
+     * @param FinishBclOrderRequest $request
+     *
+     * @return FinishBclOrderResponse
+     */
+    public function finishBclOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->finishBclOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
+     * Summary: 完结租赁单.
+     *
+     * @param FinishBclOrderRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return FinishBclOrderResponse
+     */
+    public function finishBclOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FinishBclOrderResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.order.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

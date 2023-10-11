@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitBclComplainfeedbackResponse extends Model
+class FinishBclOrderResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,17 @@ class SubmitBclComplainfeedbackResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 完结申请单号
+    /**
+     * @var string
+     */
+    public $finishApplyNo;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
+        'reqMsgId'      => 'req_msg_id',
+        'resultCode'    => 'result_code',
+        'resultMsg'     => 'result_msg',
+        'finishApplyNo' => 'finish_apply_no',
     ];
 
     public function validate()
@@ -47,6 +54,9 @@ class SubmitBclComplainfeedbackResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->finishApplyNo) {
+            $res['finish_apply_no'] = $this->finishApplyNo;
+        }
 
         return $res;
     }
@@ -54,7 +64,7 @@ class SubmitBclComplainfeedbackResponse extends Model
     /**
      * @param array $map
      *
-     * @return SubmitBclComplainfeedbackResponse
+     * @return FinishBclOrderResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +77,9 @@ class SubmitBclComplainfeedbackResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['finish_apply_no'])) {
+            $model->finishApplyNo = $map['finish_apply_no'];
         }
 
         return $model;

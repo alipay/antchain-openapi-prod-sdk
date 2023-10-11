@@ -31,10 +31,21 @@ class BclContractFileInfo extends Model
      * @var BclSignField[]
      */
     public $merchantSignFields;
+
+    // 合同模板填充项内容扩展字段:
+    // 以key:value传入，JSON对象模板签署链路，不能传"  "或空"{}"，k-v模式，k和v都必须有。
+    // 当订单创建选择是模板签署时，该字段必填。
+    /**
+     * @example {"甲方":"测试甲方","乙方":"测试乙方"}
+     *
+     * @var string
+     */
+    public $simpleFormFields;
     protected $_name = [
         'ossFileId'          => 'oss_file_id',
         'userSignFields'     => 'user_sign_fields',
         'merchantSignFields' => 'merchant_sign_fields',
+        'simpleFormFields'   => 'simple_form_fields',
     ];
 
     public function validate()
@@ -42,6 +53,7 @@ class BclContractFileInfo extends Model
         Model::validateRequired('ossFileId', $this->ossFileId, true);
         Model::validateRequired('userSignFields', $this->userSignFields, true);
         Model::validateMaxLength('ossFileId', $this->ossFileId, 64);
+        Model::validateMaxLength('simpleFormFields', $this->simpleFormFields, 2048);
     }
 
     public function toMap()
@@ -67,6 +79,9 @@ class BclContractFileInfo extends Model
                     $res['merchant_sign_fields'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->simpleFormFields) {
+            $res['simple_form_fields'] = $this->simpleFormFields;
         }
 
         return $res;
@@ -100,6 +115,9 @@ class BclContractFileInfo extends Model
                     $model->merchantSignFields[$n++] = null !== $item ? BclSignField::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['simple_form_fields'])) {
+            $model->simpleFormFields = $map['simple_form_fields'];
         }
 
         return $model;

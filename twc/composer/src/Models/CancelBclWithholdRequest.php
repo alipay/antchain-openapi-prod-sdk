@@ -30,17 +30,25 @@ class CancelBclWithholdRequest extends Model
      * @var bool
      */
     public $allowCancelWithhold;
+
+    // 拒绝解约的原因,拒绝解约时必传
+    /**
+     * @var string
+     */
+    public $rejectReason;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
         'cancelApplyNo'       => 'cancel_apply_no',
         'allowCancelWithhold' => 'allow_cancel_withhold',
+        'rejectReason'        => 'reject_reason',
     ];
 
     public function validate()
     {
         Model::validateRequired('cancelApplyNo', $this->cancelApplyNo, true);
         Model::validateRequired('allowCancelWithhold', $this->allowCancelWithhold, true);
+        Model::validateMaxLength('rejectReason', $this->rejectReason, 128);
     }
 
     public function toMap()
@@ -57,6 +65,9 @@ class CancelBclWithholdRequest extends Model
         }
         if (null !== $this->allowCancelWithhold) {
             $res['allow_cancel_withhold'] = $this->allowCancelWithhold;
+        }
+        if (null !== $this->rejectReason) {
+            $res['reject_reason'] = $this->rejectReason;
         }
 
         return $res;
@@ -81,6 +92,9 @@ class CancelBclWithholdRequest extends Model
         }
         if (isset($map['allow_cancel_withhold'])) {
             $model->allowCancelWithhold = $map['allow_cancel_withhold'];
+        }
+        if (isset($map['reject_reason'])) {
+            $model->rejectReason = $map['reject_reason'];
         }
 
         return $model;

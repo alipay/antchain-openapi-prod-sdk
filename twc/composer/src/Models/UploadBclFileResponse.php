@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitBclComplainfeedbackResponse extends Model
+class UploadBclFileResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,17 @@ class SubmitBclComplainfeedbackResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 文件id
+    /**
+     * @var string
+     */
+    public $fileId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'fileId'     => 'file_id',
     ];
 
     public function validate()
@@ -47,6 +54,9 @@ class SubmitBclComplainfeedbackResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->fileId) {
+            $res['file_id'] = $this->fileId;
+        }
 
         return $res;
     }
@@ -54,7 +64,7 @@ class SubmitBclComplainfeedbackResponse extends Model
     /**
      * @param array $map
      *
-     * @return SubmitBclComplainfeedbackResponse
+     * @return UploadBclFileResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +77,9 @@ class SubmitBclComplainfeedbackResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['file_id'])) {
+            $model->fileId = $map['file_id'];
         }
 
         return $model;

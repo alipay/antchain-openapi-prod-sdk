@@ -48,13 +48,7 @@ class QueryBclComplainResponse extends Model
     /**
      * @var string
      */
-    public $thirdTradeNo;
-
-    // 发起交易流水号
-    /**
-     * @var string
-     */
-    public $tradeCallNo;
+    public $alipayTradeNo;
 
     // 投诉单创建时间
     /**
@@ -110,8 +104,7 @@ class QueryBclComplainResponse extends Model
         'orderId'          => 'order_id',
         'complainEventId'  => 'complain_event_id',
         'status'           => 'status',
-        'thirdTradeNo'     => 'third_trade_no',
-        'tradeCallNo'      => 'trade_call_no',
+        'alipayTradeNo'    => 'alipay_trade_no',
         'gmtCreate'        => 'gmt_create',
         'gmtModified'      => 'gmt_modified',
         'gmtFinished'      => 'gmt_finished',
@@ -147,11 +140,8 @@ class QueryBclComplainResponse extends Model
         if (null !== $this->status) {
             $res['status'] = $this->status;
         }
-        if (null !== $this->thirdTradeNo) {
-            $res['third_trade_no'] = $this->thirdTradeNo;
-        }
-        if (null !== $this->tradeCallNo) {
-            $res['trade_call_no'] = $this->tradeCallNo;
+        if (null !== $this->alipayTradeNo) {
+            $res['alipay_trade_no'] = $this->alipayTradeNo;
         }
         if (null !== $this->gmtCreate) {
             $res['gmt_create'] = $this->gmtCreate;
@@ -213,11 +203,8 @@ class QueryBclComplainResponse extends Model
         if (isset($map['status'])) {
             $model->status = $map['status'];
         }
-        if (isset($map['third_trade_no'])) {
-            $model->thirdTradeNo = $map['third_trade_no'];
-        }
-        if (isset($map['trade_call_no'])) {
-            $model->tradeCallNo = $map['trade_call_no'];
+        if (isset($map['alipay_trade_no'])) {
+            $model->alipayTradeNo = $map['alipay_trade_no'];
         }
         if (isset($map['gmt_create'])) {
             $model->gmtCreate = $map['gmt_create'];

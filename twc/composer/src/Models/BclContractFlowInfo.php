@@ -61,6 +61,17 @@ class BclContractFlowInfo extends Model
      * @var string
      */
     public $payeeId;
+
+    // 签署模式:
+    // 模板签署:TEMPLATE_SIGN,使用同模板流程创建合同信息；
+    // 原文签署:ORIGINAL_SIGN，使用原来的流程创建合同信息;
+    // 未传值即为(原文签署:ORIGINAL_SIGN)
+    /**
+     * @example TEMPLATE_SIGN
+     *
+     * @var string
+     */
+    public $signMode;
     protected $_name = [
         'businessScene'        => 'business_scene',
         'fileInfo'             => 'file_info',
@@ -68,6 +79,7 @@ class BclContractFlowInfo extends Model
         'redirectUrl'          => 'redirect_url',
         'signPlatform'         => 'sign_platform',
         'payeeId'              => 'payee_id',
+        'signMode'             => 'sign_mode',
     ];
 
     public function validate()
@@ -104,6 +116,9 @@ class BclContractFlowInfo extends Model
         if (null !== $this->payeeId) {
             $res['payee_id'] = $this->payeeId;
         }
+        if (null !== $this->signMode) {
+            $res['sign_mode'] = $this->signMode;
+        }
 
         return $res;
     }
@@ -139,6 +154,9 @@ class BclContractFlowInfo extends Model
         }
         if (isset($map['payee_id'])) {
             $model->payeeId = $map['payee_id'];
+        }
+        if (isset($map['sign_mode'])) {
+            $model->signMode = $map['sign_mode'];
         }
 
         return $model;
