@@ -358,25 +358,30 @@ type BclSignField struct {
 	AddSignDate *bool `json:"add_sign_date,omitempty" xml:"add_sign_date,omitempty"`
 	// 签章日期字体大小
 	// 默认12，范围10-20
-	// 商家签署区不支持
+	// 商家签署区不支持；
+	// 当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
 	SignDateFontSize *int64 `json:"sign_date_font_size,omitempty" xml:"sign_date_font_size,omitempty" maximum:"20" minimum:"10"`
 	// 签章日期格式
 	// yyyy年MM月dd日（默认值） yyyy-MM-dd
 	// yyyy/MM/dd
 	// yyyy-MM-dd HH:mm:ss
-	// 商家签署区不支持
+	// 商家签署区不支持；
+	//  当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
 	SignDateFormat *string `json:"sign_date_format,omitempty" xml:"sign_date_format,omitempty" maxLength:"32"`
 	// 页码信息
 	// 当add_sign_date为true时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可
-	// 商家签署区不支持
+	// 商家签署区不支持；
+	//  当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
 	SignDatePosPage *int64 `json:"sign_date_pos_page,omitempty" xml:"sign_date_pos_page,omitempty" minimum:"1"`
 	// 页面签章日期x坐标
 	// 非负数，小数位最多两位，默认0
-	// 商家签署区不支持
+	// 商家签署区不支持；
+	//  当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
 	SignDatePosX *string `json:"sign_date_pos_x,omitempty" xml:"sign_date_pos_x,omitempty" maxLength:"8"`
 	// 页面签章日期y坐标
 	// 非负数，小数位最多两位，默认0
-	// 商家签署区不支持
+	// 商家签署区不支持；
+	//  当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
 	SignDatePosY *string `json:"sign_date_pos_y,omitempty" xml:"sign_date_pos_y,omitempty" maxLength:"8"`
 }
 
@@ -770,6 +775,10 @@ type BclContractFileInfo struct {
 	UserSignFields []*BclSignField `json:"user_sign_fields,omitempty" xml:"user_sign_fields,omitempty" require:"true" type:"Repeated"`
 	// 租赁商家签署区信息
 	MerchantSignFields []*BclSignField `json:"merchant_sign_fields,omitempty" xml:"merchant_sign_fields,omitempty" type:"Repeated"`
+	// 合同模板填充项内容扩展字段:
+	// 以key:value传入，JSON对象模板签署链路，不能传"  "或空"{}"，k-v模式，k和v都必须有。
+	// 当订单创建选择是模板签署时，该字段必填。
+	SimpleFormFields *string `json:"simple_form_fields,omitempty" xml:"simple_form_fields,omitempty" maxLength:"2048"`
 }
 
 func (s BclContractFileInfo) String() string {
@@ -792,6 +801,11 @@ func (s *BclContractFileInfo) SetUserSignFields(v []*BclSignField) *BclContractF
 
 func (s *BclContractFileInfo) SetMerchantSignFields(v []*BclSignField) *BclContractFileInfo {
 	s.MerchantSignFields = v
+	return s
+}
+
+func (s *BclContractFileInfo) SetSimpleFormFields(v string) *BclContractFileInfo {
+	s.SimpleFormFields = &v
 	return s
 }
 
@@ -4170,6 +4184,11 @@ type BclContractFlowInfo struct {
 	SignPlatform *string `json:"sign_platform,omitempty" xml:"sign_platform,omitempty"`
 	// 收款方的ID，调用创建收款方接口获得
 	PayeeId *string `json:"payee_id,omitempty" xml:"payee_id,omitempty"`
+	// 签署模式:
+	// 模板签署:TEMPLATE_SIGN,使用同模板流程创建合同信息；
+	// 原文签署:ORIGINAL_SIGN，使用原来的流程创建合同信息;
+	// 未传值即为(原文签署:ORIGINAL_SIGN)
+	SignMode *string `json:"sign_mode,omitempty" xml:"sign_mode,omitempty"`
 }
 
 func (s BclContractFlowInfo) String() string {
@@ -4207,6 +4226,11 @@ func (s *BclContractFlowInfo) SetSignPlatform(v string) *BclContractFlowInfo {
 
 func (s *BclContractFlowInfo) SetPayeeId(v string) *BclContractFlowInfo {
 	s.PayeeId = &v
+	return s
+}
+
+func (s *BclContractFlowInfo) SetSignMode(v string) *BclContractFlowInfo {
+	s.SignMode = &v
 	return s
 }
 
@@ -5732,6 +5756,10 @@ type BclContractInfo struct {
 	SignFieldInfos []*BclContractSignFieldInfo `json:"sign_field_infos,omitempty" xml:"sign_field_infos,omitempty" type:"Repeated"`
 	// 签署长链接，使用租赁宝代扣并且发起订单后才可以查询获取
 	DestUrl *string `json:"dest_url,omitempty" xml:"dest_url,omitempty"`
+	// 签署模式：
+	// 模板签署:TEMPLATE_SIGN,使用同模板流程创建合同信息；
+	// 原文签署:ORIGINAL_SIGN，使用原来的流程创建合同信息
+	SignMode *string `json:"sign_mode,omitempty" xml:"sign_mode,omitempty"`
 }
 
 func (s BclContractInfo) String() string {
@@ -5774,6 +5802,11 @@ func (s *BclContractInfo) SetSignFieldInfos(v []*BclContractSignFieldInfo) *BclC
 
 func (s *BclContractInfo) SetDestUrl(v string) *BclContractInfo {
 	s.DestUrl = &v
+	return s
+}
+
+func (s *BclContractInfo) SetSignMode(v string) *BclContractInfo {
+	s.SignMode = &v
 	return s
 }
 
@@ -7376,6 +7409,25 @@ func (s *CertificateInfo) SetResourceName(v string) *CertificateInfo {
 
 func (s *CertificateInfo) SetResourceUrl(v string) *CertificateInfo {
 	s.ResourceUrl = &v
+	return s
+}
+
+// 完结的分期信息
+type BclFinishInstallment struct {
+	// 期次号
+	TermNo *int64 `json:"term_no,omitempty" xml:"term_no,omitempty" require:"true"`
+}
+
+func (s BclFinishInstallment) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BclFinishInstallment) GoString() string {
+	return s.String()
+}
+
+func (s *BclFinishInstallment) SetTermNo(v int64) *BclFinishInstallment {
+	s.TermNo = &v
 	return s
 }
 
@@ -9950,6 +10002,8 @@ type CancelBclWithholdRequest struct {
 	CancelApplyNo *string `json:"cancel_apply_no,omitempty" xml:"cancel_apply_no,omitempty" require:"true"`
 	// 是否允许解除代扣
 	AllowCancelWithhold *bool `json:"allow_cancel_withhold,omitempty" xml:"allow_cancel_withhold,omitempty" require:"true"`
+	// 拒绝解约的原因,拒绝解约时必传
+	RejectReason *string `json:"reject_reason,omitempty" xml:"reject_reason,omitempty" maxLength:"128"`
 }
 
 func (s CancelBclWithholdRequest) String() string {
@@ -9977,6 +10031,11 @@ func (s *CancelBclWithholdRequest) SetCancelApplyNo(v string) *CancelBclWithhold
 
 func (s *CancelBclWithholdRequest) SetAllowCancelWithhold(v bool) *CancelBclWithholdRequest {
 	s.AllowCancelWithhold = &v
+	return s
+}
+
+func (s *CancelBclWithholdRequest) SetRejectReason(v string) *CancelBclWithholdRequest {
+	s.RejectReason = &v
 	return s
 }
 
@@ -10057,9 +10116,7 @@ type QueryBclComplainResponse struct {
 	// 投诉单状态
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// 支付宝交易号
-	ThirdTradeNo *string `json:"third_trade_no,omitempty" xml:"third_trade_no,omitempty"`
-	// 发起交易流水号
-	TradeCallNo *string `json:"trade_call_no,omitempty" xml:"trade_call_no,omitempty"`
+	AlipayTradeNo *string `json:"alipay_trade_no,omitempty" xml:"alipay_trade_no,omitempty"`
 	// 投诉单创建时间
 	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty"`
 	// 投诉单修改时间
@@ -10116,13 +10173,8 @@ func (s *QueryBclComplainResponse) SetStatus(v string) *QueryBclComplainResponse
 	return s
 }
 
-func (s *QueryBclComplainResponse) SetThirdTradeNo(v string) *QueryBclComplainResponse {
-	s.ThirdTradeNo = &v
-	return s
-}
-
-func (s *QueryBclComplainResponse) SetTradeCallNo(v string) *QueryBclComplainResponse {
-	s.TradeCallNo = &v
+func (s *QueryBclComplainResponse) SetAlipayTradeNo(v string) *QueryBclComplainResponse {
+	s.AlipayTradeNo = &v
 	return s
 }
 
@@ -10316,8 +10368,6 @@ type SubmitBclComplainfeedbackResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 是否处理成功
-	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
 }
 
 func (s SubmitBclComplainfeedbackResponse) String() string {
@@ -10340,11 +10390,6 @@ func (s *SubmitBclComplainfeedbackResponse) SetResultCode(v string) *SubmitBclCo
 
 func (s *SubmitBclComplainfeedbackResponse) SetResultMsg(v string) *SubmitBclComplainfeedbackResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *SubmitBclComplainfeedbackResponse) SetResult(v bool) *SubmitBclComplainfeedbackResponse {
-	s.Result = &v
 	return s
 }
 
@@ -10457,6 +10502,204 @@ func (s *QueryBclComplaineventidsResponse) SetPageSize(v int64) *QueryBclComplai
 
 func (s *QueryBclComplaineventidsResponse) SetPageNum(v int64) *QueryBclComplaineventidsResponse {
 	s.PageNum = &v
+	return s
+}
+
+type UploadBclFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件名称
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 文件的Base64编码，需小于1M
+	FileContent *string `json:"file_content,omitempty" xml:"file_content,omitempty" require:"true"`
+	// 文件类型
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+}
+
+func (s UploadBclFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadBclFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadBclFileRequest) SetAuthToken(v string) *UploadBclFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadBclFileRequest) SetProductInstanceId(v string) *UploadBclFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadBclFileRequest) SetFileName(v string) *UploadBclFileRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *UploadBclFileRequest) SetFileContent(v string) *UploadBclFileRequest {
+	s.FileContent = &v
+	return s
+}
+
+func (s *UploadBclFileRequest) SetFileType(v string) *UploadBclFileRequest {
+	s.FileType = &v
+	return s
+}
+
+type UploadBclFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+}
+
+func (s UploadBclFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadBclFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadBclFileResponse) SetReqMsgId(v string) *UploadBclFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadBclFileResponse) SetResultCode(v string) *UploadBclFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadBclFileResponse) SetResultMsg(v string) *UploadBclFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadBclFileResponse) SetFileId(v string) *UploadBclFileResponse {
+	s.FileId = &v
+	return s
+}
+
+type FinishBclOrderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租赁宝plus服务返回的订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 资方尾款金额，单位为分且最小值：1（租赁单有融资时必传）
+	InvestorFinalPayment *int64 `json:"investor_final_payment,omitempty" xml:"investor_final_payment,omitempty"`
+	// 买家还款金额，单位分（提前还款，到期买断，到期归还场景必传）
+	BuyerRepayAmount *int64 `json:"buyer_repay_amount,omitempty" xml:"buyer_repay_amount,omitempty"`
+	// 幂等号，用来保证请求幂等性，标识一次完结请求，确保同笔订单下该值唯一。
+	// 注意：
+	// ● clientToken只支持ASCII字符，且不能超过64个字符；
+	// ● 针对同一次完结请求如果调用接口失败或异常了，重试时要保证该值不变；
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 完结场景：
+	// ● BUYER_PRE_REPAY：买家提前还款
+	// ● BUYER_DUE_GIVE_BACK：买家到期归还
+	// ● BUYER_DUE_BUYOUT：买家到期买断
+	// ● BUYER_BAD_DEBT：买家坏账
+	// ● BUYER_CANCEL_AGREEMENT：买家解约
+	// ● MERCHANT_CANCEL_ORDER：商家取消订单
+	FinishScene *string `json:"finish_scene,omitempty" xml:"finish_scene,omitempty" require:"true"`
+	// 完结的分期信息（买家到期归还和买家到期买断场景不传，其他场景必传）
+	FinishInstallments []*BclFinishInstallment `json:"finish_installments,omitempty" xml:"finish_installments,omitempty" type:"Repeated"`
+}
+
+func (s FinishBclOrderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishBclOrderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FinishBclOrderRequest) SetAuthToken(v string) *FinishBclOrderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FinishBclOrderRequest) SetProductInstanceId(v string) *FinishBclOrderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *FinishBclOrderRequest) SetOrderId(v string) *FinishBclOrderRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *FinishBclOrderRequest) SetInvestorFinalPayment(v int64) *FinishBclOrderRequest {
+	s.InvestorFinalPayment = &v
+	return s
+}
+
+func (s *FinishBclOrderRequest) SetBuyerRepayAmount(v int64) *FinishBclOrderRequest {
+	s.BuyerRepayAmount = &v
+	return s
+}
+
+func (s *FinishBclOrderRequest) SetClientToken(v string) *FinishBclOrderRequest {
+	s.ClientToken = &v
+	return s
+}
+
+func (s *FinishBclOrderRequest) SetFinishScene(v string) *FinishBclOrderRequest {
+	s.FinishScene = &v
+	return s
+}
+
+func (s *FinishBclOrderRequest) SetFinishInstallments(v []*BclFinishInstallment) *FinishBclOrderRequest {
+	s.FinishInstallments = v
+	return s
+}
+
+type FinishBclOrderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 完结申请单号
+	FinishApplyNo *string `json:"finish_apply_no,omitempty" xml:"finish_apply_no,omitempty"`
+}
+
+func (s FinishBclOrderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishBclOrderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FinishBclOrderResponse) SetReqMsgId(v string) *FinishBclOrderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FinishBclOrderResponse) SetResultCode(v string) *FinishBclOrderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FinishBclOrderResponse) SetResultMsg(v string) *FinishBclOrderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *FinishBclOrderResponse) SetFinishApplyNo(v string) *FinishBclOrderResponse {
+	s.FinishApplyNo = &v
 	return s
 }
 
@@ -46723,7 +46966,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.24"),
+				"sdk_version":      tea.String("1.12.5"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -47488,6 +47731,74 @@ func (client *Client) QueryBclComplaineventidsEx(request *QueryBclComplaineventi
 	}
 	_result = &QueryBclComplaineventidsResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.complaineventids.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁宝plus文件上传接口
+ * Summary: 租赁文件上传接口
+ */
+func (client *Client) UploadBclFile(request *UploadBclFileRequest) (_result *UploadBclFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadBclFileResponse{}
+	_body, _err := client.UploadBclFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁宝plus文件上传接口
+ * Summary: 租赁文件上传接口
+ */
+func (client *Client) UploadBclFileEx(request *UploadBclFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadBclFileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadBclFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.file.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
+ * Summary: 完结租赁单
+ */
+func (client *Client) FinishBclOrder(request *FinishBclOrderRequest) (_result *FinishBclOrderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FinishBclOrderResponse{}
+	_body, _err := client.FinishBclOrderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
+ * Summary: 完结租赁单
+ */
+func (client *Client) FinishBclOrderEx(request *FinishBclOrderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FinishBclOrderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FinishBclOrderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.order.finish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
