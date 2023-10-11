@@ -40,6 +40,12 @@ public class BclContractInfo extends TeaModel {
     @NameInMap("dest_url")
     public String destUrl;
 
+    // 签署模式：
+    // 模板签署:TEMPLATE_SIGN,使用同模板流程创建合同信息；
+    // 原文签署:ORIGINAL_SIGN，使用原来的流程创建合同信息
+    @NameInMap("sign_mode")
+    public String signMode;
+
     public static BclContractInfo build(java.util.Map<String, ?> map) throws Exception {
         BclContractInfo self = new BclContractInfo();
         return TeaModel.build(map, self);
@@ -99,6 +105,14 @@ public class BclContractInfo extends TeaModel {
     }
     public String getDestUrl() {
         return this.destUrl;
+    }
+
+    public BclContractInfo setSignMode(String signMode) {
+        this.signMode = signMode;
+        return this;
+    }
+    public String getSignMode() {
+        return this.signMode;
     }
 
 }

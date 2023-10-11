@@ -29,12 +29,8 @@ public class QueryBclComplainResponse extends TeaModel {
     public String status;
 
     // 支付宝交易号
-    @NameInMap("third_trade_no")
-    public String thirdTradeNo;
-
-    // 发起交易流水号
-    @NameInMap("trade_call_no")
-    public String tradeCallNo;
+    @NameInMap("alipay_trade_no")
+    public String alipayTradeNo;
 
     // 投诉单创建时间
     @NameInMap("gmt_create")
@@ -121,20 +117,12 @@ public class QueryBclComplainResponse extends TeaModel {
         return this.status;
     }
 
-    public QueryBclComplainResponse setThirdTradeNo(String thirdTradeNo) {
-        this.thirdTradeNo = thirdTradeNo;
+    public QueryBclComplainResponse setAlipayTradeNo(String alipayTradeNo) {
+        this.alipayTradeNo = alipayTradeNo;
         return this;
     }
-    public String getThirdTradeNo() {
-        return this.thirdTradeNo;
-    }
-
-    public QueryBclComplainResponse setTradeCallNo(String tradeCallNo) {
-        this.tradeCallNo = tradeCallNo;
-        return this;
-    }
-    public String getTradeCallNo() {
-        return this.tradeCallNo;
+    public String getAlipayTradeNo() {
+        return this.alipayTradeNo;
     }
 
     public QueryBclComplainResponse setGmtCreate(String gmtCreate) {

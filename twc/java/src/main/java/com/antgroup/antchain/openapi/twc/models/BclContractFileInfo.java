@@ -18,6 +18,13 @@ public class BclContractFileInfo extends TeaModel {
     @NameInMap("merchant_sign_fields")
     public java.util.List<BclSignField> merchantSignFields;
 
+    // 合同模板填充项内容扩展字段:
+    // 以key:value传入，JSON对象模板签署链路，不能传"  "或空"{}"，k-v模式，k和v都必须有。
+    // 当订单创建选择是模板签署时，该字段必填。
+    @NameInMap("simple_form_fields")
+    @Validation(maxLength = 2048)
+    public String simpleFormFields;
+
     public static BclContractFileInfo build(java.util.Map<String, ?> map) throws Exception {
         BclContractFileInfo self = new BclContractFileInfo();
         return TeaModel.build(map, self);
@@ -45,6 +52,14 @@ public class BclContractFileInfo extends TeaModel {
     }
     public java.util.List<BclSignField> getMerchantSignFields() {
         return this.merchantSignFields;
+    }
+
+    public BclContractFileInfo setSimpleFormFields(String simpleFormFields) {
+        this.simpleFormFields = simpleFormFields;
+        return this;
+    }
+    public String getSimpleFormFields() {
+        return this.simpleFormFields;
     }
 
 }

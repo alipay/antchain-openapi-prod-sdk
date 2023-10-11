@@ -37,6 +37,13 @@ public class BclContractFlowInfo extends TeaModel {
     @NameInMap("payee_id")
     public String payeeId;
 
+    // 签署模式:
+    // 模板签署:TEMPLATE_SIGN,使用同模板流程创建合同信息；
+    // 原文签署:ORIGINAL_SIGN，使用原来的流程创建合同信息;
+    // 未传值即为(原文签署:ORIGINAL_SIGN)
+    @NameInMap("sign_mode")
+    public String signMode;
+
     public static BclContractFlowInfo build(java.util.Map<String, ?> map) throws Exception {
         BclContractFlowInfo self = new BclContractFlowInfo();
         return TeaModel.build(map, self);
@@ -88,6 +95,14 @@ public class BclContractFlowInfo extends TeaModel {
     }
     public String getPayeeId() {
         return this.payeeId;
+    }
+
+    public BclContractFlowInfo setSignMode(String signMode) {
+        this.signMode = signMode;
+        return this;
+    }
+    public String getSignMode() {
+        return this.signMode;
     }
 
 }

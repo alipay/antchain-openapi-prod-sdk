@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class SubmitBclComplainfeedbackResponse extends TeaModel {
+public class UploadBclFileResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,16 @@ public class SubmitBclComplainfeedbackResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static SubmitBclComplainfeedbackResponse build(java.util.Map<String, ?> map) throws Exception {
-        SubmitBclComplainfeedbackResponse self = new SubmitBclComplainfeedbackResponse();
+    // 文件id
+    @NameInMap("file_id")
+    public String fileId;
+
+    public static UploadBclFileResponse build(java.util.Map<String, ?> map) throws Exception {
+        UploadBclFileResponse self = new UploadBclFileResponse();
         return TeaModel.build(map, self);
     }
 
-    public SubmitBclComplainfeedbackResponse setReqMsgId(String reqMsgId) {
+    public UploadBclFileResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +33,7 @@ public class SubmitBclComplainfeedbackResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public SubmitBclComplainfeedbackResponse setResultCode(String resultCode) {
+    public UploadBclFileResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,12 +41,20 @@ public class SubmitBclComplainfeedbackResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public SubmitBclComplainfeedbackResponse setResultMsg(String resultMsg) {
+    public UploadBclFileResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public UploadBclFileResponse setFileId(String fileId) {
+        this.fileId = fileId;
+        return this;
+    }
+    public String getFileId() {
+        return this.fileId;
     }
 
 }

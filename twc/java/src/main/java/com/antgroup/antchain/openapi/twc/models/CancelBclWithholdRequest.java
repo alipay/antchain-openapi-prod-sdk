@@ -21,6 +21,11 @@ public class CancelBclWithholdRequest extends TeaModel {
     @Validation(required = true)
     public Boolean allowCancelWithhold;
 
+    // 拒绝解约的原因,拒绝解约时必传
+    @NameInMap("reject_reason")
+    @Validation(maxLength = 128)
+    public String rejectReason;
+
     public static CancelBclWithholdRequest build(java.util.Map<String, ?> map) throws Exception {
         CancelBclWithholdRequest self = new CancelBclWithholdRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class CancelBclWithholdRequest extends TeaModel {
     }
     public Boolean getAllowCancelWithhold() {
         return this.allowCancelWithhold;
+    }
+
+    public CancelBclWithholdRequest setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
+        return this;
+    }
+    public String getRejectReason() {
+        return this.rejectReason;
     }
 
 }

@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.11.24"),
+                    new TeaPair("sdk_version", "1.12.5"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -558,6 +558,44 @@ public class Client {
     public QueryBclComplaineventidsResponse queryBclComplaineventidsEx(QueryBclComplaineventidsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.complaineventids.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBclComplaineventidsResponse());
+    }
+
+    /**
+     * Description: 租赁宝plus文件上传接口
+     * Summary: 租赁文件上传接口
+     */
+    public UploadBclFileResponse uploadBclFile(UploadBclFileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadBclFileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租赁宝plus文件上传接口
+     * Summary: 租赁文件上传接口
+     */
+    public UploadBclFileResponse uploadBclFileEx(UploadBclFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.file.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadBclFileResponse());
+    }
+
+    /**
+     * Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
+     * Summary: 完结租赁单
+     */
+    public FinishBclOrderResponse finishBclOrder(FinishBclOrderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.finishBclOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
+     * Summary: 完结租赁单
+     */
+    public FinishBclOrderResponse finishBclOrderEx(FinishBclOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.order.finish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FinishBclOrderResponse());
     }
 
     /**

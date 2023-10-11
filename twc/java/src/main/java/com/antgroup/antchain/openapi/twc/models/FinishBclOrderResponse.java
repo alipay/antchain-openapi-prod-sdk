@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class SubmitBclComplainfeedbackResponse extends TeaModel {
+public class FinishBclOrderResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,16 @@ public class SubmitBclComplainfeedbackResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static SubmitBclComplainfeedbackResponse build(java.util.Map<String, ?> map) throws Exception {
-        SubmitBclComplainfeedbackResponse self = new SubmitBclComplainfeedbackResponse();
+    // 完结申请单号
+    @NameInMap("finish_apply_no")
+    public String finishApplyNo;
+
+    public static FinishBclOrderResponse build(java.util.Map<String, ?> map) throws Exception {
+        FinishBclOrderResponse self = new FinishBclOrderResponse();
         return TeaModel.build(map, self);
     }
 
-    public SubmitBclComplainfeedbackResponse setReqMsgId(String reqMsgId) {
+    public FinishBclOrderResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +33,7 @@ public class SubmitBclComplainfeedbackResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public SubmitBclComplainfeedbackResponse setResultCode(String resultCode) {
+    public FinishBclOrderResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,12 +41,20 @@ public class SubmitBclComplainfeedbackResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public SubmitBclComplainfeedbackResponse setResultMsg(String resultMsg) {
+    public FinishBclOrderResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public FinishBclOrderResponse setFinishApplyNo(String finishApplyNo) {
+        this.finishApplyNo = finishApplyNo;
+        return this;
+    }
+    public String getFinishApplyNo() {
+        return this.finishApplyNo;
     }
 
 }
