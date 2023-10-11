@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.24',
+                    'sdk_version': '1.12.5',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.24',
+                    'sdk_version': '1.12.5',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -1449,6 +1449,118 @@ class Client:
         return TeaCore.from_map(
             twc_models.QueryBclComplaineventidsResponse(),
             await self.do_request_async('1.0', 'twc.notary.bcl.complaineventids.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_bcl_file(
+        self,
+        request: twc_models.UploadBclFileRequest,
+    ) -> twc_models.UploadBclFileResponse:
+        """
+        Description: 租赁宝plus文件上传接口
+        Summary: 租赁文件上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_bcl_file_ex(request, headers, runtime)
+
+    async def upload_bcl_file_async(
+        self,
+        request: twc_models.UploadBclFileRequest,
+    ) -> twc_models.UploadBclFileResponse:
+        """
+        Description: 租赁宝plus文件上传接口
+        Summary: 租赁文件上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_bcl_file_ex_async(request, headers, runtime)
+
+    def upload_bcl_file_ex(
+        self,
+        request: twc_models.UploadBclFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UploadBclFileResponse:
+        """
+        Description: 租赁宝plus文件上传接口
+        Summary: 租赁文件上传接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UploadBclFileResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_bcl_file_ex_async(
+        self,
+        request: twc_models.UploadBclFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UploadBclFileResponse:
+        """
+        Description: 租赁宝plus文件上传接口
+        Summary: 租赁文件上传接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UploadBclFileResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def finish_bcl_order(
+        self,
+        request: twc_models.FinishBclOrderRequest,
+    ) -> twc_models.FinishBclOrderResponse:
+        """
+        Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
+        Summary: 完结租赁单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.finish_bcl_order_ex(request, headers, runtime)
+
+    async def finish_bcl_order_async(
+        self,
+        request: twc_models.FinishBclOrderRequest,
+    ) -> twc_models.FinishBclOrderResponse:
+        """
+        Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
+        Summary: 完结租赁单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.finish_bcl_order_ex_async(request, headers, runtime)
+
+    def finish_bcl_order_ex(
+        self,
+        request: twc_models.FinishBclOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.FinishBclOrderResponse:
+        """
+        Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
+        Summary: 完结租赁单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.FinishBclOrderResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.order.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def finish_bcl_order_ex_async(
+        self,
+        request: twc_models.FinishBclOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.FinishBclOrderResponse:
+        """
+        Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
+        Summary: 完结租赁单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.FinishBclOrderResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.order.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_contract_account(

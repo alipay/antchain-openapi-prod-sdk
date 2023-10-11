@@ -421,25 +421,30 @@ class BclSignField(TeaModel):
         self.add_sign_date = add_sign_date
         # 签章日期字体大小
         # 默认12，范围10-20
-        # 商家签署区不支持
+        # 商家签署区不支持；
+        # 当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
         self.sign_date_font_size = sign_date_font_size
         # 签章日期格式
         # yyyy年MM月dd日（默认值） yyyy-MM-dd
         # yyyy/MM/dd
         # yyyy-MM-dd HH:mm:ss
-        # 商家签署区不支持
+        # 商家签署区不支持；
+        # 当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
         self.sign_date_format = sign_date_format
         # 页码信息
         # 当add_sign_date为true时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可
-        # 商家签署区不支持
+        # 商家签署区不支持；
+        # 当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
         self.sign_date_pos_page = sign_date_pos_page
         # 页面签章日期x坐标
         # 非负数，小数位最多两位，默认0
-        # 商家签署区不支持
+        # 商家签署区不支持；
+        # 当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
         self.sign_date_pos_x = sign_date_pos_x
         # 页面签章日期y坐标
         # 非负数，小数位最多两位，默认0
-        # 商家签署区不支持
+        # 商家签署区不支持；
+        # 当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
         self.sign_date_pos_y = sign_date_pos_y
 
     def validate(self):
@@ -937,6 +942,7 @@ class BclContractFileInfo(TeaModel):
         oss_file_id: str = None,
         user_sign_fields: List[BclSignField] = None,
         merchant_sign_fields: List[BclSignField] = None,
+        simple_form_fields: str = None,
     ):
         # 文件OSS Id
         self.oss_file_id = oss_file_id
@@ -944,6 +950,10 @@ class BclContractFileInfo(TeaModel):
         self.user_sign_fields = user_sign_fields
         # 租赁商家签署区信息
         self.merchant_sign_fields = merchant_sign_fields
+        # 合同模板填充项内容扩展字段:
+        # 以key:value传入，JSON对象模板签署链路，不能传"  "或空"{}"，k-v模式，k和v都必须有。
+        # 当订单创建选择是模板签署时，该字段必填。
+        self.simple_form_fields = simple_form_fields
 
     def validate(self):
         self.validate_required(self.oss_file_id, 'oss_file_id')
@@ -958,6 +968,8 @@ class BclContractFileInfo(TeaModel):
             for k in self.merchant_sign_fields:
                 if k:
                     k.validate()
+        if self.simple_form_fields is not None:
+            self.validate_max_length(self.simple_form_fields, 'simple_form_fields', 2048)
 
     def to_map(self):
         _map = super().to_map()
@@ -975,6 +987,8 @@ class BclContractFileInfo(TeaModel):
         if self.merchant_sign_fields is not None:
             for k in self.merchant_sign_fields:
                 result['merchant_sign_fields'].append(k.to_map() if k else None)
+        if self.simple_form_fields is not None:
+            result['simple_form_fields'] = self.simple_form_fields
         return result
 
     def from_map(self, m: dict = None):
@@ -991,6 +1005,8 @@ class BclContractFileInfo(TeaModel):
             for k in m.get('merchant_sign_fields'):
                 temp_model = BclSignField()
                 self.merchant_sign_fields.append(temp_model.from_map(k))
+        if m.get('simple_form_fields') is not None:
+            self.simple_form_fields = m.get('simple_form_fields')
         return self
 
 
@@ -5182,6 +5198,7 @@ class BclContractFlowInfo(TeaModel):
         redirect_url: str = None,
         sign_platform: str = None,
         payee_id: str = None,
+        sign_mode: str = None,
     ):
         # 合同主题
         # 注：名称不支持以下9个字符：/ \ : * " < > | ？
@@ -5201,6 +5218,11 @@ class BclContractFlowInfo(TeaModel):
         self.sign_platform = sign_platform
         # 收款方的ID，调用创建收款方接口获得
         self.payee_id = payee_id
+        # 签署模式:
+        # 模板签署:TEMPLATE_SIGN,使用同模板流程创建合同信息；
+        # 原文签署:ORIGINAL_SIGN，使用原来的流程创建合同信息;
+        # 未传值即为(原文签署:ORIGINAL_SIGN)
+        self.sign_mode = sign_mode
 
     def validate(self):
         if self.business_scene is not None:
@@ -5234,6 +5256,8 @@ class BclContractFlowInfo(TeaModel):
             result['sign_platform'] = self.sign_platform
         if self.payee_id is not None:
             result['payee_id'] = self.payee_id
+        if self.sign_mode is not None:
+            result['sign_mode'] = self.sign_mode
         return result
 
     def from_map(self, m: dict = None):
@@ -5253,6 +5277,8 @@ class BclContractFlowInfo(TeaModel):
             self.sign_platform = m.get('sign_platform')
         if m.get('payee_id') is not None:
             self.payee_id = m.get('payee_id')
+        if m.get('sign_mode') is not None:
+            self.sign_mode = m.get('sign_mode')
         return self
 
 
@@ -7124,6 +7150,7 @@ class BclContractInfo(TeaModel):
         flow_err_msg: str = None,
         sign_field_infos: List[BclContractSignFieldInfo] = None,
         dest_url: str = None,
+        sign_mode: str = None,
     ):
         # 签署状态
         # 1.合同待签署：SIGNING
@@ -7146,6 +7173,10 @@ class BclContractInfo(TeaModel):
         self.sign_field_infos = sign_field_infos
         # 签署长链接，使用租赁宝代扣并且发起订单后才可以查询获取
         self.dest_url = dest_url
+        # 签署模式：
+        # 模板签署:TEMPLATE_SIGN,使用同模板流程创建合同信息；
+        # 原文签署:ORIGINAL_SIGN，使用原来的流程创建合同信息
+        self.sign_mode = sign_mode
 
     def validate(self):
         self.validate_required(self.sign_status, 'sign_status')
@@ -7182,6 +7213,8 @@ class BclContractInfo(TeaModel):
                 result['sign_field_infos'].append(k.to_map() if k else None)
         if self.dest_url is not None:
             result['dest_url'] = self.dest_url
+        if self.sign_mode is not None:
+            result['sign_mode'] = self.sign_mode
         return result
 
     def from_map(self, m: dict = None):
@@ -7206,6 +7239,8 @@ class BclContractInfo(TeaModel):
                 self.sign_field_infos.append(temp_model.from_map(k))
         if m.get('dest_url') is not None:
             self.dest_url = m.get('dest_url')
+        if m.get('sign_mode') is not None:
+            self.sign_mode = m.get('sign_mode')
         return self
 
 
@@ -9161,6 +9196,34 @@ class CertificateInfo(TeaModel):
             self.resource_name = m.get('resource_name')
         if m.get('resource_url') is not None:
             self.resource_url = m.get('resource_url')
+        return self
+
+
+class BclFinishInstallment(TeaModel):
+    def __init__(
+        self,
+        term_no: int = None,
+    ):
+        # 期次号
+        self.term_no = term_no
+
+    def validate(self):
+        self.validate_required(self.term_no, 'term_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.term_no is not None:
+            result['term_no'] = self.term_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('term_no') is not None:
+            self.term_no = m.get('term_no')
         return self
 
 
@@ -12439,6 +12502,7 @@ class CancelBclWithholdRequest(TeaModel):
         product_instance_id: str = None,
         cancel_apply_no: str = None,
         allow_cancel_withhold: bool = None,
+        reject_reason: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -12447,10 +12511,14 @@ class CancelBclWithholdRequest(TeaModel):
         self.cancel_apply_no = cancel_apply_no
         # 是否允许解除代扣
         self.allow_cancel_withhold = allow_cancel_withhold
+        # 拒绝解约的原因,拒绝解约时必传
+        self.reject_reason = reject_reason
 
     def validate(self):
         self.validate_required(self.cancel_apply_no, 'cancel_apply_no')
         self.validate_required(self.allow_cancel_withhold, 'allow_cancel_withhold')
+        if self.reject_reason is not None:
+            self.validate_max_length(self.reject_reason, 'reject_reason', 128)
 
     def to_map(self):
         _map = super().to_map()
@@ -12466,6 +12534,8 @@ class CancelBclWithholdRequest(TeaModel):
             result['cancel_apply_no'] = self.cancel_apply_no
         if self.allow_cancel_withhold is not None:
             result['allow_cancel_withhold'] = self.allow_cancel_withhold
+        if self.reject_reason is not None:
+            result['reject_reason'] = self.reject_reason
         return result
 
     def from_map(self, m: dict = None):
@@ -12478,6 +12548,8 @@ class CancelBclWithholdRequest(TeaModel):
             self.cancel_apply_no = m.get('cancel_apply_no')
         if m.get('allow_cancel_withhold') is not None:
             self.allow_cancel_withhold = m.get('allow_cancel_withhold')
+        if m.get('reject_reason') is not None:
+            self.reject_reason = m.get('reject_reason')
         return self
 
 
@@ -12575,8 +12647,7 @@ class QueryBclComplainResponse(TeaModel):
         order_id: str = None,
         complain_event_id: str = None,
         status: str = None,
-        third_trade_no: str = None,
-        trade_call_no: str = None,
+        alipay_trade_no: str = None,
         gmt_create: str = None,
         gmt_modified: str = None,
         gmt_finished: str = None,
@@ -12599,9 +12670,7 @@ class QueryBclComplainResponse(TeaModel):
         # 投诉单状态
         self.status = status
         # 支付宝交易号
-        self.third_trade_no = third_trade_no
-        # 发起交易流水号
-        self.trade_call_no = trade_call_no
+        self.alipay_trade_no = alipay_trade_no
         # 投诉单创建时间
         self.gmt_create = gmt_create
         # 投诉单修改时间
@@ -12643,10 +12712,8 @@ class QueryBclComplainResponse(TeaModel):
             result['complain_event_id'] = self.complain_event_id
         if self.status is not None:
             result['status'] = self.status
-        if self.third_trade_no is not None:
-            result['third_trade_no'] = self.third_trade_no
-        if self.trade_call_no is not None:
-            result['trade_call_no'] = self.trade_call_no
+        if self.alipay_trade_no is not None:
+            result['alipay_trade_no'] = self.alipay_trade_no
         if self.gmt_create is not None:
             result['gmt_create'] = self.gmt_create
         if self.gmt_modified is not None:
@@ -12681,10 +12748,8 @@ class QueryBclComplainResponse(TeaModel):
             self.complain_event_id = m.get('complain_event_id')
         if m.get('status') is not None:
             self.status = m.get('status')
-        if m.get('third_trade_no') is not None:
-            self.third_trade_no = m.get('third_trade_no')
-        if m.get('trade_call_no') is not None:
-            self.trade_call_no = m.get('trade_call_no')
+        if m.get('alipay_trade_no') is not None:
+            self.alipay_trade_no = m.get('alipay_trade_no')
         if m.get('gmt_create') is not None:
             self.gmt_create = m.get('gmt_create')
         if m.get('gmt_modified') is not None:
@@ -12903,7 +12968,6 @@ class SubmitBclComplainfeedbackResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        result: bool = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -12911,8 +12975,6 @@ class SubmitBclComplainfeedbackResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 是否处理成功
-        self.result = result
 
     def validate(self):
         pass
@@ -12929,8 +12991,6 @@ class SubmitBclComplainfeedbackResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.result is not None:
-            result['result'] = self.result
         return result
 
     def from_map(self, m: dict = None):
@@ -12941,8 +13001,6 @@ class SubmitBclComplainfeedbackResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('result') is not None:
-            self.result = m.get('result')
         return self
 
 
@@ -13083,6 +13141,257 @@ class QueryBclComplaineventidsResponse(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('page_num') is not None:
             self.page_num = m.get('page_num')
+        return self
+
+
+class UploadBclFileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_name: str = None,
+        file_content: str = None,
+        file_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 文件名称
+        self.file_name = file_name
+        # 文件的Base64编码，需小于1M
+        self.file_content = file_content
+        # 文件类型
+        self.file_type = file_type
+
+    def validate(self):
+        self.validate_required(self.file_name, 'file_name')
+        self.validate_required(self.file_content, 'file_content')
+        self.validate_required(self.file_type, 'file_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.file_content is not None:
+            result['file_content'] = self.file_content
+        if self.file_type is not None:
+            result['file_type'] = self.file_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('file_content') is not None:
+            self.file_content = m.get('file_content')
+        if m.get('file_type') is not None:
+            self.file_type = m.get('file_type')
+        return self
+
+
+class UploadBclFileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        file_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 文件id
+        self.file_id = file_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        return self
+
+
+class FinishBclOrderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        investor_final_payment: int = None,
+        buyer_repay_amount: int = None,
+        client_token: str = None,
+        finish_scene: str = None,
+        finish_installments: List[BclFinishInstallment] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租赁宝plus服务返回的订单id
+        self.order_id = order_id
+        # 资方尾款金额，单位为分且最小值：1（租赁单有融资时必传）
+        self.investor_final_payment = investor_final_payment
+        # 买家还款金额，单位分（提前还款，到期买断，到期归还场景必传）
+        self.buyer_repay_amount = buyer_repay_amount
+        # 幂等号，用来保证请求幂等性，标识一次完结请求，确保同笔订单下该值唯一。
+        # 注意：
+        # ● clientToken只支持ASCII字符，且不能超过64个字符；
+        # ● 针对同一次完结请求如果调用接口失败或异常了，重试时要保证该值不变；
+        self.client_token = client_token
+        # 完结场景：
+        # ● BUYER_PRE_REPAY：买家提前还款
+        # ● BUYER_DUE_GIVE_BACK：买家到期归还
+        # ● BUYER_DUE_BUYOUT：买家到期买断
+        # ● BUYER_BAD_DEBT：买家坏账
+        # ● BUYER_CANCEL_AGREEMENT：买家解约
+        # ● MERCHANT_CANCEL_ORDER：商家取消订单
+        self.finish_scene = finish_scene
+        # 完结的分期信息（买家到期归还和买家到期买断场景不传，其他场景必传）
+        self.finish_installments = finish_installments
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.client_token, 'client_token')
+        self.validate_required(self.finish_scene, 'finish_scene')
+        if self.finish_installments:
+            for k in self.finish_installments:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.investor_final_payment is not None:
+            result['investor_final_payment'] = self.investor_final_payment
+        if self.buyer_repay_amount is not None:
+            result['buyer_repay_amount'] = self.buyer_repay_amount
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
+        if self.finish_scene is not None:
+            result['finish_scene'] = self.finish_scene
+        result['finish_installments'] = []
+        if self.finish_installments is not None:
+            for k in self.finish_installments:
+                result['finish_installments'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('investor_final_payment') is not None:
+            self.investor_final_payment = m.get('investor_final_payment')
+        if m.get('buyer_repay_amount') is not None:
+            self.buyer_repay_amount = m.get('buyer_repay_amount')
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
+        if m.get('finish_scene') is not None:
+            self.finish_scene = m.get('finish_scene')
+        self.finish_installments = []
+        if m.get('finish_installments') is not None:
+            for k in m.get('finish_installments'):
+                temp_model = BclFinishInstallment()
+                self.finish_installments.append(temp_model.from_map(k))
+        return self
+
+
+class FinishBclOrderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        finish_apply_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 完结申请单号
+        self.finish_apply_no = finish_apply_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.finish_apply_no is not None:
+            result['finish_apply_no'] = self.finish_apply_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('finish_apply_no') is not None:
+            self.finish_apply_no = m.get('finish_apply_no')
         return self
 
 
