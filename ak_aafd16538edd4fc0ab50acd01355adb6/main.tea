@@ -1,0 +1,411 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'ak_aafd16538edd4fc0ab50acd01355adb6',
+    _prod_channel = 'saas'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 协议扩展
+model RiskEvaluationAgreementExtRequest {
+  // URL：文件地址
+  // CONTENT:Base64的文件流
+  // 
+  type: string(name='type', example='URL'),
+  // 文件类型
+  // PDF
+  fileType?: string(name='file_type', example='PDF'),
+  // type为url是传入文件地址
+  // type为CONTENT时传入Base64文件内容编码
+  // 
+  content: string(name='content', example='ewronvdnfidonfsidfis'),
+}
+
+// 地区
+model RiskEvaluationDistrictExtRequest {
+  // 地区编码
+  cityCode: string(name='city_code', example=' 4301000'),
+}
+
+// 扩展信息
+model RiskEvaluationExtendInfoRequest {
+  // 协议集合
+  agreementList: [ RiskEvaluationAgreementExtRequest ](name='agreement_list', example=''),
+  // 地区请求
+  districtExt: RiskEvaluationDistrictExtRequest(name='district_ext', example='地区请求'),
+}
+
+model ImportDataBccCompanyPersonRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 姓名
+  xm?: string(name='xm'),
+  // 身份证号
+  sfzh?: string(name='sfzh'),
+  // 数据更新时间
+  sjgxsj?: string(name='sjgxsj'),
+  // 数据目录名称
+  sjmlmc?: string(name='sjmlmc'),
+  // 数据所属部门
+  sjssbm?: string(name='sjssbm'),
+  // 从业资格证号
+  cyzgzh?: string(name='cyzgzh'),
+  // 从业类别
+  cylb?: string(name='cylb'),
+  // 聘用单位
+  pydw?: string(name='pydw'),
+  // 公告事由
+  ggsy?: string(name='ggsy'),
+  // 公告日期起
+  ggrqq?: string(name='ggrqq'),
+  // 公告日期止
+  ggrqz?: string(name='ggrqz'),
+  // 企信链所需---企信链控制台数据管理列表页中每个数据的唯一码
+  dataName?: string(name='data_name'),
+}
+
+model ImportDataBccCompanyPersonResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据模型唯一key
+  dataKey?: string(name='data_key'),
+  // 模型码
+  dataCode?: string(name='data_code'),
+}
+
+/**
+ * Description: 个人信息
+ * Summary: 个人信息
+ */
+async function importDataBccCompanyPerson(request: ImportDataBccCompanyPersonRequest): ImportDataBccCompanyPersonResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importDataBccCompanyPersonEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人信息
+ * Summary: 个人信息
+ */
+async function importDataBccCompanyPersonEx(request: ImportDataBccCompanyPersonRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportDataBccCompanyPersonResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'data.bcc.company.person.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthBlockchainTaxRiskEvaluationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 个人身份证号
+  identityId: string(maxLength=30, name='identity_id'),
+  // 个人姓名
+  identityName?: string(maxLength=128, name='identity_name'),
+  // 企业的统一社会信用编码
+  enterpriseId?: string(maxLength=64, name='enterprise_id'),
+  // 企业的名称
+  enterpriseName?: string(name='enterprise_name'),
+  // 企业或者个人企业：ENTERPRISE  个人：PERSONAL
+  // 
+  identityType: string(name='identity_type'),
+  // 授权的业务类型
+  authType: string(name='auth_type'),
+  // 授权订单号
+  orderNo: string(name='order_no'),
+  // 子渠道渠道编码，需要同步蚂蚁，由蚂蚁设置。如果是银行本身，可不填
+  // 备注：如果同一信贷客户在不同银行的调用需要严格区分，分别授权
+  // 
+  subTenant?: string(name='sub_tenant'),
+  //  扩展信息
+  extendInfo: RiskEvaluationExtendInfoRequest(name='extend_info'),
+}
+
+model AuthBlockchainTaxRiskEvaluationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权订单订单号
+  orderNo?: string(name='order_no'),
+  // 是否授权成功true是，false否
+  authSuccess?: boolean(name='auth_success'),
+  // 过期时间，unix时间戳 毫秒
+  expireTime?: long(name='expire_time'),
+  // 授权时间，unix时间戳 毫秒
+  authTime?: string(name='auth_time'),
+}
+
+/**
+ * Description: 授权接口
+ * Summary: 授权接口
+ */
+async function authBlockchainTaxRiskEvaluation(request: AuthBlockchainTaxRiskEvaluationRequest): AuthBlockchainTaxRiskEvaluationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authBlockchainTaxRiskEvaluationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权接口
+ * Summary: 授权接口
+ */
+async function authBlockchainTaxRiskEvaluationEx(request: AuthBlockchainTaxRiskEvaluationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthBlockchainTaxRiskEvaluationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.risk.evaluation.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBlockchainTaxRiskEvaluationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求流水号(必填),调用方保证每次请求号唯一，受理方用来校验唯一性，同一受理号返回请求结果一致
+  bizRequestId: string(name='biz_request_id'),
+  // 信贷用户的纳税人识别号或者身份证号
+  identityId: string(name='identity_id'),
+  // 授权类型
+  authType: string(name='auth_type'),
+  // 授权订单号
+  orderNo: string(name='order_no'),
+  // 机构编码
+  instCode: string(name='inst_code'),
+}
+
+model QueryBlockchainTaxRiskEvaluationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // unix秒时间戳,查询时间，用来对账使用
+  queryTime?: string(name='query_time'),
+}
+
+/**
+ * Description: 查询
+ * Summary: 查询
+ */
+async function queryBlockchainTaxRiskEvaluation(request: QueryBlockchainTaxRiskEvaluationRequest): QueryBlockchainTaxRiskEvaluationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBlockchainTaxRiskEvaluationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询
+ * Summary: 查询
+ */
+async function queryBlockchainTaxRiskEvaluationEx(request: QueryBlockchainTaxRiskEvaluationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBlockchainTaxRiskEvaluationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.risk.evaluation.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncBlockchainTaxRiskEvaluationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求流水号(必填),调用方保证每次请求号唯一，受理方用来校验唯一性，同一受理号返回请求结果一致
+  bizRequestId: string(name='biz_request_id'),
+  // 信贷用户的纳税人识别号或者身份证号
+  identityId: string(name='identity_id'),
+  // 授权类型
+  authType: string(name='auth_type'),
+  // 授权订单号
+  orderNo: string(name='order_no'),
+  // 机构编码
+  instCode: string(name='inst_code'),
+}
+
+model SyncBlockchainTaxRiskEvaluationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 1322324243	unix秒时间戳,查询时间，用来对账使用
+  queryTime?: string(name='query_time'),
+  // 内容，List<JsonObject>
+  bizContent?: string(name='biz_content'),
+}
+
+/**
+ * Description: 查询-同步返回提额数据
+ * Summary: 查询-同步提额数据返回
+ */
+async function syncBlockchainTaxRiskEvaluation(request: SyncBlockchainTaxRiskEvaluationRequest): SyncBlockchainTaxRiskEvaluationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncBlockchainTaxRiskEvaluationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询-同步返回提额数据
+ * Summary: 查询-同步提额数据返回
+ */
+async function syncBlockchainTaxRiskEvaluationEx(request: SyncBlockchainTaxRiskEvaluationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncBlockchainTaxRiskEvaluationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.risk.evaluation.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
