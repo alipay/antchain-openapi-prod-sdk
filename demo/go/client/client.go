@@ -3252,6 +3252,69 @@ func (s *QueryApprovalTestResponse) SetMsg(v string) *QueryApprovalTestResponse 
 	return s
 }
 
+type QueryRoutingGrayscaleTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 1
+	Data *int64 `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s QueryRoutingGrayscaleTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRoutingGrayscaleTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRoutingGrayscaleTestRequest) SetAuthToken(v string) *QueryRoutingGrayscaleTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRoutingGrayscaleTestRequest) SetProductInstanceId(v string) *QueryRoutingGrayscaleTestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRoutingGrayscaleTestRequest) SetData(v int64) *QueryRoutingGrayscaleTestRequest {
+	s.Data = &v
+	return s
+}
+
+type QueryRoutingGrayscaleTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryRoutingGrayscaleTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRoutingGrayscaleTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRoutingGrayscaleTestResponse) SetReqMsgId(v string) *QueryRoutingGrayscaleTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRoutingGrayscaleTestResponse) SetResultCode(v string) *QueryRoutingGrayscaleTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRoutingGrayscaleTestResponse) SetResultMsg(v string) *QueryRoutingGrayscaleTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type InitBbpInsuranceUserRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4740,7 +4803,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.212"),
+				"sdk_version":      tea.String("1.0.218"),
 				"_prod_code":       tea.String("DEMO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5470,7 +5533,7 @@ func (client *Client) UpdateGatewayRoadEx(request *UpdateGatewayRoadRequest, hea
 
 /**
  * Description: cj test
- * Summary: cj test
+ * Summary: cj test1
  */
 func (client *Client) InitCjtestAcopmRes(request *InitCjtestAcopmResRequest) (_result *InitCjtestAcopmResResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -5486,7 +5549,7 @@ func (client *Client) InitCjtestAcopmRes(request *InitCjtestAcopmResRequest) (_r
 
 /**
  * Description: cj test
- * Summary: cj test
+ * Summary: cj test1
  */
 func (client *Client) InitCjtestAcopmResEx(request *InitCjtestAcopmResRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitCjtestAcopmResResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -5913,6 +5976,40 @@ func (client *Client) QueryApprovalTestEx(request *QueryApprovalTestRequest, hea
 }
 
 /**
+ * Description: 在路由三板斧迭代中测试使用
+ * Summary: 路由灰度测试使用API
+ */
+func (client *Client) QueryRoutingGrayscaleTest(request *QueryRoutingGrayscaleTestRequest) (_result *QueryRoutingGrayscaleTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRoutingGrayscaleTestResponse{}
+	_body, _err := client.QueryRoutingGrayscaleTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 在路由三板斧迭代中测试使用
+ * Summary: 路由灰度测试使用API
+ */
+func (client *Client) QueryRoutingGrayscaleTestEx(request *QueryRoutingGrayscaleTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRoutingGrayscaleTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRoutingGrayscaleTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.routing.grayscale.test.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 保司用户埋点信息
  * Summary: 用户登陆页面埋点
  */
@@ -6321,7 +6418,7 @@ func (client *Client) BindGongxaingTestEx(request *BindGongxaingTestRequest, hea
 }
 
 /**
- * Description: 自动化测试创建test1
+ * Description: 自动化测试创建test222
  * Summary: 自动化测试创建test1
  */
 func (client *Client) BindAaaBbbCcc(request *BindAaaBbbCccRequest) (_result *BindAaaBbbCccResponse, _err error) {
@@ -6337,7 +6434,7 @@ func (client *Client) BindAaaBbbCcc(request *BindAaaBbbCccRequest) (_result *Bin
 }
 
 /**
- * Description: 自动化测试创建test1
+ * Description: 自动化测试创建test222
  * Summary: 自动化测试创建test1
  */
 func (client *Client) BindAaaBbbCccEx(request *BindAaaBbbCccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindAaaBbbCccResponse, _err error) {
