@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.11"),
+                    new TeaPair("sdk_version", "1.7.12"),
                     new TeaPair("_prod_code", "TAX"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -672,6 +672,25 @@ public class Client {
     public SyncRiskEvaluationResponse syncRiskEvaluationEx(SyncRiskEvaluationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.risk.evaluation.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncRiskEvaluationResponse());
+    }
+
+    /**
+     * Description: 纳税人状态查询
+     * Summary: 纳税人状态查询
+     */
+    public QuerySimpleauthIdentitystateResponse querySimpleauthIdentitystate(QuerySimpleauthIdentitystateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySimpleauthIdentitystateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 纳税人状态查询
+     * Summary: 纳税人状态查询
+     */
+    public QuerySimpleauthIdentitystateResponse querySimpleauthIdentitystateEx(QuerySimpleauthIdentitystateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.simpleauth.identitystate.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySimpleauthIdentitystateResponse());
     }
 
     /**

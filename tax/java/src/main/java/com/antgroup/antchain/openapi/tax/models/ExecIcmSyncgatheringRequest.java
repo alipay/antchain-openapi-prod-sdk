@@ -51,6 +51,10 @@ public class ExecIcmSyncgatheringRequest extends TeaModel {
     @NameInMap("sub_tenant")
     public String subTenant;
 
+    // 优先级，越大优先级越高
+    @NameInMap("use_priority")
+    public String usePriority;
+
     public static ExecIcmSyncgatheringRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecIcmSyncgatheringRequest self = new ExecIcmSyncgatheringRequest();
         return TeaModel.build(map, self);
@@ -134,6 +138,14 @@ public class ExecIcmSyncgatheringRequest extends TeaModel {
     }
     public String getSubTenant() {
         return this.subTenant;
+    }
+
+    public ExecIcmSyncgatheringRequest setUsePriority(String usePriority) {
+        this.usePriority = usePriority;
+        return this;
+    }
+    public String getUsePriority() {
+        return this.usePriority;
     }
 
 }
