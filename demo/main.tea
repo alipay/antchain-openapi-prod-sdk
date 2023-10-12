@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.212',
+    sdk_version = '1.0.218',
     _prod_code = 'DEMO',
     _prod_channel = 'undefined'
   };
@@ -1182,7 +1182,7 @@ model InitCjtestAcopmResResponse = {
 
 /**
  * Description: cj test
- * Summary: cj test
+ * Summary: cj test1
  */
 async function initCjtestAcopmRes(request: InitCjtestAcopmResRequest): InitCjtestAcopmResResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -1192,7 +1192,7 @@ async function initCjtestAcopmRes(request: InitCjtestAcopmResRequest): InitCjtes
 
 /**
  * Description: cj test
- * Summary: cj test
+ * Summary: cj test1
  */
 async function initCjtestAcopmResEx(request: InitCjtestAcopmResRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitCjtestAcopmResResponse {
   Util.validateModel(request);
@@ -1655,6 +1655,42 @@ async function queryApprovalTest(request: QueryApprovalTestRequest): QueryApprov
 async function queryApprovalTestEx(request: QueryApprovalTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApprovalTestResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.approval.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRoutingGrayscaleTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 1
+  data: long(name='data'),
+}
+
+model QueryRoutingGrayscaleTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 在路由三板斧迭代中测试使用
+ * Summary: 路由灰度测试使用API
+ */
+async function queryRoutingGrayscaleTest(request: QueryRoutingGrayscaleTestRequest): QueryRoutingGrayscaleTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRoutingGrayscaleTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 在路由三板斧迭代中测试使用
+ * Summary: 路由灰度测试使用API
+ */
+async function queryRoutingGrayscaleTestEx(request: QueryRoutingGrayscaleTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRoutingGrayscaleTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.routing.grayscale.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model InitBbpInsuranceUserRequest = {
@@ -2139,7 +2175,7 @@ model BindAaaBbbCccResponse = {
 }
 
 /**
- * Description: 自动化测试创建test1
+ * Description: 自动化测试创建test222
  * Summary: 自动化测试创建test1
  */
 async function bindAaaBbbCcc(request: BindAaaBbbCccRequest): BindAaaBbbCccResponse {
@@ -2149,7 +2185,7 @@ async function bindAaaBbbCcc(request: BindAaaBbbCccRequest): BindAaaBbbCccRespon
 }
 
 /**
- * Description: 自动化测试创建test1
+ * Description: 自动化测试创建test222
  * Summary: 自动化测试创建test1
  */
 async function bindAaaBbbCccEx(request: BindAaaBbbCccRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindAaaBbbCccResponse {
