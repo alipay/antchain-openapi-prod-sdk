@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.11',
+    sdk_version = '1.7.12',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -439,6 +439,20 @@ model BaseAuthRequest {
   orderNo: string(name='order_no', example='订单号'),
   // 扩展信息
   extendInfo: StandardAuthExtendInfoRequest(name='extend_info', example='扩展信息'),
+}
+
+// 纳税人状态
+model IndentityState {
+  // 纳税人识别号
+  nsrshb: string(name='nsrshb', example='91440101MA59UGFL91'),
+  // 纳税人名称
+  nsrmc: string(name='nsrmc', example='张三'),
+  // 税务机构名称
+  swjgmc: string(name='swjgmc', example='123'),
+  // 纳税人识别号状态
+  state: string(name='state', example='正常 非正常 注销 报验 核销报验 无税务登记'),
+  // 查询时间
+  time: string(name='time', example='123'),
 }
 
 // 个人授权
@@ -1026,6 +1040,8 @@ model ExecIcmSyncgatheringRequest = {
   queryType?: string(name='query_type'),
   // 子机构编码，字典由系统预设白名单
   subTenant?: string(name='sub_tenant'),
+  // 优先级，越大优先级越高
+  usePriority?: string(name='use_priority'),
 }
 
 model ExecIcmSyncgatheringResponse = {
@@ -1935,6 +1951,56 @@ async function syncRiskEvaluation(request: SyncRiskEvaluationRequest): SyncRiskE
 async function syncRiskEvaluationEx(request: SyncRiskEvaluationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncRiskEvaluationResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.tax.risk.evaluation.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySimpleauthIdentitystateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 纳税人识别号
+  identity: string(name='identity'),
+  // 租户号
+  instCode: string(name='inst_code'),
+  // 请求id
+  bizUniqueId: string(name='biz_unique_id'),
+  // 产品类型
+  authType: string(name='auth_type'),
+  // 授权编码
+  authCode: string(name='auth_code'),
+  // 纳税人名称
+  nsrsmc: string(name='nsrsmc'),
+}
+
+model QuerySimpleauthIdentitystateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  bizRequestId?: string(name='biz_request_id'),
+  // 返回结果
+  data?: [ string ](name='data'),
+}
+
+/**
+ * Description: 纳税人状态查询
+ * Summary: 纳税人状态查询
+ */
+async function querySimpleauthIdentitystate(request: QuerySimpleauthIdentitystateRequest): QuerySimpleauthIdentitystateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySimpleauthIdentitystateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 纳税人状态查询
+ * Summary: 纳税人状态查询
+ */
+async function querySimpleauthIdentitystateEx(request: QuerySimpleauthIdentitystateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySimpleauthIdentitystateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.simpleauth.identitystate.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryPdataPersonalincomeRequest = {
