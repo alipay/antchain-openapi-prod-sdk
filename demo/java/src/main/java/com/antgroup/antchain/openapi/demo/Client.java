@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.212"),
+                    new TeaPair("sdk_version", "1.0.218"),
                     new TeaPair("_prod_code", "DEMO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -547,7 +547,7 @@ public class Client {
 
     /**
      * Description: cj test
-     * Summary: cj test
+     * Summary: cj test1
      */
     public InitCjtestAcopmResResponse initCjtestAcopmRes(InitCjtestAcopmResRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -557,7 +557,7 @@ public class Client {
 
     /**
      * Description: cj test
-     * Summary: cj test
+     * Summary: cj test1
      */
     public InitCjtestAcopmResResponse initCjtestAcopmResEx(InitCjtestAcopmResRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -795,6 +795,25 @@ public class Client {
     }
 
     /**
+     * Description: 在路由三板斧迭代中测试使用
+     * Summary: 路由灰度测试使用API
+     */
+    public QueryRoutingGrayscaleTestResponse queryRoutingGrayscaleTest(QueryRoutingGrayscaleTestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRoutingGrayscaleTestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 在路由三板斧迭代中测试使用
+     * Summary: 路由灰度测试使用API
+     */
+    public QueryRoutingGrayscaleTestResponse queryRoutingGrayscaleTestEx(QueryRoutingGrayscaleTestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.routing.grayscale.test.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRoutingGrayscaleTestResponse());
+    }
+
+    /**
      * Description: 保司用户埋点信息
      * Summary: 用户登陆页面埋点
      */
@@ -1023,7 +1042,7 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建test1
+     * Description: 自动化测试创建test222
      * Summary: 自动化测试创建test1
      */
     public BindAaaBbbCccResponse bindAaaBbbCcc(BindAaaBbbCccRequest request) throws Exception {
@@ -1033,7 +1052,7 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建test1
+     * Description: 自动化测试创建test222
      * Summary: 自动化测试创建test1
      */
     public BindAaaBbbCccResponse bindAaaBbbCccEx(BindAaaBbbCccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
