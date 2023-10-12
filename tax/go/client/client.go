@@ -1016,6 +1016,53 @@ func (s *BaseAuthRequest) SetExtendInfo(v *StandardAuthExtendInfoRequest) *BaseA
 	return s
 }
 
+// 纳税人状态
+type IndentityState struct {
+	// 纳税人识别号
+	Nsrshb *string `json:"nsrshb,omitempty" xml:"nsrshb,omitempty" require:"true"`
+	// 纳税人名称
+	Nsrmc *string `json:"nsrmc,omitempty" xml:"nsrmc,omitempty" require:"true"`
+	// 税务机构名称
+	Swjgmc *string `json:"swjgmc,omitempty" xml:"swjgmc,omitempty" require:"true"`
+	// 纳税人识别号状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 查询时间
+	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true"`
+}
+
+func (s IndentityState) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IndentityState) GoString() string {
+	return s.String()
+}
+
+func (s *IndentityState) SetNsrshb(v string) *IndentityState {
+	s.Nsrshb = &v
+	return s
+}
+
+func (s *IndentityState) SetNsrmc(v string) *IndentityState {
+	s.Nsrmc = &v
+	return s
+}
+
+func (s *IndentityState) SetSwjgmc(v string) *IndentityState {
+	s.Swjgmc = &v
+	return s
+}
+
+func (s *IndentityState) SetState(v string) *IndentityState {
+	s.State = &v
+	return s
+}
+
+func (s *IndentityState) SetTime(v string) *IndentityState {
+	s.Time = &v
+	return s
+}
+
 // 个人授权
 type StandardRealPersonAuthRequest struct {
 	// 个人证件号
@@ -2362,6 +2409,8 @@ type ExecIcmSyncgatheringRequest struct {
 	QueryType *string `json:"query_type,omitempty" xml:"query_type,omitempty"`
 	// 子机构编码，字典由系统预设白名单
 	SubTenant *string `json:"sub_tenant,omitempty" xml:"sub_tenant,omitempty"`
+	// 优先级，越大优先级越高
+	UsePriority *string `json:"use_priority,omitempty" xml:"use_priority,omitempty"`
 }
 
 func (s ExecIcmSyncgatheringRequest) String() string {
@@ -2419,6 +2468,11 @@ func (s *ExecIcmSyncgatheringRequest) SetQueryType(v string) *ExecIcmSyncgatheri
 
 func (s *ExecIcmSyncgatheringRequest) SetSubTenant(v string) *ExecIcmSyncgatheringRequest {
 	s.SubTenant = &v
+	return s
+}
+
+func (s *ExecIcmSyncgatheringRequest) SetUsePriority(v string) *ExecIcmSyncgatheringRequest {
+	s.UsePriority = &v
 	return s
 }
 
@@ -4399,6 +4453,118 @@ func (s *SyncRiskEvaluationResponse) SetBizContent(v string) *SyncRiskEvaluation
 	return s
 }
 
+type QuerySimpleauthIdentitystateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 纳税人识别号
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
+	// 租户号
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 请求id
+	BizUniqueId *string `json:"biz_unique_id,omitempty" xml:"biz_unique_id,omitempty" require:"true"`
+	// 产品类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 授权编码
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
+	// 纳税人名称
+	Nsrsmc *string `json:"nsrsmc,omitempty" xml:"nsrsmc,omitempty" require:"true"`
+}
+
+func (s QuerySimpleauthIdentitystateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySimpleauthIdentitystateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySimpleauthIdentitystateRequest) SetAuthToken(v string) *QuerySimpleauthIdentitystateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySimpleauthIdentitystateRequest) SetProductInstanceId(v string) *QuerySimpleauthIdentitystateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySimpleauthIdentitystateRequest) SetIdentity(v string) *QuerySimpleauthIdentitystateRequest {
+	s.Identity = &v
+	return s
+}
+
+func (s *QuerySimpleauthIdentitystateRequest) SetInstCode(v string) *QuerySimpleauthIdentitystateRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *QuerySimpleauthIdentitystateRequest) SetBizUniqueId(v string) *QuerySimpleauthIdentitystateRequest {
+	s.BizUniqueId = &v
+	return s
+}
+
+func (s *QuerySimpleauthIdentitystateRequest) SetAuthType(v string) *QuerySimpleauthIdentitystateRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *QuerySimpleauthIdentitystateRequest) SetAuthCode(v string) *QuerySimpleauthIdentitystateRequest {
+	s.AuthCode = &v
+	return s
+}
+
+func (s *QuerySimpleauthIdentitystateRequest) SetNsrsmc(v string) *QuerySimpleauthIdentitystateRequest {
+	s.Nsrsmc = &v
+	return s
+}
+
+type QuerySimpleauthIdentitystateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求id
+	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty"`
+	// 返回结果
+	Data []*string `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QuerySimpleauthIdentitystateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySimpleauthIdentitystateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySimpleauthIdentitystateResponse) SetReqMsgId(v string) *QuerySimpleauthIdentitystateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySimpleauthIdentitystateResponse) SetResultCode(v string) *QuerySimpleauthIdentitystateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySimpleauthIdentitystateResponse) SetResultMsg(v string) *QuerySimpleauthIdentitystateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySimpleauthIdentitystateResponse) SetBizRequestId(v string) *QuerySimpleauthIdentitystateResponse {
+	s.BizRequestId = &v
+	return s
+}
+
+func (s *QuerySimpleauthIdentitystateResponse) SetData(v []*string) *QuerySimpleauthIdentitystateResponse {
+	s.Data = v
+	return s
+}
+
 type QueryPdataPersonalincomeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5032,7 +5198,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.11"),
+				"sdk_version":      tea.String("1.7.12"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6001,6 +6167,40 @@ func (client *Client) SyncRiskEvaluationEx(request *SyncRiskEvaluationRequest, h
 	}
 	_result = &SyncRiskEvaluationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.risk.evaluation.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 纳税人状态查询
+ * Summary: 纳税人状态查询
+ */
+func (client *Client) QuerySimpleauthIdentitystate(request *QuerySimpleauthIdentitystateRequest) (_result *QuerySimpleauthIdentitystateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySimpleauthIdentitystateResponse{}
+	_body, _err := client.QuerySimpleauthIdentitystateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 纳税人状态查询
+ * Summary: 纳税人状态查询
+ */
+func (client *Client) QuerySimpleauthIdentitystateEx(request *QuerySimpleauthIdentitystateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySimpleauthIdentitystateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySimpleauthIdentitystateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.simpleauth.identitystate.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
