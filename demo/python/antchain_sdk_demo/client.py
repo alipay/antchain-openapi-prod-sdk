@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.212',
+                    'sdk_version': '1.0.218',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.212',
+                    'sdk_version': '1.0.218',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -1357,7 +1357,7 @@ class Client:
     ) -> demo_models.InitCjtestAcopmResResponse:
         """
         Description: cj test
-        Summary: cj test
+        Summary: cj test1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1369,7 +1369,7 @@ class Client:
     ) -> demo_models.InitCjtestAcopmResResponse:
         """
         Description: cj test
-        Summary: cj test
+        Summary: cj test1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1383,7 +1383,7 @@ class Client:
     ) -> demo_models.InitCjtestAcopmResResponse:
         """
         Description: cj test
-        Summary: cj test
+        Summary: cj test1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1399,7 +1399,7 @@ class Client:
     ) -> demo_models.InitCjtestAcopmResResponse:
         """
         Description: cj test
-        Summary: cj test
+        Summary: cj test1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2083,6 +2083,62 @@ class Client:
             await self.do_request_async('1.0', 'demo.approval.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_routing_grayscale_test(
+        self,
+        request: demo_models.QueryRoutingGrayscaleTestRequest,
+    ) -> demo_models.QueryRoutingGrayscaleTestResponse:
+        """
+        Description: 在路由三板斧迭代中测试使用
+        Summary: 路由灰度测试使用API
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_routing_grayscale_test_ex(request, headers, runtime)
+
+    async def query_routing_grayscale_test_async(
+        self,
+        request: demo_models.QueryRoutingGrayscaleTestRequest,
+    ) -> demo_models.QueryRoutingGrayscaleTestResponse:
+        """
+        Description: 在路由三板斧迭代中测试使用
+        Summary: 路由灰度测试使用API
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_routing_grayscale_test_ex_async(request, headers, runtime)
+
+    def query_routing_grayscale_test_ex(
+        self,
+        request: demo_models.QueryRoutingGrayscaleTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryRoutingGrayscaleTestResponse:
+        """
+        Description: 在路由三板斧迭代中测试使用
+        Summary: 路由灰度测试使用API
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryRoutingGrayscaleTestResponse(),
+            self.do_request('1.0', 'demo.routing.grayscale.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_routing_grayscale_test_ex_async(
+        self,
+        request: demo_models.QueryRoutingGrayscaleTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryRoutingGrayscaleTestResponse:
+        """
+        Description: 在路由三板斧迭代中测试使用
+        Summary: 路由灰度测试使用API
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryRoutingGrayscaleTestResponse(),
+            await self.do_request_async('1.0', 'demo.routing.grayscale.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def init_bbp_insurance_user(
         self,
         request: demo_models.InitBbpInsuranceUserRequest,
@@ -2760,7 +2816,7 @@ class Client:
         request: demo_models.BindAaaBbbCccRequest,
     ) -> demo_models.BindAaaBbbCccResponse:
         """
-        Description: 自动化测试创建test1
+        Description: 自动化测试创建test222
         Summary: 自动化测试创建test1
         """
         runtime = util_models.RuntimeOptions()
@@ -2772,7 +2828,7 @@ class Client:
         request: demo_models.BindAaaBbbCccRequest,
     ) -> demo_models.BindAaaBbbCccResponse:
         """
-        Description: 自动化测试创建test1
+        Description: 自动化测试创建test222
         Summary: 自动化测试创建test1
         """
         runtime = util_models.RuntimeOptions()
@@ -2786,7 +2842,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> demo_models.BindAaaBbbCccResponse:
         """
-        Description: 自动化测试创建test1
+        Description: 自动化测试创建test222
         Summary: 自动化测试创建test1
         """
         UtilClient.validate_model(request)
@@ -2802,7 +2858,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> demo_models.BindAaaBbbCccResponse:
         """
-        Description: 自动化测试创建test1
+        Description: 自动化测试创建test222
         Summary: 自动化测试创建test1
         """
         UtilClient.validate_model(request)
