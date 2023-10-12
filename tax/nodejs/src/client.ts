@@ -798,6 +798,43 @@ export class BaseAuthRequest extends $tea.Model {
   }
 }
 
+// 纳税人状态
+export class IndentityState extends $tea.Model {
+  // 纳税人识别号
+  nsrshb: string;
+  // 纳税人名称
+  nsrmc: string;
+  // 税务机构名称
+  swjgmc: string;
+  // 纳税人识别号状态
+  state: string;
+  // 查询时间
+  time: string;
+  static names(): { [key: string]: string } {
+    return {
+      nsrshb: 'nsrshb',
+      nsrmc: 'nsrmc',
+      swjgmc: 'swjgmc',
+      state: 'state',
+      time: 'time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      nsrshb: 'string',
+      nsrmc: 'string',
+      swjgmc: 'string',
+      state: 'string',
+      time: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 个人授权
 export class StandardRealPersonAuthRequest extends $tea.Model {
   // 个人证件号
@@ -1820,6 +1857,8 @@ export class ExecIcmSyncgatheringRequest extends $tea.Model {
   queryType?: string;
   // 子机构编码，字典由系统预设白名单
   subTenant?: string;
+  // 优先级，越大优先级越高
+  usePriority?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1832,6 +1871,7 @@ export class ExecIcmSyncgatheringRequest extends $tea.Model {
       content: 'content',
       queryType: 'query_type',
       subTenant: 'sub_tenant',
+      usePriority: 'use_priority',
     };
   }
 
@@ -1847,6 +1887,7 @@ export class ExecIcmSyncgatheringRequest extends $tea.Model {
       content: 'string',
       queryType: 'string',
       subTenant: 'string',
+      usePriority: 'string',
     };
   }
 
@@ -3329,6 +3370,89 @@ export class SyncRiskEvaluationResponse extends $tea.Model {
   }
 }
 
+export class QuerySimpleauthIdentitystateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 纳税人识别号
+  identity: string;
+  // 租户号
+  instCode: string;
+  // 请求id
+  bizUniqueId: string;
+  // 产品类型
+  authType: string;
+  // 授权编码
+  authCode: string;
+  // 纳税人名称
+  nsrsmc: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      identity: 'identity',
+      instCode: 'inst_code',
+      bizUniqueId: 'biz_unique_id',
+      authType: 'auth_type',
+      authCode: 'auth_code',
+      nsrsmc: 'nsrsmc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      identity: 'string',
+      instCode: 'string',
+      bizUniqueId: 'string',
+      authType: 'string',
+      authCode: 'string',
+      nsrsmc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySimpleauthIdentitystateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  bizRequestId?: string;
+  // 返回结果
+  data?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizRequestId: 'biz_request_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizRequestId: 'string',
+      data: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryPdataPersonalincomeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3810,7 +3934,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.11",
+          sdk_version: "1.7.12",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
@@ -4369,6 +4493,25 @@ export default class Client {
   async syncRiskEvaluationEx(request: SyncRiskEvaluationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncRiskEvaluationResponse> {
     Util.validateModel(request);
     return $tea.cast<SyncRiskEvaluationResponse>(await this.doRequest("1.0", "blockchain.tax.risk.evaluation.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncRiskEvaluationResponse({}));
+  }
+
+  /**
+   * Description: 纳税人状态查询
+   * Summary: 纳税人状态查询
+   */
+  async querySimpleauthIdentitystate(request: QuerySimpleauthIdentitystateRequest): Promise<QuerySimpleauthIdentitystateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySimpleauthIdentitystateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 纳税人状态查询
+   * Summary: 纳税人状态查询
+   */
+  async querySimpleauthIdentitystateEx(request: QuerySimpleauthIdentitystateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySimpleauthIdentitystateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySimpleauthIdentitystateResponse>(await this.doRequest("1.0", "blockchain.tax.simpleauth.identitystate.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySimpleauthIdentitystateResponse({}));
   }
 
   /**
