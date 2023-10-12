@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.11',
+                    'sdk_version': '1.7.12',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.11',
+                    'sdk_version': '1.7.12',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -1785,6 +1785,62 @@ class Client:
         return TeaCore.from_map(
             tax_models.SyncRiskEvaluationResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.risk.evaluation.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_simpleauth_identitystate(
+        self,
+        request: tax_models.QuerySimpleauthIdentitystateRequest,
+    ) -> tax_models.QuerySimpleauthIdentitystateResponse:
+        """
+        Description: 纳税人状态查询
+        Summary: 纳税人状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_simpleauth_identitystate_ex(request, headers, runtime)
+
+    async def query_simpleauth_identitystate_async(
+        self,
+        request: tax_models.QuerySimpleauthIdentitystateRequest,
+    ) -> tax_models.QuerySimpleauthIdentitystateResponse:
+        """
+        Description: 纳税人状态查询
+        Summary: 纳税人状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_simpleauth_identitystate_ex_async(request, headers, runtime)
+
+    def query_simpleauth_identitystate_ex(
+        self,
+        request: tax_models.QuerySimpleauthIdentitystateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QuerySimpleauthIdentitystateResponse:
+        """
+        Description: 纳税人状态查询
+        Summary: 纳税人状态查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QuerySimpleauthIdentitystateResponse(),
+            self.do_request('1.0', 'blockchain.tax.simpleauth.identitystate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_simpleauth_identitystate_ex_async(
+        self,
+        request: tax_models.QuerySimpleauthIdentitystateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QuerySimpleauthIdentitystateResponse:
+        """
+        Description: 纳税人状态查询
+        Summary: 纳税人状态查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QuerySimpleauthIdentitystateResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.simpleauth.identitystate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_pdata_personalincome(

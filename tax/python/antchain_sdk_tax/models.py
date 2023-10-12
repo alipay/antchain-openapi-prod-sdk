@@ -1327,6 +1327,66 @@ class BaseAuthRequest(TeaModel):
         return self
 
 
+class IndentityState(TeaModel):
+    def __init__(
+        self,
+        nsrshb: str = None,
+        nsrmc: str = None,
+        swjgmc: str = None,
+        state: str = None,
+        time: str = None,
+    ):
+        # 纳税人识别号
+        self.nsrshb = nsrshb
+        # 纳税人名称
+        self.nsrmc = nsrmc
+        # 税务机构名称
+        self.swjgmc = swjgmc
+        # 纳税人识别号状态
+        self.state = state
+        # 查询时间
+        self.time = time
+
+    def validate(self):
+        self.validate_required(self.nsrshb, 'nsrshb')
+        self.validate_required(self.nsrmc, 'nsrmc')
+        self.validate_required(self.swjgmc, 'swjgmc')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.time, 'time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.nsrshb is not None:
+            result['nsrshb'] = self.nsrshb
+        if self.nsrmc is not None:
+            result['nsrmc'] = self.nsrmc
+        if self.swjgmc is not None:
+            result['swjgmc'] = self.swjgmc
+        if self.state is not None:
+            result['state'] = self.state
+        if self.time is not None:
+            result['time'] = self.time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('nsrshb') is not None:
+            self.nsrshb = m.get('nsrshb')
+        if m.get('nsrmc') is not None:
+            self.nsrmc = m.get('nsrmc')
+        if m.get('swjgmc') is not None:
+            self.swjgmc = m.get('swjgmc')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('time') is not None:
+            self.time = m.get('time')
+        return self
+
+
 class StandardRealPersonAuthRequest(TeaModel):
     def __init__(
         self,
@@ -2986,6 +3046,7 @@ class ExecIcmSyncgatheringRequest(TeaModel):
         content: str = None,
         query_type: str = None,
         sub_tenant: str = None,
+        use_priority: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3008,6 +3069,8 @@ class ExecIcmSyncgatheringRequest(TeaModel):
         self.query_type = query_type
         # 子机构编码，字典由系统预设白名单
         self.sub_tenant = sub_tenant
+        # 优先级，越大优先级越高
+        self.use_priority = use_priority
 
     def validate(self):
         self.validate_required(self.inst_code, 'inst_code')
@@ -3043,6 +3106,8 @@ class ExecIcmSyncgatheringRequest(TeaModel):
             result['query_type'] = self.query_type
         if self.sub_tenant is not None:
             result['sub_tenant'] = self.sub_tenant
+        if self.use_priority is not None:
+            result['use_priority'] = self.use_priority
         return result
 
     def from_map(self, m: dict = None):
@@ -3067,6 +3132,8 @@ class ExecIcmSyncgatheringRequest(TeaModel):
             self.query_type = m.get('query_type')
         if m.get('sub_tenant') is not None:
             self.sub_tenant = m.get('sub_tenant')
+        if m.get('use_priority') is not None:
+            self.use_priority = m.get('use_priority')
         return self
 
 
@@ -5491,6 +5558,143 @@ class SyncRiskEvaluationResponse(TeaModel):
             self.query_time = m.get('query_time')
         if m.get('biz_content') is not None:
             self.biz_content = m.get('biz_content')
+        return self
+
+
+class QuerySimpleauthIdentitystateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        identity: str = None,
+        inst_code: str = None,
+        biz_unique_id: str = None,
+        auth_type: str = None,
+        auth_code: str = None,
+        nsrsmc: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 纳税人识别号
+        self.identity = identity
+        # 租户号
+        self.inst_code = inst_code
+        # 请求id
+        self.biz_unique_id = biz_unique_id
+        # 产品类型
+        self.auth_type = auth_type
+        # 授权编码
+        self.auth_code = auth_code
+        # 纳税人名称
+        self.nsrsmc = nsrsmc
+
+    def validate(self):
+        self.validate_required(self.identity, 'identity')
+        self.validate_required(self.inst_code, 'inst_code')
+        self.validate_required(self.biz_unique_id, 'biz_unique_id')
+        self.validate_required(self.auth_type, 'auth_type')
+        self.validate_required(self.auth_code, 'auth_code')
+        self.validate_required(self.nsrsmc, 'nsrsmc')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.identity is not None:
+            result['identity'] = self.identity
+        if self.inst_code is not None:
+            result['inst_code'] = self.inst_code
+        if self.biz_unique_id is not None:
+            result['biz_unique_id'] = self.biz_unique_id
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        if self.nsrsmc is not None:
+            result['nsrsmc'] = self.nsrsmc
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('identity') is not None:
+            self.identity = m.get('identity')
+        if m.get('inst_code') is not None:
+            self.inst_code = m.get('inst_code')
+        if m.get('biz_unique_id') is not None:
+            self.biz_unique_id = m.get('biz_unique_id')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        if m.get('nsrsmc') is not None:
+            self.nsrsmc = m.get('nsrsmc')
+        return self
+
+
+class QuerySimpleauthIdentitystateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_request_id: str = None,
+        data: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id
+        self.biz_request_id = biz_request_id
+        # 返回结果
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_request_id is not None:
+            result['biz_request_id'] = self.biz_request_id
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_request_id') is not None:
+            self.biz_request_id = m.get('biz_request_id')
+        if m.get('data') is not None:
+            self.data = m.get('data')
         return self
 
 
