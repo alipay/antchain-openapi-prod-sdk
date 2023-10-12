@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.212"},
+                        {"sdk_version", "1.0.218"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.212"},
+                        {"sdk_version", "1.0.218"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1171,7 +1171,7 @@ namespace AntChain.SDK.DEMO
 
         /**
          * Description: cj test
-         * Summary: cj test
+         * Summary: cj test1
          */
         public InitCjtestAcopmResResponse InitCjtestAcopmRes(InitCjtestAcopmResRequest request)
         {
@@ -1182,7 +1182,7 @@ namespace AntChain.SDK.DEMO
 
         /**
          * Description: cj test
-         * Summary: cj test
+         * Summary: cj test1
          */
         public async Task<InitCjtestAcopmResResponse> InitCjtestAcopmResAsync(InitCjtestAcopmResRequest request)
         {
@@ -1193,7 +1193,7 @@ namespace AntChain.SDK.DEMO
 
         /**
          * Description: cj test
-         * Summary: cj test
+         * Summary: cj test1
          */
         public InitCjtestAcopmResResponse InitCjtestAcopmResEx(InitCjtestAcopmResRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1203,7 +1203,7 @@ namespace AntChain.SDK.DEMO
 
         /**
          * Description: cj test
-         * Summary: cj test
+         * Summary: cj test1
          */
         public async Task<InitCjtestAcopmResResponse> InitCjtestAcopmResExAsync(InitCjtestAcopmResRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1720,6 +1720,48 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
+         * Description: 在路由三板斧迭代中测试使用
+         * Summary: 路由灰度测试使用API
+         */
+        public QueryRoutingGrayscaleTestResponse QueryRoutingGrayscaleTest(QueryRoutingGrayscaleTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryRoutingGrayscaleTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 在路由三板斧迭代中测试使用
+         * Summary: 路由灰度测试使用API
+         */
+        public async Task<QueryRoutingGrayscaleTestResponse> QueryRoutingGrayscaleTestAsync(QueryRoutingGrayscaleTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryRoutingGrayscaleTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 在路由三板斧迭代中测试使用
+         * Summary: 路由灰度测试使用API
+         */
+        public QueryRoutingGrayscaleTestResponse QueryRoutingGrayscaleTestEx(QueryRoutingGrayscaleTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRoutingGrayscaleTestResponse>(DoRequest("1.0", "demo.routing.grayscale.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 在路由三板斧迭代中测试使用
+         * Summary: 路由灰度测试使用API
+         */
+        public async Task<QueryRoutingGrayscaleTestResponse> QueryRoutingGrayscaleTestExAsync(QueryRoutingGrayscaleTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRoutingGrayscaleTestResponse>(await DoRequestAsync("1.0", "demo.routing.grayscale.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 保司用户埋点信息
          * Summary: 用户登陆页面埋点
          */
@@ -2224,7 +2266,7 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: 自动化测试创建test1
+         * Description: 自动化测试创建test222
          * Summary: 自动化测试创建test1
          */
         public BindAaaBbbCccResponse BindAaaBbbCcc(BindAaaBbbCccRequest request)
@@ -2235,7 +2277,7 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: 自动化测试创建test1
+         * Description: 自动化测试创建test222
          * Summary: 自动化测试创建test1
          */
         public async Task<BindAaaBbbCccResponse> BindAaaBbbCccAsync(BindAaaBbbCccRequest request)
@@ -2246,7 +2288,7 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: 自动化测试创建test1
+         * Description: 自动化测试创建test222
          * Summary: 自动化测试创建test1
          */
         public BindAaaBbbCccResponse BindAaaBbbCccEx(BindAaaBbbCccRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -2256,7 +2298,7 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: 自动化测试创建test1
+         * Description: 自动化测试创建test222
          * Summary: 自动化测试创建test1
          */
         public async Task<BindAaaBbbCccResponse> BindAaaBbbCccExAsync(BindAaaBbbCccRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
