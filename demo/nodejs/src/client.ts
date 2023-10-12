@@ -2710,6 +2710,61 @@ export class QueryApprovalTestResponse extends $tea.Model {
   }
 }
 
+export class QueryRoutingGrayscaleTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 1
+  data: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      data: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRoutingGrayscaleTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class InitBbpInsuranceUserRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3963,7 +4018,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.212",
+          sdk_version: "1.0.218",
           _prod_code: "DEMO",
           _prod_channel: "undefined",
         };
@@ -4397,7 +4452,7 @@ export default class Client {
 
   /**
    * Description: cj test
-   * Summary: cj test
+   * Summary: cj test1
    */
   async initCjtestAcopmRes(request: InitCjtestAcopmResRequest): Promise<InitCjtestAcopmResResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -4407,7 +4462,7 @@ export default class Client {
 
   /**
    * Description: cj test
-   * Summary: cj test
+   * Summary: cj test1
    */
   async initCjtestAcopmResEx(request: InitCjtestAcopmResRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitCjtestAcopmResResponse> {
     Util.validateModel(request);
@@ -4645,6 +4700,25 @@ export default class Client {
   }
 
   /**
+   * Description: 在路由三板斧迭代中测试使用
+   * Summary: 路由灰度测试使用API
+   */
+  async queryRoutingGrayscaleTest(request: QueryRoutingGrayscaleTestRequest): Promise<QueryRoutingGrayscaleTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRoutingGrayscaleTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 在路由三板斧迭代中测试使用
+   * Summary: 路由灰度测试使用API
+   */
+  async queryRoutingGrayscaleTestEx(request: QueryRoutingGrayscaleTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRoutingGrayscaleTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRoutingGrayscaleTestResponse>(await this.doRequest("1.0", "demo.routing.grayscale.test.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRoutingGrayscaleTestResponse({}));
+  }
+
+  /**
    * Description: 保司用户埋点信息
    * Summary: 用户登陆页面埋点
    */
@@ -4873,7 +4947,7 @@ export default class Client {
   }
 
   /**
-   * Description: 自动化测试创建test1
+   * Description: 自动化测试创建test222
    * Summary: 自动化测试创建test1
    */
   async bindAaaBbbCcc(request: BindAaaBbbCccRequest): Promise<BindAaaBbbCccResponse> {
@@ -4883,7 +4957,7 @@ export default class Client {
   }
 
   /**
-   * Description: 自动化测试创建test1
+   * Description: 自动化测试创建test222
    * Summary: 自动化测试创建test1
    */
   async bindAaaBbbCccEx(request: BindAaaBbbCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindAaaBbbCccResponse> {
