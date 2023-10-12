@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.11"},
+                        {"sdk_version", "1.7.12"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.11"},
+                        {"sdk_version", "1.7.12"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1453,6 +1453,48 @@ namespace AntChain.SDK.TAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncRiskEvaluationResponse>(await DoRequestAsync("1.0", "blockchain.tax.risk.evaluation.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 纳税人状态查询
+         * Summary: 纳税人状态查询
+         */
+        public QuerySimpleauthIdentitystateResponse QuerySimpleauthIdentitystate(QuerySimpleauthIdentitystateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QuerySimpleauthIdentitystateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 纳税人状态查询
+         * Summary: 纳税人状态查询
+         */
+        public async Task<QuerySimpleauthIdentitystateResponse> QuerySimpleauthIdentitystateAsync(QuerySimpleauthIdentitystateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QuerySimpleauthIdentitystateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 纳税人状态查询
+         * Summary: 纳税人状态查询
+         */
+        public QuerySimpleauthIdentitystateResponse QuerySimpleauthIdentitystateEx(QuerySimpleauthIdentitystateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySimpleauthIdentitystateResponse>(DoRequest("1.0", "blockchain.tax.simpleauth.identitystate.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 纳税人状态查询
+         * Summary: 纳税人状态查询
+         */
+        public async Task<QuerySimpleauthIdentitystateResponse> QuerySimpleauthIdentitystateExAsync(QuerySimpleauthIdentitystateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySimpleauthIdentitystateResponse>(await DoRequestAsync("1.0", "blockchain.tax.simpleauth.identitystate.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -60,6 +60,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string SubTenant { get; set; }
 
+        // 优先级，越大优先级越高
+        [NameInMap("use_priority")]
+        [Validation(Required=false)]
+        public string UsePriority { get; set; }
+
     }
 
 }
