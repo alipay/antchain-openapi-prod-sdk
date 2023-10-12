@@ -68,6 +68,12 @@ class ExecIcmSyncgatheringRequest extends Model
      * @var string
      */
     public $subTenant;
+
+    // 优先级，越大优先级越高
+    /**
+     * @var string
+     */
+    public $usePriority;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -79,6 +85,7 @@ class ExecIcmSyncgatheringRequest extends Model
         'content'           => 'content',
         'queryType'         => 'query_type',
         'subTenant'         => 'sub_tenant',
+        'usePriority'       => 'use_priority',
     ];
 
     public function validate()
@@ -124,6 +131,9 @@ class ExecIcmSyncgatheringRequest extends Model
         if (null !== $this->subTenant) {
             $res['sub_tenant'] = $this->subTenant;
         }
+        if (null !== $this->usePriority) {
+            $res['use_priority'] = $this->usePriority;
+        }
 
         return $res;
     }
@@ -165,6 +175,9 @@ class ExecIcmSyncgatheringRequest extends Model
         }
         if (isset($map['sub_tenant'])) {
             $model->subTenant = $map['sub_tenant'];
+        }
+        if (isset($map['use_priority'])) {
+            $model->usePriority = $map['use_priority'];
         }
 
         return $model;

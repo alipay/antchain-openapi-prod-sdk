@@ -69,6 +69,8 @@ use AntChain\TAX\Models\QueryPdataSocialincomeRequest;
 use AntChain\TAX\Models\QueryPdataSocialincomeResponse;
 use AntChain\TAX\Models\QueryRiskEvaluationRequest;
 use AntChain\TAX\Models\QueryRiskEvaluationResponse;
+use AntChain\TAX\Models\QuerySimpleauthIdentitystateRequest;
+use AntChain\TAX\Models\QuerySimpleauthIdentitystateResponse;
 use AntChain\TAX\Models\SubmitApiSimpleauthmarkRequest;
 use AntChain\TAX\Models\SubmitApiSimpleauthmarkResponse;
 use AntChain\TAX\Models\SyncRiskEvaluationRequest;
@@ -220,7 +222,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.11',
+                    'sdk_version'      => '1.7.12',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1157,6 +1159,39 @@ class Client
         Utils::validateModel($request);
 
         return SyncRiskEvaluationResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.risk.evaluation.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 纳税人状态查询
+     * Summary: 纳税人状态查询.
+     *
+     * @param QuerySimpleauthIdentitystateRequest $request
+     *
+     * @return QuerySimpleauthIdentitystateResponse
+     */
+    public function querySimpleauthIdentitystate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySimpleauthIdentitystateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 纳税人状态查询
+     * Summary: 纳税人状态查询.
+     *
+     * @param QuerySimpleauthIdentitystateRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QuerySimpleauthIdentitystateResponse
+     */
+    public function querySimpleauthIdentitystateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySimpleauthIdentitystateResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.simpleauth.identitystate.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
