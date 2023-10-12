@@ -93,6 +93,8 @@ use AntChain\DEMO\Models\QueryLoadtestTimeThreeRequest;
 use AntChain\DEMO\Models\QueryLoadtestTimeThreeResponse;
 use AntChain\DEMO\Models\QueryLoadtestTimeTwoRequest;
 use AntChain\DEMO\Models\QueryLoadtestTimeTwoResponse;
+use AntChain\DEMO\Models\QueryRoutingGrayscaleTestRequest;
+use AntChain\DEMO\Models\QueryRoutingGrayscaleTestResponse;
 use AntChain\DEMO\Models\QuerySaasTestTestaRequest;
 use AntChain\DEMO\Models\QuerySaasTestTestaResponse;
 use AntChain\DEMO\Models\QueryTestGatewayTestRequest;
@@ -258,7 +260,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.212',
+                    'sdk_version'      => '1.0.218',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -938,7 +940,7 @@ class Client
 
     /**
      * Description: cj test
-     * Summary: cj test.
+     * Summary: cj test1.
      *
      * @param InitCjtestAcopmResRequest $request
      *
@@ -954,7 +956,7 @@ class Client
 
     /**
      * Description: cj test
-     * Summary: cj test.
+     * Summary: cj test1.
      *
      * @param InitCjtestAcopmResRequest $request
      * @param string[]                  $headers
@@ -1368,6 +1370,39 @@ class Client
     }
 
     /**
+     * Description: 在路由三板斧迭代中测试使用
+     * Summary: 路由灰度测试使用API.
+     *
+     * @param QueryRoutingGrayscaleTestRequest $request
+     *
+     * @return QueryRoutingGrayscaleTestResponse
+     */
+    public function queryRoutingGrayscaleTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRoutingGrayscaleTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 在路由三板斧迭代中测试使用
+     * Summary: 路由灰度测试使用API.
+     *
+     * @param QueryRoutingGrayscaleTestRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryRoutingGrayscaleTestResponse
+     */
+    public function queryRoutingGrayscaleTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRoutingGrayscaleTestResponse::fromMap($this->doRequest('1.0', 'demo.routing.grayscale.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 保司用户埋点信息
      * Summary: 用户登陆页面埋点.
      *
@@ -1764,7 +1799,7 @@ class Client
     }
 
     /**
-     * Description: 自动化测试创建test1
+     * Description: 自动化测试创建test222
      * Summary: 自动化测试创建test1.
      *
      * @param BindAaaBbbCccRequest $request
@@ -1780,7 +1815,7 @@ class Client
     }
 
     /**
-     * Description: 自动化测试创建test1
+     * Description: 自动化测试创建test222
      * Summary: 自动化测试创建test1.
      *
      * @param BindAaaBbbCccRequest $request
