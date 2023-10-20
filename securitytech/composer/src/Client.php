@@ -25,10 +25,20 @@ use AntChain\SECURITYTECH\Models\InitIifaaDeviceRequest;
 use AntChain\SECURITYTECH\Models\InitIifaaDeviceResponse;
 use AntChain\SECURITYTECH\Models\QueryCctPictureRequest;
 use AntChain\SECURITYTECH\Models\QueryCctPictureResponse;
+use AntChain\SECURITYTECH\Models\QueryDeviceriskDeviceriskRequest;
+use AntChain\SECURITYTECH\Models\QueryDeviceriskDeviceriskResponse;
+use AntChain\SECURITYTECH\Models\QueryDeviceriskFingerRequest;
+use AntChain\SECURITYTECH\Models\QueryDeviceriskFingerResponse;
+use AntChain\SECURITYTECH\Models\QueryDeviceriskRisklabelRequest;
+use AntChain\SECURITYTECH\Models\QueryDeviceriskRisklabelResponse;
+use AntChain\SECURITYTECH\Models\QueryEkytDriverRequest;
+use AntChain\SECURITYTECH\Models\QueryEkytDriverResponse;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeRequest;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeResponse;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldWebRequest;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldWebResponse;
+use AntChain\SECURITYTECH\Models\QueryRiskGeneralRequest;
+use AntChain\SECURITYTECH\Models\QueryRiskGeneralResponse;
 use AntChain\SECURITYTECH\Models\RecognizeCctAnalyzeRequest;
 use AntChain\SECURITYTECH\Models\RecognizeCctAnalyzeResponse;
 use AntChain\SECURITYTECH\Models\RecognizeIifaaDeviceRequest;
@@ -39,6 +49,8 @@ use AntChain\SECURITYTECH\Models\RunGeneralRequest;
 use AntChain\SECURITYTECH\Models\RunGeneralResponse;
 use AntChain\SECURITYTECH\Models\RunXhunterSpiRequest;
 use AntChain\SECURITYTECH\Models\RunXhunterSpiResponse;
+use AntChain\SECURITYTECH\Models\SubmitDeviceriskReportRequest;
+use AntChain\SECURITYTECH\Models\SubmitDeviceriskReportResponse;
 use AntChain\SECURITYTECH\Models\VerifyIifaaDeviceRequest;
 use AntChain\SECURITYTECH\Models\VerifyIifaaDeviceResponse;
 use AntChain\Util\UtilClient;
@@ -160,7 +172,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // CctSubCheckLabel
+            // 风险数据
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -188,7 +200,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.12',
+                    'sdk_version'      => '1.2.0',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -731,5 +743,203 @@ class Client
         Utils::validateModel($request);
 
         return RecognizeCctAnalyzeResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.cct.analyze.recognize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: RAAS数据服务统一接口
+     * Summary: RAAS数据服务统一接口.
+     *
+     * @param QueryRiskGeneralRequest $request
+     *
+     * @return QueryRiskGeneralResponse
+     */
+    public function queryRiskGeneral($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRiskGeneralEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: RAAS数据服务统一接口
+     * Summary: RAAS数据服务统一接口.
+     *
+     * @param QueryRiskGeneralRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryRiskGeneralResponse
+     */
+    public function queryRiskGeneralEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRiskGeneralResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.risk.general.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备指纹查询
+     * Summary: 设备指纹查询.
+     *
+     * @param QueryDeviceriskFingerRequest $request
+     *
+     * @return QueryDeviceriskFingerResponse
+     */
+    public function queryDeviceriskFinger($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeviceriskFingerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备指纹查询
+     * Summary: 设备指纹查询.
+     *
+     * @param QueryDeviceriskFingerRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryDeviceriskFingerResponse
+     */
+    public function queryDeviceriskFingerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeviceriskFingerResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.devicerisk.finger.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 风险标签查询
+     * Summary: 风险标签查询.
+     *
+     * @param QueryDeviceriskRisklabelRequest $request
+     *
+     * @return QueryDeviceriskRisklabelResponse
+     */
+    public function queryDeviceriskRisklabel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeviceriskRisklabelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 风险标签查询
+     * Summary: 风险标签查询.
+     *
+     * @param QueryDeviceriskRisklabelRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryDeviceriskRisklabelResponse
+     */
+    public function queryDeviceriskRisklabelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeviceriskRisklabelResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.devicerisk.risklabel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备风险查询
+     * Summary: 设备风险查询.
+     *
+     * @param QueryDeviceriskDeviceriskRequest $request
+     *
+     * @return QueryDeviceriskDeviceriskResponse
+     */
+    public function queryDeviceriskDevicerisk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeviceriskDeviceriskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备风险查询
+     * Summary: 设备风险查询.
+     *
+     * @param QueryDeviceriskDeviceriskRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryDeviceriskDeviceriskResponse
+     */
+    public function queryDeviceriskDeviceriskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeviceriskDeviceriskResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备信息上报
+     * Summary: 设备信息上报.
+     *
+     * @param SubmitDeviceriskReportRequest $request
+     *
+     * @return SubmitDeviceriskReportResponse
+     */
+    public function submitDeviceriskReport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitDeviceriskReportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备信息上报
+     * Summary: 设备信息上报.
+     *
+     * @param SubmitDeviceriskReportRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return SubmitDeviceriskReportResponse
+     */
+    public function submitDeviceriskReportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitDeviceriskReportResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.devicerisk.report.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: eKYT风险评估服务-出行场景司机
+     * Summary: eKYT风险评估服务-出行场景司机.
+     *
+     * @param QueryEkytDriverRequest $request
+     *
+     * @return QueryEkytDriverResponse
+     */
+    public function queryEkytDriver($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEkytDriverEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: eKYT风险评估服务-出行场景司机
+     * Summary: eKYT风险评估服务-出行场景司机.
+     *
+     * @param QueryEkytDriverRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryEkytDriverResponse
+     */
+    public function queryEkytDriverEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEkytDriverResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ekyt.driver.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
