@@ -148,6 +148,110 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 风险数据
+type RiskData struct {
+	// 模型/标签编号
+	ResultKey *string `json:"result_key,omitempty" xml:"result_key,omitempty" require:"true"`
+	// 模型分/标签值
+	ResultValue *string `json:"result_value,omitempty" xml:"result_value,omitempty" require:"true"`
+}
+
+func (s RiskData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskData) GoString() string {
+	return s.String()
+}
+
+func (s *RiskData) SetResultKey(v string) *RiskData {
+	s.ResultKey = &v
+	return s
+}
+
+func (s *RiskData) SetResultValue(v string) *RiskData {
+	s.ResultValue = &v
+	return s
+}
+
+// eKYT风险标签
+type RiskModel struct {
+	// 标签名称
+	ModelName *string `json:"model_name,omitempty" xml:"model_name,omitempty" require:"true"`
+	// 风险值
+	ModelValue *string `json:"model_value,omitempty" xml:"model_value,omitempty" require:"true"`
+	// 风险标签描述
+	ModelComment *string `json:"model_comment,omitempty" xml:"model_comment,omitempty" require:"true"`
+}
+
+func (s RiskModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskModel) GoString() string {
+	return s.String()
+}
+
+func (s *RiskModel) SetModelName(v string) *RiskModel {
+	s.ModelName = &v
+	return s
+}
+
+func (s *RiskModel) SetModelValue(v string) *RiskModel {
+	s.ModelValue = &v
+	return s
+}
+
+func (s *RiskModel) SetModelComment(v string) *RiskModel {
+	s.ModelComment = &v
+	return s
+}
+
+// 业务参数
+type BizParam struct {
+	// 参数类型枚举，mobile、cert、biz_license
+	ParamKey *string `json:"param_key,omitempty" xml:"param_key,omitempty" require:"true"`
+	// 值，如加密后的手机号
+	ParamValue *string `json:"param_value,omitempty" xml:"param_value,omitempty" require:"true"`
+}
+
+func (s BizParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BizParam) GoString() string {
+	return s.String()
+}
+
+func (s *BizParam) SetParamKey(v string) *BizParam {
+	s.ParamKey = &v
+	return s
+}
+
+func (s *BizParam) SetParamValue(v string) *BizParam {
+	s.ParamValue = &v
+	return s
+}
+
+// ekyt响应头
+type ResponseHead struct {
+	// 请求唯一标识
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+}
+
+func (s ResponseHead) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResponseHead) GoString() string {
+	return s.String()
+}
+
+func (s *ResponseHead) SetRequestId(v string) *ResponseHead {
+	s.RequestId = &v
+	return s
+}
+
 // CctSubCheckLabel
 type CctSubCheckLabel struct {
 	// sub_label
@@ -171,6 +275,98 @@ func (s *CctSubCheckLabel) SetSubLabel(v string) *CctSubCheckLabel {
 
 func (s *CctSubCheckLabel) SetRate(v int64) *CctSubCheckLabel {
 	s.Rate = &v
+	return s
+}
+
+// 风险评估结果
+type RiskAssessResult struct {
+	// 风险评估结果
+	RiskValue *string `json:"risk_value,omitempty" xml:"risk_value,omitempty" require:"true"`
+	// 风险评估分数
+	RiskScore *string `json:"risk_score,omitempty" xml:"risk_score,omitempty" require:"true"`
+	// 风险评估标签
+	ModelInfos *RiskModel `json:"model_infos,omitempty" xml:"model_infos,omitempty" require:"true"`
+}
+
+func (s RiskAssessResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskAssessResult) GoString() string {
+	return s.String()
+}
+
+func (s *RiskAssessResult) SetRiskValue(v string) *RiskAssessResult {
+	s.RiskValue = &v
+	return s
+}
+
+func (s *RiskAssessResult) SetRiskScore(v string) *RiskAssessResult {
+	s.RiskScore = &v
+	return s
+}
+
+func (s *RiskAssessResult) SetModelInfos(v *RiskModel) *RiskAssessResult {
+	s.ModelInfos = v
+	return s
+}
+
+// 风险结果
+type RiskResult struct {
+	// 数据列表
+	RiskData []*RiskData `json:"risk_data,omitempty" xml:"risk_data,omitempty" require:"true" type:"Repeated"`
+	// 解决方案编码
+	SolutionCode *string `json:"solution_code,omitempty" xml:"solution_code,omitempty" require:"true"`
+}
+
+func (s RiskResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskResult) GoString() string {
+	return s.String()
+}
+
+func (s *RiskResult) SetRiskData(v []*RiskData) *RiskResult {
+	s.RiskData = v
+	return s
+}
+
+func (s *RiskResult) SetSolutionCode(v string) *RiskResult {
+	s.SolutionCode = &v
+	return s
+}
+
+// eKYT请求头
+type RequestHead struct {
+	// 请求唯一标识
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 客户身份标识ID
+	SecretId *string `json:"secret_id,omitempty" xml:"secret_id,omitempty" require:"true"`
+	// 客户签约产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+}
+
+func (s RequestHead) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RequestHead) GoString() string {
+	return s.String()
+}
+
+func (s *RequestHead) SetRequestId(v string) *RequestHead {
+	s.RequestId = &v
+	return s
+}
+
+func (s *RequestHead) SetSecretId(v string) *RequestHead {
+	s.SecretId = &v
+	return s
+}
+
+func (s *RequestHead) SetProductCode(v string) *RequestHead {
+	s.ProductCode = &v
 	return s
 }
 
@@ -214,29 +410,85 @@ func (s *FaceShieldResult) SetSugAction(v string) *FaceShieldResult {
 	return s
 }
 
-// 内容安全请求体datamap
-type CctDataMap struct {
-	// text
-	Text []*string `json:"text,omitempty" xml:"text,omitempty" type:"Repeated"`
-	// PICTURE
-	Picture []*string `json:"picture,omitempty" xml:"picture,omitempty" type:"Repeated"`
+// result.resultData
+type DeviceRiskReportResultData struct {
+	// webrtc_url
+	WebrtcUrl *string `json:"webrtc_url,omitempty" xml:"webrtc_url,omitempty" require:"true"`
+	// a_dynamic_swi
+	ADynamicSwi *string `json:"a_dynamic_swi,omitempty" xml:"a_dynamic_swi,omitempty" require:"true"`
+	// dynamic_interval
+	DynamicInterval *string `json:"dynamic_interval,omitempty" xml:"dynamic_interval,omitempty" require:"true"`
+	// color
+	Color *string `json:"color,omitempty" xml:"color,omitempty" require:"true"`
+	// os
+	Os *string `json:"os,omitempty" xml:"os,omitempty" require:"true"`
+	// dynamic_cmd
+	DynamicCmd *string `json:"dynamic_cmd,omitempty" xml:"dynamic_cmd,omitempty" require:"true"`
+	// time_interval
+	TimeInterval *string `json:"time_interval,omitempty" xml:"time_interval,omitempty" require:"true"`
+	// dynamic_trace
+	DynamicTrace *string `json:"dynamic_trace,omitempty" xml:"dynamic_trace,omitempty" require:"true"`
+	// dynamic_num
+	DynamicNum *string `json:"dynamic_num,omitempty" xml:"dynamic_num,omitempty" require:"true"`
+	// result_type
+	ResultType *string `json:"result_type,omitempty" xml:"result_type,omitempty" require:"true"`
 }
 
-func (s CctDataMap) String() string {
+func (s DeviceRiskReportResultData) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CctDataMap) GoString() string {
+func (s DeviceRiskReportResultData) GoString() string {
 	return s.String()
 }
 
-func (s *CctDataMap) SetText(v []*string) *CctDataMap {
-	s.Text = v
+func (s *DeviceRiskReportResultData) SetWebrtcUrl(v string) *DeviceRiskReportResultData {
+	s.WebrtcUrl = &v
 	return s
 }
 
-func (s *CctDataMap) SetPicture(v []*string) *CctDataMap {
-	s.Picture = v
+func (s *DeviceRiskReportResultData) SetADynamicSwi(v string) *DeviceRiskReportResultData {
+	s.ADynamicSwi = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetDynamicInterval(v string) *DeviceRiskReportResultData {
+	s.DynamicInterval = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetColor(v string) *DeviceRiskReportResultData {
+	s.Color = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetOs(v string) *DeviceRiskReportResultData {
+	s.Os = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetDynamicCmd(v string) *DeviceRiskReportResultData {
+	s.DynamicCmd = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetTimeInterval(v string) *DeviceRiskReportResultData {
+	s.TimeInterval = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetDynamicTrace(v string) *DeviceRiskReportResultData {
+	s.DynamicTrace = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetDynamicNum(v string) *DeviceRiskReportResultData {
+	s.DynamicNum = &v
+	return s
+}
+
+func (s *DeviceRiskReportResultData) SetResultType(v string) *DeviceRiskReportResultData {
+	s.ResultType = &v
 	return s
 }
 
@@ -322,6 +574,105 @@ func (s *InsureInfo) SetInsureCompCreditNo(v string) *InsureInfo {
 	return s
 }
 
+// 设备风险查询data
+type DeviceRiskResp struct {
+	// apdid
+	Apdid *string `json:"apdid,omitempty" xml:"apdid,omitempty" require:"true"`
+	// apdid_token
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+	// risk_level
+	RiskLevel *int64 `json:"risk_level,omitempty" xml:"risk_level,omitempty" require:"true"`
+	// risk_desc
+	RiskDesc *string `json:"risk_desc,omitempty" xml:"risk_desc,omitempty" require:"true"`
+	// sug_action
+	SugAction *string `json:"sug_action,omitempty" xml:"sug_action,omitempty" require:"true"`
+	// risk_labels
+	RiskLabels []*string `json:"risk_labels,omitempty" xml:"risk_labels,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s DeviceRiskResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceRiskResp) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceRiskResp) SetApdid(v string) *DeviceRiskResp {
+	s.Apdid = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetApdidToken(v string) *DeviceRiskResp {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetRiskLevel(v int64) *DeviceRiskResp {
+	s.RiskLevel = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetRiskDesc(v string) *DeviceRiskResp {
+	s.RiskDesc = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetSugAction(v string) *DeviceRiskResp {
+	s.SugAction = &v
+	return s
+}
+
+func (s *DeviceRiskResp) SetRiskLabels(v []*string) *DeviceRiskResp {
+	s.RiskLabels = v
+	return s
+}
+
+// 内容安全请求体datamap
+type CctDataMap struct {
+	// text
+	Text []*string `json:"text,omitempty" xml:"text,omitempty" type:"Repeated"`
+	// PICTURE
+	Picture []*string `json:"picture,omitempty" xml:"picture,omitempty" type:"Repeated"`
+}
+
+func (s CctDataMap) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CctDataMap) GoString() string {
+	return s.String()
+}
+
+func (s *CctDataMap) SetText(v []*string) *CctDataMap {
+	s.Text = v
+	return s
+}
+
+func (s *CctDataMap) SetPicture(v []*string) *CctDataMap {
+	s.Picture = v
+	return s
+}
+
+// 业务请求入参，兼容批量调用
+type BizQueryParam struct {
+	// 参数列表，数组
+	BizParams []*BizParam `json:"biz_params,omitempty" xml:"biz_params,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BizQueryParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BizQueryParam) GoString() string {
+	return s.String()
+}
+
+func (s *BizQueryParam) SetBizParams(v []*BizParam) *BizQueryParam {
+	s.BizParams = v
+	return s
+}
+
 // 内容安全response
 type CctDetectCheckLabel struct {
 	// label
@@ -359,6 +710,58 @@ func (s *CctDetectCheckLabel) SetSubLabels(v []*CctSubCheckLabel) *CctDetectChec
 
 func (s *CctDetectCheckLabel) SetDetails(v string) *CctDetectCheckLabel {
 	s.Details = &v
+	return s
+}
+
+// 风险评估响应结果
+type RiskAssessData struct {
+	// 响应头
+	Head *ResponseHead `json:"head,omitempty" xml:"head,omitempty" require:"true"`
+	// 风险评估结果
+	RiskResult *RiskAssessResult `json:"risk_result,omitempty" xml:"risk_result,omitempty" require:"true"`
+}
+
+func (s RiskAssessData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskAssessData) GoString() string {
+	return s.String()
+}
+
+func (s *RiskAssessData) SetHead(v *ResponseHead) *RiskAssessData {
+	s.Head = v
+	return s
+}
+
+func (s *RiskAssessData) SetRiskResult(v *RiskAssessResult) *RiskAssessData {
+	s.RiskResult = v
+	return s
+}
+
+// 风险咨询结果
+type ResultList struct {
+	// 结果列表
+	RiskResults []*RiskResult `json:"risk_results,omitempty" xml:"risk_results,omitempty" require:"true" type:"Repeated"`
+	// 入参列表，数组
+	BizParams []*BizParam `json:"biz_params,omitempty" xml:"biz_params,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ResultList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResultList) GoString() string {
+	return s.String()
+}
+
+func (s *ResultList) SetRiskResults(v []*RiskResult) *ResultList {
+	s.RiskResults = v
+	return s
+}
+
+func (s *ResultList) SetBizParams(v []*BizParam) *ResultList {
+	s.BizParams = v
 	return s
 }
 
@@ -1841,6 +2244,750 @@ func (s *RecognizeCctAnalyzeResponse) SetDetectLabels(v []*CctDetectCheckLabel) 
 	return s
 }
 
+type QueryRiskGeneralRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// x
+	DataCode *string `json:"data_code,omitempty" xml:"data_code,omitempty" require:"true"`
+	// AES加密使用的随机数，对该随机数使用RaaS数据服务的公钥进行加密，随后传入；
+	EncryptedNonce *string `json:"encrypted_nonce,omitempty" xml:"encrypted_nonce,omitempty" require:"true"`
+	// ISV的终端客户编码、征信机构的终端客户编码、公司内部部门ID，可以定制数据输出。
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	// 业务请求入参，兼容批量调用
+	BizQueryParams []*BizQueryParam `json:"biz_query_params,omitempty" xml:"biz_query_params,omitempty" require:"true" type:"Repeated"`
+	// 拓展输入字段,
+	ExtData *string `json:"ext_data,omitempty" xml:"ext_data,omitempty"`
+	// 用于标记是否获得用户授权。
+	// 1:获得授权（默认）
+	// 0:未获得授权
+	UserAuthorization *string `json:"user_authorization,omitempty" xml:"user_authorization,omitempty" require:"true"`
+	// 默认AES128，后续可选SM2等国密
+	EncryptMethod *string `json:"encrypt_method,omitempty" xml:"encrypt_method,omitempty"`
+	// 整个包体加密，二选一
+	EncryptedBody *string `json:"encrypted_body,omitempty" xml:"encrypted_body,omitempty"`
+}
+
+func (s QueryRiskGeneralRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRiskGeneralRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRiskGeneralRequest) SetAuthToken(v string) *QueryRiskGeneralRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRiskGeneralRequest) SetProductInstanceId(v string) *QueryRiskGeneralRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRiskGeneralRequest) SetDataCode(v string) *QueryRiskGeneralRequest {
+	s.DataCode = &v
+	return s
+}
+
+func (s *QueryRiskGeneralRequest) SetEncryptedNonce(v string) *QueryRiskGeneralRequest {
+	s.EncryptedNonce = &v
+	return s
+}
+
+func (s *QueryRiskGeneralRequest) SetCustomerId(v string) *QueryRiskGeneralRequest {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *QueryRiskGeneralRequest) SetBizQueryParams(v []*BizQueryParam) *QueryRiskGeneralRequest {
+	s.BizQueryParams = v
+	return s
+}
+
+func (s *QueryRiskGeneralRequest) SetExtData(v string) *QueryRiskGeneralRequest {
+	s.ExtData = &v
+	return s
+}
+
+func (s *QueryRiskGeneralRequest) SetUserAuthorization(v string) *QueryRiskGeneralRequest {
+	s.UserAuthorization = &v
+	return s
+}
+
+func (s *QueryRiskGeneralRequest) SetEncryptMethod(v string) *QueryRiskGeneralRequest {
+	s.EncryptMethod = &v
+	return s
+}
+
+func (s *QueryRiskGeneralRequest) SetEncryptedBody(v string) *QueryRiskGeneralRequest {
+	s.EncryptedBody = &v
+	return s
+}
+
+type QueryRiskGeneralResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否计费
+	Meter *bool `json:"meter,omitempty" xml:"meter,omitempty"`
+	// 批量调用情况下的计费数量
+	MeterCount *int64 `json:"meter_count,omitempty" xml:"meter_count,omitempty"`
+	// 风险咨询结果的批量查询结果
+	ResultList []*ResultList `json:"result_list,omitempty" xml:"result_list,omitempty" type:"Repeated"`
+	// 拓展输出字段
+	ExtData *string `json:"ext_data,omitempty" xml:"ext_data,omitempty"`
+}
+
+func (s QueryRiskGeneralResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRiskGeneralResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRiskGeneralResponse) SetReqMsgId(v string) *QueryRiskGeneralResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRiskGeneralResponse) SetResultCode(v string) *QueryRiskGeneralResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRiskGeneralResponse) SetResultMsg(v string) *QueryRiskGeneralResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRiskGeneralResponse) SetMeter(v bool) *QueryRiskGeneralResponse {
+	s.Meter = &v
+	return s
+}
+
+func (s *QueryRiskGeneralResponse) SetMeterCount(v int64) *QueryRiskGeneralResponse {
+	s.MeterCount = &v
+	return s
+}
+
+func (s *QueryRiskGeneralResponse) SetResultList(v []*ResultList) *QueryRiskGeneralResponse {
+	s.ResultList = v
+	return s
+}
+
+func (s *QueryRiskGeneralResponse) SetExtData(v string) *QueryRiskGeneralResponse {
+	s.ExtData = &v
+	return s
+}
+
+type QueryDeviceriskFingerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// apdid_token
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+	// client_id
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+	// terminal_type
+	TerminalType *string `json:"terminal_type,omitempty" xml:"terminal_type,omitempty"`
+}
+
+func (s QueryDeviceriskFingerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceriskFingerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceriskFingerRequest) SetAuthToken(v string) *QueryDeviceriskFingerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerRequest) SetProductInstanceId(v string) *QueryDeviceriskFingerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerRequest) SetApdidToken(v string) *QueryDeviceriskFingerRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerRequest) SetClientId(v string) *QueryDeviceriskFingerRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerRequest) SetTerminalType(v string) *QueryDeviceriskFingerRequest {
+	s.TerminalType = &v
+	return s
+}
+
+type QueryDeviceriskFingerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// code
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// message
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// request_id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// data
+	Data *DeviceRiskResp `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryDeviceriskFingerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceriskFingerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceriskFingerResponse) SetReqMsgId(v string) *QueryDeviceriskFingerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerResponse) SetResultCode(v string) *QueryDeviceriskFingerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerResponse) SetResultMsg(v string) *QueryDeviceriskFingerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerResponse) SetCode(v int64) *QueryDeviceriskFingerResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerResponse) SetMessage(v string) *QueryDeviceriskFingerResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerResponse) SetRequestId(v string) *QueryDeviceriskFingerResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerResponse) SetSuccess(v bool) *QueryDeviceriskFingerResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryDeviceriskFingerResponse) SetData(v *DeviceRiskResp) *QueryDeviceriskFingerResponse {
+	s.Data = v
+	return s
+}
+
+type QueryDeviceriskRisklabelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// apdid_token
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+	// client_id
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+	// terminal_type
+	TerminalType *string `json:"terminal_type,omitempty" xml:"terminal_type,omitempty"`
+}
+
+func (s QueryDeviceriskRisklabelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceriskRisklabelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceriskRisklabelRequest) SetAuthToken(v string) *QueryDeviceriskRisklabelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelRequest) SetProductInstanceId(v string) *QueryDeviceriskRisklabelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelRequest) SetApdidToken(v string) *QueryDeviceriskRisklabelRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelRequest) SetClientId(v string) *QueryDeviceriskRisklabelRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelRequest) SetTerminalType(v string) *QueryDeviceriskRisklabelRequest {
+	s.TerminalType = &v
+	return s
+}
+
+type QueryDeviceriskRisklabelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// code
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// message
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// request_id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// data
+	Data *DeviceRiskResp `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryDeviceriskRisklabelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceriskRisklabelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetReqMsgId(v string) *QueryDeviceriskRisklabelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetResultCode(v string) *QueryDeviceriskRisklabelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetResultMsg(v string) *QueryDeviceriskRisklabelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetCode(v int64) *QueryDeviceriskRisklabelResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetMessage(v string) *QueryDeviceriskRisklabelResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetRequestId(v string) *QueryDeviceriskRisklabelResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetSuccess(v bool) *QueryDeviceriskRisklabelResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryDeviceriskRisklabelResponse) SetData(v *DeviceRiskResp) *QueryDeviceriskRisklabelResponse {
+	s.Data = v
+	return s
+}
+
+type QueryDeviceriskDeviceriskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// apdid_token
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+	// client_id
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// env_id
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// merchant_id
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// terminal_type
+	TerminalType *string `json:"terminal_type,omitempty" xml:"terminal_type,omitempty"`
+}
+
+func (s QueryDeviceriskDeviceriskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceriskDeviceriskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetAuthToken(v string) *QueryDeviceriskDeviceriskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetProductInstanceId(v string) *QueryDeviceriskDeviceriskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetApdidToken(v string) *QueryDeviceriskDeviceriskRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetClientId(v string) *QueryDeviceriskDeviceriskRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetAppId(v string) *QueryDeviceriskDeviceriskRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetEnvId(v string) *QueryDeviceriskDeviceriskRequest {
+	s.EnvId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetTenantId(v string) *QueryDeviceriskDeviceriskRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetMerchantId(v string) *QueryDeviceriskDeviceriskRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetAppName(v string) *QueryDeviceriskDeviceriskRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskRequest) SetTerminalType(v string) *QueryDeviceriskDeviceriskRequest {
+	s.TerminalType = &v
+	return s
+}
+
+type QueryDeviceriskDeviceriskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// code
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// message
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// request_id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// data
+	Data *DeviceRiskResp `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryDeviceriskDeviceriskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceriskDeviceriskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetReqMsgId(v string) *QueryDeviceriskDeviceriskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetResultCode(v string) *QueryDeviceriskDeviceriskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetResultMsg(v string) *QueryDeviceriskDeviceriskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetCode(v int64) *QueryDeviceriskDeviceriskResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetMessage(v string) *QueryDeviceriskDeviceriskResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetRequestId(v string) *QueryDeviceriskDeviceriskResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetSuccess(v bool) *QueryDeviceriskDeviceriskResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryDeviceriskDeviceriskResponse) SetData(v *DeviceRiskResp) *QueryDeviceriskDeviceriskResponse {
+	s.Data = v
+	return s
+}
+
+type SubmitDeviceriskReportRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// request_data
+	RequestData *string `json:"request_data,omitempty" xml:"request_data,omitempty" require:"true"`
+}
+
+func (s SubmitDeviceriskReportRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitDeviceriskReportRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitDeviceriskReportRequest) SetAuthToken(v string) *SubmitDeviceriskReportRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportRequest) SetProductInstanceId(v string) *SubmitDeviceriskReportRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportRequest) SetRequestData(v string) *SubmitDeviceriskReportRequest {
+	s.RequestData = &v
+	return s
+}
+
+type SubmitDeviceriskReportResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// apdid
+	Apdid *string `json:"apdid,omitempty" xml:"apdid,omitempty"`
+	// token
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+	// current_time
+	CurrentTime *string `json:"current_time,omitempty" xml:"current_time,omitempty"`
+	// version
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// vkey_switch
+	VkeySwitch *string `json:"vkey_switch,omitempty" xml:"vkey_switch,omitempty"`
+	// bug_track_switch
+	BugTrackSwitch *string `json:"bug_track_switch,omitempty" xml:"bug_track_switch,omitempty"`
+	// app_list_ver
+	AppListVer *string `json:"app_list_ver,omitempty" xml:"app_list_ver,omitempty"`
+	// dynamic_key
+	DynamicKey *string `json:"dynamic_key,omitempty" xml:"dynamic_key,omitempty"`
+	// result_data
+	ResultData *DeviceRiskReportResultData `json:"result_data,omitempty" xml:"result_data,omitempty"`
+}
+
+func (s SubmitDeviceriskReportResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitDeviceriskReportResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitDeviceriskReportResponse) SetReqMsgId(v string) *SubmitDeviceriskReportResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetResultCode(v string) *SubmitDeviceriskReportResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetResultMsg(v string) *SubmitDeviceriskReportResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetSuccess(v bool) *SubmitDeviceriskReportResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetApdid(v string) *SubmitDeviceriskReportResponse {
+	s.Apdid = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetToken(v string) *SubmitDeviceriskReportResponse {
+	s.Token = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetCurrentTime(v string) *SubmitDeviceriskReportResponse {
+	s.CurrentTime = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetVersion(v string) *SubmitDeviceriskReportResponse {
+	s.Version = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetVkeySwitch(v string) *SubmitDeviceriskReportResponse {
+	s.VkeySwitch = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetBugTrackSwitch(v string) *SubmitDeviceriskReportResponse {
+	s.BugTrackSwitch = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetAppListVer(v string) *SubmitDeviceriskReportResponse {
+	s.AppListVer = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetDynamicKey(v string) *SubmitDeviceriskReportResponse {
+	s.DynamicKey = &v
+	return s
+}
+
+func (s *SubmitDeviceriskReportResponse) SetResultData(v *DeviceRiskReportResultData) *SubmitDeviceriskReportResponse {
+	s.ResultData = v
+	return s
+}
+
+type QueryEkytDriverRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 接口请求head
+	Head *RequestHead `json:"head,omitempty" xml:"head,omitempty" require:"true"`
+	// 请求业务参数，加密之后的密文信息
+	Request *string `json:"request,omitempty" xml:"request,omitempty" require:"true"`
+	// 请求数据签名值
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+}
+
+func (s QueryEkytDriverRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEkytDriverRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEkytDriverRequest) SetAuthToken(v string) *QueryEkytDriverRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEkytDriverRequest) SetProductInstanceId(v string) *QueryEkytDriverRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEkytDriverRequest) SetHead(v *RequestHead) *QueryEkytDriverRequest {
+	s.Head = v
+	return s
+}
+
+func (s *QueryEkytDriverRequest) SetRequest(v string) *QueryEkytDriverRequest {
+	s.Request = &v
+	return s
+}
+
+func (s *QueryEkytDriverRequest) SetSignature(v string) *QueryEkytDriverRequest {
+	s.Signature = &v
+	return s
+}
+
+type QueryEkytDriverResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口响应结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 接口响应描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 接口响应数据
+	Data *RiskAssessData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryEkytDriverResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEkytDriverResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEkytDriverResponse) SetReqMsgId(v string) *QueryEkytDriverResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEkytDriverResponse) SetResultCode(v string) *QueryEkytDriverResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEkytDriverResponse) SetResultMsg(v string) *QueryEkytDriverResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEkytDriverResponse) SetSuccess(v bool) *QueryEkytDriverResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryEkytDriverResponse) SetMessage(v string) *QueryEkytDriverResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryEkytDriverResponse) SetData(v *RiskAssessData) *QueryEkytDriverResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1963,7 +3110,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.12"),
+				"sdk_version":      tea.String("1.2.0"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -2526,6 +3673,210 @@ func (client *Client) RecognizeCctAnalyzeEx(request *RecognizeCctAnalyzeRequest,
 	}
 	_result = &RecognizeCctAnalyzeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.cct.analyze.recognize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: RAAS数据服务统一接口
+ * Summary: RAAS数据服务统一接口
+ */
+func (client *Client) QueryRiskGeneral(request *QueryRiskGeneralRequest) (_result *QueryRiskGeneralResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRiskGeneralResponse{}
+	_body, _err := client.QueryRiskGeneralEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: RAAS数据服务统一接口
+ * Summary: RAAS数据服务统一接口
+ */
+func (client *Client) QueryRiskGeneralEx(request *QueryRiskGeneralRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRiskGeneralResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRiskGeneralResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.risk.general.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 设备指纹查询
+ * Summary: 设备指纹查询
+ */
+func (client *Client) QueryDeviceriskFinger(request *QueryDeviceriskFingerRequest) (_result *QueryDeviceriskFingerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeviceriskFingerResponse{}
+	_body, _err := client.QueryDeviceriskFingerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 设备指纹查询
+ * Summary: 设备指纹查询
+ */
+func (client *Client) QueryDeviceriskFingerEx(request *QueryDeviceriskFingerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeviceriskFingerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeviceriskFingerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.devicerisk.finger.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 风险标签查询
+ * Summary: 风险标签查询
+ */
+func (client *Client) QueryDeviceriskRisklabel(request *QueryDeviceriskRisklabelRequest) (_result *QueryDeviceriskRisklabelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeviceriskRisklabelResponse{}
+	_body, _err := client.QueryDeviceriskRisklabelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 风险标签查询
+ * Summary: 风险标签查询
+ */
+func (client *Client) QueryDeviceriskRisklabelEx(request *QueryDeviceriskRisklabelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeviceriskRisklabelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeviceriskRisklabelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.devicerisk.risklabel.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 设备风险查询
+ * Summary: 设备风险查询
+ */
+func (client *Client) QueryDeviceriskDevicerisk(request *QueryDeviceriskDeviceriskRequest) (_result *QueryDeviceriskDeviceriskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeviceriskDeviceriskResponse{}
+	_body, _err := client.QueryDeviceriskDeviceriskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 设备风险查询
+ * Summary: 设备风险查询
+ */
+func (client *Client) QueryDeviceriskDeviceriskEx(request *QueryDeviceriskDeviceriskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeviceriskDeviceriskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeviceriskDeviceriskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.devicerisk.devicerisk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 设备信息上报
+ * Summary: 设备信息上报
+ */
+func (client *Client) SubmitDeviceriskReport(request *SubmitDeviceriskReportRequest) (_result *SubmitDeviceriskReportResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitDeviceriskReportResponse{}
+	_body, _err := client.SubmitDeviceriskReportEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 设备信息上报
+ * Summary: 设备信息上报
+ */
+func (client *Client) SubmitDeviceriskReportEx(request *SubmitDeviceriskReportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitDeviceriskReportResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitDeviceriskReportResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.devicerisk.report.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: eKYT风险评估服务-出行场景司机
+ * Summary: eKYT风险评估服务-出行场景司机
+ */
+func (client *Client) QueryEkytDriver(request *QueryEkytDriverRequest) (_result *QueryEkytDriverResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEkytDriverResponse{}
+	_body, _err := client.QueryEkytDriverEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: eKYT风险评估服务-出行场景司机
+ * Summary: eKYT风险评估服务-出行场景司机
+ */
+func (client *Client) QueryEkytDriverEx(request *QueryEkytDriverRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEkytDriverResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEkytDriverResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.ekyt.driver.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
