@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.12',
+    sdk_version = '1.2.0',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -161,12 +161,72 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 风险数据
+model RiskData {
+  // 模型/标签编号
+  resultKey: string(name='result_key', example='·'),
+  // 模型分/标签值
+  resultValue: string(name='result_value', example='·'),
+}
+
+// eKYT风险标签
+model RiskModel {
+  // 标签名称
+  modelName: string(name='model_name', example='ekyt_risk_tag_100'),
+  // 风险值
+  modelValue: string(name='model_value', example='1'),
+  // 风险标签描述
+  modelComment: string(name='model_comment', example='中风险'),
+}
+
+// 业务参数
+model BizParam {
+  // 参数类型枚举，mobile、cert、biz_license
+  paramKey: string(name='param_key', example='·'),
+  // 值，如加密后的手机号
+  paramValue: string(name='param_value', example='·'),
+}
+
+// ekyt响应头
+model ResponseHead {
+  // 请求唯一标识
+  requestId: string(name='request_id', example='91440300892305861T'),
+}
+
 // CctSubCheckLabel
 model CctSubCheckLabel {
   // sub_label
   subLabel: string(name='sub_label', example='sub_label'),
   // rate
   rate: long(name='rate', example=''),
+}
+
+// 风险评估结果
+model RiskAssessResult {
+  // 风险评估结果
+  riskValue: string(name='risk_value', example='中风险'),
+  // 风险评估分数
+  riskScore: string(name='risk_score', example='90'),
+  // 风险评估标签
+  modelInfos: RiskModel(name='model_infos', example=''),
+}
+
+// 风险结果
+model RiskResult {
+  // 数据列表
+  riskData: [ RiskData ](name='risk_data', example=''),
+  // 解决方案编码
+  solutionCode: string(name='solution_code', example='·'),
+}
+
+// eKYT请求头
+model RequestHead {
+  // 请求唯一标识
+  requestId: string(name='request_id', example='91440300892305861T'),
+  // 客户身份标识ID
+  secretId: string(name='secret_id', example='91440300892305861T'),
+  // 客户签约产品code
+  productCode: string(name='product_code', example='RDDB04201PR'),
 }
 
 // 人脸盾结果
@@ -181,12 +241,28 @@ model FaceShieldResult {
   sugAction: string(name='sug_action', example='建议直接拦截'),
 }
 
-// 内容安全请求体datamap
-model CctDataMap {
-  // text
-  text?: [ string ](name='text', example='text'),
-  // PICTURE
-  picture?: [ string ](name='picture', example='PICTURE'),
+// result.resultData
+model DeviceRiskReportResultData {
+  // webrtc_url
+  webrtcUrl: string(name='webrtc_url', example='webrtc_url'),
+  // a_dynamic_swi
+  aDynamicSwi: string(name='a_dynamic_swi', example='a_dynamic_swi'),
+  // dynamic_interval
+  dynamicInterval: string(name='dynamic_interval', example='dynamic_interval'),
+  // color
+  color: string(name='color', example='color'),
+  // os
+  os: string(name='os', example='os'),
+  // dynamic_cmd
+  dynamicCmd: string(name='dynamic_cmd', example='dynamic_cmd'),
+  // time_interval
+  timeInterval: string(name='time_interval', example='time_interval'),
+  // dynamic_trace
+  dynamicTrace: string(name='dynamic_trace', example='dynamic_trace'),
+  // dynamic_num
+  dynamicNum: string(name='dynamic_num', example='dynamic_num'),
+  // result_type
+  resultType: string(name='result_type', example='result_type'),
 }
 
 // 保单信息
@@ -213,6 +289,36 @@ model InsureInfo {
   insureCompCreditNo: string(name='insure_comp_credit_no', example='91440300892305861T'),
 }
 
+// 设备风险查询data
+model DeviceRiskResp {
+  // apdid
+  apdid: string(name='apdid', example='.'),
+  // apdid_token
+  apdidToken: string(name='apdid_token', example='.'),
+  // risk_level
+  riskLevel: long(name='risk_level', example='.'),
+  // risk_desc
+  riskDesc: string(name='risk_desc', example='.'),
+  // sug_action
+  sugAction: string(name='sug_action', example='.'),
+  // risk_labels
+  riskLabels: [ string ](name='risk_labels', example='.'),
+}
+
+// 内容安全请求体datamap
+model CctDataMap {
+  // text
+  text?: [ string ](name='text', example='text'),
+  // PICTURE
+  picture?: [ string ](name='picture', example='PICTURE'),
+}
+
+// 业务请求入参，兼容批量调用
+model BizQueryParam {
+  // 参数列表，数组
+  bizParams: [ BizParam ](name='biz_params', example=''),
+}
+
 // 内容安全response
 model CctDetectCheckLabel {
   // label
@@ -223,6 +329,22 @@ model CctDetectCheckLabel {
   subLabels: [ CctSubCheckLabel ](name='sub_labels', example=''),
   // details
   details: string(name='details', example='details'),
+}
+
+// 风险评估响应结果
+model RiskAssessData {
+  // 响应头
+  head: ResponseHead(name='head', example=''),
+  // 风险评估结果
+  riskResult: RiskAssessResult(name='risk_result', example=''),
+}
+
+// 风险咨询结果
+model ResultList {
+  // 结果列表
+  riskResults: [ RiskResult ](name='risk_results', example=''),
+  // 入参列表，数组
+  bizParams: [ BizParam ](name='biz_params', example=''),
 }
 
 model RunGeneralRequest = {
@@ -929,5 +1051,327 @@ async function recognizeCctAnalyze(request: RecognizeCctAnalyzeRequest): Recogni
 async function recognizeCctAnalyzeEx(request: RecognizeCctAnalyzeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RecognizeCctAnalyzeResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.cct.analyze.recognize', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRiskGeneralRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // x
+  dataCode: string(name='data_code'),
+  // AES加密使用的随机数，对该随机数使用RaaS数据服务的公钥进行加密，随后传入；
+  encryptedNonce: string(name='encrypted_nonce'),
+  // ISV的终端客户编码、征信机构的终端客户编码、公司内部部门ID，可以定制数据输出。
+  customerId?: string(name='customer_id'),
+  // 业务请求入参，兼容批量调用
+  bizQueryParams: [ BizQueryParam ](name='biz_query_params'),
+  // 拓展输入字段,
+  extData?: string(name='ext_data'),
+  // 用于标记是否获得用户授权。
+  // 1:获得授权（默认）
+  // 0:未获得授权
+  userAuthorization: string(name='user_authorization'),
+  // 默认AES128，后续可选SM2等国密
+  encryptMethod?: string(name='encrypt_method'),
+  // 整个包体加密，二选一
+  encryptedBody?: string(name='encrypted_body'),
+}
+
+model QueryRiskGeneralResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否计费
+  meter?: boolean(name='meter'),
+  // 批量调用情况下的计费数量
+  meterCount?: long(name='meter_count'),
+  // 风险咨询结果的批量查询结果
+  resultList?: [ ResultList ](name='result_list'),
+  // 拓展输出字段
+  extData?: string(name='ext_data'),
+}
+
+/**
+ * Description: RAAS数据服务统一接口
+ * Summary: RAAS数据服务统一接口
+ */
+async function queryRiskGeneral(request: QueryRiskGeneralRequest): QueryRiskGeneralResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRiskGeneralEx(request, headers, runtime);
+}
+
+/**
+ * Description: RAAS数据服务统一接口
+ * Summary: RAAS数据服务统一接口
+ */
+async function queryRiskGeneralEx(request: QueryRiskGeneralRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRiskGeneralResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.risk.general.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeviceriskFingerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // apdid_token
+  apdidToken: string(name='apdid_token'),
+  // client_id
+  clientId?: string(name='client_id'),
+  // terminal_type
+  terminalType?: string(name='terminal_type'),
+}
+
+model QueryDeviceriskFingerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // code
+  code?: long(name='code'),
+  // message
+  message?: string(name='message'),
+  // request_id
+  requestId?: string(name='request_id'),
+  // success
+  success?: boolean(name='success'),
+  // data
+  data?: DeviceRiskResp(name='data'),
+}
+
+/**
+ * Description: 设备指纹查询
+ * Summary: 设备指纹查询
+ */
+async function queryDeviceriskFinger(request: QueryDeviceriskFingerRequest): QueryDeviceriskFingerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeviceriskFingerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 设备指纹查询
+ * Summary: 设备指纹查询
+ */
+async function queryDeviceriskFingerEx(request: QueryDeviceriskFingerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceriskFingerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.devicerisk.finger.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeviceriskRisklabelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // apdid_token
+  apdidToken: string(name='apdid_token'),
+  // client_id	
+  clientId?: string(name='client_id'),
+  // terminal_type
+  terminalType?: string(name='terminal_type'),
+}
+
+model QueryDeviceriskRisklabelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // code
+  code?: long(name='code'),
+  // message
+  message?: string(name='message'),
+  // request_id
+  requestId?: string(name='request_id'),
+  // success
+  success?: boolean(name='success'),
+  // data
+  data?: DeviceRiskResp(name='data'),
+}
+
+/**
+ * Description: 风险标签查询
+ * Summary: 风险标签查询
+ */
+async function queryDeviceriskRisklabel(request: QueryDeviceriskRisklabelRequest): QueryDeviceriskRisklabelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeviceriskRisklabelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风险标签查询
+ * Summary: 风险标签查询
+ */
+async function queryDeviceriskRisklabelEx(request: QueryDeviceriskRisklabelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceriskRisklabelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.devicerisk.risklabel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeviceriskDeviceriskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // apdid_token
+  apdidToken: string(name='apdid_token'),
+  // client_id
+  clientId?: string(name='client_id'),
+  // app_id
+  appId?: string(name='app_id'),
+  // env_id
+  envId?: string(name='env_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+  // merchant_id
+  merchantId?: string(name='merchant_id'),
+  // app_name
+  appName?: string(name='app_name'),
+  // terminal_type
+  terminalType?: string(name='terminal_type'),
+}
+
+model QueryDeviceriskDeviceriskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // code
+  code?: long(name='code'),
+  // message
+  message?: string(name='message'),
+  // request_id
+  requestId?: string(name='request_id'),
+  // success
+  success?: boolean(name='success'),
+  // data
+  data?: DeviceRiskResp(name='data'),
+}
+
+/**
+ * Description: 设备风险查询
+ * Summary: 设备风险查询
+ */
+async function queryDeviceriskDevicerisk(request: QueryDeviceriskDeviceriskRequest): QueryDeviceriskDeviceriskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeviceriskDeviceriskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 设备风险查询
+ * Summary: 设备风险查询
+ */
+async function queryDeviceriskDeviceriskEx(request: QueryDeviceriskDeviceriskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceriskDeviceriskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitDeviceriskReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // request_data
+  requestData: string(name='request_data'),
+}
+
+model SubmitDeviceriskReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // success
+  success?: boolean(name='success'),
+  // apdid
+  apdid?: string(name='apdid'),
+  // token
+  token?: string(name='token'),
+  // current_time
+  currentTime?: string(name='current_time'),
+  // version
+  version?: string(name='version'),
+  // vkey_switch
+  vkeySwitch?: string(name='vkey_switch'),
+  // bug_track_switch
+  bugTrackSwitch?: string(name='bug_track_switch'),
+  // app_list_ver
+  appListVer?: string(name='app_list_ver'),
+  // dynamic_key
+  dynamicKey?: string(name='dynamic_key'),
+  // result_data
+  resultData?: DeviceRiskReportResultData(name='result_data'),
+}
+
+/**
+ * Description: 设备信息上报
+ * Summary: 设备信息上报
+ */
+async function submitDeviceriskReport(request: SubmitDeviceriskReportRequest): SubmitDeviceriskReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitDeviceriskReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 设备信息上报
+ * Summary: 设备信息上报
+ */
+async function submitDeviceriskReportEx(request: SubmitDeviceriskReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitDeviceriskReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.devicerisk.report.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEkytDriverRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 接口请求head
+  head: RequestHead(name='head'),
+  // 请求业务参数，加密之后的密文信息
+  request: string(name='request'),
+  // 请求数据签名值
+  signature: string(name='signature'),
+}
+
+model QueryEkytDriverResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口响应结果
+  success?: boolean(name='success'),
+  // 接口响应描述
+  message?: string(name='message'),
+  // 接口响应数据
+  data?: RiskAssessData(name='data'),
+}
+
+/**
+ * Description: eKYT风险评估服务-出行场景司机
+ * Summary: eKYT风险评估服务-出行场景司机
+ */
+async function queryEkytDriver(request: QueryEkytDriverRequest): QueryEkytDriverResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEkytDriverEx(request, headers, runtime);
+}
+
+/**
+ * Description: eKYT风险评估服务-出行场景司机
+ * Summary: eKYT风险评估服务-出行场景司机
+ */
+async function queryEkytDriverEx(request: QueryEkytDriverRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEkytDriverResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.ekyt.driver.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
