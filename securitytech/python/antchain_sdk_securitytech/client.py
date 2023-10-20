@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # CctSubCheckLabel
+            # 风险数据
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.12',
+                    'sdk_version': '1.2.0',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # CctSubCheckLabel
+            # 风险数据
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.12',
+                    'sdk_version': '1.2.0',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -1117,4 +1117,340 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.RecognizeCctAnalyzeResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.cct.analyze.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_risk_general(
+        self,
+        request: securitytech_models.QueryRiskGeneralRequest,
+    ) -> securitytech_models.QueryRiskGeneralResponse:
+        """
+        Description: RAAS数据服务统一接口
+        Summary: RAAS数据服务统一接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_risk_general_ex(request, headers, runtime)
+
+    async def query_risk_general_async(
+        self,
+        request: securitytech_models.QueryRiskGeneralRequest,
+    ) -> securitytech_models.QueryRiskGeneralResponse:
+        """
+        Description: RAAS数据服务统一接口
+        Summary: RAAS数据服务统一接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_risk_general_ex_async(request, headers, runtime)
+
+    def query_risk_general_ex(
+        self,
+        request: securitytech_models.QueryRiskGeneralRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryRiskGeneralResponse:
+        """
+        Description: RAAS数据服务统一接口
+        Summary: RAAS数据服务统一接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryRiskGeneralResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.risk.general.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_risk_general_ex_async(
+        self,
+        request: securitytech_models.QueryRiskGeneralRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryRiskGeneralResponse:
+        """
+        Description: RAAS数据服务统一接口
+        Summary: RAAS数据服务统一接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryRiskGeneralResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.risk.general.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_devicerisk_finger(
+        self,
+        request: securitytech_models.QueryDeviceriskFingerRequest,
+    ) -> securitytech_models.QueryDeviceriskFingerResponse:
+        """
+        Description: 设备指纹查询
+        Summary: 设备指纹查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_devicerisk_finger_ex(request, headers, runtime)
+
+    async def query_devicerisk_finger_async(
+        self,
+        request: securitytech_models.QueryDeviceriskFingerRequest,
+    ) -> securitytech_models.QueryDeviceriskFingerResponse:
+        """
+        Description: 设备指纹查询
+        Summary: 设备指纹查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_devicerisk_finger_ex_async(request, headers, runtime)
+
+    def query_devicerisk_finger_ex(
+        self,
+        request: securitytech_models.QueryDeviceriskFingerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDeviceriskFingerResponse:
+        """
+        Description: 设备指纹查询
+        Summary: 设备指纹查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDeviceriskFingerResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.devicerisk.finger.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_devicerisk_finger_ex_async(
+        self,
+        request: securitytech_models.QueryDeviceriskFingerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDeviceriskFingerResponse:
+        """
+        Description: 设备指纹查询
+        Summary: 设备指纹查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDeviceriskFingerResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.devicerisk.finger.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_devicerisk_risklabel(
+        self,
+        request: securitytech_models.QueryDeviceriskRisklabelRequest,
+    ) -> securitytech_models.QueryDeviceriskRisklabelResponse:
+        """
+        Description: 风险标签查询
+        Summary: 风险标签查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_devicerisk_risklabel_ex(request, headers, runtime)
+
+    async def query_devicerisk_risklabel_async(
+        self,
+        request: securitytech_models.QueryDeviceriskRisklabelRequest,
+    ) -> securitytech_models.QueryDeviceriskRisklabelResponse:
+        """
+        Description: 风险标签查询
+        Summary: 风险标签查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_devicerisk_risklabel_ex_async(request, headers, runtime)
+
+    def query_devicerisk_risklabel_ex(
+        self,
+        request: securitytech_models.QueryDeviceriskRisklabelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDeviceriskRisklabelResponse:
+        """
+        Description: 风险标签查询
+        Summary: 风险标签查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDeviceriskRisklabelResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.devicerisk.risklabel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_devicerisk_risklabel_ex_async(
+        self,
+        request: securitytech_models.QueryDeviceriskRisklabelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDeviceriskRisklabelResponse:
+        """
+        Description: 风险标签查询
+        Summary: 风险标签查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDeviceriskRisklabelResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.devicerisk.risklabel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_devicerisk_devicerisk(
+        self,
+        request: securitytech_models.QueryDeviceriskDeviceriskRequest,
+    ) -> securitytech_models.QueryDeviceriskDeviceriskResponse:
+        """
+        Description: 设备风险查询
+        Summary: 设备风险查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_devicerisk_devicerisk_ex(request, headers, runtime)
+
+    async def query_devicerisk_devicerisk_async(
+        self,
+        request: securitytech_models.QueryDeviceriskDeviceriskRequest,
+    ) -> securitytech_models.QueryDeviceriskDeviceriskResponse:
+        """
+        Description: 设备风险查询
+        Summary: 设备风险查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_devicerisk_devicerisk_ex_async(request, headers, runtime)
+
+    def query_devicerisk_devicerisk_ex(
+        self,
+        request: securitytech_models.QueryDeviceriskDeviceriskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDeviceriskDeviceriskResponse:
+        """
+        Description: 设备风险查询
+        Summary: 设备风险查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDeviceriskDeviceriskResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_devicerisk_devicerisk_ex_async(
+        self,
+        request: securitytech_models.QueryDeviceriskDeviceriskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDeviceriskDeviceriskResponse:
+        """
+        Description: 设备风险查询
+        Summary: 设备风险查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDeviceriskDeviceriskResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.devicerisk.devicerisk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_devicerisk_report(
+        self,
+        request: securitytech_models.SubmitDeviceriskReportRequest,
+    ) -> securitytech_models.SubmitDeviceriskReportResponse:
+        """
+        Description: 设备信息上报
+        Summary: 设备信息上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_devicerisk_report_ex(request, headers, runtime)
+
+    async def submit_devicerisk_report_async(
+        self,
+        request: securitytech_models.SubmitDeviceriskReportRequest,
+    ) -> securitytech_models.SubmitDeviceriskReportResponse:
+        """
+        Description: 设备信息上报
+        Summary: 设备信息上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_devicerisk_report_ex_async(request, headers, runtime)
+
+    def submit_devicerisk_report_ex(
+        self,
+        request: securitytech_models.SubmitDeviceriskReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.SubmitDeviceriskReportResponse:
+        """
+        Description: 设备信息上报
+        Summary: 设备信息上报
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.SubmitDeviceriskReportResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.devicerisk.report.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_devicerisk_report_ex_async(
+        self,
+        request: securitytech_models.SubmitDeviceriskReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.SubmitDeviceriskReportResponse:
+        """
+        Description: 设备信息上报
+        Summary: 设备信息上报
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.SubmitDeviceriskReportResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.devicerisk.report.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ekyt_driver(
+        self,
+        request: securitytech_models.QueryEkytDriverRequest,
+    ) -> securitytech_models.QueryEkytDriverResponse:
+        """
+        Description: eKYT风险评估服务-出行场景司机
+        Summary: eKYT风险评估服务-出行场景司机
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ekyt_driver_ex(request, headers, runtime)
+
+    async def query_ekyt_driver_async(
+        self,
+        request: securitytech_models.QueryEkytDriverRequest,
+    ) -> securitytech_models.QueryEkytDriverResponse:
+        """
+        Description: eKYT风险评估服务-出行场景司机
+        Summary: eKYT风险评估服务-出行场景司机
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ekyt_driver_ex_async(request, headers, runtime)
+
+    def query_ekyt_driver_ex(
+        self,
+        request: securitytech_models.QueryEkytDriverRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryEkytDriverResponse:
+        """
+        Description: eKYT风险评估服务-出行场景司机
+        Summary: eKYT风险评估服务-出行场景司机
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryEkytDriverResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.ekyt.driver.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ekyt_driver_ex_async(
+        self,
+        request: securitytech_models.QueryEkytDriverRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryEkytDriverResponse:
+        """
+        Description: eKYT风险评估服务-出行场景司机
+        Summary: eKYT风险评估服务-出行场景司机
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryEkytDriverResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.ekyt.driver.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

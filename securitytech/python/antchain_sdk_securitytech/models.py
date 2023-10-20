@@ -154,6 +154,150 @@ class Config(TeaModel):
         return self
 
 
+class RiskData(TeaModel):
+    def __init__(
+        self,
+        result_key: str = None,
+        result_value: str = None,
+    ):
+        # 模型/标签编号
+        self.result_key = result_key
+        # 模型分/标签值
+        self.result_value = result_value
+
+    def validate(self):
+        self.validate_required(self.result_key, 'result_key')
+        self.validate_required(self.result_value, 'result_value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.result_key is not None:
+            result['result_key'] = self.result_key
+        if self.result_value is not None:
+            result['result_value'] = self.result_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('result_key') is not None:
+            self.result_key = m.get('result_key')
+        if m.get('result_value') is not None:
+            self.result_value = m.get('result_value')
+        return self
+
+
+class RiskModel(TeaModel):
+    def __init__(
+        self,
+        model_name: str = None,
+        model_value: str = None,
+        model_comment: str = None,
+    ):
+        # 标签名称
+        self.model_name = model_name
+        # 风险值
+        self.model_value = model_value
+        # 风险标签描述
+        self.model_comment = model_comment
+
+    def validate(self):
+        self.validate_required(self.model_name, 'model_name')
+        self.validate_required(self.model_value, 'model_value')
+        self.validate_required(self.model_comment, 'model_comment')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.model_name is not None:
+            result['model_name'] = self.model_name
+        if self.model_value is not None:
+            result['model_value'] = self.model_value
+        if self.model_comment is not None:
+            result['model_comment'] = self.model_comment
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('model_name') is not None:
+            self.model_name = m.get('model_name')
+        if m.get('model_value') is not None:
+            self.model_value = m.get('model_value')
+        if m.get('model_comment') is not None:
+            self.model_comment = m.get('model_comment')
+        return self
+
+
+class BizParam(TeaModel):
+    def __init__(
+        self,
+        param_key: str = None,
+        param_value: str = None,
+    ):
+        # 参数类型枚举，mobile、cert、biz_license
+        self.param_key = param_key
+        # 值，如加密后的手机号
+        self.param_value = param_value
+
+    def validate(self):
+        self.validate_required(self.param_key, 'param_key')
+        self.validate_required(self.param_value, 'param_value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.param_key is not None:
+            result['param_key'] = self.param_key
+        if self.param_value is not None:
+            result['param_value'] = self.param_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('param_key') is not None:
+            self.param_key = m.get('param_key')
+        if m.get('param_value') is not None:
+            self.param_value = m.get('param_value')
+        return self
+
+
+class ResponseHead(TeaModel):
+    def __init__(
+        self,
+        request_id: str = None,
+    ):
+        # 请求唯一标识
+        self.request_id = request_id
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        return self
+
+
 class CctSubCheckLabel(TeaModel):
     def __init__(
         self,
@@ -187,6 +331,142 @@ class CctSubCheckLabel(TeaModel):
             self.sub_label = m.get('sub_label')
         if m.get('rate') is not None:
             self.rate = m.get('rate')
+        return self
+
+
+class RiskAssessResult(TeaModel):
+    def __init__(
+        self,
+        risk_value: str = None,
+        risk_score: str = None,
+        model_infos: RiskModel = None,
+    ):
+        # 风险评估结果
+        self.risk_value = risk_value
+        # 风险评估分数
+        self.risk_score = risk_score
+        # 风险评估标签
+        self.model_infos = model_infos
+
+    def validate(self):
+        self.validate_required(self.risk_value, 'risk_value')
+        self.validate_required(self.risk_score, 'risk_score')
+        self.validate_required(self.model_infos, 'model_infos')
+        if self.model_infos:
+            self.model_infos.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.risk_value is not None:
+            result['risk_value'] = self.risk_value
+        if self.risk_score is not None:
+            result['risk_score'] = self.risk_score
+        if self.model_infos is not None:
+            result['model_infos'] = self.model_infos.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('risk_value') is not None:
+            self.risk_value = m.get('risk_value')
+        if m.get('risk_score') is not None:
+            self.risk_score = m.get('risk_score')
+        if m.get('model_infos') is not None:
+            temp_model = RiskModel()
+            self.model_infos = temp_model.from_map(m['model_infos'])
+        return self
+
+
+class RiskResult(TeaModel):
+    def __init__(
+        self,
+        risk_data: List[RiskData] = None,
+        solution_code: str = None,
+    ):
+        # 数据列表
+        self.risk_data = risk_data
+        # 解决方案编码
+        self.solution_code = solution_code
+
+    def validate(self):
+        self.validate_required(self.risk_data, 'risk_data')
+        if self.risk_data:
+            for k in self.risk_data:
+                if k:
+                    k.validate()
+        self.validate_required(self.solution_code, 'solution_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['risk_data'] = []
+        if self.risk_data is not None:
+            for k in self.risk_data:
+                result['risk_data'].append(k.to_map() if k else None)
+        if self.solution_code is not None:
+            result['solution_code'] = self.solution_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.risk_data = []
+        if m.get('risk_data') is not None:
+            for k in m.get('risk_data'):
+                temp_model = RiskData()
+                self.risk_data.append(temp_model.from_map(k))
+        if m.get('solution_code') is not None:
+            self.solution_code = m.get('solution_code')
+        return self
+
+
+class RequestHead(TeaModel):
+    def __init__(
+        self,
+        request_id: str = None,
+        secret_id: str = None,
+        product_code: str = None,
+    ):
+        # 请求唯一标识
+        self.request_id = request_id
+        # 客户身份标识ID
+        self.secret_id = secret_id
+        # 客户签约产品code
+        self.product_code = product_code
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.secret_id, 'secret_id')
+        self.validate_required(self.product_code, 'product_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.secret_id is not None:
+            result['secret_id'] = self.secret_id
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('secret_id') is not None:
+            self.secret_id = m.get('secret_id')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
         return self
 
 
@@ -242,19 +522,52 @@ class FaceShieldResult(TeaModel):
         return self
 
 
-class CctDataMap(TeaModel):
+class DeviceRiskReportResultData(TeaModel):
     def __init__(
         self,
-        text: List[str] = None,
-        picture: List[str] = None,
+        webrtc_url: str = None,
+        a_dynamic_swi: str = None,
+        dynamic_interval: str = None,
+        color: str = None,
+        os: str = None,
+        dynamic_cmd: str = None,
+        time_interval: str = None,
+        dynamic_trace: str = None,
+        dynamic_num: str = None,
+        result_type: str = None,
     ):
-        # text
-        self.text = text
-        # PICTURE
-        self.picture = picture
+        # webrtc_url
+        self.webrtc_url = webrtc_url
+        # a_dynamic_swi
+        self.a_dynamic_swi = a_dynamic_swi
+        # dynamic_interval
+        self.dynamic_interval = dynamic_interval
+        # color
+        self.color = color
+        # os
+        self.os = os
+        # dynamic_cmd
+        self.dynamic_cmd = dynamic_cmd
+        # time_interval
+        self.time_interval = time_interval
+        # dynamic_trace
+        self.dynamic_trace = dynamic_trace
+        # dynamic_num
+        self.dynamic_num = dynamic_num
+        # result_type
+        self.result_type = result_type
 
     def validate(self):
-        pass
+        self.validate_required(self.webrtc_url, 'webrtc_url')
+        self.validate_required(self.a_dynamic_swi, 'a_dynamic_swi')
+        self.validate_required(self.dynamic_interval, 'dynamic_interval')
+        self.validate_required(self.color, 'color')
+        self.validate_required(self.os, 'os')
+        self.validate_required(self.dynamic_cmd, 'dynamic_cmd')
+        self.validate_required(self.time_interval, 'time_interval')
+        self.validate_required(self.dynamic_trace, 'dynamic_trace')
+        self.validate_required(self.dynamic_num, 'dynamic_num')
+        self.validate_required(self.result_type, 'result_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -262,18 +575,50 @@ class CctDataMap(TeaModel):
             return _map
 
         result = dict()
-        if self.text is not None:
-            result['text'] = self.text
-        if self.picture is not None:
-            result['picture'] = self.picture
+        if self.webrtc_url is not None:
+            result['webrtc_url'] = self.webrtc_url
+        if self.a_dynamic_swi is not None:
+            result['a_dynamic_swi'] = self.a_dynamic_swi
+        if self.dynamic_interval is not None:
+            result['dynamic_interval'] = self.dynamic_interval
+        if self.color is not None:
+            result['color'] = self.color
+        if self.os is not None:
+            result['os'] = self.os
+        if self.dynamic_cmd is not None:
+            result['dynamic_cmd'] = self.dynamic_cmd
+        if self.time_interval is not None:
+            result['time_interval'] = self.time_interval
+        if self.dynamic_trace is not None:
+            result['dynamic_trace'] = self.dynamic_trace
+        if self.dynamic_num is not None:
+            result['dynamic_num'] = self.dynamic_num
+        if self.result_type is not None:
+            result['result_type'] = self.result_type
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('text') is not None:
-            self.text = m.get('text')
-        if m.get('picture') is not None:
-            self.picture = m.get('picture')
+        if m.get('webrtc_url') is not None:
+            self.webrtc_url = m.get('webrtc_url')
+        if m.get('a_dynamic_swi') is not None:
+            self.a_dynamic_swi = m.get('a_dynamic_swi')
+        if m.get('dynamic_interval') is not None:
+            self.dynamic_interval = m.get('dynamic_interval')
+        if m.get('color') is not None:
+            self.color = m.get('color')
+        if m.get('os') is not None:
+            self.os = m.get('os')
+        if m.get('dynamic_cmd') is not None:
+            self.dynamic_cmd = m.get('dynamic_cmd')
+        if m.get('time_interval') is not None:
+            self.time_interval = m.get('time_interval')
+        if m.get('dynamic_trace') is not None:
+            self.dynamic_trace = m.get('dynamic_trace')
+        if m.get('dynamic_num') is not None:
+            self.dynamic_num = m.get('dynamic_num')
+        if m.get('result_type') is not None:
+            self.result_type = m.get('result_type')
         return self
 
 
@@ -377,6 +722,146 @@ class InsureInfo(TeaModel):
         return self
 
 
+class DeviceRiskResp(TeaModel):
+    def __init__(
+        self,
+        apdid: str = None,
+        apdid_token: str = None,
+        risk_level: int = None,
+        risk_desc: str = None,
+        sug_action: str = None,
+        risk_labels: List[str] = None,
+    ):
+        # apdid
+        self.apdid = apdid
+        # apdid_token
+        self.apdid_token = apdid_token
+        # risk_level
+        self.risk_level = risk_level
+        # risk_desc
+        self.risk_desc = risk_desc
+        # sug_action
+        self.sug_action = sug_action
+        # risk_labels
+        self.risk_labels = risk_labels
+
+    def validate(self):
+        self.validate_required(self.apdid, 'apdid')
+        self.validate_required(self.apdid_token, 'apdid_token')
+        self.validate_required(self.risk_level, 'risk_level')
+        self.validate_required(self.risk_desc, 'risk_desc')
+        self.validate_required(self.sug_action, 'sug_action')
+        self.validate_required(self.risk_labels, 'risk_labels')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apdid is not None:
+            result['apdid'] = self.apdid
+        if self.apdid_token is not None:
+            result['apdid_token'] = self.apdid_token
+        if self.risk_level is not None:
+            result['risk_level'] = self.risk_level
+        if self.risk_desc is not None:
+            result['risk_desc'] = self.risk_desc
+        if self.sug_action is not None:
+            result['sug_action'] = self.sug_action
+        if self.risk_labels is not None:
+            result['risk_labels'] = self.risk_labels
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('apdid') is not None:
+            self.apdid = m.get('apdid')
+        if m.get('apdid_token') is not None:
+            self.apdid_token = m.get('apdid_token')
+        if m.get('risk_level') is not None:
+            self.risk_level = m.get('risk_level')
+        if m.get('risk_desc') is not None:
+            self.risk_desc = m.get('risk_desc')
+        if m.get('sug_action') is not None:
+            self.sug_action = m.get('sug_action')
+        if m.get('risk_labels') is not None:
+            self.risk_labels = m.get('risk_labels')
+        return self
+
+
+class CctDataMap(TeaModel):
+    def __init__(
+        self,
+        text: List[str] = None,
+        picture: List[str] = None,
+    ):
+        # text
+        self.text = text
+        # PICTURE
+        self.picture = picture
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.text is not None:
+            result['text'] = self.text
+        if self.picture is not None:
+            result['picture'] = self.picture
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('text') is not None:
+            self.text = m.get('text')
+        if m.get('picture') is not None:
+            self.picture = m.get('picture')
+        return self
+
+
+class BizQueryParam(TeaModel):
+    def __init__(
+        self,
+        biz_params: List[BizParam] = None,
+    ):
+        # 参数列表，数组
+        self.biz_params = biz_params
+
+    def validate(self):
+        self.validate_required(self.biz_params, 'biz_params')
+        if self.biz_params:
+            for k in self.biz_params:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['biz_params'] = []
+        if self.biz_params is not None:
+            for k in self.biz_params:
+                result['biz_params'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.biz_params = []
+        if m.get('biz_params') is not None:
+            for k in m.get('biz_params'):
+                temp_model = BizParam()
+                self.biz_params.append(temp_model.from_map(k))
+        return self
+
+
 class CctDetectCheckLabel(TeaModel):
     def __init__(
         self,
@@ -435,6 +920,102 @@ class CctDetectCheckLabel(TeaModel):
                 self.sub_labels.append(temp_model.from_map(k))
         if m.get('details') is not None:
             self.details = m.get('details')
+        return self
+
+
+class RiskAssessData(TeaModel):
+    def __init__(
+        self,
+        head: ResponseHead = None,
+        risk_result: RiskAssessResult = None,
+    ):
+        # 响应头
+        self.head = head
+        # 风险评估结果
+        self.risk_result = risk_result
+
+    def validate(self):
+        self.validate_required(self.head, 'head')
+        if self.head:
+            self.head.validate()
+        self.validate_required(self.risk_result, 'risk_result')
+        if self.risk_result:
+            self.risk_result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.head is not None:
+            result['head'] = self.head.to_map()
+        if self.risk_result is not None:
+            result['risk_result'] = self.risk_result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('head') is not None:
+            temp_model = ResponseHead()
+            self.head = temp_model.from_map(m['head'])
+        if m.get('risk_result') is not None:
+            temp_model = RiskAssessResult()
+            self.risk_result = temp_model.from_map(m['risk_result'])
+        return self
+
+
+class ResultList(TeaModel):
+    def __init__(
+        self,
+        risk_results: List[RiskResult] = None,
+        biz_params: List[BizParam] = None,
+    ):
+        # 结果列表
+        self.risk_results = risk_results
+        # 入参列表，数组
+        self.biz_params = biz_params
+
+    def validate(self):
+        self.validate_required(self.risk_results, 'risk_results')
+        if self.risk_results:
+            for k in self.risk_results:
+                if k:
+                    k.validate()
+        self.validate_required(self.biz_params, 'biz_params')
+        if self.biz_params:
+            for k in self.biz_params:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['risk_results'] = []
+        if self.risk_results is not None:
+            for k in self.risk_results:
+                result['risk_results'].append(k.to_map() if k else None)
+        result['biz_params'] = []
+        if self.biz_params is not None:
+            for k in self.biz_params:
+                result['biz_params'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.risk_results = []
+        if m.get('risk_results') is not None:
+            for k in m.get('risk_results'):
+                temp_model = RiskResult()
+                self.risk_results.append(temp_model.from_map(k))
+        self.biz_params = []
+        if m.get('biz_params') is not None:
+            for k in m.get('biz_params'):
+                temp_model = BizParam()
+                self.biz_params.append(temp_model.from_map(k))
         return self
 
 
@@ -2250,6 +2831,905 @@ class RecognizeCctAnalyzeResponse(TeaModel):
             for k in m.get('detect_labels'):
                 temp_model = CctDetectCheckLabel()
                 self.detect_labels.append(temp_model.from_map(k))
+        return self
+
+
+class QueryRiskGeneralRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        data_code: str = None,
+        encrypted_nonce: str = None,
+        customer_id: str = None,
+        biz_query_params: List[BizQueryParam] = None,
+        ext_data: str = None,
+        user_authorization: str = None,
+        encrypt_method: str = None,
+        encrypted_body: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # x
+        self.data_code = data_code
+        # AES加密使用的随机数，对该随机数使用RaaS数据服务的公钥进行加密，随后传入；
+        self.encrypted_nonce = encrypted_nonce
+        # ISV的终端客户编码、征信机构的终端客户编码、公司内部部门ID，可以定制数据输出。
+        self.customer_id = customer_id
+        # 业务请求入参，兼容批量调用
+        self.biz_query_params = biz_query_params
+        # 拓展输入字段,
+        self.ext_data = ext_data
+        # 用于标记是否获得用户授权。
+        # 1:获得授权（默认）
+        # 0:未获得授权
+        self.user_authorization = user_authorization
+        # 默认AES128，后续可选SM2等国密
+        self.encrypt_method = encrypt_method
+        # 整个包体加密，二选一
+        self.encrypted_body = encrypted_body
+
+    def validate(self):
+        self.validate_required(self.data_code, 'data_code')
+        self.validate_required(self.encrypted_nonce, 'encrypted_nonce')
+        self.validate_required(self.biz_query_params, 'biz_query_params')
+        if self.biz_query_params:
+            for k in self.biz_query_params:
+                if k:
+                    k.validate()
+        self.validate_required(self.user_authorization, 'user_authorization')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.data_code is not None:
+            result['data_code'] = self.data_code
+        if self.encrypted_nonce is not None:
+            result['encrypted_nonce'] = self.encrypted_nonce
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        result['biz_query_params'] = []
+        if self.biz_query_params is not None:
+            for k in self.biz_query_params:
+                result['biz_query_params'].append(k.to_map() if k else None)
+        if self.ext_data is not None:
+            result['ext_data'] = self.ext_data
+        if self.user_authorization is not None:
+            result['user_authorization'] = self.user_authorization
+        if self.encrypt_method is not None:
+            result['encrypt_method'] = self.encrypt_method
+        if self.encrypted_body is not None:
+            result['encrypted_body'] = self.encrypted_body
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('data_code') is not None:
+            self.data_code = m.get('data_code')
+        if m.get('encrypted_nonce') is not None:
+            self.encrypted_nonce = m.get('encrypted_nonce')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        self.biz_query_params = []
+        if m.get('biz_query_params') is not None:
+            for k in m.get('biz_query_params'):
+                temp_model = BizQueryParam()
+                self.biz_query_params.append(temp_model.from_map(k))
+        if m.get('ext_data') is not None:
+            self.ext_data = m.get('ext_data')
+        if m.get('user_authorization') is not None:
+            self.user_authorization = m.get('user_authorization')
+        if m.get('encrypt_method') is not None:
+            self.encrypt_method = m.get('encrypt_method')
+        if m.get('encrypted_body') is not None:
+            self.encrypted_body = m.get('encrypted_body')
+        return self
+
+
+class QueryRiskGeneralResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        meter: bool = None,
+        meter_count: int = None,
+        result_list: List[ResultList] = None,
+        ext_data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否计费
+        self.meter = meter
+        # 批量调用情况下的计费数量
+        self.meter_count = meter_count
+        # 风险咨询结果的批量查询结果
+        self.result_list = result_list
+        # 拓展输出字段
+        self.ext_data = ext_data
+
+    def validate(self):
+        if self.result_list:
+            for k in self.result_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.meter is not None:
+            result['meter'] = self.meter
+        if self.meter_count is not None:
+            result['meter_count'] = self.meter_count
+        result['result_list'] = []
+        if self.result_list is not None:
+            for k in self.result_list:
+                result['result_list'].append(k.to_map() if k else None)
+        if self.ext_data is not None:
+            result['ext_data'] = self.ext_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('meter') is not None:
+            self.meter = m.get('meter')
+        if m.get('meter_count') is not None:
+            self.meter_count = m.get('meter_count')
+        self.result_list = []
+        if m.get('result_list') is not None:
+            for k in m.get('result_list'):
+                temp_model = ResultList()
+                self.result_list.append(temp_model.from_map(k))
+        if m.get('ext_data') is not None:
+            self.ext_data = m.get('ext_data')
+        return self
+
+
+class QueryDeviceriskFingerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        apdid_token: str = None,
+        client_id: str = None,
+        terminal_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # apdid_token
+        self.apdid_token = apdid_token
+        # client_id
+        self.client_id = client_id
+        # terminal_type
+        self.terminal_type = terminal_type
+
+    def validate(self):
+        self.validate_required(self.apdid_token, 'apdid_token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.apdid_token is not None:
+            result['apdid_token'] = self.apdid_token
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        if self.terminal_type is not None:
+            result['terminal_type'] = self.terminal_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('apdid_token') is not None:
+            self.apdid_token = m.get('apdid_token')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        if m.get('terminal_type') is not None:
+            self.terminal_type = m.get('terminal_type')
+        return self
+
+
+class QueryDeviceriskFingerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: int = None,
+        message: str = None,
+        request_id: str = None,
+        success: bool = None,
+        data: DeviceRiskResp = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # code
+        self.code = code
+        # message
+        self.message = message
+        # request_id
+        self.request_id = request_id
+        # success
+        self.success = success
+        # data
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('data') is not None:
+            temp_model = DeviceRiskResp()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class QueryDeviceriskRisklabelRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        apdid_token: str = None,
+        client_id: str = None,
+        terminal_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # apdid_token
+        self.apdid_token = apdid_token
+        # client_id
+        self.client_id = client_id
+        # terminal_type
+        self.terminal_type = terminal_type
+
+    def validate(self):
+        self.validate_required(self.apdid_token, 'apdid_token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.apdid_token is not None:
+            result['apdid_token'] = self.apdid_token
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        if self.terminal_type is not None:
+            result['terminal_type'] = self.terminal_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('apdid_token') is not None:
+            self.apdid_token = m.get('apdid_token')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        if m.get('terminal_type') is not None:
+            self.terminal_type = m.get('terminal_type')
+        return self
+
+
+class QueryDeviceriskRisklabelResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: int = None,
+        message: str = None,
+        request_id: str = None,
+        success: bool = None,
+        data: DeviceRiskResp = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # code
+        self.code = code
+        # message
+        self.message = message
+        # request_id
+        self.request_id = request_id
+        # success
+        self.success = success
+        # data
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('data') is not None:
+            temp_model = DeviceRiskResp()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class QueryDeviceriskDeviceriskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        apdid_token: str = None,
+        client_id: str = None,
+        app_id: str = None,
+        env_id: str = None,
+        tenant_id: str = None,
+        merchant_id: str = None,
+        app_name: str = None,
+        terminal_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # apdid_token
+        self.apdid_token = apdid_token
+        # client_id
+        self.client_id = client_id
+        # app_id
+        self.app_id = app_id
+        # env_id
+        self.env_id = env_id
+        # tenant_id
+        self.tenant_id = tenant_id
+        # merchant_id
+        self.merchant_id = merchant_id
+        # app_name
+        self.app_name = app_name
+        # terminal_type
+        self.terminal_type = terminal_type
+
+    def validate(self):
+        self.validate_required(self.apdid_token, 'apdid_token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.apdid_token is not None:
+            result['apdid_token'] = self.apdid_token
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.env_id is not None:
+            result['env_id'] = self.env_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.app_name is not None:
+            result['app_name'] = self.app_name
+        if self.terminal_type is not None:
+            result['terminal_type'] = self.terminal_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('apdid_token') is not None:
+            self.apdid_token = m.get('apdid_token')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('env_id') is not None:
+            self.env_id = m.get('env_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('app_name') is not None:
+            self.app_name = m.get('app_name')
+        if m.get('terminal_type') is not None:
+            self.terminal_type = m.get('terminal_type')
+        return self
+
+
+class QueryDeviceriskDeviceriskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: int = None,
+        message: str = None,
+        request_id: str = None,
+        success: bool = None,
+        data: DeviceRiskResp = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # code
+        self.code = code
+        # message
+        self.message = message
+        # request_id
+        self.request_id = request_id
+        # success
+        self.success = success
+        # data
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('data') is not None:
+            temp_model = DeviceRiskResp()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class SubmitDeviceriskReportRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # request_data
+        self.request_data = request_data
+
+    def validate(self):
+        self.validate_required(self.request_data, 'request_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class SubmitDeviceriskReportResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        apdid: str = None,
+        token: str = None,
+        current_time: str = None,
+        version: str = None,
+        vkey_switch: str = None,
+        bug_track_switch: str = None,
+        app_list_ver: str = None,
+        dynamic_key: str = None,
+        result_data: DeviceRiskReportResultData = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # success
+        self.success = success
+        # apdid
+        self.apdid = apdid
+        # token
+        self.token = token
+        # current_time
+        self.current_time = current_time
+        # version
+        self.version = version
+        # vkey_switch
+        self.vkey_switch = vkey_switch
+        # bug_track_switch
+        self.bug_track_switch = bug_track_switch
+        # app_list_ver
+        self.app_list_ver = app_list_ver
+        # dynamic_key
+        self.dynamic_key = dynamic_key
+        # result_data
+        self.result_data = result_data
+
+    def validate(self):
+        if self.result_data:
+            self.result_data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.apdid is not None:
+            result['apdid'] = self.apdid
+        if self.token is not None:
+            result['token'] = self.token
+        if self.current_time is not None:
+            result['current_time'] = self.current_time
+        if self.version is not None:
+            result['version'] = self.version
+        if self.vkey_switch is not None:
+            result['vkey_switch'] = self.vkey_switch
+        if self.bug_track_switch is not None:
+            result['bug_track_switch'] = self.bug_track_switch
+        if self.app_list_ver is not None:
+            result['app_list_ver'] = self.app_list_ver
+        if self.dynamic_key is not None:
+            result['dynamic_key'] = self.dynamic_key
+        if self.result_data is not None:
+            result['result_data'] = self.result_data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('apdid') is not None:
+            self.apdid = m.get('apdid')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        if m.get('current_time') is not None:
+            self.current_time = m.get('current_time')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        if m.get('vkey_switch') is not None:
+            self.vkey_switch = m.get('vkey_switch')
+        if m.get('bug_track_switch') is not None:
+            self.bug_track_switch = m.get('bug_track_switch')
+        if m.get('app_list_ver') is not None:
+            self.app_list_ver = m.get('app_list_ver')
+        if m.get('dynamic_key') is not None:
+            self.dynamic_key = m.get('dynamic_key')
+        if m.get('result_data') is not None:
+            temp_model = DeviceRiskReportResultData()
+            self.result_data = temp_model.from_map(m['result_data'])
+        return self
+
+
+class QueryEkytDriverRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        head: RequestHead = None,
+        request: str = None,
+        signature: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 接口请求head
+        self.head = head
+        # 请求业务参数，加密之后的密文信息
+        self.request = request
+        # 请求数据签名值
+        self.signature = signature
+
+    def validate(self):
+        self.validate_required(self.head, 'head')
+        if self.head:
+            self.head.validate()
+        self.validate_required(self.request, 'request')
+        self.validate_required(self.signature, 'signature')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.head is not None:
+            result['head'] = self.head.to_map()
+        if self.request is not None:
+            result['request'] = self.request
+        if self.signature is not None:
+            result['signature'] = self.signature
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('head') is not None:
+            temp_model = RequestHead()
+            self.head = temp_model.from_map(m['head'])
+        if m.get('request') is not None:
+            self.request = m.get('request')
+        if m.get('signature') is not None:
+            self.signature = m.get('signature')
+        return self
+
+
+class QueryEkytDriverResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        message: str = None,
+        data: RiskAssessData = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 接口响应结果
+        self.success = success
+        # 接口响应描述
+        self.message = message
+        # 接口响应数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.message is not None:
+            result['message'] = self.message
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('data') is not None:
+            temp_model = RiskAssessData()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 
