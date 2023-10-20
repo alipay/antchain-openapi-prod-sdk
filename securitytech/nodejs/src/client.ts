@@ -77,6 +77,106 @@ export class Config extends $tea.Model {
   }
 }
 
+// 风险数据
+export class RiskData extends $tea.Model {
+  // 模型/标签编号
+  resultKey: string;
+  // 模型分/标签值
+  resultValue: string;
+  static names(): { [key: string]: string } {
+    return {
+      resultKey: 'result_key',
+      resultValue: 'result_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      resultKey: 'string',
+      resultValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// eKYT风险标签
+export class RiskModel extends $tea.Model {
+  // 标签名称
+  modelName: string;
+  // 风险值
+  modelValue: string;
+  // 风险标签描述
+  modelComment: string;
+  static names(): { [key: string]: string } {
+    return {
+      modelName: 'model_name',
+      modelValue: 'model_value',
+      modelComment: 'model_comment',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      modelName: 'string',
+      modelValue: 'string',
+      modelComment: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 业务参数
+export class BizParam extends $tea.Model {
+  // 参数类型枚举，mobile、cert、biz_license
+  paramKey: string;
+  // 值，如加密后的手机号
+  paramValue: string;
+  static names(): { [key: string]: string } {
+    return {
+      paramKey: 'param_key',
+      paramValue: 'param_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      paramKey: 'string',
+      paramValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ekyt响应头
+export class ResponseHead extends $tea.Model {
+  // 请求唯一标识
+  requestId: string;
+  static names(): { [key: string]: string } {
+    return {
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // CctSubCheckLabel
 export class CctSubCheckLabel extends $tea.Model {
   // sub_label
@@ -94,6 +194,89 @@ export class CctSubCheckLabel extends $tea.Model {
     return {
       subLabel: 'string',
       rate: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 风险评估结果
+export class RiskAssessResult extends $tea.Model {
+  // 风险评估结果
+  riskValue: string;
+  // 风险评估分数
+  riskScore: string;
+  // 风险评估标签
+  modelInfos: RiskModel;
+  static names(): { [key: string]: string } {
+    return {
+      riskValue: 'risk_value',
+      riskScore: 'risk_score',
+      modelInfos: 'model_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      riskValue: 'string',
+      riskScore: 'string',
+      modelInfos: RiskModel,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 风险结果
+export class RiskResult extends $tea.Model {
+  // 数据列表
+  riskData: RiskData[];
+  // 解决方案编码
+  solutionCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      riskData: 'risk_data',
+      solutionCode: 'solution_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      riskData: { 'type': 'array', 'itemType': RiskData },
+      solutionCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// eKYT请求头
+export class RequestHead extends $tea.Model {
+  // 请求唯一标识
+  requestId: string;
+  // 客户身份标识ID
+  secretId: string;
+  // 客户签约产品code
+  productCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      requestId: 'request_id',
+      secretId: 'secret_id',
+      productCode: 'product_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      requestId: 'string',
+      secretId: 'string',
+      productCode: 'string',
     };
   }
 
@@ -135,23 +318,55 @@ export class FaceShieldResult extends $tea.Model {
   }
 }
 
-// 内容安全请求体datamap
-export class CctDataMap extends $tea.Model {
-  // text
-  text?: string[];
-  // PICTURE
-  picture?: string[];
+// result.resultData
+export class DeviceRiskReportResultData extends $tea.Model {
+  // webrtc_url
+  webrtcUrl: string;
+  // a_dynamic_swi
+  aDynamicSwi: string;
+  // dynamic_interval
+  dynamicInterval: string;
+  // color
+  color: string;
+  // os
+  os: string;
+  // dynamic_cmd
+  dynamicCmd: string;
+  // time_interval
+  timeInterval: string;
+  // dynamic_trace
+  dynamicTrace: string;
+  // dynamic_num
+  dynamicNum: string;
+  // result_type
+  resultType: string;
   static names(): { [key: string]: string } {
     return {
-      text: 'text',
-      picture: 'picture',
+      webrtcUrl: 'webrtc_url',
+      aDynamicSwi: 'a_dynamic_swi',
+      dynamicInterval: 'dynamic_interval',
+      color: 'color',
+      os: 'os',
+      dynamicCmd: 'dynamic_cmd',
+      timeInterval: 'time_interval',
+      dynamicTrace: 'dynamic_trace',
+      dynamicNum: 'dynamic_num',
+      resultType: 'result_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      text: { 'type': 'array', 'itemType': 'string' },
-      picture: { 'type': 'array', 'itemType': 'string' },
+      webrtcUrl: 'string',
+      aDynamicSwi: 'string',
+      dynamicInterval: 'string',
+      color: 'string',
+      os: 'string',
+      dynamicCmd: 'string',
+      timeInterval: 'string',
+      dynamicTrace: 'string',
+      dynamicNum: 'string',
+      resultType: 'string',
     };
   }
 
@@ -217,6 +432,93 @@ export class InsureInfo extends $tea.Model {
   }
 }
 
+// 设备风险查询data
+export class DeviceRiskResp extends $tea.Model {
+  // apdid
+  apdid: string;
+  // apdid_token
+  apdidToken: string;
+  // risk_level
+  riskLevel: number;
+  // risk_desc
+  riskDesc: string;
+  // sug_action
+  sugAction: string;
+  // risk_labels
+  riskLabels: string[];
+  static names(): { [key: string]: string } {
+    return {
+      apdid: 'apdid',
+      apdidToken: 'apdid_token',
+      riskLevel: 'risk_level',
+      riskDesc: 'risk_desc',
+      sugAction: 'sug_action',
+      riskLabels: 'risk_labels',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apdid: 'string',
+      apdidToken: 'string',
+      riskLevel: 'number',
+      riskDesc: 'string',
+      sugAction: 'string',
+      riskLabels: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 内容安全请求体datamap
+export class CctDataMap extends $tea.Model {
+  // text
+  text?: string[];
+  // PICTURE
+  picture?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      text: 'text',
+      picture: 'picture',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      text: { 'type': 'array', 'itemType': 'string' },
+      picture: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 业务请求入参，兼容批量调用
+export class BizQueryParam extends $tea.Model {
+  // 参数列表，数组
+  bizParams: BizParam[];
+  static names(): { [key: string]: string } {
+    return {
+      bizParams: 'biz_params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizParams: { 'type': 'array', 'itemType': BizParam },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 内容安全response
 export class CctDetectCheckLabel extends $tea.Model {
   // label
@@ -242,6 +544,56 @@ export class CctDetectCheckLabel extends $tea.Model {
       rate: 'number',
       subLabels: { 'type': 'array', 'itemType': CctSubCheckLabel },
       details: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 风险评估响应结果
+export class RiskAssessData extends $tea.Model {
+  // 响应头
+  head: ResponseHead;
+  // 风险评估结果
+  riskResult: RiskAssessResult;
+  static names(): { [key: string]: string } {
+    return {
+      head: 'head',
+      riskResult: 'risk_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      head: ResponseHead,
+      riskResult: RiskAssessResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 风险咨询结果
+export class ResultList extends $tea.Model {
+  // 结果列表
+  riskResults: RiskResult[];
+  // 入参列表，数组
+  bizParams: BizParam[];
+  static names(): { [key: string]: string } {
+    return {
+      riskResults: 'risk_results',
+      bizParams: 'biz_params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      riskResults: { 'type': 'array', 'itemType': RiskResult },
+      bizParams: { 'type': 'array', 'itemType': BizParam },
     };
   }
 
@@ -1387,6 +1739,546 @@ export class RecognizeCctAnalyzeResponse extends $tea.Model {
   }
 }
 
+export class QueryRiskGeneralRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // x
+  dataCode: string;
+  // AES加密使用的随机数，对该随机数使用RaaS数据服务的公钥进行加密，随后传入；
+  encryptedNonce: string;
+  // ISV的终端客户编码、征信机构的终端客户编码、公司内部部门ID，可以定制数据输出。
+  customerId?: string;
+  // 业务请求入参，兼容批量调用
+  bizQueryParams: BizQueryParam[];
+  // 拓展输入字段,
+  extData?: string;
+  // 用于标记是否获得用户授权。
+  // 1:获得授权（默认）
+  // 0:未获得授权
+  userAuthorization: string;
+  // 默认AES128，后续可选SM2等国密
+  encryptMethod?: string;
+  // 整个包体加密，二选一
+  encryptedBody?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dataCode: 'data_code',
+      encryptedNonce: 'encrypted_nonce',
+      customerId: 'customer_id',
+      bizQueryParams: 'biz_query_params',
+      extData: 'ext_data',
+      userAuthorization: 'user_authorization',
+      encryptMethod: 'encrypt_method',
+      encryptedBody: 'encrypted_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dataCode: 'string',
+      encryptedNonce: 'string',
+      customerId: 'string',
+      bizQueryParams: { 'type': 'array', 'itemType': BizQueryParam },
+      extData: 'string',
+      userAuthorization: 'string',
+      encryptMethod: 'string',
+      encryptedBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRiskGeneralResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否计费
+  meter?: boolean;
+  // 批量调用情况下的计费数量
+  meterCount?: number;
+  // 风险咨询结果的批量查询结果
+  resultList?: ResultList[];
+  // 拓展输出字段
+  extData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      meter: 'meter',
+      meterCount: 'meter_count',
+      resultList: 'result_list',
+      extData: 'ext_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      meter: 'boolean',
+      meterCount: 'number',
+      resultList: { 'type': 'array', 'itemType': ResultList },
+      extData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeviceriskFingerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // apdid_token
+  apdidToken: string;
+  // client_id
+  clientId?: string;
+  // terminal_type
+  terminalType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      apdidToken: 'apdid_token',
+      clientId: 'client_id',
+      terminalType: 'terminal_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      apdidToken: 'string',
+      clientId: 'string',
+      terminalType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeviceriskFingerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // code
+  code?: number;
+  // message
+  message?: string;
+  // request_id
+  requestId?: string;
+  // success
+  success?: boolean;
+  // data
+  data?: DeviceRiskResp;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      requestId: 'request_id',
+      success: 'success',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      message: 'string',
+      requestId: 'string',
+      success: 'boolean',
+      data: DeviceRiskResp,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeviceriskRisklabelRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // apdid_token
+  apdidToken: string;
+  // client_id	
+  clientId?: string;
+  // terminal_type
+  terminalType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      apdidToken: 'apdid_token',
+      clientId: 'client_id',
+      terminalType: 'terminal_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      apdidToken: 'string',
+      clientId: 'string',
+      terminalType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeviceriskRisklabelResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // code
+  code?: number;
+  // message
+  message?: string;
+  // request_id
+  requestId?: string;
+  // success
+  success?: boolean;
+  // data
+  data?: DeviceRiskResp;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      requestId: 'request_id',
+      success: 'success',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      message: 'string',
+      requestId: 'string',
+      success: 'boolean',
+      data: DeviceRiskResp,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeviceriskDeviceriskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // apdid_token
+  apdidToken: string;
+  // client_id
+  clientId?: string;
+  // app_id
+  appId?: string;
+  // env_id
+  envId?: string;
+  // tenant_id
+  tenantId?: string;
+  // merchant_id
+  merchantId?: string;
+  // app_name
+  appName?: string;
+  // terminal_type
+  terminalType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      apdidToken: 'apdid_token',
+      clientId: 'client_id',
+      appId: 'app_id',
+      envId: 'env_id',
+      tenantId: 'tenant_id',
+      merchantId: 'merchant_id',
+      appName: 'app_name',
+      terminalType: 'terminal_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      apdidToken: 'string',
+      clientId: 'string',
+      appId: 'string',
+      envId: 'string',
+      tenantId: 'string',
+      merchantId: 'string',
+      appName: 'string',
+      terminalType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeviceriskDeviceriskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // code
+  code?: number;
+  // message
+  message?: string;
+  // request_id
+  requestId?: string;
+  // success
+  success?: boolean;
+  // data
+  data?: DeviceRiskResp;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      requestId: 'request_id',
+      success: 'success',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      message: 'string',
+      requestId: 'string',
+      success: 'boolean',
+      data: DeviceRiskResp,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitDeviceriskReportRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // request_data
+  requestData: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestData: 'request_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitDeviceriskReportResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // success
+  success?: boolean;
+  // apdid
+  apdid?: string;
+  // token
+  token?: string;
+  // current_time
+  currentTime?: string;
+  // version
+  version?: string;
+  // vkey_switch
+  vkeySwitch?: string;
+  // bug_track_switch
+  bugTrackSwitch?: string;
+  // app_list_ver
+  appListVer?: string;
+  // dynamic_key
+  dynamicKey?: string;
+  // result_data
+  resultData?: DeviceRiskReportResultData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      apdid: 'apdid',
+      token: 'token',
+      currentTime: 'current_time',
+      version: 'version',
+      vkeySwitch: 'vkey_switch',
+      bugTrackSwitch: 'bug_track_switch',
+      appListVer: 'app_list_ver',
+      dynamicKey: 'dynamic_key',
+      resultData: 'result_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      apdid: 'string',
+      token: 'string',
+      currentTime: 'string',
+      version: 'string',
+      vkeySwitch: 'string',
+      bugTrackSwitch: 'string',
+      appListVer: 'string',
+      dynamicKey: 'string',
+      resultData: DeviceRiskReportResultData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEkytDriverRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 接口请求head
+  head: RequestHead;
+  // 请求业务参数，加密之后的密文信息
+  request: string;
+  // 请求数据签名值
+  signature: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      head: 'head',
+      request: 'request',
+      signature: 'signature',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      head: RequestHead,
+      request: 'string',
+      signature: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEkytDriverResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 接口响应结果
+  success?: boolean;
+  // 接口响应描述
+  message?: string;
+  // 接口响应数据
+  data?: RiskAssessData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      message: 'message',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      message: 'string',
+      data: RiskAssessData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1500,7 +2392,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.12",
+          sdk_version: "1.2.0",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -1833,6 +2725,120 @@ export default class Client {
   async recognizeCctAnalyzeEx(request: RecognizeCctAnalyzeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RecognizeCctAnalyzeResponse> {
     Util.validateModel(request);
     return $tea.cast<RecognizeCctAnalyzeResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.cct.analyze.recognize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RecognizeCctAnalyzeResponse({}));
+  }
+
+  /**
+   * Description: RAAS数据服务统一接口
+   * Summary: RAAS数据服务统一接口
+   */
+  async queryRiskGeneral(request: QueryRiskGeneralRequest): Promise<QueryRiskGeneralResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRiskGeneralEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: RAAS数据服务统一接口
+   * Summary: RAAS数据服务统一接口
+   */
+  async queryRiskGeneralEx(request: QueryRiskGeneralRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRiskGeneralResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRiskGeneralResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.risk.general.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRiskGeneralResponse({}));
+  }
+
+  /**
+   * Description: 设备指纹查询
+   * Summary: 设备指纹查询
+   */
+  async queryDeviceriskFinger(request: QueryDeviceriskFingerRequest): Promise<QueryDeviceriskFingerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDeviceriskFingerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 设备指纹查询
+   * Summary: 设备指纹查询
+   */
+  async queryDeviceriskFingerEx(request: QueryDeviceriskFingerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDeviceriskFingerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDeviceriskFingerResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.devicerisk.finger.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDeviceriskFingerResponse({}));
+  }
+
+  /**
+   * Description: 风险标签查询
+   * Summary: 风险标签查询
+   */
+  async queryDeviceriskRisklabel(request: QueryDeviceriskRisklabelRequest): Promise<QueryDeviceriskRisklabelResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDeviceriskRisklabelEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 风险标签查询
+   * Summary: 风险标签查询
+   */
+  async queryDeviceriskRisklabelEx(request: QueryDeviceriskRisklabelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDeviceriskRisklabelResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDeviceriskRisklabelResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.devicerisk.risklabel.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDeviceriskRisklabelResponse({}));
+  }
+
+  /**
+   * Description: 设备风险查询
+   * Summary: 设备风险查询
+   */
+  async queryDeviceriskDevicerisk(request: QueryDeviceriskDeviceriskRequest): Promise<QueryDeviceriskDeviceriskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDeviceriskDeviceriskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 设备风险查询
+   * Summary: 设备风险查询
+   */
+  async queryDeviceriskDeviceriskEx(request: QueryDeviceriskDeviceriskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDeviceriskDeviceriskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDeviceriskDeviceriskResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.devicerisk.devicerisk.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDeviceriskDeviceriskResponse({}));
+  }
+
+  /**
+   * Description: 设备信息上报
+   * Summary: 设备信息上报
+   */
+  async submitDeviceriskReport(request: SubmitDeviceriskReportRequest): Promise<SubmitDeviceriskReportResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitDeviceriskReportEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 设备信息上报
+   * Summary: 设备信息上报
+   */
+  async submitDeviceriskReportEx(request: SubmitDeviceriskReportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitDeviceriskReportResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitDeviceriskReportResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.devicerisk.report.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitDeviceriskReportResponse({}));
+  }
+
+  /**
+   * Description: eKYT风险评估服务-出行场景司机
+   * Summary: eKYT风险评估服务-出行场景司机
+   */
+  async queryEkytDriver(request: QueryEkytDriverRequest): Promise<QueryEkytDriverResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEkytDriverEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: eKYT风险评估服务-出行场景司机
+   * Summary: eKYT风险评估服务-出行场景司机
+   */
+  async queryEkytDriverEx(request: QueryEkytDriverRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEkytDriverResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEkytDriverResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ekyt.driver.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEkytDriverResponse({}));
   }
 
 }
