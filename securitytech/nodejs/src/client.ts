@@ -102,35 +102,6 @@ export class RiskData extends $tea.Model {
   }
 }
 
-// eKYT风险标签
-export class RiskModel extends $tea.Model {
-  // 标签名称
-  modelName: string;
-  // 风险值
-  modelValue: string;
-  // 风险标签描述
-  modelComment: string;
-  static names(): { [key: string]: string } {
-    return {
-      modelName: 'model_name',
-      modelValue: 'model_value',
-      modelComment: 'model_comment',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      modelName: 'string',
-      modelValue: 'string',
-      modelComment: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 业务参数
 export class BizParam extends $tea.Model {
   // 参数类型枚举，mobile、cert、biz_license
@@ -202,27 +173,27 @@ export class CctSubCheckLabel extends $tea.Model {
   }
 }
 
-// 风险评估结果
-export class RiskAssessResult extends $tea.Model {
-  // 风险评估结果
-  riskValue: string;
-  // 风险评估分数
-  riskScore: string;
-  // 风险评估标签
-  modelInfos: RiskModel;
+// eKYT风险标签
+export class RiskModel extends $tea.Model {
+  // 标签名称
+  modelName: string;
+  // 风险值
+  modelValue: string;
+  // 风险标签描述
+  modelComment: string;
   static names(): { [key: string]: string } {
     return {
-      riskValue: 'risk_value',
-      riskScore: 'risk_score',
-      modelInfos: 'model_infos',
+      modelName: 'model_name',
+      modelValue: 'model_value',
+      modelComment: 'model_comment',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      riskValue: 'string',
-      riskScore: 'string',
-      modelInfos: RiskModel,
+      modelName: 'string',
+      modelValue: 'string',
+      modelComment: 'string',
     };
   }
 
@@ -519,6 +490,35 @@ export class BizQueryParam extends $tea.Model {
   }
 }
 
+// 风险评估结果
+export class RiskAssessResult extends $tea.Model {
+  // 风险评估结果
+  riskValue: string;
+  // 风险评估分数
+  riskScore: string;
+  // 风险评估标签
+  modelInfos: RiskModel;
+  static names(): { [key: string]: string } {
+    return {
+      riskValue: 'risk_value',
+      riskScore: 'risk_score',
+      modelInfos: 'model_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      riskValue: 'string',
+      riskScore: 'string',
+      modelInfos: RiskModel,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 内容安全response
 export class CctDetectCheckLabel extends $tea.Model {
   // label
@@ -557,7 +557,7 @@ export class RiskAssessData extends $tea.Model {
   // 响应头
   head: ResponseHead;
   // 风险评估结果
-  riskResult: RiskAssessResult;
+  riskResult: string;
   static names(): { [key: string]: string } {
     return {
       head: 'head',
@@ -568,7 +568,7 @@ export class RiskAssessData extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       head: ResponseHead,
-      riskResult: RiskAssessResult,
+      riskResult: 'string',
     };
   }
 
@@ -2392,7 +2392,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.0",
+          sdk_version: "1.2.1",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
