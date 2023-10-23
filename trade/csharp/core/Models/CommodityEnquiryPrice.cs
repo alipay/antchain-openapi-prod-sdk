@@ -75,6 +75,11 @@ namespace AntChain.SDK.TRADE.Models
         [Validation(Required=false)]
         public OrderDuration MinDurationOfValidPayAmount { get; set; }
 
+        // 预付费-折扣率
+        [NameInMap("discount_rate")]
+        [Validation(Required=true)]
+        public string DiscountRate { get; set; }
+
     }
 
 }
