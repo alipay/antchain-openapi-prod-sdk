@@ -111,6 +111,14 @@ class CommodityEnquiryPrice extends Model
      * @var OrderDuration
      */
     public $minDurationOfValidPayAmount;
+
+    // 预付费-折扣率
+    /**
+     * @example 0.75
+     *
+     * @var string
+     */
+    public $discountRate;
     protected $_name = [
         'commodityCode'               => 'commodity_code',
         'commodityName'               => 'commodity_name',
@@ -125,6 +133,7 @@ class CommodityEnquiryPrice extends Model
         'priceConstraintId'           => 'price_constraint_id',
         'currency'                    => 'currency',
         'minDurationOfValidPayAmount' => 'min_duration_of_valid_pay_amount',
+        'discountRate'                => 'discount_rate',
     ];
 
     public function validate()
@@ -141,6 +150,7 @@ class CommodityEnquiryPrice extends Model
         Model::validateRequired('pricePlanId', $this->pricePlanId, true);
         Model::validateRequired('priceConstraintId', $this->priceConstraintId, true);
         Model::validateRequired('currency', $this->currency, true);
+        Model::validateRequired('discountRate', $this->discountRate, true);
     }
 
     public function toMap()
@@ -184,6 +194,9 @@ class CommodityEnquiryPrice extends Model
         }
         if (null !== $this->minDurationOfValidPayAmount) {
             $res['min_duration_of_valid_pay_amount'] = null !== $this->minDurationOfValidPayAmount ? $this->minDurationOfValidPayAmount->toMap() : null;
+        }
+        if (null !== $this->discountRate) {
+            $res['discount_rate'] = $this->discountRate;
         }
 
         return $res;
@@ -235,6 +248,9 @@ class CommodityEnquiryPrice extends Model
         }
         if (isset($map['min_duration_of_valid_pay_amount'])) {
             $model->minDurationOfValidPayAmount = OrderDuration::fromMap($map['min_duration_of_valid_pay_amount']);
+        }
+        if (isset($map['discount_rate'])) {
+            $model->discountRate = $map['discount_rate'];
         }
 
         return $model;
