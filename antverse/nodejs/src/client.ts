@@ -77,6 +77,40 @@ export class Config extends $tea.Model {
   }
 }
 
+// 数字人位置大小信息，以左上角为起始坐标，向右向下为正值
+export class PositionSizeInfo extends $tea.Model {
+  // 数字人x轴（竖轴）坐标
+  x: number;
+  // 数字人y轴（横轴）坐标
+  y: number;
+  // 数字人宽度
+  // 
+  width: number;
+  // 数字人高度
+  height: number;
+  static names(): { [key: string]: string } {
+    return {
+      x: 'x',
+      y: 'y',
+      width: 'width',
+      height: 'height',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      x: 'number',
+      y: 'number',
+      width: 'number',
+      height: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class GetInteractvideoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -136,6 +170,176 @@ export class GetInteractvideoResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       answerVideoUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAvatarVideoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 视频名称
+  name?: string;
+  // 数字人id
+  avatarId: string;
+  // 说话人code
+  speakerCode: string;
+  // 播报文本（一千字以内），支持SSML
+  text: string;
+  // 音量（0~100，默认50）
+  volume?: number;
+  // 语速（-50~50，默认 0）
+  speed?: number;
+  // 音调（-50~50，默认 0）
+  tone?: number;
+  // 背景图片Url，需要公网可访问
+  backgroundUrl: string;
+  // 分辨率，暂只支持1080
+  resolution: string;
+  // 画布比例，16:9/9:16
+  radio: string;
+  // 数字人位置大小信息，以左上角为起始坐标，向右向下为正值
+  humanConfig: PositionSizeInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      name: 'name',
+      avatarId: 'avatar_id',
+      speakerCode: 'speaker_code',
+      text: 'text',
+      volume: 'volume',
+      speed: 'speed',
+      tone: 'tone',
+      backgroundUrl: 'background_url',
+      resolution: 'resolution',
+      radio: 'radio',
+      humanConfig: 'human_config',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      name: 'string',
+      avatarId: 'string',
+      speakerCode: 'string',
+      text: 'string',
+      volume: 'number',
+      speed: 'number',
+      tone: 'number',
+      backgroundUrl: 'string',
+      resolution: 'string',
+      radio: 'string',
+      humanConfig: PositionSizeInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAvatarVideoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 视频任务id
+  taskId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAvatarVideoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 视频任务id
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAvatarVideoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 视频任务id
+  taskId?: string;
+  // 视频合成任务状态（EXPORTING：导出中，NORMAL：成功，FAILED：失败）
+  videoStatus?: string;
+  // 视频url
+  videoUrl?: string;
+  // 提示消息
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      videoStatus: 'video_status',
+      videoUrl: 'video_url',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      videoStatus: 'string',
+      videoUrl: 'string',
+      message: 'string',
     };
   }
 
@@ -257,7 +461,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.3",
           _prod_code: "ANTVERSE",
           _prod_channel: "undefined",
         };
@@ -322,6 +526,44 @@ export default class Client {
   async getInteractvideoEx(request: GetInteractvideoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetInteractvideoResponse> {
     Util.validateModel(request);
     return $tea.cast<GetInteractvideoResponse>(await this.doRequest("1.0", "antchain.antverse.interactvideo.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetInteractvideoResponse({}));
+  }
+
+  /**
+   * Description: 2D数字人合成
+   * Summary: 2D虚拟人数字合成
+   */
+  async submitAvatarVideo(request: SubmitAvatarVideoRequest): Promise<SubmitAvatarVideoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAvatarVideoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 2D数字人合成
+   * Summary: 2D虚拟人数字合成
+   */
+  async submitAvatarVideoEx(request: SubmitAvatarVideoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAvatarVideoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAvatarVideoResponse>(await this.doRequest("1.0", "antchain.antverse.avatar.video.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAvatarVideoResponse({}));
+  }
+
+  /**
+   * Description: 2D数字人视频查询
+   * Summary: 2D数字人视频查询
+   */
+  async queryAvatarVideo(request: QueryAvatarVideoRequest): Promise<QueryAvatarVideoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAvatarVideoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 2D数字人视频查询
+   * Summary: 2D数字人视频查询
+   */
+  async queryAvatarVideoEx(request: QueryAvatarVideoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAvatarVideoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAvatarVideoResponse>(await this.doRequest("1.0", "antchain.antverse.avatar.video.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAvatarVideoResponse({}));
   }
 
 }
