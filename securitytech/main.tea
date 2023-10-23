@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.0',
+    sdk_version = '1.2.1',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -169,16 +169,6 @@ model RiskData {
   resultValue: string(name='result_value', example='·'),
 }
 
-// eKYT风险标签
-model RiskModel {
-  // 标签名称
-  modelName: string(name='model_name', example='ekyt_risk_tag_100'),
-  // 风险值
-  modelValue: string(name='model_value', example='1'),
-  // 风险标签描述
-  modelComment: string(name='model_comment', example='中风险'),
-}
-
 // 业务参数
 model BizParam {
   // 参数类型枚举，mobile、cert、biz_license
@@ -201,14 +191,14 @@ model CctSubCheckLabel {
   rate: long(name='rate', example=''),
 }
 
-// 风险评估结果
-model RiskAssessResult {
-  // 风险评估结果
-  riskValue: string(name='risk_value', example='中风险'),
-  // 风险评估分数
-  riskScore: string(name='risk_score', example='90'),
-  // 风险评估标签
-  modelInfos: RiskModel(name='model_infos', example=''),
+// eKYT风险标签
+model RiskModel {
+  // 标签名称
+  modelName: string(name='model_name', example='ekyt_risk_tag_100'),
+  // 风险值
+  modelValue: string(name='model_value', example='1'),
+  // 风险标签描述
+  modelComment: string(name='model_comment', example='中风险'),
 }
 
 // 风险结果
@@ -319,6 +309,16 @@ model BizQueryParam {
   bizParams: [ BizParam ](name='biz_params', example=''),
 }
 
+// 风险评估结果
+model RiskAssessResult {
+  // 风险评估结果
+  riskValue: string(name='risk_value', example='中风险'),
+  // 风险评估分数
+  riskScore: string(name='risk_score', example='90'),
+  // 风险评估标签
+  modelInfos: RiskModel(name='model_infos', example=''),
+}
+
 // 内容安全response
 model CctDetectCheckLabel {
   // label
@@ -336,7 +336,7 @@ model RiskAssessData {
   // 响应头
   head: ResponseHead(name='head', example=''),
   // 风险评估结果
-  riskResult: RiskAssessResult(name='risk_result', example=''),
+  riskResult: string(name='risk_result', example='A238EE36A9E096A97BF49C568EE7D0F4543043E21CE1A9831303EFDD'),
 }
 
 // 风险咨询结果
