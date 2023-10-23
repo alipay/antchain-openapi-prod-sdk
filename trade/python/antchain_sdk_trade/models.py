@@ -628,6 +628,7 @@ class CommodityEnquiryPrice(TeaModel):
         price_constraint_id: int = None,
         currency: str = None,
         min_duration_of_valid_pay_amount: OrderDuration = None,
+        discount_rate: str = None,
     ):
         # 商品主数据编码
         self.commodity_code = commodity_code
@@ -655,6 +656,8 @@ class CommodityEnquiryPrice(TeaModel):
         self.currency = currency
         # 基于剩余价值变配场景下，预测的支付金额正常的最小订购周期
         self.min_duration_of_valid_pay_amount = min_duration_of_valid_pay_amount
+        # 预付费-折扣率
+        self.discount_rate = discount_rate
 
     def validate(self):
         self.validate_required(self.commodity_code, 'commodity_code')
@@ -671,6 +674,7 @@ class CommodityEnquiryPrice(TeaModel):
         self.validate_required(self.currency, 'currency')
         if self.min_duration_of_valid_pay_amount:
             self.min_duration_of_valid_pay_amount.validate()
+        self.validate_required(self.discount_rate, 'discount_rate')
 
     def to_map(self):
         _map = super().to_map()
@@ -704,6 +708,8 @@ class CommodityEnquiryPrice(TeaModel):
             result['currency'] = self.currency
         if self.min_duration_of_valid_pay_amount is not None:
             result['min_duration_of_valid_pay_amount'] = self.min_duration_of_valid_pay_amount.to_map()
+        if self.discount_rate is not None:
+            result['discount_rate'] = self.discount_rate
         return result
 
     def from_map(self, m: dict = None):
@@ -735,6 +741,8 @@ class CommodityEnquiryPrice(TeaModel):
         if m.get('min_duration_of_valid_pay_amount') is not None:
             temp_model = OrderDuration()
             self.min_duration_of_valid_pay_amount = temp_model.from_map(m['min_duration_of_valid_pay_amount'])
+        if m.get('discount_rate') is not None:
+            self.discount_rate = m.get('discount_rate')
         return self
 
 
