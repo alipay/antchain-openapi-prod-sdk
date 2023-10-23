@@ -190,50 +190,6 @@ class RiskData(TeaModel):
         return self
 
 
-class RiskModel(TeaModel):
-    def __init__(
-        self,
-        model_name: str = None,
-        model_value: str = None,
-        model_comment: str = None,
-    ):
-        # 标签名称
-        self.model_name = model_name
-        # 风险值
-        self.model_value = model_value
-        # 风险标签描述
-        self.model_comment = model_comment
-
-    def validate(self):
-        self.validate_required(self.model_name, 'model_name')
-        self.validate_required(self.model_value, 'model_value')
-        self.validate_required(self.model_comment, 'model_comment')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.model_name is not None:
-            result['model_name'] = self.model_name
-        if self.model_value is not None:
-            result['model_value'] = self.model_value
-        if self.model_comment is not None:
-            result['model_comment'] = self.model_comment
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('model_name') is not None:
-            self.model_name = m.get('model_name')
-        if m.get('model_value') is not None:
-            self.model_value = m.get('model_value')
-        if m.get('model_comment') is not None:
-            self.model_comment = m.get('model_comment')
-        return self
-
-
 class BizParam(TeaModel):
     def __init__(
         self,
@@ -334,26 +290,24 @@ class CctSubCheckLabel(TeaModel):
         return self
 
 
-class RiskAssessResult(TeaModel):
+class RiskModel(TeaModel):
     def __init__(
         self,
-        risk_value: str = None,
-        risk_score: str = None,
-        model_infos: RiskModel = None,
+        model_name: str = None,
+        model_value: str = None,
+        model_comment: str = None,
     ):
-        # 风险评估结果
-        self.risk_value = risk_value
-        # 风险评估分数
-        self.risk_score = risk_score
-        # 风险评估标签
-        self.model_infos = model_infos
+        # 标签名称
+        self.model_name = model_name
+        # 风险值
+        self.model_value = model_value
+        # 风险标签描述
+        self.model_comment = model_comment
 
     def validate(self):
-        self.validate_required(self.risk_value, 'risk_value')
-        self.validate_required(self.risk_score, 'risk_score')
-        self.validate_required(self.model_infos, 'model_infos')
-        if self.model_infos:
-            self.model_infos.validate()
+        self.validate_required(self.model_name, 'model_name')
+        self.validate_required(self.model_value, 'model_value')
+        self.validate_required(self.model_comment, 'model_comment')
 
     def to_map(self):
         _map = super().to_map()
@@ -361,23 +315,22 @@ class RiskAssessResult(TeaModel):
             return _map
 
         result = dict()
-        if self.risk_value is not None:
-            result['risk_value'] = self.risk_value
-        if self.risk_score is not None:
-            result['risk_score'] = self.risk_score
-        if self.model_infos is not None:
-            result['model_infos'] = self.model_infos.to_map()
+        if self.model_name is not None:
+            result['model_name'] = self.model_name
+        if self.model_value is not None:
+            result['model_value'] = self.model_value
+        if self.model_comment is not None:
+            result['model_comment'] = self.model_comment
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('risk_value') is not None:
-            self.risk_value = m.get('risk_value')
-        if m.get('risk_score') is not None:
-            self.risk_score = m.get('risk_score')
-        if m.get('model_infos') is not None:
-            temp_model = RiskModel()
-            self.model_infos = temp_model.from_map(m['model_infos'])
+        if m.get('model_name') is not None:
+            self.model_name = m.get('model_name')
+        if m.get('model_value') is not None:
+            self.model_value = m.get('model_value')
+        if m.get('model_comment') is not None:
+            self.model_comment = m.get('model_comment')
         return self
 
 
@@ -862,6 +815,53 @@ class BizQueryParam(TeaModel):
         return self
 
 
+class RiskAssessResult(TeaModel):
+    def __init__(
+        self,
+        risk_value: str = None,
+        risk_score: str = None,
+        model_infos: RiskModel = None,
+    ):
+        # 风险评估结果
+        self.risk_value = risk_value
+        # 风险评估分数
+        self.risk_score = risk_score
+        # 风险评估标签
+        self.model_infos = model_infos
+
+    def validate(self):
+        self.validate_required(self.risk_value, 'risk_value')
+        self.validate_required(self.risk_score, 'risk_score')
+        self.validate_required(self.model_infos, 'model_infos')
+        if self.model_infos:
+            self.model_infos.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.risk_value is not None:
+            result['risk_value'] = self.risk_value
+        if self.risk_score is not None:
+            result['risk_score'] = self.risk_score
+        if self.model_infos is not None:
+            result['model_infos'] = self.model_infos.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('risk_value') is not None:
+            self.risk_value = m.get('risk_value')
+        if m.get('risk_score') is not None:
+            self.risk_score = m.get('risk_score')
+        if m.get('model_infos') is not None:
+            temp_model = RiskModel()
+            self.model_infos = temp_model.from_map(m['model_infos'])
+        return self
+
+
 class CctDetectCheckLabel(TeaModel):
     def __init__(
         self,
@@ -927,7 +927,7 @@ class RiskAssessData(TeaModel):
     def __init__(
         self,
         head: ResponseHead = None,
-        risk_result: RiskAssessResult = None,
+        risk_result: str = None,
     ):
         # 响应头
         self.head = head
@@ -939,8 +939,6 @@ class RiskAssessData(TeaModel):
         if self.head:
             self.head.validate()
         self.validate_required(self.risk_result, 'risk_result')
-        if self.risk_result:
-            self.risk_result.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -951,7 +949,7 @@ class RiskAssessData(TeaModel):
         if self.head is not None:
             result['head'] = self.head.to_map()
         if self.risk_result is not None:
-            result['risk_result'] = self.risk_result.to_map()
+            result['risk_result'] = self.risk_result
         return result
 
     def from_map(self, m: dict = None):
@@ -960,8 +958,7 @@ class RiskAssessData(TeaModel):
             temp_model = ResponseHead()
             self.head = temp_model.from_map(m['head'])
         if m.get('risk_result') is not None:
-            temp_model = RiskAssessResult()
-            self.risk_result = temp_model.from_map(m['risk_result'])
+            self.risk_result = m.get('risk_result')
         return self
 
 
