@@ -174,39 +174,6 @@ func (s *RiskData) SetResultValue(v string) *RiskData {
 	return s
 }
 
-// eKYT风险标签
-type RiskModel struct {
-	// 标签名称
-	ModelName *string `json:"model_name,omitempty" xml:"model_name,omitempty" require:"true"`
-	// 风险值
-	ModelValue *string `json:"model_value,omitempty" xml:"model_value,omitempty" require:"true"`
-	// 风险标签描述
-	ModelComment *string `json:"model_comment,omitempty" xml:"model_comment,omitempty" require:"true"`
-}
-
-func (s RiskModel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RiskModel) GoString() string {
-	return s.String()
-}
-
-func (s *RiskModel) SetModelName(v string) *RiskModel {
-	s.ModelName = &v
-	return s
-}
-
-func (s *RiskModel) SetModelValue(v string) *RiskModel {
-	s.ModelValue = &v
-	return s
-}
-
-func (s *RiskModel) SetModelComment(v string) *RiskModel {
-	s.ModelComment = &v
-	return s
-}
-
 // 业务参数
 type BizParam struct {
 	// 参数类型枚举，mobile、cert、biz_license
@@ -278,36 +245,36 @@ func (s *CctSubCheckLabel) SetRate(v int64) *CctSubCheckLabel {
 	return s
 }
 
-// 风险评估结果
-type RiskAssessResult struct {
-	// 风险评估结果
-	RiskValue *string `json:"risk_value,omitempty" xml:"risk_value,omitempty" require:"true"`
-	// 风险评估分数
-	RiskScore *string `json:"risk_score,omitempty" xml:"risk_score,omitempty" require:"true"`
-	// 风险评估标签
-	ModelInfos *RiskModel `json:"model_infos,omitempty" xml:"model_infos,omitempty" require:"true"`
+// eKYT风险标签
+type RiskModel struct {
+	// 标签名称
+	ModelName *string `json:"model_name,omitempty" xml:"model_name,omitempty" require:"true"`
+	// 风险值
+	ModelValue *string `json:"model_value,omitempty" xml:"model_value,omitempty" require:"true"`
+	// 风险标签描述
+	ModelComment *string `json:"model_comment,omitempty" xml:"model_comment,omitempty" require:"true"`
 }
 
-func (s RiskAssessResult) String() string {
+func (s RiskModel) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RiskAssessResult) GoString() string {
+func (s RiskModel) GoString() string {
 	return s.String()
 }
 
-func (s *RiskAssessResult) SetRiskValue(v string) *RiskAssessResult {
-	s.RiskValue = &v
+func (s *RiskModel) SetModelName(v string) *RiskModel {
+	s.ModelName = &v
 	return s
 }
 
-func (s *RiskAssessResult) SetRiskScore(v string) *RiskAssessResult {
-	s.RiskScore = &v
+func (s *RiskModel) SetModelValue(v string) *RiskModel {
+	s.ModelValue = &v
 	return s
 }
 
-func (s *RiskAssessResult) SetModelInfos(v *RiskModel) *RiskAssessResult {
-	s.ModelInfos = v
+func (s *RiskModel) SetModelComment(v string) *RiskModel {
+	s.ModelComment = &v
 	return s
 }
 
@@ -673,6 +640,39 @@ func (s *BizQueryParam) SetBizParams(v []*BizParam) *BizQueryParam {
 	return s
 }
 
+// 风险评估结果
+type RiskAssessResult struct {
+	// 风险评估结果
+	RiskValue *string `json:"risk_value,omitempty" xml:"risk_value,omitempty" require:"true"`
+	// 风险评估分数
+	RiskScore *string `json:"risk_score,omitempty" xml:"risk_score,omitempty" require:"true"`
+	// 风险评估标签
+	ModelInfos *RiskModel `json:"model_infos,omitempty" xml:"model_infos,omitempty" require:"true"`
+}
+
+func (s RiskAssessResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskAssessResult) GoString() string {
+	return s.String()
+}
+
+func (s *RiskAssessResult) SetRiskValue(v string) *RiskAssessResult {
+	s.RiskValue = &v
+	return s
+}
+
+func (s *RiskAssessResult) SetRiskScore(v string) *RiskAssessResult {
+	s.RiskScore = &v
+	return s
+}
+
+func (s *RiskAssessResult) SetModelInfos(v *RiskModel) *RiskAssessResult {
+	s.ModelInfos = v
+	return s
+}
+
 // 内容安全response
 type CctDetectCheckLabel struct {
 	// label
@@ -718,7 +718,7 @@ type RiskAssessData struct {
 	// 响应头
 	Head *ResponseHead `json:"head,omitempty" xml:"head,omitempty" require:"true"`
 	// 风险评估结果
-	RiskResult *RiskAssessResult `json:"risk_result,omitempty" xml:"risk_result,omitempty" require:"true"`
+	RiskResult *string `json:"risk_result,omitempty" xml:"risk_result,omitempty" require:"true"`
 }
 
 func (s RiskAssessData) String() string {
@@ -734,8 +734,8 @@ func (s *RiskAssessData) SetHead(v *ResponseHead) *RiskAssessData {
 	return s
 }
 
-func (s *RiskAssessData) SetRiskResult(v *RiskAssessResult) *RiskAssessData {
-	s.RiskResult = v
+func (s *RiskAssessData) SetRiskResult(v string) *RiskAssessData {
+	s.RiskResult = &v
 	return s
 }
 
@@ -3110,7 +3110,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.0"),
+				"sdk_version":      tea.String("1.2.1"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
