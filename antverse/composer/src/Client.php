@@ -13,6 +13,10 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\ANTVERSE\Models\GetInteractvideoRequest;
 use AntChain\ANTVERSE\Models\GetInteractvideoResponse;
+use AntChain\ANTVERSE\Models\QueryAvatarVideoRequest;
+use AntChain\ANTVERSE\Models\QueryAvatarVideoResponse;
+use AntChain\ANTVERSE\Models\SubmitAvatarVideoRequest;
+use AntChain\ANTVERSE\Models\SubmitAvatarVideoResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -132,6 +136,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 数字人位置大小信息，以左上角为起始坐标，向右向下为正值
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -159,7 +164,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.3',
                     '_prod_code'       => 'ANTVERSE',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -238,5 +243,71 @@ class Client
         Utils::validateModel($request);
 
         return GetInteractvideoResponse::fromMap($this->doRequest('1.0', 'antchain.antverse.interactvideo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 2D数字人合成
+     * Summary: 2D虚拟人数字合成.
+     *
+     * @param SubmitAvatarVideoRequest $request
+     *
+     * @return SubmitAvatarVideoResponse
+     */
+    public function submitAvatarVideo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAvatarVideoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 2D数字人合成
+     * Summary: 2D虚拟人数字合成.
+     *
+     * @param SubmitAvatarVideoRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return SubmitAvatarVideoResponse
+     */
+    public function submitAvatarVideoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAvatarVideoResponse::fromMap($this->doRequest('1.0', 'antchain.antverse.avatar.video.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 2D数字人视频查询
+     * Summary: 2D数字人视频查询.
+     *
+     * @param QueryAvatarVideoRequest $request
+     *
+     * @return QueryAvatarVideoResponse
+     */
+    public function queryAvatarVideo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAvatarVideoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 2D数字人视频查询
+     * Summary: 2D数字人视频查询.
+     *
+     * @param QueryAvatarVideoRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryAvatarVideoResponse
+     */
+    public function queryAvatarVideoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAvatarVideoResponse::fromMap($this->doRequest('1.0', 'antchain.antverse.avatar.video.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
