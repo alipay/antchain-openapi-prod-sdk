@@ -18,9 +18,9 @@ class RiskAssessData extends Model
 
     // 风险评估结果
     /**
-     * @example
+     * @example A238EE36A9E096A97BF49C568EE7D0F4543043E21CE1A9831303EFDD
      *
-     * @var RiskAssessResult
+     * @var string
      */
     public $riskResult;
     protected $_name = [
@@ -41,7 +41,7 @@ class RiskAssessData extends Model
             $res['head'] = null !== $this->head ? $this->head->toMap() : null;
         }
         if (null !== $this->riskResult) {
-            $res['risk_result'] = null !== $this->riskResult ? $this->riskResult->toMap() : null;
+            $res['risk_result'] = $this->riskResult;
         }
 
         return $res;
@@ -59,7 +59,7 @@ class RiskAssessData extends Model
             $model->head = ResponseHead::fromMap($map['head']);
         }
         if (isset($map['risk_result'])) {
-            $model->riskResult = RiskAssessResult::fromMap($map['risk_result']);
+            $model->riskResult = $map['risk_result'];
         }
 
         return $model;
