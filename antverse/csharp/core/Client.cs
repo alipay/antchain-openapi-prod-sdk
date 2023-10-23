@@ -137,7 +137,7 @@ namespace AntChain.SDK.ANTVERSE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.3"},
                         {"_prod_code", "ANTVERSE"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ANTVERSE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.3"},
                         {"_prod_code", "ANTVERSE"},
                         {"_prod_channel", "undefined"},
                     };
@@ -361,6 +361,90 @@ namespace AntChain.SDK.ANTVERSE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetInteractvideoResponse>(await DoRequestAsync("1.0", "antchain.antverse.interactvideo.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 2D数字人合成
+         * Summary: 2D虚拟人数字合成
+         */
+        public SubmitAvatarVideoResponse SubmitAvatarVideo(SubmitAvatarVideoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAvatarVideoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 2D数字人合成
+         * Summary: 2D虚拟人数字合成
+         */
+        public async Task<SubmitAvatarVideoResponse> SubmitAvatarVideoAsync(SubmitAvatarVideoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAvatarVideoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 2D数字人合成
+         * Summary: 2D虚拟人数字合成
+         */
+        public SubmitAvatarVideoResponse SubmitAvatarVideoEx(SubmitAvatarVideoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAvatarVideoResponse>(DoRequest("1.0", "antchain.antverse.avatar.video.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 2D数字人合成
+         * Summary: 2D虚拟人数字合成
+         */
+        public async Task<SubmitAvatarVideoResponse> SubmitAvatarVideoExAsync(SubmitAvatarVideoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAvatarVideoResponse>(await DoRequestAsync("1.0", "antchain.antverse.avatar.video.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 2D数字人视频查询
+         * Summary: 2D数字人视频查询
+         */
+        public QueryAvatarVideoResponse QueryAvatarVideo(QueryAvatarVideoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAvatarVideoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 2D数字人视频查询
+         * Summary: 2D数字人视频查询
+         */
+        public async Task<QueryAvatarVideoResponse> QueryAvatarVideoAsync(QueryAvatarVideoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAvatarVideoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 2D数字人视频查询
+         * Summary: 2D数字人视频查询
+         */
+        public QueryAvatarVideoResponse QueryAvatarVideoEx(QueryAvatarVideoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAvatarVideoResponse>(DoRequest("1.0", "antchain.antverse.avatar.video.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 2D数字人视频查询
+         * Summary: 2D数字人视频查询
+         */
+        public async Task<QueryAvatarVideoResponse> QueryAvatarVideoExAsync(QueryAvatarVideoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAvatarVideoResponse>(await DoRequestAsync("1.0", "antchain.antverse.avatar.video.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
