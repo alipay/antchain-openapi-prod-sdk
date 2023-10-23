@@ -18,7 +18,7 @@ namespace AntChain.SDK.SECURITYTECH.Models
         // 风险评估结果
         [NameInMap("risk_result")]
         [Validation(Required=true)]
-        public RiskAssessResult RiskResult { get; set; }
+        public string RiskResult { get; set; }
 
     }
 
