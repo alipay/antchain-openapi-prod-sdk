@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 数字人位置大小信息，以左上角为起始坐标，向右向下为正值
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'ANTVERSE',
                     '_prod_channel': 'undefined'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 数字人位置大小信息，以左上角为起始坐标，向右向下为正值
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'ANTVERSE',
                     '_prod_channel': 'undefined'
                 }
@@ -327,4 +329,116 @@ class Client:
         return TeaCore.from_map(
             antverse_models.GetInteractvideoResponse(),
             await self.do_request_async('1.0', 'antchain.antverse.interactvideo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_avatar_video(
+        self,
+        request: antverse_models.SubmitAvatarVideoRequest,
+    ) -> antverse_models.SubmitAvatarVideoResponse:
+        """
+        Description: 2D数字人合成
+        Summary: 2D虚拟人数字合成
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_avatar_video_ex(request, headers, runtime)
+
+    async def submit_avatar_video_async(
+        self,
+        request: antverse_models.SubmitAvatarVideoRequest,
+    ) -> antverse_models.SubmitAvatarVideoResponse:
+        """
+        Description: 2D数字人合成
+        Summary: 2D虚拟人数字合成
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_avatar_video_ex_async(request, headers, runtime)
+
+    def submit_avatar_video_ex(
+        self,
+        request: antverse_models.SubmitAvatarVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> antverse_models.SubmitAvatarVideoResponse:
+        """
+        Description: 2D数字人合成
+        Summary: 2D虚拟人数字合成
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            antverse_models.SubmitAvatarVideoResponse(),
+            self.do_request('1.0', 'antchain.antverse.avatar.video.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_avatar_video_ex_async(
+        self,
+        request: antverse_models.SubmitAvatarVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> antverse_models.SubmitAvatarVideoResponse:
+        """
+        Description: 2D数字人合成
+        Summary: 2D虚拟人数字合成
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            antverse_models.SubmitAvatarVideoResponse(),
+            await self.do_request_async('1.0', 'antchain.antverse.avatar.video.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_avatar_video(
+        self,
+        request: antverse_models.QueryAvatarVideoRequest,
+    ) -> antverse_models.QueryAvatarVideoResponse:
+        """
+        Description: 2D数字人视频查询
+        Summary: 2D数字人视频查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_avatar_video_ex(request, headers, runtime)
+
+    async def query_avatar_video_async(
+        self,
+        request: antverse_models.QueryAvatarVideoRequest,
+    ) -> antverse_models.QueryAvatarVideoResponse:
+        """
+        Description: 2D数字人视频查询
+        Summary: 2D数字人视频查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_avatar_video_ex_async(request, headers, runtime)
+
+    def query_avatar_video_ex(
+        self,
+        request: antverse_models.QueryAvatarVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> antverse_models.QueryAvatarVideoResponse:
+        """
+        Description: 2D数字人视频查询
+        Summary: 2D数字人视频查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            antverse_models.QueryAvatarVideoResponse(),
+            self.do_request('1.0', 'antchain.antverse.avatar.video.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_avatar_video_ex_async(
+        self,
+        request: antverse_models.QueryAvatarVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> antverse_models.QueryAvatarVideoResponse:
+        """
+        Description: 2D数字人视频查询
+        Summary: 2D数字人视频查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            antverse_models.QueryAvatarVideoResponse(),
+            await self.do_request_async('1.0', 'antchain.antverse.avatar.video.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
