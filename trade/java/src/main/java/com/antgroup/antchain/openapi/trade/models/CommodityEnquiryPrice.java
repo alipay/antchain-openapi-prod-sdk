@@ -68,6 +68,11 @@ public class CommodityEnquiryPrice extends TeaModel {
     @NameInMap("min_duration_of_valid_pay_amount")
     public OrderDuration minDurationOfValidPayAmount;
 
+    // 预付费-折扣率
+    @NameInMap("discount_rate")
+    @Validation(required = true)
+    public String discountRate;
+
     public static CommodityEnquiryPrice build(java.util.Map<String, ?> map) throws Exception {
         CommodityEnquiryPrice self = new CommodityEnquiryPrice();
         return TeaModel.build(map, self);
@@ -175,6 +180,14 @@ public class CommodityEnquiryPrice extends TeaModel {
     }
     public OrderDuration getMinDurationOfValidPayAmount() {
         return this.minDurationOfValidPayAmount;
+    }
+
+    public CommodityEnquiryPrice setDiscountRate(String discountRate) {
+        this.discountRate = discountRate;
+        return this;
+    }
+    public String getDiscountRate() {
+        return this.discountRate;
     }
 
 }
