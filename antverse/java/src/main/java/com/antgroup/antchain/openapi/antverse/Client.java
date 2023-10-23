@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.0.3"),
                     new TeaPair("_prod_code", "ANTVERSE"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -178,5 +178,43 @@ public class Client {
     public GetInteractvideoResponse getInteractvideoEx(GetInteractvideoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.antverse.interactvideo.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetInteractvideoResponse());
+    }
+
+    /**
+     * Description: 2D数字人合成
+     * Summary: 2D虚拟人数字合成
+     */
+    public SubmitAvatarVideoResponse submitAvatarVideo(SubmitAvatarVideoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAvatarVideoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 2D数字人合成
+     * Summary: 2D虚拟人数字合成
+     */
+    public SubmitAvatarVideoResponse submitAvatarVideoEx(SubmitAvatarVideoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.antverse.avatar.video.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAvatarVideoResponse());
+    }
+
+    /**
+     * Description: 2D数字人视频查询
+     * Summary: 2D数字人视频查询
+     */
+    public QueryAvatarVideoResponse queryAvatarVideo(QueryAvatarVideoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAvatarVideoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 2D数字人视频查询
+     * Summary: 2D数字人视频查询
+     */
+    public QueryAvatarVideoResponse queryAvatarVideoEx(QueryAvatarVideoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.antverse.avatar.video.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAvatarVideoResponse());
     }
 }
