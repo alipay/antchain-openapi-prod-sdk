@@ -515,6 +515,8 @@ type CommodityEnquiryPrice struct {
 	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
 	// 基于剩余价值变配场景下，预测的支付金额正常的最小订购周期
 	MinDurationOfValidPayAmount *OrderDuration `json:"min_duration_of_valid_pay_amount,omitempty" xml:"min_duration_of_valid_pay_amount,omitempty"`
+	// 预付费-折扣率
+	DiscountRate *string `json:"discount_rate,omitempty" xml:"discount_rate,omitempty" require:"true"`
 }
 
 func (s CommodityEnquiryPrice) String() string {
@@ -587,6 +589,11 @@ func (s *CommodityEnquiryPrice) SetCurrency(v string) *CommodityEnquiryPrice {
 
 func (s *CommodityEnquiryPrice) SetMinDurationOfValidPayAmount(v *OrderDuration) *CommodityEnquiryPrice {
 	s.MinDurationOfValidPayAmount = v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetDiscountRate(v string) *CommodityEnquiryPrice {
+	s.DiscountRate = &v
 	return s
 }
 
@@ -2804,7 +2811,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.11.0"),
+				"sdk_version":      tea.String("3.11.1"),
 				"_prod_code":       tea.String("TRADE"),
 				"_prod_channel":    tea.String("undefined"),
 			}
