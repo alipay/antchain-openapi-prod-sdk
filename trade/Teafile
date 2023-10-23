@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "TRADE",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-trade:3.11.0",
-    "go": "github.com/antchain-openapi-sdk-go/trade/v3/client:v3.11.0",
-    "csharp": "AntChain.SDK.TRADE:3.11.0",
-    "ts": "@antchain/trade:3.11.0",
-    "php": "antchain/trade:3.11.0",
-    "python": "antchain_sdk_trade:3.11.0"
+    "java": "com.antgroup.antchain.openapi:openapi-trade:3.11.1",
+    "go": "github.com/antchain-openapi-sdk-go/trade/v3/client:v3.11.1",
+    "csharp": "AntChain.SDK.TRADE:3.11.1",
+    "ts": "@antchain/trade:3.11.1",
+    "php": "antchain/trade:3.11.1",
+    "python": "antchain_sdk_trade:3.11.1"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

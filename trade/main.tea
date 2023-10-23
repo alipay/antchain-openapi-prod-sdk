@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.11.0',
+    sdk_version = '3.11.1',
     _prod_code = 'TRADE',
     _prod_channel = 'undefined'
   };
@@ -293,6 +293,8 @@ model CommodityEnquiryPrice {
   currency: string(name='currency', example='CNY'),
   // 基于剩余价值变配场景下，预测的支付金额正常的最小订购周期
   minDurationOfValidPayAmount?: OrderDuration(name='min_duration_of_valid_pay_amount', example=''),
+  // 预付费-折扣率
+  discountRate: string(name='discount_rate', example='0.75'),
 }
 
 // 套餐结构
