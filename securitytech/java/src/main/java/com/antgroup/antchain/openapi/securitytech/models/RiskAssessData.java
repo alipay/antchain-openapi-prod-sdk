@@ -12,7 +12,7 @@ public class RiskAssessData extends TeaModel {
     // 风险评估结果
     @NameInMap("risk_result")
     @Validation(required = true)
-    public RiskAssessResult riskResult;
+    public String riskResult;
 
     public static RiskAssessData build(java.util.Map<String, ?> map) throws Exception {
         RiskAssessData self = new RiskAssessData();
@@ -27,11 +27,11 @@ public class RiskAssessData extends TeaModel {
         return this.head;
     }
 
-    public RiskAssessData setRiskResult(RiskAssessResult riskResult) {
+    public RiskAssessData setRiskResult(String riskResult) {
         this.riskResult = riskResult;
         return this;
     }
-    public RiskAssessResult getRiskResult() {
+    public String getRiskResult() {
         return this.riskResult;
     }
 
