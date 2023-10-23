@@ -148,6 +148,47 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 数字人位置大小信息，以左上角为起始坐标，向右向下为正值
+type PositionSizeInfo struct {
+	// 数字人x轴（竖轴）坐标
+	X *int64 `json:"x,omitempty" xml:"x,omitempty" require:"true"`
+	// 数字人y轴（横轴）坐标
+	Y *int64 `json:"y,omitempty" xml:"y,omitempty" require:"true"`
+	// 数字人宽度
+	//
+	Width *int64 `json:"width,omitempty" xml:"width,omitempty" require:"true"`
+	// 数字人高度
+	Height *int64 `json:"height,omitempty" xml:"height,omitempty" require:"true"`
+}
+
+func (s PositionSizeInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PositionSizeInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PositionSizeInfo) SetX(v int64) *PositionSizeInfo {
+	s.X = &v
+	return s
+}
+
+func (s *PositionSizeInfo) SetY(v int64) *PositionSizeInfo {
+	s.Y = &v
+	return s
+}
+
+func (s *PositionSizeInfo) SetWidth(v int64) *PositionSizeInfo {
+	s.Width = &v
+	return s
+}
+
+func (s *PositionSizeInfo) SetHeight(v int64) *PositionSizeInfo {
+	s.Height = &v
+	return s
+}
+
 type GetInteractvideoRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -229,6 +270,237 @@ func (s *GetInteractvideoResponse) SetResultMsg(v string) *GetInteractvideoRespo
 
 func (s *GetInteractvideoResponse) SetAnswerVideoUrl(v string) *GetInteractvideoResponse {
 	s.AnswerVideoUrl = &v
+	return s
+}
+
+type SubmitAvatarVideoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 视频名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 数字人id
+	AvatarId *string `json:"avatar_id,omitempty" xml:"avatar_id,omitempty" require:"true"`
+	// 说话人code
+	SpeakerCode *string `json:"speaker_code,omitempty" xml:"speaker_code,omitempty" require:"true"`
+	// 播报文本（一千字以内），支持SSML
+	Text *string `json:"text,omitempty" xml:"text,omitempty" require:"true"`
+	// 音量（0~100，默认50）
+	Volume *int64 `json:"volume,omitempty" xml:"volume,omitempty"`
+	// 语速（-50~50，默认 0）
+	Speed *int64 `json:"speed,omitempty" xml:"speed,omitempty"`
+	// 音调（-50~50，默认 0）
+	Tone *int64 `json:"tone,omitempty" xml:"tone,omitempty"`
+	// 背景图片Url，需要公网可访问
+	BackgroundUrl *string `json:"background_url,omitempty" xml:"background_url,omitempty" require:"true"`
+	// 分辨率，暂只支持1080
+	Resolution *string `json:"resolution,omitempty" xml:"resolution,omitempty" require:"true"`
+	// 画布比例，16:9/9:16
+	Radio *string `json:"radio,omitempty" xml:"radio,omitempty" require:"true"`
+	// 数字人位置大小信息，以左上角为起始坐标，向右向下为正值
+	HumanConfig *PositionSizeInfo `json:"human_config,omitempty" xml:"human_config,omitempty" require:"true"`
+}
+
+func (s SubmitAvatarVideoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAvatarVideoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAvatarVideoRequest) SetAuthToken(v string) *SubmitAvatarVideoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoRequest) SetProductInstanceId(v string) *SubmitAvatarVideoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoRequest) SetName(v string) *SubmitAvatarVideoRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoRequest) SetAvatarId(v string) *SubmitAvatarVideoRequest {
+	s.AvatarId = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoRequest) SetSpeakerCode(v string) *SubmitAvatarVideoRequest {
+	s.SpeakerCode = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoRequest) SetText(v string) *SubmitAvatarVideoRequest {
+	s.Text = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoRequest) SetVolume(v int64) *SubmitAvatarVideoRequest {
+	s.Volume = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoRequest) SetSpeed(v int64) *SubmitAvatarVideoRequest {
+	s.Speed = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoRequest) SetTone(v int64) *SubmitAvatarVideoRequest {
+	s.Tone = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoRequest) SetBackgroundUrl(v string) *SubmitAvatarVideoRequest {
+	s.BackgroundUrl = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoRequest) SetResolution(v string) *SubmitAvatarVideoRequest {
+	s.Resolution = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoRequest) SetRadio(v string) *SubmitAvatarVideoRequest {
+	s.Radio = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoRequest) SetHumanConfig(v *PositionSizeInfo) *SubmitAvatarVideoRequest {
+	s.HumanConfig = v
+	return s
+}
+
+type SubmitAvatarVideoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 视频任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+}
+
+func (s SubmitAvatarVideoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAvatarVideoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAvatarVideoResponse) SetReqMsgId(v string) *SubmitAvatarVideoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoResponse) SetResultCode(v string) *SubmitAvatarVideoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoResponse) SetResultMsg(v string) *SubmitAvatarVideoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitAvatarVideoResponse) SetTaskId(v string) *SubmitAvatarVideoResponse {
+	s.TaskId = &v
+	return s
+}
+
+type QueryAvatarVideoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 视频任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryAvatarVideoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAvatarVideoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAvatarVideoRequest) SetAuthToken(v string) *QueryAvatarVideoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAvatarVideoRequest) SetProductInstanceId(v string) *QueryAvatarVideoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAvatarVideoRequest) SetTaskId(v string) *QueryAvatarVideoRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryAvatarVideoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 视频任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 视频合成任务状态（EXPORTING：导出中，NORMAL：成功，FAILED：失败）
+	VideoStatus *string `json:"video_status,omitempty" xml:"video_status,omitempty"`
+	// 视频url
+	VideoUrl *string `json:"video_url,omitempty" xml:"video_url,omitempty"`
+	// 提示消息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s QueryAvatarVideoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAvatarVideoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAvatarVideoResponse) SetReqMsgId(v string) *QueryAvatarVideoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAvatarVideoResponse) SetResultCode(v string) *QueryAvatarVideoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAvatarVideoResponse) SetResultMsg(v string) *QueryAvatarVideoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAvatarVideoResponse) SetTaskId(v string) *QueryAvatarVideoResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *QueryAvatarVideoResponse) SetVideoStatus(v string) *QueryAvatarVideoResponse {
+	s.VideoStatus = &v
+	return s
+}
+
+func (s *QueryAvatarVideoResponse) SetVideoUrl(v string) *QueryAvatarVideoResponse {
+	s.VideoUrl = &v
+	return s
+}
+
+func (s *QueryAvatarVideoResponse) SetMessage(v string) *QueryAvatarVideoResponse {
+	s.Message = &v
 	return s
 }
 
@@ -354,7 +626,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.3"),
 				"_prod_code":       tea.String("ANTVERSE"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -439,6 +711,74 @@ func (client *Client) GetInteractvideoEx(request *GetInteractvideoRequest, heade
 	}
 	_result = &GetInteractvideoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.antverse.interactvideo.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 2D数字人合成
+ * Summary: 2D虚拟人数字合成
+ */
+func (client *Client) SubmitAvatarVideo(request *SubmitAvatarVideoRequest) (_result *SubmitAvatarVideoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAvatarVideoResponse{}
+	_body, _err := client.SubmitAvatarVideoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 2D数字人合成
+ * Summary: 2D虚拟人数字合成
+ */
+func (client *Client) SubmitAvatarVideoEx(request *SubmitAvatarVideoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAvatarVideoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAvatarVideoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.antverse.avatar.video.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 2D数字人视频查询
+ * Summary: 2D数字人视频查询
+ */
+func (client *Client) QueryAvatarVideo(request *QueryAvatarVideoRequest) (_result *QueryAvatarVideoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAvatarVideoResponse{}
+	_body, _err := client.QueryAvatarVideoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 2D数字人视频查询
+ * Summary: 2D数字人视频查询
+ */
+func (client *Client) QueryAvatarVideoEx(request *QueryAvatarVideoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAvatarVideoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAvatarVideoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.antverse.avatar.video.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
