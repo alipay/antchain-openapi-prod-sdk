@@ -401,6 +401,8 @@ export class CommodityEnquiryPrice extends $tea.Model {
   currency: string;
   // 基于剩余价值变配场景下，预测的支付金额正常的最小订购周期
   minDurationOfValidPayAmount?: OrderDuration;
+  // 预付费-折扣率
+  discountRate: string;
   static names(): { [key: string]: string } {
     return {
       commodityCode: 'commodity_code',
@@ -416,6 +418,7 @@ export class CommodityEnquiryPrice extends $tea.Model {
       priceConstraintId: 'price_constraint_id',
       currency: 'currency',
       minDurationOfValidPayAmount: 'min_duration_of_valid_pay_amount',
+      discountRate: 'discount_rate',
     };
   }
 
@@ -434,6 +437,7 @@ export class CommodityEnquiryPrice extends $tea.Model {
       priceConstraintId: 'number',
       currency: 'string',
       minDurationOfValidPayAmount: OrderDuration,
+      discountRate: 'string',
     };
   }
 
@@ -2135,7 +2139,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "3.11.0",
+          sdk_version: "3.11.1",
           _prod_code: "TRADE",
           _prod_channel: "undefined",
         };
