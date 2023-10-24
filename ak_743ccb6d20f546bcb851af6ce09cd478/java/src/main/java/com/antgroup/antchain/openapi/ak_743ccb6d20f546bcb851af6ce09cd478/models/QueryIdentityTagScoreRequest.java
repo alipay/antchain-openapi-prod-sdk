@@ -43,17 +43,14 @@ public class QueryIdentityTagScoreRequest extends TeaModel {
     // "SHA256" ： SHA256（密文小写）
     // "SM3"： SM3（密文大写
     @NameInMap("encrypt_type")
-    @Validation(required = true)
     public String encryptType;
 
     // 用户授权模版编号
     @NameInMap("auth_template_no")
-    @Validation(required = true)
     public String authTemplateNo;
 
     // 用户授权编码
     @NameInMap("auth_no")
-    @Validation(required = true)
     public String authNo;
 
     // 客户发起请求时间, 格式："yyyy-MM-dd HH:mm:ss"
