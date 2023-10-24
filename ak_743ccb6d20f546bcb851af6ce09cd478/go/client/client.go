@@ -168,11 +168,11 @@ type QueryIdentityTagScoreRequest struct {
 	// "MD5"：MD5（32位小写）
 	// "SHA256" ： SHA256（密文小写）
 	// "SM3"： SM3（密文大写
-	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
 	// 用户授权模版编号
-	AuthTemplateNo *string `json:"auth_template_no,omitempty" xml:"auth_template_no,omitempty" require:"true"`
+	AuthTemplateNo *string `json:"auth_template_no,omitempty" xml:"auth_template_no,omitempty"`
 	// 用户授权编码
-	AuthNo *string `json:"auth_no,omitempty" xml:"auth_no,omitempty" require:"true"`
+	AuthNo *string `json:"auth_no,omitempty" xml:"auth_no,omitempty"`
 	// 客户发起请求时间, 格式："yyyy-MM-dd HH:mm:ss"
 	RequestTime *string `json:"request_time,omitempty" xml:"request_time,omitempty"`
 }
@@ -401,7 +401,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.0.4"),
 				"_prod_code":       tea.String("ak_743ccb6d20f546bcb851af6ce09cd478"),
 				"_prod_channel":    tea.String("saas"),
 			}
