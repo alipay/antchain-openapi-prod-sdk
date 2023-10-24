@@ -201,9 +201,6 @@ class QueryIdentityTagScoreRequest(TeaModel):
         self.validate_required(self.model_id_list, 'model_id_list')
         self.validate_required(self.user_id, 'user_id')
         self.validate_required(self.user_id_type, 'user_id_type')
-        self.validate_required(self.encrypt_type, 'encrypt_type')
-        self.validate_required(self.auth_template_no, 'auth_template_no')
-        self.validate_required(self.auth_no, 'auth_no')
 
     def to_map(self):
         _map = super().to_map()
