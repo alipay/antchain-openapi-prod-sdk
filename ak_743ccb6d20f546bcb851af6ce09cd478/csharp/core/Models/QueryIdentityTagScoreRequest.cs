@@ -50,17 +50,17 @@ namespace AntChain.SDK.Ak_743ccb6d20f546bcb851af6ce09cd478.Models
         // "SHA256" ： SHA256（密文小写）
         // "SM3"： SM3（密文大写
         [NameInMap("encrypt_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string EncryptType { get; set; }
 
         // 用户授权模版编号
         [NameInMap("auth_template_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AuthTemplateNo { get; set; }
 
         // 用户授权编码
         [NameInMap("auth_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AuthNo { get; set; }
 
         // 客户发起请求时间, 格式："yyyy-MM-dd HH:mm:ss"
