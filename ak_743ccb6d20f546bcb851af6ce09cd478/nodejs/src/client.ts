@@ -97,11 +97,11 @@ export class QueryIdentityTagScoreRequest extends $tea.Model {
   // "MD5"：MD5（32位小写）
   // "SHA256" ： SHA256（密文小写）
   // "SM3"： SM3（密文大写
-  encryptType: string;
+  encryptType?: string;
   // 用户授权模版编号
-  authTemplateNo: string;
+  authTemplateNo?: string;
   // 用户授权编码
-  authNo: string;
+  authNo?: string;
   // 客户发起请求时间, 格式："yyyy-MM-dd HH:mm:ss"
   requestTime?: string;
   static names(): { [key: string]: string } {
@@ -286,7 +286,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.3",
+          sdk_version: "1.0.4",
           _prod_code: "ak_743ccb6d20f546bcb851af6ce09cd478",
           _prod_channel: "saas",
         };
