@@ -98,9 +98,6 @@ class QueryIdentityTagScoreRequest extends Model
         Model::validateRequired('modelIdList', $this->modelIdList, true);
         Model::validateRequired('userId', $this->userId, true);
         Model::validateRequired('userIdType', $this->userIdType, true);
-        Model::validateRequired('encryptType', $this->encryptType, true);
-        Model::validateRequired('authTemplateNo', $this->authTemplateNo, true);
-        Model::validateRequired('authNo', $this->authNo, true);
     }
 
     public function toMap()
