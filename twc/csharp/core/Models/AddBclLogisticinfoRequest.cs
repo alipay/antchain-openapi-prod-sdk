@@ -100,7 +100,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 收货人姓名
         [NameInMap("arrive_name")]
-        [Validation(Required=true, MaxLength=32)]
+        [Validation(Required=true, MaxLength=128)]
         public string ArriveName { get; set; }
 
         // 收货人联系电话

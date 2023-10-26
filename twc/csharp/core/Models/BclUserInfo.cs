@@ -25,7 +25,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 承租人/企业姓名,长度不超过32位
         [NameInMap("user_cert_name")]
-        [Validation(Required=true, MaxLength=32)]
+        [Validation(Required=true, MaxLength=128)]
         public string UserCertName { get; set; }
 
         // 承租人/企业证件号,长度不超过64位
