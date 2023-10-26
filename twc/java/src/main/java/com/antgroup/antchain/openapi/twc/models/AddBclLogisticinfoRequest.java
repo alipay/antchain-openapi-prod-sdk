@@ -93,7 +93,7 @@ public class AddBclLogisticinfoRequest extends TeaModel {
 
     // 收货人姓名
     @NameInMap("arrive_name")
-    @Validation(required = true, maxLength = 32)
+    @Validation(required = true, maxLength = 128)
     public String arriveName;
 
     // 收货人联系电话
