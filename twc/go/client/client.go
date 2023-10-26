@@ -1482,7 +1482,7 @@ type BclUserInfo struct {
 	// 本期暂时只支持支付宝
 	UserAccountType *string `json:"user_account_type,omitempty" xml:"user_account_type,omitempty" require:"true" maxLength:"16"`
 	// 承租人/企业姓名,长度不超过32位
-	UserCertName *string `json:"user_cert_name,omitempty" xml:"user_cert_name,omitempty" require:"true" maxLength:"32"`
+	UserCertName *string `json:"user_cert_name,omitempty" xml:"user_cert_name,omitempty" require:"true" maxLength:"128"`
 	// 承租人/企业证件号,长度不超过64位
 	UserCertNo *string `json:"user_cert_no,omitempty" xml:"user_cert_no,omitempty" require:"true" maxLength:"64"`
 	// 承租人/企业证件类型:
@@ -8224,7 +8224,7 @@ type AddBclLogisticinfoRequest struct {
 	// 收货地址
 	ArriveAddress *string `json:"arrive_address,omitempty" xml:"arrive_address,omitempty" require:"true" maxLength:"512"`
 	// 收货人姓名
-	ArriveName *string `json:"arrive_name,omitempty" xml:"arrive_name,omitempty" require:"true" maxLength:"32"`
+	ArriveName *string `json:"arrive_name,omitempty" xml:"arrive_name,omitempty" require:"true" maxLength:"128"`
 	// 收货人联系电话
 	ArriveMobile *string `json:"arrive_mobile,omitempty" xml:"arrive_mobile,omitempty" require:"true" maxLength:"32"`
 }
@@ -46966,7 +46966,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.5"),
+				"sdk_version":      tea.String("1.12.6"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
