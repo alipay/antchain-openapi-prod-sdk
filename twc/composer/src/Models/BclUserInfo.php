@@ -98,7 +98,7 @@ class BclUserInfo extends Model
         Model::validateRequired('userCertFrontFileId', $this->userCertFrontFileId, true);
         Model::validateMaxLength('userAccountId', $this->userAccountId, 64);
         Model::validateMaxLength('userAccountType', $this->userAccountType, 16);
-        Model::validateMaxLength('userCertName', $this->userCertName, 32);
+        Model::validateMaxLength('userCertName', $this->userCertName, 128);
         Model::validateMaxLength('userCertNo', $this->userCertNo, 64);
         Model::validateMaxLength('userCertType', $this->userCertType, 32);
         Model::validateMaxLength('userPhoneNumber', $this->userPhoneNumber, 32);

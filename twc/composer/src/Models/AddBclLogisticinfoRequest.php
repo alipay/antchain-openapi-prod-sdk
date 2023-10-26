@@ -164,7 +164,7 @@ class AddBclLogisticinfoRequest extends Model
         Model::validateMaxLength('leaseType', $this->leaseType, 16);
         Model::validateMaxLength('deliverAddress', $this->deliverAddress, 512);
         Model::validateMaxLength('arriveAddress', $this->arriveAddress, 512);
-        Model::validateMaxLength('arriveName', $this->arriveName, 32);
+        Model::validateMaxLength('arriveName', $this->arriveName, 128);
         Model::validateMaxLength('arriveMobile', $this->arriveMobile, 32);
         Model::validatePattern('arriveConfirmTime', $this->arriveConfirmTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('deliverTime', $this->deliverTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
