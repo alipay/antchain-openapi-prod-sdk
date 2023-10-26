@@ -1886,7 +1886,7 @@ class BclUserInfo(TeaModel):
             self.validate_max_length(self.user_account_type, 'user_account_type', 16)
         self.validate_required(self.user_cert_name, 'user_cert_name')
         if self.user_cert_name is not None:
-            self.validate_max_length(self.user_cert_name, 'user_cert_name', 32)
+            self.validate_max_length(self.user_cert_name, 'user_cert_name', 128)
         self.validate_required(self.user_cert_no, 'user_cert_no')
         if self.user_cert_no is not None:
             self.validate_max_length(self.user_cert_no, 'user_cert_no', 64)
@@ -10247,7 +10247,7 @@ class AddBclLogisticinfoRequest(TeaModel):
             self.validate_max_length(self.arrive_address, 'arrive_address', 512)
         self.validate_required(self.arrive_name, 'arrive_name')
         if self.arrive_name is not None:
-            self.validate_max_length(self.arrive_name, 'arrive_name', 32)
+            self.validate_max_length(self.arrive_name, 'arrive_name', 128)
         self.validate_required(self.arrive_mobile, 'arrive_mobile')
         if self.arrive_mobile is not None:
             self.validate_max_length(self.arrive_mobile, 'arrive_mobile', 32)
