@@ -137,7 +137,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.1"},
+                        {"sdk_version", "1.2.2"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.1"},
+                        {"sdk_version", "1.2.2"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1205,6 +1205,48 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryEkytDriverResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ekyt.driver.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 申请设备设备密钥
+         * Summary: 申请设备设备密钥
+         */
+        public ApplyIifaaDevicekeyResponse ApplyIifaaDevicekey(ApplyIifaaDevicekeyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyIifaaDevicekeyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 申请设备设备密钥
+         * Summary: 申请设备设备密钥
+         */
+        public async Task<ApplyIifaaDevicekeyResponse> ApplyIifaaDevicekeyAsync(ApplyIifaaDevicekeyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyIifaaDevicekeyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 申请设备设备密钥
+         * Summary: 申请设备设备密钥
+         */
+        public ApplyIifaaDevicekeyResponse ApplyIifaaDevicekeyEx(ApplyIifaaDevicekeyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyIifaaDevicekeyResponse>(DoRequest("1.0", "antsecuritytech.gateway.iifaa.devicekey.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 申请设备设备密钥
+         * Summary: 申请设备设备密钥
+         */
+        public async Task<ApplyIifaaDevicekeyResponse> ApplyIifaaDevicekeyExAsync(ApplyIifaaDevicekeyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyIifaaDevicekeyResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.iifaa.devicekey.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
