@@ -3712,7 +3712,7 @@ class QueryEkytDriverResponse(TeaModel):
         result_msg: str = None,
         success: bool = None,
         message: str = None,
-        data: RiskAssessData = None,
+        data: IifaaEkytResponse = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3764,7 +3764,7 @@ class QueryEkytDriverResponse(TeaModel):
         if m.get('message') is not None:
             self.message = m.get('message')
         if m.get('data') is not None:
-            temp_model = RiskAssessData()
+            temp_model = IifaaEkytResponse()
             self.data = temp_model.from_map(m['data'])
         return self
 
