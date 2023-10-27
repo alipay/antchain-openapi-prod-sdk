@@ -2973,7 +2973,7 @@ type QueryEkytDriverResponse struct {
 	// 接口响应描述
 	Message *string `json:"message,omitempty" xml:"message,omitempty"`
 	// 接口响应数据
-	Data *RiskAssessData `json:"data,omitempty" xml:"data,omitempty"`
+	Data *IifaaEkytResponse `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s QueryEkytDriverResponse) String() string {
@@ -3009,7 +3009,7 @@ func (s *QueryEkytDriverResponse) SetMessage(v string) *QueryEkytDriverResponse 
 	return s
 }
 
-func (s *QueryEkytDriverResponse) SetData(v *RiskAssessData) *QueryEkytDriverResponse {
+func (s *QueryEkytDriverResponse) SetData(v *IifaaEkytResponse) *QueryEkytDriverResponse {
 	s.Data = v
 	return s
 }
@@ -3234,7 +3234,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.2"),
+				"sdk_version":      tea.String("1.2.3"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
