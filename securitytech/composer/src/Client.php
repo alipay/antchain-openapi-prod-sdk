@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\SECURITYTECH\Models\ApplyIifaaDevicekeyRequest;
+use AntChain\SECURITYTECH\Models\ApplyIifaaDevicekeyResponse;
 use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureRequest;
 use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureResponse;
 use AntChain\SECURITYTECH\Models\CreateBssecpicRequest;
@@ -200,7 +202,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.1',
+                    'sdk_version'      => '1.2.2',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -941,5 +943,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryEkytDriverResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ekyt.driver.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 申请设备设备密钥
+     * Summary: 申请设备设备密钥.
+     *
+     * @param ApplyIifaaDevicekeyRequest $request
+     *
+     * @return ApplyIifaaDevicekeyResponse
+     */
+    public function applyIifaaDevicekey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyIifaaDevicekeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 申请设备设备密钥
+     * Summary: 申请设备设备密钥.
+     *
+     * @param ApplyIifaaDevicekeyRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ApplyIifaaDevicekeyResponse
+     */
+    public function applyIifaaDevicekeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyIifaaDevicekeyResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.iifaa.devicekey.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
