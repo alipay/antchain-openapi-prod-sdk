@@ -621,6 +621,32 @@ func (s *CctDataMap) SetPicture(v []*string) *CctDataMap {
 	return s
 }
 
+// eKYT业务响应结果
+type IifaaEkytResponse struct {
+	// 响应头
+	Head *ResponseHead `json:"head,omitempty" xml:"head,omitempty" require:"true"`
+	// 业务响应结果
+	BizRes *string `json:"biz_res,omitempty" xml:"biz_res,omitempty" require:"true"`
+}
+
+func (s IifaaEkytResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IifaaEkytResponse) GoString() string {
+	return s.String()
+}
+
+func (s *IifaaEkytResponse) SetHead(v *ResponseHead) *IifaaEkytResponse {
+	s.Head = v
+	return s
+}
+
+func (s *IifaaEkytResponse) SetBizRes(v string) *IifaaEkytResponse {
+	s.BizRes = &v
+	return s
+}
+
 // 业务请求入参，兼容批量调用
 type BizQueryParam struct {
 	// 参数列表，数组
@@ -2988,6 +3014,104 @@ func (s *QueryEkytDriverResponse) SetData(v *RiskAssessData) *QueryEkytDriverRes
 	return s
 }
 
+type ApplyIifaaDevicekeyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求头
+	Head *RequestHead `json:"head,omitempty" xml:"head,omitempty" require:"true"`
+	// 业务参数
+	Request *string `json:"request,omitempty" xml:"request,omitempty" require:"true"`
+	// 签名
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+}
+
+func (s ApplyIifaaDevicekeyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyIifaaDevicekeyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyIifaaDevicekeyRequest) SetAuthToken(v string) *ApplyIifaaDevicekeyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyIifaaDevicekeyRequest) SetProductInstanceId(v string) *ApplyIifaaDevicekeyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyIifaaDevicekeyRequest) SetHead(v *RequestHead) *ApplyIifaaDevicekeyRequest {
+	s.Head = v
+	return s
+}
+
+func (s *ApplyIifaaDevicekeyRequest) SetRequest(v string) *ApplyIifaaDevicekeyRequest {
+	s.Request = &v
+	return s
+}
+
+func (s *ApplyIifaaDevicekeyRequest) SetSignature(v string) *ApplyIifaaDevicekeyRequest {
+	s.Signature = &v
+	return s
+}
+
+type ApplyIifaaDevicekeyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 结果描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 业务响应结果
+	Data *IifaaEkytResponse `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ApplyIifaaDevicekeyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyIifaaDevicekeyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyIifaaDevicekeyResponse) SetReqMsgId(v string) *ApplyIifaaDevicekeyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyIifaaDevicekeyResponse) SetResultCode(v string) *ApplyIifaaDevicekeyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyIifaaDevicekeyResponse) SetResultMsg(v string) *ApplyIifaaDevicekeyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyIifaaDevicekeyResponse) SetSuccess(v bool) *ApplyIifaaDevicekeyResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *ApplyIifaaDevicekeyResponse) SetMessage(v string) *ApplyIifaaDevicekeyResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *ApplyIifaaDevicekeyResponse) SetData(v *IifaaEkytResponse) *ApplyIifaaDevicekeyResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3110,7 +3234,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.1"),
+				"sdk_version":      tea.String("1.2.2"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3877,6 +4001,40 @@ func (client *Client) QueryEkytDriverEx(request *QueryEkytDriverRequest, headers
 	}
 	_result = &QueryEkytDriverResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.ekyt.driver.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 申请设备设备密钥
+ * Summary: 申请设备设备密钥
+ */
+func (client *Client) ApplyIifaaDevicekey(request *ApplyIifaaDevicekeyRequest) (_result *ApplyIifaaDevicekeyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyIifaaDevicekeyResponse{}
+	_body, _err := client.ApplyIifaaDevicekeyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 申请设备设备密钥
+ * Summary: 申请设备设备密钥
+ */
+func (client *Client) ApplyIifaaDevicekeyEx(request *ApplyIifaaDevicekeyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyIifaaDevicekeyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyIifaaDevicekeyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.iifaa.devicekey.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
