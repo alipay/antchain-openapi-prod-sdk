@@ -26,7 +26,7 @@ public class QueryEkytDriverResponse extends TeaModel {
 
     // 接口响应数据
     @NameInMap("data")
-    public RiskAssessData data;
+    public IifaaEkytResponse data;
 
     public static QueryEkytDriverResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryEkytDriverResponse self = new QueryEkytDriverResponse();
@@ -73,11 +73,11 @@ public class QueryEkytDriverResponse extends TeaModel {
         return this.message;
     }
 
-    public QueryEkytDriverResponse setData(RiskAssessData data) {
+    public QueryEkytDriverResponse setData(IifaaEkytResponse data) {
         this.data = data;
         return this;
     }
-    public RiskAssessData getData() {
+    public IifaaEkytResponse getData() {
         return this.data;
     }
 
