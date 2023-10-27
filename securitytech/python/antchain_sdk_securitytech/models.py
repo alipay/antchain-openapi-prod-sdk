@@ -778,6 +778,45 @@ class CctDataMap(TeaModel):
         return self
 
 
+class IifaaEkytResponse(TeaModel):
+    def __init__(
+        self,
+        head: ResponseHead = None,
+        biz_res: str = None,
+    ):
+        # 响应头
+        self.head = head
+        # 业务响应结果
+        self.biz_res = biz_res
+
+    def validate(self):
+        self.validate_required(self.head, 'head')
+        if self.head:
+            self.head.validate()
+        self.validate_required(self.biz_res, 'biz_res')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.head is not None:
+            result['head'] = self.head.to_map()
+        if self.biz_res is not None:
+            result['biz_res'] = self.biz_res
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('head') is not None:
+            temp_model = ResponseHead()
+            self.head = temp_model.from_map(m['head'])
+        if m.get('biz_res') is not None:
+            self.biz_res = m.get('biz_res')
+        return self
+
+
 class BizQueryParam(TeaModel):
     def __init__(
         self,
@@ -3726,6 +3765,131 @@ class QueryEkytDriverResponse(TeaModel):
             self.message = m.get('message')
         if m.get('data') is not None:
             temp_model = RiskAssessData()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class ApplyIifaaDevicekeyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        head: RequestHead = None,
+        request: str = None,
+        signature: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求头
+        self.head = head
+        # 业务参数
+        self.request = request
+        # 签名
+        self.signature = signature
+
+    def validate(self):
+        self.validate_required(self.head, 'head')
+        if self.head:
+            self.head.validate()
+        self.validate_required(self.request, 'request')
+        self.validate_required(self.signature, 'signature')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.head is not None:
+            result['head'] = self.head.to_map()
+        if self.request is not None:
+            result['request'] = self.request
+        if self.signature is not None:
+            result['signature'] = self.signature
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('head') is not None:
+            temp_model = RequestHead()
+            self.head = temp_model.from_map(m['head'])
+        if m.get('request') is not None:
+            self.request = m.get('request')
+        if m.get('signature') is not None:
+            self.signature = m.get('signature')
+        return self
+
+
+class ApplyIifaaDevicekeyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        message: str = None,
+        data: IifaaEkytResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 响应结果
+        self.success = success
+        # 结果描述
+        self.message = message
+        # 业务响应结果
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.message is not None:
+            result['message'] = self.message
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('data') is not None:
+            temp_model = IifaaEkytResponse()
             self.data = temp_model.from_map(m['data'])
         return self
 
