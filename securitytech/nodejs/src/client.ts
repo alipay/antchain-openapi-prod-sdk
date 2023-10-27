@@ -2276,7 +2276,7 @@ export class QueryEkytDriverResponse extends $tea.Model {
   // 接口响应描述
   message?: string;
   // 接口响应数据
-  data?: RiskAssessData;
+  data?: IifaaEkytResponse;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2295,7 +2295,7 @@ export class QueryEkytDriverResponse extends $tea.Model {
       resultMsg: 'string',
       success: 'boolean',
       message: 'string',
-      data: RiskAssessData,
+      data: IifaaEkytResponse,
     };
   }
 
@@ -2492,7 +2492,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.2",
+          sdk_version: "1.2.3",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
