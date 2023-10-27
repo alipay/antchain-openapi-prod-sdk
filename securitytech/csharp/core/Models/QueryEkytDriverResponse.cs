@@ -37,7 +37,7 @@ namespace AntChain.SDK.SECURITYTECH.Models
         // 接口响应数据
         [NameInMap("data")]
         [Validation(Required=false)]
-        public RiskAssessData Data { get; set; }
+        public IifaaEkytResponse Data { get; set; }
 
     }
 
