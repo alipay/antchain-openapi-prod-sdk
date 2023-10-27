@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.1',
+    sdk_version = '1.2.2',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -301,6 +301,14 @@ model CctDataMap {
   text?: [ string ](name='text', example='text'),
   // PICTURE
   picture?: [ string ](name='picture', example='PICTURE'),
+}
+
+// eKYT业务响应结果
+model IifaaEkytResponse {
+  // 响应头
+  head: ResponseHead(name='head', example=''),
+  // 业务响应结果
+  bizRes: string(name='biz_res', example='126dncnceicncwuiooo'),
 }
 
 // 业务请求入参，兼容批量调用
@@ -1373,5 +1381,51 @@ async function queryEkytDriver(request: QueryEkytDriverRequest): QueryEkytDriver
 async function queryEkytDriverEx(request: QueryEkytDriverRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEkytDriverResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.ekyt.driver.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyIifaaDevicekeyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求头
+  head: RequestHead(name='head'),
+  // 业务参数
+  request: string(name='request'),
+  // 签名
+  signature: string(name='signature'),
+}
+
+model ApplyIifaaDevicekeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应结果
+  success?: boolean(name='success'),
+  // 结果描述
+  message?: string(name='message'),
+  // 业务响应结果
+  data?: IifaaEkytResponse(name='data'),
+}
+
+/**
+ * Description: 申请设备设备密钥
+ * Summary: 申请设备设备密钥
+ */
+async function applyIifaaDevicekey(request: ApplyIifaaDevicekeyRequest): ApplyIifaaDevicekeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyIifaaDevicekeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 申请设备设备密钥
+ * Summary: 申请设备设备密钥
+ */
+async function applyIifaaDevicekeyEx(request: ApplyIifaaDevicekeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyIifaaDevicekeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.devicekey.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
