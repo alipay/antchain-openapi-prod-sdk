@@ -469,6 +469,31 @@ export class CctDataMap extends $tea.Model {
   }
 }
 
+// eKYT业务响应结果
+export class IifaaEkytResponse extends $tea.Model {
+  // 响应头
+  head: ResponseHead;
+  // 业务响应结果
+  bizRes: string;
+  static names(): { [key: string]: string } {
+    return {
+      head: 'head',
+      bizRes: 'biz_res',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      head: ResponseHead,
+      bizRes: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 业务请求入参，兼容批量调用
 export class BizQueryParam extends $tea.Model {
   // 参数列表，数组
@@ -2279,6 +2304,81 @@ export class QueryEkytDriverResponse extends $tea.Model {
   }
 }
 
+export class ApplyIifaaDevicekeyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求头
+  head: RequestHead;
+  // 业务参数
+  request: string;
+  // 签名
+  signature: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      head: 'head',
+      request: 'request',
+      signature: 'signature',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      head: RequestHead,
+      request: 'string',
+      signature: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyIifaaDevicekeyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应结果
+  success?: boolean;
+  // 结果描述
+  message?: string;
+  // 业务响应结果
+  data?: IifaaEkytResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      message: 'message',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      message: 'string',
+      data: IifaaEkytResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2392,7 +2492,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.1",
+          sdk_version: "1.2.2",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -2839,6 +2939,25 @@ export default class Client {
   async queryEkytDriverEx(request: QueryEkytDriverRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEkytDriverResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryEkytDriverResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ekyt.driver.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEkytDriverResponse({}));
+  }
+
+  /**
+   * Description: 申请设备设备密钥
+   * Summary: 申请设备设备密钥
+   */
+  async applyIifaaDevicekey(request: ApplyIifaaDevicekeyRequest): Promise<ApplyIifaaDevicekeyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyIifaaDevicekeyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 申请设备设备密钥
+   * Summary: 申请设备设备密钥
+   */
+  async applyIifaaDevicekeyEx(request: ApplyIifaaDevicekeyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyIifaaDevicekeyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyIifaaDevicekeyResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.iifaa.devicekey.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyIifaaDevicekeyResponse({}));
   }
 
 }
