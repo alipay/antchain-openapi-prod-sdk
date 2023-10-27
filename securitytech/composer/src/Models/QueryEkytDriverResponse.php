@@ -40,7 +40,7 @@ class QueryEkytDriverResponse extends Model
 
     // 接口响应数据
     /**
-     * @var RiskAssessData
+     * @var IifaaEkytResponse
      */
     public $data;
     protected $_name = [
@@ -105,7 +105,7 @@ class QueryEkytDriverResponse extends Model
             $model->message = $map['message'];
         }
         if (isset($map['data'])) {
-            $model->data = RiskAssessData::fromMap($map['data']);
+            $model->data = IifaaEkytResponse::fromMap($map['data']);
         }
 
         return $model;
