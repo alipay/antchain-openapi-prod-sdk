@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.104"),
+                    new TeaPair("sdk_version", "1.9.1"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1776,6 +1776,63 @@ public class Client {
     public PushMeterdataOrderResponse pushMeterdataOrderEx(PushMeterdataOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.meterdata.order.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushMeterdataOrderResponse());
+    }
+
+    /**
+     * Description: 3c商品开通消息转发
+     * Summary: 3c商品开通消息转发
+     */
+    public OpenIotplantformProductResponse openIotplantformProduct(OpenIotplantformProductRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.openIotplantformProductEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 3c商品开通消息转发
+     * Summary: 3c商品开通消息转发
+     */
+    public OpenIotplantformProductResponse openIotplantformProductEx(OpenIotplantformProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotplantform.product.open", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OpenIotplantformProductResponse());
+    }
+
+    /**
+     * Description: 3c商品停止消息转发
+     * Summary: 3c商品停止消息转发
+     */
+    public StopIotplantformProductResponse stopIotplantformProduct(StopIotplantformProductRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.stopIotplantformProductEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 3c商品停止消息转发
+     * Summary: 3c商品停止消息转发
+     */
+    public StopIotplantformProductResponse stopIotplantformProductEx(StopIotplantformProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotplantform.product.stop", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StopIotplantformProductResponse());
+    }
+
+    /**
+     * Description: 3c商品恢复消息转发
+     * Summary: 3c商品恢复消息转发
+     */
+    public ResumeIotplantformProductResponse resumeIotplantformProduct(ResumeIotplantformProductRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resumeIotplantformProductEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 3c商品恢复消息转发
+     * Summary: 3c商品恢复消息转发
+     */
+    public ResumeIotplantformProductResponse resumeIotplantformProductEx(ResumeIotplantformProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotplantform.product.resume", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResumeIotplantformProductResponse());
     }
 
     /**
@@ -3619,6 +3676,25 @@ public class Client {
     public DeployThingudfResponse deployThingudfEx(DeployThingudfRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.thingudf.deploy", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeployThingudfResponse());
+    }
+
+    /**
+     * Description: 分页查询二轮车操作日志
+     * Summary: 分页查询二轮车操作日志
+     */
+    public PagequeryEbikeOperationlogResponse pagequeryEbikeOperationlog(PagequeryEbikeOperationlogRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryEbikeOperationlogEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询二轮车操作日志
+     * Summary: 分页查询二轮车操作日志
+     */
+    public PagequeryEbikeOperationlogResponse pagequeryEbikeOperationlogEx(PagequeryEbikeOperationlogRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.ebike.operationlog.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryEbikeOperationlogResponse());
     }
 
     /**
