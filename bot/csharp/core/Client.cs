@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.104"},
+                        {"sdk_version", "1.9.1"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.104"},
+                        {"sdk_version", "1.9.1"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3893,6 +3893,132 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PushMeterdataOrderResponse>(await DoRequestAsync("1.0", "blockchain.bot.meterdata.order.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 3c商品开通消息转发
+         * Summary: 3c商品开通消息转发
+         */
+        public OpenIotplantformProductResponse OpenIotplantformProduct(OpenIotplantformProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OpenIotplantformProductEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 3c商品开通消息转发
+         * Summary: 3c商品开通消息转发
+         */
+        public async Task<OpenIotplantformProductResponse> OpenIotplantformProductAsync(OpenIotplantformProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OpenIotplantformProductExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 3c商品开通消息转发
+         * Summary: 3c商品开通消息转发
+         */
+        public OpenIotplantformProductResponse OpenIotplantformProductEx(OpenIotplantformProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OpenIotplantformProductResponse>(DoRequest("1.0", "blockchain.bot.iotplantform.product.open", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 3c商品开通消息转发
+         * Summary: 3c商品开通消息转发
+         */
+        public async Task<OpenIotplantformProductResponse> OpenIotplantformProductExAsync(OpenIotplantformProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OpenIotplantformProductResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotplantform.product.open", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 3c商品停止消息转发
+         * Summary: 3c商品停止消息转发
+         */
+        public StopIotplantformProductResponse StopIotplantformProduct(StopIotplantformProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StopIotplantformProductEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 3c商品停止消息转发
+         * Summary: 3c商品停止消息转发
+         */
+        public async Task<StopIotplantformProductResponse> StopIotplantformProductAsync(StopIotplantformProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StopIotplantformProductExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 3c商品停止消息转发
+         * Summary: 3c商品停止消息转发
+         */
+        public StopIotplantformProductResponse StopIotplantformProductEx(StopIotplantformProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StopIotplantformProductResponse>(DoRequest("1.0", "blockchain.bot.iotplantform.product.stop", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 3c商品停止消息转发
+         * Summary: 3c商品停止消息转发
+         */
+        public async Task<StopIotplantformProductResponse> StopIotplantformProductExAsync(StopIotplantformProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StopIotplantformProductResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotplantform.product.stop", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 3c商品恢复消息转发
+         * Summary: 3c商品恢复消息转发
+         */
+        public ResumeIotplantformProductResponse ResumeIotplantformProduct(ResumeIotplantformProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ResumeIotplantformProductEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 3c商品恢复消息转发
+         * Summary: 3c商品恢复消息转发
+         */
+        public async Task<ResumeIotplantformProductResponse> ResumeIotplantformProductAsync(ResumeIotplantformProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ResumeIotplantformProductExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 3c商品恢复消息转发
+         * Summary: 3c商品恢复消息转发
+         */
+        public ResumeIotplantformProductResponse ResumeIotplantformProductEx(ResumeIotplantformProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResumeIotplantformProductResponse>(DoRequest("1.0", "blockchain.bot.iotplantform.product.resume", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 3c商品恢复消息转发
+         * Summary: 3c商品恢复消息转发
+         */
+        public async Task<ResumeIotplantformProductResponse> ResumeIotplantformProductExAsync(ResumeIotplantformProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResumeIotplantformProductResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotplantform.product.resume", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -7967,6 +8093,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DeployThingudfResponse>(await DoRequestAsync("1.0", "blockchain.bot.thingudf.deploy", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询二轮车操作日志
+         * Summary: 分页查询二轮车操作日志
+         */
+        public PagequeryEbikeOperationlogResponse PagequeryEbikeOperationlog(PagequeryEbikeOperationlogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryEbikeOperationlogEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询二轮车操作日志
+         * Summary: 分页查询二轮车操作日志
+         */
+        public async Task<PagequeryEbikeOperationlogResponse> PagequeryEbikeOperationlogAsync(PagequeryEbikeOperationlogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryEbikeOperationlogExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询二轮车操作日志
+         * Summary: 分页查询二轮车操作日志
+         */
+        public PagequeryEbikeOperationlogResponse PagequeryEbikeOperationlogEx(PagequeryEbikeOperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryEbikeOperationlogResponse>(DoRequest("1.0", "blockchain.bot.ebike.operationlog.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询二轮车操作日志
+         * Summary: 分页查询二轮车操作日志
+         */
+        public async Task<PagequeryEbikeOperationlogResponse> PagequeryEbikeOperationlogExAsync(PagequeryEbikeOperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryEbikeOperationlogResponse>(await DoRequestAsync("1.0", "blockchain.bot.ebike.operationlog.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
