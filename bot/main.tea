@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.104',
+    sdk_version = '1.9.1',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -358,6 +358,28 @@ model GoodsDigitalFingerprintPointIdentificationResult {
   result: string(name='result', example='REAL'),
   // 鉴定子项鉴定得分
   grade: string(name='grade', example='0.92'),
+}
+
+// 二轮车操作日志
+model EBikeOperationLog {
+  // 日志时间
+  time: string(name='time', example='2018-10-10 10:10'),
+  // 租户
+  tenant: string(name='tenant', example='XXXXX'),
+  // 小程序应用Id
+  appId: string(name='app_id', example='7006071575519'),
+  // 用户id
+  userId: string(name='user_id', example='700607'),
+  // 设备id
+  deviceId?: string(name='device_id', example='DEVICE700607157'),
+  // 操作时间
+  operateTime: string(name='operate_time', example='2018-10-10 10:10:00'),
+  // 操作描述
+  operateDesc: string(name='operate_desc', example='开锁成功'),
+  // 操作是否成功
+  success: boolean(name='success', example='true, false'),
+  // 日志等级(info、warn、error)
+  level?: string(name='level', example='info'),
 }
 
 // 商品数字指纹鉴定点
@@ -1658,6 +1680,23 @@ model SendCollectorResult {
   txHash: string(name='tx_hash', example='2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2'),
   // 原入参的数组索引
   originalIndex: long(name='original_index', example='0'),
+}
+
+// 二轮车操作日志分页查询结果
+model EBikeOperationLogPageResponse {
+  // 页数
+  // 
+  pageIndex: long(name='page_index', example='1'),
+  // 页码
+  pageSize: long(name='page_size', example='10'),
+  // 总记录数
+  // 
+  totalSize: long(name='total_size', example='100'),
+  // 总页数
+  // 
+  totalPages: long(name='total_pages', example='10'),
+  // 数据
+  pageData: [ EBikeOperationLog ](name='page_data', example='{...}'),
 }
 
 // 指纹图片入库是否成功
@@ -6506,6 +6545,142 @@ async function pushMeterdataOrderEx(request: PushMeterdataOrderRequest, headers:
   return doRequest('1.0' ,'blockchain.bot.meterdata.order.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model OpenIotplantformProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 8位租户ID
+  bizTenant: string(name='biz_tenant'),
+  // 商品码
+  productCode: string(name='product_code'),
+  // 实例ID
+  instanceId: string(name='instance_id'),
+}
+
+model OpenIotplantformProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品计量表主键ID
+  meterDataId?: long(name='meter_data_id'),
+  // 商品实例是否处于可用状态
+  status?: long(name='status'),
+}
+
+/**
+ * Description: 3c商品开通消息转发
+ * Summary: 3c商品开通消息转发
+ */
+async function openIotplantformProduct(request: OpenIotplantformProductRequest): OpenIotplantformProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return openIotplantformProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 3c商品开通消息转发
+ * Summary: 3c商品开通消息转发
+ */
+async function openIotplantformProductEx(request: OpenIotplantformProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OpenIotplantformProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotplantform.product.open', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StopIotplantformProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 8位租户ID
+  bizTenant: string(name='biz_tenant'),
+  // 商品码
+  productCode: string(name='product_code'),
+  // 实例ID
+  instanceId: string(name='instance_id'),
+}
+
+model StopIotplantformProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品计量表主键ID
+  // 
+  meterDataId?: long(name='meter_data_id'),
+  // 商品实例是否处于可用状态，1可用，0不可用
+  status?: long(name='status'),
+}
+
+/**
+ * Description: 3c商品停止消息转发
+ * Summary: 3c商品停止消息转发
+ */
+async function stopIotplantformProduct(request: StopIotplantformProductRequest): StopIotplantformProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return stopIotplantformProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 3c商品停止消息转发
+ * Summary: 3c商品停止消息转发
+ */
+async function stopIotplantformProductEx(request: StopIotplantformProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StopIotplantformProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotplantform.product.stop', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ResumeIotplantformProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 8位租户ID	
+  // 
+  bizTenant: string(name='biz_tenant'),
+  // 商品码	
+  // 
+  productCode: string(name='product_code'),
+  // 实例ID	
+  // 
+  instanceId: string(name='instance_id'),
+}
+
+model ResumeIotplantformProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品计量表主键ID
+  meterDataId?: long(name='meter_data_id'),
+  // 商品实例是否处于可用状态，1可用，0不可用
+  status?: long(name='status'),
+}
+
+/**
+ * Description: 3c商品恢复消息转发
+ * Summary: 3c商品恢复消息转发
+ */
+async function resumeIotplantformProduct(request: ResumeIotplantformProductRequest): ResumeIotplantformProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return resumeIotplantformProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 3c商品恢复消息转发
+ * Summary: 3c商品恢复消息转发
+ */
+async function resumeIotplantformProductEx(request: ResumeIotplantformProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ResumeIotplantformProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotplantform.product.resume', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateDeviceDatamodelRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -11102,6 +11277,64 @@ async function deployThingudf(request: DeployThingudfRequest): DeployThingudfRes
 async function deployThingudfEx(request: DeployThingudfRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeployThingudfResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.thingudf.deploy', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryEbikeOperationlogRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 第几页
+  pageIndex: long(minimum=1, name='page_index'),
+  // 单页记录数
+  pageSize: long(maximum=100, minimum=1, name='page_size'),
+  // 开始时间（日志记录的时间）
+  startDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_date'),
+  // 结束时间（日志记录的时间）
+  endDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_date'),
+  // 小程序AppId
+  appId?: string(name='app_id'),
+  // 用户Id
+  userId?: string(name='user_id'),
+  // 用户手机号，当user_id不为空时，该值无效
+  userPhone?: string(name='user_phone'),
+  // 设备Id
+  deviceId?: string(name='device_id'),
+  // 操作描述
+  operateDesc?: string(name='operate_desc'),
+  // 操作是否成功
+  success?: boolean(name='success'),
+  // 日志等级（info、warn、error）
+  level?: string(name='level'),
+}
+
+model PagequeryEbikeOperationlogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据
+  data?: EBikeOperationLogPageResponse(name='data'),
+}
+
+/**
+ * Description: 分页查询二轮车操作日志
+ * Summary: 分页查询二轮车操作日志
+ */
+async function pagequeryEbikeOperationlog(request: PagequeryEbikeOperationlogRequest): PagequeryEbikeOperationlogResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryEbikeOperationlogEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询二轮车操作日志
+ * Summary: 分页查询二轮车操作日志
+ */
+async function pagequeryEbikeOperationlogEx(request: PagequeryEbikeOperationlogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryEbikeOperationlogResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.ebike.operationlog.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
