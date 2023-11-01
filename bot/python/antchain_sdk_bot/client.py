@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.104',
+                    'sdk_version': '1.9.1',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.104',
+                    'sdk_version': '1.9.1',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -5011,6 +5011,174 @@ class Client:
         return TeaCore.from_map(
             bot_models.PushMeterdataOrderResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.meterdata.order.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def open_iotplantform_product(
+        self,
+        request: bot_models.OpenIotplantformProductRequest,
+    ) -> bot_models.OpenIotplantformProductResponse:
+        """
+        Description: 3c商品开通消息转发
+        Summary: 3c商品开通消息转发
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.open_iotplantform_product_ex(request, headers, runtime)
+
+    async def open_iotplantform_product_async(
+        self,
+        request: bot_models.OpenIotplantformProductRequest,
+    ) -> bot_models.OpenIotplantformProductResponse:
+        """
+        Description: 3c商品开通消息转发
+        Summary: 3c商品开通消息转发
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.open_iotplantform_product_ex_async(request, headers, runtime)
+
+    def open_iotplantform_product_ex(
+        self,
+        request: bot_models.OpenIotplantformProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OpenIotplantformProductResponse:
+        """
+        Description: 3c商品开通消息转发
+        Summary: 3c商品开通消息转发
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OpenIotplantformProductResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotplantform.product.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def open_iotplantform_product_ex_async(
+        self,
+        request: bot_models.OpenIotplantformProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OpenIotplantformProductResponse:
+        """
+        Description: 3c商品开通消息转发
+        Summary: 3c商品开通消息转发
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OpenIotplantformProductResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotplantform.product.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def stop_iotplantform_product(
+        self,
+        request: bot_models.StopIotplantformProductRequest,
+    ) -> bot_models.StopIotplantformProductResponse:
+        """
+        Description: 3c商品停止消息转发
+        Summary: 3c商品停止消息转发
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_iotplantform_product_ex(request, headers, runtime)
+
+    async def stop_iotplantform_product_async(
+        self,
+        request: bot_models.StopIotplantformProductRequest,
+    ) -> bot_models.StopIotplantformProductResponse:
+        """
+        Description: 3c商品停止消息转发
+        Summary: 3c商品停止消息转发
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.stop_iotplantform_product_ex_async(request, headers, runtime)
+
+    def stop_iotplantform_product_ex(
+        self,
+        request: bot_models.StopIotplantformProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StopIotplantformProductResponse:
+        """
+        Description: 3c商品停止消息转发
+        Summary: 3c商品停止消息转发
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StopIotplantformProductResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotplantform.product.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def stop_iotplantform_product_ex_async(
+        self,
+        request: bot_models.StopIotplantformProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StopIotplantformProductResponse:
+        """
+        Description: 3c商品停止消息转发
+        Summary: 3c商品停止消息转发
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StopIotplantformProductResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotplantform.product.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def resume_iotplantform_product(
+        self,
+        request: bot_models.ResumeIotplantformProductRequest,
+    ) -> bot_models.ResumeIotplantformProductResponse:
+        """
+        Description: 3c商品恢复消息转发
+        Summary: 3c商品恢复消息转发
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.resume_iotplantform_product_ex(request, headers, runtime)
+
+    async def resume_iotplantform_product_async(
+        self,
+        request: bot_models.ResumeIotplantformProductRequest,
+    ) -> bot_models.ResumeIotplantformProductResponse:
+        """
+        Description: 3c商品恢复消息转发
+        Summary: 3c商品恢复消息转发
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.resume_iotplantform_product_ex_async(request, headers, runtime)
+
+    def resume_iotplantform_product_ex(
+        self,
+        request: bot_models.ResumeIotplantformProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ResumeIotplantformProductResponse:
+        """
+        Description: 3c商品恢复消息转发
+        Summary: 3c商品恢复消息转发
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ResumeIotplantformProductResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotplantform.product.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def resume_iotplantform_product_ex_async(
+        self,
+        request: bot_models.ResumeIotplantformProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ResumeIotplantformProductResponse:
+        """
+        Description: 3c商品恢复消息转发
+        Summary: 3c商品恢复消息转发
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ResumeIotplantformProductResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotplantform.product.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_device_datamodel(
@@ -10443,6 +10611,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.DeployThingudfResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thingudf.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_ebike_operationlog(
+        self,
+        request: bot_models.PagequeryEbikeOperationlogRequest,
+    ) -> bot_models.PagequeryEbikeOperationlogResponse:
+        """
+        Description: 分页查询二轮车操作日志
+        Summary: 分页查询二轮车操作日志
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_ebike_operationlog_ex(request, headers, runtime)
+
+    async def pagequery_ebike_operationlog_async(
+        self,
+        request: bot_models.PagequeryEbikeOperationlogRequest,
+    ) -> bot_models.PagequeryEbikeOperationlogResponse:
+        """
+        Description: 分页查询二轮车操作日志
+        Summary: 分页查询二轮车操作日志
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_ebike_operationlog_ex_async(request, headers, runtime)
+
+    def pagequery_ebike_operationlog_ex(
+        self,
+        request: bot_models.PagequeryEbikeOperationlogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryEbikeOperationlogResponse:
+        """
+        Description: 分页查询二轮车操作日志
+        Summary: 分页查询二轮车操作日志
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryEbikeOperationlogResponse(),
+            self.do_request('1.0', 'blockchain.bot.ebike.operationlog.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_ebike_operationlog_ex_async(
+        self,
+        request: bot_models.PagequeryEbikeOperationlogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryEbikeOperationlogResponse:
+        """
+        Description: 分页查询二轮车操作日志
+        Summary: 分页查询二轮车操作日志
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryEbikeOperationlogResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.ebike.operationlog.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
