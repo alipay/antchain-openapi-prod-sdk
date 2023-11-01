@@ -811,6 +811,81 @@ func (s *GoodsDigitalFingerprintPointIdentificationResult) SetGrade(v string) *G
 	return s
 }
 
+// 二轮车操作日志
+type EBikeOperationLog struct {
+	// 日志时间
+	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true"`
+	// 租户
+	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
+	// 小程序应用Id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 设备id
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
+	// 操作时间
+	OperateTime *string `json:"operate_time,omitempty" xml:"operate_time,omitempty" require:"true"`
+	// 操作描述
+	OperateDesc *string `json:"operate_desc,omitempty" xml:"operate_desc,omitempty" require:"true"`
+	// 操作是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 日志等级(info、warn、error)
+	Level *string `json:"level,omitempty" xml:"level,omitempty"`
+}
+
+func (s EBikeOperationLog) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EBikeOperationLog) GoString() string {
+	return s.String()
+}
+
+func (s *EBikeOperationLog) SetTime(v string) *EBikeOperationLog {
+	s.Time = &v
+	return s
+}
+
+func (s *EBikeOperationLog) SetTenant(v string) *EBikeOperationLog {
+	s.Tenant = &v
+	return s
+}
+
+func (s *EBikeOperationLog) SetAppId(v string) *EBikeOperationLog {
+	s.AppId = &v
+	return s
+}
+
+func (s *EBikeOperationLog) SetUserId(v string) *EBikeOperationLog {
+	s.UserId = &v
+	return s
+}
+
+func (s *EBikeOperationLog) SetDeviceId(v string) *EBikeOperationLog {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *EBikeOperationLog) SetOperateTime(v string) *EBikeOperationLog {
+	s.OperateTime = &v
+	return s
+}
+
+func (s *EBikeOperationLog) SetOperateDesc(v string) *EBikeOperationLog {
+	s.OperateDesc = &v
+	return s
+}
+
+func (s *EBikeOperationLog) SetSuccess(v bool) *EBikeOperationLog {
+	s.Success = &v
+	return s
+}
+
+func (s *EBikeOperationLog) SetLevel(v string) *EBikeOperationLog {
+	s.Level = &v
+	return s
+}
+
 // 商品数字指纹鉴定点
 type GoodsDigitalFingerprintPoint struct {
 	// 鉴定点子项
@@ -4862,6 +4937,56 @@ func (s *SendCollectorResult) SetTxHash(v string) *SendCollectorResult {
 
 func (s *SendCollectorResult) SetOriginalIndex(v int64) *SendCollectorResult {
 	s.OriginalIndex = &v
+	return s
+}
+
+// 二轮车操作日志分页查询结果
+type EBikeOperationLogPageResponse struct {
+	// 页数
+	//
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 页码
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 总记录数
+	//
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty" require:"true"`
+	// 总页数
+	//
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty" require:"true"`
+	// 数据
+	PageData []*EBikeOperationLog `json:"page_data,omitempty" xml:"page_data,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s EBikeOperationLogPageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EBikeOperationLogPageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *EBikeOperationLogPageResponse) SetPageIndex(v int64) *EBikeOperationLogPageResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *EBikeOperationLogPageResponse) SetPageSize(v int64) *EBikeOperationLogPageResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *EBikeOperationLogPageResponse) SetTotalSize(v int64) *EBikeOperationLogPageResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *EBikeOperationLogPageResponse) SetTotalPages(v int64) *EBikeOperationLogPageResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *EBikeOperationLogPageResponse) SetPageData(v []*EBikeOperationLog) *EBikeOperationLogPageResponse {
+	s.PageData = v
 	return s
 }
 
@@ -16058,6 +16183,283 @@ func (s *PushMeterdataOrderResponse) SetSuccess(v bool) *PushMeterdataOrderRespo
 	return s
 }
 
+type OpenIotplantformProductRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 8位租户ID
+	BizTenant *string `json:"biz_tenant,omitempty" xml:"biz_tenant,omitempty" require:"true"`
+	// 商品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+}
+
+func (s OpenIotplantformProductRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenIotplantformProductRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OpenIotplantformProductRequest) SetAuthToken(v string) *OpenIotplantformProductRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OpenIotplantformProductRequest) SetProductInstanceId(v string) *OpenIotplantformProductRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OpenIotplantformProductRequest) SetBizTenant(v string) *OpenIotplantformProductRequest {
+	s.BizTenant = &v
+	return s
+}
+
+func (s *OpenIotplantformProductRequest) SetProductCode(v string) *OpenIotplantformProductRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *OpenIotplantformProductRequest) SetInstanceId(v string) *OpenIotplantformProductRequest {
+	s.InstanceId = &v
+	return s
+}
+
+type OpenIotplantformProductResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商品计量表主键ID
+	MeterDataId *int64 `json:"meter_data_id,omitempty" xml:"meter_data_id,omitempty"`
+	// 商品实例是否处于可用状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s OpenIotplantformProductResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenIotplantformProductResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OpenIotplantformProductResponse) SetReqMsgId(v string) *OpenIotplantformProductResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OpenIotplantformProductResponse) SetResultCode(v string) *OpenIotplantformProductResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OpenIotplantformProductResponse) SetResultMsg(v string) *OpenIotplantformProductResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OpenIotplantformProductResponse) SetMeterDataId(v int64) *OpenIotplantformProductResponse {
+	s.MeterDataId = &v
+	return s
+}
+
+func (s *OpenIotplantformProductResponse) SetStatus(v int64) *OpenIotplantformProductResponse {
+	s.Status = &v
+	return s
+}
+
+type StopIotplantformProductRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 8位租户ID
+	BizTenant *string `json:"biz_tenant,omitempty" xml:"biz_tenant,omitempty" require:"true"`
+	// 商品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+}
+
+func (s StopIotplantformProductRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StopIotplantformProductRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StopIotplantformProductRequest) SetAuthToken(v string) *StopIotplantformProductRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StopIotplantformProductRequest) SetProductInstanceId(v string) *StopIotplantformProductRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StopIotplantformProductRequest) SetBizTenant(v string) *StopIotplantformProductRequest {
+	s.BizTenant = &v
+	return s
+}
+
+func (s *StopIotplantformProductRequest) SetProductCode(v string) *StopIotplantformProductRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *StopIotplantformProductRequest) SetInstanceId(v string) *StopIotplantformProductRequest {
+	s.InstanceId = &v
+	return s
+}
+
+type StopIotplantformProductResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商品计量表主键ID
+	//
+	MeterDataId *int64 `json:"meter_data_id,omitempty" xml:"meter_data_id,omitempty"`
+	// 商品实例是否处于可用状态，1可用，0不可用
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s StopIotplantformProductResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StopIotplantformProductResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StopIotplantformProductResponse) SetReqMsgId(v string) *StopIotplantformProductResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StopIotplantformProductResponse) SetResultCode(v string) *StopIotplantformProductResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StopIotplantformProductResponse) SetResultMsg(v string) *StopIotplantformProductResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StopIotplantformProductResponse) SetMeterDataId(v int64) *StopIotplantformProductResponse {
+	s.MeterDataId = &v
+	return s
+}
+
+func (s *StopIotplantformProductResponse) SetStatus(v int64) *StopIotplantformProductResponse {
+	s.Status = &v
+	return s
+}
+
+type ResumeIotplantformProductRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 8位租户ID
+	//
+	BizTenant *string `json:"biz_tenant,omitempty" xml:"biz_tenant,omitempty" require:"true"`
+	// 商品码
+	//
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 实例ID
+	//
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+}
+
+func (s ResumeIotplantformProductRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResumeIotplantformProductRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ResumeIotplantformProductRequest) SetAuthToken(v string) *ResumeIotplantformProductRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ResumeIotplantformProductRequest) SetProductInstanceId(v string) *ResumeIotplantformProductRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ResumeIotplantformProductRequest) SetBizTenant(v string) *ResumeIotplantformProductRequest {
+	s.BizTenant = &v
+	return s
+}
+
+func (s *ResumeIotplantformProductRequest) SetProductCode(v string) *ResumeIotplantformProductRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *ResumeIotplantformProductRequest) SetInstanceId(v string) *ResumeIotplantformProductRequest {
+	s.InstanceId = &v
+	return s
+}
+
+type ResumeIotplantformProductResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商品计量表主键ID
+	MeterDataId *int64 `json:"meter_data_id,omitempty" xml:"meter_data_id,omitempty"`
+	// 商品实例是否处于可用状态，1可用，0不可用
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ResumeIotplantformProductResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResumeIotplantformProductResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ResumeIotplantformProductResponse) SetReqMsgId(v string) *ResumeIotplantformProductResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ResumeIotplantformProductResponse) SetResultCode(v string) *ResumeIotplantformProductResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ResumeIotplantformProductResponse) SetResultMsg(v string) *ResumeIotplantformProductResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ResumeIotplantformProductResponse) SetMeterDataId(v int64) *ResumeIotplantformProductResponse {
+	s.MeterDataId = &v
+	return s
+}
+
+func (s *ResumeIotplantformProductResponse) SetStatus(v int64) *ResumeIotplantformProductResponse {
+	s.Status = &v
+	return s
+}
+
 type CreateDeviceDatamodelRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -25350,6 +25752,146 @@ func (s *DeployThingudfResponse) SetResultMsg(v string) *DeployThingudfResponse 
 	return s
 }
 
+type PagequeryEbikeOperationlogRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 第几页
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true" minimum:"1"`
+	// 单页记录数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true" maximum:"100" minimum:"1"`
+	// 开始时间（日志记录的时间）
+	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 结束时间（日志记录的时间）
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 小程序AppId
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// 用户Id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户手机号，当user_id不为空时，该值无效
+	UserPhone *string `json:"user_phone,omitempty" xml:"user_phone,omitempty"`
+	// 设备Id
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
+	// 操作描述
+	OperateDesc *string `json:"operate_desc,omitempty" xml:"operate_desc,omitempty"`
+	// 操作是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 日志等级（info、warn、error）
+	Level *string `json:"level,omitempty" xml:"level,omitempty"`
+}
+
+func (s PagequeryEbikeOperationlogRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryEbikeOperationlogRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryEbikeOperationlogRequest) SetAuthToken(v string) *PagequeryEbikeOperationlogRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogRequest) SetProductInstanceId(v string) *PagequeryEbikeOperationlogRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogRequest) SetPageIndex(v int64) *PagequeryEbikeOperationlogRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogRequest) SetPageSize(v int64) *PagequeryEbikeOperationlogRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogRequest) SetStartDate(v string) *PagequeryEbikeOperationlogRequest {
+	s.StartDate = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogRequest) SetEndDate(v string) *PagequeryEbikeOperationlogRequest {
+	s.EndDate = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogRequest) SetAppId(v string) *PagequeryEbikeOperationlogRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogRequest) SetUserId(v string) *PagequeryEbikeOperationlogRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogRequest) SetUserPhone(v string) *PagequeryEbikeOperationlogRequest {
+	s.UserPhone = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogRequest) SetDeviceId(v string) *PagequeryEbikeOperationlogRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogRequest) SetOperateDesc(v string) *PagequeryEbikeOperationlogRequest {
+	s.OperateDesc = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogRequest) SetSuccess(v bool) *PagequeryEbikeOperationlogRequest {
+	s.Success = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogRequest) SetLevel(v string) *PagequeryEbikeOperationlogRequest {
+	s.Level = &v
+	return s
+}
+
+type PagequeryEbikeOperationlogResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数据
+	Data *EBikeOperationLogPageResponse `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s PagequeryEbikeOperationlogResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryEbikeOperationlogResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryEbikeOperationlogResponse) SetReqMsgId(v string) *PagequeryEbikeOperationlogResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogResponse) SetResultCode(v string) *PagequeryEbikeOperationlogResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogResponse) SetResultMsg(v string) *PagequeryEbikeOperationlogResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryEbikeOperationlogResponse) SetData(v *EBikeOperationLogPageResponse) *PagequeryEbikeOperationlogResponse {
+	s.Data = v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -27120,7 +27662,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.104"),
+				"sdk_version":      tea.String("1.9.1"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -30056,6 +30598,108 @@ func (client *Client) PushMeterdataOrderEx(request *PushMeterdataOrderRequest, h
 	}
 	_result = &PushMeterdataOrderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.meterdata.order.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 3c商品开通消息转发
+ * Summary: 3c商品开通消息转发
+ */
+func (client *Client) OpenIotplantformProduct(request *OpenIotplantformProductRequest) (_result *OpenIotplantformProductResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OpenIotplantformProductResponse{}
+	_body, _err := client.OpenIotplantformProductEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 3c商品开通消息转发
+ * Summary: 3c商品开通消息转发
+ */
+func (client *Client) OpenIotplantformProductEx(request *OpenIotplantformProductRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OpenIotplantformProductResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OpenIotplantformProductResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotplantform.product.open"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 3c商品停止消息转发
+ * Summary: 3c商品停止消息转发
+ */
+func (client *Client) StopIotplantformProduct(request *StopIotplantformProductRequest) (_result *StopIotplantformProductResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StopIotplantformProductResponse{}
+	_body, _err := client.StopIotplantformProductEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 3c商品停止消息转发
+ * Summary: 3c商品停止消息转发
+ */
+func (client *Client) StopIotplantformProductEx(request *StopIotplantformProductRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StopIotplantformProductResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StopIotplantformProductResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotplantform.product.stop"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 3c商品恢复消息转发
+ * Summary: 3c商品恢复消息转发
+ */
+func (client *Client) ResumeIotplantformProduct(request *ResumeIotplantformProductRequest) (_result *ResumeIotplantformProductResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ResumeIotplantformProductResponse{}
+	_body, _err := client.ResumeIotplantformProductEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 3c商品恢复消息转发
+ * Summary: 3c商品恢复消息转发
+ */
+func (client *Client) ResumeIotplantformProductEx(request *ResumeIotplantformProductRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResumeIotplantformProductResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ResumeIotplantformProductResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotplantform.product.resume"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -33354,6 +33998,40 @@ func (client *Client) DeployThingudfEx(request *DeployThingudfRequest, headers m
 	}
 	_result = &DeployThingudfResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thingudf.deploy"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询二轮车操作日志
+ * Summary: 分页查询二轮车操作日志
+ */
+func (client *Client) PagequeryEbikeOperationlog(request *PagequeryEbikeOperationlogRequest) (_result *PagequeryEbikeOperationlogResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryEbikeOperationlogResponse{}
+	_body, _err := client.PagequeryEbikeOperationlogEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询二轮车操作日志
+ * Summary: 分页查询二轮车操作日志
+ */
+func (client *Client) PagequeryEbikeOperationlogEx(request *PagequeryEbikeOperationlogRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryEbikeOperationlogResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryEbikeOperationlogResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.ebike.operationlog.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
