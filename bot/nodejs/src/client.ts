@@ -570,6 +570,59 @@ export class GoodsDigitalFingerprintPointIdentificationResult extends $tea.Model
   }
 }
 
+// 二轮车操作日志
+export class EBikeOperationLog extends $tea.Model {
+  // 日志时间
+  time: string;
+  // 租户
+  tenant: string;
+  // 小程序应用Id
+  appId: string;
+  // 用户id
+  userId: string;
+  // 设备id
+  deviceId?: string;
+  // 操作时间
+  operateTime: string;
+  // 操作描述
+  operateDesc: string;
+  // 操作是否成功
+  success: boolean;
+  // 日志等级(info、warn、error)
+  level?: string;
+  static names(): { [key: string]: string } {
+    return {
+      time: 'time',
+      tenant: 'tenant',
+      appId: 'app_id',
+      userId: 'user_id',
+      deviceId: 'device_id',
+      operateTime: 'operate_time',
+      operateDesc: 'operate_desc',
+      success: 'success',
+      level: 'level',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      time: 'string',
+      tenant: 'string',
+      appId: 'string',
+      userId: 'string',
+      deviceId: 'string',
+      operateTime: 'string',
+      operateDesc: 'string',
+      success: 'boolean',
+      level: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 商品数字指纹鉴定点
 export class GoodsDigitalFingerprintPoint extends $tea.Model {
   // 鉴定点子项
@@ -3728,6 +3781,46 @@ export class SendCollectorResult extends $tea.Model {
     return {
       txHash: 'string',
       originalIndex: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 二轮车操作日志分页查询结果
+export class EBikeOperationLogPageResponse extends $tea.Model {
+  // 页数
+  // 
+  pageIndex: number;
+  // 页码
+  pageSize: number;
+  // 总记录数
+  // 
+  totalSize: number;
+  // 总页数
+  // 
+  totalPages: number;
+  // 数据
+  pageData: EBikeOperationLog[];
+  static names(): { [key: string]: string } {
+    return {
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      totalSize: 'total_size',
+      totalPages: 'total_pages',
+      pageData: 'page_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pageIndex: 'number',
+      pageSize: 'number',
+      totalSize: 'number',
+      totalPages: 'number',
+      pageData: { 'type': 'array', 'itemType': EBikeOperationLog },
     };
   }
 
@@ -12209,6 +12302,223 @@ export class PushMeterdataOrderResponse extends $tea.Model {
   }
 }
 
+export class OpenIotplantformProductRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 8位租户ID
+  bizTenant: string;
+  // 商品码
+  productCode: string;
+  // 实例ID
+  instanceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizTenant: 'biz_tenant',
+      productCode: 'product_code',
+      instanceId: 'instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizTenant: 'string',
+      productCode: 'string',
+      instanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OpenIotplantformProductResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商品计量表主键ID
+  meterDataId?: number;
+  // 商品实例是否处于可用状态
+  status?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      meterDataId: 'meter_data_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      meterDataId: 'number',
+      status: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StopIotplantformProductRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 8位租户ID
+  bizTenant: string;
+  // 商品码
+  productCode: string;
+  // 实例ID
+  instanceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizTenant: 'biz_tenant',
+      productCode: 'product_code',
+      instanceId: 'instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizTenant: 'string',
+      productCode: 'string',
+      instanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StopIotplantformProductResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商品计量表主键ID
+  // 
+  meterDataId?: number;
+  // 商品实例是否处于可用状态，1可用，0不可用
+  status?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      meterDataId: 'meter_data_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      meterDataId: 'number',
+      status: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResumeIotplantformProductRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 8位租户ID	
+  // 
+  bizTenant: string;
+  // 商品码	
+  // 
+  productCode: string;
+  // 实例ID	
+  // 
+  instanceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizTenant: 'biz_tenant',
+      productCode: 'product_code',
+      instanceId: 'instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizTenant: 'string',
+      productCode: 'string',
+      instanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResumeIotplantformProductResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商品计量表主键ID
+  meterDataId?: number;
+  // 商品实例是否处于可用状态，1可用，0不可用
+  status?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      meterDataId: 'meter_data_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      meterDataId: 'number',
+      status: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateDeviceDatamodelRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -19480,6 +19790,105 @@ export class DeployThingudfResponse extends $tea.Model {
   }
 }
 
+export class PagequeryEbikeOperationlogRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 第几页
+  pageIndex: number;
+  // 单页记录数
+  pageSize: number;
+  // 开始时间（日志记录的时间）
+  startDate: string;
+  // 结束时间（日志记录的时间）
+  endDate: string;
+  // 小程序AppId
+  appId?: string;
+  // 用户Id
+  userId?: string;
+  // 用户手机号，当user_id不为空时，该值无效
+  userPhone?: string;
+  // 设备Id
+  deviceId?: string;
+  // 操作描述
+  operateDesc?: string;
+  // 操作是否成功
+  success?: boolean;
+  // 日志等级（info、warn、error）
+  level?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      startDate: 'start_date',
+      endDate: 'end_date',
+      appId: 'app_id',
+      userId: 'user_id',
+      userPhone: 'user_phone',
+      deviceId: 'device_id',
+      operateDesc: 'operate_desc',
+      success: 'success',
+      level: 'level',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      pageIndex: 'number',
+      pageSize: 'number',
+      startDate: 'string',
+      endDate: 'string',
+      appId: 'string',
+      userId: 'string',
+      userPhone: 'string',
+      deviceId: 'string',
+      operateDesc: 'string',
+      success: 'boolean',
+      level: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryEbikeOperationlogResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数据
+  data?: EBikeOperationLogPageResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: EBikeOperationLogPageResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -20862,7 +21271,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.104",
+          sdk_version: "1.9.1",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -22525,6 +22934,63 @@ export default class Client {
   async pushMeterdataOrderEx(request: PushMeterdataOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushMeterdataOrderResponse> {
     Util.validateModel(request);
     return $tea.cast<PushMeterdataOrderResponse>(await this.doRequest("1.0", "blockchain.bot.meterdata.order.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushMeterdataOrderResponse({}));
+  }
+
+  /**
+   * Description: 3c商品开通消息转发
+   * Summary: 3c商品开通消息转发
+   */
+  async openIotplantformProduct(request: OpenIotplantformProductRequest): Promise<OpenIotplantformProductResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.openIotplantformProductEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 3c商品开通消息转发
+   * Summary: 3c商品开通消息转发
+   */
+  async openIotplantformProductEx(request: OpenIotplantformProductRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OpenIotplantformProductResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OpenIotplantformProductResponse>(await this.doRequest("1.0", "blockchain.bot.iotplantform.product.open", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OpenIotplantformProductResponse({}));
+  }
+
+  /**
+   * Description: 3c商品停止消息转发
+   * Summary: 3c商品停止消息转发
+   */
+  async stopIotplantformProduct(request: StopIotplantformProductRequest): Promise<StopIotplantformProductResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.stopIotplantformProductEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 3c商品停止消息转发
+   * Summary: 3c商品停止消息转发
+   */
+  async stopIotplantformProductEx(request: StopIotplantformProductRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StopIotplantformProductResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StopIotplantformProductResponse>(await this.doRequest("1.0", "blockchain.bot.iotplantform.product.stop", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StopIotplantformProductResponse({}));
+  }
+
+  /**
+   * Description: 3c商品恢复消息转发
+   * Summary: 3c商品恢复消息转发
+   */
+  async resumeIotplantformProduct(request: ResumeIotplantformProductRequest): Promise<ResumeIotplantformProductResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.resumeIotplantformProductEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 3c商品恢复消息转发
+   * Summary: 3c商品恢复消息转发
+   */
+  async resumeIotplantformProductEx(request: ResumeIotplantformProductRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResumeIotplantformProductResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ResumeIotplantformProductResponse>(await this.doRequest("1.0", "blockchain.bot.iotplantform.product.resume", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResumeIotplantformProductResponse({}));
   }
 
   /**
@@ -24368,6 +24834,25 @@ export default class Client {
   async deployThingudfEx(request: DeployThingudfRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeployThingudfResponse> {
     Util.validateModel(request);
     return $tea.cast<DeployThingudfResponse>(await this.doRequest("1.0", "blockchain.bot.thingudf.deploy", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeployThingudfResponse({}));
+  }
+
+  /**
+   * Description: 分页查询二轮车操作日志
+   * Summary: 分页查询二轮车操作日志
+   */
+  async pagequeryEbikeOperationlog(request: PagequeryEbikeOperationlogRequest): Promise<PagequeryEbikeOperationlogResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryEbikeOperationlogEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分页查询二轮车操作日志
+   * Summary: 分页查询二轮车操作日志
+   */
+  async pagequeryEbikeOperationlogEx(request: PagequeryEbikeOperationlogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryEbikeOperationlogResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryEbikeOperationlogResponse>(await this.doRequest("1.0", "blockchain.bot.ebike.operationlog.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryEbikeOperationlogResponse({}));
   }
 
   /**
