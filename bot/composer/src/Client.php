@@ -181,6 +181,8 @@ use AntChain\BOT\Models\OnlineDeviceRequest;
 use AntChain\BOT\Models\OnlineDeviceResponse;
 use AntChain\BOT\Models\OpenAcecContractRequest;
 use AntChain\BOT\Models\OpenAcecContractResponse;
+use AntChain\BOT\Models\OpenIotplantformProductRequest;
+use AntChain\BOT\Models\OpenIotplantformProductResponse;
 use AntChain\BOT\Models\OperateAiotnextbsOpenapiRequest;
 use AntChain\BOT\Models\OperateAiotnextbsOpenapiResponse;
 use AntChain\BOT\Models\OperateIotbasicBatchcollectRequest;
@@ -215,6 +217,8 @@ use AntChain\BOT\Models\PagequeryAlertStrategyRequest;
 use AntChain\BOT\Models\PagequeryAlertStrategyResponse;
 use AntChain\BOT\Models\PagequeryDataverifyFailureRequest;
 use AntChain\BOT\Models\PagequeryDataverifyFailureResponse;
+use AntChain\BOT\Models\PagequeryEbikeOperationlogRequest;
+use AntChain\BOT\Models\PagequeryEbikeOperationlogResponse;
 use AntChain\BOT\Models\PagequeryProductkeyRequest;
 use AntChain\BOT\Models\PagequeryProductkeyResponse;
 use AntChain\BOT\Models\PagequerySceneRequest;
@@ -327,6 +331,8 @@ use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidRequest;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidResponse;
 use AntChain\BOT\Models\ResumeAcecContractRequest;
 use AntChain\BOT\Models\ResumeAcecContractResponse;
+use AntChain\BOT\Models\ResumeIotplantformProductRequest;
+use AntChain\BOT\Models\ResumeIotplantformProductResponse;
 use AntChain\BOT\Models\SaveIotbasicCustomerRequest;
 use AntChain\BOT\Models\SaveIotbasicCustomerResponse;
 use AntChain\BOT\Models\SendAcsCollectorRequest;
@@ -359,6 +365,8 @@ use AntChain\BOT\Models\StartTlsnotaryTaskRequest;
 use AntChain\BOT\Models\StartTlsnotaryTaskResponse;
 use AntChain\BOT\Models\StopAcecContractRequest;
 use AntChain\BOT\Models\StopAcecContractResponse;
+use AntChain\BOT\Models\StopIotplantformProductRequest;
+use AntChain\BOT\Models\StopIotplantformProductResponse;
 use AntChain\BOT\Models\SyncDeviceScreenstatusRequest;
 use AntChain\BOT\Models\SyncDeviceScreenstatusResponse;
 use AntChain\BOT\Models\SyncIotbasicDevicegenerateRequest;
@@ -554,7 +562,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.104',
+                    'sdk_version'      => '1.9.1',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3390,6 +3398,105 @@ class Client
         Utils::validateModel($request);
 
         return PushMeterdataOrderResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.meterdata.order.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 3c商品开通消息转发
+     * Summary: 3c商品开通消息转发.
+     *
+     * @param OpenIotplantformProductRequest $request
+     *
+     * @return OpenIotplantformProductResponse
+     */
+    public function openIotplantformProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->openIotplantformProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 3c商品开通消息转发
+     * Summary: 3c商品开通消息转发.
+     *
+     * @param OpenIotplantformProductRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return OpenIotplantformProductResponse
+     */
+    public function openIotplantformProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OpenIotplantformProductResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotplantform.product.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 3c商品停止消息转发
+     * Summary: 3c商品停止消息转发.
+     *
+     * @param StopIotplantformProductRequest $request
+     *
+     * @return StopIotplantformProductResponse
+     */
+    public function stopIotplantformProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->stopIotplantformProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 3c商品停止消息转发
+     * Summary: 3c商品停止消息转发.
+     *
+     * @param StopIotplantformProductRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return StopIotplantformProductResponse
+     */
+    public function stopIotplantformProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StopIotplantformProductResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotplantform.product.stop', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 3c商品恢复消息转发
+     * Summary: 3c商品恢复消息转发.
+     *
+     * @param ResumeIotplantformProductRequest $request
+     *
+     * @return ResumeIotplantformProductResponse
+     */
+    public function resumeIotplantformProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resumeIotplantformProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 3c商品恢复消息转发
+     * Summary: 3c商品恢复消息转发.
+     *
+     * @param ResumeIotplantformProductRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return ResumeIotplantformProductResponse
+     */
+    public function resumeIotplantformProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResumeIotplantformProductResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotplantform.product.resume', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -6591,6 +6698,39 @@ class Client
         Utils::validateModel($request);
 
         return DeployThingudfResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thingudf.deploy', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询二轮车操作日志
+     * Summary: 分页查询二轮车操作日志.
+     *
+     * @param PagequeryEbikeOperationlogRequest $request
+     *
+     * @return PagequeryEbikeOperationlogResponse
+     */
+    public function pagequeryEbikeOperationlog($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryEbikeOperationlogEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询二轮车操作日志
+     * Summary: 分页查询二轮车操作日志.
+     *
+     * @param PagequeryEbikeOperationlogRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return PagequeryEbikeOperationlogResponse
+     */
+    public function pagequeryEbikeOperationlogEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryEbikeOperationlogResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.ebike.operationlog.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
