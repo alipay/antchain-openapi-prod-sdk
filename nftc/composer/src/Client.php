@@ -11,18 +11,32 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\NFTC\Models\ApplyNftTransferRequest;
+use AntChain\NFTC\Models\ApplyNftTransferResponse;
+use AntChain\NFTC\Models\ApplyOauthTokenRequest;
+use AntChain\NFTC\Models\ApplyOauthTokenResponse;
+use AntChain\NFTC\Models\ApplyOauthUserinfotokenRequest;
+use AntChain\NFTC\Models\ApplyOauthUserinfotokenResponse;
 use AntChain\NFTC\Models\BindResourceGeneralresourcefileRequest;
 use AntChain\NFTC\Models\BindResourceGeneralresourcefileResponse;
 use AntChain\NFTC\Models\CreateResourceGeneralresourceRequest;
 use AntChain\NFTC\Models\CreateResourceGeneralresourceResponse;
+use AntChain\NFTC\Models\PagequeryNftCustomerRequest;
+use AntChain\NFTC\Models\PagequeryNftCustomerResponse;
 use AntChain\NFTC\Models\PublishMerchantDiyskuRequest;
 use AntChain\NFTC\Models\PublishMerchantDiyskuResponse;
 use AntChain\NFTC\Models\PublishResourceGeneralresourcefileRequest;
 use AntChain\NFTC\Models\PublishResourceGeneralresourcefileResponse;
+use AntChain\NFTC\Models\QueryAvatarProfileRequest;
+use AntChain\NFTC\Models\QueryAvatarProfileResponse;
 use AntChain\NFTC\Models\QueryMerchantDiyskuRequest;
 use AntChain\NFTC\Models\QueryMerchantDiyskuResponse;
 use AntChain\NFTC\Models\QueryMerchantUgcimagesRequest;
 use AntChain\NFTC\Models\QueryMerchantUgcimagesResponse;
+use AntChain\NFTC\Models\QueryNftOrderRequest;
+use AntChain\NFTC\Models\QueryNftOrderResponse;
+use AntChain\NFTC\Models\QueryOauthUserinfoRequest;
+use AntChain\NFTC\Models\QueryOauthUserinfoResponse;
 use AntChain\NFTC\Models\QueryResourcePatchlistRequest;
 use AntChain\NFTC\Models\QueryResourcePatchlistResponse;
 use AntChain\Util\UtilClient;
@@ -144,7 +158,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 通用资源差量包信息
+            // 数字人部件素材对象
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -172,7 +186,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.4',
+                    'sdk_version'      => '1.0.5',
                     '_prod_code'       => 'NFTC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -317,6 +331,237 @@ class Client
         Utils::validateModel($request);
 
         return QueryMerchantUgcimagesResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.merchant.ugcimages.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取当前用户的数字人形象，进而在NBA空间内进行渲染
+     * Summary: 查询当前数字人形象
+     *
+     * @param QueryAvatarProfileRequest $request
+     *
+     * @return QueryAvatarProfileResponse
+     */
+    public function queryAvatarProfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAvatarProfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取当前用户的数字人形象，进而在NBA空间内进行渲染
+     * Summary: 查询当前数字人形象
+     *
+     * @param QueryAvatarProfileRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryAvatarProfileResponse
+     */
+    public function queryAvatarProfileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAvatarProfileResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.avatar.profile.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: authcode换取token
+     * Summary: authcode换取token.
+     *
+     * @param ApplyOauthTokenRequest $request
+     *
+     * @return ApplyOauthTokenResponse
+     */
+    public function applyOauthToken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyOauthTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: authcode换取token
+     * Summary: authcode换取token.
+     *
+     * @param ApplyOauthTokenRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ApplyOauthTokenResponse
+     */
+    public function applyOauthTokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyOauthTokenResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.oauth.token.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: token获取头像/昵称
+     * Summary: token获取头像/昵称.
+     *
+     * @param QueryOauthUserinfoRequest $request
+     *
+     * @return QueryOauthUserinfoResponse
+     */
+    public function queryOauthUserinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOauthUserinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: token获取头像/昵称
+     * Summary: token获取头像/昵称.
+     *
+     * @param QueryOauthUserinfoRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryOauthUserinfoResponse
+     */
+    public function queryOauthUserinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOauthUserinfoResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.oauth.userinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取用户Token
+     * Summary: 获取用户Token.
+     *
+     * @param ApplyOauthUserinfotokenRequest $request
+     *
+     * @return ApplyOauthUserinfotokenResponse
+     */
+    public function applyOauthUserinfotoken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyOauthUserinfotokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取用户Token
+     * Summary: 获取用户Token.
+     *
+     * @param ApplyOauthUserinfotokenRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ApplyOauthUserinfotokenResponse
+     */
+    public function applyOauthUserinfotokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyOauthUserinfotokenResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.oauth.userinfotoken.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租户根据sku给用户发放藏品
+     * Summary: 发放藏品
+     *
+     * @param ApplyNftTransferRequest $request
+     *
+     * @return ApplyNftTransferResponse
+     */
+    public function applyNftTransfer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyNftTransferEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租户根据sku给用户发放藏品
+     * Summary: 发放藏品
+     *
+     * @param ApplyNftTransferRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ApplyNftTransferResponse
+     */
+    public function applyNftTransferEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyNftTransferResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.nft.transfer.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用租户分页查询用户该租户发行的sku的资产
+     * Summary: 查询藏品
+     *
+     * @param PagequeryNftCustomerRequest $request
+     *
+     * @return PagequeryNftCustomerResponse
+     */
+    public function pagequeryNftCustomer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryNftCustomerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用租户分页查询用户该租户发行的sku的资产
+     * Summary: 查询藏品
+     *
+     * @param PagequeryNftCustomerRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return PagequeryNftCustomerResponse
+     */
+    public function pagequeryNftCustomerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryNftCustomerResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.nft.customer.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询支付结果
+     * Summary: 查询支付结果.
+     *
+     * @param QueryNftOrderRequest $request
+     *
+     * @return QueryNftOrderResponse
+     */
+    public function queryNftOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNftOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询支付结果
+     * Summary: 查询支付结果.
+     *
+     * @param QueryNftOrderRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryNftOrderResponse
+     */
+    public function queryNftOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNftOrderResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.nft.order.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
