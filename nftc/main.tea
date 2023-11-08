@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.4',
+    sdk_version = '1.0.5',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -161,6 +161,33 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 数字人部件素材对象
+model AvatarMaterialDTO {
+  // 装扮id
+  decoId: string(name='deco_id', example='1111'),
+  // 装扮名称
+  decoName: string(name='deco_name', example='湖人主场球衣'),
+  // IOS ab包地址
+  iosAbUrl: string(name='ios_ab_url', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
+  // Android ab包地址
+  androidAbUrl: string(name='android_ab_url', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
+  // json配置
+  json: string(name='json', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
+  // 贴图文件配置
+  textureUrl: string(name='texture_url', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
+  // 缩略图
+  thumbnail: string(name='thumbnail', example='https://www.xx.com'),
+  // json字符串，装扮额外属性信息
+  // 如自定义头发颜色，性别等
+  avatarPvJson: string(name='avatar_pv_json', example='{"COLOR":"0F#1111","GENDER":"MALE"}'),
+}
+
+// 订单商品对象
+model ExternalOrderItemDTO {
+  // 购买的sku id
+  skuId: string(name='sku_id', example='12345'),
+}
+
 // 通用资源差量包信息
 model GeneralResourcePatch {
   // 差量包文件下载地址
@@ -171,6 +198,79 @@ model GeneralResourcePatch {
   md5: string(name='md5', example='9d5f26c7469ea9699a6e5f03ecfce24d'),
   // 差量包文件大小
   size: long(name='size', example='123'),
+}
+
+// 外部订单对象
+model ExternalOrderDTO {
+  // 订单的状态
+  // PAID 已支付
+  // PENDING 待支付
+  // NOT_EXIST 不存在
+  orderStatus: string(name='order_status', example='PAID'),
+  // 只有在PAID状态下，此字段才会有值
+  // 由于当前一笔订单只会购买一个资产，因此当前list中只会有一个值
+  orderItemList?: [ ExternalOrderItemDTO ](name='order_item_list', example=''),
+}
+
+// 数字人整体形象
+model AvatarDTO {
+  // 数字人基础身体白模
+  avatarBodyUrl: string(name='avatar_body_url', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
+  // 数字人基础脸部模型
+  avatarFaceUrl: string(name='avatar_face_url', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
+  // 数字人基础脸部Json配置
+  avatarFaceJson: string(name='avatar_face_json', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
+  // 上衣配置
+  upcloth: AvatarMaterialDTO(name='upcloth', example=''),
+  // 下衣配置
+  downcloth: AvatarMaterialDTO(name='downcloth', example=''),
+  // 鞋子配置
+  shoe: AvatarMaterialDTO(name='shoe', example=''),
+  // 套装配置
+  suit: AvatarMaterialDTO(name='suit', example=''),
+  // 配饰配置
+  accessory: AvatarMaterialDTO(name='accessory', example=''),
+  // 头发配置
+  hair: AvatarMaterialDTO(name='hair', example=''),
+  // 脸型配置
+  head: AvatarMaterialDTO(name='head', example=''),
+  // 眉毛配置
+  eyebrow: AvatarMaterialDTO(name='eyebrow', example=''),
+  // 眼睛配置
+  eye: AvatarMaterialDTO(name='eye', example=''),
+  // 嘴巴配置
+  lip: AvatarMaterialDTO(name='lip', example=''),
+  // 鼻子配置
+  nose: AvatarMaterialDTO(name='nose', example=''),
+  // 腮红配置
+  rouge: AvatarMaterialDTO(name='rouge', example=''),
+  // 美瞳配置
+  lens: AvatarMaterialDTO(name='lens', example=''),
+  // 睫毛配置
+  eyelash: AvatarMaterialDTO(name='eyelash', example=''),
+  // 唇妆配置
+  lipstick: AvatarMaterialDTO(name='lipstick', example=''),
+  // 眼线配置
+  eyeliner: AvatarMaterialDTO(name='eyeliner', example=''),
+  // 眼影配置
+  eyeshadow: AvatarMaterialDTO(name='eyeshadow', example=''),
+}
+
+// 用户资产
+// 
+model UserAsset {
+  // NFT商品的商品编码
+  skuId: long(name='sku_id', example='1234'),
+  // NFT资产的唯一编码
+  nftId: string(name='nft_id', example='AC1234#001/150'),
+  // NFT商品的名称
+  skuName: string(name='sku_name', example='敦煌飞天九色鹿'),
+  // NFT的创作者名称
+  authorName: string(name='author_name', example='敦煌'),
+  // NFT的发行方名称
+  issuerName: string(name='issuer_name', example='支付宝'),
+  // 缩略图url
+  miniImagePath: string(name='mini_image_path', example='http://www.abc.com'),
 }
 
 model PublishMerchantDiyskuRequest = {
@@ -331,6 +431,319 @@ async function queryMerchantUgcimages(request: QueryMerchantUgcimagesRequest): Q
 async function queryMerchantUgcimagesEx(request: QueryMerchantUgcimagesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMerchantUgcimagesResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftc.merchant.ugcimages.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAvatarProfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 在antchain.nftc.oauth.token.apply接口内获取到的AccessToken，带过期时间，可唯一确定当前用户
+  accessToken: string(name='access_token'),
+}
+
+model QueryAvatarProfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数字人整体形象数据
+  avatarInfo?: AvatarDTO(name='avatar_info'),
+}
+
+/**
+ * Description: 获取当前用户的数字人形象，进而在NBA空间内进行渲染
+ * Summary: 查询当前数字人形象
+ */
+async function queryAvatarProfile(request: QueryAvatarProfileRequest): QueryAvatarProfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAvatarProfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取当前用户的数字人形象，进而在NBA空间内进行渲染
+ * Summary: 查询当前数字人形象
+ */
+async function queryAvatarProfileEx(request: QueryAvatarProfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAvatarProfileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.avatar.profile.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyOauthTokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权方式。支持：
+  // 1.authorization_code，表示换取使用用户授权码code换取授权令牌access_token。
+  // 2.refresh_token，表示使用refresh_token刷新获取新授权令牌。
+  // refresh_token本期新增
+  grantType: string(name='grant_type'),
+  // 刷新令牌，上次换取访问令牌时得到。本参数在 grant_type 为 authorization_code 时不填；为 refresh_token 时必填；
+  refreshToken?: string(name='refresh_token'),
+  // 授权码，用户对应用授权后得到。本参数在 grant_type 为 authorization_code 时必填，为 refresh_token 时不填
+  authCode?: string(name='auth_code'),
+}
+
+model ApplyOauthTokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 虚拟uid
+  openUserId?: string(name='open_user_id'),
+  // 后续调用接口健全的token，有效期30天
+  accessToken?: string(name='access_token'),
+  // accessToken到期时间
+  expireTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expire_time'),
+  // 刷新token，有效期90天
+  refreshToken?: string(name='refresh_token'),
+  // refreshToken到期时间
+  refreshExpireTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='refresh_expire_time'),
+}
+
+/**
+ * Description: authcode换取token
+ * Summary: authcode换取token
+ */
+async function applyOauthToken(request: ApplyOauthTokenRequest): ApplyOauthTokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyOauthTokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: authcode换取token
+ * Summary: authcode换取token
+ */
+async function applyOauthTokenEx(request: ApplyOauthTokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyOauthTokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.oauth.token.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryOauthUserinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // accessToken请求
+  accessToken: string(name='access_token'),
+}
+
+model QueryOauthUserinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 昵称
+  nickName?: string(name='nick_name'),
+  // 头像链接
+  avatar?: string(name='avatar'),
+  // 用户id
+  openUserId?: string(name='open_user_id'),
+}
+
+/**
+ * Description: token获取头像/昵称
+ * Summary: token获取头像/昵称
+ */
+async function queryOauthUserinfo(request: QueryOauthUserinfoRequest): QueryOauthUserinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryOauthUserinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: token获取头像/昵称
+ * Summary: token获取头像/昵称
+ */
+async function queryOauthUserinfoEx(request: QueryOauthUserinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryOauthUserinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.oauth.userinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyOauthUserinfotokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // accessToken请求
+  accessToken: string(name='access_token'),
+  // 拉起页面的场景
+  // nft_details 订单详情页
+  // oauth_page 授权登陆页
+  pageTokenScene: string(name='page_token_scene'),
+}
+
+model ApplyOauthUserinfotokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户token，有效期5分钟
+  userInfoToken?: string(name='user_info_token'),
+}
+
+/**
+ * Description: 获取用户Token
+ * Summary: 获取用户Token
+ */
+async function applyOauthUserinfotoken(request: ApplyOauthUserinfotokenRequest): ApplyOauthUserinfotokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyOauthUserinfotokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取用户Token
+ * Summary: 获取用户Token
+ */
+async function applyOauthUserinfotokenEx(request: ApplyOauthUserinfotokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyOauthUserinfotokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.oauth.userinfotoken.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyNftTransferRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 藏品标识sku
+  skuId: long(name='sku_id'),
+  // 被转入用户的支付宝uid和手机号
+  toIdNo: string(name='to_id_no'),
+  // 参照idType枚举
+  toIdType: string(name='to_id_type'),
+  // 用户购买价格，可以为0，单位分
+  priceCent: long(name='price_cent'),
+  // 用户在商户购买的订单号
+  orderNo: string(name='order_no'),
+  // 调用方渠道租户，传租户id即可
+  channelTenant: string(name='channel_tenant'),
+}
+
+model ApplyNftTransferResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 标识一类NFT
+  skuId?: long(name='sku_id'),
+  // 流转的nftId
+  nftId?: string(name='nft_id'),
+}
+
+/**
+ * Description: 租户根据sku给用户发放藏品
+ * Summary: 发放藏品
+ */
+async function applyNftTransfer(request: ApplyNftTransferRequest): ApplyNftTransferResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyNftTransferEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租户根据sku给用户发放藏品
+ * Summary: 发放藏品
+ */
+async function applyNftTransferEx(request: ApplyNftTransferRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyNftTransferResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.nft.transfer.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryNftCustomerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 页码
+  page: long(name='page'),
+  // 分页大小-上限10
+  pageSize: long(name='page_size'),
+  // 用户标识
+  idNo: string(name='id_no'),
+  // 用户id类型
+  idType: string(name='id_type'),
+}
+
+model PagequeryNftCustomerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 页码，查询时传入
+  page?: long(name='page'),
+  // 页长，查询时传入
+  pageSize?: long(name='page_size'),
+  // 列表总数
+  totalCount?: long(name='total_count'),
+  // 用户资产列表
+  assetList?: [ UserAsset ](name='asset_list'),
+}
+
+/**
+ * Description: 调用租户分页查询用户该租户发行的sku的资产
+ * Summary: 查询藏品
+ */
+async function pagequeryNftCustomer(request: PagequeryNftCustomerRequest): PagequeryNftCustomerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryNftCustomerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 调用租户分页查询用户该租户发行的sku的资产
+ * Summary: 查询藏品
+ */
+async function pagequeryNftCustomerEx(request: PagequeryNftCustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryNftCustomerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.nft.customer.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryNftOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务方侧唯一业务单号
+  bizNo: string(name='biz_no'),
+}
+
+model QueryNftOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单状态
+  externalOrder?: ExternalOrderDTO(name='external_order'),
+}
+
+/**
+ * Description: 查询支付结果
+ * Summary: 查询支付结果
+ */
+async function queryNftOrder(request: QueryNftOrderRequest): QueryNftOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryNftOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询支付结果
+ * Summary: 查询支付结果
+ */
+async function queryNftOrderEx(request: QueryNftOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryNftOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.nft.order.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateResourceGeneralresourceRequest = {
