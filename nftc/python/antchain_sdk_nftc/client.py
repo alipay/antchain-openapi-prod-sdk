@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 通用资源差量包信息
+            # 数字人部件素材对象
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4',
+                    'sdk_version': '1.0.5',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 通用资源差量包信息
+            # 数字人部件素材对象
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4',
+                    'sdk_version': '1.0.5',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -441,6 +441,398 @@ class Client:
         return TeaCore.from_map(
             nftc_models.QueryMerchantUgcimagesResponse(),
             await self.do_request_async('1.0', 'antchain.nftc.merchant.ugcimages.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_avatar_profile(
+        self,
+        request: nftc_models.QueryAvatarProfileRequest,
+    ) -> nftc_models.QueryAvatarProfileResponse:
+        """
+        Description: 获取当前用户的数字人形象，进而在NBA空间内进行渲染
+        Summary: 查询当前数字人形象
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_avatar_profile_ex(request, headers, runtime)
+
+    async def query_avatar_profile_async(
+        self,
+        request: nftc_models.QueryAvatarProfileRequest,
+    ) -> nftc_models.QueryAvatarProfileResponse:
+        """
+        Description: 获取当前用户的数字人形象，进而在NBA空间内进行渲染
+        Summary: 查询当前数字人形象
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_avatar_profile_ex_async(request, headers, runtime)
+
+    def query_avatar_profile_ex(
+        self,
+        request: nftc_models.QueryAvatarProfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryAvatarProfileResponse:
+        """
+        Description: 获取当前用户的数字人形象，进而在NBA空间内进行渲染
+        Summary: 查询当前数字人形象
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryAvatarProfileResponse(),
+            self.do_request('1.0', 'antchain.nftc.avatar.profile.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_avatar_profile_ex_async(
+        self,
+        request: nftc_models.QueryAvatarProfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryAvatarProfileResponse:
+        """
+        Description: 获取当前用户的数字人形象，进而在NBA空间内进行渲染
+        Summary: 查询当前数字人形象
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryAvatarProfileResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.avatar.profile.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_oauth_token(
+        self,
+        request: nftc_models.ApplyOauthTokenRequest,
+    ) -> nftc_models.ApplyOauthTokenResponse:
+        """
+        Description: authcode换取token
+        Summary: authcode换取token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_oauth_token_ex(request, headers, runtime)
+
+    async def apply_oauth_token_async(
+        self,
+        request: nftc_models.ApplyOauthTokenRequest,
+    ) -> nftc_models.ApplyOauthTokenResponse:
+        """
+        Description: authcode换取token
+        Summary: authcode换取token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_oauth_token_ex_async(request, headers, runtime)
+
+    def apply_oauth_token_ex(
+        self,
+        request: nftc_models.ApplyOauthTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.ApplyOauthTokenResponse:
+        """
+        Description: authcode换取token
+        Summary: authcode换取token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.ApplyOauthTokenResponse(),
+            self.do_request('1.0', 'antchain.nftc.oauth.token.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_oauth_token_ex_async(
+        self,
+        request: nftc_models.ApplyOauthTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.ApplyOauthTokenResponse:
+        """
+        Description: authcode换取token
+        Summary: authcode换取token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.ApplyOauthTokenResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.oauth.token.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_oauth_userinfo(
+        self,
+        request: nftc_models.QueryOauthUserinfoRequest,
+    ) -> nftc_models.QueryOauthUserinfoResponse:
+        """
+        Description: token获取头像/昵称
+        Summary: token获取头像/昵称
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_oauth_userinfo_ex(request, headers, runtime)
+
+    async def query_oauth_userinfo_async(
+        self,
+        request: nftc_models.QueryOauthUserinfoRequest,
+    ) -> nftc_models.QueryOauthUserinfoResponse:
+        """
+        Description: token获取头像/昵称
+        Summary: token获取头像/昵称
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_oauth_userinfo_ex_async(request, headers, runtime)
+
+    def query_oauth_userinfo_ex(
+        self,
+        request: nftc_models.QueryOauthUserinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryOauthUserinfoResponse:
+        """
+        Description: token获取头像/昵称
+        Summary: token获取头像/昵称
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryOauthUserinfoResponse(),
+            self.do_request('1.0', 'antchain.nftc.oauth.userinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_oauth_userinfo_ex_async(
+        self,
+        request: nftc_models.QueryOauthUserinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryOauthUserinfoResponse:
+        """
+        Description: token获取头像/昵称
+        Summary: token获取头像/昵称
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryOauthUserinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.oauth.userinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_oauth_userinfotoken(
+        self,
+        request: nftc_models.ApplyOauthUserinfotokenRequest,
+    ) -> nftc_models.ApplyOauthUserinfotokenResponse:
+        """
+        Description: 获取用户Token
+        Summary: 获取用户Token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_oauth_userinfotoken_ex(request, headers, runtime)
+
+    async def apply_oauth_userinfotoken_async(
+        self,
+        request: nftc_models.ApplyOauthUserinfotokenRequest,
+    ) -> nftc_models.ApplyOauthUserinfotokenResponse:
+        """
+        Description: 获取用户Token
+        Summary: 获取用户Token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_oauth_userinfotoken_ex_async(request, headers, runtime)
+
+    def apply_oauth_userinfotoken_ex(
+        self,
+        request: nftc_models.ApplyOauthUserinfotokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.ApplyOauthUserinfotokenResponse:
+        """
+        Description: 获取用户Token
+        Summary: 获取用户Token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.ApplyOauthUserinfotokenResponse(),
+            self.do_request('1.0', 'antchain.nftc.oauth.userinfotoken.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_oauth_userinfotoken_ex_async(
+        self,
+        request: nftc_models.ApplyOauthUserinfotokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.ApplyOauthUserinfotokenResponse:
+        """
+        Description: 获取用户Token
+        Summary: 获取用户Token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.ApplyOauthUserinfotokenResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.oauth.userinfotoken.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_nft_transfer(
+        self,
+        request: nftc_models.ApplyNftTransferRequest,
+    ) -> nftc_models.ApplyNftTransferResponse:
+        """
+        Description: 租户根据sku给用户发放藏品
+        Summary: 发放藏品
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_nft_transfer_ex(request, headers, runtime)
+
+    async def apply_nft_transfer_async(
+        self,
+        request: nftc_models.ApplyNftTransferRequest,
+    ) -> nftc_models.ApplyNftTransferResponse:
+        """
+        Description: 租户根据sku给用户发放藏品
+        Summary: 发放藏品
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_nft_transfer_ex_async(request, headers, runtime)
+
+    def apply_nft_transfer_ex(
+        self,
+        request: nftc_models.ApplyNftTransferRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.ApplyNftTransferResponse:
+        """
+        Description: 租户根据sku给用户发放藏品
+        Summary: 发放藏品
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.ApplyNftTransferResponse(),
+            self.do_request('1.0', 'antchain.nftc.nft.transfer.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_nft_transfer_ex_async(
+        self,
+        request: nftc_models.ApplyNftTransferRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.ApplyNftTransferResponse:
+        """
+        Description: 租户根据sku给用户发放藏品
+        Summary: 发放藏品
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.ApplyNftTransferResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.nft.transfer.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_nft_customer(
+        self,
+        request: nftc_models.PagequeryNftCustomerRequest,
+    ) -> nftc_models.PagequeryNftCustomerResponse:
+        """
+        Description: 调用租户分页查询用户该租户发行的sku的资产
+        Summary: 查询藏品
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_nft_customer_ex(request, headers, runtime)
+
+    async def pagequery_nft_customer_async(
+        self,
+        request: nftc_models.PagequeryNftCustomerRequest,
+    ) -> nftc_models.PagequeryNftCustomerResponse:
+        """
+        Description: 调用租户分页查询用户该租户发行的sku的资产
+        Summary: 查询藏品
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_nft_customer_ex_async(request, headers, runtime)
+
+    def pagequery_nft_customer_ex(
+        self,
+        request: nftc_models.PagequeryNftCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.PagequeryNftCustomerResponse:
+        """
+        Description: 调用租户分页查询用户该租户发行的sku的资产
+        Summary: 查询藏品
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.PagequeryNftCustomerResponse(),
+            self.do_request('1.0', 'antchain.nftc.nft.customer.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_nft_customer_ex_async(
+        self,
+        request: nftc_models.PagequeryNftCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.PagequeryNftCustomerResponse:
+        """
+        Description: 调用租户分页查询用户该租户发行的sku的资产
+        Summary: 查询藏品
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.PagequeryNftCustomerResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.nft.customer.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_nft_order(
+        self,
+        request: nftc_models.QueryNftOrderRequest,
+    ) -> nftc_models.QueryNftOrderResponse:
+        """
+        Description: 查询支付结果
+        Summary: 查询支付结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_nft_order_ex(request, headers, runtime)
+
+    async def query_nft_order_async(
+        self,
+        request: nftc_models.QueryNftOrderRequest,
+    ) -> nftc_models.QueryNftOrderResponse:
+        """
+        Description: 查询支付结果
+        Summary: 查询支付结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_nft_order_ex_async(request, headers, runtime)
+
+    def query_nft_order_ex(
+        self,
+        request: nftc_models.QueryNftOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryNftOrderResponse:
+        """
+        Description: 查询支付结果
+        Summary: 查询支付结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryNftOrderResponse(),
+            self.do_request('1.0', 'antchain.nftc.nft.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_nft_order_ex_async(
+        self,
+        request: nftc_models.QueryNftOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryNftOrderResponse:
+        """
+        Description: 查询支付结果
+        Summary: 查询支付结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryNftOrderResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.nft.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_resource_generalresource(
