@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.4"),
+                    new TeaPair("sdk_version", "1.0.5"),
                     new TeaPair("_prod_code", "NFTC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -216,6 +216,139 @@ public class Client {
     public QueryMerchantUgcimagesResponse queryMerchantUgcimagesEx(QueryMerchantUgcimagesRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.merchant.ugcimages.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMerchantUgcimagesResponse());
+    }
+
+    /**
+     * Description: 获取当前用户的数字人形象，进而在NBA空间内进行渲染
+     * Summary: 查询当前数字人形象
+     */
+    public QueryAvatarProfileResponse queryAvatarProfile(QueryAvatarProfileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAvatarProfileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取当前用户的数字人形象，进而在NBA空间内进行渲染
+     * Summary: 查询当前数字人形象
+     */
+    public QueryAvatarProfileResponse queryAvatarProfileEx(QueryAvatarProfileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.avatar.profile.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAvatarProfileResponse());
+    }
+
+    /**
+     * Description: authcode换取token
+     * Summary: authcode换取token
+     */
+    public ApplyOauthTokenResponse applyOauthToken(ApplyOauthTokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyOauthTokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: authcode换取token
+     * Summary: authcode换取token
+     */
+    public ApplyOauthTokenResponse applyOauthTokenEx(ApplyOauthTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.oauth.token.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyOauthTokenResponse());
+    }
+
+    /**
+     * Description: token获取头像/昵称
+     * Summary: token获取头像/昵称
+     */
+    public QueryOauthUserinfoResponse queryOauthUserinfo(QueryOauthUserinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOauthUserinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: token获取头像/昵称
+     * Summary: token获取头像/昵称
+     */
+    public QueryOauthUserinfoResponse queryOauthUserinfoEx(QueryOauthUserinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.oauth.userinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOauthUserinfoResponse());
+    }
+
+    /**
+     * Description: 获取用户Token
+     * Summary: 获取用户Token
+     */
+    public ApplyOauthUserinfotokenResponse applyOauthUserinfotoken(ApplyOauthUserinfotokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyOauthUserinfotokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取用户Token
+     * Summary: 获取用户Token
+     */
+    public ApplyOauthUserinfotokenResponse applyOauthUserinfotokenEx(ApplyOauthUserinfotokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.oauth.userinfotoken.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyOauthUserinfotokenResponse());
+    }
+
+    /**
+     * Description: 租户根据sku给用户发放藏品
+     * Summary: 发放藏品
+     */
+    public ApplyNftTransferResponse applyNftTransfer(ApplyNftTransferRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyNftTransferEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租户根据sku给用户发放藏品
+     * Summary: 发放藏品
+     */
+    public ApplyNftTransferResponse applyNftTransferEx(ApplyNftTransferRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.nft.transfer.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyNftTransferResponse());
+    }
+
+    /**
+     * Description: 调用租户分页查询用户该租户发行的sku的资产
+     * Summary: 查询藏品
+     */
+    public PagequeryNftCustomerResponse pagequeryNftCustomer(PagequeryNftCustomerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryNftCustomerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 调用租户分页查询用户该租户发行的sku的资产
+     * Summary: 查询藏品
+     */
+    public PagequeryNftCustomerResponse pagequeryNftCustomerEx(PagequeryNftCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.nft.customer.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryNftCustomerResponse());
+    }
+
+    /**
+     * Description: 查询支付结果
+     * Summary: 查询支付结果
+     */
+    public QueryNftOrderResponse queryNftOrder(QueryNftOrderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryNftOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询支付结果
+     * Summary: 查询支付结果
+     */
+    public QueryNftOrderResponse queryNftOrderEx(QueryNftOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.nft.order.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNftOrderResponse());
     }
 
     /**
