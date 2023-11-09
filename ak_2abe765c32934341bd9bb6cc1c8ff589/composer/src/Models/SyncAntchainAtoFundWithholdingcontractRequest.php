@@ -42,6 +42,15 @@ class SyncAntchainAtoFundWithholdingcontractRequest extends Model
      * @var string
      */
     public $extraInfo;
+
+    // 签署状态：
+    // - ACCEPT : 接受
+    // - REFUSE : 拒绝
+    // - TIMEOUT : 超时
+    /**
+     * @var string
+     */
+    public $status;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -49,6 +58,7 @@ class SyncAntchainAtoFundWithholdingcontractRequest extends Model
         'merchantTenantId'      => 'merchant_tenant_id',
         'withholdingContractId' => 'withholding_contract_id',
         'extraInfo'             => 'extra_info',
+        'status'                => 'status',
     ];
 
     public function validate()
@@ -56,6 +66,7 @@ class SyncAntchainAtoFundWithholdingcontractRequest extends Model
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('merchantTenantId', $this->merchantTenantId, true);
         Model::validateRequired('withholdingContractId', $this->withholdingContractId, true);
+        Model::validateRequired('status', $this->status, true);
         Model::validateMaxLength('orderId', $this->orderId, 50);
         Model::validateMaxLength('merchantTenantId', $this->merchantTenantId, 50);
         Model::validateMaxLength('withholdingContractId', $this->withholdingContractId, 100);
@@ -84,6 +95,9 @@ class SyncAntchainAtoFundWithholdingcontractRequest extends Model
         }
         if (null !== $this->extraInfo) {
             $res['extra_info'] = $this->extraInfo;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
         }
 
         return $res;
@@ -114,6 +128,9 @@ class SyncAntchainAtoFundWithholdingcontractRequest extends Model
         }
         if (isset($map['extra_info'])) {
             $model->extraInfo = $map['extra_info'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
 
         return $model;

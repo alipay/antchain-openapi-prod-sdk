@@ -65,6 +65,11 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         Model::validateRequired('alipayMerchantName', $this->alipayMerchantName, true);
         Model::validateRequired('alipayMerchantServiceName', $this->alipayMerchantServiceName, true);
         Model::validateRequired('alipayMerchantServiceDescription', $this->alipayMerchantServiceDescription, true);
+        Model::validateMaxLength('orderId', $this->orderId, 50);
+        Model::validateMaxLength('alipayMerchantId', $this->alipayMerchantId, 20);
+        Model::validateMaxLength('alipayMerchantName', $this->alipayMerchantName, 50);
+        Model::validateMaxLength('alipayMerchantServiceName', $this->alipayMerchantServiceName, 50);
+        Model::validateMaxLength('alipayMerchantServiceDescription', $this->alipayMerchantServiceDescription, 150);
     }
 
     public function toMap()

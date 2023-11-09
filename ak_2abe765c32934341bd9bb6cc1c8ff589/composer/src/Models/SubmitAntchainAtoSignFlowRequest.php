@@ -25,12 +25,6 @@ class SubmitAntchainAtoSignFlowRequest extends Model
      */
     public $orderId;
 
-    // 合同在用户签署完成以后是否自动落签完成签署，true-自动落签并结束；false-手工落签并通过接口完成落签。如果不自动落签，则需要调用另外一个落签接口来完成最终的签署的落签。
-    /**
-     * @var bool
-     */
-    public $autoSign;
-
     // CRED_PSN_CH_IDCARD： 大陆身份证
     // CRED_PSN_CH_TWCARD：台湾来往大陆通行证
     // CRED_PSN_CH_MACAO"：澳门来往大陆通行证
@@ -158,7 +152,6 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
         'orderId'               => 'order_id',
-        'autoSign'              => 'auto_sign',
         'userIdType'            => 'user_id_type',
         'userIdNumber'          => 'user_id_number',
         'userName'              => 'user_name',
@@ -183,7 +176,6 @@ class SubmitAntchainAtoSignFlowRequest extends Model
     public function validate()
     {
         Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('autoSign', $this->autoSign, true);
         Model::validateRequired('userIdType', $this->userIdType, true);
         Model::validateRequired('userIdNumber', $this->userIdNumber, true);
         Model::validateRequired('userName', $this->userName, true);
@@ -220,9 +212,6 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         }
         if (null !== $this->orderId) {
             $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->autoSign) {
-            $res['auto_sign'] = $this->autoSign;
         }
         if (null !== $this->userIdType) {
             $res['user_id_type'] = $this->userIdType;
@@ -301,9 +290,6 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         }
         if (isset($map['order_id'])) {
             $model->orderId = $map['order_id'];
-        }
-        if (isset($map['auto_sign'])) {
-            $model->autoSign = $map['auto_sign'];
         }
         if (isset($map['user_id_type'])) {
             $model->userIdType = $map['user_id_type'];

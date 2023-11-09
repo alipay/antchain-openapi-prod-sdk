@@ -32,45 +32,47 @@ class GetAntchainAtoFundRepaymentplanResponse extends Model
      */
     public $orderId;
 
-    // 宽限期，精确到毫秒
-    /**
-     * @var int
-     */
-    public $limit;
-
-    // 应付租金时间，格式为yyyy-MM-dd HH:mm:ss
+    // 租赁公司支付宝UID
     /**
      * @var string
      */
-    public $payDateList;
+    public $leaseAlipayUid;
+
+    // 宽限期，天
+    /**
+     * @var int
+     */
+    public $gracePeriodDays;
+
+    // 还款策略列表
+    /**
+     * @var string
+     */
+    public $repayStrategyList;
+
+    // 处罚策略
+    // NONE : 没有处罚
+    // PENALTY_FEE： 罚息
+    /**
+     * @var string
+     */
+    public $punishmentType;
 
     // 租期
     /**
      * @var int
      */
     public $payPeriod;
-
-    // 应付租金，精确到分，即1234表示12.34元
-    /**
-     * @var string
-     */
-    public $payMoneyList;
-
-    // 租赁公司支付宝UID
-    /**
-     * @var string
-     */
-    public $leaseAlipayUid;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'orderId'        => 'order_id',
-        'limit'          => 'limit',
-        'payDateList'    => 'pay_date_list',
-        'payPeriod'      => 'pay_period',
-        'payMoneyList'   => 'pay_money_list',
-        'leaseAlipayUid' => 'lease_alipay_uid',
+        'reqMsgId'          => 'req_msg_id',
+        'resultCode'        => 'result_code',
+        'resultMsg'         => 'result_msg',
+        'orderId'           => 'order_id',
+        'leaseAlipayUid'    => 'lease_alipay_uid',
+        'gracePeriodDays'   => 'grace_period_days',
+        'repayStrategyList' => 'repay_strategy_list',
+        'punishmentType'    => 'punishment_type',
+        'payPeriod'         => 'pay_period',
     ];
 
     public function validate()
@@ -92,20 +94,20 @@ class GetAntchainAtoFundRepaymentplanResponse extends Model
         if (null !== $this->orderId) {
             $res['order_id'] = $this->orderId;
         }
-        if (null !== $this->limit) {
-            $res['limit'] = $this->limit;
+        if (null !== $this->leaseAlipayUid) {
+            $res['lease_alipay_uid'] = $this->leaseAlipayUid;
         }
-        if (null !== $this->payDateList) {
-            $res['pay_date_list'] = $this->payDateList;
+        if (null !== $this->gracePeriodDays) {
+            $res['grace_period_days'] = $this->gracePeriodDays;
+        }
+        if (null !== $this->repayStrategyList) {
+            $res['repay_strategy_list'] = $this->repayStrategyList;
+        }
+        if (null !== $this->punishmentType) {
+            $res['punishment_type'] = $this->punishmentType;
         }
         if (null !== $this->payPeriod) {
             $res['pay_period'] = $this->payPeriod;
-        }
-        if (null !== $this->payMoneyList) {
-            $res['pay_money_list'] = $this->payMoneyList;
-        }
-        if (null !== $this->leaseAlipayUid) {
-            $res['lease_alipay_uid'] = $this->leaseAlipayUid;
         }
 
         return $res;
@@ -131,20 +133,20 @@ class GetAntchainAtoFundRepaymentplanResponse extends Model
         if (isset($map['order_id'])) {
             $model->orderId = $map['order_id'];
         }
-        if (isset($map['limit'])) {
-            $model->limit = $map['limit'];
+        if (isset($map['lease_alipay_uid'])) {
+            $model->leaseAlipayUid = $map['lease_alipay_uid'];
         }
-        if (isset($map['pay_date_list'])) {
-            $model->payDateList = $map['pay_date_list'];
+        if (isset($map['grace_period_days'])) {
+            $model->gracePeriodDays = $map['grace_period_days'];
+        }
+        if (isset($map['repay_strategy_list'])) {
+            $model->repayStrategyList = $map['repay_strategy_list'];
+        }
+        if (isset($map['punishment_type'])) {
+            $model->punishmentType = $map['punishment_type'];
         }
         if (isset($map['pay_period'])) {
             $model->payPeriod = $map['pay_period'];
-        }
-        if (isset($map['pay_money_list'])) {
-            $model->payMoneyList = $map['pay_money_list'];
-        }
-        if (isset($map['lease_alipay_uid'])) {
-            $model->leaseAlipayUid = $map['lease_alipay_uid'];
         }
 
         return $model;

@@ -13,6 +13,10 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\AllAntchainAtoSignTemplateRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\AllAntchainAtoSignTemplateResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\AuthAntchainAtoSignFlowRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\AuthAntchainAtoSignFlowResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\CancelAntchainAtoWithholdPlanRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\CancelAntchainAtoWithholdPlanResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\CreateAntchainAtoRealpersonFacevrfRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\CreateAntchainAtoRealpersonFacevrfResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\CreateAntchainAtoWithholdSignRequest;
@@ -29,6 +33,10 @@ use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\QueryAntchainAtoRealpers
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\QueryAntchainAtoRealpersonFacevrfResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\QueryAntchainAtoWithholdSignRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\QueryAntchainAtoWithholdSignResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\RepayAntchainAtoWithholdPlanRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\RepayAntchainAtoWithholdPlanResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\RetryAntchainAtoWithholdPlanRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\RetryAntchainAtoWithholdPlanResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SubmitAntchainAtoSignFlowRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SubmitAntchainAtoSignFlowResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoFundOrderfinancialRequest;
@@ -43,6 +51,8 @@ use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoTradeFull
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoTradeFullResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoTradeRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoTradeResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\UnbindAntchainAtoWithholdSignRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\UnbindAntchainAtoWithholdSignResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -190,7 +200,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_2abe765c32934341bd9bb6cc1c8ff589',
                     '_prod_channel'    => 'saas',
                 ];
@@ -764,5 +774,170 @@ class Client
         Utils::validateModel($request);
 
         return SyncAntchainAtoTradeFullResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.full.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
+     * Summary: 电子合同签署流程落签操作.
+     *
+     * @param AuthAntchainAtoSignFlowRequest $request
+     *
+     * @return AuthAntchainAtoSignFlowResponse
+     */
+    public function authAntchainAtoSignFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authAntchainAtoSignFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
+     * Summary: 电子合同签署流程落签操作.
+     *
+     * @param AuthAntchainAtoSignFlowRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return AuthAntchainAtoSignFlowResponse
+     */
+    public function authAntchainAtoSignFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthAntchainAtoSignFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.flow.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单关闭后,可以通过此接口解绑签约
+     * Summary: 代扣签约解绑.
+     *
+     * @param UnbindAntchainAtoWithholdSignRequest $request
+     *
+     * @return UnbindAntchainAtoWithholdSignResponse
+     */
+    public function unbindAntchainAtoWithholdSign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unbindAntchainAtoWithholdSignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单关闭后,可以通过此接口解绑签约
+     * Summary: 代扣签约解绑.
+     *
+     * @param UnbindAntchainAtoWithholdSignRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return UnbindAntchainAtoWithholdSignResponse
+     */
+    public function unbindAntchainAtoWithholdSignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnbindAntchainAtoWithholdSignResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.sign.unbind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 取消代扣计划，将未扣款的全部代扣计划进行取消
+     * Summary: 取消代扣计划.
+     *
+     * @param CancelAntchainAtoWithholdPlanRequest $request
+     *
+     * @return CancelAntchainAtoWithholdPlanResponse
+     */
+    public function cancelAntchainAtoWithholdPlan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelAntchainAtoWithholdPlanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 取消代扣计划，将未扣款的全部代扣计划进行取消
+     * Summary: 取消代扣计划.
+     *
+     * @param CancelAntchainAtoWithholdPlanRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CancelAntchainAtoWithholdPlanResponse
+     */
+    public function cancelAntchainAtoWithholdPlanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelAntchainAtoWithholdPlanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.plan.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
+     * Summary: 代扣计划清偿/清欠.
+     *
+     * @param RepayAntchainAtoWithholdPlanRequest $request
+     *
+     * @return RepayAntchainAtoWithholdPlanResponse
+     */
+    public function repayAntchainAtoWithholdPlan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->repayAntchainAtoWithholdPlanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
+     * Summary: 代扣计划清偿/清欠.
+     *
+     * @param RepayAntchainAtoWithholdPlanRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return RepayAntchainAtoWithholdPlanResponse
+     */
+    public function repayAntchainAtoWithholdPlanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RepayAntchainAtoWithholdPlanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.plan.repay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 当代扣未成功时，商户可与用户进行沟通补款到支付宝，补款完成后通过代扣重试能力实时触发重试扣款。
+     * Summary: 扣款计划重试.
+     *
+     * @param RetryAntchainAtoWithholdPlanRequest $request
+     *
+     * @return RetryAntchainAtoWithholdPlanResponse
+     */
+    public function retryAntchainAtoWithholdPlan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->retryAntchainAtoWithholdPlanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 当代扣未成功时，商户可与用户进行沟通补款到支付宝，补款完成后通过代扣重试能力实时触发重试扣款。
+     * Summary: 扣款计划重试.
+     *
+     * @param RetryAntchainAtoWithholdPlanRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return RetryAntchainAtoWithholdPlanResponse
+     */
+    public function retryAntchainAtoWithholdPlanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RetryAntchainAtoWithholdPlanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.plan.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

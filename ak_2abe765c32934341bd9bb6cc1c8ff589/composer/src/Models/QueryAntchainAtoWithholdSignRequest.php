@@ -33,6 +33,7 @@ class QueryAntchainAtoWithholdSignRequest extends Model
     public function validate()
     {
         Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateMaxLength('orderId', $this->orderId, 50);
     }
 
     public function toMap()

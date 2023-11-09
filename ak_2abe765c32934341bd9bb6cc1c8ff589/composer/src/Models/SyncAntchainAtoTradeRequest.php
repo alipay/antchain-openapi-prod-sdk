@@ -32,18 +32,11 @@ class SyncAntchainAtoTradeRequest extends Model
      * @var string
      */
     public $type;
-
-    // 操作类型
-    /**
-     * @var string
-     */
-    public $operationType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'bizContent'        => 'biz_content',
         'type'              => 'type',
-        'operationType'     => 'operation_type',
     ];
 
     public function validate()
@@ -66,9 +59,6 @@ class SyncAntchainAtoTradeRequest extends Model
         }
         if (null !== $this->type) {
             $res['type'] = $this->type;
-        }
-        if (null !== $this->operationType) {
-            $res['operation_type'] = $this->operationType;
         }
 
         return $res;
@@ -93,9 +83,6 @@ class SyncAntchainAtoTradeRequest extends Model
         }
         if (isset($map['type'])) {
             $model->type = $map['type'];
-        }
-        if (isset($map['operation_type'])) {
-            $model->operationType = $map['operation_type'];
         }
 
         return $model;
