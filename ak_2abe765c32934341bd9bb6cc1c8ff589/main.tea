@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'ak_2abe765c32934341bd9bb6cc1c8ff589',
     _prod_channel = 'saas'
   };
@@ -332,8 +332,6 @@ model SyncAntchainAtoTradeRequest = {
   // 接口执行类型
   // 
   type: string(name='type'),
-  // 操作类型
-  operationType?: string(name='operation_type'),
 }
 
 model SyncAntchainAtoTradeResponse = {
@@ -556,8 +554,6 @@ model SubmitAntchainAtoSignFlowRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 订单号
   orderId: string(name='order_id'),
-  // 合同在用户签署完成以后是否自动落签完成签署，true-自动落签并结束；false-手工落签并通过接口完成落签。如果不自动落签，则需要调用另外一个落签接口来完成最终的签署的落签。
-  autoSign: boolean(name='auto_sign'),
   // CRED_PSN_CH_IDCARD： 大陆身份证
   // CRED_PSN_CH_TWCARD：台湾来往大陆通行证
   // CRED_PSN_CH_MACAO"：澳门来往大陆通行证
@@ -820,16 +816,18 @@ model GetAntchainAtoFundRepaymentplanResponse = {
   resultMsg?: string(name='result_msg'),
   // 订单id
   orderId?: string(name='order_id'),
-  // 宽限期，精确到毫秒
-  limit?: long(name='limit'),
-  // 应付租金时间，格式为yyyy-MM-dd HH:mm:ss
-  payDateList?: string(name='pay_date_list'),
-  // 租期
-  payPeriod?: long(name='pay_period'),
-  // 应付租金，精确到分，即1234表示12.34元
-  payMoneyList?: string(name='pay_money_list'),
   // 租赁公司支付宝UID
   leaseAlipayUid?: string(name='lease_alipay_uid'),
+  // 宽限期，天
+  gracePeriodDays?: long(name='grace_period_days'),
+  // 还款策略列表
+  repayStrategyList?: string(name='repay_strategy_list'),
+  // 处罚策略
+  //  NONE : 没有处罚
+  //  PENALTY_FEE： 罚息
+  punishmentType?: string(name='punishment_type'),
+  // 租期
+  payPeriod?: long(name='pay_period'),
 }
 
 /**
@@ -863,6 +861,11 @@ model SyncAntchainAtoFundWithholdingcontractRequest = {
   withholdingContractId: string(maxLength=100, minLength=1, name='withholding_contract_id'),
   // json的字符串，存储额外信息
   extraInfo?: string(name='extra_info'),
+  // 签署状态：
+  // - ACCEPT : 接受
+  // - REFUSE : 拒绝
+  // - TIMEOUT : 超时
+  status: string(name='status'),
 }
 
 model SyncAntchainAtoFundWithholdingcontractResponse = {
@@ -900,43 +903,38 @@ model SyncAntchainAtoFundOrderfulfillmentRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 商户id
-  merchantTenantId: string(maxLength=50, minLength=1, name='merchant_tenant_id'),
+  merchantTenantId: string(maxLength=49, minLength=1, name='merchant_tenant_id'),
   // 订单id
-  orderId: string(maxLength=50, minLength=1, name='order_id'),
+  orderId: string(maxLength=49, minLength=1, name='order_id'),
   // 租期编号
   leaseTermIndex: long(name='lease_term_index'),
-  // 租金归还状态，
-  // 1.足额归还
-  // 2.部分归还
-  // 3.未归还，
-  // 4退租,
-  // 5该订单整个生命周期已完结
-  rentalReturnState: long(name='rental_return_state'),
-  // 租金归还金额,精确到分，即1234表示12.34元
-  rentalMoney: long(name='rental_money'),
-  // 归还时间，格式为"2019-07-31 12:00:00"
-  returnTime: string(name='return_time'),
-  // 归还方式，
-  // 1.预授权代扣
-  // 2.支付宝代扣
-  // 3.主动还款
-  // 4.其他
-  // 5.网商直付通
-  // 6.网商委托代扣
-  returnWay: long(name='return_way'),
-  // 还款凭证类型，
-  // 1.支付宝
-  // 2.平台代收（客户主动还款）
-  // 3.其他
-  // 6.网商银行
-  returnVoucherType: long(name='return_voucher_type'),
-  // 还款凭证编号，不超过128字符，1.支付宝流水号
-  returnVoucherSerial: string(maxLength=128, minLength=1, name='return_voucher_serial'),
-  // 手续费，如通过预授权、代扣的方式规划，必填，单位为分
-  // 1234代表12.34元
-  charge: long(name='charge'),
   // 剩余归还期数
   remainTerm: long(name='remain_term'),
+  // 总期数
+  totalTerm: long(name='total_term'),
+  // 租金归还状态，
+  // RETURN_FULL : 足额归还 【终态】
+  // NOT_RETURN : 未归还
+  // CANCEL : 取消 【终态】
+  rentalReturnState: string(name='rental_return_state'),
+  // 租金归还金额,精确到分，即1234表示12.34元
+  rentalMoney: long(name='rental_money'),
+  // 罚息金额，分，1234表示12.34元
+  penaltyFeeMoney: long(name='penalty_fee_money'),
+  // 总金额，单位分
+  totalMoney: long(name='total_money'),
+  // 归还时间，格式为"2019-07-31 12:00:00"
+  returnTime?: string(name='return_time'),
+  // 归还方式，
+  // ANTDIGITAL： 数科代扣
+  // FUND : 资方代扣
+  // BANK : 银行转账
+  // WECHAT : 微信支付
+  returnWay?: string(name='return_way'),
+  // 还款凭证编号
+  returnVoucherSerial?: string(maxLength=127, minLength=1, name='return_voucher_serial'),
+  // 银行名字
+  bankName?: string(maxLength=127, name='bank_name'),
 }
 
 model SyncAntchainAtoFundOrderfulfillmentResponse = {
@@ -974,9 +972,13 @@ model GetAntchainAtoFundOrderfulfillmentRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 订单id
-  orderId: string(maxLength=50, name='order_id'),
+  orderId: string(maxLength=49, minLength=1, name='order_id'),
   // 租赁订单所属商家租户id
-  merchantTenantId: string(maxLength=50, name='merchant_tenant_id'),
+  merchantTenantId: string(maxLength=49, minLength=1, name='merchant_tenant_id'),
+  // 期数
+  // 如果填入，获取term_idx下的履约记录
+  // 如果不填入，获取order_id下的所有履约记录
+  termIdx?: long(name='term_idx'),
 }
 
 model GetAntchainAtoFundOrderfulfillmentResponse = {
@@ -1015,15 +1017,15 @@ model CreateAntchainAtoWithholdSignRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 订单id 长度不可超过50
-  orderId: string(name='order_id'),
+  orderId: string(maxLength=50, name='order_id'),
   // 支付宝商户id，使用签约能力前时候进行向平台申请
-  alipayMerchantId: string(name='alipay_merchant_id'),
+  alipayMerchantId: string(maxLength=20, name='alipay_merchant_id'),
   // 支付宝商户名称，会展示在支付并签约界面
-  alipayMerchantName: string(name='alipay_merchant_name'),
+  alipayMerchantName: string(maxLength=50, name='alipay_merchant_name'),
   // 支付宝商户服务名称，会展示在支付并签约界面
-  alipayMerchantServiceName: string(name='alipay_merchant_service_name'),
+  alipayMerchantServiceName: string(maxLength=50, name='alipay_merchant_service_name'),
   // 支付宝商户服务描述，会展示在支付并签约界面
-  alipayMerchantServiceDescription: string(name='alipay_merchant_service_description'),
+  alipayMerchantServiceDescription: string(maxLength=150, name='alipay_merchant_service_description'),
 }
 
 model CreateAntchainAtoWithholdSignResponse = {
@@ -1061,7 +1063,7 @@ model QueryAntchainAtoWithholdSignRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 订单id 长度不可超过50
-  orderId: string(name='order_id'),
+  orderId: string(maxLength=50, name='order_id'),
 }
 
 model QueryAntchainAtoWithholdSignResponse = {
@@ -1145,5 +1147,215 @@ async function syncAntchainAtoTradeFull(request: SyncAntchainAtoTradeFullRequest
 async function syncAntchainAtoTradeFullEx(request: SyncAntchainAtoTradeFullRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncAntchainAtoTradeFullResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.trade.full.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthAntchainAtoSignFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 签署的电子合同ID
+  signNo: string(maxLength=64, minLength=6, name='sign_no'),
+  // 签署区域的tag，和发起签署流程的机构的tag对应。
+  tag?: string(maxLength=32, minLength=2, name='tag'),
+  // 电子合同签署服务返回的biz_flow_id
+  bizFlowId?: string(maxLength=64, minLength=4, name='biz_flow_id'),
+  // 电子合同签署服务的返回的account_id
+  accountId?: string(maxLength=64, minLength=4, name='account_id'),
+}
+
+model AuthAntchainAtoSignFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 签署最后落签的签署区域id列表
+  signFieldIds?: string(name='sign_field_ids'),
+}
+
+/**
+ * Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
+ * Summary: 电子合同签署流程落签操作
+ */
+async function authAntchainAtoSignFlow(request: AuthAntchainAtoSignFlowRequest): AuthAntchainAtoSignFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authAntchainAtoSignFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
+ * Summary: 电子合同签署流程落签操作
+ */
+async function authAntchainAtoSignFlowEx(request: AuthAntchainAtoSignFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthAntchainAtoSignFlowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.sign.flow.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnbindAntchainAtoWithholdSignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id 长度不可超过50
+  orderId: string(maxLength=50, name='order_id'),
+}
+
+model UnbindAntchainAtoWithholdSignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 订单关闭后,可以通过此接口解绑签约
+ * Summary: 代扣签约解绑
+ */
+async function unbindAntchainAtoWithholdSign(request: UnbindAntchainAtoWithholdSignRequest): UnbindAntchainAtoWithholdSignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unbindAntchainAtoWithholdSignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 订单关闭后,可以通过此接口解绑签约
+ * Summary: 代扣签约解绑
+ */
+async function unbindAntchainAtoWithholdSignEx(request: UnbindAntchainAtoWithholdSignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindAntchainAtoWithholdSignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.withhold.sign.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelAntchainAtoWithholdPlanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当发现跨天继续提交
+  orderId: string(maxLength=50, name='order_id'),
+  // 取消原因
+  // RENTING_OUT:退租
+  // RENTING_AND_RESALE:租转售
+  // 
+  // 
+  cancelReason: string(maxLength=64, name='cancel_reason'),
+}
+
+model CancelAntchainAtoWithholdPlanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 取消代扣计划，将未扣款的全部代扣计划进行取消
+ * Summary: 取消代扣计划
+ */
+async function cancelAntchainAtoWithholdPlan(request: CancelAntchainAtoWithholdPlanRequest): CancelAntchainAtoWithholdPlanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelAntchainAtoWithholdPlanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 取消代扣计划，将未扣款的全部代扣计划进行取消
+ * Summary: 取消代扣计划
+ */
+async function cancelAntchainAtoWithholdPlanEx(request: CancelAntchainAtoWithholdPlanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelAntchainAtoWithholdPlanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.withhold.plan.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RepayAntchainAtoWithholdPlanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id 长度不可超过50
+  orderId: string(maxLength=50, name='order_id'),
+  // 第几期
+  periodNum: long(minimum=1, name='period_num'),
+  // 扣款时间
+  gmtPay: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_pay'),
+  // 清偿清欠金额，单位为分
+  payOffAmount: long(minimum=0, name='pay_off_amount'),
+  // 清偿清欠方式
+  // WECHAT:微信;
+  // BANK:银行
+  payOffType: string(maxLength=64, name='pay_off_type'),
+  // 清偿清欠单号,通过其他方式清偿的第三方单号;例如银行流水号或微信流水号
+  payOffNo: string(maxLength=64, name='pay_off_no'),
+  // 清偿清欠银行名称,方式为银行时必填
+  payOffBankName?: string(maxLength=64, name='pay_off_bank_name'),
+}
+
+model RepayAntchainAtoWithholdPlanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
+ * Summary: 代扣计划清偿/清欠
+ */
+async function repayAntchainAtoWithholdPlan(request: RepayAntchainAtoWithholdPlanRequest): RepayAntchainAtoWithholdPlanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return repayAntchainAtoWithholdPlanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
+ * Summary: 代扣计划清偿/清欠
+ */
+async function repayAntchainAtoWithholdPlanEx(request: RepayAntchainAtoWithholdPlanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RepayAntchainAtoWithholdPlanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.withhold.plan.repay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RetryAntchainAtoWithholdPlanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id 长度不可超过50
+  orderId: string(maxLength=50, name='order_id'),
+  // 第几期
+  periodNum: long(minimum=1, name='period_num'),
+}
+
+model RetryAntchainAtoWithholdPlanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 当代扣未成功时，商户可与用户进行沟通补款到支付宝，补款完成后通过代扣重试能力实时触发重试扣款。
+ * Summary: 扣款计划重试
+ */
+async function retryAntchainAtoWithholdPlan(request: RetryAntchainAtoWithholdPlanRequest): RetryAntchainAtoWithholdPlanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return retryAntchainAtoWithholdPlanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 当代扣未成功时，商户可与用户进行沟通补款到支付宝，补款完成后通过代扣重试能力实时触发重试扣款。
+ * Summary: 扣款计划重试
+ */
+async function retryAntchainAtoWithholdPlanEx(request: RetryAntchainAtoWithholdPlanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RetryAntchainAtoWithholdPlanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.withhold.plan.retry', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
