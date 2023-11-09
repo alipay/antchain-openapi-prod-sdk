@@ -38,6 +38,14 @@ namespace AntChain.SDK.Ak_2abe765c32934341bd9bb6cc1c8ff589.Models
         [Validation(Required=false)]
         public string ExtraInfo { get; set; }
 
+        // 签署状态：
+        // - ACCEPT : 接受
+        // - REFUSE : 拒绝
+        // - TIMEOUT : 超时
+        [NameInMap("status")]
+        [Validation(Required=true)]
+        public string Status { get; set; }
+
     }
 
 }

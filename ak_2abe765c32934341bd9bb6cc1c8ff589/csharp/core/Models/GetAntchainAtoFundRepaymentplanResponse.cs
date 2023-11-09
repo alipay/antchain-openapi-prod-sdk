@@ -29,30 +29,32 @@ namespace AntChain.SDK.Ak_2abe765c32934341bd9bb6cc1c8ff589.Models
         [Validation(Required=false)]
         public string OrderId { get; set; }
 
-        // 宽限期，精确到毫秒
-        [NameInMap("limit")]
+        // 租赁公司支付宝UID
+        [NameInMap("lease_alipay_uid")]
         [Validation(Required=false)]
-        public long? Limit { get; set; }
+        public string LeaseAlipayUid { get; set; }
 
-        // 应付租金时间，格式为yyyy-MM-dd HH:mm:ss
-        [NameInMap("pay_date_list")]
+        // 宽限期，天
+        [NameInMap("grace_period_days")]
         [Validation(Required=false)]
-        public string PayDateList { get; set; }
+        public long? GracePeriodDays { get; set; }
+
+        // 还款策略列表
+        [NameInMap("repay_strategy_list")]
+        [Validation(Required=false)]
+        public string RepayStrategyList { get; set; }
+
+        // 处罚策略
+        //  NONE : 没有处罚
+        //  PENALTY_FEE： 罚息
+        [NameInMap("punishment_type")]
+        [Validation(Required=false)]
+        public string PunishmentType { get; set; }
 
         // 租期
         [NameInMap("pay_period")]
         [Validation(Required=false)]
         public long? PayPeriod { get; set; }
-
-        // 应付租金，精确到分，即1234表示12.34元
-        [NameInMap("pay_money_list")]
-        [Validation(Required=false)]
-        public string PayMoneyList { get; set; }
-
-        // 租赁公司支付宝UID
-        [NameInMap("lease_alipay_uid")]
-        [Validation(Required=false)]
-        public string LeaseAlipayUid { get; set; }
 
     }
 

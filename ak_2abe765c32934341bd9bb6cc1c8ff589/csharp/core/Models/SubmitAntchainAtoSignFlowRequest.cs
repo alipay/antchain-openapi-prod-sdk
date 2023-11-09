@@ -23,11 +23,6 @@ namespace AntChain.SDK.Ak_2abe765c32934341bd9bb6cc1c8ff589.Models
         [Validation(Required=true)]
         public string OrderId { get; set; }
 
-        // 合同在用户签署完成以后是否自动落签完成签署，true-自动落签并结束；false-手工落签并通过接口完成落签。如果不自动落签，则需要调用另外一个落签接口来完成最终的签署的落签。
-        [NameInMap("auto_sign")]
-        [Validation(Required=true)]
-        public bool? AutoSign { get; set; }
-
         // CRED_PSN_CH_IDCARD： 大陆身份证
         // CRED_PSN_CH_TWCARD：台湾来往大陆通行证
         // CRED_PSN_CH_MACAO"：澳门来往大陆通行证

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_2abe765c32934341bd9bb6cc1c8ff589.Models
 {
-    public class QueryAntchainAtoWithholdSignRequest : TeaModel {
+    public class RetryAntchainAtoWithholdPlanRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -22,6 +22,11 @@ namespace AntChain.SDK.Ak_2abe765c32934341bd9bb6cc1c8ff589.Models
         [NameInMap("order_id")]
         [Validation(Required=true, MaxLength=50)]
         public string OrderId { get; set; }
+
+        // 第几期
+        [NameInMap("period_num")]
+        [Validation(Required=true)]
+        public long? PeriodNum { get; set; }
 
     }
 

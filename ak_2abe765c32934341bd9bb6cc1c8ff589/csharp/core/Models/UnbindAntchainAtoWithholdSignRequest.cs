@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_2abe765c32934341bd9bb6cc1c8ff589.Models
 {
-    public class QueryAntchainAtoWithholdSignRequest : TeaModel {
+    public class UnbindAntchainAtoWithholdSignRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]

@@ -30,11 +30,6 @@ namespace AntChain.SDK.Ak_2abe765c32934341bd9bb6cc1c8ff589.Models
         [Validation(Required=true)]
         public string Type { get; set; }
 
-        // 操作类型
-        [NameInMap("operation_type")]
-        [Validation(Required=false)]
-        public string OperationType { get; set; }
-
     }
 
 }
