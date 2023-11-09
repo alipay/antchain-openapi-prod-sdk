@@ -13,12 +13,12 @@ public class SyncAntchainAtoFundOrderfulfillmentRequest extends TeaModel {
 
     // 商户id
     @NameInMap("merchant_tenant_id")
-    @Validation(required = true, maxLength = 50, minLength = 1)
+    @Validation(required = true, maxLength = 49, minLength = 1)
     public String merchantTenantId;
 
     // 订单id
     @NameInMap("order_id")
-    @Validation(required = true, maxLength = 50, minLength = 1)
+    @Validation(required = true, maxLength = 49, minLength = 1)
     public String orderId;
 
     // 租期编号
@@ -26,61 +26,60 @@ public class SyncAntchainAtoFundOrderfulfillmentRequest extends TeaModel {
     @Validation(required = true)
     public Long leaseTermIndex;
 
+    // 剩余归还期数
+    @NameInMap("remain_term")
+    @Validation(required = true)
+    public Long remainTerm;
+
+    // 总期数
+    @NameInMap("total_term")
+    @Validation(required = true)
+    public Long totalTerm;
+
     // 租金归还状态，
-    // 1.足额归还
-    // 2.部分归还
-    // 3.未归还，
-    // 4退租,
-    // 5该订单整个生命周期已完结
+    // RETURN_FULL : 足额归还 【终态】
+    // NOT_RETURN : 未归还
+    // CANCEL : 取消 【终态】
     @NameInMap("rental_return_state")
     @Validation(required = true)
-    public Long rentalReturnState;
+    public String rentalReturnState;
 
     // 租金归还金额,精确到分，即1234表示12.34元
     @NameInMap("rental_money")
     @Validation(required = true)
     public Long rentalMoney;
 
+    // 罚息金额，分，1234表示12.34元
+    @NameInMap("penalty_fee_money")
+    @Validation(required = true)
+    public Long penaltyFeeMoney;
+
+    // 总金额，单位分
+    @NameInMap("total_money")
+    @Validation(required = true)
+    public Long totalMoney;
+
     // 归还时间，格式为"2019-07-31 12:00:00"
     @NameInMap("return_time")
-    @Validation(required = true)
     public String returnTime;
 
     // 归还方式，
-    // 1.预授权代扣
-    // 2.支付宝代扣
-    // 3.主动还款
-    // 4.其他
-    // 5.网商直付通
-    // 6.网商委托代扣
+    // ANTDIGITAL： 数科代扣
+    // FUND : 资方代扣
+    // BANK : 银行转账
+    // WECHAT : 微信支付
     @NameInMap("return_way")
-    @Validation(required = true)
-    public Long returnWay;
+    public String returnWay;
 
-    // 还款凭证类型，
-    // 1.支付宝
-    // 2.平台代收（客户主动还款）
-    // 3.其他
-    // 6.网商银行
-    @NameInMap("return_voucher_type")
-    @Validation(required = true)
-    public Long returnVoucherType;
-
-    // 还款凭证编号，不超过128字符，1.支付宝流水号
+    // 还款凭证编号
     @NameInMap("return_voucher_serial")
-    @Validation(required = true, maxLength = 128, minLength = 1)
+    @Validation(maxLength = 127, minLength = 1)
     public String returnVoucherSerial;
 
-    // 手续费，如通过预授权、代扣的方式规划，必填，单位为分
-    // 1234代表12.34元
-    @NameInMap("charge")
-    @Validation(required = true)
-    public Long charge;
-
-    // 剩余归还期数
-    @NameInMap("remain_term")
-    @Validation(required = true)
-    public Long remainTerm;
+    // 银行名字
+    @NameInMap("bank_name")
+    @Validation(maxLength = 127)
+    public String bankName;
 
     public static SyncAntchainAtoFundOrderfulfillmentRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncAntchainAtoFundOrderfulfillmentRequest self = new SyncAntchainAtoFundOrderfulfillmentRequest();
@@ -127,11 +126,27 @@ public class SyncAntchainAtoFundOrderfulfillmentRequest extends TeaModel {
         return this.leaseTermIndex;
     }
 
-    public SyncAntchainAtoFundOrderfulfillmentRequest setRentalReturnState(Long rentalReturnState) {
+    public SyncAntchainAtoFundOrderfulfillmentRequest setRemainTerm(Long remainTerm) {
+        this.remainTerm = remainTerm;
+        return this;
+    }
+    public Long getRemainTerm() {
+        return this.remainTerm;
+    }
+
+    public SyncAntchainAtoFundOrderfulfillmentRequest setTotalTerm(Long totalTerm) {
+        this.totalTerm = totalTerm;
+        return this;
+    }
+    public Long getTotalTerm() {
+        return this.totalTerm;
+    }
+
+    public SyncAntchainAtoFundOrderfulfillmentRequest setRentalReturnState(String rentalReturnState) {
         this.rentalReturnState = rentalReturnState;
         return this;
     }
-    public Long getRentalReturnState() {
+    public String getRentalReturnState() {
         return this.rentalReturnState;
     }
 
@@ -143,6 +158,22 @@ public class SyncAntchainAtoFundOrderfulfillmentRequest extends TeaModel {
         return this.rentalMoney;
     }
 
+    public SyncAntchainAtoFundOrderfulfillmentRequest setPenaltyFeeMoney(Long penaltyFeeMoney) {
+        this.penaltyFeeMoney = penaltyFeeMoney;
+        return this;
+    }
+    public Long getPenaltyFeeMoney() {
+        return this.penaltyFeeMoney;
+    }
+
+    public SyncAntchainAtoFundOrderfulfillmentRequest setTotalMoney(Long totalMoney) {
+        this.totalMoney = totalMoney;
+        return this;
+    }
+    public Long getTotalMoney() {
+        return this.totalMoney;
+    }
+
     public SyncAntchainAtoFundOrderfulfillmentRequest setReturnTime(String returnTime) {
         this.returnTime = returnTime;
         return this;
@@ -151,20 +182,12 @@ public class SyncAntchainAtoFundOrderfulfillmentRequest extends TeaModel {
         return this.returnTime;
     }
 
-    public SyncAntchainAtoFundOrderfulfillmentRequest setReturnWay(Long returnWay) {
+    public SyncAntchainAtoFundOrderfulfillmentRequest setReturnWay(String returnWay) {
         this.returnWay = returnWay;
         return this;
     }
-    public Long getReturnWay() {
+    public String getReturnWay() {
         return this.returnWay;
-    }
-
-    public SyncAntchainAtoFundOrderfulfillmentRequest setReturnVoucherType(Long returnVoucherType) {
-        this.returnVoucherType = returnVoucherType;
-        return this;
-    }
-    public Long getReturnVoucherType() {
-        return this.returnVoucherType;
     }
 
     public SyncAntchainAtoFundOrderfulfillmentRequest setReturnVoucherSerial(String returnVoucherSerial) {
@@ -175,20 +198,12 @@ public class SyncAntchainAtoFundOrderfulfillmentRequest extends TeaModel {
         return this.returnVoucherSerial;
     }
 
-    public SyncAntchainAtoFundOrderfulfillmentRequest setCharge(Long charge) {
-        this.charge = charge;
+    public SyncAntchainAtoFundOrderfulfillmentRequest setBankName(String bankName) {
+        this.bankName = bankName;
         return this;
     }
-    public Long getCharge() {
-        return this.charge;
-    }
-
-    public SyncAntchainAtoFundOrderfulfillmentRequest setRemainTerm(Long remainTerm) {
-        this.remainTerm = remainTerm;
-        return this;
-    }
-    public Long getRemainTerm() {
-        return this.remainTerm;
+    public String getBankName() {
+        return this.bankName;
     }
 
 }

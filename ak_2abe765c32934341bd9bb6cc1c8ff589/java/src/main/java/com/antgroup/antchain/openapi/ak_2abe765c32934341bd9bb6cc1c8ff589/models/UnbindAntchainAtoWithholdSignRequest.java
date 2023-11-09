@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_2abe765c32934341bd9bb6cc1c8ff589.models
 
 import com.aliyun.tea.*;
 
-public class QueryAntchainAtoWithholdSignRequest extends TeaModel {
+public class UnbindAntchainAtoWithholdSignRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,12 +16,12 @@ public class QueryAntchainAtoWithholdSignRequest extends TeaModel {
     @Validation(required = true, maxLength = 50)
     public String orderId;
 
-    public static QueryAntchainAtoWithholdSignRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryAntchainAtoWithholdSignRequest self = new QueryAntchainAtoWithholdSignRequest();
+    public static UnbindAntchainAtoWithholdSignRequest build(java.util.Map<String, ?> map) throws Exception {
+        UnbindAntchainAtoWithholdSignRequest self = new UnbindAntchainAtoWithholdSignRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryAntchainAtoWithholdSignRequest setAuthToken(String authToken) {
+    public UnbindAntchainAtoWithholdSignRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryAntchainAtoWithholdSignRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryAntchainAtoWithholdSignRequest setProductInstanceId(String productInstanceId) {
+    public UnbindAntchainAtoWithholdSignRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryAntchainAtoWithholdSignRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryAntchainAtoWithholdSignRequest setOrderId(String orderId) {
+    public UnbindAntchainAtoWithholdSignRequest setOrderId(String orderId) {
         this.orderId = orderId;
         return this;
     }

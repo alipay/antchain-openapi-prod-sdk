@@ -13,27 +13,27 @@ public class CreateAntchainAtoWithholdSignRequest extends TeaModel {
 
     // 订单id 长度不可超过50
     @NameInMap("order_id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50)
     public String orderId;
 
     // 支付宝商户id，使用签约能力前时候进行向平台申请
     @NameInMap("alipay_merchant_id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 20)
     public String alipayMerchantId;
 
     // 支付宝商户名称，会展示在支付并签约界面
     @NameInMap("alipay_merchant_name")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50)
     public String alipayMerchantName;
 
     // 支付宝商户服务名称，会展示在支付并签约界面
     @NameInMap("alipay_merchant_service_name")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50)
     public String alipayMerchantServiceName;
 
     // 支付宝商户服务描述，会展示在支付并签约界面
     @NameInMap("alipay_merchant_service_description")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 150)
     public String alipayMerchantServiceDescription;
 
     public static CreateAntchainAtoWithholdSignRequest build(java.util.Map<String, ?> map) throws Exception {

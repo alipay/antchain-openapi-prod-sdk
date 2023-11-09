@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_2abe765c32934341bd9bb6cc1c8ff589.models
 
 import com.aliyun.tea.*;
 
-public class QueryAntchainAtoWithholdSignRequest extends TeaModel {
+public class RetryAntchainAtoWithholdPlanRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,12 +16,17 @@ public class QueryAntchainAtoWithholdSignRequest extends TeaModel {
     @Validation(required = true, maxLength = 50)
     public String orderId;
 
-    public static QueryAntchainAtoWithholdSignRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryAntchainAtoWithholdSignRequest self = new QueryAntchainAtoWithholdSignRequest();
+    // 第几期
+    @NameInMap("period_num")
+    @Validation(required = true, minimum = 1)
+    public Long periodNum;
+
+    public static RetryAntchainAtoWithholdPlanRequest build(java.util.Map<String, ?> map) throws Exception {
+        RetryAntchainAtoWithholdPlanRequest self = new RetryAntchainAtoWithholdPlanRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryAntchainAtoWithholdSignRequest setAuthToken(String authToken) {
+    public RetryAntchainAtoWithholdPlanRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +34,7 @@ public class QueryAntchainAtoWithholdSignRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryAntchainAtoWithholdSignRequest setProductInstanceId(String productInstanceId) {
+    public RetryAntchainAtoWithholdPlanRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +42,20 @@ public class QueryAntchainAtoWithholdSignRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryAntchainAtoWithholdSignRequest setOrderId(String orderId) {
+    public RetryAntchainAtoWithholdPlanRequest setOrderId(String orderId) {
         this.orderId = orderId;
         return this;
     }
     public String getOrderId() {
         return this.orderId;
+    }
+
+    public RetryAntchainAtoWithholdPlanRequest setPeriodNum(Long periodNum) {
+        this.periodNum = periodNum;
+        return this;
+    }
+    public Long getPeriodNum() {
+        return this.periodNum;
     }
 
 }

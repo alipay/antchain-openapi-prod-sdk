@@ -23,10 +23,6 @@ public class SyncAntchainAtoTradeRequest extends TeaModel {
     @Validation(required = true)
     public String type;
 
-    // 操作类型
-    @NameInMap("operation_type")
-    public String operationType;
-
     public static SyncAntchainAtoTradeRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncAntchainAtoTradeRequest self = new SyncAntchainAtoTradeRequest();
         return TeaModel.build(map, self);
@@ -62,14 +58,6 @@ public class SyncAntchainAtoTradeRequest extends TeaModel {
     }
     public String getType() {
         return this.type;
-    }
-
-    public SyncAntchainAtoTradeRequest setOperationType(String operationType) {
-        this.operationType = operationType;
-        return this;
-    }
-    public String getOperationType() {
-        return this.operationType;
     }
 
 }

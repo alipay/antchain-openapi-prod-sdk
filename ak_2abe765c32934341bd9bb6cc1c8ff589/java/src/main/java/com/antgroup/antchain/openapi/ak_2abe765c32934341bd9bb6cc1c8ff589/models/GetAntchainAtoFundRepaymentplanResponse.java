@@ -20,25 +20,27 @@ public class GetAntchainAtoFundRepaymentplanResponse extends TeaModel {
     @NameInMap("order_id")
     public String orderId;
 
-    // 宽限期，精确到毫秒
-    @NameInMap("limit")
-    public Long limit;
+    // 租赁公司支付宝UID
+    @NameInMap("lease_alipay_uid")
+    public String leaseAlipayUid;
 
-    // 应付租金时间，格式为yyyy-MM-dd HH:mm:ss
-    @NameInMap("pay_date_list")
-    public String payDateList;
+    // 宽限期，天
+    @NameInMap("grace_period_days")
+    public Long gracePeriodDays;
+
+    // 还款策略列表
+    @NameInMap("repay_strategy_list")
+    public String repayStrategyList;
+
+    // 处罚策略
+    //  NONE : 没有处罚
+    //  PENALTY_FEE： 罚息
+    @NameInMap("punishment_type")
+    public String punishmentType;
 
     // 租期
     @NameInMap("pay_period")
     public Long payPeriod;
-
-    // 应付租金，精确到分，即1234表示12.34元
-    @NameInMap("pay_money_list")
-    public String payMoneyList;
-
-    // 租赁公司支付宝UID
-    @NameInMap("lease_alipay_uid")
-    public String leaseAlipayUid;
 
     public static GetAntchainAtoFundRepaymentplanResponse build(java.util.Map<String, ?> map) throws Exception {
         GetAntchainAtoFundRepaymentplanResponse self = new GetAntchainAtoFundRepaymentplanResponse();
@@ -77,20 +79,36 @@ public class GetAntchainAtoFundRepaymentplanResponse extends TeaModel {
         return this.orderId;
     }
 
-    public GetAntchainAtoFundRepaymentplanResponse setLimit(Long limit) {
-        this.limit = limit;
+    public GetAntchainAtoFundRepaymentplanResponse setLeaseAlipayUid(String leaseAlipayUid) {
+        this.leaseAlipayUid = leaseAlipayUid;
         return this;
     }
-    public Long getLimit() {
-        return this.limit;
+    public String getLeaseAlipayUid() {
+        return this.leaseAlipayUid;
     }
 
-    public GetAntchainAtoFundRepaymentplanResponse setPayDateList(String payDateList) {
-        this.payDateList = payDateList;
+    public GetAntchainAtoFundRepaymentplanResponse setGracePeriodDays(Long gracePeriodDays) {
+        this.gracePeriodDays = gracePeriodDays;
         return this;
     }
-    public String getPayDateList() {
-        return this.payDateList;
+    public Long getGracePeriodDays() {
+        return this.gracePeriodDays;
+    }
+
+    public GetAntchainAtoFundRepaymentplanResponse setRepayStrategyList(String repayStrategyList) {
+        this.repayStrategyList = repayStrategyList;
+        return this;
+    }
+    public String getRepayStrategyList() {
+        return this.repayStrategyList;
+    }
+
+    public GetAntchainAtoFundRepaymentplanResponse setPunishmentType(String punishmentType) {
+        this.punishmentType = punishmentType;
+        return this;
+    }
+    public String getPunishmentType() {
+        return this.punishmentType;
     }
 
     public GetAntchainAtoFundRepaymentplanResponse setPayPeriod(Long payPeriod) {
@@ -99,22 +117,6 @@ public class GetAntchainAtoFundRepaymentplanResponse extends TeaModel {
     }
     public Long getPayPeriod() {
         return this.payPeriod;
-    }
-
-    public GetAntchainAtoFundRepaymentplanResponse setPayMoneyList(String payMoneyList) {
-        this.payMoneyList = payMoneyList;
-        return this;
-    }
-    public String getPayMoneyList() {
-        return this.payMoneyList;
-    }
-
-    public GetAntchainAtoFundRepaymentplanResponse setLeaseAlipayUid(String leaseAlipayUid) {
-        this.leaseAlipayUid = leaseAlipayUid;
-        return this;
-    }
-    public String getLeaseAlipayUid() {
-        return this.leaseAlipayUid;
     }
 
 }

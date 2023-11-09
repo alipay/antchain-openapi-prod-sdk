@@ -30,6 +30,14 @@ public class SyncAntchainAtoFundWithholdingcontractRequest extends TeaModel {
     @NameInMap("extra_info")
     public String extraInfo;
 
+    // 签署状态：
+    // - ACCEPT : 接受
+    // - REFUSE : 拒绝
+    // - TIMEOUT : 超时
+    @NameInMap("status")
+    @Validation(required = true)
+    public String status;
+
     public static SyncAntchainAtoFundWithholdingcontractRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncAntchainAtoFundWithholdingcontractRequest self = new SyncAntchainAtoFundWithholdingcontractRequest();
         return TeaModel.build(map, self);
@@ -81,6 +89,14 @@ public class SyncAntchainAtoFundWithholdingcontractRequest extends TeaModel {
     }
     public String getExtraInfo() {
         return this.extraInfo;
+    }
+
+    public SyncAntchainAtoFundWithholdingcontractRequest setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+    public String getStatus() {
+        return this.status;
     }
 
 }
