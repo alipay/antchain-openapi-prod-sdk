@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_2abe765c32934341bd9bb6cc1c8ff589',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_2abe765c32934341bd9bb6cc1c8ff589',
                     '_prod_channel': 'saas'
                 }
@@ -1169,4 +1169,284 @@ class Client:
         return TeaCore.from_map(
             ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoTradeFullResponse(),
             await self.do_request_async('1.0', 'antchain.ato.trade.full.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def auth_antchain_ato_sign_flow(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoSignFlowRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoSignFlowResponse:
+        """
+        Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
+        Summary: 电子合同签署流程落签操作
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.auth_antchain_ato_sign_flow_ex(request, headers, runtime)
+
+    async def auth_antchain_ato_sign_flow_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoSignFlowRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoSignFlowResponse:
+        """
+        Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
+        Summary: 电子合同签署流程落签操作
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.auth_antchain_ato_sign_flow_ex_async(request, headers, runtime)
+
+    def auth_antchain_ato_sign_flow_ex(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoSignFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoSignFlowResponse:
+        """
+        Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
+        Summary: 电子合同签署流程落签操作
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoSignFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.sign.flow.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def auth_antchain_ato_sign_flow_ex_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoSignFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoSignFlowResponse:
+        """
+        Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
+        Summary: 电子合同签署流程落签操作
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoSignFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.sign.flow.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unbind_antchain_ato_withhold_sign(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UnbindAntchainAtoWithholdSignRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UnbindAntchainAtoWithholdSignResponse:
+        """
+        Description: 订单关闭后,可以通过此接口解绑签约
+        Summary: 代扣签约解绑
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unbind_antchain_ato_withhold_sign_ex(request, headers, runtime)
+
+    async def unbind_antchain_ato_withhold_sign_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UnbindAntchainAtoWithholdSignRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UnbindAntchainAtoWithholdSignResponse:
+        """
+        Description: 订单关闭后,可以通过此接口解绑签约
+        Summary: 代扣签约解绑
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unbind_antchain_ato_withhold_sign_ex_async(request, headers, runtime)
+
+    def unbind_antchain_ato_withhold_sign_ex(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UnbindAntchainAtoWithholdSignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UnbindAntchainAtoWithholdSignResponse:
+        """
+        Description: 订单关闭后,可以通过此接口解绑签约
+        Summary: 代扣签约解绑
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UnbindAntchainAtoWithholdSignResponse(),
+            self.do_request('1.0', 'antchain.ato.withhold.sign.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unbind_antchain_ato_withhold_sign_ex_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UnbindAntchainAtoWithholdSignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UnbindAntchainAtoWithholdSignResponse:
+        """
+        Description: 订单关闭后,可以通过此接口解绑签约
+        Summary: 代扣签约解绑
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UnbindAntchainAtoWithholdSignResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.withhold.sign.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_antchain_ato_withhold_plan(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CancelAntchainAtoWithholdPlanRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CancelAntchainAtoWithholdPlanResponse:
+        """
+        Description: 取消代扣计划，将未扣款的全部代扣计划进行取消
+        Summary: 取消代扣计划
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_antchain_ato_withhold_plan_ex(request, headers, runtime)
+
+    async def cancel_antchain_ato_withhold_plan_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CancelAntchainAtoWithholdPlanRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CancelAntchainAtoWithholdPlanResponse:
+        """
+        Description: 取消代扣计划，将未扣款的全部代扣计划进行取消
+        Summary: 取消代扣计划
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_antchain_ato_withhold_plan_ex_async(request, headers, runtime)
+
+    def cancel_antchain_ato_withhold_plan_ex(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CancelAntchainAtoWithholdPlanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CancelAntchainAtoWithholdPlanResponse:
+        """
+        Description: 取消代扣计划，将未扣款的全部代扣计划进行取消
+        Summary: 取消代扣计划
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CancelAntchainAtoWithholdPlanResponse(),
+            self.do_request('1.0', 'antchain.ato.withhold.plan.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_antchain_ato_withhold_plan_ex_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CancelAntchainAtoWithholdPlanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CancelAntchainAtoWithholdPlanResponse:
+        """
+        Description: 取消代扣计划，将未扣款的全部代扣计划进行取消
+        Summary: 取消代扣计划
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CancelAntchainAtoWithholdPlanResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.withhold.plan.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def repay_antchain_ato_withhold_plan(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RepayAntchainAtoWithholdPlanRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RepayAntchainAtoWithholdPlanResponse:
+        """
+        Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
+        Summary: 代扣计划清偿/清欠
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.repay_antchain_ato_withhold_plan_ex(request, headers, runtime)
+
+    async def repay_antchain_ato_withhold_plan_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RepayAntchainAtoWithholdPlanRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RepayAntchainAtoWithholdPlanResponse:
+        """
+        Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
+        Summary: 代扣计划清偿/清欠
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.repay_antchain_ato_withhold_plan_ex_async(request, headers, runtime)
+
+    def repay_antchain_ato_withhold_plan_ex(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RepayAntchainAtoWithholdPlanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RepayAntchainAtoWithholdPlanResponse:
+        """
+        Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
+        Summary: 代扣计划清偿/清欠
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RepayAntchainAtoWithholdPlanResponse(),
+            self.do_request('1.0', 'antchain.ato.withhold.plan.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def repay_antchain_ato_withhold_plan_ex_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RepayAntchainAtoWithholdPlanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RepayAntchainAtoWithholdPlanResponse:
+        """
+        Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
+        Summary: 代扣计划清偿/清欠
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RepayAntchainAtoWithholdPlanResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.withhold.plan.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def retry_antchain_ato_withhold_plan(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RetryAntchainAtoWithholdPlanRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RetryAntchainAtoWithholdPlanResponse:
+        """
+        Description: 当代扣未成功时，商户可与用户进行沟通补款到支付宝，补款完成后通过代扣重试能力实时触发重试扣款。
+        Summary: 扣款计划重试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.retry_antchain_ato_withhold_plan_ex(request, headers, runtime)
+
+    async def retry_antchain_ato_withhold_plan_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RetryAntchainAtoWithholdPlanRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RetryAntchainAtoWithholdPlanResponse:
+        """
+        Description: 当代扣未成功时，商户可与用户进行沟通补款到支付宝，补款完成后通过代扣重试能力实时触发重试扣款。
+        Summary: 扣款计划重试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.retry_antchain_ato_withhold_plan_ex_async(request, headers, runtime)
+
+    def retry_antchain_ato_withhold_plan_ex(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RetryAntchainAtoWithholdPlanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RetryAntchainAtoWithholdPlanResponse:
+        """
+        Description: 当代扣未成功时，商户可与用户进行沟通补款到支付宝，补款完成后通过代扣重试能力实时触发重试扣款。
+        Summary: 扣款计划重试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RetryAntchainAtoWithholdPlanResponse(),
+            self.do_request('1.0', 'antchain.ato.withhold.plan.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def retry_antchain_ato_withhold_plan_ex_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RetryAntchainAtoWithholdPlanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RetryAntchainAtoWithholdPlanResponse:
+        """
+        Description: 当代扣未成功时，商户可与用户进行沟通补款到支付宝，补款完成后通过代扣重试能力实时触发重试扣款。
+        Summary: 扣款计划重试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RetryAntchainAtoWithholdPlanResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.withhold.plan.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
