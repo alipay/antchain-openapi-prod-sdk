@@ -453,15 +453,12 @@ export class SyncAntchainAtoTradeRequest extends $tea.Model {
   // 接口执行类型
   // 
   type: string;
-  // 操作类型
-  operationType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       bizContent: 'biz_content',
       type: 'type',
-      operationType: 'operation_type',
     };
   }
 
@@ -471,7 +468,6 @@ export class SyncAntchainAtoTradeRequest extends $tea.Model {
       productInstanceId: 'string',
       bizContent: 'string',
       type: 'string',
-      operationType: 'string',
     };
   }
 
@@ -802,8 +798,6 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
   productInstanceId?: string;
   // 订单号
   orderId: string;
-  // 合同在用户签署完成以后是否自动落签完成签署，true-自动落签并结束；false-手工落签并通过接口完成落签。如果不自动落签，则需要调用另外一个落签接口来完成最终的签署的落签。
-  autoSign: boolean;
   // CRED_PSN_CH_IDCARD： 大陆身份证
   // CRED_PSN_CH_TWCARD：台湾来往大陆通行证
   // CRED_PSN_CH_MACAO"：澳门来往大陆通行证
@@ -857,7 +851,6 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderId: 'order_id',
-      autoSign: 'auto_sign',
       userIdType: 'user_id_type',
       userIdNumber: 'user_id_number',
       userName: 'user_name',
@@ -885,7 +878,6 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       orderId: 'string',
-      autoSign: 'boolean',
       userIdType: 'string',
       userIdNumber: 'string',
       userName: 'string',
@@ -1257,27 +1249,29 @@ export class GetAntchainAtoFundRepaymentplanResponse extends $tea.Model {
   resultMsg?: string;
   // 订单id
   orderId?: string;
-  // 宽限期，精确到毫秒
-  limit?: number;
-  // 应付租金时间，格式为yyyy-MM-dd HH:mm:ss
-  payDateList?: string;
-  // 租期
-  payPeriod?: number;
-  // 应付租金，精确到分，即1234表示12.34元
-  payMoneyList?: string;
   // 租赁公司支付宝UID
   leaseAlipayUid?: string;
+  // 宽限期，天
+  gracePeriodDays?: number;
+  // 还款策略列表
+  repayStrategyList?: string;
+  // 处罚策略
+  //  NONE : 没有处罚
+  //  PENALTY_FEE： 罚息
+  punishmentType?: string;
+  // 租期
+  payPeriod?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       orderId: 'order_id',
-      limit: 'limit',
-      payDateList: 'pay_date_list',
-      payPeriod: 'pay_period',
-      payMoneyList: 'pay_money_list',
       leaseAlipayUid: 'lease_alipay_uid',
+      gracePeriodDays: 'grace_period_days',
+      repayStrategyList: 'repay_strategy_list',
+      punishmentType: 'punishment_type',
+      payPeriod: 'pay_period',
     };
   }
 
@@ -1287,11 +1281,11 @@ export class GetAntchainAtoFundRepaymentplanResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       orderId: 'string',
-      limit: 'number',
-      payDateList: 'string',
-      payPeriod: 'number',
-      payMoneyList: 'string',
       leaseAlipayUid: 'string',
+      gracePeriodDays: 'number',
+      repayStrategyList: 'string',
+      punishmentType: 'string',
+      payPeriod: 'number',
     };
   }
 
@@ -1312,6 +1306,11 @@ export class SyncAntchainAtoFundWithholdingcontractRequest extends $tea.Model {
   withholdingContractId: string;
   // json的字符串，存储额外信息
   extraInfo?: string;
+  // 签署状态：
+  // - ACCEPT : 接受
+  // - REFUSE : 拒绝
+  // - TIMEOUT : 超时
+  status: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1320,6 +1319,7 @@ export class SyncAntchainAtoFundWithholdingcontractRequest extends $tea.Model {
       merchantTenantId: 'merchant_tenant_id',
       withholdingContractId: 'withholding_contract_id',
       extraInfo: 'extra_info',
+      status: 'status',
     };
   }
 
@@ -1331,6 +1331,7 @@ export class SyncAntchainAtoFundWithholdingcontractRequest extends $tea.Model {
       merchantTenantId: 'string',
       withholdingContractId: 'string',
       extraInfo: 'string',
+      status: 'string',
     };
   }
 
@@ -1381,38 +1382,33 @@ export class SyncAntchainAtoFundOrderfulfillmentRequest extends $tea.Model {
   orderId: string;
   // 租期编号
   leaseTermIndex: number;
-  // 租金归还状态，
-  // 1.足额归还
-  // 2.部分归还
-  // 3.未归还，
-  // 4退租,
-  // 5该订单整个生命周期已完结
-  rentalReturnState: number;
-  // 租金归还金额,精确到分，即1234表示12.34元
-  rentalMoney: number;
-  // 归还时间，格式为"2019-07-31 12:00:00"
-  returnTime: string;
-  // 归还方式，
-  // 1.预授权代扣
-  // 2.支付宝代扣
-  // 3.主动还款
-  // 4.其他
-  // 5.网商直付通
-  // 6.网商委托代扣
-  returnWay: number;
-  // 还款凭证类型，
-  // 1.支付宝
-  // 2.平台代收（客户主动还款）
-  // 3.其他
-  // 6.网商银行
-  returnVoucherType: number;
-  // 还款凭证编号，不超过128字符，1.支付宝流水号
-  returnVoucherSerial: string;
-  // 手续费，如通过预授权、代扣的方式规划，必填，单位为分
-  // 1234代表12.34元
-  charge: number;
   // 剩余归还期数
   remainTerm: number;
+  // 总期数
+  totalTerm: number;
+  // 租金归还状态，
+  // RETURN_FULL : 足额归还 【终态】
+  // NOT_RETURN : 未归还
+  // CANCEL : 取消 【终态】
+  rentalReturnState: string;
+  // 租金归还金额,精确到分，即1234表示12.34元
+  rentalMoney: number;
+  // 罚息金额，分，1234表示12.34元
+  penaltyFeeMoney: number;
+  // 总金额，单位分
+  totalMoney: number;
+  // 归还时间，格式为"2019-07-31 12:00:00"
+  returnTime?: string;
+  // 归还方式，
+  // ANTDIGITAL： 数科代扣
+  // FUND : 资方代扣
+  // BANK : 银行转账
+  // WECHAT : 微信支付
+  returnWay?: string;
+  // 还款凭证编号
+  returnVoucherSerial?: string;
+  // 银行名字
+  bankName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1420,14 +1416,16 @@ export class SyncAntchainAtoFundOrderfulfillmentRequest extends $tea.Model {
       merchantTenantId: 'merchant_tenant_id',
       orderId: 'order_id',
       leaseTermIndex: 'lease_term_index',
+      remainTerm: 'remain_term',
+      totalTerm: 'total_term',
       rentalReturnState: 'rental_return_state',
       rentalMoney: 'rental_money',
+      penaltyFeeMoney: 'penalty_fee_money',
+      totalMoney: 'total_money',
       returnTime: 'return_time',
       returnWay: 'return_way',
-      returnVoucherType: 'return_voucher_type',
       returnVoucherSerial: 'return_voucher_serial',
-      charge: 'charge',
-      remainTerm: 'remain_term',
+      bankName: 'bank_name',
     };
   }
 
@@ -1438,14 +1436,16 @@ export class SyncAntchainAtoFundOrderfulfillmentRequest extends $tea.Model {
       merchantTenantId: 'string',
       orderId: 'string',
       leaseTermIndex: 'number',
-      rentalReturnState: 'number',
-      rentalMoney: 'number',
-      returnTime: 'string',
-      returnWay: 'number',
-      returnVoucherType: 'number',
-      returnVoucherSerial: 'string',
-      charge: 'number',
       remainTerm: 'number',
+      totalTerm: 'number',
+      rentalReturnState: 'string',
+      rentalMoney: 'number',
+      penaltyFeeMoney: 'number',
+      totalMoney: 'number',
+      returnTime: 'string',
+      returnWay: 'string',
+      returnVoucherSerial: 'string',
+      bankName: 'string',
     };
   }
 
@@ -1494,12 +1494,17 @@ export class GetAntchainAtoFundOrderfulfillmentRequest extends $tea.Model {
   orderId: string;
   // 租赁订单所属商家租户id
   merchantTenantId: string;
+  // 期数
+  // 如果填入，获取term_idx下的履约记录
+  // 如果不填入，获取order_id下的所有履约记录
+  termIdx?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderId: 'order_id',
       merchantTenantId: 'merchant_tenant_id',
+      termIdx: 'term_idx',
     };
   }
 
@@ -1509,6 +1514,7 @@ export class GetAntchainAtoFundOrderfulfillmentRequest extends $tea.Model {
       productInstanceId: 'string',
       orderId: 'string',
       merchantTenantId: 'string',
+      termIdx: 'number',
     };
   }
 
@@ -1770,6 +1776,335 @@ export class SyncAntchainAtoTradeFullResponse extends $tea.Model {
   }
 }
 
+export class AuthAntchainAtoSignFlowRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 签署的电子合同ID
+  signNo: string;
+  // 签署区域的tag，和发起签署流程的机构的tag对应。
+  tag?: string;
+  // 电子合同签署服务返回的biz_flow_id
+  bizFlowId?: string;
+  // 电子合同签署服务的返回的account_id
+  accountId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      signNo: 'sign_no',
+      tag: 'tag',
+      bizFlowId: 'biz_flow_id',
+      accountId: 'account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      signNo: 'string',
+      tag: 'string',
+      bizFlowId: 'string',
+      accountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthAntchainAtoSignFlowResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签署最后落签的签署区域id列表
+  signFieldIds?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signFieldIds: 'sign_field_ids',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signFieldIds: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UnbindAntchainAtoWithholdSignRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id 长度不可超过50
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UnbindAntchainAtoWithholdSignResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelAntchainAtoWithholdPlanRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 当发现跨天继续提交
+  orderId: string;
+  // 取消原因
+  // RENTING_OUT:退租
+  // RENTING_AND_RESALE:租转售
+  // 
+  // 
+  cancelReason: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      cancelReason: 'cancel_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      cancelReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelAntchainAtoWithholdPlanResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RepayAntchainAtoWithholdPlanRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id 长度不可超过50
+  orderId: string;
+  // 第几期
+  periodNum: number;
+  // 扣款时间
+  gmtPay: string;
+  // 清偿清欠金额，单位为分
+  payOffAmount: number;
+  // 清偿清欠方式
+  // WECHAT:微信;
+  // BANK:银行
+  payOffType: string;
+  // 清偿清欠单号,通过其他方式清偿的第三方单号;例如银行流水号或微信流水号
+  payOffNo: string;
+  // 清偿清欠银行名称,方式为银行时必填
+  payOffBankName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      periodNum: 'period_num',
+      gmtPay: 'gmt_pay',
+      payOffAmount: 'pay_off_amount',
+      payOffType: 'pay_off_type',
+      payOffNo: 'pay_off_no',
+      payOffBankName: 'pay_off_bank_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      periodNum: 'number',
+      gmtPay: 'string',
+      payOffAmount: 'number',
+      payOffType: 'string',
+      payOffNo: 'string',
+      payOffBankName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RepayAntchainAtoWithholdPlanResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RetryAntchainAtoWithholdPlanRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id 长度不可超过50
+  orderId: string;
+  // 第几期
+  periodNum: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      periodNum: 'period_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      periodNum: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RetryAntchainAtoWithholdPlanResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1883,7 +2218,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_2abe765c32934341bd9bb6cc1c8ff589",
           _prod_channel: "saas",
         };
@@ -2233,6 +2568,101 @@ export default class Client {
   async syncAntchainAtoTradeFullEx(request: SyncAntchainAtoTradeFullRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncAntchainAtoTradeFullResponse> {
     Util.validateModel(request);
     return $tea.cast<SyncAntchainAtoTradeFullResponse>(await this.doRequest("1.0", "antchain.ato.trade.full.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncAntchainAtoTradeFullResponse({}));
+  }
+
+  /**
+   * Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
+   * Summary: 电子合同签署流程落签操作
+   */
+  async authAntchainAtoSignFlow(request: AuthAntchainAtoSignFlowRequest): Promise<AuthAntchainAtoSignFlowResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.authAntchainAtoSignFlowEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
+   * Summary: 电子合同签署流程落签操作
+   */
+  async authAntchainAtoSignFlowEx(request: AuthAntchainAtoSignFlowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AuthAntchainAtoSignFlowResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AuthAntchainAtoSignFlowResponse>(await this.doRequest("1.0", "antchain.ato.sign.flow.auth", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AuthAntchainAtoSignFlowResponse({}));
+  }
+
+  /**
+   * Description: 订单关闭后,可以通过此接口解绑签约
+   * Summary: 代扣签约解绑
+   */
+  async unbindAntchainAtoWithholdSign(request: UnbindAntchainAtoWithholdSignRequest): Promise<UnbindAntchainAtoWithholdSignResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.unbindAntchainAtoWithholdSignEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 订单关闭后,可以通过此接口解绑签约
+   * Summary: 代扣签约解绑
+   */
+  async unbindAntchainAtoWithholdSignEx(request: UnbindAntchainAtoWithholdSignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnbindAntchainAtoWithholdSignResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UnbindAntchainAtoWithholdSignResponse>(await this.doRequest("1.0", "antchain.ato.withhold.sign.unbind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UnbindAntchainAtoWithholdSignResponse({}));
+  }
+
+  /**
+   * Description: 取消代扣计划，将未扣款的全部代扣计划进行取消
+   * Summary: 取消代扣计划
+   */
+  async cancelAntchainAtoWithholdPlan(request: CancelAntchainAtoWithholdPlanRequest): Promise<CancelAntchainAtoWithholdPlanResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelAntchainAtoWithholdPlanEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 取消代扣计划，将未扣款的全部代扣计划进行取消
+   * Summary: 取消代扣计划
+   */
+  async cancelAntchainAtoWithholdPlanEx(request: CancelAntchainAtoWithholdPlanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelAntchainAtoWithholdPlanResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelAntchainAtoWithholdPlanResponse>(await this.doRequest("1.0", "antchain.ato.withhold.plan.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelAntchainAtoWithholdPlanResponse({}));
+  }
+
+  /**
+   * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
+   * Summary: 代扣计划清偿/清欠
+   */
+  async repayAntchainAtoWithholdPlan(request: RepayAntchainAtoWithholdPlanRequest): Promise<RepayAntchainAtoWithholdPlanResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.repayAntchainAtoWithholdPlanEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
+   * Summary: 代扣计划清偿/清欠
+   */
+  async repayAntchainAtoWithholdPlanEx(request: RepayAntchainAtoWithholdPlanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RepayAntchainAtoWithholdPlanResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RepayAntchainAtoWithholdPlanResponse>(await this.doRequest("1.0", "antchain.ato.withhold.plan.repay", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RepayAntchainAtoWithholdPlanResponse({}));
+  }
+
+  /**
+   * Description: 当代扣未成功时，商户可与用户进行沟通补款到支付宝，补款完成后通过代扣重试能力实时触发重试扣款。
+   * Summary: 扣款计划重试
+   */
+  async retryAntchainAtoWithholdPlan(request: RetryAntchainAtoWithholdPlanRequest): Promise<RetryAntchainAtoWithholdPlanResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.retryAntchainAtoWithholdPlanEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 当代扣未成功时，商户可与用户进行沟通补款到支付宝，补款完成后通过代扣重试能力实时触发重试扣款。
+   * Summary: 扣款计划重试
+   */
+  async retryAntchainAtoWithholdPlanEx(request: RetryAntchainAtoWithholdPlanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RetryAntchainAtoWithholdPlanResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RetryAntchainAtoWithholdPlanResponse>(await this.doRequest("1.0", "antchain.ato.withhold.plan.retry", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RetryAntchainAtoWithholdPlanResponse({}));
   }
 
 }
