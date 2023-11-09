@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "ak_2abe765c32934341bd9bb6cc1c8ff589",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./main.tea",
   "maintainers": [
     {
