@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryUmktTenantActionplaninfoRequest extends Model
+class PushUmktCustomerGroupRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,34 +19,28 @@ class QueryUmktTenantActionplaninfoRequest extends Model
      */
     public $productInstanceId;
 
-    // 页码
-    /**
-     * @var int
-     */
-    public $pageNum;
-
-    // 页容量
-    /**
-     * @var int
-     */
-    public $pageSize;
-
-    // 渠道code
+    // 事件ID
     /**
      * @var string
      */
-    public $contentType;
+    public $eventId;
+
+    // 数据属性
+    /**
+     * @var string
+     */
+    public $properties;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'pageNum'           => 'page_num',
-        'pageSize'          => 'page_size',
-        'contentType'       => 'content_type',
+        'eventId'           => 'event_id',
+        'properties'        => 'properties',
     ];
 
     public function validate()
     {
-        Model::validateRequired('contentType', $this->contentType, true);
+        Model::validateRequired('eventId', $this->eventId, true);
+        Model::validateRequired('properties', $this->properties, true);
     }
 
     public function toMap()
@@ -58,14 +52,11 @@ class QueryUmktTenantActionplaninfoRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->pageNum) {
-            $res['page_num'] = $this->pageNum;
+        if (null !== $this->eventId) {
+            $res['event_id'] = $this->eventId;
         }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
-        }
-        if (null !== $this->contentType) {
-            $res['content_type'] = $this->contentType;
+        if (null !== $this->properties) {
+            $res['properties'] = $this->properties;
         }
 
         return $res;
@@ -74,7 +65,7 @@ class QueryUmktTenantActionplaninfoRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryUmktTenantActionplaninfoRequest
+     * @return PushUmktCustomerGroupRequest
      */
     public static function fromMap($map = [])
     {
@@ -85,14 +76,11 @@ class QueryUmktTenantActionplaninfoRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['page_num'])) {
-            $model->pageNum = $map['page_num'];
+        if (isset($map['event_id'])) {
+            $model->eventId = $map['event_id'];
         }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
-        }
-        if (isset($map['content_type'])) {
-            $model->contentType = $map['content_type'];
+        if (isset($map['properties'])) {
+            $model->properties = $map['properties'];
         }
 
         return $model;

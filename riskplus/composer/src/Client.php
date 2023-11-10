@@ -35,6 +35,10 @@ use AntChain\RISKPLUS\Models\ApplyUmktRobotcallRequest;
 use AntChain\RISKPLUS\Models\ApplyUmktRobotcallResponse;
 use AntChain\RISKPLUS\Models\ApplyUmktRtBatchmarketingRequest;
 use AntChain\RISKPLUS\Models\ApplyUmktRtBatchmarketingResponse;
+use AntChain\RISKPLUS\Models\BatchqueryUmktActionplanDetailRequest;
+use AntChain\RISKPLUS\Models\BatchqueryUmktActionplanDetailResponse;
+use AntChain\RISKPLUS\Models\BatchqueryUmktRobotcallDetailRequest;
+use AntChain\RISKPLUS\Models\BatchqueryUmktRobotcallDetailResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMarketingRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMarketingResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMixedmarketingRequest;
@@ -43,6 +47,10 @@ use AntChain\RISKPLUS\Models\BatchqueryUmktRtTailmarketingRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtTailmarketingResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtTopnRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtTopnResponse;
+use AntChain\RISKPLUS\Models\BatchqueryUmktTaskDetailRequest;
+use AntChain\RISKPLUS\Models\BatchqueryUmktTaskDetailResponse;
+use AntChain\RISKPLUS\Models\BatchqueryUmktTenantActionplaninfoRequest;
+use AntChain\RISKPLUS\Models\BatchqueryUmktTenantActionplaninfoResponse;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardRequest;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardResponse;
 use AntChain\RISKPLUS\Models\CallbackUmktRobotcallRequest;
@@ -113,8 +121,14 @@ use AntChain\RISKPLUS\Models\PullRegtechNewsRequest;
 use AntChain\RISKPLUS\Models\PullRegtechNewsResponse;
 use AntChain\RISKPLUS\Models\PushRbbCustomerCompanyinfoRequest;
 use AntChain\RISKPLUS\Models\PushRbbCustomerCompanyinfoResponse;
+use AntChain\RISKPLUS\Models\PushRiskplusUmktCommonbackflowRequest;
+use AntChain\RISKPLUS\Models\PushRiskplusUmktCommonbackflowResponse;
 use AntChain\RISKPLUS\Models\PushUmktBackflowEventRequest;
 use AntChain\RISKPLUS\Models\PushUmktBackflowEventResponse;
+use AntChain\RISKPLUS\Models\PushUmktCommonDataRequest;
+use AntChain\RISKPLUS\Models\PushUmktCommonDataResponse;
+use AntChain\RISKPLUS\Models\PushUmktCustomerGroupRequest;
+use AntChain\RISKPLUS\Models\PushUmktCustomerGroupResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusRequest;
@@ -227,6 +241,8 @@ use AntChain\RISKPLUS\Models\QueryRtopRiskstormRequest;
 use AntChain\RISKPLUS\Models\QueryRtopRiskstormResponse;
 use AntChain\RISKPLUS\Models\QueryRtopTagImageRequest;
 use AntChain\RISKPLUS\Models\QueryRtopTagImageResponse;
+use AntChain\RISKPLUS\Models\QuerySaasSecurityPolicyRequest;
+use AntChain\RISKPLUS\Models\QuerySaasSecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QuerySecurityDataRequest;
 use AntChain\RISKPLUS\Models\QuerySecurityDataResponse;
 use AntChain\RISKPLUS\Models\QuerySecurityPolicyRequest;
@@ -450,7 +466,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.43',
+                    'sdk_version'      => '1.16.57',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -727,6 +743,39 @@ class Client
         Utils::validateModel($request);
 
         return ExecSecurityRiskdataserviceResponse::fromMap($this->doRequest('1.0', 'riskplus.security.riskdataservice.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 风控云SaaS租户调用接口
+     * Summary: 风控云SaaS租户调用接口.
+     *
+     * @param QuerySaasSecurityPolicyRequest $request
+     *
+     * @return QuerySaasSecurityPolicyResponse
+     */
+    public function querySaasSecurityPolicy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySaasSecurityPolicyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 风控云SaaS租户调用接口
+     * Summary: 风控云SaaS租户调用接口.
+     *
+     * @param QuerySaasSecurityPolicyRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QuerySaasSecurityPolicyResponse
+     */
+    public function querySaasSecurityPolicyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySaasSecurityPolicyResponse::fromMap($this->doRequest('1.0', 'riskplus.saas.security.policy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -5373,6 +5422,239 @@ class Client
         Utils::validateModel($request);
 
         return CallbackUmktSmsReportResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.sms.report.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询租户外呼策略
+     * Summary: 营销盾租户场景批量信息查询.
+     *
+     * @param BatchqueryUmktTenantActionplaninfoRequest $request
+     *
+     * @return BatchqueryUmktTenantActionplaninfoResponse
+     */
+    public function batchqueryUmktTenantActionplaninfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryUmktTenantActionplaninfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询租户外呼策略
+     * Summary: 营销盾租户场景批量信息查询.
+     *
+     * @param BatchqueryUmktTenantActionplaninfoRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return BatchqueryUmktTenantActionplaninfoResponse
+     */
+    public function batchqueryUmktTenantActionplaninfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryUmktTenantActionplaninfoResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.tenant.actionplaninfo.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾批次外呼内单个/多个手机号查询拨打情况
+     * (已下线)
+     * Summary: 营销盾外呼详情查询接口.
+     *
+     * @param BatchqueryUmktRobotcallDetailRequest $request
+     *
+     * @return BatchqueryUmktRobotcallDetailResponse
+     */
+    public function batchqueryUmktRobotcallDetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryUmktRobotcallDetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾批次外呼内单个/多个手机号查询拨打情况
+     * (已下线)
+     * Summary: 营销盾外呼详情查询接口.
+     *
+     * @param BatchqueryUmktRobotcallDetailRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return BatchqueryUmktRobotcallDetailResponse
+     */
+    public function batchqueryUmktRobotcallDetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryUmktRobotcallDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.robotcall.detail.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾查询外呼策略详情
+     * Summary: 营销盾查询外呼策略详情.
+     *
+     * @param BatchqueryUmktActionplanDetailRequest $request
+     *
+     * @return BatchqueryUmktActionplanDetailResponse
+     */
+    public function batchqueryUmktActionplanDetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryUmktActionplanDetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾查询外呼策略详情
+     * Summary: 营销盾查询外呼策略详情.
+     *
+     * @param BatchqueryUmktActionplanDetailRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return BatchqueryUmktActionplanDetailResponse
+     */
+    public function batchqueryUmktActionplanDetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryUmktActionplanDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.actionplan.detail.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾通用回流推送服务
+     * Summary: 营销盾通用回流推送服务
+     *
+     * @param PushRiskplusUmktCommonbackflowRequest $request
+     *
+     * @return PushRiskplusUmktCommonbackflowResponse
+     */
+    public function pushRiskplusUmktCommonbackflow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushRiskplusUmktCommonbackflowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾通用回流推送服务
+     * Summary: 营销盾通用回流推送服务
+     *
+     * @param PushRiskplusUmktCommonbackflowRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return PushRiskplusUmktCommonbackflowResponse
+     */
+    public function pushRiskplusUmktCommonbackflowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushRiskplusUmktCommonbackflowResponse::fromMap($this->doRequest('1.0', 'riskplus.riskplus.umkt.commonbackflow.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾通用数据推送服务
+     * Summary: 营销盾通用数据推送服务
+     *
+     * @param PushUmktCommonDataRequest $request
+     *
+     * @return PushUmktCommonDataResponse
+     */
+    public function pushUmktCommonData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushUmktCommonDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾通用数据推送服务
+     * Summary: 营销盾通用数据推送服务
+     *
+     * @param PushUmktCommonDataRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return PushUmktCommonDataResponse
+     */
+    public function pushUmktCommonDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushUmktCommonDataResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.common.data.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾客群推送服务
+     * Summary: 营销盾客群推送服务
+     *
+     * @param PushUmktCustomerGroupRequest $request
+     *
+     * @return PushUmktCustomerGroupResponse
+     */
+    public function pushUmktCustomerGroup($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushUmktCustomerGroupEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾客群推送服务
+     * Summary: 营销盾客群推送服务
+     *
+     * @param PushUmktCustomerGroupRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return PushUmktCustomerGroupResponse
+     */
+    public function pushUmktCustomerGroupEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushUmktCustomerGroupResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.customer.group.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 触达执行任务详情查询
+     * Summary: 触达执行任务详情查询.
+     *
+     * @param BatchqueryUmktTaskDetailRequest $request
+     *
+     * @return BatchqueryUmktTaskDetailResponse
+     */
+    public function batchqueryUmktTaskDetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryUmktTaskDetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 触达执行任务详情查询
+     * Summary: 触达执行任务详情查询.
+     *
+     * @param BatchqueryUmktTaskDetailRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return BatchqueryUmktTaskDetailResponse
+     */
+    public function batchqueryUmktTaskDetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryUmktTaskDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.task.detail.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
