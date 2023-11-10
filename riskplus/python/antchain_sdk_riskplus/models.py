@@ -262,6 +262,42 @@ class InfoCodes(TeaModel):
         return self
 
 
+class ActionParamInfo(TeaModel):
+    def __init__(
+        self,
+        content_type: str = None,
+        action_param: List[str] = None,
+    ):
+        # 触达媒介类型
+        self.content_type = content_type
+        # 触达媒介参数列表
+        self.action_param = action_param
+
+    def validate(self):
+        self.validate_required(self.content_type, 'content_type')
+        self.validate_required(self.action_param, 'action_param')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content_type is not None:
+            result['content_type'] = self.content_type
+        if self.action_param is not None:
+            result['action_param'] = self.action_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('content_type') is not None:
+            self.content_type = m.get('content_type')
+        if m.get('action_param') is not None:
+            self.action_param = m.get('action_param')
+        return self
+
+
 class Contact(TeaModel):
     def __init__(
         self,
@@ -2382,6 +2418,87 @@ class SecurityDataQueryStruct(TeaModel):
         return self
 
 
+class ActionPlanDetailInfo(TeaModel):
+    def __init__(
+        self,
+        scene_strategy_id: int = None,
+        scene_strategy_name: str = None,
+        scene_strategy_status: str = None,
+        gmt_create: str = None,
+        gmt_modified: str = None,
+        action_param_info: List[ActionParamInfo] = None,
+    ):
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+        # 场景策略名称
+        self.scene_strategy_name = scene_strategy_name
+        # 场景策略状态
+        self.scene_strategy_status = scene_strategy_status
+        # 创建时间
+        self.gmt_create = gmt_create
+        # 修改时间
+        self.gmt_modified = gmt_modified
+        # 触达媒介参数信息
+        self.action_param_info = action_param_info
+
+    def validate(self):
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+        self.validate_required(self.scene_strategy_name, 'scene_strategy_name')
+        self.validate_required(self.scene_strategy_status, 'scene_strategy_status')
+        self.validate_required(self.gmt_create, 'gmt_create')
+        if self.gmt_create is not None:
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.action_param_info, 'action_param_info')
+        if self.action_param_info:
+            for k in self.action_param_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        if self.scene_strategy_name is not None:
+            result['scene_strategy_name'] = self.scene_strategy_name
+        if self.scene_strategy_status is not None:
+            result['scene_strategy_status'] = self.scene_strategy_status
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        result['action_param_info'] = []
+        if self.action_param_info is not None:
+            for k in self.action_param_info:
+                result['action_param_info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('scene_strategy_name') is not None:
+            self.scene_strategy_name = m.get('scene_strategy_name')
+        if m.get('scene_strategy_status') is not None:
+            self.scene_strategy_status = m.get('scene_strategy_status')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        self.action_param_info = []
+        if m.get('action_param_info') is not None:
+            for k in m.get('action_param_info'):
+                temp_model = ActionParamInfo()
+                self.action_param_info.append(temp_model.from_map(k))
+        return self
+
+
 class RiskLabelInfo(TeaModel):
     def __init__(
         self,
@@ -3509,6 +3626,350 @@ class RtopCrowdRiskSummaryResp(TeaModel):
             self.registered_county = m.get('registered_county')
         if m.get('registered_province') is not None:
             self.registered_province = m.get('registered_province')
+        return self
+
+
+class CommonRobotCallDetail(TeaModel):
+    def __init__(
+        self,
+        ext_info: str = None,
+        result_code: str = None,
+        customer_key: str = None,
+        current_call_times: int = None,
+        key_template: str = None,
+        batch_id: str = None,
+        call_type: int = None,
+        tag: str = None,
+        call_id: str = None,
+        task_id: int = None,
+        template_id: int = None,
+        status_code: int = None,
+        status_description: str = None,
+        transfer_status_code: int = None,
+        transfer_status: str = None,
+        agent_id: int = None,
+        agent_tag: str = None,
+        agent_extension: str = None,
+        import_time: str = None,
+        call_begin_time: str = None,
+        ring_time: int = None,
+        answer_time: str = None,
+        speaking_time: str = None,
+        speaking_duration: int = None,
+        hangup_time: str = None,
+        speaking_turns: int = None,
+        agent_speaking_time: str = None,
+        agent_speaking_duration: int = None,
+        intent_tag: str = None,
+        intent_description: str = None,
+        individual_tag: str = None,
+        keywords: str = None,
+        hungup_type: int = None,
+        sms: str = None,
+        chat_record: str = None,
+        chats: str = None,
+        add_wx: int = None,
+        add_wx_status: str = None,
+        answer_recall: int = None,
+        properties: str = None,
+        biz_properties: str = None,
+        intercept_reason: str = None,
+    ):
+        # 客户请求时的透传字段
+        self.ext_info = ext_info
+        # 成功触达：OK；未触达：AI_ROBOT_CALL_REQUEST_NOT_EXIST
+        self.result_code = result_code
+        # 外呼号码
+        self.customer_key = customer_key
+        # 呼叫次数
+        self.current_call_times = current_call_times
+        # 号码模版
+        self.key_template = key_template
+        # 导入号码时返回的批次号
+        self.batch_id = batch_id
+        # 2001:批量-预测外呼，2002:批量-AI外呼-不转人工，2003:批量-AI外呼-接通转人工，2004: 批量-AI外呼-智能转人工,2005:批量-语音通知
+        self.call_type = call_type
+        # 用户自定义标签
+        self.tag = tag
+        # 外呼id
+        self.call_id = call_id
+        # 外呼任务编号
+        self.task_id = task_id
+        # AI话术ID
+        self.template_id = template_id
+        # 外呼状态编码
+        self.status_code = status_code
+        # 外呼状态描述
+        self.status_description = status_description
+        # 转人工状态编码
+        self.transfer_status_code = transfer_status_code
+        # 转人工状态
+        self.transfer_status = transfer_status
+        # 分配坐席ID
+        self.agent_id = agent_id
+        # 坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
+        self.agent_tag = agent_tag
+        # 坐席分机号
+        self.agent_extension = agent_extension
+        # 导入时间
+        self.import_time = import_time
+        # 开始通话时间
+        self.call_begin_time = call_begin_time
+        # 振铃时长，单位ms
+        self.ring_time = ring_time
+        # 接通时间
+        self.answer_time = answer_time
+        # 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+        self.speaking_time = speaking_time
+        # 通话时长，单位：秒
+        self.speaking_duration = speaking_duration
+        # 挂断时间
+        self.hangup_time = hangup_time
+        # 对话轮次
+        self.speaking_turns = speaking_turns
+        # 人工通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+        self.agent_speaking_time = agent_speaking_time
+        # 人工通话时长，单位：秒
+        self.agent_speaking_duration = agent_speaking_duration
+        # 意向标签
+        self.intent_tag = intent_tag
+        # 意向说明
+        self.intent_description = intent_description
+        # 个性标签
+        self.individual_tag = individual_tag
+        # 回复关键词
+        self.keywords = keywords
+        # 挂机方式，AI挂机1，坐席挂机2，客户挂机3
+        self.hungup_type = hungup_type
+        # 挂机短信，可选值：1、2
+        # 1:发送，2:不发送
+        self.sms = sms
+        # 对话录音，URL，可以为空
+        self.chat_record = chat_record
+        # 聊天记录，可以为空
+        self.chats = chats
+        # 可选值：0、1
+        # 0:不添加，1:添加
+        self.add_wx = add_wx
+        # 加微进度，可选值：已申请、加微成功
+        self.add_wx_status = add_wx_status
+        # 是否接通重呼，可选值：0、1
+        # 0正常外呼，1接通重呼
+        self.answer_recall = answer_recall
+        # 导入号码时的参数值
+        self.properties = properties
+        # 导入号码时的业务参数值，原样返回
+        self.biz_properties = biz_properties
+        # 拦截原因：当状态为已拦截时，可选值：黑名单拦截，灰名单拦截，异常号码拦截
+        self.intercept_reason = intercept_reason
+
+    def validate(self):
+        self.validate_required(self.ext_info, 'ext_info')
+        self.validate_required(self.result_code, 'result_code')
+        self.validate_required(self.customer_key, 'customer_key')
+        self.validate_required(self.current_call_times, 'current_call_times')
+        self.validate_required(self.key_template, 'key_template')
+        self.validate_required(self.batch_id, 'batch_id')
+        self.validate_required(self.call_type, 'call_type')
+        self.validate_required(self.call_id, 'call_id')
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.status_description, 'status_description')
+        self.validate_required(self.transfer_status_code, 'transfer_status_code')
+        self.validate_required(self.transfer_status, 'transfer_status')
+        self.validate_required(self.import_time, 'import_time')
+        self.validate_required(self.call_begin_time, 'call_begin_time')
+        self.validate_required(self.ring_time, 'ring_time')
+        self.validate_required(self.speaking_time, 'speaking_time')
+        self.validate_required(self.speaking_duration, 'speaking_duration')
+        self.validate_required(self.hangup_time, 'hangup_time')
+        self.validate_required(self.speaking_turns, 'speaking_turns')
+        self.validate_required(self.agent_speaking_time, 'agent_speaking_time')
+        self.validate_required(self.agent_speaking_duration, 'agent_speaking_duration')
+        self.validate_required(self.intent_tag, 'intent_tag')
+        self.validate_required(self.intent_description, 'intent_description')
+        self.validate_required(self.hungup_type, 'hungup_type')
+        self.validate_required(self.sms, 'sms')
+        self.validate_required(self.answer_recall, 'answer_recall')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.customer_key is not None:
+            result['customer_key'] = self.customer_key
+        if self.current_call_times is not None:
+            result['current_call_times'] = self.current_call_times
+        if self.key_template is not None:
+            result['key_template'] = self.key_template
+        if self.batch_id is not None:
+            result['batch_id'] = self.batch_id
+        if self.call_type is not None:
+            result['call_type'] = self.call_type
+        if self.tag is not None:
+            result['tag'] = self.tag
+        if self.call_id is not None:
+            result['call_id'] = self.call_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
+        if self.status_code is not None:
+            result['status_code'] = self.status_code
+        if self.status_description is not None:
+            result['status_description'] = self.status_description
+        if self.transfer_status_code is not None:
+            result['transfer_status_code'] = self.transfer_status_code
+        if self.transfer_status is not None:
+            result['transfer_status'] = self.transfer_status
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.agent_tag is not None:
+            result['agent_tag'] = self.agent_tag
+        if self.agent_extension is not None:
+            result['agent_extension'] = self.agent_extension
+        if self.import_time is not None:
+            result['import_time'] = self.import_time
+        if self.call_begin_time is not None:
+            result['call_begin_time'] = self.call_begin_time
+        if self.ring_time is not None:
+            result['ring_time'] = self.ring_time
+        if self.answer_time is not None:
+            result['answer_time'] = self.answer_time
+        if self.speaking_time is not None:
+            result['speaking_time'] = self.speaking_time
+        if self.speaking_duration is not None:
+            result['speaking_duration'] = self.speaking_duration
+        if self.hangup_time is not None:
+            result['hangup_time'] = self.hangup_time
+        if self.speaking_turns is not None:
+            result['speaking_turns'] = self.speaking_turns
+        if self.agent_speaking_time is not None:
+            result['agent_speaking_time'] = self.agent_speaking_time
+        if self.agent_speaking_duration is not None:
+            result['agent_speaking_duration'] = self.agent_speaking_duration
+        if self.intent_tag is not None:
+            result['intent_tag'] = self.intent_tag
+        if self.intent_description is not None:
+            result['intent_description'] = self.intent_description
+        if self.individual_tag is not None:
+            result['individual_tag'] = self.individual_tag
+        if self.keywords is not None:
+            result['keywords'] = self.keywords
+        if self.hungup_type is not None:
+            result['hungup_type'] = self.hungup_type
+        if self.sms is not None:
+            result['sms'] = self.sms
+        if self.chat_record is not None:
+            result['chat_record'] = self.chat_record
+        if self.chats is not None:
+            result['chats'] = self.chats
+        if self.add_wx is not None:
+            result['add_wx'] = self.add_wx
+        if self.add_wx_status is not None:
+            result['add_wx_status'] = self.add_wx_status
+        if self.answer_recall is not None:
+            result['answer_recall'] = self.answer_recall
+        if self.properties is not None:
+            result['properties'] = self.properties
+        if self.biz_properties is not None:
+            result['biz_properties'] = self.biz_properties
+        if self.intercept_reason is not None:
+            result['intercept_reason'] = self.intercept_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('customer_key') is not None:
+            self.customer_key = m.get('customer_key')
+        if m.get('current_call_times') is not None:
+            self.current_call_times = m.get('current_call_times')
+        if m.get('key_template') is not None:
+            self.key_template = m.get('key_template')
+        if m.get('batch_id') is not None:
+            self.batch_id = m.get('batch_id')
+        if m.get('call_type') is not None:
+            self.call_type = m.get('call_type')
+        if m.get('tag') is not None:
+            self.tag = m.get('tag')
+        if m.get('call_id') is not None:
+            self.call_id = m.get('call_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
+        if m.get('status_code') is not None:
+            self.status_code = m.get('status_code')
+        if m.get('status_description') is not None:
+            self.status_description = m.get('status_description')
+        if m.get('transfer_status_code') is not None:
+            self.transfer_status_code = m.get('transfer_status_code')
+        if m.get('transfer_status') is not None:
+            self.transfer_status = m.get('transfer_status')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('agent_tag') is not None:
+            self.agent_tag = m.get('agent_tag')
+        if m.get('agent_extension') is not None:
+            self.agent_extension = m.get('agent_extension')
+        if m.get('import_time') is not None:
+            self.import_time = m.get('import_time')
+        if m.get('call_begin_time') is not None:
+            self.call_begin_time = m.get('call_begin_time')
+        if m.get('ring_time') is not None:
+            self.ring_time = m.get('ring_time')
+        if m.get('answer_time') is not None:
+            self.answer_time = m.get('answer_time')
+        if m.get('speaking_time') is not None:
+            self.speaking_time = m.get('speaking_time')
+        if m.get('speaking_duration') is not None:
+            self.speaking_duration = m.get('speaking_duration')
+        if m.get('hangup_time') is not None:
+            self.hangup_time = m.get('hangup_time')
+        if m.get('speaking_turns') is not None:
+            self.speaking_turns = m.get('speaking_turns')
+        if m.get('agent_speaking_time') is not None:
+            self.agent_speaking_time = m.get('agent_speaking_time')
+        if m.get('agent_speaking_duration') is not None:
+            self.agent_speaking_duration = m.get('agent_speaking_duration')
+        if m.get('intent_tag') is not None:
+            self.intent_tag = m.get('intent_tag')
+        if m.get('intent_description') is not None:
+            self.intent_description = m.get('intent_description')
+        if m.get('individual_tag') is not None:
+            self.individual_tag = m.get('individual_tag')
+        if m.get('keywords') is not None:
+            self.keywords = m.get('keywords')
+        if m.get('hungup_type') is not None:
+            self.hungup_type = m.get('hungup_type')
+        if m.get('sms') is not None:
+            self.sms = m.get('sms')
+        if m.get('chat_record') is not None:
+            self.chat_record = m.get('chat_record')
+        if m.get('chats') is not None:
+            self.chats = m.get('chats')
+        if m.get('add_wx') is not None:
+            self.add_wx = m.get('add_wx')
+        if m.get('add_wx_status') is not None:
+            self.add_wx_status = m.get('add_wx_status')
+        if m.get('answer_recall') is not None:
+            self.answer_recall = m.get('answer_recall')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        if m.get('biz_properties') is not None:
+            self.biz_properties = m.get('biz_properties')
+        if m.get('intercept_reason') is not None:
+            self.intercept_reason = m.get('intercept_reason')
         return self
 
 
@@ -6393,6 +6854,42 @@ class SmsReponse(TeaModel):
         return self
 
 
+class EventInfo(TeaModel):
+    def __init__(
+        self,
+        event_code: str = None,
+        gmt_occur: str = None,
+    ):
+        # 事件编码
+        self.event_code = event_code
+        # 事件产生时间
+        self.gmt_occur = gmt_occur
+
+    def validate(self):
+        self.validate_required(self.event_code, 'event_code')
+        self.validate_required(self.gmt_occur, 'gmt_occur')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.event_code is not None:
+            result['event_code'] = self.event_code
+        if self.gmt_occur is not None:
+            result['gmt_occur'] = self.gmt_occur
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('event_code') is not None:
+            self.event_code = m.get('event_code')
+        if m.get('gmt_occur') is not None:
+            self.gmt_occur = m.get('gmt_occur')
+        return self
+
+
 class RepayTrail(TeaModel):
     def __init__(
         self,
@@ -7439,6 +7936,160 @@ class ExecSecurityRiskdataserviceResponse(TeaModel):
             self.security_result_infos = temp_model.from_map(m['security_result_infos'])
         if m.get('success') is not None:
             self.success = m.get('success')
+        return self
+
+
+class QuerySaasSecurityPolicyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        event_info: EventInfo = None,
+        risk_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 风控事件咨询查询入参
+        self.event_info = event_info
+        # 请求处理方式
+        self.risk_type = risk_type
+
+    def validate(self):
+        self.validate_required(self.event_info, 'event_info')
+        if self.event_info:
+            self.event_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.event_info is not None:
+            result['event_info'] = self.event_info.to_map()
+        if self.risk_type is not None:
+            result['risk_type'] = self.risk_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('event_info') is not None:
+            temp_model = EventInfo()
+            self.event_info = temp_model.from_map(m['event_info'])
+        if m.get('risk_type') is not None:
+            self.risk_type = m.get('risk_type')
+        return self
+
+
+class QuerySaasSecurityPolicyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        model_details: List[ModelDetails] = None,
+        security_id: str = None,
+        security_result: str = None,
+        strategy_details: List[StrategyDetails] = None,
+        df_scene_infos: List[DfSceneInfos] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 场景分
+        self.model_details = model_details
+        # 安全请求id
+        self.security_id = security_id
+        # 策略结果
+        self.security_result = security_result
+        # 策略结果详情
+        self.strategy_details = strategy_details
+        # 决策流信息
+        self.df_scene_infos = df_scene_infos
+
+    def validate(self):
+        if self.model_details:
+            for k in self.model_details:
+                if k:
+                    k.validate()
+        if self.strategy_details:
+            for k in self.strategy_details:
+                if k:
+                    k.validate()
+        if self.df_scene_infos:
+            for k in self.df_scene_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['model_details'] = []
+        if self.model_details is not None:
+            for k in self.model_details:
+                result['model_details'].append(k.to_map() if k else None)
+        if self.security_id is not None:
+            result['security_id'] = self.security_id
+        if self.security_result is not None:
+            result['security_result'] = self.security_result
+        result['strategy_details'] = []
+        if self.strategy_details is not None:
+            for k in self.strategy_details:
+                result['strategy_details'].append(k.to_map() if k else None)
+        result['df_scene_infos'] = []
+        if self.df_scene_infos is not None:
+            for k in self.df_scene_infos:
+                result['df_scene_infos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.model_details = []
+        if m.get('model_details') is not None:
+            for k in m.get('model_details'):
+                temp_model = ModelDetails()
+                self.model_details.append(temp_model.from_map(k))
+        if m.get('security_id') is not None:
+            self.security_id = m.get('security_id')
+        if m.get('security_result') is not None:
+            self.security_result = m.get('security_result')
+        self.strategy_details = []
+        if m.get('strategy_details') is not None:
+            for k in m.get('strategy_details'):
+                temp_model = StrategyDetails()
+                self.strategy_details.append(temp_model.from_map(k))
+        self.df_scene_infos = []
+        if m.get('df_scene_infos') is not None:
+            for k in m.get('df_scene_infos'):
+                temp_model = DfSceneInfos()
+                self.df_scene_infos.append(temp_model.from_map(k))
         return self
 
 
@@ -24800,7 +25451,7 @@ class QueryUmktTenantActionplaninfoRequest(TeaModel):
         product_instance_id: str = None,
         page_num: int = None,
         page_size: int = None,
-        channel_type: str = None,
+        content_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -24810,10 +25461,10 @@ class QueryUmktTenantActionplaninfoRequest(TeaModel):
         # 页容量
         self.page_size = page_size
         # 渠道code
-        self.channel_type = channel_type
+        self.content_type = content_type
 
     def validate(self):
-        self.validate_required(self.channel_type, 'channel_type')
+        self.validate_required(self.content_type, 'content_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -24829,8 +25480,8 @@ class QueryUmktTenantActionplaninfoRequest(TeaModel):
             result['page_num'] = self.page_num
         if self.page_size is not None:
             result['page_size'] = self.page_size
-        if self.channel_type is not None:
-            result['channel_type'] = self.channel_type
+        if self.content_type is not None:
+            result['content_type'] = self.content_type
         return result
 
     def from_map(self, m: dict = None):
@@ -24843,8 +25494,8 @@ class QueryUmktTenantActionplaninfoRequest(TeaModel):
             self.page_num = m.get('page_num')
         if m.get('page_size') is not None:
             self.page_size = m.get('page_size')
-        if m.get('channel_type') is not None:
-            self.channel_type = m.get('channel_type')
+        if m.get('content_type') is not None:
+            self.content_type = m.get('content_type')
         return self
 
 
@@ -26020,6 +26671,821 @@ class CallbackUmktSmsReportResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class BatchqueryUmktTenantActionplaninfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        content_type: str = None,
+        page_num: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 渠道类型
+        self.content_type = content_type
+        # 页码
+        self.page_num = page_num
+        # 页数
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.content_type, 'content_type')
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.content_type is not None:
+            result['content_type'] = self.content_type
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('content_type') is not None:
+            self.content_type = m.get('content_type')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class BatchqueryUmktTenantActionplaninfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        query_result: List[ActionPlanDetailInfo] = None,
+        total_count: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 触达策略信息
+        self.query_result = query_result
+        # 总数
+        self.total_count = total_count
+
+    def validate(self):
+        if self.query_result:
+            for k in self.query_result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['query_result'] = []
+        if self.query_result is not None:
+            for k in self.query_result:
+                result['query_result'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.query_result = []
+        if m.get('query_result') is not None:
+            for k in m.get('query_result'):
+                temp_model = ActionPlanDetailInfo()
+                self.query_result.append(temp_model.from_map(k))
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        return self
+
+
+class BatchqueryUmktRobotcallDetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        phone_numbers: List[str] = None,
+        template_type: str = None,
+        scene_strategy_id: int = None,
+        intent_tags: List[str] = None,
+        call_date: str = None,
+        end_call_date: str = None,
+        page_num: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 上传外呼任务返回的callId
+        self.biz_id = biz_id
+        # 手机号
+        self.phone_numbers = phone_numbers
+        # 手机号类型
+        self.template_type = template_type
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+        # 意向标签
+        self.intent_tags = intent_tags
+        # 开始外呼时间
+        self.call_date = call_date
+        # 结束外呼时间
+        self.end_call_date = end_call_date
+        # 页码
+        self.page_num = page_num
+        # 页数
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.phone_numbers, 'phone_numbers')
+        self.validate_required(self.template_type, 'template_type')
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.phone_numbers is not None:
+            result['phone_numbers'] = self.phone_numbers
+        if self.template_type is not None:
+            result['template_type'] = self.template_type
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        if self.intent_tags is not None:
+            result['intent_tags'] = self.intent_tags
+        if self.call_date is not None:
+            result['call_date'] = self.call_date
+        if self.end_call_date is not None:
+            result['end_call_date'] = self.end_call_date
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('phone_numbers') is not None:
+            self.phone_numbers = m.get('phone_numbers')
+        if m.get('template_type') is not None:
+            self.template_type = m.get('template_type')
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('intent_tags') is not None:
+            self.intent_tags = m.get('intent_tags')
+        if m.get('call_date') is not None:
+            self.call_date = m.get('call_date')
+        if m.get('end_call_date') is not None:
+            self.end_call_date = m.get('end_call_date')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class BatchqueryUmktRobotcallDetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        out_info: str = None,
+        call_info: List[CommonRobotCallDetail] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 客户请求时的透传字段
+        self.out_info = out_info
+        # 外呼记录列表
+        self.call_info = call_info
+
+    def validate(self):
+        if self.call_info:
+            for k in self.call_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.out_info is not None:
+            result['out_info'] = self.out_info
+        result['call_info'] = []
+        if self.call_info is not None:
+            for k in self.call_info:
+                result['call_info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('out_info') is not None:
+            self.out_info = m.get('out_info')
+        self.call_info = []
+        if m.get('call_info') is not None:
+            for k in m.get('call_info'):
+                temp_model = CommonRobotCallDetail()
+                self.call_info.append(temp_model.from_map(k))
+        return self
+
+
+class BatchqueryUmktActionplanDetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_strategy_id: List[int] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+
+    def validate(self):
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        return self
+
+
+class BatchqueryUmktActionplanDetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        action_plan_detail_info: List[ActionPlanDetailInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 触达策略详细信息
+        self.action_plan_detail_info = action_plan_detail_info
+
+    def validate(self):
+        if self.action_plan_detail_info:
+            for k in self.action_plan_detail_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['action_plan_detail_info'] = []
+        if self.action_plan_detail_info is not None:
+            for k in self.action_plan_detail_info:
+                result['action_plan_detail_info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.action_plan_detail_info = []
+        if m.get('action_plan_detail_info') is not None:
+            for k in m.get('action_plan_detail_info'):
+                temp_model = ActionPlanDetailInfo()
+                self.action_plan_detail_info.append(temp_model.from_map(k))
+        return self
+
+
+class PushRiskplusUmktCommonbackflowRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: int = None,
+        back_flow_template_id: int = None,
+        back_flow_desc: str = None,
+        properties: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 回流模版ID
+        self.back_flow_template_id = back_flow_template_id
+        # 回流信息描述
+        self.back_flow_desc = back_flow_desc
+        # 回流属性
+        self.properties = properties
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.back_flow_template_id, 'back_flow_template_id')
+        self.validate_required(self.back_flow_desc, 'back_flow_desc')
+        self.validate_required(self.properties, 'properties')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.back_flow_template_id is not None:
+            result['back_flow_template_id'] = self.back_flow_template_id
+        if self.back_flow_desc is not None:
+            result['back_flow_desc'] = self.back_flow_desc
+        if self.properties is not None:
+            result['properties'] = self.properties
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('back_flow_template_id') is not None:
+            self.back_flow_template_id = m.get('back_flow_template_id')
+        if m.get('back_flow_desc') is not None:
+            self.back_flow_desc = m.get('back_flow_desc')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        return self
+
+
+class PushRiskplusUmktCommonbackflowResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class PushUmktCommonDataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        event_id: int = None,
+        properties: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 数据推送事件ID
+        self.event_id = event_id
+        # 数据推送属性数据
+        self.properties = properties
+
+    def validate(self):
+        self.validate_required(self.event_id, 'event_id')
+        self.validate_required(self.properties, 'properties')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.event_id is not None:
+            result['event_id'] = self.event_id
+        if self.properties is not None:
+            result['properties'] = self.properties
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('event_id') is not None:
+            self.event_id = m.get('event_id')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        return self
+
+
+class PushUmktCommonDataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class PushUmktCustomerGroupRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        event_id: str = None,
+        properties: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 事件ID
+        self.event_id = event_id
+        # 数据属性
+        self.properties = properties
+
+    def validate(self):
+        self.validate_required(self.event_id, 'event_id')
+        self.validate_required(self.properties, 'properties')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.event_id is not None:
+            result['event_id'] = self.event_id
+        if self.properties is not None:
+            result['properties'] = self.properties
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('event_id') is not None:
+            self.event_id = m.get('event_id')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        return self
+
+
+class PushUmktCustomerGroupResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class BatchqueryUmktTaskDetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        customer_keys: List[str] = None,
+        key_template: str = None,
+        scene_strategy_id: int = None,
+        call_date: str = None,
+        end_call_date: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 上传外呼任务返回的callId
+        self.biz_id = biz_id
+        # 手机号列表
+        self.customer_keys = customer_keys
+        # 手机号类型
+        self.key_template = key_template
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+        # 开始外呼时间，只可查询最近30天的日期
+        self.call_date = call_date
+        # 结束外呼时间
+        self.end_call_date = end_call_date
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.customer_keys, 'customer_keys')
+        self.validate_required(self.key_template, 'key_template')
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.customer_keys is not None:
+            result['customer_keys'] = self.customer_keys
+        if self.key_template is not None:
+            result['key_template'] = self.key_template
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        if self.call_date is not None:
+            result['call_date'] = self.call_date
+        if self.end_call_date is not None:
+            result['end_call_date'] = self.end_call_date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('customer_keys') is not None:
+            self.customer_keys = m.get('customer_keys')
+        if m.get('key_template') is not None:
+            self.key_template = m.get('key_template')
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('call_date') is not None:
+            self.call_date = m.get('call_date')
+        if m.get('end_call_date') is not None:
+            self.end_call_date = m.get('end_call_date')
+        return self
+
+
+class BatchqueryUmktTaskDetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        out_info: str = None,
+        call_info: List[CommonRobotCallDetail] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 客户请求时的透传字段
+        self.out_info = out_info
+        # 外呼记录列表
+        self.call_info = call_info
+
+    def validate(self):
+        if self.call_info:
+            for k in self.call_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.out_info is not None:
+            result['out_info'] = self.out_info
+        result['call_info'] = []
+        if self.call_info is not None:
+            for k in self.call_info:
+                result['call_info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('out_info') is not None:
+            self.out_info = m.get('out_info')
+        self.call_info = []
+        if m.get('call_info') is not None:
+            for k in m.get('call_info'):
+                temp_model = CommonRobotCallDetail()
+                self.call_info.append(temp_model.from_map(k))
         return self
 
 

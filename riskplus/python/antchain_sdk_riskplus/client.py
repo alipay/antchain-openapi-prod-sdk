@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.43',
+                    'sdk_version': '1.16.57',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.43',
+                    'sdk_version': '1.16.57',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -665,6 +665,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.ExecSecurityRiskdataserviceResponse(),
             await self.do_request_async('1.0', 'riskplus.security.riskdataservice.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_saas_security_policy(
+        self,
+        request: riskplus_models.QuerySaasSecurityPolicyRequest,
+    ) -> riskplus_models.QuerySaasSecurityPolicyResponse:
+        """
+        Description: 风控云SaaS租户调用接口
+        Summary: 风控云SaaS租户调用接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_saas_security_policy_ex(request, headers, runtime)
+
+    async def query_saas_security_policy_async(
+        self,
+        request: riskplus_models.QuerySaasSecurityPolicyRequest,
+    ) -> riskplus_models.QuerySaasSecurityPolicyResponse:
+        """
+        Description: 风控云SaaS租户调用接口
+        Summary: 风控云SaaS租户调用接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_saas_security_policy_ex_async(request, headers, runtime)
+
+    def query_saas_security_policy_ex(
+        self,
+        request: riskplus_models.QuerySaasSecurityPolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QuerySaasSecurityPolicyResponse:
+        """
+        Description: 风控云SaaS租户调用接口
+        Summary: 风控云SaaS租户调用接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QuerySaasSecurityPolicyResponse(),
+            self.do_request('1.0', 'riskplus.saas.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_saas_security_policy_ex_async(
+        self,
+        request: riskplus_models.QuerySaasSecurityPolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QuerySaasSecurityPolicyResponse:
+        """
+        Description: 风控云SaaS租户调用接口
+        Summary: 风控云SaaS租户调用接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QuerySaasSecurityPolicyResponse(),
+            await self.do_request_async('1.0', 'riskplus.saas.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_dubhe_test(
@@ -8567,6 +8623,402 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.CallbackUmktSmsReportResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.sms.report.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_umkt_tenant_actionplaninfo(
+        self,
+        request: riskplus_models.BatchqueryUmktTenantActionplaninfoRequest,
+    ) -> riskplus_models.BatchqueryUmktTenantActionplaninfoResponse:
+        """
+        Description: 分页查询租户外呼策略
+        Summary: 营销盾租户场景批量信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_umkt_tenant_actionplaninfo_ex(request, headers, runtime)
+
+    async def batchquery_umkt_tenant_actionplaninfo_async(
+        self,
+        request: riskplus_models.BatchqueryUmktTenantActionplaninfoRequest,
+    ) -> riskplus_models.BatchqueryUmktTenantActionplaninfoResponse:
+        """
+        Description: 分页查询租户外呼策略
+        Summary: 营销盾租户场景批量信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_umkt_tenant_actionplaninfo_ex_async(request, headers, runtime)
+
+    def batchquery_umkt_tenant_actionplaninfo_ex(
+        self,
+        request: riskplus_models.BatchqueryUmktTenantActionplaninfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktTenantActionplaninfoResponse:
+        """
+        Description: 分页查询租户外呼策略
+        Summary: 营销盾租户场景批量信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktTenantActionplaninfoResponse(),
+            self.do_request('1.0', 'riskplus.umkt.tenant.actionplaninfo.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_umkt_tenant_actionplaninfo_ex_async(
+        self,
+        request: riskplus_models.BatchqueryUmktTenantActionplaninfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktTenantActionplaninfoResponse:
+        """
+        Description: 分页查询租户外呼策略
+        Summary: 营销盾租户场景批量信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktTenantActionplaninfoResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.tenant.actionplaninfo.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_umkt_robotcall_detail(
+        self,
+        request: riskplus_models.BatchqueryUmktRobotcallDetailRequest,
+    ) -> riskplus_models.BatchqueryUmktRobotcallDetailResponse:
+        """
+        Description: 营销盾批次外呼内单个/多个手机号查询拨打情况
+        (已下线)
+        Summary: 营销盾外呼详情查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_umkt_robotcall_detail_ex(request, headers, runtime)
+
+    async def batchquery_umkt_robotcall_detail_async(
+        self,
+        request: riskplus_models.BatchqueryUmktRobotcallDetailRequest,
+    ) -> riskplus_models.BatchqueryUmktRobotcallDetailResponse:
+        """
+        Description: 营销盾批次外呼内单个/多个手机号查询拨打情况
+        (已下线)
+        Summary: 营销盾外呼详情查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_umkt_robotcall_detail_ex_async(request, headers, runtime)
+
+    def batchquery_umkt_robotcall_detail_ex(
+        self,
+        request: riskplus_models.BatchqueryUmktRobotcallDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktRobotcallDetailResponse:
+        """
+        Description: 营销盾批次外呼内单个/多个手机号查询拨打情况
+        (已下线)
+        Summary: 营销盾外呼详情查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktRobotcallDetailResponse(),
+            self.do_request('1.0', 'riskplus.umkt.robotcall.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_umkt_robotcall_detail_ex_async(
+        self,
+        request: riskplus_models.BatchqueryUmktRobotcallDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktRobotcallDetailResponse:
+        """
+        Description: 营销盾批次外呼内单个/多个手机号查询拨打情况
+        (已下线)
+        Summary: 营销盾外呼详情查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktRobotcallDetailResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.robotcall.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_umkt_actionplan_detail(
+        self,
+        request: riskplus_models.BatchqueryUmktActionplanDetailRequest,
+    ) -> riskplus_models.BatchqueryUmktActionplanDetailResponse:
+        """
+        Description: 营销盾查询外呼策略详情
+        Summary: 营销盾查询外呼策略详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_umkt_actionplan_detail_ex(request, headers, runtime)
+
+    async def batchquery_umkt_actionplan_detail_async(
+        self,
+        request: riskplus_models.BatchqueryUmktActionplanDetailRequest,
+    ) -> riskplus_models.BatchqueryUmktActionplanDetailResponse:
+        """
+        Description: 营销盾查询外呼策略详情
+        Summary: 营销盾查询外呼策略详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_umkt_actionplan_detail_ex_async(request, headers, runtime)
+
+    def batchquery_umkt_actionplan_detail_ex(
+        self,
+        request: riskplus_models.BatchqueryUmktActionplanDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktActionplanDetailResponse:
+        """
+        Description: 营销盾查询外呼策略详情
+        Summary: 营销盾查询外呼策略详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktActionplanDetailResponse(),
+            self.do_request('1.0', 'riskplus.umkt.actionplan.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_umkt_actionplan_detail_ex_async(
+        self,
+        request: riskplus_models.BatchqueryUmktActionplanDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktActionplanDetailResponse:
+        """
+        Description: 营销盾查询外呼策略详情
+        Summary: 营销盾查询外呼策略详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktActionplanDetailResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.actionplan.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_riskplus_umkt_commonbackflow(
+        self,
+        request: riskplus_models.PushRiskplusUmktCommonbackflowRequest,
+    ) -> riskplus_models.PushRiskplusUmktCommonbackflowResponse:
+        """
+        Description: 营销盾通用回流推送服务
+        Summary: 营销盾通用回流推送服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_riskplus_umkt_commonbackflow_ex(request, headers, runtime)
+
+    async def push_riskplus_umkt_commonbackflow_async(
+        self,
+        request: riskplus_models.PushRiskplusUmktCommonbackflowRequest,
+    ) -> riskplus_models.PushRiskplusUmktCommonbackflowResponse:
+        """
+        Description: 营销盾通用回流推送服务
+        Summary: 营销盾通用回流推送服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_riskplus_umkt_commonbackflow_ex_async(request, headers, runtime)
+
+    def push_riskplus_umkt_commonbackflow_ex(
+        self,
+        request: riskplus_models.PushRiskplusUmktCommonbackflowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushRiskplusUmktCommonbackflowResponse:
+        """
+        Description: 营销盾通用回流推送服务
+        Summary: 营销盾通用回流推送服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushRiskplusUmktCommonbackflowResponse(),
+            self.do_request('1.0', 'riskplus.riskplus.umkt.commonbackflow.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_riskplus_umkt_commonbackflow_ex_async(
+        self,
+        request: riskplus_models.PushRiskplusUmktCommonbackflowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushRiskplusUmktCommonbackflowResponse:
+        """
+        Description: 营销盾通用回流推送服务
+        Summary: 营销盾通用回流推送服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushRiskplusUmktCommonbackflowResponse(),
+            await self.do_request_async('1.0', 'riskplus.riskplus.umkt.commonbackflow.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_umkt_common_data(
+        self,
+        request: riskplus_models.PushUmktCommonDataRequest,
+    ) -> riskplus_models.PushUmktCommonDataResponse:
+        """
+        Description: 营销盾通用数据推送服务
+        Summary: 营销盾通用数据推送服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_umkt_common_data_ex(request, headers, runtime)
+
+    async def push_umkt_common_data_async(
+        self,
+        request: riskplus_models.PushUmktCommonDataRequest,
+    ) -> riskplus_models.PushUmktCommonDataResponse:
+        """
+        Description: 营销盾通用数据推送服务
+        Summary: 营销盾通用数据推送服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_umkt_common_data_ex_async(request, headers, runtime)
+
+    def push_umkt_common_data_ex(
+        self,
+        request: riskplus_models.PushUmktCommonDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushUmktCommonDataResponse:
+        """
+        Description: 营销盾通用数据推送服务
+        Summary: 营销盾通用数据推送服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushUmktCommonDataResponse(),
+            self.do_request('1.0', 'riskplus.umkt.common.data.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_umkt_common_data_ex_async(
+        self,
+        request: riskplus_models.PushUmktCommonDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushUmktCommonDataResponse:
+        """
+        Description: 营销盾通用数据推送服务
+        Summary: 营销盾通用数据推送服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushUmktCommonDataResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.common.data.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_umkt_customer_group(
+        self,
+        request: riskplus_models.PushUmktCustomerGroupRequest,
+    ) -> riskplus_models.PushUmktCustomerGroupResponse:
+        """
+        Description: 营销盾客群推送服务
+        Summary: 营销盾客群推送服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_umkt_customer_group_ex(request, headers, runtime)
+
+    async def push_umkt_customer_group_async(
+        self,
+        request: riskplus_models.PushUmktCustomerGroupRequest,
+    ) -> riskplus_models.PushUmktCustomerGroupResponse:
+        """
+        Description: 营销盾客群推送服务
+        Summary: 营销盾客群推送服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_umkt_customer_group_ex_async(request, headers, runtime)
+
+    def push_umkt_customer_group_ex(
+        self,
+        request: riskplus_models.PushUmktCustomerGroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushUmktCustomerGroupResponse:
+        """
+        Description: 营销盾客群推送服务
+        Summary: 营销盾客群推送服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushUmktCustomerGroupResponse(),
+            self.do_request('1.0', 'riskplus.umkt.customer.group.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_umkt_customer_group_ex_async(
+        self,
+        request: riskplus_models.PushUmktCustomerGroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushUmktCustomerGroupResponse:
+        """
+        Description: 营销盾客群推送服务
+        Summary: 营销盾客群推送服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushUmktCustomerGroupResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.customer.group.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_umkt_task_detail(
+        self,
+        request: riskplus_models.BatchqueryUmktTaskDetailRequest,
+    ) -> riskplus_models.BatchqueryUmktTaskDetailResponse:
+        """
+        Description: 触达执行任务详情查询
+        Summary: 触达执行任务详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_umkt_task_detail_ex(request, headers, runtime)
+
+    async def batchquery_umkt_task_detail_async(
+        self,
+        request: riskplus_models.BatchqueryUmktTaskDetailRequest,
+    ) -> riskplus_models.BatchqueryUmktTaskDetailResponse:
+        """
+        Description: 触达执行任务详情查询
+        Summary: 触达执行任务详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_umkt_task_detail_ex_async(request, headers, runtime)
+
+    def batchquery_umkt_task_detail_ex(
+        self,
+        request: riskplus_models.BatchqueryUmktTaskDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktTaskDetailResponse:
+        """
+        Description: 触达执行任务详情查询
+        Summary: 触达执行任务详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktTaskDetailResponse(),
+            self.do_request('1.0', 'riskplus.umkt.task.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_umkt_task_detail_ex_async(
+        self,
+        request: riskplus_models.BatchqueryUmktTaskDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktTaskDetailResponse:
+        """
+        Description: 触达执行任务详情查询
+        Summary: 触达执行任务详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktTaskDetailResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.task.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
