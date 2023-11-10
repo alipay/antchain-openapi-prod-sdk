@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.16.43"),
+                    new TeaPair("sdk_version", "1.16.57"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -292,6 +292,25 @@ public class Client {
     public ExecSecurityRiskdataserviceResponse execSecurityRiskdataserviceEx(ExecSecurityRiskdataserviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.security.riskdataservice.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecSecurityRiskdataserviceResponse());
+    }
+
+    /**
+     * Description: 风控云SaaS租户调用接口
+     * Summary: 风控云SaaS租户调用接口
+     */
+    public QuerySaasSecurityPolicyResponse querySaasSecurityPolicy(QuerySaasSecurityPolicyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySaasSecurityPolicyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 风控云SaaS租户调用接口
+     * Summary: 风控云SaaS租户调用接口
+     */
+    public QuerySaasSecurityPolicyResponse querySaasSecurityPolicyEx(QuerySaasSecurityPolicyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.saas.security.policy.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySaasSecurityPolicyResponse());
     }
 
     /**
@@ -3021,6 +3040,141 @@ public class Client {
     public CallbackUmktSmsReportResponse callbackUmktSmsReportEx(CallbackUmktSmsReportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.sms.report.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackUmktSmsReportResponse());
+    }
+
+    /**
+     * Description: 分页查询租户外呼策略
+     * Summary: 营销盾租户场景批量信息查询 
+     */
+    public BatchqueryUmktTenantActionplaninfoResponse batchqueryUmktTenantActionplaninfo(BatchqueryUmktTenantActionplaninfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryUmktTenantActionplaninfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询租户外呼策略
+     * Summary: 营销盾租户场景批量信息查询 
+     */
+    public BatchqueryUmktTenantActionplaninfoResponse batchqueryUmktTenantActionplaninfoEx(BatchqueryUmktTenantActionplaninfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.tenant.actionplaninfo.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryUmktTenantActionplaninfoResponse());
+    }
+
+    /**
+     * Description: 营销盾批次外呼内单个/多个手机号查询拨打情况
+    (已下线)
+     * Summary: 营销盾外呼详情查询接口
+     */
+    public BatchqueryUmktRobotcallDetailResponse batchqueryUmktRobotcallDetail(BatchqueryUmktRobotcallDetailRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryUmktRobotcallDetailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾批次外呼内单个/多个手机号查询拨打情况
+    (已下线)
+     * Summary: 营销盾外呼详情查询接口
+     */
+    public BatchqueryUmktRobotcallDetailResponse batchqueryUmktRobotcallDetailEx(BatchqueryUmktRobotcallDetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.robotcall.detail.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryUmktRobotcallDetailResponse());
+    }
+
+    /**
+     * Description: 营销盾查询外呼策略详情
+     * Summary: 营销盾查询外呼策略详情
+     */
+    public BatchqueryUmktActionplanDetailResponse batchqueryUmktActionplanDetail(BatchqueryUmktActionplanDetailRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryUmktActionplanDetailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾查询外呼策略详情
+     * Summary: 营销盾查询外呼策略详情
+     */
+    public BatchqueryUmktActionplanDetailResponse batchqueryUmktActionplanDetailEx(BatchqueryUmktActionplanDetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.actionplan.detail.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryUmktActionplanDetailResponse());
+    }
+
+    /**
+     * Description: 营销盾通用回流推送服务
+     * Summary: 营销盾通用回流推送服务
+     */
+    public PushRiskplusUmktCommonbackflowResponse pushRiskplusUmktCommonbackflow(PushRiskplusUmktCommonbackflowRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushRiskplusUmktCommonbackflowEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾通用回流推送服务
+     * Summary: 营销盾通用回流推送服务
+     */
+    public PushRiskplusUmktCommonbackflowResponse pushRiskplusUmktCommonbackflowEx(PushRiskplusUmktCommonbackflowRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.riskplus.umkt.commonbackflow.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushRiskplusUmktCommonbackflowResponse());
+    }
+
+    /**
+     * Description: 营销盾通用数据推送服务
+     * Summary: 营销盾通用数据推送服务
+     */
+    public PushUmktCommonDataResponse pushUmktCommonData(PushUmktCommonDataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushUmktCommonDataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾通用数据推送服务
+     * Summary: 营销盾通用数据推送服务
+     */
+    public PushUmktCommonDataResponse pushUmktCommonDataEx(PushUmktCommonDataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.common.data.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushUmktCommonDataResponse());
+    }
+
+    /**
+     * Description: 营销盾客群推送服务
+     * Summary: 营销盾客群推送服务
+     */
+    public PushUmktCustomerGroupResponse pushUmktCustomerGroup(PushUmktCustomerGroupRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushUmktCustomerGroupEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾客群推送服务
+     * Summary: 营销盾客群推送服务
+     */
+    public PushUmktCustomerGroupResponse pushUmktCustomerGroupEx(PushUmktCustomerGroupRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.customer.group.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushUmktCustomerGroupResponse());
+    }
+
+    /**
+     * Description: 触达执行任务详情查询
+     * Summary: 触达执行任务详情查询
+     */
+    public BatchqueryUmktTaskDetailResponse batchqueryUmktTaskDetail(BatchqueryUmktTaskDetailRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryUmktTaskDetailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 触达执行任务详情查询
+     * Summary: 触达执行任务详情查询
+     */
+    public BatchqueryUmktTaskDetailResponse batchqueryUmktTaskDetailEx(BatchqueryUmktTaskDetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.task.detail.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryUmktTaskDetailResponse());
     }
 
     /**

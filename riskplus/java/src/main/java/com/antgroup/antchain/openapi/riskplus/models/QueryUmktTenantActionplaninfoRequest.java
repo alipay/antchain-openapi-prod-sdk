@@ -20,9 +20,9 @@ public class QueryUmktTenantActionplaninfoRequest extends TeaModel {
     public Long pageSize;
 
     // 渠道code
-    @NameInMap("channel_type")
+    @NameInMap("content_type")
     @Validation(required = true)
-    public String channelType;
+    public String contentType;
 
     public static QueryUmktTenantActionplaninfoRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryUmktTenantActionplaninfoRequest self = new QueryUmktTenantActionplaninfoRequest();
@@ -61,12 +61,12 @@ public class QueryUmktTenantActionplaninfoRequest extends TeaModel {
         return this.pageSize;
     }
 
-    public QueryUmktTenantActionplaninfoRequest setChannelType(String channelType) {
-        this.channelType = channelType;
+    public QueryUmktTenantActionplaninfoRequest setContentType(String contentType) {
+        this.contentType = contentType;
         return this;
     }
-    public String getChannelType() {
-        return this.channelType;
+    public String getContentType() {
+        return this.contentType;
     }
 
 }
