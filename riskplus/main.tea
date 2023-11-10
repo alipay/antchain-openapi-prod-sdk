@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.43',
+    sdk_version = '1.16.57',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -183,6 +183,14 @@ model OutParams {
 model InfoCodes {
   // infocode
   name: string(name='name', example='infocode'),
+}
+
+// 营销盾触达媒介参数信息
+model ActionParamInfo {
+  // 触达媒介类型
+  contentType: string(name='content_type', example='ROBOT_CALL'),
+  // 触达媒介参数列表
+  actionParam: [ string ](name='action_param', example='["a","b"]'),
 }
 
 // 天枢系统Contact结构体
@@ -685,6 +693,22 @@ model SecurityDataQueryStruct {
   version: string(name='version', example='1.0'),
 }
 
+// 触达策略信息
+model ActionPlanDetailInfo {
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id', example='1'),
+  // 场景策略名称
+  sceneStrategyName: string(name='scene_strategy_name', example='蚂蚁营销'),
+  // 场景策略状态
+  sceneStrategyStatus: string(name='scene_strategy_status', example='ONLINE'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 触达媒介参数信息
+  actionParamInfo: [ ActionParamInfo ](name='action_param_info', example=''),
+}
+
 // 标签信息
 model RiskLabelInfo {
   // 线索明细类型(字段停用)
@@ -970,6 +994,97 @@ model RtopCrowdRiskSummaryResp {
   registeredCounty?: string(name='registered_county', example='西湖区'),
   // 注册省
   registeredProvince?: string(name='registered_province', example='浙江省'),
+}
+
+// 营销盾外呼记录
+model CommonRobotCallDetail {
+  // 客户请求时的透传字段
+  extInfo: string(name='ext_info', example='请求透传字段'),
+  // 成功触达：OK；未触达：AI_ROBOT_CALL_REQUEST_NOT_EXIST
+  resultCode: string(name='result_code', example='OK'),
+  // 外呼号码
+  customerKey: string(name='customer_key', example='130XXXXXX'),
+  // 呼叫次数
+  currentCallTimes: long(name='current_call_times', example='1'),
+  // 号码模版
+  keyTemplate: string(name='key_template', example='MOBILE/MOBILE/CUSTOMER_ENCRY'),
+  // 导入号码时返回的批次号
+  batchId: string(name='batch_id', example='1'),
+  // 2001:批量-预测外呼，2002:批量-AI外呼-不转人工，2003:批量-AI外呼-接通转人工，2004: 批量-AI外呼-智能转人工,2005:批量-语音通知
+  callType: long(name='call_type', example='2001'),
+  // 用户自定义标签
+  tag?: string(name='tag', example='tag'),
+  // 外呼id
+  callId: string(name='call_id', example='9b2eb6b8'),
+  // 外呼任务编号
+  taskId: long(name='task_id', example='1'),
+  // AI话术ID
+  templateId?: long(name='template_id', example='1'),
+  // 外呼状态编码
+  statusCode: long(name='status_code', example='1'),
+  // 外呼状态描述
+  statusDescription: string(name='status_description', example='1'),
+  // 转人工状态编码
+  transferStatusCode: long(name='transfer_status_code', example='1'),
+  // 转人工状态
+  transferStatus: string(name='transfer_status', example='0'),
+  // 分配坐席ID
+  agentId?: long(name='agent_id', example=''),
+  // 坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
+  agentTag?: string(name='agent_tag', example='a'),
+  // 坐席分机号
+  agentExtension?: string(name='agent_extension', example='a'),
+  // 导入时间
+  importTime: string(name='import_time', example='2019-01-09 14:14:19'),
+  // 开始通话时间
+  callBeginTime: string(name='call_begin_time', example='2019-01-09 14:14:19'),
+  // 振铃时长，单位ms
+  ringTime: long(name='ring_time', example='10'),
+  // 接通时间
+  answerTime?: string(name='answer_time', example='2019-01-09 14:14:19'),
+  // 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+  speakingTime: string(name='speaking_time', example='1'),
+  // 通话时长，单位：秒
+  speakingDuration: long(name='speaking_duration', example='1'),
+  // 挂断时间
+  hangupTime: string(name='hangup_time', example='2019-01-09 14:14:19'),
+  // 对话轮次
+  speakingTurns: long(name='speaking_turns', example='1'),
+  // 人工通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+  agentSpeakingTime: string(name='agent_speaking_time', example='1'),
+  // 人工通话时长，单位：秒
+  agentSpeakingDuration: long(name='agent_speaking_duration', example='1'),
+  // 意向标签
+  intentTag: string(name='intent_tag', example='C'),
+  // 意向说明
+  intentDescription: string(name='intent_description', example='确认本人,未承诺还款'),
+  // 个性标签
+  individualTag?: string(name='individual_tag', example='投诉,非本人'),
+  // 回复关键词
+  keywords?: string(name='keywords', example='链接,利息'),
+  // 挂机方式，AI挂机1，坐席挂机2，客户挂机3
+  hungupType: long(name='hungup_type', example='1'),
+  // 挂机短信，可选值：1、2
+  // 1:发送，2:不发送
+  sms: string(name='sms', example='1'),
+  // 对话录音，URL，可以为空
+  chatRecord?: string(name='chat_record', example='1'),
+  // 聊天记录，可以为空
+  chats?: string(name='chats', example='{}'),
+  // 可选值：0、1
+  // 0:不添加，1:添加
+  addWx?: long(name='add_wx', example='1'),
+  // 加微进度，可选值：已申请、加微成功
+  addWxStatus?: string(name='add_wx_status', example='已申请'),
+  // 是否接通重呼，可选值：0、1
+  // 0正常外呼，1接通重呼
+  answerRecall: long(name='answer_recall', example='1'),
+  // 导入号码时的参数值
+  properties?: string(name='properties', example='{"电话号码":"13100000000"}'),
+  // 导入号码时的业务参数值，原样返回
+  bizProperties?: string(name='biz_properties', example='a'),
+  // 拦截原因：当状态为已拦截时，可选值：黑名单拦截，灰名单拦截，异常号码拦截
+  interceptReason?: string(name='intercept_reason', example='黑名单拦截'),
 }
 
 // 回执统计结果
@@ -1662,6 +1777,14 @@ model SmsReponse {
   requestId: string(name='request_id', example='EF2DE797-B632-5DCF-8502-600959436E77'),
 }
 
+// 风控事件咨询查询入参
+model EventInfo {
+  // 事件编码
+  eventCode: string(name='event_code', example='face_attack_strategy'),
+  // 事件产生时间
+  gmtOccur: string(name='gmt_occur', example='1686215967914'),
+}
+
 // 天枢专用RepayTrail结构体
 model RepayTrail {
   // 期数
@@ -2019,6 +2142,54 @@ async function execSecurityRiskdataservice(request: ExecSecurityRiskdataserviceR
 async function execSecurityRiskdataserviceEx(request: ExecSecurityRiskdataserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecSecurityRiskdataserviceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.security.riskdataservice.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySaasSecurityPolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 风控事件咨询查询入参
+  eventInfo: EventInfo(name='event_info'),
+  // 请求处理方式
+  riskType?: string(name='risk_type'),
+}
+
+model QuerySaasSecurityPolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 场景分
+  modelDetails?: [ ModelDetails ](name='model_details'),
+  // 安全请求id
+  securityId?: string(name='security_id'),
+  // 策略结果
+  securityResult?: string(name='security_result'),
+  // 策略结果详情
+  strategyDetails?: [ StrategyDetails ](name='strategy_details'),
+  // 决策流信息
+  dfSceneInfos?: [ DfSceneInfos ](name='df_scene_infos'),
+}
+
+/**
+ * Description: 风控云SaaS租户调用接口
+ * Summary: 风控云SaaS租户调用接口
+ */
+async function querySaasSecurityPolicy(request: QuerySaasSecurityPolicyRequest): QuerySaasSecurityPolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySaasSecurityPolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风控云SaaS租户调用接口
+ * Summary: 风控云SaaS租户调用接口
+ */
+async function querySaasSecurityPolicyEx(request: QuerySaasSecurityPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasSecurityPolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.saas.security.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryDubheTestRequest = {
@@ -8469,7 +8640,7 @@ model QueryUmktTenantActionplaninfoRequest = {
   // 页容量
   pageSize?: long(name='page_size'),
   // 渠道code
-  channelType: string(name='channel_type'),
+  contentType: string(name='content_type'),
 }
 
 model QueryUmktTenantActionplaninfoResponse = {
@@ -8880,6 +9051,314 @@ async function callbackUmktSmsReport(request: CallbackUmktSmsReportRequest): Cal
 async function callbackUmktSmsReportEx(request: CallbackUmktSmsReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackUmktSmsReportResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.sms.report.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryUmktTenantActionplaninfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 渠道类型
+  contentType: string(name='content_type'),
+  // 页码
+  pageNum: long(name='page_num'),
+  // 页数
+  pageSize: long(name='page_size'),
+}
+
+model BatchqueryUmktTenantActionplaninfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 触达策略信息
+  queryResult?: [ ActionPlanDetailInfo ](name='query_result'),
+  // 总数
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 分页查询租户外呼策略
+ * Summary: 营销盾租户场景批量信息查询 
+ */
+async function batchqueryUmktTenantActionplaninfo(request: BatchqueryUmktTenantActionplaninfoRequest): BatchqueryUmktTenantActionplaninfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryUmktTenantActionplaninfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询租户外呼策略
+ * Summary: 营销盾租户场景批量信息查询 
+ */
+async function batchqueryUmktTenantActionplaninfoEx(request: BatchqueryUmktTenantActionplaninfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryUmktTenantActionplaninfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.tenant.actionplaninfo.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryUmktRobotcallDetailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 上传外呼任务返回的callId
+  bizId: string(name='biz_id'),
+  // 手机号
+  phoneNumbers: [ string ](name='phone_numbers'),
+  // 手机号类型
+  templateType: string(name='template_type'),
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id'),
+  // 意向标签
+  intentTags?: [ string ](name='intent_tags'),
+  // 开始外呼时间
+  callDate?: string(name='call_date'),
+  // 结束外呼时间
+  endCallDate?: string(name='end_call_date'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页数
+  pageSize?: long(name='page_size'),
+}
+
+model BatchqueryUmktRobotcallDetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户请求时的透传字段
+  outInfo?: string(name='out_info'),
+  // 外呼记录列表
+  callInfo?: [ CommonRobotCallDetail ](name='call_info'),
+}
+
+/**
+ * Description: 营销盾批次外呼内单个/多个手机号查询拨打情况
+(已下线)
+ * Summary: 营销盾外呼详情查询接口
+ */
+async function batchqueryUmktRobotcallDetail(request: BatchqueryUmktRobotcallDetailRequest): BatchqueryUmktRobotcallDetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryUmktRobotcallDetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 营销盾批次外呼内单个/多个手机号查询拨打情况
+(已下线)
+ * Summary: 营销盾外呼详情查询接口
+ */
+async function batchqueryUmktRobotcallDetailEx(request: BatchqueryUmktRobotcallDetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryUmktRobotcallDetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.robotcall.detail.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryUmktActionplanDetailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景策略id
+  sceneStrategyId: [ long ](name='scene_strategy_id'),
+}
+
+model BatchqueryUmktActionplanDetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 触达策略详细信息
+  actionPlanDetailInfo?: [ ActionPlanDetailInfo ](name='action_plan_detail_info'),
+}
+
+/**
+ * Description: 营销盾查询外呼策略详情
+ * Summary: 营销盾查询外呼策略详情
+ */
+async function batchqueryUmktActionplanDetail(request: BatchqueryUmktActionplanDetailRequest): BatchqueryUmktActionplanDetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryUmktActionplanDetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 营销盾查询外呼策略详情
+ * Summary: 营销盾查询外呼策略详情
+ */
+async function batchqueryUmktActionplanDetailEx(request: BatchqueryUmktActionplanDetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryUmktActionplanDetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.actionplan.detail.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushRiskplusUmktCommonbackflowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: long(name='tenant_id'),
+  // 回流模版ID
+  backFlowTemplateId: long(name='back_flow_template_id'),
+  // 回流信息描述
+  backFlowDesc: string(name='back_flow_desc'),
+  // 回流属性
+  properties: string(name='properties'),
+}
+
+model PushRiskplusUmktCommonbackflowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 营销盾通用回流推送服务
+ * Summary: 营销盾通用回流推送服务
+ */
+async function pushRiskplusUmktCommonbackflow(request: PushRiskplusUmktCommonbackflowRequest): PushRiskplusUmktCommonbackflowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushRiskplusUmktCommonbackflowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 营销盾通用回流推送服务
+ * Summary: 营销盾通用回流推送服务
+ */
+async function pushRiskplusUmktCommonbackflowEx(request: PushRiskplusUmktCommonbackflowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushRiskplusUmktCommonbackflowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.riskplus.umkt.commonbackflow.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushUmktCommonDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据推送事件ID
+  eventId: long(name='event_id'),
+  // 数据推送属性数据
+  properties: string(name='properties'),
+}
+
+model PushUmktCommonDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 营销盾通用数据推送服务
+ * Summary: 营销盾通用数据推送服务
+ */
+async function pushUmktCommonData(request: PushUmktCommonDataRequest): PushUmktCommonDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushUmktCommonDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 营销盾通用数据推送服务
+ * Summary: 营销盾通用数据推送服务
+ */
+async function pushUmktCommonDataEx(request: PushUmktCommonDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushUmktCommonDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.common.data.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushUmktCustomerGroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 事件ID
+  eventId: string(name='event_id'),
+  // 数据属性
+  properties: string(name='properties'),
+}
+
+model PushUmktCustomerGroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 营销盾客群推送服务
+ * Summary: 营销盾客群推送服务
+ */
+async function pushUmktCustomerGroup(request: PushUmktCustomerGroupRequest): PushUmktCustomerGroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushUmktCustomerGroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 营销盾客群推送服务
+ * Summary: 营销盾客群推送服务
+ */
+async function pushUmktCustomerGroupEx(request: PushUmktCustomerGroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushUmktCustomerGroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.customer.group.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryUmktTaskDetailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 上传外呼任务返回的callId
+  bizId: string(name='biz_id'),
+  // 手机号列表
+  customerKeys: [ string ](name='customer_keys'),
+  // 手机号类型
+  keyTemplate: string(name='key_template'),
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id'),
+  // 开始外呼时间，只可查询最近30天的日期
+  callDate?: string(name='call_date'),
+  // 结束外呼时间
+  endCallDate?: string(name='end_call_date'),
+}
+
+model BatchqueryUmktTaskDetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户请求时的透传字段
+  outInfo?: string(name='out_info'),
+  // 外呼记录列表
+  callInfo?: [ CommonRobotCallDetail ](name='call_info'),
+}
+
+/**
+ * Description: 触达执行任务详情查询
+ * Summary: 触达执行任务详情查询
+ */
+async function batchqueryUmktTaskDetail(request: BatchqueryUmktTaskDetailRequest): BatchqueryUmktTaskDetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryUmktTaskDetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 触达执行任务详情查询
+ * Summary: 触达执行任务详情查询
+ */
+async function batchqueryUmktTaskDetailEx(request: BatchqueryUmktTaskDetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryUmktTaskDetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.task.detail.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
