@@ -149,6 +149,178 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// CA电子签约正文章信息
+type CaSystemMainBodyRequest struct {
+	// 签署页码
+	PosPage *int64 `json:"pos_page,omitempty" xml:"pos_page,omitempty" require:"true"`
+	// 签署区位置横坐标
+	PosX *int64 `json:"pos_x,omitempty" xml:"pos_x,omitempty" require:"true"`
+	// 签署区位置纵坐标
+	PosY *int64 `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true"`
+}
+
+func (s CaSystemMainBodyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaSystemMainBodyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CaSystemMainBodyRequest) SetPosPage(v int64) *CaSystemMainBodyRequest {
+	s.PosPage = &v
+	return s
+}
+
+func (s *CaSystemMainBodyRequest) SetPosX(v int64) *CaSystemMainBodyRequest {
+	s.PosX = &v
+	return s
+}
+
+func (s *CaSystemMainBodyRequest) SetPosY(v int64) *CaSystemMainBodyRequest {
+	s.PosY = &v
+	return s
+}
+
+// 骑缝章信息
+type CaSystemCrossPageRequest struct {
+	// 签署页码
+	PosPageStart *int64 `json:"pos_page_start,omitempty" xml:"pos_page_start,omitempty" require:"true"`
+	// 结束页码（供骑缝章使用）
+	PosPageEnd *int64 `json:"pos_page_end,omitempty" xml:"pos_page_end,omitempty" require:"true"`
+	// 签署区位置横坐标
+	PosX *int64 `json:"pos_x,omitempty" xml:"pos_x,omitempty" require:"true"`
+	// 签署区位置纵坐标
+	PosY *int64 `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true"`
+}
+
+func (s CaSystemCrossPageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaSystemCrossPageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CaSystemCrossPageRequest) SetPosPageStart(v int64) *CaSystemCrossPageRequest {
+	s.PosPageStart = &v
+	return s
+}
+
+func (s *CaSystemCrossPageRequest) SetPosPageEnd(v int64) *CaSystemCrossPageRequest {
+	s.PosPageEnd = &v
+	return s
+}
+
+func (s *CaSystemCrossPageRequest) SetPosX(v int64) *CaSystemCrossPageRequest {
+	s.PosX = &v
+	return s
+}
+
+func (s *CaSystemCrossPageRequest) SetPosY(v int64) *CaSystemCrossPageRequest {
+	s.PosY = &v
+	return s
+}
+
+// 签署区域信息（包括印模信息）
+type CaSystemSignAreaRequest struct {
+	// 印章id,联系签署中心获取
+	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty" require:"true"`
+	// 用印对齐类型,TOP_LEFT("TOP_LEFT", "左上角对齐"), BOTTOM_LEFT("BOTTOM_LEFT", "左下角对齐"), CENTER("CENTER", "xy值是印章的中心"), TOP_RIGHT("TOP_RIGHT", "xy值是印章右上角"), BOTTOM_RIGHT("BOTTOM_RIGHT", "xy值是印章右下角")
+	LocationType *string `json:"location_type,omitempty" xml:"location_type,omitempty" require:"true"`
+	// 签署位置类型，1-正文，2-骑缝
+	PositionType *string `json:"position_type,omitempty" xml:"position_type,omitempty" require:"true"`
+	// 骑缝章信息，需要盖骑缝章的时候 请传递此参数
+	SystemCrossPageRequest *CaSystemCrossPageRequest `json:"system_cross_page_request,omitempty" xml:"system_cross_page_request,omitempty"`
+	// 正文章信息，正文章模式必填
+	SystemMainBodyRequest *CaSystemMainBodyRequest `json:"system_main_body_request,omitempty" xml:"system_main_body_request,omitempty"`
+}
+
+func (s CaSystemSignAreaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaSystemSignAreaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CaSystemSignAreaRequest) SetSealId(v string) *CaSystemSignAreaRequest {
+	s.SealId = &v
+	return s
+}
+
+func (s *CaSystemSignAreaRequest) SetLocationType(v string) *CaSystemSignAreaRequest {
+	s.LocationType = &v
+	return s
+}
+
+func (s *CaSystemSignAreaRequest) SetPositionType(v string) *CaSystemSignAreaRequest {
+	s.PositionType = &v
+	return s
+}
+
+func (s *CaSystemSignAreaRequest) SetSystemCrossPageRequest(v *CaSystemCrossPageRequest) *CaSystemSignAreaRequest {
+	s.SystemCrossPageRequest = v
+	return s
+}
+
+func (s *CaSystemSignAreaRequest) SetSystemMainBodyRequest(v *CaSystemMainBodyRequest) *CaSystemSignAreaRequest {
+	s.SystemMainBodyRequest = v
+	return s
+}
+
+// 签署文件信息（包含印模和签署区域）
+type CaSystemSignFileRequest struct {
+	// 签署文件id,和签署文件列表fileId呼应
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 签署文件列表（包含印模和签署区域）
+	SystemSignAreaRequestList []*CaSystemSignAreaRequest `json:"system_sign_area_request_list,omitempty" xml:"system_sign_area_request_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CaSystemSignFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaSystemSignFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CaSystemSignFileRequest) SetFileId(v string) *CaSystemSignFileRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *CaSystemSignFileRequest) SetSystemSignAreaRequestList(v []*CaSystemSignAreaRequest) *CaSystemSignFileRequest {
+	s.SystemSignAreaRequestList = v
+	return s
+}
+
+// 待签署文件列表
+type CaSignFileRequest struct {
+	// 文件名称
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 文件id,映射唯一的文件。多文件签署场景下，fileId必须唯一且和文件一一对应
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s CaSignFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaSignFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CaSignFileRequest) SetFileName(v string) *CaSignFileRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CaSignFileRequest) SetFileId(v string) *CaSignFileRequest {
+	s.FileId = &v
+	return s
+}
+
 // 签署方信息
 type SignatoryInfo struct {
 	// 页码信息 （骑缝签署页码为1-2这种，其余情况都是数字）
@@ -186,6 +358,320 @@ func (s *SignatoryInfo) SetPosY(v string) *SignatoryInfo {
 
 func (s *SignatoryInfo) SetWidth(v string) *SignatoryInfo {
 	s.Width = &v
+	return s
+}
+
+// 签署完成的文件
+type CaSignFileResult struct {
+	// 文件名称
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty"`
+	// 文件osskey
+	FileKey *string `json:"file_key,omitempty" xml:"file_key,omitempty"`
+	// 文件id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 文件http链接
+	HttpFileUrl *string `json:"http_file_url,omitempty" xml:"http_file_url,omitempty"`
+}
+
+func (s CaSignFileResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaSignFileResult) GoString() string {
+	return s.String()
+}
+
+func (s *CaSignFileResult) SetFileName(v string) *CaSignFileResult {
+	s.FileName = &v
+	return s
+}
+
+func (s *CaSignFileResult) SetFileKey(v string) *CaSignFileResult {
+	s.FileKey = &v
+	return s
+}
+
+func (s *CaSignFileResult) SetFileId(v string) *CaSignFileResult {
+	s.FileId = &v
+	return s
+}
+
+func (s *CaSignFileResult) SetHttpFileUrl(v string) *CaSignFileResult {
+	s.HttpFileUrl = &v
+	return s
+}
+
+// 签署人信息
+type CaSignUserInfoRequest struct {
+	// 用户类型个人:PERSON 机构:ORG
+	SignUserType *string `json:"sign_user_type,omitempty" xml:"sign_user_type,omitempty" require:"true"`
+	// 签署方名称，个人传真实姓名：张三 机构传机构正确的名称：xxx责任有限公司
+	SignerName *string `json:"signer_name,omitempty" xml:"signer_name,omitempty" require:"true"`
+	// 授权签署时的签署人证件类型,签署方证件类型 CRED_PSN_CH_IDCARD(大陆身份证) CRED_ORG_USCC(统一社会信用代码)
+	SignerCertType *string `json:"signer_cert_type,omitempty" xml:"signer_cert_type,omitempty" require:"true"`
+	// 签署方证件号码,签署方证件号码： 个人传递身份证件号 企业传递统一社会信用编码
+	SignerCertNumber *string `json:"signer_cert_number,omitempty" xml:"signer_cert_number,omitempty" require:"true"`
+	// 企业子类型,signUserType为org时必选 企业子类型 * BUS("BUS", "企业"), * SINGLE("SINGLE", "个体工商户"), * GOV("GOV", "党政机关"), * INST("INST", "事业单位"), * COMMON("COMMON", "社会组织"), * OTHER("OTHER", "其他组织")
+	SignSubType *string `json:"sign_sub_type,omitempty" xml:"sign_sub_type,omitempty"`
+	// 是否指定授权人签署
+	Authorized *string `json:"authorized,omitempty" xml:"authorized,omitempty"`
+	// authorized=1时必填,签署方名称
+	AuthSignerName *string `json:"auth_signer_name,omitempty" xml:"auth_signer_name,omitempty"`
+	// authorized=1 时必填,授权签署时的签署人证件类型
+	AuthSignerCertType *string `json:"auth_signer_cert_type,omitempty" xml:"auth_signer_cert_type,omitempty"`
+	// authorized=1 时必填,授权签署方证件号码
+	AuthSignerCertNumber *string `json:"auth_signer_cert_number,omitempty" xml:"auth_signer_cert_number,omitempty"`
+	// 手机号，用于发送签署短信
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 邮箱联系方式
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 签署顺序，默认-1无签署顺序
+	Order *string `json:"order,omitempty" xml:"order,omitempty"`
+	// 是否自动签署,ture为需要自动签署，false为手动签署
+	AutoSign *bool `json:"auto_sign,omitempty" xml:"auto_sign,omitempty" require:"true"`
+	// 签署文件列表（包含印模和签署区域）
+	SystemSignFileRequestList []*CaSystemSignFileRequest `json:"system_sign_file_request_list,omitempty" xml:"system_sign_file_request_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CaSignUserInfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaSignUserInfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CaSignUserInfoRequest) SetSignUserType(v string) *CaSignUserInfoRequest {
+	s.SignUserType = &v
+	return s
+}
+
+func (s *CaSignUserInfoRequest) SetSignerName(v string) *CaSignUserInfoRequest {
+	s.SignerName = &v
+	return s
+}
+
+func (s *CaSignUserInfoRequest) SetSignerCertType(v string) *CaSignUserInfoRequest {
+	s.SignerCertType = &v
+	return s
+}
+
+func (s *CaSignUserInfoRequest) SetSignerCertNumber(v string) *CaSignUserInfoRequest {
+	s.SignerCertNumber = &v
+	return s
+}
+
+func (s *CaSignUserInfoRequest) SetSignSubType(v string) *CaSignUserInfoRequest {
+	s.SignSubType = &v
+	return s
+}
+
+func (s *CaSignUserInfoRequest) SetAuthorized(v string) *CaSignUserInfoRequest {
+	s.Authorized = &v
+	return s
+}
+
+func (s *CaSignUserInfoRequest) SetAuthSignerName(v string) *CaSignUserInfoRequest {
+	s.AuthSignerName = &v
+	return s
+}
+
+func (s *CaSignUserInfoRequest) SetAuthSignerCertType(v string) *CaSignUserInfoRequest {
+	s.AuthSignerCertType = &v
+	return s
+}
+
+func (s *CaSignUserInfoRequest) SetAuthSignerCertNumber(v string) *CaSignUserInfoRequest {
+	s.AuthSignerCertNumber = &v
+	return s
+}
+
+func (s *CaSignUserInfoRequest) SetMobile(v string) *CaSignUserInfoRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *CaSignUserInfoRequest) SetEmail(v string) *CaSignUserInfoRequest {
+	s.Email = &v
+	return s
+}
+
+func (s *CaSignUserInfoRequest) SetOrder(v string) *CaSignUserInfoRequest {
+	s.Order = &v
+	return s
+}
+
+func (s *CaSignUserInfoRequest) SetAutoSign(v bool) *CaSignUserInfoRequest {
+	s.AutoSign = &v
+	return s
+}
+
+func (s *CaSignUserInfoRequest) SetSystemSignFileRequestList(v []*CaSystemSignFileRequest) *CaSignUserInfoRequest {
+	s.SystemSignFileRequestList = v
+	return s
+}
+
+// 签署人状态
+type CaSignOperatorResult struct {
+	// 签署方UserId
+	SignUserId *string `json:"sign_user_id,omitempty" xml:"sign_user_id,omitempty" require:"true"`
+	// 签署方证件号
+	SignCertNo *string `json:"sign_cert_no,omitempty" xml:"sign_cert_no,omitempty"`
+	// 签署方证件名称
+	SignCertName *string `json:"sign_cert_name,omitempty" xml:"sign_cert_name,omitempty" require:"true"`
+	// 签署方证件类型
+	SignCertType *string `json:"sign_cert_type,omitempty" xml:"sign_cert_type,omitempty"`
+	// 是否授权
+	Authorized *int64 `json:"authorized,omitempty" xml:"authorized,omitempty"`
+	// 授权时间
+	AuthorizeTime *string `json:"authorize_time,omitempty" xml:"authorize_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 授权人证件号码
+	AuthPersonCertNo *string `json:"auth_person_cert_no,omitempty" xml:"auth_person_cert_no,omitempty"`
+	// 授权人证件名称
+	AuthPersonCertName *string `json:"auth_person_cert_name,omitempty" xml:"auth_person_cert_name,omitempty"`
+	// 授权人证件类型
+	AuthPersonCertType *string `json:"auth_person_cert_type,omitempty" xml:"auth_person_cert_type,omitempty"`
+	// 签署失败原因
+	FailInfo *string `json:"fail_info,omitempty" xml:"fail_info,omitempty"`
+	// SIGNNED
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 签署时间
+	SignTime *string `json:"sign_time,omitempty" xml:"sign_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 是否我方公司
+	OurCorp *int64 `json:"our_corp,omitempty" xml:"our_corp,omitempty"`
+	// 电话联系方式，脱敏显示
+	MobileNumber *string `json:"mobile_number,omitempty" xml:"mobile_number,omitempty"`
+	// 邮件联系地址，脱敏展示返回
+	EmailAddress *string `json:"email_address,omitempty" xml:"email_address,omitempty"`
+}
+
+func (s CaSignOperatorResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaSignOperatorResult) GoString() string {
+	return s.String()
+}
+
+func (s *CaSignOperatorResult) SetSignUserId(v string) *CaSignOperatorResult {
+	s.SignUserId = &v
+	return s
+}
+
+func (s *CaSignOperatorResult) SetSignCertNo(v string) *CaSignOperatorResult {
+	s.SignCertNo = &v
+	return s
+}
+
+func (s *CaSignOperatorResult) SetSignCertName(v string) *CaSignOperatorResult {
+	s.SignCertName = &v
+	return s
+}
+
+func (s *CaSignOperatorResult) SetSignCertType(v string) *CaSignOperatorResult {
+	s.SignCertType = &v
+	return s
+}
+
+func (s *CaSignOperatorResult) SetAuthorized(v int64) *CaSignOperatorResult {
+	s.Authorized = &v
+	return s
+}
+
+func (s *CaSignOperatorResult) SetAuthorizeTime(v string) *CaSignOperatorResult {
+	s.AuthorizeTime = &v
+	return s
+}
+
+func (s *CaSignOperatorResult) SetAuthPersonCertNo(v string) *CaSignOperatorResult {
+	s.AuthPersonCertNo = &v
+	return s
+}
+
+func (s *CaSignOperatorResult) SetAuthPersonCertName(v string) *CaSignOperatorResult {
+	s.AuthPersonCertName = &v
+	return s
+}
+
+func (s *CaSignOperatorResult) SetAuthPersonCertType(v string) *CaSignOperatorResult {
+	s.AuthPersonCertType = &v
+	return s
+}
+
+func (s *CaSignOperatorResult) SetFailInfo(v string) *CaSignOperatorResult {
+	s.FailInfo = &v
+	return s
+}
+
+func (s *CaSignOperatorResult) SetStatus(v string) *CaSignOperatorResult {
+	s.Status = &v
+	return s
+}
+
+func (s *CaSignOperatorResult) SetSignTime(v string) *CaSignOperatorResult {
+	s.SignTime = &v
+	return s
+}
+
+func (s *CaSignOperatorResult) SetOurCorp(v int64) *CaSignOperatorResult {
+	s.OurCorp = &v
+	return s
+}
+
+func (s *CaSignOperatorResult) SetMobileNumber(v string) *CaSignOperatorResult {
+	s.MobileNumber = &v
+	return s
+}
+
+func (s *CaSignOperatorResult) SetEmailAddress(v string) *CaSignOperatorResult {
+	s.EmailAddress = &v
+	return s
+}
+
+// 签署链接结果
+type CaSignUrlResult struct {
+	// 签署方名称
+	SignCertName *string `json:"sign_cert_name,omitempty" xml:"sign_cert_name,omitempty"`
+	// 签署方证件号（脱敏）
+	SignCertNo *string `json:"sign_cert_no,omitempty" xml:"sign_cert_no,omitempty"`
+	// 签署方id
+	SignUserId *string `json:"sign_user_id,omitempty" xml:"sign_user_id,omitempty"`
+	// 加密后的签署方证件号(用来关联签署方的签署链接)
+	EncryptSignCertNo *string `json:"encrypt_sign_cert_no,omitempty" xml:"encrypt_sign_cert_no,omitempty"`
+	// 签署链接
+	SignUrl *string `json:"sign_url,omitempty" xml:"sign_url,omitempty"`
+}
+
+func (s CaSignUrlResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaSignUrlResult) GoString() string {
+	return s.String()
+}
+
+func (s *CaSignUrlResult) SetSignCertName(v string) *CaSignUrlResult {
+	s.SignCertName = &v
+	return s
+}
+
+func (s *CaSignUrlResult) SetSignCertNo(v string) *CaSignUrlResult {
+	s.SignCertNo = &v
+	return s
+}
+
+func (s *CaSignUrlResult) SetSignUserId(v string) *CaSignUrlResult {
+	s.SignUserId = &v
+	return s
+}
+
+func (s *CaSignUrlResult) SetEncryptSignCertNo(v string) *CaSignUrlResult {
+	s.EncryptSignCertNo = &v
+	return s
+}
+
+func (s *CaSignUrlResult) SetSignUrl(v string) *CaSignUrlResult {
+	s.SignUrl = &v
 	return s
 }
 
@@ -302,46 +788,6 @@ func (s *SignUserInfo) SetSignAreaList(v []*SignatoryInfo) *SignUserInfo {
 	return s
 }
 
-// 员工信息
-type InsureEmployeeInfo struct {
-	// 姓名
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 身份证号
-	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
-	// 手机号
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
-	// 额外信息
-	ExtraMsg *string `json:"extra_msg,omitempty" xml:"extra_msg,omitempty" require:"true"`
-}
-
-func (s InsureEmployeeInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s InsureEmployeeInfo) GoString() string {
-	return s.String()
-}
-
-func (s *InsureEmployeeInfo) SetName(v string) *InsureEmployeeInfo {
-	s.Name = &v
-	return s
-}
-
-func (s *InsureEmployeeInfo) SetCertNo(v string) *InsureEmployeeInfo {
-	s.CertNo = &v
-	return s
-}
-
-func (s *InsureEmployeeInfo) SetMobile(v string) *InsureEmployeeInfo {
-	s.Mobile = &v
-	return s
-}
-
-func (s *InsureEmployeeInfo) SetExtraMsg(v string) *InsureEmployeeInfo {
-	s.ExtraMsg = &v
-	return s
-}
-
 // 签署发起返回类
 type ContractSignResponse struct {
 	// 流程id
@@ -365,61 +811,6 @@ func (s *ContractSignResponse) SetFlowId(v string) *ContractSignResponse {
 
 func (s *ContractSignResponse) SetSignUrlList(v []*SignUrlResp) *ContractSignResponse {
 	s.SignUrlList = v
-	return s
-}
-
-// 签约企业信息
-type SignEnterpriseInfo struct {
-	// 公司名称
-	OrganizationName *string `json:"organization_name,omitempty" xml:"organization_name,omitempty" require:"true"`
-	// 社会统一信用代码
-	Uscc *string `json:"uscc,omitempty" xml:"uscc,omitempty" require:"true"`
-	// 法人姓名
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 法人身份证号码
-	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty" require:"true"`
-	// 签署模式0、自动签署1、手动签署（用户只能手动）
-	//
-	SignType *int64 `json:"sign_type,omitempty" xml:"sign_type,omitempty" require:"true"`
-	// 签署区列表
-	SignAreaList []*SignatoryInfo `json:"sign_area_list,omitempty" xml:"sign_area_list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s SignEnterpriseInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SignEnterpriseInfo) GoString() string {
-	return s.String()
-}
-
-func (s *SignEnterpriseInfo) SetOrganizationName(v string) *SignEnterpriseInfo {
-	s.OrganizationName = &v
-	return s
-}
-
-func (s *SignEnterpriseInfo) SetUscc(v string) *SignEnterpriseInfo {
-	s.Uscc = &v
-	return s
-}
-
-func (s *SignEnterpriseInfo) SetName(v string) *SignEnterpriseInfo {
-	s.Name = &v
-	return s
-}
-
-func (s *SignEnterpriseInfo) SetIdNumber(v string) *SignEnterpriseInfo {
-	s.IdNumber = &v
-	return s
-}
-
-func (s *SignEnterpriseInfo) SetSignType(v int64) *SignEnterpriseInfo {
-	s.SignType = &v
-	return s
-}
-
-func (s *SignEnterpriseInfo) SetSignAreaList(v []*SignatoryInfo) *SignEnterpriseInfo {
-	s.SignAreaList = v
 	return s
 }
 
@@ -476,6 +867,235 @@ func (s *InsureProductInfo) SetPremium(v int64) *InsureProductInfo {
 
 func (s *InsureProductInfo) SetSumInsured(v int64) *InsureProductInfo {
 	s.SumInsured = &v
+	return s
+}
+
+// 用印子任务受理流水
+type CaSubSignResult struct {
+	// 子业务流水号
+	SubBizNo *string `json:"sub_biz_no,omitempty" xml:"sub_biz_no,omitempty"`
+	// 子任务id
+	SignTaskId *string `json:"sign_task_id,omitempty" xml:"sign_task_id,omitempty"`
+	// 我方签署方id
+	OurUserId *string `json:"our_user_id,omitempty" xml:"our_user_id,omitempty"`
+	// 是否关联业务 true:关联 false：不关联
+	RelatedBusiness *bool `json:"related_business,omitempty" xml:"related_business,omitempty"`
+	// 签署链接结果列表
+	CaSignUrlResultList []*CaSignUrlResult `json:"ca_sign_url_result_list,omitempty" xml:"ca_sign_url_result_list,omitempty" type:"Repeated"`
+}
+
+func (s CaSubSignResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaSubSignResult) GoString() string {
+	return s.String()
+}
+
+func (s *CaSubSignResult) SetSubBizNo(v string) *CaSubSignResult {
+	s.SubBizNo = &v
+	return s
+}
+
+func (s *CaSubSignResult) SetSignTaskId(v string) *CaSubSignResult {
+	s.SignTaskId = &v
+	return s
+}
+
+func (s *CaSubSignResult) SetOurUserId(v string) *CaSubSignResult {
+	s.OurUserId = &v
+	return s
+}
+
+func (s *CaSubSignResult) SetRelatedBusiness(v bool) *CaSubSignResult {
+	s.RelatedBusiness = &v
+	return s
+}
+
+func (s *CaSubSignResult) SetCaSignUrlResultList(v []*CaSignUrlResult) *CaSubSignResult {
+	s.CaSignUrlResultList = v
+	return s
+}
+
+// 签署任务结果
+type CaSignTaskResult struct {
+	// 子任务流水号
+	SubBizNo *string `json:"sub_biz_no,omitempty" xml:"sub_biz_no,omitempty" require:"true"`
+	// 签署子任务id
+	SignTaskId *string `json:"sign_task_id,omitempty" xml:"sign_task_id,omitempty" require:"true"`
+	// 签署子任务的状态
+	SignTaskStatus *string `json:"sign_task_status,omitempty" xml:"sign_task_status,omitempty"`
+	// 签署完成的文件列表
+	SignFileResultList []*CaSignFileResult `json:"sign_file_result_list,omitempty" xml:"sign_file_result_list,omitempty" type:"Repeated"`
+	// 签署人状态列表
+	SignOperatorResultList []*CaSignOperatorResult `json:"sign_operator_result_list,omitempty" xml:"sign_operator_result_list,omitempty" type:"Repeated"`
+}
+
+func (s CaSignTaskResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaSignTaskResult) GoString() string {
+	return s.String()
+}
+
+func (s *CaSignTaskResult) SetSubBizNo(v string) *CaSignTaskResult {
+	s.SubBizNo = &v
+	return s
+}
+
+func (s *CaSignTaskResult) SetSignTaskId(v string) *CaSignTaskResult {
+	s.SignTaskId = &v
+	return s
+}
+
+func (s *CaSignTaskResult) SetSignTaskStatus(v string) *CaSignTaskResult {
+	s.SignTaskStatus = &v
+	return s
+}
+
+func (s *CaSignTaskResult) SetSignFileResultList(v []*CaSignFileResult) *CaSignTaskResult {
+	s.SignFileResultList = v
+	return s
+}
+
+func (s *CaSignTaskResult) SetSignOperatorResultList(v []*CaSignOperatorResult) *CaSignTaskResult {
+	s.SignOperatorResultList = v
+	return s
+}
+
+// 签署任务信息
+type CaSignTaskRequest struct {
+	// 子业务流水号
+	SubBizNo *string `json:"sub_biz_no,omitempty" xml:"sub_biz_no,omitempty" require:"true"`
+	// 任务描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 签署人信息
+	SignUserInfoRequestList []*CaSignUserInfoRequest `json:"sign_user_info_request_list,omitempty" xml:"sign_user_info_request_list,omitempty" require:"true" type:"Repeated"`
+	// 待签署文件列表
+	SignFileRequestList []*CaSignFileRequest `json:"sign_file_request_list,omitempty" xml:"sign_file_request_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CaSignTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaSignTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CaSignTaskRequest) SetSubBizNo(v string) *CaSignTaskRequest {
+	s.SubBizNo = &v
+	return s
+}
+
+func (s *CaSignTaskRequest) SetDescription(v string) *CaSignTaskRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *CaSignTaskRequest) SetSignUserInfoRequestList(v []*CaSignUserInfoRequest) *CaSignTaskRequest {
+	s.SignUserInfoRequestList = v
+	return s
+}
+
+func (s *CaSignTaskRequest) SetSignFileRequestList(v []*CaSignFileRequest) *CaSignTaskRequest {
+	s.SignFileRequestList = v
+	return s
+}
+
+// 员工信息
+type InsureEmployeeInfo struct {
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 额外信息
+	ExtraMsg *string `json:"extra_msg,omitempty" xml:"extra_msg,omitempty" require:"true"`
+}
+
+func (s InsureEmployeeInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InsureEmployeeInfo) GoString() string {
+	return s.String()
+}
+
+func (s *InsureEmployeeInfo) SetName(v string) *InsureEmployeeInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *InsureEmployeeInfo) SetCertNo(v string) *InsureEmployeeInfo {
+	s.CertNo = &v
+	return s
+}
+
+func (s *InsureEmployeeInfo) SetMobile(v string) *InsureEmployeeInfo {
+	s.Mobile = &v
+	return s
+}
+
+func (s *InsureEmployeeInfo) SetExtraMsg(v string) *InsureEmployeeInfo {
+	s.ExtraMsg = &v
+	return s
+}
+
+// 签约企业信息
+type SignEnterpriseInfo struct {
+	// 公司名称
+	OrganizationName *string `json:"organization_name,omitempty" xml:"organization_name,omitempty" require:"true"`
+	// 社会统一信用代码
+	Uscc *string `json:"uscc,omitempty" xml:"uscc,omitempty" require:"true"`
+	// 法人姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 法人身份证号码
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty" require:"true"`
+	// 签署模式0、自动签署1、手动签署（用户只能手动）
+	//
+	SignType *int64 `json:"sign_type,omitempty" xml:"sign_type,omitempty" require:"true"`
+	// 签署区列表
+	SignAreaList []*SignatoryInfo `json:"sign_area_list,omitempty" xml:"sign_area_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SignEnterpriseInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SignEnterpriseInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SignEnterpriseInfo) SetOrganizationName(v string) *SignEnterpriseInfo {
+	s.OrganizationName = &v
+	return s
+}
+
+func (s *SignEnterpriseInfo) SetUscc(v string) *SignEnterpriseInfo {
+	s.Uscc = &v
+	return s
+}
+
+func (s *SignEnterpriseInfo) SetName(v string) *SignEnterpriseInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *SignEnterpriseInfo) SetIdNumber(v string) *SignEnterpriseInfo {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *SignEnterpriseInfo) SetSignType(v int64) *SignEnterpriseInfo {
+	s.SignType = &v
+	return s
+}
+
+func (s *SignEnterpriseInfo) SetSignAreaList(v []*SignatoryInfo) *SignEnterpriseInfo {
+	s.SignAreaList = v
 	return s
 }
 
@@ -1655,6 +2275,237 @@ func (s *SendAntsaasStaffingcInsureRefundResponse) SetFailOrderInfoList(v []*Fai
 	return s
 }
 
+type SignAntsaasStaffingcContractCaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务名称
+	BizName *string `json:"biz_name,omitempty" xml:"biz_name,omitempty" require:"true"`
+	// 业务编号
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true"`
+	// 版本
+	SignVersion *string `json:"sign_version,omitempty" xml:"sign_version,omitempty" require:"true"`
+	// 签署任务信息
+	SignTaskRequestList []*CaSignTaskRequest `json:"sign_task_request_list,omitempty" xml:"sign_task_request_list,omitempty" require:"true" type:"Repeated"`
+	// 通过文件API上传的文件的file_id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s SignAntsaasStaffingcContractCaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SignAntsaasStaffingcContractCaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SignAntsaasStaffingcContractCaRequest) SetAuthToken(v string) *SignAntsaasStaffingcContractCaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaRequest) SetProductInstanceId(v string) *SignAntsaasStaffingcContractCaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaRequest) SetBizName(v string) *SignAntsaasStaffingcContractCaRequest {
+	s.BizName = &v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaRequest) SetBizNo(v string) *SignAntsaasStaffingcContractCaRequest {
+	s.BizNo = &v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaRequest) SetSignVersion(v string) *SignAntsaasStaffingcContractCaRequest {
+	s.SignVersion = &v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaRequest) SetSignTaskRequestList(v []*CaSignTaskRequest) *SignAntsaasStaffingcContractCaRequest {
+	s.SignTaskRequestList = v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaRequest) SetFileObject(v io.Reader) *SignAntsaasStaffingcContractCaRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaRequest) SetFileObjectName(v string) *SignAntsaasStaffingcContractCaRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaRequest) SetFileId(v string) *SignAntsaasStaffingcContractCaRequest {
+	s.FileId = &v
+	return s
+}
+
+type SignAntsaasStaffingcContractCaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 签约流程id
+	SignFlowId *string `json:"sign_flow_id,omitempty" xml:"sign_flow_id,omitempty"`
+	// 业务流水号
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty"`
+	// 用印子任务受理流水
+	SubAntSignResultList []*CaSubSignResult `json:"sub_ant_sign_result_list,omitempty" xml:"sub_ant_sign_result_list,omitempty" type:"Repeated"`
+}
+
+func (s SignAntsaasStaffingcContractCaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SignAntsaasStaffingcContractCaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SignAntsaasStaffingcContractCaResponse) SetReqMsgId(v string) *SignAntsaasStaffingcContractCaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaResponse) SetResultCode(v string) *SignAntsaasStaffingcContractCaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaResponse) SetResultMsg(v string) *SignAntsaasStaffingcContractCaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaResponse) SetSignFlowId(v string) *SignAntsaasStaffingcContractCaResponse {
+	s.SignFlowId = &v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaResponse) SetBizNo(v string) *SignAntsaasStaffingcContractCaResponse {
+	s.BizNo = &v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaResponse) SetSubAntSignResultList(v []*CaSubSignResult) *SignAntsaasStaffingcContractCaResponse {
+	s.SubAntSignResultList = v
+	return s
+}
+
+type QueryAntsaasStaffingcContractCaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 签署流程ID,传值默认查询签署流程下全部任务状态
+	SignFlowId *string `json:"sign_flow_id,omitempty" xml:"sign_flow_id,omitempty" require:"true"`
+	// 签署任务id
+	SignTaskId *string `json:"sign_task_id,omitempty" xml:"sign_task_id,omitempty" require:"true"`
+	// 业务唯一流水号
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true"`
+}
+
+func (s QueryAntsaasStaffingcContractCaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntsaasStaffingcContractCaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntsaasStaffingcContractCaRequest) SetAuthToken(v string) *QueryAntsaasStaffingcContractCaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcContractCaRequest) SetProductInstanceId(v string) *QueryAntsaasStaffingcContractCaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcContractCaRequest) SetSignFlowId(v string) *QueryAntsaasStaffingcContractCaRequest {
+	s.SignFlowId = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcContractCaRequest) SetSignTaskId(v string) *QueryAntsaasStaffingcContractCaRequest {
+	s.SignTaskId = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcContractCaRequest) SetBizNo(v string) *QueryAntsaasStaffingcContractCaRequest {
+	s.BizNo = &v
+	return s
+}
+
+type QueryAntsaasStaffingcContractCaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 签署流程ID
+	SignFlowId *string `json:"sign_flow_id,omitempty" xml:"sign_flow_id,omitempty"`
+	// 签署流程状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 业务流水号
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty"`
+	// 签署任务结果列表
+	AntSignTaskResultList []*CaSignTaskResult `json:"ant_sign_task_result_list,omitempty" xml:"ant_sign_task_result_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryAntsaasStaffingcContractCaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntsaasStaffingcContractCaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntsaasStaffingcContractCaResponse) SetReqMsgId(v string) *QueryAntsaasStaffingcContractCaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcContractCaResponse) SetResultCode(v string) *QueryAntsaasStaffingcContractCaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcContractCaResponse) SetResultMsg(v string) *QueryAntsaasStaffingcContractCaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcContractCaResponse) SetSignFlowId(v string) *QueryAntsaasStaffingcContractCaResponse {
+	s.SignFlowId = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcContractCaResponse) SetStatus(v string) *QueryAntsaasStaffingcContractCaResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcContractCaResponse) SetBizNo(v string) *QueryAntsaasStaffingcContractCaResponse {
+	s.BizNo = &v
+	return s
+}
+
+func (s *QueryAntsaasStaffingcContractCaResponse) SetAntSignTaskResultList(v []*CaSignTaskResult) *QueryAntsaasStaffingcContractCaResponse {
+	s.AntSignTaskResultList = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1897,7 +2748,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.0"),
+				"sdk_version":      tea.String("1.2.1"),
 				"_prod_code":       tea.String("ak_320bc483f2434f39a3af9ec9f04d3cc0"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -2317,6 +3168,103 @@ func (client *Client) SendAntsaasStaffingcInsureRefundEx(request *SendAntsaasSta
 	}
 	_result = &SendAntsaasStaffingcInsureRefundResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsaas.staffingc.insure.refund.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: CA电子签
+ * Summary: CA电子签约
+ */
+func (client *Client) SignAntsaasStaffingcContractCa(request *SignAntsaasStaffingcContractCaRequest) (_result *SignAntsaasStaffingcContractCaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SignAntsaasStaffingcContractCaResponse{}
+	_body, _err := client.SignAntsaasStaffingcContractCaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: CA电子签
+ * Summary: CA电子签约
+ */
+func (client *Client) SignAntsaasStaffingcContractCaEx(request *SignAntsaasStaffingcContractCaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SignAntsaasStaffingcContractCaResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antsaas.staffingc.contract.ca.sign"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			signAntsaasStaffingcContractCaResponse := &SignAntsaasStaffingcContractCaResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = signAntsaasStaffingcContractCaResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SignAntsaasStaffingcContractCaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsaas.staffingc.contract.ca.sign"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询签约结果
+ * Summary: 查询签约结果
+ */
+func (client *Client) QueryAntsaasStaffingcContractCa(request *QueryAntsaasStaffingcContractCaRequest) (_result *QueryAntsaasStaffingcContractCaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntsaasStaffingcContractCaResponse{}
+	_body, _err := client.QueryAntsaasStaffingcContractCaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询签约结果
+ * Summary: 查询签约结果
+ */
+func (client *Client) QueryAntsaasStaffingcContractCaEx(request *QueryAntsaasStaffingcContractCaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntsaasStaffingcContractCaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntsaasStaffingcContractCaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsaas.staffingc.contract.ca.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
