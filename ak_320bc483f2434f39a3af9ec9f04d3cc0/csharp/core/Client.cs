@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.0"},
+                        {"sdk_version", "1.2.1"},
                         {"_prod_code", "ak_320bc483f2434f39a3af9ec9f04d3cc0"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.0"},
+                        {"sdk_version", "1.2.1"},
                         {"_prod_code", "ak_320bc483f2434f39a3af9ec9f04d3cc0"},
                         {"_prod_channel", "saas"},
                     };
@@ -785,6 +785,136 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SendAntsaasStaffingcInsureRefundResponse>(await DoRequestAsync("1.0", "antsaas.staffingc.insure.refund.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: CA电子签
+         * Summary: CA电子签约
+         */
+        public SignAntsaasStaffingcContractCaResponse SignAntsaasStaffingcContractCa(SignAntsaasStaffingcContractCaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SignAntsaasStaffingcContractCaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: CA电子签
+         * Summary: CA电子签约
+         */
+        public async Task<SignAntsaasStaffingcContractCaResponse> SignAntsaasStaffingcContractCaAsync(SignAntsaasStaffingcContractCaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SignAntsaasStaffingcContractCaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: CA电子签
+         * Summary: CA电子签约
+         */
+        public SignAntsaasStaffingcContractCaResponse SignAntsaasStaffingcContractCaEx(SignAntsaasStaffingcContractCaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antsaas.staffingc.contract.ca.sign",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    SignAntsaasStaffingcContractCaResponse signAntsaasStaffingcContractCaResponse = new SignAntsaasStaffingcContractCaResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return signAntsaasStaffingcContractCaResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SignAntsaasStaffingcContractCaResponse>(DoRequest("1.0", "antsaas.staffingc.contract.ca.sign", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: CA电子签
+         * Summary: CA电子签约
+         */
+        public async Task<SignAntsaasStaffingcContractCaResponse> SignAntsaasStaffingcContractCaExAsync(SignAntsaasStaffingcContractCaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antsaas.staffingc.contract.ca.sign",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    SignAntsaasStaffingcContractCaResponse signAntsaasStaffingcContractCaResponse = new SignAntsaasStaffingcContractCaResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return signAntsaasStaffingcContractCaResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SignAntsaasStaffingcContractCaResponse>(await DoRequestAsync("1.0", "antsaas.staffingc.contract.ca.sign", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询签约结果
+         * Summary: 查询签约结果
+         */
+        public QueryAntsaasStaffingcContractCaResponse QueryAntsaasStaffingcContractCa(QueryAntsaasStaffingcContractCaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntsaasStaffingcContractCaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询签约结果
+         * Summary: 查询签约结果
+         */
+        public async Task<QueryAntsaasStaffingcContractCaResponse> QueryAntsaasStaffingcContractCaAsync(QueryAntsaasStaffingcContractCaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntsaasStaffingcContractCaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询签约结果
+         * Summary: 查询签约结果
+         */
+        public QueryAntsaasStaffingcContractCaResponse QueryAntsaasStaffingcContractCaEx(QueryAntsaasStaffingcContractCaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntsaasStaffingcContractCaResponse>(DoRequest("1.0", "antsaas.staffingc.contract.ca.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询签约结果
+         * Summary: 查询签约结果
+         */
+        public async Task<QueryAntsaasStaffingcContractCaResponse> QueryAntsaasStaffingcContractCaExAsync(QueryAntsaasStaffingcContractCaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntsaasStaffingcContractCaResponse>(await DoRequestAsync("1.0", "antsaas.staffingc.contract.ca.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
