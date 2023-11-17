@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.0',
+    sdk_version = '1.2.1',
     _prod_code = 'ak_320bc483f2434f39a3af9ec9f04d3cc0',
     _prod_channel = 'saas'
   };
@@ -161,6 +161,58 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// CA电子签约正文章信息
+model CaSystemMainBodyRequest {
+  // 签署页码
+  posPage: long(name='pos_page', example='1'),
+  // 签署区位置横坐标
+  posX: long(name='pos_x', example='200'),
+  // 签署区位置纵坐标
+  posY: long(name='pos_y', example='300'),
+}
+
+// 骑缝章信息
+model CaSystemCrossPageRequest {
+  // 签署页码
+  posPageStart: long(name='pos_page_start', example='1'),
+  // 结束页码（供骑缝章使用）
+  posPageEnd: long(name='pos_page_end', example='3'),
+  // 签署区位置横坐标
+  posX: long(name='pos_x', example='200'),
+  // 签署区位置纵坐标
+  posY: long(name='pos_y', example='300'),
+}
+
+// 签署区域信息（包括印模信息）
+model CaSystemSignAreaRequest {
+  // 印章id,联系签署中心获取
+  sealId: string(name='seal_id', example='23443434'),
+  // 用印对齐类型,TOP_LEFT("TOP_LEFT", "左上角对齐"), BOTTOM_LEFT("BOTTOM_LEFT", "左下角对齐"), CENTER("CENTER", "xy值是印章的中心"), TOP_RIGHT("TOP_RIGHT", "xy值是印章右上角"), BOTTOM_RIGHT("BOTTOM_RIGHT", "xy值是印章右下角")
+  locationType: string(name='location_type', example='CENTER'),
+  // 签署位置类型，1-正文，2-骑缝
+  positionType: string(name='position_type', example='1'),
+  // 骑缝章信息，需要盖骑缝章的时候 请传递此参数
+  systemCrossPageRequest?: CaSystemCrossPageRequest(name='system_cross_page_request', example=''),
+  // 正文章信息，正文章模式必填
+  systemMainBodyRequest?: CaSystemMainBodyRequest(name='system_main_body_request', example=''),
+}
+
+// 签署文件信息（包含印模和签署区域）
+model CaSystemSignFileRequest {
+  // 签署文件id,和签署文件列表fileId呼应
+  fileId: string(name='file_id', example='F2435354'),
+  // 签署文件列表（包含印模和签署区域）
+  systemSignAreaRequestList: [ CaSystemSignAreaRequest ](name='system_sign_area_request_list', example=''),
+}
+
+// 待签署文件列表
+model CaSignFileRequest {
+  // 文件名称
+  fileName: string(name='file_name', example='xxx合同协议'),
+  // 文件id,映射唯一的文件。多文件签署场景下，fileId必须唯一且和文件一一对应
+  fileId: string(name='file_id', example='F1232434'),
+}
+
 // 签署方信息
 model SignatoryInfo {
   // 页码信息 （骑缝签署页码为1-2这种，其余情况都是数字）
@@ -171,6 +223,98 @@ model SignatoryInfo {
   posY: string(name='pos_y', example='111.11'),
   // 签署区宽 (默认为100)
   width?: string(name='width', example='100'),
+}
+
+// 签署完成的文件
+model CaSignFileResult {
+  // 文件名称
+  fileName?: string(name='file_name', example='测试文件.pdf'),
+  // 文件osskey
+  fileKey?: string(name='file_key', example='ESIGN/file.pdf'),
+  // 文件id
+  fileId?: string(name='file_id', example='文件id'),
+  // 文件http链接
+  httpFileUrl?: string(name='http_file_url', example='https://esignoss.esign.cn/1111563786/df698ebc-7857-4aa8-9d50-ace33050fe93'),
+}
+
+// 签署人信息
+model CaSignUserInfoRequest {
+  // 用户类型个人:PERSON 机构:ORG
+  signUserType: string(name='sign_user_type', example='PERSON'),
+  // 签署方名称，个人传真实姓名：张三 机构传机构正确的名称：xxx责任有限公司
+  signerName: string(name='signer_name', example='王小二'),
+  // 授权签署时的签署人证件类型,签署方证件类型 CRED_PSN_CH_IDCARD(大陆身份证) CRED_ORG_USCC(统一社会信用代码)
+  signerCertType: string(name='signer_cert_type', example='CRED_PSN_CH_IDCARD'),
+  // 签署方证件号码,签署方证件号码： 个人传递身份证件号 企业传递统一社会信用编码
+  signerCertNumber: string(name='signer_cert_number', example='4301212199812121444'),
+  // 企业子类型,signUserType为org时必选 企业子类型 * BUS("BUS", "企业"), * SINGLE("SINGLE", "个体工商户"), * GOV("GOV", "党政机关"), * INST("INST", "事业单位"), * COMMON("COMMON", "社会组织"), * OTHER("OTHER", "其他组织")
+  signSubType?: string(name='sign_sub_type', example='BUS'),
+  // 是否指定授权人签署
+  authorized?: string(name='authorized', example='1'),
+  // authorized=1时必填,签署方名称
+  authSignerName?: string(name='auth_signer_name', example='王小二'),
+  // authorized=1 时必填,授权签署时的签署人证件类型
+  authSignerCertType?: string(name='auth_signer_cert_type', example='CRED_PSN_CH_IDCARD'),
+  // authorized=1 时必填,授权签署方证件号码
+  authSignerCertNumber?: string(name='auth_signer_cert_number', example='4301212199812121444'),
+  // 手机号，用于发送签署短信
+  mobile?: string(name='mobile', example='16777777777'),
+  // 邮箱联系方式
+  email?: string(name='email', example='xxx@qq.com'),
+  // 签署顺序，默认-1无签署顺序
+  order?: string(name='order', example='1'),
+  // 是否自动签署,ture为需要自动签署，false为手动签署
+  autoSign: boolean(name='auto_sign', example='true'),
+  // 签署文件列表（包含印模和签署区域）
+  systemSignFileRequestList: [ CaSystemSignFileRequest ](name='system_sign_file_request_list', example=''),
+}
+
+// 签署人状态
+model CaSignOperatorResult {
+  // 签署方UserId
+  signUserId: string(name='sign_user_id', example='C2020309209302930'),
+  // 签署方证件号
+  signCertNo?: string(name='sign_cert_no', example='4202039203901902109'),
+  // 签署方证件名称
+  signCertName: string(name='sign_cert_name', example='李四'),
+  // 签署方证件类型
+  signCertType?: string(name='sign_cert_type', example='CRED_ORG_USCC'),
+  // 是否授权
+  authorized?: long(name='authorized', example='1'),
+  // 授权时间
+  authorizeTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='authorize_time', example='2018-10-10T10:10:00Z'),
+  // 授权人证件号码
+  authPersonCertNo?: string(name='auth_person_cert_no', example='121213131313'),
+  // 授权人证件名称
+  authPersonCertName?: string(name='auth_person_cert_name', example='李四'),
+  // 授权人证件类型
+  authPersonCertType?: string(name='auth_person_cert_type', example='CRED_PSN_CH_IDCARD'),
+  // 签署失败原因
+  failInfo?: string(name='fail_info', example='签署失败'),
+  // SIGNNED
+  status?: string(name='status', example='签署方状态'),
+  // 签署时间
+  signTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='sign_time', example='2018-10-10T10:10:00Z'),
+  // 是否我方公司
+  ourCorp?: long(name='our_corp', example='1'),
+  // 电话联系方式，脱敏显示
+  mobileNumber?: string(name='mobile_number', example='152*****90'),
+  // 邮件联系地址，脱敏展示返回
+  emailAddress?: string(name='email_address', example='xxx@qq.com'),
+}
+
+// 签署链接结果
+model CaSignUrlResult {
+  // 签署方名称
+  signCertName?: string(name='sign_cert_name', example='李四'),
+  // 签署方证件号（脱敏）
+  signCertNo?: string(name='sign_cert_no', example='142632199302220111'),
+  // 签署方id
+  signUserId?: string(name='sign_user_id', example='C123232312312323'),
+  // 加密后的签署方证件号(用来关联签署方的签署链接)
+  encryptSignCertNo?: string(name='encrypt_sign_cert_no', example='1443f5cff147e2c1c26e0e396f3c9a9f'),
+  // 签署链接
+  signUrl?: string(name='sign_url', example='https://p.tb.cn/_3EnEMCvJvztve7Nwb8RIxi'),
 }
 
 // 签署链接类
@@ -207,41 +351,12 @@ model SignUserInfo {
   signAreaList: [ SignatoryInfo ](name='sign_area_list', example='-'),
 }
 
-// 员工信息
-model InsureEmployeeInfo {
-  // 姓名
-  name: string(name='name', example='张三'),
-  // 身份证号
-  certNo: string(name='cert_no', example='330105XXXXXXXXXXXX'),
-  // 手机号
-  mobile: string(name='mobile', example='18611111111'),
-  // 额外信息
-  extraMsg: string(name='extra_msg', example='-'),
-}
-
 // 签署发起返回类
 model ContractSignResponse {
   // 流程id
   flowId: string(name='flow_id', example='asdasd'),
   // 签署链接数组
   signUrlList: [ SignUrlResp ](name='sign_url_list', example='-'),
-}
-
-// 签约企业信息
-model SignEnterpriseInfo {
-  // 公司名称
-  organizationName: string(name='organization_name', example='某某公司'),
-  // 社会统一信用代码
-  uscc: string(name='uscc', example='123435'),
-  // 法人姓名
-  name: string(name='name', example='张三'),
-  // 法人身份证号码
-  idNumber: string(name='id_number', example='12344545'),
-  // 签署模式0、自动签署1、手动签署（用户只能手动）
-  // 
-  signType: long(name='sign_type', example='0'),
-  // 签署区列表
-  signAreaList: [ SignatoryInfo ](name='sign_area_list', example='-'),
 }
 
 // 保险产品类
@@ -260,6 +375,75 @@ model InsureProductInfo {
   premium?: long(name='premium', example='100'),
   // 保额（分）
   sumInsured?: long(name='sum_insured', example='30000000'),
+}
+
+// 用印子任务受理流水
+model CaSubSignResult {
+  // 子业务流水号
+  subBizNo?: string(name='sub_biz_no', example='323545465'),
+  // 子任务id
+  signTaskId?: string(name='sign_task_id', example='2023wqndoknwqod'),
+  // 我方签署方id
+  ourUserId?: string(name='our_user_id', example='C2022nwodnionwidn'),
+  // 是否关联业务 true:关联 false：不关联
+  relatedBusiness?: boolean(name='related_business', example='true, false'),
+  // 签署链接结果列表
+  caSignUrlResultList?: [ CaSignUrlResult ](name='ca_sign_url_result_list', example=''),
+}
+
+// 签署任务结果
+model CaSignTaskResult {
+  // 子任务流水号
+  subBizNo: string(name='sub_biz_no', example='C23231211212d112'),
+  // 签署子任务id
+  signTaskId: string(name='sign_task_id', example='C2023023108301930'),
+  // 签署子任务的状态
+  signTaskStatus?: string(name='sign_task_status', example='FINISH'),
+  // 签署完成的文件列表
+  signFileResultList?: [ CaSignFileResult ](name='sign_file_result_list', example=''),
+  // 签署人状态列表
+  signOperatorResultList?: [ CaSignOperatorResult ](name='sign_operator_result_list', example=''),
+}
+
+// 签署任务信息
+model CaSignTaskRequest {
+  // 子业务流水号
+  subBizNo: string(name='sub_biz_no', example='DF42323124'),
+  // 任务描述
+  description: string(name='description', example='关交合同'),
+  // 签署人信息
+  signUserInfoRequestList: [ CaSignUserInfoRequest ](name='sign_user_info_request_list', example=''),
+  // 待签署文件列表
+  signFileRequestList: [ CaSignFileRequest ](name='sign_file_request_list', example=''),
+}
+
+// 员工信息
+model InsureEmployeeInfo {
+  // 姓名
+  name: string(name='name', example='张三'),
+  // 身份证号
+  certNo: string(name='cert_no', example='330105XXXXXXXXXXXX'),
+  // 手机号
+  mobile: string(name='mobile', example='18611111111'),
+  // 额外信息
+  extraMsg: string(name='extra_msg', example='-'),
+}
+
+// 签约企业信息
+model SignEnterpriseInfo {
+  // 公司名称
+  organizationName: string(name='organization_name', example='某某公司'),
+  // 社会统一信用代码
+  uscc: string(name='uscc', example='123435'),
+  // 法人姓名
+  name: string(name='name', example='张三'),
+  // 法人身份证号码
+  idNumber: string(name='id_number', example='12344545'),
+  // 签署模式0、自动签署1、手动签署（用户只能手动）
+  // 
+  signType: long(name='sign_type', example='0'),
+  // 签署区列表
+  signAreaList: [ SignatoryInfo ](name='sign_area_list', example='-'),
 }
 
 // 键值对
@@ -830,6 +1014,125 @@ async function sendAntsaasStaffingcInsureRefund(request: SendAntsaasStaffingcIns
 async function sendAntsaasStaffingcInsureRefundEx(request: SendAntsaasStaffingcInsureRefundRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendAntsaasStaffingcInsureRefundResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsaas.staffingc.insure.refund.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SignAntsaasStaffingcContractCaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务名称
+  bizName: string(name='biz_name'),
+  // 业务编号
+  bizNo: string(name='biz_no'),
+  // 版本
+  signVersion: string(name='sign_version'),
+  // 签署任务信息
+  signTaskRequestList: [ CaSignTaskRequest ](name='sign_task_request_list'),
+  // 通过文件API上传的文件的file_id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model SignAntsaasStaffingcContractCaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 签约流程id
+  signFlowId?: string(name='sign_flow_id'),
+  // 业务流水号
+  bizNo?: string(name='biz_no'),
+  // 用印子任务受理流水
+  subAntSignResultList?: [ CaSubSignResult ](name='sub_ant_sign_result_list'),
+}
+
+/**
+ * Description: CA电子签
+ * Summary: CA电子签约
+ */
+async function signAntsaasStaffingcContractCa(request: SignAntsaasStaffingcContractCaRequest): SignAntsaasStaffingcContractCaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return signAntsaasStaffingcContractCaEx(request, headers, runtime);
+}
+
+/**
+ * Description: CA电子签
+ * Summary: CA电子签约
+ */
+async function signAntsaasStaffingcContractCaEx(request: SignAntsaasStaffingcContractCaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SignAntsaasStaffingcContractCaResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antsaas.staffingc.contract.ca.sign',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var signAntsaasStaffingcContractCaResponse = new SignAntsaasStaffingcContractCaResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return signAntsaasStaffingcContractCaResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsaas.staffingc.contract.ca.sign', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntsaasStaffingcContractCaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 签署流程ID,传值默认查询签署流程下全部任务状态
+  signFlowId: string(name='sign_flow_id'),
+  // 签署任务id
+  signTaskId: string(name='sign_task_id'),
+  // 业务唯一流水号
+  bizNo: string(name='biz_no'),
+}
+
+model QueryAntsaasStaffingcContractCaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 签署流程ID
+  signFlowId?: string(name='sign_flow_id'),
+  // 签署流程状态
+  status?: string(name='status'),
+  // 业务流水号
+  bizNo?: string(name='biz_no'),
+  // 签署任务结果列表
+  antSignTaskResultList?: [ CaSignTaskResult ](name='ant_sign_task_result_list'),
+}
+
+/**
+ * Description: 查询签约结果
+ * Summary: 查询签约结果
+ */
+async function queryAntsaasStaffingcContractCa(request: QueryAntsaasStaffingcContractCaRequest): QueryAntsaasStaffingcContractCaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntsaasStaffingcContractCaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询签约结果
+ * Summary: 查询签约结果
+ */
+async function queryAntsaasStaffingcContractCaEx(request: QueryAntsaasStaffingcContractCaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntsaasStaffingcContractCaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsaas.staffingc.contract.ca.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
