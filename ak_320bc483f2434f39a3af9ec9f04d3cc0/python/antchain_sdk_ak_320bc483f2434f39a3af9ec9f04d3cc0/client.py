@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 签署方信息
+            # CA电子签约正文章信息
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.0',
+                    'sdk_version': '1.2.1',
                     '_prod_code': 'ak_320bc483f2434f39a3af9ec9f04d3cc0',
                     '_prod_channel': 'saas'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 签署方信息
+            # CA电子签约正文章信息
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.0',
+                    'sdk_version': '1.2.1',
                     '_prod_code': 'ak_320bc483f2434f39a3af9ec9f04d3cc0',
                     '_prod_channel': 'saas'
                 }
@@ -867,6 +867,152 @@ class Client:
         return TeaCore.from_map(
             ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SendAntsaasStaffingcInsureRefundResponse(),
             await self.do_request_async('1.0', 'antsaas.staffingc.insure.refund.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sign_antsaas_staffingc_contract_ca(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SignAntsaasStaffingcContractCaRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SignAntsaasStaffingcContractCaResponse:
+        """
+        Description: CA电子签
+        Summary: CA电子签约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sign_antsaas_staffingc_contract_ca_ex(request, headers, runtime)
+
+    async def sign_antsaas_staffingc_contract_ca_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SignAntsaasStaffingcContractCaRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SignAntsaasStaffingcContractCaResponse:
+        """
+        Description: CA电子签
+        Summary: CA电子签约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sign_antsaas_staffingc_contract_ca_ex_async(request, headers, runtime)
+
+    def sign_antsaas_staffingc_contract_ca_ex(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SignAntsaasStaffingcContractCaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SignAntsaasStaffingcContractCaResponse:
+        """
+        Description: CA电子签
+        Summary: CA电子签约
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antsaas.staffingc.contract.ca.sign',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                sign_antsaas_staffingc_contract_ca_response = ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SignAntsaasStaffingcContractCaResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return sign_antsaas_staffingc_contract_ca_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SignAntsaasStaffingcContractCaResponse(),
+            self.do_request('1.0', 'antsaas.staffingc.contract.ca.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sign_antsaas_staffingc_contract_ca_ex_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SignAntsaasStaffingcContractCaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SignAntsaasStaffingcContractCaResponse:
+        """
+        Description: CA电子签
+        Summary: CA电子签约
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antsaas.staffingc.contract.ca.sign',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                sign_antsaas_staffingc_contract_ca_response = ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SignAntsaasStaffingcContractCaResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return sign_antsaas_staffingc_contract_ca_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.SignAntsaasStaffingcContractCaResponse(),
+            await self.do_request_async('1.0', 'antsaas.staffingc.contract.ca.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antsaas_staffingc_contract_ca(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcContractCaRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcContractCaResponse:
+        """
+        Description: 查询签约结果
+        Summary: 查询签约结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antsaas_staffingc_contract_ca_ex(request, headers, runtime)
+
+    async def query_antsaas_staffingc_contract_ca_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcContractCaRequest,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcContractCaResponse:
+        """
+        Description: 查询签约结果
+        Summary: 查询签约结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antsaas_staffingc_contract_ca_ex_async(request, headers, runtime)
+
+    def query_antsaas_staffingc_contract_ca_ex(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcContractCaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcContractCaResponse:
+        """
+        Description: 查询签约结果
+        Summary: 查询签约结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcContractCaResponse(),
+            self.do_request('1.0', 'antsaas.staffingc.contract.ca.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antsaas_staffingc_contract_ca_ex_async(
+        self,
+        request: ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcContractCaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcContractCaResponse:
+        """
+        Description: 查询签约结果
+        Summary: 查询签约结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__320bc_483f_2434f_39a_3af_9ec_9f_04d_3cc_0_models.QueryAntsaasStaffingcContractCaResponse(),
+            await self.do_request_async('1.0', 'antsaas.staffingc.contract.ca.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
