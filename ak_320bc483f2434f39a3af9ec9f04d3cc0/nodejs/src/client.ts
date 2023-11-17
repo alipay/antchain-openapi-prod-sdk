@@ -78,6 +78,155 @@ export class Config extends $tea.Model {
   }
 }
 
+// CA电子签约正文章信息
+export class CaSystemMainBodyRequest extends $tea.Model {
+  // 签署页码
+  posPage: number;
+  // 签署区位置横坐标
+  posX: number;
+  // 签署区位置纵坐标
+  posY: number;
+  static names(): { [key: string]: string } {
+    return {
+      posPage: 'pos_page',
+      posX: 'pos_x',
+      posY: 'pos_y',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      posPage: 'number',
+      posX: 'number',
+      posY: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 骑缝章信息
+export class CaSystemCrossPageRequest extends $tea.Model {
+  // 签署页码
+  posPageStart: number;
+  // 结束页码（供骑缝章使用）
+  posPageEnd: number;
+  // 签署区位置横坐标
+  posX: number;
+  // 签署区位置纵坐标
+  posY: number;
+  static names(): { [key: string]: string } {
+    return {
+      posPageStart: 'pos_page_start',
+      posPageEnd: 'pos_page_end',
+      posX: 'pos_x',
+      posY: 'pos_y',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      posPageStart: 'number',
+      posPageEnd: 'number',
+      posX: 'number',
+      posY: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 签署区域信息（包括印模信息）
+export class CaSystemSignAreaRequest extends $tea.Model {
+  // 印章id,联系签署中心获取
+  sealId: string;
+  // 用印对齐类型,TOP_LEFT("TOP_LEFT", "左上角对齐"), BOTTOM_LEFT("BOTTOM_LEFT", "左下角对齐"), CENTER("CENTER", "xy值是印章的中心"), TOP_RIGHT("TOP_RIGHT", "xy值是印章右上角"), BOTTOM_RIGHT("BOTTOM_RIGHT", "xy值是印章右下角")
+  locationType: string;
+  // 签署位置类型，1-正文，2-骑缝
+  positionType: string;
+  // 骑缝章信息，需要盖骑缝章的时候 请传递此参数
+  systemCrossPageRequest?: CaSystemCrossPageRequest;
+  // 正文章信息，正文章模式必填
+  systemMainBodyRequest?: CaSystemMainBodyRequest;
+  static names(): { [key: string]: string } {
+    return {
+      sealId: 'seal_id',
+      locationType: 'location_type',
+      positionType: 'position_type',
+      systemCrossPageRequest: 'system_cross_page_request',
+      systemMainBodyRequest: 'system_main_body_request',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sealId: 'string',
+      locationType: 'string',
+      positionType: 'string',
+      systemCrossPageRequest: CaSystemCrossPageRequest,
+      systemMainBodyRequest: CaSystemMainBodyRequest,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 签署文件信息（包含印模和签署区域）
+export class CaSystemSignFileRequest extends $tea.Model {
+  // 签署文件id,和签署文件列表fileId呼应
+  fileId: string;
+  // 签署文件列表（包含印模和签署区域）
+  systemSignAreaRequestList: CaSystemSignAreaRequest[];
+  static names(): { [key: string]: string } {
+    return {
+      fileId: 'file_id',
+      systemSignAreaRequestList: 'system_sign_area_request_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileId: 'string',
+      systemSignAreaRequestList: { 'type': 'array', 'itemType': CaSystemSignAreaRequest },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 待签署文件列表
+export class CaSignFileRequest extends $tea.Model {
+  // 文件名称
+  fileName: string;
+  // 文件id,映射唯一的文件。多文件签署场景下，fileId必须唯一且和文件一一对应
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileName: 'file_name',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 签署方信息
 export class SignatoryInfo extends $tea.Model {
   // 页码信息 （骑缝签署页码为1-2这种，其余情况都是数字）
@@ -103,6 +252,226 @@ export class SignatoryInfo extends $tea.Model {
       posX: 'string',
       posY: 'string',
       width: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 签署完成的文件
+export class CaSignFileResult extends $tea.Model {
+  // 文件名称
+  fileName?: string;
+  // 文件osskey
+  fileKey?: string;
+  // 文件id
+  fileId?: string;
+  // 文件http链接
+  httpFileUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileName: 'file_name',
+      fileKey: 'file_key',
+      fileId: 'file_id',
+      httpFileUrl: 'http_file_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileName: 'string',
+      fileKey: 'string',
+      fileId: 'string',
+      httpFileUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 签署人信息
+export class CaSignUserInfoRequest extends $tea.Model {
+  // 用户类型个人:PERSON 机构:ORG
+  signUserType: string;
+  // 签署方名称，个人传真实姓名：张三 机构传机构正确的名称：xxx责任有限公司
+  signerName: string;
+  // 授权签署时的签署人证件类型,签署方证件类型 CRED_PSN_CH_IDCARD(大陆身份证) CRED_ORG_USCC(统一社会信用代码)
+  signerCertType: string;
+  // 签署方证件号码,签署方证件号码： 个人传递身份证件号 企业传递统一社会信用编码
+  signerCertNumber: string;
+  // 企业子类型,signUserType为org时必选 企业子类型 * BUS("BUS", "企业"), * SINGLE("SINGLE", "个体工商户"), * GOV("GOV", "党政机关"), * INST("INST", "事业单位"), * COMMON("COMMON", "社会组织"), * OTHER("OTHER", "其他组织")
+  signSubType?: string;
+  // 是否指定授权人签署
+  authorized?: string;
+  // authorized=1时必填,签署方名称
+  authSignerName?: string;
+  // authorized=1 时必填,授权签署时的签署人证件类型
+  authSignerCertType?: string;
+  // authorized=1 时必填,授权签署方证件号码
+  authSignerCertNumber?: string;
+  // 手机号，用于发送签署短信
+  mobile?: string;
+  // 邮箱联系方式
+  email?: string;
+  // 签署顺序，默认-1无签署顺序
+  order?: string;
+  // 是否自动签署,ture为需要自动签署，false为手动签署
+  autoSign: boolean;
+  // 签署文件列表（包含印模和签署区域）
+  systemSignFileRequestList: CaSystemSignFileRequest[];
+  static names(): { [key: string]: string } {
+    return {
+      signUserType: 'sign_user_type',
+      signerName: 'signer_name',
+      signerCertType: 'signer_cert_type',
+      signerCertNumber: 'signer_cert_number',
+      signSubType: 'sign_sub_type',
+      authorized: 'authorized',
+      authSignerName: 'auth_signer_name',
+      authSignerCertType: 'auth_signer_cert_type',
+      authSignerCertNumber: 'auth_signer_cert_number',
+      mobile: 'mobile',
+      email: 'email',
+      order: 'order',
+      autoSign: 'auto_sign',
+      systemSignFileRequestList: 'system_sign_file_request_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      signUserType: 'string',
+      signerName: 'string',
+      signerCertType: 'string',
+      signerCertNumber: 'string',
+      signSubType: 'string',
+      authorized: 'string',
+      authSignerName: 'string',
+      authSignerCertType: 'string',
+      authSignerCertNumber: 'string',
+      mobile: 'string',
+      email: 'string',
+      order: 'string',
+      autoSign: 'boolean',
+      systemSignFileRequestList: { 'type': 'array', 'itemType': CaSystemSignFileRequest },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 签署人状态
+export class CaSignOperatorResult extends $tea.Model {
+  // 签署方UserId
+  signUserId: string;
+  // 签署方证件号
+  signCertNo?: string;
+  // 签署方证件名称
+  signCertName: string;
+  // 签署方证件类型
+  signCertType?: string;
+  // 是否授权
+  authorized?: number;
+  // 授权时间
+  authorizeTime?: string;
+  // 授权人证件号码
+  authPersonCertNo?: string;
+  // 授权人证件名称
+  authPersonCertName?: string;
+  // 授权人证件类型
+  authPersonCertType?: string;
+  // 签署失败原因
+  failInfo?: string;
+  // SIGNNED
+  status?: string;
+  // 签署时间
+  signTime?: string;
+  // 是否我方公司
+  ourCorp?: number;
+  // 电话联系方式，脱敏显示
+  mobileNumber?: string;
+  // 邮件联系地址，脱敏展示返回
+  emailAddress?: string;
+  static names(): { [key: string]: string } {
+    return {
+      signUserId: 'sign_user_id',
+      signCertNo: 'sign_cert_no',
+      signCertName: 'sign_cert_name',
+      signCertType: 'sign_cert_type',
+      authorized: 'authorized',
+      authorizeTime: 'authorize_time',
+      authPersonCertNo: 'auth_person_cert_no',
+      authPersonCertName: 'auth_person_cert_name',
+      authPersonCertType: 'auth_person_cert_type',
+      failInfo: 'fail_info',
+      status: 'status',
+      signTime: 'sign_time',
+      ourCorp: 'our_corp',
+      mobileNumber: 'mobile_number',
+      emailAddress: 'email_address',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      signUserId: 'string',
+      signCertNo: 'string',
+      signCertName: 'string',
+      signCertType: 'string',
+      authorized: 'number',
+      authorizeTime: 'string',
+      authPersonCertNo: 'string',
+      authPersonCertName: 'string',
+      authPersonCertType: 'string',
+      failInfo: 'string',
+      status: 'string',
+      signTime: 'string',
+      ourCorp: 'number',
+      mobileNumber: 'string',
+      emailAddress: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 签署链接结果
+export class CaSignUrlResult extends $tea.Model {
+  // 签署方名称
+  signCertName?: string;
+  // 签署方证件号（脱敏）
+  signCertNo?: string;
+  // 签署方id
+  signUserId?: string;
+  // 加密后的签署方证件号(用来关联签署方的签署链接)
+  encryptSignCertNo?: string;
+  // 签署链接
+  signUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      signCertName: 'sign_cert_name',
+      signCertNo: 'sign_cert_no',
+      signUserId: 'sign_user_id',
+      encryptSignCertNo: 'encrypt_sign_cert_no',
+      signUrl: 'sign_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      signCertName: 'string',
+      signCertNo: 'string',
+      signUserId: 'string',
+      encryptSignCertNo: 'string',
+      signUrl: 'string',
     };
   }
 
@@ -206,39 +575,6 @@ export class SignUserInfo extends $tea.Model {
   }
 }
 
-// 员工信息
-export class InsureEmployeeInfo extends $tea.Model {
-  // 姓名
-  name: string;
-  // 身份证号
-  certNo: string;
-  // 手机号
-  mobile: string;
-  // 额外信息
-  extraMsg: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      certNo: 'cert_no',
-      mobile: 'mobile',
-      extraMsg: 'extra_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      certNo: 'string',
-      mobile: 'string',
-      extraMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 签署发起返回类
 export class ContractSignResponse extends $tea.Model {
   // 流程id
@@ -256,48 +592,6 @@ export class ContractSignResponse extends $tea.Model {
     return {
       flowId: 'string',
       signUrlList: { 'type': 'array', 'itemType': SignUrlResp },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 签约企业信息
-export class SignEnterpriseInfo extends $tea.Model {
-  // 公司名称
-  organizationName: string;
-  // 社会统一信用代码
-  uscc: string;
-  // 法人姓名
-  name: string;
-  // 法人身份证号码
-  idNumber: string;
-  // 签署模式0、自动签署1、手动签署（用户只能手动）
-  // 
-  signType: number;
-  // 签署区列表
-  signAreaList: SignatoryInfo[];
-  static names(): { [key: string]: string } {
-    return {
-      organizationName: 'organization_name',
-      uscc: 'uscc',
-      name: 'name',
-      idNumber: 'id_number',
-      signType: 'sign_type',
-      signAreaList: 'sign_area_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      organizationName: 'string',
-      uscc: 'string',
-      name: 'string',
-      idNumber: 'string',
-      signType: 'number',
-      signAreaList: { 'type': 'array', 'itemType': SignatoryInfo },
     };
   }
 
@@ -341,6 +635,188 @@ export class InsureProductInfo extends $tea.Model {
       recomFlowNo: 'string',
       premium: 'number',
       sumInsured: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用印子任务受理流水
+export class CaSubSignResult extends $tea.Model {
+  // 子业务流水号
+  subBizNo?: string;
+  // 子任务id
+  signTaskId?: string;
+  // 我方签署方id
+  ourUserId?: string;
+  // 是否关联业务 true:关联 false：不关联
+  relatedBusiness?: boolean;
+  // 签署链接结果列表
+  caSignUrlResultList?: CaSignUrlResult[];
+  static names(): { [key: string]: string } {
+    return {
+      subBizNo: 'sub_biz_no',
+      signTaskId: 'sign_task_id',
+      ourUserId: 'our_user_id',
+      relatedBusiness: 'related_business',
+      caSignUrlResultList: 'ca_sign_url_result_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      subBizNo: 'string',
+      signTaskId: 'string',
+      ourUserId: 'string',
+      relatedBusiness: 'boolean',
+      caSignUrlResultList: { 'type': 'array', 'itemType': CaSignUrlResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 签署任务结果
+export class CaSignTaskResult extends $tea.Model {
+  // 子任务流水号
+  subBizNo: string;
+  // 签署子任务id
+  signTaskId: string;
+  // 签署子任务的状态
+  signTaskStatus?: string;
+  // 签署完成的文件列表
+  signFileResultList?: CaSignFileResult[];
+  // 签署人状态列表
+  signOperatorResultList?: CaSignOperatorResult[];
+  static names(): { [key: string]: string } {
+    return {
+      subBizNo: 'sub_biz_no',
+      signTaskId: 'sign_task_id',
+      signTaskStatus: 'sign_task_status',
+      signFileResultList: 'sign_file_result_list',
+      signOperatorResultList: 'sign_operator_result_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      subBizNo: 'string',
+      signTaskId: 'string',
+      signTaskStatus: 'string',
+      signFileResultList: { 'type': 'array', 'itemType': CaSignFileResult },
+      signOperatorResultList: { 'type': 'array', 'itemType': CaSignOperatorResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 签署任务信息
+export class CaSignTaskRequest extends $tea.Model {
+  // 子业务流水号
+  subBizNo: string;
+  // 任务描述
+  description: string;
+  // 签署人信息
+  signUserInfoRequestList: CaSignUserInfoRequest[];
+  // 待签署文件列表
+  signFileRequestList: CaSignFileRequest[];
+  static names(): { [key: string]: string } {
+    return {
+      subBizNo: 'sub_biz_no',
+      description: 'description',
+      signUserInfoRequestList: 'sign_user_info_request_list',
+      signFileRequestList: 'sign_file_request_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      subBizNo: 'string',
+      description: 'string',
+      signUserInfoRequestList: { 'type': 'array', 'itemType': CaSignUserInfoRequest },
+      signFileRequestList: { 'type': 'array', 'itemType': CaSignFileRequest },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 员工信息
+export class InsureEmployeeInfo extends $tea.Model {
+  // 姓名
+  name: string;
+  // 身份证号
+  certNo: string;
+  // 手机号
+  mobile: string;
+  // 额外信息
+  extraMsg: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      certNo: 'cert_no',
+      mobile: 'mobile',
+      extraMsg: 'extra_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      certNo: 'string',
+      mobile: 'string',
+      extraMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 签约企业信息
+export class SignEnterpriseInfo extends $tea.Model {
+  // 公司名称
+  organizationName: string;
+  // 社会统一信用代码
+  uscc: string;
+  // 法人姓名
+  name: string;
+  // 法人身份证号码
+  idNumber: string;
+  // 签署模式0、自动签署1、手动签署（用户只能手动）
+  // 
+  signType: number;
+  // 签署区列表
+  signAreaList: SignatoryInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      organizationName: 'organization_name',
+      uscc: 'uscc',
+      name: 'name',
+      idNumber: 'id_number',
+      signType: 'sign_type',
+      signAreaList: 'sign_area_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      organizationName: 'string',
+      uscc: 'string',
+      name: 'string',
+      idNumber: 'string',
+      signType: 'number',
+      signAreaList: { 'type': 'array', 'itemType': SignatoryInfo },
     };
   }
 
@@ -1241,6 +1717,174 @@ export class SendAntsaasStaffingcInsureRefundResponse extends $tea.Model {
   }
 }
 
+export class SignAntsaasStaffingcContractCaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务名称
+  bizName: string;
+  // 业务编号
+  bizNo: string;
+  // 版本
+  signVersion: string;
+  // 签署任务信息
+  signTaskRequestList: CaSignTaskRequest[];
+  // 通过文件API上传的文件的file_id
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizName: 'biz_name',
+      bizNo: 'biz_no',
+      signVersion: 'sign_version',
+      signTaskRequestList: 'sign_task_request_list',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizName: 'string',
+      bizNo: 'string',
+      signVersion: 'string',
+      signTaskRequestList: { 'type': 'array', 'itemType': CaSignTaskRequest },
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SignAntsaasStaffingcContractCaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签约流程id
+  signFlowId?: string;
+  // 业务流水号
+  bizNo?: string;
+  // 用印子任务受理流水
+  subAntSignResultList?: CaSubSignResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signFlowId: 'sign_flow_id',
+      bizNo: 'biz_no',
+      subAntSignResultList: 'sub_ant_sign_result_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signFlowId: 'string',
+      bizNo: 'string',
+      subAntSignResultList: { 'type': 'array', 'itemType': CaSubSignResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntsaasStaffingcContractCaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 签署流程ID,传值默认查询签署流程下全部任务状态
+  signFlowId: string;
+  // 签署任务id
+  signTaskId: string;
+  // 业务唯一流水号
+  bizNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      signFlowId: 'sign_flow_id',
+      signTaskId: 'sign_task_id',
+      bizNo: 'biz_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      signFlowId: 'string',
+      signTaskId: 'string',
+      bizNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntsaasStaffingcContractCaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签署流程ID
+  signFlowId?: string;
+  // 签署流程状态
+  status?: string;
+  // 业务流水号
+  bizNo?: string;
+  // 签署任务结果列表
+  antSignTaskResultList?: CaSignTaskResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signFlowId: 'sign_flow_id',
+      status: 'status',
+      bizNo: 'biz_no',
+      antSignTaskResultList: 'ant_sign_task_result_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signFlowId: 'string',
+      status: 'string',
+      bizNo: 'string',
+      antSignTaskResultList: { 'type': 'array', 'itemType': CaSignTaskResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1442,7 +2086,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.0",
+          sdk_version: "1.2.1",
           _prod_code: "ak_320bc483f2434f39a3af9ec9f04d3cc0",
           _prod_channel: "saas",
         };
@@ -1699,6 +2343,65 @@ export default class Client {
   async sendAntsaasStaffingcInsureRefundEx(request: SendAntsaasStaffingcInsureRefundRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendAntsaasStaffingcInsureRefundResponse> {
     Util.validateModel(request);
     return $tea.cast<SendAntsaasStaffingcInsureRefundResponse>(await this.doRequest("1.0", "antsaas.staffingc.insure.refund.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendAntsaasStaffingcInsureRefundResponse({}));
+  }
+
+  /**
+   * Description: CA电子签
+   * Summary: CA电子签约
+   */
+  async signAntsaasStaffingcContractCa(request: SignAntsaasStaffingcContractCaRequest): Promise<SignAntsaasStaffingcContractCaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.signAntsaasStaffingcContractCaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: CA电子签
+   * Summary: CA电子签约
+   */
+  async signAntsaasStaffingcContractCaEx(request: SignAntsaasStaffingcContractCaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SignAntsaasStaffingcContractCaResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antsaas.staffingc.contract.ca.sign",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let signAntsaasStaffingcContractCaResponse = new SignAntsaasStaffingcContractCaResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return signAntsaasStaffingcContractCaResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<SignAntsaasStaffingcContractCaResponse>(await this.doRequest("1.0", "antsaas.staffingc.contract.ca.sign", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SignAntsaasStaffingcContractCaResponse({}));
+  }
+
+  /**
+   * Description: 查询签约结果
+   * Summary: 查询签约结果
+   */
+  async queryAntsaasStaffingcContractCa(request: QueryAntsaasStaffingcContractCaRequest): Promise<QueryAntsaasStaffingcContractCaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntsaasStaffingcContractCaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询签约结果
+   * Summary: 查询签约结果
+   */
+  async queryAntsaasStaffingcContractCaEx(request: QueryAntsaasStaffingcContractCaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntsaasStaffingcContractCaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntsaasStaffingcContractCaResponse>(await this.doRequest("1.0", "antsaas.staffingc.contract.ca.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntsaasStaffingcContractCaResponse({}));
   }
 
   /**
