@@ -19,6 +19,8 @@ use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\CreateAntsaasStaffingcEp
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\CreateAntsaasStaffingcEpcertificationAuthorizeResponse;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\ListAntsaasStaffingcInsureProductRequest;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\ListAntsaasStaffingcInsureProductResponse;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\QueryAntsaasStaffingcContractCaRequest;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\QueryAntsaasStaffingcContractCaResponse;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\QueryAntsaasStaffingcContractSignRequest;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\QueryAntsaasStaffingcContractSignResponse;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\QueryAntsaasStaffingcEpcertificationRiskRequest;
@@ -31,6 +33,8 @@ use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\SendAntsaasStaffingcInsu
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\SendAntsaasStaffingcInsureRefundResponse;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\SendAntsaasStaffingcInsureRequest;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\SendAntsaasStaffingcInsureResponse;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\SignAntsaasStaffingcContractCaRequest;
+use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\SignAntsaasStaffingcContractCaResponse;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\SignAntsaasStaffingcContractSendRequest;
 use AntChain\Ak_320bc483f2434f39a3af9ec9f04d3cc0\Models\SignAntsaasStaffingcContractSendResponse;
 use AntChain\Util\UtilClient;
@@ -152,7 +156,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 签署方信息
+            // CA电子签约正文章信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -180,7 +184,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.0',
+                    'sdk_version'      => '1.2.1',
                     '_prod_code'       => 'ak_320bc483f2434f39a3af9ec9f04d3cc0',
                     '_prod_channel'    => 'saas',
                 ];
@@ -574,6 +578,90 @@ class Client
         Utils::validateModel($request);
 
         return SendAntsaasStaffingcInsureRefundResponse::fromMap($this->doRequest('1.0', 'antsaas.staffingc.insure.refund.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: CA电子签
+     * Summary: CA电子签约.
+     *
+     * @param SignAntsaasStaffingcContractCaRequest $request
+     *
+     * @return SignAntsaasStaffingcContractCaResponse
+     */
+    public function signAntsaasStaffingcContractCa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->signAntsaasStaffingcContractCaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: CA电子签
+     * Summary: CA电子签约.
+     *
+     * @param SignAntsaasStaffingcContractCaRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return SignAntsaasStaffingcContractCaResponse
+     */
+    public function signAntsaasStaffingcContractCaEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antsaas.staffingc.contract.ca.sign',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new SignAntsaasStaffingcContractCaResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return SignAntsaasStaffingcContractCaResponse::fromMap($this->doRequest('1.0', 'antsaas.staffingc.contract.ca.sign', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询签约结果
+     * Summary: 查询签约结果.
+     *
+     * @param QueryAntsaasStaffingcContractCaRequest $request
+     *
+     * @return QueryAntsaasStaffingcContractCaResponse
+     */
+    public function queryAntsaasStaffingcContractCa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntsaasStaffingcContractCaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询签约结果
+     * Summary: 查询签约结果.
+     *
+     * @param QueryAntsaasStaffingcContractCaRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryAntsaasStaffingcContractCaResponse
+     */
+    public function queryAntsaasStaffingcContractCaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntsaasStaffingcContractCaResponse::fromMap($this->doRequest('1.0', 'antsaas.staffingc.contract.ca.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
