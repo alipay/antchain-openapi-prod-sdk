@@ -1,0 +1,1407 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'ak_be9ae52241c747408ac24bec8f036d74',
+    _prod_channel = 'saas'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 该参与方的输入数据配置
+model ParticipantInput {
+  // 授权至项目内的数据集ID
+  authDatasetId: string(name='auth_dataset_id', example='"AUTH_DESC_test00"'),
+  // 上述数据集所需参与计算的列
+  fields?: [ string ](name='fields', example='["x1", "x2"]'),
+  // 用户筛选该数据集的过滤条件
+  filter?: string(name='filter', example='"id < 10"'),
+}
+
+// 参与方输出配置参数
+model ParticipantOutput {
+  // 授权至项目内的数据源ID
+  authDatasourceId?: string(name='auth_datasource_id', example='"AUTH_DSRC_test00"'),
+  // 输出表名
+  tableName?: string(name='table_name', example='"result"'),
+  // 输出类型，本期仅支持FULL
+  writeType?: string(name='write_type', example='"FULL"'),
+}
+
+// 字段的元信息
+model StructuredDataField {
+  // 字段名称
+  name?: string(name='name', example='id'),
+  // 字段描述
+  description?: string(name='description', example='id列'),
+  // 字段类型。
+  // 示例如下：
+  // STRING,
+  // INTEGER,
+  // DOUBLE,
+  // BOOLEAN
+  type?: string(name='type', example='STRING'),
+  // 字段是否可为空
+  nullable?: boolean(name='nullable', example='true, false'),
+}
+
+// 项目内参与方节点信息
+model Party {
+  // 参与方节点id，创建项目时无需传入，由saas统一分配
+  partyId?: string(name='party_id', example='PARTY_20231009165700_WPuWsmvg'),
+  // 所属方id，若为云上节点，则为云上租户ID，若为线下节点，则该参数为空
+  tenantId?: string(name='tenant_id', example='tenant'),
+  // 参与方节点类型，创建项目时无需填写，由local_config字段推导出节点参与方类型；
+  // 一期支持两类，FATE为线下fate参与方节点，SAAS_FATE为云上fate参与方节点
+  type?: string(name='type', example='SAAS_FATE'),
+  // 参与方配置json，当type为FATE时，其结构为FatePartyConfigInfo，当type为SAAS_FATE时，其结构为List<FatePartyConfigInfo>
+  nodeConfig?: string(name='node_config', example='""'),
+}
+
+// psi参与方任务配置信息
+model PsiParticipantConfig {
+  // 参与方所属节点ID
+  partyId: string(name='party_id', example='PARTY_test00'),
+  // 该参与方用于求交的匹配列，对于线下fate节点不填写该参数，默认匹配其第一列
+  matchedColumn?: string(name='matched_column', example='x1'),
+  // 参与方输入数据，参考结构体定义
+  input: ParticipantInput(name='input', example=''),
+  // 参与方输出数据，参考结构体定义
+  output?: ParticipantOutput(name='output', example=' '),
+}
+
+// 结构化数据源的schema信息
+model StructuredDataSchema {
+  // 结构化数据字段列表
+  fieldList?: [ StructuredDataField ](name='field_list', example=''),
+}
+
+// psi任务信息
+model PsiJob {
+  // 项目ID
+  projectId: string(name='project_id', example='"PROJ_test001"'),
+  // 执行任务ID
+  jobId: string(name='job_id', example='"JOB_test00"'),
+  // 发起任务的租户ID
+  tenantId: string(name='tenant_id', example='"testTenant00"'),
+  // 任务提交时间（毫秒）
+  gmtCreate: long(name='gmt_create', example=''),
+  // 任务真正开始执行的unix 时间戳（毫秒）
+  gmtExecStart: long(name='gmt_exec_start', example=''),
+  // 任务最终执行完成时间（毫秒）
+  gmtExecEnd: long(name='gmt_exec_end', example=''),
+  // 任务名称
+  name: string(name='name', example='"测试psi任务"'),
+  // 任务类型
+  type: string(name='type', example='"PSI"'),
+  // 项目类型
+  projectType: string(name='project_type', example='"FATE"'),
+  // 项目描述信息
+  description: string(name='description', example='"测试项目"'),
+  // 任务执行状态，EXECUTING执行中，SUCCESS执行成功，FAILED执行失败
+  status: string(name='status', example='"EXECUTING"'),
+  // 任务执行结果信息，若执行失败则返回错误日志
+  resultMsg?: string(name='result_msg', example='""'),
+  // 参与方配置参数，参考结构体定义
+  participantList: [ PsiParticipantConfig ](name='participant_list', example=''),
+}
+
+// 推断出的数据集schema
+model RecognizedDatasetSchema {
+  // 数据集格式类型。
+  // 示例如下：
+  // TABLE,
+  // CSV
+  formatType?: string(name='format_type', example='TABLE'),
+  // 数据集数据源格式信息，如 csv 分隔符，数据库主键名称等。
+  // 对应关系如下：
+  // 数据表 -> TableFormatConfig，
+  // CSV文件 -> CSVFormatConfig
+  formatConfig?: string(name='format_config', example='TableFormatConfig转化成的json字符串'),
+  // 数据集 schema 类型。
+  schemaType?: string(name='schema_type', example='STRUCTURED_DATA'),
+  // 结构化数据 schema
+  // schema_type为STRUCTURED_DATA时必填
+  structuredDataSchema?: StructuredDataSchema(name='structured_data_schema', example=''),
+}
+
+// 用于描述数据源的元信息
+model LocalDatasource {
+  // 数据源id
+  id?: string(name='id', example='DSET_20231020154808_9pQz4P1I'),
+  // 数据源名称
+  name?: string(name='name', example='datasource_0'),
+  // 数据源描述信息
+  description?: string(name='description', example='一段数据源描述信息'),
+  // 当前数据源是否支持写入
+  writable?: boolean(name='writable', example='true, false'),
+  // 用于描述数据源类型的枚举。
+  // 示例如下：
+  // MYSQL,
+  // DB2,
+  // SQLSERVER,
+  // ORACLE,
+  // HIVE2,
+  // ODPS
+  // 
+  type?: string(name='type', example='MYSQL'),
+  // 用于描述数据源的连接信息，为描述连接信息的数据对象转化为的json字符串，与type指定的数据源类型必须一一对应。
+  // 该参数请参考如下对应结构体，定义好后需转成jsonString，对应关系展示如下：
+  // MYSQL -> MysqlConnConfig,
+  // ORACLE -> OracleConnConfig,
+  // SQLSERVER -> SqlServerConnConfig,
+  // DB2 -> DbTwoConnConfig,
+  // HIVE2 -> HiveTwoConnConfig,
+  // ODPS -> OdpsConnConfig
+  connConfig?: string(name='conn_config', example='MysqlConnConfig对象转化成的json字符串'),
+}
+
+// 用于描述数据集的元信息
+model LocalDataset {
+  // 数据集id
+  id?: string(name='id', example='DSET_20231020232623_r28UaMiu'),
+  // 数据集名称
+  name?: string(name='name', example='dataset_0'),
+  // 数据集描述
+  description?: string(name='description', example='一段数据集描述信息'),
+  // 数据集所属的数据源 id
+  datasourceId?: string(name='datasource_id', example='DSET_20231020154808_9pQz4P1I'),
+  // 数据源类型。
+  // 示例如下：
+  // MYSQL,
+  // DB2,
+  // SQLSERVER,
+  // ORACLE,
+  // HIVE2,
+  // ODPS
+  datasourceType?: string(name='datasource_type', example='MYSQL'),
+  // 数据源连接参数转化成的json字符串，必须与数据源类型一一对应。
+  // 该参数请参考如下对应结构体，定义好后需转成jsonString，具体的对应信息如下：
+  // MYSQL -> MysqlConnConfig,
+  // ORACLE -> OracleConnConfig,
+  // SQLSERVER -> SqlServerConnConfig,
+  // DB2 -> DbTwoConnConfig,
+  // HIVE2 -> HiveTwoConnConfig,
+  // ODPS -> OdpsConnConfig
+  datasourceConnConfig?: string(name='datasource_conn_config', example='MysqlConnConfig对象转化成的json字符串'),
+  // 数据集在数据源中的位置信息转化成的json字符串，如数据表名称等，必须和数据源类型一一对应。
+  // 该参数请参考如下对应结构体，定义好后需转成jsonString，具体的对应关系如下：
+  // MYSQL -> MysqlLocationConfig,
+  // ORACLE -> OracleLocationConfig,
+  // SQLSERVER -> SqlServerLocationConfig,
+  // DB2 -> DbTwoLocationConfig,
+  // HIVE2 -> HiveTwoLocationConfig,
+  // ODPS -> OdpsLocationConfig
+  locationConfig?: string(name='location_config', example='MysqlLocationConfig对象转化成的json字符串'),
+  // 数据集格式类型。
+  // 示例如下：
+  // TABLE
+  formatType?: string(name='format_type', example='TABLE'),
+  // 数据集格式信息，如 csv 分隔符，数据库主键名称等，与数据集类型一一对应。
+  // 该参数请参考如下对应结构体，定义好后需转成jsonString，当前支持的类型展示如下：
+  // 数据表 -> TableFormatConfig
+  formatConfig?: string(name='format_config', example='TableFormatConfig转化成的json字符串'),
+  // 数据集 schema 类型。
+  // 示例如下：
+  // STRUCTURED_DATA
+  schemaType?: string(name='schema_type', example='STRUCTURED_DATA'),
+  // 结构化数据 schema，schema_type为STRUCTURED_DATA时必填
+  structuredDataSchema?: StructuredDataSchema(name='structured_data_schema', example=''),
+}
+
+// 已授权至项目内的数据源配置信息
+model AuthDatasource {
+  // 授权数据源ID
+  authDatasourceId: string(name='auth_datasource_id', example='"AUTH_DSRC_test00"'),
+  // 创建数据源授权时间(毫秒)
+  gmtCreate: long(name='gmt_create', example='1698659953000'),
+  // 更新数据源授权时间(毫秒)
+  gmtModified: long(name='gmt_modified', example='1698659953000'),
+  // 数据源名称
+  name: string(name='name', example='"测试数据源"'),
+  // 对应本地数据源的配置参数
+  config: string(name='config', example='"{\"datasourceId\":\"DSRC_20231020170127_kznqCB8x\"}"'),
+  //  数据源来源
+  source: string(name='source', example='"SAAS"'),
+  // 项目ID
+  projectId: string(name='project_id', example='"PROJ_test001"'),
+  // 项目内可见范围类型，ALL_TENANT全部机构可见，SPECIFIC_TENANT部分机构可见。调用授权数据集 和 数据源请求时 若不填该参数，则默认ALL_TENANT
+  visibleType: string(name='visible_type', example='"ALL_TENANT"'),
+}
+
+// 项目信息
+model Project {
+  // 项目ID
+  projectId: string(name='project_id', example='"PROJ_test001"'),
+  // 创建者ID
+  tenantId: string(name='tenant_id', example='"testTenantId"'),
+  // 项目名称
+  name: string(name='name', example='"测试项目"'),
+  // 项目状态:CREATING为创建中，FAILED为创建失败，FINISHED为创建完成。仅状态为FINISHED的项目才允许创建任务
+  status: string(name='status', example='"CREATING"'),
+  // 创建时间（毫秒）
+  gmtCreate?: long(name='gmt_create', example='1698047214000'),
+  // 更新时间（毫秒）
+  gmtModified?: long(name='gmt_modified', example='1698047214000'),
+  // 参与方列表
+  partyList: [ Party ](name='party_list', example=''),
+}
+
+// 项目内授权的数据集信息
+model AuthDataset {
+  // 授权数据集ID
+  authDatasetId: string(name='auth_dataset_id', example='"AUTH_DSET_test00"'),
+  // 创建授权时间(毫秒)
+  gmtCreate: long(name='gmt_create', example='1698659953000'),
+  // 更新授权时间(毫秒)
+  gmtModified: long(name='gmt_modified', example='1698659953000'),
+  // 数据集名称
+  name: string(name='name', example='"测试数据"'),
+  // 数据集配置参数
+  config: string(name='config', example='"{\"datasetId\":\"DSET_20231020154808_9pQz4P1I\", \"fieldList\":[\"x1\", \"x2\"]}"'),
+  // SAAS：该数据集为云上saas节点登记，数据的元信息存储于fdf中
+  // FATE：该数据集为线下fate节点登记，数据参数仅有tablename&namespace
+  source: string(name='source', example='"SAAS"'),
+  // 项目ID
+  projectId: string(name='project_id', example='"PROJ_test001"'),
+  // 项目内可见范围类型，ALL_TENANT全部机构可见，SPECIFIC_TENANT部分机构可见。调用授权数据集 和 数据源请求时 若不填该参数，则默认ALL_TENANT
+  visibleType: string(name='visible_type', example='"ALL_TENANT"'),
+}
+
+// 创建项目时所有参与方的连接参数
+model PartyReq {
+  // 参与方类型，例如：{FATE, SAAS_FATE, KUSCIA, SAAS_KUSCIA}
+  type: string(name='type', example='"FATE"/"SAAS_FATE"/"KUSCIA"/"SAAS_KUSCIA"'),
+  // 参与方租户id
+  tenantId?: string(name='tenant_id', example='"2088302558675302"'),
+  // 远端节点的配置信息，本期仅支持一种类型：FATE，其配置参考FatePartyLocalConfigInfo结构体定义
+  remoteConfig: string(name='remote_config', example='{}'),
+}
+
+model CreateAntchainPdcpDatasourceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据源名称，必填，长度不超过50个字符
+  name: string(maxLength=50, minLength=1, name='name'),
+  // 数据源的描述，数据量，作用域等等。
+  // 非必填，长度不超过200个字符。
+  description?: string(maxLength=200, name='description'),
+  // 描述当前数据源是否支持写入。
+  // true表示支持写入。
+  writable: boolean(name='writable'),
+  // 描述数据源类型的枚举，必填。
+  // 示例如下：
+  // MYSQL,
+  // DB2,
+  // SQLSERVER,
+  // ORACLE,
+  // HIVE2,
+  // ODPS
+  type: string(name='type'),
+  // 数据源连接信息的对象体转化为的json字符串。
+  // 要求连接信息的类型必须与type指定的一致。
+  // 该参数请参考如下的对应结构体，定义好后转化成jsonstring，对应信息如下：
+  // MYSQL -> MysqlConnConfig,
+  // ORACLE -> OracleConnConfig,
+  // SQLSERVER -> SqlServerConnConfig,
+  // DB2 -> DbTwoConnConfig,
+  // HIVE2 -> HiveTwoConnConfig,
+  // ODPS -> OdpsConnConfig
+  connConfig: string(name='conn_config'),
+}
+
+model CreateAntchainPdcpDatasourceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 创建的数据源的信息。
+  data?: LocalDatasource(name='data'),
+}
+
+/**
+ * Description: 请求创建数据源
+ * Summary: 创建新的数据源
+ */
+async function createAntchainPdcpDatasource(request: CreateAntchainPdcpDatasourceRequest): CreateAntchainPdcpDatasourceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntchainPdcpDatasourceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 请求创建数据源
+ * Summary: 创建新的数据源
+ */
+async function createAntchainPdcpDatasourceEx(request: CreateAntchainPdcpDatasourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntchainPdcpDatasourceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.datasource.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteAntchainPdcpDatasourceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待删除的数据源 id，必填
+  datasourceId: string(name='datasource_id'),
+}
+
+model DeleteAntchainPdcpDatasourceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 请求删除指定的数据源。
+ * Summary: 删除指定的数据源
+ */
+async function deleteAntchainPdcpDatasource(request: DeleteAntchainPdcpDatasourceRequest): DeleteAntchainPdcpDatasourceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteAntchainPdcpDatasourceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 请求删除指定的数据源。
+ * Summary: 删除指定的数据源
+ */
+async function deleteAntchainPdcpDatasourceEx(request: DeleteAntchainPdcpDatasourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteAntchainPdcpDatasourceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.datasource.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAntchainPdcpDatasourceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待更新的数据源 id，必填
+  datasourceId: string(name='datasource_id'),
+  // 更新后的数据源名称，非必填，不填则不更新
+  name?: string(maxLength=50, name='name'),
+  // 更新后的数据源描述，非必填，不填则不更新
+  description?: string(maxLength=200, name='description'),
+  // 数据源是否可写，非必填，不填则不更新
+  writable?: boolean(name='writable'),
+  // 数据源连接参数，非必填，不填则不更新，注意必须与此数据源创建时的类型一致。
+  // 该参数请参考如下对应结构体，定义好后需转成jsonString，对应关系展示如下：
+  // MYSQL -> MysqlConnConfig,
+  // ORACLE -> OracleConnConfig,
+  // SQLSERVER -> SqlServerConnConfig,
+  // DB2 -> DbTwoConnConfig,
+  // HIVE2 -> HiveTwoConnConfig,
+  // ODPS -> OdpsConnConfig
+  connConfig?: string(name='conn_config'),
+}
+
+model UpdateAntchainPdcpDatasourceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 请求更新指定数据源的信息。
+ * Summary: 更新指定数据源的信息
+ */
+async function updateAntchainPdcpDatasource(request: UpdateAntchainPdcpDatasourceRequest): UpdateAntchainPdcpDatasourceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAntchainPdcpDatasourceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 请求更新指定数据源的信息。
+ * Summary: 更新指定数据源的信息
+ */
+async function updateAntchainPdcpDatasourceEx(request: UpdateAntchainPdcpDatasourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAntchainPdcpDatasourceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.datasource.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainPdcpDatasourceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 想要查询的数据源的数据源id，用于指定数据源
+  datasourceId: string(minLength=1, name='datasource_id'),
+}
+
+model QueryAntchainPdcpDatasourceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询到的指定数据源的信息
+  data?: LocalDatasource(name='data'),
+}
+
+/**
+ * Description: 请求查询指定的数据源信息。
+ * Summary: 查询指定的数据源信息
+ */
+async function queryAntchainPdcpDatasource(request: QueryAntchainPdcpDatasourceRequest): QueryAntchainPdcpDatasourceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainPdcpDatasourceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 请求查询指定的数据源信息。
+ * Summary: 查询指定的数据源信息
+ */
+async function queryAntchainPdcpDatasourceEx(request: QueryAntchainPdcpDatasourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainPdcpDatasourceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.datasource.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryAntchainPdcpDatasourceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据源名称，筛选用，非必填
+  name?: string(name='name'),
+  // 数据源类型，筛选用，非必填。
+  // 示例如下：
+  // MYSQL,
+  // DB2,
+  // SQLSERVER,
+  // ORACLE,
+  // HIVE2,
+  // OSS,
+  // MINIO
+  type?: string(name='type'),
+  // 数据源是否可写，筛选用，非必填
+  writable?: boolean(name='writable'),
+  // 分页页数，必填
+  page: long(minimum=1, name='page'),
+  // 分页大小，必填
+  pageSize: long(minimum=1, name='page_size'),
+}
+
+model PagequeryAntchainPdcpDatasourceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果的总数
+  total?: long(name='total'),
+  // 分页页数
+  page?: string(name='page'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+  // 返回的数据源元信息列表
+  data?: [ LocalDatasource ](name='data'),
+}
+
+/**
+ * Description: 分页搜索数据源
+ * Summary: 分页搜索数据源
+ */
+async function pagequeryAntchainPdcpDatasource(request: PagequeryAntchainPdcpDatasourceRequest): PagequeryAntchainPdcpDatasourceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryAntchainPdcpDatasourceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页搜索数据源
+ * Summary: 分页搜索数据源
+ */
+async function pagequeryAntchainPdcpDatasourceEx(request: PagequeryAntchainPdcpDatasourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryAntchainPdcpDatasourceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.datasource.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntchainPdcpDatasetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集名称，必填
+  name: string(maxLength=50, minLength=1, name='name'),
+  // 数据集描述，非必填
+  description?: string(maxLength=200, name='description'),
+  // 采用数据源配置进行登记时的数据源 id
+  // 如果填写了本参数，则可不填写datasourceType和connConfig
+  // 如果填写了本参数，将优先采用本参数指定的 datasource 配置
+  datasourceId?: string(name='datasource_id'),
+  // 数据集数据源类型。
+  // 如果填写了datasourceId，则可不传本参数，填写了本参数也将被忽略。
+  // 如果未填写datasourceId，则必须同时填写本参数和 connConfig参数。
+  // 示例如下：
+  // MYSQL,
+  // DB2,
+  // SQLSERVER,
+  // ORACLE,
+  // HIVE2,
+  // ODPS
+  datasourceType?: string(name='datasource_type'),
+  // 数据集所属数据源连接信息，与数据源类型一一对应。
+  // 如果填写了datasourceId，则可不传本参数，填写本参数也将被忽略。
+  // 如果未填写 datasourceId，则必须同时填写本参数和datasourceType参数。
+  // 该参数请参考如下对应结构体，定义好后需转成jsonString，具体对应关系如下：
+  // MYSQL -> MysqlConnConfig,
+  // ORACLE -> OracleConnConfig,
+  // SQLSERVER -> SqlServerConnConfig,
+  // DB2 -> DbTwoConnConfig,
+  // HIVE2 -> HiveTwoConnConfig,
+  // ODPS -> OdpsConnConfig
+  connConfig?: string(name='conn_config'),
+  // 数据集位置信息的对象转化成的json字符串，如数据表名称等。
+  // 该参数请参考如下对应结构体，定义好后需转成jsonString，具体的对应信息如下：
+  // MYSQL -> MysqlLocationConfig,
+  // ORACLE -> OracleLocationConfig,
+  // SQLSERVER -> SqlServerLocationConfig,
+  // DB2 -> DbTwoLocationConfig,
+  // HIVE2 -> HiveTwoLocationConfig,
+  // ODPS -> OdpsLocationConfig
+  locationConfig: string(name='location_config'),
+  // 数据集格式类型。
+  // 示例如下：
+  // TABLE
+  formatType: string(name='format_type'),
+  // 数据集格式信息转化成的json字符串，如 csv 分隔符，数据库主键名称等，必须与数据源类型一一对应。
+  // 具体的对应关系如下：
+  // 数据表 -> TableFormatConfig
+  formatConfig: string(name='format_config'),
+  // 数据集 schema 类型。
+  // 示例如下：
+  // STRUCTURED_DATA
+  schemaType: string(name='schema_type'),
+  // 结构化数据 schema
+  // schemaType为STRUCTURED_DATA时必填
+  structuredDataSchema?: StructuredDataSchema(name='structured_data_schema'),
+}
+
+model CreateAntchainPdcpDatasetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 创建后的数据集信息
+  data?: LocalDataset(name='data'),
+}
+
+/**
+ * Description: 创建新的数据集
+ * Summary: 创建新的数据集
+ */
+async function createAntchainPdcpDataset(request: CreateAntchainPdcpDatasetRequest): CreateAntchainPdcpDatasetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntchainPdcpDatasetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建新的数据集
+ * Summary: 创建新的数据集
+ */
+async function createAntchainPdcpDatasetEx(request: CreateAntchainPdcpDatasetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntchainPdcpDatasetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.dataset.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteAntchainPdcpDatasetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待删除的数据集 id，必填
+  datasetId: string(name='dataset_id'),
+}
+
+model DeleteAntchainPdcpDatasetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除指定数据集
+ * Summary: 删除指定数据集
+ */
+async function deleteAntchainPdcpDataset(request: DeleteAntchainPdcpDatasetRequest): DeleteAntchainPdcpDatasetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteAntchainPdcpDatasetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除指定数据集
+ * Summary: 删除指定数据集
+ */
+async function deleteAntchainPdcpDatasetEx(request: DeleteAntchainPdcpDatasetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteAntchainPdcpDatasetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.dataset.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAntchainPdcpDatasetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 采用数据源配置进行登记时的数据源 id，非必填，不填则不更新
+  // 如果填写了本参数，则可不填写datasourceType和connConfig
+  // 如果填写了本参数，将优先采用本参数指定的datasource配置
+  datasourceId?: string(name='datasource_id'),
+  // 待更新的数据集 id，必填
+  datasetId: string(name='dataset_id'),
+  // 数据集数据源类型，非必填，不填则不更新。
+  // 如果填写了datasourceId，则可不传本参数，填写了本参数也将被忽略。
+  // 如果未填写datasourceId，则必须同时填写本参数和connConfig参数。
+  // 示例如下：
+  // MYSQL,
+  // DB2,
+  // SQLSERVER,
+  // ORACLE,
+  // HIVE2,
+  // ODPS
+  datasourceType?: string(name='datasource_type'),
+  // 更新后的数据集名称，非必填，不填则不更新
+  name?: string(maxLength=50, name='name'),
+  // 更新后的数据集描述，非必填，不填则不更新
+  description?: string(maxLength=200, name='description'),
+  // 数据集数据源连接信息转化的json字符串，非必填，不填则不更新。
+  // 如果填写了datasourceId，则可不传本参数，填写本参数也将被忽略。
+  // 如果未填写datasourceId，则必须同时填写本参数和datasourceType参数。
+  // 该参数请参考如下对应结构体，定义好后需转成jsonString，对应信息如下：
+  // MYSQL -> MysqlConnConfig,
+  // ORACLE -> OracleConnConfig,
+  // SQLSERVER -> SqlServerConnConfig,
+  // DB2 -> DbTwoConnConfig,
+  // HIVE2 -> HiveTwoConnConfig,
+  // ODPS -> OdpsConnConfig
+  connConfig?: string(name='conn_config'),
+  // 数据集位置信息转化的json字符串，如数据表名称等，非必填，不填则不更新。
+  // 如果填写了datasourceId，则本参数必填且根据 datasourceId 对应的数据源类型进行解析。
+  // 如果未填写datasourceId且填写了 connConfig，则本参数必填且根据datasourceType进行解析。
+  // 该参数请参考如下对应结构体，定义好后需转成jsonString，对应信息如下：
+  // MYSQL -> MysqlLocationConfig,
+  // ORACLE -> OracleLocationConfig,
+  // SQLSERVER -> SqlServerLocationConfig,
+  // DB2 -> DbTwoLocationConfig,
+  // HIVE2 -> HiveTwoLocationConfig,
+  // ODPS -> OdpsLocationConfig
+  locationConfig?: string(name='location_config'),
+  // 数据集格式类型，非必填，不填则不更新，如果填写，则format_config也必须填写。
+  // 示例：TABLE
+  formatType?: string(name='format_type'),
+  // 数据集数据源格式信息，如 csv 分隔符，数据库主键名称等，非必填，不填则不更新
+  // 如果填写，则formatType也必须填写
+  // 该参数请参考如下对应结构体，定义好后需转成jsonString，对应关系如下：
+  // 数据表 -> TableFormatConfig，
+  formatConfig?: string(name='format_config'),
+}
+
+model UpdateAntchainPdcpDatasetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新指定数据集信息
+ * Summary: 更新指定数据集信息
+ */
+async function updateAntchainPdcpDataset(request: UpdateAntchainPdcpDatasetRequest): UpdateAntchainPdcpDatasetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAntchainPdcpDatasetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新指定数据集信息
+ * Summary: 更新指定数据集信息
+ */
+async function updateAntchainPdcpDatasetEx(request: UpdateAntchainPdcpDatasetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAntchainPdcpDatasetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.dataset.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainPdcpDatasetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集id
+  datasetId: string(minLength=1, name='dataset_id'),
+}
+
+model QueryAntchainPdcpDatasetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询到的数据集信息
+  data?: LocalDataset(name='data'),
+}
+
+/**
+ * Description: 查询指定数据集信息
+ * Summary: 查询指定数据集信息
+ */
+async function queryAntchainPdcpDataset(request: QueryAntchainPdcpDatasetRequest): QueryAntchainPdcpDatasetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainPdcpDatasetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询指定数据集信息
+ * Summary: 查询指定数据集信息
+ */
+async function queryAntchainPdcpDatasetEx(request: QueryAntchainPdcpDatasetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainPdcpDatasetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.dataset.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryAntchainPdcpDatasetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集名称
+  name?: string(name='name'),
+  // 所属的数据源id，非必填
+  datasourceId?: string(name='datasource_id'),
+  // 所属的数据源类型，非必填。
+  // 示例如下：
+  // MYSQL,
+  // DB2,
+  // SQLSERVER,
+  // ORACLE,
+  // HIVE2,
+  // ODPS
+  datasourceType?: string(name='datasource_type'),
+  // 分页页数,不允许为空
+  page: long(minimum=1, name='page'),
+  // 分页大小，不允许为空
+  pageSize: long(minimum=1, name='page_size'),
+}
+
+model PagequeryAntchainPdcpDatasetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果的总数量
+  total?: long(name='total'),
+  // 分页页数
+  page?: long(name='page'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+  // 返回的数据集元信息的列表
+  data?: [ LocalDataset ](name='data'),
+}
+
+/**
+ * Description: 分页搜索数据集
+ * Summary: 分页搜索数据集
+ */
+async function pagequeryAntchainPdcpDataset(request: PagequeryAntchainPdcpDatasetRequest): PagequeryAntchainPdcpDatasetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryAntchainPdcpDatasetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页搜索数据集
+ * Summary: 分页搜索数据集
+ */
+async function pagequeryAntchainPdcpDatasetEx(request: PagequeryAntchainPdcpDatasetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryAntchainPdcpDatasetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.dataset.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RecognizeAntchainPdcpDatasetSchemaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 采用数据源配置进行登记时的数据源 id
+  // 如果填写了本参数，则可不填写datasourceType和connConfig
+  // 如果填写了本参数，将优先采用本参数指定的 datasource 配置
+  datasourceId?: string(name='datasource_id'),
+  // 数据资产数据源类型
+  // 如果填写了datasourceId，则可不传本参数，填写了本参数也将被忽略
+  // 如果未填写datasourceId，则必须同时填写本参数和connConfig参数
+  datasourceType?: string(name='datasource_type'),
+  // 数据资产数据源连接信息，与数据源类型必须一一对应。
+  // 如果填写了datasourceId，则可不传本参数，填写本参数也将被忽略。
+  // 如果未填写datasourceId，则必须同时填写本参数和datasourceType参数。
+  // 该参数请参考如下对应结构体，定义好后需转成jsonString，具体的对应信息如下：
+  // MYSQL -> MysqlConnConfig,
+  // ORACLE -> OracleConnConfig,
+  // SQLSERVER -> SqlServerConnConfig,
+  // DB2 -> DbTwoConnConfig,
+  // HIVE2 -> HiveTwoConnConfig,
+  // ODPS -> OdpsConnConfig
+  connConfig?: string(name='conn_config'),
+  // 数据集位置配置，如数据表名称等。
+  // 如果填写了datasourceId，则根据datasourceId对应的数据源类型进行解析。
+  // 如果未填写datasourceId，则根据datasourceType进行解析。
+  // 该参数请参考如下对应结构体，定义好后需转成jsonString，对应信息如下：
+  // MYSQL -> MysqlLocationConfig,
+  // ORACLE -> OracleLocationConfig,
+  // SQLSERVER -> SqlServerLocationConfig,
+  // DB2 -> DbTwoLocationConfig,
+  // HIVE2 -> HiveTwoLocationConfig,
+  // ODPS -> OdpsLocationConfig
+  locationConfig: string(name='location_config'),
+  // 数据集格式类型，如TABLE。
+  formatType: string(name='format_type'),
+  // 数据集所属的数据源格式信息，如 csv 分隔符，数据库主键名称等。
+  // 该参数请参考如下对应结构体，定义好后需转成jsonString，对应关系如下：
+  // 数据表 -> TableFormatConfig，
+  formatConfig?: string(name='format_config'),
+}
+
+model RecognizeAntchainPdcpDatasetSchemaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 识别到的数据集的 schema 信息
+  data?: RecognizedDatasetSchema(name='data'),
+}
+
+/**
+ * Description: 识别数据集的 schema 信息
+ * Summary: 识别数据集的 schema 信息
+ */
+async function recognizeAntchainPdcpDatasetSchema(request: RecognizeAntchainPdcpDatasetSchemaRequest): RecognizeAntchainPdcpDatasetSchemaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return recognizeAntchainPdcpDatasetSchemaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 识别数据集的 schema 信息
+ * Summary: 识别数据集的 schema 信息
+ */
+async function recognizeAntchainPdcpDatasetSchemaEx(request: RecognizeAntchainPdcpDatasetSchemaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RecognizeAntchainPdcpDatasetSchemaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.dataset.schema.recognize', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntchainPdcpProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目名称
+  name: string(name='name'),
+  // 参与方节点信息列表，不同的节点类型参考不同结构体。一期节点类型仅支持FATE，其构造方式请参考FatePartyLocalConfigInfo
+  partyList: [ PartyReq ](name='party_list'),
+}
+
+model CreateAntchainPdcpProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 项目信息
+  data?: Project(name='data'),
+}
+
+/**
+ * Description: 创建项目，添加线下参与方协作节点
+ * Summary: 创建项目
+ */
+async function createAntchainPdcpProject(request: CreateAntchainPdcpProjectRequest): CreateAntchainPdcpProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntchainPdcpProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建项目，添加线下参与方协作节点
+ * Summary: 创建项目
+ */
+async function createAntchainPdcpProjectEx(request: CreateAntchainPdcpProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntchainPdcpProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.project.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAntchainPdcpProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目唯一标识
+  projectId: string(minLength=1, name='project_id'),
+}
+
+model GetAntchainPdcpProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 项目详情信息
+  data?: Project(name='data'),
+}
+
+/**
+ * Description: 根据项目ID查询项目信息
+ * Summary: 根据项目ID查询项目信息
+ */
+async function getAntchainPdcpProject(request: GetAntchainPdcpProjectRequest): GetAntchainPdcpProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAntchainPdcpProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据项目ID查询项目信息
+ * Summary: 根据项目ID查询项目信息
+ */
+async function getAntchainPdcpProjectEx(request: GetAntchainPdcpProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAntchainPdcpProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.project.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthAntchainPdcpProjectDatasetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集名称
+  name: string(name='name'),
+  // 数据集配置参数，若授权的数据集归属于云上的节点，则参考结构体AuthSaasDatasetConfig，若授权的数据集归属于线下的节点，则参考结构体AuthFateDatasetConfig
+  config: string(name='config'),
+  // 项目ID
+  projectId: string(name='project_id'),
+  // 项目内可见范围类型，ALL_TENANT全部机构可见，SPECIFIC_TENANT部分机构可见。调用授权数据集 和 数据源请求时 若不填该参数，则默认ALL_TENANT
+  visibleType?: string(name='visible_type'),
+}
+
+model AuthAntchainPdcpProjectDatasetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权至某个项目中的数据集信息
+  data?: AuthDataset(name='data'),
+}
+
+/**
+ * Description: 授权dataset至项目内，/api/project/dataset/auth，后续创建任务时仅允许选择已授权至项目内的数据集列表
+ * Summary: 授权某个本地的数据集至项目中
+ */
+async function authAntchainPdcpProjectDataset(request: AuthAntchainPdcpProjectDatasetRequest): AuthAntchainPdcpProjectDatasetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authAntchainPdcpProjectDatasetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权dataset至项目内，/api/project/dataset/auth，后续创建任务时仅允许选择已授权至项目内的数据集列表
+ * Summary: 授权某个本地的数据集至项目中
+ */
+async function authAntchainPdcpProjectDatasetEx(request: AuthAntchainPdcpProjectDatasetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthAntchainPdcpProjectDatasetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.project.dataset.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthAntchainPdcpProjectDatasourceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据源名称
+  name: string(name='name'),
+  // 选择已登记的数据源ID，云上的参考AuthSaasDatasourceConfig
+  config: string(name='config'),
+  // 项目ID
+  projectId: string(name='project_id'),
+  // 项目内可见范围类型，ALL_TENANT全部机构可见，SPECIFIC_TENANT部分机构可见。调用授权数据集 和 数据源请求时 若不填该参数，则默认ALL_TENANT
+  visibleType?: string(name='visible_type'),
+}
+
+model AuthAntchainPdcpProjectDatasourceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权至项目的数据源信息
+  data?: AuthDatasource(name='data'),
+}
+
+/**
+ * Description: 授权数据源至项目/api/project/datasource/auth
+ * Summary: 授权某个本地数据源至项目中
+ */
+async function authAntchainPdcpProjectDatasource(request: AuthAntchainPdcpProjectDatasourceRequest): AuthAntchainPdcpProjectDatasourceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authAntchainPdcpProjectDatasourceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权数据源至项目/api/project/datasource/auth
+ * Summary: 授权某个本地数据源至项目中
+ */
+async function authAntchainPdcpProjectDatasourceEx(request: AuthAntchainPdcpProjectDatasourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthAntchainPdcpProjectDatasourceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.project.datasource.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryAntchainPdcpProjectAuthdatasetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(minLength=1, name='project_id'),
+  // 分页参数
+  page: long(name='page'),
+  // 分页参数
+  pageSize: long(name='page_size'),
+}
+
+model PagequeryAntchainPdcpProjectAuthdatasetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果的总数量
+  total?: long(name='total'),
+  // 分页页数
+  page?: long(name='page'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+  // 返回的数据集元信息的列表
+  data?: [ AuthDataset ](name='data'),
+}
+
+/**
+ * Description: 分页查询项目内已授权的数据集列表
+ * Summary: 分页查询项目内已授权的数据集列表
+ */
+async function pagequeryAntchainPdcpProjectAuthdataset(request: PagequeryAntchainPdcpProjectAuthdatasetRequest): PagequeryAntchainPdcpProjectAuthdatasetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryAntchainPdcpProjectAuthdatasetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询项目内已授权的数据集列表
+ * Summary: 分页查询项目内已授权的数据集列表
+ */
+async function pagequeryAntchainPdcpProjectAuthdatasetEx(request: PagequeryAntchainPdcpProjectAuthdatasetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryAntchainPdcpProjectAuthdatasetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.project.authdataset.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryAntchainPdcpProjectAuthdatasourceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(minLength=1, name='project_id'),
+  // 分页参数
+  page: long(name='page'),
+  // 分页参数
+  pageSize: long(name='page_size'),
+}
+
+model PagequeryAntchainPdcpProjectAuthdatasourceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果的总数量
+  total?: long(name='total'),
+  // 分页页数
+  page?: long(name='page'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+  // 返回项目内已授权的数据集源信息的列表
+  data?: [ AuthDatasource ](name='data'),
+}
+
+/**
+ * Description: 分页查询项目内已授权的数据源列表
+ * Summary: 分页查询项目内已授权的数据源列表
+ */
+async function pagequeryAntchainPdcpProjectAuthdatasource(request: PagequeryAntchainPdcpProjectAuthdatasourceRequest): PagequeryAntchainPdcpProjectAuthdatasourceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryAntchainPdcpProjectAuthdatasourceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询项目内已授权的数据源列表
+ * Summary: 分页查询项目内已授权的数据源列表
+ */
+async function pagequeryAntchainPdcpProjectAuthdatasourceEx(request: PagequeryAntchainPdcpProjectAuthdatasourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryAntchainPdcpProjectAuthdatasourceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.project.authdatasource.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainPdcpJobPsiRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  jobId: string(minLength=1, name='job_id'),
+}
+
+model QueryAntchainPdcpJobPsiResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务信息
+  data?: PsiJob(name='data'),
+}
+
+/**
+ * Description: 查询任务信息
+ * Summary: 查询任务状态
+ */
+async function queryAntchainPdcpJobPsi(request: QueryAntchainPdcpJobPsiRequest): QueryAntchainPdcpJobPsiResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainPdcpJobPsiEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询任务信息
+ * Summary: 查询任务状态
+ */
+async function queryAntchainPdcpJobPsiEx(request: QueryAntchainPdcpJobPsiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainPdcpJobPsiResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.job.psi.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAntchainPdcpJobPsiRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(name='project_id'),
+  // 任务名称
+  name: string(name='name'),
+  // 任务类型，目前仅支持一种
+  type: string(name='type'),
+  // 任务的描述信息
+  description: string(name='description'),
+  // 任务执行参数，构造方式参考Participant结构体定义
+  participantList: [ PsiParticipantConfig ](name='participant_list'),
+}
+
+model SubmitAntchainPdcpJobPsiResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务信息
+  data?: PsiJob(name='data'),
+}
+
+/**
+ * Description: 提交psi任务接口
+ * Summary: 提交psi任务接口
+ */
+async function submitAntchainPdcpJobPsi(request: SubmitAntchainPdcpJobPsiRequest): SubmitAntchainPdcpJobPsiResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAntchainPdcpJobPsiEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交psi任务接口
+ * Summary: 提交psi任务接口
+ */
+async function submitAntchainPdcpJobPsiEx(request: SubmitAntchainPdcpJobPsiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAntchainPdcpJobPsiResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.pdcp.job.psi.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
