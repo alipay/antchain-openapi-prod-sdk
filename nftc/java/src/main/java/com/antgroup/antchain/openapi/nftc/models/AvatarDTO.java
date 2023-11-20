@@ -39,10 +39,20 @@ public class AvatarDTO extends TeaModel {
     @Validation(required = true)
     public AvatarMaterialDTO suit;
 
-    // 配饰配置
-    @NameInMap("accessory")
+    // 项链配置
+    @NameInMap("necklace")
     @Validation(required = true)
-    public AvatarMaterialDTO accessory;
+    public AvatarMaterialDTO necklace;
+
+    // 帽子配置
+    @NameInMap("hat")
+    @Validation(required = true)
+    public AvatarMaterialDTO hat;
+
+    // 眼镜配置
+    @NameInMap("glass")
+    @Validation(required = true)
+    public AvatarMaterialDTO glass;
 
     // 头发配置
     @NameInMap("hair")
@@ -165,12 +175,28 @@ public class AvatarDTO extends TeaModel {
         return this.suit;
     }
 
-    public AvatarDTO setAccessory(AvatarMaterialDTO accessory) {
-        this.accessory = accessory;
+    public AvatarDTO setNecklace(AvatarMaterialDTO necklace) {
+        this.necklace = necklace;
         return this;
     }
-    public AvatarMaterialDTO getAccessory() {
-        return this.accessory;
+    public AvatarMaterialDTO getNecklace() {
+        return this.necklace;
+    }
+
+    public AvatarDTO setHat(AvatarMaterialDTO hat) {
+        this.hat = hat;
+        return this;
+    }
+    public AvatarMaterialDTO getHat() {
+        return this.hat;
+    }
+
+    public AvatarDTO setGlass(AvatarMaterialDTO glass) {
+        this.glass = glass;
+        return this;
+    }
+    public AvatarMaterialDTO getGlass() {
+        return this.glass;
     }
 
     public AvatarDTO setHair(AvatarMaterialDTO hair) {
