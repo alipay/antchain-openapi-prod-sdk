@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.12',
+                    'sdk_version': '1.7.18',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.12',
+                    'sdk_version': '1.7.18',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -1841,6 +1841,62 @@ class Client:
         return TeaCore.from_map(
             tax_models.QuerySimpleauthIdentitystateResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.simpleauth.identitystate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_api_haiguanasync(
+        self,
+        request: tax_models.QueryApiHaiguanasyncRequest,
+    ) -> tax_models.QueryApiHaiguanasyncResponse:
+        """
+        Description: 海关-异步查询数据
+        Summary: 海关-异步查询数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_api_haiguanasync_ex(request, headers, runtime)
+
+    async def query_api_haiguanasync_async(
+        self,
+        request: tax_models.QueryApiHaiguanasyncRequest,
+    ) -> tax_models.QueryApiHaiguanasyncResponse:
+        """
+        Description: 海关-异步查询数据
+        Summary: 海关-异步查询数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_api_haiguanasync_ex_async(request, headers, runtime)
+
+    def query_api_haiguanasync_ex(
+        self,
+        request: tax_models.QueryApiHaiguanasyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryApiHaiguanasyncResponse:
+        """
+        Description: 海关-异步查询数据
+        Summary: 海关-异步查询数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryApiHaiguanasyncResponse(),
+            self.do_request('1.0', 'blockchain.tax.api.haiguanasync.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_api_haiguanasync_ex_async(
+        self,
+        request: tax_models.QueryApiHaiguanasyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryApiHaiguanasyncResponse:
+        """
+        Description: 海关-异步查询数据
+        Summary: 海关-异步查询数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryApiHaiguanasyncResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.api.haiguanasync.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_pdata_personalincome(

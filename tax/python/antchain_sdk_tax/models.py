@@ -5571,7 +5571,7 @@ class QuerySimpleauthIdentitystateRequest(TeaModel):
         biz_unique_id: str = None,
         auth_type: str = None,
         auth_code: str = None,
-        nsrsmc: str = None,
+        nsrmc: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -5587,7 +5587,7 @@ class QuerySimpleauthIdentitystateRequest(TeaModel):
         # 授权编码
         self.auth_code = auth_code
         # 纳税人名称
-        self.nsrsmc = nsrsmc
+        self.nsrmc = nsrmc
 
     def validate(self):
         self.validate_required(self.identity, 'identity')
@@ -5595,7 +5595,7 @@ class QuerySimpleauthIdentitystateRequest(TeaModel):
         self.validate_required(self.biz_unique_id, 'biz_unique_id')
         self.validate_required(self.auth_type, 'auth_type')
         self.validate_required(self.auth_code, 'auth_code')
-        self.validate_required(self.nsrsmc, 'nsrsmc')
+        self.validate_required(self.nsrmc, 'nsrmc')
 
     def to_map(self):
         _map = super().to_map()
@@ -5617,8 +5617,8 @@ class QuerySimpleauthIdentitystateRequest(TeaModel):
             result['auth_type'] = self.auth_type
         if self.auth_code is not None:
             result['auth_code'] = self.auth_code
-        if self.nsrsmc is not None:
-            result['nsrsmc'] = self.nsrsmc
+        if self.nsrmc is not None:
+            result['nsrmc'] = self.nsrmc
         return result
 
     def from_map(self, m: dict = None):
@@ -5637,8 +5637,8 @@ class QuerySimpleauthIdentitystateRequest(TeaModel):
             self.auth_type = m.get('auth_type')
         if m.get('auth_code') is not None:
             self.auth_code = m.get('auth_code')
-        if m.get('nsrsmc') is not None:
-            self.nsrsmc = m.get('nsrsmc')
+        if m.get('nsrmc') is not None:
+            self.nsrmc = m.get('nsrmc')
         return self
 
 
@@ -5649,7 +5649,7 @@ class QuerySimpleauthIdentitystateResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         biz_request_id: str = None,
-        data: List[str] = None,
+        data: List[IndentityState] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -5661,6 +5661,168 @@ class QuerySimpleauthIdentitystateResponse(TeaModel):
         self.biz_request_id = biz_request_id
         # 返回结果
         self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_request_id is not None:
+            result['biz_request_id'] = self.biz_request_id
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_request_id') is not None:
+            self.biz_request_id = m.get('biz_request_id')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = IndentityState()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class QueryApiHaiguanasyncRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        inst_code: str = None,
+        auth_type: str = None,
+        identity_id: str = None,
+        biz_request_id: str = None,
+        auth_code: str = None,
+        auth_url: str = None,
+        auth_start_time: str = None,
+        auth_end_time: str = None,
+        corp_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户号/子租户号，如果为租户号获取，则为租户号，如果为子租户号获取，则传输子租户号
+        self.inst_code = inst_code
+        # 产品类型，海关数据: ZX500
+        self.auth_type = auth_type
+        # 身份id，企业税号
+        self.identity_id = identity_id
+        # 用于幂等控制
+        self.biz_request_id = biz_request_id
+        # 行方生成的授权编号
+        self.auth_code = auth_code
+        # 公网可访问的地址，PDF格式
+        self.auth_url = auth_url
+        # 格式：yyyy-MM-dd HH:mm:ss
+        self.auth_start_time = auth_start_time
+        # 格式：yyyy-MM-dd HH:mm:ss
+        self.auth_end_time = auth_end_time
+        # 企业名称
+        self.corp_name = corp_name
+
+    def validate(self):
+        self.validate_required(self.inst_code, 'inst_code')
+        self.validate_required(self.auth_type, 'auth_type')
+        self.validate_required(self.identity_id, 'identity_id')
+        self.validate_required(self.biz_request_id, 'biz_request_id')
+        self.validate_required(self.auth_code, 'auth_code')
+        self.validate_required(self.auth_url, 'auth_url')
+        self.validate_required(self.auth_start_time, 'auth_start_time')
+        self.validate_required(self.auth_end_time, 'auth_end_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.inst_code is not None:
+            result['inst_code'] = self.inst_code
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.identity_id is not None:
+            result['identity_id'] = self.identity_id
+        if self.biz_request_id is not None:
+            result['biz_request_id'] = self.biz_request_id
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        if self.auth_url is not None:
+            result['auth_url'] = self.auth_url
+        if self.auth_start_time is not None:
+            result['auth_start_time'] = self.auth_start_time
+        if self.auth_end_time is not None:
+            result['auth_end_time'] = self.auth_end_time
+        if self.corp_name is not None:
+            result['corp_name'] = self.corp_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('inst_code') is not None:
+            self.inst_code = m.get('inst_code')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('identity_id') is not None:
+            self.identity_id = m.get('identity_id')
+        if m.get('biz_request_id') is not None:
+            self.biz_request_id = m.get('biz_request_id')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        if m.get('auth_url') is not None:
+            self.auth_url = m.get('auth_url')
+        if m.get('auth_start_time') is not None:
+            self.auth_start_time = m.get('auth_start_time')
+        if m.get('auth_end_time') is not None:
+            self.auth_end_time = m.get('auth_end_time')
+        if m.get('corp_name') is not None:
+            self.corp_name = m.get('corp_name')
+        return self
+
+
+class QueryApiHaiguanasyncResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
 
     def validate(self):
         pass
@@ -5677,10 +5839,6 @@ class QuerySimpleauthIdentitystateResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.biz_request_id is not None:
-            result['biz_request_id'] = self.biz_request_id
-        if self.data is not None:
-            result['data'] = self.data
         return result
 
     def from_map(self, m: dict = None):
@@ -5691,10 +5849,6 @@ class QuerySimpleauthIdentitystateResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('biz_request_id') is not None:
-            self.biz_request_id = m.get('biz_request_id')
-        if m.get('data') is not None:
-            self.data = m.get('data')
         return self
 
 
