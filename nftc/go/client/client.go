@@ -322,8 +322,12 @@ type AvatarDTO struct {
 	Shoe *AvatarMaterialDTO `json:"shoe,omitempty" xml:"shoe,omitempty" require:"true"`
 	// 套装配置
 	Suit *AvatarMaterialDTO `json:"suit,omitempty" xml:"suit,omitempty" require:"true"`
-	// 配饰配置
-	Accessory *AvatarMaterialDTO `json:"accessory,omitempty" xml:"accessory,omitempty" require:"true"`
+	// 项链配置
+	Necklace *AvatarMaterialDTO `json:"necklace,omitempty" xml:"necklace,omitempty" require:"true"`
+	// 帽子配置
+	Hat *AvatarMaterialDTO `json:"hat,omitempty" xml:"hat,omitempty" require:"true"`
+	// 眼镜配置
+	Glass *AvatarMaterialDTO `json:"glass,omitempty" xml:"glass,omitempty" require:"true"`
 	// 头发配置
 	Hair *AvatarMaterialDTO `json:"hair,omitempty" xml:"hair,omitempty" require:"true"`
 	// 脸型配置
@@ -393,8 +397,18 @@ func (s *AvatarDTO) SetSuit(v *AvatarMaterialDTO) *AvatarDTO {
 	return s
 }
 
-func (s *AvatarDTO) SetAccessory(v *AvatarMaterialDTO) *AvatarDTO {
-	s.Accessory = v
+func (s *AvatarDTO) SetNecklace(v *AvatarMaterialDTO) *AvatarDTO {
+	s.Necklace = v
+	return s
+}
+
+func (s *AvatarDTO) SetHat(v *AvatarMaterialDTO) *AvatarDTO {
+	s.Hat = v
+	return s
+}
+
+func (s *AvatarDTO) SetGlass(v *AvatarMaterialDTO) *AvatarDTO {
+	s.Glass = v
 	return s
 }
 
@@ -510,327 +524,6 @@ func (s *UserAsset) SetIssuerName(v string) *UserAsset {
 
 func (s *UserAsset) SetMiniImagePath(v string) *UserAsset {
 	s.MiniImagePath = &v
-	return s
-}
-
-type PublishMerchantDiyskuRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 业务请求id，用来做业务上的幂等。后面查询状态也是此字段
-	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true"`
-	// 调用渠道
-	// PET 宠物
-	// MEMBER 会员
-	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
-	// 领取数字藏品的用户ID，支持2088/手机号/1322
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-	// 支付宝2088账号：ALIPAY_UID
-	// 手机号：PHONE_NO
-	// 鲸探1322账号：FANS_UID
-	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
-	// 需要发放的SKUID编码
-	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty" require:"true"`
-	// 一期仅支持图片：IMAGE
-	SkuType *string `json:"sku_type,omitempty" xml:"sku_type,omitempty" require:"true"`
-	// 数字藏品的缩略图地址，可与原图相同也可不同，需要校验长宽比为1:1
-	ThumbnailUrl *string `json:"thumbnail_url,omitempty" xml:"thumbnail_url,omitempty" require:"true"`
-	// 数字藏品的原图地址，需要校验长宽比为1:1
-	OriginalUrl *string `json:"original_url,omitempty" xml:"original_url,omitempty" require:"true"`
-}
-
-func (s PublishMerchantDiyskuRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PublishMerchantDiyskuRequest) GoString() string {
-	return s.String()
-}
-
-func (s *PublishMerchantDiyskuRequest) SetAuthToken(v string) *PublishMerchantDiyskuRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *PublishMerchantDiyskuRequest) SetProductInstanceId(v string) *PublishMerchantDiyskuRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *PublishMerchantDiyskuRequest) SetBizNo(v string) *PublishMerchantDiyskuRequest {
-	s.BizNo = &v
-	return s
-}
-
-func (s *PublishMerchantDiyskuRequest) SetChannel(v string) *PublishMerchantDiyskuRequest {
-	s.Channel = &v
-	return s
-}
-
-func (s *PublishMerchantDiyskuRequest) SetUserId(v string) *PublishMerchantDiyskuRequest {
-	s.UserId = &v
-	return s
-}
-
-func (s *PublishMerchantDiyskuRequest) SetUserType(v string) *PublishMerchantDiyskuRequest {
-	s.UserType = &v
-	return s
-}
-
-func (s *PublishMerchantDiyskuRequest) SetSkuId(v string) *PublishMerchantDiyskuRequest {
-	s.SkuId = &v
-	return s
-}
-
-func (s *PublishMerchantDiyskuRequest) SetSkuType(v string) *PublishMerchantDiyskuRequest {
-	s.SkuType = &v
-	return s
-}
-
-func (s *PublishMerchantDiyskuRequest) SetThumbnailUrl(v string) *PublishMerchantDiyskuRequest {
-	s.ThumbnailUrl = &v
-	return s
-}
-
-func (s *PublishMerchantDiyskuRequest) SetOriginalUrl(v string) *PublishMerchantDiyskuRequest {
-	s.OriginalUrl = &v
-	return s
-}
-
-type PublishMerchantDiyskuResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 生成的nftid结果
-	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty"`
-	// 获得时间
-	ReceiveTime *string `json:"receive_time,omitempty" xml:"receive_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 发放状态
-	// AUDIT_SUBMIT("审核中"),
-	// AUDIT_SUCCESS("审核通过"),
-	// AUDIT_FAIL("审核未通过"),
-	// TRANSFER_UNKNOWN("发放结果未知"),
-	// TRANSFER_SUCCESS("发放成功"),
-	// TRANSFER_FAILED("发放失败"),
-	// SHIELD("屏蔽"),
-	// RECYCLE("回收"),
-	SendStatus *string `json:"send_status,omitempty" xml:"send_status,omitempty"`
-}
-
-func (s PublishMerchantDiyskuResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PublishMerchantDiyskuResponse) GoString() string {
-	return s.String()
-}
-
-func (s *PublishMerchantDiyskuResponse) SetReqMsgId(v string) *PublishMerchantDiyskuResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *PublishMerchantDiyskuResponse) SetResultCode(v string) *PublishMerchantDiyskuResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *PublishMerchantDiyskuResponse) SetResultMsg(v string) *PublishMerchantDiyskuResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *PublishMerchantDiyskuResponse) SetNftId(v string) *PublishMerchantDiyskuResponse {
-	s.NftId = &v
-	return s
-}
-
-func (s *PublishMerchantDiyskuResponse) SetReceiveTime(v string) *PublishMerchantDiyskuResponse {
-	s.ReceiveTime = &v
-	return s
-}
-
-func (s *PublishMerchantDiyskuResponse) SetSendStatus(v string) *PublishMerchantDiyskuResponse {
-	s.SendStatus = &v
-	return s
-}
-
-type QueryMerchantDiyskuRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 业务请求id，用来做业务上的幂等
-	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true"`
-	// 领取数字藏品的用户ID，支持2088/手机号/1322
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-}
-
-func (s QueryMerchantDiyskuRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryMerchantDiyskuRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryMerchantDiyskuRequest) SetAuthToken(v string) *QueryMerchantDiyskuRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryMerchantDiyskuRequest) SetProductInstanceId(v string) *QueryMerchantDiyskuRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *QueryMerchantDiyskuRequest) SetBizNo(v string) *QueryMerchantDiyskuRequest {
-	s.BizNo = &v
-	return s
-}
-
-func (s *QueryMerchantDiyskuRequest) SetUserId(v string) *QueryMerchantDiyskuRequest {
-	s.UserId = &v
-	return s
-}
-
-type QueryMerchantDiyskuResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 生成的nftid结果
-	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty"`
-	// 获得时间
-	ReceiveTime *string `json:"receive_time,omitempty" xml:"receive_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 发放状态
-	// AUDIT_SUBMIT("审核中"),
-	// AUDIT_SUCCESS("审核通过"),
-	// AUDIT_FAIL("审核未通过"),
-	// TRANSFER_UNKNOWN("发放结果未知"),
-	// TRANSFER_SUCCESS("发放成功"),
-	// TRANSFER_FAILED("发放失败"),
-	// SHIELD("屏蔽"),
-	// RECYCLE("回收"),
-	SendStatus *string `json:"send_status,omitempty" xml:"send_status,omitempty"`
-}
-
-func (s QueryMerchantDiyskuResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryMerchantDiyskuResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryMerchantDiyskuResponse) SetReqMsgId(v string) *QueryMerchantDiyskuResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryMerchantDiyskuResponse) SetResultCode(v string) *QueryMerchantDiyskuResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryMerchantDiyskuResponse) SetResultMsg(v string) *QueryMerchantDiyskuResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *QueryMerchantDiyskuResponse) SetNftId(v string) *QueryMerchantDiyskuResponse {
-	s.NftId = &v
-	return s
-}
-
-func (s *QueryMerchantDiyskuResponse) SetReceiveTime(v string) *QueryMerchantDiyskuResponse {
-	s.ReceiveTime = &v
-	return s
-}
-
-func (s *QueryMerchantDiyskuResponse) SetSendStatus(v string) *QueryMerchantDiyskuResponse {
-	s.SendStatus = &v
-	return s
-}
-
-type QueryMerchantUgcimagesRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// ugc资产铸造记录id列表
-	RecordIdList []*string `json:"record_id_list,omitempty" xml:"record_id_list,omitempty" require:"true" type:"Repeated"`
-	// 场景
-	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
-}
-
-func (s QueryMerchantUgcimagesRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryMerchantUgcimagesRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryMerchantUgcimagesRequest) SetAuthToken(v string) *QueryMerchantUgcimagesRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryMerchantUgcimagesRequest) SetProductInstanceId(v string) *QueryMerchantUgcimagesRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *QueryMerchantUgcimagesRequest) SetRecordIdList(v []*string) *QueryMerchantUgcimagesRequest {
-	s.RecordIdList = v
-	return s
-}
-
-func (s *QueryMerchantUgcimagesRequest) SetBizScene(v string) *QueryMerchantUgcimagesRequest {
-	s.BizScene = &v
-	return s
-}
-
-type QueryMerchantUgcimagesResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 入参中id对应的图片列表
-	ImgList []*string `json:"img_list,omitempty" xml:"img_list,omitempty" type:"Repeated"`
-}
-
-func (s QueryMerchantUgcimagesResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryMerchantUgcimagesResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryMerchantUgcimagesResponse) SetReqMsgId(v string) *QueryMerchantUgcimagesResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryMerchantUgcimagesResponse) SetResultCode(v string) *QueryMerchantUgcimagesResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryMerchantUgcimagesResponse) SetResultMsg(v string) *QueryMerchantUgcimagesResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *QueryMerchantUgcimagesResponse) SetImgList(v []*string) *QueryMerchantUgcimagesResponse {
-	s.ImgList = v
 	return s
 }
 
@@ -1179,6 +872,327 @@ func (s *ApplyOauthUserinfotokenResponse) SetResultMsg(v string) *ApplyOauthUser
 
 func (s *ApplyOauthUserinfotokenResponse) SetUserInfoToken(v string) *ApplyOauthUserinfotokenResponse {
 	s.UserInfoToken = &v
+	return s
+}
+
+type PublishMerchantDiyskuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务请求id，用来做业务上的幂等。后面查询状态也是此字段
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true"`
+	// 调用渠道
+	// PET 宠物
+	// MEMBER 会员
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+	// 领取数字藏品的用户ID，支持2088/手机号/1322
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 支付宝2088账号：ALIPAY_UID
+	// 手机号：PHONE_NO
+	// 鲸探1322账号：FANS_UID
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+	// 需要发放的SKUID编码
+	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty" require:"true"`
+	// 一期仅支持图片：IMAGE
+	SkuType *string `json:"sku_type,omitempty" xml:"sku_type,omitempty" require:"true"`
+	// 数字藏品的缩略图地址，可与原图相同也可不同，需要校验长宽比为1:1
+	ThumbnailUrl *string `json:"thumbnail_url,omitempty" xml:"thumbnail_url,omitempty" require:"true"`
+	// 数字藏品的原图地址，需要校验长宽比为1:1
+	OriginalUrl *string `json:"original_url,omitempty" xml:"original_url,omitempty" require:"true"`
+}
+
+func (s PublishMerchantDiyskuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PublishMerchantDiyskuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PublishMerchantDiyskuRequest) SetAuthToken(v string) *PublishMerchantDiyskuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PublishMerchantDiyskuRequest) SetProductInstanceId(v string) *PublishMerchantDiyskuRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PublishMerchantDiyskuRequest) SetBizNo(v string) *PublishMerchantDiyskuRequest {
+	s.BizNo = &v
+	return s
+}
+
+func (s *PublishMerchantDiyskuRequest) SetChannel(v string) *PublishMerchantDiyskuRequest {
+	s.Channel = &v
+	return s
+}
+
+func (s *PublishMerchantDiyskuRequest) SetUserId(v string) *PublishMerchantDiyskuRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *PublishMerchantDiyskuRequest) SetUserType(v string) *PublishMerchantDiyskuRequest {
+	s.UserType = &v
+	return s
+}
+
+func (s *PublishMerchantDiyskuRequest) SetSkuId(v string) *PublishMerchantDiyskuRequest {
+	s.SkuId = &v
+	return s
+}
+
+func (s *PublishMerchantDiyskuRequest) SetSkuType(v string) *PublishMerchantDiyskuRequest {
+	s.SkuType = &v
+	return s
+}
+
+func (s *PublishMerchantDiyskuRequest) SetThumbnailUrl(v string) *PublishMerchantDiyskuRequest {
+	s.ThumbnailUrl = &v
+	return s
+}
+
+func (s *PublishMerchantDiyskuRequest) SetOriginalUrl(v string) *PublishMerchantDiyskuRequest {
+	s.OriginalUrl = &v
+	return s
+}
+
+type PublishMerchantDiyskuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 生成的nftid结果
+	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty"`
+	// 获得时间
+	ReceiveTime *string `json:"receive_time,omitempty" xml:"receive_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 发放状态
+	// AUDIT_SUBMIT("审核中"),
+	// AUDIT_SUCCESS("审核通过"),
+	// AUDIT_FAIL("审核未通过"),
+	// TRANSFER_UNKNOWN("发放结果未知"),
+	// TRANSFER_SUCCESS("发放成功"),
+	// TRANSFER_FAILED("发放失败"),
+	// SHIELD("屏蔽"),
+	// RECYCLE("回收"),
+	SendStatus *string `json:"send_status,omitempty" xml:"send_status,omitempty"`
+}
+
+func (s PublishMerchantDiyskuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PublishMerchantDiyskuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PublishMerchantDiyskuResponse) SetReqMsgId(v string) *PublishMerchantDiyskuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PublishMerchantDiyskuResponse) SetResultCode(v string) *PublishMerchantDiyskuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PublishMerchantDiyskuResponse) SetResultMsg(v string) *PublishMerchantDiyskuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PublishMerchantDiyskuResponse) SetNftId(v string) *PublishMerchantDiyskuResponse {
+	s.NftId = &v
+	return s
+}
+
+func (s *PublishMerchantDiyskuResponse) SetReceiveTime(v string) *PublishMerchantDiyskuResponse {
+	s.ReceiveTime = &v
+	return s
+}
+
+func (s *PublishMerchantDiyskuResponse) SetSendStatus(v string) *PublishMerchantDiyskuResponse {
+	s.SendStatus = &v
+	return s
+}
+
+type QueryMerchantDiyskuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务请求id，用来做业务上的幂等
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true"`
+	// 领取数字藏品的用户ID，支持2088/手机号/1322
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s QueryMerchantDiyskuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMerchantDiyskuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMerchantDiyskuRequest) SetAuthToken(v string) *QueryMerchantDiyskuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMerchantDiyskuRequest) SetProductInstanceId(v string) *QueryMerchantDiyskuRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMerchantDiyskuRequest) SetBizNo(v string) *QueryMerchantDiyskuRequest {
+	s.BizNo = &v
+	return s
+}
+
+func (s *QueryMerchantDiyskuRequest) SetUserId(v string) *QueryMerchantDiyskuRequest {
+	s.UserId = &v
+	return s
+}
+
+type QueryMerchantDiyskuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 生成的nftid结果
+	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty"`
+	// 获得时间
+	ReceiveTime *string `json:"receive_time,omitempty" xml:"receive_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 发放状态
+	// AUDIT_SUBMIT("审核中"),
+	// AUDIT_SUCCESS("审核通过"),
+	// AUDIT_FAIL("审核未通过"),
+	// TRANSFER_UNKNOWN("发放结果未知"),
+	// TRANSFER_SUCCESS("发放成功"),
+	// TRANSFER_FAILED("发放失败"),
+	// SHIELD("屏蔽"),
+	// RECYCLE("回收"),
+	SendStatus *string `json:"send_status,omitempty" xml:"send_status,omitempty"`
+}
+
+func (s QueryMerchantDiyskuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMerchantDiyskuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMerchantDiyskuResponse) SetReqMsgId(v string) *QueryMerchantDiyskuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMerchantDiyskuResponse) SetResultCode(v string) *QueryMerchantDiyskuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMerchantDiyskuResponse) SetResultMsg(v string) *QueryMerchantDiyskuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMerchantDiyskuResponse) SetNftId(v string) *QueryMerchantDiyskuResponse {
+	s.NftId = &v
+	return s
+}
+
+func (s *QueryMerchantDiyskuResponse) SetReceiveTime(v string) *QueryMerchantDiyskuResponse {
+	s.ReceiveTime = &v
+	return s
+}
+
+func (s *QueryMerchantDiyskuResponse) SetSendStatus(v string) *QueryMerchantDiyskuResponse {
+	s.SendStatus = &v
+	return s
+}
+
+type QueryMerchantUgcimagesRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// ugc资产铸造记录id列表
+	RecordIdList []*string `json:"record_id_list,omitempty" xml:"record_id_list,omitempty" require:"true" type:"Repeated"`
+	// 场景
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+}
+
+func (s QueryMerchantUgcimagesRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMerchantUgcimagesRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMerchantUgcimagesRequest) SetAuthToken(v string) *QueryMerchantUgcimagesRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMerchantUgcimagesRequest) SetProductInstanceId(v string) *QueryMerchantUgcimagesRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMerchantUgcimagesRequest) SetRecordIdList(v []*string) *QueryMerchantUgcimagesRequest {
+	s.RecordIdList = v
+	return s
+}
+
+func (s *QueryMerchantUgcimagesRequest) SetBizScene(v string) *QueryMerchantUgcimagesRequest {
+	s.BizScene = &v
+	return s
+}
+
+type QueryMerchantUgcimagesResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 入参中id对应的图片列表
+	ImgList []*string `json:"img_list,omitempty" xml:"img_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryMerchantUgcimagesResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMerchantUgcimagesResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMerchantUgcimagesResponse) SetReqMsgId(v string) *QueryMerchantUgcimagesResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMerchantUgcimagesResponse) SetResultCode(v string) *QueryMerchantUgcimagesResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMerchantUgcimagesResponse) SetResultMsg(v string) *QueryMerchantUgcimagesResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMerchantUgcimagesResponse) SetImgList(v []*string) *QueryMerchantUgcimagesResponse {
+	s.ImgList = v
 	return s
 }
 
@@ -2039,7 +2053,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.5"),
+				"sdk_version":      tea.String("1.0.6"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -2095,108 +2109,6 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
-}
-
-/**
- * Description: DIY藏品发放
- * Summary: DIY藏品发放
- */
-func (client *Client) PublishMerchantDiysku(request *PublishMerchantDiyskuRequest) (_result *PublishMerchantDiyskuResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &PublishMerchantDiyskuResponse{}
-	_body, _err := client.PublishMerchantDiyskuEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: DIY藏品发放
- * Summary: DIY藏品发放
- */
-func (client *Client) PublishMerchantDiyskuEx(request *PublishMerchantDiyskuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PublishMerchantDiyskuResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &PublishMerchantDiyskuResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.merchant.diysku.publish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: DIY藏品发放查询
- * Summary: DIY藏品发放查询
- */
-func (client *Client) QueryMerchantDiysku(request *QueryMerchantDiyskuRequest) (_result *QueryMerchantDiyskuResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryMerchantDiyskuResponse{}
-	_body, _err := client.QueryMerchantDiyskuEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: DIY藏品发放查询
- * Summary: DIY藏品发放查询
- */
-func (client *Client) QueryMerchantDiyskuEx(request *QueryMerchantDiyskuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMerchantDiyskuResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryMerchantDiyskuResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.merchant.diysku.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 提供ISV  ugc铸造图片查询的openapi服务
- * Summary: ugc铸造图片查询的openapi接口
- */
-func (client *Client) QueryMerchantUgcimages(request *QueryMerchantUgcimagesRequest) (_result *QueryMerchantUgcimagesResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryMerchantUgcimagesResponse{}
-	_body, _err := client.QueryMerchantUgcimagesEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 提供ISV  ugc铸造图片查询的openapi服务
- * Summary: ugc铸造图片查询的openapi接口
- */
-func (client *Client) QueryMerchantUgcimagesEx(request *QueryMerchantUgcimagesRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMerchantUgcimagesResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryMerchantUgcimagesResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.merchant.ugcimages.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
 }
 
 /**
@@ -2328,6 +2240,108 @@ func (client *Client) ApplyOauthUserinfotokenEx(request *ApplyOauthUserinfotoken
 	}
 	_result = &ApplyOauthUserinfotokenResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.oauth.userinfotoken.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: DIY藏品发放
+ * Summary: DIY藏品发放
+ */
+func (client *Client) PublishMerchantDiysku(request *PublishMerchantDiyskuRequest) (_result *PublishMerchantDiyskuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PublishMerchantDiyskuResponse{}
+	_body, _err := client.PublishMerchantDiyskuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: DIY藏品发放
+ * Summary: DIY藏品发放
+ */
+func (client *Client) PublishMerchantDiyskuEx(request *PublishMerchantDiyskuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PublishMerchantDiyskuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PublishMerchantDiyskuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.merchant.diysku.publish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: DIY藏品发放查询
+ * Summary: DIY藏品发放查询
+ */
+func (client *Client) QueryMerchantDiysku(request *QueryMerchantDiyskuRequest) (_result *QueryMerchantDiyskuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMerchantDiyskuResponse{}
+	_body, _err := client.QueryMerchantDiyskuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: DIY藏品发放查询
+ * Summary: DIY藏品发放查询
+ */
+func (client *Client) QueryMerchantDiyskuEx(request *QueryMerchantDiyskuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMerchantDiyskuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMerchantDiyskuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.merchant.diysku.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 提供ISV  ugc铸造图片查询的openapi服务
+ * Summary: ugc铸造图片查询的openapi接口
+ */
+func (client *Client) QueryMerchantUgcimages(request *QueryMerchantUgcimagesRequest) (_result *QueryMerchantUgcimagesResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMerchantUgcimagesResponse{}
+	_body, _err := client.QueryMerchantUgcimagesEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提供ISV  ugc铸造图片查询的openapi服务
+ * Summary: ugc铸造图片查询的openapi接口
+ */
+func (client *Client) QueryMerchantUgcimagesEx(request *QueryMerchantUgcimagesRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMerchantUgcimagesResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMerchantUgcimagesResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.merchant.ugcimages.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
