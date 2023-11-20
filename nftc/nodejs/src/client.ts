@@ -130,7 +130,7 @@ export class AvatarMaterialDTO extends $tea.Model {
 // 订单商品对象
 export class ExternalOrderItemDTO extends $tea.Model {
   // 购买的sku id
-  skuId: string;
+  skuId: number;
   static names(): { [key: string]: string } {
     return {
       skuId: 'sku_id',
@@ -139,7 +139,7 @@ export class ExternalOrderItemDTO extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      skuId: 'string',
+      skuId: 'number',
     };
   }
 
@@ -1549,7 +1549,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.6",
+          sdk_version: "1.0.7",
           _prod_code: "NFTC",
           _prod_channel: "undefined",
         };
