@@ -6,7 +6,7 @@ namespace AntChain\TAX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QuerySimpleauthIdentitystateResponse extends Model
+class QueryApiHaiguanasyncResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,24 +25,10 @@ class QuerySimpleauthIdentitystateResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 请求id
-    /**
-     * @var string
-     */
-    public $bizRequestId;
-
-    // 返回结果
-    /**
-     * @var IndentityState[]
-     */
-    public $data;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'bizRequestId' => 'biz_request_id',
-        'data'         => 'data',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -61,18 +47,6 @@ class QuerySimpleauthIdentitystateResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->bizRequestId) {
-            $res['biz_request_id'] = $this->bizRequestId;
-        }
-        if (null !== $this->data) {
-            $res['data'] = [];
-            if (null !== $this->data && \is_array($this->data)) {
-                $n = 0;
-                foreach ($this->data as $item) {
-                    $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
 
         return $res;
     }
@@ -80,7 +54,7 @@ class QuerySimpleauthIdentitystateResponse extends Model
     /**
      * @param array $map
      *
-     * @return QuerySimpleauthIdentitystateResponse
+     * @return QueryApiHaiguanasyncResponse
      */
     public static function fromMap($map = [])
     {
@@ -93,18 +67,6 @@ class QuerySimpleauthIdentitystateResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['biz_request_id'])) {
-            $model->bizRequestId = $map['biz_request_id'];
-        }
-        if (isset($map['data'])) {
-            if (!empty($map['data'])) {
-                $model->data = [];
-                $n           = 0;
-                foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? IndentityState::fromMap($item) : $item;
-                }
-            }
         }
 
         return $model;

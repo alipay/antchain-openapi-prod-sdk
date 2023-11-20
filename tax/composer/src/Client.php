@@ -51,6 +51,8 @@ use AntChain\TAX\Models\QueryApiAuthtemplateresultRequest;
 use AntChain\TAX\Models\QueryApiAuthtemplateresultResponse;
 use AntChain\TAX\Models\QueryApiAuthteplateRequest;
 use AntChain\TAX\Models\QueryApiAuthteplateResponse;
+use AntChain\TAX\Models\QueryApiHaiguanasyncRequest;
+use AntChain\TAX\Models\QueryApiHaiguanasyncResponse;
 use AntChain\TAX\Models\QueryApiSimpleauthasyncRequest;
 use AntChain\TAX\Models\QueryApiSimpleauthasyncResponse;
 use AntChain\TAX\Models\QueryApiSimpleauthstandardRequest;
@@ -222,7 +224,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.12',
+                    'sdk_version'      => '1.7.18',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1192,6 +1194,39 @@ class Client
         Utils::validateModel($request);
 
         return QuerySimpleauthIdentitystateResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.simpleauth.identitystate.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 海关-异步查询数据
+     * Summary: 海关-异步查询数据.
+     *
+     * @param QueryApiHaiguanasyncRequest $request
+     *
+     * @return QueryApiHaiguanasyncResponse
+     */
+    public function queryApiHaiguanasync($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiHaiguanasyncEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 海关-异步查询数据
+     * Summary: 海关-异步查询数据.
+     *
+     * @param QueryApiHaiguanasyncRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryApiHaiguanasyncResponse
+     */
+    public function queryApiHaiguanasyncEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiHaiguanasyncResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.haiguanasync.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

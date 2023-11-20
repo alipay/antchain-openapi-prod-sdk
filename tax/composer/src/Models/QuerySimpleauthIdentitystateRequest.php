@@ -53,7 +53,7 @@ class QuerySimpleauthIdentitystateRequest extends Model
     /**
      * @var string
      */
-    public $nsrsmc;
+    public $nsrmc;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -62,7 +62,7 @@ class QuerySimpleauthIdentitystateRequest extends Model
         'bizUniqueId'       => 'biz_unique_id',
         'authType'          => 'auth_type',
         'authCode'          => 'auth_code',
-        'nsrsmc'            => 'nsrsmc',
+        'nsrmc'             => 'nsrmc',
     ];
 
     public function validate()
@@ -72,7 +72,7 @@ class QuerySimpleauthIdentitystateRequest extends Model
         Model::validateRequired('bizUniqueId', $this->bizUniqueId, true);
         Model::validateRequired('authType', $this->authType, true);
         Model::validateRequired('authCode', $this->authCode, true);
-        Model::validateRequired('nsrsmc', $this->nsrsmc, true);
+        Model::validateRequired('nsrmc', $this->nsrmc, true);
     }
 
     public function toMap()
@@ -99,8 +99,8 @@ class QuerySimpleauthIdentitystateRequest extends Model
         if (null !== $this->authCode) {
             $res['auth_code'] = $this->authCode;
         }
-        if (null !== $this->nsrsmc) {
-            $res['nsrsmc'] = $this->nsrsmc;
+        if (null !== $this->nsrmc) {
+            $res['nsrmc'] = $this->nsrmc;
         }
 
         return $res;
@@ -135,8 +135,8 @@ class QuerySimpleauthIdentitystateRequest extends Model
         if (isset($map['auth_code'])) {
             $model->authCode = $map['auth_code'];
         }
-        if (isset($map['nsrsmc'])) {
-            $model->nsrsmc = $map['nsrsmc'];
+        if (isset($map['nsrmc'])) {
+            $model->nsrmc = $map['nsrmc'];
         }
 
         return $model;
