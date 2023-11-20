@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.5',
+                    'sdk_version': '1.0.6',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.5',
+                    'sdk_version': '1.0.6',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -274,174 +274,6 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
-
-    def publish_merchant_diysku(
-        self,
-        request: nftc_models.PublishMerchantDiyskuRequest,
-    ) -> nftc_models.PublishMerchantDiyskuResponse:
-        """
-        Description: DIY藏品发放
-        Summary: DIY藏品发放
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.publish_merchant_diysku_ex(request, headers, runtime)
-
-    async def publish_merchant_diysku_async(
-        self,
-        request: nftc_models.PublishMerchantDiyskuRequest,
-    ) -> nftc_models.PublishMerchantDiyskuResponse:
-        """
-        Description: DIY藏品发放
-        Summary: DIY藏品发放
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.publish_merchant_diysku_ex_async(request, headers, runtime)
-
-    def publish_merchant_diysku_ex(
-        self,
-        request: nftc_models.PublishMerchantDiyskuRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> nftc_models.PublishMerchantDiyskuResponse:
-        """
-        Description: DIY藏品发放
-        Summary: DIY藏品发放
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            nftc_models.PublishMerchantDiyskuResponse(),
-            self.do_request('1.0', 'antchain.nftc.merchant.diysku.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def publish_merchant_diysku_ex_async(
-        self,
-        request: nftc_models.PublishMerchantDiyskuRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> nftc_models.PublishMerchantDiyskuResponse:
-        """
-        Description: DIY藏品发放
-        Summary: DIY藏品发放
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            nftc_models.PublishMerchantDiyskuResponse(),
-            await self.do_request_async('1.0', 'antchain.nftc.merchant.diysku.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_merchant_diysku(
-        self,
-        request: nftc_models.QueryMerchantDiyskuRequest,
-    ) -> nftc_models.QueryMerchantDiyskuResponse:
-        """
-        Description: DIY藏品发放查询
-        Summary: DIY藏品发放查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_merchant_diysku_ex(request, headers, runtime)
-
-    async def query_merchant_diysku_async(
-        self,
-        request: nftc_models.QueryMerchantDiyskuRequest,
-    ) -> nftc_models.QueryMerchantDiyskuResponse:
-        """
-        Description: DIY藏品发放查询
-        Summary: DIY藏品发放查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_merchant_diysku_ex_async(request, headers, runtime)
-
-    def query_merchant_diysku_ex(
-        self,
-        request: nftc_models.QueryMerchantDiyskuRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> nftc_models.QueryMerchantDiyskuResponse:
-        """
-        Description: DIY藏品发放查询
-        Summary: DIY藏品发放查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            nftc_models.QueryMerchantDiyskuResponse(),
-            self.do_request('1.0', 'antchain.nftc.merchant.diysku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_merchant_diysku_ex_async(
-        self,
-        request: nftc_models.QueryMerchantDiyskuRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> nftc_models.QueryMerchantDiyskuResponse:
-        """
-        Description: DIY藏品发放查询
-        Summary: DIY藏品发放查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            nftc_models.QueryMerchantDiyskuResponse(),
-            await self.do_request_async('1.0', 'antchain.nftc.merchant.diysku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_merchant_ugcimages(
-        self,
-        request: nftc_models.QueryMerchantUgcimagesRequest,
-    ) -> nftc_models.QueryMerchantUgcimagesResponse:
-        """
-        Description: 提供ISV  ugc铸造图片查询的openapi服务
-        Summary: ugc铸造图片查询的openapi接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_merchant_ugcimages_ex(request, headers, runtime)
-
-    async def query_merchant_ugcimages_async(
-        self,
-        request: nftc_models.QueryMerchantUgcimagesRequest,
-    ) -> nftc_models.QueryMerchantUgcimagesResponse:
-        """
-        Description: 提供ISV  ugc铸造图片查询的openapi服务
-        Summary: ugc铸造图片查询的openapi接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_merchant_ugcimages_ex_async(request, headers, runtime)
-
-    def query_merchant_ugcimages_ex(
-        self,
-        request: nftc_models.QueryMerchantUgcimagesRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> nftc_models.QueryMerchantUgcimagesResponse:
-        """
-        Description: 提供ISV  ugc铸造图片查询的openapi服务
-        Summary: ugc铸造图片查询的openapi接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            nftc_models.QueryMerchantUgcimagesResponse(),
-            self.do_request('1.0', 'antchain.nftc.merchant.ugcimages.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_merchant_ugcimages_ex_async(
-        self,
-        request: nftc_models.QueryMerchantUgcimagesRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> nftc_models.QueryMerchantUgcimagesResponse:
-        """
-        Description: 提供ISV  ugc铸造图片查询的openapi服务
-        Summary: ugc铸造图片查询的openapi接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            nftc_models.QueryMerchantUgcimagesResponse(),
-            await self.do_request_async('1.0', 'antchain.nftc.merchant.ugcimages.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
 
     def query_avatar_profile(
         self,
@@ -665,6 +497,174 @@ class Client:
         return TeaCore.from_map(
             nftc_models.ApplyOauthUserinfotokenResponse(),
             await self.do_request_async('1.0', 'antchain.nftc.oauth.userinfotoken.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def publish_merchant_diysku(
+        self,
+        request: nftc_models.PublishMerchantDiyskuRequest,
+    ) -> nftc_models.PublishMerchantDiyskuResponse:
+        """
+        Description: DIY藏品发放
+        Summary: DIY藏品发放
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.publish_merchant_diysku_ex(request, headers, runtime)
+
+    async def publish_merchant_diysku_async(
+        self,
+        request: nftc_models.PublishMerchantDiyskuRequest,
+    ) -> nftc_models.PublishMerchantDiyskuResponse:
+        """
+        Description: DIY藏品发放
+        Summary: DIY藏品发放
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.publish_merchant_diysku_ex_async(request, headers, runtime)
+
+    def publish_merchant_diysku_ex(
+        self,
+        request: nftc_models.PublishMerchantDiyskuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.PublishMerchantDiyskuResponse:
+        """
+        Description: DIY藏品发放
+        Summary: DIY藏品发放
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.PublishMerchantDiyskuResponse(),
+            self.do_request('1.0', 'antchain.nftc.merchant.diysku.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def publish_merchant_diysku_ex_async(
+        self,
+        request: nftc_models.PublishMerchantDiyskuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.PublishMerchantDiyskuResponse:
+        """
+        Description: DIY藏品发放
+        Summary: DIY藏品发放
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.PublishMerchantDiyskuResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.merchant.diysku.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_merchant_diysku(
+        self,
+        request: nftc_models.QueryMerchantDiyskuRequest,
+    ) -> nftc_models.QueryMerchantDiyskuResponse:
+        """
+        Description: DIY藏品发放查询
+        Summary: DIY藏品发放查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_merchant_diysku_ex(request, headers, runtime)
+
+    async def query_merchant_diysku_async(
+        self,
+        request: nftc_models.QueryMerchantDiyskuRequest,
+    ) -> nftc_models.QueryMerchantDiyskuResponse:
+        """
+        Description: DIY藏品发放查询
+        Summary: DIY藏品发放查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_merchant_diysku_ex_async(request, headers, runtime)
+
+    def query_merchant_diysku_ex(
+        self,
+        request: nftc_models.QueryMerchantDiyskuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryMerchantDiyskuResponse:
+        """
+        Description: DIY藏品发放查询
+        Summary: DIY藏品发放查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryMerchantDiyskuResponse(),
+            self.do_request('1.0', 'antchain.nftc.merchant.diysku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_merchant_diysku_ex_async(
+        self,
+        request: nftc_models.QueryMerchantDiyskuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryMerchantDiyskuResponse:
+        """
+        Description: DIY藏品发放查询
+        Summary: DIY藏品发放查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryMerchantDiyskuResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.merchant.diysku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_merchant_ugcimages(
+        self,
+        request: nftc_models.QueryMerchantUgcimagesRequest,
+    ) -> nftc_models.QueryMerchantUgcimagesResponse:
+        """
+        Description: 提供ISV  ugc铸造图片查询的openapi服务
+        Summary: ugc铸造图片查询的openapi接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_merchant_ugcimages_ex(request, headers, runtime)
+
+    async def query_merchant_ugcimages_async(
+        self,
+        request: nftc_models.QueryMerchantUgcimagesRequest,
+    ) -> nftc_models.QueryMerchantUgcimagesResponse:
+        """
+        Description: 提供ISV  ugc铸造图片查询的openapi服务
+        Summary: ugc铸造图片查询的openapi接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_merchant_ugcimages_ex_async(request, headers, runtime)
+
+    def query_merchant_ugcimages_ex(
+        self,
+        request: nftc_models.QueryMerchantUgcimagesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryMerchantUgcimagesResponse:
+        """
+        Description: 提供ISV  ugc铸造图片查询的openapi服务
+        Summary: ugc铸造图片查询的openapi接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryMerchantUgcimagesResponse(),
+            self.do_request('1.0', 'antchain.nftc.merchant.ugcimages.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_merchant_ugcimages_ex_async(
+        self,
+        request: nftc_models.QueryMerchantUgcimagesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryMerchantUgcimagesResponse:
+        """
+        Description: 提供ISV  ugc铸造图片查询的openapi服务
+        Summary: ugc铸造图片查询的openapi接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryMerchantUgcimagesResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.merchant.ugcimages.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_nft_transfer(

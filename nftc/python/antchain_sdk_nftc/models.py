@@ -377,7 +377,9 @@ class AvatarDTO(TeaModel):
         downcloth: AvatarMaterialDTO = None,
         shoe: AvatarMaterialDTO = None,
         suit: AvatarMaterialDTO = None,
-        accessory: AvatarMaterialDTO = None,
+        necklace: AvatarMaterialDTO = None,
+        hat: AvatarMaterialDTO = None,
+        glass: AvatarMaterialDTO = None,
         hair: AvatarMaterialDTO = None,
         head: AvatarMaterialDTO = None,
         eyebrow: AvatarMaterialDTO = None,
@@ -405,8 +407,12 @@ class AvatarDTO(TeaModel):
         self.shoe = shoe
         # 套装配置
         self.suit = suit
-        # 配饰配置
-        self.accessory = accessory
+        # 项链配置
+        self.necklace = necklace
+        # 帽子配置
+        self.hat = hat
+        # 眼镜配置
+        self.glass = glass
         # 头发配置
         self.hair = hair
         # 脸型配置
@@ -448,9 +454,15 @@ class AvatarDTO(TeaModel):
         self.validate_required(self.suit, 'suit')
         if self.suit:
             self.suit.validate()
-        self.validate_required(self.accessory, 'accessory')
-        if self.accessory:
-            self.accessory.validate()
+        self.validate_required(self.necklace, 'necklace')
+        if self.necklace:
+            self.necklace.validate()
+        self.validate_required(self.hat, 'hat')
+        if self.hat:
+            self.hat.validate()
+        self.validate_required(self.glass, 'glass')
+        if self.glass:
+            self.glass.validate()
         self.validate_required(self.hair, 'hair')
         if self.hair:
             self.hair.validate()
@@ -508,8 +520,12 @@ class AvatarDTO(TeaModel):
             result['shoe'] = self.shoe.to_map()
         if self.suit is not None:
             result['suit'] = self.suit.to_map()
-        if self.accessory is not None:
-            result['accessory'] = self.accessory.to_map()
+        if self.necklace is not None:
+            result['necklace'] = self.necklace.to_map()
+        if self.hat is not None:
+            result['hat'] = self.hat.to_map()
+        if self.glass is not None:
+            result['glass'] = self.glass.to_map()
         if self.hair is not None:
             result['hair'] = self.hair.to_map()
         if self.head is not None:
@@ -556,9 +572,15 @@ class AvatarDTO(TeaModel):
         if m.get('suit') is not None:
             temp_model = AvatarMaterialDTO()
             self.suit = temp_model.from_map(m['suit'])
-        if m.get('accessory') is not None:
+        if m.get('necklace') is not None:
             temp_model = AvatarMaterialDTO()
-            self.accessory = temp_model.from_map(m['accessory'])
+            self.necklace = temp_model.from_map(m['necklace'])
+        if m.get('hat') is not None:
+            temp_model = AvatarMaterialDTO()
+            self.hat = temp_model.from_map(m['hat'])
+        if m.get('glass') is not None:
+            temp_model = AvatarMaterialDTO()
+            self.glass = temp_model.from_map(m['glass'])
         if m.get('hair') is not None:
             temp_model = AvatarMaterialDTO()
             self.hair = temp_model.from_map(m['hair'])
@@ -663,398 +685,6 @@ class UserAsset(TeaModel):
             self.issuer_name = m.get('issuer_name')
         if m.get('mini_image_path') is not None:
             self.mini_image_path = m.get('mini_image_path')
-        return self
-
-
-class PublishMerchantDiyskuRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        biz_no: str = None,
-        channel: str = None,
-        user_id: str = None,
-        user_type: str = None,
-        sku_id: str = None,
-        sku_type: str = None,
-        thumbnail_url: str = None,
-        original_url: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 业务请求id，用来做业务上的幂等。后面查询状态也是此字段
-        self.biz_no = biz_no
-        # 调用渠道
-        # PET 宠物
-        # MEMBER 会员
-        self.channel = channel
-        # 领取数字藏品的用户ID，支持2088/手机号/1322
-        self.user_id = user_id
-        # 支付宝2088账号：ALIPAY_UID
-        # 手机号：PHONE_NO
-        # 鲸探1322账号：FANS_UID
-        self.user_type = user_type
-        # 需要发放的SKUID编码
-        self.sku_id = sku_id
-        # 一期仅支持图片：IMAGE
-        self.sku_type = sku_type
-        # 数字藏品的缩略图地址，可与原图相同也可不同，需要校验长宽比为1:1
-        self.thumbnail_url = thumbnail_url
-        # 数字藏品的原图地址，需要校验长宽比为1:1
-        self.original_url = original_url
-
-    def validate(self):
-        self.validate_required(self.biz_no, 'biz_no')
-        self.validate_required(self.channel, 'channel')
-        self.validate_required(self.user_id, 'user_id')
-        self.validate_required(self.user_type, 'user_type')
-        self.validate_required(self.sku_id, 'sku_id')
-        self.validate_required(self.sku_type, 'sku_type')
-        self.validate_required(self.thumbnail_url, 'thumbnail_url')
-        self.validate_required(self.original_url, 'original_url')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.biz_no is not None:
-            result['biz_no'] = self.biz_no
-        if self.channel is not None:
-            result['channel'] = self.channel
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
-        if self.user_type is not None:
-            result['user_type'] = self.user_type
-        if self.sku_id is not None:
-            result['sku_id'] = self.sku_id
-        if self.sku_type is not None:
-            result['sku_type'] = self.sku_type
-        if self.thumbnail_url is not None:
-            result['thumbnail_url'] = self.thumbnail_url
-        if self.original_url is not None:
-            result['original_url'] = self.original_url
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('biz_no') is not None:
-            self.biz_no = m.get('biz_no')
-        if m.get('channel') is not None:
-            self.channel = m.get('channel')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
-        if m.get('user_type') is not None:
-            self.user_type = m.get('user_type')
-        if m.get('sku_id') is not None:
-            self.sku_id = m.get('sku_id')
-        if m.get('sku_type') is not None:
-            self.sku_type = m.get('sku_type')
-        if m.get('thumbnail_url') is not None:
-            self.thumbnail_url = m.get('thumbnail_url')
-        if m.get('original_url') is not None:
-            self.original_url = m.get('original_url')
-        return self
-
-
-class PublishMerchantDiyskuResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        nft_id: str = None,
-        receive_time: str = None,
-        send_status: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 生成的nftid结果
-        self.nft_id = nft_id
-        # 获得时间
-        self.receive_time = receive_time
-        # 发放状态
-        # AUDIT_SUBMIT("审核中"),
-        # AUDIT_SUCCESS("审核通过"),
-        # AUDIT_FAIL("审核未通过"),
-        # TRANSFER_UNKNOWN("发放结果未知"),
-        # TRANSFER_SUCCESS("发放成功"),
-        # TRANSFER_FAILED("发放失败"),
-        # SHIELD("屏蔽"),
-        # RECYCLE("回收"),
-        self.send_status = send_status
-
-    def validate(self):
-        if self.receive_time is not None:
-            self.validate_pattern(self.receive_time, 'receive_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.nft_id is not None:
-            result['nft_id'] = self.nft_id
-        if self.receive_time is not None:
-            result['receive_time'] = self.receive_time
-        if self.send_status is not None:
-            result['send_status'] = self.send_status
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('nft_id') is not None:
-            self.nft_id = m.get('nft_id')
-        if m.get('receive_time') is not None:
-            self.receive_time = m.get('receive_time')
-        if m.get('send_status') is not None:
-            self.send_status = m.get('send_status')
-        return self
-
-
-class QueryMerchantDiyskuRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        biz_no: str = None,
-        user_id: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 业务请求id，用来做业务上的幂等
-        self.biz_no = biz_no
-        # 领取数字藏品的用户ID，支持2088/手机号/1322
-        self.user_id = user_id
-
-    def validate(self):
-        self.validate_required(self.biz_no, 'biz_no')
-        self.validate_required(self.user_id, 'user_id')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.biz_no is not None:
-            result['biz_no'] = self.biz_no
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('biz_no') is not None:
-            self.biz_no = m.get('biz_no')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
-        return self
-
-
-class QueryMerchantDiyskuResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        nft_id: str = None,
-        receive_time: str = None,
-        send_status: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 生成的nftid结果
-        self.nft_id = nft_id
-        # 获得时间
-        self.receive_time = receive_time
-        # 发放状态
-        # AUDIT_SUBMIT("审核中"),
-        # AUDIT_SUCCESS("审核通过"),
-        # AUDIT_FAIL("审核未通过"),
-        # TRANSFER_UNKNOWN("发放结果未知"),
-        # TRANSFER_SUCCESS("发放成功"),
-        # TRANSFER_FAILED("发放失败"),
-        # SHIELD("屏蔽"),
-        # RECYCLE("回收"),
-        self.send_status = send_status
-
-    def validate(self):
-        if self.receive_time is not None:
-            self.validate_pattern(self.receive_time, 'receive_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.nft_id is not None:
-            result['nft_id'] = self.nft_id
-        if self.receive_time is not None:
-            result['receive_time'] = self.receive_time
-        if self.send_status is not None:
-            result['send_status'] = self.send_status
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('nft_id') is not None:
-            self.nft_id = m.get('nft_id')
-        if m.get('receive_time') is not None:
-            self.receive_time = m.get('receive_time')
-        if m.get('send_status') is not None:
-            self.send_status = m.get('send_status')
-        return self
-
-
-class QueryMerchantUgcimagesRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        record_id_list: List[str] = None,
-        biz_scene: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # ugc资产铸造记录id列表
-        self.record_id_list = record_id_list
-        # 场景
-        self.biz_scene = biz_scene
-
-    def validate(self):
-        self.validate_required(self.record_id_list, 'record_id_list')
-        self.validate_required(self.biz_scene, 'biz_scene')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.record_id_list is not None:
-            result['record_id_list'] = self.record_id_list
-        if self.biz_scene is not None:
-            result['biz_scene'] = self.biz_scene
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('record_id_list') is not None:
-            self.record_id_list = m.get('record_id_list')
-        if m.get('biz_scene') is not None:
-            self.biz_scene = m.get('biz_scene')
-        return self
-
-
-class QueryMerchantUgcimagesResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        img_list: List[str] = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 入参中id对应的图片列表
-        self.img_list = img_list
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.img_list is not None:
-            result['img_list'] = self.img_list
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('img_list') is not None:
-            self.img_list = m.get('img_list')
         return self
 
 
@@ -1489,6 +1119,398 @@ class ApplyOauthUserinfotokenResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('user_info_token') is not None:
             self.user_info_token = m.get('user_info_token')
+        return self
+
+
+class PublishMerchantDiyskuRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_no: str = None,
+        channel: str = None,
+        user_id: str = None,
+        user_type: str = None,
+        sku_id: str = None,
+        sku_type: str = None,
+        thumbnail_url: str = None,
+        original_url: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务请求id，用来做业务上的幂等。后面查询状态也是此字段
+        self.biz_no = biz_no
+        # 调用渠道
+        # PET 宠物
+        # MEMBER 会员
+        self.channel = channel
+        # 领取数字藏品的用户ID，支持2088/手机号/1322
+        self.user_id = user_id
+        # 支付宝2088账号：ALIPAY_UID
+        # 手机号：PHONE_NO
+        # 鲸探1322账号：FANS_UID
+        self.user_type = user_type
+        # 需要发放的SKUID编码
+        self.sku_id = sku_id
+        # 一期仅支持图片：IMAGE
+        self.sku_type = sku_type
+        # 数字藏品的缩略图地址，可与原图相同也可不同，需要校验长宽比为1:1
+        self.thumbnail_url = thumbnail_url
+        # 数字藏品的原图地址，需要校验长宽比为1:1
+        self.original_url = original_url
+
+    def validate(self):
+        self.validate_required(self.biz_no, 'biz_no')
+        self.validate_required(self.channel, 'channel')
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.user_type, 'user_type')
+        self.validate_required(self.sku_id, 'sku_id')
+        self.validate_required(self.sku_type, 'sku_type')
+        self.validate_required(self.thumbnail_url, 'thumbnail_url')
+        self.validate_required(self.original_url, 'original_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        if self.sku_id is not None:
+            result['sku_id'] = self.sku_id
+        if self.sku_type is not None:
+            result['sku_type'] = self.sku_type
+        if self.thumbnail_url is not None:
+            result['thumbnail_url'] = self.thumbnail_url
+        if self.original_url is not None:
+            result['original_url'] = self.original_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        if m.get('sku_id') is not None:
+            self.sku_id = m.get('sku_id')
+        if m.get('sku_type') is not None:
+            self.sku_type = m.get('sku_type')
+        if m.get('thumbnail_url') is not None:
+            self.thumbnail_url = m.get('thumbnail_url')
+        if m.get('original_url') is not None:
+            self.original_url = m.get('original_url')
+        return self
+
+
+class PublishMerchantDiyskuResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        nft_id: str = None,
+        receive_time: str = None,
+        send_status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 生成的nftid结果
+        self.nft_id = nft_id
+        # 获得时间
+        self.receive_time = receive_time
+        # 发放状态
+        # AUDIT_SUBMIT("审核中"),
+        # AUDIT_SUCCESS("审核通过"),
+        # AUDIT_FAIL("审核未通过"),
+        # TRANSFER_UNKNOWN("发放结果未知"),
+        # TRANSFER_SUCCESS("发放成功"),
+        # TRANSFER_FAILED("发放失败"),
+        # SHIELD("屏蔽"),
+        # RECYCLE("回收"),
+        self.send_status = send_status
+
+    def validate(self):
+        if self.receive_time is not None:
+            self.validate_pattern(self.receive_time, 'receive_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.nft_id is not None:
+            result['nft_id'] = self.nft_id
+        if self.receive_time is not None:
+            result['receive_time'] = self.receive_time
+        if self.send_status is not None:
+            result['send_status'] = self.send_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('nft_id') is not None:
+            self.nft_id = m.get('nft_id')
+        if m.get('receive_time') is not None:
+            self.receive_time = m.get('receive_time')
+        if m.get('send_status') is not None:
+            self.send_status = m.get('send_status')
+        return self
+
+
+class QueryMerchantDiyskuRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_no: str = None,
+        user_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务请求id，用来做业务上的幂等
+        self.biz_no = biz_no
+        # 领取数字藏品的用户ID，支持2088/手机号/1322
+        self.user_id = user_id
+
+    def validate(self):
+        self.validate_required(self.biz_no, 'biz_no')
+        self.validate_required(self.user_id, 'user_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        return self
+
+
+class QueryMerchantDiyskuResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        nft_id: str = None,
+        receive_time: str = None,
+        send_status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 生成的nftid结果
+        self.nft_id = nft_id
+        # 获得时间
+        self.receive_time = receive_time
+        # 发放状态
+        # AUDIT_SUBMIT("审核中"),
+        # AUDIT_SUCCESS("审核通过"),
+        # AUDIT_FAIL("审核未通过"),
+        # TRANSFER_UNKNOWN("发放结果未知"),
+        # TRANSFER_SUCCESS("发放成功"),
+        # TRANSFER_FAILED("发放失败"),
+        # SHIELD("屏蔽"),
+        # RECYCLE("回收"),
+        self.send_status = send_status
+
+    def validate(self):
+        if self.receive_time is not None:
+            self.validate_pattern(self.receive_time, 'receive_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.nft_id is not None:
+            result['nft_id'] = self.nft_id
+        if self.receive_time is not None:
+            result['receive_time'] = self.receive_time
+        if self.send_status is not None:
+            result['send_status'] = self.send_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('nft_id') is not None:
+            self.nft_id = m.get('nft_id')
+        if m.get('receive_time') is not None:
+            self.receive_time = m.get('receive_time')
+        if m.get('send_status') is not None:
+            self.send_status = m.get('send_status')
+        return self
+
+
+class QueryMerchantUgcimagesRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        record_id_list: List[str] = None,
+        biz_scene: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # ugc资产铸造记录id列表
+        self.record_id_list = record_id_list
+        # 场景
+        self.biz_scene = biz_scene
+
+    def validate(self):
+        self.validate_required(self.record_id_list, 'record_id_list')
+        self.validate_required(self.biz_scene, 'biz_scene')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.record_id_list is not None:
+            result['record_id_list'] = self.record_id_list
+        if self.biz_scene is not None:
+            result['biz_scene'] = self.biz_scene
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('record_id_list') is not None:
+            self.record_id_list = m.get('record_id_list')
+        if m.get('biz_scene') is not None:
+            self.biz_scene = m.get('biz_scene')
+        return self
+
+
+class QueryMerchantUgcimagesResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        img_list: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 入参中id对应的图片列表
+        self.img_list = img_list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.img_list is not None:
+            result['img_list'] = self.img_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('img_list') is not None:
+            self.img_list = m.get('img_list')
         return self
 
 
