@@ -242,7 +242,7 @@ class AvatarMaterialDTO(TeaModel):
 class ExternalOrderItemDTO(TeaModel):
     def __init__(
         self,
-        sku_id: str = None,
+        sku_id: int = None,
     ):
         # 购买的sku id
         self.sku_id = sku_id
