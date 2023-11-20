@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TAX.Models
 {
-    public class QuerySimpleauthIdentitystateResponse : TeaModel {
+    public class QueryApiHaiguanasyncResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,16 +23,6 @@ namespace AntChain.SDK.TAX.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
-
-        // 请求id
-        [NameInMap("biz_request_id")]
-        [Validation(Required=false)]
-        public string BizRequestId { get; set; }
-
-        // 返回结果
-        [NameInMap("data")]
-        [Validation(Required=false)]
-        public List<IndentityState> Data { get; set; }
 
     }
 

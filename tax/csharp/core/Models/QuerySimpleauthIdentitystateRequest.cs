@@ -44,9 +44,9 @@ namespace AntChain.SDK.TAX.Models
         public string AuthCode { get; set; }
 
         // 纳税人名称
-        [NameInMap("nsrsmc")]
+        [NameInMap("nsrmc")]
         [Validation(Required=true)]
-        public string Nsrsmc { get; set; }
+        public string Nsrmc { get; set; }
 
     }
 
