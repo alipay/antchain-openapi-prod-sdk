@@ -226,8 +226,12 @@ export class AvatarDTO extends $tea.Model {
   shoe: AvatarMaterialDTO;
   // 套装配置
   suit: AvatarMaterialDTO;
-  // 配饰配置
-  accessory: AvatarMaterialDTO;
+  // 项链配置
+  necklace: AvatarMaterialDTO;
+  // 帽子配置
+  hat: AvatarMaterialDTO;
+  // 眼镜配置
+  glass: AvatarMaterialDTO;
   // 头发配置
   hair: AvatarMaterialDTO;
   // 脸型配置
@@ -261,7 +265,9 @@ export class AvatarDTO extends $tea.Model {
       downcloth: 'downcloth',
       shoe: 'shoe',
       suit: 'suit',
-      accessory: 'accessory',
+      necklace: 'necklace',
+      hat: 'hat',
+      glass: 'glass',
       hair: 'hair',
       head: 'head',
       eyebrow: 'eyebrow',
@@ -286,7 +292,9 @@ export class AvatarDTO extends $tea.Model {
       downcloth: AvatarMaterialDTO,
       shoe: AvatarMaterialDTO,
       suit: AvatarMaterialDTO,
-      accessory: AvatarMaterialDTO,
+      necklace: AvatarMaterialDTO,
+      hat: AvatarMaterialDTO,
+      glass: AvatarMaterialDTO,
       hair: AvatarMaterialDTO,
       head: AvatarMaterialDTO,
       eyebrow: AvatarMaterialDTO,
@@ -341,255 +349,6 @@ export class UserAsset extends $tea.Model {
       authorName: 'string',
       issuerName: 'string',
       miniImagePath: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class PublishMerchantDiyskuRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 业务请求id，用来做业务上的幂等。后面查询状态也是此字段
-  bizNo: string;
-  // 调用渠道
-  // PET 宠物
-  // MEMBER 会员
-  channel: string;
-  // 领取数字藏品的用户ID，支持2088/手机号/1322
-  userId: string;
-  // 支付宝2088账号：ALIPAY_UID
-  // 手机号：PHONE_NO
-  // 鲸探1322账号：FANS_UID
-  userType: string;
-  // 需要发放的SKUID编码
-  skuId: string;
-  // 一期仅支持图片：IMAGE
-  skuType: string;
-  // 数字藏品的缩略图地址，可与原图相同也可不同，需要校验长宽比为1:1
-  thumbnailUrl: string;
-  // 数字藏品的原图地址，需要校验长宽比为1:1
-  originalUrl: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      bizNo: 'biz_no',
-      channel: 'channel',
-      userId: 'user_id',
-      userType: 'user_type',
-      skuId: 'sku_id',
-      skuType: 'sku_type',
-      thumbnailUrl: 'thumbnail_url',
-      originalUrl: 'original_url',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      bizNo: 'string',
-      channel: 'string',
-      userId: 'string',
-      userType: 'string',
-      skuId: 'string',
-      skuType: 'string',
-      thumbnailUrl: 'string',
-      originalUrl: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class PublishMerchantDiyskuResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 生成的nftid结果
-  nftId?: string;
-  // 获得时间
-  receiveTime?: string;
-  // 发放状态
-  // AUDIT_SUBMIT("审核中"),
-  // AUDIT_SUCCESS("审核通过"),
-  // AUDIT_FAIL("审核未通过"),
-  // TRANSFER_UNKNOWN("发放结果未知"),
-  // TRANSFER_SUCCESS("发放成功"),
-  // TRANSFER_FAILED("发放失败"),
-  // SHIELD("屏蔽"),
-  // RECYCLE("回收"),
-  sendStatus?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      nftId: 'nft_id',
-      receiveTime: 'receive_time',
-      sendStatus: 'send_status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      nftId: 'string',
-      receiveTime: 'string',
-      sendStatus: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryMerchantDiyskuRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 业务请求id，用来做业务上的幂等
-  bizNo: string;
-  // 领取数字藏品的用户ID，支持2088/手机号/1322
-  userId: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      bizNo: 'biz_no',
-      userId: 'user_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      bizNo: 'string',
-      userId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryMerchantDiyskuResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 生成的nftid结果
-  nftId?: string;
-  // 获得时间
-  receiveTime?: string;
-  // 发放状态
-  // AUDIT_SUBMIT("审核中"),
-  // AUDIT_SUCCESS("审核通过"),
-  // AUDIT_FAIL("审核未通过"),
-  // TRANSFER_UNKNOWN("发放结果未知"),
-  // TRANSFER_SUCCESS("发放成功"),
-  // TRANSFER_FAILED("发放失败"),
-  // SHIELD("屏蔽"),
-  // RECYCLE("回收"),
-  sendStatus?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      nftId: 'nft_id',
-      receiveTime: 'receive_time',
-      sendStatus: 'send_status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      nftId: 'string',
-      receiveTime: 'string',
-      sendStatus: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryMerchantUgcimagesRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // ugc资产铸造记录id列表
-  recordIdList: string[];
-  // 场景
-  bizScene: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      recordIdList: 'record_id_list',
-      bizScene: 'biz_scene',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      recordIdList: { 'type': 'array', 'itemType': 'string' },
-      bizScene: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryMerchantUgcimagesResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 入参中id对应的图片列表
-  imgList?: string[];
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      imgList: 'img_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      imgList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -867,6 +626,255 @@ export class ApplyOauthUserinfotokenResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       userInfoToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PublishMerchantDiyskuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务请求id，用来做业务上的幂等。后面查询状态也是此字段
+  bizNo: string;
+  // 调用渠道
+  // PET 宠物
+  // MEMBER 会员
+  channel: string;
+  // 领取数字藏品的用户ID，支持2088/手机号/1322
+  userId: string;
+  // 支付宝2088账号：ALIPAY_UID
+  // 手机号：PHONE_NO
+  // 鲸探1322账号：FANS_UID
+  userType: string;
+  // 需要发放的SKUID编码
+  skuId: string;
+  // 一期仅支持图片：IMAGE
+  skuType: string;
+  // 数字藏品的缩略图地址，可与原图相同也可不同，需要校验长宽比为1:1
+  thumbnailUrl: string;
+  // 数字藏品的原图地址，需要校验长宽比为1:1
+  originalUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizNo: 'biz_no',
+      channel: 'channel',
+      userId: 'user_id',
+      userType: 'user_type',
+      skuId: 'sku_id',
+      skuType: 'sku_type',
+      thumbnailUrl: 'thumbnail_url',
+      originalUrl: 'original_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizNo: 'string',
+      channel: 'string',
+      userId: 'string',
+      userType: 'string',
+      skuId: 'string',
+      skuType: 'string',
+      thumbnailUrl: 'string',
+      originalUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PublishMerchantDiyskuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 生成的nftid结果
+  nftId?: string;
+  // 获得时间
+  receiveTime?: string;
+  // 发放状态
+  // AUDIT_SUBMIT("审核中"),
+  // AUDIT_SUCCESS("审核通过"),
+  // AUDIT_FAIL("审核未通过"),
+  // TRANSFER_UNKNOWN("发放结果未知"),
+  // TRANSFER_SUCCESS("发放成功"),
+  // TRANSFER_FAILED("发放失败"),
+  // SHIELD("屏蔽"),
+  // RECYCLE("回收"),
+  sendStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      nftId: 'nft_id',
+      receiveTime: 'receive_time',
+      sendStatus: 'send_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      nftId: 'string',
+      receiveTime: 'string',
+      sendStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMerchantDiyskuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务请求id，用来做业务上的幂等
+  bizNo: string;
+  // 领取数字藏品的用户ID，支持2088/手机号/1322
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizNo: 'biz_no',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizNo: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMerchantDiyskuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 生成的nftid结果
+  nftId?: string;
+  // 获得时间
+  receiveTime?: string;
+  // 发放状态
+  // AUDIT_SUBMIT("审核中"),
+  // AUDIT_SUCCESS("审核通过"),
+  // AUDIT_FAIL("审核未通过"),
+  // TRANSFER_UNKNOWN("发放结果未知"),
+  // TRANSFER_SUCCESS("发放成功"),
+  // TRANSFER_FAILED("发放失败"),
+  // SHIELD("屏蔽"),
+  // RECYCLE("回收"),
+  sendStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      nftId: 'nft_id',
+      receiveTime: 'receive_time',
+      sendStatus: 'send_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      nftId: 'string',
+      receiveTime: 'string',
+      sendStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMerchantUgcimagesRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // ugc资产铸造记录id列表
+  recordIdList: string[];
+  // 场景
+  bizScene: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      recordIdList: 'record_id_list',
+      bizScene: 'biz_scene',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      recordIdList: { 'type': 'array', 'itemType': 'string' },
+      bizScene: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMerchantUgcimagesResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 入参中id对应的图片列表
+  imgList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      imgList: 'img_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      imgList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -1541,7 +1549,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.5",
+          sdk_version: "1.0.6",
           _prod_code: "NFTC",
           _prod_channel: "undefined",
         };
@@ -1587,63 +1595,6 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
-  }
-
-  /**
-   * Description: DIY藏品发放
-   * Summary: DIY藏品发放
-   */
-  async publishMerchantDiysku(request: PublishMerchantDiyskuRequest): Promise<PublishMerchantDiyskuResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.publishMerchantDiyskuEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: DIY藏品发放
-   * Summary: DIY藏品发放
-   */
-  async publishMerchantDiyskuEx(request: PublishMerchantDiyskuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PublishMerchantDiyskuResponse> {
-    Util.validateModel(request);
-    return $tea.cast<PublishMerchantDiyskuResponse>(await this.doRequest("1.0", "antchain.nftc.merchant.diysku.publish", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PublishMerchantDiyskuResponse({}));
-  }
-
-  /**
-   * Description: DIY藏品发放查询
-   * Summary: DIY藏品发放查询
-   */
-  async queryMerchantDiysku(request: QueryMerchantDiyskuRequest): Promise<QueryMerchantDiyskuResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryMerchantDiyskuEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: DIY藏品发放查询
-   * Summary: DIY藏品发放查询
-   */
-  async queryMerchantDiyskuEx(request: QueryMerchantDiyskuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMerchantDiyskuResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryMerchantDiyskuResponse>(await this.doRequest("1.0", "antchain.nftc.merchant.diysku.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMerchantDiyskuResponse({}));
-  }
-
-  /**
-   * Description: 提供ISV  ugc铸造图片查询的openapi服务
-   * Summary: ugc铸造图片查询的openapi接口
-   */
-  async queryMerchantUgcimages(request: QueryMerchantUgcimagesRequest): Promise<QueryMerchantUgcimagesResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryMerchantUgcimagesEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 提供ISV  ugc铸造图片查询的openapi服务
-   * Summary: ugc铸造图片查询的openapi接口
-   */
-  async queryMerchantUgcimagesEx(request: QueryMerchantUgcimagesRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMerchantUgcimagesResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryMerchantUgcimagesResponse>(await this.doRequest("1.0", "antchain.nftc.merchant.ugcimages.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMerchantUgcimagesResponse({}));
   }
 
   /**
@@ -1720,6 +1671,63 @@ export default class Client {
   async applyOauthUserinfotokenEx(request: ApplyOauthUserinfotokenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyOauthUserinfotokenResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyOauthUserinfotokenResponse>(await this.doRequest("1.0", "antchain.nftc.oauth.userinfotoken.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyOauthUserinfotokenResponse({}));
+  }
+
+  /**
+   * Description: DIY藏品发放
+   * Summary: DIY藏品发放
+   */
+  async publishMerchantDiysku(request: PublishMerchantDiyskuRequest): Promise<PublishMerchantDiyskuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.publishMerchantDiyskuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: DIY藏品发放
+   * Summary: DIY藏品发放
+   */
+  async publishMerchantDiyskuEx(request: PublishMerchantDiyskuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PublishMerchantDiyskuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PublishMerchantDiyskuResponse>(await this.doRequest("1.0", "antchain.nftc.merchant.diysku.publish", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PublishMerchantDiyskuResponse({}));
+  }
+
+  /**
+   * Description: DIY藏品发放查询
+   * Summary: DIY藏品发放查询
+   */
+  async queryMerchantDiysku(request: QueryMerchantDiyskuRequest): Promise<QueryMerchantDiyskuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMerchantDiyskuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: DIY藏品发放查询
+   * Summary: DIY藏品发放查询
+   */
+  async queryMerchantDiyskuEx(request: QueryMerchantDiyskuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMerchantDiyskuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMerchantDiyskuResponse>(await this.doRequest("1.0", "antchain.nftc.merchant.diysku.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMerchantDiyskuResponse({}));
+  }
+
+  /**
+   * Description: 提供ISV  ugc铸造图片查询的openapi服务
+   * Summary: ugc铸造图片查询的openapi接口
+   */
+  async queryMerchantUgcimages(request: QueryMerchantUgcimagesRequest): Promise<QueryMerchantUgcimagesResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMerchantUgcimagesEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 提供ISV  ugc铸造图片查询的openapi服务
+   * Summary: ugc铸造图片查询的openapi接口
+   */
+  async queryMerchantUgcimagesEx(request: QueryMerchantUgcimagesRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMerchantUgcimagesResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMerchantUgcimagesResponse>(await this.doRequest("1.0", "antchain.nftc.merchant.ugcimages.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMerchantUgcimagesResponse({}));
   }
 
   /**
