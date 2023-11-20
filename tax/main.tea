@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.12',
+    sdk_version = '1.7.18',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -1968,7 +1968,7 @@ model QuerySimpleauthIdentitystateRequest = {
   // 授权编码
   authCode: string(name='auth_code'),
   // 纳税人名称
-  nsrsmc: string(name='nsrsmc'),
+  nsrmc: string(name='nsrmc'),
 }
 
 model QuerySimpleauthIdentitystateResponse = {
@@ -1981,7 +1981,7 @@ model QuerySimpleauthIdentitystateResponse = {
   // 请求id
   bizRequestId?: string(name='biz_request_id'),
   // 返回结果
-  data?: [ string ](name='data'),
+  data?: [ IndentityState ](name='data'),
 }
 
 /**
@@ -2001,6 +2001,58 @@ async function querySimpleauthIdentitystate(request: QuerySimpleauthIdentitystat
 async function querySimpleauthIdentitystateEx(request: QuerySimpleauthIdentitystateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySimpleauthIdentitystateResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.tax.simpleauth.identitystate.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApiHaiguanasyncRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户号/子租户号，如果为租户号获取，则为租户号，如果为子租户号获取，则传输子租户号
+  instCode: string(name='inst_code'),
+  // 产品类型，海关数据: ZX500
+  authType: string(name='auth_type'),
+  // 身份id，企业税号
+  identityId: string(name='identity_id'),
+  // 用于幂等控制
+  bizRequestId: string(name='biz_request_id'),
+  // 行方生成的授权编号
+  authCode: string(name='auth_code'),
+  // 公网可访问的地址，PDF格式
+  authUrl: string(name='auth_url'),
+  // 格式：yyyy-MM-dd HH:mm:ss
+  authStartTime: string(name='auth_start_time'),
+  // 格式：yyyy-MM-dd HH:mm:ss
+  authEndTime: string(name='auth_end_time'),
+  // 企业名称
+  corpName?: string(name='corp_name'),
+}
+
+model QueryApiHaiguanasyncResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 海关-异步查询数据
+ * Summary: 海关-异步查询数据
+ */
+async function queryApiHaiguanasync(request: QueryApiHaiguanasyncRequest): QueryApiHaiguanasyncResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiHaiguanasyncEx(request, headers, runtime);
+}
+
+/**
+ * Description: 海关-异步查询数据
+ * Summary: 海关-异步查询数据
+ */
+async function queryApiHaiguanasyncEx(request: QueryApiHaiguanasyncRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiHaiguanasyncResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.haiguanasync.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryPdataPersonalincomeRequest = {
