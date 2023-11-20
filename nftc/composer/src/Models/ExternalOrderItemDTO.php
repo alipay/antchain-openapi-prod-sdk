@@ -12,7 +12,7 @@ class ExternalOrderItemDTO extends Model
     /**
      * @example 12345
      *
-     * @var string
+     * @var int
      */
     public $skuId;
     protected $_name = [
