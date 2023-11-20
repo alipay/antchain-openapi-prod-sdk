@@ -4468,7 +4468,7 @@ type QuerySimpleauthIdentitystateRequest struct {
 	// 授权编码
 	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
 	// 纳税人名称
-	Nsrsmc *string `json:"nsrsmc,omitempty" xml:"nsrsmc,omitempty" require:"true"`
+	Nsrmc *string `json:"nsrmc,omitempty" xml:"nsrmc,omitempty" require:"true"`
 }
 
 func (s QuerySimpleauthIdentitystateRequest) String() string {
@@ -4514,8 +4514,8 @@ func (s *QuerySimpleauthIdentitystateRequest) SetAuthCode(v string) *QuerySimple
 	return s
 }
 
-func (s *QuerySimpleauthIdentitystateRequest) SetNsrsmc(v string) *QuerySimpleauthIdentitystateRequest {
-	s.Nsrsmc = &v
+func (s *QuerySimpleauthIdentitystateRequest) SetNsrmc(v string) *QuerySimpleauthIdentitystateRequest {
+	s.Nsrmc = &v
 	return s
 }
 
@@ -4529,7 +4529,7 @@ type QuerySimpleauthIdentitystateResponse struct {
 	// 请求id
 	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty"`
 	// 返回结果
-	Data []*string `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	Data []*IndentityState `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
 
 func (s QuerySimpleauthIdentitystateResponse) String() string {
@@ -4560,8 +4560,127 @@ func (s *QuerySimpleauthIdentitystateResponse) SetBizRequestId(v string) *QueryS
 	return s
 }
 
-func (s *QuerySimpleauthIdentitystateResponse) SetData(v []*string) *QuerySimpleauthIdentitystateResponse {
+func (s *QuerySimpleauthIdentitystateResponse) SetData(v []*IndentityState) *QuerySimpleauthIdentitystateResponse {
 	s.Data = v
+	return s
+}
+
+type QueryApiHaiguanasyncRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户号/子租户号，如果为租户号获取，则为租户号，如果为子租户号获取，则传输子租户号
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 产品类型，海关数据: ZX500
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 身份id，企业税号
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 用于幂等控制
+	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty" require:"true"`
+	// 行方生成的授权编号
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
+	// 公网可访问的地址，PDF格式
+	AuthUrl *string `json:"auth_url,omitempty" xml:"auth_url,omitempty" require:"true"`
+	// 格式：yyyy-MM-dd HH:mm:ss
+	AuthStartTime *string `json:"auth_start_time,omitempty" xml:"auth_start_time,omitempty" require:"true"`
+	// 格式：yyyy-MM-dd HH:mm:ss
+	AuthEndTime *string `json:"auth_end_time,omitempty" xml:"auth_end_time,omitempty" require:"true"`
+	// 企业名称
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
+}
+
+func (s QueryApiHaiguanasyncRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiHaiguanasyncRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiHaiguanasyncRequest) SetAuthToken(v string) *QueryApiHaiguanasyncRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApiHaiguanasyncRequest) SetProductInstanceId(v string) *QueryApiHaiguanasyncRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryApiHaiguanasyncRequest) SetInstCode(v string) *QueryApiHaiguanasyncRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *QueryApiHaiguanasyncRequest) SetAuthType(v string) *QueryApiHaiguanasyncRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *QueryApiHaiguanasyncRequest) SetIdentityId(v string) *QueryApiHaiguanasyncRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *QueryApiHaiguanasyncRequest) SetBizRequestId(v string) *QueryApiHaiguanasyncRequest {
+	s.BizRequestId = &v
+	return s
+}
+
+func (s *QueryApiHaiguanasyncRequest) SetAuthCode(v string) *QueryApiHaiguanasyncRequest {
+	s.AuthCode = &v
+	return s
+}
+
+func (s *QueryApiHaiguanasyncRequest) SetAuthUrl(v string) *QueryApiHaiguanasyncRequest {
+	s.AuthUrl = &v
+	return s
+}
+
+func (s *QueryApiHaiguanasyncRequest) SetAuthStartTime(v string) *QueryApiHaiguanasyncRequest {
+	s.AuthStartTime = &v
+	return s
+}
+
+func (s *QueryApiHaiguanasyncRequest) SetAuthEndTime(v string) *QueryApiHaiguanasyncRequest {
+	s.AuthEndTime = &v
+	return s
+}
+
+func (s *QueryApiHaiguanasyncRequest) SetCorpName(v string) *QueryApiHaiguanasyncRequest {
+	s.CorpName = &v
+	return s
+}
+
+type QueryApiHaiguanasyncResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryApiHaiguanasyncResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiHaiguanasyncResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiHaiguanasyncResponse) SetReqMsgId(v string) *QueryApiHaiguanasyncResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryApiHaiguanasyncResponse) SetResultCode(v string) *QueryApiHaiguanasyncResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryApiHaiguanasyncResponse) SetResultMsg(v string) *QueryApiHaiguanasyncResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -5198,7 +5317,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.12"),
+				"sdk_version":      tea.String("1.7.18"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6201,6 +6320,40 @@ func (client *Client) QuerySimpleauthIdentitystateEx(request *QuerySimpleauthIde
 	}
 	_result = &QuerySimpleauthIdentitystateResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.simpleauth.identitystate.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 海关-异步查询数据
+ * Summary: 海关-异步查询数据
+ */
+func (client *Client) QueryApiHaiguanasync(request *QueryApiHaiguanasyncRequest) (_result *QueryApiHaiguanasyncResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryApiHaiguanasyncResponse{}
+	_body, _err := client.QueryApiHaiguanasyncEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 海关-异步查询数据
+ * Summary: 海关-异步查询数据
+ */
+func (client *Client) QueryApiHaiguanasyncEx(request *QueryApiHaiguanasyncRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApiHaiguanasyncResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryApiHaiguanasyncResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.haiguanasync.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
