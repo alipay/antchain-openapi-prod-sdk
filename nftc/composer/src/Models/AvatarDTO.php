@@ -64,13 +64,29 @@ class AvatarDTO extends Model
      */
     public $suit;
 
-    // 配饰配置
+    // 项链配置
     /**
      * @example
      *
      * @var AvatarMaterialDTO
      */
-    public $accessory;
+    public $necklace;
+
+    // 帽子配置
+    /**
+     * @example
+     *
+     * @var AvatarMaterialDTO
+     */
+    public $hat;
+
+    // 眼镜配置
+    /**
+     * @example
+     *
+     * @var AvatarMaterialDTO
+     */
+    public $glass;
 
     // 头发配置
     /**
@@ -175,7 +191,9 @@ class AvatarDTO extends Model
         'downcloth'      => 'downcloth',
         'shoe'           => 'shoe',
         'suit'           => 'suit',
-        'accessory'      => 'accessory',
+        'necklace'       => 'necklace',
+        'hat'            => 'hat',
+        'glass'          => 'glass',
         'hair'           => 'hair',
         'head'           => 'head',
         'eyebrow'        => 'eyebrow',
@@ -199,7 +217,9 @@ class AvatarDTO extends Model
         Model::validateRequired('downcloth', $this->downcloth, true);
         Model::validateRequired('shoe', $this->shoe, true);
         Model::validateRequired('suit', $this->suit, true);
-        Model::validateRequired('accessory', $this->accessory, true);
+        Model::validateRequired('necklace', $this->necklace, true);
+        Model::validateRequired('hat', $this->hat, true);
+        Model::validateRequired('glass', $this->glass, true);
         Model::validateRequired('hair', $this->hair, true);
         Model::validateRequired('head', $this->head, true);
         Model::validateRequired('eyebrow', $this->eyebrow, true);
@@ -238,8 +258,14 @@ class AvatarDTO extends Model
         if (null !== $this->suit) {
             $res['suit'] = null !== $this->suit ? $this->suit->toMap() : null;
         }
-        if (null !== $this->accessory) {
-            $res['accessory'] = null !== $this->accessory ? $this->accessory->toMap() : null;
+        if (null !== $this->necklace) {
+            $res['necklace'] = null !== $this->necklace ? $this->necklace->toMap() : null;
+        }
+        if (null !== $this->hat) {
+            $res['hat'] = null !== $this->hat ? $this->hat->toMap() : null;
+        }
+        if (null !== $this->glass) {
+            $res['glass'] = null !== $this->glass ? $this->glass->toMap() : null;
         }
         if (null !== $this->hair) {
             $res['hair'] = null !== $this->hair ? $this->hair->toMap() : null;
@@ -310,8 +336,14 @@ class AvatarDTO extends Model
         if (isset($map['suit'])) {
             $model->suit = AvatarMaterialDTO::fromMap($map['suit']);
         }
-        if (isset($map['accessory'])) {
-            $model->accessory = AvatarMaterialDTO::fromMap($map['accessory']);
+        if (isset($map['necklace'])) {
+            $model->necklace = AvatarMaterialDTO::fromMap($map['necklace']);
+        }
+        if (isset($map['hat'])) {
+            $model->hat = AvatarMaterialDTO::fromMap($map['hat']);
+        }
+        if (isset($map['glass'])) {
+            $model->glass = AvatarMaterialDTO::fromMap($map['glass']);
         }
         if (isset($map['hair'])) {
             $model->hair = AvatarMaterialDTO::fromMap($map['hair']);
