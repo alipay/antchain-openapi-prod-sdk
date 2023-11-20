@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.6',
+    sdk_version = '1.0.7',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -185,7 +185,7 @@ model AvatarMaterialDTO {
 // 订单商品对象
 model ExternalOrderItemDTO {
   // 购买的sku id
-  skuId: string(name='sku_id', example='12345'),
+  skuId: long(name='sku_id', example='12345'),
 }
 
 // 通用资源差量包信息
