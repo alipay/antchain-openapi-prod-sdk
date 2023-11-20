@@ -37,9 +37,9 @@ public class QuerySimpleauthIdentitystateRequest extends TeaModel {
     public String authCode;
 
     // 纳税人名称
-    @NameInMap("nsrsmc")
+    @NameInMap("nsrmc")
     @Validation(required = true)
-    public String nsrsmc;
+    public String nsrmc;
 
     public static QuerySimpleauthIdentitystateRequest build(java.util.Map<String, ?> map) throws Exception {
         QuerySimpleauthIdentitystateRequest self = new QuerySimpleauthIdentitystateRequest();
@@ -102,12 +102,12 @@ public class QuerySimpleauthIdentitystateRequest extends TeaModel {
         return this.authCode;
     }
 
-    public QuerySimpleauthIdentitystateRequest setNsrsmc(String nsrsmc) {
-        this.nsrsmc = nsrsmc;
+    public QuerySimpleauthIdentitystateRequest setNsrmc(String nsrmc) {
+        this.nsrmc = nsrmc;
         return this;
     }
-    public String getNsrsmc() {
-        return this.nsrsmc;
+    public String getNsrmc() {
+        return this.nsrmc;
     }
 
 }

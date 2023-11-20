@@ -22,7 +22,7 @@ public class QuerySimpleauthIdentitystateResponse extends TeaModel {
 
     // 返回结果
     @NameInMap("data")
-    public java.util.List<String> data;
+    public java.util.List<IndentityState> data;
 
     public static QuerySimpleauthIdentitystateResponse build(java.util.Map<String, ?> map) throws Exception {
         QuerySimpleauthIdentitystateResponse self = new QuerySimpleauthIdentitystateResponse();
@@ -61,11 +61,11 @@ public class QuerySimpleauthIdentitystateResponse extends TeaModel {
         return this.bizRequestId;
     }
 
-    public QuerySimpleauthIdentitystateResponse setData(java.util.List<String> data) {
+    public QuerySimpleauthIdentitystateResponse setData(java.util.List<IndentityState> data) {
         this.data = data;
         return this;
     }
-    public java.util.List<String> getData() {
+    public java.util.List<IndentityState> getData() {
         return this.data;
     }
 
