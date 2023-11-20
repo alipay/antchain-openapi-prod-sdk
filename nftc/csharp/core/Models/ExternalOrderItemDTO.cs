@@ -13,7 +13,7 @@ namespace AntChain.SDK.NFTC.Models
         // 购买的sku id
         [NameInMap("sku_id")]
         [Validation(Required=true)]
-        public string SkuId { get; set; }
+        public long? SkuId { get; set; }
 
     }
 
