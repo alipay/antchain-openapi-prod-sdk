@@ -7,18 +7,18 @@ public class ExternalOrderItemDTO extends TeaModel {
     // 购买的sku id
     @NameInMap("sku_id")
     @Validation(required = true)
-    public String skuId;
+    public Long skuId;
 
     public static ExternalOrderItemDTO build(java.util.Map<String, ?> map) throws Exception {
         ExternalOrderItemDTO self = new ExternalOrderItemDTO();
         return TeaModel.build(map, self);
     }
 
-    public ExternalOrderItemDTO setSkuId(String skuId) {
+    public ExternalOrderItemDTO setSkuId(Long skuId) {
         this.skuId = skuId;
         return this;
     }
-    public String getSkuId() {
+    public Long getSkuId() {
         return this.skuId;
     }
 
