@@ -3385,7 +3385,7 @@ export class QuerySimpleauthIdentitystateRequest extends $tea.Model {
   // 授权编码
   authCode: string;
   // 纳税人名称
-  nsrsmc: string;
+  nsrmc: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3395,7 +3395,7 @@ export class QuerySimpleauthIdentitystateRequest extends $tea.Model {
       bizUniqueId: 'biz_unique_id',
       authType: 'auth_type',
       authCode: 'auth_code',
-      nsrsmc: 'nsrsmc',
+      nsrmc: 'nsrmc',
     };
   }
 
@@ -3408,7 +3408,7 @@ export class QuerySimpleauthIdentitystateRequest extends $tea.Model {
       bizUniqueId: 'string',
       authType: 'string',
       authCode: 'string',
-      nsrsmc: 'string',
+      nsrmc: 'string',
     };
   }
 
@@ -3427,7 +3427,7 @@ export class QuerySimpleauthIdentitystateResponse extends $tea.Model {
   // 请求id
   bizRequestId?: string;
   // 返回结果
-  data?: string[];
+  data?: IndentityState[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -3444,7 +3444,94 @@ export class QuerySimpleauthIdentitystateResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       bizRequestId: 'string',
-      data: { 'type': 'array', 'itemType': 'string' },
+      data: { 'type': 'array', 'itemType': IndentityState },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApiHaiguanasyncRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户号/子租户号，如果为租户号获取，则为租户号，如果为子租户号获取，则传输子租户号
+  instCode: string;
+  // 产品类型，海关数据: ZX500
+  authType: string;
+  // 身份id，企业税号
+  identityId: string;
+  // 用于幂等控制
+  bizRequestId: string;
+  // 行方生成的授权编号
+  authCode: string;
+  // 公网可访问的地址，PDF格式
+  authUrl: string;
+  // 格式：yyyy-MM-dd HH:mm:ss
+  authStartTime: string;
+  // 格式：yyyy-MM-dd HH:mm:ss
+  authEndTime: string;
+  // 企业名称
+  corpName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      instCode: 'inst_code',
+      authType: 'auth_type',
+      identityId: 'identity_id',
+      bizRequestId: 'biz_request_id',
+      authCode: 'auth_code',
+      authUrl: 'auth_url',
+      authStartTime: 'auth_start_time',
+      authEndTime: 'auth_end_time',
+      corpName: 'corp_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      instCode: 'string',
+      authType: 'string',
+      identityId: 'string',
+      bizRequestId: 'string',
+      authCode: 'string',
+      authUrl: 'string',
+      authStartTime: 'string',
+      authEndTime: 'string',
+      corpName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApiHaiguanasyncResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -3934,7 +4021,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.12",
+          sdk_version: "1.7.18",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
@@ -4512,6 +4599,25 @@ export default class Client {
   async querySimpleauthIdentitystateEx(request: QuerySimpleauthIdentitystateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySimpleauthIdentitystateResponse> {
     Util.validateModel(request);
     return $tea.cast<QuerySimpleauthIdentitystateResponse>(await this.doRequest("1.0", "blockchain.tax.simpleauth.identitystate.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySimpleauthIdentitystateResponse({}));
+  }
+
+  /**
+   * Description: 海关-异步查询数据
+   * Summary: 海关-异步查询数据
+   */
+  async queryApiHaiguanasync(request: QueryApiHaiguanasyncRequest): Promise<QueryApiHaiguanasyncResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryApiHaiguanasyncEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 海关-异步查询数据
+   * Summary: 海关-异步查询数据
+   */
+  async queryApiHaiguanasyncEx(request: QueryApiHaiguanasyncRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApiHaiguanasyncResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryApiHaiguanasyncResponse>(await this.doRequest("1.0", "blockchain.tax.api.haiguanasync.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApiHaiguanasyncResponse({}));
   }
 
   /**
