@@ -220,7 +220,7 @@ func (s *AvatarMaterialDTO) SetAvatarPvJson(v string) *AvatarMaterialDTO {
 // 订单商品对象
 type ExternalOrderItemDTO struct {
 	// 购买的sku id
-	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty" require:"true"`
+	SkuId *int64 `json:"sku_id,omitempty" xml:"sku_id,omitempty" require:"true"`
 }
 
 func (s ExternalOrderItemDTO) String() string {
@@ -231,7 +231,7 @@ func (s ExternalOrderItemDTO) GoString() string {
 	return s.String()
 }
 
-func (s *ExternalOrderItemDTO) SetSkuId(v string) *ExternalOrderItemDTO {
+func (s *ExternalOrderItemDTO) SetSkuId(v int64) *ExternalOrderItemDTO {
 	s.SkuId = &v
 	return s
 }
@@ -2053,7 +2053,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.6"),
+				"sdk_version":      tea.String("1.0.7"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
