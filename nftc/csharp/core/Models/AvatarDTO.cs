@@ -45,10 +45,20 @@ namespace AntChain.SDK.NFTC.Models
         [Validation(Required=true)]
         public AvatarMaterialDTO Suit { get; set; }
 
-        // 配饰配置
-        [NameInMap("accessory")]
+        // 项链配置
+        [NameInMap("necklace")]
         [Validation(Required=true)]
-        public AvatarMaterialDTO Accessory { get; set; }
+        public AvatarMaterialDTO Necklace { get; set; }
+
+        // 帽子配置
+        [NameInMap("hat")]
+        [Validation(Required=true)]
+        public AvatarMaterialDTO Hat { get; set; }
+
+        // 眼镜配置
+        [NameInMap("glass")]
+        [Validation(Required=true)]
+        public AvatarMaterialDTO Glass { get; set; }
 
         // 头发配置
         [NameInMap("hair")]
