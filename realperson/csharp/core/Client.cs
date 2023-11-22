@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.2"},
+                        {"sdk_version", "1.15.0"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.2"},
+                        {"sdk_version", "1.15.0"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1415,6 +1415,216 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryEducationInfoResponse>(await DoRequestAsync("1.0", "di.realperson.education.info.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: demo用记录查询
+         * Summary: demo用记录查询
+         */
+        public QueryDemoInfoResponse QueryDemoInfo(QueryDemoInfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDemoInfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: demo用记录查询
+         * Summary: demo用记录查询
+         */
+        public async Task<QueryDemoInfoResponse> QueryDemoInfoAsync(QueryDemoInfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDemoInfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: demo用记录查询
+         * Summary: demo用记录查询
+         */
+        public QueryDemoInfoResponse QueryDemoInfoEx(QueryDemoInfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDemoInfoResponse>(DoRequest("1.0", "di.realperson.demo.info.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: demo用记录查询
+         * Summary: demo用记录查询
+         */
+        public async Task<QueryDemoInfoResponse> QueryDemoInfoExAsync(QueryDemoInfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDemoInfoResponse>(await DoRequestAsync("1.0", "di.realperson.demo.info.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人银行卡二要素
+         * Summary: 个人银行卡二要素
+         */
+        public CheckBankcardTwometaResponse CheckBankcardTwometa(CheckBankcardTwometaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckBankcardTwometaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人银行卡二要素
+         * Summary: 个人银行卡二要素
+         */
+        public async Task<CheckBankcardTwometaResponse> CheckBankcardTwometaAsync(CheckBankcardTwometaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckBankcardTwometaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人银行卡二要素
+         * Summary: 个人银行卡二要素
+         */
+        public CheckBankcardTwometaResponse CheckBankcardTwometaEx(CheckBankcardTwometaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckBankcardTwometaResponse>(DoRequest("1.0", "di.realperson.bankcard.twometa.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人银行卡二要素
+         * Summary: 个人银行卡二要素
+         */
+        public async Task<CheckBankcardTwometaResponse> CheckBankcardTwometaExAsync(CheckBankcardTwometaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckBankcardTwometaResponse>(await DoRequestAsync("1.0", "di.realperson.bankcard.twometa.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人运营商二要素
+         * Summary: 个人运营商二要素
+         */
+        public CheckCarrierTwometaResponse CheckCarrierTwometa(CheckCarrierTwometaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckCarrierTwometaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人运营商二要素
+         * Summary: 个人运营商二要素
+         */
+        public async Task<CheckCarrierTwometaResponse> CheckCarrierTwometaAsync(CheckCarrierTwometaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckCarrierTwometaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人运营商二要素
+         * Summary: 个人运营商二要素
+         */
+        public CheckCarrierTwometaResponse CheckCarrierTwometaEx(CheckCarrierTwometaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckCarrierTwometaResponse>(DoRequest("1.0", "di.realperson.carrier.twometa.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人运营商二要素
+         * Summary: 个人运营商二要素
+         */
+        public async Task<CheckCarrierTwometaResponse> CheckCarrierTwometaExAsync(CheckCarrierTwometaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckCarrierTwometaResponse>(await DoRequestAsync("1.0", "di.realperson.carrier.twometa.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: NFC实证
+         * Summary: NFC实证
+         */
+        public CreateNfcServerResponse CreateNfcServer(CreateNfcServerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateNfcServerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: NFC实证
+         * Summary: NFC实证
+         */
+        public async Task<CreateNfcServerResponse> CreateNfcServerAsync(CreateNfcServerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateNfcServerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: NFC实证
+         * Summary: NFC实证
+         */
+        public CreateNfcServerResponse CreateNfcServerEx(CreateNfcServerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateNfcServerResponse>(DoRequest("1.0", "di.realperson.nfc.server.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: NFC实证
+         * Summary: NFC实证
+         */
+        public async Task<CreateNfcServerResponse> CreateNfcServerExAsync(CreateNfcServerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateNfcServerResponse>(await DoRequestAsync("1.0", "di.realperson.nfc.server.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: NFC实证
+         * Summary: NFC实证
+         */
+        public QueryNfcServerResponse QueryNfcServer(QueryNfcServerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryNfcServerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: NFC实证
+         * Summary: NFC实证
+         */
+        public async Task<QueryNfcServerResponse> QueryNfcServerAsync(QueryNfcServerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryNfcServerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: NFC实证
+         * Summary: NFC实证
+         */
+        public QueryNfcServerResponse QueryNfcServerEx(QueryNfcServerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNfcServerResponse>(DoRequest("1.0", "di.realperson.nfc.server.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: NFC实证
+         * Summary: NFC实证
+         */
+        public async Task<QueryNfcServerResponse> QueryNfcServerExAsync(QueryNfcServerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNfcServerResponse>(await DoRequestAsync("1.0", "di.realperson.nfc.server.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

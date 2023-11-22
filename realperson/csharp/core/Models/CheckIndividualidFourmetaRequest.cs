@@ -50,6 +50,11 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string ExternParam { get; set; }
 
+        // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+        [NameInMap("cert_type")]
+        [Validation(Required=false)]
+        public string CertType { get; set; }
+
     }
 
 }
