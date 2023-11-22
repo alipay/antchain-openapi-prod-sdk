@@ -13,6 +13,10 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\REALPERSON\Models\CheckAnticheatPersonalRequest;
 use AntChain\REALPERSON\Models\CheckAnticheatPersonalResponse;
+use AntChain\REALPERSON\Models\CheckBankcardTwometaRequest;
+use AntChain\REALPERSON\Models\CheckBankcardTwometaResponse;
+use AntChain\REALPERSON\Models\CheckCarrierTwometaRequest;
+use AntChain\REALPERSON\Models\CheckCarrierTwometaResponse;
 use AntChain\REALPERSON\Models\CheckIndividualidFourmetaRequest;
 use AntChain\REALPERSON\Models\CheckIndividualidFourmetaResponse;
 use AntChain\REALPERSON\Models\CheckIndividualidThreemetaRequest;
@@ -31,6 +35,8 @@ use AntChain\REALPERSON\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\REALPERSON\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\REALPERSON\Models\CreateFacevrfServerRequest;
 use AntChain\REALPERSON\Models\CreateFacevrfServerResponse;
+use AntChain\REALPERSON\Models\CreateNfcServerRequest;
+use AntChain\REALPERSON\Models\CreateNfcServerResponse;
 use AntChain\REALPERSON\Models\CreateVoiceprintServermodeRequest;
 use AntChain\REALPERSON\Models\CreateVoiceprintServermodeResponse;
 use AntChain\REALPERSON\Models\DetailFacevrfServerRequest;
@@ -45,12 +51,16 @@ use AntChain\REALPERSON\Models\QueryDeepsecRiskRequest;
 use AntChain\REALPERSON\Models\QueryDeepsecRiskResponse;
 use AntChain\REALPERSON\Models\QueryDeepsecTsbmrqRequest;
 use AntChain\REALPERSON\Models\QueryDeepsecTsbmrqResponse;
+use AntChain\REALPERSON\Models\QueryDemoInfoRequest;
+use AntChain\REALPERSON\Models\QueryDemoInfoResponse;
 use AntChain\REALPERSON\Models\QueryEducationInfoRequest;
 use AntChain\REALPERSON\Models\QueryEducationInfoResponse;
 use AntChain\REALPERSON\Models\QueryFacevrfServerRequest;
 use AntChain\REALPERSON\Models\QueryFacevrfServerResponse;
 use AntChain\REALPERSON\Models\QueryMobileRiskRequest;
 use AntChain\REALPERSON\Models\QueryMobileRiskResponse;
+use AntChain\REALPERSON\Models\QueryNfcServerRequest;
+use AntChain\REALPERSON\Models\QueryNfcServerResponse;
 use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeRequest;
 use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeResponse;
 use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseRequest;
@@ -210,7 +220,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.13.2',
+                    'sdk_version'      => '1.15.0',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1099,6 +1109,171 @@ class Client
         Utils::validateModel($request);
 
         return QueryEducationInfoResponse::fromMap($this->doRequest('1.0', 'di.realperson.education.info.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: demo用记录查询
+     * Summary: demo用记录查询.
+     *
+     * @param QueryDemoInfoRequest $request
+     *
+     * @return QueryDemoInfoResponse
+     */
+    public function queryDemoInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: demo用记录查询
+     * Summary: demo用记录查询.
+     *
+     * @param QueryDemoInfoRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryDemoInfoResponse
+     */
+    public function queryDemoInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoInfoResponse::fromMap($this->doRequest('1.0', 'di.realperson.demo.info.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人银行卡二要素
+     * Summary: 个人银行卡二要素.
+     *
+     * @param CheckBankcardTwometaRequest $request
+     *
+     * @return CheckBankcardTwometaResponse
+     */
+    public function checkBankcardTwometa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkBankcardTwometaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人银行卡二要素
+     * Summary: 个人银行卡二要素.
+     *
+     * @param CheckBankcardTwometaRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CheckBankcardTwometaResponse
+     */
+    public function checkBankcardTwometaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckBankcardTwometaResponse::fromMap($this->doRequest('1.0', 'di.realperson.bankcard.twometa.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人运营商二要素
+     * Summary: 个人运营商二要素.
+     *
+     * @param CheckCarrierTwometaRequest $request
+     *
+     * @return CheckCarrierTwometaResponse
+     */
+    public function checkCarrierTwometa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkCarrierTwometaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人运营商二要素
+     * Summary: 个人运营商二要素.
+     *
+     * @param CheckCarrierTwometaRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CheckCarrierTwometaResponse
+     */
+    public function checkCarrierTwometaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckCarrierTwometaResponse::fromMap($this->doRequest('1.0', 'di.realperson.carrier.twometa.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: NFC实证
+     * Summary: NFC实证
+     *
+     * @param CreateNfcServerRequest $request
+     *
+     * @return CreateNfcServerResponse
+     */
+    public function createNfcServer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createNfcServerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: NFC实证
+     * Summary: NFC实证
+     *
+     * @param CreateNfcServerRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return CreateNfcServerResponse
+     */
+    public function createNfcServerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateNfcServerResponse::fromMap($this->doRequest('1.0', 'di.realperson.nfc.server.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: NFC实证
+     * Summary: NFC实证
+     *
+     * @param QueryNfcServerRequest $request
+     *
+     * @return QueryNfcServerResponse
+     */
+    public function queryNfcServer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNfcServerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: NFC实证
+     * Summary: NFC实证
+     *
+     * @param QueryNfcServerRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryNfcServerResponse
+     */
+    public function queryNfcServerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNfcServerResponse::fromMap($this->doRequest('1.0', 'di.realperson.nfc.server.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

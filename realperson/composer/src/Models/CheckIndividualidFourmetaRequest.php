@@ -56,6 +56,12 @@ class CheckIndividualidFourmetaRequest extends Model
      * @var string
      */
     public $externParam;
+
+    // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+    /**
+     * @var string
+     */
+    public $certType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -65,6 +71,7 @@ class CheckIndividualidFourmetaRequest extends Model
         'mobile'            => 'mobile',
         'bankCard'          => 'bank_card',
         'externParam'       => 'extern_param',
+        'certType'          => 'cert_type',
     ];
 
     public function validate()
@@ -103,6 +110,9 @@ class CheckIndividualidFourmetaRequest extends Model
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
         }
+        if (null !== $this->certType) {
+            $res['cert_type'] = $this->certType;
+        }
 
         return $res;
     }
@@ -138,6 +148,9 @@ class CheckIndividualidFourmetaRequest extends Model
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];
+        }
+        if (isset($map['cert_type'])) {
+            $model->certType = $map['cert_type'];
         }
 
         return $model;
