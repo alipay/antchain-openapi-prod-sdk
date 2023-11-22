@@ -42,6 +42,10 @@ public class CheckIndividualidFourmetaRequest extends TeaModel {
     @NameInMap("extern_param")
     public String externParam;
 
+    // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+    @NameInMap("cert_type")
+    public String certType;
+
     public static CheckIndividualidFourmetaRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckIndividualidFourmetaRequest self = new CheckIndividualidFourmetaRequest();
         return TeaModel.build(map, self);
@@ -109,6 +113,14 @@ public class CheckIndividualidFourmetaRequest extends TeaModel {
     }
     public String getExternParam() {
         return this.externParam;
+    }
+
+    public CheckIndividualidFourmetaRequest setCertType(String certType) {
+        this.certType = certType;
+        return this;
+    }
+    public String getCertType() {
+        return this.certType;
     }
 
 }

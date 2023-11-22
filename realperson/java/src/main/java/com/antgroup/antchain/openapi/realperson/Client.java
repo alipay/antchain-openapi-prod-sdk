@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.13.2"),
+                    new TeaPair("sdk_version", "1.15.0"),
                     new TeaPair("_prod_code", "REALPERSON"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -655,6 +655,101 @@ public class Client {
     public QueryEducationInfoResponse queryEducationInfoEx(QueryEducationInfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.education.info.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEducationInfoResponse());
+    }
+
+    /**
+     * Description: demo用记录查询
+     * Summary: demo用记录查询
+     */
+    public QueryDemoInfoResponse queryDemoInfo(QueryDemoInfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoInfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: demo用记录查询
+     * Summary: demo用记录查询
+     */
+    public QueryDemoInfoResponse queryDemoInfoEx(QueryDemoInfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.demo.info.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoInfoResponse());
+    }
+
+    /**
+     * Description: 个人银行卡二要素
+     * Summary: 个人银行卡二要素
+     */
+    public CheckBankcardTwometaResponse checkBankcardTwometa(CheckBankcardTwometaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkBankcardTwometaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人银行卡二要素
+     * Summary: 个人银行卡二要素
+     */
+    public CheckBankcardTwometaResponse checkBankcardTwometaEx(CheckBankcardTwometaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.bankcard.twometa.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckBankcardTwometaResponse());
+    }
+
+    /**
+     * Description: 个人运营商二要素
+     * Summary: 个人运营商二要素
+     */
+    public CheckCarrierTwometaResponse checkCarrierTwometa(CheckCarrierTwometaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkCarrierTwometaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人运营商二要素
+     * Summary: 个人运营商二要素
+     */
+    public CheckCarrierTwometaResponse checkCarrierTwometaEx(CheckCarrierTwometaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.carrier.twometa.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckCarrierTwometaResponse());
+    }
+
+    /**
+     * Description: NFC实证
+     * Summary: NFC实证
+     */
+    public CreateNfcServerResponse createNfcServer(CreateNfcServerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createNfcServerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: NFC实证
+     * Summary: NFC实证
+     */
+    public CreateNfcServerResponse createNfcServerEx(CreateNfcServerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.nfc.server.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateNfcServerResponse());
+    }
+
+    /**
+     * Description: NFC实证
+     * Summary: NFC实证
+     */
+    public QueryNfcServerResponse queryNfcServer(QueryNfcServerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryNfcServerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: NFC实证
+     * Summary: NFC实证
+     */
+    public QueryNfcServerResponse queryNfcServerEx(QueryNfcServerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.nfc.server.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNfcServerResponse());
     }
 
     /**

@@ -35,6 +35,10 @@ public class CheckThreemetaBankcardRequest extends TeaModel {
     @NameInMap("extern_param")
     public String externParam;
 
+    // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+    @NameInMap("cert_type")
+    public String certType;
+
     public static CheckThreemetaBankcardRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckThreemetaBankcardRequest self = new CheckThreemetaBankcardRequest();
         return TeaModel.build(map, self);
@@ -94,6 +98,14 @@ public class CheckThreemetaBankcardRequest extends TeaModel {
     }
     public String getExternParam() {
         return this.externParam;
+    }
+
+    public CheckThreemetaBankcardRequest setCertType(String certType) {
+        this.certType = certType;
+        return this;
+    }
+    public String getCertType() {
+        return this.certType;
     }
 
 }
