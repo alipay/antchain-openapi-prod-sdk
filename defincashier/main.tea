@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.2',
+    sdk_version = '1.1.3',
     _prod_code = 'DEFINCASHIER',
     _prod_channel = 'undefined'
   };
@@ -246,6 +246,22 @@ model PaymentCaptureResult {
   subMsg?: string(name='sub_msg', example='参数不全'),
 }
 
+// 分账确认结果对象
+model PaymentShareConfirmResult {
+  // 蚂蚁分账申请返回的交易号
+  orgOrderId: string(name='org_order_id', example='20200801000000001'),
+  // 蚂蚁分账确认订单ID
+  orderId: string(name='order_id', example='20200801000000001'),
+  // 外部请求ID，幂等字段
+  outRequestId: string(name='out_request_id', example='20200801000000001'),
+  // 分账单状态
+  state: string(name='state', example='SUCCESS'),
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode: string(name='sub_code', example='PARAM_MISSING'),
+  // 业务错误描述
+  subMsg: string(name='sub_msg', example='参数不全'),
+}
+
 // 资金操作明细查询结果
 model FundItemQueryResult {
   // 会员所属业务平台在智能科技的会员ID
@@ -267,6 +283,30 @@ model FundItemQueryResult {
   subCode?: string(name='sub_code', example='PARAM_MISSING'),
   // 业务错误描述
   subMsg?: string(name='sub_msg', example='参数不全'),
+}
+
+// 支付请求结果
+model PayOrderOpenApiResult {
+  // 会员所属业务平台在智能科技的会员ID
+  platformMemberId: string(name='platform_member_id', example='268800000000001'),
+  // 外部订单号
+  outOrderId: string(name='out_order_id', example='1'),
+  // 资金模式
+  fundMode: string(name='fund_mode', example='SALE'),
+  // 支付提交状态
+  state: string(name='state', example='SUCCESS'),
+  // 交易单状态
+  orderState: string(name='order_state', example='SUCCESS'),
+  // 收款账户
+  payeeAccount: AccountDTO(name='payee_account', example=''),
+  // 银行或其他支付服务提供方支付结果描述
+  paymentErrorMessage: string(name='payment_error_message', example='1'),
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode: string(name='sub_code', example='PARAM_MISSING'),
+  // 业务错误描述
+  subMsg: string(name='sub_msg', example='参数不全'),
+  // 蚂蚁交易单ID
+  tradeId: string(name='trade_id', example='20200801000000001'),
 }
 
 // 创建交易前检查结果
@@ -809,5 +849,46 @@ async function applySaasShare(request: ApplySaasShareRequest): ApplySaasShareRes
 async function applySaasShareEx(request: ApplySaasShareRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplySaasShareResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.defincashier.saas.share.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PaySaasPaymentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // json请求参数,示例超出限制，完整字段见下文
+  // {"out_order_id":"","out_payer_id":{"reference_id_type":"","reference_id":""},"out_payee_id":{"reference_id_type":"","reference_id":""},"order_pay_time":"","payer_detail":{"payer_amount":"","payer_currency":"","account":{"inst_id":"","account_no":"","account_name":"","offical_name":"","offical_number":""},"pay_mode":""},"platform_member_id":""}
+  bizContent: string(name='biz_content'),
+  // 版本号
+  serviceVersion: string(name='service_version'),
+}
+
+model PaySaasPaymentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分账确认接口
+  date?: PaymentShareConfirmResult(name='date'),
+}
+
+/**
+ * Description: 根据交易单，申请支付
+ * Summary: B2B资金服务交易支付
+ */
+async function paySaasPayment(request: PaySaasPaymentRequest): PaySaasPaymentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return paySaasPaymentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据交易单，申请支付
+ * Summary: B2B资金服务交易支付
+ */
+async function paySaasPaymentEx(request: PaySaasPaymentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PaySaasPaymentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.defincashier.saas.payment.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
