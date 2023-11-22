@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.2',
+    sdk_version = '1.15.0',
     _prod_code = 'REALPERSON',
     _prod_channel = 'undefined'
   };
@@ -551,6 +551,8 @@ model CheckIndividualidFourmetaRequest = {
   // map结果的json数据格式，预留字段
   // 
   externParam?: string(name='extern_param'),
+  // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+  certType?: string(name='cert_type'),
 }
 
 model CheckIndividualidFourmetaResponse = {
@@ -1264,6 +1266,8 @@ model CheckThreemetaBankcardRequest = {
   bankCard: string(name='bank_card'),
   // 扩展信息，Map的json格式
   externParam?: string(name='extern_param'),
+  // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+  certType?: string(name='cert_type'),
 }
 
 model CheckThreemetaBankcardResponse = {
@@ -1548,6 +1552,259 @@ async function queryEducationInfo(request: QueryEducationInfoRequest): QueryEduc
 async function queryEducationInfoEx(request: QueryEducationInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEducationInfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'di.realperson.education.info.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // token
+  token: string(name='token'),
+}
+
+model QueryDemoInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // record json
+  record?: string(name='record'),
+}
+
+/**
+ * Description: demo用记录查询
+ * Summary: demo用记录查询
+ */
+async function queryDemoInfo(request: QueryDemoInfoRequest): QueryDemoInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: demo用记录查询
+ * Summary: demo用记录查询
+ */
+async function queryDemoInfoEx(request: QueryDemoInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.demo.info.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckBankcardTwometaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 	外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string(name='outer_order_no'),
+  // 要素入参模式： 1：银行卡号+姓名 2：银行卡号+证件号 3：银行卡号+手机号
+  metaMode: string(name='meta_mode'),
+  // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+  certType?: string(name='cert_type'),
+  // 银行卡号
+  bankCard: string(name='bank_card'),
+  // 手机号码
+  mobile?: string(name='mobile'),
+  // 姓名
+  certName?: string(name='cert_name'),
+  // 证件号
+  certNo?: string(name='cert_no'),
+  // 扩展信息，预留字段
+  externParam?: string(name='extern_param'),
+}
+
+model CheckBankcardTwometaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 扩展信息，为JSONObject。
+  externInfo?: string(name='extern_info'),
+}
+
+/**
+ * Description: 个人银行卡二要素
+ * Summary: 个人银行卡二要素
+ */
+async function checkBankcardTwometa(request: CheckBankcardTwometaRequest): CheckBankcardTwometaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkBankcardTwometaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人银行卡二要素
+ * Summary: 个人银行卡二要素
+ */
+async function checkBankcardTwometaEx(request: CheckBankcardTwometaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckBankcardTwometaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.bankcard.twometa.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckCarrierTwometaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string(name='outer_order_no'),
+  // 要素入参模式：
+  // 1：手机号+姓名
+  // 2：手机号+身份证号
+  metaMode: string(name='meta_mode'),
+  // 手机号码
+  mobile: string(name='mobile'),
+  // 姓名
+  certName?: string(name='cert_name'),
+  // 身份证号
+  certNo?: string(name='cert_no'),
+  // 运营商类型：
+  // CHINA_TELECOM；
+  // CHINA_MOBILE；
+  // CHINA_UNICOM
+  carrier?: string(name='carrier'),
+  // 扩展信息，预留字段
+  externParam: string(name='extern_param'),
+}
+
+model CheckCarrierTwometaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 扩展信息，为JSONObject。
+  externInfo?: string(name='extern_info'),
+}
+
+/**
+ * Description: 个人运营商二要素
+ * Summary: 个人运营商二要素
+ */
+async function checkCarrierTwometa(request: CheckCarrierTwometaRequest): CheckCarrierTwometaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkCarrierTwometaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人运营商二要素
+ * Summary: 个人运营商二要素
+ */
+async function checkCarrierTwometaEx(request: CheckCarrierTwometaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckCarrierTwometaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.carrier.twometa.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateNfcServerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 证件类型，ID_CARD，PASSPORT
+  certType: string(name='cert_type'),
+  // 证件号码
+  certNo?: string(name='cert_no'),
+  // 证件姓名
+  certName?: string(name='cert_name'),
+  // 出生日期
+  birthday?: string(name='birthday'),
+  // 证件有效期
+  validateDate?: string(name='validate_date'),
+  // 护照要素录入模式 NONE MANUAL TRANS
+  mode?: string(name='mode'),
+  // 扩展参数
+  // {"syntheticEdoc":"Y"     是否合成证件图"}
+  // {"obtainDocPhoto":"Y"    是否获取高清人像"}
+  externParam?: string(name='extern_param'),
+  // metainfo 环境参数，需要通过客户端 SDK 获取
+  metaInfo: string(name='meta_info'),
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面...
+  outerOrderNo: string(name='outer_order_no'),
+  // 场景ID
+  sceneId: string(name='scene_id'),
+  // 商户自定义的用户ID
+  userId?: string(name='user_id'),
+}
+
+model CreateNfcServerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 实人认证唯一标识
+  certifyId?: string(name='certify_id'),
+}
+
+/**
+ * Description: NFC实证
+ * Summary: NFC实证
+ */
+async function createNfcServer(request: CreateNfcServerRequest): CreateNfcServerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createNfcServerEx(request, headers, runtime);
+}
+
+/**
+ * Description: NFC实证
+ * Summary: NFC实证
+ */
+async function createNfcServerEx(request: CreateNfcServerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateNfcServerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.nfc.server.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryNfcServerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 实人认证唯一标识
+  certifyId: string(name='certify_id'),
+  // 预留扩展业务参数
+  externParam?: string(name='extern_param'),
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面...
+  outerOrderNo: string(name='outer_order_no'),
+  // 场景ID
+  sceneId: string(name='scene_id'),
+}
+
+model QueryNfcServerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否通过，通过为T，不通过为F
+  passed?: string(name='passed'),
+  // 业务失败原因
+  reason?: string(name='reason'),
+  // 认证主体附件信息，一般的认证场景都是返回空
+  materialInfo?: string(name='material_info'),
+}
+
+/**
+ * Description: NFC实证
+ * Summary: NFC实证
+ */
+async function queryNfcServer(request: QueryNfcServerRequest): QueryNfcServerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryNfcServerEx(request, headers, runtime);
+}
+
+/**
+ * Description: NFC实证
+ * Summary: NFC实证
+ */
+async function queryNfcServerEx(request: QueryNfcServerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryNfcServerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.nfc.server.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
