@@ -3540,6 +3540,109 @@ export class QueryApiHaiguanasyncResponse extends $tea.Model {
   }
 }
 
+export class PullApiHaiguanasyncpollingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户号/子租户号
+  instCode: string;
+  // 产品类型，海关数据: ZX500
+  authType: string;
+  // 身份id，企业税号
+  identityId: string;
+  // 用于幂等控制
+  bizRequestId: string;
+  // 企业名称
+  corpName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      instCode: 'inst_code',
+      authType: 'auth_type',
+      identityId: 'identity_id',
+      bizRequestId: 'biz_request_id',
+      corpName: 'corp_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      instCode: 'string',
+      authType: 'string',
+      identityId: 'string',
+      bizRequestId: 'string',
+      corpName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PullApiHaiguanasyncpollingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 租户号/子租户号，如果为租户号获取，则为租户号，如果为子租户号获取，则传输子租户号
+  instCode?: string;
+  // 请求id
+  bizRequestId?: string;
+  // 身份id，企业税号
+  identityId?: string;
+  // 数据文件地址集合，目前只会包含一个txt文件
+  fileList?: string[];
+  // 解密密钥信封
+  secret?: string;
+  // 产品类型
+  authType?: string;
+  // 行方生成的授权编号
+  authCode?: string;
+  // 系统时间
+  timestamp?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      instCode: 'inst_code',
+      bizRequestId: 'biz_request_id',
+      identityId: 'identity_id',
+      fileList: 'file_list',
+      secret: 'secret',
+      authType: 'auth_type',
+      authCode: 'auth_code',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      instCode: 'string',
+      bizRequestId: 'string',
+      identityId: 'string',
+      fileList: { 'type': 'array', 'itemType': 'string' },
+      secret: 'string',
+      authType: 'string',
+      authCode: 'string',
+      timestamp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryPdataPersonalincomeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4021,7 +4124,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.18",
+          sdk_version: "1.7.19",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
@@ -4618,6 +4721,25 @@ export default class Client {
   async queryApiHaiguanasyncEx(request: QueryApiHaiguanasyncRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApiHaiguanasyncResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryApiHaiguanasyncResponse>(await this.doRequest("1.0", "blockchain.tax.api.haiguanasync.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApiHaiguanasyncResponse({}));
+  }
+
+  /**
+   * Description: 海关-异步查询数据-轮询拉取数据
+   * Summary: 海关-异步查询数据-轮询拉取数据
+   */
+  async pullApiHaiguanasyncpolling(request: PullApiHaiguanasyncpollingRequest): Promise<PullApiHaiguanasyncpollingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pullApiHaiguanasyncpollingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 海关-异步查询数据-轮询拉取数据
+   * Summary: 海关-异步查询数据-轮询拉取数据
+   */
+  async pullApiHaiguanasyncpollingEx(request: PullApiHaiguanasyncpollingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PullApiHaiguanasyncpollingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PullApiHaiguanasyncpollingResponse>(await this.doRequest("1.0", "blockchain.tax.api.haiguanasyncpolling.pull", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PullApiHaiguanasyncpollingResponse({}));
   }
 
   /**
