@@ -1075,6 +1075,8 @@ type CheckIndividualidFourmetaRequest struct {
 	// map结果的json数据格式，预留字段
 	//
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
 }
 
 func (s CheckIndividualidFourmetaRequest) String() string {
@@ -1122,6 +1124,11 @@ func (s *CheckIndividualidFourmetaRequest) SetBankCard(v string) *CheckIndividua
 
 func (s *CheckIndividualidFourmetaRequest) SetExternParam(v string) *CheckIndividualidFourmetaRequest {
 	s.ExternParam = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaRequest) SetCertType(v string) *CheckIndividualidFourmetaRequest {
+	s.CertType = &v
 	return s
 }
 
@@ -2647,6 +2654,8 @@ type CheckThreemetaBankcardRequest struct {
 	BankCard *string `json:"bank_card,omitempty" xml:"bank_card,omitempty" require:"true"`
 	// 扩展信息，Map的json格式
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
 }
 
 func (s CheckThreemetaBankcardRequest) String() string {
@@ -2689,6 +2698,11 @@ func (s *CheckThreemetaBankcardRequest) SetBankCard(v string) *CheckThreemetaBan
 
 func (s *CheckThreemetaBankcardRequest) SetExternParam(v string) *CheckThreemetaBankcardRequest {
 	s.ExternParam = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetCertType(v string) *CheckThreemetaBankcardRequest {
+	s.CertType = &v
 	return s
 }
 
@@ -3305,6 +3319,559 @@ func (s *QueryEducationInfoResponse) SetExternInfo(v string) *QueryEducationInfo
 	return s
 }
 
+type QueryDemoInfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+}
+
+func (s QueryDemoInfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoInfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoInfoRequest) SetAuthToken(v string) *QueryDemoInfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDemoInfoRequest) SetProductInstanceId(v string) *QueryDemoInfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDemoInfoRequest) SetToken(v string) *QueryDemoInfoRequest {
+	s.Token = &v
+	return s
+}
+
+type QueryDemoInfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// record json
+	Record *string `json:"record,omitempty" xml:"record,omitempty"`
+}
+
+func (s QueryDemoInfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoInfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoInfoResponse) SetReqMsgId(v string) *QueryDemoInfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDemoInfoResponse) SetResultCode(v string) *QueryDemoInfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDemoInfoResponse) SetResultMsg(v string) *QueryDemoInfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDemoInfoResponse) SetRecord(v string) *QueryDemoInfoResponse {
+	s.Record = &v
+	return s
+}
+
+type CheckBankcardTwometaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 	外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 要素入参模式： 1：银行卡号+姓名 2：银行卡号+证件号 3：银行卡号+手机号
+	MetaMode *string `json:"meta_mode,omitempty" xml:"meta_mode,omitempty" require:"true"`
+	// 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 银行卡号
+	BankCard *string `json:"bank_card,omitempty" xml:"bank_card,omitempty" require:"true"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 证件号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CheckBankcardTwometaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckBankcardTwometaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckBankcardTwometaRequest) SetAuthToken(v string) *CheckBankcardTwometaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetProductInstanceId(v string) *CheckBankcardTwometaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetOuterOrderNo(v string) *CheckBankcardTwometaRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetMetaMode(v string) *CheckBankcardTwometaRequest {
+	s.MetaMode = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetCertType(v string) *CheckBankcardTwometaRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetBankCard(v string) *CheckBankcardTwometaRequest {
+	s.BankCard = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetMobile(v string) *CheckBankcardTwometaRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetCertName(v string) *CheckBankcardTwometaRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetCertNo(v string) *CheckBankcardTwometaRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetExternParam(v string) *CheckBankcardTwometaRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CheckBankcardTwometaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，为JSONObject。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckBankcardTwometaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckBankcardTwometaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckBankcardTwometaResponse) SetReqMsgId(v string) *CheckBankcardTwometaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaResponse) SetResultCode(v string) *CheckBankcardTwometaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaResponse) SetResultMsg(v string) *CheckBankcardTwometaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaResponse) SetExternInfo(v string) *CheckBankcardTwometaResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type CheckCarrierTwometaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 要素入参模式：
+	// 1：手机号+姓名
+	// 2：手机号+身份证号
+	MetaMode *string `json:"meta_mode,omitempty" xml:"meta_mode,omitempty" require:"true"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 运营商类型：
+	// CHINA_TELECOM；
+	// CHINA_MOBILE；
+	// CHINA_UNICOM
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty" require:"true"`
+}
+
+func (s CheckCarrierTwometaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckCarrierTwometaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckCarrierTwometaRequest) SetAuthToken(v string) *CheckCarrierTwometaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetProductInstanceId(v string) *CheckCarrierTwometaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetOuterOrderNo(v string) *CheckCarrierTwometaRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetMetaMode(v string) *CheckCarrierTwometaRequest {
+	s.MetaMode = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetMobile(v string) *CheckCarrierTwometaRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetCertName(v string) *CheckCarrierTwometaRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetCertNo(v string) *CheckCarrierTwometaRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetCarrier(v string) *CheckCarrierTwometaRequest {
+	s.Carrier = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetExternParam(v string) *CheckCarrierTwometaRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CheckCarrierTwometaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，为JSONObject。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckCarrierTwometaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckCarrierTwometaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckCarrierTwometaResponse) SetReqMsgId(v string) *CheckCarrierTwometaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaResponse) SetResultCode(v string) *CheckCarrierTwometaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaResponse) SetResultMsg(v string) *CheckCarrierTwometaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaResponse) SetExternInfo(v string) *CheckCarrierTwometaResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type CreateNfcServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 证件类型，ID_CARD，PASSPORT
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 证件姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 出生日期
+	Birthday *string `json:"birthday,omitempty" xml:"birthday,omitempty"`
+	// 证件有效期
+	ValidateDate *string `json:"validate_date,omitempty" xml:"validate_date,omitempty"`
+	// 护照要素录入模式 NONE MANUAL TRANS
+	Mode *string `json:"mode,omitempty" xml:"mode,omitempty"`
+	// 扩展参数
+	// {"syntheticEdoc":"Y"     是否合成证件图"}
+	// {"obtainDocPhoto":"Y"    是否获取高清人像"}
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// metainfo 环境参数，需要通过客户端 SDK 获取
+	MetaInfo *string `json:"meta_info,omitempty" xml:"meta_info,omitempty" require:"true"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面...
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 商户自定义的用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s CreateNfcServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateNfcServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateNfcServerRequest) SetAuthToken(v string) *CreateNfcServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetProductInstanceId(v string) *CreateNfcServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetCertType(v string) *CreateNfcServerRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetCertNo(v string) *CreateNfcServerRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetCertName(v string) *CreateNfcServerRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetBirthday(v string) *CreateNfcServerRequest {
+	s.Birthday = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetValidateDate(v string) *CreateNfcServerRequest {
+	s.ValidateDate = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetMode(v string) *CreateNfcServerRequest {
+	s.Mode = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetExternParam(v string) *CreateNfcServerRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetMetaInfo(v string) *CreateNfcServerRequest {
+	s.MetaInfo = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetOuterOrderNo(v string) *CreateNfcServerRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetSceneId(v string) *CreateNfcServerRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetUserId(v string) *CreateNfcServerRequest {
+	s.UserId = &v
+	return s
+}
+
+type CreateNfcServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+}
+
+func (s CreateNfcServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateNfcServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateNfcServerResponse) SetReqMsgId(v string) *CreateNfcServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateNfcServerResponse) SetResultCode(v string) *CreateNfcServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateNfcServerResponse) SetResultMsg(v string) *CreateNfcServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateNfcServerResponse) SetCertifyId(v string) *CreateNfcServerResponse {
+	s.CertifyId = &v
+	return s
+}
+
+type QueryNfcServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面...
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+}
+
+func (s QueryNfcServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryNfcServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryNfcServerRequest) SetAuthToken(v string) *QueryNfcServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryNfcServerRequest) SetProductInstanceId(v string) *QueryNfcServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryNfcServerRequest) SetCertifyId(v string) *QueryNfcServerRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *QueryNfcServerRequest) SetExternParam(v string) *QueryNfcServerRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *QueryNfcServerRequest) SetOuterOrderNo(v string) *QueryNfcServerRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryNfcServerRequest) SetSceneId(v string) *QueryNfcServerRequest {
+	s.SceneId = &v
+	return s
+}
+
+type QueryNfcServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否通过，通过为T，不通过为F
+	Passed *string `json:"passed,omitempty" xml:"passed,omitempty"`
+	// 业务失败原因
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	// 认证主体附件信息，一般的认证场景都是返回空
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty"`
+}
+
+func (s QueryNfcServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryNfcServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryNfcServerResponse) SetReqMsgId(v string) *QueryNfcServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryNfcServerResponse) SetResultCode(v string) *QueryNfcServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryNfcServerResponse) SetResultMsg(v string) *QueryNfcServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryNfcServerResponse) SetPassed(v string) *QueryNfcServerResponse {
+	s.Passed = &v
+	return s
+}
+
+func (s *QueryNfcServerResponse) SetReason(v string) *QueryNfcServerResponse {
+	s.Reason = &v
+	return s
+}
+
+func (s *QueryNfcServerResponse) SetMaterialInfo(v string) *QueryNfcServerResponse {
+	s.MaterialInfo = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3547,7 +4114,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.2"),
+				"sdk_version":      tea.String("1.15.0"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4477,6 +5044,176 @@ func (client *Client) QueryEducationInfoEx(request *QueryEducationInfoRequest, h
 	}
 	_result = &QueryEducationInfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.education.info.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: demo用记录查询
+ * Summary: demo用记录查询
+ */
+func (client *Client) QueryDemoInfo(request *QueryDemoInfoRequest) (_result *QueryDemoInfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDemoInfoResponse{}
+	_body, _err := client.QueryDemoInfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: demo用记录查询
+ * Summary: demo用记录查询
+ */
+func (client *Client) QueryDemoInfoEx(request *QueryDemoInfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoInfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDemoInfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.demo.info.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人银行卡二要素
+ * Summary: 个人银行卡二要素
+ */
+func (client *Client) CheckBankcardTwometa(request *CheckBankcardTwometaRequest) (_result *CheckBankcardTwometaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckBankcardTwometaResponse{}
+	_body, _err := client.CheckBankcardTwometaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人银行卡二要素
+ * Summary: 个人银行卡二要素
+ */
+func (client *Client) CheckBankcardTwometaEx(request *CheckBankcardTwometaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckBankcardTwometaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckBankcardTwometaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.bankcard.twometa.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人运营商二要素
+ * Summary: 个人运营商二要素
+ */
+func (client *Client) CheckCarrierTwometa(request *CheckCarrierTwometaRequest) (_result *CheckCarrierTwometaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckCarrierTwometaResponse{}
+	_body, _err := client.CheckCarrierTwometaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人运营商二要素
+ * Summary: 个人运营商二要素
+ */
+func (client *Client) CheckCarrierTwometaEx(request *CheckCarrierTwometaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckCarrierTwometaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckCarrierTwometaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carrier.twometa.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: NFC实证
+ * Summary: NFC实证
+ */
+func (client *Client) CreateNfcServer(request *CreateNfcServerRequest) (_result *CreateNfcServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateNfcServerResponse{}
+	_body, _err := client.CreateNfcServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: NFC实证
+ * Summary: NFC实证
+ */
+func (client *Client) CreateNfcServerEx(request *CreateNfcServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateNfcServerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateNfcServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.nfc.server.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: NFC实证
+ * Summary: NFC实证
+ */
+func (client *Client) QueryNfcServer(request *QueryNfcServerRequest) (_result *QueryNfcServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryNfcServerResponse{}
+	_body, _err := client.QueryNfcServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: NFC实证
+ * Summary: NFC实证
+ */
+func (client *Client) QueryNfcServerEx(request *QueryNfcServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryNfcServerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryNfcServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.nfc.server.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
