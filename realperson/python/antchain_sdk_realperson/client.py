@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.2',
+                    'sdk_version': '1.15.0',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.2',
+                    'sdk_version': '1.15.0',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -1707,6 +1707,286 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QueryEducationInfoResponse(),
             await self.do_request_async('1.0', 'di.realperson.education.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_demo_info(
+        self,
+        request: realperson_models.QueryDemoInfoRequest,
+    ) -> realperson_models.QueryDemoInfoResponse:
+        """
+        Description: demo用记录查询
+        Summary: demo用记录查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_info_ex(request, headers, runtime)
+
+    async def query_demo_info_async(
+        self,
+        request: realperson_models.QueryDemoInfoRequest,
+    ) -> realperson_models.QueryDemoInfoResponse:
+        """
+        Description: demo用记录查询
+        Summary: demo用记录查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_info_ex_async(request, headers, runtime)
+
+    def query_demo_info_ex(
+        self,
+        request: realperson_models.QueryDemoInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryDemoInfoResponse:
+        """
+        Description: demo用记录查询
+        Summary: demo用记录查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryDemoInfoResponse(),
+            self.do_request('1.0', 'di.realperson.demo.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_info_ex_async(
+        self,
+        request: realperson_models.QueryDemoInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryDemoInfoResponse:
+        """
+        Description: demo用记录查询
+        Summary: demo用记录查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryDemoInfoResponse(),
+            await self.do_request_async('1.0', 'di.realperson.demo.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_bankcard_twometa(
+        self,
+        request: realperson_models.CheckBankcardTwometaRequest,
+    ) -> realperson_models.CheckBankcardTwometaResponse:
+        """
+        Description: 个人银行卡二要素
+        Summary: 个人银行卡二要素
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_bankcard_twometa_ex(request, headers, runtime)
+
+    async def check_bankcard_twometa_async(
+        self,
+        request: realperson_models.CheckBankcardTwometaRequest,
+    ) -> realperson_models.CheckBankcardTwometaResponse:
+        """
+        Description: 个人银行卡二要素
+        Summary: 个人银行卡二要素
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_bankcard_twometa_ex_async(request, headers, runtime)
+
+    def check_bankcard_twometa_ex(
+        self,
+        request: realperson_models.CheckBankcardTwometaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckBankcardTwometaResponse:
+        """
+        Description: 个人银行卡二要素
+        Summary: 个人银行卡二要素
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CheckBankcardTwometaResponse(),
+            self.do_request('1.0', 'di.realperson.bankcard.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_bankcard_twometa_ex_async(
+        self,
+        request: realperson_models.CheckBankcardTwometaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckBankcardTwometaResponse:
+        """
+        Description: 个人银行卡二要素
+        Summary: 个人银行卡二要素
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CheckBankcardTwometaResponse(),
+            await self.do_request_async('1.0', 'di.realperson.bankcard.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_carrier_twometa(
+        self,
+        request: realperson_models.CheckCarrierTwometaRequest,
+    ) -> realperson_models.CheckCarrierTwometaResponse:
+        """
+        Description: 个人运营商二要素
+        Summary: 个人运营商二要素
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_carrier_twometa_ex(request, headers, runtime)
+
+    async def check_carrier_twometa_async(
+        self,
+        request: realperson_models.CheckCarrierTwometaRequest,
+    ) -> realperson_models.CheckCarrierTwometaResponse:
+        """
+        Description: 个人运营商二要素
+        Summary: 个人运营商二要素
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_carrier_twometa_ex_async(request, headers, runtime)
+
+    def check_carrier_twometa_ex(
+        self,
+        request: realperson_models.CheckCarrierTwometaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckCarrierTwometaResponse:
+        """
+        Description: 个人运营商二要素
+        Summary: 个人运营商二要素
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CheckCarrierTwometaResponse(),
+            self.do_request('1.0', 'di.realperson.carrier.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_carrier_twometa_ex_async(
+        self,
+        request: realperson_models.CheckCarrierTwometaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckCarrierTwometaResponse:
+        """
+        Description: 个人运营商二要素
+        Summary: 个人运营商二要素
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CheckCarrierTwometaResponse(),
+            await self.do_request_async('1.0', 'di.realperson.carrier.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_nfc_server(
+        self,
+        request: realperson_models.CreateNfcServerRequest,
+    ) -> realperson_models.CreateNfcServerResponse:
+        """
+        Description: NFC实证
+        Summary: NFC实证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_nfc_server_ex(request, headers, runtime)
+
+    async def create_nfc_server_async(
+        self,
+        request: realperson_models.CreateNfcServerRequest,
+    ) -> realperson_models.CreateNfcServerResponse:
+        """
+        Description: NFC实证
+        Summary: NFC实证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_nfc_server_ex_async(request, headers, runtime)
+
+    def create_nfc_server_ex(
+        self,
+        request: realperson_models.CreateNfcServerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CreateNfcServerResponse:
+        """
+        Description: NFC实证
+        Summary: NFC实证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CreateNfcServerResponse(),
+            self.do_request('1.0', 'di.realperson.nfc.server.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_nfc_server_ex_async(
+        self,
+        request: realperson_models.CreateNfcServerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CreateNfcServerResponse:
+        """
+        Description: NFC实证
+        Summary: NFC实证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CreateNfcServerResponse(),
+            await self.do_request_async('1.0', 'di.realperson.nfc.server.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_nfc_server(
+        self,
+        request: realperson_models.QueryNfcServerRequest,
+    ) -> realperson_models.QueryNfcServerResponse:
+        """
+        Description: NFC实证
+        Summary: NFC实证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_nfc_server_ex(request, headers, runtime)
+
+    async def query_nfc_server_async(
+        self,
+        request: realperson_models.QueryNfcServerRequest,
+    ) -> realperson_models.QueryNfcServerResponse:
+        """
+        Description: NFC实证
+        Summary: NFC实证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_nfc_server_ex_async(request, headers, runtime)
+
+    def query_nfc_server_ex(
+        self,
+        request: realperson_models.QueryNfcServerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryNfcServerResponse:
+        """
+        Description: NFC实证
+        Summary: NFC实证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryNfcServerResponse(),
+            self.do_request('1.0', 'di.realperson.nfc.server.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_nfc_server_ex_async(
+        self,
+        request: realperson_models.QueryNfcServerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryNfcServerResponse:
+        """
+        Description: NFC实证
+        Summary: NFC实证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryNfcServerResponse(),
+            await self.do_request_async('1.0', 'di.realperson.nfc.server.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
