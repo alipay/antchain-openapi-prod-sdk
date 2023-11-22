@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.2',
+                    'sdk_version': '1.1.3',
                     '_prod_code': 'DEFINCASHIER',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.2',
+                    'sdk_version': '1.1.3',
                     '_prod_code': 'DEFINCASHIER',
                     '_prod_channel': 'undefined'
                 }
@@ -833,4 +833,60 @@ class Client:
         return TeaCore.from_map(
             defincashier_models.ApplySaasShareResponse(),
             await self.do_request_async('1.0', 'antchain.defincashier.saas.share.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pay_saas_payment(
+        self,
+        request: defincashier_models.PaySaasPaymentRequest,
+    ) -> defincashier_models.PaySaasPaymentResponse:
+        """
+        Description: 根据交易单，申请支付
+        Summary: B2B资金服务交易支付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pay_saas_payment_ex(request, headers, runtime)
+
+    async def pay_saas_payment_async(
+        self,
+        request: defincashier_models.PaySaasPaymentRequest,
+    ) -> defincashier_models.PaySaasPaymentResponse:
+        """
+        Description: 根据交易单，申请支付
+        Summary: B2B资金服务交易支付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pay_saas_payment_ex_async(request, headers, runtime)
+
+    def pay_saas_payment_ex(
+        self,
+        request: defincashier_models.PaySaasPaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> defincashier_models.PaySaasPaymentResponse:
+        """
+        Description: 根据交易单，申请支付
+        Summary: B2B资金服务交易支付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            defincashier_models.PaySaasPaymentResponse(),
+            self.do_request('1.0', 'antchain.defincashier.saas.payment.pay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pay_saas_payment_ex_async(
+        self,
+        request: defincashier_models.PaySaasPaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> defincashier_models.PaySaasPaymentResponse:
+        """
+        Description: 根据交易单，申请支付
+        Summary: B2B资金服务交易支付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            defincashier_models.PaySaasPaymentResponse(),
+            await self.do_request_async('1.0', 'antchain.defincashier.saas.payment.pay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
