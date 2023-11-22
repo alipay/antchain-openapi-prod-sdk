@@ -761,6 +761,8 @@ export class CheckIndividualidFourmetaRequest extends $tea.Model {
   // map结果的json数据格式，预留字段
   // 
   externParam?: string;
+  // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+  certType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -771,6 +773,7 @@ export class CheckIndividualidFourmetaRequest extends $tea.Model {
       mobile: 'mobile',
       bankCard: 'bank_card',
       externParam: 'extern_param',
+      certType: 'cert_type',
     };
   }
 
@@ -784,6 +787,7 @@ export class CheckIndividualidFourmetaRequest extends $tea.Model {
       mobile: 'string',
       bankCard: 'string',
       externParam: 'string',
+      certType: 'string',
     };
   }
 
@@ -1912,6 +1916,8 @@ export class CheckThreemetaBankcardRequest extends $tea.Model {
   bankCard: string;
   // 扩展信息，Map的json格式
   externParam?: string;
+  // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+  certType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1921,6 +1927,7 @@ export class CheckThreemetaBankcardRequest extends $tea.Model {
       certNo: 'cert_no',
       bankCard: 'bank_card',
       externParam: 'extern_param',
+      certType: 'cert_type',
     };
   }
 
@@ -1933,6 +1940,7 @@ export class CheckThreemetaBankcardRequest extends $tea.Model {
       certNo: 'string',
       bankCard: 'string',
       externParam: 'string',
+      certType: 'string',
     };
   }
 
@@ -2396,6 +2404,420 @@ export class QueryEducationInfoResponse extends $tea.Model {
   }
 }
 
+export class QueryDemoInfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // token
+  token: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoInfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // record json
+  record?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      record: 'record',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      record: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckBankcardTwometaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 	外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string;
+  // 要素入参模式： 1：银行卡号+姓名 2：银行卡号+证件号 3：银行卡号+手机号
+  metaMode: string;
+  // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+  certType?: string;
+  // 银行卡号
+  bankCard: string;
+  // 手机号码
+  mobile?: string;
+  // 姓名
+  certName?: string;
+  // 证件号
+  certNo?: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      metaMode: 'meta_mode',
+      certType: 'cert_type',
+      bankCard: 'bank_card',
+      mobile: 'mobile',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      metaMode: 'string',
+      certType: 'string',
+      bankCard: 'string',
+      mobile: 'string',
+      certName: 'string',
+      certNo: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckBankcardTwometaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 扩展信息，为JSONObject。
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckCarrierTwometaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string;
+  // 要素入参模式：
+  // 1：手机号+姓名
+  // 2：手机号+身份证号
+  metaMode: string;
+  // 手机号码
+  mobile: string;
+  // 姓名
+  certName?: string;
+  // 身份证号
+  certNo?: string;
+  // 运营商类型：
+  // CHINA_TELECOM；
+  // CHINA_MOBILE；
+  // CHINA_UNICOM
+  carrier?: string;
+  // 扩展信息，预留字段
+  externParam: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      metaMode: 'meta_mode',
+      mobile: 'mobile',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      carrier: 'carrier',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      metaMode: 'string',
+      mobile: 'string',
+      certName: 'string',
+      certNo: 'string',
+      carrier: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckCarrierTwometaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 扩展信息，为JSONObject。
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateNfcServerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 证件类型，ID_CARD，PASSPORT
+  certType: string;
+  // 证件号码
+  certNo?: string;
+  // 证件姓名
+  certName?: string;
+  // 出生日期
+  birthday?: string;
+  // 证件有效期
+  validateDate?: string;
+  // 护照要素录入模式 NONE MANUAL TRANS
+  mode?: string;
+  // 扩展参数
+  // {"syntheticEdoc":"Y"     是否合成证件图"}
+  // {"obtainDocPhoto":"Y"    是否获取高清人像"}
+  externParam?: string;
+  // metainfo 环境参数，需要通过客户端 SDK 获取
+  metaInfo: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面...
+  outerOrderNo: string;
+  // 场景ID
+  sceneId: string;
+  // 商户自定义的用户ID
+  userId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      certType: 'cert_type',
+      certNo: 'cert_no',
+      certName: 'cert_name',
+      birthday: 'birthday',
+      validateDate: 'validate_date',
+      mode: 'mode',
+      externParam: 'extern_param',
+      metaInfo: 'meta_info',
+      outerOrderNo: 'outer_order_no',
+      sceneId: 'scene_id',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      certType: 'string',
+      certNo: 'string',
+      certName: 'string',
+      birthday: 'string',
+      validateDate: 'string',
+      mode: 'string',
+      externParam: 'string',
+      metaInfo: 'string',
+      outerOrderNo: 'string',
+      sceneId: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateNfcServerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 实人认证唯一标识
+  certifyId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      certifyId: 'certify_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      certifyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNfcServerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 实人认证唯一标识
+  certifyId: string;
+  // 预留扩展业务参数
+  externParam?: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面...
+  outerOrderNo: string;
+  // 场景ID
+  sceneId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      certifyId: 'certify_id',
+      externParam: 'extern_param',
+      outerOrderNo: 'outer_order_no',
+      sceneId: 'scene_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      certifyId: 'string',
+      externParam: 'string',
+      outerOrderNo: 'string',
+      sceneId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNfcServerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否通过，通过为T，不通过为F
+  passed?: string;
+  // 业务失败原因
+  reason?: string;
+  // 认证主体附件信息，一般的认证场景都是返回空
+  materialInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      passed: 'passed',
+      reason: 'reason',
+      materialInfo: 'material_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      passed: 'string',
+      reason: 'string',
+      materialInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2597,7 +3019,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.2",
+          sdk_version: "1.15.0",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -3139,6 +3561,101 @@ export default class Client {
   async queryEducationInfoEx(request: QueryEducationInfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEducationInfoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryEducationInfoResponse>(await this.doRequest("1.0", "di.realperson.education.info.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEducationInfoResponse({}));
+  }
+
+  /**
+   * Description: demo用记录查询
+   * Summary: demo用记录查询
+   */
+  async queryDemoInfo(request: QueryDemoInfoRequest): Promise<QueryDemoInfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDemoInfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: demo用记录查询
+   * Summary: demo用记录查询
+   */
+  async queryDemoInfoEx(request: QueryDemoInfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoInfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDemoInfoResponse>(await this.doRequest("1.0", "di.realperson.demo.info.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoInfoResponse({}));
+  }
+
+  /**
+   * Description: 个人银行卡二要素
+   * Summary: 个人银行卡二要素
+   */
+  async checkBankcardTwometa(request: CheckBankcardTwometaRequest): Promise<CheckBankcardTwometaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkBankcardTwometaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人银行卡二要素
+   * Summary: 个人银行卡二要素
+   */
+  async checkBankcardTwometaEx(request: CheckBankcardTwometaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckBankcardTwometaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckBankcardTwometaResponse>(await this.doRequest("1.0", "di.realperson.bankcard.twometa.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckBankcardTwometaResponse({}));
+  }
+
+  /**
+   * Description: 个人运营商二要素
+   * Summary: 个人运营商二要素
+   */
+  async checkCarrierTwometa(request: CheckCarrierTwometaRequest): Promise<CheckCarrierTwometaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkCarrierTwometaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人运营商二要素
+   * Summary: 个人运营商二要素
+   */
+  async checkCarrierTwometaEx(request: CheckCarrierTwometaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckCarrierTwometaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckCarrierTwometaResponse>(await this.doRequest("1.0", "di.realperson.carrier.twometa.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckCarrierTwometaResponse({}));
+  }
+
+  /**
+   * Description: NFC实证
+   * Summary: NFC实证
+   */
+  async createNfcServer(request: CreateNfcServerRequest): Promise<CreateNfcServerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createNfcServerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: NFC实证
+   * Summary: NFC实证
+   */
+  async createNfcServerEx(request: CreateNfcServerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateNfcServerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateNfcServerResponse>(await this.doRequest("1.0", "di.realperson.nfc.server.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateNfcServerResponse({}));
+  }
+
+  /**
+   * Description: NFC实证
+   * Summary: NFC实证
+   */
+  async queryNfcServer(request: QueryNfcServerRequest): Promise<QueryNfcServerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryNfcServerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: NFC实证
+   * Summary: NFC实证
+   */
+  async queryNfcServerEx(request: QueryNfcServerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNfcServerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryNfcServerResponse>(await this.doRequest("1.0", "di.realperson.nfc.server.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNfcServerResponse({}));
   }
 
   /**
