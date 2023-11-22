@@ -428,6 +428,60 @@ func (s *PaymentCaptureResult) SetSubMsg(v string) *PaymentCaptureResult {
 	return s
 }
 
+// 分账确认结果对象
+type PaymentShareConfirmResult struct {
+	// 蚂蚁分账申请返回的交易号
+	OrgOrderId *string `json:"org_order_id,omitempty" xml:"org_order_id,omitempty" require:"true"`
+	// 蚂蚁分账确认订单ID
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 外部请求ID，幂等字段
+	OutRequestId *string `json:"out_request_id,omitempty" xml:"out_request_id,omitempty" require:"true"`
+	// 分账单状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 业务错误码(为空表示成功，否则为业务错误码)
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty" require:"true"`
+	// 业务错误描述
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty" require:"true"`
+}
+
+func (s PaymentShareConfirmResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PaymentShareConfirmResult) GoString() string {
+	return s.String()
+}
+
+func (s *PaymentShareConfirmResult) SetOrgOrderId(v string) *PaymentShareConfirmResult {
+	s.OrgOrderId = &v
+	return s
+}
+
+func (s *PaymentShareConfirmResult) SetOrderId(v string) *PaymentShareConfirmResult {
+	s.OrderId = &v
+	return s
+}
+
+func (s *PaymentShareConfirmResult) SetOutRequestId(v string) *PaymentShareConfirmResult {
+	s.OutRequestId = &v
+	return s
+}
+
+func (s *PaymentShareConfirmResult) SetState(v string) *PaymentShareConfirmResult {
+	s.State = &v
+	return s
+}
+
+func (s *PaymentShareConfirmResult) SetSubCode(v string) *PaymentShareConfirmResult {
+	s.SubCode = &v
+	return s
+}
+
+func (s *PaymentShareConfirmResult) SetSubMsg(v string) *PaymentShareConfirmResult {
+	s.SubMsg = &v
+	return s
+}
+
 // 资金操作明细查询结果
 type FundItemQueryResult struct {
 	// 会员所属业务平台在智能科技的会员ID
@@ -501,6 +555,88 @@ func (s *FundItemQueryResult) SetSubCode(v string) *FundItemQueryResult {
 
 func (s *FundItemQueryResult) SetSubMsg(v string) *FundItemQueryResult {
 	s.SubMsg = &v
+	return s
+}
+
+// 支付请求结果
+type PayOrderOpenApiResult struct {
+	// 会员所属业务平台在智能科技的会员ID
+	PlatformMemberId *string `json:"platform_member_id,omitempty" xml:"platform_member_id,omitempty" require:"true"`
+	// 外部订单号
+	OutOrderId *string `json:"out_order_id,omitempty" xml:"out_order_id,omitempty" require:"true"`
+	// 资金模式
+	FundMode *string `json:"fund_mode,omitempty" xml:"fund_mode,omitempty" require:"true"`
+	// 支付提交状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 交易单状态
+	OrderState *string `json:"order_state,omitempty" xml:"order_state,omitempty" require:"true"`
+	// 收款账户
+	PayeeAccount *AccountDTO `json:"payee_account,omitempty" xml:"payee_account,omitempty" require:"true"`
+	// 银行或其他支付服务提供方支付结果描述
+	PaymentErrorMessage *string `json:"payment_error_message,omitempty" xml:"payment_error_message,omitempty" require:"true"`
+	// 业务错误码(为空表示成功，否则为业务错误码)
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty" require:"true"`
+	// 业务错误描述
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty" require:"true"`
+	// 蚂蚁交易单ID
+	TradeId *string `json:"trade_id,omitempty" xml:"trade_id,omitempty" require:"true"`
+}
+
+func (s PayOrderOpenApiResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PayOrderOpenApiResult) GoString() string {
+	return s.String()
+}
+
+func (s *PayOrderOpenApiResult) SetPlatformMemberId(v string) *PayOrderOpenApiResult {
+	s.PlatformMemberId = &v
+	return s
+}
+
+func (s *PayOrderOpenApiResult) SetOutOrderId(v string) *PayOrderOpenApiResult {
+	s.OutOrderId = &v
+	return s
+}
+
+func (s *PayOrderOpenApiResult) SetFundMode(v string) *PayOrderOpenApiResult {
+	s.FundMode = &v
+	return s
+}
+
+func (s *PayOrderOpenApiResult) SetState(v string) *PayOrderOpenApiResult {
+	s.State = &v
+	return s
+}
+
+func (s *PayOrderOpenApiResult) SetOrderState(v string) *PayOrderOpenApiResult {
+	s.OrderState = &v
+	return s
+}
+
+func (s *PayOrderOpenApiResult) SetPayeeAccount(v *AccountDTO) *PayOrderOpenApiResult {
+	s.PayeeAccount = v
+	return s
+}
+
+func (s *PayOrderOpenApiResult) SetPaymentErrorMessage(v string) *PayOrderOpenApiResult {
+	s.PaymentErrorMessage = &v
+	return s
+}
+
+func (s *PayOrderOpenApiResult) SetSubCode(v string) *PayOrderOpenApiResult {
+	s.SubCode = &v
+	return s
+}
+
+func (s *PayOrderOpenApiResult) SetSubMsg(v string) *PayOrderOpenApiResult {
+	s.SubMsg = &v
+	return s
+}
+
+func (s *PayOrderOpenApiResult) SetTradeId(v string) *PayOrderOpenApiResult {
+	s.TradeId = &v
 	return s
 }
 
@@ -1727,6 +1863,84 @@ func (s *ApplySaasShareResponse) SetData(v *PaymentShareAcceptanceResult) *Apply
 	return s
 }
 
+type PaySaasPaymentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// json请求参数,示例超出限制，完整字段见下文
+	// {"out_order_id":"","out_payer_id":{"reference_id_type":"","reference_id":""},"out_payee_id":{"reference_id_type":"","reference_id":""},"order_pay_time":"","payer_detail":{"payer_amount":"","payer_currency":"","account":{"inst_id":"","account_no":"","account_name":"","offical_name":"","offical_number":""},"pay_mode":""},"platform_member_id":""}
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
+	// 版本号
+	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
+}
+
+func (s PaySaasPaymentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PaySaasPaymentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PaySaasPaymentRequest) SetAuthToken(v string) *PaySaasPaymentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PaySaasPaymentRequest) SetProductInstanceId(v string) *PaySaasPaymentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PaySaasPaymentRequest) SetBizContent(v string) *PaySaasPaymentRequest {
+	s.BizContent = &v
+	return s
+}
+
+func (s *PaySaasPaymentRequest) SetServiceVersion(v string) *PaySaasPaymentRequest {
+	s.ServiceVersion = &v
+	return s
+}
+
+type PaySaasPaymentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 分账确认接口
+	Date *PaymentShareConfirmResult `json:"date,omitempty" xml:"date,omitempty"`
+}
+
+func (s PaySaasPaymentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PaySaasPaymentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PaySaasPaymentResponse) SetReqMsgId(v string) *PaySaasPaymentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PaySaasPaymentResponse) SetResultCode(v string) *PaySaasPaymentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PaySaasPaymentResponse) SetResultMsg(v string) *PaySaasPaymentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PaySaasPaymentResponse) SetDate(v *PaymentShareConfirmResult) *PaySaasPaymentResponse {
+	s.Date = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1849,7 +2063,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.2"),
+				"sdk_version":      tea.String("1.1.3"),
 				"_prod_code":       tea.String("DEFINCASHIER"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -2240,6 +2454,40 @@ func (client *Client) ApplySaasShareEx(request *ApplySaasShareRequest, headers m
 	}
 	_result = &ApplySaasShareResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.defincashier.saas.share.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据交易单，申请支付
+ * Summary: B2B资金服务交易支付
+ */
+func (client *Client) PaySaasPayment(request *PaySaasPaymentRequest) (_result *PaySaasPaymentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PaySaasPaymentResponse{}
+	_body, _err := client.PaySaasPaymentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据交易单，申请支付
+ * Summary: B2B资金服务交易支付
+ */
+func (client *Client) PaySaasPaymentEx(request *PaySaasPaymentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PaySaasPaymentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PaySaasPaymentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.defincashier.saas.payment.pay"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
