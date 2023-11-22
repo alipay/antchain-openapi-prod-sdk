@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEFINCASHIER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.2"},
+                        {"sdk_version", "1.1.3"},
                         {"_prod_code", "DEFINCASHIER"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DEFINCASHIER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.2"},
+                        {"sdk_version", "1.1.3"},
                         {"_prod_code", "DEFINCASHIER"},
                         {"_prod_channel", "undefined"},
                     };
@@ -739,6 +739,48 @@ namespace AntChain.SDK.DEFINCASHIER
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplySaasShareResponse>(await DoRequestAsync("1.0", "antchain.defincashier.saas.share.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据交易单，申请支付
+         * Summary: B2B资金服务交易支付
+         */
+        public PaySaasPaymentResponse PaySaasPayment(PaySaasPaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PaySaasPaymentEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据交易单，申请支付
+         * Summary: B2B资金服务交易支付
+         */
+        public async Task<PaySaasPaymentResponse> PaySaasPaymentAsync(PaySaasPaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PaySaasPaymentExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据交易单，申请支付
+         * Summary: B2B资金服务交易支付
+         */
+        public PaySaasPaymentResponse PaySaasPaymentEx(PaySaasPaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PaySaasPaymentResponse>(DoRequest("1.0", "antchain.defincashier.saas.payment.pay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据交易单，申请支付
+         * Summary: B2B资金服务交易支付
+         */
+        public async Task<PaySaasPaymentResponse> PaySaasPaymentExAsync(PaySaasPaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PaySaasPaymentResponse>(await DoRequestAsync("1.0", "antchain.defincashier.saas.payment.pay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
