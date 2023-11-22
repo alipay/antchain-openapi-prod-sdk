@@ -289,6 +289,47 @@ export class PaymentCaptureResult extends $tea.Model {
   }
 }
 
+// 分账确认结果对象
+export class PaymentShareConfirmResult extends $tea.Model {
+  // 蚂蚁分账申请返回的交易号
+  orgOrderId: string;
+  // 蚂蚁分账确认订单ID
+  orderId: string;
+  // 外部请求ID，幂等字段
+  outRequestId: string;
+  // 分账单状态
+  state: string;
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode: string;
+  // 业务错误描述
+  subMsg: string;
+  static names(): { [key: string]: string } {
+    return {
+      orgOrderId: 'org_order_id',
+      orderId: 'order_id',
+      outRequestId: 'out_request_id',
+      state: 'state',
+      subCode: 'sub_code',
+      subMsg: 'sub_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orgOrderId: 'string',
+      orderId: 'string',
+      outRequestId: 'string',
+      state: 'string',
+      subCode: 'string',
+      subMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 资金操作明细查询结果
 export class FundItemQueryResult extends $tea.Model {
   // 会员所属业务平台在智能科技的会员ID
@@ -335,6 +376,63 @@ export class FundItemQueryResult extends $tea.Model {
       requestCurrency: 'string',
       subCode: 'string',
       subMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 支付请求结果
+export class PayOrderOpenApiResult extends $tea.Model {
+  // 会员所属业务平台在智能科技的会员ID
+  platformMemberId: string;
+  // 外部订单号
+  outOrderId: string;
+  // 资金模式
+  fundMode: string;
+  // 支付提交状态
+  state: string;
+  // 交易单状态
+  orderState: string;
+  // 收款账户
+  payeeAccount: AccountDTO;
+  // 银行或其他支付服务提供方支付结果描述
+  paymentErrorMessage: string;
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode: string;
+  // 业务错误描述
+  subMsg: string;
+  // 蚂蚁交易单ID
+  tradeId: string;
+  static names(): { [key: string]: string } {
+    return {
+      platformMemberId: 'platform_member_id',
+      outOrderId: 'out_order_id',
+      fundMode: 'fund_mode',
+      state: 'state',
+      orderState: 'order_state',
+      payeeAccount: 'payee_account',
+      paymentErrorMessage: 'payment_error_message',
+      subCode: 'sub_code',
+      subMsg: 'sub_msg',
+      tradeId: 'trade_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      platformMemberId: 'string',
+      outOrderId: 'string',
+      fundMode: 'string',
+      state: 'string',
+      orderState: 'string',
+      payeeAccount: AccountDTO,
+      paymentErrorMessage: 'string',
+      subCode: 'string',
+      subMsg: 'string',
+      tradeId: 'string',
     };
   }
 
@@ -1308,6 +1406,70 @@ export class ApplySaasShareResponse extends $tea.Model {
   }
 }
 
+export class PaySaasPaymentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // json请求参数,示例超出限制，完整字段见下文
+  // {"out_order_id":"","out_payer_id":{"reference_id_type":"","reference_id":""},"out_payee_id":{"reference_id_type":"","reference_id":""},"order_pay_time":"","payer_detail":{"payer_amount":"","payer_currency":"","account":{"inst_id":"","account_no":"","account_name":"","offical_name":"","offical_number":""},"pay_mode":""},"platform_member_id":""}
+  bizContent: string;
+  // 版本号
+  serviceVersion: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizContent: 'biz_content',
+      serviceVersion: 'service_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizContent: 'string',
+      serviceVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PaySaasPaymentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 分账确认接口
+  date?: PaymentShareConfirmResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      date: 'date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      date: PaymentShareConfirmResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1421,7 +1583,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.2",
+          sdk_version: "1.1.3",
           _prod_code: "DEFINCASHIER",
           _prod_channel: "undefined",
         };
@@ -1657,6 +1819,25 @@ export default class Client {
   async applySaasShareEx(request: ApplySaasShareRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplySaasShareResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplySaasShareResponse>(await this.doRequest("1.0", "antchain.defincashier.saas.share.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplySaasShareResponse({}));
+  }
+
+  /**
+   * Description: 根据交易单，申请支付
+   * Summary: B2B资金服务交易支付
+   */
+  async paySaasPayment(request: PaySaasPaymentRequest): Promise<PaySaasPaymentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.paySaasPaymentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据交易单，申请支付
+   * Summary: B2B资金服务交易支付
+   */
+  async paySaasPaymentEx(request: PaySaasPaymentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PaySaasPaymentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PaySaasPaymentResponse>(await this.doRequest("1.0", "antchain.defincashier.saas.payment.pay", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PaySaasPaymentResponse({}));
   }
 
 }
