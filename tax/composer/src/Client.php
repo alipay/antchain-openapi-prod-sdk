@@ -35,6 +35,8 @@ use AntChain\TAX\Models\ExecIcmSyncgatheringRequest;
 use AntChain\TAX\Models\ExecIcmSyncgatheringResponse;
 use AntChain\TAX\Models\MatchIcmSimpleauthRequest;
 use AntChain\TAX\Models\MatchIcmSimpleauthResponse;
+use AntChain\TAX\Models\PullApiHaiguanasyncpollingRequest;
+use AntChain\TAX\Models\PullApiHaiguanasyncpollingResponse;
 use AntChain\TAX\Models\PullApiSimpleauthasyncpollingRequest;
 use AntChain\TAX\Models\PullApiSimpleauthasyncpollingResponse;
 use AntChain\TAX\Models\PullApiSimpleauthmarkRequest;
@@ -224,7 +226,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.18',
+                    'sdk_version'      => '1.7.19',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1227,6 +1229,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryApiHaiguanasyncResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.haiguanasync.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 海关-异步查询数据-轮询拉取数据
+     * Summary: 海关-异步查询数据-轮询拉取数据.
+     *
+     * @param PullApiHaiguanasyncpollingRequest $request
+     *
+     * @return PullApiHaiguanasyncpollingResponse
+     */
+    public function pullApiHaiguanasyncpolling($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pullApiHaiguanasyncpollingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 海关-异步查询数据-轮询拉取数据
+     * Summary: 海关-异步查询数据-轮询拉取数据.
+     *
+     * @param PullApiHaiguanasyncpollingRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return PullApiHaiguanasyncpollingResponse
+     */
+    public function pullApiHaiguanasyncpollingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PullApiHaiguanasyncpollingResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.haiguanasyncpolling.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
