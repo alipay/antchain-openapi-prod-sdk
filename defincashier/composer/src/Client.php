@@ -21,6 +21,8 @@ use AntChain\DEFINCASHIER\Models\CheckSaasPaymentRequest;
 use AntChain\DEFINCASHIER\Models\CheckSaasPaymentResponse;
 use AntChain\DEFINCASHIER\Models\CreateSaasPaymentRequest;
 use AntChain\DEFINCASHIER\Models\CreateSaasPaymentResponse;
+use AntChain\DEFINCASHIER\Models\PaySaasPaymentRequest;
+use AntChain\DEFINCASHIER\Models\PaySaasPaymentResponse;
 use AntChain\DEFINCASHIER\Models\QuerySaasAccountRequest;
 use AntChain\DEFINCASHIER\Models\QuerySaasAccountResponse;
 use AntChain\DEFINCASHIER\Models\QuerySaasAgreementRequest;
@@ -178,7 +180,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.2',
+                    'sdk_version'      => '1.1.3',
                     '_prod_code'       => 'DEFINCASHIER',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -554,5 +556,38 @@ class Client
         Utils::validateModel($request);
 
         return ApplySaasShareResponse::fromMap($this->doRequest('1.0', 'antchain.defincashier.saas.share.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据交易单，申请支付
+     * Summary: B2B资金服务交易支付.
+     *
+     * @param PaySaasPaymentRequest $request
+     *
+     * @return PaySaasPaymentResponse
+     */
+    public function paySaasPayment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->paySaasPaymentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据交易单，申请支付
+     * Summary: B2B资金服务交易支付.
+     *
+     * @param PaySaasPaymentRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return PaySaasPaymentResponse
+     */
+    public function paySaasPaymentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PaySaasPaymentResponse::fromMap($this->doRequest('1.0', 'antchain.defincashier.saas.payment.pay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
