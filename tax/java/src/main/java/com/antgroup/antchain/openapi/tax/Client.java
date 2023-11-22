@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.18"),
+                    new TeaPair("sdk_version", "1.7.19"),
                     new TeaPair("_prod_code", "TAX"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -710,6 +710,25 @@ public class Client {
     public QueryApiHaiguanasyncResponse queryApiHaiguanasyncEx(QueryApiHaiguanasyncRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.haiguanasync.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApiHaiguanasyncResponse());
+    }
+
+    /**
+     * Description: 海关-异步查询数据-轮询拉取数据
+     * Summary: 海关-异步查询数据-轮询拉取数据
+     */
+    public PullApiHaiguanasyncpollingResponse pullApiHaiguanasyncpolling(PullApiHaiguanasyncpollingRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pullApiHaiguanasyncpollingEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 海关-异步查询数据-轮询拉取数据
+     * Summary: 海关-异步查询数据-轮询拉取数据
+     */
+    public PullApiHaiguanasyncpollingResponse pullApiHaiguanasyncpollingEx(PullApiHaiguanasyncpollingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.haiguanasyncpolling.pull", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PullApiHaiguanasyncpollingResponse());
     }
 
     /**
