@@ -4684,6 +4684,153 @@ func (s *QueryApiHaiguanasyncResponse) SetResultMsg(v string) *QueryApiHaiguanas
 	return s
 }
 
+type PullApiHaiguanasyncpollingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户号/子租户号
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 产品类型，海关数据: ZX500
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 身份id，企业税号
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 用于幂等控制
+	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty" require:"true"`
+	// 企业名称
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
+}
+
+func (s PullApiHaiguanasyncpollingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PullApiHaiguanasyncpollingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PullApiHaiguanasyncpollingRequest) SetAuthToken(v string) *PullApiHaiguanasyncpollingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingRequest) SetProductInstanceId(v string) *PullApiHaiguanasyncpollingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingRequest) SetInstCode(v string) *PullApiHaiguanasyncpollingRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingRequest) SetAuthType(v string) *PullApiHaiguanasyncpollingRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingRequest) SetIdentityId(v string) *PullApiHaiguanasyncpollingRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingRequest) SetBizRequestId(v string) *PullApiHaiguanasyncpollingRequest {
+	s.BizRequestId = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingRequest) SetCorpName(v string) *PullApiHaiguanasyncpollingRequest {
+	s.CorpName = &v
+	return s
+}
+
+type PullApiHaiguanasyncpollingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 租户号/子租户号，如果为租户号获取，则为租户号，如果为子租户号获取，则传输子租户号
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty"`
+	// 请求id
+	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty"`
+	// 身份id，企业税号
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty"`
+	// 数据文件地址集合，目前只会包含一个txt文件
+	FileList []*string `json:"file_list,omitempty" xml:"file_list,omitempty" type:"Repeated"`
+	// 解密密钥信封
+	Secret *string `json:"secret,omitempty" xml:"secret,omitempty"`
+	// 产品类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
+	// 行方生成的授权编号
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
+	// 系统时间
+	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
+}
+
+func (s PullApiHaiguanasyncpollingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PullApiHaiguanasyncpollingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PullApiHaiguanasyncpollingResponse) SetReqMsgId(v string) *PullApiHaiguanasyncpollingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingResponse) SetResultCode(v string) *PullApiHaiguanasyncpollingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingResponse) SetResultMsg(v string) *PullApiHaiguanasyncpollingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingResponse) SetInstCode(v string) *PullApiHaiguanasyncpollingResponse {
+	s.InstCode = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingResponse) SetBizRequestId(v string) *PullApiHaiguanasyncpollingResponse {
+	s.BizRequestId = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingResponse) SetIdentityId(v string) *PullApiHaiguanasyncpollingResponse {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingResponse) SetFileList(v []*string) *PullApiHaiguanasyncpollingResponse {
+	s.FileList = v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingResponse) SetSecret(v string) *PullApiHaiguanasyncpollingResponse {
+	s.Secret = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingResponse) SetAuthType(v string) *PullApiHaiguanasyncpollingResponse {
+	s.AuthType = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingResponse) SetAuthCode(v string) *PullApiHaiguanasyncpollingResponse {
+	s.AuthCode = &v
+	return s
+}
+
+func (s *PullApiHaiguanasyncpollingResponse) SetTimestamp(v string) *PullApiHaiguanasyncpollingResponse {
+	s.Timestamp = &v
+	return s
+}
+
 type QueryPdataPersonalincomeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5317,7 +5464,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.18"),
+				"sdk_version":      tea.String("1.7.19"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6354,6 +6501,40 @@ func (client *Client) QueryApiHaiguanasyncEx(request *QueryApiHaiguanasyncReques
 	}
 	_result = &QueryApiHaiguanasyncResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.haiguanasync.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 海关-异步查询数据-轮询拉取数据
+ * Summary: 海关-异步查询数据-轮询拉取数据
+ */
+func (client *Client) PullApiHaiguanasyncpolling(request *PullApiHaiguanasyncpollingRequest) (_result *PullApiHaiguanasyncpollingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PullApiHaiguanasyncpollingResponse{}
+	_body, _err := client.PullApiHaiguanasyncpollingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 海关-异步查询数据-轮询拉取数据
+ * Summary: 海关-异步查询数据-轮询拉取数据
+ */
+func (client *Client) PullApiHaiguanasyncpollingEx(request *PullApiHaiguanasyncpollingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PullApiHaiguanasyncpollingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PullApiHaiguanasyncpollingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.haiguanasyncpolling.pull"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
