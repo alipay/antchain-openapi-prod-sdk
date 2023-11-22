@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.18',
+                    'sdk_version': '1.7.19',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.18',
+                    'sdk_version': '1.7.19',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -1897,6 +1897,62 @@ class Client:
         return TeaCore.from_map(
             tax_models.QueryApiHaiguanasyncResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.api.haiguanasync.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pull_api_haiguanasyncpolling(
+        self,
+        request: tax_models.PullApiHaiguanasyncpollingRequest,
+    ) -> tax_models.PullApiHaiguanasyncpollingResponse:
+        """
+        Description: 海关-异步查询数据-轮询拉取数据
+        Summary: 海关-异步查询数据-轮询拉取数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pull_api_haiguanasyncpolling_ex(request, headers, runtime)
+
+    async def pull_api_haiguanasyncpolling_async(
+        self,
+        request: tax_models.PullApiHaiguanasyncpollingRequest,
+    ) -> tax_models.PullApiHaiguanasyncpollingResponse:
+        """
+        Description: 海关-异步查询数据-轮询拉取数据
+        Summary: 海关-异步查询数据-轮询拉取数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pull_api_haiguanasyncpolling_ex_async(request, headers, runtime)
+
+    def pull_api_haiguanasyncpolling_ex(
+        self,
+        request: tax_models.PullApiHaiguanasyncpollingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.PullApiHaiguanasyncpollingResponse:
+        """
+        Description: 海关-异步查询数据-轮询拉取数据
+        Summary: 海关-异步查询数据-轮询拉取数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.PullApiHaiguanasyncpollingResponse(),
+            self.do_request('1.0', 'blockchain.tax.api.haiguanasyncpolling.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pull_api_haiguanasyncpolling_ex_async(
+        self,
+        request: tax_models.PullApiHaiguanasyncpollingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.PullApiHaiguanasyncpollingResponse:
+        """
+        Description: 海关-异步查询数据-轮询拉取数据
+        Summary: 海关-异步查询数据-轮询拉取数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.PullApiHaiguanasyncpollingResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.api.haiguanasyncpolling.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_pdata_personalincome(

@@ -5852,6 +5852,176 @@ class QueryApiHaiguanasyncResponse(TeaModel):
         return self
 
 
+class PullApiHaiguanasyncpollingRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        inst_code: str = None,
+        auth_type: str = None,
+        identity_id: str = None,
+        biz_request_id: str = None,
+        corp_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户号/子租户号
+        self.inst_code = inst_code
+        # 产品类型，海关数据: ZX500
+        self.auth_type = auth_type
+        # 身份id，企业税号
+        self.identity_id = identity_id
+        # 用于幂等控制
+        self.biz_request_id = biz_request_id
+        # 企业名称
+        self.corp_name = corp_name
+
+    def validate(self):
+        self.validate_required(self.inst_code, 'inst_code')
+        self.validate_required(self.auth_type, 'auth_type')
+        self.validate_required(self.identity_id, 'identity_id')
+        self.validate_required(self.biz_request_id, 'biz_request_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.inst_code is not None:
+            result['inst_code'] = self.inst_code
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.identity_id is not None:
+            result['identity_id'] = self.identity_id
+        if self.biz_request_id is not None:
+            result['biz_request_id'] = self.biz_request_id
+        if self.corp_name is not None:
+            result['corp_name'] = self.corp_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('inst_code') is not None:
+            self.inst_code = m.get('inst_code')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('identity_id') is not None:
+            self.identity_id = m.get('identity_id')
+        if m.get('biz_request_id') is not None:
+            self.biz_request_id = m.get('biz_request_id')
+        if m.get('corp_name') is not None:
+            self.corp_name = m.get('corp_name')
+        return self
+
+
+class PullApiHaiguanasyncpollingResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        inst_code: str = None,
+        biz_request_id: str = None,
+        identity_id: str = None,
+        file_list: List[str] = None,
+        secret: str = None,
+        auth_type: str = None,
+        auth_code: str = None,
+        timestamp: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 租户号/子租户号，如果为租户号获取，则为租户号，如果为子租户号获取，则传输子租户号
+        self.inst_code = inst_code
+        # 请求id
+        self.biz_request_id = biz_request_id
+        # 身份id，企业税号
+        self.identity_id = identity_id
+        # 数据文件地址集合，目前只会包含一个txt文件
+        self.file_list = file_list
+        # 解密密钥信封
+        self.secret = secret
+        # 产品类型
+        self.auth_type = auth_type
+        # 行方生成的授权编号
+        self.auth_code = auth_code
+        # 系统时间
+        self.timestamp = timestamp
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.inst_code is not None:
+            result['inst_code'] = self.inst_code
+        if self.biz_request_id is not None:
+            result['biz_request_id'] = self.biz_request_id
+        if self.identity_id is not None:
+            result['identity_id'] = self.identity_id
+        if self.file_list is not None:
+            result['file_list'] = self.file_list
+        if self.secret is not None:
+            result['secret'] = self.secret
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('inst_code') is not None:
+            self.inst_code = m.get('inst_code')
+        if m.get('biz_request_id') is not None:
+            self.biz_request_id = m.get('biz_request_id')
+        if m.get('identity_id') is not None:
+            self.identity_id = m.get('identity_id')
+        if m.get('file_list') is not None:
+            self.file_list = m.get('file_list')
+        if m.get('secret') is not None:
+            self.secret = m.get('secret')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
 class QueryPdataPersonalincomeRequest(TeaModel):
     def __init__(
         self,
