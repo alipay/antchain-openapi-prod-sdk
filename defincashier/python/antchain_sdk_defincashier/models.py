@@ -2339,7 +2339,7 @@ class PaySaasPaymentResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        data: PaymentShareConfirmResult = None,
+        data: PayOrderOpenApiResult = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2347,7 +2347,7 @@ class PaySaasPaymentResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 分账确认接口
+        # 支付申请接口
         self.data = data
 
     def validate(self):
@@ -2379,7 +2379,7 @@ class PaySaasPaymentResponse(TeaModel):
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
-            temp_model = PaymentShareConfirmResult()
+            temp_model = PayOrderOpenApiResult()
             self.data = temp_model.from_map(m['data'])
         return self
 
