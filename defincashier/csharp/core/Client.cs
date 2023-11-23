@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEFINCASHIER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.4"},
+                        {"sdk_version", "1.1.5"},
                         {"_prod_code", "DEFINCASHIER"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DEFINCASHIER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.4"},
+                        {"sdk_version", "1.1.5"},
                         {"_prod_code", "DEFINCASHIER"},
                         {"_prod_channel", "undefined"},
                     };
@@ -781,6 +781,48 @@ namespace AntChain.SDK.DEFINCASHIER
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PaySaasPaymentResponse>(await DoRequestAsync("1.0", "antchain.defincashier.saas.payment.pay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 基于已提交的交易分账单，进行分账确认
+         * Summary: B2B资金服务交易分账确认
+         */
+        public ConfirmSaasShareResponse ConfirmSaasShare(ConfirmSaasShareRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ConfirmSaasShareEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 基于已提交的交易分账单，进行分账确认
+         * Summary: B2B资金服务交易分账确认
+         */
+        public async Task<ConfirmSaasShareResponse> ConfirmSaasShareAsync(ConfirmSaasShareRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ConfirmSaasShareExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 基于已提交的交易分账单，进行分账确认
+         * Summary: B2B资金服务交易分账确认
+         */
+        public ConfirmSaasShareResponse ConfirmSaasShareEx(ConfirmSaasShareRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmSaasShareResponse>(DoRequest("1.0", "antchain.defincashier.saas.share.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 基于已提交的交易分账单，进行分账确认
+         * Summary: B2B资金服务交易分账确认
+         */
+        public async Task<ConfirmSaasShareResponse> ConfirmSaasShareExAsync(ConfirmSaasShareRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmSaasShareResponse>(await DoRequestAsync("1.0", "antchain.defincashier.saas.share.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
