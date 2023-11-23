@@ -16,9 +16,9 @@ public class PaySaasPaymentResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 分账确认接口
+    // 支付申请接口
     @NameInMap("data")
-    public PaymentShareConfirmResult data;
+    public PayOrderOpenApiResult data;
 
     public static PaySaasPaymentResponse build(java.util.Map<String, ?> map) throws Exception {
         PaySaasPaymentResponse self = new PaySaasPaymentResponse();
@@ -49,11 +49,11 @@ public class PaySaasPaymentResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public PaySaasPaymentResponse setData(PaymentShareConfirmResult data) {
+    public PaySaasPaymentResponse setData(PayOrderOpenApiResult data) {
         this.data = data;
         return this;
     }
-    public PaymentShareConfirmResult getData() {
+    public PayOrderOpenApiResult getData() {
         return this.data;
     }
 
