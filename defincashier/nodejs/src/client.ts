@@ -1445,8 +1445,8 @@ export class PaySaasPaymentResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 分账确认接口
-  data?: PaymentShareConfirmResult;
+  // 支付申请接口
+  data?: PayOrderOpenApiResult;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1461,7 +1461,7 @@ export class PaySaasPaymentResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: PaymentShareConfirmResult,
+      data: PayOrderOpenApiResult,
     };
   }
 
@@ -1647,7 +1647,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.5",
+          sdk_version: "1.1.6",
           _prod_code: "DEFINCASHIER",
           _prod_channel: "undefined",
         };
