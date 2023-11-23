@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "DEFINCASHIER",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-defincashier:1.1.5",
-    "go": "github.com/antchain-openapi-sdk-go/defincashier/client:v1.1.5",
-    "csharp": "AntChain.SDK.DEFINCASHIER:1.1.5",
-    "ts": "@antchain/defincashier:1.1.5",
-    "php": "antchain/defincashier:1.1.5",
-    "python": "antchain_sdk_defincashier:1.1.5"
+    "java": "com.antgroup.antchain.openapi:openapi-defincashier:1.1.6",
+    "go": "github.com/antchain-openapi-sdk-go/defincashier/client:v1.1.6",
+    "csharp": "AntChain.SDK.DEFINCASHIER:1.1.6",
+    "ts": "@antchain/defincashier:1.1.6",
+    "php": "antchain/defincashier:1.1.6",
+    "python": "antchain_sdk_defincashier:1.1.6"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
