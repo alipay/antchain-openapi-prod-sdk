@@ -1909,8 +1909,8 @@ type PaySaasPaymentResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 分账确认接口
-	Data *PaymentShareConfirmResult `json:"data,omitempty" xml:"data,omitempty"`
+	// 支付申请接口
+	Data *PayOrderOpenApiResult `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s PaySaasPaymentResponse) String() string {
@@ -1936,7 +1936,7 @@ func (s *PaySaasPaymentResponse) SetResultMsg(v string) *PaySaasPaymentResponse 
 	return s
 }
 
-func (s *PaySaasPaymentResponse) SetData(v *PaymentShareConfirmResult) *PaySaasPaymentResponse {
+func (s *PaySaasPaymentResponse) SetData(v *PayOrderOpenApiResult) *PaySaasPaymentResponse {
 	s.Data = v
 	return s
 }
@@ -2141,7 +2141,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.5"),
+				"sdk_version":      tea.String("1.1.6"),
 				"_prod_code":       tea.String("DEFINCASHIER"),
 				"_prod_channel":    tea.String("undefined"),
 			}
