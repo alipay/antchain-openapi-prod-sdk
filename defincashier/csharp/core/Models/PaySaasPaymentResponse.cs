@@ -25,9 +25,9 @@ namespace AntChain.SDK.DEFINCASHIER.Models
         public string ResultMsg { get; set; }
 
         // 分账确认接口
-        [NameInMap("date")]
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public PaymentShareConfirmResult Date { get; set; }
+        public PaymentShareConfirmResult Data { get; set; }
 
     }
 
