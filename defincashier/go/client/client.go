@@ -1941,6 +1941,84 @@ func (s *PaySaasPaymentResponse) SetData(v *PaymentShareConfirmResult) *PaySaasP
 	return s
 }
 
+type ConfirmSaasShareRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// JSON请求参数，示例字数限制，完整可见：
+	// {"org_order_id": "","out_payer_id": {"reference_id_type": "","reference_id": ""},"outRequestId": "","confirmAmount": {"cent": "","currency": "","currencyValue": ""},"share_info": {"payee_account": {"inst_id": "","account_no": "","account_name": "","offical_name": "","offical_number": ""},"out_payee_id": {"reference_id_type": "","reference_id": ""},"share_amount": "","share_currency":"","info_id":"","state":""},"platform_member_id": ""}
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
+	// 版本号
+	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
+}
+
+func (s ConfirmSaasShareRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmSaasShareRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmSaasShareRequest) SetAuthToken(v string) *ConfirmSaasShareRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmSaasShareRequest) SetProductInstanceId(v string) *ConfirmSaasShareRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmSaasShareRequest) SetBizContent(v string) *ConfirmSaasShareRequest {
+	s.BizContent = &v
+	return s
+}
+
+func (s *ConfirmSaasShareRequest) SetServiceVersion(v string) *ConfirmSaasShareRequest {
+	s.ServiceVersion = &v
+	return s
+}
+
+type ConfirmSaasShareResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 分账确认
+	Data *PaymentShareConfirmResult `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ConfirmSaasShareResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmSaasShareResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmSaasShareResponse) SetReqMsgId(v string) *ConfirmSaasShareResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmSaasShareResponse) SetResultCode(v string) *ConfirmSaasShareResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmSaasShareResponse) SetResultMsg(v string) *ConfirmSaasShareResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ConfirmSaasShareResponse) SetData(v *PaymentShareConfirmResult) *ConfirmSaasShareResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2063,7 +2141,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.4"),
+				"sdk_version":      tea.String("1.1.5"),
 				"_prod_code":       tea.String("DEFINCASHIER"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -2488,6 +2566,40 @@ func (client *Client) PaySaasPaymentEx(request *PaySaasPaymentRequest, headers m
 	}
 	_result = &PaySaasPaymentResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.defincashier.saas.payment.pay"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 基于已提交的交易分账单，进行分账确认
+ * Summary: B2B资金服务交易分账确认
+ */
+func (client *Client) ConfirmSaasShare(request *ConfirmSaasShareRequest) (_result *ConfirmSaasShareResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmSaasShareResponse{}
+	_body, _err := client.ConfirmSaasShareEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 基于已提交的交易分账单，进行分账确认
+ * Summary: B2B资金服务交易分账确认
+ */
+func (client *Client) ConfirmSaasShareEx(request *ConfirmSaasShareRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmSaasShareResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmSaasShareResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.defincashier.saas.share.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
