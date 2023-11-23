@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.4',
+    sdk_version = '1.1.5',
     _prod_code = 'DEFINCASHIER',
     _prod_channel = 'undefined'
   };
@@ -890,5 +890,46 @@ async function paySaasPayment(request: PaySaasPaymentRequest): PaySaasPaymentRes
 async function paySaasPaymentEx(request: PaySaasPaymentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PaySaasPaymentResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.defincashier.saas.payment.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmSaasShareRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // JSON请求参数，示例字数限制，完整可见：
+  // {"org_order_id": "","out_payer_id": {"reference_id_type": "","reference_id": ""},"outRequestId": "","confirmAmount": {"cent": "","currency": "","currencyValue": ""},"share_info": {"payee_account": {"inst_id": "","account_no": "","account_name": "","offical_name": "","offical_number": ""},"out_payee_id": {"reference_id_type": "","reference_id": ""},"share_amount": "","share_currency":"","info_id":"","state":""},"platform_member_id": ""}
+  bizContent: string(name='biz_content'),
+  // 版本号
+  serviceVersion: string(name='service_version'),
+}
+
+model ConfirmSaasShareResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分账确认
+  data?: PaymentShareConfirmResult(name='data'),
+}
+
+/**
+ * Description: 基于已提交的交易分账单，进行分账确认
+ * Summary: B2B资金服务交易分账确认
+ */
+async function confirmSaasShare(request: ConfirmSaasShareRequest): ConfirmSaasShareResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmSaasShareEx(request, headers, runtime);
+}
+
+/**
+ * Description: 基于已提交的交易分账单，进行分账确认
+ * Summary: B2B资金服务交易分账确认
+ */
+async function confirmSaasShareEx(request: ConfirmSaasShareRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmSaasShareResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.defincashier.saas.share.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
