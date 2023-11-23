@@ -1470,6 +1470,70 @@ export class PaySaasPaymentResponse extends $tea.Model {
   }
 }
 
+export class ConfirmSaasShareRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // JSON请求参数，示例字数限制，完整可见：
+  // {"org_order_id": "","out_payer_id": {"reference_id_type": "","reference_id": ""},"outRequestId": "","confirmAmount": {"cent": "","currency": "","currencyValue": ""},"share_info": {"payee_account": {"inst_id": "","account_no": "","account_name": "","offical_name": "","offical_number": ""},"out_payee_id": {"reference_id_type": "","reference_id": ""},"share_amount": "","share_currency":"","info_id":"","state":""},"platform_member_id": ""}
+  bizContent: string;
+  // 版本号
+  serviceVersion: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizContent: 'biz_content',
+      serviceVersion: 'service_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizContent: 'string',
+      serviceVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmSaasShareResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 分账确认
+  data?: PaymentShareConfirmResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: PaymentShareConfirmResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1583,7 +1647,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.4",
+          sdk_version: "1.1.5",
           _prod_code: "DEFINCASHIER",
           _prod_channel: "undefined",
         };
@@ -1838,6 +1902,25 @@ export default class Client {
   async paySaasPaymentEx(request: PaySaasPaymentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PaySaasPaymentResponse> {
     Util.validateModel(request);
     return $tea.cast<PaySaasPaymentResponse>(await this.doRequest("1.0", "antchain.defincashier.saas.payment.pay", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PaySaasPaymentResponse({}));
+  }
+
+  /**
+   * Description: 基于已提交的交易分账单，进行分账确认
+   * Summary: B2B资金服务交易分账确认
+   */
+  async confirmSaasShare(request: ConfirmSaasShareRequest): Promise<ConfirmSaasShareResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmSaasShareEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 基于已提交的交易分账单，进行分账确认
+   * Summary: B2B资金服务交易分账确认
+   */
+  async confirmSaasShareEx(request: ConfirmSaasShareRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmSaasShareResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmSaasShareResponse>(await this.doRequest("1.0", "antchain.defincashier.saas.share.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmSaasShareResponse({}));
   }
 
 }
