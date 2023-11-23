@@ -26,9 +26,9 @@ class PaySaasPaymentResponse extends Model
      */
     public $resultMsg;
 
-    // 分账确认接口
+    // 支付申请接口
     /**
-     * @var PaymentShareConfirmResult
+     * @var PayOrderOpenApiResult
      */
     public $data;
     protected $_name = [
@@ -79,7 +79,7 @@ class PaySaasPaymentResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['data'])) {
-            $model->data = PaymentShareConfirmResult::fromMap($map['data']);
+            $model->data = PayOrderOpenApiResult::fromMap($map['data']);
         }
 
         return $model;
