@@ -19,6 +19,8 @@ use AntChain\DEFINCASHIER\Models\CaptureSaasPaymentRequest;
 use AntChain\DEFINCASHIER\Models\CaptureSaasPaymentResponse;
 use AntChain\DEFINCASHIER\Models\CheckSaasPaymentRequest;
 use AntChain\DEFINCASHIER\Models\CheckSaasPaymentResponse;
+use AntChain\DEFINCASHIER\Models\ConfirmSaasShareRequest;
+use AntChain\DEFINCASHIER\Models\ConfirmSaasShareResponse;
 use AntChain\DEFINCASHIER\Models\CreateSaasPaymentRequest;
 use AntChain\DEFINCASHIER\Models\CreateSaasPaymentResponse;
 use AntChain\DEFINCASHIER\Models\PaySaasPaymentRequest;
@@ -180,7 +182,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.4',
+                    'sdk_version'      => '1.1.5',
                     '_prod_code'       => 'DEFINCASHIER',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -589,5 +591,38 @@ class Client
         Utils::validateModel($request);
 
         return PaySaasPaymentResponse::fromMap($this->doRequest('1.0', 'antchain.defincashier.saas.payment.pay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 基于已提交的交易分账单，进行分账确认
+     * Summary: B2B资金服务交易分账确认.
+     *
+     * @param ConfirmSaasShareRequest $request
+     *
+     * @return ConfirmSaasShareResponse
+     */
+    public function confirmSaasShare($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmSaasShareEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 基于已提交的交易分账单，进行分账确认
+     * Summary: B2B资金服务交易分账确认.
+     *
+     * @param ConfirmSaasShareRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ConfirmSaasShareResponse
+     */
+    public function confirmSaasShareEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmSaasShareResponse::fromMap($this->doRequest('1.0', 'antchain.defincashier.saas.share.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
