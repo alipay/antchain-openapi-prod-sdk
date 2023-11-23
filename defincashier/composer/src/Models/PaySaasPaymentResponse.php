@@ -30,12 +30,12 @@ class PaySaasPaymentResponse extends Model
     /**
      * @var PaymentShareConfirmResult
      */
-    public $date;
+    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'date'       => 'date',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class PaySaasPaymentResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->date) {
-            $res['date'] = null !== $this->date ? $this->date->toMap() : null;
+        if (null !== $this->data) {
+            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -78,8 +78,8 @@ class PaySaasPaymentResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['date'])) {
-            $model->date = PaymentShareConfirmResult::fromMap($map['date']);
+        if (isset($map['data'])) {
+            $model->data = PaymentShareConfirmResult::fromMap($map['data']);
         }
 
         return $model;
