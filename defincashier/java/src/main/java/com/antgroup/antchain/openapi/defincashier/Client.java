@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.4"),
+                    new TeaPair("sdk_version", "1.1.5"),
                     new TeaPair("_prod_code", "DEFINCASHIER"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -368,5 +368,24 @@ public class Client {
     public PaySaasPaymentResponse paySaasPaymentEx(PaySaasPaymentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.defincashier.saas.payment.pay", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PaySaasPaymentResponse());
+    }
+
+    /**
+     * Description: 基于已提交的交易分账单，进行分账确认
+     * Summary: B2B资金服务交易分账确认
+     */
+    public ConfirmSaasShareResponse confirmSaasShare(ConfirmSaasShareRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmSaasShareEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 基于已提交的交易分账单，进行分账确认
+     * Summary: B2B资金服务交易分账确认
+     */
+    public ConfirmSaasShareResponse confirmSaasShareEx(ConfirmSaasShareRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.defincashier.saas.share.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmSaasShareResponse());
     }
 }
