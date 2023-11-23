@@ -24,10 +24,10 @@ namespace AntChain.SDK.DEFINCASHIER.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 分账确认接口
+        // 支付申请接口
         [NameInMap("data")]
         [Validation(Required=false)]
-        public PaymentShareConfirmResult Data { get; set; }
+        public PayOrderOpenApiResult Data { get; set; }
 
     }
 
