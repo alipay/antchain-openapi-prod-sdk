@@ -2384,3 +2384,104 @@ class PaySaasPaymentResponse(TeaModel):
         return self
 
 
+class ConfirmSaasShareRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_content: str = None,
+        service_version: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # JSON请求参数，示例字数限制，完整可见：
+        # {"org_order_id": "","out_payer_id": {"reference_id_type": "","reference_id": ""},"outRequestId": "","confirmAmount": {"cent": "","currency": "","currencyValue": ""},"share_info": {"payee_account": {"inst_id": "","account_no": "","account_name": "","offical_name": "","offical_number": ""},"out_payee_id": {"reference_id_type": "","reference_id": ""},"share_amount": "","share_currency":"","info_id":"","state":""},"platform_member_id": ""}
+        self.biz_content = biz_content
+        # 版本号
+        self.service_version = service_version
+
+    def validate(self):
+        self.validate_required(self.biz_content, 'biz_content')
+        self.validate_required(self.service_version, 'service_version')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        if self.service_version is not None:
+            result['service_version'] = self.service_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        if m.get('service_version') is not None:
+            self.service_version = m.get('service_version')
+        return self
+
+
+class ConfirmSaasShareResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: PaymentShareConfirmResult = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 分账确认
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = PaymentShareConfirmResult()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+

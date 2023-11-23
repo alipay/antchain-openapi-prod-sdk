@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.4',
+                    'sdk_version': '1.1.5',
                     '_prod_code': 'DEFINCASHIER',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.4',
+                    'sdk_version': '1.1.5',
                     '_prod_code': 'DEFINCASHIER',
                     '_prod_channel': 'undefined'
                 }
@@ -889,4 +889,60 @@ class Client:
         return TeaCore.from_map(
             defincashier_models.PaySaasPaymentResponse(),
             await self.do_request_async('1.0', 'antchain.defincashier.saas.payment.pay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_saas_share(
+        self,
+        request: defincashier_models.ConfirmSaasShareRequest,
+    ) -> defincashier_models.ConfirmSaasShareResponse:
+        """
+        Description: 基于已提交的交易分账单，进行分账确认
+        Summary: B2B资金服务交易分账确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_saas_share_ex(request, headers, runtime)
+
+    async def confirm_saas_share_async(
+        self,
+        request: defincashier_models.ConfirmSaasShareRequest,
+    ) -> defincashier_models.ConfirmSaasShareResponse:
+        """
+        Description: 基于已提交的交易分账单，进行分账确认
+        Summary: B2B资金服务交易分账确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_saas_share_ex_async(request, headers, runtime)
+
+    def confirm_saas_share_ex(
+        self,
+        request: defincashier_models.ConfirmSaasShareRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> defincashier_models.ConfirmSaasShareResponse:
+        """
+        Description: 基于已提交的交易分账单，进行分账确认
+        Summary: B2B资金服务交易分账确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            defincashier_models.ConfirmSaasShareResponse(),
+            self.do_request('1.0', 'antchain.defincashier.saas.share.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_saas_share_ex_async(
+        self,
+        request: defincashier_models.ConfirmSaasShareRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> defincashier_models.ConfirmSaasShareResponse:
+        """
+        Description: 基于已提交的交易分账单，进行分账确认
+        Summary: B2B资金服务交易分账确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            defincashier_models.ConfirmSaasShareResponse(),
+            await self.do_request_async('1.0', 'antchain.defincashier.saas.share.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
