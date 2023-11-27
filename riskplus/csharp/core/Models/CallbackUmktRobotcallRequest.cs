@@ -64,6 +64,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public long? TaskId { get; set; }
 
+        // 渠道侧任务名称
+        [NameInMap("task_name")]
+        [Validation(Required=true)]
+        public string TaskName { get; set; }
+
         // 外呼的话术模板ID，可以为空
         [NameInMap("template_id")]
         [Validation(Required=false)]
