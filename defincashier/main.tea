@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.6',
+    sdk_version = '1.1.7',
     _prod_code = 'DEFINCASHIER',
     _prod_channel = 'undefined'
   };
@@ -307,6 +307,8 @@ model PayOrderOpenApiResult {
   subMsg: string(name='sub_msg', example='参数不全'),
   // 蚂蚁交易单ID
   tradeId: string(name='trade_id', example='20200801000000001'),
+  // 授权URL
+  authPayUrl?: string(name='auth_pay_url', example='https://epay.test.bankcomm.cn/uat/pppu/index.html#/QRcode?operationType=2&token=ijTBsf9JI6YzA3XOQDpCZxu6PKbC3ZX2HpS'),
 }
 
 // 创建交易前检查结果
