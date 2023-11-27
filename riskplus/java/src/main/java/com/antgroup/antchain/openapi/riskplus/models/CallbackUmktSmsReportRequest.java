@@ -65,6 +65,15 @@ public class CallbackUmktSmsReportRequest extends TeaModel {
     @NameInMap("sms_type")
     public String smsType;
 
+    // 运营商
+    @NameInMap("service_provider")
+    @Validation(required = true)
+    public String serviceProvider;
+
+    // 手机号码所属城市
+    @NameInMap("city")
+    public String city;
+
     public static CallbackUmktSmsReportRequest build(java.util.Map<String, ?> map) throws Exception {
         CallbackUmktSmsReportRequest self = new CallbackUmktSmsReportRequest();
         return TeaModel.build(map, self);
@@ -172,6 +181,22 @@ public class CallbackUmktSmsReportRequest extends TeaModel {
     }
     public String getSmsType() {
         return this.smsType;
+    }
+
+    public CallbackUmktSmsReportRequest setServiceProvider(String serviceProvider) {
+        this.serviceProvider = serviceProvider;
+        return this;
+    }
+    public String getServiceProvider() {
+        return this.serviceProvider;
+    }
+
+    public CallbackUmktSmsReportRequest setCity(String city) {
+        this.city = city;
+        return this;
+    }
+    public String getCity() {
+        return this.city;
     }
 
 }
