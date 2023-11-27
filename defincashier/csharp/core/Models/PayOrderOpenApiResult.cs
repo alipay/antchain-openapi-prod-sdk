@@ -60,6 +60,11 @@ namespace AntChain.SDK.DEFINCASHIER.Models
         [Validation(Required=true)]
         public string TradeId { get; set; }
 
+        // 授权URL
+        [NameInMap("auth_pay_url")]
+        [Validation(Required=false)]
+        public string AuthPayUrl { get; set; }
+
     }
 
 }
