@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.57',
+    sdk_version = '1.16.59',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -8851,6 +8851,8 @@ model CallbackUmktRobotcallRequest = {
   callId: string(name='call_id'),
   // 外呼任务编号
   taskId: long(name='task_id'),
+  // 渠道侧任务名称
+  taskName: string(name='task_name'),
   // 外呼的话术模板ID，可以为空
   templateId?: long(name='template_id'),
   // 外呼状态编码
@@ -9023,6 +9025,10 @@ model CallbackUmktSmsReportRequest = {
   bizProperties: string(name='biz_properties'),
   // 发送卡片短信时，文本短信状态报告中才会有该字段，且取值为CARD_SMS，发送纯文本短信时，状态报告中没有该字段
   smsType?: string(name='sms_type'),
+  // 运营商
+  serviceProvider: string(name='service_provider'),
+  // 手机号码所属城市
+  city?: string(name='city'),
 }
 
 model CallbackUmktSmsReportResponse = {
