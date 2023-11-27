@@ -15588,6 +15588,8 @@ export class CallbackUmktRobotcallRequest extends $tea.Model {
   callId: string;
   // 外呼任务编号
   taskId: number;
+  // 渠道侧任务名称
+  taskName: string;
   // 外呼的话术模板ID，可以为空
   templateId?: number;
   // 外呼状态编码
@@ -15666,6 +15668,7 @@ export class CallbackUmktRobotcallRequest extends $tea.Model {
       tag: 'tag',
       callId: 'call_id',
       taskId: 'task_id',
+      taskName: 'task_name',
       templateId: 'template_id',
       statusCode: 'status_code',
       statusDescription: 'status_description',
@@ -15714,6 +15717,7 @@ export class CallbackUmktRobotcallRequest extends $tea.Model {
       tag: 'string',
       callId: 'string',
       taskId: 'number',
+      taskName: 'string',
       templateId: 'number',
       statusCode: 'number',
       statusDescription: 'string',
@@ -15892,6 +15896,10 @@ export class CallbackUmktSmsReportRequest extends $tea.Model {
   bizProperties: string;
   // 发送卡片短信时，文本短信状态报告中才会有该字段，且取值为CARD_SMS，发送纯文本短信时，状态报告中没有该字段
   smsType?: string;
+  // 运营商
+  serviceProvider: string;
+  // 手机号码所属城市
+  city?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -15907,6 +15915,8 @@ export class CallbackUmktSmsReportRequest extends $tea.Model {
       bizId: 'biz_id',
       bizProperties: 'biz_properties',
       smsType: 'sms_type',
+      serviceProvider: 'service_provider',
+      city: 'city',
     };
   }
 
@@ -15925,6 +15935,8 @@ export class CallbackUmktSmsReportRequest extends $tea.Model {
       bizId: 'string',
       bizProperties: 'string',
       smsType: 'string',
+      serviceProvider: 'string',
+      city: 'string',
     };
   }
 
@@ -16655,7 +16667,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.57",
+          sdk_version: "1.16.59",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
