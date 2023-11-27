@@ -406,6 +406,8 @@ export class PayOrderOpenApiResult extends $tea.Model {
   subMsg: string;
   // 蚂蚁交易单ID
   tradeId: string;
+  // 授权URL
+  authPayUrl?: string;
   static names(): { [key: string]: string } {
     return {
       platformMemberId: 'platform_member_id',
@@ -418,6 +420,7 @@ export class PayOrderOpenApiResult extends $tea.Model {
       subCode: 'sub_code',
       subMsg: 'sub_msg',
       tradeId: 'trade_id',
+      authPayUrl: 'auth_pay_url',
     };
   }
 
@@ -433,6 +436,7 @@ export class PayOrderOpenApiResult extends $tea.Model {
       subCode: 'string',
       subMsg: 'string',
       tradeId: 'string',
+      authPayUrl: 'string',
     };
   }
 
@@ -1647,7 +1651,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.6",
+          sdk_version: "1.1.7",
           _prod_code: "DEFINCASHIER",
           _prod_channel: "undefined",
         };
