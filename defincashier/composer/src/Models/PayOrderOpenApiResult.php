@@ -87,6 +87,14 @@ class PayOrderOpenApiResult extends Model
      * @var string
      */
     public $tradeId;
+
+    // 授权URL
+    /**
+     * @example https://epay.test.bankcomm.cn/uat/pppu/index.html#/QRcode?operationType=2&token=ijTBsf9JI6YzA3XOQDpCZxu6PKbC3ZX2HpS
+     *
+     * @var string
+     */
+    public $authPayUrl;
     protected $_name = [
         'platformMemberId'    => 'platform_member_id',
         'outOrderId'          => 'out_order_id',
@@ -98,6 +106,7 @@ class PayOrderOpenApiResult extends Model
         'subCode'             => 'sub_code',
         'subMsg'              => 'sub_msg',
         'tradeId'             => 'trade_id',
+        'authPayUrl'          => 'auth_pay_url',
     ];
 
     public function validate()
@@ -147,6 +156,9 @@ class PayOrderOpenApiResult extends Model
         if (null !== $this->tradeId) {
             $res['trade_id'] = $this->tradeId;
         }
+        if (null !== $this->authPayUrl) {
+            $res['auth_pay_url'] = $this->authPayUrl;
+        }
 
         return $res;
     }
@@ -188,6 +200,9 @@ class PayOrderOpenApiResult extends Model
         }
         if (isset($map['trade_id'])) {
             $model->tradeId = $map['trade_id'];
+        }
+        if (isset($map['auth_pay_url'])) {
+            $model->authPayUrl = $map['auth_pay_url'];
         }
 
         return $model;
