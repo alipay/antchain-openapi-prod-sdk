@@ -666,6 +666,7 @@ class PayOrderOpenApiResult(TeaModel):
         sub_code: str = None,
         sub_msg: str = None,
         trade_id: str = None,
+        auth_pay_url: str = None,
     ):
         # 会员所属业务平台在智能科技的会员ID
         self.platform_member_id = platform_member_id
@@ -687,6 +688,8 @@ class PayOrderOpenApiResult(TeaModel):
         self.sub_msg = sub_msg
         # 蚂蚁交易单ID
         self.trade_id = trade_id
+        # 授权URL
+        self.auth_pay_url = auth_pay_url
 
     def validate(self):
         self.validate_required(self.platform_member_id, 'platform_member_id')
@@ -728,6 +731,8 @@ class PayOrderOpenApiResult(TeaModel):
             result['sub_msg'] = self.sub_msg
         if self.trade_id is not None:
             result['trade_id'] = self.trade_id
+        if self.auth_pay_url is not None:
+            result['auth_pay_url'] = self.auth_pay_url
         return result
 
     def from_map(self, m: dict = None):
@@ -753,6 +758,8 @@ class PayOrderOpenApiResult(TeaModel):
             self.sub_msg = m.get('sub_msg')
         if m.get('trade_id') is not None:
             self.trade_id = m.get('trade_id')
+        if m.get('auth_pay_url') is not None:
+            self.auth_pay_url = m.get('auth_pay_url')
         return self
 
 
