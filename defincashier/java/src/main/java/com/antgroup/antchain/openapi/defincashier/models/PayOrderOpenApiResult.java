@@ -54,6 +54,10 @@ public class PayOrderOpenApiResult extends TeaModel {
     @Validation(required = true)
     public String tradeId;
 
+    // 授权URL
+    @NameInMap("auth_pay_url")
+    public String authPayUrl;
+
     public static PayOrderOpenApiResult build(java.util.Map<String, ?> map) throws Exception {
         PayOrderOpenApiResult self = new PayOrderOpenApiResult();
         return TeaModel.build(map, self);
@@ -137,6 +141,14 @@ public class PayOrderOpenApiResult extends TeaModel {
     }
     public String getTradeId() {
         return this.tradeId;
+    }
+
+    public PayOrderOpenApiResult setAuthPayUrl(String authPayUrl) {
+        this.authPayUrl = authPayUrl;
+        return this;
+    }
+    public String getAuthPayUrl() {
+        return this.authPayUrl;
     }
 
 }
