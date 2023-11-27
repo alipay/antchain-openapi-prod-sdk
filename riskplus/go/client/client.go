@@ -20859,6 +20859,8 @@ type CallbackUmktRobotcallRequest struct {
 	CallId *string `json:"call_id,omitempty" xml:"call_id,omitempty" require:"true"`
 	// 外呼任务编号
 	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 渠道侧任务名称
+	TaskName *string `json:"task_name,omitempty" xml:"task_name,omitempty" require:"true"`
 	// 外呼的话术模板ID，可以为空
 	TemplateId *int64 `json:"template_id,omitempty" xml:"template_id,omitempty"`
 	// 外呼状态编码
@@ -20982,6 +20984,11 @@ func (s *CallbackUmktRobotcallRequest) SetCallId(v string) *CallbackUmktRobotcal
 
 func (s *CallbackUmktRobotcallRequest) SetTaskId(v int64) *CallbackUmktRobotcallRequest {
 	s.TaskId = &v
+	return s
+}
+
+func (s *CallbackUmktRobotcallRequest) SetTaskName(v string) *CallbackUmktRobotcallRequest {
+	s.TaskName = &v
 	return s
 }
 
@@ -21320,6 +21327,10 @@ type CallbackUmktSmsReportRequest struct {
 	BizProperties *string `json:"biz_properties,omitempty" xml:"biz_properties,omitempty" require:"true"`
 	// 发送卡片短信时，文本短信状态报告中才会有该字段，且取值为CARD_SMS，发送纯文本短信时，状态报告中没有该字段
 	SmsType *string `json:"sms_type,omitempty" xml:"sms_type,omitempty"`
+	// 运营商
+	ServiceProvider *string `json:"service_provider,omitempty" xml:"service_provider,omitempty" require:"true"`
+	// 手机号码所属城市
+	City *string `json:"city,omitempty" xml:"city,omitempty"`
 }
 
 func (s CallbackUmktSmsReportRequest) String() string {
@@ -21392,6 +21403,16 @@ func (s *CallbackUmktSmsReportRequest) SetBizProperties(v string) *CallbackUmktS
 
 func (s *CallbackUmktSmsReportRequest) SetSmsType(v string) *CallbackUmktSmsReportRequest {
 	s.SmsType = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetServiceProvider(v string) *CallbackUmktSmsReportRequest {
+	s.ServiceProvider = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetCity(v string) *CallbackUmktSmsReportRequest {
+	s.City = &v
 	return s
 }
 
@@ -22299,7 +22320,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.57"),
+				"sdk_version":      tea.String("1.16.59"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
