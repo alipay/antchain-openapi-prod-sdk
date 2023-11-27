@@ -580,6 +580,8 @@ type PayOrderOpenApiResult struct {
 	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty" require:"true"`
 	// 蚂蚁交易单ID
 	TradeId *string `json:"trade_id,omitempty" xml:"trade_id,omitempty" require:"true"`
+	// 授权URL
+	AuthPayUrl *string `json:"auth_pay_url,omitempty" xml:"auth_pay_url,omitempty"`
 }
 
 func (s PayOrderOpenApiResult) String() string {
@@ -637,6 +639,11 @@ func (s *PayOrderOpenApiResult) SetSubMsg(v string) *PayOrderOpenApiResult {
 
 func (s *PayOrderOpenApiResult) SetTradeId(v string) *PayOrderOpenApiResult {
 	s.TradeId = &v
+	return s
+}
+
+func (s *PayOrderOpenApiResult) SetAuthPayUrl(v string) *PayOrderOpenApiResult {
+	s.AuthPayUrl = &v
 	return s
 }
 
@@ -2141,7 +2148,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.6"),
+				"sdk_version":      tea.String("1.1.7"),
 				"_prod_code":       tea.String("DEFINCASHIER"),
 				"_prod_channel":    tea.String("undefined"),
 			}
