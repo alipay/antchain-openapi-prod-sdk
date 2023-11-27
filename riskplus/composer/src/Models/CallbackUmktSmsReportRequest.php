@@ -84,6 +84,18 @@ class CallbackUmktSmsReportRequest extends Model
      * @var string
      */
     public $smsType;
+
+    // 运营商
+    /**
+     * @var string
+     */
+    public $serviceProvider;
+
+    // 手机号码所属城市
+    /**
+     * @var string
+     */
+    public $city;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -98,6 +110,8 @@ class CallbackUmktSmsReportRequest extends Model
         'bizId'             => 'biz_id',
         'bizProperties'     => 'biz_properties',
         'smsType'           => 'sms_type',
+        'serviceProvider'   => 'service_provider',
+        'city'              => 'city',
     ];
 
     public function validate()
@@ -112,6 +126,7 @@ class CallbackUmktSmsReportRequest extends Model
         Model::validateRequired('smsSize', $this->smsSize, true);
         Model::validateRequired('bizId', $this->bizId, true);
         Model::validateRequired('bizProperties', $this->bizProperties, true);
+        Model::validateRequired('serviceProvider', $this->serviceProvider, true);
     }
 
     public function toMap()
@@ -155,6 +170,12 @@ class CallbackUmktSmsReportRequest extends Model
         }
         if (null !== $this->smsType) {
             $res['sms_type'] = $this->smsType;
+        }
+        if (null !== $this->serviceProvider) {
+            $res['service_provider'] = $this->serviceProvider;
+        }
+        if (null !== $this->city) {
+            $res['city'] = $this->city;
         }
 
         return $res;
@@ -206,6 +227,12 @@ class CallbackUmktSmsReportRequest extends Model
         }
         if (isset($map['sms_type'])) {
             $model->smsType = $map['sms_type'];
+        }
+        if (isset($map['service_provider'])) {
+            $model->serviceProvider = $map['service_provider'];
+        }
+        if (isset($map['city'])) {
+            $model->city = $map['city'];
         }
 
         return $model;

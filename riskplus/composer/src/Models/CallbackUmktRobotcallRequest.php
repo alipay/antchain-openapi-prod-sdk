@@ -73,6 +73,12 @@ class CallbackUmktRobotcallRequest extends Model
      */
     public $taskId;
 
+    // 渠道侧任务名称
+    /**
+     * @var string
+     */
+    public $taskName;
+
     // 外呼的话术模板ID，可以为空
     /**
      * @var int
@@ -281,6 +287,7 @@ class CallbackUmktRobotcallRequest extends Model
         'tag'                   => 'tag',
         'callId'                => 'call_id',
         'taskId'                => 'task_id',
+        'taskName'              => 'task_name',
         'templateId'            => 'template_id',
         'statusCode'            => 'status_code',
         'statusDescription'     => 'status_description',
@@ -325,6 +332,7 @@ class CallbackUmktRobotcallRequest extends Model
         Model::validateRequired('callType', $this->callType, true);
         Model::validateRequired('callId', $this->callId, true);
         Model::validateRequired('taskId', $this->taskId, true);
+        Model::validateRequired('taskName', $this->taskName, true);
         Model::validateRequired('statusCode', $this->statusCode, true);
         Model::validateRequired('statusDescription', $this->statusDescription, true);
         Model::validateRequired('transferStatusCode', $this->transferStatusCode, true);
@@ -377,6 +385,9 @@ class CallbackUmktRobotcallRequest extends Model
         }
         if (null !== $this->taskId) {
             $res['task_id'] = $this->taskId;
+        }
+        if (null !== $this->taskName) {
+            $res['task_name'] = $this->taskName;
         }
         if (null !== $this->templateId) {
             $res['template_id'] = $this->templateId;
@@ -518,6 +529,9 @@ class CallbackUmktRobotcallRequest extends Model
         }
         if (isset($map['task_id'])) {
             $model->taskId = $map['task_id'];
+        }
+        if (isset($map['task_name'])) {
+            $model->taskName = $map['task_name'];
         }
         if (isset($map['template_id'])) {
             $model->templateId = $map['template_id'];
