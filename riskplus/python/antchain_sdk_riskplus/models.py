@@ -25993,6 +25993,7 @@ class CallbackUmktRobotcallRequest(TeaModel):
         tag: str = None,
         call_id: str = None,
         task_id: int = None,
+        task_name: str = None,
         template_id: int = None,
         status_code: int = None,
         status_description: str = None,
@@ -26052,6 +26053,8 @@ class CallbackUmktRobotcallRequest(TeaModel):
         self.call_id = call_id
         # 外呼任务编号
         self.task_id = task_id
+        # 渠道侧任务名称
+        self.task_name = task_name
         # 外呼的话术模板ID，可以为空
         self.template_id = template_id
         # 外呼状态编码
@@ -26127,6 +26130,7 @@ class CallbackUmktRobotcallRequest(TeaModel):
         self.validate_required(self.call_type, 'call_type')
         self.validate_required(self.call_id, 'call_id')
         self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.task_name, 'task_name')
         self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.status_description, 'status_description')
         self.validate_required(self.transfer_status_code, 'transfer_status_code')
@@ -26172,6 +26176,8 @@ class CallbackUmktRobotcallRequest(TeaModel):
             result['call_id'] = self.call_id
         if self.task_id is not None:
             result['task_id'] = self.task_id
+        if self.task_name is not None:
+            result['task_name'] = self.task_name
         if self.template_id is not None:
             result['template_id'] = self.template_id
         if self.status_code is not None:
@@ -26262,6 +26268,8 @@ class CallbackUmktRobotcallRequest(TeaModel):
             self.call_id = m.get('call_id')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
+        if m.get('task_name') is not None:
+            self.task_name = m.get('task_name')
         if m.get('template_id') is not None:
             self.template_id = m.get('template_id')
         if m.get('status_code') is not None:
@@ -26528,6 +26536,8 @@ class CallbackUmktSmsReportRequest(TeaModel):
         biz_id: str = None,
         biz_properties: str = None,
         sms_type: str = None,
+        service_provider: str = None,
+        city: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -26554,6 +26564,10 @@ class CallbackUmktSmsReportRequest(TeaModel):
         self.biz_properties = biz_properties
         # 发送卡片短信时，文本短信状态报告中才会有该字段，且取值为CARD_SMS，发送纯文本短信时，状态报告中没有该字段
         self.sms_type = sms_type
+        # 运营商
+        self.service_provider = service_provider
+        # 手机号码所属城市
+        self.city = city
 
     def validate(self):
         self.validate_required(self.type, 'type')
@@ -26566,6 +26580,7 @@ class CallbackUmktSmsReportRequest(TeaModel):
         self.validate_required(self.sms_size, 'sms_size')
         self.validate_required(self.biz_id, 'biz_id')
         self.validate_required(self.biz_properties, 'biz_properties')
+        self.validate_required(self.service_provider, 'service_provider')
 
     def to_map(self):
         _map = super().to_map()
@@ -26599,6 +26614,10 @@ class CallbackUmktSmsReportRequest(TeaModel):
             result['biz_properties'] = self.biz_properties
         if self.sms_type is not None:
             result['sms_type'] = self.sms_type
+        if self.service_provider is not None:
+            result['service_provider'] = self.service_provider
+        if self.city is not None:
+            result['city'] = self.city
         return result
 
     def from_map(self, m: dict = None):
@@ -26629,6 +26648,10 @@ class CallbackUmktSmsReportRequest(TeaModel):
             self.biz_properties = m.get('biz_properties')
         if m.get('sms_type') is not None:
             self.sms_type = m.get('sms_type')
+        if m.get('service_provider') is not None:
+            self.service_provider = m.get('service_provider')
+        if m.get('city') is not None:
+            self.city = m.get('city')
         return self
 
 
