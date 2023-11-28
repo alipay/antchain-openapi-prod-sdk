@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.6',
+                    'sdk_version': '1.12.8',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.6',
+                    'sdk_version': '1.12.8',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -1561,6 +1561,118 @@ class Client:
         return TeaCore.from_map(
             twc_models.FinishBclOrderResponse(),
             await self.do_request_async('1.0', 'twc.notary.bcl.order.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_bcl_refund(
+        self,
+        request: twc_models.CreateBclRefundRequest,
+    ) -> twc_models.CreateBclRefundResponse:
+        """
+        Description: 租赁宝plus退款
+        Summary: 租赁宝plus退款
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_bcl_refund_ex(request, headers, runtime)
+
+    async def create_bcl_refund_async(
+        self,
+        request: twc_models.CreateBclRefundRequest,
+    ) -> twc_models.CreateBclRefundResponse:
+        """
+        Description: 租赁宝plus退款
+        Summary: 租赁宝plus退款
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_bcl_refund_ex_async(request, headers, runtime)
+
+    def create_bcl_refund_ex(
+        self,
+        request: twc_models.CreateBclRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateBclRefundResponse:
+        """
+        Description: 租赁宝plus退款
+        Summary: 租赁宝plus退款
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateBclRefundResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.refund.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_bcl_refund_ex_async(
+        self,
+        request: twc_models.CreateBclRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateBclRefundResponse:
+        """
+        Description: 租赁宝plus退款
+        Summary: 租赁宝plus退款
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateBclRefundResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.refund.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_bcl_refund(
+        self,
+        request: twc_models.QueryBclRefundRequest,
+    ) -> twc_models.QueryBclRefundResponse:
+        """
+        Description: 租赁宝plus退款查询
+        Summary: 租赁宝plus退款查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bcl_refund_ex(request, headers, runtime)
+
+    async def query_bcl_refund_async(
+        self,
+        request: twc_models.QueryBclRefundRequest,
+    ) -> twc_models.QueryBclRefundResponse:
+        """
+        Description: 租赁宝plus退款查询
+        Summary: 租赁宝plus退款查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bcl_refund_ex_async(request, headers, runtime)
+
+    def query_bcl_refund_ex(
+        self,
+        request: twc_models.QueryBclRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryBclRefundResponse:
+        """
+        Description: 租赁宝plus退款查询
+        Summary: 租赁宝plus退款查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryBclRefundResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bcl_refund_ex_async(
+        self,
+        request: twc_models.QueryBclRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryBclRefundResponse:
+        """
+        Description: 租赁宝plus退款查询
+        Summary: 租赁宝plus退款查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryBclRefundResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_contract_account(

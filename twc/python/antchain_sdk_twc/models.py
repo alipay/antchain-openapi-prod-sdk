@@ -13395,6 +13395,253 @@ class FinishBclOrderResponse(TeaModel):
         return self
 
 
+class CreateBclRefundRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        term_no: int = None,
+        refund_amount: int = None,
+        client_token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 例如：PROD202312312321301
+        self.order_id = order_id
+        # 代扣成功的期数, 1,5,7,12
+        self.term_no = term_no
+        # 退款金额: 单位分, 最小值1, 最大值不能超过当前代扣的总金额, 如果多次退款,本次退款金额加已退款成功的金额不大于当前代扣总金额
+        self.refund_amount = refund_amount
+        # 幂等号，用来保证请求幂等性.
+        # 注意：
+        # ● clientToken只支持ASCII字符，且不能超过64个字符；
+        self.client_token = client_token
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        if self.order_id is not None:
+            self.validate_max_length(self.order_id, 'order_id', 32)
+        self.validate_required(self.term_no, 'term_no')
+        if self.term_no is not None:
+            self.validate_maximum(self.term_no, 'term_no', 120)
+            self.validate_minimum(self.term_no, 'term_no', 1)
+        self.validate_required(self.refund_amount, 'refund_amount')
+        if self.refund_amount is not None:
+            self.validate_minimum(self.refund_amount, 'refund_amount', 1)
+        self.validate_required(self.client_token, 'client_token')
+        if self.client_token is not None:
+            self.validate_max_length(self.client_token, 'client_token', 64)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.term_no is not None:
+            result['term_no'] = self.term_no
+        if self.refund_amount is not None:
+            result['refund_amount'] = self.refund_amount
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('term_no') is not None:
+            self.term_no = m.get('term_no')
+        if m.get('refund_amount') is not None:
+            self.refund_amount = m.get('refund_amount')
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
+        return self
+
+
+class CreateBclRefundResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        refund_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 退款id, 用于关联退款网关消息以及退款查询的入参
+        self.refund_id = refund_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.refund_id is not None:
+            result['refund_id'] = self.refund_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('refund_id') is not None:
+            self.refund_id = m.get('refund_id')
+        return self
+
+
+class QueryBclRefundRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        refund_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 退款接口返回的退款id
+        self.refund_id = refund_id
+
+    def validate(self):
+        self.validate_required(self.refund_id, 'refund_id')
+        if self.refund_id is not None:
+            self.validate_max_length(self.refund_id, 'refund_id', 64)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.refund_id is not None:
+            result['refund_id'] = self.refund_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('refund_id') is not None:
+            self.refund_id = m.get('refund_id')
+        return self
+
+
+class QueryBclRefundResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        refund_id: str = None,
+        refund_time: str = None,
+        refund_amount: int = None,
+        refund_status: str = None,
+        err_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 退款id
+        self.refund_id = refund_id
+        # 退款成功的时间, 退款成功返回
+        self.refund_time = refund_time
+        # 退款金额, 单位分, 退款成功时返回
+        self.refund_amount = refund_amount
+        # ● 退款中，REFUNDING（需要调用查询接口查询结果)；
+        # ● 退款成功REFUND_SUCCESS
+        # ● 退款失败REFUND_FAIL
+        self.refund_status = refund_status
+        # 退款失败原因, 退款失败时返回
+        self.err_msg = err_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.refund_id is not None:
+            result['refund_id'] = self.refund_id
+        if self.refund_time is not None:
+            result['refund_time'] = self.refund_time
+        if self.refund_amount is not None:
+            result['refund_amount'] = self.refund_amount
+        if self.refund_status is not None:
+            result['refund_status'] = self.refund_status
+        if self.err_msg is not None:
+            result['err_msg'] = self.err_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('refund_id') is not None:
+            self.refund_id = m.get('refund_id')
+        if m.get('refund_time') is not None:
+            self.refund_time = m.get('refund_time')
+        if m.get('refund_amount') is not None:
+            self.refund_amount = m.get('refund_amount')
+        if m.get('refund_status') is not None:
+            self.refund_status = m.get('refund_status')
+        if m.get('err_msg') is not None:
+            self.err_msg = m.get('err_msg')
+        return self
+
+
 class CreateContractAccountRequest(TeaModel):
     def __init__(
         self,
@@ -18514,6 +18761,8 @@ class CreateContractMerchantrefundRequest(TeaModel):
         out_request_no: str = None,
         out_trade_no: str = None,
         refund_amount: int = None,
+        bcl_order_id: str = None,
+        bcl_tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -18526,6 +18775,10 @@ class CreateContractMerchantrefundRequest(TeaModel):
         self.out_trade_no = out_trade_no
         # 退款金额（单位：分）
         self.refund_amount = refund_amount
+        # 租赁宝租赁订单号
+        self.bcl_order_id = bcl_order_id
+        # 租赁订单对应的租户id
+        self.bcl_tenant_id = bcl_tenant_id
 
     def validate(self):
         self.validate_required(self.flow_id, 'flow_id')
@@ -18551,6 +18804,10 @@ class CreateContractMerchantrefundRequest(TeaModel):
             result['out_trade_no'] = self.out_trade_no
         if self.refund_amount is not None:
             result['refund_amount'] = self.refund_amount
+        if self.bcl_order_id is not None:
+            result['bcl_order_id'] = self.bcl_order_id
+        if self.bcl_tenant_id is not None:
+            result['bcl_tenant_id'] = self.bcl_tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -18567,6 +18824,10 @@ class CreateContractMerchantrefundRequest(TeaModel):
             self.out_trade_no = m.get('out_trade_no')
         if m.get('refund_amount') is not None:
             self.refund_amount = m.get('refund_amount')
+        if m.get('bcl_order_id') is not None:
+            self.bcl_order_id = m.get('bcl_order_id')
+        if m.get('bcl_tenant_id') is not None:
+            self.bcl_tenant_id = m.get('bcl_tenant_id')
         return self
 
 
@@ -24403,6 +24664,8 @@ class QueryContractRefundRequest(TeaModel):
         product_instance_id: str = None,
         refund_id: str = None,
         flow_id: str = None,
+        bcl_order_id: str = None,
+        bcl_tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -24411,6 +24674,11 @@ class QueryContractRefundRequest(TeaModel):
         self.refund_id = refund_id
         # 合同流程id
         self.flow_id = flow_id
+        # 租赁宝租赁订单号
+        self.bcl_order_id = bcl_order_id
+        # 
+        # 租赁订单对应的租户id
+        self.bcl_tenant_id = bcl_tenant_id
 
     def validate(self):
         self.validate_required(self.refund_id, 'refund_id')
@@ -24429,6 +24697,10 @@ class QueryContractRefundRequest(TeaModel):
             result['refund_id'] = self.refund_id
         if self.flow_id is not None:
             result['flow_id'] = self.flow_id
+        if self.bcl_order_id is not None:
+            result['bcl_order_id'] = self.bcl_order_id
+        if self.bcl_tenant_id is not None:
+            result['bcl_tenant_id'] = self.bcl_tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -24441,6 +24713,10 @@ class QueryContractRefundRequest(TeaModel):
             self.refund_id = m.get('refund_id')
         if m.get('flow_id') is not None:
             self.flow_id = m.get('flow_id')
+        if m.get('bcl_order_id') is not None:
+            self.bcl_order_id = m.get('bcl_order_id')
+        if m.get('bcl_tenant_id') is not None:
+            self.bcl_tenant_id = m.get('bcl_tenant_id')
         return self
 
 
