@@ -10703,6 +10703,199 @@ func (s *FinishBclOrderResponse) SetFinishApplyNo(v string) *FinishBclOrderRespo
 	return s
 }
 
+type CreateBclRefundRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 例如：PROD202312312321301
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"32" minLength:"16"`
+	// 代扣成功的期数, 1,5,7,12
+	TermNo *int64 `json:"term_no,omitempty" xml:"term_no,omitempty" require:"true" maximum:"120" minimum:"1"`
+	// 退款金额: 单位分, 最小值1, 最大值不能超过当前代扣的总金额, 如果多次退款,本次退款金额加已退款成功的金额不大于当前代扣总金额
+	RefundAmount *int64 `json:"refund_amount,omitempty" xml:"refund_amount,omitempty" require:"true" minimum:"1"`
+	// 幂等号，用来保证请求幂等性.
+	// 注意：
+	// ● clientToken只支持ASCII字符，且不能超过64个字符；
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true" maxLength:"64" minLength:"16"`
+}
+
+func (s CreateBclRefundRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBclRefundRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBclRefundRequest) SetAuthToken(v string) *CreateBclRefundRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBclRefundRequest) SetProductInstanceId(v string) *CreateBclRefundRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateBclRefundRequest) SetOrderId(v string) *CreateBclRefundRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CreateBclRefundRequest) SetTermNo(v int64) *CreateBclRefundRequest {
+	s.TermNo = &v
+	return s
+}
+
+func (s *CreateBclRefundRequest) SetRefundAmount(v int64) *CreateBclRefundRequest {
+	s.RefundAmount = &v
+	return s
+}
+
+func (s *CreateBclRefundRequest) SetClientToken(v string) *CreateBclRefundRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type CreateBclRefundResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 退款id, 用于关联退款网关消息以及退款查询的入参
+	RefundId *string `json:"refund_id,omitempty" xml:"refund_id,omitempty"`
+}
+
+func (s CreateBclRefundResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBclRefundResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBclRefundResponse) SetReqMsgId(v string) *CreateBclRefundResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateBclRefundResponse) SetResultCode(v string) *CreateBclRefundResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateBclRefundResponse) SetResultMsg(v string) *CreateBclRefundResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateBclRefundResponse) SetRefundId(v string) *CreateBclRefundResponse {
+	s.RefundId = &v
+	return s
+}
+
+type QueryBclRefundRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 退款接口返回的退款id
+	RefundId *string `json:"refund_id,omitempty" xml:"refund_id,omitempty" require:"true" maxLength:"64" minLength:"16"`
+}
+
+func (s QueryBclRefundRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBclRefundRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBclRefundRequest) SetAuthToken(v string) *QueryBclRefundRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBclRefundRequest) SetProductInstanceId(v string) *QueryBclRefundRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBclRefundRequest) SetRefundId(v string) *QueryBclRefundRequest {
+	s.RefundId = &v
+	return s
+}
+
+type QueryBclRefundResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 退款id
+	RefundId *string `json:"refund_id,omitempty" xml:"refund_id,omitempty"`
+	// 退款成功的时间, 退款成功返回
+	RefundTime *string `json:"refund_time,omitempty" xml:"refund_time,omitempty"`
+	// 退款金额, 单位分, 退款成功时返回
+	RefundAmount *int64 `json:"refund_amount,omitempty" xml:"refund_amount,omitempty"`
+	// ● 退款中，REFUNDING（需要调用查询接口查询结果)；
+	// ● 退款成功REFUND_SUCCESS
+	// ● 退款失败REFUND_FAIL
+	RefundStatus *string `json:"refund_status,omitempty" xml:"refund_status,omitempty"`
+	// 退款失败原因, 退款失败时返回
+	ErrMsg *string `json:"err_msg,omitempty" xml:"err_msg,omitempty"`
+}
+
+func (s QueryBclRefundResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBclRefundResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBclRefundResponse) SetReqMsgId(v string) *QueryBclRefundResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBclRefundResponse) SetResultCode(v string) *QueryBclRefundResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBclRefundResponse) SetResultMsg(v string) *QueryBclRefundResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBclRefundResponse) SetRefundId(v string) *QueryBclRefundResponse {
+	s.RefundId = &v
+	return s
+}
+
+func (s *QueryBclRefundResponse) SetRefundTime(v string) *QueryBclRefundResponse {
+	s.RefundTime = &v
+	return s
+}
+
+func (s *QueryBclRefundResponse) SetRefundAmount(v int64) *QueryBclRefundResponse {
+	s.RefundAmount = &v
+	return s
+}
+
+func (s *QueryBclRefundResponse) SetRefundStatus(v string) *QueryBclRefundResponse {
+	s.RefundStatus = &v
+	return s
+}
+
+func (s *QueryBclRefundResponse) SetErrMsg(v string) *QueryBclRefundResponse {
+	s.ErrMsg = &v
+	return s
+}
+
 type CreateContractAccountRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -14923,6 +15116,10 @@ type CreateContractMerchantrefundRequest struct {
 	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty" require:"true"`
 	// 退款金额（单位：分）
 	RefundAmount *int64 `json:"refund_amount,omitempty" xml:"refund_amount,omitempty" require:"true"`
+	// 租赁宝租赁订单号
+	BclOrderId *string `json:"bcl_order_id,omitempty" xml:"bcl_order_id,omitempty"`
+	// 租赁订单对应的租户id
+	BclTenantId *string `json:"bcl_tenant_id,omitempty" xml:"bcl_tenant_id,omitempty"`
 }
 
 func (s CreateContractMerchantrefundRequest) String() string {
@@ -14960,6 +15157,16 @@ func (s *CreateContractMerchantrefundRequest) SetOutTradeNo(v string) *CreateCon
 
 func (s *CreateContractMerchantrefundRequest) SetRefundAmount(v int64) *CreateContractMerchantrefundRequest {
 	s.RefundAmount = &v
+	return s
+}
+
+func (s *CreateContractMerchantrefundRequest) SetBclOrderId(v string) *CreateContractMerchantrefundRequest {
+	s.BclOrderId = &v
+	return s
+}
+
+func (s *CreateContractMerchantrefundRequest) SetBclTenantId(v string) *CreateContractMerchantrefundRequest {
+	s.BclTenantId = &v
 	return s
 }
 
@@ -19722,6 +19929,11 @@ type QueryContractRefundRequest struct {
 	RefundId *string `json:"refund_id,omitempty" xml:"refund_id,omitempty" require:"true"`
 	// 合同流程id
 	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty"`
+	// 租赁宝租赁订单号
+	BclOrderId *string `json:"bcl_order_id,omitempty" xml:"bcl_order_id,omitempty"`
+	//
+	// 租赁订单对应的租户id
+	BclTenantId *string `json:"bcl_tenant_id,omitempty" xml:"bcl_tenant_id,omitempty"`
 }
 
 func (s QueryContractRefundRequest) String() string {
@@ -19749,6 +19961,16 @@ func (s *QueryContractRefundRequest) SetRefundId(v string) *QueryContractRefundR
 
 func (s *QueryContractRefundRequest) SetFlowId(v string) *QueryContractRefundRequest {
 	s.FlowId = &v
+	return s
+}
+
+func (s *QueryContractRefundRequest) SetBclOrderId(v string) *QueryContractRefundRequest {
+	s.BclOrderId = &v
+	return s
+}
+
+func (s *QueryContractRefundRequest) SetBclTenantId(v string) *QueryContractRefundRequest {
+	s.BclTenantId = &v
 	return s
 }
 
@@ -46966,7 +47188,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.6"),
+				"sdk_version":      tea.String("1.12.8"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -47799,6 +48021,74 @@ func (client *Client) FinishBclOrderEx(request *FinishBclOrderRequest, headers m
 	}
 	_result = &FinishBclOrderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.order.finish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁宝plus退款
+ * Summary: 租赁宝plus退款
+ */
+func (client *Client) CreateBclRefund(request *CreateBclRefundRequest) (_result *CreateBclRefundResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateBclRefundResponse{}
+	_body, _err := client.CreateBclRefundEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁宝plus退款
+ * Summary: 租赁宝plus退款
+ */
+func (client *Client) CreateBclRefundEx(request *CreateBclRefundRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBclRefundResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBclRefundResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.refund.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁宝plus退款查询
+ * Summary: 租赁宝plus退款查询
+ */
+func (client *Client) QueryBclRefund(request *QueryBclRefundRequest) (_result *QueryBclRefundResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBclRefundResponse{}
+	_body, _err := client.QueryBclRefundEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁宝plus退款查询
+ * Summary: 租赁宝plus退款查询
+ */
+func (client *Client) QueryBclRefundEx(request *QueryBclRefundRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBclRefundResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBclRefundResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.refund.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
