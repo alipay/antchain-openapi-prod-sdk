@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.6',
+    sdk_version = '1.12.8',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -3903,6 +3903,100 @@ async function finishBclOrderEx(request: FinishBclOrderRequest, headers: map[str
   return doRequest('1.0' ,'twc.notary.bcl.order.finish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model CreateBclRefundRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 例如：PROD202312312321301
+  orderId: string(maxLength=32, minLength=16, name='order_id'),
+  // 代扣成功的期数, 1,5,7,12
+  termNo: long(maximum=120, minimum=1, name='term_no'),
+  // 退款金额: 单位分, 最小值1, 最大值不能超过当前代扣的总金额, 如果多次退款,本次退款金额加已退款成功的金额不大于当前代扣总金额
+  refundAmount: long(minimum=1, name='refund_amount'),
+  // 幂等号，用来保证请求幂等性.
+  // 注意：
+  // ● clientToken只支持ASCII字符，且不能超过64个字符；
+  clientToken: string(maxLength=64, minLength=16, name='client_token'),
+}
+
+model CreateBclRefundResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 退款id, 用于关联退款网关消息以及退款查询的入参
+  refundId?: string(name='refund_id'),
+}
+
+/**
+ * Description: 租赁宝plus退款
+ * Summary: 租赁宝plus退款
+ */
+async function createBclRefund(request: CreateBclRefundRequest): CreateBclRefundResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBclRefundEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁宝plus退款
+ * Summary: 租赁宝plus退款
+ */
+async function createBclRefundEx(request: CreateBclRefundRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBclRefundResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.bcl.refund.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBclRefundRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 退款接口返回的退款id
+  refundId: string(maxLength=64, minLength=16, name='refund_id'),
+}
+
+model QueryBclRefundResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 退款id
+  refundId?: string(name='refund_id'),
+  // 退款成功的时间, 退款成功返回
+  refundTime?: string(name='refund_time'),
+  // 退款金额, 单位分, 退款成功时返回
+  refundAmount?: long(name='refund_amount'),
+  // ● 退款中，REFUNDING（需要调用查询接口查询结果)；
+  // ● 退款成功REFUND_SUCCESS
+  // ● 退款失败REFUND_FAIL
+  refundStatus?: string(name='refund_status'),
+  // 退款失败原因, 退款失败时返回
+  errMsg?: string(name='err_msg'),
+}
+
+/**
+ * Description: 租赁宝plus退款查询
+ * Summary: 租赁宝plus退款查询
+ */
+async function queryBclRefund(request: QueryBclRefundRequest): QueryBclRefundResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBclRefundEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁宝plus退款查询
+ * Summary: 租赁宝plus退款查询
+ */
+async function queryBclRefundEx(request: QueryBclRefundRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBclRefundResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.bcl.refund.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateContractAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -5744,6 +5838,10 @@ model CreateContractMerchantrefundRequest = {
   outTradeNo: string(name='out_trade_no'),
   // 退款金额（单位：分）
   refundAmount: long(name='refund_amount'),
+  // 租赁宝租赁订单号
+  bclOrderId?: string(name='bcl_order_id'),
+  // 租赁订单对应的租户id
+  bclTenantId?: string(name='bcl_tenant_id'),
 }
 
 model CreateContractMerchantrefundResponse = {
@@ -7933,6 +8031,11 @@ model QueryContractRefundRequest = {
   refundId: string(name='refund_id'),
   // 合同流程id
   flowId?: string(name='flow_id'),
+  // 租赁宝租赁订单号
+  bclOrderId?: string(name='bcl_order_id'),
+  // 	
+  // 租赁订单对应的租户id
+  bclTenantId?: string(name='bcl_tenant_id'),
 }
 
 model QueryContractRefundResponse = {
