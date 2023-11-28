@@ -31,6 +31,14 @@ public class CreateContractMerchantrefundRequest extends TeaModel {
     @Validation(required = true)
     public Long refundAmount;
 
+    // 租赁宝租赁订单号
+    @NameInMap("bcl_order_id")
+    public String bclOrderId;
+
+    // 租赁订单对应的租户id
+    @NameInMap("bcl_tenant_id")
+    public String bclTenantId;
+
     public static CreateContractMerchantrefundRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateContractMerchantrefundRequest self = new CreateContractMerchantrefundRequest();
         return TeaModel.build(map, self);
@@ -82,6 +90,22 @@ public class CreateContractMerchantrefundRequest extends TeaModel {
     }
     public Long getRefundAmount() {
         return this.refundAmount;
+    }
+
+    public CreateContractMerchantrefundRequest setBclOrderId(String bclOrderId) {
+        this.bclOrderId = bclOrderId;
+        return this;
+    }
+    public String getBclOrderId() {
+        return this.bclOrderId;
+    }
+
+    public CreateContractMerchantrefundRequest setBclTenantId(String bclTenantId) {
+        this.bclTenantId = bclTenantId;
+        return this;
+    }
+    public String getBclTenantId() {
+        return this.bclTenantId;
     }
 
 }

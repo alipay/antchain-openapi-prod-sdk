@@ -20,6 +20,15 @@ public class QueryContractRefundRequest extends TeaModel {
     @NameInMap("flow_id")
     public String flowId;
 
+    // 租赁宝租赁订单号
+    @NameInMap("bcl_order_id")
+    public String bclOrderId;
+
+    // 	
+    // 租赁订单对应的租户id
+    @NameInMap("bcl_tenant_id")
+    public String bclTenantId;
+
     public static QueryContractRefundRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryContractRefundRequest self = new QueryContractRefundRequest();
         return TeaModel.build(map, self);
@@ -55,6 +64,22 @@ public class QueryContractRefundRequest extends TeaModel {
     }
     public String getFlowId() {
         return this.flowId;
+    }
+
+    public QueryContractRefundRequest setBclOrderId(String bclOrderId) {
+        this.bclOrderId = bclOrderId;
+        return this;
+    }
+    public String getBclOrderId() {
+        return this.bclOrderId;
+    }
+
+    public QueryContractRefundRequest setBclTenantId(String bclTenantId) {
+        this.bclTenantId = bclTenantId;
+        return this;
+    }
+    public String getBclTenantId() {
+        return this.bclTenantId;
     }
 
 }
