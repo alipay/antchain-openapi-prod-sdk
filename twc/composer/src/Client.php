@@ -105,6 +105,8 @@ use AntChain\TWC\Models\CreateBclPayeeRequest;
 use AntChain\TWC\Models\CreateBclPayeeResponse;
 use AntChain\TWC\Models\CreateBclProductRequest;
 use AntChain\TWC\Models\CreateBclProductResponse;
+use AntChain\TWC\Models\CreateBclRefundRequest;
+use AntChain\TWC\Models\CreateBclRefundResponse;
 use AntChain\TWC\Models\CreateContractAccountRequest;
 use AntChain\TWC\Models\CreateContractAccountResponse;
 use AntChain\TWC\Models\CreateContractAccountsealimageRequest;
@@ -437,6 +439,8 @@ use AntChain\TWC\Models\QueryBclOrderRequest;
 use AntChain\TWC\Models\QueryBclOrderResponse;
 use AntChain\TWC\Models\QueryBclProductRequest;
 use AntChain\TWC\Models\QueryBclProductResponse;
+use AntChain\TWC\Models\QueryBclRefundRequest;
+use AntChain\TWC\Models\QueryBclRefundResponse;
 use AntChain\TWC\Models\QueryCertificationRequest;
 use AntChain\TWC\Models\QueryCertificationResponse;
 use AntChain\TWC\Models\QueryContractAccountRequest;
@@ -834,7 +838,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.6',
+                    'sdk_version'      => '1.12.8',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1639,6 +1643,72 @@ class Client
         Utils::validateModel($request);
 
         return FinishBclOrderResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.order.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁宝plus退款
+     * Summary: 租赁宝plus退款.
+     *
+     * @param CreateBclRefundRequest $request
+     *
+     * @return CreateBclRefundResponse
+     */
+    public function createBclRefund($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBclRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁宝plus退款
+     * Summary: 租赁宝plus退款.
+     *
+     * @param CreateBclRefundRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return CreateBclRefundResponse
+     */
+    public function createBclRefundEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBclRefundResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.refund.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁宝plus退款查询
+     * Summary: 租赁宝plus退款查询.
+     *
+     * @param QueryBclRefundRequest $request
+     *
+     * @return QueryBclRefundResponse
+     */
+    public function queryBclRefund($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBclRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁宝plus退款查询
+     * Summary: 租赁宝plus退款查询.
+     *
+     * @param QueryBclRefundRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryBclRefundResponse
+     */
+    public function queryBclRefundEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBclRefundResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.refund.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -42,6 +42,18 @@ class CreateContractMerchantrefundRequest extends Model
      * @var int
      */
     public $refundAmount;
+
+    // 租赁宝租赁订单号
+    /**
+     * @var string
+     */
+    public $bclOrderId;
+
+    // 租赁订单对应的租户id
+    /**
+     * @var string
+     */
+    public $bclTenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +61,8 @@ class CreateContractMerchantrefundRequest extends Model
         'outRequestNo'      => 'out_request_no',
         'outTradeNo'        => 'out_trade_no',
         'refundAmount'      => 'refund_amount',
+        'bclOrderId'        => 'bcl_order_id',
+        'bclTenantId'       => 'bcl_tenant_id',
     ];
 
     public function validate()
@@ -80,6 +94,12 @@ class CreateContractMerchantrefundRequest extends Model
         if (null !== $this->refundAmount) {
             $res['refund_amount'] = $this->refundAmount;
         }
+        if (null !== $this->bclOrderId) {
+            $res['bcl_order_id'] = $this->bclOrderId;
+        }
+        if (null !== $this->bclTenantId) {
+            $res['bcl_tenant_id'] = $this->bclTenantId;
+        }
 
         return $res;
     }
@@ -109,6 +129,12 @@ class CreateContractMerchantrefundRequest extends Model
         }
         if (isset($map['refund_amount'])) {
             $model->refundAmount = $map['refund_amount'];
+        }
+        if (isset($map['bcl_order_id'])) {
+            $model->bclOrderId = $map['bcl_order_id'];
+        }
+        if (isset($map['bcl_tenant_id'])) {
+            $model->bclTenantId = $map['bcl_tenant_id'];
         }
 
         return $model;
