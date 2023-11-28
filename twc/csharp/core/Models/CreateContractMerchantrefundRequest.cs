@@ -38,6 +38,16 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public long? RefundAmount { get; set; }
 
+        // 租赁宝租赁订单号
+        [NameInMap("bcl_order_id")]
+        [Validation(Required=false)]
+        public string BclOrderId { get; set; }
+
+        // 租赁订单对应的租户id
+        [NameInMap("bcl_tenant_id")]
+        [Validation(Required=false)]
+        public string BclTenantId { get; set; }
+
     }
 
 }

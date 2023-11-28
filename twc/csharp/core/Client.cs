@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.6"},
+                        {"sdk_version", "1.12.8"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.6"},
+                        {"sdk_version", "1.12.8"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1285,6 +1285,90 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<FinishBclOrderResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.order.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁宝plus退款
+         * Summary: 租赁宝plus退款
+         */
+        public CreateBclRefundResponse CreateBclRefund(CreateBclRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateBclRefundEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁宝plus退款
+         * Summary: 租赁宝plus退款
+         */
+        public async Task<CreateBclRefundResponse> CreateBclRefundAsync(CreateBclRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateBclRefundExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁宝plus退款
+         * Summary: 租赁宝plus退款
+         */
+        public CreateBclRefundResponse CreateBclRefundEx(CreateBclRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBclRefundResponse>(DoRequest("1.0", "twc.notary.bcl.refund.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁宝plus退款
+         * Summary: 租赁宝plus退款
+         */
+        public async Task<CreateBclRefundResponse> CreateBclRefundExAsync(CreateBclRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBclRefundResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.refund.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁宝plus退款查询
+         * Summary: 租赁宝plus退款查询
+         */
+        public QueryBclRefundResponse QueryBclRefund(QueryBclRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBclRefundEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁宝plus退款查询
+         * Summary: 租赁宝plus退款查询
+         */
+        public async Task<QueryBclRefundResponse> QueryBclRefundAsync(QueryBclRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBclRefundExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁宝plus退款查询
+         * Summary: 租赁宝plus退款查询
+         */
+        public QueryBclRefundResponse QueryBclRefundEx(QueryBclRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBclRefundResponse>(DoRequest("1.0", "twc.notary.bcl.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁宝plus退款查询
+         * Summary: 租赁宝plus退款查询
+         */
+        public async Task<QueryBclRefundResponse> QueryBclRefundExAsync(QueryBclRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBclRefundResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
