@@ -8095,6 +8095,156 @@ export class FinishBclOrderResponse extends $tea.Model {
   }
 }
 
+export class CreateBclRefundRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 例如：PROD202312312321301
+  orderId: string;
+  // 代扣成功的期数, 1,5,7,12
+  termNo: number;
+  // 退款金额: 单位分, 最小值1, 最大值不能超过当前代扣的总金额, 如果多次退款,本次退款金额加已退款成功的金额不大于当前代扣总金额
+  refundAmount: number;
+  // 幂等号，用来保证请求幂等性.
+  // 注意：
+  // ● clientToken只支持ASCII字符，且不能超过64个字符；
+  clientToken: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      termNo: 'term_no',
+      refundAmount: 'refund_amount',
+      clientToken: 'client_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      termNo: 'number',
+      refundAmount: 'number',
+      clientToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateBclRefundResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 退款id, 用于关联退款网关消息以及退款查询的入参
+  refundId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      refundId: 'refund_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      refundId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBclRefundRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 退款接口返回的退款id
+  refundId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      refundId: 'refund_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      refundId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBclRefundResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 退款id
+  refundId?: string;
+  // 退款成功的时间, 退款成功返回
+  refundTime?: string;
+  // 退款金额, 单位分, 退款成功时返回
+  refundAmount?: number;
+  // ● 退款中，REFUNDING（需要调用查询接口查询结果)；
+  // ● 退款成功REFUND_SUCCESS
+  // ● 退款失败REFUND_FAIL
+  refundStatus?: string;
+  // 退款失败原因, 退款失败时返回
+  errMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      refundId: 'refund_id',
+      refundTime: 'refund_time',
+      refundAmount: 'refund_amount',
+      refundStatus: 'refund_status',
+      errMsg: 'err_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      refundId: 'string',
+      refundTime: 'string',
+      refundAmount: 'number',
+      refundStatus: 'string',
+      errMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateContractAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -11164,6 +11314,10 @@ export class CreateContractMerchantrefundRequest extends $tea.Model {
   outTradeNo: string;
   // 退款金额（单位：分）
   refundAmount: number;
+  // 租赁宝租赁订单号
+  bclOrderId?: string;
+  // 租赁订单对应的租户id
+  bclTenantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11172,6 +11326,8 @@ export class CreateContractMerchantrefundRequest extends $tea.Model {
       outRequestNo: 'out_request_no',
       outTradeNo: 'out_trade_no',
       refundAmount: 'refund_amount',
+      bclOrderId: 'bcl_order_id',
+      bclTenantId: 'bcl_tenant_id',
     };
   }
 
@@ -11183,6 +11339,8 @@ export class CreateContractMerchantrefundRequest extends $tea.Model {
       outRequestNo: 'string',
       outTradeNo: 'string',
       refundAmount: 'number',
+      bclOrderId: 'string',
+      bclTenantId: 'string',
     };
   }
 
@@ -14766,12 +14924,19 @@ export class QueryContractRefundRequest extends $tea.Model {
   refundId: string;
   // 合同流程id
   flowId?: string;
+  // 租赁宝租赁订单号
+  bclOrderId?: string;
+  // 	
+  // 租赁订单对应的租户id
+  bclTenantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       refundId: 'refund_id',
       flowId: 'flow_id',
+      bclOrderId: 'bcl_order_id',
+      bclTenantId: 'bcl_tenant_id',
     };
   }
 
@@ -14781,6 +14946,8 @@ export class QueryContractRefundRequest extends $tea.Model {
       productInstanceId: 'string',
       refundId: 'string',
       flowId: 'string',
+      bclOrderId: 'string',
+      bclTenantId: 'string',
     };
   }
 
@@ -34953,7 +35120,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.6",
+          sdk_version: "1.12.8",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -35436,6 +35603,44 @@ export default class Client {
   async finishBclOrderEx(request: FinishBclOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FinishBclOrderResponse> {
     Util.validateModel(request);
     return $tea.cast<FinishBclOrderResponse>(await this.doRequest("1.0", "twc.notary.bcl.order.finish", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FinishBclOrderResponse({}));
+  }
+
+  /**
+   * Description: 租赁宝plus退款
+   * Summary: 租赁宝plus退款
+   */
+  async createBclRefund(request: CreateBclRefundRequest): Promise<CreateBclRefundResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createBclRefundEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁宝plus退款
+   * Summary: 租赁宝plus退款
+   */
+  async createBclRefundEx(request: CreateBclRefundRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateBclRefundResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateBclRefundResponse>(await this.doRequest("1.0", "twc.notary.bcl.refund.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateBclRefundResponse({}));
+  }
+
+  /**
+   * Description: 租赁宝plus退款查询
+   * Summary: 租赁宝plus退款查询
+   */
+  async queryBclRefund(request: QueryBclRefundRequest): Promise<QueryBclRefundResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBclRefundEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁宝plus退款查询
+   * Summary: 租赁宝plus退款查询
+   */
+  async queryBclRefundEx(request: QueryBclRefundRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBclRefundResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBclRefundResponse>(await this.doRequest("1.0", "twc.notary.bcl.refund.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBclRefundResponse({}));
   }
 
   /**
