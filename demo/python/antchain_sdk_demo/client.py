@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.228',
+                    'sdk_version': '1.0.229',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.228',
+                    'sdk_version': '1.0.229',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -2249,6 +2249,152 @@ class Client:
         return TeaCore.from_map(
             demo_models.InitBbpInsuranceUserResponse(),
             await self.do_request_async('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_shaofang_test(
+        self,
+        request: demo_models.QueryShaofangTestRequest,
+    ) -> demo_models.QueryShaofangTestResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_shaofang_test_ex(request, headers, runtime)
+
+    async def query_shaofang_test_async(
+        self,
+        request: demo_models.QueryShaofangTestRequest,
+    ) -> demo_models.QueryShaofangTestResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_shaofang_test_ex_async(request, headers, runtime)
+
+    def query_shaofang_test_ex(
+        self,
+        request: demo_models.QueryShaofangTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryShaofangTestResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='demo.shaofang.test.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'OK'):
+                query_shaofang_test_response = demo_models.QueryShaofangTestResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_shaofang_test_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryShaofangTestResponse(),
+            self.do_request('1.0', 'demo.shaofang.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_shaofang_test_ex_async(
+        self,
+        request: demo_models.QueryShaofangTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryShaofangTestResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='demo.shaofang.test.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'OK'):
+                query_shaofang_test_response = demo_models.QueryShaofangTestResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_shaofang_test_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryShaofangTestResponse(),
+            await self.do_request_async('1.0', 'demo.shaofang.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_shaofang_test_tr(
+        self,
+        request: demo_models.QueryShaofangTestTrRequest,
+    ) -> demo_models.QueryShaofangTestTrResponse:
+        """
+        Description: tr测试
+        Summary: tr测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_shaofang_test_tr_ex(request, headers, runtime)
+
+    async def query_shaofang_test_tr_async(
+        self,
+        request: demo_models.QueryShaofangTestTrRequest,
+    ) -> demo_models.QueryShaofangTestTrResponse:
+        """
+        Description: tr测试
+        Summary: tr测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_shaofang_test_tr_ex_async(request, headers, runtime)
+
+    def query_shaofang_test_tr_ex(
+        self,
+        request: demo_models.QueryShaofangTestTrRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryShaofangTestTrResponse:
+        """
+        Description: tr测试
+        Summary: tr测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryShaofangTestTrResponse(),
+            self.do_request('1.0', 'demo.shaofang.test.tr.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_shaofang_test_tr_ex_async(
+        self,
+        request: demo_models.QueryShaofangTestTrRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryShaofangTestTrResponse:
+        """
+        Description: tr测试
+        Summary: tr测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryShaofangTestTrResponse(),
+            await self.do_request_async('1.0', 'demo.shaofang.test.tr.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_test_testobject_bbb(
