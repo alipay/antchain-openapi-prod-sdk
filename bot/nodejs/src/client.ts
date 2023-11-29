@@ -912,6 +912,8 @@ export class JtData extends $tea.Model {
   // 11702: 急减速
   // 11703: 急转弯
   alarmSubType?: number;
+  // 关联设备唯一ID
+  relatedTrustEntityId?: string;
   static names(): { [key: string]: string } {
     return {
       trustiotId: 'trustiot_id',
@@ -920,6 +922,7 @@ export class JtData extends $tea.Model {
       deltaMileage: 'delta_mileage',
       bizType: 'biz_type',
       alarmSubType: 'alarm_sub_type',
+      relatedTrustEntityId: 'related_trust_entity_id',
     };
   }
 
@@ -931,6 +934,7 @@ export class JtData extends $tea.Model {
       deltaMileage: 'number',
       bizType: 'string',
       alarmSubType: 'number',
+      relatedTrustEntityId: 'string',
     };
   }
 
@@ -1223,6 +1227,31 @@ export class TenantBindInfoReq extends $tea.Model {
       bizType: 'string',
       tenantUid: 'string',
       userName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// JT设备所关联实体设备信息
+export class RelatedEntity extends $tea.Model {
+  // 所关联实体的类型
+  entityType: string;
+  // 所关联实体的trustiot唯一ID
+  relatedEntityTrustiotId: number;
+  static names(): { [key: string]: string } {
+    return {
+      entityType: 'entity_type',
+      relatedEntityTrustiotId: 'related_entity_trustiot_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      entityType: 'string',
+      relatedEntityTrustiotId: 'number',
     };
   }
 
@@ -3610,6 +3639,8 @@ export class JtDevice extends $tea.Model {
   online: boolean;
   // 设备型号
   deviceModel?: string;
+  // 终端型号
+  terminalType?: string;
   static names(): { [key: string]: string } {
     return {
       deviceId: 'device_id',
@@ -3618,6 +3649,7 @@ export class JtDevice extends $tea.Model {
       gmtCreate: 'gmt_create',
       online: 'online',
       deviceModel: 'device_model',
+      terminalType: 'terminal_type',
     };
   }
 
@@ -3629,6 +3661,7 @@ export class JtDevice extends $tea.Model {
       gmtCreate: 'number',
       online: 'boolean',
       deviceModel: 'string',
+      terminalType: 'string',
     };
   }
 
@@ -19241,12 +19274,15 @@ export class QueryEntityrelationJtdevicebycarRequest extends $tea.Model {
   deviceId: string;
   // 场景码
   scene: string;
+  // 标识设别来源：分为SERVER(服务端)、JT808(部标机设备等)
+  fromType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       deviceId: 'device_id',
       scene: 'scene',
+      fromType: 'from_type',
     };
   }
 
@@ -19256,6 +19292,7 @@ export class QueryEntityrelationJtdevicebycarRequest extends $tea.Model {
       productInstanceId: 'string',
       deviceId: 'string',
       scene: 'string',
+      fromType: 'string',
     };
   }
 
@@ -19273,12 +19310,15 @@ export class QueryEntityrelationJtdevicebycarResponse extends $tea.Model {
   resultMsg?: string;
   // 车辆关联的部标设备列表
   deviceList?: JtDevice[];
+  // 所关联车辆实体信息
+  carEntity?: RelatedEntity;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       deviceList: 'device_list',
+      carEntity: 'car_entity',
     };
   }
 
@@ -19288,6 +19328,7 @@ export class QueryEntityrelationJtdevicebycarResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       deviceList: { 'type': 'array', 'itemType': JtDevice },
+      carEntity: RelatedEntity,
     };
   }
 
@@ -19300,7 +19341,7 @@ export class QueryCollectorJtfluxRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 查询类型，支持LOCATION, TRACE,  ALARM三类
+  // 查询类型，支持LOCATION, TRACE,  ALARM,  REPORT四类
   queryType: string;
   // 查询模式，支持抽样SAMPLE和分页PAGE两类，query_type不是LOCATION时必填
   queryMode?: string;
@@ -19320,6 +19361,12 @@ export class QueryCollectorJtfluxRequest extends $tea.Model {
   pageSize?: number;
   // 告警子类型
   alarmSubTypes?: number[];
+  // 设备所关联的related_entity_trustiot_id列表
+  relatedEntityList?: number[];
+  // 所关联实体类型，传related_entity_list时必填
+  relatedEntityType?: string;
+  // 报告日期，查询REPORT时必填
+  reportDate?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -19334,6 +19381,9 @@ export class QueryCollectorJtfluxRequest extends $tea.Model {
       pageIndex: 'page_index',
       pageSize: 'page_size',
       alarmSubTypes: 'alarm_sub_types',
+      relatedEntityList: 'related_entity_list',
+      relatedEntityType: 'related_entity_type',
+      reportDate: 'report_date',
     };
   }
 
@@ -19351,6 +19401,9 @@ export class QueryCollectorJtfluxRequest extends $tea.Model {
       pageIndex: 'number',
       pageSize: 'number',
       alarmSubTypes: { 'type': 'array', 'itemType': 'number' },
+      relatedEntityList: { 'type': 'array', 'itemType': 'number' },
+      relatedEntityType: 'string',
+      reportDate: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -21271,7 +21324,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.1",
+          sdk_version: "1.9.7",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
