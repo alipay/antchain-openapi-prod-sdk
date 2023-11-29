@@ -56,6 +56,7 @@ class InitBbpInsuranceUserRequest extends Model
         Model::validateRequired('businessCode', $this->businessCode, true);
         Model::validateRequired('thirdPartId', $this->thirdPartId, true);
         Model::validateRequired('channel', $this->channel, true);
+        Model::validateRequired('burieds', $this->burieds, true);
     }
 
     public function toMap()

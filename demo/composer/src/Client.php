@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\DEMO\Models\BindAaaBbbCccRequest;
 use AntChain\DEMO\Models\BindAaaBbbCccResponse;
+use AntChain\DEMO\Models\BindAaaBbbCcdRequest;
+use AntChain\DEMO\Models\BindAaaBbbCcdResponse;
 use AntChain\DEMO\Models\BindCenterAbilityRequest;
 use AntChain\DEMO\Models\BindCenterAbilityResponse;
 use AntChain\DEMO\Models\BindDemoCheckEeeRequest;
@@ -63,6 +65,8 @@ use AntChain\DEMO\Models\QueryApprovalTestRequest;
 use AntChain\DEMO\Models\QueryApprovalTestResponse;
 use AntChain\DEMO\Models\QueryCjtestCjResRequest;
 use AntChain\DEMO\Models\QueryCjtestCjResResponse;
+use AntChain\DEMO\Models\QueryDemoAbcAbcRequest;
+use AntChain\DEMO\Models\QueryDemoAbcAbcResponse;
 use AntChain\DEMO\Models\QueryDemoDefaultSdkcccRequest;
 use AntChain\DEMO\Models\QueryDemoDefaultSdkcccResponse;
 use AntChain\DEMO\Models\QueryDemoDefaultSdkfffRequest;
@@ -93,6 +97,8 @@ use AntChain\DEMO\Models\QueryLoadtestTimeThreeRequest;
 use AntChain\DEMO\Models\QueryLoadtestTimeThreeResponse;
 use AntChain\DEMO\Models\QueryLoadtestTimeTwoRequest;
 use AntChain\DEMO\Models\QueryLoadtestTimeTwoResponse;
+use AntChain\DEMO\Models\QueryPatrolStatisticBizinfosRequest;
+use AntChain\DEMO\Models\QueryPatrolStatisticBizinfosResponse;
 use AntChain\DEMO\Models\QueryRoutingGrayscaleTestRequest;
 use AntChain\DEMO\Models\QueryRoutingGrayscaleTestResponse;
 use AntChain\DEMO\Models\QuerySaasTestTestaRequest;
@@ -105,6 +111,8 @@ use AntChain\DEMO\Models\RegisterTestBizeventMessageRequest;
 use AntChain\DEMO\Models\RegisterTestBizeventMessageResponse;
 use AntChain\DEMO\Models\ResetComCnCcRequest;
 use AntChain\DEMO\Models\ResetComCnCcResponse;
+use AntChain\DEMO\Models\ResetSaasTestApiRequest;
+use AntChain\DEMO\Models\ResetSaasTestApiResponse;
 use AntChain\DEMO\Models\StatusGatewayCheckRequest;
 use AntChain\DEMO\Models\StatusGatewayCheckResponse;
 use AntChain\DEMO\Models\UpdateCjtestCjRequest;
@@ -260,7 +268,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.218',
+                    'sdk_version'      => '1.0.228',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1335,6 +1343,39 @@ class Client
     }
 
     /**
+     * Description: 123
+     * Summary: 测试用api.
+     *
+     * @param QueryDemoAbcAbcRequest $request
+     *
+     * @return QueryDemoAbcAbcResponse
+     */
+    public function queryDemoAbcAbc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoAbcAbcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 123
+     * Summary: 测试用api.
+     *
+     * @param QueryDemoAbcAbcRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryDemoAbcAbcResponse
+     */
+    public function queryDemoAbcAbcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoAbcAbcResponse::fromMap($this->doRequest('1.0', 'demo.demo.abc.abc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 用于测试api评审接入SDL的测试使用
      * 测试评审。评审字段测试ACCCCC
      * Summary: api评审测试CCCC.
@@ -1565,6 +1606,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryLoadtestTimeTwoResponse::fromMap($this->doRequest('1.0', 'demo.loadtest.time.two.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 123
+     * Summary: 测试用api.
+     *
+     * @param ResetSaasTestApiRequest $request
+     *
+     * @return ResetSaasTestApiResponse
+     */
+    public function resetSaasTestApi($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resetSaasTestApiEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 123
+     * Summary: 测试用api.
+     *
+     * @param ResetSaasTestApiRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ResetSaasTestApiResponse
+     */
+    public function resetSaasTestApiEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResetSaasTestApiResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.api.reset', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1799,6 +1873,39 @@ class Client
     }
 
     /**
+     * Description: album/api/patrol/data/queryBizInfos
+     * Summary: test.
+     *
+     * @param QueryPatrolStatisticBizinfosRequest $request
+     *
+     * @return QueryPatrolStatisticBizinfosResponse
+     */
+    public function queryPatrolStatisticBizinfos($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPatrolStatisticBizinfosEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: album/api/patrol/data/queryBizInfos
+     * Summary: test.
+     *
+     * @param QueryPatrolStatisticBizinfosRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryPatrolStatisticBizinfosResponse
+     */
+    public function queryPatrolStatisticBizinfosEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPatrolStatisticBizinfosResponse::fromMap($this->doRequest('1.0', 'demo.patrol.statistic.bizinfos.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 自动化测试创建test222
      * Summary: 自动化测试创建test1.
      *
@@ -1895,6 +2002,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryAbcAbcAbcResponse::fromMap($this->doRequest('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 123
+     * Summary: 测试用api.
+     *
+     * @param BindAaaBbbCcdRequest $request
+     *
+     * @return BindAaaBbbCcdResponse
+     */
+    public function bindAaaBbbCcd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindAaaBbbCcdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 123
+     * Summary: 测试用api.
+     *
+     * @param BindAaaBbbCcdRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return BindAaaBbbCcdResponse
+     */
+    public function bindAaaBbbCcdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindAaaBbbCcdResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

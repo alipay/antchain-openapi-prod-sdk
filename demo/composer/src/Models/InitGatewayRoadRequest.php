@@ -56,6 +56,10 @@ class InitGatewayRoadRequest extends Model
         Model::validateRequired('time', $this->time, true);
         Model::validateRequired('operator', $this->operator, true);
         Model::validateRequired('count', $this->count, true);
+        Model::validateMaximum('count', $this->count, 5);
+        Model::validateMinimum('count', $this->count, 1);
+        Model::validateMaxLength('desc', $this->desc, 15);
+        Model::validateMinLength('desc', $this->desc, 5);
     }
 
     public function toMap()
