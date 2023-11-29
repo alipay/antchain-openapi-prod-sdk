@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.9.1',
+    sdk_version = '1.9.7',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -514,6 +514,8 @@ model JtData {
   // 11702: 急减速
   // 11703: 急转弯
   alarmSubType?: long(name='alarm_sub_type', example='10001'),
+  // 关联设备唯一ID
+  relatedTrustEntityId?: string(name='related_trust_entity_id', example='123'),
 }
 
 // 租赁合同信息
@@ -636,6 +638,14 @@ model TenantBindInfoReq {
   tenantUid: string(name='tenant_uid', example='"12345"'),
   // 组织结构名称
   userName: string(name='user_name', example='"xx公司xx部门"'),
+}
+
+// JT设备所关联实体设备信息
+model RelatedEntity {
+  // 所关联实体的类型
+  entityType: string(name='entity_type', example='COSTOMER_ENETITY'),
+  // 所关联实体的trustiot唯一ID
+  relatedEntityTrustiotId: long(name='related_entity_trustiot_id', example='7006071575276187649'),
 }
 
 // 设备注册 请求对象
@@ -1620,6 +1630,8 @@ model JtDevice {
   online: boolean(name='online', example='true, false'),
   // 设备型号
   deviceModel?: string(name='device_model', example='丰图T8'),
+  // 终端型号
+  terminalType?: string(name='terminal_type', example='型号A'),
 }
 
 // 电脑型号信息
@@ -10940,6 +10952,8 @@ model QueryEntityrelationJtdevicebycarRequest = {
   deviceId: string(name='device_id'),
   // 场景码
   scene: string(name='scene'),
+  // 标识设别来源：分为SERVER(服务端)、JT808(部标机设备等)
+  fromType?: string(name='from_type'),
 }
 
 model QueryEntityrelationJtdevicebycarResponse = {
@@ -10951,6 +10965,8 @@ model QueryEntityrelationJtdevicebycarResponse = {
   resultMsg?: string(name='result_msg'),
   // 车辆关联的部标设备列表
   deviceList?: [ JtDevice ](name='device_list'),
+  // 所关联车辆实体信息
+  carEntity?: RelatedEntity(name='car_entity'),
 }
 
 /**
@@ -10976,7 +10992,7 @@ model QueryCollectorJtfluxRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 查询类型，支持LOCATION, TRACE,  ALARM三类
+  // 查询类型，支持LOCATION, TRACE,  ALARM,  REPORT四类
   queryType: string(name='query_type'),
   // 查询模式，支持抽样SAMPLE和分页PAGE两类，query_type不是LOCATION时必填
   queryMode?: string(name='query_mode'),
@@ -10996,6 +11012,12 @@ model QueryCollectorJtfluxRequest = {
   pageSize?: long(name='page_size'),
   // 告警子类型
   alarmSubTypes?: [ long ](name='alarm_sub_types'),
+  // 设备所关联的related_entity_trustiot_id列表
+  relatedEntityList?: [ long ](name='related_entity_list'),
+  // 所关联实体类型，传related_entity_list时必填
+  relatedEntityType?: string(name='related_entity_type'),
+  // 报告日期，查询REPORT时必填
+  reportDate?: [ string ](name='report_date'),
 }
 
 model QueryCollectorJtfluxResponse = {
