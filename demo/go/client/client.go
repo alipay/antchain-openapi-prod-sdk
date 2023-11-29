@@ -3474,6 +3474,174 @@ func (s *InitBbpInsuranceUserResponse) SetStartDate(v string) *InitBbpInsuranceU
 	return s
 }
 
+type QueryShaofangTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true" maxLength:"20" minLength:"1"`
+	// 日期
+	Birth *string `json:"birth,omitempty" xml:"birth,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 文件
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" maxLength:"20" minLength:"1"`
+}
+
+func (s QueryShaofangTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryShaofangTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryShaofangTestRequest) SetAuthToken(v string) *QueryShaofangTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryShaofangTestRequest) SetProductInstanceId(v string) *QueryShaofangTestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryShaofangTestRequest) SetName(v string) *QueryShaofangTestRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryShaofangTestRequest) SetBirth(v string) *QueryShaofangTestRequest {
+	s.Birth = &v
+	return s
+}
+
+func (s *QueryShaofangTestRequest) SetFileObject(v io.Reader) *QueryShaofangTestRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *QueryShaofangTestRequest) SetFileObjectName(v string) *QueryShaofangTestRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *QueryShaofangTestRequest) SetFileId(v string) *QueryShaofangTestRequest {
+	s.FileId = &v
+	return s
+}
+
+type QueryShaofangTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// the_one
+	TheOne *string `json:"the_one,omitempty" xml:"the_one,omitempty"`
+	// the_two
+	TheTwo *int64 `json:"the_two,omitempty" xml:"the_two,omitempty"`
+}
+
+func (s QueryShaofangTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryShaofangTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryShaofangTestResponse) SetReqMsgId(v string) *QueryShaofangTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryShaofangTestResponse) SetResultCode(v string) *QueryShaofangTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryShaofangTestResponse) SetResultMsg(v string) *QueryShaofangTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryShaofangTestResponse) SetTheOne(v string) *QueryShaofangTestResponse {
+	s.TheOne = &v
+	return s
+}
+
+func (s *QueryShaofangTestResponse) SetTheTwo(v int64) *QueryShaofangTestResponse {
+	s.TheTwo = &v
+	return s
+}
+
+type QueryShaofangTestTrRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s QueryShaofangTestTrRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryShaofangTestTrRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryShaofangTestTrRequest) SetAuthToken(v string) *QueryShaofangTestTrRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryShaofangTestTrRequest) SetProductInstanceId(v string) *QueryShaofangTestTrRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryShaofangTestTrRequest) SetName(v string) *QueryShaofangTestTrRequest {
+	s.Name = &v
+	return s
+}
+
+type QueryShaofangTestTrResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryShaofangTestTrResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryShaofangTestTrResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryShaofangTestTrResponse) SetReqMsgId(v string) *QueryShaofangTestTrResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryShaofangTestTrResponse) SetResultCode(v string) *QueryShaofangTestTrResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryShaofangTestTrResponse) SetResultMsg(v string) *QueryShaofangTestTrResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type QueryTestTestobjectBbbRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5067,7 +5235,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.228"),
+				"sdk_version":      tea.String("1.0.229"),
 				"_prod_code":       tea.String("DEMO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6334,6 +6502,103 @@ func (client *Client) InitBbpInsuranceUserEx(request *InitBbpInsuranceUserReques
 	}
 	_result = &InitBbpInsuranceUserResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.bbp.insurance.user.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 测试
+ * Summary: 测试
+ */
+func (client *Client) QueryShaofangTest(request *QueryShaofangTestRequest) (_result *QueryShaofangTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryShaofangTestResponse{}
+	_body, _err := client.QueryShaofangTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试
+ * Summary: 测试
+ */
+func (client *Client) QueryShaofangTestEx(request *QueryShaofangTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryShaofangTestResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("demo.shaofang.test.query"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("OK"))) {
+			queryShaofangTestResponse := &QueryShaofangTestResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = queryShaofangTestResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryShaofangTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.shaofang.test.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: tr测试
+ * Summary: tr测试
+ */
+func (client *Client) QueryShaofangTestTr(request *QueryShaofangTestTrRequest) (_result *QueryShaofangTestTrResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryShaofangTestTrResponse{}
+	_body, _err := client.QueryShaofangTestTrEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: tr测试
+ * Summary: tr测试
+ */
+func (client *Client) QueryShaofangTestTrEx(request *QueryShaofangTestTrRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryShaofangTestTrResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryShaofangTestTrResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.shaofang.test.tr.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
