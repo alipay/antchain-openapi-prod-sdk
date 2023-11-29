@@ -2904,6 +2904,138 @@ export class InitBbpInsuranceUserResponse extends $tea.Model {
   }
 }
 
+export class QueryShaofangTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 姓名
+  name: string;
+  // 日期
+  birth?: string;
+  // 文件
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      name: 'name',
+      birth: 'birth',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      name: 'string',
+      birth: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryShaofangTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // the_one
+  theOne?: string;
+  // the_two
+  theTwo?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      theOne: 'the_one',
+      theTwo: 'the_two',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      theOne: 'string',
+      theTwo: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryShaofangTestTrRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 姓名
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryShaofangTestTrResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryTestTestobjectBbbRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4255,7 +4387,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.228",
+          sdk_version: "1.0.229",
           _prod_code: "DEMO",
           _prod_channel: "undefined",
         };
@@ -4991,6 +5123,65 @@ export default class Client {
   async initBbpInsuranceUserEx(request: InitBbpInsuranceUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitBbpInsuranceUserResponse> {
     Util.validateModel(request);
     return $tea.cast<InitBbpInsuranceUserResponse>(await this.doRequest("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitBbpInsuranceUserResponse({}));
+  }
+
+  /**
+   * Description: 测试
+   * Summary: 测试
+   */
+  async queryShaofangTest(request: QueryShaofangTestRequest): Promise<QueryShaofangTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryShaofangTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 测试
+   * Summary: 测试
+   */
+  async queryShaofangTestEx(request: QueryShaofangTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryShaofangTestResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "demo.shaofang.test.query",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "OK")) {
+        let queryShaofangTestResponse = new QueryShaofangTestResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return queryShaofangTestResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<QueryShaofangTestResponse>(await this.doRequest("1.0", "demo.shaofang.test.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryShaofangTestResponse({}));
+  }
+
+  /**
+   * Description: tr测试
+   * Summary: tr测试
+   */
+  async queryShaofangTestTr(request: QueryShaofangTestTrRequest): Promise<QueryShaofangTestTrResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryShaofangTestTrEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: tr测试
+   * Summary: tr测试
+   */
+  async queryShaofangTestTrEx(request: QueryShaofangTestTrRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryShaofangTestTrResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryShaofangTestTrResponse>(await this.doRequest("1.0", "demo.shaofang.test.tr.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryShaofangTestTrResponse({}));
   }
 
   /**
