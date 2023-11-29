@@ -35,7 +35,7 @@ namespace AntChain.SDK.DEMO.Models
 
         // 请求描述
         [NameInMap("desc")]
-        [Validation(Required=false)]
+        [Validation(Required=false, MaxLength=15)]
         public string Desc { get; set; }
 
     }

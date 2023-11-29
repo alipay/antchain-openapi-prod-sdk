@@ -35,7 +35,7 @@ namespace AntChain.SDK.DEMO.Models
 
         // 埋点信息
         [NameInMap("burieds")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public QueryMap Burieds { get; set; }
 
     }
