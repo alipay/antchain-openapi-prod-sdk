@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class InitBbpInsuranceUserResponse extends TeaModel {
+public class BindAaaBbbCcdResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,17 +16,12 @@ public class InitBbpInsuranceUserResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 123
-    @NameInMap("start_date")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
-    public String startDate;
-
-    public static InitBbpInsuranceUserResponse build(java.util.Map<String, ?> map) throws Exception {
-        InitBbpInsuranceUserResponse self = new InitBbpInsuranceUserResponse();
+    public static BindAaaBbbCcdResponse build(java.util.Map<String, ?> map) throws Exception {
+        BindAaaBbbCcdResponse self = new BindAaaBbbCcdResponse();
         return TeaModel.build(map, self);
     }
 
-    public InitBbpInsuranceUserResponse setReqMsgId(String reqMsgId) {
+    public BindAaaBbbCcdResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -34,7 +29,7 @@ public class InitBbpInsuranceUserResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public InitBbpInsuranceUserResponse setResultCode(String resultCode) {
+    public BindAaaBbbCcdResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -42,20 +37,12 @@ public class InitBbpInsuranceUserResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public InitBbpInsuranceUserResponse setResultMsg(String resultMsg) {
+    public BindAaaBbbCcdResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public InitBbpInsuranceUserResponse setStartDate(String startDate) {
-        this.startDate = startDate;
-        return this;
-    }
-    public String getStartDate() {
-        return this.startDate;
     }
 
 }

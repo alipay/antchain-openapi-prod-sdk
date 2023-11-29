@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.218"),
+                    new TeaPair("sdk_version", "1.0.228"),
                     new TeaPair("_prod_code", "DEMO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -774,6 +774,25 @@ public class Client {
     }
 
     /**
+     * Description: 123
+     * Summary: 测试用api
+     */
+    public QueryDemoAbcAbcResponse queryDemoAbcAbc(QueryDemoAbcAbcRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoAbcAbcEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 123
+     * Summary: 测试用api
+     */
+    public QueryDemoAbcAbcResponse queryDemoAbcAbcEx(QueryDemoAbcAbcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.demo.abc.abc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAbcAbcResponse());
+    }
+
+    /**
      * Description: 用于测试api评审接入SDL的测试使用
     测试评审。评审字段测试ACCCCC
      * Summary: api评审测试CCCC
@@ -906,6 +925,25 @@ public class Client {
     public QueryLoadtestTimeTwoResponse queryLoadtestTimeTwoEx(QueryLoadtestTimeTwoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.loadtest.time.two.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLoadtestTimeTwoResponse());
+    }
+
+    /**
+     * Description: 123
+     * Summary: 测试用api
+     */
+    public ResetSaasTestApiResponse resetSaasTestApi(ResetSaasTestApiRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resetSaasTestApiEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 123
+     * Summary: 测试用api
+     */
+    public ResetSaasTestApiResponse resetSaasTestApiEx(ResetSaasTestApiRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.saas.test.api.reset", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResetSaasTestApiResponse());
     }
 
     /**
@@ -1042,6 +1080,25 @@ public class Client {
     }
 
     /**
+     * Description: album/api/patrol/data/queryBizInfos
+     * Summary: test
+     */
+    public QueryPatrolStatisticBizinfosResponse queryPatrolStatisticBizinfos(QueryPatrolStatisticBizinfosRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPatrolStatisticBizinfosEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: album/api/patrol/data/queryBizInfos
+     * Summary: test
+     */
+    public QueryPatrolStatisticBizinfosResponse queryPatrolStatisticBizinfosEx(QueryPatrolStatisticBizinfosRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.patrol.statistic.bizinfos.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPatrolStatisticBizinfosResponse());
+    }
+
+    /**
      * Description: 自动化测试创建test222
      * Summary: 自动化测试创建test1
      */
@@ -1096,6 +1153,25 @@ public class Client {
     public QueryAbcAbcAbcResponse queryAbcAbcAbcEx(QueryAbcAbcAbcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAbcAbcAbcResponse());
+    }
+
+    /**
+     * Description: 123
+     * Summary: 测试用api
+     */
+    public BindAaaBbbCcdResponse bindAaaBbbCcd(BindAaaBbbCcdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindAaaBbbCcdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 123
+     * Summary: 测试用api
+     */
+    public BindAaaBbbCcdResponse bindAaaBbbCcdEx(BindAaaBbbCcdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.aaa.bbb.ccd.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindAaaBbbCcdResponse());
     }
 
     /**

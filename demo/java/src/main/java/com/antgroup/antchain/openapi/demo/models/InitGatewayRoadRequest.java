@@ -23,11 +23,12 @@ public class InitGatewayRoadRequest extends TeaModel {
 
     // 请求编号
     @NameInMap("count")
-    @Validation(required = true)
+    @Validation(required = true, maximum = 5, minimum = 1)
     public Long count;
 
     // 请求描述
     @NameInMap("desc")
+    @Validation(maxLength = 15, minLength = 5)
     public String desc;
 
     public static InitGatewayRoadRequest build(java.util.Map<String, ?> map) throws Exception {

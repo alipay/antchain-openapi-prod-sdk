@@ -28,6 +28,7 @@ public class InitBbpInsuranceUserRequest extends TeaModel {
 
     // 埋点信息
     @NameInMap("burieds")
+    @Validation(required = true)
     public QueryMap burieds;
 
     public static InitBbpInsuranceUserRequest build(java.util.Map<String, ?> map) throws Exception {
