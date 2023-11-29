@@ -11,7 +11,7 @@ public class QueryCollectorJtfluxRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 查询类型，支持LOCATION, TRACE,  ALARM三类
+    // 查询类型，支持LOCATION, TRACE,  ALARM,  REPORT四类
     @NameInMap("query_type")
     @Validation(required = true)
     public String queryType;
@@ -52,6 +52,18 @@ public class QueryCollectorJtfluxRequest extends TeaModel {
     // 告警子类型
     @NameInMap("alarm_sub_types")
     public java.util.List<Long> alarmSubTypes;
+
+    // 设备所关联的related_entity_trustiot_id列表
+    @NameInMap("related_entity_list")
+    public java.util.List<Long> relatedEntityList;
+
+    // 所关联实体类型，传related_entity_list时必填
+    @NameInMap("related_entity_type")
+    public String relatedEntityType;
+
+    // 报告日期，查询REPORT时必填
+    @NameInMap("report_date")
+    public java.util.List<String> reportDate;
 
     public static QueryCollectorJtfluxRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryCollectorJtfluxRequest self = new QueryCollectorJtfluxRequest();
@@ -152,6 +164,30 @@ public class QueryCollectorJtfluxRequest extends TeaModel {
     }
     public java.util.List<Long> getAlarmSubTypes() {
         return this.alarmSubTypes;
+    }
+
+    public QueryCollectorJtfluxRequest setRelatedEntityList(java.util.List<Long> relatedEntityList) {
+        this.relatedEntityList = relatedEntityList;
+        return this;
+    }
+    public java.util.List<Long> getRelatedEntityList() {
+        return this.relatedEntityList;
+    }
+
+    public QueryCollectorJtfluxRequest setRelatedEntityType(String relatedEntityType) {
+        this.relatedEntityType = relatedEntityType;
+        return this;
+    }
+    public String getRelatedEntityType() {
+        return this.relatedEntityType;
+    }
+
+    public QueryCollectorJtfluxRequest setReportDate(java.util.List<String> reportDate) {
+        this.reportDate = reportDate;
+        return this;
+    }
+    public java.util.List<String> getReportDate() {
+        return this.reportDate;
     }
 
 }

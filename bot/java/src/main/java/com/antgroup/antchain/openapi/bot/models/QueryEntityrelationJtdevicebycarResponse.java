@@ -20,6 +20,10 @@ public class QueryEntityrelationJtdevicebycarResponse extends TeaModel {
     @NameInMap("device_list")
     public java.util.List<JtDevice> deviceList;
 
+    // 所关联车辆实体信息
+    @NameInMap("car_entity")
+    public RelatedEntity carEntity;
+
     public static QueryEntityrelationJtdevicebycarResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryEntityrelationJtdevicebycarResponse self = new QueryEntityrelationJtdevicebycarResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class QueryEntityrelationJtdevicebycarResponse extends TeaModel {
     }
     public java.util.List<JtDevice> getDeviceList() {
         return this.deviceList;
+    }
+
+    public QueryEntityrelationJtdevicebycarResponse setCarEntity(RelatedEntity carEntity) {
+        this.carEntity = carEntity;
+        return this;
+    }
+    public RelatedEntity getCarEntity() {
+        return this.carEntity;
     }
 
 }

@@ -21,6 +21,10 @@ public class QueryEntityrelationJtdevicebycarRequest extends TeaModel {
     @Validation(required = true)
     public String scene;
 
+    // 标识设别来源：分为SERVER(服务端)、JT808(部标机设备等)
+    @NameInMap("from_type")
+    public String fromType;
+
     public static QueryEntityrelationJtdevicebycarRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryEntityrelationJtdevicebycarRequest self = new QueryEntityrelationJtdevicebycarRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class QueryEntityrelationJtdevicebycarRequest extends TeaModel {
     }
     public String getScene() {
         return this.scene;
+    }
+
+    public QueryEntityrelationJtdevicebycarRequest setFromType(String fromType) {
+        this.fromType = fromType;
+        return this;
+    }
+    public String getFromType() {
+        return this.fromType;
     }
 
 }

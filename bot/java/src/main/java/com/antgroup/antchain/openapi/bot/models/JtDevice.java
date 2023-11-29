@@ -33,6 +33,10 @@ public class JtDevice extends TeaModel {
     @NameInMap("device_model")
     public String deviceModel;
 
+    // 终端型号
+    @NameInMap("terminal_type")
+    public String terminalType;
+
     public static JtDevice build(java.util.Map<String, ?> map) throws Exception {
         JtDevice self = new JtDevice();
         return TeaModel.build(map, self);
@@ -84,6 +88,14 @@ public class JtDevice extends TeaModel {
     }
     public String getDeviceModel() {
         return this.deviceModel;
+    }
+
+    public JtDevice setTerminalType(String terminalType) {
+        this.terminalType = terminalType;
+        return this;
+    }
+    public String getTerminalType() {
+        return this.terminalType;
     }
 
 }

@@ -55,6 +55,10 @@ public class JtData extends TeaModel {
     @NameInMap("alarm_sub_type")
     public Long alarmSubType;
 
+    // 关联设备唯一ID
+    @NameInMap("related_trust_entity_id")
+    public String relatedTrustEntityId;
+
     public static JtData build(java.util.Map<String, ?> map) throws Exception {
         JtData self = new JtData();
         return TeaModel.build(map, self);
@@ -106,6 +110,14 @@ public class JtData extends TeaModel {
     }
     public Long getAlarmSubType() {
         return this.alarmSubType;
+    }
+
+    public JtData setRelatedTrustEntityId(String relatedTrustEntityId) {
+        this.relatedTrustEntityId = relatedTrustEntityId;
+        return this;
+    }
+    public String getRelatedTrustEntityId() {
+        return this.relatedTrustEntityId;
     }
 
 }
