@@ -103,6 +103,10 @@ use AntChain\DEMO\Models\QueryRoutingGrayscaleTestRequest;
 use AntChain\DEMO\Models\QueryRoutingGrayscaleTestResponse;
 use AntChain\DEMO\Models\QuerySaasTestTestaRequest;
 use AntChain\DEMO\Models\QuerySaasTestTestaResponse;
+use AntChain\DEMO\Models\QueryShaofangTestRequest;
+use AntChain\DEMO\Models\QueryShaofangTestResponse;
+use AntChain\DEMO\Models\QueryShaofangTestTrRequest;
+use AntChain\DEMO\Models\QueryShaofangTestTrResponse;
 use AntChain\DEMO\Models\QueryTestGatewayTestRequest;
 use AntChain\DEMO\Models\QueryTestGatewayTestResponse;
 use AntChain\DEMO\Models\QueryTestTestobjectBbbRequest;
@@ -268,7 +272,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.228',
+                    'sdk_version'      => '1.0.229',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1474,6 +1478,90 @@ class Client
         Utils::validateModel($request);
 
         return InitBbpInsuranceUserResponse::fromMap($this->doRequest('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试
+     * Summary: 测试.
+     *
+     * @param QueryShaofangTestRequest $request
+     *
+     * @return QueryShaofangTestResponse
+     */
+    public function queryShaofangTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryShaofangTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试
+     * Summary: 测试.
+     *
+     * @param QueryShaofangTestRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryShaofangTestResponse
+     */
+    public function queryShaofangTestEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'demo.shaofang.test.query',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'OK')) {
+                return new QueryShaofangTestResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return QueryShaofangTestResponse::fromMap($this->doRequest('1.0', 'demo.shaofang.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: tr测试
+     * Summary: tr测试.
+     *
+     * @param QueryShaofangTestTrRequest $request
+     *
+     * @return QueryShaofangTestTrResponse
+     */
+    public function queryShaofangTestTr($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryShaofangTestTrEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: tr测试
+     * Summary: tr测试.
+     *
+     * @param QueryShaofangTestTrRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryShaofangTestTrResponse
+     */
+    public function queryShaofangTestTrEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryShaofangTestTrResponse::fromMap($this->doRequest('1.0', 'demo.shaofang.test.tr.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
