@@ -1487,6 +1487,7 @@ class JtData(TeaModel):
         delta_mileage: int = None,
         biz_type: str = None,
         alarm_sub_type: int = None,
+        related_trust_entity_id: str = None,
     ):
         # 数据的可信平台唯一ID
         self.trustiot_id = trustiot_id
@@ -1523,6 +1524,8 @@ class JtData(TeaModel):
         # 11702: 急减速
         # 11703: 急转弯
         self.alarm_sub_type = alarm_sub_type
+        # 关联设备唯一ID
+        self.related_trust_entity_id = related_trust_entity_id
 
     def validate(self):
         self.validate_required(self.trustiot_id, 'trustiot_id')
@@ -1548,6 +1551,8 @@ class JtData(TeaModel):
             result['biz_type'] = self.biz_type
         if self.alarm_sub_type is not None:
             result['alarm_sub_type'] = self.alarm_sub_type
+        if self.related_trust_entity_id is not None:
+            result['related_trust_entity_id'] = self.related_trust_entity_id
         return result
 
     def from_map(self, m: dict = None):
@@ -1564,6 +1569,8 @@ class JtData(TeaModel):
             self.biz_type = m.get('biz_type')
         if m.get('alarm_sub_type') is not None:
             self.alarm_sub_type = m.get('alarm_sub_type')
+        if m.get('related_trust_entity_id') is not None:
+            self.related_trust_entity_id = m.get('related_trust_entity_id')
         return self
 
 
@@ -2055,6 +2062,42 @@ class TenantBindInfoReq(TeaModel):
             self.tenant_uid = m.get('tenant_uid')
         if m.get('user_name') is not None:
             self.user_name = m.get('user_name')
+        return self
+
+
+class RelatedEntity(TeaModel):
+    def __init__(
+        self,
+        entity_type: str = None,
+        related_entity_trustiot_id: int = None,
+    ):
+        # 所关联实体的类型
+        self.entity_type = entity_type
+        # 所关联实体的trustiot唯一ID
+        self.related_entity_trustiot_id = related_entity_trustiot_id
+
+    def validate(self):
+        self.validate_required(self.entity_type, 'entity_type')
+        self.validate_required(self.related_entity_trustiot_id, 'related_entity_trustiot_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.entity_type is not None:
+            result['entity_type'] = self.entity_type
+        if self.related_entity_trustiot_id is not None:
+            result['related_entity_trustiot_id'] = self.related_entity_trustiot_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('entity_type') is not None:
+            self.entity_type = m.get('entity_type')
+        if m.get('related_entity_trustiot_id') is not None:
+            self.related_entity_trustiot_id = m.get('related_entity_trustiot_id')
         return self
 
 
@@ -5825,6 +5868,7 @@ class JtDevice(TeaModel):
         gmt_create: int = None,
         online: bool = None,
         device_model: str = None,
+        terminal_type: str = None,
     ):
         # 设备ID
         self.device_id = device_id
@@ -5838,6 +5882,8 @@ class JtDevice(TeaModel):
         self.online = online
         # 设备型号
         self.device_model = device_model
+        # 终端型号
+        self.terminal_type = terminal_type
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
@@ -5864,6 +5910,8 @@ class JtDevice(TeaModel):
             result['online'] = self.online
         if self.device_model is not None:
             result['device_model'] = self.device_model
+        if self.terminal_type is not None:
+            result['terminal_type'] = self.terminal_type
         return result
 
     def from_map(self, m: dict = None):
@@ -5880,6 +5928,8 @@ class JtDevice(TeaModel):
             self.online = m.get('online')
         if m.get('device_model') is not None:
             self.device_model = m.get('device_model')
+        if m.get('terminal_type') is not None:
+            self.terminal_type = m.get('terminal_type')
         return self
 
 
@@ -31474,6 +31524,7 @@ class QueryEntityrelationJtdevicebycarRequest(TeaModel):
         product_instance_id: str = None,
         device_id: str = None,
         scene: str = None,
+        from_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -31482,6 +31533,8 @@ class QueryEntityrelationJtdevicebycarRequest(TeaModel):
         self.device_id = device_id
         # 场景码
         self.scene = scene
+        # 标识设别来源：分为SERVER(服务端)、JT808(部标机设备等)
+        self.from_type = from_type
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
@@ -31501,6 +31554,8 @@ class QueryEntityrelationJtdevicebycarRequest(TeaModel):
             result['device_id'] = self.device_id
         if self.scene is not None:
             result['scene'] = self.scene
+        if self.from_type is not None:
+            result['from_type'] = self.from_type
         return result
 
     def from_map(self, m: dict = None):
@@ -31513,6 +31568,8 @@ class QueryEntityrelationJtdevicebycarRequest(TeaModel):
             self.device_id = m.get('device_id')
         if m.get('scene') is not None:
             self.scene = m.get('scene')
+        if m.get('from_type') is not None:
+            self.from_type = m.get('from_type')
         return self
 
 
@@ -31523,6 +31580,7 @@ class QueryEntityrelationJtdevicebycarResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         device_list: List[JtDevice] = None,
+        car_entity: RelatedEntity = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -31532,12 +31590,16 @@ class QueryEntityrelationJtdevicebycarResponse(TeaModel):
         self.result_msg = result_msg
         # 车辆关联的部标设备列表
         self.device_list = device_list
+        # 所关联车辆实体信息
+        self.car_entity = car_entity
 
     def validate(self):
         if self.device_list:
             for k in self.device_list:
                 if k:
                     k.validate()
+        if self.car_entity:
+            self.car_entity.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -31555,6 +31617,8 @@ class QueryEntityrelationJtdevicebycarResponse(TeaModel):
         if self.device_list is not None:
             for k in self.device_list:
                 result['device_list'].append(k.to_map() if k else None)
+        if self.car_entity is not None:
+            result['car_entity'] = self.car_entity.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -31570,6 +31634,9 @@ class QueryEntityrelationJtdevicebycarResponse(TeaModel):
             for k in m.get('device_list'):
                 temp_model = JtDevice()
                 self.device_list.append(temp_model.from_map(k))
+        if m.get('car_entity') is not None:
+            temp_model = RelatedEntity()
+            self.car_entity = temp_model.from_map(m['car_entity'])
         return self
 
 
@@ -31588,11 +31655,14 @@ class QueryCollectorJtfluxRequest(TeaModel):
         page_index: int = None,
         page_size: int = None,
         alarm_sub_types: List[int] = None,
+        related_entity_list: List[int] = None,
+        related_entity_type: str = None,
+        report_date: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 查询类型，支持LOCATION, TRACE,  ALARM三类
+        # 查询类型，支持LOCATION, TRACE,  ALARM,  REPORT四类
         self.query_type = query_type
         # 查询模式，支持抽样SAMPLE和分页PAGE两类，query_type不是LOCATION时必填
         self.query_mode = query_mode
@@ -31612,6 +31682,12 @@ class QueryCollectorJtfluxRequest(TeaModel):
         self.page_size = page_size
         # 告警子类型
         self.alarm_sub_types = alarm_sub_types
+        # 设备所关联的related_entity_trustiot_id列表
+        self.related_entity_list = related_entity_list
+        # 所关联实体类型，传related_entity_list时必填
+        self.related_entity_type = related_entity_type
+        # 报告日期，查询REPORT时必填
+        self.report_date = report_date
 
     def validate(self):
         self.validate_required(self.query_type, 'query_type')
@@ -31647,6 +31723,12 @@ class QueryCollectorJtfluxRequest(TeaModel):
             result['page_size'] = self.page_size
         if self.alarm_sub_types is not None:
             result['alarm_sub_types'] = self.alarm_sub_types
+        if self.related_entity_list is not None:
+            result['related_entity_list'] = self.related_entity_list
+        if self.related_entity_type is not None:
+            result['related_entity_type'] = self.related_entity_type
+        if self.report_date is not None:
+            result['report_date'] = self.report_date
         return result
 
     def from_map(self, m: dict = None):
@@ -31675,6 +31757,12 @@ class QueryCollectorJtfluxRequest(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('alarm_sub_types') is not None:
             self.alarm_sub_types = m.get('alarm_sub_types')
+        if m.get('related_entity_list') is not None:
+            self.related_entity_list = m.get('related_entity_list')
+        if m.get('related_entity_type') is not None:
+            self.related_entity_type = m.get('related_entity_type')
+        if m.get('report_date') is not None:
+            self.report_date = m.get('report_date')
         return self
 
 
