@@ -29,6 +29,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public List<JtDevice> DeviceList { get; set; }
 
+        // 所关联车辆实体信息
+        [NameInMap("car_entity")]
+        [Validation(Required=false)]
+        public RelatedEntity CarEntity { get; set; }
+
     }
 
 }

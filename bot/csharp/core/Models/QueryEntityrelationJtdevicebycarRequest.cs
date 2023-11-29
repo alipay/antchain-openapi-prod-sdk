@@ -28,6 +28,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string Scene { get; set; }
 
+        // 标识设别来源：分为SERVER(服务端)、JT808(部标机设备等)
+        [NameInMap("from_type")]
+        [Validation(Required=false)]
+        public string FromType { get; set; }
+
     }
 
 }

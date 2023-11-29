@@ -63,6 +63,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public long? AlarmSubType { get; set; }
 
+        // 关联设备唯一ID
+        [NameInMap("related_trust_entity_id")]
+        [Validation(Required=false)]
+        public string RelatedTrustEntityId { get; set; }
+
     }
 
 }

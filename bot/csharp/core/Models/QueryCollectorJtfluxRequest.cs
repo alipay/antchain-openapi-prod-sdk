@@ -18,7 +18,7 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 查询类型，支持LOCATION, TRACE,  ALARM三类
+        // 查询类型，支持LOCATION, TRACE,  ALARM,  REPORT四类
         [NameInMap("query_type")]
         [Validation(Required=true)]
         public string QueryType { get; set; }
@@ -67,6 +67,21 @@ namespace AntChain.SDK.BOT.Models
         [NameInMap("alarm_sub_types")]
         [Validation(Required=false)]
         public List<long?> AlarmSubTypes { get; set; }
+
+        // 设备所关联的related_entity_trustiot_id列表
+        [NameInMap("related_entity_list")]
+        [Validation(Required=false)]
+        public List<long?> RelatedEntityList { get; set; }
+
+        // 所关联实体类型，传related_entity_list时必填
+        [NameInMap("related_entity_type")]
+        [Validation(Required=false)]
+        public string RelatedEntityType { get; set; }
+
+        // 报告日期，查询REPORT时必填
+        [NameInMap("report_date")]
+        [Validation(Required=false)]
+        public List<string> ReportDate { get; set; }
 
     }
 

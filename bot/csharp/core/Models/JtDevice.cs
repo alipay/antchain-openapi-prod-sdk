@@ -40,6 +40,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string DeviceModel { get; set; }
 
+        // 终端型号
+        [NameInMap("terminal_type")]
+        [Validation(Required=false)]
+        public string TerminalType { get; set; }
+
     }
 
 }
