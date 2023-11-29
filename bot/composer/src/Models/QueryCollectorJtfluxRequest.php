@@ -19,7 +19,7 @@ class QueryCollectorJtfluxRequest extends Model
      */
     public $productInstanceId;
 
-    // 查询类型，支持LOCATION, TRACE,  ALARM三类
+    // 查询类型，支持LOCATION, TRACE,  ALARM,  REPORT四类
     /**
      * @var string
      */
@@ -78,6 +78,24 @@ class QueryCollectorJtfluxRequest extends Model
      * @var int[]
      */
     public $alarmSubTypes;
+
+    // 设备所关联的related_entity_trustiot_id列表
+    /**
+     * @var int[]
+     */
+    public $relatedEntityList;
+
+    // 所关联实体类型，传related_entity_list时必填
+    /**
+     * @var string
+     */
+    public $relatedEntityType;
+
+    // 报告日期，查询REPORT时必填
+    /**
+     * @var string[]
+     */
+    public $reportDate;
     protected $_name = [
         'authToken'            => 'auth_token',
         'productInstanceId'    => 'product_instance_id',
@@ -91,6 +109,9 @@ class QueryCollectorJtfluxRequest extends Model
         'pageIndex'            => 'page_index',
         'pageSize'             => 'page_size',
         'alarmSubTypes'        => 'alarm_sub_types',
+        'relatedEntityList'    => 'related_entity_list',
+        'relatedEntityType'    => 'related_entity_type',
+        'reportDate'           => 'report_date',
     ];
 
     public function validate()
@@ -137,6 +158,15 @@ class QueryCollectorJtfluxRequest extends Model
         }
         if (null !== $this->alarmSubTypes) {
             $res['alarm_sub_types'] = $this->alarmSubTypes;
+        }
+        if (null !== $this->relatedEntityList) {
+            $res['related_entity_list'] = $this->relatedEntityList;
+        }
+        if (null !== $this->relatedEntityType) {
+            $res['related_entity_type'] = $this->relatedEntityType;
+        }
+        if (null !== $this->reportDate) {
+            $res['report_date'] = $this->reportDate;
         }
 
         return $res;
@@ -190,6 +220,19 @@ class QueryCollectorJtfluxRequest extends Model
         if (isset($map['alarm_sub_types'])) {
             if (!empty($map['alarm_sub_types'])) {
                 $model->alarmSubTypes = $map['alarm_sub_types'];
+            }
+        }
+        if (isset($map['related_entity_list'])) {
+            if (!empty($map['related_entity_list'])) {
+                $model->relatedEntityList = $map['related_entity_list'];
+            }
+        }
+        if (isset($map['related_entity_type'])) {
+            $model->relatedEntityType = $map['related_entity_type'];
+        }
+        if (isset($map['report_date'])) {
+            if (!empty($map['report_date'])) {
+                $model->reportDate = $map['report_date'];
             }
         }
 

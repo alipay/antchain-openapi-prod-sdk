@@ -31,11 +31,18 @@ class QueryEntityrelationJtdevicebycarResponse extends Model
      * @var JtDevice[]
      */
     public $deviceList;
+
+    // 所关联车辆实体信息
+    /**
+     * @var RelatedEntity
+     */
+    public $carEntity;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'deviceList' => 'device_list',
+        'carEntity'  => 'car_entity',
     ];
 
     public function validate()
@@ -62,6 +69,9 @@ class QueryEntityrelationJtdevicebycarResponse extends Model
                     $res['device_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->carEntity) {
+            $res['car_entity'] = null !== $this->carEntity ? $this->carEntity->toMap() : null;
         }
 
         return $res;
@@ -92,6 +102,9 @@ class QueryEntityrelationJtdevicebycarResponse extends Model
                     $model->deviceList[$n++] = null !== $item ? JtDevice::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['car_entity'])) {
+            $model->carEntity = RelatedEntity::fromMap($map['car_entity']);
         }
 
         return $model;

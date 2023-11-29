@@ -30,11 +30,18 @@ class QueryEntityrelationJtdevicebycarRequest extends Model
      * @var string
      */
     public $scene;
+
+    // 标识设别来源：分为SERVER(服务端)、JT808(部标机设备等)
+    /**
+     * @var string
+     */
+    public $fromType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'deviceId'          => 'device_id',
         'scene'             => 'scene',
+        'fromType'          => 'from_type',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class QueryEntityrelationJtdevicebycarRequest extends Model
         }
         if (null !== $this->scene) {
             $res['scene'] = $this->scene;
+        }
+        if (null !== $this->fromType) {
+            $res['from_type'] = $this->fromType;
         }
 
         return $res;
@@ -81,6 +91,9 @@ class QueryEntityrelationJtdevicebycarRequest extends Model
         }
         if (isset($map['scene'])) {
             $model->scene = $map['scene'];
+        }
+        if (isset($map['from_type'])) {
+            $model->fromType = $map['from_type'];
         }
 
         return $model;

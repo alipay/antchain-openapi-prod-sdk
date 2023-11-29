@@ -78,13 +78,22 @@ class JtData extends Model
      * @var int
      */
     public $alarmSubType;
+
+    // 关联设备唯一ID
+    /**
+     * @example 123
+     *
+     * @var string
+     */
+    public $relatedTrustEntityId;
     protected $_name = [
-        'trustiotId'       => 'trustiot_id',
-        'trustiotEntityId' => 'trustiot_entity_id',
-        'processedContent' => 'processed_content',
-        'deltaMileage'     => 'delta_mileage',
-        'bizType'          => 'biz_type',
-        'alarmSubType'     => 'alarm_sub_type',
+        'trustiotId'           => 'trustiot_id',
+        'trustiotEntityId'     => 'trustiot_entity_id',
+        'processedContent'     => 'processed_content',
+        'deltaMileage'         => 'delta_mileage',
+        'bizType'              => 'biz_type',
+        'alarmSubType'         => 'alarm_sub_type',
+        'relatedTrustEntityId' => 'related_trust_entity_id',
     ];
 
     public function validate()
@@ -116,6 +125,9 @@ class JtData extends Model
         if (null !== $this->alarmSubType) {
             $res['alarm_sub_type'] = $this->alarmSubType;
         }
+        if (null !== $this->relatedTrustEntityId) {
+            $res['related_trust_entity_id'] = $this->relatedTrustEntityId;
+        }
 
         return $res;
     }
@@ -145,6 +157,9 @@ class JtData extends Model
         }
         if (isset($map['alarm_sub_type'])) {
             $model->alarmSubType = $map['alarm_sub_type'];
+        }
+        if (isset($map['related_trust_entity_id'])) {
+            $model->relatedTrustEntityId = $map['related_trust_entity_id'];
         }
 
         return $model;

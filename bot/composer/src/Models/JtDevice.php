@@ -55,6 +55,14 @@ class JtDevice extends Model
      * @var string
      */
     public $deviceModel;
+
+    // 终端型号
+    /**
+     * @example 型号A
+     *
+     * @var string
+     */
+    public $terminalType;
     protected $_name = [
         'deviceId'         => 'device_id',
         'scene'            => 'scene',
@@ -62,6 +70,7 @@ class JtDevice extends Model
         'gmtCreate'        => 'gmt_create',
         'online'           => 'online',
         'deviceModel'      => 'device_model',
+        'terminalType'     => 'terminal_type',
     ];
 
     public function validate()
@@ -94,6 +103,9 @@ class JtDevice extends Model
         if (null !== $this->deviceModel) {
             $res['device_model'] = $this->deviceModel;
         }
+        if (null !== $this->terminalType) {
+            $res['terminal_type'] = $this->terminalType;
+        }
 
         return $res;
     }
@@ -123,6 +135,9 @@ class JtDevice extends Model
         }
         if (isset($map['device_model'])) {
             $model->deviceModel = $map['device_model'];
+        }
+        if (isset($map['terminal_type'])) {
+            $model->terminalType = $map['terminal_type'];
         }
 
         return $model;
