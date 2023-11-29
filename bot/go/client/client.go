@@ -1239,6 +1239,8 @@ type JtData struct {
 	// 11702: 急减速
 	// 11703: 急转弯
 	AlarmSubType *int64 `json:"alarm_sub_type,omitempty" xml:"alarm_sub_type,omitempty"`
+	// 关联设备唯一ID
+	RelatedTrustEntityId *string `json:"related_trust_entity_id,omitempty" xml:"related_trust_entity_id,omitempty"`
 }
 
 func (s JtData) String() string {
@@ -1276,6 +1278,11 @@ func (s *JtData) SetBizType(v string) *JtData {
 
 func (s *JtData) SetAlarmSubType(v int64) *JtData {
 	s.AlarmSubType = &v
+	return s
+}
+
+func (s *JtData) SetRelatedTrustEntityId(v string) *JtData {
+	s.RelatedTrustEntityId = &v
 	return s
 }
 
@@ -1676,6 +1683,32 @@ func (s *TenantBindInfoReq) SetTenantUid(v string) *TenantBindInfoReq {
 
 func (s *TenantBindInfoReq) SetUserName(v string) *TenantBindInfoReq {
 	s.UserName = &v
+	return s
+}
+
+// JT设备所关联实体设备信息
+type RelatedEntity struct {
+	// 所关联实体的类型
+	EntityType *string `json:"entity_type,omitempty" xml:"entity_type,omitempty" require:"true"`
+	// 所关联实体的trustiot唯一ID
+	RelatedEntityTrustiotId *int64 `json:"related_entity_trustiot_id,omitempty" xml:"related_entity_trustiot_id,omitempty" require:"true"`
+}
+
+func (s RelatedEntity) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RelatedEntity) GoString() string {
+	return s.String()
+}
+
+func (s *RelatedEntity) SetEntityType(v string) *RelatedEntity {
+	s.EntityType = &v
+	return s
+}
+
+func (s *RelatedEntity) SetRelatedEntityTrustiotId(v int64) *RelatedEntity {
+	s.RelatedEntityTrustiotId = &v
 	return s
 }
 
@@ -4708,6 +4741,8 @@ type JtDevice struct {
 	Online *bool `json:"online,omitempty" xml:"online,omitempty" require:"true"`
 	// 设备型号
 	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty"`
+	// 终端型号
+	TerminalType *string `json:"terminal_type,omitempty" xml:"terminal_type,omitempty"`
 }
 
 func (s JtDevice) String() string {
@@ -4745,6 +4780,11 @@ func (s *JtDevice) SetOnline(v bool) *JtDevice {
 
 func (s *JtDevice) SetDeviceModel(v string) *JtDevice {
 	s.DeviceModel = &v
+	return s
+}
+
+func (s *JtDevice) SetTerminalType(v string) *JtDevice {
+	s.TerminalType = &v
 	return s
 }
 
@@ -25052,6 +25092,8 @@ type QueryEntityrelationJtdevicebycarRequest struct {
 	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
 	// 场景码
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 标识设别来源：分为SERVER(服务端)、JT808(部标机设备等)
+	FromType *string `json:"from_type,omitempty" xml:"from_type,omitempty"`
 }
 
 func (s QueryEntityrelationJtdevicebycarRequest) String() string {
@@ -25082,6 +25124,11 @@ func (s *QueryEntityrelationJtdevicebycarRequest) SetScene(v string) *QueryEntit
 	return s
 }
 
+func (s *QueryEntityrelationJtdevicebycarRequest) SetFromType(v string) *QueryEntityrelationJtdevicebycarRequest {
+	s.FromType = &v
+	return s
+}
+
 type QueryEntityrelationJtdevicebycarResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -25091,6 +25138,8 @@ type QueryEntityrelationJtdevicebycarResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 车辆关联的部标设备列表
 	DeviceList []*JtDevice `json:"device_list,omitempty" xml:"device_list,omitempty" type:"Repeated"`
+	// 所关联车辆实体信息
+	CarEntity *RelatedEntity `json:"car_entity,omitempty" xml:"car_entity,omitempty"`
 }
 
 func (s QueryEntityrelationJtdevicebycarResponse) String() string {
@@ -25121,11 +25170,16 @@ func (s *QueryEntityrelationJtdevicebycarResponse) SetDeviceList(v []*JtDevice) 
 	return s
 }
 
+func (s *QueryEntityrelationJtdevicebycarResponse) SetCarEntity(v *RelatedEntity) *QueryEntityrelationJtdevicebycarResponse {
+	s.CarEntity = v
+	return s
+}
+
 type QueryCollectorJtfluxRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 查询类型，支持LOCATION, TRACE,  ALARM三类
+	// 查询类型，支持LOCATION, TRACE,  ALARM,  REPORT四类
 	QueryType *string `json:"query_type,omitempty" xml:"query_type,omitempty" require:"true"`
 	// 查询模式，支持抽样SAMPLE和分页PAGE两类，query_type不是LOCATION时必填
 	QueryMode *string `json:"query_mode,omitempty" xml:"query_mode,omitempty"`
@@ -25145,6 +25199,12 @@ type QueryCollectorJtfluxRequest struct {
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// 告警子类型
 	AlarmSubTypes []*int64 `json:"alarm_sub_types,omitempty" xml:"alarm_sub_types,omitempty" type:"Repeated"`
+	// 设备所关联的related_entity_trustiot_id列表
+	RelatedEntityList []*int64 `json:"related_entity_list,omitempty" xml:"related_entity_list,omitempty" type:"Repeated"`
+	// 所关联实体类型，传related_entity_list时必填
+	RelatedEntityType *string `json:"related_entity_type,omitempty" xml:"related_entity_type,omitempty"`
+	// 报告日期，查询REPORT时必填
+	ReportDate []*string `json:"report_date,omitempty" xml:"report_date,omitempty" type:"Repeated"`
 }
 
 func (s QueryCollectorJtfluxRequest) String() string {
@@ -25212,6 +25272,21 @@ func (s *QueryCollectorJtfluxRequest) SetPageSize(v int64) *QueryCollectorJtflux
 
 func (s *QueryCollectorJtfluxRequest) SetAlarmSubTypes(v []*int64) *QueryCollectorJtfluxRequest {
 	s.AlarmSubTypes = v
+	return s
+}
+
+func (s *QueryCollectorJtfluxRequest) SetRelatedEntityList(v []*int64) *QueryCollectorJtfluxRequest {
+	s.RelatedEntityList = v
+	return s
+}
+
+func (s *QueryCollectorJtfluxRequest) SetRelatedEntityType(v string) *QueryCollectorJtfluxRequest {
+	s.RelatedEntityType = &v
+	return s
+}
+
+func (s *QueryCollectorJtfluxRequest) SetReportDate(v []*string) *QueryCollectorJtfluxRequest {
+	s.ReportDate = v
 	return s
 }
 
@@ -27662,7 +27737,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.1"),
+				"sdk_version":      tea.String("1.9.7"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
