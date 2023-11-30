@@ -1,6 +1,6 @@
 {
   "name": "@antchain/demo",
-  "version": "1.0.230",
+  "version": "1.0.231",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
