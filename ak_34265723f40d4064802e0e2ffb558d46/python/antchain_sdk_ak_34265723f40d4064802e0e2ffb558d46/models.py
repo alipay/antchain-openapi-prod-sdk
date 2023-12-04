@@ -161,8 +161,10 @@ class LiveVideos(TeaModel):
         scene_id: str = None,
         section_id: str = None,
         url: str = None,
-        is_temp: bool = None,
+        temp_video: bool = None,
         occurrence_time_stamp: int = None,
+        type: str = None,
+        text: str = None,
     ):
         # 蚂蚁数字人平台直播id
         self.live_id = live_id
@@ -173,16 +175,22 @@ class LiveVideos(TeaModel):
         # 视频地址
         self.url = url
         # 是否插播，默认false
-        self.is_temp = is_temp
+        self.temp_video = temp_video
         # 触发插播行为的时间戳，当isTemp为true时，存在该值
         self.occurrence_time_stamp = occurrence_time_stamp
+        # 视频类型（start欢迎语、end结束、trans转场、normal普通、temporary评论插播）
+        self.type = type
+        # 视频剧本
+        self.text = text
 
     def validate(self):
         self.validate_required(self.live_id, 'live_id')
         self.validate_required(self.scene_id, 'scene_id')
         self.validate_required(self.section_id, 'section_id')
         self.validate_required(self.url, 'url')
-        self.validate_required(self.is_temp, 'is_temp')
+        self.validate_required(self.temp_video, 'temp_video')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.text, 'text')
 
     def to_map(self):
         _map = super().to_map()
@@ -198,10 +206,14 @@ class LiveVideos(TeaModel):
             result['section_id'] = self.section_id
         if self.url is not None:
             result['url'] = self.url
-        if self.is_temp is not None:
-            result['is_temp'] = self.is_temp
+        if self.temp_video is not None:
+            result['temp_video'] = self.temp_video
         if self.occurrence_time_stamp is not None:
             result['occurrence_time_stamp'] = self.occurrence_time_stamp
+        if self.type is not None:
+            result['type'] = self.type
+        if self.text is not None:
+            result['text'] = self.text
         return result
 
     def from_map(self, m: dict = None):
@@ -214,10 +226,14 @@ class LiveVideos(TeaModel):
             self.section_id = m.get('section_id')
         if m.get('url') is not None:
             self.url = m.get('url')
-        if m.get('is_temp') is not None:
-            self.is_temp = m.get('is_temp')
+        if m.get('temp_video') is not None:
+            self.temp_video = m.get('temp_video')
         if m.get('occurrence_time_stamp') is not None:
             self.occurrence_time_stamp = m.get('occurrence_time_stamp')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('text') is not None:
+            self.text = m.get('text')
         return self
 
 
@@ -293,6 +309,8 @@ class ListUniversalsaasDigitalhumanLiveVideoResponse(TeaModel):
         result_msg: str = None,
         success: bool = None,
         data: List[LiveVideos] = None,
+        live_mode: str = None,
+        loop_count: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -304,6 +322,10 @@ class ListUniversalsaasDigitalhumanLiveVideoResponse(TeaModel):
         self.success = success
         # 直播视频列表
         self.data = data
+        # 直播模式（是否包含交互插播等模式，code待定）
+        self.live_mode = live_mode
+        # 直播循环次数
+        self.loop_count = loop_count
 
     def validate(self):
         if self.data:
@@ -329,6 +351,10 @@ class ListUniversalsaasDigitalhumanLiveVideoResponse(TeaModel):
         if self.data is not None:
             for k in self.data:
                 result['data'].append(k.to_map() if k else None)
+        if self.live_mode is not None:
+            result['live_mode'] = self.live_mode
+        if self.loop_count is not None:
+            result['loop_count'] = self.loop_count
         return result
 
     def from_map(self, m: dict = None):
@@ -346,6 +372,10 @@ class ListUniversalsaasDigitalhumanLiveVideoResponse(TeaModel):
             for k in m.get('data'):
                 temp_model = LiveVideos()
                 self.data.append(temp_model.from_map(k))
+        if m.get('live_mode') is not None:
+            self.live_mode = m.get('live_mode')
+        if m.get('loop_count') is not None:
+            self.loop_count = m.get('loop_count')
         return self
 
 
