@@ -20,6 +20,14 @@ public class PaymentShareAcceptanceResult extends TeaModel {
     @Validation(required = true)
     public String state;
 
+    // 分账受理，蚂蚁单号
+    @NameInMap("order_id")
+    public String orderId;
+
+    // 111
+    @NameInMap("auth_pay_url")
+    public String authPayUrl;
+
     // 业务错误码(为空表示成功，否则为业务错误码)
     @NameInMap("sub_code")
     public String subCode;
@@ -55,6 +63,22 @@ public class PaymentShareAcceptanceResult extends TeaModel {
     }
     public String getState() {
         return this.state;
+    }
+
+    public PaymentShareAcceptanceResult setOrderId(String orderId) {
+        this.orderId = orderId;
+        return this;
+    }
+    public String getOrderId() {
+        return this.orderId;
+    }
+
+    public PaymentShareAcceptanceResult setAuthPayUrl(String authPayUrl) {
+        this.authPayUrl = authPayUrl;
+        return this;
+    }
+    public String getAuthPayUrl() {
+        return this.authPayUrl;
     }
 
     public PaymentShareAcceptanceResult setSubCode(String subCode) {
