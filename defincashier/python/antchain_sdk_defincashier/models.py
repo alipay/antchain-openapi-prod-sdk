@@ -1053,6 +1053,8 @@ class PaymentShareAcceptanceResult(TeaModel):
         out_order_id: str = None,
         out_request_id: str = None,
         state: str = None,
+        order_id: str = None,
+        auth_pay_url: str = None,
         sub_code: str = None,
         sub_msg: str = None,
     ):
@@ -1063,6 +1065,10 @@ class PaymentShareAcceptanceResult(TeaModel):
         self.out_request_id = out_request_id
         # 分账单状态
         self.state = state
+        # 分账受理，蚂蚁单号
+        self.order_id = order_id
+        # 111
+        self.auth_pay_url = auth_pay_url
         # 业务错误码(为空表示成功，否则为业务错误码)
         self.sub_code = sub_code
         # 业务错误描述
@@ -1085,6 +1091,10 @@ class PaymentShareAcceptanceResult(TeaModel):
             result['out_request_id'] = self.out_request_id
         if self.state is not None:
             result['state'] = self.state
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.auth_pay_url is not None:
+            result['auth_pay_url'] = self.auth_pay_url
         if self.sub_code is not None:
             result['sub_code'] = self.sub_code
         if self.sub_msg is not None:
@@ -1099,6 +1109,10 @@ class PaymentShareAcceptanceResult(TeaModel):
             self.out_request_id = m.get('out_request_id')
         if m.get('state') is not None:
             self.state = m.get('state')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('auth_pay_url') is not None:
+            self.auth_pay_url = m.get('auth_pay_url')
         if m.get('sub_code') is not None:
             self.sub_code = m.get('sub_code')
         if m.get('sub_msg') is not None:
