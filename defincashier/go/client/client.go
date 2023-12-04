@@ -896,6 +896,10 @@ type PaymentShareAcceptanceResult struct {
 	OutRequestId *string `json:"out_request_id,omitempty" xml:"out_request_id,omitempty" require:"true"`
 	// 分账单状态
 	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 分账受理，蚂蚁单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 111
+	AuthPayUrl *string `json:"auth_pay_url,omitempty" xml:"auth_pay_url,omitempty"`
 	// 业务错误码(为空表示成功，否则为业务错误码)
 	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
 	// 业务错误描述
@@ -922,6 +926,16 @@ func (s *PaymentShareAcceptanceResult) SetOutRequestId(v string) *PaymentShareAc
 
 func (s *PaymentShareAcceptanceResult) SetState(v string) *PaymentShareAcceptanceResult {
 	s.State = &v
+	return s
+}
+
+func (s *PaymentShareAcceptanceResult) SetOrderId(v string) *PaymentShareAcceptanceResult {
+	s.OrderId = &v
+	return s
+}
+
+func (s *PaymentShareAcceptanceResult) SetAuthPayUrl(v string) *PaymentShareAcceptanceResult {
+	s.AuthPayUrl = &v
 	return s
 }
 
@@ -2148,7 +2162,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.7"),
+				"sdk_version":      tea.String("1.1.8"),
 				"_prod_code":       tea.String("DEFINCASHIER"),
 				"_prod_channel":    tea.String("undefined"),
 			}
