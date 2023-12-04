@@ -33,6 +33,22 @@ class PaymentShareAcceptanceResult extends Model
      */
     public $state;
 
+    // 分账受理，蚂蚁单号
+    /**
+     * @example 1111
+     *
+     * @var string
+     */
+    public $orderId;
+
+    // 111
+    /**
+     * @example http
+     *
+     * @var string
+     */
+    public $authPayUrl;
+
     // 业务错误码(为空表示成功，否则为业务错误码)
     /**
      * @example PARAM_MISSING
@@ -52,6 +68,8 @@ class PaymentShareAcceptanceResult extends Model
         'outOrderId'   => 'out_order_id',
         'outRequestId' => 'out_request_id',
         'state'        => 'state',
+        'orderId'      => 'order_id',
+        'authPayUrl'   => 'auth_pay_url',
         'subCode'      => 'sub_code',
         'subMsg'       => 'sub_msg',
     ];
@@ -74,6 +92,12 @@ class PaymentShareAcceptanceResult extends Model
         }
         if (null !== $this->state) {
             $res['state'] = $this->state;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->authPayUrl) {
+            $res['auth_pay_url'] = $this->authPayUrl;
         }
         if (null !== $this->subCode) {
             $res['sub_code'] = $this->subCode;
@@ -101,6 +125,12 @@ class PaymentShareAcceptanceResult extends Model
         }
         if (isset($map['state'])) {
             $model->state = $map['state'];
+        }
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
+        }
+        if (isset($map['auth_pay_url'])) {
+            $model->authPayUrl = $map['auth_pay_url'];
         }
         if (isset($map['sub_code'])) {
             $model->subCode = $map['sub_code'];
