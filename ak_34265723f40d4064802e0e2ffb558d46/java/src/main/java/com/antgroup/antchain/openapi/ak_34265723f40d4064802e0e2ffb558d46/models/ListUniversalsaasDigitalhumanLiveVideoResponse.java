@@ -24,6 +24,14 @@ public class ListUniversalsaasDigitalhumanLiveVideoResponse extends TeaModel {
     @NameInMap("data")
     public java.util.List<LiveVideos> data;
 
+    // 直播模式（是否包含交互插播等模式，code待定）
+    @NameInMap("live_mode")
+    public String liveMode;
+
+    // 直播循环次数
+    @NameInMap("loop_count")
+    public Long loopCount;
+
     public static ListUniversalsaasDigitalhumanLiveVideoResponse build(java.util.Map<String, ?> map) throws Exception {
         ListUniversalsaasDigitalhumanLiveVideoResponse self = new ListUniversalsaasDigitalhumanLiveVideoResponse();
         return TeaModel.build(map, self);
@@ -67,6 +75,22 @@ public class ListUniversalsaasDigitalhumanLiveVideoResponse extends TeaModel {
     }
     public java.util.List<LiveVideos> getData() {
         return this.data;
+    }
+
+    public ListUniversalsaasDigitalhumanLiveVideoResponse setLiveMode(String liveMode) {
+        this.liveMode = liveMode;
+        return this;
+    }
+    public String getLiveMode() {
+        return this.liveMode;
+    }
+
+    public ListUniversalsaasDigitalhumanLiveVideoResponse setLoopCount(Long loopCount) {
+        this.loopCount = loopCount;
+        return this;
+    }
+    public Long getLoopCount() {
+        return this.loopCount;
     }
 
 }

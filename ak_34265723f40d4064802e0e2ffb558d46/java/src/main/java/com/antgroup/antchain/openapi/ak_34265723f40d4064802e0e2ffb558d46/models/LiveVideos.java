@@ -25,13 +25,23 @@ public class LiveVideos extends TeaModel {
     public String url;
 
     // 是否插播，默认false
-    @NameInMap("is_temp")
+    @NameInMap("temp_video")
     @Validation(required = true)
-    public Boolean isTemp;
+    public Boolean tempVideo;
 
     // 触发插播行为的时间戳，当isTemp为true时，存在该值
     @NameInMap("occurrence_time_stamp")
     public Long occurrenceTimeStamp;
+
+    // 视频类型（start欢迎语、end结束、trans转场、normal普通、temporary评论插播）
+    @NameInMap("type")
+    @Validation(required = true)
+    public String type;
+
+    // 视频剧本
+    @NameInMap("text")
+    @Validation(required = true)
+    public String text;
 
     public static LiveVideos build(java.util.Map<String, ?> map) throws Exception {
         LiveVideos self = new LiveVideos();
@@ -70,12 +80,12 @@ public class LiveVideos extends TeaModel {
         return this.url;
     }
 
-    public LiveVideos setIsTemp(Boolean isTemp) {
-        this.isTemp = isTemp;
+    public LiveVideos setTempVideo(Boolean tempVideo) {
+        this.tempVideo = tempVideo;
         return this;
     }
-    public Boolean getIsTemp() {
-        return this.isTemp;
+    public Boolean getTempVideo() {
+        return this.tempVideo;
     }
 
     public LiveVideos setOccurrenceTimeStamp(Long occurrenceTimeStamp) {
@@ -84,6 +94,22 @@ public class LiveVideos extends TeaModel {
     }
     public Long getOccurrenceTimeStamp() {
         return this.occurrenceTimeStamp;
+    }
+
+    public LiveVideos setType(String type) {
+        this.type = type;
+        return this;
+    }
+    public String getType() {
+        return this.type;
+    }
+
+    public LiveVideos setText(String text) {
+        this.text = text;
+        return this;
+    }
+    public String getText() {
+        return this.text;
     }
 
 }
