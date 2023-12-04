@@ -26,6 +26,16 @@ namespace AntChain.SDK.DEFINCASHIER.Models
         [Validation(Required=true)]
         public string State { get; set; }
 
+        // 分账受理，蚂蚁单号
+        [NameInMap("order_id")]
+        [Validation(Required=false)]
+        public string OrderId { get; set; }
+
+        // 111
+        [NameInMap("auth_pay_url")]
+        [Validation(Required=false)]
+        public string AuthPayUrl { get; set; }
+
         // 业务错误码(为空表示成功，否则为业务错误码)
         [NameInMap("sub_code")]
         [Validation(Required=false)]
