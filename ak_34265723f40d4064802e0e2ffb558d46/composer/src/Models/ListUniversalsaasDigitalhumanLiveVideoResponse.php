@@ -37,12 +37,26 @@ class ListUniversalsaasDigitalhumanLiveVideoResponse extends Model
      * @var LiveVideos[]
      */
     public $data;
+
+    // 直播模式（是否包含交互插播等模式，code待定）
+    /**
+     * @var string
+     */
+    public $liveMode;
+
+    // 直播循环次数
+    /**
+     * @var int
+     */
+    public $loopCount;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'success'    => 'success',
         'data'       => 'data',
+        'liveMode'   => 'live_mode',
+        'loopCount'  => 'loop_count',
     ];
 
     public function validate()
@@ -72,6 +86,12 @@ class ListUniversalsaasDigitalhumanLiveVideoResponse extends Model
                     $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->liveMode) {
+            $res['live_mode'] = $this->liveMode;
+        }
+        if (null !== $this->loopCount) {
+            $res['loop_count'] = $this->loopCount;
         }
 
         return $res;
@@ -105,6 +125,12 @@ class ListUniversalsaasDigitalhumanLiveVideoResponse extends Model
                     $model->data[$n++] = null !== $item ? LiveVideos::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['live_mode'])) {
+            $model->liveMode = $map['live_mode'];
+        }
+        if (isset($map['loop_count'])) {
+            $model->loopCount = $map['loop_count'];
         }
 
         return $model;

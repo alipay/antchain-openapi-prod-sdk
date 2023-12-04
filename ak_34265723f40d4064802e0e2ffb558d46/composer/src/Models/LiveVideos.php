@@ -46,7 +46,7 @@ class LiveVideos extends Model
      *
      * @var bool
      */
-    public $isTemp;
+    public $tempVideo;
 
     // 触发插播行为的时间戳，当isTemp为true时，存在该值
     /**
@@ -55,13 +55,31 @@ class LiveVideos extends Model
      * @var int
      */
     public $occurrenceTimeStamp;
+
+    // 视频类型（start欢迎语、end结束、trans转场、normal普通、temporary评论插播）
+    /**
+     * @example start
+     *
+     * @var string
+     */
+    public $type;
+
+    // 视频剧本
+    /**
+     * @example asd
+     *
+     * @var string
+     */
+    public $text;
     protected $_name = [
         'liveId'              => 'live_id',
         'sceneId'             => 'scene_id',
         'sectionId'           => 'section_id',
         'url'                 => 'url',
-        'isTemp'              => 'is_temp',
+        'tempVideo'           => 'temp_video',
         'occurrenceTimeStamp' => 'occurrence_time_stamp',
+        'type'                => 'type',
+        'text'                => 'text',
     ];
 
     public function validate()
@@ -70,7 +88,9 @@ class LiveVideos extends Model
         Model::validateRequired('sceneId', $this->sceneId, true);
         Model::validateRequired('sectionId', $this->sectionId, true);
         Model::validateRequired('url', $this->url, true);
-        Model::validateRequired('isTemp', $this->isTemp, true);
+        Model::validateRequired('tempVideo', $this->tempVideo, true);
+        Model::validateRequired('type', $this->type, true);
+        Model::validateRequired('text', $this->text, true);
     }
 
     public function toMap()
@@ -88,11 +108,17 @@ class LiveVideos extends Model
         if (null !== $this->url) {
             $res['url'] = $this->url;
         }
-        if (null !== $this->isTemp) {
-            $res['is_temp'] = $this->isTemp;
+        if (null !== $this->tempVideo) {
+            $res['temp_video'] = $this->tempVideo;
         }
         if (null !== $this->occurrenceTimeStamp) {
             $res['occurrence_time_stamp'] = $this->occurrenceTimeStamp;
+        }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
+        }
+        if (null !== $this->text) {
+            $res['text'] = $this->text;
         }
 
         return $res;
@@ -118,11 +144,17 @@ class LiveVideos extends Model
         if (isset($map['url'])) {
             $model->url = $map['url'];
         }
-        if (isset($map['is_temp'])) {
-            $model->isTemp = $map['is_temp'];
+        if (isset($map['temp_video'])) {
+            $model->tempVideo = $map['temp_video'];
         }
         if (isset($map['occurrence_time_stamp'])) {
             $model->occurrenceTimeStamp = $map['occurrence_time_stamp'];
+        }
+        if (isset($map['type'])) {
+            $model->type = $map['type'];
+        }
+        if (isset($map['text'])) {
+            $model->text = $map['text'];
         }
 
         return $model;
