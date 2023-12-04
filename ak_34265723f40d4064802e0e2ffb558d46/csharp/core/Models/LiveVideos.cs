@@ -31,14 +31,24 @@ namespace AntChain.SDK.Ak_34265723f40d4064802e0e2ffb558d46.Models
         public string Url { get; set; }
 
         // 是否插播，默认false
-        [NameInMap("is_temp")]
+        [NameInMap("temp_video")]
         [Validation(Required=true)]
-        public bool? IsTemp { get; set; }
+        public bool? TempVideo { get; set; }
 
         // 触发插播行为的时间戳，当isTemp为true时，存在该值
         [NameInMap("occurrence_time_stamp")]
         [Validation(Required=false)]
         public long? OccurrenceTimeStamp { get; set; }
+
+        // 视频类型（start欢迎语、end结束、trans转场、normal普通、temporary评论插播）
+        [NameInMap("type")]
+        [Validation(Required=true)]
+        public string Type { get; set; }
+
+        // 视频剧本
+        [NameInMap("text")]
+        [Validation(Required=true)]
+        public string Text { get; set; }
 
     }
 
