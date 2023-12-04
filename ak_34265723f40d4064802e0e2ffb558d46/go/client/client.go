@@ -159,9 +159,13 @@ type LiveVideos struct {
 	// 视频地址
 	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
 	// 是否插播，默认false
-	IsTemp *bool `json:"is_temp,omitempty" xml:"is_temp,omitempty" require:"true"`
+	TempVideo *bool `json:"temp_video,omitempty" xml:"temp_video,omitempty" require:"true"`
 	// 触发插播行为的时间戳，当isTemp为true时，存在该值
 	OccurrenceTimeStamp *int64 `json:"occurrence_time_stamp,omitempty" xml:"occurrence_time_stamp,omitempty"`
+	// 视频类型（start欢迎语、end结束、trans转场、normal普通、temporary评论插播）
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 视频剧本
+	Text *string `json:"text,omitempty" xml:"text,omitempty" require:"true"`
 }
 
 func (s LiveVideos) String() string {
@@ -192,13 +196,23 @@ func (s *LiveVideos) SetUrl(v string) *LiveVideos {
 	return s
 }
 
-func (s *LiveVideos) SetIsTemp(v bool) *LiveVideos {
-	s.IsTemp = &v
+func (s *LiveVideos) SetTempVideo(v bool) *LiveVideos {
+	s.TempVideo = &v
 	return s
 }
 
 func (s *LiveVideos) SetOccurrenceTimeStamp(v int64) *LiveVideos {
 	s.OccurrenceTimeStamp = &v
+	return s
+}
+
+func (s *LiveVideos) SetType(v string) *LiveVideos {
+	s.Type = &v
+	return s
+}
+
+func (s *LiveVideos) SetText(v string) *LiveVideos {
+	s.Text = &v
 	return s
 }
 
@@ -265,6 +279,10 @@ type ListUniversalsaasDigitalhumanLiveVideoResponse struct {
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 	// 直播视频列表
 	Data []*LiveVideos `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 直播模式（是否包含交互插播等模式，code待定）
+	LiveMode *string `json:"live_mode,omitempty" xml:"live_mode,omitempty"`
+	// 直播循环次数
+	LoopCount *int64 `json:"loop_count,omitempty" xml:"loop_count,omitempty"`
 }
 
 func (s ListUniversalsaasDigitalhumanLiveVideoResponse) String() string {
@@ -297,6 +315,16 @@ func (s *ListUniversalsaasDigitalhumanLiveVideoResponse) SetSuccess(v bool) *Lis
 
 func (s *ListUniversalsaasDigitalhumanLiveVideoResponse) SetData(v []*LiveVideos) *ListUniversalsaasDigitalhumanLiveVideoResponse {
 	s.Data = v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanLiveVideoResponse) SetLiveMode(v string) *ListUniversalsaasDigitalhumanLiveVideoResponse {
+	s.LiveMode = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanLiveVideoResponse) SetLoopCount(v int64) *ListUniversalsaasDigitalhumanLiveVideoResponse {
+	s.LoopCount = &v
 	return s
 }
 
@@ -422,7 +450,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.0.0"),
 				"_prod_code":       tea.String("ak_34265723f40d4064802e0e2ffb558d46"),
 				"_prod_channel":    tea.String("saas"),
 			}
