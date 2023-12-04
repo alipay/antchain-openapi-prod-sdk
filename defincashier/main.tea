@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.7',
+    sdk_version = '1.1.8',
     _prod_code = 'DEFINCASHIER',
     _prod_channel = 'undefined'
   };
@@ -393,6 +393,10 @@ model PaymentShareAcceptanceResult {
   outRequestId: string(name='out_request_id', example='20120000000'),
   // 分账单状态
   state: string(name='state', example='PROCESSING'),
+  // 分账受理，蚂蚁单号
+  orderId?: string(name='order_id', example='1111'),
+  // 111
+  authPayUrl?: string(name='auth_pay_url', example='http'),
   // 业务错误码(为空表示成功，否则为业务错误码)
   subCode?: string(name='sub_code', example='PARAM_MISSING'),
   // 业务错误描述
