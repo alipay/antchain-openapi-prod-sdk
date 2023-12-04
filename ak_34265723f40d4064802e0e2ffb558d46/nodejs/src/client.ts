@@ -88,17 +88,23 @@ export class LiveVideos extends $tea.Model {
   // 视频地址
   url: string;
   // 是否插播，默认false
-  isTemp: boolean;
+  tempVideo: boolean;
   // 触发插播行为的时间戳，当isTemp为true时，存在该值
   occurrenceTimeStamp?: number;
+  // 视频类型（start欢迎语、end结束、trans转场、normal普通、temporary评论插播）
+  type: string;
+  // 视频剧本
+  text: string;
   static names(): { [key: string]: string } {
     return {
       liveId: 'live_id',
       sceneId: 'scene_id',
       sectionId: 'section_id',
       url: 'url',
-      isTemp: 'is_temp',
+      tempVideo: 'temp_video',
       occurrenceTimeStamp: 'occurrence_time_stamp',
+      type: 'type',
+      text: 'text',
     };
   }
 
@@ -108,8 +114,10 @@ export class LiveVideos extends $tea.Model {
       sceneId: 'string',
       sectionId: 'string',
       url: 'string',
-      isTemp: 'boolean',
+      tempVideo: 'boolean',
       occurrenceTimeStamp: 'number',
+      type: 'string',
+      text: 'string',
     };
   }
 
@@ -168,6 +176,10 @@ export class ListUniversalsaasDigitalhumanLiveVideoResponse extends $tea.Model {
   success?: boolean;
   // 直播视频列表
   data?: LiveVideos[];
+  // 直播模式（是否包含交互插播等模式，code待定）
+  liveMode?: string;
+  // 直播循环次数
+  loopCount?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -175,6 +187,8 @@ export class ListUniversalsaasDigitalhumanLiveVideoResponse extends $tea.Model {
       resultMsg: 'result_msg',
       success: 'success',
       data: 'data',
+      liveMode: 'live_mode',
+      loopCount: 'loop_count',
     };
   }
 
@@ -185,6 +199,8 @@ export class ListUniversalsaasDigitalhumanLiveVideoResponse extends $tea.Model {
       resultMsg: 'string',
       success: 'boolean',
       data: { 'type': 'array', 'itemType': LiveVideos },
+      liveMode: 'string',
+      loopCount: 'number',
     };
   }
 
@@ -306,7 +322,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.3",
+          sdk_version: "1.0.0",
           _prod_code: "ak_34265723f40d4064802e0e2ffb558d46",
           _prod_channel: "saas",
         };
