@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.3',
+    sdk_version = '1.0.0',
     _prod_code = 'ak_34265723f40d4064802e0e2ffb558d46',
     _prod_channel = 'saas'
   };
@@ -172,9 +172,13 @@ model LiveVideos {
   // 视频地址
   url: string(name='url', example='http://1212/aa.mp4'),
   // 是否插播，默认false
-  isTemp: boolean(name='is_temp', example='true, false'),
+  tempVideo: boolean(name='temp_video', example='true, false'),
   // 触发插播行为的时间戳，当isTemp为true时，存在该值
   occurrenceTimeStamp?: long(name='occurrence_time_stamp', example='2312321'),
+  // 视频类型（start欢迎语、end结束、trans转场、normal普通、temporary评论插播）
+  type: string(name='type', example='start'),
+  // 视频剧本
+  text: string(name='text', example='asd'),
 }
 
 model ListUniversalsaasDigitalhumanLiveVideoRequest = {
@@ -202,6 +206,10 @@ model ListUniversalsaasDigitalhumanLiveVideoResponse = {
   success?: boolean(name='success'),
   // 直播视频列表
   data?: [ LiveVideos ](name='data'),
+  // 直播模式（是否包含交互插播等模式，code待定）
+  liveMode?: string(name='live_mode'),
+  // 直播循环次数
+  loopCount?: long(name='loop_count'),
 }
 
 /**
