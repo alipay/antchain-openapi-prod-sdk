@@ -16,22 +16,6 @@ class AvatarDTO extends Model
      */
     public $avatarBodyUrl;
 
-    // 数字人基础脸部模型
-    /**
-     * @example https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original
-     *
-     * @var string
-     */
-    public $avatarFaceUrl;
-
-    // 数字人基础脸部Json配置
-    /**
-     * @example https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original
-     *
-     * @var string
-     */
-    public $avatarFaceJson;
-
     // 上衣配置
     /**
      * @example
@@ -184,35 +168,31 @@ class AvatarDTO extends Model
      */
     public $eyeshadow;
     protected $_name = [
-        'avatarBodyUrl'  => 'avatar_body_url',
-        'avatarFaceUrl'  => 'avatar_face_url',
-        'avatarFaceJson' => 'avatar_face_json',
-        'upcloth'        => 'upcloth',
-        'downcloth'      => 'downcloth',
-        'shoe'           => 'shoe',
-        'suit'           => 'suit',
-        'necklace'       => 'necklace',
-        'hat'            => 'hat',
-        'glass'          => 'glass',
-        'hair'           => 'hair',
-        'head'           => 'head',
-        'eyebrow'        => 'eyebrow',
-        'eye'            => 'eye',
-        'lip'            => 'lip',
-        'nose'           => 'nose',
-        'rouge'          => 'rouge',
-        'lens'           => 'lens',
-        'eyelash'        => 'eyelash',
-        'lipstick'       => 'lipstick',
-        'eyeliner'       => 'eyeliner',
-        'eyeshadow'      => 'eyeshadow',
+        'avatarBodyUrl' => 'avatar_body_url',
+        'upcloth'       => 'upcloth',
+        'downcloth'     => 'downcloth',
+        'shoe'          => 'shoe',
+        'suit'          => 'suit',
+        'necklace'      => 'necklace',
+        'hat'           => 'hat',
+        'glass'         => 'glass',
+        'hair'          => 'hair',
+        'head'          => 'head',
+        'eyebrow'       => 'eyebrow',
+        'eye'           => 'eye',
+        'lip'           => 'lip',
+        'nose'          => 'nose',
+        'rouge'         => 'rouge',
+        'lens'          => 'lens',
+        'eyelash'       => 'eyelash',
+        'lipstick'      => 'lipstick',
+        'eyeliner'      => 'eyeliner',
+        'eyeshadow'     => 'eyeshadow',
     ];
 
     public function validate()
     {
         Model::validateRequired('avatarBodyUrl', $this->avatarBodyUrl, true);
-        Model::validateRequired('avatarFaceUrl', $this->avatarFaceUrl, true);
-        Model::validateRequired('avatarFaceJson', $this->avatarFaceJson, true);
         Model::validateRequired('upcloth', $this->upcloth, true);
         Model::validateRequired('downcloth', $this->downcloth, true);
         Model::validateRequired('shoe', $this->shoe, true);
@@ -239,12 +219,6 @@ class AvatarDTO extends Model
         $res = [];
         if (null !== $this->avatarBodyUrl) {
             $res['avatar_body_url'] = $this->avatarBodyUrl;
-        }
-        if (null !== $this->avatarFaceUrl) {
-            $res['avatar_face_url'] = $this->avatarFaceUrl;
-        }
-        if (null !== $this->avatarFaceJson) {
-            $res['avatar_face_json'] = $this->avatarFaceJson;
         }
         if (null !== $this->upcloth) {
             $res['upcloth'] = null !== $this->upcloth ? $this->upcloth->toMap() : null;
@@ -317,12 +291,6 @@ class AvatarDTO extends Model
         $model = new self();
         if (isset($map['avatar_body_url'])) {
             $model->avatarBodyUrl = $map['avatar_body_url'];
-        }
-        if (isset($map['avatar_face_url'])) {
-            $model->avatarFaceUrl = $map['avatar_face_url'];
-        }
-        if (isset($map['avatar_face_json'])) {
-            $model->avatarFaceJson = $map['avatar_face_json'];
         }
         if (isset($map['upcloth'])) {
             $model->upcloth = AvatarMaterialDTO::fromMap($map['upcloth']);

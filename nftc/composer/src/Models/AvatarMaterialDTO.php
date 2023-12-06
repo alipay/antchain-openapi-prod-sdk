@@ -24,29 +24,13 @@ class AvatarMaterialDTO extends Model
      */
     public $decoName;
 
-    // IOS ab包地址
+    // webGl ab包地址
     /**
      * @example https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original
      *
      * @var string
      */
-    public $iosAbUrl;
-
-    // Android ab包地址
-    /**
-     * @example https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original
-     *
-     * @var string
-     */
-    public $androidAbUrl;
-
-    // json配置
-    /**
-     * @example https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original
-     *
-     * @var string
-     */
-    public $json;
+    public $webAbUrl;
 
     // 贴图文件配置
     /**
@@ -75,9 +59,7 @@ class AvatarMaterialDTO extends Model
     protected $_name = [
         'decoId'       => 'deco_id',
         'decoName'     => 'deco_name',
-        'iosAbUrl'     => 'ios_ab_url',
-        'androidAbUrl' => 'android_ab_url',
-        'json'         => 'json',
+        'webAbUrl'     => 'web_ab_url',
         'textureUrl'   => 'texture_url',
         'thumbnail'    => 'thumbnail',
         'avatarPvJson' => 'avatar_pv_json',
@@ -87,9 +69,7 @@ class AvatarMaterialDTO extends Model
     {
         Model::validateRequired('decoId', $this->decoId, true);
         Model::validateRequired('decoName', $this->decoName, true);
-        Model::validateRequired('iosAbUrl', $this->iosAbUrl, true);
-        Model::validateRequired('androidAbUrl', $this->androidAbUrl, true);
-        Model::validateRequired('json', $this->json, true);
+        Model::validateRequired('webAbUrl', $this->webAbUrl, true);
         Model::validateRequired('textureUrl', $this->textureUrl, true);
         Model::validateRequired('thumbnail', $this->thumbnail, true);
         Model::validateRequired('avatarPvJson', $this->avatarPvJson, true);
@@ -104,14 +84,8 @@ class AvatarMaterialDTO extends Model
         if (null !== $this->decoName) {
             $res['deco_name'] = $this->decoName;
         }
-        if (null !== $this->iosAbUrl) {
-            $res['ios_ab_url'] = $this->iosAbUrl;
-        }
-        if (null !== $this->androidAbUrl) {
-            $res['android_ab_url'] = $this->androidAbUrl;
-        }
-        if (null !== $this->json) {
-            $res['json'] = $this->json;
+        if (null !== $this->webAbUrl) {
+            $res['web_ab_url'] = $this->webAbUrl;
         }
         if (null !== $this->textureUrl) {
             $res['texture_url'] = $this->textureUrl;
@@ -140,14 +114,8 @@ class AvatarMaterialDTO extends Model
         if (isset($map['deco_name'])) {
             $model->decoName = $map['deco_name'];
         }
-        if (isset($map['ios_ab_url'])) {
-            $model->iosAbUrl = $map['ios_ab_url'];
-        }
-        if (isset($map['android_ab_url'])) {
-            $model->androidAbUrl = $map['android_ab_url'];
-        }
-        if (isset($map['json'])) {
-            $model->json = $map['json'];
+        if (isset($map['web_ab_url'])) {
+            $model->webAbUrl = $map['web_ab_url'];
         }
         if (isset($map['texture_url'])) {
             $model->textureUrl = $map['texture_url'];
