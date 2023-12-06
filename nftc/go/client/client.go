@@ -154,12 +154,8 @@ type AvatarMaterialDTO struct {
 	DecoId *string `json:"deco_id,omitempty" xml:"deco_id,omitempty" require:"true"`
 	// 装扮名称
 	DecoName *string `json:"deco_name,omitempty" xml:"deco_name,omitempty" require:"true"`
-	// IOS ab包地址
-	IosAbUrl *string `json:"ios_ab_url,omitempty" xml:"ios_ab_url,omitempty" require:"true"`
-	// Android ab包地址
-	AndroidAbUrl *string `json:"android_ab_url,omitempty" xml:"android_ab_url,omitempty" require:"true"`
-	// json配置
-	Json *string `json:"json,omitempty" xml:"json,omitempty" require:"true"`
+	// webGl ab包地址
+	WebAbUrl *string `json:"web_ab_url,omitempty" xml:"web_ab_url,omitempty" require:"true"`
 	// 贴图文件配置
 	TextureUrl *string `json:"texture_url,omitempty" xml:"texture_url,omitempty" require:"true"`
 	// 缩略图
@@ -187,18 +183,8 @@ func (s *AvatarMaterialDTO) SetDecoName(v string) *AvatarMaterialDTO {
 	return s
 }
 
-func (s *AvatarMaterialDTO) SetIosAbUrl(v string) *AvatarMaterialDTO {
-	s.IosAbUrl = &v
-	return s
-}
-
-func (s *AvatarMaterialDTO) SetAndroidAbUrl(v string) *AvatarMaterialDTO {
-	s.AndroidAbUrl = &v
-	return s
-}
-
-func (s *AvatarMaterialDTO) SetJson(v string) *AvatarMaterialDTO {
-	s.Json = &v
+func (s *AvatarMaterialDTO) SetWebAbUrl(v string) *AvatarMaterialDTO {
+	s.WebAbUrl = &v
 	return s
 }
 
@@ -310,10 +296,6 @@ func (s *ExternalOrderDTO) SetOrderItemList(v []*ExternalOrderItemDTO) *External
 type AvatarDTO struct {
 	// 数字人基础身体白模
 	AvatarBodyUrl *string `json:"avatar_body_url,omitempty" xml:"avatar_body_url,omitempty" require:"true"`
-	// 数字人基础脸部模型
-	AvatarFaceUrl *string `json:"avatar_face_url,omitempty" xml:"avatar_face_url,omitempty" require:"true"`
-	// 数字人基础脸部Json配置
-	AvatarFaceJson *string `json:"avatar_face_json,omitempty" xml:"avatar_face_json,omitempty" require:"true"`
 	// 上衣配置
 	Upcloth *AvatarMaterialDTO `json:"upcloth,omitempty" xml:"upcloth,omitempty" require:"true"`
 	// 下衣配置
@@ -364,16 +346,6 @@ func (s AvatarDTO) GoString() string {
 
 func (s *AvatarDTO) SetAvatarBodyUrl(v string) *AvatarDTO {
 	s.AvatarBodyUrl = &v
-	return s
-}
-
-func (s *AvatarDTO) SetAvatarFaceUrl(v string) *AvatarDTO {
-	s.AvatarFaceUrl = &v
-	return s
-}
-
-func (s *AvatarDTO) SetAvatarFaceJson(v string) *AvatarDTO {
-	s.AvatarFaceJson = &v
 	return s
 }
 
@@ -2053,7 +2025,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.7"),
+				"sdk_version":      tea.String("1.0.8"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
