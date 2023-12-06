@@ -15,16 +15,6 @@ namespace AntChain.SDK.NFTC.Models
         [Validation(Required=true)]
         public string AvatarBodyUrl { get; set; }
 
-        // 数字人基础脸部模型
-        [NameInMap("avatar_face_url")]
-        [Validation(Required=true)]
-        public string AvatarFaceUrl { get; set; }
-
-        // 数字人基础脸部Json配置
-        [NameInMap("avatar_face_json")]
-        [Validation(Required=true)]
-        public string AvatarFaceJson { get; set; }
-
         // 上衣配置
         [NameInMap("upcloth")]
         [Validation(Required=true)]

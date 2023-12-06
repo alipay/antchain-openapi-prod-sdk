@@ -20,20 +20,10 @@ namespace AntChain.SDK.NFTC.Models
         [Validation(Required=true)]
         public string DecoName { get; set; }
 
-        // IOS ab包地址
-        [NameInMap("ios_ab_url")]
+        // webGl ab包地址
+        [NameInMap("web_ab_url")]
         [Validation(Required=true)]
-        public string IosAbUrl { get; set; }
-
-        // Android ab包地址
-        [NameInMap("android_ab_url")]
-        [Validation(Required=true)]
-        public string AndroidAbUrl { get; set; }
-
-        // json配置
-        [NameInMap("json")]
-        [Validation(Required=true)]
-        public string Json { get; set; }
+        public string WebAbUrl { get; set; }
 
         // 贴图文件配置
         [NameInMap("texture_url")]
