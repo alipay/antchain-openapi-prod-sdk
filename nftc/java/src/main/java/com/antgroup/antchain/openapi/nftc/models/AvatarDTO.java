@@ -9,16 +9,6 @@ public class AvatarDTO extends TeaModel {
     @Validation(required = true)
     public String avatarBodyUrl;
 
-    // 数字人基础脸部模型
-    @NameInMap("avatar_face_url")
-    @Validation(required = true)
-    public String avatarFaceUrl;
-
-    // 数字人基础脸部Json配置
-    @NameInMap("avatar_face_json")
-    @Validation(required = true)
-    public String avatarFaceJson;
-
     // 上衣配置
     @NameInMap("upcloth")
     @Validation(required = true)
@@ -125,22 +115,6 @@ public class AvatarDTO extends TeaModel {
     }
     public String getAvatarBodyUrl() {
         return this.avatarBodyUrl;
-    }
-
-    public AvatarDTO setAvatarFaceUrl(String avatarFaceUrl) {
-        this.avatarFaceUrl = avatarFaceUrl;
-        return this;
-    }
-    public String getAvatarFaceUrl() {
-        return this.avatarFaceUrl;
-    }
-
-    public AvatarDTO setAvatarFaceJson(String avatarFaceJson) {
-        this.avatarFaceJson = avatarFaceJson;
-        return this;
-    }
-    public String getAvatarFaceJson() {
-        return this.avatarFaceJson;
     }
 
     public AvatarDTO setUpcloth(AvatarMaterialDTO upcloth) {

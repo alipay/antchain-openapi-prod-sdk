@@ -14,20 +14,10 @@ public class AvatarMaterialDTO extends TeaModel {
     @Validation(required = true)
     public String decoName;
 
-    // IOS ab包地址
-    @NameInMap("ios_ab_url")
+    // webGl ab包地址
+    @NameInMap("web_ab_url")
     @Validation(required = true)
-    public String iosAbUrl;
-
-    // Android ab包地址
-    @NameInMap("android_ab_url")
-    @Validation(required = true)
-    public String androidAbUrl;
-
-    // json配置
-    @NameInMap("json")
-    @Validation(required = true)
-    public String json;
+    public String webAbUrl;
 
     // 贴图文件配置
     @NameInMap("texture_url")
@@ -66,28 +56,12 @@ public class AvatarMaterialDTO extends TeaModel {
         return this.decoName;
     }
 
-    public AvatarMaterialDTO setIosAbUrl(String iosAbUrl) {
-        this.iosAbUrl = iosAbUrl;
+    public AvatarMaterialDTO setWebAbUrl(String webAbUrl) {
+        this.webAbUrl = webAbUrl;
         return this;
     }
-    public String getIosAbUrl() {
-        return this.iosAbUrl;
-    }
-
-    public AvatarMaterialDTO setAndroidAbUrl(String androidAbUrl) {
-        this.androidAbUrl = androidAbUrl;
-        return this;
-    }
-    public String getAndroidAbUrl() {
-        return this.androidAbUrl;
-    }
-
-    public AvatarMaterialDTO setJson(String json) {
-        this.json = json;
-        return this;
-    }
-    public String getJson() {
-        return this.json;
+    public String getWebAbUrl() {
+        return this.webAbUrl;
     }
 
     public AvatarMaterialDTO setTextureUrl(String textureUrl) {
