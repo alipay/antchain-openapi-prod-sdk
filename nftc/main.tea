@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.7',
+    sdk_version = '1.0.8',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -167,12 +167,8 @@ model AvatarMaterialDTO {
   decoId: string(name='deco_id', example='1111'),
   // 装扮名称
   decoName: string(name='deco_name', example='湖人主场球衣'),
-  // IOS ab包地址
-  iosAbUrl: string(name='ios_ab_url', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
-  // Android ab包地址
-  androidAbUrl: string(name='android_ab_url', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
-  // json配置
-  json: string(name='json', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
+  // webGl ab包地址
+  webAbUrl: string(name='web_ab_url', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
   // 贴图文件配置
   textureUrl: string(name='texture_url', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
   // 缩略图
@@ -216,10 +212,6 @@ model ExternalOrderDTO {
 model AvatarDTO {
   // 数字人基础身体白模
   avatarBodyUrl: string(name='avatar_body_url', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
-  // 数字人基础脸部模型
-  avatarFaceUrl: string(name='avatar_face_url', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
-  // 数字人基础脸部Json配置
-  avatarFaceJson: string(name='avatar_face_json', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
   // 上衣配置
   upcloth: AvatarMaterialDTO(name='upcloth', example=''),
   // 下衣配置
