@@ -159,9 +159,7 @@ class AvatarMaterialDTO(TeaModel):
         self,
         deco_id: str = None,
         deco_name: str = None,
-        ios_ab_url: str = None,
-        android_ab_url: str = None,
-        json: str = None,
+        web_ab_url: str = None,
         texture_url: str = None,
         thumbnail: str = None,
         avatar_pv_json: str = None,
@@ -170,12 +168,8 @@ class AvatarMaterialDTO(TeaModel):
         self.deco_id = deco_id
         # 装扮名称
         self.deco_name = deco_name
-        # IOS ab包地址
-        self.ios_ab_url = ios_ab_url
-        # Android ab包地址
-        self.android_ab_url = android_ab_url
-        # json配置
-        self.json = json
+        # webGl ab包地址
+        self.web_ab_url = web_ab_url
         # 贴图文件配置
         self.texture_url = texture_url
         # 缩略图
@@ -187,9 +181,7 @@ class AvatarMaterialDTO(TeaModel):
     def validate(self):
         self.validate_required(self.deco_id, 'deco_id')
         self.validate_required(self.deco_name, 'deco_name')
-        self.validate_required(self.ios_ab_url, 'ios_ab_url')
-        self.validate_required(self.android_ab_url, 'android_ab_url')
-        self.validate_required(self.json, 'json')
+        self.validate_required(self.web_ab_url, 'web_ab_url')
         self.validate_required(self.texture_url, 'texture_url')
         self.validate_required(self.thumbnail, 'thumbnail')
         self.validate_required(self.avatar_pv_json, 'avatar_pv_json')
@@ -204,12 +196,8 @@ class AvatarMaterialDTO(TeaModel):
             result['deco_id'] = self.deco_id
         if self.deco_name is not None:
             result['deco_name'] = self.deco_name
-        if self.ios_ab_url is not None:
-            result['ios_ab_url'] = self.ios_ab_url
-        if self.android_ab_url is not None:
-            result['android_ab_url'] = self.android_ab_url
-        if self.json is not None:
-            result['json'] = self.json
+        if self.web_ab_url is not None:
+            result['web_ab_url'] = self.web_ab_url
         if self.texture_url is not None:
             result['texture_url'] = self.texture_url
         if self.thumbnail is not None:
@@ -224,12 +212,8 @@ class AvatarMaterialDTO(TeaModel):
             self.deco_id = m.get('deco_id')
         if m.get('deco_name') is not None:
             self.deco_name = m.get('deco_name')
-        if m.get('ios_ab_url') is not None:
-            self.ios_ab_url = m.get('ios_ab_url')
-        if m.get('android_ab_url') is not None:
-            self.android_ab_url = m.get('android_ab_url')
-        if m.get('json') is not None:
-            self.json = m.get('json')
+        if m.get('web_ab_url') is not None:
+            self.web_ab_url = m.get('web_ab_url')
         if m.get('texture_url') is not None:
             self.texture_url = m.get('texture_url')
         if m.get('thumbnail') is not None:
@@ -371,8 +355,6 @@ class AvatarDTO(TeaModel):
     def __init__(
         self,
         avatar_body_url: str = None,
-        avatar_face_url: str = None,
-        avatar_face_json: str = None,
         upcloth: AvatarMaterialDTO = None,
         downcloth: AvatarMaterialDTO = None,
         shoe: AvatarMaterialDTO = None,
@@ -395,10 +377,6 @@ class AvatarDTO(TeaModel):
     ):
         # 数字人基础身体白模
         self.avatar_body_url = avatar_body_url
-        # 数字人基础脸部模型
-        self.avatar_face_url = avatar_face_url
-        # 数字人基础脸部Json配置
-        self.avatar_face_json = avatar_face_json
         # 上衣配置
         self.upcloth = upcloth
         # 下衣配置
@@ -440,8 +418,6 @@ class AvatarDTO(TeaModel):
 
     def validate(self):
         self.validate_required(self.avatar_body_url, 'avatar_body_url')
-        self.validate_required(self.avatar_face_url, 'avatar_face_url')
-        self.validate_required(self.avatar_face_json, 'avatar_face_json')
         self.validate_required(self.upcloth, 'upcloth')
         if self.upcloth:
             self.upcloth.validate()
@@ -508,10 +484,6 @@ class AvatarDTO(TeaModel):
         result = dict()
         if self.avatar_body_url is not None:
             result['avatar_body_url'] = self.avatar_body_url
-        if self.avatar_face_url is not None:
-            result['avatar_face_url'] = self.avatar_face_url
-        if self.avatar_face_json is not None:
-            result['avatar_face_json'] = self.avatar_face_json
         if self.upcloth is not None:
             result['upcloth'] = self.upcloth.to_map()
         if self.downcloth is not None:
@@ -556,10 +528,6 @@ class AvatarDTO(TeaModel):
         m = m or dict()
         if m.get('avatar_body_url') is not None:
             self.avatar_body_url = m.get('avatar_body_url')
-        if m.get('avatar_face_url') is not None:
-            self.avatar_face_url = m.get('avatar_face_url')
-        if m.get('avatar_face_json') is not None:
-            self.avatar_face_json = m.get('avatar_face_json')
         if m.get('upcloth') is not None:
             temp_model = AvatarMaterialDTO()
             self.upcloth = temp_model.from_map(m['upcloth'])
