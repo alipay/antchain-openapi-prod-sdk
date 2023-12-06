@@ -83,12 +83,8 @@ export class AvatarMaterialDTO extends $tea.Model {
   decoId: string;
   // 装扮名称
   decoName: string;
-  // IOS ab包地址
-  iosAbUrl: string;
-  // Android ab包地址
-  androidAbUrl: string;
-  // json配置
-  json: string;
+  // webGl ab包地址
+  webAbUrl: string;
   // 贴图文件配置
   textureUrl: string;
   // 缩略图
@@ -100,9 +96,7 @@ export class AvatarMaterialDTO extends $tea.Model {
     return {
       decoId: 'deco_id',
       decoName: 'deco_name',
-      iosAbUrl: 'ios_ab_url',
-      androidAbUrl: 'android_ab_url',
-      json: 'json',
+      webAbUrl: 'web_ab_url',
       textureUrl: 'texture_url',
       thumbnail: 'thumbnail',
       avatarPvJson: 'avatar_pv_json',
@@ -113,9 +107,7 @@ export class AvatarMaterialDTO extends $tea.Model {
     return {
       decoId: 'string',
       decoName: 'string',
-      iosAbUrl: 'string',
-      androidAbUrl: 'string',
-      json: 'string',
+      webAbUrl: 'string',
       textureUrl: 'string',
       thumbnail: 'string',
       avatarPvJson: 'string',
@@ -214,10 +206,6 @@ export class ExternalOrderDTO extends $tea.Model {
 export class AvatarDTO extends $tea.Model {
   // 数字人基础身体白模
   avatarBodyUrl: string;
-  // 数字人基础脸部模型
-  avatarFaceUrl: string;
-  // 数字人基础脸部Json配置
-  avatarFaceJson: string;
   // 上衣配置
   upcloth: AvatarMaterialDTO;
   // 下衣配置
@@ -259,8 +247,6 @@ export class AvatarDTO extends $tea.Model {
   static names(): { [key: string]: string } {
     return {
       avatarBodyUrl: 'avatar_body_url',
-      avatarFaceUrl: 'avatar_face_url',
-      avatarFaceJson: 'avatar_face_json',
       upcloth: 'upcloth',
       downcloth: 'downcloth',
       shoe: 'shoe',
@@ -286,8 +272,6 @@ export class AvatarDTO extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       avatarBodyUrl: 'string',
-      avatarFaceUrl: 'string',
-      avatarFaceJson: 'string',
       upcloth: AvatarMaterialDTO,
       downcloth: AvatarMaterialDTO,
       shoe: AvatarMaterialDTO,
@@ -1549,7 +1533,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.7",
+          sdk_version: "1.0.8",
           _prod_code: "NFTC",
           _prod_channel: "undefined",
         };
