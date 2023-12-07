@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.231"},
+                        {"sdk_version", "1.0.240"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.231"},
+                        {"sdk_version", "1.0.240"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2690,8 +2690,50 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
+         * Description: 用于测试自动化脚本自动生成的功能
+         * Summary: 自动生成自动化脚本测试
+         */
+        public CreateAutoGenerateCodeResponse CreateAutoGenerateCode(CreateAutoGenerateCodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAutoGenerateCodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于测试自动化脚本自动生成的功能
+         * Summary: 自动生成自动化脚本测试
+         */
+        public async Task<CreateAutoGenerateCodeResponse> CreateAutoGenerateCodeAsync(CreateAutoGenerateCodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAutoGenerateCodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于测试自动化脚本自动生成的功能
+         * Summary: 自动生成自动化脚本测试
+         */
+        public CreateAutoGenerateCodeResponse CreateAutoGenerateCodeEx(CreateAutoGenerateCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAutoGenerateCodeResponse>(DoRequest("1.0", "demo.auto.generate.code.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于测试自动化脚本自动生成的功能
+         * Summary: 自动生成自动化脚本测试
+         */
+        public async Task<CreateAutoGenerateCodeResponse> CreateAutoGenerateCodeExAsync(CreateAutoGenerateCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAutoGenerateCodeResponse>(await DoRequestAsync("1.0", "demo.auto.generate.code.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 测试api描述
-         * Summary: api简介
+         * Summary: api简介1
          */
         public ResetComCnCcResponse ResetComCnCc(ResetComCnCcRequest request)
         {
@@ -2702,7 +2744,7 @@ namespace AntChain.SDK.DEMO
 
         /**
          * Description: 测试api描述
-         * Summary: api简介
+         * Summary: api简介1
          */
         public async Task<ResetComCnCcResponse> ResetComCnCcAsync(ResetComCnCcRequest request)
         {
@@ -2713,7 +2755,7 @@ namespace AntChain.SDK.DEMO
 
         /**
          * Description: 测试api描述
-         * Summary: api简介
+         * Summary: api简介1
          */
         public ResetComCnCcResponse ResetComCnCcEx(ResetComCnCcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -2723,7 +2765,7 @@ namespace AntChain.SDK.DEMO
 
         /**
          * Description: 测试api描述
-         * Summary: api简介
+         * Summary: api简介1
          */
         public async Task<ResetComCnCcResponse> ResetComCnCcExAsync(ResetComCnCcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -2817,6 +2859,48 @@ namespace AntChain.SDK.DEMO
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ImportComCnTestResponse>(await DoRequestAsync("1.0", "demo.com.cn.test.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文件上传测试使用
+         * Summary: 文件上传测试
+         */
+        public UploadJzqFailResponse UploadJzqFail(UploadJzqFailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadJzqFailEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文件上传测试使用
+         * Summary: 文件上传测试
+         */
+        public async Task<UploadJzqFailResponse> UploadJzqFailAsync(UploadJzqFailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadJzqFailExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文件上传测试使用
+         * Summary: 文件上传测试
+         */
+        public UploadJzqFailResponse UploadJzqFailEx(UploadJzqFailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadJzqFailResponse>(DoRequest("1.0", "demo.jzq.fail.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文件上传测试使用
+         * Summary: 文件上传测试
+         */
+        public async Task<UploadJzqFailResponse> UploadJzqFailExAsync(UploadJzqFailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadJzqFailResponse>(await DoRequestAsync("1.0", "demo.jzq.fail.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

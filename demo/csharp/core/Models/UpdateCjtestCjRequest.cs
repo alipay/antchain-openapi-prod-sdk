@@ -33,6 +33,16 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string Subject { get; set; }
 
+        // test
+        [NameInMap("var3")]
+        [Validation(Required=true)]
+        public long? Var3 { get; set; }
+
+        // 111
+        [NameInMap("var4")]
+        [Validation(Required=true, MaxLength=200)]
+        public string Var4 { get; set; }
+
     }
 
 }
