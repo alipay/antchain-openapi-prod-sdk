@@ -2615,6 +2615,8 @@ class UpdateCjtestCjRequest(TeaModel):
         var_1: str = None,
         var_2: str = None,
         subject: str = None,
+        var_3: int = None,
+        var_4: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2625,10 +2627,21 @@ class UpdateCjtestCjRequest(TeaModel):
         self.var_2 = var_2
         # 被授权机构did
         self.subject = subject
+        # test
+        self.var_3 = var_3
+        # 111
+        self.var_4 = var_4
 
     def validate(self):
         self.validate_required(self.var_1, 'var_1')
         self.validate_required(self.var_2, 'var_2')
+        self.validate_required(self.var_3, 'var_3')
+        if self.var_3 is not None:
+            self.validate_maximum(self.var_3, 'var_3', 100)
+            self.validate_minimum(self.var_3, 'var_3', 1)
+        self.validate_required(self.var_4, 'var_4')
+        if self.var_4 is not None:
+            self.validate_max_length(self.var_4, 'var_4', 200)
 
     def to_map(self):
         _map = super().to_map()
@@ -2646,6 +2659,10 @@ class UpdateCjtestCjRequest(TeaModel):
             result['var2'] = self.var_2
         if self.subject is not None:
             result['subject'] = self.subject
+        if self.var_3 is not None:
+            result['var3'] = self.var_3
+        if self.var_4 is not None:
+            result['var4'] = self.var_4
         return result
 
     def from_map(self, m: dict = None):
@@ -2660,6 +2677,10 @@ class UpdateCjtestCjRequest(TeaModel):
             self.var_2 = m.get('var2')
         if m.get('subject') is not None:
             self.subject = m.get('subject')
+        if m.get('var3') is not None:
+            self.var_3 = m.get('var3')
+        if m.get('var4') is not None:
+            self.var_4 = m.get('var4')
         return self
 
 
@@ -2773,7 +2794,6 @@ class UploadCjtestSourceFileResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        res: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2781,8 +2801,6 @@ class UploadCjtestSourceFileResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # test
-        self.res = res
 
     def validate(self):
         pass
@@ -2799,8 +2817,6 @@ class UploadCjtestSourceFileResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.res is not None:
-            result['res'] = self.res
         return result
 
     def from_map(self, m: dict = None):
@@ -2811,8 +2827,6 @@ class UploadCjtestSourceFileResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('res') is not None:
-            self.res = m.get('res')
         return self
 
 
@@ -6353,6 +6367,223 @@ class BindAaaBbbCcdResponse(TeaModel):
         return self
 
 
+class CreateAutoGenerateCodeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        string_1: str = None,
+        string_2: str = None,
+        string_3: str = None,
+        string_4: str = None,
+        number_1: int = None,
+        number_2: int = None,
+        number_3: int = None,
+        number_4: int = None,
+        boolean_1: bool = None,
+        boolean_2: bool = None,
+        date_1: str = None,
+        date_2: str = None,
+        array_1: List[int] = None,
+        array_2: List[int] = None,
+        struct_1: GroupAClass = None,
+        struct_2: GroupAClass = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 必填参数
+        self.string_1 = string_1
+        # 非必填参数
+        self.string_2 = string_2
+        # 长度限制2~5位
+        self.string_3 = string_3
+        # 长度限制3~5位
+        self.string_4 = string_4
+        # 数值必填
+        self.number_1 = number_1
+        # 数值非必填
+        self.number_2 = number_2
+        # 最小2，最大10
+        self.number_3 = number_3
+        # 最小1，最大5
+        self.number_4 = number_4
+        # boolean必填
+        self.boolean_1 = boolean_1
+        # boolean非必填
+        self.boolean_2 = boolean_2
+        # 必填日期
+        self.date_1 = date_1
+        # 非必填日期
+        self.date_2 = date_2
+        # 必填array
+        self.array_1 = array_1
+        # 非必填array
+        self.array_2 = array_2
+        # 必填struct
+        self.struct_1 = struct_1
+        # 非必填struct
+        self.struct_2 = struct_2
+
+    def validate(self):
+        self.validate_required(self.string_1, 'string_1')
+        self.validate_required(self.string_3, 'string_3')
+        if self.string_3 is not None:
+            self.validate_max_length(self.string_3, 'string_3', 5)
+        if self.string_4 is not None:
+            self.validate_max_length(self.string_4, 'string_4', 5)
+        self.validate_required(self.number_1, 'number_1')
+        self.validate_required(self.number_3, 'number_3')
+        if self.number_3 is not None:
+            self.validate_maximum(self.number_3, 'number_3', 10)
+            self.validate_minimum(self.number_3, 'number_3', 2)
+        if self.number_4 is not None:
+            self.validate_maximum(self.number_4, 'number_4', 5)
+            self.validate_minimum(self.number_4, 'number_4', 1)
+        self.validate_required(self.boolean_1, 'boolean_1')
+        self.validate_required(self.date_1, 'date_1')
+        if self.date_1 is not None:
+            self.validate_pattern(self.date_1, 'date_1', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.date_2, 'date_2')
+        if self.date_2 is not None:
+            self.validate_pattern(self.date_2, 'date_2', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.array_1, 'array_1')
+        self.validate_required(self.struct_1, 'struct_1')
+        if self.struct_1:
+            self.struct_1.validate()
+        self.validate_required(self.struct_2, 'struct_2')
+        if self.struct_2:
+            self.struct_2.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.string_1 is not None:
+            result['string_1'] = self.string_1
+        if self.string_2 is not None:
+            result['string_2'] = self.string_2
+        if self.string_3 is not None:
+            result['string_3'] = self.string_3
+        if self.string_4 is not None:
+            result['string_4'] = self.string_4
+        if self.number_1 is not None:
+            result['number_1'] = self.number_1
+        if self.number_2 is not None:
+            result['number_2'] = self.number_2
+        if self.number_3 is not None:
+            result['number_3'] = self.number_3
+        if self.number_4 is not None:
+            result['number_4'] = self.number_4
+        if self.boolean_1 is not None:
+            result['boolean_1'] = self.boolean_1
+        if self.boolean_2 is not None:
+            result['boolean_2'] = self.boolean_2
+        if self.date_1 is not None:
+            result['date_1'] = self.date_1
+        if self.date_2 is not None:
+            result['date_2'] = self.date_2
+        if self.array_1 is not None:
+            result['array_1'] = self.array_1
+        if self.array_2 is not None:
+            result['array_2'] = self.array_2
+        if self.struct_1 is not None:
+            result['struct_1'] = self.struct_1.to_map()
+        if self.struct_2 is not None:
+            result['struct_2'] = self.struct_2.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('string_1') is not None:
+            self.string_1 = m.get('string_1')
+        if m.get('string_2') is not None:
+            self.string_2 = m.get('string_2')
+        if m.get('string_3') is not None:
+            self.string_3 = m.get('string_3')
+        if m.get('string_4') is not None:
+            self.string_4 = m.get('string_4')
+        if m.get('number_1') is not None:
+            self.number_1 = m.get('number_1')
+        if m.get('number_2') is not None:
+            self.number_2 = m.get('number_2')
+        if m.get('number_3') is not None:
+            self.number_3 = m.get('number_3')
+        if m.get('number_4') is not None:
+            self.number_4 = m.get('number_4')
+        if m.get('boolean_1') is not None:
+            self.boolean_1 = m.get('boolean_1')
+        if m.get('boolean_2') is not None:
+            self.boolean_2 = m.get('boolean_2')
+        if m.get('date_1') is not None:
+            self.date_1 = m.get('date_1')
+        if m.get('date_2') is not None:
+            self.date_2 = m.get('date_2')
+        if m.get('array_1') is not None:
+            self.array_1 = m.get('array_1')
+        if m.get('array_2') is not None:
+            self.array_2 = m.get('array_2')
+        if m.get('struct_1') is not None:
+            temp_model = GroupAClass()
+            self.struct_1 = temp_model.from_map(m['struct_1'])
+        if m.get('struct_2') is not None:
+            temp_model = GroupAClass()
+            self.struct_2 = temp_model.from_map(m['struct_2'])
+        return self
+
+
+class CreateAutoGenerateCodeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class ResetComCnCcRequest(TeaModel):
     def __init__(
         self,
@@ -6499,6 +6730,103 @@ class ImportComCnTestRequest(TeaModel):
 
 
 class ImportComCnTestResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class UploadJzqFailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 文件上传
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        return self
+
+
+class UploadJzqFailResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,

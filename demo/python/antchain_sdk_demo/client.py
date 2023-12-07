@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.231',
+                    'sdk_version': '1.0.240',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.231',
+                    'sdk_version': '1.0.240',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -3349,13 +3349,69 @@ class Client:
             await self.do_request_async('1.0', 'demo.aaa.bbb.ccd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def create_auto_generate_code(
+        self,
+        request: demo_models.CreateAutoGenerateCodeRequest,
+    ) -> demo_models.CreateAutoGenerateCodeResponse:
+        """
+        Description: 用于测试自动化脚本自动生成的功能
+        Summary: 自动生成自动化脚本测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_auto_generate_code_ex(request, headers, runtime)
+
+    async def create_auto_generate_code_async(
+        self,
+        request: demo_models.CreateAutoGenerateCodeRequest,
+    ) -> demo_models.CreateAutoGenerateCodeResponse:
+        """
+        Description: 用于测试自动化脚本自动生成的功能
+        Summary: 自动生成自动化脚本测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_auto_generate_code_ex_async(request, headers, runtime)
+
+    def create_auto_generate_code_ex(
+        self,
+        request: demo_models.CreateAutoGenerateCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.CreateAutoGenerateCodeResponse:
+        """
+        Description: 用于测试自动化脚本自动生成的功能
+        Summary: 自动生成自动化脚本测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.CreateAutoGenerateCodeResponse(),
+            self.do_request('1.0', 'demo.auto.generate.code.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_auto_generate_code_ex_async(
+        self,
+        request: demo_models.CreateAutoGenerateCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.CreateAutoGenerateCodeResponse:
+        """
+        Description: 用于测试自动化脚本自动生成的功能
+        Summary: 自动生成自动化脚本测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.CreateAutoGenerateCodeResponse(),
+            await self.do_request_async('1.0', 'demo.auto.generate.code.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def reset_com_cn_cc(
         self,
         request: demo_models.ResetComCnCcRequest,
     ) -> demo_models.ResetComCnCcResponse:
         """
         Description: 测试api描述
-        Summary: api简介
+        Summary: api简介1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3367,7 +3423,7 @@ class Client:
     ) -> demo_models.ResetComCnCcResponse:
         """
         Description: 测试api描述
-        Summary: api简介
+        Summary: api简介1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3381,7 +3437,7 @@ class Client:
     ) -> demo_models.ResetComCnCcResponse:
         """
         Description: 测试api描述
-        Summary: api简介
+        Summary: api简介1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3397,7 +3453,7 @@ class Client:
     ) -> demo_models.ResetComCnCcResponse:
         """
         Description: 测试api描述
-        Summary: api简介
+        Summary: api简介1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3493,6 +3549,62 @@ class Client:
         return TeaCore.from_map(
             demo_models.ImportComCnTestResponse(),
             await self.do_request_async('1.0', 'demo.com.cn.test.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_jzq_fail(
+        self,
+        request: demo_models.UploadJzqFailRequest,
+    ) -> demo_models.UploadJzqFailResponse:
+        """
+        Description: 文件上传测试使用
+        Summary: 文件上传测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_jzq_fail_ex(request, headers, runtime)
+
+    async def upload_jzq_fail_async(
+        self,
+        request: demo_models.UploadJzqFailRequest,
+    ) -> demo_models.UploadJzqFailResponse:
+        """
+        Description: 文件上传测试使用
+        Summary: 文件上传测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_jzq_fail_ex_async(request, headers, runtime)
+
+    def upload_jzq_fail_ex(
+        self,
+        request: demo_models.UploadJzqFailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.UploadJzqFailResponse:
+        """
+        Description: 文件上传测试使用
+        Summary: 文件上传测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.UploadJzqFailResponse(),
+            self.do_request('1.0', 'demo.jzq.fail.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_jzq_fail_ex_async(
+        self,
+        request: demo_models.UploadJzqFailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.UploadJzqFailResponse:
+        """
+        Description: 文件上传测试使用
+        Summary: 文件上传测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.UploadJzqFailResponse(),
+            await self.do_request_async('1.0', 'demo.jzq.fail.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def bind_center_ability(
