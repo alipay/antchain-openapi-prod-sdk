@@ -1625,6 +1625,10 @@ export class UpdateCjtestCjRequest extends $tea.Model {
   var2: string;
   // 被授权机构did
   subject?: string;
+  // test
+  var3: number;
+  // 111
+  var4: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1632,6 +1636,8 @@ export class UpdateCjtestCjRequest extends $tea.Model {
       var1: 'var1',
       var2: 'var2',
       subject: 'subject',
+      var3: 'var3',
+      var4: 'var4',
     };
   }
 
@@ -1642,6 +1648,8 @@ export class UpdateCjtestCjRequest extends $tea.Model {
       var1: 'string',
       var2: 'string',
       subject: 'string',
+      var3: 'number',
+      var4: 'string',
     };
   }
 
@@ -1722,14 +1730,11 @@ export class UploadCjtestSourceFileResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // test
-  res?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      res: 'res',
     };
   }
 
@@ -1738,7 +1743,6 @@ export class UploadCjtestSourceFileResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      res: 'string',
     };
   }
 
@@ -4015,6 +4019,121 @@ export class BindAaaBbbCcdResponse extends $tea.Model {
   }
 }
 
+export class CreateAutoGenerateCodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 必填参数
+  string1: string;
+  // 非必填参数
+  string2?: string;
+  // 长度限制2~5位
+  string3: string;
+  // 长度限制3~5位
+  string4?: string;
+  // 数值必填
+  number1: number;
+  // 数值非必填
+  number2?: number;
+  // 最小2，最大10
+  number3: number;
+  // 最小1，最大5
+  number4?: number;
+  // boolean必填
+  boolean1: boolean;
+  // boolean非必填
+  boolean2?: boolean;
+  // 必填日期
+  date1: string;
+  // 非必填日期
+  date2: string;
+  // 必填array
+  array1: number[];
+  // 非必填array
+  array2?: number[];
+  // 必填struct
+  struct1: GroupAClass;
+  // 非必填struct
+  struct2: GroupAClass;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      string1: 'string_1',
+      string2: 'string_2',
+      string3: 'string_3',
+      string4: 'string_4',
+      number1: 'number_1',
+      number2: 'number_2',
+      number3: 'number_3',
+      number4: 'number_4',
+      boolean1: 'boolean_1',
+      boolean2: 'boolean_2',
+      date1: 'date_1',
+      date2: 'date_2',
+      array1: 'array_1',
+      array2: 'array_2',
+      struct1: 'struct_1',
+      struct2: 'struct_2',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      string1: 'string',
+      string2: 'string',
+      string3: 'string',
+      string4: 'string',
+      number1: 'number',
+      number2: 'number',
+      number3: 'number',
+      number4: 'number',
+      boolean1: 'boolean',
+      boolean2: 'boolean',
+      date1: 'string',
+      date2: 'string',
+      array1: { 'type': 'array', 'itemType': 'number' },
+      array2: { 'type': 'array', 'itemType': 'number' },
+      struct1: GroupAClass,
+      struct2: GroupAClass,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAutoGenerateCodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ResetComCnCcRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4108,6 +4227,67 @@ export class ImportComCnTestRequest extends $tea.Model {
 }
 
 export class ImportComCnTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadJzqFailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件上传
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadJzqFailResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -4387,7 +4567,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.231",
+          sdk_version: "1.0.240",
           _prod_code: "DEMO",
           _prod_channel: "undefined",
         };
@@ -5508,8 +5688,27 @@ export default class Client {
   }
 
   /**
+   * Description: 用于测试自动化脚本自动生成的功能
+   * Summary: 自动生成自动化脚本测试
+   */
+  async createAutoGenerateCode(request: CreateAutoGenerateCodeRequest): Promise<CreateAutoGenerateCodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAutoGenerateCodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用于测试自动化脚本自动生成的功能
+   * Summary: 自动生成自动化脚本测试
+   */
+  async createAutoGenerateCodeEx(request: CreateAutoGenerateCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAutoGenerateCodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAutoGenerateCodeResponse>(await this.doRequest("1.0", "demo.auto.generate.code.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAutoGenerateCodeResponse({}));
+  }
+
+  /**
    * Description: 测试api描述
-   * Summary: api简介
+   * Summary: api简介1
    */
   async resetComCnCc(request: ResetComCnCcRequest): Promise<ResetComCnCcResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -5519,7 +5718,7 @@ export default class Client {
 
   /**
    * Description: 测试api描述
-   * Summary: api简介
+   * Summary: api简介1
    */
   async resetComCnCcEx(request: ResetComCnCcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResetComCnCcResponse> {
     Util.validateModel(request);
@@ -5564,6 +5763,25 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<ImportComCnTestResponse>(await this.doRequest("1.0", "demo.com.cn.test.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportComCnTestResponse({}));
+  }
+
+  /**
+   * Description: 文件上传测试使用
+   * Summary: 文件上传测试
+   */
+  async uploadJzqFail(request: UploadJzqFailRequest): Promise<UploadJzqFailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadJzqFailEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文件上传测试使用
+   * Summary: 文件上传测试
+   */
+  async uploadJzqFailEx(request: UploadJzqFailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadJzqFailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadJzqFailResponse>(await this.doRequest("1.0", "demo.jzq.fail.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadJzqFailResponse({}));
   }
 
   /**
