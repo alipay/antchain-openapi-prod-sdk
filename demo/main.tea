@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.231',
+    sdk_version = '1.0.240',
     _prod_code = 'DEMO',
     _prod_channel = 'undefined'
   };
@@ -942,6 +942,10 @@ model UpdateCjtestCjRequest = {
   var2: string(name='var2'),
   // 被授权机构did
   subject?: string(name='subject'),
+  // test
+  var3: long(maximum=100, minimum=1, name='var3'),
+  // 111
+  var4: string(maxLength=200, minLength=2, name='var4'),
 }
 
 model UpdateCjtestCjResponse = {
@@ -991,8 +995,6 @@ model UploadCjtestSourceFileResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // test
-  res?: string(name='res'),
 }
 
 /**
@@ -2510,6 +2512,72 @@ async function bindAaaBbbCcdEx(request: BindAaaBbbCcdRequest, headers: map[strin
   return doRequest('1.0' ,'demo.aaa.bbb.ccd.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model CreateAutoGenerateCodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 必填参数
+  string1: string(name='string_1'),
+  // 非必填参数
+  string2?: string(name='string_2'),
+  // 长度限制2~5位
+  string3: string(maxLength=5, minLength=2, name='string_3'),
+  // 长度限制3~5位
+  string4?: string(maxLength=5, minLength=3, name='string_4'),
+  // 数值必填
+  number1: long(name='number_1'),
+  // 数值非必填
+  number2?: long(name='number_2'),
+  // 最小2，最大10
+  number3: long(maximum=10, minimum=2, name='number_3'),
+  // 最小1，最大5
+  number4?: long(maximum=5, minimum=1, name='number_4'),
+  // boolean必填
+  boolean1: boolean(name='boolean_1'),
+  // boolean非必填
+  boolean2?: boolean(name='boolean_2'),
+  // 必填日期
+  date1: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='date_1'),
+  // 非必填日期
+  date2: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='date_2'),
+  // 必填array
+  array1: [ long ](name='array_1'),
+  // 非必填array
+  array2?: [ long ](name='array_2'),
+  // 必填struct
+  struct1: GroupAClass(name='struct_1'),
+  // 非必填struct
+  struct2: GroupAClass(name='struct_2'),
+}
+
+model CreateAutoGenerateCodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用于测试自动化脚本自动生成的功能
+ * Summary: 自动生成自动化脚本测试
+ */
+async function createAutoGenerateCode(request: CreateAutoGenerateCodeRequest): CreateAutoGenerateCodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAutoGenerateCodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于测试自动化脚本自动生成的功能
+ * Summary: 自动生成自动化脚本测试
+ */
+async function createAutoGenerateCodeEx(request: CreateAutoGenerateCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAutoGenerateCodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.auto.generate.code.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model ResetComCnCcRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -2531,7 +2599,7 @@ model ResetComCnCcResponse = {
 
 /**
  * Description: 测试api描述
- * Summary: api简介
+ * Summary: api简介1
  */
 async function resetComCnCc(request: ResetComCnCcRequest): ResetComCnCcResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -2541,7 +2609,7 @@ async function resetComCnCc(request: ResetComCnCcRequest): ResetComCnCcResponse 
 
 /**
  * Description: 测试api描述
- * Summary: api简介
+ * Summary: api简介1
  */
 async function resetComCnCcEx(request: ResetComCnCcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ResetComCnCcResponse {
   Util.validateModel(request);
@@ -2603,6 +2671,44 @@ async function importComCnTestEx(request: ImportComCnTestRequest, headers: map[s
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.com.cn.test.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadJzqFailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件上传
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadJzqFailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 文件上传测试使用
+ * Summary: 文件上传测试
+ */
+async function uploadJzqFail(request: UploadJzqFailRequest): UploadJzqFailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadJzqFailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文件上传测试使用
+ * Summary: 文件上传测试
+ */
+async function uploadJzqFailEx(request: UploadJzqFailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadJzqFailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.jzq.fail.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model BindCenterAbilityRequest = {
