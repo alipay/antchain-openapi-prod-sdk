@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class UploadCjtestSourceFileResponse extends TeaModel {
+public class CreateAutoGenerateCodeResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class UploadCjtestSourceFileResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static UploadCjtestSourceFileResponse build(java.util.Map<String, ?> map) throws Exception {
-        UploadCjtestSourceFileResponse self = new UploadCjtestSourceFileResponse();
+    public static CreateAutoGenerateCodeResponse build(java.util.Map<String, ?> map) throws Exception {
+        CreateAutoGenerateCodeResponse self = new CreateAutoGenerateCodeResponse();
         return TeaModel.build(map, self);
     }
 
-    public UploadCjtestSourceFileResponse setReqMsgId(String reqMsgId) {
+    public CreateAutoGenerateCodeResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class UploadCjtestSourceFileResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UploadCjtestSourceFileResponse setResultCode(String resultCode) {
+    public CreateAutoGenerateCodeResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class UploadCjtestSourceFileResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UploadCjtestSourceFileResponse setResultMsg(String resultMsg) {
+    public CreateAutoGenerateCodeResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }

@@ -25,6 +25,16 @@ public class UpdateCjtestCjRequest extends TeaModel {
     @NameInMap("subject")
     public String subject;
 
+    // test
+    @NameInMap("var3")
+    @Validation(required = true, maximum = 100, minimum = 1)
+    public Long var3;
+
+    // 111
+    @NameInMap("var4")
+    @Validation(required = true, maxLength = 200, minLength = 2)
+    public String var4;
+
     public static UpdateCjtestCjRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateCjtestCjRequest self = new UpdateCjtestCjRequest();
         return TeaModel.build(map, self);
@@ -68,6 +78,22 @@ public class UpdateCjtestCjRequest extends TeaModel {
     }
     public String getSubject() {
         return this.subject;
+    }
+
+    public UpdateCjtestCjRequest setVar3(Long var3) {
+        this.var3 = var3;
+        return this;
+    }
+    public Long getVar3() {
+        return this.var3;
+    }
+
+    public UpdateCjtestCjRequest setVar4(String var4) {
+        this.var4 = var4;
+        return this;
+    }
+    public String getVar4() {
+        return this.var4;
     }
 
 }

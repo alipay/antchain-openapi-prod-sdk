@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.231"),
+                    new TeaPair("sdk_version", "1.0.240"),
                     new TeaPair("_prod_code", "DEMO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1234,8 +1234,27 @@ public class Client {
     }
 
     /**
+     * Description: 用于测试自动化脚本自动生成的功能
+     * Summary: 自动生成自动化脚本测试
+     */
+    public CreateAutoGenerateCodeResponse createAutoGenerateCode(CreateAutoGenerateCodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAutoGenerateCodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用于测试自动化脚本自动生成的功能
+     * Summary: 自动生成自动化脚本测试
+     */
+    public CreateAutoGenerateCodeResponse createAutoGenerateCodeEx(CreateAutoGenerateCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.auto.generate.code.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAutoGenerateCodeResponse());
+    }
+
+    /**
      * Description: 测试api描述
-     * Summary: api简介
+     * Summary: api简介1
      */
     public ResetComCnCcResponse resetComCnCc(ResetComCnCcRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1245,7 +1264,7 @@ public class Client {
 
     /**
      * Description: 测试api描述
-     * Summary: api简介
+     * Summary: api简介1
      */
     public ResetComCnCcResponse resetComCnCcEx(ResetComCnCcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1290,6 +1309,25 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.com.cn.test.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportComCnTestResponse());
+    }
+
+    /**
+     * Description: 文件上传测试使用
+     * Summary: 文件上传测试
+     */
+    public UploadJzqFailResponse uploadJzqFail(UploadJzqFailRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadJzqFailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 文件上传测试使用
+     * Summary: 文件上传测试
+     */
+    public UploadJzqFailResponse uploadJzqFailEx(UploadJzqFailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.jzq.fail.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadJzqFailResponse());
     }
 
     /**
