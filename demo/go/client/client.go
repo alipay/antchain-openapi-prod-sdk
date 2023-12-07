@@ -1923,6 +1923,10 @@ type UpdateCjtestCjRequest struct {
 	Var2 *string `json:"var2,omitempty" xml:"var2,omitempty" require:"true"`
 	// 被授权机构did
 	Subject *string `json:"subject,omitempty" xml:"subject,omitempty"`
+	// test
+	Var3 *int64 `json:"var3,omitempty" xml:"var3,omitempty" require:"true" maximum:"100" minimum:"1"`
+	// 111
+	Var4 *string `json:"var4,omitempty" xml:"var4,omitempty" require:"true" maxLength:"200" minLength:"2"`
 }
 
 func (s UpdateCjtestCjRequest) String() string {
@@ -1955,6 +1959,16 @@ func (s *UpdateCjtestCjRequest) SetVar2(v string) *UpdateCjtestCjRequest {
 
 func (s *UpdateCjtestCjRequest) SetSubject(v string) *UpdateCjtestCjRequest {
 	s.Subject = &v
+	return s
+}
+
+func (s *UpdateCjtestCjRequest) SetVar3(v int64) *UpdateCjtestCjRequest {
+	s.Var3 = &v
+	return s
+}
+
+func (s *UpdateCjtestCjRequest) SetVar4(v string) *UpdateCjtestCjRequest {
+	s.Var4 = &v
 	return s
 }
 
@@ -2049,8 +2063,6 @@ type UploadCjtestSourceFileResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// test
-	Res *string `json:"res,omitempty" xml:"res,omitempty"`
 }
 
 func (s UploadCjtestSourceFileResponse) String() string {
@@ -2073,11 +2085,6 @@ func (s *UploadCjtestSourceFileResponse) SetResultCode(v string) *UploadCjtestSo
 
 func (s *UploadCjtestSourceFileResponse) SetResultMsg(v string) *UploadCjtestSourceFileResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *UploadCjtestSourceFileResponse) SetRes(v string) *UploadCjtestSourceFileResponse {
-	s.Res = &v
 	return s
 }
 
@@ -4790,6 +4797,174 @@ func (s *BindAaaBbbCcdResponse) SetResultMsg(v string) *BindAaaBbbCcdResponse {
 	return s
 }
 
+type CreateAutoGenerateCodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 必填参数
+	String1 *string `json:"string_1,omitempty" xml:"string_1,omitempty" require:"true"`
+	// 非必填参数
+	String2 *string `json:"string_2,omitempty" xml:"string_2,omitempty"`
+	// 长度限制2~5位
+	String3 *string `json:"string_3,omitempty" xml:"string_3,omitempty" require:"true" maxLength:"5" minLength:"2"`
+	// 长度限制3~5位
+	String4 *string `json:"string_4,omitempty" xml:"string_4,omitempty" maxLength:"5" minLength:"3"`
+	// 数值必填
+	Number1 *int64 `json:"number_1,omitempty" xml:"number_1,omitempty" require:"true"`
+	// 数值非必填
+	Number2 *int64 `json:"number_2,omitempty" xml:"number_2,omitempty"`
+	// 最小2，最大10
+	Number3 *int64 `json:"number_3,omitempty" xml:"number_3,omitempty" require:"true" maximum:"10" minimum:"2"`
+	// 最小1，最大5
+	Number4 *int64 `json:"number_4,omitempty" xml:"number_4,omitempty" maximum:"5" minimum:"1"`
+	// boolean必填
+	Boolean1 *bool `json:"boolean_1,omitempty" xml:"boolean_1,omitempty" require:"true"`
+	// boolean非必填
+	Boolean2 *bool `json:"boolean_2,omitempty" xml:"boolean_2,omitempty"`
+	// 必填日期
+	Date1 *string `json:"date_1,omitempty" xml:"date_1,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 非必填日期
+	Date2 *string `json:"date_2,omitempty" xml:"date_2,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 必填array
+	Array1 []*int64 `json:"array_1,omitempty" xml:"array_1,omitempty" require:"true" type:"Repeated"`
+	// 非必填array
+	Array2 []*int64 `json:"array_2,omitempty" xml:"array_2,omitempty" type:"Repeated"`
+	// 必填struct
+	Struct1 *GroupAClass `json:"struct_1,omitempty" xml:"struct_1,omitempty" require:"true"`
+	// 非必填struct
+	Struct2 *GroupAClass `json:"struct_2,omitempty" xml:"struct_2,omitempty" require:"true"`
+}
+
+func (s CreateAutoGenerateCodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAutoGenerateCodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetAuthToken(v string) *CreateAutoGenerateCodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetProductInstanceId(v string) *CreateAutoGenerateCodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetString1(v string) *CreateAutoGenerateCodeRequest {
+	s.String1 = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetString2(v string) *CreateAutoGenerateCodeRequest {
+	s.String2 = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetString3(v string) *CreateAutoGenerateCodeRequest {
+	s.String3 = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetString4(v string) *CreateAutoGenerateCodeRequest {
+	s.String4 = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetNumber1(v int64) *CreateAutoGenerateCodeRequest {
+	s.Number1 = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetNumber2(v int64) *CreateAutoGenerateCodeRequest {
+	s.Number2 = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetNumber3(v int64) *CreateAutoGenerateCodeRequest {
+	s.Number3 = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetNumber4(v int64) *CreateAutoGenerateCodeRequest {
+	s.Number4 = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetBoolean1(v bool) *CreateAutoGenerateCodeRequest {
+	s.Boolean1 = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetBoolean2(v bool) *CreateAutoGenerateCodeRequest {
+	s.Boolean2 = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetDate1(v string) *CreateAutoGenerateCodeRequest {
+	s.Date1 = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetDate2(v string) *CreateAutoGenerateCodeRequest {
+	s.Date2 = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetArray1(v []*int64) *CreateAutoGenerateCodeRequest {
+	s.Array1 = v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetArray2(v []*int64) *CreateAutoGenerateCodeRequest {
+	s.Array2 = v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetStruct1(v *GroupAClass) *CreateAutoGenerateCodeRequest {
+	s.Struct1 = v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeRequest) SetStruct2(v *GroupAClass) *CreateAutoGenerateCodeRequest {
+	s.Struct2 = v
+	return s
+}
+
+type CreateAutoGenerateCodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CreateAutoGenerateCodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAutoGenerateCodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAutoGenerateCodeResponse) SetReqMsgId(v string) *CreateAutoGenerateCodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeResponse) SetResultCode(v string) *CreateAutoGenerateCodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAutoGenerateCodeResponse) SetResultMsg(v string) *CreateAutoGenerateCodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type ResetComCnCcRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4933,6 +5108,83 @@ func (s *ImportComCnTestResponse) SetResultCode(v string) *ImportComCnTestRespon
 }
 
 func (s *ImportComCnTestResponse) SetResultMsg(v string) *ImportComCnTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UploadJzqFailRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件上传
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s UploadJzqFailRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadJzqFailRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadJzqFailRequest) SetAuthToken(v string) *UploadJzqFailRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadJzqFailRequest) SetProductInstanceId(v string) *UploadJzqFailRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadJzqFailRequest) SetFileObject(v io.Reader) *UploadJzqFailRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadJzqFailRequest) SetFileObjectName(v string) *UploadJzqFailRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadJzqFailRequest) SetFileId(v string) *UploadJzqFailRequest {
+	s.FileId = &v
+	return s
+}
+
+type UploadJzqFailResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UploadJzqFailResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadJzqFailResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadJzqFailResponse) SetReqMsgId(v string) *UploadJzqFailResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadJzqFailResponse) SetResultCode(v string) *UploadJzqFailResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadJzqFailResponse) SetResultMsg(v string) *UploadJzqFailResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -5235,7 +5487,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.231"),
+				"sdk_version":      tea.String("1.0.240"),
 				"_prod_code":       tea.String("DEMO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -7185,8 +7437,42 @@ func (client *Client) BindAaaBbbCcdEx(request *BindAaaBbbCcdRequest, headers map
 }
 
 /**
+ * Description: 用于测试自动化脚本自动生成的功能
+ * Summary: 自动生成自动化脚本测试
+ */
+func (client *Client) CreateAutoGenerateCode(request *CreateAutoGenerateCodeRequest) (_result *CreateAutoGenerateCodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAutoGenerateCodeResponse{}
+	_body, _err := client.CreateAutoGenerateCodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用于测试自动化脚本自动生成的功能
+ * Summary: 自动生成自动化脚本测试
+ */
+func (client *Client) CreateAutoGenerateCodeEx(request *CreateAutoGenerateCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAutoGenerateCodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAutoGenerateCodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.auto.generate.code.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 测试api描述
- * Summary: api简介
+ * Summary: api简介1
  */
 func (client *Client) ResetComCnCc(request *ResetComCnCcRequest) (_result *ResetComCnCcResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -7202,7 +7488,7 @@ func (client *Client) ResetComCnCc(request *ResetComCnCcRequest) (_result *Reset
 
 /**
  * Description: 测试api描述
- * Summary: api简介
+ * Summary: api简介1
  */
 func (client *Client) ResetComCnCcEx(request *ResetComCnCcRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResetComCnCcResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -7274,6 +7560,40 @@ func (client *Client) ImportComCnTestEx(request *ImportComCnTestRequest, headers
 	}
 	_result = &ImportComCnTestResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.com.cn.test.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文件上传测试使用
+ * Summary: 文件上传测试
+ */
+func (client *Client) UploadJzqFail(request *UploadJzqFailRequest) (_result *UploadJzqFailResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadJzqFailResponse{}
+	_body, _err := client.UploadJzqFailEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文件上传测试使用
+ * Summary: 文件上传测试
+ */
+func (client *Client) UploadJzqFailEx(request *UploadJzqFailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadJzqFailResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadJzqFailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.jzq.fail.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
