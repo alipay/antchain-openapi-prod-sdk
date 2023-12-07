@@ -31,6 +31,8 @@ use AntChain\DEMO\Models\BindTestTestTestRequest;
 use AntChain\DEMO\Models\BindTestTestTestResponse;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\DEMO\Models\CreateAutoGenerateCodeRequest;
+use AntChain\DEMO\Models\CreateAutoGenerateCodeResponse;
 use AntChain\DEMO\Models\CreateAutoTestCodeRequest;
 use AntChain\DEMO\Models\CreateAutoTestCodeResponse;
 use AntChain\DEMO\Models\EchoGatewayCheckRequest;
@@ -125,6 +127,8 @@ use AntChain\DEMO\Models\UpdateGatewayRoadRequest;
 use AntChain\DEMO\Models\UpdateGatewayRoadResponse;
 use AntChain\DEMO\Models\UploadCjtestSourceFileRequest;
 use AntChain\DEMO\Models\UploadCjtestSourceFileResponse;
+use AntChain\DEMO\Models\UploadJzqFailRequest;
+use AntChain\DEMO\Models\UploadJzqFailResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -272,7 +276,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.231',
+                    'sdk_version'      => '1.0.240',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2126,8 +2130,41 @@ class Client
     }
 
     /**
+     * Description: 用于测试自动化脚本自动生成的功能
+     * Summary: 自动生成自动化脚本测试.
+     *
+     * @param CreateAutoGenerateCodeRequest $request
+     *
+     * @return CreateAutoGenerateCodeResponse
+     */
+    public function createAutoGenerateCode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAutoGenerateCodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于测试自动化脚本自动生成的功能
+     * Summary: 自动生成自动化脚本测试.
+     *
+     * @param CreateAutoGenerateCodeRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CreateAutoGenerateCodeResponse
+     */
+    public function createAutoGenerateCodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAutoGenerateCodeResponse::fromMap($this->doRequest('1.0', 'demo.auto.generate.code.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 测试api描述
-     * Summary: api简介.
+     * Summary: api简介1.
      *
      * @param ResetComCnCcRequest $request
      *
@@ -2143,7 +2180,7 @@ class Client
 
     /**
      * Description: 测试api描述
-     * Summary: api简介.
+     * Summary: api简介1.
      *
      * @param ResetComCnCcRequest $request
      * @param string[]            $headers
@@ -2207,6 +2244,39 @@ class Client
         Utils::validateModel($request);
 
         return ImportComCnTestResponse::fromMap($this->doRequest('1.0', 'demo.com.cn.test.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件上传测试使用
+     * Summary: 文件上传测试.
+     *
+     * @param UploadJzqFailRequest $request
+     *
+     * @return UploadJzqFailResponse
+     */
+    public function uploadJzqFail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadJzqFailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件上传测试使用
+     * Summary: 文件上传测试.
+     *
+     * @param UploadJzqFailRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return UploadJzqFailResponse
+     */
+    public function uploadJzqFailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadJzqFailResponse::fromMap($this->doRequest('1.0', 'demo.jzq.fail.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

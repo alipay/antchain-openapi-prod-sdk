@@ -36,18 +36,38 @@ class UpdateCjtestCjRequest extends Model
      * @var string
      */
     public $subject;
+
+    // test
+    /**
+     * @var int
+     */
+    public $var3;
+
+    // 111
+    /**
+     * @var string
+     */
+    public $var4;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'var1'              => 'var1',
         'var2'              => 'var2',
         'subject'           => 'subject',
+        'var3'              => 'var3',
+        'var4'              => 'var4',
     ];
 
     public function validate()
     {
         Model::validateRequired('var1', $this->var1, true);
         Model::validateRequired('var2', $this->var2, true);
+        Model::validateRequired('var3', $this->var3, true);
+        Model::validateRequired('var4', $this->var4, true);
+        Model::validateMaximum('var3', $this->var3, 100);
+        Model::validateMinimum('var3', $this->var3, 1);
+        Model::validateMaxLength('var4', $this->var4, 200);
+        Model::validateMinLength('var4', $this->var4, 2);
     }
 
     public function toMap()
@@ -67,6 +87,12 @@ class UpdateCjtestCjRequest extends Model
         }
         if (null !== $this->subject) {
             $res['subject'] = $this->subject;
+        }
+        if (null !== $this->var3) {
+            $res['var3'] = $this->var3;
+        }
+        if (null !== $this->var4) {
+            $res['var4'] = $this->var4;
         }
 
         return $res;
@@ -94,6 +120,12 @@ class UpdateCjtestCjRequest extends Model
         }
         if (isset($map['subject'])) {
             $model->subject = $map['subject'];
+        }
+        if (isset($map['var3'])) {
+            $model->var3 = $map['var3'];
+        }
+        if (isset($map['var4'])) {
+            $model->var4 = $map['var4'];
         }
 
         return $model;

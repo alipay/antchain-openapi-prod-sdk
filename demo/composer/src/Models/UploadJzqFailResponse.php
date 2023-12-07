@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UploadCjtestSourceFileResponse extends Model
+class UploadJzqFailResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -54,7 +54,7 @@ class UploadCjtestSourceFileResponse extends Model
     /**
      * @param array $map
      *
-     * @return UploadCjtestSourceFileResponse
+     * @return UploadJzqFailResponse
      */
     public static function fromMap($map = [])
     {
