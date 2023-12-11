@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.8"),
+                    new TeaPair("sdk_version", "1.12.10"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -159,6 +159,63 @@ public class Client {
         }
 
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    /**
+     * Description: AI提问获取答案
+     * Summary: 获取答案
+     */
+    public QueryAilegalAnswerResponse queryAilegalAnswer(QueryAilegalAnswerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAilegalAnswerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: AI提问获取答案
+     * Summary: 获取答案
+     */
+    public QueryAilegalAnswerResponse queryAilegalAnswerEx(QueryAilegalAnswerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.ailegal.answer.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAilegalAnswerResponse());
+    }
+
+    /**
+     * Description: 问答反馈
+     * Summary: 问答反馈
+     */
+    public SubmitAilegalFeedbackResponse submitAilegalFeedback(SubmitAilegalFeedbackRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAilegalFeedbackEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 问答反馈
+     * Summary: 问答反馈
+     */
+    public SubmitAilegalFeedbackResponse submitAilegalFeedbackEx(SubmitAilegalFeedbackRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.ailegal.feedback.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAilegalFeedbackResponse());
+    }
+
+    /**
+     * Description: AI法律服务提问接口
+     * Summary: 提出问题
+     */
+    public InitAilegalQuestionResponse initAilegalQuestion(InitAilegalQuestionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initAilegalQuestionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: AI法律服务提问接口
+     * Summary: 提出问题
+     */
+    public InitAilegalQuestionResponse initAilegalQuestionEx(InitAilegalQuestionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.ailegal.question.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitAilegalQuestionResponse());
     }
 
     /**
