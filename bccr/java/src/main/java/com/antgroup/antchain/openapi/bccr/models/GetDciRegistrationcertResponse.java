@@ -48,6 +48,14 @@ public class GetDciRegistrationcertResponse extends TeaModel {
     @NameInMap("fail_detail")
     public String failDetail;
 
+    // 数登证书下载链接
+    @NameInMap("digital_register_cert_url")
+    public String digitalRegisterCertUrl;
+
+    // 数登样本证书下载链接
+    @NameInMap("digital_register_sample_url")
+    public String digitalRegisterSampleUrl;
+
     public static GetDciRegistrationcertResponse build(java.util.Map<String, ?> map) throws Exception {
         GetDciRegistrationcertResponse self = new GetDciRegistrationcertResponse();
         return TeaModel.build(map, self);
@@ -139,6 +147,22 @@ public class GetDciRegistrationcertResponse extends TeaModel {
     }
     public String getFailDetail() {
         return this.failDetail;
+    }
+
+    public GetDciRegistrationcertResponse setDigitalRegisterCertUrl(String digitalRegisterCertUrl) {
+        this.digitalRegisterCertUrl = digitalRegisterCertUrl;
+        return this;
+    }
+    public String getDigitalRegisterCertUrl() {
+        return this.digitalRegisterCertUrl;
+    }
+
+    public GetDciRegistrationcertResponse setDigitalRegisterSampleUrl(String digitalRegisterSampleUrl) {
+        this.digitalRegisterSampleUrl = digitalRegisterSampleUrl;
+        return this;
+    }
+    public String getDigitalRegisterSampleUrl() {
+        return this.digitalRegisterSampleUrl;
     }
 
 }

@@ -34,6 +34,14 @@ public class NotaryPublicOffice extends TeaModel {
     @Validation(required = true)
     public String belong;
 
+    // 公证处出证规则
+    @NameInMap("notary_order_rule")
+    public NotaryOrderRule notaryOrderRule;
+
+    // 是否允许出证
+    @NameInMap("allow_certification")
+    public Boolean allowCertification;
+
     public static NotaryPublicOffice build(java.util.Map<String, ?> map) throws Exception {
         NotaryPublicOffice self = new NotaryPublicOffice();
         return TeaModel.build(map, self);
@@ -85,6 +93,22 @@ public class NotaryPublicOffice extends TeaModel {
     }
     public String getBelong() {
         return this.belong;
+    }
+
+    public NotaryPublicOffice setNotaryOrderRule(NotaryOrderRule notaryOrderRule) {
+        this.notaryOrderRule = notaryOrderRule;
+        return this;
+    }
+    public NotaryOrderRule getNotaryOrderRule() {
+        return this.notaryOrderRule;
+    }
+
+    public NotaryPublicOffice setAllowCertification(Boolean allowCertification) {
+        this.allowCertification = allowCertification;
+        return this;
+    }
+    public Boolean getAllowCertification() {
+        return this.allowCertification;
     }
 
 }

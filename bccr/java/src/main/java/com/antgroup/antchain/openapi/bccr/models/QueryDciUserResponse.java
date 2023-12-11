@@ -52,6 +52,10 @@ public class QueryDciUserResponse extends TeaModel {
     @NameInMap("legal_person")
     public String legalPerson;
 
+    // 联系电话
+    @NameInMap("phone")
+    public String phone;
+
     public static QueryDciUserResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDciUserResponse self = new QueryDciUserResponse();
         return TeaModel.build(map, self);
@@ -151,6 +155,14 @@ public class QueryDciUserResponse extends TeaModel {
     }
     public String getLegalPerson() {
         return this.legalPerson;
+    }
+
+    public QueryDciUserResponse setPhone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+    public String getPhone() {
+        return this.phone;
     }
 
 }
