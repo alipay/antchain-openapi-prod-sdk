@@ -6040,6 +6040,216 @@ export class JudicialMediationBaseParamInfo extends $tea.Model {
   }
 }
 
+export class QueryAilegalAnswerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // twc.notary.ailegal.question.init(提出问题)接口返回的问题id
+  // 长度不超过32位
+  questionId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      questionId: 'question_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      questionId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAilegalAnswerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回问题id，全局唯一
+  questionId?: string;
+  // 问题答案
+  answer?: string;
+  // 是否支持反馈(true 是,false 否)
+  canFeedback?: boolean;
+  // 是否回答结束(true 是,false 否)
+  end?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      questionId: 'question_id',
+      answer: 'answer',
+      canFeedback: 'can_feedback',
+      end: 'end',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      questionId: 'string',
+      answer: 'string',
+      canFeedback: 'boolean',
+      end: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAilegalFeedbackRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // twc.notary.ailegal.question.init(提出问题)接口返回的问题id,长度不超过32位
+  questionId: string;
+  // 用户态度，参见枚举类AttitudeEnum
+  attitude: string;
+  // 用户反馈标签集合，与用户态度相对应，参见枚举类TagEnum定义
+  tags: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      questionId: 'question_id',
+      attitude: 'attitude',
+      tags: 'tags',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      questionId: 'string',
+      attitude: 'string',
+      tags: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAilegalFeedbackResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitAilegalQuestionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 提问问题
+  question: string;
+  // 是否开启新会话
+  first: boolean;
+  // 用户id，用户唯一标识
+  userId: string;
+  // 用户类型，参见枚举类UserTypeEnum
+  userType: string;
+  // app类型，参见枚举类AppTypeEnum
+  appType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      question: 'question',
+      first: 'first',
+      userId: 'user_id',
+      userType: 'user_type',
+      appType: 'app_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      question: 'string',
+      first: 'boolean',
+      userId: 'string',
+      userType: 'string',
+      appType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitAilegalQuestionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回问题id，全局唯一
+  questionId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      questionId: 'question_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      questionId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CallbackArbitrationStatusRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -8206,7 +8416,7 @@ export class QueryBclRefundResponse extends $tea.Model {
   refundId?: string;
   // 退款成功的时间, 退款成功返回
   refundTime?: string;
-  // 退款金额, 单位分, 退款成功时返回
+  // 退款金额, 单位分
   refundAmount?: number;
   // ● 退款中，REFUNDING（需要调用查询接口查询结果)；
   // ● 退款成功REFUND_SUCCESS
@@ -35120,7 +35330,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.8",
+          sdk_version: "1.12.10",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -35166,6 +35376,63 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: AI提问获取答案
+   * Summary: 获取答案
+   */
+  async queryAilegalAnswer(request: QueryAilegalAnswerRequest): Promise<QueryAilegalAnswerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAilegalAnswerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: AI提问获取答案
+   * Summary: 获取答案
+   */
+  async queryAilegalAnswerEx(request: QueryAilegalAnswerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAilegalAnswerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAilegalAnswerResponse>(await this.doRequest("1.0", "twc.notary.ailegal.answer.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAilegalAnswerResponse({}));
+  }
+
+  /**
+   * Description: 问答反馈
+   * Summary: 问答反馈
+   */
+  async submitAilegalFeedback(request: SubmitAilegalFeedbackRequest): Promise<SubmitAilegalFeedbackResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAilegalFeedbackEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 问答反馈
+   * Summary: 问答反馈
+   */
+  async submitAilegalFeedbackEx(request: SubmitAilegalFeedbackRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAilegalFeedbackResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAilegalFeedbackResponse>(await this.doRequest("1.0", "twc.notary.ailegal.feedback.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAilegalFeedbackResponse({}));
+  }
+
+  /**
+   * Description: AI法律服务提问接口
+   * Summary: 提出问题
+   */
+  async initAilegalQuestion(request: InitAilegalQuestionRequest): Promise<InitAilegalQuestionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initAilegalQuestionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: AI法律服务提问接口
+   * Summary: 提出问题
+   */
+  async initAilegalQuestionEx(request: InitAilegalQuestionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitAilegalQuestionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitAilegalQuestionResponse>(await this.doRequest("1.0", "twc.notary.ailegal.question.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitAilegalQuestionResponse({}));
   }
 
   /**
