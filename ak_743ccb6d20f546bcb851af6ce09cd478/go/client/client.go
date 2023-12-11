@@ -279,6 +279,132 @@ func (s *QueryIdentityTagScoreResponse) SetData(v string) *QueryIdentityTagScore
 	return s
 }
 
+type QueryIdentityTagFeatureScoreRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求流水id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 订单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 模型列表字符串
+	ModelIdList *string `json:"model_id_list,omitempty" xml:"model_id_list,omitempty" require:"true"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户id类型： "ID_NO"： 身份证号, "MOBILE_NO"：手机号
+	UserIdType *string `json:"user_id_type,omitempty" xml:"user_id_type,omitempty" require:"true"`
+	// 加密类型: "MD5"：MD5（32位小写） "SHA256" ： SHA256（密文小写） "SM3"： SM3（密文小写）
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 用户授权模版编号
+	AuthTemplateNo *string `json:"auth_template_no,omitempty" xml:"auth_template_no,omitempty"`
+	// 用户授权编码
+	AuthNo *string `json:"auth_no,omitempty" xml:"auth_no,omitempty"`
+	// 客户发起请求时间, 格式："yyyy-MM-dd HH:mm:ss"
+	RequestTime *string `json:"request_time,omitempty" xml:"request_time,omitempty"`
+}
+
+func (s QueryIdentityTagFeatureScoreRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIdentityTagFeatureScoreRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIdentityTagFeatureScoreRequest) SetAuthToken(v string) *QueryIdentityTagFeatureScoreRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIdentityTagFeatureScoreRequest) SetProductInstanceId(v string) *QueryIdentityTagFeatureScoreRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIdentityTagFeatureScoreRequest) SetRequestId(v string) *QueryIdentityTagFeatureScoreRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryIdentityTagFeatureScoreRequest) SetOrderId(v string) *QueryIdentityTagFeatureScoreRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryIdentityTagFeatureScoreRequest) SetModelIdList(v string) *QueryIdentityTagFeatureScoreRequest {
+	s.ModelIdList = &v
+	return s
+}
+
+func (s *QueryIdentityTagFeatureScoreRequest) SetUserId(v string) *QueryIdentityTagFeatureScoreRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryIdentityTagFeatureScoreRequest) SetUserIdType(v string) *QueryIdentityTagFeatureScoreRequest {
+	s.UserIdType = &v
+	return s
+}
+
+func (s *QueryIdentityTagFeatureScoreRequest) SetEncryptType(v string) *QueryIdentityTagFeatureScoreRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryIdentityTagFeatureScoreRequest) SetAuthTemplateNo(v string) *QueryIdentityTagFeatureScoreRequest {
+	s.AuthTemplateNo = &v
+	return s
+}
+
+func (s *QueryIdentityTagFeatureScoreRequest) SetAuthNo(v string) *QueryIdentityTagFeatureScoreRequest {
+	s.AuthNo = &v
+	return s
+}
+
+func (s *QueryIdentityTagFeatureScoreRequest) SetRequestTime(v string) *QueryIdentityTagFeatureScoreRequest {
+	s.RequestTime = &v
+	return s
+}
+
+type QueryIdentityTagFeatureScoreResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务响应结果
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryIdentityTagFeatureScoreResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIdentityTagFeatureScoreResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIdentityTagFeatureScoreResponse) SetReqMsgId(v string) *QueryIdentityTagFeatureScoreResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIdentityTagFeatureScoreResponse) SetResultCode(v string) *QueryIdentityTagFeatureScoreResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIdentityTagFeatureScoreResponse) SetResultMsg(v string) *QueryIdentityTagFeatureScoreResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIdentityTagFeatureScoreResponse) SetData(v string) *QueryIdentityTagFeatureScoreResponse {
+	s.Data = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -401,7 +527,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.4"),
+				"sdk_version":      tea.String("1.0.5"),
 				"_prod_code":       tea.String("ak_743ccb6d20f546bcb851af6ce09cd478"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -486,6 +612,40 @@ func (client *Client) QueryIdentityTagScoreEx(request *QueryIdentityTagScoreRequ
 	}
 	_result = &QueryIdentityTagScoreResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("identity.tag.score.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询身份标签分数-个人
+ * Summary: 查询个人标签分数
+ */
+func (client *Client) QueryIdentityTagFeatureScore(request *QueryIdentityTagFeatureScoreRequest) (_result *QueryIdentityTagFeatureScoreResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIdentityTagFeatureScoreResponse{}
+	_body, _err := client.QueryIdentityTagFeatureScoreEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询身份标签分数-个人
+ * Summary: 查询个人标签分数
+ */
+func (client *Client) QueryIdentityTagFeatureScoreEx(request *QueryIdentityTagFeatureScoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIdentityTagFeatureScoreResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIdentityTagFeatureScoreResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("identity.tag.feature.score.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
