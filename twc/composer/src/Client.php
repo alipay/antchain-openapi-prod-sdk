@@ -393,6 +393,8 @@ use AntChain\TWC\Models\GetTransRequest;
 use AntChain\TWC\Models\GetTransResponse;
 use AntChain\TWC\Models\GetTsrCertificateRequest;
 use AntChain\TWC\Models\GetTsrCertificateResponse;
+use AntChain\TWC\Models\InitAilegalQuestionRequest;
+use AntChain\TWC\Models\InitAilegalQuestionResponse;
 use AntChain\TWC\Models\InitCertificationRequest;
 use AntChain\TWC\Models\InitCertificationResponse;
 use AntChain\TWC\Models\InitEnterpriseFaceauthRequest;
@@ -429,6 +431,8 @@ use AntChain\TWC\Models\PushPrivatecontractGaugeRequest;
 use AntChain\TWC\Models\PushPrivatecontractGaugeResponse;
 use AntChain\TWC\Models\PushRefinanceInvalidorderRequest;
 use AntChain\TWC\Models\PushRefinanceInvalidorderResponse;
+use AntChain\TWC\Models\QueryAilegalAnswerRequest;
+use AntChain\TWC\Models\QueryAilegalAnswerResponse;
 use AntChain\TWC\Models\QueryBclComplaineventidsRequest;
 use AntChain\TWC\Models\QueryBclComplaineventidsResponse;
 use AntChain\TWC\Models\QueryBclComplainRequest;
@@ -619,6 +623,8 @@ use AntChain\TWC\Models\StartContractHandsignRequest;
 use AntChain\TWC\Models\StartContractHandsignResponse;
 use AntChain\TWC\Models\StartJusticeCaseRequest;
 use AntChain\TWC\Models\StartJusticeCaseResponse;
+use AntChain\TWC\Models\SubmitAilegalFeedbackRequest;
+use AntChain\TWC\Models\SubmitAilegalFeedbackResponse;
 use AntChain\TWC\Models\SubmitBclComplainfeedbackRequest;
 use AntChain\TWC\Models\SubmitBclComplainfeedbackResponse;
 use AntChain\TWC\Models\SubmitBclOrderRequest;
@@ -838,7 +844,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.8',
+                    'sdk_version'      => '1.12.10',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -884,6 +890,105 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: AI提问获取答案
+     * Summary: 获取答案.
+     *
+     * @param QueryAilegalAnswerRequest $request
+     *
+     * @return QueryAilegalAnswerResponse
+     */
+    public function queryAilegalAnswer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAilegalAnswerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AI提问获取答案
+     * Summary: 获取答案.
+     *
+     * @param QueryAilegalAnswerRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryAilegalAnswerResponse
+     */
+    public function queryAilegalAnswerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAilegalAnswerResponse::fromMap($this->doRequest('1.0', 'twc.notary.ailegal.answer.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 问答反馈
+     * Summary: 问答反馈.
+     *
+     * @param SubmitAilegalFeedbackRequest $request
+     *
+     * @return SubmitAilegalFeedbackResponse
+     */
+    public function submitAilegalFeedback($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAilegalFeedbackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 问答反馈
+     * Summary: 问答反馈.
+     *
+     * @param SubmitAilegalFeedbackRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SubmitAilegalFeedbackResponse
+     */
+    public function submitAilegalFeedbackEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAilegalFeedbackResponse::fromMap($this->doRequest('1.0', 'twc.notary.ailegal.feedback.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: AI法律服务提问接口
+     * Summary: 提出问题.
+     *
+     * @param InitAilegalQuestionRequest $request
+     *
+     * @return InitAilegalQuestionResponse
+     */
+    public function initAilegalQuestion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initAilegalQuestionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AI法律服务提问接口
+     * Summary: 提出问题.
+     *
+     * @param InitAilegalQuestionRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return InitAilegalQuestionResponse
+     */
+    public function initAilegalQuestionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitAilegalQuestionResponse::fromMap($this->doRequest('1.0', 'twc.notary.ailegal.question.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

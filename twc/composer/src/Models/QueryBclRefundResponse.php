@@ -38,7 +38,7 @@ class QueryBclRefundResponse extends Model
      */
     public $refundTime;
 
-    // 退款金额, 单位分, 退款成功时返回
+    // 退款金额, 单位分
     /**
      * @var int
      */
