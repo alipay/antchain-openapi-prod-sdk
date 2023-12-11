@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.8"},
+                        {"sdk_version", "1.12.10"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.8"},
+                        {"sdk_version", "1.12.10"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -319,6 +319,132 @@ namespace AntChain.SDK.TWC
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: AI提问获取答案
+         * Summary: 获取答案
+         */
+        public QueryAilegalAnswerResponse QueryAilegalAnswer(QueryAilegalAnswerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAilegalAnswerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: AI提问获取答案
+         * Summary: 获取答案
+         */
+        public async Task<QueryAilegalAnswerResponse> QueryAilegalAnswerAsync(QueryAilegalAnswerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAilegalAnswerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: AI提问获取答案
+         * Summary: 获取答案
+         */
+        public QueryAilegalAnswerResponse QueryAilegalAnswerEx(QueryAilegalAnswerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAilegalAnswerResponse>(DoRequest("1.0", "twc.notary.ailegal.answer.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AI提问获取答案
+         * Summary: 获取答案
+         */
+        public async Task<QueryAilegalAnswerResponse> QueryAilegalAnswerExAsync(QueryAilegalAnswerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAilegalAnswerResponse>(await DoRequestAsync("1.0", "twc.notary.ailegal.answer.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 问答反馈
+         * Summary: 问答反馈
+         */
+        public SubmitAilegalFeedbackResponse SubmitAilegalFeedback(SubmitAilegalFeedbackRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAilegalFeedbackEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 问答反馈
+         * Summary: 问答反馈
+         */
+        public async Task<SubmitAilegalFeedbackResponse> SubmitAilegalFeedbackAsync(SubmitAilegalFeedbackRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAilegalFeedbackExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 问答反馈
+         * Summary: 问答反馈
+         */
+        public SubmitAilegalFeedbackResponse SubmitAilegalFeedbackEx(SubmitAilegalFeedbackRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAilegalFeedbackResponse>(DoRequest("1.0", "twc.notary.ailegal.feedback.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 问答反馈
+         * Summary: 问答反馈
+         */
+        public async Task<SubmitAilegalFeedbackResponse> SubmitAilegalFeedbackExAsync(SubmitAilegalFeedbackRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAilegalFeedbackResponse>(await DoRequestAsync("1.0", "twc.notary.ailegal.feedback.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AI法律服务提问接口
+         * Summary: 提出问题
+         */
+        public InitAilegalQuestionResponse InitAilegalQuestion(InitAilegalQuestionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitAilegalQuestionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: AI法律服务提问接口
+         * Summary: 提出问题
+         */
+        public async Task<InitAilegalQuestionResponse> InitAilegalQuestionAsync(InitAilegalQuestionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitAilegalQuestionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: AI法律服务提问接口
+         * Summary: 提出问题
+         */
+        public InitAilegalQuestionResponse InitAilegalQuestionEx(InitAilegalQuestionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitAilegalQuestionResponse>(DoRequest("1.0", "twc.notary.ailegal.question.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AI法律服务提问接口
+         * Summary: 提出问题
+         */
+        public async Task<InitAilegalQuestionResponse> InitAilegalQuestionExAsync(InitAilegalQuestionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitAilegalQuestionResponse>(await DoRequestAsync("1.0", "twc.notary.ailegal.question.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

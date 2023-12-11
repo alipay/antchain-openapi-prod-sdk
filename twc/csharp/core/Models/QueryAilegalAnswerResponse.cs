@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class QueryBclRefundResponse : TeaModel {
+    public class QueryAilegalAnswerResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,32 +24,25 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 退款id
-        [NameInMap("refund_id")]
+        // 返回问题id，全局唯一
+        [NameInMap("question_id")]
         [Validation(Required=false)]
-        public string RefundId { get; set; }
+        public string QuestionId { get; set; }
 
-        // 退款成功的时间, 退款成功返回
-        [NameInMap("refund_time")]
+        // 问题答案
+        [NameInMap("answer")]
         [Validation(Required=false)]
-        public string RefundTime { get; set; }
+        public string Answer { get; set; }
 
-        // 退款金额, 单位分
-        [NameInMap("refund_amount")]
+        // 是否支持反馈(true 是,false 否)
+        [NameInMap("can_feedback")]
         [Validation(Required=false)]
-        public long? RefundAmount { get; set; }
+        public bool? CanFeedback { get; set; }
 
-        // ● 退款中，REFUNDING（需要调用查询接口查询结果)；
-        // ● 退款成功REFUND_SUCCESS
-        // ● 退款失败REFUND_FAIL
-        [NameInMap("refund_status")]
+        // 是否回答结束(true 是,false 否)
+        [NameInMap("end")]
         [Validation(Required=false)]
-        public string RefundStatus { get; set; }
-
-        // 退款失败原因, 退款失败时返回
-        [NameInMap("err_msg")]
-        [Validation(Required=false)]
-        public string ErrMsg { get; set; }
+        public bool? End { get; set; }
 
     }
 
