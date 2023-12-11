@@ -721,6 +721,34 @@ class EvidInfo(TeaModel):
         return self
 
 
+class NotaryOrderRule(TeaModel):
+    def __init__(
+        self,
+        order_type: str = None,
+    ):
+        # 公证出证支持公证书类型
+        self.order_type = order_type
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_type is not None:
+            result['order_type'] = self.order_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('order_type') is not None:
+            self.order_type = m.get('order_type')
+        return self
+
+
 class MonitorProviderCapability(TeaModel):
     def __init__(
         self,
@@ -1402,6 +1430,8 @@ class NotaryPublicOffice(TeaModel):
         city: str = None,
         org_name: str = None,
         belong: str = None,
+        notary_order_rule: NotaryOrderRule = None,
+        allow_certification: bool = None,
     ):
         # 公证处code
         self.code = code
@@ -1415,6 +1445,10 @@ class NotaryPublicOffice(TeaModel):
         self.org_name = org_name
         # 公证处隶属
         self.belong = belong
+        # 公证处出证规则
+        self.notary_order_rule = notary_order_rule
+        # 是否允许出证
+        self.allow_certification = allow_certification
 
     def validate(self):
         self.validate_required(self.code, 'code')
@@ -1423,6 +1457,8 @@ class NotaryPublicOffice(TeaModel):
         self.validate_required(self.city, 'city')
         self.validate_required(self.org_name, 'org_name')
         self.validate_required(self.belong, 'belong')
+        if self.notary_order_rule:
+            self.notary_order_rule.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1442,6 +1478,10 @@ class NotaryPublicOffice(TeaModel):
             result['org_name'] = self.org_name
         if self.belong is not None:
             result['belong'] = self.belong
+        if self.notary_order_rule is not None:
+            result['notary_order_rule'] = self.notary_order_rule.to_map()
+        if self.allow_certification is not None:
+            result['allow_certification'] = self.allow_certification
         return result
 
     def from_map(self, m: dict = None):
@@ -1458,6 +1498,11 @@ class NotaryPublicOffice(TeaModel):
             self.org_name = m.get('org_name')
         if m.get('belong') is not None:
             self.belong = m.get('belong')
+        if m.get('notary_order_rule') is not None:
+            temp_model = NotaryOrderRule()
+            self.notary_order_rule = temp_model.from_map(m['notary_order_rule'])
+        if m.get('allow_certification') is not None:
+            self.allow_certification = m.get('allow_certification')
         return self
 
 
@@ -3172,6 +3217,83 @@ class RecommendCategoryDetail(TeaModel):
             self.category_similar_ratio = m.get('category_similar_ratio')
         if m.get('category_risk_rank') is not None:
             self.category_risk_rank = m.get('category_risk_rank')
+        return self
+
+
+class DciUserAddressInfo(TeaModel):
+    def __init__(
+        self,
+        country: str = None,
+        province: str = None,
+        city: str = None,
+        district: str = None,
+        town: str = None,
+        road: str = None,
+        road_no: str = None,
+        address_detail: str = None,
+    ):
+        # 所在国家
+        self.country = country
+        # 所在省份
+        self.province = province
+        # 所在城市
+        self.city = city
+        # 识别出的地区
+        self.district = district
+        # 识别出的街道
+        self.town = town
+        # 识别出的路
+        self.road = road
+        # 识别出的路号牌
+        self.road_no = road_no
+        # 地址详情
+        self.address_detail = address_detail
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.country is not None:
+            result['country'] = self.country
+        if self.province is not None:
+            result['province'] = self.province
+        if self.city is not None:
+            result['city'] = self.city
+        if self.district is not None:
+            result['district'] = self.district
+        if self.town is not None:
+            result['town'] = self.town
+        if self.road is not None:
+            result['road'] = self.road
+        if self.road_no is not None:
+            result['road_no'] = self.road_no
+        if self.address_detail is not None:
+            result['address_detail'] = self.address_detail
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('country') is not None:
+            self.country = m.get('country')
+        if m.get('province') is not None:
+            self.province = m.get('province')
+        if m.get('city') is not None:
+            self.city = m.get('city')
+        if m.get('district') is not None:
+            self.district = m.get('district')
+        if m.get('town') is not None:
+            self.town = m.get('town')
+        if m.get('road') is not None:
+            self.road = m.get('road')
+        if m.get('road_no') is not None:
+            self.road_no = m.get('road_no')
+        if m.get('address_detail') is not None:
+            self.address_detail = m.get('address_detail')
         return self
 
 
@@ -8738,6 +8860,7 @@ class QueryDciUserResponse(TeaModel):
         cert_start_time: str = None,
         cert_end_time: str = None,
         legal_person: str = None,
+        phone: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -8763,6 +8886,8 @@ class QueryDciUserResponse(TeaModel):
         self.cert_end_time = cert_end_time
         # 法人名称
         self.legal_person = legal_person
+        # 联系电话
+        self.phone = phone
 
     def validate(self):
         pass
@@ -8797,6 +8922,8 @@ class QueryDciUserResponse(TeaModel):
             result['cert_end_time'] = self.cert_end_time
         if self.legal_person is not None:
             result['legal_person'] = self.legal_person
+        if self.phone is not None:
+            result['phone'] = self.phone
         return result
 
     def from_map(self, m: dict = None):
@@ -8825,6 +8952,8 @@ class QueryDciUserResponse(TeaModel):
             self.cert_end_time = m.get('cert_end_time')
         if m.get('legal_person') is not None:
             self.legal_person = m.get('legal_person')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
         return self
 
 
@@ -9618,6 +9747,8 @@ class GetDciRegistrationcertResponse(TeaModel):
         download_url: str = None,
         download_times_left: int = None,
         fail_detail: str = None,
+        digital_register_cert_url: str = None,
+        digital_register_sample_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -9641,6 +9772,10 @@ class GetDciRegistrationcertResponse(TeaModel):
         self.download_times_left = download_times_left
         # 失败详情
         self.fail_detail = fail_detail
+        # 数登证书下载链接
+        self.digital_register_cert_url = digital_register_cert_url
+        # 数登样本证书下载链接
+        self.digital_register_sample_url = digital_register_sample_url
 
     def validate(self):
         pass
@@ -9673,6 +9808,10 @@ class GetDciRegistrationcertResponse(TeaModel):
             result['download_times_left'] = self.download_times_left
         if self.fail_detail is not None:
             result['fail_detail'] = self.fail_detail
+        if self.digital_register_cert_url is not None:
+            result['digital_register_cert_url'] = self.digital_register_cert_url
+        if self.digital_register_sample_url is not None:
+            result['digital_register_sample_url'] = self.digital_register_sample_url
         return result
 
     def from_map(self, m: dict = None):
@@ -9699,6 +9838,10 @@ class GetDciRegistrationcertResponse(TeaModel):
             self.download_times_left = m.get('download_times_left')
         if m.get('fail_detail') is not None:
             self.fail_detail = m.get('fail_detail')
+        if m.get('digital_register_cert_url') is not None:
+            self.digital_register_cert_url = m.get('digital_register_cert_url')
+        if m.get('digital_register_sample_url') is not None:
+            self.digital_register_sample_url = m.get('digital_register_sample_url')
         return self
 
 
