@@ -79,6 +79,12 @@ class QueryDciUserResponse extends Model
      * @var string
      */
     public $legalPerson;
+
+    // 联系电话
+    /**
+     * @var string
+     */
+    public $phone;
     protected $_name = [
         'reqMsgId'          => 'req_msg_id',
         'resultCode'        => 'result_code',
@@ -92,6 +98,7 @@ class QueryDciUserResponse extends Model
         'certStartTime'     => 'cert_start_time',
         'certEndTime'       => 'cert_end_time',
         'legalPerson'       => 'legal_person',
+        'phone'             => 'phone',
     ];
 
     public function validate()
@@ -136,6 +143,9 @@ class QueryDciUserResponse extends Model
         }
         if (null !== $this->legalPerson) {
             $res['legal_person'] = $this->legalPerson;
+        }
+        if (null !== $this->phone) {
+            $res['phone'] = $this->phone;
         }
 
         return $res;
@@ -184,6 +194,9 @@ class QueryDciUserResponse extends Model
         }
         if (isset($map['legal_person'])) {
             $model->legalPerson = $map['legal_person'];
+        }
+        if (isset($map['phone'])) {
+            $model->phone = $map['phone'];
         }
 
         return $model;

@@ -55,13 +55,31 @@ class NotaryPublicOffice extends Model
      * @var string
      */
     public $belong;
+
+    // 公证处出证规则
+    /**
+     * @example
+     *
+     * @var NotaryOrderRule
+     */
+    public $notaryOrderRule;
+
+    // 是否允许出证
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $allowCertification;
     protected $_name = [
-        'code'     => 'code',
-        'name'     => 'name',
-        'province' => 'province',
-        'city'     => 'city',
-        'orgName'  => 'org_name',
-        'belong'   => 'belong',
+        'code'               => 'code',
+        'name'               => 'name',
+        'province'           => 'province',
+        'city'               => 'city',
+        'orgName'            => 'org_name',
+        'belong'             => 'belong',
+        'notaryOrderRule'    => 'notary_order_rule',
+        'allowCertification' => 'allow_certification',
     ];
 
     public function validate()
@@ -95,6 +113,12 @@ class NotaryPublicOffice extends Model
         if (null !== $this->belong) {
             $res['belong'] = $this->belong;
         }
+        if (null !== $this->notaryOrderRule) {
+            $res['notary_order_rule'] = null !== $this->notaryOrderRule ? $this->notaryOrderRule->toMap() : null;
+        }
+        if (null !== $this->allowCertification) {
+            $res['allow_certification'] = $this->allowCertification;
+        }
 
         return $res;
     }
@@ -124,6 +148,12 @@ class NotaryPublicOffice extends Model
         }
         if (isset($map['belong'])) {
             $model->belong = $map['belong'];
+        }
+        if (isset($map['notary_order_rule'])) {
+            $model->notaryOrderRule = NotaryOrderRule::fromMap($map['notary_order_rule']);
+        }
+        if (isset($map['allow_certification'])) {
+            $model->allowCertification = $map['allow_certification'];
         }
 
         return $model;

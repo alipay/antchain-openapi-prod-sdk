@@ -73,18 +73,32 @@ class GetDciRegistrationcertResponse extends Model
      * @var string
      */
     public $failDetail;
+
+    // 数登证书下载链接
+    /**
+     * @var string
+     */
+    public $digitalRegisterCertUrl;
+
+    // 数登样本证书下载链接
+    /**
+     * @var string
+     */
+    public $digitalRegisterSampleUrl;
     protected $_name = [
-        'reqMsgId'              => 'req_msg_id',
-        'resultCode'            => 'result_code',
-        'resultMsg'             => 'result_msg',
-        'certStatus'            => 'cert_status',
-        'certificateUrl'        => 'certificate_url',
-        'errorReason'           => 'error_reason',
-        'errorReasonCn'         => 'error_reason_cn',
-        'digitalRegisterStatus' => 'digital_register_status',
-        'downloadUrl'           => 'download_url',
-        'downloadTimesLeft'     => 'download_times_left',
-        'failDetail'            => 'fail_detail',
+        'reqMsgId'                 => 'req_msg_id',
+        'resultCode'               => 'result_code',
+        'resultMsg'                => 'result_msg',
+        'certStatus'               => 'cert_status',
+        'certificateUrl'           => 'certificate_url',
+        'errorReason'              => 'error_reason',
+        'errorReasonCn'            => 'error_reason_cn',
+        'digitalRegisterStatus'    => 'digital_register_status',
+        'downloadUrl'              => 'download_url',
+        'downloadTimesLeft'        => 'download_times_left',
+        'failDetail'               => 'fail_detail',
+        'digitalRegisterCertUrl'   => 'digital_register_cert_url',
+        'digitalRegisterSampleUrl' => 'digital_register_sample_url',
     ];
 
     public function validate()
@@ -126,6 +140,12 @@ class GetDciRegistrationcertResponse extends Model
         }
         if (null !== $this->failDetail) {
             $res['fail_detail'] = $this->failDetail;
+        }
+        if (null !== $this->digitalRegisterCertUrl) {
+            $res['digital_register_cert_url'] = $this->digitalRegisterCertUrl;
+        }
+        if (null !== $this->digitalRegisterSampleUrl) {
+            $res['digital_register_sample_url'] = $this->digitalRegisterSampleUrl;
         }
 
         return $res;
@@ -171,6 +191,12 @@ class GetDciRegistrationcertResponse extends Model
         }
         if (isset($map['fail_detail'])) {
             $model->failDetail = $map['fail_detail'];
+        }
+        if (isset($map['digital_register_cert_url'])) {
+            $model->digitalRegisterCertUrl = $map['digital_register_cert_url'];
+        }
+        if (isset($map['digital_register_sample_url'])) {
+            $model->digitalRegisterSampleUrl = $map['digital_register_sample_url'];
         }
 
         return $model;
