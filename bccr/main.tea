@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.17.65',
+    sdk_version = '1.17.77',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -293,6 +293,12 @@ model EvidInfo {
   witness: NotaryUser(name='witness', example=''),
 }
 
+// 公证申请出证规则
+model NotaryOrderRule {
+  // 公证出证支持公证书类型
+  orderType?: string(name='order_type', example='PAPER,E_PAPER,BOTH'),
+}
+
 // 监测提供商能力
 model MonitorProviderCapability {
   // 供应商id
@@ -469,6 +475,10 @@ model NotaryPublicOffice {
   orgName: string(name='org_name', example='厦门市鹭江公证处'),
   // 公证处隶属
   belong: string(name='belong', example='EZCUN'),
+  // 公证处出证规则
+  notaryOrderRule?: NotaryOrderRule(name='notary_order_rule', example=''),
+  // 是否允许出证
+  allowCertification?: boolean(name='allow_certification', example='true, false'),
 }
 
 // 本次申请中每一类证据的数量明细
@@ -925,6 +935,26 @@ model RecommendCategoryDetail {
   categorySimilarRatio: string(name='category_similar_ratio', example='0.95'),
   // 作品类型风险等级
   categoryRiskRank?: string(name='category_risk_rank', example='LOW'),
+}
+
+// 地址详细信息
+model DciUserAddressInfo {
+  // 所在国家
+  country?: string(name='country', example='所在国家'),
+  // 所在省份
+  province?: string(name='province', example='所在省份'),
+  // 所在城市
+  city?: string(name='city', example='所在城市'),
+  // 识别出的地区
+  district?: string(name='district', example='识别出的地区'),
+  // 识别出的街道
+  town?: string(name='town', example='识别出的街道'),
+  // 识别出的路
+  road?: string(name='road', example='识别出的路'),
+  // 识别出的路号牌
+  roadNo?: string(name='road_no', example='识别出的路号牌'),
+  // 地址详情
+  addressDetail?: string(name='address_detail', example='地址详情'),
 }
 
 // 网页取证数据
@@ -2753,6 +2783,8 @@ model QueryDciUserResponse = {
   certEndTime?: string(name='cert_end_time'),
   // 法人名称
   legalPerson?: string(name='legal_person'),
+  // 联系电话
+  phone?: string(name='phone'),
 }
 
 /**
@@ -3071,6 +3103,10 @@ model GetDciRegistrationcertResponse = {
   downloadTimesLeft?: long(name='download_times_left'),
   // 失败详情
   failDetail?: string(name='fail_detail'),
+  // 数登证书下载链接
+  digitalRegisterCertUrl?: string(name='digital_register_cert_url'),
+  // 数登样本证书下载链接
+  digitalRegisterSampleUrl?: string(name='digital_register_sample_url'),
 }
 
 /**
