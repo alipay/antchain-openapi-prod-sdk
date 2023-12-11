@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4',
+                    'sdk_version': '1.0.5',
                     '_prod_code': 'ak_743ccb6d20f546bcb851af6ce09cd478',
                     '_prod_channel': 'saas'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4',
+                    'sdk_version': '1.0.5',
                     '_prod_code': 'ak_743ccb6d20f546bcb851af6ce09cd478',
                     '_prod_channel': 'saas'
                 }
@@ -327,4 +327,60 @@ class Client:
         return TeaCore.from_map(
             ak__743ccb_6d_20f_546bcb_851af_6ce_09cd_478_models.QueryIdentityTagScoreResponse(),
             await self.do_request_async('1.0', 'identity.tag.score.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_identity_tag_feature_score(
+        self,
+        request: ak__743ccb_6d_20f_546bcb_851af_6ce_09cd_478_models.QueryIdentityTagFeatureScoreRequest,
+    ) -> ak__743ccb_6d_20f_546bcb_851af_6ce_09cd_478_models.QueryIdentityTagFeatureScoreResponse:
+        """
+        Description: 查询身份标签分数-个人
+        Summary: 查询个人标签分数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_identity_tag_feature_score_ex(request, headers, runtime)
+
+    async def query_identity_tag_feature_score_async(
+        self,
+        request: ak__743ccb_6d_20f_546bcb_851af_6ce_09cd_478_models.QueryIdentityTagFeatureScoreRequest,
+    ) -> ak__743ccb_6d_20f_546bcb_851af_6ce_09cd_478_models.QueryIdentityTagFeatureScoreResponse:
+        """
+        Description: 查询身份标签分数-个人
+        Summary: 查询个人标签分数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_identity_tag_feature_score_ex_async(request, headers, runtime)
+
+    def query_identity_tag_feature_score_ex(
+        self,
+        request: ak__743ccb_6d_20f_546bcb_851af_6ce_09cd_478_models.QueryIdentityTagFeatureScoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__743ccb_6d_20f_546bcb_851af_6ce_09cd_478_models.QueryIdentityTagFeatureScoreResponse:
+        """
+        Description: 查询身份标签分数-个人
+        Summary: 查询个人标签分数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__743ccb_6d_20f_546bcb_851af_6ce_09cd_478_models.QueryIdentityTagFeatureScoreResponse(),
+            self.do_request('1.0', 'identity.tag.feature.score.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_identity_tag_feature_score_ex_async(
+        self,
+        request: ak__743ccb_6d_20f_546bcb_851af_6ce_09cd_478_models.QueryIdentityTagFeatureScoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__743ccb_6d_20f_546bcb_851af_6ce_09cd_478_models.QueryIdentityTagFeatureScoreResponse:
+        """
+        Description: 查询身份标签分数-个人
+        Summary: 查询个人标签分数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__743ccb_6d_20f_546bcb_851af_6ce_09cd_478_models.QueryIdentityTagFeatureScoreResponse(),
+            await self.do_request_async('1.0', 'identity.tag.feature.score.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

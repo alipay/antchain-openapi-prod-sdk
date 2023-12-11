@@ -308,3 +308,153 @@ class QueryIdentityTagScoreResponse(TeaModel):
         return self
 
 
+class QueryIdentityTagFeatureScoreRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        request_id: str = None,
+        order_id: str = None,
+        model_id_list: str = None,
+        user_id: str = None,
+        user_id_type: str = None,
+        encrypt_type: str = None,
+        auth_template_no: str = None,
+        auth_no: str = None,
+        request_time: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求流水id
+        self.request_id = request_id
+        # 订单号
+        self.order_id = order_id
+        # 模型列表字符串
+        self.model_id_list = model_id_list
+        # 用户id
+        self.user_id = user_id
+        # 用户id类型： "ID_NO"： 身份证号, "MOBILE_NO"：手机号
+        self.user_id_type = user_id_type
+        # 加密类型: "MD5"：MD5（32位小写） "SHA256" ： SHA256（密文小写） "SM3"： SM3（密文小写）
+        self.encrypt_type = encrypt_type
+        # 用户授权模版编号
+        self.auth_template_no = auth_template_no
+        # 用户授权编码
+        self.auth_no = auth_no
+        # 客户发起请求时间, 格式："yyyy-MM-dd HH:mm:ss"
+        self.request_time = request_time
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.model_id_list, 'model_id_list')
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.user_id_type, 'user_id_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.model_id_list is not None:
+            result['model_id_list'] = self.model_id_list
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_id_type is not None:
+            result['user_id_type'] = self.user_id_type
+        if self.encrypt_type is not None:
+            result['encrypt_type'] = self.encrypt_type
+        if self.auth_template_no is not None:
+            result['auth_template_no'] = self.auth_template_no
+        if self.auth_no is not None:
+            result['auth_no'] = self.auth_no
+        if self.request_time is not None:
+            result['request_time'] = self.request_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('model_id_list') is not None:
+            self.model_id_list = m.get('model_id_list')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_id_type') is not None:
+            self.user_id_type = m.get('user_id_type')
+        if m.get('encrypt_type') is not None:
+            self.encrypt_type = m.get('encrypt_type')
+        if m.get('auth_template_no') is not None:
+            self.auth_template_no = m.get('auth_template_no')
+        if m.get('auth_no') is not None:
+            self.auth_no = m.get('auth_no')
+        if m.get('request_time') is not None:
+            self.request_time = m.get('request_time')
+        return self
+
+
+class QueryIdentityTagFeatureScoreResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务响应结果
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
