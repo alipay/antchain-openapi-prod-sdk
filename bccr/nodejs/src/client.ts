@@ -431,6 +431,27 @@ export class EvidInfo extends $tea.Model {
   }
 }
 
+// 公证申请出证规则
+export class NotaryOrderRule extends $tea.Model {
+  // 公证出证支持公证书类型
+  orderType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      orderType: 'order_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 监测提供商能力
 export class MonitorProviderCapability extends $tea.Model {
   // 供应商id
@@ -859,6 +880,10 @@ export class NotaryPublicOffice extends $tea.Model {
   orgName: string;
   // 公证处隶属
   belong: string;
+  // 公证处出证规则
+  notaryOrderRule?: NotaryOrderRule;
+  // 是否允许出证
+  allowCertification?: boolean;
   static names(): { [key: string]: string } {
     return {
       code: 'code',
@@ -867,6 +892,8 @@ export class NotaryPublicOffice extends $tea.Model {
       city: 'city',
       orgName: 'org_name',
       belong: 'belong',
+      notaryOrderRule: 'notary_order_rule',
+      allowCertification: 'allow_certification',
     };
   }
 
@@ -878,6 +905,8 @@ export class NotaryPublicOffice extends $tea.Model {
       city: 'string',
       orgName: 'string',
       belong: 'string',
+      notaryOrderRule: NotaryOrderRule,
+      allowCertification: 'boolean',
     };
   }
 
@@ -1950,6 +1979,55 @@ export class RecommendCategoryDetail extends $tea.Model {
       recommendWorkCategory: 'string',
       categorySimilarRatio: 'string',
       categoryRiskRank: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 地址详细信息
+export class DciUserAddressInfo extends $tea.Model {
+  // 所在国家
+  country?: string;
+  // 所在省份
+  province?: string;
+  // 所在城市
+  city?: string;
+  // 识别出的地区
+  district?: string;
+  // 识别出的街道
+  town?: string;
+  // 识别出的路
+  road?: string;
+  // 识别出的路号牌
+  roadNo?: string;
+  // 地址详情
+  addressDetail?: string;
+  static names(): { [key: string]: string } {
+    return {
+      country: 'country',
+      province: 'province',
+      city: 'city',
+      district: 'district',
+      town: 'town',
+      road: 'road',
+      roadNo: 'road_no',
+      addressDetail: 'address_detail',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      country: 'string',
+      province: 'string',
+      city: 'string',
+      district: 'string',
+      town: 'string',
+      road: 'string',
+      roadNo: 'string',
+      addressDetail: 'string',
     };
   }
 
@@ -5243,6 +5321,8 @@ export class QueryDciUserResponse extends $tea.Model {
   certEndTime?: string;
   // 法人名称
   legalPerson?: string;
+  // 联系电话
+  phone?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -5257,6 +5337,7 @@ export class QueryDciUserResponse extends $tea.Model {
       certStartTime: 'cert_start_time',
       certEndTime: 'cert_end_time',
       legalPerson: 'legal_person',
+      phone: 'phone',
     };
   }
 
@@ -5274,6 +5355,7 @@ export class QueryDciUserResponse extends $tea.Model {
       certStartTime: 'string',
       certEndTime: 'string',
       legalPerson: 'string',
+      phone: 'string',
     };
   }
 
@@ -5779,6 +5861,10 @@ export class GetDciRegistrationcertResponse extends $tea.Model {
   downloadTimesLeft?: number;
   // 失败详情
   failDetail?: string;
+  // 数登证书下载链接
+  digitalRegisterCertUrl?: string;
+  // 数登样本证书下载链接
+  digitalRegisterSampleUrl?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -5792,6 +5878,8 @@ export class GetDciRegistrationcertResponse extends $tea.Model {
       downloadUrl: 'download_url',
       downloadTimesLeft: 'download_times_left',
       failDetail: 'fail_detail',
+      digitalRegisterCertUrl: 'digital_register_cert_url',
+      digitalRegisterSampleUrl: 'digital_register_sample_url',
     };
   }
 
@@ -5808,6 +5896,8 @@ export class GetDciRegistrationcertResponse extends $tea.Model {
       downloadUrl: 'string',
       downloadTimesLeft: 'number',
       failDetail: 'string',
+      digitalRegisterCertUrl: 'string',
+      digitalRegisterSampleUrl: 'string',
     };
   }
 
@@ -8145,7 +8235,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.65",
+          sdk_version: "1.17.77",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
