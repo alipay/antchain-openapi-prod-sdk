@@ -7972,6 +7972,273 @@ func (s *JudicialMediationBaseParamInfo) SetMinAmount(v string) *JudicialMediati
 	return s
 }
 
+type QueryAilegalAnswerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// twc.notary.ailegal.question.init(提出问题)接口返回的问题id
+	// 长度不超过32位
+	QuestionId *string `json:"question_id,omitempty" xml:"question_id,omitempty" require:"true"`
+}
+
+func (s QueryAilegalAnswerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAilegalAnswerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAilegalAnswerRequest) SetAuthToken(v string) *QueryAilegalAnswerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAilegalAnswerRequest) SetProductInstanceId(v string) *QueryAilegalAnswerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAilegalAnswerRequest) SetQuestionId(v string) *QueryAilegalAnswerRequest {
+	s.QuestionId = &v
+	return s
+}
+
+type QueryAilegalAnswerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回问题id，全局唯一
+	QuestionId *string `json:"question_id,omitempty" xml:"question_id,omitempty"`
+	// 问题答案
+	Answer *string `json:"answer,omitempty" xml:"answer,omitempty"`
+	// 是否支持反馈(true 是,false 否)
+	CanFeedback *bool `json:"can_feedback,omitempty" xml:"can_feedback,omitempty"`
+	// 是否回答结束(true 是,false 否)
+	End *bool `json:"end,omitempty" xml:"end,omitempty"`
+}
+
+func (s QueryAilegalAnswerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAilegalAnswerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAilegalAnswerResponse) SetReqMsgId(v string) *QueryAilegalAnswerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAilegalAnswerResponse) SetResultCode(v string) *QueryAilegalAnswerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAilegalAnswerResponse) SetResultMsg(v string) *QueryAilegalAnswerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAilegalAnswerResponse) SetQuestionId(v string) *QueryAilegalAnswerResponse {
+	s.QuestionId = &v
+	return s
+}
+
+func (s *QueryAilegalAnswerResponse) SetAnswer(v string) *QueryAilegalAnswerResponse {
+	s.Answer = &v
+	return s
+}
+
+func (s *QueryAilegalAnswerResponse) SetCanFeedback(v bool) *QueryAilegalAnswerResponse {
+	s.CanFeedback = &v
+	return s
+}
+
+func (s *QueryAilegalAnswerResponse) SetEnd(v bool) *QueryAilegalAnswerResponse {
+	s.End = &v
+	return s
+}
+
+type SubmitAilegalFeedbackRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// twc.notary.ailegal.question.init(提出问题)接口返回的问题id,长度不超过32位
+	QuestionId *string `json:"question_id,omitempty" xml:"question_id,omitempty" require:"true"`
+	// 用户态度，参见枚举类AttitudeEnum
+	Attitude *string `json:"attitude,omitempty" xml:"attitude,omitempty" require:"true"`
+	// 用户反馈标签集合，与用户态度相对应，参见枚举类TagEnum定义
+	Tags []*string `json:"tags,omitempty" xml:"tags,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SubmitAilegalFeedbackRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAilegalFeedbackRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAilegalFeedbackRequest) SetAuthToken(v string) *SubmitAilegalFeedbackRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAilegalFeedbackRequest) SetProductInstanceId(v string) *SubmitAilegalFeedbackRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitAilegalFeedbackRequest) SetQuestionId(v string) *SubmitAilegalFeedbackRequest {
+	s.QuestionId = &v
+	return s
+}
+
+func (s *SubmitAilegalFeedbackRequest) SetAttitude(v string) *SubmitAilegalFeedbackRequest {
+	s.Attitude = &v
+	return s
+}
+
+func (s *SubmitAilegalFeedbackRequest) SetTags(v []*string) *SubmitAilegalFeedbackRequest {
+	s.Tags = v
+	return s
+}
+
+type SubmitAilegalFeedbackResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SubmitAilegalFeedbackResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAilegalFeedbackResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAilegalFeedbackResponse) SetReqMsgId(v string) *SubmitAilegalFeedbackResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAilegalFeedbackResponse) SetResultCode(v string) *SubmitAilegalFeedbackResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAilegalFeedbackResponse) SetResultMsg(v string) *SubmitAilegalFeedbackResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type InitAilegalQuestionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 提问问题
+	Question *string `json:"question,omitempty" xml:"question,omitempty" require:"true" maxLength:"1000"`
+	// 是否开启新会话
+	First *bool `json:"first,omitempty" xml:"first,omitempty" require:"true"`
+	// 用户id，用户唯一标识
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户类型，参见枚举类UserTypeEnum
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+	// app类型，参见枚举类AppTypeEnum
+	AppType *string `json:"app_type,omitempty" xml:"app_type,omitempty" require:"true"`
+}
+
+func (s InitAilegalQuestionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitAilegalQuestionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitAilegalQuestionRequest) SetAuthToken(v string) *InitAilegalQuestionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitAilegalQuestionRequest) SetProductInstanceId(v string) *InitAilegalQuestionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitAilegalQuestionRequest) SetQuestion(v string) *InitAilegalQuestionRequest {
+	s.Question = &v
+	return s
+}
+
+func (s *InitAilegalQuestionRequest) SetFirst(v bool) *InitAilegalQuestionRequest {
+	s.First = &v
+	return s
+}
+
+func (s *InitAilegalQuestionRequest) SetUserId(v string) *InitAilegalQuestionRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *InitAilegalQuestionRequest) SetUserType(v string) *InitAilegalQuestionRequest {
+	s.UserType = &v
+	return s
+}
+
+func (s *InitAilegalQuestionRequest) SetAppType(v string) *InitAilegalQuestionRequest {
+	s.AppType = &v
+	return s
+}
+
+type InitAilegalQuestionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回问题id，全局唯一
+	QuestionId *string `json:"question_id,omitempty" xml:"question_id,omitempty"`
+}
+
+func (s InitAilegalQuestionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitAilegalQuestionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitAilegalQuestionResponse) SetReqMsgId(v string) *InitAilegalQuestionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitAilegalQuestionResponse) SetResultCode(v string) *InitAilegalQuestionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitAilegalQuestionResponse) SetResultMsg(v string) *InitAilegalQuestionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitAilegalQuestionResponse) SetQuestionId(v string) *InitAilegalQuestionResponse {
+	s.QuestionId = &v
+	return s
+}
+
 type CallbackArbitrationStatusRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -10838,7 +11105,7 @@ type QueryBclRefundResponse struct {
 	RefundId *string `json:"refund_id,omitempty" xml:"refund_id,omitempty"`
 	// 退款成功的时间, 退款成功返回
 	RefundTime *string `json:"refund_time,omitempty" xml:"refund_time,omitempty"`
-	// 退款金额, 单位分, 退款成功时返回
+	// 退款金额, 单位分
 	RefundAmount *int64 `json:"refund_amount,omitempty" xml:"refund_amount,omitempty"`
 	// ● 退款中，REFUNDING（需要调用查询接口查询结果)；
 	// ● 退款成功REFUND_SUCCESS
@@ -47188,7 +47455,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.8"),
+				"sdk_version":      tea.String("1.12.10"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -47244,6 +47511,108 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: AI提问获取答案
+ * Summary: 获取答案
+ */
+func (client *Client) QueryAilegalAnswer(request *QueryAilegalAnswerRequest) (_result *QueryAilegalAnswerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAilegalAnswerResponse{}
+	_body, _err := client.QueryAilegalAnswerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: AI提问获取答案
+ * Summary: 获取答案
+ */
+func (client *Client) QueryAilegalAnswerEx(request *QueryAilegalAnswerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAilegalAnswerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAilegalAnswerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.ailegal.answer.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 问答反馈
+ * Summary: 问答反馈
+ */
+func (client *Client) SubmitAilegalFeedback(request *SubmitAilegalFeedbackRequest) (_result *SubmitAilegalFeedbackResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAilegalFeedbackResponse{}
+	_body, _err := client.SubmitAilegalFeedbackEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 问答反馈
+ * Summary: 问答反馈
+ */
+func (client *Client) SubmitAilegalFeedbackEx(request *SubmitAilegalFeedbackRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAilegalFeedbackResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAilegalFeedbackResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.ailegal.feedback.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: AI法律服务提问接口
+ * Summary: 提出问题
+ */
+func (client *Client) InitAilegalQuestion(request *InitAilegalQuestionRequest) (_result *InitAilegalQuestionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitAilegalQuestionResponse{}
+	_body, _err := client.InitAilegalQuestionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: AI法律服务提问接口
+ * Summary: 提出问题
+ */
+func (client *Client) InitAilegalQuestionEx(request *InitAilegalQuestionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitAilegalQuestionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitAilegalQuestionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.ailegal.question.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
