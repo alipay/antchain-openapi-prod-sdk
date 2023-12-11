@@ -69,6 +69,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string LegalPerson { get; set; }
 
+        // 联系电话
+        [NameInMap("phone")]
+        [Validation(Required=false)]
+        public string Phone { get; set; }
+
     }
 
 }

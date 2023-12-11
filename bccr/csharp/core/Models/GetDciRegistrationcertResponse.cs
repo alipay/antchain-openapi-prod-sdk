@@ -64,6 +64,16 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string FailDetail { get; set; }
 
+        // 数登证书下载链接
+        [NameInMap("digital_register_cert_url")]
+        [Validation(Required=false)]
+        public string DigitalRegisterCertUrl { get; set; }
+
+        // 数登样本证书下载链接
+        [NameInMap("digital_register_sample_url")]
+        [Validation(Required=false)]
+        public string DigitalRegisterSampleUrl { get; set; }
+
     }
 
 }

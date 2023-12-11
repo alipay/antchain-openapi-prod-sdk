@@ -40,6 +40,16 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string Belong { get; set; }
 
+        // 公证处出证规则
+        [NameInMap("notary_order_rule")]
+        [Validation(Required=false)]
+        public NotaryOrderRule NotaryOrderRule { get; set; }
+
+        // 是否允许出证
+        [NameInMap("allow_certification")]
+        [Validation(Required=false)]
+        public bool? AllowCertification { get; set; }
+
     }
 
 }
