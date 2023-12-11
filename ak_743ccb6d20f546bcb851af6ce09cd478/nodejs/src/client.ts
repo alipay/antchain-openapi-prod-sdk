@@ -173,6 +173,97 @@ export class QueryIdentityTagScoreResponse extends $tea.Model {
   }
 }
 
+export class QueryIdentityTagFeatureScoreRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求流水id
+  requestId: string;
+  // 订单号
+  orderId: string;
+  // 模型列表字符串
+  modelIdList: string;
+  // 用户id
+  userId: string;
+  // 用户id类型： "ID_NO"： 身份证号, "MOBILE_NO"：手机号
+  userIdType: string;
+  // 加密类型: "MD5"：MD5（32位小写） "SHA256" ： SHA256（密文小写） "SM3"： SM3（密文小写）
+  encryptType?: string;
+  // 用户授权模版编号
+  authTemplateNo?: string;
+  // 用户授权编码
+  authNo?: string;
+  // 客户发起请求时间, 格式："yyyy-MM-dd HH:mm:ss"
+  requestTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestId: 'request_id',
+      orderId: 'order_id',
+      modelIdList: 'model_id_list',
+      userId: 'user_id',
+      userIdType: 'user_id_type',
+      encryptType: 'encrypt_type',
+      authTemplateNo: 'auth_template_no',
+      authNo: 'auth_no',
+      requestTime: 'request_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestId: 'string',
+      orderId: 'string',
+      modelIdList: 'string',
+      userId: 'string',
+      userIdType: 'string',
+      encryptType: 'string',
+      authTemplateNo: 'string',
+      authNo: 'string',
+      requestTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIdentityTagFeatureScoreResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务响应结果
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -286,7 +377,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.4",
+          sdk_version: "1.0.5",
           _prod_code: "ak_743ccb6d20f546bcb851af6ce09cd478",
           _prod_channel: "saas",
         };
@@ -351,6 +442,25 @@ export default class Client {
   async queryIdentityTagScoreEx(request: QueryIdentityTagScoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIdentityTagScoreResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryIdentityTagScoreResponse>(await this.doRequest("1.0", "identity.tag.score.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIdentityTagScoreResponse({}));
+  }
+
+  /**
+   * Description: 查询身份标签分数-个人
+   * Summary: 查询个人标签分数
+   */
+  async queryIdentityTagFeatureScore(request: QueryIdentityTagFeatureScoreRequest): Promise<QueryIdentityTagFeatureScoreResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIdentityTagFeatureScoreEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询身份标签分数-个人
+   * Summary: 查询个人标签分数
+   */
+  async queryIdentityTagFeatureScoreEx(request: QueryIdentityTagFeatureScoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIdentityTagFeatureScoreResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIdentityTagFeatureScoreResponse>(await this.doRequest("1.0", "identity.tag.feature.score.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIdentityTagFeatureScoreResponse({}));
   }
 
 }
