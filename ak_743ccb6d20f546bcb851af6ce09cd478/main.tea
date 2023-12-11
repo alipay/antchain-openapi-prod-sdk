@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.4',
+    sdk_version = '1.0.5',
     _prod_code = 'ak_743ccb6d20f546bcb851af6ce09cd478',
     _prod_channel = 'saas'
   };
@@ -218,5 +218,59 @@ async function queryIdentityTagScore(request: QueryIdentityTagScoreRequest): Que
 async function queryIdentityTagScoreEx(request: QueryIdentityTagScoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIdentityTagScoreResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'identity.tag.score.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIdentityTagFeatureScoreRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求流水id
+  requestId: string(name='request_id'),
+  // 订单号
+  orderId: string(name='order_id'),
+  // 模型列表字符串
+  modelIdList: string(name='model_id_list'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 用户id类型： "ID_NO"： 身份证号, "MOBILE_NO"：手机号
+  userIdType: string(name='user_id_type'),
+  // 加密类型: "MD5"：MD5（32位小写） "SHA256" ： SHA256（密文小写） "SM3"： SM3（密文小写）
+  encryptType?: string(name='encrypt_type'),
+  // 用户授权模版编号
+  authTemplateNo?: string(name='auth_template_no'),
+  // 用户授权编码
+  authNo?: string(name='auth_no'),
+  // 客户发起请求时间, 格式："yyyy-MM-dd HH:mm:ss"
+  requestTime?: string(name='request_time'),
+}
+
+model QueryIdentityTagFeatureScoreResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务响应结果
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 查询身份标签分数-个人
+ * Summary: 查询个人标签分数
+ */
+async function queryIdentityTagFeatureScore(request: QueryIdentityTagFeatureScoreRequest): QueryIdentityTagFeatureScoreResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIdentityTagFeatureScoreEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询身份标签分数-个人
+ * Summary: 查询个人标签分数
+ */
+async function queryIdentityTagFeatureScoreEx(request: QueryIdentityTagFeatureScoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIdentityTagFeatureScoreResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'identity.tag.feature.score.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
