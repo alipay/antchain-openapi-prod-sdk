@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.8',
+                    'sdk_version': '1.12.10',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.8',
+                    'sdk_version': '1.12.10',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -274,6 +274,174 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def query_ailegal_answer(
+        self,
+        request: twc_models.QueryAilegalAnswerRequest,
+    ) -> twc_models.QueryAilegalAnswerResponse:
+        """
+        Description: AI提问获取答案
+        Summary: 获取答案
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ailegal_answer_ex(request, headers, runtime)
+
+    async def query_ailegal_answer_async(
+        self,
+        request: twc_models.QueryAilegalAnswerRequest,
+    ) -> twc_models.QueryAilegalAnswerResponse:
+        """
+        Description: AI提问获取答案
+        Summary: 获取答案
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ailegal_answer_ex_async(request, headers, runtime)
+
+    def query_ailegal_answer_ex(
+        self,
+        request: twc_models.QueryAilegalAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryAilegalAnswerResponse:
+        """
+        Description: AI提问获取答案
+        Summary: 获取答案
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryAilegalAnswerResponse(),
+            self.do_request('1.0', 'twc.notary.ailegal.answer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ailegal_answer_ex_async(
+        self,
+        request: twc_models.QueryAilegalAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryAilegalAnswerResponse:
+        """
+        Description: AI提问获取答案
+        Summary: 获取答案
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryAilegalAnswerResponse(),
+            await self.do_request_async('1.0', 'twc.notary.ailegal.answer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_ailegal_feedback(
+        self,
+        request: twc_models.SubmitAilegalFeedbackRequest,
+    ) -> twc_models.SubmitAilegalFeedbackResponse:
+        """
+        Description: 问答反馈
+        Summary: 问答反馈
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_ailegal_feedback_ex(request, headers, runtime)
+
+    async def submit_ailegal_feedback_async(
+        self,
+        request: twc_models.SubmitAilegalFeedbackRequest,
+    ) -> twc_models.SubmitAilegalFeedbackResponse:
+        """
+        Description: 问答反馈
+        Summary: 问答反馈
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_ailegal_feedback_ex_async(request, headers, runtime)
+
+    def submit_ailegal_feedback_ex(
+        self,
+        request: twc_models.SubmitAilegalFeedbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SubmitAilegalFeedbackResponse:
+        """
+        Description: 问答反馈
+        Summary: 问答反馈
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SubmitAilegalFeedbackResponse(),
+            self.do_request('1.0', 'twc.notary.ailegal.feedback.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_ailegal_feedback_ex_async(
+        self,
+        request: twc_models.SubmitAilegalFeedbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SubmitAilegalFeedbackResponse:
+        """
+        Description: 问答反馈
+        Summary: 问答反馈
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SubmitAilegalFeedbackResponse(),
+            await self.do_request_async('1.0', 'twc.notary.ailegal.feedback.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_ailegal_question(
+        self,
+        request: twc_models.InitAilegalQuestionRequest,
+    ) -> twc_models.InitAilegalQuestionResponse:
+        """
+        Description: AI法律服务提问接口
+        Summary: 提出问题
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_ailegal_question_ex(request, headers, runtime)
+
+    async def init_ailegal_question_async(
+        self,
+        request: twc_models.InitAilegalQuestionRequest,
+    ) -> twc_models.InitAilegalQuestionResponse:
+        """
+        Description: AI法律服务提问接口
+        Summary: 提出问题
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_ailegal_question_ex_async(request, headers, runtime)
+
+    def init_ailegal_question_ex(
+        self,
+        request: twc_models.InitAilegalQuestionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.InitAilegalQuestionResponse:
+        """
+        Description: AI法律服务提问接口
+        Summary: 提出问题
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.InitAilegalQuestionResponse(),
+            self.do_request('1.0', 'twc.notary.ailegal.question.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_ailegal_question_ex_async(
+        self,
+        request: twc_models.InitAilegalQuestionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.InitAilegalQuestionResponse:
+        """
+        Description: AI法律服务提问接口
+        Summary: 提出问题
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.InitAilegalQuestionResponse(),
+            await self.do_request_async('1.0', 'twc.notary.ailegal.question.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def callback_arbitration_status(
         self,

@@ -9890,6 +9890,341 @@ class JudicialMediationBaseParamInfo(TeaModel):
         return self
 
 
+class QueryAilegalAnswerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        question_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # twc.notary.ailegal.question.init(提出问题)接口返回的问题id
+        # 长度不超过32位
+        self.question_id = question_id
+
+    def validate(self):
+        self.validate_required(self.question_id, 'question_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.question_id is not None:
+            result['question_id'] = self.question_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('question_id') is not None:
+            self.question_id = m.get('question_id')
+        return self
+
+
+class QueryAilegalAnswerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        question_id: str = None,
+        answer: str = None,
+        can_feedback: bool = None,
+        end: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回问题id，全局唯一
+        self.question_id = question_id
+        # 问题答案
+        self.answer = answer
+        # 是否支持反馈(true 是,false 否)
+        self.can_feedback = can_feedback
+        # 是否回答结束(true 是,false 否)
+        self.end = end
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.question_id is not None:
+            result['question_id'] = self.question_id
+        if self.answer is not None:
+            result['answer'] = self.answer
+        if self.can_feedback is not None:
+            result['can_feedback'] = self.can_feedback
+        if self.end is not None:
+            result['end'] = self.end
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('question_id') is not None:
+            self.question_id = m.get('question_id')
+        if m.get('answer') is not None:
+            self.answer = m.get('answer')
+        if m.get('can_feedback') is not None:
+            self.can_feedback = m.get('can_feedback')
+        if m.get('end') is not None:
+            self.end = m.get('end')
+        return self
+
+
+class SubmitAilegalFeedbackRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        question_id: str = None,
+        attitude: str = None,
+        tags: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # twc.notary.ailegal.question.init(提出问题)接口返回的问题id,长度不超过32位
+        self.question_id = question_id
+        # 用户态度，参见枚举类AttitudeEnum
+        self.attitude = attitude
+        # 用户反馈标签集合，与用户态度相对应，参见枚举类TagEnum定义
+        self.tags = tags
+
+    def validate(self):
+        self.validate_required(self.question_id, 'question_id')
+        self.validate_required(self.attitude, 'attitude')
+        self.validate_required(self.tags, 'tags')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.question_id is not None:
+            result['question_id'] = self.question_id
+        if self.attitude is not None:
+            result['attitude'] = self.attitude
+        if self.tags is not None:
+            result['tags'] = self.tags
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('question_id') is not None:
+            self.question_id = m.get('question_id')
+        if m.get('attitude') is not None:
+            self.attitude = m.get('attitude')
+        if m.get('tags') is not None:
+            self.tags = m.get('tags')
+        return self
+
+
+class SubmitAilegalFeedbackResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class InitAilegalQuestionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        question: str = None,
+        first: bool = None,
+        user_id: str = None,
+        user_type: str = None,
+        app_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 提问问题
+        self.question = question
+        # 是否开启新会话
+        self.first = first
+        # 用户id，用户唯一标识
+        self.user_id = user_id
+        # 用户类型，参见枚举类UserTypeEnum
+        self.user_type = user_type
+        # app类型，参见枚举类AppTypeEnum
+        self.app_type = app_type
+
+    def validate(self):
+        self.validate_required(self.question, 'question')
+        if self.question is not None:
+            self.validate_max_length(self.question, 'question', 1000)
+        self.validate_required(self.first, 'first')
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.user_type, 'user_type')
+        self.validate_required(self.app_type, 'app_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.question is not None:
+            result['question'] = self.question
+        if self.first is not None:
+            result['first'] = self.first
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        if self.app_type is not None:
+            result['app_type'] = self.app_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('question') is not None:
+            self.question = m.get('question')
+        if m.get('first') is not None:
+            self.first = m.get('first')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        if m.get('app_type') is not None:
+            self.app_type = m.get('app_type')
+        return self
+
+
+class InitAilegalQuestionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        question_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回问题id，全局唯一
+        self.question_id = question_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.question_id is not None:
+            result['question_id'] = self.question_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('question_id') is not None:
+            self.question_id = m.get('question_id')
+        return self
+
+
 class CallbackArbitrationStatusRequest(TeaModel):
     def __init__(
         self,
@@ -13585,7 +13920,7 @@ class QueryBclRefundResponse(TeaModel):
         self.refund_id = refund_id
         # 退款成功的时间, 退款成功返回
         self.refund_time = refund_time
-        # 退款金额, 单位分, 退款成功时返回
+        # 退款金额, 单位分
         self.refund_amount = refund_amount
         # ● 退款中，REFUNDING（需要调用查询接口查询结果)；
         # ● 退款成功REFUND_SUCCESS
