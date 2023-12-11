@@ -590,6 +590,25 @@ func (s *EvidInfo) SetWitness(v *NotaryUser) *EvidInfo {
 	return s
 }
 
+// 公证申请出证规则
+type NotaryOrderRule struct {
+	// 公证出证支持公证书类型
+	OrderType *string `json:"order_type,omitempty" xml:"order_type,omitempty"`
+}
+
+func (s NotaryOrderRule) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotaryOrderRule) GoString() string {
+	return s.String()
+}
+
+func (s *NotaryOrderRule) SetOrderType(v string) *NotaryOrderRule {
+	s.OrderType = &v
+	return s
+}
+
 // 监测提供商能力
 type MonitorProviderCapability struct {
 	// 供应商id
@@ -1151,6 +1170,10 @@ type NotaryPublicOffice struct {
 	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty" require:"true"`
 	// 公证处隶属
 	Belong *string `json:"belong,omitempty" xml:"belong,omitempty" require:"true"`
+	// 公证处出证规则
+	NotaryOrderRule *NotaryOrderRule `json:"notary_order_rule,omitempty" xml:"notary_order_rule,omitempty"`
+	// 是否允许出证
+	AllowCertification *bool `json:"allow_certification,omitempty" xml:"allow_certification,omitempty"`
 }
 
 func (s NotaryPublicOffice) String() string {
@@ -1188,6 +1211,16 @@ func (s *NotaryPublicOffice) SetOrgName(v string) *NotaryPublicOffice {
 
 func (s *NotaryPublicOffice) SetBelong(v string) *NotaryPublicOffice {
 	s.Belong = &v
+	return s
+}
+
+func (s *NotaryPublicOffice) SetNotaryOrderRule(v *NotaryOrderRule) *NotaryPublicOffice {
+	s.NotaryOrderRule = v
+	return s
+}
+
+func (s *NotaryPublicOffice) SetAllowCertification(v bool) *NotaryPublicOffice {
+	s.AllowCertification = &v
 	return s
 }
 
@@ -2596,6 +2629,74 @@ func (s *RecommendCategoryDetail) SetCategorySimilarRatio(v string) *RecommendCa
 
 func (s *RecommendCategoryDetail) SetCategoryRiskRank(v string) *RecommendCategoryDetail {
 	s.CategoryRiskRank = &v
+	return s
+}
+
+// 地址详细信息
+type DciUserAddressInfo struct {
+	// 所在国家
+	Country *string `json:"country,omitempty" xml:"country,omitempty"`
+	// 所在省份
+	Province *string `json:"province,omitempty" xml:"province,omitempty"`
+	// 所在城市
+	City *string `json:"city,omitempty" xml:"city,omitempty"`
+	// 识别出的地区
+	District *string `json:"district,omitempty" xml:"district,omitempty"`
+	// 识别出的街道
+	Town *string `json:"town,omitempty" xml:"town,omitempty"`
+	// 识别出的路
+	Road *string `json:"road,omitempty" xml:"road,omitempty"`
+	// 识别出的路号牌
+	RoadNo *string `json:"road_no,omitempty" xml:"road_no,omitempty"`
+	// 地址详情
+	AddressDetail *string `json:"address_detail,omitempty" xml:"address_detail,omitempty"`
+}
+
+func (s DciUserAddressInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DciUserAddressInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DciUserAddressInfo) SetCountry(v string) *DciUserAddressInfo {
+	s.Country = &v
+	return s
+}
+
+func (s *DciUserAddressInfo) SetProvince(v string) *DciUserAddressInfo {
+	s.Province = &v
+	return s
+}
+
+func (s *DciUserAddressInfo) SetCity(v string) *DciUserAddressInfo {
+	s.City = &v
+	return s
+}
+
+func (s *DciUserAddressInfo) SetDistrict(v string) *DciUserAddressInfo {
+	s.District = &v
+	return s
+}
+
+func (s *DciUserAddressInfo) SetTown(v string) *DciUserAddressInfo {
+	s.Town = &v
+	return s
+}
+
+func (s *DciUserAddressInfo) SetRoad(v string) *DciUserAddressInfo {
+	s.Road = &v
+	return s
+}
+
+func (s *DciUserAddressInfo) SetRoadNo(v string) *DciUserAddressInfo {
+	s.RoadNo = &v
+	return s
+}
+
+func (s *DciUserAddressInfo) SetAddressDetail(v string) *DciUserAddressInfo {
+	s.AddressDetail = &v
 	return s
 }
 
@@ -7127,6 +7228,8 @@ type QueryDciUserResponse struct {
 	CertEndTime *string `json:"cert_end_time,omitempty" xml:"cert_end_time,omitempty"`
 	// 法人名称
 	LegalPerson *string `json:"legal_person,omitempty" xml:"legal_person,omitempty"`
+	// 联系电话
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
 }
 
 func (s QueryDciUserResponse) String() string {
@@ -7194,6 +7297,11 @@ func (s *QueryDciUserResponse) SetCertEndTime(v string) *QueryDciUserResponse {
 
 func (s *QueryDciUserResponse) SetLegalPerson(v string) *QueryDciUserResponse {
 	s.LegalPerson = &v
+	return s
+}
+
+func (s *QueryDciUserResponse) SetPhone(v string) *QueryDciUserResponse {
+	s.Phone = &v
 	return s
 }
 
@@ -7867,6 +7975,10 @@ type GetDciRegistrationcertResponse struct {
 	DownloadTimesLeft *int64 `json:"download_times_left,omitempty" xml:"download_times_left,omitempty"`
 	// 失败详情
 	FailDetail *string `json:"fail_detail,omitempty" xml:"fail_detail,omitempty"`
+	// 数登证书下载链接
+	DigitalRegisterCertUrl *string `json:"digital_register_cert_url,omitempty" xml:"digital_register_cert_url,omitempty"`
+	// 数登样本证书下载链接
+	DigitalRegisterSampleUrl *string `json:"digital_register_sample_url,omitempty" xml:"digital_register_sample_url,omitempty"`
 }
 
 func (s GetDciRegistrationcertResponse) String() string {
@@ -7929,6 +8041,16 @@ func (s *GetDciRegistrationcertResponse) SetDownloadTimesLeft(v int64) *GetDciRe
 
 func (s *GetDciRegistrationcertResponse) SetFailDetail(v string) *GetDciRegistrationcertResponse {
 	s.FailDetail = &v
+	return s
+}
+
+func (s *GetDciRegistrationcertResponse) SetDigitalRegisterCertUrl(v string) *GetDciRegistrationcertResponse {
+	s.DigitalRegisterCertUrl = &v
+	return s
+}
+
+func (s *GetDciRegistrationcertResponse) SetDigitalRegisterSampleUrl(v string) *GetDciRegistrationcertResponse {
+	s.DigitalRegisterSampleUrl = &v
 	return s
 }
 
@@ -10967,7 +11089,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.65"),
+				"sdk_version":      tea.String("1.17.77"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
