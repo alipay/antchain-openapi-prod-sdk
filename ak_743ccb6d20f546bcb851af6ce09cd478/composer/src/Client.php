@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_743ccb6d20f546bcb851af6ce09cd478\Models\QueryIdentityTagFeatureScoreRequest;
+use AntChain\Ak_743ccb6d20f546bcb851af6ce09cd478\Models\QueryIdentityTagFeatureScoreResponse;
 use AntChain\Ak_743ccb6d20f546bcb851af6ce09cd478\Models\QueryIdentityTagScoreRequest;
 use AntChain\Ak_743ccb6d20f546bcb851af6ce09cd478\Models\QueryIdentityTagScoreResponse;
 use AntChain\Util\UtilClient;
@@ -159,7 +161,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.4',
+                    'sdk_version'      => '1.0.5',
                     '_prod_code'       => 'ak_743ccb6d20f546bcb851af6ce09cd478',
                     '_prod_channel'    => 'saas',
                 ];
@@ -238,5 +240,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryIdentityTagScoreResponse::fromMap($this->doRequest('1.0', 'identity.tag.score.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询身份标签分数-个人
+     * Summary: 查询个人标签分数.
+     *
+     * @param QueryIdentityTagFeatureScoreRequest $request
+     *
+     * @return QueryIdentityTagFeatureScoreResponse
+     */
+    public function queryIdentityTagFeatureScore($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIdentityTagFeatureScoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询身份标签分数-个人
+     * Summary: 查询个人标签分数.
+     *
+     * @param QueryIdentityTagFeatureScoreRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryIdentityTagFeatureScoreResponse
+     */
+    public function queryIdentityTagFeatureScoreEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIdentityTagFeatureScoreResponse::fromMap($this->doRequest('1.0', 'identity.tag.feature.score.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
