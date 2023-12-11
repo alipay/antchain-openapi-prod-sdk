@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_743ccb6d20f546bcb851af6ce09cd478
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.5"},
                         {"_prod_code", "ak_743ccb6d20f546bcb851af6ce09cd478"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_743ccb6d20f546bcb851af6ce09cd478
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.5"},
                         {"_prod_code", "ak_743ccb6d20f546bcb851af6ce09cd478"},
                         {"_prod_channel", "saas"},
                     };
@@ -361,6 +361,48 @@ namespace AntChain.SDK.Ak_743ccb6d20f546bcb851af6ce09cd478
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryIdentityTagScoreResponse>(await DoRequestAsync("1.0", "identity.tag.score.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询身份标签分数-个人
+         * Summary: 查询个人标签分数
+         */
+        public QueryIdentityTagFeatureScoreResponse QueryIdentityTagFeatureScore(QueryIdentityTagFeatureScoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIdentityTagFeatureScoreEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询身份标签分数-个人
+         * Summary: 查询个人标签分数
+         */
+        public async Task<QueryIdentityTagFeatureScoreResponse> QueryIdentityTagFeatureScoreAsync(QueryIdentityTagFeatureScoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIdentityTagFeatureScoreExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询身份标签分数-个人
+         * Summary: 查询个人标签分数
+         */
+        public QueryIdentityTagFeatureScoreResponse QueryIdentityTagFeatureScoreEx(QueryIdentityTagFeatureScoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIdentityTagFeatureScoreResponse>(DoRequest("1.0", "identity.tag.feature.score.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询身份标签分数-个人
+         * Summary: 查询个人标签分数
+         */
+        public async Task<QueryIdentityTagFeatureScoreResponse> QueryIdentityTagFeatureScoreExAsync(QueryIdentityTagFeatureScoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIdentityTagFeatureScoreResponse>(await DoRequestAsync("1.0", "identity.tag.feature.score.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
