@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.8',
+    sdk_version = '1.12.10',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -2613,6 +2613,137 @@ model JudicialMediationBaseParamInfo {
   minAmount: string(name='min_amount', example='100.00'),
 }
 
+model QueryAilegalAnswerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // twc.notary.ailegal.question.init(提出问题)接口返回的问题id
+  // 长度不超过32位
+  questionId: string(name='question_id'),
+}
+
+model QueryAilegalAnswerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回问题id，全局唯一
+  questionId?: string(name='question_id'),
+  // 问题答案
+  answer?: string(name='answer'),
+  // 是否支持反馈(true 是,false 否)
+  canFeedback?: boolean(name='can_feedback'),
+  // 是否回答结束(true 是,false 否)
+  end?: boolean(name='end'),
+}
+
+/**
+ * Description: AI提问获取答案
+ * Summary: 获取答案
+ */
+async function queryAilegalAnswer(request: QueryAilegalAnswerRequest): QueryAilegalAnswerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAilegalAnswerEx(request, headers, runtime);
+}
+
+/**
+ * Description: AI提问获取答案
+ * Summary: 获取答案
+ */
+async function queryAilegalAnswerEx(request: QueryAilegalAnswerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAilegalAnswerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.ailegal.answer.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAilegalFeedbackRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // twc.notary.ailegal.question.init(提出问题)接口返回的问题id,长度不超过32位
+  questionId: string(name='question_id'),
+  // 用户态度，参见枚举类AttitudeEnum
+  attitude: string(name='attitude'),
+  // 用户反馈标签集合，与用户态度相对应，参见枚举类TagEnum定义
+  tags: [ string ](name='tags'),
+}
+
+model SubmitAilegalFeedbackResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 问答反馈
+ * Summary: 问答反馈
+ */
+async function submitAilegalFeedback(request: SubmitAilegalFeedbackRequest): SubmitAilegalFeedbackResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAilegalFeedbackEx(request, headers, runtime);
+}
+
+/**
+ * Description: 问答反馈
+ * Summary: 问答反馈
+ */
+async function submitAilegalFeedbackEx(request: SubmitAilegalFeedbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAilegalFeedbackResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.ailegal.feedback.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitAilegalQuestionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 提问问题
+  question: string(maxLength=1000, name='question'),
+  // 是否开启新会话
+  first: boolean(name='first'),
+  // 用户id，用户唯一标识
+  userId: string(name='user_id'),
+  // 用户类型，参见枚举类UserTypeEnum
+  userType: string(name='user_type'),
+  // app类型，参见枚举类AppTypeEnum
+  appType: string(name='app_type'),
+}
+
+model InitAilegalQuestionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回问题id，全局唯一
+  questionId?: string(name='question_id'),
+}
+
+/**
+ * Description: AI法律服务提问接口
+ * Summary: 提出问题
+ */
+async function initAilegalQuestion(request: InitAilegalQuestionRequest): InitAilegalQuestionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initAilegalQuestionEx(request, headers, runtime);
+}
+
+/**
+ * Description: AI法律服务提问接口
+ * Summary: 提出问题
+ */
+async function initAilegalQuestionEx(request: InitAilegalQuestionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitAilegalQuestionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.ailegal.question.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CallbackArbitrationStatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -3968,7 +4099,7 @@ model QueryBclRefundResponse = {
   refundId?: string(name='refund_id'),
   // 退款成功的时间, 退款成功返回
   refundTime?: string(name='refund_time'),
-  // 退款金额, 单位分, 退款成功时返回
+  // 退款金额, 单位分
   refundAmount?: long(name='refund_amount'),
   // ● 退款中，REFUNDING（需要调用查询接口查询结果)；
   // ● 退款成功REFUND_SUCCESS
