@@ -86,6 +86,14 @@ class JtData extends Model
      * @var string
      */
     public $relatedTrustEntityId;
+
+    // 日报日期
+    /**
+     * @example 2023-12-01
+     *
+     * @var string
+     */
+    public $reportDate;
     protected $_name = [
         'trustiotId'           => 'trustiot_id',
         'trustiotEntityId'     => 'trustiot_entity_id',
@@ -94,6 +102,7 @@ class JtData extends Model
         'bizType'              => 'biz_type',
         'alarmSubType'         => 'alarm_sub_type',
         'relatedTrustEntityId' => 'related_trust_entity_id',
+        'reportDate'           => 'report_date',
     ];
 
     public function validate()
@@ -128,6 +137,9 @@ class JtData extends Model
         if (null !== $this->relatedTrustEntityId) {
             $res['related_trust_entity_id'] = $this->relatedTrustEntityId;
         }
+        if (null !== $this->reportDate) {
+            $res['report_date'] = $this->reportDate;
+        }
 
         return $res;
     }
@@ -160,6 +172,9 @@ class JtData extends Model
         }
         if (isset($map['related_trust_entity_id'])) {
             $model->relatedTrustEntityId = $map['related_trust_entity_id'];
+        }
+        if (isset($map['report_date'])) {
+            $model->reportDate = $map['report_date'];
         }
 
         return $model;
