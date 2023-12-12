@@ -1488,6 +1488,7 @@ class JtData(TeaModel):
         biz_type: str = None,
         alarm_sub_type: int = None,
         related_trust_entity_id: str = None,
+        report_date: str = None,
     ):
         # 数据的可信平台唯一ID
         self.trustiot_id = trustiot_id
@@ -1526,6 +1527,8 @@ class JtData(TeaModel):
         self.alarm_sub_type = alarm_sub_type
         # 关联设备唯一ID
         self.related_trust_entity_id = related_trust_entity_id
+        # 日报日期
+        self.report_date = report_date
 
     def validate(self):
         self.validate_required(self.trustiot_id, 'trustiot_id')
@@ -1553,6 +1556,8 @@ class JtData(TeaModel):
             result['alarm_sub_type'] = self.alarm_sub_type
         if self.related_trust_entity_id is not None:
             result['related_trust_entity_id'] = self.related_trust_entity_id
+        if self.report_date is not None:
+            result['report_date'] = self.report_date
         return result
 
     def from_map(self, m: dict = None):
@@ -1571,6 +1576,8 @@ class JtData(TeaModel):
             self.alarm_sub_type = m.get('alarm_sub_type')
         if m.get('related_trust_entity_id') is not None:
             self.related_trust_entity_id = m.get('related_trust_entity_id')
+        if m.get('report_date') is not None:
+            self.report_date = m.get('report_date')
         return self
 
 
