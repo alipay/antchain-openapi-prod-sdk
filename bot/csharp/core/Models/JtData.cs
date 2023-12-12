@@ -68,6 +68,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string RelatedTrustEntityId { get; set; }
 
+        // 日报日期
+        [NameInMap("report_date")]
+        [Validation(Required=false)]
+        public string ReportDate { get; set; }
+
     }
 
 }
