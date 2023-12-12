@@ -914,6 +914,8 @@ export class JtData extends $tea.Model {
   alarmSubType?: number;
   // 关联设备唯一ID
   relatedTrustEntityId?: string;
+  // 日报日期
+  reportDate?: string;
   static names(): { [key: string]: string } {
     return {
       trustiotId: 'trustiot_id',
@@ -923,6 +925,7 @@ export class JtData extends $tea.Model {
       bizType: 'biz_type',
       alarmSubType: 'alarm_sub_type',
       relatedTrustEntityId: 'related_trust_entity_id',
+      reportDate: 'report_date',
     };
   }
 
@@ -935,6 +938,7 @@ export class JtData extends $tea.Model {
       bizType: 'string',
       alarmSubType: 'number',
       relatedTrustEntityId: 'string',
+      reportDate: 'string',
     };
   }
 
@@ -21324,7 +21328,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.7",
+          sdk_version: "1.9.8",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
