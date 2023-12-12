@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.9.7',
+    sdk_version = '1.9.8',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -516,6 +516,8 @@ model JtData {
   alarmSubType?: long(name='alarm_sub_type', example='10001'),
   // 关联设备唯一ID
   relatedTrustEntityId?: string(name='related_trust_entity_id', example='123'),
+  // 日报日期
+  reportDate?: string(name='report_date', example='2023-12-01'),
 }
 
 // 租赁合同信息
