@@ -59,6 +59,10 @@ public class JtData extends TeaModel {
     @NameInMap("related_trust_entity_id")
     public String relatedTrustEntityId;
 
+    // 日报日期
+    @NameInMap("report_date")
+    public String reportDate;
+
     public static JtData build(java.util.Map<String, ?> map) throws Exception {
         JtData self = new JtData();
         return TeaModel.build(map, self);
@@ -118,6 +122,14 @@ public class JtData extends TeaModel {
     }
     public String getRelatedTrustEntityId() {
         return this.relatedTrustEntityId;
+    }
+
+    public JtData setReportDate(String reportDate) {
+        this.reportDate = reportDate;
+        return this;
+    }
+    public String getReportDate() {
+        return this.reportDate;
     }
 
 }
