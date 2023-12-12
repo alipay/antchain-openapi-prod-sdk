@@ -1241,6 +1241,8 @@ type JtData struct {
 	AlarmSubType *int64 `json:"alarm_sub_type,omitempty" xml:"alarm_sub_type,omitempty"`
 	// 关联设备唯一ID
 	RelatedTrustEntityId *string `json:"related_trust_entity_id,omitempty" xml:"related_trust_entity_id,omitempty"`
+	// 日报日期
+	ReportDate *string `json:"report_date,omitempty" xml:"report_date,omitempty"`
 }
 
 func (s JtData) String() string {
@@ -1283,6 +1285,11 @@ func (s *JtData) SetAlarmSubType(v int64) *JtData {
 
 func (s *JtData) SetRelatedTrustEntityId(v string) *JtData {
 	s.RelatedTrustEntityId = &v
+	return s
+}
+
+func (s *JtData) SetReportDate(v string) *JtData {
+	s.ReportDate = &v
 	return s
 }
 
@@ -27737,7 +27744,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.7"),
+				"sdk_version":      tea.String("1.9.8"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
