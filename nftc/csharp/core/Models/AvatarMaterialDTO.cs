@@ -41,6 +41,21 @@ namespace AntChain.SDK.NFTC.Models
         [Validation(Required=true)]
         public string AvatarPvJson { get; set; }
 
+        // 安卓ab包
+        [NameInMap("android_ab_url")]
+        [Validation(Required=true)]
+        public string AndroidAbUrl { get; set; }
+
+        // IOS AB 包
+        [NameInMap("ios_ab_url")]
+        [Validation(Required=true)]
+        public string IosAbUrl { get; set; }
+
+        // 法令贴图文件
+        [NameInMap("faling_texture_url")]
+        [Validation(Required=true)]
+        public string FalingTextureUrl { get; set; }
+
     }
 
 }
