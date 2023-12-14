@@ -163,6 +163,9 @@ class AvatarMaterialDTO(TeaModel):
         texture_url: str = None,
         thumbnail: str = None,
         avatar_pv_json: str = None,
+        android_ab_url: str = None,
+        ios_ab_url: str = None,
+        faling_texture_url: str = None,
     ):
         # 装扮id
         self.deco_id = deco_id
@@ -177,6 +180,12 @@ class AvatarMaterialDTO(TeaModel):
         # json字符串，装扮额外属性信息
         # 如自定义头发颜色，性别等
         self.avatar_pv_json = avatar_pv_json
+        # 安卓ab包
+        self.android_ab_url = android_ab_url
+        # IOS AB 包
+        self.ios_ab_url = ios_ab_url
+        # 法令贴图文件
+        self.faling_texture_url = faling_texture_url
 
     def validate(self):
         self.validate_required(self.deco_id, 'deco_id')
@@ -185,6 +194,9 @@ class AvatarMaterialDTO(TeaModel):
         self.validate_required(self.texture_url, 'texture_url')
         self.validate_required(self.thumbnail, 'thumbnail')
         self.validate_required(self.avatar_pv_json, 'avatar_pv_json')
+        self.validate_required(self.android_ab_url, 'android_ab_url')
+        self.validate_required(self.ios_ab_url, 'ios_ab_url')
+        self.validate_required(self.faling_texture_url, 'faling_texture_url')
 
     def to_map(self):
         _map = super().to_map()
@@ -204,6 +216,12 @@ class AvatarMaterialDTO(TeaModel):
             result['thumbnail'] = self.thumbnail
         if self.avatar_pv_json is not None:
             result['avatar_pv_json'] = self.avatar_pv_json
+        if self.android_ab_url is not None:
+            result['android_ab_url'] = self.android_ab_url
+        if self.ios_ab_url is not None:
+            result['ios_ab_url'] = self.ios_ab_url
+        if self.faling_texture_url is not None:
+            result['faling_texture_url'] = self.faling_texture_url
         return result
 
     def from_map(self, m: dict = None):
@@ -220,6 +238,12 @@ class AvatarMaterialDTO(TeaModel):
             self.thumbnail = m.get('thumbnail')
         if m.get('avatar_pv_json') is not None:
             self.avatar_pv_json = m.get('avatar_pv_json')
+        if m.get('android_ab_url') is not None:
+            self.android_ab_url = m.get('android_ab_url')
+        if m.get('ios_ab_url') is not None:
+            self.ios_ab_url = m.get('ios_ab_url')
+        if m.get('faling_texture_url') is not None:
+            self.faling_texture_url = m.get('faling_texture_url')
         return self
 
 
