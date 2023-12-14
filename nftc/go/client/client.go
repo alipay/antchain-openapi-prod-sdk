@@ -315,8 +315,6 @@ func (s *ExternalOrderDTO) SetOrderItemList(v []*ExternalOrderItemDTO) *External
 
 // 数字人整体形象
 type AvatarDTO struct {
-	// 数字人基础身体白模
-	AvatarBodyUrl *string `json:"avatar_body_url,omitempty" xml:"avatar_body_url,omitempty" require:"true"`
 	// 上衣配置
 	Upcloth *AvatarMaterialDTO `json:"upcloth,omitempty" xml:"upcloth,omitempty" require:"true"`
 	// 下衣配置
@@ -355,6 +353,12 @@ type AvatarDTO struct {
 	Eyeliner *AvatarMaterialDTO `json:"eyeliner,omitempty" xml:"eyeliner,omitempty" require:"true"`
 	// 眼影配置
 	Eyeshadow *AvatarMaterialDTO `json:"eyeshadow,omitempty" xml:"eyeshadow,omitempty" require:"true"`
+	// webgl ab包链接
+	AvatarWebGlUnityBodyUrl *string `json:"avatar_web_gl_unity_body_url,omitempty" xml:"avatar_web_gl_unity_body_url,omitempty" require:"true"`
+	// ios ab包链接
+	AvatarIosUnityBodyUrl *string `json:"avatar_ios_unity_body_url,omitempty" xml:"avatar_ios_unity_body_url,omitempty" require:"true"`
+	// android ab包链接
+	AvatarAndroidUnityBodyUrl *string `json:"avatar_android_unity_body_url,omitempty" xml:"avatar_android_unity_body_url,omitempty" require:"true"`
 }
 
 func (s AvatarDTO) String() string {
@@ -363,11 +367,6 @@ func (s AvatarDTO) String() string {
 
 func (s AvatarDTO) GoString() string {
 	return s.String()
-}
-
-func (s *AvatarDTO) SetAvatarBodyUrl(v string) *AvatarDTO {
-	s.AvatarBodyUrl = &v
-	return s
 }
 
 func (s *AvatarDTO) SetUpcloth(v *AvatarMaterialDTO) *AvatarDTO {
@@ -462,6 +461,21 @@ func (s *AvatarDTO) SetEyeliner(v *AvatarMaterialDTO) *AvatarDTO {
 
 func (s *AvatarDTO) SetEyeshadow(v *AvatarMaterialDTO) *AvatarDTO {
 	s.Eyeshadow = v
+	return s
+}
+
+func (s *AvatarDTO) SetAvatarWebGlUnityBodyUrl(v string) *AvatarDTO {
+	s.AvatarWebGlUnityBodyUrl = &v
+	return s
+}
+
+func (s *AvatarDTO) SetAvatarIosUnityBodyUrl(v string) *AvatarDTO {
+	s.AvatarIosUnityBodyUrl = &v
+	return s
+}
+
+func (s *AvatarDTO) SetAvatarAndroidUnityBodyUrl(v string) *AvatarDTO {
+	s.AvatarAndroidUnityBodyUrl = &v
 	return s
 }
 
@@ -2046,7 +2060,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.9"),
+				"sdk_version":      tea.String("1.0.10"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
