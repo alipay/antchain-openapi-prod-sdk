@@ -216,8 +216,6 @@ export class ExternalOrderDTO extends $tea.Model {
 
 // 数字人整体形象
 export class AvatarDTO extends $tea.Model {
-  // 数字人基础身体白模
-  avatarBodyUrl: string;
   // 上衣配置
   upcloth: AvatarMaterialDTO;
   // 下衣配置
@@ -256,9 +254,14 @@ export class AvatarDTO extends $tea.Model {
   eyeliner: AvatarMaterialDTO;
   // 眼影配置
   eyeshadow: AvatarMaterialDTO;
+  // webgl ab包链接
+  avatarWebGlUnityBodyUrl: string;
+  // ios ab包链接
+  avatarIosUnityBodyUrl: string;
+  // android ab包链接
+  avatarAndroidUnityBodyUrl: string;
   static names(): { [key: string]: string } {
     return {
-      avatarBodyUrl: 'avatar_body_url',
       upcloth: 'upcloth',
       downcloth: 'downcloth',
       shoe: 'shoe',
@@ -278,12 +281,14 @@ export class AvatarDTO extends $tea.Model {
       lipstick: 'lipstick',
       eyeliner: 'eyeliner',
       eyeshadow: 'eyeshadow',
+      avatarWebGlUnityBodyUrl: 'avatar_web_gl_unity_body_url',
+      avatarIosUnityBodyUrl: 'avatar_ios_unity_body_url',
+      avatarAndroidUnityBodyUrl: 'avatar_android_unity_body_url',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      avatarBodyUrl: 'string',
       upcloth: AvatarMaterialDTO,
       downcloth: AvatarMaterialDTO,
       shoe: AvatarMaterialDTO,
@@ -303,6 +308,9 @@ export class AvatarDTO extends $tea.Model {
       lipstick: AvatarMaterialDTO,
       eyeliner: AvatarMaterialDTO,
       eyeshadow: AvatarMaterialDTO,
+      avatarWebGlUnityBodyUrl: 'string',
+      avatarIosUnityBodyUrl: 'string',
+      avatarAndroidUnityBodyUrl: 'string',
     };
   }
 
@@ -1545,7 +1553,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.9",
+          sdk_version: "1.0.10",
           _prod_code: "NFTC",
           _prod_channel: "undefined",
         };
