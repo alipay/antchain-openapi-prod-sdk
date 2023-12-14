@@ -206,12 +206,16 @@ class RiskEvaluationDistrictExtRequest(TeaModel):
     def __init__(
         self,
         city_code: str = None,
+        prov_code: str = None,
     ):
         # 地区编码
         self.city_code = city_code
+        # 省级编码
+        self.prov_code = prov_code
 
     def validate(self):
         self.validate_required(self.city_code, 'city_code')
+        self.validate_required(self.prov_code, 'prov_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -221,12 +225,16 @@ class RiskEvaluationDistrictExtRequest(TeaModel):
         result = dict()
         if self.city_code is not None:
             result['city_code'] = self.city_code
+        if self.prov_code is not None:
+            result['prov_code'] = self.prov_code
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('city_code') is not None:
             self.city_code = m.get('city_code')
+        if m.get('prov_code') is not None:
+            self.prov_code = m.get('prov_code')
         return self
 
 
@@ -883,6 +891,196 @@ class SyncBlockchainTaxRiskEvaluationResponse(TeaModel):
             self.query_time = m.get('query_time')
         if m.get('biz_content') is not None:
             self.biz_content = m.get('biz_content')
+        return self
+
+
+class StartBlockchainTaxRiskEvaluationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        identity_id: str = None,
+        identity_name: str = None,
+        enterprise_id: str = None,
+        enterprise_name: str = None,
+        identity_type: str = None,
+        auth_type: str = None,
+        order_no: str = None,
+        biz_request_id: str = None,
+        sub_tenant: str = None,
+        extend_info: RiskEvaluationExtendInfoRequest = None,
+        search_model: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 个人身份证号
+        self.identity_id = identity_id
+        # 个人姓名
+        self.identity_name = identity_name
+        # 企业的统一社会信用编码
+        self.enterprise_id = enterprise_id
+        # 某某某公司
+        self.enterprise_name = enterprise_name
+        # 企业或者个人企业：ENTERPRISE 个人：PERSONAL
+        self.identity_type = identity_type
+        # 101
+        self.auth_type = auth_type
+        # 授权订单号
+        self.order_no = order_no
+        # 请求流水号(必填),调用 方保证每次请求号唯   一，受理方用来校验唯 一性，同一受理号返回 请求结果一致
+        self.biz_request_id = biz_request_id
+        # 子渠道渠道编码，需要同步蚂蚁，由蚂蚁设置。如果是银行本身，可不填 备注：如果同一信贷客户在不同银行的调用需要严格区分，分别授权
+        self.sub_tenant = sub_tenant
+        # 扩展信息
+        self.extend_info = extend_info
+        # 查询模式，SINGLE_CITY 查到第一个城市就结束，ALL_CITY 查询所有城市，默认ALL_CITY
+        self.search_model = search_model
+
+    def validate(self):
+        self.validate_required(self.identity_id, 'identity_id')
+        self.validate_required(self.identity_type, 'identity_type')
+        self.validate_required(self.auth_type, 'auth_type')
+        self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.biz_request_id, 'biz_request_id')
+        self.validate_required(self.sub_tenant, 'sub_tenant')
+        self.validate_required(self.extend_info, 'extend_info')
+        if self.extend_info:
+            self.extend_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.identity_id is not None:
+            result['identity_id'] = self.identity_id
+        if self.identity_name is not None:
+            result['identity_name'] = self.identity_name
+        if self.enterprise_id is not None:
+            result['enterprise_id'] = self.enterprise_id
+        if self.enterprise_name is not None:
+            result['enterprise_name'] = self.enterprise_name
+        if self.identity_type is not None:
+            result['identity_type'] = self.identity_type
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.biz_request_id is not None:
+            result['biz_request_id'] = self.biz_request_id
+        if self.sub_tenant is not None:
+            result['sub_tenant'] = self.sub_tenant
+        if self.extend_info is not None:
+            result['extend_info'] = self.extend_info.to_map()
+        if self.search_model is not None:
+            result['search_model'] = self.search_model
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('identity_id') is not None:
+            self.identity_id = m.get('identity_id')
+        if m.get('identity_name') is not None:
+            self.identity_name = m.get('identity_name')
+        if m.get('enterprise_id') is not None:
+            self.enterprise_id = m.get('enterprise_id')
+        if m.get('enterprise_name') is not None:
+            self.enterprise_name = m.get('enterprise_name')
+        if m.get('identity_type') is not None:
+            self.identity_type = m.get('identity_type')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('biz_request_id') is not None:
+            self.biz_request_id = m.get('biz_request_id')
+        if m.get('sub_tenant') is not None:
+            self.sub_tenant = m.get('sub_tenant')
+        if m.get('extend_info') is not None:
+            temp_model = RiskEvaluationExtendInfoRequest()
+            self.extend_info = temp_model.from_map(m['extend_info'])
+        if m.get('search_model') is not None:
+            self.search_model = m.get('search_model')
+        return self
+
+
+class StartBlockchainTaxRiskEvaluationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_no: str = None,
+        auth_success: str = None,
+        expire_time: int = None,
+        auth_time: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 授权订单订单号
+        self.order_no = order_no
+        # 是否授权成功true是，false否
+        self.auth_success = auth_success
+        # 过期时间，unix时间戳 毫秒
+        self.expire_time = expire_time
+        # 授权时间，unix时间戳 毫秒
+        self.auth_time = auth_time
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.auth_success is not None:
+            result['auth_success'] = self.auth_success
+        if self.expire_time is not None:
+            result['expire_time'] = self.expire_time
+        if self.auth_time is not None:
+            result['auth_time'] = self.auth_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('auth_success') is not None:
+            self.auth_success = m.get('auth_success')
+        if m.get('expire_time') is not None:
+            self.expire_time = m.get('expire_time')
+        if m.get('auth_time') is not None:
+            self.auth_time = m.get('auth_time')
         return self
 
 

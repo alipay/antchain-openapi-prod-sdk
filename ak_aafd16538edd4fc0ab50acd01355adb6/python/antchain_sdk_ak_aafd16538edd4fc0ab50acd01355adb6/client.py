@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'ak_aafd16538edd4fc0ab50acd01355adb6',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'ak_aafd16538edd4fc0ab50acd01355adb6',
                     '_prod_channel': 'saas'
                 }
@@ -497,4 +497,60 @@ class Client:
         return TeaCore.from_map(
             ak_aafd_16538edd_4fc_0ab_50acd_01355adb_6_models.SyncBlockchainTaxRiskEvaluationResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.risk.evaluation.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_blockchain_tax_risk_evaluation(
+        self,
+        request: ak_aafd_16538edd_4fc_0ab_50acd_01355adb_6_models.StartBlockchainTaxRiskEvaluationRequest,
+    ) -> ak_aafd_16538edd_4fc_0ab_50acd_01355adb_6_models.StartBlockchainTaxRiskEvaluationResponse:
+        """
+        Description: 提额资质评估授权并查询,支持省级查询
+        Summary: 提额资质评估授权并查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_blockchain_tax_risk_evaluation_ex(request, headers, runtime)
+
+    async def start_blockchain_tax_risk_evaluation_async(
+        self,
+        request: ak_aafd_16538edd_4fc_0ab_50acd_01355adb_6_models.StartBlockchainTaxRiskEvaluationRequest,
+    ) -> ak_aafd_16538edd_4fc_0ab_50acd_01355adb_6_models.StartBlockchainTaxRiskEvaluationResponse:
+        """
+        Description: 提额资质评估授权并查询,支持省级查询
+        Summary: 提额资质评估授权并查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_blockchain_tax_risk_evaluation_ex_async(request, headers, runtime)
+
+    def start_blockchain_tax_risk_evaluation_ex(
+        self,
+        request: ak_aafd_16538edd_4fc_0ab_50acd_01355adb_6_models.StartBlockchainTaxRiskEvaluationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_aafd_16538edd_4fc_0ab_50acd_01355adb_6_models.StartBlockchainTaxRiskEvaluationResponse:
+        """
+        Description: 提额资质评估授权并查询,支持省级查询
+        Summary: 提额资质评估授权并查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_aafd_16538edd_4fc_0ab_50acd_01355adb_6_models.StartBlockchainTaxRiskEvaluationResponse(),
+            self.do_request('1.0', 'blockchain.tax.risk.evaluation.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_blockchain_tax_risk_evaluation_ex_async(
+        self,
+        request: ak_aafd_16538edd_4fc_0ab_50acd_01355adb_6_models.StartBlockchainTaxRiskEvaluationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_aafd_16538edd_4fc_0ab_50acd_01355adb_6_models.StartBlockchainTaxRiskEvaluationResponse:
+        """
+        Description: 提额资质评估授权并查询,支持省级查询
+        Summary: 提额资质评估授权并查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_aafd_16538edd_4fc_0ab_50acd_01355adb_6_models.StartBlockchainTaxRiskEvaluationResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.risk.evaluation.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
