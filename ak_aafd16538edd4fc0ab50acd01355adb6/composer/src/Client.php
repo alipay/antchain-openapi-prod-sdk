@@ -17,6 +17,8 @@ use AntChain\Ak_aafd16538edd4fc0ab50acd01355adb6\Models\ImportDataBccCompanyPers
 use AntChain\Ak_aafd16538edd4fc0ab50acd01355adb6\Models\ImportDataBccCompanyPersonResponse;
 use AntChain\Ak_aafd16538edd4fc0ab50acd01355adb6\Models\QueryBlockchainTaxRiskEvaluationRequest;
 use AntChain\Ak_aafd16538edd4fc0ab50acd01355adb6\Models\QueryBlockchainTaxRiskEvaluationResponse;
+use AntChain\Ak_aafd16538edd4fc0ab50acd01355adb6\Models\StartBlockchainTaxRiskEvaluationRequest;
+use AntChain\Ak_aafd16538edd4fc0ab50acd01355adb6\Models\StartBlockchainTaxRiskEvaluationResponse;
 use AntChain\Ak_aafd16538edd4fc0ab50acd01355adb6\Models\SyncBlockchainTaxRiskEvaluationRequest;
 use AntChain\Ak_aafd16538edd4fc0ab50acd01355adb6\Models\SyncBlockchainTaxRiskEvaluationResponse;
 use AntChain\Util\UtilClient;
@@ -166,7 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.1.0',
                     '_prod_code'       => 'ak_aafd16538edd4fc0ab50acd01355adb6',
                     '_prod_channel'    => 'saas',
                 ];
@@ -344,5 +346,38 @@ class Client
         Utils::validateModel($request);
 
         return SyncBlockchainTaxRiskEvaluationResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.risk.evaluation.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提额资质评估授权并查询,支持省级查询
+     * Summary: 提额资质评估授权并查询.
+     *
+     * @param StartBlockchainTaxRiskEvaluationRequest $request
+     *
+     * @return StartBlockchainTaxRiskEvaluationResponse
+     */
+    public function startBlockchainTaxRiskEvaluation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startBlockchainTaxRiskEvaluationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提额资质评估授权并查询,支持省级查询
+     * Summary: 提额资质评估授权并查询.
+     *
+     * @param StartBlockchainTaxRiskEvaluationRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return StartBlockchainTaxRiskEvaluationResponse
+     */
+    public function startBlockchainTaxRiskEvaluationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartBlockchainTaxRiskEvaluationResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.risk.evaluation.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

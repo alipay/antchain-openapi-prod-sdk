@@ -15,13 +15,23 @@ class RiskEvaluationDistrictExtRequest extends Model
      * @var string
      */
     public $cityCode;
+
+    // 省级编码
+    /**
+     * @example 510000
+     *
+     * @var string
+     */
+    public $provCode;
     protected $_name = [
         'cityCode' => 'city_code',
+        'provCode' => 'prov_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('cityCode', $this->cityCode, true);
+        Model::validateRequired('provCode', $this->provCode, true);
     }
 
     public function toMap()
@@ -29,6 +39,9 @@ class RiskEvaluationDistrictExtRequest extends Model
         $res = [];
         if (null !== $this->cityCode) {
             $res['city_code'] = $this->cityCode;
+        }
+        if (null !== $this->provCode) {
+            $res['prov_code'] = $this->provCode;
         }
 
         return $res;
@@ -44,6 +57,9 @@ class RiskEvaluationDistrictExtRequest extends Model
         $model = new self();
         if (isset($map['city_code'])) {
             $model->cityCode = $map['city_code'];
+        }
+        if (isset($map['prov_code'])) {
+            $model->provCode = $map['prov_code'];
         }
 
         return $model;
