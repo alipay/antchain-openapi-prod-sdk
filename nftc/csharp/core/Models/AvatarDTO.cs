@@ -10,11 +10,6 @@ namespace AntChain.SDK.NFTC.Models
 {
     // 数字人整体形象
     public class AvatarDTO : TeaModel {
-        // 数字人基础身体白模
-        [NameInMap("avatar_body_url")]
-        [Validation(Required=true)]
-        public string AvatarBodyUrl { get; set; }
-
         // 上衣配置
         [NameInMap("upcloth")]
         [Validation(Required=true)]
@@ -109,6 +104,21 @@ namespace AntChain.SDK.NFTC.Models
         [NameInMap("eyeshadow")]
         [Validation(Required=true)]
         public AvatarMaterialDTO Eyeshadow { get; set; }
+
+        // webgl ab包链接
+        [NameInMap("avatar_web_gl_unity_body_url")]
+        [Validation(Required=true)]
+        public string AvatarWebGlUnityBodyUrl { get; set; }
+
+        // ios ab包链接
+        [NameInMap("avatar_ios_unity_body_url")]
+        [Validation(Required=true)]
+        public string AvatarIosUnityBodyUrl { get; set; }
+
+        // android ab包链接
+        [NameInMap("avatar_android_unity_body_url")]
+        [Validation(Required=true)]
+        public string AvatarAndroidUnityBodyUrl { get; set; }
 
     }
 
