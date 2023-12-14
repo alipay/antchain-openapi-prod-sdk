@@ -163,6 +163,12 @@ type AvatarMaterialDTO struct {
 	// json字符串，装扮额外属性信息
 	// 如自定义头发颜色，性别等
 	AvatarPvJson *string `json:"avatar_pv_json,omitempty" xml:"avatar_pv_json,omitempty" require:"true"`
+	// 安卓ab包
+	AndroidAbUrl *string `json:"android_ab_url,omitempty" xml:"android_ab_url,omitempty" require:"true"`
+	// IOS AB 包
+	IosAbUrl *string `json:"ios_ab_url,omitempty" xml:"ios_ab_url,omitempty" require:"true"`
+	// 法令贴图文件
+	FalingTextureUrl *string `json:"faling_texture_url,omitempty" xml:"faling_texture_url,omitempty" require:"true"`
 }
 
 func (s AvatarMaterialDTO) String() string {
@@ -200,6 +206,21 @@ func (s *AvatarMaterialDTO) SetThumbnail(v string) *AvatarMaterialDTO {
 
 func (s *AvatarMaterialDTO) SetAvatarPvJson(v string) *AvatarMaterialDTO {
 	s.AvatarPvJson = &v
+	return s
+}
+
+func (s *AvatarMaterialDTO) SetAndroidAbUrl(v string) *AvatarMaterialDTO {
+	s.AndroidAbUrl = &v
+	return s
+}
+
+func (s *AvatarMaterialDTO) SetIosAbUrl(v string) *AvatarMaterialDTO {
+	s.IosAbUrl = &v
+	return s
+}
+
+func (s *AvatarMaterialDTO) SetFalingTextureUrl(v string) *AvatarMaterialDTO {
+	s.FalingTextureUrl = &v
 	return s
 }
 
@@ -2025,7 +2046,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.8"),
+				"sdk_version":      tea.String("1.0.9"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
