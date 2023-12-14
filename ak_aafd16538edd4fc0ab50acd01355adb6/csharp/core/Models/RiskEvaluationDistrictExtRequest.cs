@@ -15,6 +15,11 @@ namespace AntChain.SDK.Ak_aafd16538edd4fc0ab50acd01355adb6.Models
         [Validation(Required=true)]
         public string CityCode { get; set; }
 
+        // 省级编码
+        [NameInMap("prov_code")]
+        [Validation(Required=true)]
+        public string ProvCode { get; set; }
+
     }
 
 }

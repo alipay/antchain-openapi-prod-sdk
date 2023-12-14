@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_aafd16538edd4fc0ab50acd01355adb6
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "ak_aafd16538edd4fc0ab50acd01355adb6"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_aafd16538edd4fc0ab50acd01355adb6
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "ak_aafd16538edd4fc0ab50acd01355adb6"},
                         {"_prod_channel", "saas"},
                     };
@@ -487,6 +487,48 @@ namespace AntChain.SDK.Ak_aafd16538edd4fc0ab50acd01355adb6
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncBlockchainTaxRiskEvaluationResponse>(await DoRequestAsync("1.0", "blockchain.tax.risk.evaluation.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提额资质评估授权并查询,支持省级查询
+         * Summary: 提额资质评估授权并查询
+         */
+        public StartBlockchainTaxRiskEvaluationResponse StartBlockchainTaxRiskEvaluation(StartBlockchainTaxRiskEvaluationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartBlockchainTaxRiskEvaluationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提额资质评估授权并查询,支持省级查询
+         * Summary: 提额资质评估授权并查询
+         */
+        public async Task<StartBlockchainTaxRiskEvaluationResponse> StartBlockchainTaxRiskEvaluationAsync(StartBlockchainTaxRiskEvaluationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartBlockchainTaxRiskEvaluationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提额资质评估授权并查询,支持省级查询
+         * Summary: 提额资质评估授权并查询
+         */
+        public StartBlockchainTaxRiskEvaluationResponse StartBlockchainTaxRiskEvaluationEx(StartBlockchainTaxRiskEvaluationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartBlockchainTaxRiskEvaluationResponse>(DoRequest("1.0", "blockchain.tax.risk.evaluation.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提额资质评估授权并查询,支持省级查询
+         * Summary: 提额资质评估授权并查询
+         */
+        public async Task<StartBlockchainTaxRiskEvaluationResponse> StartBlockchainTaxRiskEvaluationExAsync(StartBlockchainTaxRiskEvaluationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartBlockchainTaxRiskEvaluationResponse>(await DoRequestAsync("1.0", "blockchain.tax.risk.evaluation.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
