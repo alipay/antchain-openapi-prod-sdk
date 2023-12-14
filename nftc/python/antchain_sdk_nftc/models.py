@@ -378,7 +378,6 @@ class ExternalOrderDTO(TeaModel):
 class AvatarDTO(TeaModel):
     def __init__(
         self,
-        avatar_body_url: str = None,
         upcloth: AvatarMaterialDTO = None,
         downcloth: AvatarMaterialDTO = None,
         shoe: AvatarMaterialDTO = None,
@@ -398,9 +397,10 @@ class AvatarDTO(TeaModel):
         lipstick: AvatarMaterialDTO = None,
         eyeliner: AvatarMaterialDTO = None,
         eyeshadow: AvatarMaterialDTO = None,
+        avatar_web_gl_unity_body_url: str = None,
+        avatar_ios_unity_body_url: str = None,
+        avatar_android_unity_body_url: str = None,
     ):
-        # 数字人基础身体白模
-        self.avatar_body_url = avatar_body_url
         # 上衣配置
         self.upcloth = upcloth
         # 下衣配置
@@ -439,9 +439,14 @@ class AvatarDTO(TeaModel):
         self.eyeliner = eyeliner
         # 眼影配置
         self.eyeshadow = eyeshadow
+        # webgl ab包链接
+        self.avatar_web_gl_unity_body_url = avatar_web_gl_unity_body_url
+        # ios ab包链接
+        self.avatar_ios_unity_body_url = avatar_ios_unity_body_url
+        # android ab包链接
+        self.avatar_android_unity_body_url = avatar_android_unity_body_url
 
     def validate(self):
-        self.validate_required(self.avatar_body_url, 'avatar_body_url')
         self.validate_required(self.upcloth, 'upcloth')
         if self.upcloth:
             self.upcloth.validate()
@@ -499,6 +504,9 @@ class AvatarDTO(TeaModel):
         self.validate_required(self.eyeshadow, 'eyeshadow')
         if self.eyeshadow:
             self.eyeshadow.validate()
+        self.validate_required(self.avatar_web_gl_unity_body_url, 'avatar_web_gl_unity_body_url')
+        self.validate_required(self.avatar_ios_unity_body_url, 'avatar_ios_unity_body_url')
+        self.validate_required(self.avatar_android_unity_body_url, 'avatar_android_unity_body_url')
 
     def to_map(self):
         _map = super().to_map()
@@ -506,8 +514,6 @@ class AvatarDTO(TeaModel):
             return _map
 
         result = dict()
-        if self.avatar_body_url is not None:
-            result['avatar_body_url'] = self.avatar_body_url
         if self.upcloth is not None:
             result['upcloth'] = self.upcloth.to_map()
         if self.downcloth is not None:
@@ -546,12 +552,16 @@ class AvatarDTO(TeaModel):
             result['eyeliner'] = self.eyeliner.to_map()
         if self.eyeshadow is not None:
             result['eyeshadow'] = self.eyeshadow.to_map()
+        if self.avatar_web_gl_unity_body_url is not None:
+            result['avatar_web_gl_unity_body_url'] = self.avatar_web_gl_unity_body_url
+        if self.avatar_ios_unity_body_url is not None:
+            result['avatar_ios_unity_body_url'] = self.avatar_ios_unity_body_url
+        if self.avatar_android_unity_body_url is not None:
+            result['avatar_android_unity_body_url'] = self.avatar_android_unity_body_url
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('avatar_body_url') is not None:
-            self.avatar_body_url = m.get('avatar_body_url')
         if m.get('upcloth') is not None:
             temp_model = AvatarMaterialDTO()
             self.upcloth = temp_model.from_map(m['upcloth'])
@@ -609,6 +619,12 @@ class AvatarDTO(TeaModel):
         if m.get('eyeshadow') is not None:
             temp_model = AvatarMaterialDTO()
             self.eyeshadow = temp_model.from_map(m['eyeshadow'])
+        if m.get('avatar_web_gl_unity_body_url') is not None:
+            self.avatar_web_gl_unity_body_url = m.get('avatar_web_gl_unity_body_url')
+        if m.get('avatar_ios_unity_body_url') is not None:
+            self.avatar_ios_unity_body_url = m.get('avatar_ios_unity_body_url')
+        if m.get('avatar_android_unity_body_url') is not None:
+            self.avatar_android_unity_body_url = m.get('avatar_android_unity_body_url')
         return self
 
 
