@@ -9,6 +9,11 @@ public class RiskEvaluationDistrictExtRequest extends TeaModel {
     @Validation(required = true)
     public String cityCode;
 
+    // 省级编码
+    @NameInMap("prov_code")
+    @Validation(required = true)
+    public String provCode;
+
     public static RiskEvaluationDistrictExtRequest build(java.util.Map<String, ?> map) throws Exception {
         RiskEvaluationDistrictExtRequest self = new RiskEvaluationDistrictExtRequest();
         return TeaModel.build(map, self);
@@ -20,6 +25,14 @@ public class RiskEvaluationDistrictExtRequest extends TeaModel {
     }
     public String getCityCode() {
         return this.cityCode;
+    }
+
+    public RiskEvaluationDistrictExtRequest setProvCode(String provCode) {
+        this.provCode = provCode;
+        return this;
+    }
+    public String getProvCode() {
+        return this.provCode;
     }
 
 }

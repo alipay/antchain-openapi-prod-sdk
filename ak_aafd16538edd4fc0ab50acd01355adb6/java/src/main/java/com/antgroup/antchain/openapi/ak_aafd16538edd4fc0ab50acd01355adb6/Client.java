@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.1.0"),
                     new TeaPair("_prod_code", "ak_aafd16538edd4fc0ab50acd01355adb6"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -235,5 +235,24 @@ public class Client {
     public SyncBlockchainTaxRiskEvaluationResponse syncBlockchainTaxRiskEvaluationEx(SyncBlockchainTaxRiskEvaluationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.risk.evaluation.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncBlockchainTaxRiskEvaluationResponse());
+    }
+
+    /**
+     * Description: 提额资质评估授权并查询,支持省级查询
+     * Summary: 提额资质评估授权并查询
+     */
+    public StartBlockchainTaxRiskEvaluationResponse startBlockchainTaxRiskEvaluation(StartBlockchainTaxRiskEvaluationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startBlockchainTaxRiskEvaluationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 提额资质评估授权并查询,支持省级查询
+     * Summary: 提额资质评估授权并查询
+     */
+    public StartBlockchainTaxRiskEvaluationResponse startBlockchainTaxRiskEvaluationEx(StartBlockchainTaxRiskEvaluationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.risk.evaluation.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartBlockchainTaxRiskEvaluationResponse());
     }
 }
