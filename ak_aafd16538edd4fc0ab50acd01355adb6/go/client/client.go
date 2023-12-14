@@ -190,6 +190,8 @@ func (s *RiskEvaluationAgreementExtRequest) SetContent(v string) *RiskEvaluation
 type RiskEvaluationDistrictExtRequest struct {
 	// 地区编码
 	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+	// 省级编码
+	ProvCode *string `json:"prov_code,omitempty" xml:"prov_code,omitempty" require:"true"`
 }
 
 func (s RiskEvaluationDistrictExtRequest) String() string {
@@ -202,6 +204,11 @@ func (s RiskEvaluationDistrictExtRequest) GoString() string {
 
 func (s *RiskEvaluationDistrictExtRequest) SetCityCode(v string) *RiskEvaluationDistrictExtRequest {
 	s.CityCode = &v
+	return s
+}
+
+func (s *RiskEvaluationDistrictExtRequest) SetProvCode(v string) *RiskEvaluationDistrictExtRequest {
+	s.ProvCode = &v
 	return s
 }
 
@@ -738,6 +745,167 @@ func (s *SyncBlockchainTaxRiskEvaluationResponse) SetBizContent(v string) *SyncB
 	return s
 }
 
+type StartBlockchainTaxRiskEvaluationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 个人身份证号
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 个人姓名
+	IdentityName *string `json:"identity_name,omitempty" xml:"identity_name,omitempty"`
+	// 企业的统一社会信用编码
+	EnterpriseId *string `json:"enterprise_id,omitempty" xml:"enterprise_id,omitempty"`
+	// 某某某公司
+	EnterpriseName *string `json:"enterprise_name,omitempty" xml:"enterprise_name,omitempty"`
+	// 企业或者个人企业：ENTERPRISE 个人：PERSONAL
+	IdentityType *string `json:"identity_type,omitempty" xml:"identity_type,omitempty" require:"true"`
+	// 101
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 授权订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 请求流水号(必填),调用 方保证每次请求号唯   一，受理方用来校验唯 一性，同一受理号返回 请求结果一致
+	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty" require:"true"`
+	// 子渠道渠道编码，需要同步蚂蚁，由蚂蚁设置。如果是银行本身，可不填 备注：如果同一信贷客户在不同银行的调用需要严格区分，分别授权
+	SubTenant *string `json:"sub_tenant,omitempty" xml:"sub_tenant,omitempty" require:"true"`
+	// 扩展信息
+	ExtendInfo *RiskEvaluationExtendInfoRequest `json:"extend_info,omitempty" xml:"extend_info,omitempty" require:"true"`
+	// 查询模式，SINGLE_CITY 查到第一个城市就结束，ALL_CITY 查询所有城市，默认ALL_CITY
+	SearchModel *string `json:"search_model,omitempty" xml:"search_model,omitempty"`
+}
+
+func (s StartBlockchainTaxRiskEvaluationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartBlockchainTaxRiskEvaluationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StartBlockchainTaxRiskEvaluationRequest) SetAuthToken(v string) *StartBlockchainTaxRiskEvaluationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationRequest) SetProductInstanceId(v string) *StartBlockchainTaxRiskEvaluationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationRequest) SetIdentityId(v string) *StartBlockchainTaxRiskEvaluationRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationRequest) SetIdentityName(v string) *StartBlockchainTaxRiskEvaluationRequest {
+	s.IdentityName = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationRequest) SetEnterpriseId(v string) *StartBlockchainTaxRiskEvaluationRequest {
+	s.EnterpriseId = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationRequest) SetEnterpriseName(v string) *StartBlockchainTaxRiskEvaluationRequest {
+	s.EnterpriseName = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationRequest) SetIdentityType(v string) *StartBlockchainTaxRiskEvaluationRequest {
+	s.IdentityType = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationRequest) SetAuthType(v string) *StartBlockchainTaxRiskEvaluationRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationRequest) SetOrderNo(v string) *StartBlockchainTaxRiskEvaluationRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationRequest) SetBizRequestId(v string) *StartBlockchainTaxRiskEvaluationRequest {
+	s.BizRequestId = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationRequest) SetSubTenant(v string) *StartBlockchainTaxRiskEvaluationRequest {
+	s.SubTenant = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationRequest) SetExtendInfo(v *RiskEvaluationExtendInfoRequest) *StartBlockchainTaxRiskEvaluationRequest {
+	s.ExtendInfo = v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationRequest) SetSearchModel(v string) *StartBlockchainTaxRiskEvaluationRequest {
+	s.SearchModel = &v
+	return s
+}
+
+type StartBlockchainTaxRiskEvaluationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权订单订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 是否授权成功true是，false否
+	AuthSuccess *string `json:"auth_success,omitempty" xml:"auth_success,omitempty"`
+	// 过期时间，unix时间戳 毫秒
+	ExpireTime *int64 `json:"expire_time,omitempty" xml:"expire_time,omitempty"`
+	// 授权时间，unix时间戳 毫秒
+	AuthTime *int64 `json:"auth_time,omitempty" xml:"auth_time,omitempty"`
+}
+
+func (s StartBlockchainTaxRiskEvaluationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartBlockchainTaxRiskEvaluationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StartBlockchainTaxRiskEvaluationResponse) SetReqMsgId(v string) *StartBlockchainTaxRiskEvaluationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationResponse) SetResultCode(v string) *StartBlockchainTaxRiskEvaluationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationResponse) SetResultMsg(v string) *StartBlockchainTaxRiskEvaluationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationResponse) SetOrderNo(v string) *StartBlockchainTaxRiskEvaluationResponse {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationResponse) SetAuthSuccess(v string) *StartBlockchainTaxRiskEvaluationResponse {
+	s.AuthSuccess = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationResponse) SetExpireTime(v int64) *StartBlockchainTaxRiskEvaluationResponse {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationResponse) SetAuthTime(v int64) *StartBlockchainTaxRiskEvaluationResponse {
+	s.AuthTime = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -860,7 +1028,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.1.0"),
 				"_prod_code":       tea.String("ak_aafd16538edd4fc0ab50acd01355adb6"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -1047,6 +1215,40 @@ func (client *Client) SyncBlockchainTaxRiskEvaluationEx(request *SyncBlockchainT
 	}
 	_result = &SyncBlockchainTaxRiskEvaluationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.risk.evaluation.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 提额资质评估授权并查询,支持省级查询
+ * Summary: 提额资质评估授权并查询
+ */
+func (client *Client) StartBlockchainTaxRiskEvaluation(request *StartBlockchainTaxRiskEvaluationRequest) (_result *StartBlockchainTaxRiskEvaluationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StartBlockchainTaxRiskEvaluationResponse{}
+	_body, _err := client.StartBlockchainTaxRiskEvaluationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提额资质评估授权并查询,支持省级查询
+ * Summary: 提额资质评估授权并查询
+ */
+func (client *Client) StartBlockchainTaxRiskEvaluationEx(request *StartBlockchainTaxRiskEvaluationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StartBlockchainTaxRiskEvaluationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StartBlockchainTaxRiskEvaluationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.risk.evaluation.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
