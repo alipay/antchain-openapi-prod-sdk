@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.8',
+    sdk_version = '1.0.9',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -176,6 +176,12 @@ model AvatarMaterialDTO {
   // json字符串，装扮额外属性信息
   // 如自定义头发颜色，性别等
   avatarPvJson: string(name='avatar_pv_json', example='{"COLOR":"0F#1111","GENDER":"MALE"}'),
+  // 安卓ab包
+  androidAbUrl: string(name='android_ab_url', example='www.ant.com'),
+  // IOS AB 包
+  iosAbUrl: string(name='ios_ab_url', example='www.ant.com'),
+  // 法令贴图文件
+  falingTextureUrl: string(name='faling_texture_url', example='www.ant.com'),
 }
 
 // 订单商品对象
