@@ -56,13 +56,40 @@ class AvatarMaterialDTO extends Model
      * @var string
      */
     public $avatarPvJson;
+
+    // 安卓ab包
+    /**
+     * @example www.ant.com
+     *
+     * @var string
+     */
+    public $androidAbUrl;
+
+    // IOS AB 包
+    /**
+     * @example www.ant.com
+     *
+     * @var string
+     */
+    public $iosAbUrl;
+
+    // 法令贴图文件
+    /**
+     * @example www.ant.com
+     *
+     * @var string
+     */
+    public $falingTextureUrl;
     protected $_name = [
-        'decoId'       => 'deco_id',
-        'decoName'     => 'deco_name',
-        'webAbUrl'     => 'web_ab_url',
-        'textureUrl'   => 'texture_url',
-        'thumbnail'    => 'thumbnail',
-        'avatarPvJson' => 'avatar_pv_json',
+        'decoId'           => 'deco_id',
+        'decoName'         => 'deco_name',
+        'webAbUrl'         => 'web_ab_url',
+        'textureUrl'       => 'texture_url',
+        'thumbnail'        => 'thumbnail',
+        'avatarPvJson'     => 'avatar_pv_json',
+        'androidAbUrl'     => 'android_ab_url',
+        'iosAbUrl'         => 'ios_ab_url',
+        'falingTextureUrl' => 'faling_texture_url',
     ];
 
     public function validate()
@@ -73,6 +100,9 @@ class AvatarMaterialDTO extends Model
         Model::validateRequired('textureUrl', $this->textureUrl, true);
         Model::validateRequired('thumbnail', $this->thumbnail, true);
         Model::validateRequired('avatarPvJson', $this->avatarPvJson, true);
+        Model::validateRequired('androidAbUrl', $this->androidAbUrl, true);
+        Model::validateRequired('iosAbUrl', $this->iosAbUrl, true);
+        Model::validateRequired('falingTextureUrl', $this->falingTextureUrl, true);
     }
 
     public function toMap()
@@ -95,6 +125,15 @@ class AvatarMaterialDTO extends Model
         }
         if (null !== $this->avatarPvJson) {
             $res['avatar_pv_json'] = $this->avatarPvJson;
+        }
+        if (null !== $this->androidAbUrl) {
+            $res['android_ab_url'] = $this->androidAbUrl;
+        }
+        if (null !== $this->iosAbUrl) {
+            $res['ios_ab_url'] = $this->iosAbUrl;
+        }
+        if (null !== $this->falingTextureUrl) {
+            $res['faling_texture_url'] = $this->falingTextureUrl;
         }
 
         return $res;
@@ -125,6 +164,15 @@ class AvatarMaterialDTO extends Model
         }
         if (isset($map['avatar_pv_json'])) {
             $model->avatarPvJson = $map['avatar_pv_json'];
+        }
+        if (isset($map['android_ab_url'])) {
+            $model->androidAbUrl = $map['android_ab_url'];
+        }
+        if (isset($map['ios_ab_url'])) {
+            $model->iosAbUrl = $map['ios_ab_url'];
+        }
+        if (isset($map['faling_texture_url'])) {
+            $model->falingTextureUrl = $map['faling_texture_url'];
         }
 
         return $model;
