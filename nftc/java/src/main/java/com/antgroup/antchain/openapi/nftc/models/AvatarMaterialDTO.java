@@ -35,6 +35,21 @@ public class AvatarMaterialDTO extends TeaModel {
     @Validation(required = true)
     public String avatarPvJson;
 
+    // 安卓ab包
+    @NameInMap("android_ab_url")
+    @Validation(required = true)
+    public String androidAbUrl;
+
+    // IOS AB 包
+    @NameInMap("ios_ab_url")
+    @Validation(required = true)
+    public String iosAbUrl;
+
+    // 法令贴图文件
+    @NameInMap("faling_texture_url")
+    @Validation(required = true)
+    public String falingTextureUrl;
+
     public static AvatarMaterialDTO build(java.util.Map<String, ?> map) throws Exception {
         AvatarMaterialDTO self = new AvatarMaterialDTO();
         return TeaModel.build(map, self);
@@ -86,6 +101,30 @@ public class AvatarMaterialDTO extends TeaModel {
     }
     public String getAvatarPvJson() {
         return this.avatarPvJson;
+    }
+
+    public AvatarMaterialDTO setAndroidAbUrl(String androidAbUrl) {
+        this.androidAbUrl = androidAbUrl;
+        return this;
+    }
+    public String getAndroidAbUrl() {
+        return this.androidAbUrl;
+    }
+
+    public AvatarMaterialDTO setIosAbUrl(String iosAbUrl) {
+        this.iosAbUrl = iosAbUrl;
+        return this;
+    }
+    public String getIosAbUrl() {
+        return this.iosAbUrl;
+    }
+
+    public AvatarMaterialDTO setFalingTextureUrl(String falingTextureUrl) {
+        this.falingTextureUrl = falingTextureUrl;
+        return this;
+    }
+    public String getFalingTextureUrl() {
+        return this.falingTextureUrl;
     }
 
 }
