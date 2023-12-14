@@ -8,14 +8,6 @@ use AlibabaCloud\Tea\Model;
 
 class AvatarDTO extends Model
 {
-    // 数字人基础身体白模
-    /**
-     * @example https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original
-     *
-     * @var string
-     */
-    public $avatarBodyUrl;
-
     // 上衣配置
     /**
      * @example
@@ -167,32 +159,57 @@ class AvatarDTO extends Model
      * @var AvatarMaterialDTO
      */
     public $eyeshadow;
+
+    // webgl ab包链接
+    /**
+     * @example https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original
+     *
+     * @var string
+     */
+    public $avatarWebGlUnityBodyUrl;
+
+    // ios ab包链接
+    /**
+     * @example https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original
+     *
+     * @var string
+     */
+    public $avatarIosUnityBodyUrl;
+
+    // android ab包链接
+    /**
+     * @example https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original
+     *
+     * @var string
+     */
+    public $avatarAndroidUnityBodyUrl;
     protected $_name = [
-        'avatarBodyUrl' => 'avatar_body_url',
-        'upcloth'       => 'upcloth',
-        'downcloth'     => 'downcloth',
-        'shoe'          => 'shoe',
-        'suit'          => 'suit',
-        'necklace'      => 'necklace',
-        'hat'           => 'hat',
-        'glass'         => 'glass',
-        'hair'          => 'hair',
-        'head'          => 'head',
-        'eyebrow'       => 'eyebrow',
-        'eye'           => 'eye',
-        'lip'           => 'lip',
-        'nose'          => 'nose',
-        'rouge'         => 'rouge',
-        'lens'          => 'lens',
-        'eyelash'       => 'eyelash',
-        'lipstick'      => 'lipstick',
-        'eyeliner'      => 'eyeliner',
-        'eyeshadow'     => 'eyeshadow',
+        'upcloth'                   => 'upcloth',
+        'downcloth'                 => 'downcloth',
+        'shoe'                      => 'shoe',
+        'suit'                      => 'suit',
+        'necklace'                  => 'necklace',
+        'hat'                       => 'hat',
+        'glass'                     => 'glass',
+        'hair'                      => 'hair',
+        'head'                      => 'head',
+        'eyebrow'                   => 'eyebrow',
+        'eye'                       => 'eye',
+        'lip'                       => 'lip',
+        'nose'                      => 'nose',
+        'rouge'                     => 'rouge',
+        'lens'                      => 'lens',
+        'eyelash'                   => 'eyelash',
+        'lipstick'                  => 'lipstick',
+        'eyeliner'                  => 'eyeliner',
+        'eyeshadow'                 => 'eyeshadow',
+        'avatarWebGlUnityBodyUrl'   => 'avatar_web_gl_unity_body_url',
+        'avatarIosUnityBodyUrl'     => 'avatar_ios_unity_body_url',
+        'avatarAndroidUnityBodyUrl' => 'avatar_android_unity_body_url',
     ];
 
     public function validate()
     {
-        Model::validateRequired('avatarBodyUrl', $this->avatarBodyUrl, true);
         Model::validateRequired('upcloth', $this->upcloth, true);
         Model::validateRequired('downcloth', $this->downcloth, true);
         Model::validateRequired('shoe', $this->shoe, true);
@@ -212,14 +229,14 @@ class AvatarDTO extends Model
         Model::validateRequired('lipstick', $this->lipstick, true);
         Model::validateRequired('eyeliner', $this->eyeliner, true);
         Model::validateRequired('eyeshadow', $this->eyeshadow, true);
+        Model::validateRequired('avatarWebGlUnityBodyUrl', $this->avatarWebGlUnityBodyUrl, true);
+        Model::validateRequired('avatarIosUnityBodyUrl', $this->avatarIosUnityBodyUrl, true);
+        Model::validateRequired('avatarAndroidUnityBodyUrl', $this->avatarAndroidUnityBodyUrl, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->avatarBodyUrl) {
-            $res['avatar_body_url'] = $this->avatarBodyUrl;
-        }
         if (null !== $this->upcloth) {
             $res['upcloth'] = null !== $this->upcloth ? $this->upcloth->toMap() : null;
         }
@@ -277,6 +294,15 @@ class AvatarDTO extends Model
         if (null !== $this->eyeshadow) {
             $res['eyeshadow'] = null !== $this->eyeshadow ? $this->eyeshadow->toMap() : null;
         }
+        if (null !== $this->avatarWebGlUnityBodyUrl) {
+            $res['avatar_web_gl_unity_body_url'] = $this->avatarWebGlUnityBodyUrl;
+        }
+        if (null !== $this->avatarIosUnityBodyUrl) {
+            $res['avatar_ios_unity_body_url'] = $this->avatarIosUnityBodyUrl;
+        }
+        if (null !== $this->avatarAndroidUnityBodyUrl) {
+            $res['avatar_android_unity_body_url'] = $this->avatarAndroidUnityBodyUrl;
+        }
 
         return $res;
     }
@@ -289,9 +315,6 @@ class AvatarDTO extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['avatar_body_url'])) {
-            $model->avatarBodyUrl = $map['avatar_body_url'];
-        }
         if (isset($map['upcloth'])) {
             $model->upcloth = AvatarMaterialDTO::fromMap($map['upcloth']);
         }
@@ -348,6 +371,15 @@ class AvatarDTO extends Model
         }
         if (isset($map['eyeshadow'])) {
             $model->eyeshadow = AvatarMaterialDTO::fromMap($map['eyeshadow']);
+        }
+        if (isset($map['avatar_web_gl_unity_body_url'])) {
+            $model->avatarWebGlUnityBodyUrl = $map['avatar_web_gl_unity_body_url'];
+        }
+        if (isset($map['avatar_ios_unity_body_url'])) {
+            $model->avatarIosUnityBodyUrl = $map['avatar_ios_unity_body_url'];
+        }
+        if (isset($map['avatar_android_unity_body_url'])) {
+            $model->avatarAndroidUnityBodyUrl = $map['avatar_android_unity_body_url'];
         }
 
         return $model;
