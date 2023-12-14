@@ -92,6 +92,12 @@ export class AvatarMaterialDTO extends $tea.Model {
   // json字符串，装扮额外属性信息
   // 如自定义头发颜色，性别等
   avatarPvJson: string;
+  // 安卓ab包
+  androidAbUrl: string;
+  // IOS AB 包
+  iosAbUrl: string;
+  // 法令贴图文件
+  falingTextureUrl: string;
   static names(): { [key: string]: string } {
     return {
       decoId: 'deco_id',
@@ -100,6 +106,9 @@ export class AvatarMaterialDTO extends $tea.Model {
       textureUrl: 'texture_url',
       thumbnail: 'thumbnail',
       avatarPvJson: 'avatar_pv_json',
+      androidAbUrl: 'android_ab_url',
+      iosAbUrl: 'ios_ab_url',
+      falingTextureUrl: 'faling_texture_url',
     };
   }
 
@@ -111,6 +120,9 @@ export class AvatarMaterialDTO extends $tea.Model {
       textureUrl: 'string',
       thumbnail: 'string',
       avatarPvJson: 'string',
+      androidAbUrl: 'string',
+      iosAbUrl: 'string',
+      falingTextureUrl: 'string',
     };
   }
 
@@ -1533,7 +1545,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.8",
+          sdk_version: "1.0.9",
           _prod_code: "NFTC",
           _prod_channel: "undefined",
         };
