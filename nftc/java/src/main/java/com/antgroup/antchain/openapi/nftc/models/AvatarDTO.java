@@ -4,11 +4,6 @@ package com.antgroup.antchain.openapi.nftc.models;
 import com.aliyun.tea.*;
 
 public class AvatarDTO extends TeaModel {
-    // 数字人基础身体白模
-    @NameInMap("avatar_body_url")
-    @Validation(required = true)
-    public String avatarBodyUrl;
-
     // 上衣配置
     @NameInMap("upcloth")
     @Validation(required = true)
@@ -104,17 +99,24 @@ public class AvatarDTO extends TeaModel {
     @Validation(required = true)
     public AvatarMaterialDTO eyeshadow;
 
+    // webgl ab包链接
+    @NameInMap("avatar_web_gl_unity_body_url")
+    @Validation(required = true)
+    public String avatarWebGlUnityBodyUrl;
+
+    // ios ab包链接
+    @NameInMap("avatar_ios_unity_body_url")
+    @Validation(required = true)
+    public String avatarIosUnityBodyUrl;
+
+    // android ab包链接
+    @NameInMap("avatar_android_unity_body_url")
+    @Validation(required = true)
+    public String avatarAndroidUnityBodyUrl;
+
     public static AvatarDTO build(java.util.Map<String, ?> map) throws Exception {
         AvatarDTO self = new AvatarDTO();
         return TeaModel.build(map, self);
-    }
-
-    public AvatarDTO setAvatarBodyUrl(String avatarBodyUrl) {
-        this.avatarBodyUrl = avatarBodyUrl;
-        return this;
-    }
-    public String getAvatarBodyUrl() {
-        return this.avatarBodyUrl;
     }
 
     public AvatarDTO setUpcloth(AvatarMaterialDTO upcloth) {
@@ -267,6 +269,30 @@ public class AvatarDTO extends TeaModel {
     }
     public AvatarMaterialDTO getEyeshadow() {
         return this.eyeshadow;
+    }
+
+    public AvatarDTO setAvatarWebGlUnityBodyUrl(String avatarWebGlUnityBodyUrl) {
+        this.avatarWebGlUnityBodyUrl = avatarWebGlUnityBodyUrl;
+        return this;
+    }
+    public String getAvatarWebGlUnityBodyUrl() {
+        return this.avatarWebGlUnityBodyUrl;
+    }
+
+    public AvatarDTO setAvatarIosUnityBodyUrl(String avatarIosUnityBodyUrl) {
+        this.avatarIosUnityBodyUrl = avatarIosUnityBodyUrl;
+        return this;
+    }
+    public String getAvatarIosUnityBodyUrl() {
+        return this.avatarIosUnityBodyUrl;
+    }
+
+    public AvatarDTO setAvatarAndroidUnityBodyUrl(String avatarAndroidUnityBodyUrl) {
+        this.avatarAndroidUnityBodyUrl = avatarAndroidUnityBodyUrl;
+        return this;
+    }
+    public String getAvatarAndroidUnityBodyUrl() {
+        return this.avatarAndroidUnityBodyUrl;
     }
 
 }
