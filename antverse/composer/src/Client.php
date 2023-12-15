@@ -15,6 +15,10 @@ use AntChain\ANTVERSE\Models\GetInteractvideoRequest;
 use AntChain\ANTVERSE\Models\GetInteractvideoResponse;
 use AntChain\ANTVERSE\Models\QueryAvatarVideoRequest;
 use AntChain\ANTVERSE\Models\QueryAvatarVideoResponse;
+use AntChain\ANTVERSE\Models\QueryLiveDanmakuRequest;
+use AntChain\ANTVERSE\Models\QueryLiveDanmakuResponse;
+use AntChain\ANTVERSE\Models\SendLiveMessageRequest;
+use AntChain\ANTVERSE\Models\SendLiveMessageResponse;
 use AntChain\ANTVERSE\Models\SubmitAvatarVideoRequest;
 use AntChain\ANTVERSE\Models\SubmitAvatarVideoResponse;
 use AntChain\Util\UtilClient;
@@ -164,7 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.7',
+                    'sdk_version'      => '1.0.9',
                     '_prod_code'       => 'ANTVERSE',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -309,5 +313,71 @@ class Client
         Utils::validateModel($request);
 
         return QueryAvatarVideoResponse::fromMap($this->doRequest('1.0', 'antchain.antverse.avatar.video.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+     * Summary: 查询弹幕列表.
+     *
+     * @param QueryLiveDanmakuRequest $request
+     *
+     * @return QueryLiveDanmakuResponse
+     */
+    public function queryLiveDanmaku($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLiveDanmakuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+     * Summary: 查询弹幕列表.
+     *
+     * @param QueryLiveDanmakuRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryLiveDanmakuResponse
+     */
+    public function queryLiveDanmakuEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLiveDanmakuResponse::fromMap($this->doRequest('1.0', 'antchain.antverse.live.danmaku.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支持问答插播（问题和答案）和实时消息插播
+     * Summary: 插播问答.
+     *
+     * @param SendLiveMessageRequest $request
+     *
+     * @return SendLiveMessageResponse
+     */
+    public function sendLiveMessage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendLiveMessageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支持问答插播（问题和答案）和实时消息插播
+     * Summary: 插播问答.
+     *
+     * @param SendLiveMessageRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return SendLiveMessageResponse
+     */
+    public function sendLiveMessageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendLiveMessageResponse::fromMap($this->doRequest('1.0', 'antchain.antverse.live.message.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
