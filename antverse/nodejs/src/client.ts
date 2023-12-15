@@ -111,6 +111,39 @@ export class PositionSizeInfo extends $tea.Model {
   }
 }
 
+// 弹幕结构体
+export class DanmakuListBO extends $tea.Model {
+  // 弹幕内容
+  content: string;
+  // 用户昵称
+  nickName?: string;
+  // 发送时间戳(ms)
+  sendTime: number;
+  // 直播平台code
+  roomType: string;
+  static names(): { [key: string]: string } {
+    return {
+      content: 'content',
+      nickName: 'nick_name',
+      sendTime: 'send_time',
+      roomType: 'room_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      content: 'string',
+      nickName: 'string',
+      sendTime: 'number',
+      roomType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class GetInteractvideoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -348,6 +381,160 @@ export class QueryAvatarVideoResponse extends $tea.Model {
   }
 }
 
+export class QueryLiveDanmakuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLiveDanmakuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // LRXXXXXXXXXXXXXXXXX
+  instanceId?: string;
+  // 当前开播的直播项目id,格式参考:LPXXXXXXXXXXX
+  projectId?: string;
+  // 弹幕数据
+  danmakuList?: DanmakuListBO[];
+  // 当前租户id
+  tenantId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      instanceId: 'instance_id',
+      projectId: 'project_id',
+      danmakuList: 'danmaku_list',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      instanceId: 'string',
+      projectId: 'string',
+      danmakuList: { 'type': 'array', 'itemType': DanmakuListBO },
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendLiveMessageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 问题
+  question?: string;
+  // 回答文本
+  answer: string;
+  // 插播类型(QA-问答插播,REAL_TIME-实时消息插播)
+  intercutType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      question: 'question',
+      answer: 'answer',
+      intercutType: 'intercut_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      question: 'string',
+      answer: 'string',
+      intercutType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendLiveMessageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 直播间实例id
+  instanceId?: string;
+  // 直播间项目id
+  projectId?: string;
+  // 问答导出任务id
+  taskId?: string;
+  // 问答完成状态
+  status?: string;
+  // 标记
+  mark?: string;
+  // 发送时间
+  sendTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      instanceId: 'instance_id',
+      projectId: 'project_id',
+      taskId: 'task_id',
+      status: 'status',
+      mark: 'mark',
+      sendTime: 'send_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      instanceId: 'string',
+      projectId: 'string',
+      taskId: 'string',
+      status: 'string',
+      mark: 'string',
+      sendTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -461,7 +648,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.7",
+          sdk_version: "1.0.9",
           _prod_code: "ANTVERSE",
           _prod_channel: "undefined",
         };
@@ -564,6 +751,44 @@ export default class Client {
   async queryAvatarVideoEx(request: QueryAvatarVideoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAvatarVideoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAvatarVideoResponse>(await this.doRequest("1.0", "antchain.antverse.avatar.video.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAvatarVideoResponse({}));
+  }
+
+  /**
+   * Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+   * Summary: 查询弹幕列表
+   */
+  async queryLiveDanmaku(request: QueryLiveDanmakuRequest): Promise<QueryLiveDanmakuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryLiveDanmakuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+   * Summary: 查询弹幕列表
+   */
+  async queryLiveDanmakuEx(request: QueryLiveDanmakuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLiveDanmakuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryLiveDanmakuResponse>(await this.doRequest("1.0", "antchain.antverse.live.danmaku.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLiveDanmakuResponse({}));
+  }
+
+  /**
+   * Description: 支持问答插播（问题和答案）和实时消息插播
+   * Summary: 插播问答
+   */
+  async sendLiveMessage(request: SendLiveMessageRequest): Promise<SendLiveMessageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendLiveMessageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 支持问答插播（问题和答案）和实时消息插播
+   * Summary: 插播问答
+   */
+  async sendLiveMessageEx(request: SendLiveMessageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendLiveMessageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendLiveMessageResponse>(await this.doRequest("1.0", "antchain.antverse.live.message.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendLiveMessageResponse({}));
   }
 
 }
