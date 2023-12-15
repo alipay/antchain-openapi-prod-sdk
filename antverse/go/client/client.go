@@ -189,6 +189,46 @@ func (s *PositionSizeInfo) SetHeight(v int64) *PositionSizeInfo {
 	return s
 }
 
+// 弹幕结构体
+type DanmakuListBO struct {
+	// 弹幕内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 用户昵称
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+	// 发送时间戳(ms)
+	SendTime *int64 `json:"send_time,omitempty" xml:"send_time,omitempty" require:"true"`
+	// 直播平台code
+	RoomType *string `json:"room_type,omitempty" xml:"room_type,omitempty" require:"true"`
+}
+
+func (s DanmakuListBO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DanmakuListBO) GoString() string {
+	return s.String()
+}
+
+func (s *DanmakuListBO) SetContent(v string) *DanmakuListBO {
+	s.Content = &v
+	return s
+}
+
+func (s *DanmakuListBO) SetNickName(v string) *DanmakuListBO {
+	s.NickName = &v
+	return s
+}
+
+func (s *DanmakuListBO) SetSendTime(v int64) *DanmakuListBO {
+	s.SendTime = &v
+	return s
+}
+
+func (s *DanmakuListBO) SetRoomType(v string) *DanmakuListBO {
+	s.RoomType = &v
+	return s
+}
+
 type GetInteractvideoRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -504,6 +544,209 @@ func (s *QueryAvatarVideoResponse) SetMessage(v string) *QueryAvatarVideoRespons
 	return s
 }
 
+type QueryLiveDanmakuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryLiveDanmakuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLiveDanmakuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLiveDanmakuRequest) SetAuthToken(v string) *QueryLiveDanmakuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryLiveDanmakuRequest) SetProductInstanceId(v string) *QueryLiveDanmakuRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryLiveDanmakuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// LRXXXXXXXXXXXXXXXXX
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// 当前开播的直播项目id,格式参考:LPXXXXXXXXXXX
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
+	// 弹幕数据
+	DanmakuList []*DanmakuListBO `json:"danmaku_list,omitempty" xml:"danmaku_list,omitempty" type:"Repeated"`
+	// 当前租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s QueryLiveDanmakuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLiveDanmakuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLiveDanmakuResponse) SetReqMsgId(v string) *QueryLiveDanmakuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryLiveDanmakuResponse) SetResultCode(v string) *QueryLiveDanmakuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryLiveDanmakuResponse) SetResultMsg(v string) *QueryLiveDanmakuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryLiveDanmakuResponse) SetInstanceId(v string) *QueryLiveDanmakuResponse {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *QueryLiveDanmakuResponse) SetProjectId(v string) *QueryLiveDanmakuResponse {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *QueryLiveDanmakuResponse) SetDanmakuList(v []*DanmakuListBO) *QueryLiveDanmakuResponse {
+	s.DanmakuList = v
+	return s
+}
+
+func (s *QueryLiveDanmakuResponse) SetTenantId(v string) *QueryLiveDanmakuResponse {
+	s.TenantId = &v
+	return s
+}
+
+type SendLiveMessageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 问题
+	Question *string `json:"question,omitempty" xml:"question,omitempty"`
+	// 回答文本
+	Answer *string `json:"answer,omitempty" xml:"answer,omitempty" require:"true"`
+	// 插播类型(QA-问答插播,REAL_TIME-实时消息插播)
+	IntercutType *string `json:"intercut_type,omitempty" xml:"intercut_type,omitempty" require:"true"`
+}
+
+func (s SendLiveMessageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendLiveMessageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendLiveMessageRequest) SetAuthToken(v string) *SendLiveMessageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendLiveMessageRequest) SetProductInstanceId(v string) *SendLiveMessageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendLiveMessageRequest) SetQuestion(v string) *SendLiveMessageRequest {
+	s.Question = &v
+	return s
+}
+
+func (s *SendLiveMessageRequest) SetAnswer(v string) *SendLiveMessageRequest {
+	s.Answer = &v
+	return s
+}
+
+func (s *SendLiveMessageRequest) SetIntercutType(v string) *SendLiveMessageRequest {
+	s.IntercutType = &v
+	return s
+}
+
+type SendLiveMessageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 直播间实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// 直播间项目id
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
+	// 问答导出任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 问答完成状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 标记
+	Mark *string `json:"mark,omitempty" xml:"mark,omitempty"`
+	// 发送时间
+	SendTime *string `json:"send_time,omitempty" xml:"send_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s SendLiveMessageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendLiveMessageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendLiveMessageResponse) SetReqMsgId(v string) *SendLiveMessageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendLiveMessageResponse) SetResultCode(v string) *SendLiveMessageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendLiveMessageResponse) SetResultMsg(v string) *SendLiveMessageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendLiveMessageResponse) SetInstanceId(v string) *SendLiveMessageResponse {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *SendLiveMessageResponse) SetProjectId(v string) *SendLiveMessageResponse {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *SendLiveMessageResponse) SetTaskId(v string) *SendLiveMessageResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *SendLiveMessageResponse) SetStatus(v string) *SendLiveMessageResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *SendLiveMessageResponse) SetMark(v string) *SendLiveMessageResponse {
+	s.Mark = &v
+	return s
+}
+
+func (s *SendLiveMessageResponse) SetSendTime(v string) *SendLiveMessageResponse {
+	s.SendTime = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -626,7 +869,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.7"),
+				"sdk_version":      tea.String("1.0.9"),
 				"_prod_code":       tea.String("ANTVERSE"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -779,6 +1022,74 @@ func (client *Client) QueryAvatarVideoEx(request *QueryAvatarVideoRequest, heade
 	}
 	_result = &QueryAvatarVideoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.antverse.avatar.video.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+ * Summary: 查询弹幕列表
+ */
+func (client *Client) QueryLiveDanmaku(request *QueryLiveDanmakuRequest) (_result *QueryLiveDanmakuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryLiveDanmakuResponse{}
+	_body, _err := client.QueryLiveDanmakuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+ * Summary: 查询弹幕列表
+ */
+func (client *Client) QueryLiveDanmakuEx(request *QueryLiveDanmakuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLiveDanmakuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryLiveDanmakuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.antverse.live.danmaku.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 支持问答插播（问题和答案）和实时消息插播
+ * Summary: 插播问答
+ */
+func (client *Client) SendLiveMessage(request *SendLiveMessageRequest) (_result *SendLiveMessageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendLiveMessageResponse{}
+	_body, _err := client.SendLiveMessageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 支持问答插播（问题和答案）和实时消息插播
+ * Summary: 插播问答
+ */
+func (client *Client) SendLiveMessageEx(request *SendLiveMessageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendLiveMessageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendLiveMessageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.antverse.live.message.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
