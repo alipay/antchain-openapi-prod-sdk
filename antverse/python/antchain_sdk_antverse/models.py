@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
+from typing import List
 
 
 class Config(TeaModel):
@@ -203,6 +204,57 @@ class PositionSizeInfo(TeaModel):
             self.width = m.get('width')
         if m.get('height') is not None:
             self.height = m.get('height')
+        return self
+
+
+class DanmakuListBO(TeaModel):
+    def __init__(
+        self,
+        content: str = None,
+        nick_name: str = None,
+        send_time: int = None,
+        room_type: str = None,
+    ):
+        # 弹幕内容
+        self.content = content
+        # 用户昵称
+        self.nick_name = nick_name
+        # 发送时间戳(ms)
+        self.send_time = send_time
+        # 直播平台code
+        self.room_type = room_type
+
+    def validate(self):
+        self.validate_required(self.content, 'content')
+        self.validate_required(self.send_time, 'send_time')
+        self.validate_required(self.room_type, 'room_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.nick_name is not None:
+            result['nick_name'] = self.nick_name
+        if self.send_time is not None:
+            result['send_time'] = self.send_time
+        if self.room_type is not None:
+            result['room_type'] = self.room_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('nick_name') is not None:
+            self.nick_name = m.get('nick_name')
+        if m.get('send_time') is not None:
+            self.send_time = m.get('send_time')
+        if m.get('room_type') is not None:
+            self.room_type = m.get('room_type')
         return self
 
 
@@ -587,6 +639,259 @@ class QueryAvatarVideoResponse(TeaModel):
             self.video_url = m.get('video_url')
         if m.get('message') is not None:
             self.message = m.get('message')
+        return self
+
+
+class QueryLiveDanmakuRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        return self
+
+
+class QueryLiveDanmakuResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        instance_id: str = None,
+        project_id: str = None,
+        danmaku_list: List[DanmakuListBO] = None,
+        tenant_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # LRXXXXXXXXXXXXXXXXX
+        self.instance_id = instance_id
+        # 当前开播的直播项目id,格式参考:LPXXXXXXXXXXX
+        self.project_id = project_id
+        # 弹幕数据
+        self.danmaku_list = danmaku_list
+        # 当前租户id
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        if self.danmaku_list:
+            for k in self.danmaku_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        result['danmaku_list'] = []
+        if self.danmaku_list is not None:
+            for k in self.danmaku_list:
+                result['danmaku_list'].append(k.to_map() if k else None)
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        self.danmaku_list = []
+        if m.get('danmaku_list') is not None:
+            for k in m.get('danmaku_list'):
+                temp_model = DanmakuListBO()
+                self.danmaku_list.append(temp_model.from_map(k))
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class SendLiveMessageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        question: str = None,
+        answer: str = None,
+        intercut_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 问题
+        self.question = question
+        # 回答文本
+        self.answer = answer
+        # 插播类型(QA-问答插播,REAL_TIME-实时消息插播)
+        self.intercut_type = intercut_type
+
+    def validate(self):
+        self.validate_required(self.answer, 'answer')
+        self.validate_required(self.intercut_type, 'intercut_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.question is not None:
+            result['question'] = self.question
+        if self.answer is not None:
+            result['answer'] = self.answer
+        if self.intercut_type is not None:
+            result['intercut_type'] = self.intercut_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('question') is not None:
+            self.question = m.get('question')
+        if m.get('answer') is not None:
+            self.answer = m.get('answer')
+        if m.get('intercut_type') is not None:
+            self.intercut_type = m.get('intercut_type')
+        return self
+
+
+class SendLiveMessageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        instance_id: str = None,
+        project_id: str = None,
+        task_id: str = None,
+        status: str = None,
+        mark: str = None,
+        send_time: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 直播间实例id
+        self.instance_id = instance_id
+        # 直播间项目id
+        self.project_id = project_id
+        # 问答导出任务id
+        self.task_id = task_id
+        # 问答完成状态
+        self.status = status
+        # 标记
+        self.mark = mark
+        # 发送时间
+        self.send_time = send_time
+
+    def validate(self):
+        if self.send_time is not None:
+            self.validate_pattern(self.send_time, 'send_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.mark is not None:
+            result['mark'] = self.mark
+        if self.send_time is not None:
+            result['send_time'] = self.send_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('mark') is not None:
+            self.mark = m.get('mark')
+        if m.get('send_time') is not None:
+            self.send_time = m.get('send_time')
         return self
 
 

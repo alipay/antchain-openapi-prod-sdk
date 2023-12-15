@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.7',
+                    'sdk_version': '1.0.9',
                     '_prod_code': 'ANTVERSE',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.7',
+                    'sdk_version': '1.0.9',
                     '_prod_code': 'ANTVERSE',
                     '_prod_channel': 'undefined'
                 }
@@ -441,4 +441,116 @@ class Client:
         return TeaCore.from_map(
             antverse_models.QueryAvatarVideoResponse(),
             await self.do_request_async('1.0', 'antchain.antverse.avatar.video.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_live_danmaku(
+        self,
+        request: antverse_models.QueryLiveDanmakuRequest,
+    ) -> antverse_models.QueryLiveDanmakuResponse:
+        """
+        Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+        Summary: 查询弹幕列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_live_danmaku_ex(request, headers, runtime)
+
+    async def query_live_danmaku_async(
+        self,
+        request: antverse_models.QueryLiveDanmakuRequest,
+    ) -> antverse_models.QueryLiveDanmakuResponse:
+        """
+        Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+        Summary: 查询弹幕列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_live_danmaku_ex_async(request, headers, runtime)
+
+    def query_live_danmaku_ex(
+        self,
+        request: antverse_models.QueryLiveDanmakuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> antverse_models.QueryLiveDanmakuResponse:
+        """
+        Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+        Summary: 查询弹幕列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            antverse_models.QueryLiveDanmakuResponse(),
+            self.do_request('1.0', 'antchain.antverse.live.danmaku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_live_danmaku_ex_async(
+        self,
+        request: antverse_models.QueryLiveDanmakuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> antverse_models.QueryLiveDanmakuResponse:
+        """
+        Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+        Summary: 查询弹幕列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            antverse_models.QueryLiveDanmakuResponse(),
+            await self.do_request_async('1.0', 'antchain.antverse.live.danmaku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_live_message(
+        self,
+        request: antverse_models.SendLiveMessageRequest,
+    ) -> antverse_models.SendLiveMessageResponse:
+        """
+        Description: 支持问答插播（问题和答案）和实时消息插播
+        Summary: 插播问答
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_live_message_ex(request, headers, runtime)
+
+    async def send_live_message_async(
+        self,
+        request: antverse_models.SendLiveMessageRequest,
+    ) -> antverse_models.SendLiveMessageResponse:
+        """
+        Description: 支持问答插播（问题和答案）和实时消息插播
+        Summary: 插播问答
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_live_message_ex_async(request, headers, runtime)
+
+    def send_live_message_ex(
+        self,
+        request: antverse_models.SendLiveMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> antverse_models.SendLiveMessageResponse:
+        """
+        Description: 支持问答插播（问题和答案）和实时消息插播
+        Summary: 插播问答
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            antverse_models.SendLiveMessageResponse(),
+            self.do_request('1.0', 'antchain.antverse.live.message.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_live_message_ex_async(
+        self,
+        request: antverse_models.SendLiveMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> antverse_models.SendLiveMessageResponse:
+        """
+        Description: 支持问答插播（问题和答案）和实时消息插播
+        Summary: 插播问答
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            antverse_models.SendLiveMessageResponse(),
+            await self.do_request_async('1.0', 'antchain.antverse.live.message.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
