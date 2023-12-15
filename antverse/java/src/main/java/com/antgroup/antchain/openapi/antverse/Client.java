@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.7"),
+                    new TeaPair("sdk_version", "1.0.9"),
                     new TeaPair("_prod_code", "ANTVERSE"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -216,5 +216,43 @@ public class Client {
     public QueryAvatarVideoResponse queryAvatarVideoEx(QueryAvatarVideoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.antverse.avatar.video.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAvatarVideoResponse());
+    }
+
+    /**
+     * Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+     * Summary: 查询弹幕列表
+     */
+    public QueryLiveDanmakuResponse queryLiveDanmaku(QueryLiveDanmakuRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLiveDanmakuEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+     * Summary: 查询弹幕列表
+     */
+    public QueryLiveDanmakuResponse queryLiveDanmakuEx(QueryLiveDanmakuRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.antverse.live.danmaku.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLiveDanmakuResponse());
+    }
+
+    /**
+     * Description: 支持问答插播（问题和答案）和实时消息插播
+     * Summary: 插播问答
+     */
+    public SendLiveMessageResponse sendLiveMessage(SendLiveMessageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sendLiveMessageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 支持问答插播（问题和答案）和实时消息插播
+     * Summary: 插播问答
+     */
+    public SendLiveMessageResponse sendLiveMessageEx(SendLiveMessageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.antverse.live.message.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendLiveMessageResponse());
     }
 }
