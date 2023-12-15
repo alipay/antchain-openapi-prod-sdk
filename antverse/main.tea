@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.7',
+    sdk_version = '1.0.9',
     _prod_code = 'ANTVERSE',
     _prod_channel = 'undefined'
   };
@@ -172,6 +172,18 @@ model PositionSizeInfo {
   width: long(name='width', example=''),
   // 数字人高度
   height: long(name='height', example=''),
+}
+
+// 弹幕结构体
+model DanmakuListBO {
+  // 弹幕内容
+  content: string(name='content', example='你好呀'),
+  // 用户昵称
+  nickName?: string(name='nick_name', example='小明'),
+  // 发送时间戳(ms)
+  sendTime: long(name='send_time', example='1700000000000'),
+  // 直播平台code
+  roomType: string(name='room_type', example='TIK_TOK'),
 }
 
 model GetInteractvideoRequest = {
@@ -316,5 +328,99 @@ async function queryAvatarVideo(request: QueryAvatarVideoRequest): QueryAvatarVi
 async function queryAvatarVideoEx(request: QueryAvatarVideoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAvatarVideoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.antverse.avatar.video.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLiveDanmakuRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryLiveDanmakuResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // LRXXXXXXXXXXXXXXXXX
+  instanceId?: string(name='instance_id'),
+  // 当前开播的直播项目id,格式参考:LPXXXXXXXXXXX
+  projectId?: string(name='project_id'),
+  // 弹幕数据
+  danmakuList?: [ DanmakuListBO ](name='danmaku_list'),
+  // 当前租户id
+  tenantId?: string(name='tenant_id'),
+}
+
+/**
+ * Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+ * Summary: 查询弹幕列表
+ */
+async function queryLiveDanmaku(request: QueryLiveDanmakuRequest): QueryLiveDanmakuResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLiveDanmakuEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+ * Summary: 查询弹幕列表
+ */
+async function queryLiveDanmakuEx(request: QueryLiveDanmakuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLiveDanmakuResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.antverse.live.danmaku.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendLiveMessageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 问题
+  question?: string(name='question'),
+  // 回答文本
+  answer: string(name='answer'),
+  // 插播类型(QA-问答插播,REAL_TIME-实时消息插播)
+  intercutType: string(name='intercut_type'),
+}
+
+model SendLiveMessageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 直播间实例id
+  instanceId?: string(name='instance_id'),
+  // 直播间项目id
+  projectId?: string(name='project_id'),
+  // 问答导出任务id
+  taskId?: string(name='task_id'),
+  // 问答完成状态
+  status?: string(name='status'),
+  // 标记
+  mark?: string(name='mark'),
+  // 发送时间
+  sendTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='send_time'),
+}
+
+/**
+ * Description: 支持问答插播（问题和答案）和实时消息插播
+ * Summary: 插播问答
+ */
+async function sendLiveMessage(request: SendLiveMessageRequest): SendLiveMessageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendLiveMessageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支持问答插播（问题和答案）和实时消息插播
+ * Summary: 插播问答
+ */
+async function sendLiveMessageEx(request: SendLiveMessageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendLiveMessageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.antverse.live.message.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
