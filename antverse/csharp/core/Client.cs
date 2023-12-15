@@ -137,7 +137,7 @@ namespace AntChain.SDK.ANTVERSE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.7"},
+                        {"sdk_version", "1.0.9"},
                         {"_prod_code", "ANTVERSE"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ANTVERSE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.7"},
+                        {"sdk_version", "1.0.9"},
                         {"_prod_code", "ANTVERSE"},
                         {"_prod_channel", "undefined"},
                     };
@@ -445,6 +445,90 @@ namespace AntChain.SDK.ANTVERSE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAvatarVideoResponse>(await DoRequestAsync("1.0", "antchain.antverse.avatar.video.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+         * Summary: 查询弹幕列表
+         */
+        public QueryLiveDanmakuResponse QueryLiveDanmaku(QueryLiveDanmakuRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryLiveDanmakuEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+         * Summary: 查询弹幕列表
+         */
+        public async Task<QueryLiveDanmakuResponse> QueryLiveDanmakuAsync(QueryLiveDanmakuRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryLiveDanmakuExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+         * Summary: 查询弹幕列表
+         */
+        public QueryLiveDanmakuResponse QueryLiveDanmakuEx(QueryLiveDanmakuRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLiveDanmakuResponse>(DoRequest("1.0", "antchain.antverse.live.danmaku.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询租户下开播的直播间内配置的直播平台弹幕列表(仅查询过去10s内的最近弹幕,最多展示20条)
+         * Summary: 查询弹幕列表
+         */
+        public async Task<QueryLiveDanmakuResponse> QueryLiveDanmakuExAsync(QueryLiveDanmakuRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLiveDanmakuResponse>(await DoRequestAsync("1.0", "antchain.antverse.live.danmaku.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支持问答插播（问题和答案）和实时消息插播
+         * Summary: 插播问答
+         */
+        public SendLiveMessageResponse SendLiveMessage(SendLiveMessageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SendLiveMessageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支持问答插播（问题和答案）和实时消息插播
+         * Summary: 插播问答
+         */
+        public async Task<SendLiveMessageResponse> SendLiveMessageAsync(SendLiveMessageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SendLiveMessageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支持问答插播（问题和答案）和实时消息插播
+         * Summary: 插播问答
+         */
+        public SendLiveMessageResponse SendLiveMessageEx(SendLiveMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendLiveMessageResponse>(DoRequest("1.0", "antchain.antverse.live.message.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支持问答插播（问题和答案）和实时消息插播
+         * Summary: 插播问答
+         */
+        public async Task<SendLiveMessageResponse> SendLiveMessageExAsync(SendLiveMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendLiveMessageResponse>(await DoRequestAsync("1.0", "antchain.antverse.live.message.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
