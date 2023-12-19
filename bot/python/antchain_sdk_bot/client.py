@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.8',
+                    'sdk_version': '1.10.2',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.8',
+                    'sdk_version': '1.10.2',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -4675,6 +4675,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryTxtransactionChaindataResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.txtransaction.chaindata.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_iotbasic_devicekey(
+        self,
+        request: bot_models.InitIotbasicDevicekeyRequest,
+    ) -> bot_models.InitIotbasicDevicekeyResponse:
+        """
+        Description: IoT设备平台-生成云上认证设备认证密钥
+        Summary: IoT设备平台-生成云上认证设备认证密钥
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_iotbasic_devicekey_ex(request, headers, runtime)
+
+    async def init_iotbasic_devicekey_async(
+        self,
+        request: bot_models.InitIotbasicDevicekeyRequest,
+    ) -> bot_models.InitIotbasicDevicekeyResponse:
+        """
+        Description: IoT设备平台-生成云上认证设备认证密钥
+        Summary: IoT设备平台-生成云上认证设备认证密钥
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_iotbasic_devicekey_ex_async(request, headers, runtime)
+
+    def init_iotbasic_devicekey_ex(
+        self,
+        request: bot_models.InitIotbasicDevicekeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.InitIotbasicDevicekeyResponse:
+        """
+        Description: IoT设备平台-生成云上认证设备认证密钥
+        Summary: IoT设备平台-生成云上认证设备认证密钥
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.InitIotbasicDevicekeyResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.devicekey.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_iotbasic_devicekey_ex_async(
+        self,
+        request: bot_models.InitIotbasicDevicekeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.InitIotbasicDevicekeyResponse:
+        """
+        Description: IoT设备平台-生成云上认证设备认证密钥
+        Summary: IoT设备平台-生成云上认证设备认证密钥
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.InitIotbasicDevicekeyResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.devicekey.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
@@ -10667,6 +10723,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.PagequeryEbikeOperationlogResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.ebike.operationlog.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_customerentity_service(
+        self,
+        request: bot_models.QueryCustomerentityServiceRequest,
+    ) -> bot_models.QueryCustomerentityServiceResponse:
+        """
+        Description: 客户实体拓展功能查询
+        Summary: 客户实体拓展功能查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_customerentity_service_ex(request, headers, runtime)
+
+    async def query_customerentity_service_async(
+        self,
+        request: bot_models.QueryCustomerentityServiceRequest,
+    ) -> bot_models.QueryCustomerentityServiceResponse:
+        """
+        Description: 客户实体拓展功能查询
+        Summary: 客户实体拓展功能查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_customerentity_service_ex_async(request, headers, runtime)
+
+    def query_customerentity_service_ex(
+        self,
+        request: bot_models.QueryCustomerentityServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryCustomerentityServiceResponse:
+        """
+        Description: 客户实体拓展功能查询
+        Summary: 客户实体拓展功能查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryCustomerentityServiceResponse(),
+            self.do_request('1.0', 'blockchain.bot.customerentity.service.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_customerentity_service_ex_async(
+        self,
+        request: bot_models.QueryCustomerentityServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryCustomerentityServiceResponse:
+        """
+        Description: 客户实体拓展功能查询
+        Summary: 客户实体拓展功能查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryCustomerentityServiceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.customerentity.service.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
