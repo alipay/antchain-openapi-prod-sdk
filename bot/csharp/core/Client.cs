@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.9.8"},
+                        {"sdk_version", "1.10.2"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.9.8"},
+                        {"sdk_version", "1.10.2"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3641,6 +3641,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryTxtransactionChaindataResponse>(await DoRequestAsync("1.0", "blockchain.bot.txtransaction.chaindata.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-生成云上认证设备认证密钥
+         * Summary: IoT设备平台-生成云上认证设备认证密钥
+         */
+        public InitIotbasicDevicekeyResponse InitIotbasicDevicekey(InitIotbasicDevicekeyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitIotbasicDevicekeyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-生成云上认证设备认证密钥
+         * Summary: IoT设备平台-生成云上认证设备认证密钥
+         */
+        public async Task<InitIotbasicDevicekeyResponse> InitIotbasicDevicekeyAsync(InitIotbasicDevicekeyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitIotbasicDevicekeyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-生成云上认证设备认证密钥
+         * Summary: IoT设备平台-生成云上认证设备认证密钥
+         */
+        public InitIotbasicDevicekeyResponse InitIotbasicDevicekeyEx(InitIotbasicDevicekeyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitIotbasicDevicekeyResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.devicekey.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-生成云上认证设备认证密钥
+         * Summary: IoT设备平台-生成云上认证设备认证密钥
+         */
+        public async Task<InitIotbasicDevicekeyResponse> InitIotbasicDevicekeyExAsync(InitIotbasicDevicekeyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitIotbasicDevicekeyResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.devicekey.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -8135,6 +8177,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PagequeryEbikeOperationlogResponse>(await DoRequestAsync("1.0", "blockchain.bot.ebike.operationlog.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 客户实体拓展功能查询
+         * Summary: 客户实体拓展功能查询
+         */
+        public QueryCustomerentityServiceResponse QueryCustomerentityService(QueryCustomerentityServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCustomerentityServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 客户实体拓展功能查询
+         * Summary: 客户实体拓展功能查询
+         */
+        public async Task<QueryCustomerentityServiceResponse> QueryCustomerentityServiceAsync(QueryCustomerentityServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCustomerentityServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 客户实体拓展功能查询
+         * Summary: 客户实体拓展功能查询
+         */
+        public QueryCustomerentityServiceResponse QueryCustomerentityServiceEx(QueryCustomerentityServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCustomerentityServiceResponse>(DoRequest("1.0", "blockchain.bot.customerentity.service.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 客户实体拓展功能查询
+         * Summary: 客户实体拓展功能查询
+         */
+        public async Task<QueryCustomerentityServiceResponse> QueryCustomerentityServiceExAsync(QueryCustomerentityServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCustomerentityServiceResponse>(await DoRequestAsync("1.0", "blockchain.bot.customerentity.service.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
