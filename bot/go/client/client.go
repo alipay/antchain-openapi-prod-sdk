@@ -15561,6 +15561,118 @@ func (s *QueryTxtransactionChaindataResponse) SetData(v *QueryChainDataTransacti
 	return s
 }
 
+type InitIotbasicDevicekeyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 所属业务
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 设备厂商名称
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+	// 产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 设备品类
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
+	// json字符串，包含设备sn等信息
+	DeviceInfo *string `json:"device_info,omitempty" xml:"device_info,omitempty" require:"true"`
+	// RSA公钥
+	PubKey *string `json:"pub_key,omitempty" xml:"pub_key,omitempty"`
+}
+
+func (s InitIotbasicDevicekeyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitIotbasicDevicekeyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitIotbasicDevicekeyRequest) SetAuthToken(v string) *InitIotbasicDevicekeyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitIotbasicDevicekeyRequest) SetProductInstanceId(v string) *InitIotbasicDevicekeyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitIotbasicDevicekeyRequest) SetBizScene(v string) *InitIotbasicDevicekeyRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *InitIotbasicDevicekeyRequest) SetCorpName(v string) *InitIotbasicDevicekeyRequest {
+	s.CorpName = &v
+	return s
+}
+
+func (s *InitIotbasicDevicekeyRequest) SetProductCode(v string) *InitIotbasicDevicekeyRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *InitIotbasicDevicekeyRequest) SetDeviceType(v string) *InitIotbasicDevicekeyRequest {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *InitIotbasicDevicekeyRequest) SetDeviceInfo(v string) *InitIotbasicDevicekeyRequest {
+	s.DeviceInfo = &v
+	return s
+}
+
+func (s *InitIotbasicDevicekeyRequest) SetPubKey(v string) *InitIotbasicDevicekeyRequest {
+	s.PubKey = &v
+	return s
+}
+
+type InitIotbasicDevicekeyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备私钥
+	DeviceKey *string `json:"device_key,omitempty" xml:"device_key,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s InitIotbasicDevicekeyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitIotbasicDevicekeyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitIotbasicDevicekeyResponse) SetReqMsgId(v string) *InitIotbasicDevicekeyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitIotbasicDevicekeyResponse) SetResultCode(v string) *InitIotbasicDevicekeyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitIotbasicDevicekeyResponse) SetResultMsg(v string) *InitIotbasicDevicekeyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitIotbasicDevicekeyResponse) SetDeviceKey(v string) *InitIotbasicDevicekeyResponse {
+	s.DeviceKey = &v
+	return s
+}
+
+func (s *InitIotbasicDevicekeyResponse) SetSuccess(v bool) *InitIotbasicDevicekeyResponse {
+	s.Success = &v
+	return s
+}
+
 type QueryIotplatformPurchaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -25974,6 +26086,97 @@ func (s *PagequeryEbikeOperationlogResponse) SetData(v *EBikeOperationLogPageRes
 	return s
 }
 
+type QueryCustomerentityServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 客户实体id
+	EntityId *string `json:"entity_id,omitempty" xml:"entity_id,omitempty" require:"true"`
+	// 请求客户实体服务类型
+	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty" require:"true"`
+	// 查询参数json串
+	Param *string `json:"param,omitempty" xml:"param,omitempty"`
+}
+
+func (s QueryCustomerentityServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCustomerentityServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCustomerentityServiceRequest) SetAuthToken(v string) *QueryCustomerentityServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCustomerentityServiceRequest) SetProductInstanceId(v string) *QueryCustomerentityServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCustomerentityServiceRequest) SetScene(v string) *QueryCustomerentityServiceRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *QueryCustomerentityServiceRequest) SetEntityId(v string) *QueryCustomerentityServiceRequest {
+	s.EntityId = &v
+	return s
+}
+
+func (s *QueryCustomerentityServiceRequest) SetServiceType(v string) *QueryCustomerentityServiceRequest {
+	s.ServiceType = &v
+	return s
+}
+
+func (s *QueryCustomerentityServiceRequest) SetParam(v string) *QueryCustomerentityServiceRequest {
+	s.Param = &v
+	return s
+}
+
+type QueryCustomerentityServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回电子围栏 or 路径纠偏处理结果 json字符串
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryCustomerentityServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCustomerentityServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCustomerentityServiceResponse) SetReqMsgId(v string) *QueryCustomerentityServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCustomerentityServiceResponse) SetResultCode(v string) *QueryCustomerentityServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCustomerentityServiceResponse) SetResultMsg(v string) *QueryCustomerentityServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCustomerentityServiceResponse) SetData(v string) *QueryCustomerentityServiceResponse {
+	s.Data = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -27744,7 +27947,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.8"),
+				"sdk_version":      tea.String("1.10.2"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -30476,6 +30679,40 @@ func (client *Client) QueryTxtransactionChaindataEx(request *QueryTxtransactionC
 	}
 	_result = &QueryTxtransactionChaindataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.txtransaction.chaindata.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-生成云上认证设备认证密钥
+ * Summary: IoT设备平台-生成云上认证设备认证密钥
+ */
+func (client *Client) InitIotbasicDevicekey(request *InitIotbasicDevicekeyRequest) (_result *InitIotbasicDevicekeyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitIotbasicDevicekeyResponse{}
+	_body, _err := client.InitIotbasicDevicekeyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-生成云上认证设备认证密钥
+ * Summary: IoT设备平台-生成云上认证设备认证密钥
+ */
+func (client *Client) InitIotbasicDevicekeyEx(request *InitIotbasicDevicekeyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitIotbasicDevicekeyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitIotbasicDevicekeyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.devicekey.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -34114,6 +34351,40 @@ func (client *Client) PagequeryEbikeOperationlogEx(request *PagequeryEbikeOperat
 	}
 	_result = &PagequeryEbikeOperationlogResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.ebike.operationlog.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 客户实体拓展功能查询
+ * Summary: 客户实体拓展功能查询
+ */
+func (client *Client) QueryCustomerentityService(request *QueryCustomerentityServiceRequest) (_result *QueryCustomerentityServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCustomerentityServiceResponse{}
+	_body, _err := client.QueryCustomerentityServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 客户实体拓展功能查询
+ * Summary: 客户实体拓展功能查询
+ */
+func (client *Client) QueryCustomerentityServiceEx(request *QueryCustomerentityServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCustomerentityServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCustomerentityServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.customerentity.service.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
