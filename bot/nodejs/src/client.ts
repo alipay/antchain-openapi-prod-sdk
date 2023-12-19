@@ -11838,6 +11838,89 @@ export class QueryTxtransactionChaindataResponse extends $tea.Model {
   }
 }
 
+export class InitIotbasicDevicekeyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 所属业务
+  bizScene: string;
+  // 设备厂商名称
+  corpName: string;
+  // 产品code
+  productCode: string;
+  // 设备品类
+  deviceType?: string;
+  // json字符串，包含设备sn等信息
+  deviceInfo: string;
+  // RSA公钥
+  pubKey?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+      corpName: 'corp_name',
+      productCode: 'product_code',
+      deviceType: 'device_type',
+      deviceInfo: 'device_info',
+      pubKey: 'pub_key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+      corpName: 'string',
+      productCode: 'string',
+      deviceType: 'string',
+      deviceInfo: 'string',
+      pubKey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitIotbasicDevicekeyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 设备私钥
+  deviceKey?: string;
+  // 操作结果
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      deviceKey: 'device_key',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      deviceKey: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -19946,6 +20029,77 @@ export class PagequeryEbikeOperationlogResponse extends $tea.Model {
   }
 }
 
+export class QueryCustomerentityServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  scene: string;
+  // 客户实体id
+  entityId: string;
+  // 请求客户实体服务类型
+  serviceType: string;
+  // 查询参数json串
+  param?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      scene: 'scene',
+      entityId: 'entity_id',
+      serviceType: 'service_type',
+      param: 'param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      scene: 'string',
+      entityId: 'string',
+      serviceType: 'string',
+      param: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCustomerentityServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回电子围栏 or 路径纠偏处理结果 json字符串
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -21328,7 +21482,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.8",
+          sdk_version: "1.10.2",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -22877,6 +23031,25 @@ export default class Client {
   async queryTxtransactionChaindataEx(request: QueryTxtransactionChaindataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTxtransactionChaindataResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryTxtransactionChaindataResponse>(await this.doRequest("1.0", "blockchain.bot.txtransaction.chaindata.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTxtransactionChaindataResponse({}));
+  }
+
+  /**
+   * Description: IoT设备平台-生成云上认证设备认证密钥
+   * Summary: IoT设备平台-生成云上认证设备认证密钥
+   */
+  async initIotbasicDevicekey(request: InitIotbasicDevicekeyRequest): Promise<InitIotbasicDevicekeyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initIotbasicDevicekeyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: IoT设备平台-生成云上认证设备认证密钥
+   * Summary: IoT设备平台-生成云上认证设备认证密钥
+   */
+  async initIotbasicDevicekeyEx(request: InitIotbasicDevicekeyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitIotbasicDevicekeyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitIotbasicDevicekeyResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.devicekey.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitIotbasicDevicekeyResponse({}));
   }
 
   /**
@@ -24910,6 +25083,25 @@ export default class Client {
   async pagequeryEbikeOperationlogEx(request: PagequeryEbikeOperationlogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryEbikeOperationlogResponse> {
     Util.validateModel(request);
     return $tea.cast<PagequeryEbikeOperationlogResponse>(await this.doRequest("1.0", "blockchain.bot.ebike.operationlog.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryEbikeOperationlogResponse({}));
+  }
+
+  /**
+   * Description: 客户实体拓展功能查询
+   * Summary: 客户实体拓展功能查询
+   */
+  async queryCustomerentityService(request: QueryCustomerentityServiceRequest): Promise<QueryCustomerentityServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCustomerentityServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 客户实体拓展功能查询
+   * Summary: 客户实体拓展功能查询
+   */
+  async queryCustomerentityServiceEx(request: QueryCustomerentityServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCustomerentityServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCustomerentityServiceResponse>(await this.doRequest("1.0", "blockchain.bot.customerentity.service.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCustomerentityServiceResponse({}));
   }
 
   /**
