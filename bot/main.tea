@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.9.8',
+    sdk_version = '1.10.2',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -6252,6 +6252,56 @@ async function queryTxtransactionChaindataEx(request: QueryTxtransactionChaindat
   return doRequest('1.0' ,'blockchain.bot.txtransaction.chaindata.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model InitIotbasicDevicekeyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+  // 设备厂商名称
+  corpName: string(name='corp_name'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 设备品类
+  deviceType?: string(name='device_type'),
+  // json字符串，包含设备sn等信息
+  deviceInfo: string(name='device_info'),
+  // RSA公钥
+  pubKey?: string(name='pub_key'),
+}
+
+model InitIotbasicDevicekeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 设备私钥
+  deviceKey?: string(name='device_key'),
+  // 操作结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: IoT设备平台-生成云上认证设备认证密钥
+ * Summary: IoT设备平台-生成云上认证设备认证密钥
+ */
+async function initIotbasicDevicekey(request: InitIotbasicDevicekeyRequest): InitIotbasicDevicekeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initIotbasicDevicekeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-生成云上认证设备认证密钥
+ * Summary: IoT设备平台-生成云上认证设备认证密钥
+ */
+async function initIotbasicDevicekeyEx(request: InitIotbasicDevicekeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitIotbasicDevicekeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.devicekey.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryIotplatformPurchaseorderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -11359,6 +11409,50 @@ async function pagequeryEbikeOperationlog(request: PagequeryEbikeOperationlogReq
 async function pagequeryEbikeOperationlogEx(request: PagequeryEbikeOperationlogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryEbikeOperationlogResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.ebike.operationlog.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCustomerentityServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 客户实体id
+  entityId: string(name='entity_id'),
+  // 请求客户实体服务类型
+  serviceType: string(name='service_type'),
+  // 查询参数json串
+  param?: string(name='param'),
+}
+
+model QueryCustomerentityServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回电子围栏 or 路径纠偏处理结果 json字符串
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 客户实体拓展功能查询
+ * Summary: 客户实体拓展功能查询
+ */
+async function queryCustomerentityService(request: QueryCustomerentityServiceRequest): QueryCustomerentityServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCustomerentityServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 客户实体拓展功能查询
+ * Summary: 客户实体拓展功能查询
+ */
+async function queryCustomerentityServiceEx(request: QueryCustomerentityServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCustomerentityServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.customerentity.service.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
