@@ -149,6 +149,8 @@ use AntChain\BOT\Models\ImportPeripheralRequest;
 use AntChain\BOT\Models\ImportPeripheralResponse;
 use AntChain\BOT\Models\ImportPurchaseorderThirdpartyRequest;
 use AntChain\BOT\Models\ImportPurchaseorderThirdpartyResponse;
+use AntChain\BOT\Models\InitIotbasicDevicekeyRequest;
+use AntChain\BOT\Models\InitIotbasicDevicekeyResponse;
 use AntChain\BOT\Models\ListDeviceBysceneRequest;
 use AntChain\BOT\Models\ListDeviceBysceneResponse;
 use AntChain\BOT\Models\ListDistributedeviceByperipheralsceneRequest;
@@ -267,6 +269,8 @@ use AntChain\BOT\Models\QueryCollectorJtfluxRequest;
 use AntChain\BOT\Models\QueryCollectorJtfluxResponse;
 use AntChain\BOT\Models\QueryCollectorJtmediaRequest;
 use AntChain\BOT\Models\QueryCollectorJtmediaResponse;
+use AntChain\BOT\Models\QueryCustomerentityServiceRequest;
+use AntChain\BOT\Models\QueryCustomerentityServiceResponse;
 use AntChain\BOT\Models\QueryDataBytxhashRequest;
 use AntChain\BOT\Models\QueryDataBytxhashResponse;
 use AntChain\BOT\Models\QueryDeviceRegisterresultRequest;
@@ -562,7 +566,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.9.8',
+                    'sdk_version'      => '1.10.2',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3200,6 +3204,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryTxtransactionChaindataResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.txtransaction.chaindata.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-生成云上认证设备认证密钥
+     * Summary: IoT设备平台-生成云上认证设备认证密钥.
+     *
+     * @param InitIotbasicDevicekeyRequest $request
+     *
+     * @return InitIotbasicDevicekeyResponse
+     */
+    public function initIotbasicDevicekey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initIotbasicDevicekeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-生成云上认证设备认证密钥
+     * Summary: IoT设备平台-生成云上认证设备认证密钥.
+     *
+     * @param InitIotbasicDevicekeyRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return InitIotbasicDevicekeyResponse
+     */
+    public function initIotbasicDevicekeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitIotbasicDevicekeyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.devicekey.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -6731,6 +6768,39 @@ class Client
         Utils::validateModel($request);
 
         return PagequeryEbikeOperationlogResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.ebike.operationlog.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 客户实体拓展功能查询
+     * Summary: 客户实体拓展功能查询.
+     *
+     * @param QueryCustomerentityServiceRequest $request
+     *
+     * @return QueryCustomerentityServiceResponse
+     */
+    public function queryCustomerentityService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCustomerentityServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 客户实体拓展功能查询
+     * Summary: 客户实体拓展功能查询.
+     *
+     * @param QueryCustomerentityServiceRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryCustomerentityServiceResponse
+     */
+    public function queryCustomerentityServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCustomerentityServiceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.customerentity.service.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
