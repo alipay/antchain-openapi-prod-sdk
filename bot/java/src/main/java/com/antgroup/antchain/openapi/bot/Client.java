@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.9.8"),
+                    new TeaPair("sdk_version", "1.10.2"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1662,6 +1662,25 @@ public class Client {
     public QueryTxtransactionChaindataResponse queryTxtransactionChaindataEx(QueryTxtransactionChaindataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.txtransaction.chaindata.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTxtransactionChaindataResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-生成云上认证设备认证密钥
+     * Summary: IoT设备平台-生成云上认证设备认证密钥
+     */
+    public InitIotbasicDevicekeyResponse initIotbasicDevicekey(InitIotbasicDevicekeyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initIotbasicDevicekeyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-生成云上认证设备认证密钥
+     * Summary: IoT设备平台-生成云上认证设备认证密钥
+     */
+    public InitIotbasicDevicekeyResponse initIotbasicDevicekeyEx(InitIotbasicDevicekeyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.devicekey.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitIotbasicDevicekeyResponse());
     }
 
     /**
@@ -3695,6 +3714,25 @@ public class Client {
     public PagequeryEbikeOperationlogResponse pagequeryEbikeOperationlogEx(PagequeryEbikeOperationlogRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.ebike.operationlog.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryEbikeOperationlogResponse());
+    }
+
+    /**
+     * Description: 客户实体拓展功能查询
+     * Summary: 客户实体拓展功能查询
+     */
+    public QueryCustomerentityServiceResponse queryCustomerentityService(QueryCustomerentityServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCustomerentityServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 客户实体拓展功能查询
+     * Summary: 客户实体拓展功能查询
+     */
+    public QueryCustomerentityServiceResponse queryCustomerentityServiceEx(QueryCustomerentityServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.customerentity.service.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCustomerentityServiceResponse());
     }
 
     /**
