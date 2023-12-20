@@ -12,12 +12,12 @@ public class CaSystemMainBodyRequest extends TeaModel {
     // 签署区位置横坐标
     @NameInMap("pos_x")
     @Validation(required = true)
-    public Long posX;
+    public String posX;
 
     // 签署区位置纵坐标
     @NameInMap("pos_y")
     @Validation(required = true)
-    public Long posY;
+    public String posY;
 
     public static CaSystemMainBodyRequest build(java.util.Map<String, ?> map) throws Exception {
         CaSystemMainBodyRequest self = new CaSystemMainBodyRequest();
@@ -32,19 +32,19 @@ public class CaSystemMainBodyRequest extends TeaModel {
         return this.posPage;
     }
 
-    public CaSystemMainBodyRequest setPosX(Long posX) {
+    public CaSystemMainBodyRequest setPosX(String posX) {
         this.posX = posX;
         return this;
     }
-    public Long getPosX() {
+    public String getPosX() {
         return this.posX;
     }
 
-    public CaSystemMainBodyRequest setPosY(Long posY) {
+    public CaSystemMainBodyRequest setPosY(String posY) {
         this.posY = posY;
         return this;
     }
-    public Long getPosY() {
+    public String getPosY() {
         return this.posY;
     }
 

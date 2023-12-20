@@ -17,12 +17,12 @@ public class CaSystemCrossPageRequest extends TeaModel {
     // 签署区位置横坐标
     @NameInMap("pos_x")
     @Validation(required = true)
-    public Long posX;
+    public String posX;
 
     // 签署区位置纵坐标
     @NameInMap("pos_y")
     @Validation(required = true)
-    public Long posY;
+    public String posY;
 
     public static CaSystemCrossPageRequest build(java.util.Map<String, ?> map) throws Exception {
         CaSystemCrossPageRequest self = new CaSystemCrossPageRequest();
@@ -45,19 +45,19 @@ public class CaSystemCrossPageRequest extends TeaModel {
         return this.posPageEnd;
     }
 
-    public CaSystemCrossPageRequest setPosX(Long posX) {
+    public CaSystemCrossPageRequest setPosX(String posX) {
         this.posX = posX;
         return this;
     }
-    public Long getPosX() {
+    public String getPosX() {
         return this.posX;
     }
 
-    public CaSystemCrossPageRequest setPosY(Long posY) {
+    public CaSystemCrossPageRequest setPosY(String posY) {
         this.posY = posY;
         return this;
     }
-    public Long getPosY() {
+    public String getPosY() {
         return this.posY;
     }
 
