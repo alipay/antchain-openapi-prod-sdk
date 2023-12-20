@@ -18,12 +18,12 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0.Models
         // 签署区位置横坐标
         [NameInMap("pos_x")]
         [Validation(Required=true)]
-        public long? PosX { get; set; }
+        public string PosX { get; set; }
 
         // 签署区位置纵坐标
         [NameInMap("pos_y")]
         [Validation(Required=true)]
-        public long? PosY { get; set; }
+        public string PosY { get; set; }
 
     }
 
