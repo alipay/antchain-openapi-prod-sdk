@@ -154,9 +154,9 @@ type CaSystemMainBodyRequest struct {
 	// 签署页码
 	PosPage *int64 `json:"pos_page,omitempty" xml:"pos_page,omitempty" require:"true"`
 	// 签署区位置横坐标
-	PosX *int64 `json:"pos_x,omitempty" xml:"pos_x,omitempty" require:"true"`
+	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty" require:"true"`
 	// 签署区位置纵坐标
-	PosY *int64 `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true"`
+	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true"`
 }
 
 func (s CaSystemMainBodyRequest) String() string {
@@ -172,12 +172,12 @@ func (s *CaSystemMainBodyRequest) SetPosPage(v int64) *CaSystemMainBodyRequest {
 	return s
 }
 
-func (s *CaSystemMainBodyRequest) SetPosX(v int64) *CaSystemMainBodyRequest {
+func (s *CaSystemMainBodyRequest) SetPosX(v string) *CaSystemMainBodyRequest {
 	s.PosX = &v
 	return s
 }
 
-func (s *CaSystemMainBodyRequest) SetPosY(v int64) *CaSystemMainBodyRequest {
+func (s *CaSystemMainBodyRequest) SetPosY(v string) *CaSystemMainBodyRequest {
 	s.PosY = &v
 	return s
 }
@@ -189,9 +189,9 @@ type CaSystemCrossPageRequest struct {
 	// 结束页码（供骑缝章使用）
 	PosPageEnd *int64 `json:"pos_page_end,omitempty" xml:"pos_page_end,omitempty" require:"true"`
 	// 签署区位置横坐标
-	PosX *int64 `json:"pos_x,omitempty" xml:"pos_x,omitempty" require:"true"`
+	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty" require:"true"`
 	// 签署区位置纵坐标
-	PosY *int64 `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true"`
+	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true"`
 }
 
 func (s CaSystemCrossPageRequest) String() string {
@@ -212,12 +212,12 @@ func (s *CaSystemCrossPageRequest) SetPosPageEnd(v int64) *CaSystemCrossPageRequ
 	return s
 }
 
-func (s *CaSystemCrossPageRequest) SetPosX(v int64) *CaSystemCrossPageRequest {
+func (s *CaSystemCrossPageRequest) SetPosX(v string) *CaSystemCrossPageRequest {
 	s.PosX = &v
 	return s
 }
 
-func (s *CaSystemCrossPageRequest) SetPosY(v int64) *CaSystemCrossPageRequest {
+func (s *CaSystemCrossPageRequest) SetPosY(v string) *CaSystemCrossPageRequest {
 	s.PosY = &v
 	return s
 }
@@ -2748,7 +2748,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.2"),
+				"sdk_version":      tea.String("2.0.0"),
 				"_prod_code":       tea.String("ak_320bc483f2434f39a3af9ec9f04d3cc0"),
 				"_prod_channel":    tea.String("saas"),
 			}

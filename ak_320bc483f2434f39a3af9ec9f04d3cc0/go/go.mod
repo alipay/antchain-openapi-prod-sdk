@@ -1,4 +1,4 @@
-module github.com/antchain-openapi-sdk-go/ak_320bc483f2434f39a3af9ec9f04d3cc0
+module github.com/antchain-openapi-sdk-go/ak_320bc483f2434f39a3af9ec9f04d3cc0/v2
 
 go 1.15
 
