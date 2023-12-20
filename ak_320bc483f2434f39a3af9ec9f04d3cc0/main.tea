@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.2',
+    sdk_version = '2.0.0',
     _prod_code = 'ak_320bc483f2434f39a3af9ec9f04d3cc0',
     _prod_channel = 'saas'
   };
@@ -166,9 +166,9 @@ model CaSystemMainBodyRequest {
   // 签署页码
   posPage: long(name='pos_page', example='1'),
   // 签署区位置横坐标
-  posX: long(name='pos_x', example='200'),
+  posX: string(name='pos_x', example='200'),
   // 签署区位置纵坐标
-  posY: long(name='pos_y', example='300'),
+  posY: string(name='pos_y', example='300'),
 }
 
 // 骑缝章信息
@@ -178,9 +178,9 @@ model CaSystemCrossPageRequest {
   // 结束页码（供骑缝章使用）
   posPageEnd: long(name='pos_page_end', example='3'),
   // 签署区位置横坐标
-  posX: long(name='pos_x', example='200'),
+  posX: string(name='pos_x', example='200'),
   // 签署区位置纵坐标
-  posY: long(name='pos_y', example='300'),
+  posY: string(name='pos_y', example='300'),
 }
 
 // 签署区域信息（包括印模信息）
