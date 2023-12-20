@@ -28,7 +28,7 @@ class CaSystemCrossPageRequest extends Model
     /**
      * @example 200
      *
-     * @var int
+     * @var string
      */
     public $posX;
 
@@ -36,7 +36,7 @@ class CaSystemCrossPageRequest extends Model
     /**
      * @example 300
      *
-     * @var int
+     * @var string
      */
     public $posY;
     protected $_name = [
