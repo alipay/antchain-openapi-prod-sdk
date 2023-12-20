@@ -83,9 +83,9 @@ export class CaSystemMainBodyRequest extends $tea.Model {
   // 签署页码
   posPage: number;
   // 签署区位置横坐标
-  posX: number;
+  posX: string;
   // 签署区位置纵坐标
-  posY: number;
+  posY: string;
   static names(): { [key: string]: string } {
     return {
       posPage: 'pos_page',
@@ -97,8 +97,8 @@ export class CaSystemMainBodyRequest extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       posPage: 'number',
-      posX: 'number',
-      posY: 'number',
+      posX: 'string',
+      posY: 'string',
     };
   }
 
@@ -114,9 +114,9 @@ export class CaSystemCrossPageRequest extends $tea.Model {
   // 结束页码（供骑缝章使用）
   posPageEnd: number;
   // 签署区位置横坐标
-  posX: number;
+  posX: string;
   // 签署区位置纵坐标
-  posY: number;
+  posY: string;
   static names(): { [key: string]: string } {
     return {
       posPageStart: 'pos_page_start',
@@ -130,8 +130,8 @@ export class CaSystemCrossPageRequest extends $tea.Model {
     return {
       posPageStart: 'number',
       posPageEnd: 'number',
-      posX: 'number',
-      posY: 'number',
+      posX: 'string',
+      posY: 'string',
     };
   }
 
@@ -2086,7 +2086,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.2",
+          sdk_version: "2.0.0",
           _prod_code: "ak_320bc483f2434f39a3af9ec9f04d3cc0",
           _prod_channel: "saas",
         };
