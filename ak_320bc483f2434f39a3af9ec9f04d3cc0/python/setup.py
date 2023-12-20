@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_ak_320bc483f2434f39a3af9ec9f04d3cc0.
 
-Created on 29/11/2023
+Created on 20/12/2023
 
 @author: Ant Chain SDK
 """

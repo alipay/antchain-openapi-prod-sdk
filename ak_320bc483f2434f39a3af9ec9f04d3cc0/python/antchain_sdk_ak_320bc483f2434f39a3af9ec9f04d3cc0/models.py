@@ -158,8 +158,8 @@ class CaSystemMainBodyRequest(TeaModel):
     def __init__(
         self,
         pos_page: int = None,
-        pos_x: int = None,
-        pos_y: int = None,
+        pos_x: str = None,
+        pos_y: str = None,
     ):
         # 签署页码
         self.pos_page = pos_page
@@ -203,8 +203,8 @@ class CaSystemCrossPageRequest(TeaModel):
         self,
         pos_page_start: int = None,
         pos_page_end: int = None,
-        pos_x: int = None,
-        pos_y: int = None,
+        pos_x: str = None,
+        pos_y: str = None,
     ):
         # 签署页码
         self.pos_page_start = pos_page_start
