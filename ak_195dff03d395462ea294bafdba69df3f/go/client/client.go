@@ -191,6 +191,8 @@ type SubmitAntchainAtoFrontSignRequest struct {
 	MerchantTag *string `json:"merchant_tag,omitempty" xml:"merchant_tag,omitempty" maxLength:"32" minLength:"2"`
 	// 电子合同签署顺序，如果只有1方企业签署，传入1即可。如果是多方，并且需要设置签署顺序，则需要将这个值以及thirdSigner中的signOrder做一个签署顺序。
 	MerchantSignOrder *int64 `json:"merchant_sign_order,omitempty" xml:"merchant_sign_order,omitempty"`
+	// 商户需要盖的印章ID
+	MerchantSealId *string `json:"merchant_seal_id,omitempty" xml:"merchant_seal_id,omitempty"`
 	// CRED_ORG_USCC：统一社会信用代码，
 	// CRED_ORG_REGCODE：工商注册号，
 	// 只支持这两个值
@@ -203,7 +205,7 @@ type SubmitAntchainAtoFrontSignRequest struct {
 	// 法人证件号，需要采用RSA加密传输
 	//
 	MerchantLegalIdNumber *string `json:"merchant_legal_id_number,omitempty" xml:"merchant_legal_id_number,omitempty"`
-	// 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
+	// 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012","sealIds":["12b2317-0000-3333-2222-ec087dc97d8b"]}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
 	ThirdSigner *string `json:"third_signer,omitempty" xml:"third_signer,omitempty"`
 }
 
@@ -300,6 +302,11 @@ func (s *SubmitAntchainAtoFrontSignRequest) SetMerchantSignOrder(v int64) *Submi
 	return s
 }
 
+func (s *SubmitAntchainAtoFrontSignRequest) SetMerchantSealId(v string) *SubmitAntchainAtoFrontSignRequest {
+	s.MerchantSealId = &v
+	return s
+}
+
 func (s *SubmitAntchainAtoFrontSignRequest) SetMerchantIdType(v string) *SubmitAntchainAtoFrontSignRequest {
 	s.MerchantIdType = &v
 	return s
@@ -341,6 +348,8 @@ type SubmitAntchainAtoFrontSignResponse struct {
 	// 签署用户ID
 	//
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+	SignInfo *string `json:"sign_info,omitempty" xml:"sign_info,omitempty"`
 }
 
 func (s SubmitAntchainAtoFrontSignResponse) String() string {
@@ -378,6 +387,11 @@ func (s *SubmitAntchainAtoFrontSignResponse) SetFlowId(v string) *SubmitAntchain
 
 func (s *SubmitAntchainAtoFrontSignResponse) SetAccountId(v string) *SubmitAntchainAtoFrontSignResponse {
 	s.AccountId = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoFrontSignResponse) SetSignInfo(v string) *SubmitAntchainAtoFrontSignResponse {
+	s.SignInfo = &v
 	return s
 }
 
@@ -581,7 +595,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_195dff03d395462ea294bafdba69df3f"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -640,8 +654,8 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: 提交前置签署的电子合同签署流程
- * Summary: 提交前置签署的电子合同签署流程
+ * Description: 提交前置签署的电子合同签署流程（前置签署模式）
+ * Summary: 提交签署的电子合同签署流程（前置签署）
  */
 func (client *Client) SubmitAntchainAtoFrontSign(request *SubmitAntchainAtoFrontSignRequest) (_result *SubmitAntchainAtoFrontSignResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -656,8 +670,8 @@ func (client *Client) SubmitAntchainAtoFrontSign(request *SubmitAntchainAtoFront
 }
 
 /**
- * Description: 提交前置签署的电子合同签署流程
- * Summary: 提交前置签署的电子合同签署流程
+ * Description: 提交前置签署的电子合同签署流程（前置签署模式）
+ * Summary: 提交签署的电子合同签署流程（前置签署）
  */
 func (client *Client) SubmitAntchainAtoFrontSignEx(request *SubmitAntchainAtoFrontSignRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAntchainAtoFrontSignResponse, _err error) {
 	_err = util.ValidateModel(request)
