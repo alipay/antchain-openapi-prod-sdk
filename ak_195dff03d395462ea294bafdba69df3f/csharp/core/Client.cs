@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -322,8 +322,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 提交前置签署的电子合同签署流程
-         * Summary: 提交前置签署的电子合同签署流程
+         * Description: 提交前置签署的电子合同签署流程（前置签署模式）
+         * Summary: 提交签署的电子合同签署流程（前置签署）
          */
         public SubmitAntchainAtoFrontSignResponse SubmitAntchainAtoFrontSign(SubmitAntchainAtoFrontSignRequest request)
         {
@@ -333,8 +333,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 提交前置签署的电子合同签署流程
-         * Summary: 提交前置签署的电子合同签署流程
+         * Description: 提交前置签署的电子合同签署流程（前置签署模式）
+         * Summary: 提交签署的电子合同签署流程（前置签署）
          */
         public async Task<SubmitAntchainAtoFrontSignResponse> SubmitAntchainAtoFrontSignAsync(SubmitAntchainAtoFrontSignRequest request)
         {
@@ -344,8 +344,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 提交前置签署的电子合同签署流程
-         * Summary: 提交前置签署的电子合同签署流程
+         * Description: 提交前置签署的电子合同签署流程（前置签署模式）
+         * Summary: 提交签署的电子合同签署流程（前置签署）
          */
         public SubmitAntchainAtoFrontSignResponse SubmitAntchainAtoFrontSignEx(SubmitAntchainAtoFrontSignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -354,8 +354,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 提交前置签署的电子合同签署流程
-         * Summary: 提交前置签署的电子合同签署流程
+         * Description: 提交前置签署的电子合同签署流程（前置签署模式）
+         * Summary: 提交签署的电子合同签署流程（前置签署）
          */
         public async Task<SubmitAntchainAtoFrontSignResponse> SubmitAntchainAtoFrontSignExAsync(SubmitAntchainAtoFrontSignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
