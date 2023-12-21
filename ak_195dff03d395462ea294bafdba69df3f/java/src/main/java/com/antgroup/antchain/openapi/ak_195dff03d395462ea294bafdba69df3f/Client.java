@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.0.1"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -162,8 +162,8 @@ public class Client {
     }
 
     /**
-     * Description: 提交前置签署的电子合同签署流程
-     * Summary: 提交前置签署的电子合同签署流程
+     * Description: 提交前置签署的电子合同签署流程（前置签署模式）
+     * Summary: 提交签署的电子合同签署流程（前置签署）
      */
     public SubmitAntchainAtoFrontSignResponse submitAntchainAtoFrontSign(SubmitAntchainAtoFrontSignRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -172,8 +172,8 @@ public class Client {
     }
 
     /**
-     * Description: 提交前置签署的电子合同签署流程
-     * Summary: 提交前置签署的电子合同签署流程
+     * Description: 提交前置签署的电子合同签署流程（前置签署模式）
+     * Summary: 提交签署的电子合同签署流程（前置签署）
      */
     public SubmitAntchainAtoFrontSignResponse submitAntchainAtoFrontSignEx(SubmitAntchainAtoFrontSignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

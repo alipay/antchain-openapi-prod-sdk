@@ -31,6 +31,10 @@ public class SubmitAntchainAtoFrontSignResponse extends TeaModel {
     @NameInMap("account_id")
     public String accountId;
 
+    // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+    @NameInMap("sign_info")
+    public String signInfo;
+
     public static SubmitAntchainAtoFrontSignResponse build(java.util.Map<String, ?> map) throws Exception {
         SubmitAntchainAtoFrontSignResponse self = new SubmitAntchainAtoFrontSignResponse();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class SubmitAntchainAtoFrontSignResponse extends TeaModel {
     }
     public String getAccountId() {
         return this.accountId;
+    }
+
+    public SubmitAntchainAtoFrontSignResponse setSignInfo(String signInfo) {
+        this.signInfo = signInfo;
+        return this;
+    }
+    public String getSignInfo() {
+        return this.signInfo;
     }
 
 }
