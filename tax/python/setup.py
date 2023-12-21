@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_tax.
 
-Created on 22/11/2023
+Created on 21/12/2023
 
 @author: Ant Chain SDK
 """

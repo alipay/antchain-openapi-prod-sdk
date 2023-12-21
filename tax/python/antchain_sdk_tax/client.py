@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.19',
+                    'sdk_version': '1.8.6',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.19',
+                    'sdk_version': '1.8.6',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -1953,6 +1953,62 @@ class Client:
         return TeaCore.from_map(
             tax_models.PullApiHaiguanasyncpollingResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.api.haiguanasyncpolling.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_risk_evaluation(
+        self,
+        request: tax_models.StartRiskEvaluationRequest,
+    ) -> tax_models.StartRiskEvaluationResponse:
+        """
+        Description: 提额资质评估授权并查询,支持省级查询
+        Summary: 提额资质评估授权并查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_risk_evaluation_ex(request, headers, runtime)
+
+    async def start_risk_evaluation_async(
+        self,
+        request: tax_models.StartRiskEvaluationRequest,
+    ) -> tax_models.StartRiskEvaluationResponse:
+        """
+        Description: 提额资质评估授权并查询,支持省级查询
+        Summary: 提额资质评估授权并查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_risk_evaluation_ex_async(request, headers, runtime)
+
+    def start_risk_evaluation_ex(
+        self,
+        request: tax_models.StartRiskEvaluationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.StartRiskEvaluationResponse:
+        """
+        Description: 提额资质评估授权并查询,支持省级查询
+        Summary: 提额资质评估授权并查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.StartRiskEvaluationResponse(),
+            self.do_request('1.0', 'blockchain.tax.risk.evaluation.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_risk_evaluation_ex_async(
+        self,
+        request: tax_models.StartRiskEvaluationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.StartRiskEvaluationResponse:
+        """
+        Description: 提额资质评估授权并查询,支持省级查询
+        Summary: 提额资质评估授权并查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.StartRiskEvaluationResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.risk.evaluation.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_pdata_personalincome(
