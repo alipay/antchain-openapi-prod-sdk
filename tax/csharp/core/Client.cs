@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.19"},
+                        {"sdk_version", "1.8.6"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.19"},
+                        {"sdk_version", "1.8.6"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1579,6 +1579,48 @@ namespace AntChain.SDK.TAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PullApiHaiguanasyncpollingResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.haiguanasyncpolling.pull", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提额资质评估授权并查询,支持省级查询
+         * Summary: 提额资质评估授权并查询
+         */
+        public StartRiskEvaluationResponse StartRiskEvaluation(StartRiskEvaluationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartRiskEvaluationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提额资质评估授权并查询,支持省级查询
+         * Summary: 提额资质评估授权并查询
+         */
+        public async Task<StartRiskEvaluationResponse> StartRiskEvaluationAsync(StartRiskEvaluationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartRiskEvaluationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提额资质评估授权并查询,支持省级查询
+         * Summary: 提额资质评估授权并查询
+         */
+        public StartRiskEvaluationResponse StartRiskEvaluationEx(StartRiskEvaluationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartRiskEvaluationResponse>(DoRequest("1.0", "blockchain.tax.risk.evaluation.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提额资质评估授权并查询,支持省级查询
+         * Summary: 提额资质评估授权并查询
+         */
+        public async Task<StartRiskEvaluationResponse> StartRiskEvaluationExAsync(StartRiskEvaluationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartRiskEvaluationResponse>(await DoRequestAsync("1.0", "blockchain.tax.risk.evaluation.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -64,6 +64,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string Secret { get; set; }
 
+        // 0：不含进项发票。  1：包含进项发票。
+        [NameInMap("proceeds_invoice")]
+        [Validation(Required=false)]
+        public string ProceedsInvoice { get; set; }
+
     }
 
 }
