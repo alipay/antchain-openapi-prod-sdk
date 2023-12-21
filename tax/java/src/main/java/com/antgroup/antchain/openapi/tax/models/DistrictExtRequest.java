@@ -6,8 +6,11 @@ import com.aliyun.tea.*;
 public class DistrictExtRequest extends TeaModel {
     // 地区编码
     @NameInMap("city_code")
-    @Validation(required = true)
     public String cityCode;
+
+    // 省或者直辖市代码
+    @NameInMap("prov_code")
+    public String provCode;
 
     public static DistrictExtRequest build(java.util.Map<String, ?> map) throws Exception {
         DistrictExtRequest self = new DistrictExtRequest();
@@ -20,6 +23,14 @@ public class DistrictExtRequest extends TeaModel {
     }
     public String getCityCode() {
         return this.cityCode;
+    }
+
+    public DistrictExtRequest setProvCode(String provCode) {
+        this.provCode = provCode;
+        return this;
+    }
+    public String getProvCode() {
+        return this.provCode;
     }
 
 }

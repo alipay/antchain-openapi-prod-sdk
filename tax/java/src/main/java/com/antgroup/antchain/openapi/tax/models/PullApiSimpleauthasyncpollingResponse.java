@@ -48,6 +48,10 @@ public class PullApiSimpleauthasyncpollingResponse extends TeaModel {
     @NameInMap("secret")
     public String secret;
 
+    // 0：不含进项发票。  1：包含进项发票。
+    @NameInMap("proceeds_invoice")
+    public String proceedsInvoice;
+
     public static PullApiSimpleauthasyncpollingResponse build(java.util.Map<String, ?> map) throws Exception {
         PullApiSimpleauthasyncpollingResponse self = new PullApiSimpleauthasyncpollingResponse();
         return TeaModel.build(map, self);
@@ -139,6 +143,14 @@ public class PullApiSimpleauthasyncpollingResponse extends TeaModel {
     }
     public String getSecret() {
         return this.secret;
+    }
+
+    public PullApiSimpleauthasyncpollingResponse setProceedsInvoice(String proceedsInvoice) {
+        this.proceedsInvoice = proceedsInvoice;
+        return this;
+    }
+    public String getProceedsInvoice() {
+        return this.proceedsInvoice;
     }
 
 }
