@@ -173,6 +173,7 @@ class SubmitAntchainAtoFrontSignRequest(TeaModel):
         merchant_name: str = None,
         merchant_tag: str = None,
         merchant_sign_order: int = None,
+        merchant_seal_id: str = None,
         merchant_id_type: str = None,
         merchant_id_number: str = None,
         merchant_legal_name: str = None,
@@ -221,6 +222,8 @@ class SubmitAntchainAtoFrontSignRequest(TeaModel):
         self.merchant_tag = merchant_tag
         # 电子合同签署顺序，如果只有1方企业签署，传入1即可。如果是多方，并且需要设置签署顺序，则需要将这个值以及thirdSigner中的signOrder做一个签署顺序。
         self.merchant_sign_order = merchant_sign_order
+        # 商户需要盖的印章ID
+        self.merchant_seal_id = merchant_seal_id
         # CRED_ORG_USCC：统一社会信用代码，
         # CRED_ORG_REGCODE：工商注册号，
         # 只支持这两个值
@@ -233,7 +236,7 @@ class SubmitAntchainAtoFrontSignRequest(TeaModel):
         # 法人证件号，需要采用RSA加密传输
         # 
         self.merchant_legal_id_number = merchant_legal_id_number
-        # 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
+        # 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012","sealIds":["12b2317-0000-3333-2222-ec087dc97d8b"]}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
         self.third_signer = third_signer
 
     def validate(self):
@@ -300,6 +303,8 @@ class SubmitAntchainAtoFrontSignRequest(TeaModel):
             result['merchant_tag'] = self.merchant_tag
         if self.merchant_sign_order is not None:
             result['merchant_sign_order'] = self.merchant_sign_order
+        if self.merchant_seal_id is not None:
+            result['merchant_seal_id'] = self.merchant_seal_id
         if self.merchant_id_type is not None:
             result['merchant_id_type'] = self.merchant_id_type
         if self.merchant_id_number is not None:
@@ -348,6 +353,8 @@ class SubmitAntchainAtoFrontSignRequest(TeaModel):
             self.merchant_tag = m.get('merchant_tag')
         if m.get('merchant_sign_order') is not None:
             self.merchant_sign_order = m.get('merchant_sign_order')
+        if m.get('merchant_seal_id') is not None:
+            self.merchant_seal_id = m.get('merchant_seal_id')
         if m.get('merchant_id_type') is not None:
             self.merchant_id_type = m.get('merchant_id_type')
         if m.get('merchant_id_number') is not None:
@@ -370,6 +377,7 @@ class SubmitAntchainAtoFrontSignResponse(TeaModel):
         sign_no: str = None,
         flow_id: str = None,
         account_id: str = None,
+        sign_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -386,6 +394,8 @@ class SubmitAntchainAtoFrontSignResponse(TeaModel):
         # 签署用户ID
         # 
         self.account_id = account_id
+        # 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+        self.sign_info = sign_info
 
     def validate(self):
         pass
@@ -408,6 +418,8 @@ class SubmitAntchainAtoFrontSignResponse(TeaModel):
             result['flow_id'] = self.flow_id
         if self.account_id is not None:
             result['account_id'] = self.account_id
+        if self.sign_info is not None:
+            result['sign_info'] = self.sign_info
         return result
 
     def from_map(self, m: dict = None):
@@ -424,6 +436,8 @@ class SubmitAntchainAtoFrontSignResponse(TeaModel):
             self.flow_id = m.get('flow_id')
         if m.get('account_id') is not None:
             self.account_id = m.get('account_id')
+        if m.get('sign_info') is not None:
+            self.sign_info = m.get('sign_info')
         return self
 
 

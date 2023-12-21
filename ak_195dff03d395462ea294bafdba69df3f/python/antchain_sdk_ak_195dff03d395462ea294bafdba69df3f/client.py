@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -278,8 +278,8 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFrontSignRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFrontSignResponse:
         """
-        Description: 提交前置签署的电子合同签署流程
-        Summary: 提交前置签署的电子合同签署流程
+        Description: 提交前置签署的电子合同签署流程（前置签署模式）
+        Summary: 提交签署的电子合同签署流程（前置签署）
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -290,8 +290,8 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFrontSignRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFrontSignResponse:
         """
-        Description: 提交前置签署的电子合同签署流程
-        Summary: 提交前置签署的电子合同签署流程
+        Description: 提交前置签署的电子合同签署流程（前置签署模式）
+        Summary: 提交签署的电子合同签署流程（前置签署）
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -304,8 +304,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFrontSignResponse:
         """
-        Description: 提交前置签署的电子合同签署流程
-        Summary: 提交前置签署的电子合同签署流程
+        Description: 提交前置签署的电子合同签署流程（前置签署模式）
+        Summary: 提交签署的电子合同签署流程（前置签署）
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -320,8 +320,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFrontSignResponse:
         """
-        Description: 提交前置签署的电子合同签署流程
-        Summary: 提交前置签署的电子合同签署流程
+        Description: 提交前置签署的电子合同签署流程（前置签署模式）
+        Summary: 提交签署的电子合同签署流程（前置签署）
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
