@@ -2,6 +2,7 @@
 import AntchainUtil from '@antchain/alipay-util';
 import Util, * as $Util from '@alicloud/tea-util';
 import RPCUtil from '@alicloud/rpc-util';
+import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
@@ -77,85 +78,15 @@ export class Config extends $tea.Model {
   }
 }
 
-// 订单包含的单个商品模型
-export class OrderGoodsModel extends $tea.Model {
-  // 商品 id
-  productId: string;
-  // 商品版本，每个商品的编码+版本 唯一确认一个产品信息，必须为自然数，如"0","1","10"等
-  productVersion: number;
-  // 商品名称
-  productName: string;
-  // 商品价格,精确到分，即 1234 表示 12.34 元
-  productPrice: number;
-  // 商品(3C产品)的设备 id
-  productImeiId: string;
-  // 链上采购供应商租户 id，提供商品方的金融科技租户 id，否则平台自己名称
-  supplierId: string;
-  // 商品数量，不能为空，且大于 0
-  productNumber: number;
-  static names(): { [key: string]: string } {
-    return {
-      productId: 'product_id',
-      productVersion: 'product_version',
-      productName: 'product_name',
-      productPrice: 'product_price',
-      productImeiId: 'product_imei_id',
-      supplierId: 'supplier_id',
-      productNumber: 'product_number',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      productId: 'string',
-      productVersion: 'number',
-      productName: 'string',
-      productPrice: 'number',
-      productImeiId: 'string',
-      supplierId: 'string',
-      productNumber: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 订单还款计划
 export class PromiseInfo extends $tea.Model {
-  // 订单 id
-  orderId: string;
-  // 宽限期，精确到 毫秒，产生罚息的延迟时间范围。
-  dateLimit: number;
-  // 应付租金时间，格式为 2019-08-31 12:00:00
-  // yyyy-MM-dd HH:mm:ss
-  payDateList: string[];
-  // 租期
-  payPeriod: number;
-  // 应付租金，精确到分，即 1234 表示 12.34 元
-  payMoneyList: number[];
-  // 租赁公司支付宝 UID
-  leaseAlipayUid: string;
   static names(): { [key: string]: string } {
     return {
-      orderId: 'order_id',
-      dateLimit: 'date_limit',
-      payDateList: 'pay_date_list',
-      payPeriod: 'pay_period',
-      payMoneyList: 'pay_money_list',
-      leaseAlipayUid: 'lease_alipay_uid',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      orderId: 'string',
-      dateLimit: 'number',
-      payDateList: { 'type': 'array', 'itemType': 'string' },
-      payPeriod: 'number',
-      payMoneyList: { 'type': 'array', 'itemType': 'number' },
-      leaseAlipayUid: 'string',
     };
   }
 
@@ -166,121 +97,13 @@ export class PromiseInfo extends $tea.Model {
 
 // 同步订单中的下单人信息
 export class UserSyncInfo extends $tea.Model {
-  // 外部同步的订单 id
-  orderId: string;
-  // 用户登录名，租赁平台会员ID/若支付宝ID必传
-  loginId: string;
-  // 户登录名类型 1.商户会员2.支付宝3.其他
-  loginType: number;
-  // 用户登录时间 格式为2019-08-31 12:00:00
-  loginTime: string;
-  // 租赁人姓名，这里是用户通过公钥加密后的密文
-  userName: string;
-  // 租赁人身份证，这里是用户通过公钥加密后的密文
-  userId: string;
-  // 承租人手机号，这里是用户通过公钥加密后的密文
-  userPhoneNumber: string;
-  // 身份认证类型 1支付宝实人，2芝麻实人，3非蚂蚁实人
-  userType: string;
-  // 支付宝账号信息
-  alipayUid: string;
-  // 出租企业名称
-  leaseCorpName: string;
-  // 出租企业统一社会信用代码
-  leaseCorpId: string;
-  // 出租法定代表人姓名
-  leaseCorpOwnerName: string;
-  // 1.企业用户 2.个人用户
-  lesseeType: number;
-  // 营业执照对应的名称
-  leasedEnterprise?: string;
-  // 租赁⼈身份证照⽚正⾯地址
-  userImageUrl?: string;
-  // 租赁⼈身份证照⽚反⾯地址
-  userBackImageUrl?: string;
-  // 平台注册的电话，这里是用户通过公钥加密后的密文
-  registeredTelephoneNumber?: string;
-  // 承租企业实际控制人（股东/法人）身份证号
-  actualControllerId?: string;
-  // 承租企业实际控制人（股东/法人）手机号。若为企业类型必填，字段长度：不超过 500
-  actualControllerNumber?: string;
-  // 承租企业实际控制人（股东/法人）姓名，若为企业类型必填
-  actualControllerName?: string;
-  // 承租企业实际控制人（股东/法人）身份证正面地址，若为企业类型必填
-  actualControllerImageUrl?: string;
-  // 承租企业实际控制人（股东/法人）身份证反面地址
-  actualControllerBackImageUrl?: string;
-  // 承租企业实际控制人（股东/法人）手机号
-  actualControllerTelephoneNumber?: string;
-  // 承租企业统⼀社会信⽤代码
-  businessLicenseNumber?: string;
-  // 承租企业统一社会信用代码
-  businesslicenseUrl?: string;
-  // 承租企业法定代表人姓名
-  legalRepresentative?: string;
-  //  资方定义的其他额外字段，以json形式传递
-  extraInfo?: string;
   static names(): { [key: string]: string } {
     return {
-      orderId: 'order_id',
-      loginId: 'login_id',
-      loginType: 'login_type',
-      loginTime: 'login_time',
-      userName: 'user_name',
-      userId: 'user_id',
-      userPhoneNumber: 'user_phone_number',
-      userType: 'user_type',
-      alipayUid: 'alipay_uid',
-      leaseCorpName: 'lease_corp_name',
-      leaseCorpId: 'lease_corp_id',
-      leaseCorpOwnerName: 'lease_corp_owner_name',
-      lesseeType: 'lessee_type',
-      leasedEnterprise: 'leased_enterprise',
-      userImageUrl: 'user_image_url',
-      userBackImageUrl: 'user_back_image_url',
-      registeredTelephoneNumber: 'registered_telephone_number',
-      actualControllerId: 'actual_controller_id',
-      actualControllerNumber: 'actual_controller_number',
-      actualControllerName: 'actual_controller_name',
-      actualControllerImageUrl: 'actual_controller_image_url',
-      actualControllerBackImageUrl: 'actual_controller_back_image_url',
-      actualControllerTelephoneNumber: 'actual_controller_telephone_number',
-      businessLicenseNumber: 'business_license_number',
-      businesslicenseUrl: 'businesslicense_url',
-      legalRepresentative: 'legal_representative',
-      extraInfo: 'extra_info',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      orderId: 'string',
-      loginId: 'string',
-      loginType: 'number',
-      loginTime: 'string',
-      userName: 'string',
-      userId: 'string',
-      userPhoneNumber: 'string',
-      userType: 'string',
-      alipayUid: 'string',
-      leaseCorpName: 'string',
-      leaseCorpId: 'string',
-      leaseCorpOwnerName: 'string',
-      lesseeType: 'number',
-      leasedEnterprise: 'string',
-      userImageUrl: 'string',
-      userBackImageUrl: 'string',
-      registeredTelephoneNumber: 'string',
-      actualControllerId: 'string',
-      actualControllerNumber: 'string',
-      actualControllerName: 'string',
-      actualControllerImageUrl: 'string',
-      actualControllerBackImageUrl: 'string',
-      actualControllerTelephoneNumber: 'string',
-      businessLicenseNumber: 'string',
-      businesslicenseUrl: 'string',
-      legalRepresentative: 'string',
-      extraInfo: 'string',
     };
   }
 
@@ -291,121 +114,13 @@ export class UserSyncInfo extends $tea.Model {
 
 // 主订单信息
 export class OrderInfo extends $tea.Model {
-  // 订单 id
-  orderId: string;
-  // 订单创建时间，格式为2019-08-31 12:00:00
-  orderCreateTime: string;
-  // 订单支付时间，格式为 2019-08-31 12:00:00
-  orderPayTime: string;
-  // 订单支付 id
-  orderPayId: string;
-  // 订单支付类型；1:预授权，2:信用套餐，3:支付宝代扣，4:其他，5:网商直付通代扣，6:网商委托代扣
-  orderPayType: number;
-  // 订单支付主题
-  orderPaySubject: string;
-  // 租期，单位：月
-  rentTerm: number;
-  // 月租金 精确到分，即 1234 表示 12.34 元
-  rentPricePerMonth: number;
-  // 到期买断价 精确到分，即 1234 表示 12.34 元
-  buyOutPrice: number;
-  // 租赁合同,需要客户自己提供合并的 url
-  leaseContractUrl: string;
-  // 仓库类型；1: 实体仓 2: 虚拟仓
-  storeType: number;
-  // 承租人收货地址
-  userAddress: string;
-  // 供应商在金融科技对应的租户 id，若填写此字段，则会走供应商模式
-  supplierIsvAccount: string;
-  // 省份编码
-  provinceCode: string;
-  // 城市编码
-  cityCode: string;
-  // 地区码
-  districtCode: string;
-  // 到期形式；1:到期买断 2:到期归还
-  dueMode: number;
-  // 租赁合同 id，可用作幂等
-  contractId?: string;
-  // 租金总额，精确到分，即 1234 表示 12.34 元
-  totalRentMoney: number;
-  // 保险单号
-  insuranceNumber?: string;
-  // 保险地址
-  insuranceUrl?: string;
-  // 蚁盾分数
-  yidunScore?: number;
-  // 网商直付通模式的代扣协议号，订单类型为网商直付通模式为必填
-  agreementNo?: string;
-  // 直付通代扣受理订单号，订单类型为网商直付通模式为必填
-  agreementOrderId?: string;
-  // 首付款金额, 精确到分，即 1234 表示 12.34 元，订单类型为网商直付通模式为必填
-  downPayment?: number;
-  // 订单付款内容描述
-  orderPayBody?: string;
-  // 额外信息
-  extraInfo?: string;
   static names(): { [key: string]: string } {
     return {
-      orderId: 'order_id',
-      orderCreateTime: 'order_create_time',
-      orderPayTime: 'order_pay_time',
-      orderPayId: 'order_pay_id',
-      orderPayType: 'order_pay_type',
-      orderPaySubject: 'order_pay_subject',
-      rentTerm: 'rent_term',
-      rentPricePerMonth: 'rent_price_per_month',
-      buyOutPrice: 'buy_out_price',
-      leaseContractUrl: 'lease_contract_url',
-      storeType: 'store_type',
-      userAddress: 'user_address',
-      supplierIsvAccount: 'supplier_isv_account',
-      provinceCode: 'province_code',
-      cityCode: 'city_code',
-      districtCode: 'district_code',
-      dueMode: 'due_mode',
-      contractId: 'contract_id',
-      totalRentMoney: 'total_rent_money',
-      insuranceNumber: 'insurance_number',
-      insuranceUrl: 'insurance_url',
-      yidunScore: 'yidun_score',
-      agreementNo: 'agreement_no',
-      agreementOrderId: 'agreement_order_id',
-      downPayment: 'down_payment',
-      orderPayBody: 'order_pay_body',
-      extraInfo: 'extra_info',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      orderId: 'string',
-      orderCreateTime: 'string',
-      orderPayTime: 'string',
-      orderPayId: 'string',
-      orderPayType: 'number',
-      orderPaySubject: 'string',
-      rentTerm: 'number',
-      rentPricePerMonth: 'number',
-      buyOutPrice: 'number',
-      leaseContractUrl: 'string',
-      storeType: 'number',
-      userAddress: 'string',
-      supplierIsvAccount: 'string',
-      provinceCode: 'string',
-      cityCode: 'string',
-      districtCode: 'string',
-      dueMode: 'number',
-      contractId: 'string',
-      totalRentMoney: 'number',
-      insuranceNumber: 'string',
-      insuranceUrl: 'string',
-      yidunScore: 'number',
-      agreementNo: 'string',
-      agreementOrderId: 'string',
-      downPayment: 'number',
-      orderPayBody: 'string',
-      extraInfo: 'string',
     };
   }
 
@@ -416,25 +131,38 @@ export class OrderInfo extends $tea.Model {
 
 // 订单商品信息
 export class GoodsInfo extends $tea.Model {
-  // 订单 id
-  orderId: string;
-  // 租赁机构自己的金融科技租户 id，如果是代理模式此处需要为被代理机构的金融科技租户 id
-  leaseId?: string;
-  // 订单包含的商品信息列表
-  goodsList: OrderGoodsModel[];
   static names(): { [key: string]: string } {
     return {
-      orderId: 'order_id',
-      leaseId: 'lease_id',
-      goodsList: 'goods_list',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      orderId: 'string',
-      leaseId: 'string',
-      goodsList: { 'type': 'array', 'itemType': OrderGoodsModel },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 键值对
+export class XNameValuePair extends $tea.Model {
+  // 键名
+  name: string;
+  // 键值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
     };
   }
 
@@ -729,10 +457,13 @@ export class AllAntchainAtoSignTemplateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 合同类型，如果不传则返回所有
+  contractType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      contractType: 'contract_type',
     };
   }
 
@@ -740,6 +471,7 @@ export class AllAntchainAtoSignTemplateRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      contractType: 'string',
     };
   }
 
@@ -834,6 +566,8 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
   merchantName: string;
   // 商户签署区域标识。对应在合同模板的机构签署区域中的tag值(如果合同模板的签署区域的tag值为空，则可以不传这个参数)。必须完全对应，否则在多方签署的情况下根据tag找到不到对应的签署机构，会出错。
   merchantTag?: string;
+  // 商户需要盖的印章ID
+  merchantSealId?: string;
   // 电子合同签署顺序，如果只有1方企业签署，传入1即可。如果是多方，并且需要设置签署顺序，则需要将这个值以及thirdSigner中的signOrder做一个签署顺序。
   merchantSignOrder?: number;
   // CRED_ORG_USCC：统一社会信用代码，CRED_ORG_REGCODE：工商注册号，只支持这两个值
@@ -864,6 +598,7 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
       alipayUserId: 'alipay_user_id',
       merchantName: 'merchant_name',
       merchantTag: 'merchant_tag',
+      merchantSealId: 'merchant_seal_id',
       merchantSignOrder: 'merchant_sign_order',
       merchantIdType: 'merchant_id_type',
       merchantIdNumber: 'merchant_id_number',
@@ -891,6 +626,7 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
       alipayUserId: 'string',
       merchantName: 'string',
       merchantTag: 'string',
+      merchantSealId: 'string',
       merchantSignOrder: 'number',
       merchantIdType: 'string',
       merchantIdNumber: 'string',
@@ -918,6 +654,8 @@ export class SubmitAntchainAtoSignFlowResponse extends $tea.Model {
   flowId?: string;
   // 签署用户ID
   accountId?: string;
+  // 签署附加信息，用于获取签署链接等。JSON格式的字符串。
+  signInfo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -926,6 +664,7 @@ export class SubmitAntchainAtoSignFlowResponse extends $tea.Model {
       signNo: 'sign_no',
       flowId: 'flow_id',
       accountId: 'account_id',
+      signInfo: 'sign_info',
     };
   }
 
@@ -937,6 +676,7 @@ export class SubmitAntchainAtoSignFlowResponse extends $tea.Model {
       signNo: 'string',
       flowId: 'string',
       accountId: 'string',
+      signInfo: 'string',
     };
   }
 
@@ -2105,6 +1845,457 @@ export class RetryAntchainAtoWithholdPlanResponse extends $tea.Model {
   }
 }
 
+export class ConfirmAntchainAtoWithholdSignasyncunsignRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id
+  orderId: string;
+  // 操作动作
+  // 同意：AGREE
+  // 拒绝：REFUSE
+  operate: string;
+  // 拒绝原因码,商户拒绝时必填。
+  // USER_OWE_MONEY：用户账户存在欠费订单
+  // USER_IN_SERVICE：用户有进行的订单
+  refuseReasonCode?: string;
+  // 用户欠款金额，单位为分
+  // refuse_reason_code=USER_OWE_MONEY时必填
+  userOweMoney?: number;
+  // 用户进行中的服务
+  // refuse_reason_code=USER_IN_SERVICE时必填
+  userInService?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      operate: 'operate',
+      refuseReasonCode: 'refuse_reason_code',
+      userOweMoney: 'user_owe_money',
+      userInService: 'user_in_service',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      operate: 'string',
+      refuseReasonCode: 'string',
+      userOweMoney: 'number',
+      userInService: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmAntchainAtoWithholdSignasyncunsignResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAntchainAtoFundFlowRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单所属商户的统一社会信用代码
+  merchantId: string;
+  // 商户的订单号
+  orderId: string;
+  // 签署合同单号
+  signNo: string;
+  // 返回的文件fileItemNo编号
+  fileItemNo: string;
+  // 上传的pdf文件，需要以.pdf后缀结尾
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      merchantId: 'merchant_id',
+      orderId: 'order_id',
+      signNo: 'sign_no',
+      fileItemNo: 'file_item_no',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      merchantId: 'string',
+      orderId: 'string',
+      signNo: 'string',
+      fileItemNo: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAntchainAtoFundFlowResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAntchainAtoFundFlowRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单所属商户的统一社会信用代码
+  merchantId: string;
+  // 商户的订单号
+  orderId: string;
+  // 合同类型
+  contractType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      merchantId: 'merchant_id',
+      orderId: 'order_id',
+      contractType: 'contract_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      merchantId: 'string',
+      orderId: 'string',
+      contractType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAntchainAtoFundFlowResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商户的订单号
+  orderId?: string;
+  // 需要落章的合同列表，需要status状态为FINISH可以落章
+  contractList?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+      contractList: 'contract_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+      contractList: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RefuseAntchainAtoFundFlowRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单所属商户的统一社会信用代码
+  merchantId: string;
+  // 商户的订单号
+  orderId: string;
+  // 签署合同单号
+  signNo: string;
+  // 填写拒绝落章原因，如果同意则不用填写
+  signReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      merchantId: 'merchant_id',
+      orderId: 'order_id',
+      signNo: 'sign_no',
+      signReason: 'sign_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      merchantId: 'string',
+      orderId: 'string',
+      signNo: 'string',
+      signReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RefuseAntchainAtoFundFlowResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthAntchainAtoFundFlowRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单所属商户的统一社会信用代码
+  merchantId: string;
+  // 商户的订单号
+  orderId: string;
+  // 签署的电子合同ID
+  signNo: string;
+  // 签署区域的tag，和发起签署流程的机构的tag对应
+  tag: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      merchantId: 'merchant_id',
+      orderId: 'order_id',
+      signNo: 'sign_no',
+      tag: 'tag',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      merchantId: 'string',
+      orderId: 'string',
+      signNo: 'string',
+      tag: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthAntchainAtoFundFlowResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签署最后落签的签署区域id列表
+  signFieldIds?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signFieldIds: 'sign_field_ids',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signFieldIds: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 上传文件作用的openapi method
+  apiCode: string;
+  // 文件标签，多个标签;分割
+  fileLabel?: string;
+  // 自定义的文件元数据
+  fileMetadata?: string;
+  // 文件名，不传则随机生成文件名
+  fileName?: string;
+  // 文件的多媒体类型
+  mimeType?: string;
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      apiCode: 'api_code',
+      fileLabel: 'file_label',
+      fileMetadata: 'file_metadata',
+      fileName: 'file_name',
+      mimeType: 'mime_type',
+      apiCluster: 'api_cluster',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      apiCode: 'string',
+      fileLabel: 'string',
+      fileMetadata: 'string',
+      fileName: 'string',
+      mimeType: 'string',
+      apiCluster: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传有效期
+  expiredTime?: string;
+  // 32位文件唯一id
+  fileId?: string;
+  // 放入http请求头里
+  uploadHeaders?: XNameValuePair[];
+  // 文件上传地址
+  uploadUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      expiredTime: 'expired_time',
+      fileId: 'file_id',
+      uploadHeaders: 'upload_headers',
+      uploadUrl: 'upload_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      expiredTime: 'string',
+      fileId: 'string',
+      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
+      uploadUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2218,7 +2409,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.2",
+          sdk_version: "1.0.3",
           _prod_code: "ak_2abe765c32934341bd9bb6cc1c8ff589",
           _prod_channel: "saas",
         };
@@ -2362,8 +2553,8 @@ export default class Client {
   }
 
   /**
-   * Description: 提交电子合同的签署流程
-   * Summary: 提交电子合同的签署流程
+   * Description: 提交电子合同的签署流程(后置签署模式)
+   * Summary: 提交电子合同的签署流程（后置签署模式）
    */
   async submitAntchainAtoSignFlow(request: SubmitAntchainAtoSignFlowRequest): Promise<SubmitAntchainAtoSignFlowResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -2372,8 +2563,8 @@ export default class Client {
   }
 
   /**
-   * Description: 提交电子合同的签署流程
-   * Summary: 提交电子合同的签署流程
+   * Description: 提交电子合同的签署流程(后置签署模式)
+   * Summary: 提交电子合同的签署流程（后置签署模式）
    */
   async submitAntchainAtoSignFlowEx(request: SubmitAntchainAtoSignFlowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAntchainAtoSignFlowResponse> {
     Util.validateModel(request);
@@ -2663,6 +2854,141 @@ export default class Client {
   async retryAntchainAtoWithholdPlanEx(request: RetryAntchainAtoWithholdPlanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RetryAntchainAtoWithholdPlanResponse> {
     Util.validateModel(request);
     return $tea.cast<RetryAntchainAtoWithholdPlanResponse>(await this.doRequest("1.0", "antchain.ato.withhold.plan.retry", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RetryAntchainAtoWithholdPlanResponse({}));
+  }
+
+  /**
+   * Description: 当代扣签约时，用户在支付宝侧发起异步解约，此时需要经过商户确认才可以完成解约。saas会通知商户用户的异步解约申请，由商户通过此接口确认是否解约
+   * Summary: 代扣签约的异步解约确认
+   */
+  async confirmAntchainAtoWithholdSignasyncunsign(request: ConfirmAntchainAtoWithholdSignasyncunsignRequest): Promise<ConfirmAntchainAtoWithholdSignasyncunsignResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmAntchainAtoWithholdSignasyncunsignEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 当代扣签约时，用户在支付宝侧发起异步解约，此时需要经过商户确认才可以完成解约。saas会通知商户用户的异步解约申请，由商户通过此接口确认是否解约
+   * Summary: 代扣签约的异步解约确认
+   */
+  async confirmAntchainAtoWithholdSignasyncunsignEx(request: ConfirmAntchainAtoWithholdSignasyncunsignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmAntchainAtoWithholdSignasyncunsignResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmAntchainAtoWithholdSignasyncunsignResponse>(await this.doRequest("1.0", "antchain.ato.withhold.signasyncunsign.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmAntchainAtoWithholdSignasyncunsignResponse({}));
+  }
+
+  /**
+   * Description: 用于资方将盖章后的合同文件上传
+   * Summary: 资方合同文件上传接口
+   */
+  async uploadAntchainAtoFundFlow(request: UploadAntchainAtoFundFlowRequest): Promise<UploadAntchainAtoFundFlowResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadAntchainAtoFundFlowEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用于资方将盖章后的合同文件上传
+   * Summary: 资方合同文件上传接口
+   */
+  async uploadAntchainAtoFundFlowEx(request: UploadAntchainAtoFundFlowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadAntchainAtoFundFlowResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antchain.ato.fund.flow.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadAntchainAtoFundFlowResponse = new UploadAntchainAtoFundFlowResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadAntchainAtoFundFlowResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadAntchainAtoFundFlowResponse>(await this.doRequest("1.0", "antchain.ato.fund.flow.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadAntchainAtoFundFlowResponse({}));
+  }
+
+  /**
+   * Description: 获取商户签署后的合同文件，用于资方签署落章
+   * Summary: 资方合同文件获取接口
+   */
+  async getAntchainAtoFundFlow(request: GetAntchainAtoFundFlowRequest): Promise<GetAntchainAtoFundFlowResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAntchainAtoFundFlowEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取商户签署后的合同文件，用于资方签署落章
+   * Summary: 资方合同文件获取接口
+   */
+  async getAntchainAtoFundFlowEx(request: GetAntchainAtoFundFlowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAntchainAtoFundFlowResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAntchainAtoFundFlowResponse>(await this.doRequest("1.0", "antchain.ato.fund.flow.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAntchainAtoFundFlowResponse({}));
+  }
+
+  /**
+   * Description: 用户资方通知合同签署的状态，一般用于拒绝落章文件时，需要通知拒绝原因
+   * Summary: 资方合同签署状态通知
+   */
+  async refuseAntchainAtoFundFlow(request: RefuseAntchainAtoFundFlowRequest): Promise<RefuseAntchainAtoFundFlowResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.refuseAntchainAtoFundFlowEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户资方通知合同签署的状态，一般用于拒绝落章文件时，需要通知拒绝原因
+   * Summary: 资方合同签署状态通知
+   */
+  async refuseAntchainAtoFundFlowEx(request: RefuseAntchainAtoFundFlowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RefuseAntchainAtoFundFlowResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RefuseAntchainAtoFundFlowResponse>(await this.doRequest("1.0", "antchain.ato.fund.flow.refuse", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RefuseAntchainAtoFundFlowResponse({}));
+  }
+
+  /**
+   * Description: 资方调用，授权通过e签宝进行落签
+   * Summary: 资方e签宝落签接口
+   */
+  async authAntchainAtoFundFlow(request: AuthAntchainAtoFundFlowRequest): Promise<AuthAntchainAtoFundFlowResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.authAntchainAtoFundFlowEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 资方调用，授权通过e签宝进行落签
+   * Summary: 资方e签宝落签接口
+   */
+  async authAntchainAtoFundFlowEx(request: AuthAntchainAtoFundFlowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AuthAntchainAtoFundFlowResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AuthAntchainAtoFundFlowResponse>(await this.doRequest("1.0", "antchain.ato.fund.flow.auth", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AuthAntchainAtoFundFlowResponse({}));
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAntcloudGatewayxFileUploadResponse>(await this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse({}));
   }
 
 }
