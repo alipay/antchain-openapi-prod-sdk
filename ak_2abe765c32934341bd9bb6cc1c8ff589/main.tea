@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.0.3',
     _prod_code = 'ak_2abe765c32934341bd9bb6cc1c8ff589',
     _prod_channel = 'saas'
   };
@@ -161,165 +161,28 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-// 订单包含的单个商品模型
-model OrderGoodsModel {
-  // 商品 id
-  productId: string(maxLength=50, minLength=0, name='product_id', example='1'),
-  // 商品版本，每个商品的编码+版本 唯一确认一个产品信息，必须为自然数，如"0","1","10"等
-  productVersion: long(name='product_version', example='1'),
-  // 商品名称
-  productName: string(maxLength=50, minLength=0, name='product_name', example='测试洗面奶'),
-  // 商品价格,精确到分，即 1234 表示 12.34 元
-  productPrice: long(name='product_price', example='1234'),
-  // 商品(3C产品)的设备 id
-  productImeiId: string(maxLength=200, minLength=0, name='product_imei_id', example='xxx'),
-  // 链上采购供应商租户 id，提供商品方的金融科技租户 id，否则平台自己名称
-  supplierId: string(maxLength=50, minLength=0, name='supplier_id', example='001'),
-  // 商品数量，不能为空，且大于 0
-  productNumber: long(name='product_number', example='1'),
-}
-
 // 订单还款计划
 model PromiseInfo {
-  // 订单 id
-  orderId: string(maxLength=50, minLength=1, name='order_id', example='order_v1_test_0918_001'),
-  // 宽限期，精确到 毫秒，产生罚息的延迟时间范围。
-  dateLimit: long(minimum=0, name='date_limit', example='1000'),
-  // 应付租金时间，格式为 2019-08-31 12:00:00
-  // yyyy-MM-dd HH:mm:ss
-  payDateList: [ string ](name='pay_date_list', example='[_2019-08-31 12:00:00_, _2019-08-31 12:00:00_]'),
-  // 租期
-  payPeriod: long(minimum=1, name='pay_period', example='12'),
-  // 应付租金，精确到分，即 1234 表示 12.34 元
-  payMoneyList: [ long ](name='pay_money_list', example='[1234, 1234]'),
-  // 租赁公司支付宝 UID
-  leaseAlipayUid: string(maxLength=50, minLength=1, name='lease_alipay_uid', example='2088******'),
 }
 
 // 同步订单中的下单人信息
 model UserSyncInfo {
-  // 外部同步的订单 id
-  orderId: string(maxLength=50, minLength=1, name='order_id', example='order_v1_test_0918_001'),
-  // 用户登录名，租赁平台会员ID/若支付宝ID必传
-  loginId: string(maxLength=50, minLength=1, name='login_id', example='2088*****'),
-  // 户登录名类型 1.商户会员2.支付宝3.其他
-  loginType: long(name='login_type', example='1'),
-  // 用户登录时间 格式为2019-08-31 12:00:00
-  loginTime: string(maxLength=32, minLength=1, name='login_time', example='2019-08-31 12:00:00'),
-  // 租赁人姓名，这里是用户通过公钥加密后的密文
-  userName: string(maxLength=500, minLength=1, name='user_name', example='张三'),
-  // 租赁人身份证，这里是用户通过公钥加密后的密文
-  userId: string(maxLength=500, minLength=1, name='user_id', example='42110******1290437'),
-  // 承租人手机号，这里是用户通过公钥加密后的密文
-  userPhoneNumber: string(maxLength=500, minLength=1, name='user_phone_number', example='157****8924'),
-  // 身份认证类型 1支付宝实人，2芝麻实人，3非蚂蚁实人
-  userType: string(maxLength=2, minLength=1, name='user_type', example='1'),
-  // 支付宝账号信息
-  alipayUid: string(maxLength=64, minLength=1, name='alipay_uid', example='2088****'),
-  // 出租企业名称
-  leaseCorpName: string(maxLength=50, minLength=1, name='lease_corp_name', example='深圳市爱租机科技有限公司'),
-  // 出租企业统一社会信用代码
-  leaseCorpId: string(maxLength=50, minLength=0, name='lease_corp_id', example='xxxx'),
-  // 出租法定代表人姓名
-  leaseCorpOwnerName: string(maxLength=50, minLength=1, name='lease_corp_owner_name', example='张三'),
-  // 1.企业用户 2.个人用户
-  lesseeType: long(name='lessee_type', example='1'),
-  // 营业执照对应的名称
-  leasedEnterprise?: string(maxLength=50, minLength=1, name='leased_enterprise', example='爱租机'),
-  // 租赁⼈身份证照⽚正⾯地址
-  userImageUrl?: string(maxLength=1000, minLength=0, name='user_image_url', example='https://www.nicholsfleet.com/images/uploads/blog/ledwell_rollback.jpg'),
-  // 租赁⼈身份证照⽚反⾯地址
-  userBackImageUrl?: string(maxLength=1000, minLength=0, name='user_back_image_url', example='https://www.nicholsfleet.com/images/uploads/blog/ledwell_rollback.jpg'),
-  // 平台注册的电话，这里是用户通过公钥加密后的密文
-  registeredTelephoneNumber?: string(maxLength=500, minLength=0, name='registered_telephone_number', example='180****9196'),
-  // 承租企业实际控制人（股东/法人）身份证号
-  actualControllerId?: string(maxLength=500, minLength=0, name='actual_controller_id', example='1063**********0098'),
-  // 承租企业实际控制人（股东/法人）手机号。若为企业类型必填，字段长度：不超过 500
-  actualControllerNumber?: string(name='actual_controller_number', example='191****9091'),
-  // 承租企业实际控制人（股东/法人）姓名，若为企业类型必填
-  actualControllerName?: string(maxLength=1000, minLength=0, name='actual_controller_name', example='张三'),
-  // 承租企业实际控制人（股东/法人）身份证正面地址，若为企业类型必填
-  actualControllerImageUrl?: string(maxLength=50, minLength=0, name='actual_controller_image_url', example='https://www.nicholsfleet.com/images/uploads/blog/ledwell_rollback.jpg'),
-  // 承租企业实际控制人（股东/法人）身份证反面地址
-  actualControllerBackImageUrl?: string(maxLength=1000, minLength=0, name='actual_controller_back_image_url', example='https://www.nicholsfleet.com/images/uploads/blog/ledwell_rollback.jpg'),
-  // 承租企业实际控制人（股东/法人）手机号
-  actualControllerTelephoneNumber?: string(maxLength=12, minLength=0, name='actual_controller_telephone_number', example='151****1313'),
-  // 承租企业统⼀社会信⽤代码
-  businessLicenseNumber?: string(maxLength=50, minLength=0, name='business_license_number', example='xxxx'),
-  // 承租企业统一社会信用代码
-  businesslicenseUrl?: string(name='businesslicense_url', example='xxxx'),
-  // 承租企业法定代表人姓名
-  legalRepresentative?: string(maxLength=20, minLength=0, name='legal_representative', example='张三'),
-  //  资方定义的其他额外字段，以json形式传递
-  extraInfo?: string(maxLength=2000, minLength=0, name='extra_info', example='{"discount":9}'),
 }
 
 // 主订单信息
 model OrderInfo {
-  // 订单 id
-  orderId: string(maxLength=50, minLength=1, name='order_id', example='order_v1_test_0918_001'),
-  // 订单创建时间，格式为2019-08-31 12:00:00
-  orderCreateTime: string(name='order_create_time', example='2019-08-31 12:00:00'),
-  // 订单支付时间，格式为 2019-08-31 12:00:00
-  orderPayTime: string(name='order_pay_time', example='2019-08-31 12:00:00'),
-  // 订单支付 id
-  orderPayId: string(maxLength=50, minLength=1, name='order_pay_id', example='330102'),
-  // 订单支付类型；1:预授权，2:信用套餐，3:支付宝代扣，4:其他，5:网商直付通代扣，6:网商委托代扣
-  orderPayType: long(name='order_pay_type', example='1'),
-  // 订单支付主题
-  orderPaySubject: string(maxLength=500, minLength=1, name='order_pay_subject', example='集成测试订单'),
-  // 租期，单位：月
-  rentTerm: long(minimum=1, name='rent_term', example='1'),
-  // 月租金 精确到分，即 1234 表示 12.34 元
-  rentPricePerMonth: long(name='rent_price_per_month', example='1234'),
-  // 到期买断价 精确到分，即 1234 表示 12.34 元
-  buyOutPrice: long(name='buy_out_price', example='1234'),
-  // 租赁合同,需要客户自己提供合并的 url
-  leaseContractUrl: string(maxLength=1000, minLength=1, name='lease_contract_url', example='https://www.alipay.com'),
-  // 仓库类型；1: 实体仓 2: 虚拟仓
-  storeType: long(name='store_type', example='1'),
-  // 承租人收货地址
-  userAddress: string(maxLength=100, minLength=1, name='user_address', example=' 四川省成都市高新区益州大道中段1999号成都银泰城F1'),
-  // 供应商在金融科技对应的租户 id，若填写此字段，则会走供应商模式
-  supplierIsvAccount: string(maxLength=100, minLength=1, name='supplier_isv_account', example='TEST_TNT'),
-  // 省份编码
-  provinceCode: string(name='province_code', example='510000'),
-  // 城市编码
-  cityCode: string(name='city_code', example='654221'),
-  // 地区码
-  districtCode: string(name='district_code', example='520526'),
-  // 到期形式；1:到期买断 2:到期归还
-  dueMode: long(name='due_mode', example='1'),
-  // 租赁合同 id，可用作幂等
-  contractId?: string(maxLength=100, minLength=0, name='contract_id', example='001'),
-  // 租金总额，精确到分，即 1234 表示 12.34 元
-  totalRentMoney: long(name='total_rent_money', example='1234'),
-  // 保险单号
-  insuranceNumber?: string(maxLength=100, minLength=0, name='insurance_number', example='0098493'),
-  // 保险地址
-  insuranceUrl?: string(maxLength=1000, minLength=0, name='insurance_url', example='四川省成都市'),
-  // 蚁盾分数
-  yidunScore?: long(name='yidun_score', example='83'),
-  // 网商直付通模式的代扣协议号，订单类型为网商直付通模式为必填
-  agreementNo?: string(maxLength=100, minLength=0, name='agreement_no', example='764827372'),
-  // 直付通代扣受理订单号，订单类型为网商直付通模式为必填
-  agreementOrderId?: string(maxLength=100, minLength=0, name='agreement_order_id', example='xxxx'),
-  // 首付款金额, 精确到分，即 1234 表示 12.34 元，订单类型为网商直付通模式为必填
-  downPayment?: long(name='down_payment', example='1234'),
-  // 订单付款内容描述
-  orderPayBody?: string(maxLength=500, minLength=0, name='order_pay_body', example='集成测试订单内容'),
-  // 额外信息
-  extraInfo?: string(name='extra_info', example='{"discount":8}'),
 }
 
 // 订单商品信息
 model GoodsInfo {
-  // 订单 id
-  orderId: string(maxLength=50, minLength=1, name='order_id', example='order_v1_test_0918_001'),
-  // 租赁机构自己的金融科技租户 id，如果是代理模式此处需要为被代理机构的金融科技租户 id
-  leaseId?: string(maxLength=50, minLength=0, name='lease_id', example='xxx'),
-  // 订单包含的商品信息列表
-  goodsList: [ OrderGoodsModel ](name='goods_list', example=''),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
 }
 
 model SyncAntchainAtoTradeRequest = {
@@ -504,6 +367,8 @@ model AllAntchainAtoSignTemplateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 合同类型，如果不传则返回所有
+  contractType?: string(name='contract_type'),
 }
 
 model AllAntchainAtoSignTemplateResponse = {
@@ -590,6 +455,8 @@ model SubmitAntchainAtoSignFlowRequest = {
   merchantName: string(maxLength=256, minLength=2, name='merchant_name'),
   // 商户签署区域标识。对应在合同模板的机构签署区域中的tag值(如果合同模板的签署区域的tag值为空，则可以不传这个参数)。必须完全对应，否则在多方签署的情况下根据tag找到不到对应的签署机构，会出错。
   merchantTag?: string(maxLength=32, minLength=0, name='merchant_tag'),
+  // 商户需要盖的印章ID
+  merchantSealId?: string(name='merchant_seal_id'),
   // 电子合同签署顺序，如果只有1方企业签署，传入1即可。如果是多方，并且需要设置签署顺序，则需要将这个值以及thirdSigner中的signOrder做一个签署顺序。
   merchantSignOrder?: long(maximum=10000, minimum=1, name='merchant_sign_order'),
   // CRED_ORG_USCC：统一社会信用代码，CRED_ORG_REGCODE：工商注册号，只支持这两个值
@@ -617,11 +484,13 @@ model SubmitAntchainAtoSignFlowResponse = {
   flowId?: string(name='flow_id'),
   // 签署用户ID
   accountId?: string(name='account_id'),
+  // 签署附加信息，用于获取签署链接等。JSON格式的字符串。
+  signInfo?: string(name='sign_info'),
 }
 
 /**
- * Description: 提交电子合同的签署流程
- * Summary: 提交电子合同的签署流程
+ * Description: 提交电子合同的签署流程(后置签署模式)
+ * Summary: 提交电子合同的签署流程（后置签署模式）
  */
 async function submitAntchainAtoSignFlow(request: SubmitAntchainAtoSignFlowRequest): SubmitAntchainAtoSignFlowResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -630,8 +499,8 @@ async function submitAntchainAtoSignFlow(request: SubmitAntchainAtoSignFlowReque
 }
 
 /**
- * Description: 提交电子合同的签署流程
- * Summary: 提交电子合同的签署流程
+ * Description: 提交电子合同的签署流程(后置签署模式)
+ * Summary: 提交电子合同的签署流程（后置签署模式）
  */
 async function submitAntchainAtoSignFlowEx(request: SubmitAntchainAtoSignFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAntchainAtoSignFlowResponse {
   Util.validateModel(request);
@@ -1357,5 +1226,303 @@ async function retryAntchainAtoWithholdPlan(request: RetryAntchainAtoWithholdPla
 async function retryAntchainAtoWithholdPlanEx(request: RetryAntchainAtoWithholdPlanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RetryAntchainAtoWithholdPlanResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.withhold.plan.retry', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmAntchainAtoWithholdSignasyncunsignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(maxLength=50, minLength=1, name='order_id'),
+  // 操作动作
+  // 同意：AGREE
+  // 拒绝：REFUSE
+  operate: string(maxLength=16, minLength=1, name='operate'),
+  // 拒绝原因码,商户拒绝时必填。
+  // USER_OWE_MONEY：用户账户存在欠费订单
+  // USER_IN_SERVICE：用户有进行的订单
+  refuseReasonCode?: string(maxLength=16, minLength=1, name='refuse_reason_code'),
+  // 用户欠款金额，单位为分
+  // refuse_reason_code=USER_OWE_MONEY时必填
+  userOweMoney?: long(minimum=1, name='user_owe_money'),
+  // 用户进行中的服务
+  // refuse_reason_code=USER_IN_SERVICE时必填
+  userInService?: string(maxLength=128, minLength=1, name='user_in_service'),
+}
+
+model ConfirmAntchainAtoWithholdSignasyncunsignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 当代扣签约时，用户在支付宝侧发起异步解约，此时需要经过商户确认才可以完成解约。saas会通知商户用户的异步解约申请，由商户通过此接口确认是否解约
+ * Summary: 代扣签约的异步解约确认
+ */
+async function confirmAntchainAtoWithholdSignasyncunsign(request: ConfirmAntchainAtoWithholdSignasyncunsignRequest): ConfirmAntchainAtoWithholdSignasyncunsignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmAntchainAtoWithholdSignasyncunsignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 当代扣签约时，用户在支付宝侧发起异步解约，此时需要经过商户确认才可以完成解约。saas会通知商户用户的异步解约申请，由商户通过此接口确认是否解约
+ * Summary: 代扣签约的异步解约确认
+ */
+async function confirmAntchainAtoWithholdSignasyncunsignEx(request: ConfirmAntchainAtoWithholdSignasyncunsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmAntchainAtoWithholdSignasyncunsignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.withhold.signasyncunsign.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAntchainAtoFundFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单所属商户的统一社会信用代码
+  merchantId: string(name='merchant_id'),
+  // 商户的订单号
+  orderId: string(name='order_id'),
+  // 签署合同单号
+  signNo: string(name='sign_no'),
+  // 返回的文件fileItemNo编号
+  fileItemNo: string(name='file_item_no'),
+  // 上传的pdf文件，需要以.pdf后缀结尾
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadAntchainAtoFundFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用于资方将盖章后的合同文件上传
+ * Summary: 资方合同文件上传接口
+ */
+async function uploadAntchainAtoFundFlow(request: UploadAntchainAtoFundFlowRequest): UploadAntchainAtoFundFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAntchainAtoFundFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于资方将盖章后的合同文件上传
+ * Summary: 资方合同文件上传接口
+ */
+async function uploadAntchainAtoFundFlowEx(request: UploadAntchainAtoFundFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAntchainAtoFundFlowResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.ato.fund.flow.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadAntchainAtoFundFlowResponse = new UploadAntchainAtoFundFlowResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadAntchainAtoFundFlowResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.flow.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAntchainAtoFundFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单所属商户的统一社会信用代码
+  merchantId: string(name='merchant_id'),
+  // 商户的订单号
+  orderId: string(name='order_id'),
+  // 合同类型
+  contractType?: string(name='contract_type'),
+}
+
+model GetAntchainAtoFundFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商户的订单号
+  orderId?: string(name='order_id'),
+  // 需要落章的合同列表，需要status状态为FINISH可以落章
+  contractList?: string(name='contract_list'),
+}
+
+/**
+ * Description: 获取商户签署后的合同文件，用于资方签署落章
+ * Summary: 资方合同文件获取接口
+ */
+async function getAntchainAtoFundFlow(request: GetAntchainAtoFundFlowRequest): GetAntchainAtoFundFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAntchainAtoFundFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取商户签署后的合同文件，用于资方签署落章
+ * Summary: 资方合同文件获取接口
+ */
+async function getAntchainAtoFundFlowEx(request: GetAntchainAtoFundFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAntchainAtoFundFlowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.flow.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RefuseAntchainAtoFundFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单所属商户的统一社会信用代码
+  merchantId: string(name='merchant_id'),
+  // 商户的订单号
+  orderId: string(name='order_id'),
+  // 签署合同单号
+  signNo: string(name='sign_no'),
+  // 填写拒绝落章原因，如果同意则不用填写
+  signReason?: string(name='sign_reason'),
+}
+
+model RefuseAntchainAtoFundFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用户资方通知合同签署的状态，一般用于拒绝落章文件时，需要通知拒绝原因
+ * Summary: 资方合同签署状态通知
+ */
+async function refuseAntchainAtoFundFlow(request: RefuseAntchainAtoFundFlowRequest): RefuseAntchainAtoFundFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return refuseAntchainAtoFundFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户资方通知合同签署的状态，一般用于拒绝落章文件时，需要通知拒绝原因
+ * Summary: 资方合同签署状态通知
+ */
+async function refuseAntchainAtoFundFlowEx(request: RefuseAntchainAtoFundFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RefuseAntchainAtoFundFlowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.flow.refuse', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthAntchainAtoFundFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单所属商户的统一社会信用代码
+  merchantId: string(name='merchant_id'),
+  // 商户的订单号
+  orderId: string(name='order_id'),
+  // 签署的电子合同ID
+  signNo: string(name='sign_no'),
+  // 签署区域的tag，和发起签署流程的机构的tag对应
+  tag: string(name='tag'),
+}
+
+model AuthAntchainAtoFundFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 签署最后落签的签署区域id列表
+  signFieldIds?: string(name='sign_field_ids'),
+}
+
+/**
+ * Description: 资方调用，授权通过e签宝进行落签
+ * Summary: 资方e签宝落签接口
+ */
+async function authAntchainAtoFundFlow(request: AuthAntchainAtoFundFlowRequest): AuthAntchainAtoFundFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authAntchainAtoFundFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 资方调用，授权通过e签宝进行落签
+ * Summary: 资方e签宝落签接口
+ */
+async function authAntchainAtoFundFlowEx(request: AuthAntchainAtoFundFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthAntchainAtoFundFlowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.flow.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
