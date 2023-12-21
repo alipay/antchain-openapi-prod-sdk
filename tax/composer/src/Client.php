@@ -75,6 +75,8 @@ use AntChain\TAX\Models\QueryRiskEvaluationRequest;
 use AntChain\TAX\Models\QueryRiskEvaluationResponse;
 use AntChain\TAX\Models\QuerySimpleauthIdentitystateRequest;
 use AntChain\TAX\Models\QuerySimpleauthIdentitystateResponse;
+use AntChain\TAX\Models\StartRiskEvaluationRequest;
+use AntChain\TAX\Models\StartRiskEvaluationResponse;
 use AntChain\TAX\Models\SubmitApiSimpleauthmarkRequest;
 use AntChain\TAX\Models\SubmitApiSimpleauthmarkResponse;
 use AntChain\TAX\Models\SyncRiskEvaluationRequest;
@@ -226,7 +228,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.19',
+                    'sdk_version'      => '1.8.6',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1262,6 +1264,39 @@ class Client
         Utils::validateModel($request);
 
         return PullApiHaiguanasyncpollingResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.haiguanasyncpolling.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提额资质评估授权并查询,支持省级查询
+     * Summary: 提额资质评估授权并查询.
+     *
+     * @param StartRiskEvaluationRequest $request
+     *
+     * @return StartRiskEvaluationResponse
+     */
+    public function startRiskEvaluation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startRiskEvaluationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提额资质评估授权并查询,支持省级查询
+     * Summary: 提额资质评估授权并查询.
+     *
+     * @param StartRiskEvaluationRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return StartRiskEvaluationResponse
+     */
+    public function startRiskEvaluationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartRiskEvaluationResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.risk.evaluation.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

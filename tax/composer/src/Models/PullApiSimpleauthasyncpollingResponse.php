@@ -73,18 +73,25 @@ class PullApiSimpleauthasyncpollingResponse extends Model
      * @var string
      */
     public $secret;
+
+    // 0：不含进项发票。  1：包含进项发票。
+    /**
+     * @var string
+     */
+    public $proceedsInvoice;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'instCode'     => 'inst_code',
-        'identityId'   => 'identity_id',
-        'bizRequestId' => 'biz_request_id',
-        'authType'     => 'auth_type',
-        'authCode'     => 'auth_code',
-        'timestamp'    => 'timestamp',
-        'fileList'     => 'file_list',
-        'secret'       => 'secret',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'instCode'        => 'inst_code',
+        'identityId'      => 'identity_id',
+        'bizRequestId'    => 'biz_request_id',
+        'authType'        => 'auth_type',
+        'authCode'        => 'auth_code',
+        'timestamp'       => 'timestamp',
+        'fileList'        => 'file_list',
+        'secret'          => 'secret',
+        'proceedsInvoice' => 'proceeds_invoice',
     ];
 
     public function validate()
@@ -126,6 +133,9 @@ class PullApiSimpleauthasyncpollingResponse extends Model
         }
         if (null !== $this->secret) {
             $res['secret'] = $this->secret;
+        }
+        if (null !== $this->proceedsInvoice) {
+            $res['proceeds_invoice'] = $this->proceedsInvoice;
         }
 
         return $res;
@@ -173,6 +183,9 @@ class PullApiSimpleauthasyncpollingResponse extends Model
         }
         if (isset($map['secret'])) {
             $model->secret = $map['secret'];
+        }
+        if (isset($map['proceeds_invoice'])) {
+            $model->proceedsInvoice = $map['proceeds_invoice'];
         }
 
         return $model;
