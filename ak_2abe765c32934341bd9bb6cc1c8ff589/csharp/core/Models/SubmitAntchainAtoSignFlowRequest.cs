@@ -98,6 +98,11 @@ namespace AntChain.SDK.Ak_2abe765c32934341bd9bb6cc1c8ff589.Models
         [Validation(Required=false, MaxLength=32)]
         public string MerchantTag { get; set; }
 
+        // 商户需要盖的印章ID
+        [NameInMap("merchant_seal_id")]
+        [Validation(Required=false)]
+        public string MerchantSealId { get; set; }
+
         // 电子合同签署顺序，如果只有1方企业签署，传入1即可。如果是多方，并且需要设置签署顺序，则需要将这个值以及thirdSigner中的signOrder做一个签署顺序。
         [NameInMap("merchant_sign_order")]
         [Validation(Required=false)]
