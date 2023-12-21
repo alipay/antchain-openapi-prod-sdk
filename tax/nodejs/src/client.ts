@@ -391,16 +391,20 @@ export class Card extends $tea.Model {
 // 地区请求
 export class DistrictExtRequest extends $tea.Model {
   // 地区编码
-  cityCode: string;
+  cityCode?: string;
+  // 省或者直辖市代码
+  provCode?: string;
   static names(): { [key: string]: string } {
     return {
       cityCode: 'city_code',
+      provCode: 'prov_code',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       cityCode: 'string',
+      provCode: 'string',
     };
   }
 
@@ -446,15 +450,19 @@ export class AgreementExtRequest extends $tea.Model {
 export class RiskEvaluationDistrictExtRequest extends $tea.Model {
   // 地区编码
   cityCode: string;
+  // 省级编码
+  provCode: string;
   static names(): { [key: string]: string } {
     return {
       cityCode: 'city_code',
+      provCode: 'prov_code',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       cityCode: 'string',
+      provCode: 'string',
     };
   }
 
@@ -2970,6 +2978,8 @@ export class PullApiSimpleauthasyncpollingResponse extends $tea.Model {
   fileList?: string[];
   // 秘钥
   secret?: string;
+  // 0：不含进项发票。  1：包含进项发票。
+  proceedsInvoice?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2983,6 +2993,7 @@ export class PullApiSimpleauthasyncpollingResponse extends $tea.Model {
       timestamp: 'timestamp',
       fileList: 'file_list',
       secret: 'secret',
+      proceedsInvoice: 'proceeds_invoice',
     };
   }
 
@@ -2999,6 +3010,7 @@ export class PullApiSimpleauthasyncpollingResponse extends $tea.Model {
       timestamp: 'string',
       fileList: { 'type': 'array', 'itemType': 'string' },
       secret: 'string',
+      proceedsInvoice: 'string',
     };
   }
 
@@ -3643,6 +3655,121 @@ export class PullApiHaiguanasyncpollingResponse extends $tea.Model {
   }
 }
 
+export class StartRiskEvaluationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 个人身份证号
+  identityId: string;
+  // 个人姓名
+  identityName?: string;
+  // 企业的统一社会信用编码
+  enterpriseId?: string;
+  // 某某某公司
+  enterpriseName?: string;
+  // 企业或者个人企业：ENTERPRISE 个人：PERSONAL
+  identityType: string;
+  // 101
+  authType: string;
+  // 授权订单号
+  orderNo: string;
+  // 请求流水号(必填),调用 方保证每次请求号唯   一，受理方用来校验唯 一性，同一受理号返回 请求结果一致
+  bizRequestId: string;
+  // 子渠道渠道编码，需要同步蚂蚁，由蚂蚁设置。如果是银行本身，可不填 备注：如果同一信贷客户在不同银行的调用需要严格区分，分别授权
+  subTenant: string;
+  // 扩展信息
+  extendInfo: RiskEvaluationExtendInfoRequest;
+  // 查询模式，SINGLE_CITY 查到第一个城市就结束，ALL_CITY 查询所有城市，默认ALL_CITY
+  searchModel?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      identityId: 'identity_id',
+      identityName: 'identity_name',
+      enterpriseId: 'enterprise_id',
+      enterpriseName: 'enterprise_name',
+      identityType: 'identity_type',
+      authType: 'auth_type',
+      orderNo: 'order_no',
+      bizRequestId: 'biz_request_id',
+      subTenant: 'sub_tenant',
+      extendInfo: 'extend_info',
+      searchModel: 'search_model',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      identityId: 'string',
+      identityName: 'string',
+      enterpriseId: 'string',
+      enterpriseName: 'string',
+      identityType: 'string',
+      authType: 'string',
+      orderNo: 'string',
+      bizRequestId: 'string',
+      subTenant: 'string',
+      extendInfo: RiskEvaluationExtendInfoRequest,
+      searchModel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartRiskEvaluationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授权订单订单号
+  orderNo?: string;
+  // 是否授权成功true是，false否
+  authSuccess?: string;
+  // 过期时间，unix时间戳 毫秒
+  expireTime?: number;
+  // 授权时间，unix时间戳 毫秒
+  authTime?: number;
+  // 预测的常驻省份
+  predictProvCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderNo: 'order_no',
+      authSuccess: 'auth_success',
+      expireTime: 'expire_time',
+      authTime: 'auth_time',
+      predictProvCode: 'predict_prov_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderNo: 'string',
+      authSuccess: 'string',
+      expireTime: 'number',
+      authTime: 'number',
+      predictProvCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryPdataPersonalincomeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4124,7 +4251,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.19",
+          sdk_version: "1.8.6",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
@@ -4740,6 +4867,25 @@ export default class Client {
   async pullApiHaiguanasyncpollingEx(request: PullApiHaiguanasyncpollingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PullApiHaiguanasyncpollingResponse> {
     Util.validateModel(request);
     return $tea.cast<PullApiHaiguanasyncpollingResponse>(await this.doRequest("1.0", "blockchain.tax.api.haiguanasyncpolling.pull", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PullApiHaiguanasyncpollingResponse({}));
+  }
+
+  /**
+   * Description: 提额资质评估授权并查询,支持省级查询
+   * Summary: 提额资质评估授权并查询
+   */
+  async startRiskEvaluation(request: StartRiskEvaluationRequest): Promise<StartRiskEvaluationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startRiskEvaluationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 提额资质评估授权并查询,支持省级查询
+   * Summary: 提额资质评估授权并查询
+   */
+  async startRiskEvaluationEx(request: StartRiskEvaluationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartRiskEvaluationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartRiskEvaluationResponse>(await this.doRequest("1.0", "blockchain.tax.risk.evaluation.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartRiskEvaluationResponse({}));
   }
 
   /**
