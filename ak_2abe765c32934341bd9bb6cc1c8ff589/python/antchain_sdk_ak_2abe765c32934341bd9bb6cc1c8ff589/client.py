@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 订单包含的单个商品模型
+            # 订单还款计划
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'ak_2abe765c32934341bd9bb6cc1c8ff589',
                     '_prod_channel': 'saas'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 订单包含的单个商品模型
+            # 订单还款计划
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'ak_2abe765c32934341bd9bb6cc1c8ff589',
                     '_prod_channel': 'saas'
                 }
@@ -560,8 +560,8 @@ class Client:
         request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SubmitAntchainAtoSignFlowRequest,
     ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SubmitAntchainAtoSignFlowResponse:
         """
-        Description: 提交电子合同的签署流程
-        Summary: 提交电子合同的签署流程
+        Description: 提交电子合同的签署流程(后置签署模式)
+        Summary: 提交电子合同的签署流程（后置签署模式）
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -572,8 +572,8 @@ class Client:
         request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SubmitAntchainAtoSignFlowRequest,
     ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SubmitAntchainAtoSignFlowResponse:
         """
-        Description: 提交电子合同的签署流程
-        Summary: 提交电子合同的签署流程
+        Description: 提交电子合同的签署流程(后置签署模式)
+        Summary: 提交电子合同的签署流程（后置签署模式）
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -586,8 +586,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SubmitAntchainAtoSignFlowResponse:
         """
-        Description: 提交电子合同的签署流程
-        Summary: 提交电子合同的签署流程
+        Description: 提交电子合同的签署流程(后置签署模式)
+        Summary: 提交电子合同的签署流程（后置签署模式）
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -602,8 +602,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SubmitAntchainAtoSignFlowResponse:
         """
-        Description: 提交电子合同的签署流程
-        Summary: 提交电子合同的签署流程
+        Description: 提交电子合同的签署流程(后置签署模式)
+        Summary: 提交电子合同的签署流程（后置签署模式）
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1449,4 +1449,374 @@ class Client:
         return TeaCore.from_map(
             ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RetryAntchainAtoWithholdPlanResponse(),
             await self.do_request_async('1.0', 'antchain.ato.withhold.plan.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_antchain_ato_withhold_signasyncunsign(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.ConfirmAntchainAtoWithholdSignasyncunsignRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.ConfirmAntchainAtoWithholdSignasyncunsignResponse:
+        """
+        Description: 当代扣签约时，用户在支付宝侧发起异步解约，此时需要经过商户确认才可以完成解约。saas会通知商户用户的异步解约申请，由商户通过此接口确认是否解约
+        Summary: 代扣签约的异步解约确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_antchain_ato_withhold_signasyncunsign_ex(request, headers, runtime)
+
+    async def confirm_antchain_ato_withhold_signasyncunsign_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.ConfirmAntchainAtoWithholdSignasyncunsignRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.ConfirmAntchainAtoWithholdSignasyncunsignResponse:
+        """
+        Description: 当代扣签约时，用户在支付宝侧发起异步解约，此时需要经过商户确认才可以完成解约。saas会通知商户用户的异步解约申请，由商户通过此接口确认是否解约
+        Summary: 代扣签约的异步解约确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_antchain_ato_withhold_signasyncunsign_ex_async(request, headers, runtime)
+
+    def confirm_antchain_ato_withhold_signasyncunsign_ex(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.ConfirmAntchainAtoWithholdSignasyncunsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.ConfirmAntchainAtoWithholdSignasyncunsignResponse:
+        """
+        Description: 当代扣签约时，用户在支付宝侧发起异步解约，此时需要经过商户确认才可以完成解约。saas会通知商户用户的异步解约申请，由商户通过此接口确认是否解约
+        Summary: 代扣签约的异步解约确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.ConfirmAntchainAtoWithholdSignasyncunsignResponse(),
+            self.do_request('1.0', 'antchain.ato.withhold.signasyncunsign.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_antchain_ato_withhold_signasyncunsign_ex_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.ConfirmAntchainAtoWithholdSignasyncunsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.ConfirmAntchainAtoWithholdSignasyncunsignResponse:
+        """
+        Description: 当代扣签约时，用户在支付宝侧发起异步解约，此时需要经过商户确认才可以完成解约。saas会通知商户用户的异步解约申请，由商户通过此接口确认是否解约
+        Summary: 代扣签约的异步解约确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.ConfirmAntchainAtoWithholdSignasyncunsignResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.withhold.signasyncunsign.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_antchain_ato_fund_flow(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UploadAntchainAtoFundFlowRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UploadAntchainAtoFundFlowResponse:
+        """
+        Description: 用于资方将盖章后的合同文件上传
+        Summary: 资方合同文件上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_antchain_ato_fund_flow_ex(request, headers, runtime)
+
+    async def upload_antchain_ato_fund_flow_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UploadAntchainAtoFundFlowRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UploadAntchainAtoFundFlowResponse:
+        """
+        Description: 用于资方将盖章后的合同文件上传
+        Summary: 资方合同文件上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_antchain_ato_fund_flow_ex_async(request, headers, runtime)
+
+    def upload_antchain_ato_fund_flow_ex(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UploadAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UploadAntchainAtoFundFlowResponse:
+        """
+        Description: 用于资方将盖章后的合同文件上传
+        Summary: 资方合同文件上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.ato.fund.flow.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_antchain_ato_fund_flow_response = ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UploadAntchainAtoFundFlowResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_antchain_ato_fund_flow_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UploadAntchainAtoFundFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.flow.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_antchain_ato_fund_flow_ex_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UploadAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UploadAntchainAtoFundFlowResponse:
+        """
+        Description: 用于资方将盖章后的合同文件上传
+        Summary: 资方合同文件上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.ato.fund.flow.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_antchain_ato_fund_flow_response = ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UploadAntchainAtoFundFlowResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_antchain_ato_fund_flow_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.UploadAntchainAtoFundFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.flow.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_antchain_ato_fund_flow(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundFlowRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundFlowResponse:
+        """
+        Description: 获取商户签署后的合同文件，用于资方签署落章
+        Summary: 资方合同文件获取接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_antchain_ato_fund_flow_ex(request, headers, runtime)
+
+    async def get_antchain_ato_fund_flow_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundFlowRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundFlowResponse:
+        """
+        Description: 获取商户签署后的合同文件，用于资方签署落章
+        Summary: 资方合同文件获取接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_antchain_ato_fund_flow_ex_async(request, headers, runtime)
+
+    def get_antchain_ato_fund_flow_ex(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundFlowResponse:
+        """
+        Description: 获取商户签署后的合同文件，用于资方签署落章
+        Summary: 资方合同文件获取接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.flow.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_antchain_ato_fund_flow_ex_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundFlowResponse:
+        """
+        Description: 获取商户签署后的合同文件，用于资方签署落章
+        Summary: 资方合同文件获取接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.flow.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def refuse_antchain_ato_fund_flow(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RefuseAntchainAtoFundFlowRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RefuseAntchainAtoFundFlowResponse:
+        """
+        Description: 用户资方通知合同签署的状态，一般用于拒绝落章文件时，需要通知拒绝原因
+        Summary: 资方合同签署状态通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.refuse_antchain_ato_fund_flow_ex(request, headers, runtime)
+
+    async def refuse_antchain_ato_fund_flow_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RefuseAntchainAtoFundFlowRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RefuseAntchainAtoFundFlowResponse:
+        """
+        Description: 用户资方通知合同签署的状态，一般用于拒绝落章文件时，需要通知拒绝原因
+        Summary: 资方合同签署状态通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.refuse_antchain_ato_fund_flow_ex_async(request, headers, runtime)
+
+    def refuse_antchain_ato_fund_flow_ex(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RefuseAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RefuseAntchainAtoFundFlowResponse:
+        """
+        Description: 用户资方通知合同签署的状态，一般用于拒绝落章文件时，需要通知拒绝原因
+        Summary: 资方合同签署状态通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RefuseAntchainAtoFundFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.flow.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def refuse_antchain_ato_fund_flow_ex_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RefuseAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RefuseAntchainAtoFundFlowResponse:
+        """
+        Description: 用户资方通知合同签署的状态，一般用于拒绝落章文件时，需要通知拒绝原因
+        Summary: 资方合同签署状态通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.RefuseAntchainAtoFundFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.flow.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def auth_antchain_ato_fund_flow(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoFundFlowRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoFundFlowResponse:
+        """
+        Description: 资方调用，授权通过e签宝进行落签
+        Summary: 资方e签宝落签接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.auth_antchain_ato_fund_flow_ex(request, headers, runtime)
+
+    async def auth_antchain_ato_fund_flow_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoFundFlowRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoFundFlowResponse:
+        """
+        Description: 资方调用，授权通过e签宝进行落签
+        Summary: 资方e签宝落签接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.auth_antchain_ato_fund_flow_ex_async(request, headers, runtime)
+
+    def auth_antchain_ato_fund_flow_ex(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoFundFlowResponse:
+        """
+        Description: 资方调用，授权通过e签宝进行落签
+        Summary: 资方e签宝落签接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoFundFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.flow.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def auth_antchain_ato_fund_flow_ex_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoFundFlowResponse:
+        """
+        Description: 资方调用，授权通过e签宝进行落签
+        Summary: 资方e签宝落签接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.AuthAntchainAtoFundFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.flow.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CreateAntcloudGatewayxFileUploadResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.CreateAntcloudGatewayxFileUploadResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
