@@ -161,7 +161,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -210,8 +210,8 @@ class Client
     }
 
     /**
-     * Description: 提交前置签署的电子合同签署流程
-     * Summary: 提交前置签署的电子合同签署流程.
+     * Description: 提交前置签署的电子合同签署流程（前置签署模式）
+     * Summary: 提交签署的电子合同签署流程（前置签署）.
      *
      * @param SubmitAntchainAtoFrontSignRequest $request
      *
@@ -226,8 +226,8 @@ class Client
     }
 
     /**
-     * Description: 提交前置签署的电子合同签署流程
-     * Summary: 提交前置签署的电子合同签署流程.
+     * Description: 提交前置签署的电子合同签署流程（前置签署模式）
+     * Summary: 提交签署的电子合同签署流程（前置签署）.
      *
      * @param SubmitAntchainAtoFrontSignRequest $request
      * @param string[]                          $headers

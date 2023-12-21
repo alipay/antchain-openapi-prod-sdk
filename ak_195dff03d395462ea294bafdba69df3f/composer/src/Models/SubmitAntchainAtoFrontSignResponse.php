@@ -46,6 +46,12 @@ class SubmitAntchainAtoFrontSignResponse extends Model
      * @var string
      */
     public $accountId;
+
+    // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+    /**
+     * @var string
+     */
+    public $signInfo;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
@@ -53,6 +59,7 @@ class SubmitAntchainAtoFrontSignResponse extends Model
         'signNo'     => 'sign_no',
         'flowId'     => 'flow_id',
         'accountId'  => 'account_id',
+        'signInfo'   => 'sign_info',
     ];
 
     public function validate()
@@ -79,6 +86,9 @@ class SubmitAntchainAtoFrontSignResponse extends Model
         }
         if (null !== $this->accountId) {
             $res['account_id'] = $this->accountId;
+        }
+        if (null !== $this->signInfo) {
+            $res['sign_info'] = $this->signInfo;
         }
 
         return $res;
@@ -109,6 +119,9 @@ class SubmitAntchainAtoFrontSignResponse extends Model
         }
         if (isset($map['account_id'])) {
             $model->accountId = $map['account_id'];
+        }
+        if (isset($map['sign_info'])) {
+            $model->signInfo = $map['sign_info'];
         }
 
         return $model;

@@ -118,6 +118,12 @@ class SubmitAntchainAtoFrontSignRequest extends Model
      */
     public $merchantSignOrder;
 
+    // 商户需要盖的印章ID
+    /**
+     * @var string
+     */
+    public $merchantSealId;
+
     // CRED_ORG_USCC：统一社会信用代码，
     // CRED_ORG_REGCODE：工商注册号，
     // 只支持这两个值
@@ -146,7 +152,7 @@ class SubmitAntchainAtoFrontSignRequest extends Model
      */
     public $merchantLegalIdNumber;
 
-    // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
+    // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012","sealIds":["12b2317-0000-3333-2222-ec087dc97d8b"]}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
     /**
      * @var string
      */
@@ -169,6 +175,7 @@ class SubmitAntchainAtoFrontSignRequest extends Model
         'merchantName'          => 'merchant_name',
         'merchantTag'           => 'merchant_tag',
         'merchantSignOrder'     => 'merchant_sign_order',
+        'merchantSealId'        => 'merchant_seal_id',
         'merchantIdType'        => 'merchant_id_type',
         'merchantIdNumber'      => 'merchant_id_number',
         'merchantLegalName'     => 'merchant_legal_name',
@@ -256,6 +263,9 @@ class SubmitAntchainAtoFrontSignRequest extends Model
         if (null !== $this->merchantSignOrder) {
             $res['merchant_sign_order'] = $this->merchantSignOrder;
         }
+        if (null !== $this->merchantSealId) {
+            $res['merchant_seal_id'] = $this->merchantSealId;
+        }
         if (null !== $this->merchantIdType) {
             $res['merchant_id_type'] = $this->merchantIdType;
         }
@@ -333,6 +343,9 @@ class SubmitAntchainAtoFrontSignRequest extends Model
         }
         if (isset($map['merchant_sign_order'])) {
             $model->merchantSignOrder = $map['merchant_sign_order'];
+        }
+        if (isset($map['merchant_seal_id'])) {
+            $model->merchantSealId = $map['merchant_seal_id'];
         }
         if (isset($map['merchant_id_type'])) {
             $model->merchantIdType = $map['merchant_id_type'];
