@@ -536,7 +536,9 @@ func (s *Card) SetReturnValueKey(v []*string) *Card {
 // 地区请求
 type DistrictExtRequest struct {
 	// 地区编码
-	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty"`
+	// 省或者直辖市代码
+	ProvCode *string `json:"prov_code,omitempty" xml:"prov_code,omitempty"`
 }
 
 func (s DistrictExtRequest) String() string {
@@ -549,6 +551,11 @@ func (s DistrictExtRequest) GoString() string {
 
 func (s *DistrictExtRequest) SetCityCode(v string) *DistrictExtRequest {
 	s.CityCode = &v
+	return s
+}
+
+func (s *DistrictExtRequest) SetProvCode(v string) *DistrictExtRequest {
+	s.ProvCode = &v
 	return s
 }
 
@@ -596,6 +603,8 @@ func (s *AgreementExtRequest) SetAgreementFile(v *AgreementFile) *AgreementExtRe
 type RiskEvaluationDistrictExtRequest struct {
 	// 地区编码
 	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+	// 省级编码
+	ProvCode *string `json:"prov_code,omitempty" xml:"prov_code,omitempty" require:"true"`
 }
 
 func (s RiskEvaluationDistrictExtRequest) String() string {
@@ -608,6 +617,11 @@ func (s RiskEvaluationDistrictExtRequest) GoString() string {
 
 func (s *RiskEvaluationDistrictExtRequest) SetCityCode(v string) *RiskEvaluationDistrictExtRequest {
 	s.CityCode = &v
+	return s
+}
+
+func (s *RiskEvaluationDistrictExtRequest) SetProvCode(v string) *RiskEvaluationDistrictExtRequest {
+	s.ProvCode = &v
 	return s
 }
 
@@ -3922,6 +3936,8 @@ type PullApiSimpleauthasyncpollingResponse struct {
 	FileList []*string `json:"file_list,omitempty" xml:"file_list,omitempty" type:"Repeated"`
 	// 秘钥
 	Secret *string `json:"secret,omitempty" xml:"secret,omitempty"`
+	// 0：不含进项发票。  1：包含进项发票。
+	ProceedsInvoice *string `json:"proceeds_invoice,omitempty" xml:"proceeds_invoice,omitempty"`
 }
 
 func (s PullApiSimpleauthasyncpollingResponse) String() string {
@@ -3984,6 +4000,11 @@ func (s *PullApiSimpleauthasyncpollingResponse) SetFileList(v []*string) *PullAp
 
 func (s *PullApiSimpleauthasyncpollingResponse) SetSecret(v string) *PullApiSimpleauthasyncpollingResponse {
 	s.Secret = &v
+	return s
+}
+
+func (s *PullApiSimpleauthasyncpollingResponse) SetProceedsInvoice(v string) *PullApiSimpleauthasyncpollingResponse {
+	s.ProceedsInvoice = &v
 	return s
 }
 
@@ -4831,6 +4852,174 @@ func (s *PullApiHaiguanasyncpollingResponse) SetTimestamp(v string) *PullApiHaig
 	return s
 }
 
+type StartRiskEvaluationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 个人身份证号
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 个人姓名
+	IdentityName *string `json:"identity_name,omitempty" xml:"identity_name,omitempty"`
+	// 企业的统一社会信用编码
+	EnterpriseId *string `json:"enterprise_id,omitempty" xml:"enterprise_id,omitempty"`
+	// 某某某公司
+	EnterpriseName *string `json:"enterprise_name,omitempty" xml:"enterprise_name,omitempty"`
+	// 企业或者个人企业：ENTERPRISE 个人：PERSONAL
+	IdentityType *string `json:"identity_type,omitempty" xml:"identity_type,omitempty" require:"true"`
+	// 101
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 授权订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 请求流水号(必填),调用 方保证每次请求号唯   一，受理方用来校验唯 一性，同一受理号返回 请求结果一致
+	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty" require:"true"`
+	// 子渠道渠道编码，需要同步蚂蚁，由蚂蚁设置。如果是银行本身，可不填 备注：如果同一信贷客户在不同银行的调用需要严格区分，分别授权
+	SubTenant *string `json:"sub_tenant,omitempty" xml:"sub_tenant,omitempty" require:"true"`
+	// 扩展信息
+	ExtendInfo *RiskEvaluationExtendInfoRequest `json:"extend_info,omitempty" xml:"extend_info,omitempty" require:"true"`
+	// 查询模式，SINGLE_CITY 查到第一个城市就结束，ALL_CITY 查询所有城市，默认ALL_CITY
+	SearchModel *string `json:"search_model,omitempty" xml:"search_model,omitempty"`
+}
+
+func (s StartRiskEvaluationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartRiskEvaluationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StartRiskEvaluationRequest) SetAuthToken(v string) *StartRiskEvaluationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StartRiskEvaluationRequest) SetProductInstanceId(v string) *StartRiskEvaluationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StartRiskEvaluationRequest) SetIdentityId(v string) *StartRiskEvaluationRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *StartRiskEvaluationRequest) SetIdentityName(v string) *StartRiskEvaluationRequest {
+	s.IdentityName = &v
+	return s
+}
+
+func (s *StartRiskEvaluationRequest) SetEnterpriseId(v string) *StartRiskEvaluationRequest {
+	s.EnterpriseId = &v
+	return s
+}
+
+func (s *StartRiskEvaluationRequest) SetEnterpriseName(v string) *StartRiskEvaluationRequest {
+	s.EnterpriseName = &v
+	return s
+}
+
+func (s *StartRiskEvaluationRequest) SetIdentityType(v string) *StartRiskEvaluationRequest {
+	s.IdentityType = &v
+	return s
+}
+
+func (s *StartRiskEvaluationRequest) SetAuthType(v string) *StartRiskEvaluationRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *StartRiskEvaluationRequest) SetOrderNo(v string) *StartRiskEvaluationRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *StartRiskEvaluationRequest) SetBizRequestId(v string) *StartRiskEvaluationRequest {
+	s.BizRequestId = &v
+	return s
+}
+
+func (s *StartRiskEvaluationRequest) SetSubTenant(v string) *StartRiskEvaluationRequest {
+	s.SubTenant = &v
+	return s
+}
+
+func (s *StartRiskEvaluationRequest) SetExtendInfo(v *RiskEvaluationExtendInfoRequest) *StartRiskEvaluationRequest {
+	s.ExtendInfo = v
+	return s
+}
+
+func (s *StartRiskEvaluationRequest) SetSearchModel(v string) *StartRiskEvaluationRequest {
+	s.SearchModel = &v
+	return s
+}
+
+type StartRiskEvaluationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权订单订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 是否授权成功true是，false否
+	AuthSuccess *string `json:"auth_success,omitempty" xml:"auth_success,omitempty"`
+	// 过期时间，unix时间戳 毫秒
+	ExpireTime *int64 `json:"expire_time,omitempty" xml:"expire_time,omitempty"`
+	// 授权时间，unix时间戳 毫秒
+	AuthTime *int64 `json:"auth_time,omitempty" xml:"auth_time,omitempty"`
+	// 预测的常驻省份
+	PredictProvCode *string `json:"predict_prov_code,omitempty" xml:"predict_prov_code,omitempty"`
+}
+
+func (s StartRiskEvaluationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartRiskEvaluationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StartRiskEvaluationResponse) SetReqMsgId(v string) *StartRiskEvaluationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StartRiskEvaluationResponse) SetResultCode(v string) *StartRiskEvaluationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StartRiskEvaluationResponse) SetResultMsg(v string) *StartRiskEvaluationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StartRiskEvaluationResponse) SetOrderNo(v string) *StartRiskEvaluationResponse {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *StartRiskEvaluationResponse) SetAuthSuccess(v string) *StartRiskEvaluationResponse {
+	s.AuthSuccess = &v
+	return s
+}
+
+func (s *StartRiskEvaluationResponse) SetExpireTime(v int64) *StartRiskEvaluationResponse {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *StartRiskEvaluationResponse) SetAuthTime(v int64) *StartRiskEvaluationResponse {
+	s.AuthTime = &v
+	return s
+}
+
+func (s *StartRiskEvaluationResponse) SetPredictProvCode(v string) *StartRiskEvaluationResponse {
+	s.PredictProvCode = &v
+	return s
+}
+
 type QueryPdataPersonalincomeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5464,7 +5653,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.19"),
+				"sdk_version":      tea.String("1.8.6"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6535,6 +6724,40 @@ func (client *Client) PullApiHaiguanasyncpollingEx(request *PullApiHaiguanasyncp
 	}
 	_result = &PullApiHaiguanasyncpollingResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.haiguanasyncpolling.pull"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 提额资质评估授权并查询,支持省级查询
+ * Summary: 提额资质评估授权并查询
+ */
+func (client *Client) StartRiskEvaluation(request *StartRiskEvaluationRequest) (_result *StartRiskEvaluationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StartRiskEvaluationResponse{}
+	_body, _err := client.StartRiskEvaluationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提额资质评估授权并查询,支持省级查询
+ * Summary: 提额资质评估授权并查询
+ */
+func (client *Client) StartRiskEvaluationEx(request *StartRiskEvaluationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StartRiskEvaluationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StartRiskEvaluationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.risk.evaluation.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
