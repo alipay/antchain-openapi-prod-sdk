@@ -11,6 +11,10 @@ public class AllAntchainAtoSignTemplateRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 合同类型，如果不传则返回所有
+    @NameInMap("contract_type")
+    public String contractType;
+
     public static AllAntchainAtoSignTemplateRequest build(java.util.Map<String, ?> map) throws Exception {
         AllAntchainAtoSignTemplateRequest self = new AllAntchainAtoSignTemplateRequest();
         return TeaModel.build(map, self);
@@ -30,6 +34,14 @@ public class AllAntchainAtoSignTemplateRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public AllAntchainAtoSignTemplateRequest setContractType(String contractType) {
+        this.contractType = contractType;
+        return this;
+    }
+    public String getContractType() {
+        return this.contractType;
     }
 
 }

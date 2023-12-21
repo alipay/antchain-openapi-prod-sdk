@@ -86,6 +86,10 @@ public class SubmitAntchainAtoSignFlowRequest extends TeaModel {
     @Validation(maxLength = 32)
     public String merchantTag;
 
+    // 商户需要盖的印章ID
+    @NameInMap("merchant_seal_id")
+    public String merchantSealId;
+
     // 电子合同签署顺序，如果只有1方企业签署，传入1即可。如果是多方，并且需要设置签署顺序，则需要将这个值以及thirdSigner中的signOrder做一个签署顺序。
     @NameInMap("merchant_sign_order")
     public Long merchantSignOrder;
@@ -244,6 +248,14 @@ public class SubmitAntchainAtoSignFlowRequest extends TeaModel {
     }
     public String getMerchantTag() {
         return this.merchantTag;
+    }
+
+    public SubmitAntchainAtoSignFlowRequest setMerchantSealId(String merchantSealId) {
+        this.merchantSealId = merchantSealId;
+        return this;
+    }
+    public String getMerchantSealId() {
+        return this.merchantSealId;
     }
 
     public SubmitAntchainAtoSignFlowRequest setMerchantSignOrder(Long merchantSignOrder) {

@@ -28,6 +28,10 @@ public class SubmitAntchainAtoSignFlowResponse extends TeaModel {
     @NameInMap("account_id")
     public String accountId;
 
+    // 签署附加信息，用于获取签署链接等。JSON格式的字符串。
+    @NameInMap("sign_info")
+    public String signInfo;
+
     public static SubmitAntchainAtoSignFlowResponse build(java.util.Map<String, ?> map) throws Exception {
         SubmitAntchainAtoSignFlowResponse self = new SubmitAntchainAtoSignFlowResponse();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class SubmitAntchainAtoSignFlowResponse extends TeaModel {
     }
     public String getAccountId() {
         return this.accountId;
+    }
+
+    public SubmitAntchainAtoSignFlowResponse setSignInfo(String signInfo) {
+        this.signInfo = signInfo;
+        return this;
+    }
+    public String getSignInfo() {
+        return this.signInfo;
     }
 
 }
