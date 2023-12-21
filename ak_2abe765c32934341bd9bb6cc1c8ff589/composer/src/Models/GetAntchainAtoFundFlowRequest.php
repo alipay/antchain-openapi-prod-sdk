@@ -6,7 +6,7 @@ namespace AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AllAntchainAtoSignTemplateRequest extends Model
+class GetAntchainAtoFundFlowRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,7 +19,19 @@ class AllAntchainAtoSignTemplateRequest extends Model
      */
     public $productInstanceId;
 
-    // 合同类型，如果不传则返回所有
+    // 订单所属商户的统一社会信用代码
+    /**
+     * @var string
+     */
+    public $merchantId;
+
+    // 商户的订单号
+    /**
+     * @var string
+     */
+    public $orderId;
+
+    // 合同类型
     /**
      * @var string
      */
@@ -27,11 +39,15 @@ class AllAntchainAtoSignTemplateRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'merchantId'        => 'merchant_id',
+        'orderId'           => 'order_id',
         'contractType'      => 'contract_type',
     ];
 
     public function validate()
     {
+        Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateRequired('orderId', $this->orderId, true);
     }
 
     public function toMap()
@@ -43,6 +59,12 @@ class AllAntchainAtoSignTemplateRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
         if (null !== $this->contractType) {
             $res['contract_type'] = $this->contractType;
         }
@@ -53,7 +75,7 @@ class AllAntchainAtoSignTemplateRequest extends Model
     /**
      * @param array $map
      *
-     * @return AllAntchainAtoSignTemplateRequest
+     * @return GetAntchainAtoFundFlowRequest
      */
     public static function fromMap($map = [])
     {
@@ -63,6 +85,12 @@ class AllAntchainAtoSignTemplateRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
+        }
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
         if (isset($map['contract_type'])) {
             $model->contractType = $map['contract_type'];

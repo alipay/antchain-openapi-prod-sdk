@@ -113,6 +113,12 @@ class SubmitAntchainAtoSignFlowRequest extends Model
      */
     public $merchantTag;
 
+    // 商户需要盖的印章ID
+    /**
+     * @var string
+     */
+    public $merchantSealId;
+
     // 电子合同签署顺序，如果只有1方企业签署，传入1即可。如果是多方，并且需要设置签署顺序，则需要将这个值以及thirdSigner中的signOrder做一个签署顺序。
     /**
      * @var int
@@ -165,6 +171,7 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         'alipayUserId'          => 'alipay_user_id',
         'merchantName'          => 'merchant_name',
         'merchantTag'           => 'merchant_tag',
+        'merchantSealId'        => 'merchant_seal_id',
         'merchantSignOrder'     => 'merchant_sign_order',
         'merchantIdType'        => 'merchant_id_type',
         'merchantIdNumber'      => 'merchant_id_number',
@@ -252,6 +259,9 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         if (null !== $this->merchantTag) {
             $res['merchant_tag'] = $this->merchantTag;
         }
+        if (null !== $this->merchantSealId) {
+            $res['merchant_seal_id'] = $this->merchantSealId;
+        }
         if (null !== $this->merchantSignOrder) {
             $res['merchant_sign_order'] = $this->merchantSignOrder;
         }
@@ -329,6 +339,9 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         }
         if (isset($map['merchant_tag'])) {
             $model->merchantTag = $map['merchant_tag'];
+        }
+        if (isset($map['merchant_seal_id'])) {
+            $model->merchantSealId = $map['merchant_seal_id'];
         }
         if (isset($map['merchant_sign_order'])) {
             $model->merchantSignOrder = $map['merchant_sign_order'];

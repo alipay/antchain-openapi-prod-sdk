@@ -13,14 +13,22 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\AllAntchainAtoSignTemplateRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\AllAntchainAtoSignTemplateResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\AuthAntchainAtoFundFlowRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\AuthAntchainAtoFundFlowResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\AuthAntchainAtoSignFlowRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\AuthAntchainAtoSignFlowResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\CancelAntchainAtoWithholdPlanRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\CancelAntchainAtoWithholdPlanResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\ConfirmAntchainAtoWithholdSignasyncunsignRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\ConfirmAntchainAtoWithholdSignasyncunsignResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\CreateAntchainAtoRealpersonFacevrfRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\CreateAntchainAtoRealpersonFacevrfResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\CreateAntchainAtoWithholdSignRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\CreateAntchainAtoWithholdSignResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\GetAntchainAtoFundFlowRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\GetAntchainAtoFundFlowResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\GetAntchainAtoFundOrderfulfillmentRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\GetAntchainAtoFundOrderfulfillmentResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\GetAntchainAtoFundRepaymentplanRequest;
@@ -33,6 +41,8 @@ use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\QueryAntchainAtoRealpers
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\QueryAntchainAtoRealpersonFacevrfResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\QueryAntchainAtoWithholdSignRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\QueryAntchainAtoWithholdSignResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\RefuseAntchainAtoFundFlowRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\RefuseAntchainAtoFundFlowResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\RepayAntchainAtoWithholdPlanRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\RepayAntchainAtoWithholdPlanResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\RetryAntchainAtoWithholdPlanRequest;
@@ -53,6 +63,8 @@ use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoTradeRequ
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoTradeResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\UnbindAntchainAtoWithholdSignRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\UnbindAntchainAtoWithholdSignResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\UploadAntchainAtoFundFlowRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\UploadAntchainAtoFundFlowResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -172,7 +184,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 订单包含的单个商品模型
+            // 订单还款计划
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -200,7 +212,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.0.3',
                     '_prod_code'       => 'ak_2abe765c32934341bd9bb6cc1c8ff589',
                     '_prod_channel'    => 'saas',
                 ];
@@ -414,8 +426,8 @@ class Client
     }
 
     /**
-     * Description: 提交电子合同的签署流程
-     * Summary: 提交电子合同的签署流程.
+     * Description: 提交电子合同的签署流程(后置签署模式)
+     * Summary: 提交电子合同的签署流程（后置签署模式）.
      *
      * @param SubmitAntchainAtoSignFlowRequest $request
      *
@@ -430,8 +442,8 @@ class Client
     }
 
     /**
-     * Description: 提交电子合同的签署流程
-     * Summary: 提交电子合同的签署流程.
+     * Description: 提交电子合同的签署流程(后置签署模式)
+     * Summary: 提交电子合同的签署流程（后置签署模式）.
      *
      * @param SubmitAntchainAtoSignFlowRequest $request
      * @param string[]                         $headers
@@ -939,5 +951,221 @@ class Client
         Utils::validateModel($request);
 
         return RetryAntchainAtoWithholdPlanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.plan.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 当代扣签约时，用户在支付宝侧发起异步解约，此时需要经过商户确认才可以完成解约。saas会通知商户用户的异步解约申请，由商户通过此接口确认是否解约
+     * Summary: 代扣签约的异步解约确认.
+     *
+     * @param ConfirmAntchainAtoWithholdSignasyncunsignRequest $request
+     *
+     * @return ConfirmAntchainAtoWithholdSignasyncunsignResponse
+     */
+    public function confirmAntchainAtoWithholdSignasyncunsign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmAntchainAtoWithholdSignasyncunsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 当代扣签约时，用户在支付宝侧发起异步解约，此时需要经过商户确认才可以完成解约。saas会通知商户用户的异步解约申请，由商户通过此接口确认是否解约
+     * Summary: 代扣签约的异步解约确认.
+     *
+     * @param ConfirmAntchainAtoWithholdSignasyncunsignRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return ConfirmAntchainAtoWithholdSignasyncunsignResponse
+     */
+    public function confirmAntchainAtoWithholdSignasyncunsignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmAntchainAtoWithholdSignasyncunsignResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.signasyncunsign.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于资方将盖章后的合同文件上传
+     * Summary: 资方合同文件上传接口.
+     *
+     * @param UploadAntchainAtoFundFlowRequest $request
+     *
+     * @return UploadAntchainAtoFundFlowResponse
+     */
+    public function uploadAntchainAtoFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAntchainAtoFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于资方将盖章后的合同文件上传
+     * Summary: 资方合同文件上传接口.
+     *
+     * @param UploadAntchainAtoFundFlowRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UploadAntchainAtoFundFlowResponse
+     */
+    public function uploadAntchainAtoFundFlowEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.ato.fund.flow.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadAntchainAtoFundFlowResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取商户签署后的合同文件，用于资方签署落章
+     * Summary: 资方合同文件获取接口.
+     *
+     * @param GetAntchainAtoFundFlowRequest $request
+     *
+     * @return GetAntchainAtoFundFlowResponse
+     */
+    public function getAntchainAtoFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAntchainAtoFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取商户签署后的合同文件，用于资方签署落章
+     * Summary: 资方合同文件获取接口.
+     *
+     * @param GetAntchainAtoFundFlowRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return GetAntchainAtoFundFlowResponse
+     */
+    public function getAntchainAtoFundFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户资方通知合同签署的状态，一般用于拒绝落章文件时，需要通知拒绝原因
+     * Summary: 资方合同签署状态通知.
+     *
+     * @param RefuseAntchainAtoFundFlowRequest $request
+     *
+     * @return RefuseAntchainAtoFundFlowResponse
+     */
+    public function refuseAntchainAtoFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->refuseAntchainAtoFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户资方通知合同签署的状态，一般用于拒绝落章文件时，需要通知拒绝原因
+     * Summary: 资方合同签署状态通知.
+     *
+     * @param RefuseAntchainAtoFundFlowRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return RefuseAntchainAtoFundFlowResponse
+     */
+    public function refuseAntchainAtoFundFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RefuseAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.refuse', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方调用，授权通过e签宝进行落签
+     * Summary: 资方e签宝落签接口.
+     *
+     * @param AuthAntchainAtoFundFlowRequest $request
+     *
+     * @return AuthAntchainAtoFundFlowResponse
+     */
+    public function authAntchainAtoFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authAntchainAtoFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方调用，授权通过e签宝进行落签
+     * Summary: 资方e签宝落签接口.
+     *
+     * @param AuthAntchainAtoFundFlowRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return AuthAntchainAtoFundFlowResponse
+     */
+    public function authAntchainAtoFundFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

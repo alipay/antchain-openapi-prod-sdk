@@ -6,7 +6,7 @@ namespace AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitAntchainAtoSignFlowResponse extends Model
+class GetAntchainAtoFundFlowResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,37 +26,23 @@ class SubmitAntchainAtoSignFlowResponse extends Model
      */
     public $resultMsg;
 
-    // 签署合同单号
+    // 商户的订单号
     /**
      * @var string
      */
-    public $signNo;
+    public $orderId;
 
-    // 电子签署流程ID
+    // 需要落章的合同列表，需要status状态为FINISH可以落章
     /**
      * @var string
      */
-    public $flowId;
-
-    // 签署用户ID
-    /**
-     * @var string
-     */
-    public $accountId;
-
-    // 签署附加信息，用于获取签署链接等。JSON格式的字符串。
-    /**
-     * @var string
-     */
-    public $signInfo;
+    public $contractList;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'signNo'     => 'sign_no',
-        'flowId'     => 'flow_id',
-        'accountId'  => 'account_id',
-        'signInfo'   => 'sign_info',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'orderId'      => 'order_id',
+        'contractList' => 'contract_list',
     ];
 
     public function validate()
@@ -75,17 +61,11 @@ class SubmitAntchainAtoSignFlowResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->signNo) {
-            $res['sign_no'] = $this->signNo;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
-        if (null !== $this->flowId) {
-            $res['flow_id'] = $this->flowId;
-        }
-        if (null !== $this->accountId) {
-            $res['account_id'] = $this->accountId;
-        }
-        if (null !== $this->signInfo) {
-            $res['sign_info'] = $this->signInfo;
+        if (null !== $this->contractList) {
+            $res['contract_list'] = $this->contractList;
         }
 
         return $res;
@@ -94,7 +74,7 @@ class SubmitAntchainAtoSignFlowResponse extends Model
     /**
      * @param array $map
      *
-     * @return SubmitAntchainAtoSignFlowResponse
+     * @return GetAntchainAtoFundFlowResponse
      */
     public static function fromMap($map = [])
     {
@@ -108,17 +88,11 @@ class SubmitAntchainAtoSignFlowResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['sign_no'])) {
-            $model->signNo = $map['sign_no'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
-        if (isset($map['flow_id'])) {
-            $model->flowId = $map['flow_id'];
-        }
-        if (isset($map['account_id'])) {
-            $model->accountId = $map['account_id'];
-        }
-        if (isset($map['sign_info'])) {
-            $model->signInfo = $map['sign_info'];
+        if (isset($map['contract_list'])) {
+            $model->contractList = $map['contract_list'];
         }
 
         return $model;
