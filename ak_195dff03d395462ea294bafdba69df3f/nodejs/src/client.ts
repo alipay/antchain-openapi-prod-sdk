@@ -120,6 +120,8 @@ export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
   merchantTag?: string;
   // 电子合同签署顺序，如果只有1方企业签署，传入1即可。如果是多方，并且需要设置签署顺序，则需要将这个值以及thirdSigner中的signOrder做一个签署顺序。
   merchantSignOrder?: number;
+  // 商户需要盖的印章ID
+  merchantSealId?: string;
   // CRED_ORG_USCC：统一社会信用代码，
   // CRED_ORG_REGCODE：工商注册号，
   // 只支持这两个值
@@ -132,7 +134,7 @@ export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
   // 法人证件号，需要采用RSA加密传输
   // 
   merchantLegalIdNumber?: string;
-  // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
+  // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012","sealIds":["12b2317-0000-3333-2222-ec087dc97d8b"]}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
   thirdSigner?: string;
   static names(): { [key: string]: string } {
     return {
@@ -153,6 +155,7 @@ export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
       merchantName: 'merchant_name',
       merchantTag: 'merchant_tag',
       merchantSignOrder: 'merchant_sign_order',
+      merchantSealId: 'merchant_seal_id',
       merchantIdType: 'merchant_id_type',
       merchantIdNumber: 'merchant_id_number',
       merchantLegalName: 'merchant_legal_name',
@@ -180,6 +183,7 @@ export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
       merchantName: 'string',
       merchantTag: 'string',
       merchantSignOrder: 'number',
+      merchantSealId: 'string',
       merchantIdType: 'string',
       merchantIdNumber: 'string',
       merchantLegalName: 'string',
@@ -209,6 +213,8 @@ export class SubmitAntchainAtoFrontSignResponse extends $tea.Model {
   // 签署用户ID
   // 
   accountId?: string;
+  // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+  signInfo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -217,6 +223,7 @@ export class SubmitAntchainAtoFrontSignResponse extends $tea.Model {
       signNo: 'sign_no',
       flowId: 'flow_id',
       accountId: 'account_id',
+      signInfo: 'sign_info',
     };
   }
 
@@ -228,6 +235,7 @@ export class SubmitAntchainAtoFrontSignResponse extends $tea.Model {
       signNo: 'string',
       flowId: 'string',
       accountId: 'string',
+      signInfo: 'string',
     };
   }
 
@@ -413,7 +421,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_195dff03d395462ea294bafdba69df3f",
           _prod_channel: "saas",
         };
@@ -462,8 +470,8 @@ export default class Client {
   }
 
   /**
-   * Description: 提交前置签署的电子合同签署流程
-   * Summary: 提交前置签署的电子合同签署流程
+   * Description: 提交前置签署的电子合同签署流程（前置签署模式）
+   * Summary: 提交签署的电子合同签署流程（前置签署）
    */
   async submitAntchainAtoFrontSign(request: SubmitAntchainAtoFrontSignRequest): Promise<SubmitAntchainAtoFrontSignResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -472,8 +480,8 @@ export default class Client {
   }
 
   /**
-   * Description: 提交前置签署的电子合同签署流程
-   * Summary: 提交前置签署的电子合同签署流程
+   * Description: 提交前置签署的电子合同签署流程（前置签署模式）
+   * Summary: 提交签署的电子合同签署流程（前置签署）
    */
   async submitAntchainAtoFrontSignEx(request: SubmitAntchainAtoFrontSignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAntchainAtoFrontSignResponse> {
     Util.validateModel(request);
