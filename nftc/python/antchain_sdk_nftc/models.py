@@ -400,6 +400,7 @@ class AvatarDTO(TeaModel):
         avatar_web_gl_unity_body_url: str = None,
         avatar_ios_unity_body_url: str = None,
         avatar_android_unity_body_url: str = None,
+        default_unity_config: str = None,
     ):
         # 上衣配置
         self.upcloth = upcloth
@@ -445,6 +446,8 @@ class AvatarDTO(TeaModel):
         self.avatar_ios_unity_body_url = avatar_ios_unity_body_url
         # android ab包链接
         self.avatar_android_unity_body_url = avatar_android_unity_body_url
+        # 默认Unity配置
+        self.default_unity_config = default_unity_config
 
     def validate(self):
         self.validate_required(self.upcloth, 'upcloth')
@@ -507,6 +510,7 @@ class AvatarDTO(TeaModel):
         self.validate_required(self.avatar_web_gl_unity_body_url, 'avatar_web_gl_unity_body_url')
         self.validate_required(self.avatar_ios_unity_body_url, 'avatar_ios_unity_body_url')
         self.validate_required(self.avatar_android_unity_body_url, 'avatar_android_unity_body_url')
+        self.validate_required(self.default_unity_config, 'default_unity_config')
 
     def to_map(self):
         _map = super().to_map()
@@ -558,6 +562,8 @@ class AvatarDTO(TeaModel):
             result['avatar_ios_unity_body_url'] = self.avatar_ios_unity_body_url
         if self.avatar_android_unity_body_url is not None:
             result['avatar_android_unity_body_url'] = self.avatar_android_unity_body_url
+        if self.default_unity_config is not None:
+            result['default_unity_config'] = self.default_unity_config
         return result
 
     def from_map(self, m: dict = None):
@@ -625,6 +631,8 @@ class AvatarDTO(TeaModel):
             self.avatar_ios_unity_body_url = m.get('avatar_ios_unity_body_url')
         if m.get('avatar_android_unity_body_url') is not None:
             self.avatar_android_unity_body_url = m.get('avatar_android_unity_body_url')
+        if m.get('default_unity_config') is not None:
+            self.default_unity_config = m.get('default_unity_config')
         return self
 
 
