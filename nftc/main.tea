@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.10',
+    sdk_version = '1.0.11',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -260,6 +260,8 @@ model AvatarDTO {
   avatarIosUnityBodyUrl: string(name='avatar_ios_unity_body_url', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original '),
   // android ab包链接
   avatarAndroidUnityBodyUrl: string(name='avatar_android_unity_body_url', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original '),
+  // 默认Unity配置
+  defaultUnityConfig: string(name='default_unity_config', example='12345678'),
 }
 
 // 用户资产
