@@ -359,6 +359,8 @@ type AvatarDTO struct {
 	AvatarIosUnityBodyUrl *string `json:"avatar_ios_unity_body_url,omitempty" xml:"avatar_ios_unity_body_url,omitempty" require:"true"`
 	// android ab包链接
 	AvatarAndroidUnityBodyUrl *string `json:"avatar_android_unity_body_url,omitempty" xml:"avatar_android_unity_body_url,omitempty" require:"true"`
+	// 默认Unity配置
+	DefaultUnityConfig *string `json:"default_unity_config,omitempty" xml:"default_unity_config,omitempty" require:"true"`
 }
 
 func (s AvatarDTO) String() string {
@@ -476,6 +478,11 @@ func (s *AvatarDTO) SetAvatarIosUnityBodyUrl(v string) *AvatarDTO {
 
 func (s *AvatarDTO) SetAvatarAndroidUnityBodyUrl(v string) *AvatarDTO {
 	s.AvatarAndroidUnityBodyUrl = &v
+	return s
+}
+
+func (s *AvatarDTO) SetDefaultUnityConfig(v string) *AvatarDTO {
+	s.DefaultUnityConfig = &v
 	return s
 }
 
@@ -2060,7 +2067,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.10"),
+				"sdk_version":      tea.String("1.0.11"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
