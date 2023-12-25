@@ -120,6 +120,11 @@ namespace AntChain.SDK.NFTC.Models
         [Validation(Required=true)]
         public string AvatarAndroidUnityBodyUrl { get; set; }
 
+        // 默认Unity配置
+        [NameInMap("default_unity_config")]
+        [Validation(Required=true)]
+        public string DefaultUnityConfig { get; set; }
+
     }
 
 }
