@@ -183,6 +183,14 @@ class AvatarDTO extends Model
      * @var string
      */
     public $avatarAndroidUnityBodyUrl;
+
+    // 默认Unity配置
+    /**
+     * @example 12345678
+     *
+     * @var string
+     */
+    public $defaultUnityConfig;
     protected $_name = [
         'upcloth'                   => 'upcloth',
         'downcloth'                 => 'downcloth',
@@ -206,6 +214,7 @@ class AvatarDTO extends Model
         'avatarWebGlUnityBodyUrl'   => 'avatar_web_gl_unity_body_url',
         'avatarIosUnityBodyUrl'     => 'avatar_ios_unity_body_url',
         'avatarAndroidUnityBodyUrl' => 'avatar_android_unity_body_url',
+        'defaultUnityConfig'        => 'default_unity_config',
     ];
 
     public function validate()
@@ -232,6 +241,7 @@ class AvatarDTO extends Model
         Model::validateRequired('avatarWebGlUnityBodyUrl', $this->avatarWebGlUnityBodyUrl, true);
         Model::validateRequired('avatarIosUnityBodyUrl', $this->avatarIosUnityBodyUrl, true);
         Model::validateRequired('avatarAndroidUnityBodyUrl', $this->avatarAndroidUnityBodyUrl, true);
+        Model::validateRequired('defaultUnityConfig', $this->defaultUnityConfig, true);
     }
 
     public function toMap()
@@ -302,6 +312,9 @@ class AvatarDTO extends Model
         }
         if (null !== $this->avatarAndroidUnityBodyUrl) {
             $res['avatar_android_unity_body_url'] = $this->avatarAndroidUnityBodyUrl;
+        }
+        if (null !== $this->defaultUnityConfig) {
+            $res['default_unity_config'] = $this->defaultUnityConfig;
         }
 
         return $res;
@@ -380,6 +393,9 @@ class AvatarDTO extends Model
         }
         if (isset($map['avatar_android_unity_body_url'])) {
             $model->avatarAndroidUnityBodyUrl = $map['avatar_android_unity_body_url'];
+        }
+        if (isset($map['default_unity_config'])) {
+            $model->defaultUnityConfig = $map['default_unity_config'];
         }
 
         return $model;
