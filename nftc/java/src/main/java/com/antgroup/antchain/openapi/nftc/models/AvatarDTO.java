@@ -114,6 +114,11 @@ public class AvatarDTO extends TeaModel {
     @Validation(required = true)
     public String avatarAndroidUnityBodyUrl;
 
+    // 默认Unity配置
+    @NameInMap("default_unity_config")
+    @Validation(required = true)
+    public String defaultUnityConfig;
+
     public static AvatarDTO build(java.util.Map<String, ?> map) throws Exception {
         AvatarDTO self = new AvatarDTO();
         return TeaModel.build(map, self);
@@ -293,6 +298,14 @@ public class AvatarDTO extends TeaModel {
     }
     public String getAvatarAndroidUnityBodyUrl() {
         return this.avatarAndroidUnityBodyUrl;
+    }
+
+    public AvatarDTO setDefaultUnityConfig(String defaultUnityConfig) {
+        this.defaultUnityConfig = defaultUnityConfig;
+        return this;
+    }
+    public String getDefaultUnityConfig() {
+        return this.defaultUnityConfig;
     }
 
 }
