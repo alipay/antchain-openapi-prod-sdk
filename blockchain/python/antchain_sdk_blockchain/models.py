@@ -60649,15 +60649,19 @@ class PauseAuthTaskRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         task_id: str = None,
+        operator: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 任务id
         self.task_id = task_id
+        # 操作者ID
+        self.operator = operator
 
     def validate(self):
         self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.operator, 'operator')
 
     def to_map(self):
         _map = super().to_map()
@@ -60671,6 +60675,8 @@ class PauseAuthTaskRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.task_id is not None:
             result['task_id'] = self.task_id
+        if self.operator is not None:
+            result['operator'] = self.operator
         return result
 
     def from_map(self, m: dict = None):
@@ -60681,6 +60687,8 @@ class PauseAuthTaskRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
         return self
 
 
@@ -60739,15 +60747,19 @@ class FinishAuthTaskRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         task_id: str = None,
+        operator: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 任务id
         self.task_id = task_id
+        # 操作者ID
+        self.operator = operator
 
     def validate(self):
         self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.operator, 'operator')
 
     def to_map(self):
         _map = super().to_map()
@@ -60761,6 +60773,8 @@ class FinishAuthTaskRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.task_id is not None:
             result['task_id'] = self.task_id
+        if self.operator is not None:
+            result['operator'] = self.operator
         return result
 
     def from_map(self, m: dict = None):
@@ -60771,6 +60785,8 @@ class FinishAuthTaskRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
         return self
 
 
