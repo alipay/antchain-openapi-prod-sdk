@@ -1,6 +1,6 @@
 {
   "name": "@antchain/blockchain",
-  "version": "1.26.36",
+  "version": "1.27.8",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
