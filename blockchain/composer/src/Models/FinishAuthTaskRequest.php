@@ -24,15 +24,23 @@ class FinishAuthTaskRequest extends Model
      * @var string
      */
     public $taskId;
+
+    // 操作者ID
+    /**
+     * @var string
+     */
+    public $operator;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'taskId'            => 'task_id',
+        'operator'          => 'operator',
     ];
 
     public function validate()
     {
         Model::validateRequired('taskId', $this->taskId, true);
+        Model::validateRequired('operator', $this->operator, true);
     }
 
     public function toMap()
@@ -46,6 +54,9 @@ class FinishAuthTaskRequest extends Model
         }
         if (null !== $this->taskId) {
             $res['task_id'] = $this->taskId;
+        }
+        if (null !== $this->operator) {
+            $res['operator'] = $this->operator;
         }
 
         return $res;
@@ -67,6 +78,9 @@ class FinishAuthTaskRequest extends Model
         }
         if (isset($map['task_id'])) {
             $model->taskId = $map['task_id'];
+        }
+        if (isset($map['operator'])) {
+            $model->operator = $map['operator'];
         }
 
         return $model;
