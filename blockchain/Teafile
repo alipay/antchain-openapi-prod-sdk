@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "BLOCKCHAIN",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-blockchain:1.27.8",
-    "go": "github.com/antchain-openapi-sdk-go/blockchain/client:v1.27.8",
-    "csharp": "AntChain.SDK.BLOCKCHAIN:1.27.8",
-    "ts": "@antchain/blockchain:1.27.8",
-    "php": "antchain/blockchain:1.27.8",
-    "python": "antchain_sdk_blockchain:1.27.8"
+    "java": "com.antgroup.antchain.openapi:openapi-blockchain:1.27.10",
+    "go": "github.com/antchain-openapi-sdk-go/blockchain/client:v1.27.10",
+    "csharp": "AntChain.SDK.BLOCKCHAIN:1.27.10",
+    "ts": "@antchain/blockchain:1.27.10",
+    "php": "antchain/blockchain:1.27.10",
+    "python": "antchain_sdk_blockchain:1.27.10"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

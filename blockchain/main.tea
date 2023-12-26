@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.27.8',
+    sdk_version = '1.27.10',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -21339,6 +21339,8 @@ model PauseAuthTaskRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 任务id
   taskId: string(name='task_id'),
+  // 操作者ID
+  operator: string(name='operator'),
 }
 
 model PauseAuthTaskResponse = {
@@ -21377,6 +21379,8 @@ model FinishAuthTaskRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 任务id
   taskId: string(name='task_id'),
+  // 操作者ID
+  operator: string(name='operator'),
 }
 
 model FinishAuthTaskResponse = {
