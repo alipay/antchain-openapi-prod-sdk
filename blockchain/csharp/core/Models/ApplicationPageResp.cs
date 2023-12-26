@@ -9,16 +9,16 @@ using Tea;
 namespace AntChain.SDK.BLOCKCHAIN.Models
 {
     // 应用授权列表查询
-    public class PageRespApplicationListResp : TeaModel {
+    public class ApplicationPageResp : TeaModel {
+        // 应用授权列表
+        [NameInMap("list")]
+        [Validation(Required=false)]
+        public List<ApplicationPageListResp> List { get; set; }
+
         // 总数
         [NameInMap("total")]
         [Validation(Required=false)]
         public long? Total { get; set; }
-
-        // 列表数据
-        [NameInMap("data_list")]
-        [Validation(Required=false)]
-        public List<ApplicationListResp> DataList { get; set; }
 
     }
 

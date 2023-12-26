@@ -8,9 +8,9 @@ using Tea;
 
 namespace AntChain.SDK.BLOCKCHAIN.Models
 {
-    // 应用授权列表查询
-    public class ApplicationListResp : TeaModel {
-        // 应用程序ID
+    // 应用授权列表
+    public class ApplicationPageListResp : TeaModel {
+        // 应用标识
         [NameInMap("application_id")]
         [Validation(Required=false)]
         public string ApplicationId { get; set; }

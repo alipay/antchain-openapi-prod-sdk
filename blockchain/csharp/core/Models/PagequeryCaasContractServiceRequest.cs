@@ -18,6 +18,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 合约服务类别
+        [NameInMap("type")]
+        [Validation(Required=false)]
+        public string Type { get; set; }
+
         // 页码
         [NameInMap("num")]
         [Validation(Required=true)]
@@ -28,10 +33,10 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public long? Size { get; set; }
 
-        // 业务数据
-        [NameInMap("data")]
-        [Validation(Required=false)]
-        public ContractListReq Data { get; set; }
+        // 链id
+        [NameInMap("chain_id")]
+        [Validation(Required=true)]
+        public string ChainId { get; set; }
 
     }
 

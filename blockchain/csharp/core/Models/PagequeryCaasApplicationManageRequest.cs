@@ -28,6 +28,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public long? Size { get; set; }
 
+        // 链ID
+        [NameInMap("chain_id")]
+        [Validation(Required=true)]
+        public string ChainId { get; set; }
+
     }
 
 }

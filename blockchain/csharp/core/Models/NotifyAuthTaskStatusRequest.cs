@@ -38,6 +38,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string HappenTime { get; set; }
 
+        // 业务流水号，问卷方传给主站后透传给授权宝
+        [NameInMap("out_biz_no")]
+        [Validation(Required=false)]
+        public string OutBizNo { get; set; }
+
     }
 
 }

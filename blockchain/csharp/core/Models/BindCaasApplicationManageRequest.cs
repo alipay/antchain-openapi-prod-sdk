@@ -18,7 +18,7 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 应用程序ID
+        // 应用ID
         [NameInMap("application_id")]
         [Validation(Required=true)]
         public string ApplicationId { get; set; }

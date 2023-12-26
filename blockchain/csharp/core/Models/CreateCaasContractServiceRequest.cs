@@ -20,17 +20,22 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
 
         // 链ID
         [NameInMap("chain_id")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=64)]
         public string ChainId { get; set; }
+
+        // 联盟ID
+        [NameInMap("union_id")]
+        [Validation(Required=true)]
+        public string UnionId { get; set; }
 
         // 合约模板标识
         [NameInMap("template_id")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=64)]
         public string TemplateId { get; set; }
 
         // 合约名称
         [NameInMap("name")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=64)]
         public string Name { get; set; }
 
     }

@@ -10,7 +10,7 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
 {
     // 合约详情
     public class ContractDetailResp : TeaModel {
-        // 合约标识
+        // 合约服务ID
         [NameInMap("service_id")]
         [Validation(Required=false)]
         public string ServiceId { get; set; }

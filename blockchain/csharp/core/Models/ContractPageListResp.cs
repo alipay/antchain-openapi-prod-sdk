@@ -8,9 +8,9 @@ using Tea;
 
 namespace AntChain.SDK.BLOCKCHAIN.Models
 {
-    // 合约与应用关联信息
-    public class ContractBindAppResp : TeaModel {
-        // 合约标识
+    // 合约列表
+    public class ContractPageListResp : TeaModel {
+        // 服务ID
         [NameInMap("service_id")]
         [Validation(Required=false)]
         public string ServiceId { get; set; }
@@ -20,10 +20,15 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string Name { get; set; }
 
-        // 是否已关联
-        [NameInMap("bind")]
+        // 合约类型
+        [NameInMap("type")]
         [Validation(Required=false)]
-        public bool? Bind { get; set; }
+        public string Type { get; set; }
+
+        // 创建时间
+        [NameInMap("create_time")]
+        [Validation(Required=false)]
+        public long? CreateTime { get; set; }
 
     }
 

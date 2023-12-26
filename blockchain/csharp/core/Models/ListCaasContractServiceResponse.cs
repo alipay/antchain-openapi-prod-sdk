@@ -24,30 +24,10 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 响应版本号
-        [NameInMap("version")]
+        // 返回结果
+        [NameInMap("result")]
         [Validation(Required=false)]
-        public string Version { get; set; }
-
-        // 请求是否成功
-        [NameInMap("success")]
-        [Validation(Required=false)]
-        public bool? Success { get; set; }
-
-        // 异常码
-        [NameInMap("error_code")]
-        [Validation(Required=false)]
-        public string ErrorCode { get; set; }
-
-        // 异常信息
-        [NameInMap("error_msg")]
-        [Validation(Required=false)]
-        public string ErrorMsg { get; set; }
-
-        // 请求结果数据
-        [NameInMap("data")]
-        [Validation(Required=false)]
-        public List<ContractTypeResp> Data { get; set; }
+        public ContractTypeResp Result { get; set; }
 
     }
 

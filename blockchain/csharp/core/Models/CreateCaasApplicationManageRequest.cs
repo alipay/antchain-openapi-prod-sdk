@@ -18,6 +18,16 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 链ID
+        [NameInMap("chain_id")]
+        [Validation(Required=true)]
+        public string ChainId { get; set; }
+
+        // 联盟id
+        [NameInMap("union_id")]
+        [Validation(Required=true)]
+        public string UnionId { get; set; }
+
     }
 
 }

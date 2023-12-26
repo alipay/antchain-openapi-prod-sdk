@@ -137,7 +137,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.26.36"},
+                        {"sdk_version", "1.27.8"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.26.36"},
+                        {"sdk_version", "1.27.8"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -5496,6 +5496,132 @@ namespace AntChain.SDK.BLOCKCHAIN
         }
 
         /**
+         * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现计量计费
+         * Summary: 阿里云渠道链相关商业化服务开通
+         */
+        public OpenChainServiceResponse OpenChainService(OpenChainServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OpenChainServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现计量计费
+         * Summary: 阿里云渠道链相关商业化服务开通
+         */
+        public async Task<OpenChainServiceResponse> OpenChainServiceAsync(OpenChainServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OpenChainServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现计量计费
+         * Summary: 阿里云渠道链相关商业化服务开通
+         */
+        public OpenChainServiceResponse OpenChainServiceEx(OpenChainServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OpenChainServiceResponse>(DoRequest("1.0", "baas.chain.service.open", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现计量计费
+         * Summary: 阿里云渠道链相关商业化服务开通
+         */
+        public async Task<OpenChainServiceResponse> OpenChainServiceExAsync(OpenChainServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OpenChainServiceResponse>(await DoRequestAsync("1.0", "baas.chain.service.open", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阿里云渠道链相关商业化服务开通结果查询
+         * Summary: 阿里云渠道链相关商业化服务开通结果查询
+         */
+        public CheckChainServiceResponse CheckChainService(CheckChainServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckChainServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阿里云渠道链相关商业化服务开通结果查询
+         * Summary: 阿里云渠道链相关商业化服务开通结果查询
+         */
+        public async Task<CheckChainServiceResponse> CheckChainServiceAsync(CheckChainServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckChainServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阿里云渠道链相关商业化服务开通结果查询
+         * Summary: 阿里云渠道链相关商业化服务开通结果查询
+         */
+        public CheckChainServiceResponse CheckChainServiceEx(CheckChainServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckChainServiceResponse>(DoRequest("1.0", "baas.chain.service.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阿里云渠道链相关商业化服务开通结果查询
+         * Summary: 阿里云渠道链相关商业化服务开通结果查询
+         */
+        public async Task<CheckChainServiceResponse> CheckChainServiceExAsync(CheckChainServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckChainServiceResponse>(await DoRequestAsync("1.0", "baas.chain.service.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现服务关闭
+         * Summary: 阿里云渠道链相关商业化服务关闭
+         */
+        public CloseChainServiceResponse CloseChainService(CloseChainServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CloseChainServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现服务关闭
+         * Summary: 阿里云渠道链相关商业化服务关闭
+         */
+        public async Task<CloseChainServiceResponse> CloseChainServiceAsync(CloseChainServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CloseChainServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现服务关闭
+         * Summary: 阿里云渠道链相关商业化服务关闭
+         */
+        public CloseChainServiceResponse CloseChainServiceEx(CloseChainServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CloseChainServiceResponse>(DoRequest("1.0", "baas.chain.service.close", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现服务关闭
+         * Summary: 阿里云渠道链相关商业化服务关闭
+         */
+        public async Task<CloseChainServiceResponse> CloseChainServiceExAsync(CloseChainServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CloseChainServiceResponse>(await DoRequestAsync("1.0", "baas.chain.service.close", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 企业通过调用该接口准备接入反洗钱信息共享平台
          * Summary: 反洗钱信息共享平台入驻接口
          */
@@ -10396,6 +10522,300 @@ namespace AntChain.SDK.BLOCKCHAIN
         }
 
         /**
+         * Description: 删除合约
+         * Summary: 删除合约
+         */
+        public DeleteCaasContractServiceResponse DeleteCaasContractService(DeleteCaasContractServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteCaasContractServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除合约
+         * Summary: 删除合约
+         */
+        public async Task<DeleteCaasContractServiceResponse> DeleteCaasContractServiceAsync(DeleteCaasContractServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteCaasContractServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除合约
+         * Summary: 删除合约
+         */
+        public DeleteCaasContractServiceResponse DeleteCaasContractServiceEx(DeleteCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteCaasContractServiceResponse>(DoRequest("1.0", "baas.caas.contract.service.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除合约
+         * Summary: 删除合约
+         */
+        public async Task<DeleteCaasContractServiceResponse> DeleteCaasContractServiceExAsync(DeleteCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteCaasContractServiceResponse>(await DoRequestAsync("1.0", "baas.caas.contract.service.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新建合约服务
+         * Summary: 新建合约服务
+         */
+        public CreateCaasContractServiceResponse CreateCaasContractService(CreateCaasContractServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateCaasContractServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新建合约服务
+         * Summary: 新建合约服务
+         */
+        public async Task<CreateCaasContractServiceResponse> CreateCaasContractServiceAsync(CreateCaasContractServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateCaasContractServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新建合约服务
+         * Summary: 新建合约服务
+         */
+        public CreateCaasContractServiceResponse CreateCaasContractServiceEx(CreateCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateCaasContractServiceResponse>(DoRequest("1.0", "baas.caas.contract.service.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新建合约服务
+         * Summary: 新建合约服务
+         */
+        public async Task<CreateCaasContractServiceResponse> CreateCaasContractServiceExAsync(CreateCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateCaasContractServiceResponse>(await DoRequestAsync("1.0", "baas.caas.contract.service.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 合约列表查询
+         * Summary: 合约列表查询
+         */
+        public PagequeryCaasContractServiceResponse PagequeryCaasContractService(PagequeryCaasContractServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryCaasContractServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 合约列表查询
+         * Summary: 合约列表查询
+         */
+        public async Task<PagequeryCaasContractServiceResponse> PagequeryCaasContractServiceAsync(PagequeryCaasContractServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryCaasContractServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 合约列表查询
+         * Summary: 合约列表查询
+         */
+        public PagequeryCaasContractServiceResponse PagequeryCaasContractServiceEx(PagequeryCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryCaasContractServiceResponse>(DoRequest("1.0", "baas.caas.contract.service.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 合约列表查询
+         * Summary: 合约列表查询
+         */
+        public async Task<PagequeryCaasContractServiceResponse> PagequeryCaasContractServiceExAsync(PagequeryCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryCaasContractServiceResponse>(await DoRequestAsync("1.0", "baas.caas.contract.service.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询创建实例进度
+         * Summary: 查询创建实例进度
+         */
+        public QueryCaasContractServiceResponse QueryCaasContractService(QueryCaasContractServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCaasContractServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询创建实例进度
+         * Summary: 查询创建实例进度
+         */
+        public async Task<QueryCaasContractServiceResponse> QueryCaasContractServiceAsync(QueryCaasContractServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCaasContractServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询创建实例进度
+         * Summary: 查询创建实例进度
+         */
+        public QueryCaasContractServiceResponse QueryCaasContractServiceEx(QueryCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCaasContractServiceResponse>(DoRequest("1.0", "baas.caas.contract.service.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询创建实例进度
+         * Summary: 查询创建实例进度
+         */
+        public async Task<QueryCaasContractServiceResponse> QueryCaasContractServiceExAsync(QueryCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCaasContractServiceResponse>(await DoRequestAsync("1.0", "baas.caas.contract.service.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化部署合约服务
+         * Summary: 自动化部署合约服务
+         */
+        public DeployCaasContractServiceResponse DeployCaasContractService(DeployCaasContractServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeployCaasContractServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化部署合约服务
+         * Summary: 自动化部署合约服务
+         */
+        public async Task<DeployCaasContractServiceResponse> DeployCaasContractServiceAsync(DeployCaasContractServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeployCaasContractServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化部署合约服务
+         * Summary: 自动化部署合约服务
+         */
+        public DeployCaasContractServiceResponse DeployCaasContractServiceEx(DeployCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeployCaasContractServiceResponse>(DoRequest("1.0", "baas.caas.contract.service.deploy", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化部署合约服务
+         * Summary: 自动化部署合约服务
+         */
+        public async Task<DeployCaasContractServiceResponse> DeployCaasContractServiceExAsync(DeployCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeployCaasContractServiceResponse>(await DoRequestAsync("1.0", "baas.caas.contract.service.deploy", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询合约类型列表
+         * Summary: 查询合约类型列表
+         */
+        public ListCaasContractServiceResponse ListCaasContractService(ListCaasContractServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListCaasContractServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询合约类型列表
+         * Summary: 查询合约类型列表
+         */
+        public async Task<ListCaasContractServiceResponse> ListCaasContractServiceAsync(ListCaasContractServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListCaasContractServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询合约类型列表
+         * Summary: 查询合约类型列表
+         */
+        public ListCaasContractServiceResponse ListCaasContractServiceEx(ListCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListCaasContractServiceResponse>(DoRequest("1.0", "baas.caas.contract.service.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询合约类型列表
+         * Summary: 查询合约类型列表
+         */
+        public async Task<ListCaasContractServiceResponse> ListCaasContractServiceExAsync(ListCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListCaasContractServiceResponse>(await DoRequestAsync("1.0", "baas.caas.contract.service.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 合约详情
+         * Summary: 合约详情
+         */
+        public DetailCaasContractServiceResponse DetailCaasContractService(DetailCaasContractServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailCaasContractServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 合约详情
+         * Summary: 合约详情
+         */
+        public async Task<DetailCaasContractServiceResponse> DetailCaasContractServiceAsync(DetailCaasContractServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailCaasContractServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 合约详情
+         * Summary: 合约详情
+         */
+        public DetailCaasContractServiceResponse DetailCaasContractServiceEx(DetailCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailCaasContractServiceResponse>(DoRequest("1.0", "baas.caas.contract.service.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 合约详情
+         * Summary: 合约详情
+         */
+        public async Task<DetailCaasContractServiceResponse> DetailCaasContractServiceExAsync(DetailCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailCaasContractServiceResponse>(await DoRequestAsync("1.0", "baas.caas.contract.service.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 新建应用
          * Summary: 新建应用
          */
@@ -10477,48 +10897,6 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PagequeryCaasApplicationManageResponse>(await DoRequestAsync("1.0", "baas.caas.application.manage.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 查看sk
-         * Summary: 查看sk
-         */
-        public GetCaasApplicationManageResponse GetCaasApplicationManage(GetCaasApplicationManageRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return GetCaasApplicationManageEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 查看sk
-         * Summary: 查看sk
-         */
-        public async Task<GetCaasApplicationManageResponse> GetCaasApplicationManageAsync(GetCaasApplicationManageRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await GetCaasApplicationManageExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 查看sk
-         * Summary: 查看sk
-         */
-        public GetCaasApplicationManageResponse GetCaasApplicationManageEx(GetCaasApplicationManageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetCaasApplicationManageResponse>(DoRequest("1.0", "baas.caas.application.manage.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 查看sk
-         * Summary: 查看sk
-         */
-        public async Task<GetCaasApplicationManageResponse> GetCaasApplicationManageExAsync(GetCaasApplicationManageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetCaasApplicationManageResponse>(await DoRequestAsync("1.0", "baas.caas.application.manage.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -10648,297 +11026,45 @@ namespace AntChain.SDK.BLOCKCHAIN
         }
 
         /**
-         * Description: 删除合约
-         * Summary: 删除合约
+         * Description: 查看sk
+         * Summary: 查看sk
          */
-        public DeleteCaasContractServiceResponse DeleteCaasContractService(DeleteCaasContractServiceRequest request)
+        public GetCaasApplicationManageResponse GetCaasApplicationManage(GetCaasApplicationManageRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return DeleteCaasContractServiceEx(request, headers, runtime);
+            return GetCaasApplicationManageEx(request, headers, runtime);
         }
 
         /**
-         * Description: 删除合约
-         * Summary: 删除合约
+         * Description: 查看sk
+         * Summary: 查看sk
          */
-        public async Task<DeleteCaasContractServiceResponse> DeleteCaasContractServiceAsync(DeleteCaasContractServiceRequest request)
+        public async Task<GetCaasApplicationManageResponse> GetCaasApplicationManageAsync(GetCaasApplicationManageRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await DeleteCaasContractServiceExAsync(request, headers, runtime);
+            return await GetCaasApplicationManageExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 删除合约
-         * Summary: 删除合约
+         * Description: 查看sk
+         * Summary: 查看sk
          */
-        public DeleteCaasContractServiceResponse DeleteCaasContractServiceEx(DeleteCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public GetCaasApplicationManageResponse GetCaasApplicationManageEx(GetCaasApplicationManageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<DeleteCaasContractServiceResponse>(DoRequest("1.0", "baas.caas.contract.service.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<GetCaasApplicationManageResponse>(DoRequest("1.0", "baas.caas.application.manage.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 删除合约
-         * Summary: 删除合约
+         * Description: 查看sk
+         * Summary: 查看sk
          */
-        public async Task<DeleteCaasContractServiceResponse> DeleteCaasContractServiceExAsync(DeleteCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<GetCaasApplicationManageResponse> GetCaasApplicationManageExAsync(GetCaasApplicationManageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<DeleteCaasContractServiceResponse>(await DoRequestAsync("1.0", "baas.caas.contract.service.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 新建合约服务
-         * Summary: 新建合约服务
-         */
-        public CreateCaasContractServiceResponse CreateCaasContractService(CreateCaasContractServiceRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return CreateCaasContractServiceEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 新建合约服务
-         * Summary: 新建合约服务
-         */
-        public async Task<CreateCaasContractServiceResponse> CreateCaasContractServiceAsync(CreateCaasContractServiceRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await CreateCaasContractServiceExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 新建合约服务
-         * Summary: 新建合约服务
-         */
-        public CreateCaasContractServiceResponse CreateCaasContractServiceEx(CreateCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateCaasContractServiceResponse>(DoRequest("1.0", "baas.caas.contract.service.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 新建合约服务
-         * Summary: 新建合约服务
-         */
-        public async Task<CreateCaasContractServiceResponse> CreateCaasContractServiceExAsync(CreateCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateCaasContractServiceResponse>(await DoRequestAsync("1.0", "baas.caas.contract.service.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 我的合约列表查询
-         * Summary: 我的合约列表查询
-         */
-        public PagequeryCaasContractServiceResponse PagequeryCaasContractService(PagequeryCaasContractServiceRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return PagequeryCaasContractServiceEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 我的合约列表查询
-         * Summary: 我的合约列表查询
-         */
-        public async Task<PagequeryCaasContractServiceResponse> PagequeryCaasContractServiceAsync(PagequeryCaasContractServiceRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await PagequeryCaasContractServiceExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 我的合约列表查询
-         * Summary: 我的合约列表查询
-         */
-        public PagequeryCaasContractServiceResponse PagequeryCaasContractServiceEx(PagequeryCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<PagequeryCaasContractServiceResponse>(DoRequest("1.0", "baas.caas.contract.service.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 我的合约列表查询
-         * Summary: 我的合约列表查询
-         */
-        public async Task<PagequeryCaasContractServiceResponse> PagequeryCaasContractServiceExAsync(PagequeryCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<PagequeryCaasContractServiceResponse>(await DoRequestAsync("1.0", "baas.caas.contract.service.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 查询合约类型列表
-         * Summary: 查询合约类型列表
-         */
-        public ListCaasContractServiceResponse ListCaasContractService(ListCaasContractServiceRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return ListCaasContractServiceEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 查询合约类型列表
-         * Summary: 查询合约类型列表
-         */
-        public async Task<ListCaasContractServiceResponse> ListCaasContractServiceAsync(ListCaasContractServiceRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await ListCaasContractServiceExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 查询合约类型列表
-         * Summary: 查询合约类型列表
-         */
-        public ListCaasContractServiceResponse ListCaasContractServiceEx(ListCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListCaasContractServiceResponse>(DoRequest("1.0", "baas.caas.contract.service.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 查询合约类型列表
-         * Summary: 查询合约类型列表
-         */
-        public async Task<ListCaasContractServiceResponse> ListCaasContractServiceExAsync(ListCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListCaasContractServiceResponse>(await DoRequestAsync("1.0", "baas.caas.contract.service.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
-         * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
-         */
-        public DeployCaasContractServiceResponse DeployCaasContractService(DeployCaasContractServiceRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return DeployCaasContractServiceEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
-         * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
-         */
-        public async Task<DeployCaasContractServiceResponse> DeployCaasContractServiceAsync(DeployCaasContractServiceRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await DeployCaasContractServiceExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
-         * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
-         */
-        public DeployCaasContractServiceResponse DeployCaasContractServiceEx(DeployCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<DeployCaasContractServiceResponse>(DoRequest("1.0", "baas.caas.contract.service.deploy", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
-         * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
-         */
-        public async Task<DeployCaasContractServiceResponse> DeployCaasContractServiceExAsync(DeployCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<DeployCaasContractServiceResponse>(await DoRequestAsync("1.0", "baas.caas.contract.service.deploy", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 合约详情
-         * Summary: 合约详情
-         */
-        public DetailCaasContractServiceResponse DetailCaasContractService(DetailCaasContractServiceRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return DetailCaasContractServiceEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 合约详情
-         * Summary: 合约详情
-         */
-        public async Task<DetailCaasContractServiceResponse> DetailCaasContractServiceAsync(DetailCaasContractServiceRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await DetailCaasContractServiceExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 合约详情
-         * Summary: 合约详情
-         */
-        public DetailCaasContractServiceResponse DetailCaasContractServiceEx(DetailCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<DetailCaasContractServiceResponse>(DoRequest("1.0", "baas.caas.contract.service.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 合约详情
-         * Summary: 合约详情
-         */
-        public async Task<DetailCaasContractServiceResponse> DetailCaasContractServiceExAsync(DetailCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<DetailCaasContractServiceResponse>(await DoRequestAsync("1.0", "baas.caas.contract.service.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 查询创建实例进度
-         * Summary: 查询创建实例进度
-         */
-        public QueryCaasContractServiceResponse QueryCaasContractService(QueryCaasContractServiceRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryCaasContractServiceEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 查询创建实例进度
-         * Summary: 查询创建实例进度
-         */
-        public async Task<QueryCaasContractServiceResponse> QueryCaasContractServiceAsync(QueryCaasContractServiceRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryCaasContractServiceExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 查询创建实例进度
-         * Summary: 查询创建实例进度
-         */
-        public QueryCaasContractServiceResponse QueryCaasContractServiceEx(QueryCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryCaasContractServiceResponse>(DoRequest("1.0", "baas.caas.contract.service.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 查询创建实例进度
-         * Summary: 查询创建实例进度
-         */
-        public async Task<QueryCaasContractServiceResponse> QueryCaasContractServiceExAsync(QueryCaasContractServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryCaasContractServiceResponse>(await DoRequestAsync("1.0", "baas.caas.contract.service.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<GetCaasApplicationManageResponse>(await DoRequestAsync("1.0", "baas.caas.application.manage.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -16831,6 +16957,552 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<NotifyAuthTaskStatusResponse>(await DoRequestAsync("1.0", "baas.auth.task.status.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务暂停
+         * Summary: 任务暂停
+         */
+        public PauseAuthTaskResponse PauseAuthTask(PauseAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PauseAuthTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务暂停
+         * Summary: 任务暂停
+         */
+        public async Task<PauseAuthTaskResponse> PauseAuthTaskAsync(PauseAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PauseAuthTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务暂停
+         * Summary: 任务暂停
+         */
+        public PauseAuthTaskResponse PauseAuthTaskEx(PauseAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PauseAuthTaskResponse>(DoRequest("1.0", "baas.auth.task.pause", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务暂停
+         * Summary: 任务暂停
+         */
+        public async Task<PauseAuthTaskResponse> PauseAuthTaskExAsync(PauseAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PauseAuthTaskResponse>(await DoRequestAsync("1.0", "baas.auth.task.pause", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务完成
+         * Summary: 任务完成
+         */
+        public FinishAuthTaskResponse FinishAuthTask(FinishAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return FinishAuthTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务完成
+         * Summary: 任务完成
+         */
+        public async Task<FinishAuthTaskResponse> FinishAuthTaskAsync(FinishAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await FinishAuthTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务完成
+         * Summary: 任务完成
+         */
+        public FinishAuthTaskResponse FinishAuthTaskEx(FinishAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishAuthTaskResponse>(DoRequest("1.0", "baas.auth.task.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务完成
+         * Summary: 任务完成
+         */
+        public async Task<FinishAuthTaskResponse> FinishAuthTaskExAsync(FinishAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishAuthTaskResponse>(await DoRequestAsync("1.0", "baas.auth.task.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务重启
+         * Summary: 任务重启
+         */
+        public ReopenAuthTaskResponse ReopenAuthTask(ReopenAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ReopenAuthTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务重启
+         * Summary: 任务重启
+         */
+        public async Task<ReopenAuthTaskResponse> ReopenAuthTaskAsync(ReopenAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ReopenAuthTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务重启
+         * Summary: 任务重启
+         */
+        public ReopenAuthTaskResponse ReopenAuthTaskEx(ReopenAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReopenAuthTaskResponse>(DoRequest("1.0", "baas.auth.task.reopen", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务重启
+         * Summary: 任务重启
+         */
+        public async Task<ReopenAuthTaskResponse> ReopenAuthTaskExAsync(ReopenAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReopenAuthTaskResponse>(await DoRequestAsync("1.0", "baas.auth.task.reopen", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 样本量修改
+         * Summary: 样本量修改
+         */
+        public OperateAuthTaskResponse OperateAuthTask(OperateAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateAuthTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 样本量修改
+         * Summary: 样本量修改
+         */
+        public async Task<OperateAuthTaskResponse> OperateAuthTaskAsync(OperateAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateAuthTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 样本量修改
+         * Summary: 样本量修改
+         */
+        public OperateAuthTaskResponse OperateAuthTaskEx(OperateAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateAuthTaskResponse>(DoRequest("1.0", "baas.auth.task.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 样本量修改
+         * Summary: 样本量修改
+         */
+        public async Task<OperateAuthTaskResponse> OperateAuthTaskExAsync(OperateAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateAuthTaskResponse>(await DoRequestAsync("1.0", "baas.auth.task.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询人群标签取值范围
+         * Summary: 查询人群标签取值范围
+         */
+        public QueryAuthTaskResponse QueryAuthTask(QueryAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAuthTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询人群标签取值范围
+         * Summary: 查询人群标签取值范围
+         */
+        public async Task<QueryAuthTaskResponse> QueryAuthTaskAsync(QueryAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAuthTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询人群标签取值范围
+         * Summary: 查询人群标签取值范围
+         */
+        public QueryAuthTaskResponse QueryAuthTaskEx(QueryAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuthTaskResponse>(DoRequest("1.0", "baas.auth.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询人群标签取值范围
+         * Summary: 查询人群标签取值范围
+         */
+        public async Task<QueryAuthTaskResponse> QueryAuthTaskExAsync(QueryAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuthTaskResponse>(await DoRequestAsync("1.0", "baas.auth.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人群量级查询
+         * Summary: 人群量级查询
+         */
+        public CountAuthTaskResponse CountAuthTask(CountAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CountAuthTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人群量级查询
+         * Summary: 人群量级查询
+         */
+        public async Task<CountAuthTaskResponse> CountAuthTaskAsync(CountAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CountAuthTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人群量级查询
+         * Summary: 人群量级查询
+         */
+        public CountAuthTaskResponse CountAuthTaskEx(CountAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CountAuthTaskResponse>(DoRequest("1.0", "baas.auth.task.count", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人群量级查询
+         * Summary: 人群量级查询
+         */
+        public async Task<CountAuthTaskResponse> CountAuthTaskExAsync(CountAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CountAuthTaskResponse>(await DoRequestAsync("1.0", "baas.auth.task.count", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人群匹配查询
+         * Summary: 人群匹配查询
+         */
+        public MatchAuthTaskResponse MatchAuthTask(MatchAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return MatchAuthTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人群匹配查询
+         * Summary: 人群匹配查询
+         */
+        public async Task<MatchAuthTaskResponse> MatchAuthTaskAsync(MatchAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await MatchAuthTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人群匹配查询
+         * Summary: 人群匹配查询
+         */
+        public MatchAuthTaskResponse MatchAuthTaskEx(MatchAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchAuthTaskResponse>(DoRequest("1.0", "baas.auth.task.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人群匹配查询
+         * Summary: 人群匹配查询
+         */
+        public async Task<MatchAuthTaskResponse> MatchAuthTaskExAsync(MatchAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchAuthTaskResponse>(await DoRequestAsync("1.0", "baas.auth.task.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 问卷任务提交
+         * Summary: 问卷任务提交
+         */
+        public SubmitAuthTaskResponse SubmitAuthTask(SubmitAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAuthTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 问卷任务提交
+         * Summary: 问卷任务提交
+         */
+        public async Task<SubmitAuthTaskResponse> SubmitAuthTaskAsync(SubmitAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAuthTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 问卷任务提交
+         * Summary: 问卷任务提交
+         */
+        public SubmitAuthTaskResponse SubmitAuthTaskEx(SubmitAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAuthTaskResponse>(DoRequest("1.0", "baas.auth.task.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 问卷任务提交
+         * Summary: 问卷任务提交
+         */
+        public async Task<SubmitAuthTaskResponse> SubmitAuthTaskExAsync(SubmitAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAuthTaskResponse>(await DoRequestAsync("1.0", "baas.auth.task.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 问卷任务详情
+         * Summary: 问卷任务详情
+         */
+        public DetailAuthTaskResponse DetailAuthTask(DetailAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailAuthTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 问卷任务详情
+         * Summary: 问卷任务详情
+         */
+        public async Task<DetailAuthTaskResponse> DetailAuthTaskAsync(DetailAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailAuthTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 问卷任务详情
+         * Summary: 问卷任务详情
+         */
+        public DetailAuthTaskResponse DetailAuthTaskEx(DetailAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailAuthTaskResponse>(DoRequest("1.0", "baas.auth.task.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 问卷任务详情
+         * Summary: 问卷任务详情
+         */
+        public async Task<DetailAuthTaskResponse> DetailAuthTaskExAsync(DetailAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailAuthTaskResponse>(await DoRequestAsync("1.0", "baas.auth.task.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务修改
+         * Summary: 任务修改
+         */
+        public UpdateAuthTaskResponse UpdateAuthTask(UpdateAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateAuthTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务修改
+         * Summary: 任务修改
+         */
+        public async Task<UpdateAuthTaskResponse> UpdateAuthTaskAsync(UpdateAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateAuthTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务修改
+         * Summary: 任务修改
+         */
+        public UpdateAuthTaskResponse UpdateAuthTaskEx(UpdateAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAuthTaskResponse>(DoRequest("1.0", "baas.auth.task.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务修改
+         * Summary: 任务修改
+         */
+        public async Task<UpdateAuthTaskResponse> UpdateAuthTaskExAsync(UpdateAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAuthTaskResponse>(await DoRequestAsync("1.0", "baas.auth.task.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人群量级查询
+         * Summary: 人群量级查询
+         */
+        public CountAuthTaskCrowdResponse CountAuthTaskCrowd(CountAuthTaskCrowdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CountAuthTaskCrowdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人群量级查询
+         * Summary: 人群量级查询
+         */
+        public async Task<CountAuthTaskCrowdResponse> CountAuthTaskCrowdAsync(CountAuthTaskCrowdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CountAuthTaskCrowdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人群量级查询
+         * Summary: 人群量级查询
+         */
+        public CountAuthTaskCrowdResponse CountAuthTaskCrowdEx(CountAuthTaskCrowdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CountAuthTaskCrowdResponse>(DoRequest("1.0", "baas.auth.task.crowd.count", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人群量级查询
+         * Summary: 人群量级查询
+         */
+        public async Task<CountAuthTaskCrowdResponse> CountAuthTaskCrowdExAsync(CountAuthTaskCrowdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CountAuthTaskCrowdResponse>(await DoRequestAsync("1.0", "baas.auth.task.crowd.count", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人群匹配查询
+         * Summary: 人群匹配查询
+         */
+        public MatchAuthTaskCrowdResponse MatchAuthTaskCrowd(MatchAuthTaskCrowdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return MatchAuthTaskCrowdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人群匹配查询
+         * Summary: 人群匹配查询
+         */
+        public async Task<MatchAuthTaskCrowdResponse> MatchAuthTaskCrowdAsync(MatchAuthTaskCrowdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await MatchAuthTaskCrowdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人群匹配查询
+         * Summary: 人群匹配查询
+         */
+        public MatchAuthTaskCrowdResponse MatchAuthTaskCrowdEx(MatchAuthTaskCrowdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchAuthTaskCrowdResponse>(DoRequest("1.0", "baas.auth.task.crowd.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人群匹配查询
+         * Summary: 人群匹配查询
+         */
+        public async Task<MatchAuthTaskCrowdResponse> MatchAuthTaskCrowdExAsync(MatchAuthTaskCrowdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchAuthTaskCrowdResponse>(await DoRequestAsync("1.0", "baas.auth.task.crowd.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人群标签取值范围查询
+         * Summary: 人群标签取值范围查询
+         */
+        public QueryAuthTaskLabelResponse QueryAuthTaskLabel(QueryAuthTaskLabelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAuthTaskLabelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人群标签取值范围查询
+         * Summary: 人群标签取值范围查询
+         */
+        public async Task<QueryAuthTaskLabelResponse> QueryAuthTaskLabelAsync(QueryAuthTaskLabelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAuthTaskLabelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人群标签取值范围查询
+         * Summary: 人群标签取值范围查询
+         */
+        public QueryAuthTaskLabelResponse QueryAuthTaskLabelEx(QueryAuthTaskLabelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuthTaskLabelResponse>(DoRequest("1.0", "baas.auth.task.label.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人群标签取值范围查询
+         * Summary: 人群标签取值范围查询
+         */
+        public async Task<QueryAuthTaskLabelResponse> QueryAuthTaskLabelExAsync(QueryAuthTaskLabelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuthTaskLabelResponse>(await DoRequestAsync("1.0", "baas.auth.task.label.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
