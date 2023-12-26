@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.blockchain.models;
 import com.aliyun.tea.*;
 
 public class ContractDetailResp extends TeaModel {
-    // 合约标识
+    // 合约服务ID
     @NameInMap("service_id")
     public String serviceId;
 

@@ -8,6 +8,10 @@ public class ContractTemplateResp extends TeaModel {
     @NameInMap("template_id")
     public String templateId;
 
+    // 产品码
+    @NameInMap("product_code")
+    public String productCode;
+
     // 合约名称
     @NameInMap("name")
     public String name;
@@ -20,6 +24,10 @@ public class ContractTemplateResp extends TeaModel {
     @NameInMap("description")
     public String description;
 
+    // 文档地址
+    @NameInMap("detail_url")
+    public String detailUrl;
+
     // 是否已开通合约
     @NameInMap("open")
     public Boolean open;
@@ -27,6 +35,10 @@ public class ContractTemplateResp extends TeaModel {
     // 后续展示：购买用户头像
     @NameInMap("avatar_logo_list")
     public java.util.List<String> avatarLogoList;
+
+    // 定制合约价格
+    @NameInMap("price_message")
+    public String priceMessage;
 
     public static ContractTemplateResp build(java.util.Map<String, ?> map) throws Exception {
         ContractTemplateResp self = new ContractTemplateResp();
@@ -39,6 +51,14 @@ public class ContractTemplateResp extends TeaModel {
     }
     public String getTemplateId() {
         return this.templateId;
+    }
+
+    public ContractTemplateResp setProductCode(String productCode) {
+        this.productCode = productCode;
+        return this;
+    }
+    public String getProductCode() {
+        return this.productCode;
     }
 
     public ContractTemplateResp setName(String name) {
@@ -65,6 +85,14 @@ public class ContractTemplateResp extends TeaModel {
         return this.description;
     }
 
+    public ContractTemplateResp setDetailUrl(String detailUrl) {
+        this.detailUrl = detailUrl;
+        return this;
+    }
+    public String getDetailUrl() {
+        return this.detailUrl;
+    }
+
     public ContractTemplateResp setOpen(Boolean open) {
         this.open = open;
         return this;
@@ -79,6 +107,14 @@ public class ContractTemplateResp extends TeaModel {
     }
     public java.util.List<String> getAvatarLogoList() {
         return this.avatarLogoList;
+    }
+
+    public ContractTemplateResp setPriceMessage(String priceMessage) {
+        this.priceMessage = priceMessage;
+        return this;
+    }
+    public String getPriceMessage() {
+        return this.priceMessage;
     }
 
 }

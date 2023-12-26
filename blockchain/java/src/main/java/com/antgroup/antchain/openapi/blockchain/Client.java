@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.26.36"),
+                    new TeaPair("sdk_version", "1.27.8"),
                     new TeaPair("_prod_code", "BLOCKCHAIN"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2503,6 +2503,63 @@ public class Client {
     }
 
     /**
+     * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现计量计费
+     * Summary: 阿里云渠道链相关商业化服务开通
+     */
+    public OpenChainServiceResponse openChainService(OpenChainServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.openChainServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现计量计费
+     * Summary: 阿里云渠道链相关商业化服务开通
+     */
+    public OpenChainServiceResponse openChainServiceEx(OpenChainServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.service.open", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OpenChainServiceResponse());
+    }
+
+    /**
+     * Description: 阿里云渠道链相关商业化服务开通结果查询
+     * Summary: 阿里云渠道链相关商业化服务开通结果查询
+     */
+    public CheckChainServiceResponse checkChainService(CheckChainServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkChainServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云渠道链相关商业化服务开通结果查询
+     * Summary: 阿里云渠道链相关商业化服务开通结果查询
+     */
+    public CheckChainServiceResponse checkChainServiceEx(CheckChainServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.service.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckChainServiceResponse());
+    }
+
+    /**
+     * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现服务关闭
+     * Summary: 阿里云渠道链相关商业化服务关闭
+     */
+    public CloseChainServiceResponse closeChainService(CloseChainServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.closeChainServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现服务关闭
+     * Summary: 阿里云渠道链相关商业化服务关闭
+     */
+    public CloseChainServiceResponse closeChainServiceEx(CloseChainServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.service.close", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CloseChainServiceResponse());
+    }
+
+    /**
      * Description: 企业通过调用该接口准备接入反洗钱信息共享平台
      * Summary: 反洗钱信息共享平台入驻接口
      */
@@ -4721,6 +4778,139 @@ public class Client {
     }
 
     /**
+     * Description: 删除合约
+     * Summary: 删除合约
+     */
+    public DeleteCaasContractServiceResponse deleteCaasContractService(DeleteCaasContractServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteCaasContractServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除合约
+     * Summary: 删除合约
+     */
+    public DeleteCaasContractServiceResponse deleteCaasContractServiceEx(DeleteCaasContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.contract.service.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteCaasContractServiceResponse());
+    }
+
+    /**
+     * Description: 新建合约服务
+     * Summary: 新建合约服务
+     */
+    public CreateCaasContractServiceResponse createCaasContractService(CreateCaasContractServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createCaasContractServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 新建合约服务
+     * Summary: 新建合约服务
+     */
+    public CreateCaasContractServiceResponse createCaasContractServiceEx(CreateCaasContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.contract.service.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateCaasContractServiceResponse());
+    }
+
+    /**
+     * Description: 合约列表查询
+     * Summary: 合约列表查询
+     */
+    public PagequeryCaasContractServiceResponse pagequeryCaasContractService(PagequeryCaasContractServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryCaasContractServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 合约列表查询
+     * Summary: 合约列表查询
+     */
+    public PagequeryCaasContractServiceResponse pagequeryCaasContractServiceEx(PagequeryCaasContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.contract.service.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryCaasContractServiceResponse());
+    }
+
+    /**
+     * Description: 查询创建实例进度
+     * Summary: 查询创建实例进度
+     */
+    public QueryCaasContractServiceResponse queryCaasContractService(QueryCaasContractServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCaasContractServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询创建实例进度
+     * Summary: 查询创建实例进度
+     */
+    public QueryCaasContractServiceResponse queryCaasContractServiceEx(QueryCaasContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.contract.service.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCaasContractServiceResponse());
+    }
+
+    /**
+     * Description: 自动化部署合约服务
+     * Summary: 自动化部署合约服务
+     */
+    public DeployCaasContractServiceResponse deployCaasContractService(DeployCaasContractServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deployCaasContractServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自动化部署合约服务
+     * Summary: 自动化部署合约服务
+     */
+    public DeployCaasContractServiceResponse deployCaasContractServiceEx(DeployCaasContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.contract.service.deploy", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeployCaasContractServiceResponse());
+    }
+
+    /**
+     * Description: 查询合约类型列表
+     * Summary: 查询合约类型列表
+     */
+    public ListCaasContractServiceResponse listCaasContractService(ListCaasContractServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listCaasContractServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询合约类型列表
+     * Summary: 查询合约类型列表
+     */
+    public ListCaasContractServiceResponse listCaasContractServiceEx(ListCaasContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.contract.service.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListCaasContractServiceResponse());
+    }
+
+    /**
+     * Description: 合约详情
+     * Summary: 合约详情
+     */
+    public DetailCaasContractServiceResponse detailCaasContractService(DetailCaasContractServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailCaasContractServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 合约详情
+     * Summary: 合约详情
+     */
+    public DetailCaasContractServiceResponse detailCaasContractServiceEx(DetailCaasContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.contract.service.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailCaasContractServiceResponse());
+    }
+
+    /**
      * Description: 新建应用
      * Summary: 新建应用
      */
@@ -4756,25 +4946,6 @@ public class Client {
     public PagequeryCaasApplicationManageResponse pagequeryCaasApplicationManageEx(PagequeryCaasApplicationManageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.caas.application.manage.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryCaasApplicationManageResponse());
-    }
-
-    /**
-     * Description: 查看sk
-     * Summary: 查看sk
-     */
-    public GetCaasApplicationManageResponse getCaasApplicationManage(GetCaasApplicationManageRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.getCaasApplicationManageEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 查看sk
-     * Summary: 查看sk
-     */
-    public GetCaasApplicationManageResponse getCaasApplicationManageEx(GetCaasApplicationManageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.application.manage.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetCaasApplicationManageResponse());
     }
 
     /**
@@ -4835,136 +5006,22 @@ public class Client {
     }
 
     /**
-     * Description: 删除合约
-     * Summary: 删除合约
+     * Description: 查看sk
+     * Summary: 查看sk
      */
-    public DeleteCaasContractServiceResponse deleteCaasContractService(DeleteCaasContractServiceRequest request) throws Exception {
+    public GetCaasApplicationManageResponse getCaasApplicationManage(GetCaasApplicationManageRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.deleteCaasContractServiceEx(request, headers, runtime);
+        return this.getCaasApplicationManageEx(request, headers, runtime);
     }
 
     /**
-     * Description: 删除合约
-     * Summary: 删除合约
+     * Description: 查看sk
+     * Summary: 查看sk
      */
-    public DeleteCaasContractServiceResponse deleteCaasContractServiceEx(DeleteCaasContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetCaasApplicationManageResponse getCaasApplicationManageEx(GetCaasApplicationManageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.contract.service.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteCaasContractServiceResponse());
-    }
-
-    /**
-     * Description: 新建合约服务
-     * Summary: 新建合约服务
-     */
-    public CreateCaasContractServiceResponse createCaasContractService(CreateCaasContractServiceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.createCaasContractServiceEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 新建合约服务
-     * Summary: 新建合约服务
-     */
-    public CreateCaasContractServiceResponse createCaasContractServiceEx(CreateCaasContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.contract.service.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateCaasContractServiceResponse());
-    }
-
-    /**
-     * Description: 我的合约列表查询
-     * Summary: 我的合约列表查询
-     */
-    public PagequeryCaasContractServiceResponse pagequeryCaasContractService(PagequeryCaasContractServiceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.pagequeryCaasContractServiceEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 我的合约列表查询
-     * Summary: 我的合约列表查询
-     */
-    public PagequeryCaasContractServiceResponse pagequeryCaasContractServiceEx(PagequeryCaasContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.contract.service.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryCaasContractServiceResponse());
-    }
-
-    /**
-     * Description: 查询合约类型列表
-     * Summary: 查询合约类型列表
-     */
-    public ListCaasContractServiceResponse listCaasContractService(ListCaasContractServiceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.listCaasContractServiceEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 查询合约类型列表
-     * Summary: 查询合约类型列表
-     */
-    public ListCaasContractServiceResponse listCaasContractServiceEx(ListCaasContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.contract.service.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListCaasContractServiceResponse());
-    }
-
-    /**
-     * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
-     * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
-     */
-    public DeployCaasContractServiceResponse deployCaasContractService(DeployCaasContractServiceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.deployCaasContractServiceEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
-     * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
-     */
-    public DeployCaasContractServiceResponse deployCaasContractServiceEx(DeployCaasContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.contract.service.deploy", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeployCaasContractServiceResponse());
-    }
-
-    /**
-     * Description: 合约详情
-     * Summary: 合约详情
-     */
-    public DetailCaasContractServiceResponse detailCaasContractService(DetailCaasContractServiceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.detailCaasContractServiceEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 合约详情
-     * Summary: 合约详情
-     */
-    public DetailCaasContractServiceResponse detailCaasContractServiceEx(DetailCaasContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.contract.service.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailCaasContractServiceResponse());
-    }
-
-    /**
-     * Description: 查询创建实例进度
-     * Summary: 查询创建实例进度
-     */
-    public QueryCaasContractServiceResponse queryCaasContractService(QueryCaasContractServiceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryCaasContractServiceEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 查询创建实例进度
-     * Summary: 查询创建实例进度
-     */
-    public QueryCaasContractServiceResponse queryCaasContractServiceEx(QueryCaasContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.contract.service.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCaasContractServiceResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "baas.caas.application.manage.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetCaasApplicationManageResponse());
     }
 
     /**
@@ -7631,6 +7688,253 @@ public class Client {
     public NotifyAuthTaskStatusResponse notifyAuthTaskStatusEx(NotifyAuthTaskStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.status.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyAuthTaskStatusResponse());
+    }
+
+    /**
+     * Description: 任务暂停
+     * Summary: 任务暂停
+     */
+    public PauseAuthTaskResponse pauseAuthTask(PauseAuthTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pauseAuthTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 任务暂停
+     * Summary: 任务暂停
+     */
+    public PauseAuthTaskResponse pauseAuthTaskEx(PauseAuthTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.pause", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PauseAuthTaskResponse());
+    }
+
+    /**
+     * Description: 任务完成
+     * Summary: 任务完成
+     */
+    public FinishAuthTaskResponse finishAuthTask(FinishAuthTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.finishAuthTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 任务完成
+     * Summary: 任务完成
+     */
+    public FinishAuthTaskResponse finishAuthTaskEx(FinishAuthTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.finish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FinishAuthTaskResponse());
+    }
+
+    /**
+     * Description: 任务重启
+     * Summary: 任务重启
+     */
+    public ReopenAuthTaskResponse reopenAuthTask(ReopenAuthTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.reopenAuthTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 任务重启
+     * Summary: 任务重启
+     */
+    public ReopenAuthTaskResponse reopenAuthTaskEx(ReopenAuthTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.reopen", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReopenAuthTaskResponse());
+    }
+
+    /**
+     * Description: 样本量修改
+     * Summary: 样本量修改
+     */
+    public OperateAuthTaskResponse operateAuthTask(OperateAuthTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateAuthTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 样本量修改
+     * Summary: 样本量修改
+     */
+    public OperateAuthTaskResponse operateAuthTaskEx(OperateAuthTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateAuthTaskResponse());
+    }
+
+    /**
+     * Description: 查询人群标签取值范围
+     * Summary: 查询人群标签取值范围
+     */
+    public QueryAuthTaskResponse queryAuthTask(QueryAuthTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuthTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询人群标签取值范围
+     * Summary: 查询人群标签取值范围
+     */
+    public QueryAuthTaskResponse queryAuthTaskEx(QueryAuthTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthTaskResponse());
+    }
+
+    /**
+     * Description: 人群量级查询
+     * Summary: 人群量级查询
+     */
+    public CountAuthTaskResponse countAuthTask(CountAuthTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.countAuthTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 人群量级查询
+     * Summary: 人群量级查询
+     */
+    public CountAuthTaskResponse countAuthTaskEx(CountAuthTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.count", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CountAuthTaskResponse());
+    }
+
+    /**
+     * Description: 人群匹配查询
+     * Summary: 人群匹配查询
+     */
+    public MatchAuthTaskResponse matchAuthTask(MatchAuthTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.matchAuthTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 人群匹配查询
+     * Summary: 人群匹配查询
+     */
+    public MatchAuthTaskResponse matchAuthTaskEx(MatchAuthTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.match", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new MatchAuthTaskResponse());
+    }
+
+    /**
+     * Description: 问卷任务提交
+     * Summary: 问卷任务提交
+     */
+    public SubmitAuthTaskResponse submitAuthTask(SubmitAuthTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAuthTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 问卷任务提交
+     * Summary: 问卷任务提交
+     */
+    public SubmitAuthTaskResponse submitAuthTaskEx(SubmitAuthTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAuthTaskResponse());
+    }
+
+    /**
+     * Description: 问卷任务详情
+     * Summary: 问卷任务详情
+     */
+    public DetailAuthTaskResponse detailAuthTask(DetailAuthTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailAuthTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 问卷任务详情
+     * Summary: 问卷任务详情
+     */
+    public DetailAuthTaskResponse detailAuthTaskEx(DetailAuthTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailAuthTaskResponse());
+    }
+
+    /**
+     * Description: 任务修改
+     * Summary: 任务修改
+     */
+    public UpdateAuthTaskResponse updateAuthTask(UpdateAuthTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateAuthTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 任务修改
+     * Summary: 任务修改
+     */
+    public UpdateAuthTaskResponse updateAuthTaskEx(UpdateAuthTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateAuthTaskResponse());
+    }
+
+    /**
+     * Description: 人群量级查询
+     * Summary: 人群量级查询
+     */
+    public CountAuthTaskCrowdResponse countAuthTaskCrowd(CountAuthTaskCrowdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.countAuthTaskCrowdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 人群量级查询
+     * Summary: 人群量级查询
+     */
+    public CountAuthTaskCrowdResponse countAuthTaskCrowdEx(CountAuthTaskCrowdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.crowd.count", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CountAuthTaskCrowdResponse());
+    }
+
+    /**
+     * Description: 人群匹配查询
+     * Summary: 人群匹配查询
+     */
+    public MatchAuthTaskCrowdResponse matchAuthTaskCrowd(MatchAuthTaskCrowdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.matchAuthTaskCrowdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 人群匹配查询
+     * Summary: 人群匹配查询
+     */
+    public MatchAuthTaskCrowdResponse matchAuthTaskCrowdEx(MatchAuthTaskCrowdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.crowd.match", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new MatchAuthTaskCrowdResponse());
+    }
+
+    /**
+     * Description: 人群标签取值范围查询
+     * Summary: 人群标签取值范围查询
+     */
+    public QueryAuthTaskLabelResponse queryAuthTaskLabel(QueryAuthTaskLabelRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuthTaskLabelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 人群标签取值范围查询
+     * Summary: 人群标签取值范围查询
+     */
+    public QueryAuthTaskLabelResponse queryAuthTaskLabelEx(QueryAuthTaskLabelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.label.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthTaskLabelResponse());
     }
 
     /**

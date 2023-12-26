@@ -5,20 +5,20 @@ import com.aliyun.tea.*;
 
 public class ContractTypeResp extends TeaModel {
     // 合约服务类型
-    @NameInMap("type")
-    public String type;
+    @NameInMap("type_list")
+    public java.util.List<ContractTypeListResp> typeList;
 
     public static ContractTypeResp build(java.util.Map<String, ?> map) throws Exception {
         ContractTypeResp self = new ContractTypeResp();
         return TeaModel.build(map, self);
     }
 
-    public ContractTypeResp setType(String type) {
-        this.type = type;
+    public ContractTypeResp setTypeList(java.util.List<ContractTypeListResp> typeList) {
+        this.typeList = typeList;
         return this;
     }
-    public String getType() {
-        return this.type;
+    public java.util.List<ContractTypeListResp> getTypeList() {
+        return this.typeList;
     }
 
 }

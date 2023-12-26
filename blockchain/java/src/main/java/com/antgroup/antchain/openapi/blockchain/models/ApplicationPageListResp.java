@@ -3,8 +3,8 @@ package com.antgroup.antchain.openapi.blockchain.models;
 
 import com.aliyun.tea.*;
 
-public class ApplicationListResp extends TeaModel {
-    // 应用程序ID
+public class ApplicationPageListResp extends TeaModel {
+    // 应用标识
     @NameInMap("application_id")
     public String applicationId;
 
@@ -16,12 +16,12 @@ public class ApplicationListResp extends TeaModel {
     @NameInMap("name_list")
     public java.util.List<String> nameList;
 
-    public static ApplicationListResp build(java.util.Map<String, ?> map) throws Exception {
-        ApplicationListResp self = new ApplicationListResp();
+    public static ApplicationPageListResp build(java.util.Map<String, ?> map) throws Exception {
+        ApplicationPageListResp self = new ApplicationPageListResp();
         return TeaModel.build(map, self);
     }
 
-    public ApplicationListResp setApplicationId(String applicationId) {
+    public ApplicationPageListResp setApplicationId(String applicationId) {
         this.applicationId = applicationId;
         return this;
     }
@@ -29,7 +29,7 @@ public class ApplicationListResp extends TeaModel {
         return this.applicationId;
     }
 
-    public ApplicationListResp setAccessKey(String accessKey) {
+    public ApplicationPageListResp setAccessKey(String accessKey) {
         this.accessKey = accessKey;
         return this;
     }
@@ -37,7 +37,7 @@ public class ApplicationListResp extends TeaModel {
         return this.accessKey;
     }
 
-    public ApplicationListResp setNameList(java.util.List<String> nameList) {
+    public ApplicationPageListResp setNameList(java.util.List<String> nameList) {
         this.nameList = nameList;
         return this;
     }

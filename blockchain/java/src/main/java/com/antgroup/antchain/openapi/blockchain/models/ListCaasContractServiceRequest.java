@@ -11,6 +11,11 @@ public class ListCaasContractServiceRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 链ID
+    @NameInMap("chain_id")
+    @Validation(required = true)
+    public String chainId;
+
     public static ListCaasContractServiceRequest build(java.util.Map<String, ?> map) throws Exception {
         ListCaasContractServiceRequest self = new ListCaasContractServiceRequest();
         return TeaModel.build(map, self);
@@ -30,6 +35,14 @@ public class ListCaasContractServiceRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public ListCaasContractServiceRequest setChainId(String chainId) {
+        this.chainId = chainId;
+        return this;
+    }
+    public String getChainId() {
+        return this.chainId;
     }
 
 }

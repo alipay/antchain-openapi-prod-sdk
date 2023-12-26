@@ -13,17 +13,22 @@ public class CreateCaasContractServiceRequest extends TeaModel {
 
     // 链ID
     @NameInMap("chain_id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 64, minLength = 1)
     public String chainId;
+
+    // 联盟ID
+    @NameInMap("union_id")
+    @Validation(required = true)
+    public String unionId;
 
     // 合约模板标识
     @NameInMap("template_id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 64, minLength = 1)
     public String templateId;
 
     // 合约名称
     @NameInMap("name")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 64, minLength = 1)
     public String name;
 
     public static CreateCaasContractServiceRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -53,6 +58,14 @@ public class CreateCaasContractServiceRequest extends TeaModel {
     }
     public String getChainId() {
         return this.chainId;
+    }
+
+    public CreateCaasContractServiceRequest setUnionId(String unionId) {
+        this.unionId = unionId;
+        return this;
+    }
+    public String getUnionId() {
+        return this.unionId;
     }
 
     public CreateCaasContractServiceRequest setTemplateId(String templateId) {

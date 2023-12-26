@@ -11,7 +11,7 @@ public class BindCaasApplicationManageRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 应用程序ID
+    // 应用ID
     @NameInMap("application_id")
     @Validation(required = true)
     public String applicationId;

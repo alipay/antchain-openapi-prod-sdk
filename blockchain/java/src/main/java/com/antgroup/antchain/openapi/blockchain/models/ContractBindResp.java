@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.blockchain.models;
 
 import com.aliyun.tea.*;
 
-public class ContractBindAppResp extends TeaModel {
+public class ContractBindResp extends TeaModel {
     // 合约标识
     @NameInMap("service_id")
     public String serviceId;
@@ -16,12 +16,12 @@ public class ContractBindAppResp extends TeaModel {
     @NameInMap("bind")
     public Boolean bind;
 
-    public static ContractBindAppResp build(java.util.Map<String, ?> map) throws Exception {
-        ContractBindAppResp self = new ContractBindAppResp();
+    public static ContractBindResp build(java.util.Map<String, ?> map) throws Exception {
+        ContractBindResp self = new ContractBindResp();
         return TeaModel.build(map, self);
     }
 
-    public ContractBindAppResp setServiceId(String serviceId) {
+    public ContractBindResp setServiceId(String serviceId) {
         this.serviceId = serviceId;
         return this;
     }
@@ -29,7 +29,7 @@ public class ContractBindAppResp extends TeaModel {
         return this.serviceId;
     }
 
-    public ContractBindAppResp setName(String name) {
+    public ContractBindResp setName(String name) {
         this.name = name;
         return this;
     }
@@ -37,7 +37,7 @@ public class ContractBindAppResp extends TeaModel {
         return this.name;
     }
 
-    public ContractBindAppResp setBind(Boolean bind) {
+    public ContractBindResp setBind(Boolean bind) {
         this.bind = bind;
         return this;
     }

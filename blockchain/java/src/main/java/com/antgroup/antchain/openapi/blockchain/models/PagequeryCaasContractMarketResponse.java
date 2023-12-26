@@ -16,25 +16,9 @@ public class PagequeryCaasContractMarketResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 响应版本号
-    @NameInMap("version")
-    public String version;
-
-    // 请求是否成功
-    @NameInMap("success")
-    public Boolean success;
-
-    // 异常码
-    @NameInMap("error_code")
-    public String errorCode;
-
-    // 异常信息
-    @NameInMap("error_msg")
-    public String errorMsg;
-
-    // 请求结果数据
-    @NameInMap("data")
-    public java.util.List<ContractTemplateResp> data;
+    // 返回结果
+    @NameInMap("result")
+    public ContractTemplateListResp result;
 
     public static PagequeryCaasContractMarketResponse build(java.util.Map<String, ?> map) throws Exception {
         PagequeryCaasContractMarketResponse self = new PagequeryCaasContractMarketResponse();
@@ -65,44 +49,12 @@ public class PagequeryCaasContractMarketResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public PagequeryCaasContractMarketResponse setVersion(String version) {
-        this.version = version;
+    public PagequeryCaasContractMarketResponse setResult(ContractTemplateListResp result) {
+        this.result = result;
         return this;
     }
-    public String getVersion() {
-        return this.version;
-    }
-
-    public PagequeryCaasContractMarketResponse setSuccess(Boolean success) {
-        this.success = success;
-        return this;
-    }
-    public Boolean getSuccess() {
-        return this.success;
-    }
-
-    public PagequeryCaasContractMarketResponse setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
-        return this;
-    }
-    public String getErrorCode() {
-        return this.errorCode;
-    }
-
-    public PagequeryCaasContractMarketResponse setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
-        return this;
-    }
-    public String getErrorMsg() {
-        return this.errorMsg;
-    }
-
-    public PagequeryCaasContractMarketResponse setData(java.util.List<ContractTemplateResp> data) {
-        this.data = data;
-        return this;
-    }
-    public java.util.List<ContractTemplateResp> getData() {
-        return this.data;
+    public ContractTemplateListResp getResult() {
+        return this.result;
     }
 
 }

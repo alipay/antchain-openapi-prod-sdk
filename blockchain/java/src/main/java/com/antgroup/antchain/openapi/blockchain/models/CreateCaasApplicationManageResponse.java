@@ -16,25 +16,9 @@ public class CreateCaasApplicationManageResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 响应版本号
-    @NameInMap("version")
-    public String version;
-
-    // 请求是否成功
-    @NameInMap("success")
-    public Boolean success;
-
-    // 异常码
-    @NameInMap("error_code")
-    public String errorCode;
-
-    // 异常信息
-    @NameInMap("error_msg")
-    public String errorMsg;
-
-    // 应用id
-    @NameInMap("application_id")
-    public String applicationId;
+    // 返回结果
+    @NameInMap("result")
+    public ApplicationCreateResp result;
 
     public static CreateCaasApplicationManageResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateCaasApplicationManageResponse self = new CreateCaasApplicationManageResponse();
@@ -65,44 +49,12 @@ public class CreateCaasApplicationManageResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CreateCaasApplicationManageResponse setVersion(String version) {
-        this.version = version;
+    public CreateCaasApplicationManageResponse setResult(ApplicationCreateResp result) {
+        this.result = result;
         return this;
     }
-    public String getVersion() {
-        return this.version;
-    }
-
-    public CreateCaasApplicationManageResponse setSuccess(Boolean success) {
-        this.success = success;
-        return this;
-    }
-    public Boolean getSuccess() {
-        return this.success;
-    }
-
-    public CreateCaasApplicationManageResponse setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
-        return this;
-    }
-    public String getErrorCode() {
-        return this.errorCode;
-    }
-
-    public CreateCaasApplicationManageResponse setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
-        return this;
-    }
-    public String getErrorMsg() {
-        return this.errorMsg;
-    }
-
-    public CreateCaasApplicationManageResponse setApplicationId(String applicationId) {
-        this.applicationId = applicationId;
-        return this;
-    }
-    public String getApplicationId() {
-        return this.applicationId;
+    public ApplicationCreateResp getResult() {
+        return this.result;
     }
 
 }

@@ -31,6 +31,10 @@ public class NotifyAuthTaskStatusRequest extends TeaModel {
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String happenTime;
 
+    // 业务流水号，问卷方传给主站后透传给授权宝
+    @NameInMap("out_biz_no")
+    public String outBizNo;
+
     public static NotifyAuthTaskStatusRequest build(java.util.Map<String, ?> map) throws Exception {
         NotifyAuthTaskStatusRequest self = new NotifyAuthTaskStatusRequest();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class NotifyAuthTaskStatusRequest extends TeaModel {
     }
     public String getHappenTime() {
         return this.happenTime;
+    }
+
+    public NotifyAuthTaskStatusRequest setOutBizNo(String outBizNo) {
+        this.outBizNo = outBizNo;
+        return this;
+    }
+    public String getOutBizNo() {
+        return this.outBizNo;
     }
 
 }

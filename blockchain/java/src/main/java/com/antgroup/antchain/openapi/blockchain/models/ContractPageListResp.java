@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.blockchain.models;
 
 import com.aliyun.tea.*;
 
-public class ContractListResp extends TeaModel {
+public class ContractPageListResp extends TeaModel {
     // 服务ID
     @NameInMap("service_id")
     public String serviceId;
@@ -20,12 +20,12 @@ public class ContractListResp extends TeaModel {
     @NameInMap("create_time")
     public Long createTime;
 
-    public static ContractListResp build(java.util.Map<String, ?> map) throws Exception {
-        ContractListResp self = new ContractListResp();
+    public static ContractPageListResp build(java.util.Map<String, ?> map) throws Exception {
+        ContractPageListResp self = new ContractPageListResp();
         return TeaModel.build(map, self);
     }
 
-    public ContractListResp setServiceId(String serviceId) {
+    public ContractPageListResp setServiceId(String serviceId) {
         this.serviceId = serviceId;
         return this;
     }
@@ -33,7 +33,7 @@ public class ContractListResp extends TeaModel {
         return this.serviceId;
     }
 
-    public ContractListResp setName(String name) {
+    public ContractPageListResp setName(String name) {
         this.name = name;
         return this;
     }
@@ -41,7 +41,7 @@ public class ContractListResp extends TeaModel {
         return this.name;
     }
 
-    public ContractListResp setType(String type) {
+    public ContractPageListResp setType(String type) {
         this.type = type;
         return this;
     }
@@ -49,7 +49,7 @@ public class ContractListResp extends TeaModel {
         return this.type;
     }
 
-    public ContractListResp setCreateTime(Long createTime) {
+    public ContractPageListResp setCreateTime(Long createTime) {
         this.createTime = createTime;
         return this;
     }

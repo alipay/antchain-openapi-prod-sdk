@@ -21,6 +21,11 @@ public class PagequeryCaasApplicationManageRequest extends TeaModel {
     @Validation(required = true)
     public Long size;
 
+    // 链ID
+    @NameInMap("chain_id")
+    @Validation(required = true)
+    public String chainId;
+
     public static PagequeryCaasApplicationManageRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequeryCaasApplicationManageRequest self = new PagequeryCaasApplicationManageRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class PagequeryCaasApplicationManageRequest extends TeaModel {
     }
     public Long getSize() {
         return this.size;
+    }
+
+    public PagequeryCaasApplicationManageRequest setChainId(String chainId) {
+        this.chainId = chainId;
+        return this;
+    }
+    public String getChainId() {
+        return this.chainId;
     }
 
 }

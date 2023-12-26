@@ -16,25 +16,9 @@ public class QueryCaasContractServiceResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 响应版本号
-    @NameInMap("version")
-    public String version;
-
-    // 请求是否成功
-    @NameInMap("success")
-    public Boolean success;
-
-    // 异常码
-    @NameInMap("error_code")
-    public String errorCode;
-
-    // 异常信息
-    @NameInMap("error_msg")
-    public String errorMsg;
-
-    // 请求结果数据
-    @NameInMap("data")
-    public ContractCreateProcessResp data;
+    // 返回结果
+    @NameInMap("result")
+    public ContractCreateProcessResp result;
 
     public static QueryCaasContractServiceResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryCaasContractServiceResponse self = new QueryCaasContractServiceResponse();
@@ -65,44 +49,12 @@ public class QueryCaasContractServiceResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryCaasContractServiceResponse setVersion(String version) {
-        this.version = version;
+    public QueryCaasContractServiceResponse setResult(ContractCreateProcessResp result) {
+        this.result = result;
         return this;
     }
-    public String getVersion() {
-        return this.version;
-    }
-
-    public QueryCaasContractServiceResponse setSuccess(Boolean success) {
-        this.success = success;
-        return this;
-    }
-    public Boolean getSuccess() {
-        return this.success;
-    }
-
-    public QueryCaasContractServiceResponse setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
-        return this;
-    }
-    public String getErrorCode() {
-        return this.errorCode;
-    }
-
-    public QueryCaasContractServiceResponse setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
-        return this;
-    }
-    public String getErrorMsg() {
-        return this.errorMsg;
-    }
-
-    public QueryCaasContractServiceResponse setData(ContractCreateProcessResp data) {
-        this.data = data;
-        return this;
-    }
-    public ContractCreateProcessResp getData() {
-        return this.data;
+    public ContractCreateProcessResp getResult() {
+        return this.result;
     }
 
 }

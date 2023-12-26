@@ -11,6 +11,10 @@ public class PagequeryCaasContractServiceRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 合约服务类别
+    @NameInMap("type")
+    public String type;
+
     // 页码
     @NameInMap("num")
     @Validation(required = true)
@@ -21,9 +25,10 @@ public class PagequeryCaasContractServiceRequest extends TeaModel {
     @Validation(required = true)
     public Long size;
 
-    // 业务数据
-    @NameInMap("data")
-    public ContractListReq data;
+    // 链id
+    @NameInMap("chain_id")
+    @Validation(required = true)
+    public String chainId;
 
     public static PagequeryCaasContractServiceRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequeryCaasContractServiceRequest self = new PagequeryCaasContractServiceRequest();
@@ -46,6 +51,14 @@ public class PagequeryCaasContractServiceRequest extends TeaModel {
         return this.productInstanceId;
     }
 
+    public PagequeryCaasContractServiceRequest setType(String type) {
+        this.type = type;
+        return this;
+    }
+    public String getType() {
+        return this.type;
+    }
+
     public PagequeryCaasContractServiceRequest setNum(Long num) {
         this.num = num;
         return this;
@@ -62,12 +75,12 @@ public class PagequeryCaasContractServiceRequest extends TeaModel {
         return this.size;
     }
 
-    public PagequeryCaasContractServiceRequest setData(ContractListReq data) {
-        this.data = data;
+    public PagequeryCaasContractServiceRequest setChainId(String chainId) {
+        this.chainId = chainId;
         return this;
     }
-    public ContractListReq getData() {
-        return this.data;
+    public String getChainId() {
+        return this.chainId;
     }
 
 }
