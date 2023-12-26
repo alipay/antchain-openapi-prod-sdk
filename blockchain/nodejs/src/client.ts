@@ -37327,11 +37327,14 @@ export class PauseAuthTaskRequest extends $tea.Model {
   productInstanceId?: string;
   // 任务id
   taskId: string;
+  // 操作者ID
+  operator: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       taskId: 'task_id',
+      operator: 'operator',
     };
   }
 
@@ -37340,6 +37343,7 @@ export class PauseAuthTaskRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       taskId: 'string',
+      operator: 'string',
     };
   }
 
@@ -37386,11 +37390,14 @@ export class FinishAuthTaskRequest extends $tea.Model {
   productInstanceId?: string;
   // 任务id
   taskId: string;
+  // 操作者ID
+  operator: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       taskId: 'task_id',
+      operator: 'operator',
     };
   }
 
@@ -37399,6 +37406,7 @@ export class FinishAuthTaskRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       taskId: 'string',
+      operator: 'string',
     };
   }
 
@@ -53154,7 +53162,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.27.8",
+          sdk_version: "1.27.10",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
