@@ -149,6 +149,39 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 数据授权服务审批流程节点结构体
+type ProcessNode struct {
+	// 审批节点ID
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true" maxLength:"100"`
+	// 节点名称
+	NodeName *string `json:"node_name,omitempty" xml:"node_name,omitempty" require:"true" maxLength:"64"`
+	// 节点序号，从1开始编号
+	NodeNum *int64 `json:"node_num,omitempty" xml:"node_num,omitempty" require:"true" minimum:"1"`
+}
+
+func (s ProcessNode) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProcessNode) GoString() string {
+	return s.String()
+}
+
+func (s *ProcessNode) SetNodeId(v string) *ProcessNode {
+	s.NodeId = &v
+	return s
+}
+
+func (s *ProcessNode) SetNodeName(v string) *ProcessNode {
+	s.NodeName = &v
+	return s
+}
+
+func (s *ProcessNode) SetNodeNum(v int64) *ProcessNode {
+	s.NodeNum = &v
+	return s
+}
+
 // 蚂蚁链浏览器合约链交易内容
 type BlockchainBrowserTransactionContract struct {
 	// data
@@ -235,39 +268,6 @@ func (s *BlockchainBrowserTransactionContract) SetTransactionType(v string) *Blo
 
 func (s *BlockchainBrowserTransactionContract) SetValue(v int64) *BlockchainBrowserTransactionContract {
 	s.Value = &v
-	return s
-}
-
-// 数据授权服务审批流程节点结构体
-type ProcessNode struct {
-	// 审批节点ID
-	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true" maxLength:"100"`
-	// 节点名称
-	NodeName *string `json:"node_name,omitempty" xml:"node_name,omitempty" require:"true" maxLength:"64"`
-	// 节点序号，从1开始编号
-	NodeNum *int64 `json:"node_num,omitempty" xml:"node_num,omitempty" require:"true" minimum:"1"`
-}
-
-func (s ProcessNode) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ProcessNode) GoString() string {
-	return s.String()
-}
-
-func (s *ProcessNode) SetNodeId(v string) *ProcessNode {
-	s.NodeId = &v
-	return s
-}
-
-func (s *ProcessNode) SetNodeName(v string) *ProcessNode {
-	s.NodeName = &v
-	return s
-}
-
-func (s *ProcessNode) SetNodeNum(v int64) *ProcessNode {
-	s.NodeNum = &v
 	return s
 }
 
@@ -428,293 +428,62 @@ func (s *Participant) SetAccount(v string) *Participant {
 	return s
 }
 
-// 数据授权服务数据对象结构体
-type DataEntity struct {
-	// 授权状态
-	AuthStatus *string `json:"auth_status,omitempty" xml:"auth_status,omitempty"`
-	// 业务系统唯一标示
-	BizUid *string `json:"biz_uid,omitempty" xml:"biz_uid,omitempty" maxLength:"64"`
-	// 区块链ID
-	BlockchainId *string `json:"blockchain_id,omitempty" xml:"blockchain_id,omitempty"`
-	// 数据类别
-	Category *string `json:"category,omitempty" xml:"category,omitempty" require:"true" maxLength:"32"`
-	// 数据ID
-	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true" maxLength:"100"`
-	// 数据模型ID
-	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty"`
-	// 扩展信息，标准JSON格式
-	ExtensionInfo *string `json:"extension_info,omitempty" xml:"extension_info,omitempty"`
-	// 数据名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true" maxLength:"64"`
-	// 数据所有者ID
-	OwnerId *string `json:"owner_id,omitempty" xml:"owner_id,omitempty" require:"true" maxLength:"100"`
-	// 流程节点信息
-	ProcessTemplate []*ProcessNode `json:"process_template,omitempty" xml:"process_template,omitempty" type:"Repeated"`
-	// 数据状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty" maxLength:"16"`
-	// 创建时间
-	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true"`
-	// 修改时间
-	UpdateTime *int64 `json:"update_time,omitempty" xml:"update_time,omitempty"`
-	// DID doc里的公开信息
-	PublicInfo *string `json:"public_info,omitempty" xml:"public_info,omitempty"`
+// 合约绑定关系
+type ContractBindResp struct {
+	// 合约标识
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	// 合约名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 是否已关联
+	Bind *bool `json:"bind,omitempty" xml:"bind,omitempty"`
 }
 
-func (s DataEntity) String() string {
+func (s ContractBindResp) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DataEntity) GoString() string {
+func (s ContractBindResp) GoString() string {
 	return s.String()
 }
 
-func (s *DataEntity) SetAuthStatus(v string) *DataEntity {
-	s.AuthStatus = &v
+func (s *ContractBindResp) SetServiceId(v string) *ContractBindResp {
+	s.ServiceId = &v
 	return s
 }
 
-func (s *DataEntity) SetBizUid(v string) *DataEntity {
-	s.BizUid = &v
-	return s
-}
-
-func (s *DataEntity) SetBlockchainId(v string) *DataEntity {
-	s.BlockchainId = &v
-	return s
-}
-
-func (s *DataEntity) SetCategory(v string) *DataEntity {
-	s.Category = &v
-	return s
-}
-
-func (s *DataEntity) SetDataId(v string) *DataEntity {
-	s.DataId = &v
-	return s
-}
-
-func (s *DataEntity) SetDataModelId(v string) *DataEntity {
-	s.DataModelId = &v
-	return s
-}
-
-func (s *DataEntity) SetExtensionInfo(v string) *DataEntity {
-	s.ExtensionInfo = &v
-	return s
-}
-
-func (s *DataEntity) SetName(v string) *DataEntity {
+func (s *ContractBindResp) SetName(v string) *ContractBindResp {
 	s.Name = &v
 	return s
 }
 
-func (s *DataEntity) SetOwnerId(v string) *DataEntity {
-	s.OwnerId = &v
+func (s *ContractBindResp) SetBind(v bool) *ContractBindResp {
+	s.Bind = &v
 	return s
 }
 
-func (s *DataEntity) SetProcessTemplate(v []*ProcessNode) *DataEntity {
-	s.ProcessTemplate = v
-	return s
+// 节点类型
+type CrowdNodeTypeEnum struct {
+	// 组合节点
+	Group *string `json:"group,omitempty" xml:"group,omitempty"`
+	// 条件节点
+	Condition *string `json:"condition,omitempty" xml:"condition,omitempty"`
 }
 
-func (s *DataEntity) SetStatus(v string) *DataEntity {
-	s.Status = &v
-	return s
-}
-
-func (s *DataEntity) SetCreateTime(v int64) *DataEntity {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *DataEntity) SetUpdateTime(v int64) *DataEntity {
-	s.UpdateTime = &v
-	return s
-}
-
-func (s *DataEntity) SetPublicInfo(v string) *DataEntity {
-	s.PublicInfo = &v
-	return s
-}
-
-// 阿里云蚂蚁链对象
-type ALiYunAntChain struct {
-	// ant_chain_id
-	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty"`
-	// 链名称
-	AntChainName *string `json:"ant_chain_name,omitempty" xml:"ant_chain_name,omitempty"`
-	// 链的类型
-	ChainType *string `json:"chain_type,omitempty" xml:"chain_type,omitempty"`
-	// cipher_suit
-	CipherSuit *string `json:"cipher_suit,omitempty" xml:"cipher_suit,omitempty"`
-	// 创建时间
-	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// expire_time
-	ExpireTime *int64 `json:"expire_time,omitempty" xml:"expire_time,omitempty"`
-	// instance_id
-	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
-	// is_admin
-	IsAdmin *bool `json:"is_admin,omitempty" xml:"is_admin,omitempty"`
-	// 成员状态
-	MemberStatus *string `json:"member_status,omitempty" xml:"member_status,omitempty"`
-	// merkle_tree_suit
-	MerkleTreeSuit *string `json:"merkle_tree_suit,omitempty" xml:"merkle_tree_suit,omitempty"`
-	// Network
-	Network *string `json:"network,omitempty" xml:"network,omitempty"`
-	// 节点数
-	NodeNum *int64 `json:"node_num,omitempty" xml:"node_num,omitempty"`
-	// 区域信息
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
-	// 链的资源大小
-	ResourceSize *string `json:"resource_size,omitempty" xml:"resource_size,omitempty"`
-	// rest_status
-	RestStatus *string `json:"rest_status,omitempty" xml:"rest_status,omitempty"`
-	// 算法参数
-	TlsAlgo *string `json:"tls_algo,omitempty" xml:"tls_algo,omitempty"`
-	// 版本信息
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// monitor_status
-	MonitorStatus *bool `json:"monitor_status,omitempty" xml:"monitor_status,omitempty"`
-}
-
-func (s ALiYunAntChain) String() string {
+func (s CrowdNodeTypeEnum) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ALiYunAntChain) GoString() string {
+func (s CrowdNodeTypeEnum) GoString() string {
 	return s.String()
 }
 
-func (s *ALiYunAntChain) SetAntChainId(v string) *ALiYunAntChain {
-	s.AntChainId = &v
+func (s *CrowdNodeTypeEnum) SetGroup(v string) *CrowdNodeTypeEnum {
+	s.Group = &v
 	return s
 }
 
-func (s *ALiYunAntChain) SetAntChainName(v string) *ALiYunAntChain {
-	s.AntChainName = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetChainType(v string) *ALiYunAntChain {
-	s.ChainType = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetCipherSuit(v string) *ALiYunAntChain {
-	s.CipherSuit = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetCreateTime(v int64) *ALiYunAntChain {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetExpireTime(v int64) *ALiYunAntChain {
-	s.ExpireTime = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetInstanceId(v string) *ALiYunAntChain {
-	s.InstanceId = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetIsAdmin(v bool) *ALiYunAntChain {
-	s.IsAdmin = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetMemberStatus(v string) *ALiYunAntChain {
-	s.MemberStatus = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetMerkleTreeSuit(v string) *ALiYunAntChain {
-	s.MerkleTreeSuit = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetNetwork(v string) *ALiYunAntChain {
-	s.Network = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetNodeNum(v int64) *ALiYunAntChain {
-	s.NodeNum = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetRegionId(v string) *ALiYunAntChain {
-	s.RegionId = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetResourceSize(v string) *ALiYunAntChain {
-	s.ResourceSize = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetRestStatus(v string) *ALiYunAntChain {
-	s.RestStatus = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetTlsAlgo(v string) *ALiYunAntChain {
-	s.TlsAlgo = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetVersion(v string) *ALiYunAntChain {
-	s.Version = &v
-	return s
-}
-
-func (s *ALiYunAntChain) SetMonitorStatus(v bool) *ALiYunAntChain {
-	s.MonitorStatus = &v
-	return s
-}
-
-// Did Doc中的服务字段描述
-type DidDocServicesInfo struct {
-	// 服务的扩展字段
-	Extension *string `json:"extension,omitempty" xml:"extension,omitempty"`
-	// 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务：
-	// DidAuthService， 有且只能有一个，并且id必须为didauth-1；
-	// VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 服务的可访问地址
-	ServiceEndpoint *string `json:"service_endpoint,omitempty" xml:"service_endpoint,omitempty" require:"true"`
-	// 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-}
-
-func (s DidDocServicesInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DidDocServicesInfo) GoString() string {
-	return s.String()
-}
-
-func (s *DidDocServicesInfo) SetExtension(v string) *DidDocServicesInfo {
-	s.Extension = &v
-	return s
-}
-
-func (s *DidDocServicesInfo) SetId(v string) *DidDocServicesInfo {
-	s.Id = &v
-	return s
-}
-
-func (s *DidDocServicesInfo) SetServiceEndpoint(v string) *DidDocServicesInfo {
-	s.ServiceEndpoint = &v
-	return s
-}
-
-func (s *DidDocServicesInfo) SetType(v string) *DidDocServicesInfo {
-	s.Type = &v
+func (s *CrowdNodeTypeEnum) SetCondition(v string) *CrowdNodeTypeEnum {
+	s.Condition = &v
 	return s
 }
 
@@ -765,222 +534,36 @@ func (s *ALiYunMember) SetStatus(v string) *ALiYunMember {
 	return s
 }
 
-// 阿里云蚂蚁区块链证书信息
-type ALiYunCertificateApplication struct {
-	// ant_chain_id
-	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty"`
-	// username
-	Username *string `json:"username,omitempty" xml:"username,omitempty"`
-	// createtime
-	Createtime *int64 `json:"createtime,omitempty" xml:"createtime,omitempty"`
-	// updatetime
-	Updatetime *int64 `json:"updatetime,omitempty" xml:"updatetime,omitempty"`
-	// bid
-	Bid *string `json:"bid,omitempty" xml:"bid,omitempty"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+// 应用授权列表
+type ApplicationPageListResp struct {
+	// 应用标识
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
+	// 链ID
+	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
+	// 合约(创建实例时填写的合约名称。)
+	NameList []*string `json:"name_list,omitempty" xml:"name_list,omitempty" type:"Repeated"`
 }
 
-func (s ALiYunCertificateApplication) String() string {
+func (s ApplicationPageListResp) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ALiYunCertificateApplication) GoString() string {
+func (s ApplicationPageListResp) GoString() string {
 	return s.String()
 }
 
-func (s *ALiYunCertificateApplication) SetAntChainId(v string) *ALiYunCertificateApplication {
-	s.AntChainId = &v
+func (s *ApplicationPageListResp) SetApplicationId(v string) *ApplicationPageListResp {
+	s.ApplicationId = &v
 	return s
 }
 
-func (s *ALiYunCertificateApplication) SetUsername(v string) *ALiYunCertificateApplication {
-	s.Username = &v
+func (s *ApplicationPageListResp) SetAccessKey(v string) *ApplicationPageListResp {
+	s.AccessKey = &v
 	return s
 }
 
-func (s *ALiYunCertificateApplication) SetCreatetime(v int64) *ALiYunCertificateApplication {
-	s.Createtime = &v
-	return s
-}
-
-func (s *ALiYunCertificateApplication) SetUpdatetime(v int64) *ALiYunCertificateApplication {
-	s.Updatetime = &v
-	return s
-}
-
-func (s *ALiYunCertificateApplication) SetBid(v string) *ALiYunCertificateApplication {
-	s.Bid = &v
-	return s
-}
-
-func (s *ALiYunCertificateApplication) SetStatus(v string) *ALiYunCertificateApplication {
-	s.Status = &v
-	return s
-}
-
-// DidDoc中service的信息
-type DisServicesInfo struct {
-	// did doc service扩展字段
-	Extesion *string `json:"extesion,omitempty" xml:"extesion,omitempty"`
-	// did doc service id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 服务endpoint
-	ServiceEndpoint *string `json:"service_endpoint,omitempty" xml:"service_endpoint,omitempty" require:"true"`
-	// service type
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// EXIST
-	// CONFLICT
-	// VALID
-	// INVALID
-	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
-}
-
-func (s DisServicesInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DisServicesInfo) GoString() string {
-	return s.String()
-}
-
-func (s *DisServicesInfo) SetExtesion(v string) *DisServicesInfo {
-	s.Extesion = &v
-	return s
-}
-
-func (s *DisServicesInfo) SetId(v string) *DisServicesInfo {
-	s.Id = &v
-	return s
-}
-
-func (s *DisServicesInfo) SetServiceEndpoint(v string) *DisServicesInfo {
-	s.ServiceEndpoint = &v
-	return s
-}
-
-func (s *DisServicesInfo) SetType(v string) *DisServicesInfo {
-	s.Type = &v
-	return s
-}
-
-func (s *DisServicesInfo) SetDesc(v string) *DisServicesInfo {
-	s.Desc = &v
-	return s
-}
-
-// 合约列表响应
-type ContractListResp struct {
-	// 服务ID
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
-	// 合约名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 合约类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// 创建时间
-	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
-}
-
-func (s ContractListResp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractListResp) GoString() string {
-	return s.String()
-}
-
-func (s *ContractListResp) SetServiceId(v string) *ContractListResp {
-	s.ServiceId = &v
-	return s
-}
-
-func (s *ContractListResp) SetName(v string) *ContractListResp {
-	s.Name = &v
-	return s
-}
-
-func (s *ContractListResp) SetType(v string) *ContractListResp {
-	s.Type = &v
-	return s
-}
-
-func (s *ContractListResp) SetCreateTime(v int64) *ContractListResp {
-	s.CreateTime = &v
-	return s
-}
-
-// 阿里云合约链信息
-type ALiYunContractBlockchain struct {
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// bizid
-	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty"`
-	// chain_type
-	ChainType *string `json:"chain_type,omitempty" xml:"chain_type,omitempty"`
-	// node_num
-	NodeNum *int64 `json:"node_num,omitempty" xml:"node_num,omitempty"`
-	// member_status
-	MemberStatus *string `json:"member_status,omitempty" xml:"member_status,omitempty"`
-	// block_height
-	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty"`
-	// transactions
-	Transactions *int64 `json:"transactions,omitempty" xml:"transactions,omitempty"`
-	// network
-	Network *string `json:"network,omitempty" xml:"network,omitempty"`
-	// version
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-}
-
-func (s ALiYunContractBlockchain) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunContractBlockchain) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunContractBlockchain) SetName(v string) *ALiYunContractBlockchain {
-	s.Name = &v
-	return s
-}
-
-func (s *ALiYunContractBlockchain) SetBizid(v string) *ALiYunContractBlockchain {
-	s.Bizid = &v
-	return s
-}
-
-func (s *ALiYunContractBlockchain) SetChainType(v string) *ALiYunContractBlockchain {
-	s.ChainType = &v
-	return s
-}
-
-func (s *ALiYunContractBlockchain) SetNodeNum(v int64) *ALiYunContractBlockchain {
-	s.NodeNum = &v
-	return s
-}
-
-func (s *ALiYunContractBlockchain) SetMemberStatus(v string) *ALiYunContractBlockchain {
-	s.MemberStatus = &v
-	return s
-}
-
-func (s *ALiYunContractBlockchain) SetBlockHeight(v int64) *ALiYunContractBlockchain {
-	s.BlockHeight = &v
-	return s
-}
-
-func (s *ALiYunContractBlockchain) SetTransactions(v int64) *ALiYunContractBlockchain {
-	s.Transactions = &v
-	return s
-}
-
-func (s *ALiYunContractBlockchain) SetNetwork(v string) *ALiYunContractBlockchain {
-	s.Network = &v
-	return s
-}
-
-func (s *ALiYunContractBlockchain) SetVersion(v string) *ALiYunContractBlockchain {
-	s.Version = &v
+func (s *ApplicationPageListResp) SetNameList(v []*string) *ApplicationPageListResp {
+	s.NameList = v
 	return s
 }
 
@@ -1035,39 +618,6 @@ func (s *InstanceProgressInfo) SetTypeName(v string) *InstanceProgressInfo {
 
 func (s *InstanceProgressInfo) SetData(v string) *InstanceProgressInfo {
 	s.Data = &v
-	return s
-}
-
-// 阿里云区块链小程序用户权限信息
-type ALiYunChainMiniAppAuthorizedUser struct {
-	// phone
-	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
-	// gmt_authorized
-	GmtAuthorized *string `json:"gmt_authorized,omitempty" xml:"gmt_authorized,omitempty"`
-	// 记录id
-	UserId *int64 `json:"user_id,omitempty" xml:"user_id,omitempty"`
-}
-
-func (s ALiYunChainMiniAppAuthorizedUser) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunChainMiniAppAuthorizedUser) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunChainMiniAppAuthorizedUser) SetPhone(v string) *ALiYunChainMiniAppAuthorizedUser {
-	s.Phone = &v
-	return s
-}
-
-func (s *ALiYunChainMiniAppAuthorizedUser) SetGmtAuthorized(v string) *ALiYunChainMiniAppAuthorizedUser {
-	s.GmtAuthorized = &v
-	return s
-}
-
-func (s *ALiYunChainMiniAppAuthorizedUser) SetUserId(v int64) *ALiYunChainMiniAppAuthorizedUser {
-	s.UserId = &v
 	return s
 }
 
@@ -1362,64 +912,29 @@ func (s *TriggerLogDTOStructBody) SetPosition(v *PositionStructBody) *TriggerLog
 	return s
 }
 
-// 阿里云合约工程信息
-type ALiYunContractProject struct {
-	// consortium_id
-	ConsortiumId *string `json:"consortium_id,omitempty" xml:"consortium_id,omitempty"`
-	// create_time
-	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// project_description
-	ProjectDescription *string `json:"project_description,omitempty" xml:"project_description,omitempty"`
-	// project_id
-	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
-	// project_name
-	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty"`
-	// project_version
-	ProjectVersion *string `json:"project_version,omitempty" xml:"project_version,omitempty"`
-	// update_time
-	UpdateTime *int64 `json:"update_time,omitempty" xml:"update_time,omitempty"`
+// 合约类型
+type ContractTypeListResp struct {
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 值
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
 }
 
-func (s ALiYunContractProject) String() string {
+func (s ContractTypeListResp) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ALiYunContractProject) GoString() string {
+func (s ContractTypeListResp) GoString() string {
 	return s.String()
 }
 
-func (s *ALiYunContractProject) SetConsortiumId(v string) *ALiYunContractProject {
-	s.ConsortiumId = &v
+func (s *ContractTypeListResp) SetName(v string) *ContractTypeListResp {
+	s.Name = &v
 	return s
 }
 
-func (s *ALiYunContractProject) SetCreateTime(v int64) *ALiYunContractProject {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *ALiYunContractProject) SetProjectDescription(v string) *ALiYunContractProject {
-	s.ProjectDescription = &v
-	return s
-}
-
-func (s *ALiYunContractProject) SetProjectId(v string) *ALiYunContractProject {
-	s.ProjectId = &v
-	return s
-}
-
-func (s *ALiYunContractProject) SetProjectName(v string) *ALiYunContractProject {
-	s.ProjectName = &v
-	return s
-}
-
-func (s *ALiYunContractProject) SetProjectVersion(v string) *ALiYunContractProject {
-	s.ProjectVersion = &v
-	return s
-}
-
-func (s *ALiYunContractProject) SetUpdateTime(v int64) *ALiYunContractProject {
-	s.UpdateTime = &v
+func (s *ContractTypeListResp) SetValue(v string) *ContractTypeListResp {
+	s.Value = &v
 	return s
 }
 
@@ -1561,81 +1076,6 @@ func (s *BlockchainBrowserTransaction) SetTransactionContract(v *BlockchainBrows
 	return s
 }
 
-// 阿里云区块链信息
-type ALiYunOldContractBlockchain struct {
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// bizid
-	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty"`
-	// chain_type
-	ChainType *string `json:"chain_type,omitempty" xml:"chain_type,omitempty"`
-	// node_num
-	NodeNum *int64 `json:"node_num,omitempty" xml:"node_num,omitempty"`
-	// member_status
-	MemberStatus *string `json:"member_status,omitempty" xml:"member_status,omitempty"`
-	// block_height
-	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty"`
-	// transactions
-	Transactions *int64 `json:"transactions,omitempty" xml:"transactions,omitempty"`
-	// network
-	Network *string `json:"network,omitempty" xml:"network,omitempty"`
-	// version
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-}
-
-func (s ALiYunOldContractBlockchain) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunOldContractBlockchain) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunOldContractBlockchain) SetName(v string) *ALiYunOldContractBlockchain {
-	s.Name = &v
-	return s
-}
-
-func (s *ALiYunOldContractBlockchain) SetBizid(v string) *ALiYunOldContractBlockchain {
-	s.Bizid = &v
-	return s
-}
-
-func (s *ALiYunOldContractBlockchain) SetChainType(v string) *ALiYunOldContractBlockchain {
-	s.ChainType = &v
-	return s
-}
-
-func (s *ALiYunOldContractBlockchain) SetNodeNum(v int64) *ALiYunOldContractBlockchain {
-	s.NodeNum = &v
-	return s
-}
-
-func (s *ALiYunOldContractBlockchain) SetMemberStatus(v string) *ALiYunOldContractBlockchain {
-	s.MemberStatus = &v
-	return s
-}
-
-func (s *ALiYunOldContractBlockchain) SetBlockHeight(v int64) *ALiYunOldContractBlockchain {
-	s.BlockHeight = &v
-	return s
-}
-
-func (s *ALiYunOldContractBlockchain) SetTransactions(v int64) *ALiYunOldContractBlockchain {
-	s.Transactions = &v
-	return s
-}
-
-func (s *ALiYunOldContractBlockchain) SetNetwork(v string) *ALiYunOldContractBlockchain {
-	s.Network = &v
-	return s
-}
-
-func (s *ALiYunOldContractBlockchain) SetVersion(v string) *ALiYunOldContractBlockchain {
-	s.Version = &v
-	return s
-}
-
 // 阿里云蚂蚁链相关下载链接
 type ALiYunDownloadPath struct {
 	// client_crt_url
@@ -1772,39 +1212,6 @@ func (s *ALiYunChainSubnet) SetGroupId(v string) *ALiYunChainSubnet {
 	return s
 }
 
-// 分页属性
-type ALiYunPagination struct {
-	// 分页大小
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
-	// 分页编号
-	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
-	// 总数大小
-	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
-}
-
-func (s ALiYunPagination) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunPagination) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunPagination) SetPageSize(v int64) *ALiYunPagination {
-	s.PageSize = &v
-	return s
-}
-
-func (s *ALiYunPagination) SetPageNumber(v int64) *ALiYunPagination {
-	s.PageNumber = &v
-	return s
-}
-
-func (s *ALiYunPagination) SetTotalCount(v int64) *ALiYunPagination {
-	s.TotalCount = &v
-	return s
-}
-
 // Did doc中的service info
 type DidServiceInfo struct {
 	// 服务的end point info
@@ -1828,102 +1235,6 @@ func (s *DidServiceInfo) SetEndPoint(v string) *DidServiceInfo {
 
 func (s *DidServiceInfo) SetExtensionInfo(v string) *DidServiceInfo {
 	s.ExtensionInfo = &v
-	return s
-}
-
-// 阿里云区块链交易的汇总信息
-type ALiYunTransactionSummary struct {
-	// alias
-	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
-	// hash
-	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
-	// trans_type_v6
-	TransTypeV6 *string `json:"trans_type_v6,omitempty" xml:"trans_type_v6,omitempty"`
-	// trans_type_v10
-	TransTypeV10 *string `json:"trans_type_v10,omitempty" xml:"trans_type_v10,omitempty"`
-	// category
-	Category *int64 `json:"category,omitempty" xml:"category,omitempty"`
-	// height
-	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
-	// block_hash
-	BlockHash *string `json:"block_hash,omitempty" xml:"block_hash,omitempty"`
-	// create_time
-	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// reference_count
-	ReferenceCount *int64 `json:"reference_count,omitempty" xml:"reference_count,omitempty"`
-	// from
-	From *string `json:"from,omitempty" xml:"from,omitempty"`
-	// to
-	To *string `json:"to,omitempty" xml:"to,omitempty"`
-	// gas_used
-	GasUsed *int64 `json:"gas_used,omitempty" xml:"gas_used,omitempty"`
-}
-
-func (s ALiYunTransactionSummary) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunTransactionSummary) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunTransactionSummary) SetAlias(v string) *ALiYunTransactionSummary {
-	s.Alias = &v
-	return s
-}
-
-func (s *ALiYunTransactionSummary) SetHash(v string) *ALiYunTransactionSummary {
-	s.Hash = &v
-	return s
-}
-
-func (s *ALiYunTransactionSummary) SetTransTypeV6(v string) *ALiYunTransactionSummary {
-	s.TransTypeV6 = &v
-	return s
-}
-
-func (s *ALiYunTransactionSummary) SetTransTypeV10(v string) *ALiYunTransactionSummary {
-	s.TransTypeV10 = &v
-	return s
-}
-
-func (s *ALiYunTransactionSummary) SetCategory(v int64) *ALiYunTransactionSummary {
-	s.Category = &v
-	return s
-}
-
-func (s *ALiYunTransactionSummary) SetHeight(v int64) *ALiYunTransactionSummary {
-	s.Height = &v
-	return s
-}
-
-func (s *ALiYunTransactionSummary) SetBlockHash(v string) *ALiYunTransactionSummary {
-	s.BlockHash = &v
-	return s
-}
-
-func (s *ALiYunTransactionSummary) SetCreateTime(v int64) *ALiYunTransactionSummary {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *ALiYunTransactionSummary) SetReferenceCount(v int64) *ALiYunTransactionSummary {
-	s.ReferenceCount = &v
-	return s
-}
-
-func (s *ALiYunTransactionSummary) SetFrom(v string) *ALiYunTransactionSummary {
-	s.From = &v
-	return s
-}
-
-func (s *ALiYunTransactionSummary) SetTo(v string) *ALiYunTransactionSummary {
-	s.To = &v
-	return s
-}
-
-func (s *ALiYunTransactionSummary) SetGasUsed(v int64) *ALiYunTransactionSummary {
-	s.GasUsed = &v
 	return s
 }
 
@@ -2124,6 +1435,1118 @@ func (s *ALiYunChainNodeInfo) SetPublicKey(v string) *ALiYunChainNodeInfo {
 	return s
 }
 
+// VC可信传输时，指定的目标did信息
+type VcTransmitTargetStruct struct {
+	// 目标did的公钥
+	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty"`
+	// 传输vc使用的区块链id
+	VcChannel *string `json:"vc_channel,omitempty" xml:"vc_channel,omitempty" maxLength:"32" minLength:"8"`
+	// 验证者did
+	VerifierDid *string `json:"verifier_did,omitempty" xml:"verifier_did,omitempty" require:"true"`
+}
+
+func (s VcTransmitTargetStruct) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VcTransmitTargetStruct) GoString() string {
+	return s.String()
+}
+
+func (s *VcTransmitTargetStruct) SetPublicKey(v string) *VcTransmitTargetStruct {
+	s.PublicKey = &v
+	return s
+}
+
+func (s *VcTransmitTargetStruct) SetVcChannel(v string) *VcTransmitTargetStruct {
+	s.VcChannel = &v
+	return s
+}
+
+func (s *VcTransmitTargetStruct) SetVerifierDid(v string) *VcTransmitTargetStruct {
+	s.VerifierDid = &v
+	return s
+}
+
+// 人群标签对象
+type CrowdTagEnumItemDTO struct {
+	// 枚举名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 枚举值
+	Val *string `json:"val,omitempty" xml:"val,omitempty" require:"true"`
+}
+
+func (s CrowdTagEnumItemDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CrowdTagEnumItemDTO) GoString() string {
+	return s.String()
+}
+
+func (s *CrowdTagEnumItemDTO) SetName(v string) *CrowdTagEnumItemDTO {
+	s.Name = &v
+	return s
+}
+
+func (s *CrowdTagEnumItemDTO) SetVal(v string) *CrowdTagEnumItemDTO {
+	s.Val = &v
+	return s
+}
+
+// 阿里云交易查询信息
+type ALiYunTransaction struct {
+	// tx_type
+	TxType *string `json:"tx_type,omitempty" xml:"tx_type,omitempty"`
+	// data
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// hash
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+	// from
+	From *string `json:"from,omitempty" xml:"from,omitempty"`
+	// to
+	To *string `json:"to,omitempty" xml:"to,omitempty"`
+	// timestamp
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
+	// period
+	Period *int64 `json:"period,omitempty" xml:"period,omitempty"`
+	// nonce
+	Nonce *string `json:"nonce,omitempty" xml:"nonce,omitempty"`
+	// gas
+	Gas *string `json:"gas,omitempty" xml:"gas,omitempty"`
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+	// signatures
+	Signatures []*string `json:"signatures,omitempty" xml:"signatures,omitempty" type:"Repeated"`
+	// extentions
+	Extentions []*string `json:"extentions,omitempty" xml:"extentions,omitempty" type:"Repeated"`
+}
+
+func (s ALiYunTransaction) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunTransaction) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunTransaction) SetTxType(v string) *ALiYunTransaction {
+	s.TxType = &v
+	return s
+}
+
+func (s *ALiYunTransaction) SetData(v string) *ALiYunTransaction {
+	s.Data = &v
+	return s
+}
+
+func (s *ALiYunTransaction) SetHash(v string) *ALiYunTransaction {
+	s.Hash = &v
+	return s
+}
+
+func (s *ALiYunTransaction) SetFrom(v string) *ALiYunTransaction {
+	s.From = &v
+	return s
+}
+
+func (s *ALiYunTransaction) SetTo(v string) *ALiYunTransaction {
+	s.To = &v
+	return s
+}
+
+func (s *ALiYunTransaction) SetTimestamp(v int64) *ALiYunTransaction {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *ALiYunTransaction) SetPeriod(v int64) *ALiYunTransaction {
+	s.Period = &v
+	return s
+}
+
+func (s *ALiYunTransaction) SetNonce(v string) *ALiYunTransaction {
+	s.Nonce = &v
+	return s
+}
+
+func (s *ALiYunTransaction) SetGas(v string) *ALiYunTransaction {
+	s.Gas = &v
+	return s
+}
+
+func (s *ALiYunTransaction) SetValue(v string) *ALiYunTransaction {
+	s.Value = &v
+	return s
+}
+
+func (s *ALiYunTransaction) SetSignatures(v []*string) *ALiYunTransaction {
+	s.Signatures = v
+	return s
+}
+
+func (s *ALiYunTransaction) SetExtentions(v []*string) *ALiYunTransaction {
+	s.Extentions = v
+	return s
+}
+
+// 阿里云存证链信息
+type ALiYunNotaryBlockchain struct {
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// bizid
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty"`
+	// chain_type
+	ChainType *string `json:"chain_type,omitempty" xml:"chain_type,omitempty"`
+	// node_num
+	NodeNum *int64 `json:"node_num,omitempty" xml:"node_num,omitempty"`
+	// member_status
+	MemberStatus *string `json:"member_status,omitempty" xml:"member_status,omitempty"`
+	// block_height
+	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty"`
+	// transactions
+	Transactions *int64 `json:"transactions,omitempty" xml:"transactions,omitempty"`
+	// network
+	Network *string `json:"network,omitempty" xml:"network,omitempty"`
+	// version
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+}
+
+func (s ALiYunNotaryBlockchain) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunNotaryBlockchain) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunNotaryBlockchain) SetName(v string) *ALiYunNotaryBlockchain {
+	s.Name = &v
+	return s
+}
+
+func (s *ALiYunNotaryBlockchain) SetBizid(v string) *ALiYunNotaryBlockchain {
+	s.Bizid = &v
+	return s
+}
+
+func (s *ALiYunNotaryBlockchain) SetChainType(v string) *ALiYunNotaryBlockchain {
+	s.ChainType = &v
+	return s
+}
+
+func (s *ALiYunNotaryBlockchain) SetNodeNum(v int64) *ALiYunNotaryBlockchain {
+	s.NodeNum = &v
+	return s
+}
+
+func (s *ALiYunNotaryBlockchain) SetMemberStatus(v string) *ALiYunNotaryBlockchain {
+	s.MemberStatus = &v
+	return s
+}
+
+func (s *ALiYunNotaryBlockchain) SetBlockHeight(v int64) *ALiYunNotaryBlockchain {
+	s.BlockHeight = &v
+	return s
+}
+
+func (s *ALiYunNotaryBlockchain) SetTransactions(v int64) *ALiYunNotaryBlockchain {
+	s.Transactions = &v
+	return s
+}
+
+func (s *ALiYunNotaryBlockchain) SetNetwork(v string) *ALiYunNotaryBlockchain {
+	s.Network = &v
+	return s
+}
+
+func (s *ALiYunNotaryBlockchain) SetVersion(v string) *ALiYunNotaryBlockchain {
+	s.Version = &v
+	return s
+}
+
+// 合约市场列表
+type ContractTemplateResp struct {
+	// 模板标识
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty"`
+	// 产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 合约名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 缩略图url
+	ThumbUrl *string `json:"thumb_url,omitempty" xml:"thumb_url,omitempty"`
+	// 合约描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 文档地址
+	DetailUrl *string `json:"detail_url,omitempty" xml:"detail_url,omitempty"`
+	// 是否已开通合约
+	Open *bool `json:"open,omitempty" xml:"open,omitempty"`
+	// 后续展示：购买用户头像
+	AvatarLogoList []*string `json:"avatar_logo_list,omitempty" xml:"avatar_logo_list,omitempty" type:"Repeated"`
+	// 定制合约价格
+	PriceMessage *string `json:"price_message,omitempty" xml:"price_message,omitempty"`
+}
+
+func (s ContractTemplateResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractTemplateResp) GoString() string {
+	return s.String()
+}
+
+func (s *ContractTemplateResp) SetTemplateId(v string) *ContractTemplateResp {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *ContractTemplateResp) SetProductCode(v string) *ContractTemplateResp {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *ContractTemplateResp) SetName(v string) *ContractTemplateResp {
+	s.Name = &v
+	return s
+}
+
+func (s *ContractTemplateResp) SetThumbUrl(v string) *ContractTemplateResp {
+	s.ThumbUrl = &v
+	return s
+}
+
+func (s *ContractTemplateResp) SetDescription(v string) *ContractTemplateResp {
+	s.Description = &v
+	return s
+}
+
+func (s *ContractTemplateResp) SetDetailUrl(v string) *ContractTemplateResp {
+	s.DetailUrl = &v
+	return s
+}
+
+func (s *ContractTemplateResp) SetOpen(v bool) *ContractTemplateResp {
+	s.Open = &v
+	return s
+}
+
+func (s *ContractTemplateResp) SetAvatarLogoList(v []*string) *ContractTemplateResp {
+	s.AvatarLogoList = v
+	return s
+}
+
+func (s *ContractTemplateResp) SetPriceMessage(v string) *ContractTemplateResp {
+	s.PriceMessage = &v
+	return s
+}
+
+// 数据授权服务数据对象结构体
+type DataEntity struct {
+	// 授权状态
+	AuthStatus *string `json:"auth_status,omitempty" xml:"auth_status,omitempty"`
+	// 业务系统唯一标示
+	BizUid *string `json:"biz_uid,omitempty" xml:"biz_uid,omitempty" maxLength:"64"`
+	// 区块链ID
+	BlockchainId *string `json:"blockchain_id,omitempty" xml:"blockchain_id,omitempty"`
+	// 数据类别
+	Category *string `json:"category,omitempty" xml:"category,omitempty" require:"true" maxLength:"32"`
+	// 数据ID
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true" maxLength:"100"`
+	// 数据模型ID
+	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty"`
+	// 扩展信息，标准JSON格式
+	ExtensionInfo *string `json:"extension_info,omitempty" xml:"extension_info,omitempty"`
+	// 数据名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true" maxLength:"64"`
+	// 数据所有者ID
+	OwnerId *string `json:"owner_id,omitempty" xml:"owner_id,omitempty" require:"true" maxLength:"100"`
+	// 流程节点信息
+	ProcessTemplate []*ProcessNode `json:"process_template,omitempty" xml:"process_template,omitempty" type:"Repeated"`
+	// 数据状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" maxLength:"16"`
+	// 创建时间
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true"`
+	// 修改时间
+	UpdateTime *int64 `json:"update_time,omitempty" xml:"update_time,omitempty"`
+	// DID doc里的公开信息
+	PublicInfo *string `json:"public_info,omitempty" xml:"public_info,omitempty"`
+}
+
+func (s DataEntity) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataEntity) GoString() string {
+	return s.String()
+}
+
+func (s *DataEntity) SetAuthStatus(v string) *DataEntity {
+	s.AuthStatus = &v
+	return s
+}
+
+func (s *DataEntity) SetBizUid(v string) *DataEntity {
+	s.BizUid = &v
+	return s
+}
+
+func (s *DataEntity) SetBlockchainId(v string) *DataEntity {
+	s.BlockchainId = &v
+	return s
+}
+
+func (s *DataEntity) SetCategory(v string) *DataEntity {
+	s.Category = &v
+	return s
+}
+
+func (s *DataEntity) SetDataId(v string) *DataEntity {
+	s.DataId = &v
+	return s
+}
+
+func (s *DataEntity) SetDataModelId(v string) *DataEntity {
+	s.DataModelId = &v
+	return s
+}
+
+func (s *DataEntity) SetExtensionInfo(v string) *DataEntity {
+	s.ExtensionInfo = &v
+	return s
+}
+
+func (s *DataEntity) SetName(v string) *DataEntity {
+	s.Name = &v
+	return s
+}
+
+func (s *DataEntity) SetOwnerId(v string) *DataEntity {
+	s.OwnerId = &v
+	return s
+}
+
+func (s *DataEntity) SetProcessTemplate(v []*ProcessNode) *DataEntity {
+	s.ProcessTemplate = v
+	return s
+}
+
+func (s *DataEntity) SetStatus(v string) *DataEntity {
+	s.Status = &v
+	return s
+}
+
+func (s *DataEntity) SetCreateTime(v int64) *DataEntity {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *DataEntity) SetUpdateTime(v int64) *DataEntity {
+	s.UpdateTime = &v
+	return s
+}
+
+func (s *DataEntity) SetPublicInfo(v string) *DataEntity {
+	s.PublicInfo = &v
+	return s
+}
+
+// 阿里云蚂蚁链对象
+type ALiYunAntChain struct {
+	// ant_chain_id
+	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty"`
+	// 链名称
+	AntChainName *string `json:"ant_chain_name,omitempty" xml:"ant_chain_name,omitempty"`
+	// 链的类型
+	ChainType *string `json:"chain_type,omitempty" xml:"chain_type,omitempty"`
+	// cipher_suit
+	CipherSuit *string `json:"cipher_suit,omitempty" xml:"cipher_suit,omitempty"`
+	// 创建时间
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// expire_time
+	ExpireTime *int64 `json:"expire_time,omitempty" xml:"expire_time,omitempty"`
+	// instance_id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// is_admin
+	IsAdmin *bool `json:"is_admin,omitempty" xml:"is_admin,omitempty"`
+	// 成员状态
+	MemberStatus *string `json:"member_status,omitempty" xml:"member_status,omitempty"`
+	// merkle_tree_suit
+	MerkleTreeSuit *string `json:"merkle_tree_suit,omitempty" xml:"merkle_tree_suit,omitempty"`
+	// Network
+	Network *string `json:"network,omitempty" xml:"network,omitempty"`
+	// 节点数
+	NodeNum *int64 `json:"node_num,omitempty" xml:"node_num,omitempty"`
+	// 区域信息
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	// 链的资源大小
+	ResourceSize *string `json:"resource_size,omitempty" xml:"resource_size,omitempty"`
+	// rest_status
+	RestStatus *string `json:"rest_status,omitempty" xml:"rest_status,omitempty"`
+	// 算法参数
+	TlsAlgo *string `json:"tls_algo,omitempty" xml:"tls_algo,omitempty"`
+	// 版本信息
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// monitor_status
+	MonitorStatus *bool `json:"monitor_status,omitempty" xml:"monitor_status,omitempty"`
+}
+
+func (s ALiYunAntChain) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunAntChain) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunAntChain) SetAntChainId(v string) *ALiYunAntChain {
+	s.AntChainId = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetAntChainName(v string) *ALiYunAntChain {
+	s.AntChainName = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetChainType(v string) *ALiYunAntChain {
+	s.ChainType = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetCipherSuit(v string) *ALiYunAntChain {
+	s.CipherSuit = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetCreateTime(v int64) *ALiYunAntChain {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetExpireTime(v int64) *ALiYunAntChain {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetInstanceId(v string) *ALiYunAntChain {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetIsAdmin(v bool) *ALiYunAntChain {
+	s.IsAdmin = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetMemberStatus(v string) *ALiYunAntChain {
+	s.MemberStatus = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetMerkleTreeSuit(v string) *ALiYunAntChain {
+	s.MerkleTreeSuit = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetNetwork(v string) *ALiYunAntChain {
+	s.Network = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetNodeNum(v int64) *ALiYunAntChain {
+	s.NodeNum = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetRegionId(v string) *ALiYunAntChain {
+	s.RegionId = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetResourceSize(v string) *ALiYunAntChain {
+	s.ResourceSize = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetRestStatus(v string) *ALiYunAntChain {
+	s.RestStatus = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetTlsAlgo(v string) *ALiYunAntChain {
+	s.TlsAlgo = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetVersion(v string) *ALiYunAntChain {
+	s.Version = &v
+	return s
+}
+
+func (s *ALiYunAntChain) SetMonitorStatus(v bool) *ALiYunAntChain {
+	s.MonitorStatus = &v
+	return s
+}
+
+// Did Doc中的服务字段描述
+type DidDocServicesInfo struct {
+	// 服务的扩展字段
+	Extension *string `json:"extension,omitempty" xml:"extension,omitempty"`
+	// 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务：
+	// DidAuthService， 有且只能有一个，并且id必须为didauth-1；
+	// VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 服务的可访问地址
+	ServiceEndpoint *string `json:"service_endpoint,omitempty" xml:"service_endpoint,omitempty" require:"true"`
+	// 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s DidDocServicesInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DidDocServicesInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DidDocServicesInfo) SetExtension(v string) *DidDocServicesInfo {
+	s.Extension = &v
+	return s
+}
+
+func (s *DidDocServicesInfo) SetId(v string) *DidDocServicesInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *DidDocServicesInfo) SetServiceEndpoint(v string) *DidDocServicesInfo {
+	s.ServiceEndpoint = &v
+	return s
+}
+
+func (s *DidDocServicesInfo) SetType(v string) *DidDocServicesInfo {
+	s.Type = &v
+	return s
+}
+
+// 阿里云蚂蚁区块链证书信息
+type ALiYunCertificateApplication struct {
+	// ant_chain_id
+	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty"`
+	// username
+	Username *string `json:"username,omitempty" xml:"username,omitempty"`
+	// createtime
+	Createtime *int64 `json:"createtime,omitempty" xml:"createtime,omitempty"`
+	// updatetime
+	Updatetime *int64 `json:"updatetime,omitempty" xml:"updatetime,omitempty"`
+	// bid
+	Bid *string `json:"bid,omitempty" xml:"bid,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ALiYunCertificateApplication) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunCertificateApplication) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunCertificateApplication) SetAntChainId(v string) *ALiYunCertificateApplication {
+	s.AntChainId = &v
+	return s
+}
+
+func (s *ALiYunCertificateApplication) SetUsername(v string) *ALiYunCertificateApplication {
+	s.Username = &v
+	return s
+}
+
+func (s *ALiYunCertificateApplication) SetCreatetime(v int64) *ALiYunCertificateApplication {
+	s.Createtime = &v
+	return s
+}
+
+func (s *ALiYunCertificateApplication) SetUpdatetime(v int64) *ALiYunCertificateApplication {
+	s.Updatetime = &v
+	return s
+}
+
+func (s *ALiYunCertificateApplication) SetBid(v string) *ALiYunCertificateApplication {
+	s.Bid = &v
+	return s
+}
+
+func (s *ALiYunCertificateApplication) SetStatus(v string) *ALiYunCertificateApplication {
+	s.Status = &v
+	return s
+}
+
+// DidDoc中service的信息
+type DisServicesInfo struct {
+	// did doc service扩展字段
+	Extesion *string `json:"extesion,omitempty" xml:"extesion,omitempty"`
+	// did doc service id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 服务endpoint
+	ServiceEndpoint *string `json:"service_endpoint,omitempty" xml:"service_endpoint,omitempty" require:"true"`
+	// service type
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// EXIST
+	// CONFLICT
+	// VALID
+	// INVALID
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
+}
+
+func (s DisServicesInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DisServicesInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DisServicesInfo) SetExtesion(v string) *DisServicesInfo {
+	s.Extesion = &v
+	return s
+}
+
+func (s *DisServicesInfo) SetId(v string) *DisServicesInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *DisServicesInfo) SetServiceEndpoint(v string) *DisServicesInfo {
+	s.ServiceEndpoint = &v
+	return s
+}
+
+func (s *DisServicesInfo) SetType(v string) *DisServicesInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *DisServicesInfo) SetDesc(v string) *DisServicesInfo {
+	s.Desc = &v
+	return s
+}
+
+// 阿里云合约链信息
+type ALiYunContractBlockchain struct {
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// bizid
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty"`
+	// chain_type
+	ChainType *string `json:"chain_type,omitempty" xml:"chain_type,omitempty"`
+	// node_num
+	NodeNum *int64 `json:"node_num,omitempty" xml:"node_num,omitempty"`
+	// member_status
+	MemberStatus *string `json:"member_status,omitempty" xml:"member_status,omitempty"`
+	// block_height
+	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty"`
+	// transactions
+	Transactions *int64 `json:"transactions,omitempty" xml:"transactions,omitempty"`
+	// network
+	Network *string `json:"network,omitempty" xml:"network,omitempty"`
+	// version
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+}
+
+func (s ALiYunContractBlockchain) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunContractBlockchain) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunContractBlockchain) SetName(v string) *ALiYunContractBlockchain {
+	s.Name = &v
+	return s
+}
+
+func (s *ALiYunContractBlockchain) SetBizid(v string) *ALiYunContractBlockchain {
+	s.Bizid = &v
+	return s
+}
+
+func (s *ALiYunContractBlockchain) SetChainType(v string) *ALiYunContractBlockchain {
+	s.ChainType = &v
+	return s
+}
+
+func (s *ALiYunContractBlockchain) SetNodeNum(v int64) *ALiYunContractBlockchain {
+	s.NodeNum = &v
+	return s
+}
+
+func (s *ALiYunContractBlockchain) SetMemberStatus(v string) *ALiYunContractBlockchain {
+	s.MemberStatus = &v
+	return s
+}
+
+func (s *ALiYunContractBlockchain) SetBlockHeight(v int64) *ALiYunContractBlockchain {
+	s.BlockHeight = &v
+	return s
+}
+
+func (s *ALiYunContractBlockchain) SetTransactions(v int64) *ALiYunContractBlockchain {
+	s.Transactions = &v
+	return s
+}
+
+func (s *ALiYunContractBlockchain) SetNetwork(v string) *ALiYunContractBlockchain {
+	s.Network = &v
+	return s
+}
+
+func (s *ALiYunContractBlockchain) SetVersion(v string) *ALiYunContractBlockchain {
+	s.Version = &v
+	return s
+}
+
+// 阿里云区块链小程序用户权限信息
+type ALiYunChainMiniAppAuthorizedUser struct {
+	// phone
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
+	// gmt_authorized
+	GmtAuthorized *string `json:"gmt_authorized,omitempty" xml:"gmt_authorized,omitempty"`
+	// 记录id
+	UserId *int64 `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s ALiYunChainMiniAppAuthorizedUser) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunChainMiniAppAuthorizedUser) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunChainMiniAppAuthorizedUser) SetPhone(v string) *ALiYunChainMiniAppAuthorizedUser {
+	s.Phone = &v
+	return s
+}
+
+func (s *ALiYunChainMiniAppAuthorizedUser) SetGmtAuthorized(v string) *ALiYunChainMiniAppAuthorizedUser {
+	s.GmtAuthorized = &v
+	return s
+}
+
+func (s *ALiYunChainMiniAppAuthorizedUser) SetUserId(v int64) *ALiYunChainMiniAppAuthorizedUser {
+	s.UserId = &v
+	return s
+}
+
+// 阿里云合约工程信息
+type ALiYunContractProject struct {
+	// consortium_id
+	ConsortiumId *string `json:"consortium_id,omitempty" xml:"consortium_id,omitempty"`
+	// create_time
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// project_description
+	ProjectDescription *string `json:"project_description,omitempty" xml:"project_description,omitempty"`
+	// project_id
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
+	// project_name
+	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty"`
+	// project_version
+	ProjectVersion *string `json:"project_version,omitempty" xml:"project_version,omitempty"`
+	// update_time
+	UpdateTime *int64 `json:"update_time,omitempty" xml:"update_time,omitempty"`
+}
+
+func (s ALiYunContractProject) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunContractProject) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunContractProject) SetConsortiumId(v string) *ALiYunContractProject {
+	s.ConsortiumId = &v
+	return s
+}
+
+func (s *ALiYunContractProject) SetCreateTime(v int64) *ALiYunContractProject {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *ALiYunContractProject) SetProjectDescription(v string) *ALiYunContractProject {
+	s.ProjectDescription = &v
+	return s
+}
+
+func (s *ALiYunContractProject) SetProjectId(v string) *ALiYunContractProject {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *ALiYunContractProject) SetProjectName(v string) *ALiYunContractProject {
+	s.ProjectName = &v
+	return s
+}
+
+func (s *ALiYunContractProject) SetProjectVersion(v string) *ALiYunContractProject {
+	s.ProjectVersion = &v
+	return s
+}
+
+func (s *ALiYunContractProject) SetUpdateTime(v int64) *ALiYunContractProject {
+	s.UpdateTime = &v
+	return s
+}
+
+// 合约列表
+type ContractPageListResp struct {
+	// 服务ID
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	// 合约名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 合约类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 创建时间
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
+}
+
+func (s ContractPageListResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractPageListResp) GoString() string {
+	return s.String()
+}
+
+func (s *ContractPageListResp) SetServiceId(v string) *ContractPageListResp {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *ContractPageListResp) SetName(v string) *ContractPageListResp {
+	s.Name = &v
+	return s
+}
+
+func (s *ContractPageListResp) SetType(v string) *ContractPageListResp {
+	s.Type = &v
+	return s
+}
+
+func (s *ContractPageListResp) SetCreateTime(v int64) *ContractPageListResp {
+	s.CreateTime = &v
+	return s
+}
+
+// 阿里云区块链信息
+type ALiYunOldContractBlockchain struct {
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// bizid
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty"`
+	// chain_type
+	ChainType *string `json:"chain_type,omitempty" xml:"chain_type,omitempty"`
+	// node_num
+	NodeNum *int64 `json:"node_num,omitempty" xml:"node_num,omitempty"`
+	// member_status
+	MemberStatus *string `json:"member_status,omitempty" xml:"member_status,omitempty"`
+	// block_height
+	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty"`
+	// transactions
+	Transactions *int64 `json:"transactions,omitempty" xml:"transactions,omitempty"`
+	// network
+	Network *string `json:"network,omitempty" xml:"network,omitempty"`
+	// version
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+}
+
+func (s ALiYunOldContractBlockchain) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunOldContractBlockchain) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunOldContractBlockchain) SetName(v string) *ALiYunOldContractBlockchain {
+	s.Name = &v
+	return s
+}
+
+func (s *ALiYunOldContractBlockchain) SetBizid(v string) *ALiYunOldContractBlockchain {
+	s.Bizid = &v
+	return s
+}
+
+func (s *ALiYunOldContractBlockchain) SetChainType(v string) *ALiYunOldContractBlockchain {
+	s.ChainType = &v
+	return s
+}
+
+func (s *ALiYunOldContractBlockchain) SetNodeNum(v int64) *ALiYunOldContractBlockchain {
+	s.NodeNum = &v
+	return s
+}
+
+func (s *ALiYunOldContractBlockchain) SetMemberStatus(v string) *ALiYunOldContractBlockchain {
+	s.MemberStatus = &v
+	return s
+}
+
+func (s *ALiYunOldContractBlockchain) SetBlockHeight(v int64) *ALiYunOldContractBlockchain {
+	s.BlockHeight = &v
+	return s
+}
+
+func (s *ALiYunOldContractBlockchain) SetTransactions(v int64) *ALiYunOldContractBlockchain {
+	s.Transactions = &v
+	return s
+}
+
+func (s *ALiYunOldContractBlockchain) SetNetwork(v string) *ALiYunOldContractBlockchain {
+	s.Network = &v
+	return s
+}
+
+func (s *ALiYunOldContractBlockchain) SetVersion(v string) *ALiYunOldContractBlockchain {
+	s.Version = &v
+	return s
+}
+
+// 分页属性
+type ALiYunPagination struct {
+	// 分页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 分页编号
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 总数大小
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+}
+
+func (s ALiYunPagination) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunPagination) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunPagination) SetPageSize(v int64) *ALiYunPagination {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ALiYunPagination) SetPageNumber(v int64) *ALiYunPagination {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *ALiYunPagination) SetTotalCount(v int64) *ALiYunPagination {
+	s.TotalCount = &v
+	return s
+}
+
+// 阿里云区块链交易的汇总信息
+type ALiYunTransactionSummary struct {
+	// alias
+	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
+	// hash
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+	// trans_type_v6
+	TransTypeV6 *string `json:"trans_type_v6,omitempty" xml:"trans_type_v6,omitempty"`
+	// trans_type_v10
+	TransTypeV10 *string `json:"trans_type_v10,omitempty" xml:"trans_type_v10,omitempty"`
+	// category
+	Category *int64 `json:"category,omitempty" xml:"category,omitempty"`
+	// height
+	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
+	// block_hash
+	BlockHash *string `json:"block_hash,omitempty" xml:"block_hash,omitempty"`
+	// create_time
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// reference_count
+	ReferenceCount *int64 `json:"reference_count,omitempty" xml:"reference_count,omitempty"`
+	// from
+	From *string `json:"from,omitempty" xml:"from,omitempty"`
+	// to
+	To *string `json:"to,omitempty" xml:"to,omitempty"`
+	// gas_used
+	GasUsed *int64 `json:"gas_used,omitempty" xml:"gas_used,omitempty"`
+}
+
+func (s ALiYunTransactionSummary) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunTransactionSummary) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunTransactionSummary) SetAlias(v string) *ALiYunTransactionSummary {
+	s.Alias = &v
+	return s
+}
+
+func (s *ALiYunTransactionSummary) SetHash(v string) *ALiYunTransactionSummary {
+	s.Hash = &v
+	return s
+}
+
+func (s *ALiYunTransactionSummary) SetTransTypeV6(v string) *ALiYunTransactionSummary {
+	s.TransTypeV6 = &v
+	return s
+}
+
+func (s *ALiYunTransactionSummary) SetTransTypeV10(v string) *ALiYunTransactionSummary {
+	s.TransTypeV10 = &v
+	return s
+}
+
+func (s *ALiYunTransactionSummary) SetCategory(v int64) *ALiYunTransactionSummary {
+	s.Category = &v
+	return s
+}
+
+func (s *ALiYunTransactionSummary) SetHeight(v int64) *ALiYunTransactionSummary {
+	s.Height = &v
+	return s
+}
+
+func (s *ALiYunTransactionSummary) SetBlockHash(v string) *ALiYunTransactionSummary {
+	s.BlockHash = &v
+	return s
+}
+
+func (s *ALiYunTransactionSummary) SetCreateTime(v int64) *ALiYunTransactionSummary {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *ALiYunTransactionSummary) SetReferenceCount(v int64) *ALiYunTransactionSummary {
+	s.ReferenceCount = &v
+	return s
+}
+
+func (s *ALiYunTransactionSummary) SetFrom(v string) *ALiYunTransactionSummary {
+	s.From = &v
+	return s
+}
+
+func (s *ALiYunTransactionSummary) SetTo(v string) *ALiYunTransactionSummary {
+	s.To = &v
+	return s
+}
+
+func (s *ALiYunTransactionSummary) SetGasUsed(v int64) *ALiYunTransactionSummary {
+	s.GasUsed = &v
+	return s
+}
+
 // 阿里云联盟信息
 type ALiYunAntConsortium struct {
 	// 链的数量
@@ -2253,6 +2676,25 @@ func (s *CheckPointStructBody) SetTotalCount(v string) *CheckPointStructBody {
 	return s
 }
 
+// 人群匹配结果
+type CrowdMatchResult struct {
+	// 人群匹配结果
+	Match *bool `json:"match,omitempty" xml:"match,omitempty" require:"true"`
+}
+
+func (s CrowdMatchResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CrowdMatchResult) GoString() string {
+	return s.String()
+}
+
+func (s *CrowdMatchResult) SetMatch(v bool) *CrowdMatchResult {
+	s.Match = &v
+	return s
+}
+
 // 账户映射情况
 type AccountMappingInfo struct {
 	// 链上账户id
@@ -2293,165 +2735,71 @@ func (s *AccountMappingInfo) SetUid(v string) *AccountMappingInfo {
 	return s
 }
 
-// 应用授权列表查询
-type ApplicationListResp struct {
-	// 应用程序ID
-	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
-	// 链ID
-	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
-	// 合约(创建实例时填写的合约名称。)
-	NameList []*string `json:"name_list,omitempty" xml:"name_list,omitempty" type:"Repeated"`
+// 证书实例详情
+type CertInstanceDetail struct {
+	// 主键
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 实例名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 版发者
+	Issuer *string `json:"issuer,omitempty" xml:"issuer,omitempty" require:"true"`
+	// 实例内容
+	ClaimContent *string `json:"claim_content,omitempty" xml:"claim_content,omitempty" require:"true"`
+	// 状态；-1：已删除 0：审核未通过, 1：审核通过, 2：待审核, 3：编辑中
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 审核建议
+	VerifyComment *string `json:"verify_comment,omitempty" xml:"verify_comment,omitempty" require:"true"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
+	// 修改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true"`
 }
 
-func (s ApplicationListResp) String() string {
+func (s CertInstanceDetail) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApplicationListResp) GoString() string {
+func (s CertInstanceDetail) GoString() string {
 	return s.String()
 }
 
-func (s *ApplicationListResp) SetApplicationId(v string) *ApplicationListResp {
-	s.ApplicationId = &v
+func (s *CertInstanceDetail) SetBizId(v string) *CertInstanceDetail {
+	s.BizId = &v
 	return s
 }
 
-func (s *ApplicationListResp) SetAccessKey(v string) *ApplicationListResp {
-	s.AccessKey = &v
+func (s *CertInstanceDetail) SetName(v string) *CertInstanceDetail {
+	s.Name = &v
 	return s
 }
 
-func (s *ApplicationListResp) SetNameList(v []*string) *ApplicationListResp {
-	s.NameList = v
+func (s *CertInstanceDetail) SetIssuer(v string) *CertInstanceDetail {
+	s.Issuer = &v
 	return s
 }
 
-// VC可信传输时，指定的目标did信息
-type VcTransmitTargetStruct struct {
-	// 目标did的公钥
-	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty"`
-	// 传输vc使用的区块链id
-	VcChannel *string `json:"vc_channel,omitempty" xml:"vc_channel,omitempty" maxLength:"32" minLength:"8"`
-	// 验证者did
-	VerifierDid *string `json:"verifier_did,omitempty" xml:"verifier_did,omitempty" require:"true"`
-}
-
-func (s VcTransmitTargetStruct) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VcTransmitTargetStruct) GoString() string {
-	return s.String()
-}
-
-func (s *VcTransmitTargetStruct) SetPublicKey(v string) *VcTransmitTargetStruct {
-	s.PublicKey = &v
+func (s *CertInstanceDetail) SetClaimContent(v string) *CertInstanceDetail {
+	s.ClaimContent = &v
 	return s
 }
 
-func (s *VcTransmitTargetStruct) SetVcChannel(v string) *VcTransmitTargetStruct {
-	s.VcChannel = &v
+func (s *CertInstanceDetail) SetStatus(v int64) *CertInstanceDetail {
+	s.Status = &v
 	return s
 }
 
-func (s *VcTransmitTargetStruct) SetVerifierDid(v string) *VcTransmitTargetStruct {
-	s.VerifierDid = &v
+func (s *CertInstanceDetail) SetVerifyComment(v string) *CertInstanceDetail {
+	s.VerifyComment = &v
 	return s
 }
 
-// 阿里云交易查询信息
-type ALiYunTransaction struct {
-	// tx_type
-	TxType *string `json:"tx_type,omitempty" xml:"tx_type,omitempty"`
-	// data
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
-	// hash
-	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
-	// from
-	From *string `json:"from,omitempty" xml:"from,omitempty"`
-	// to
-	To *string `json:"to,omitempty" xml:"to,omitempty"`
-	// timestamp
-	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
-	// period
-	Period *int64 `json:"period,omitempty" xml:"period,omitempty"`
-	// nonce
-	Nonce *string `json:"nonce,omitempty" xml:"nonce,omitempty"`
-	// gas
-	Gas *string `json:"gas,omitempty" xml:"gas,omitempty"`
-	// value
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
-	// signatures
-	Signatures []*string `json:"signatures,omitempty" xml:"signatures,omitempty" type:"Repeated"`
-	// extentions
-	Extentions []*string `json:"extentions,omitempty" xml:"extentions,omitempty" type:"Repeated"`
-}
-
-func (s ALiYunTransaction) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunTransaction) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunTransaction) SetTxType(v string) *ALiYunTransaction {
-	s.TxType = &v
+func (s *CertInstanceDetail) SetGmtCreate(v string) *CertInstanceDetail {
+	s.GmtCreate = &v
 	return s
 }
 
-func (s *ALiYunTransaction) SetData(v string) *ALiYunTransaction {
-	s.Data = &v
-	return s
-}
-
-func (s *ALiYunTransaction) SetHash(v string) *ALiYunTransaction {
-	s.Hash = &v
-	return s
-}
-
-func (s *ALiYunTransaction) SetFrom(v string) *ALiYunTransaction {
-	s.From = &v
-	return s
-}
-
-func (s *ALiYunTransaction) SetTo(v string) *ALiYunTransaction {
-	s.To = &v
-	return s
-}
-
-func (s *ALiYunTransaction) SetTimestamp(v int64) *ALiYunTransaction {
-	s.Timestamp = &v
-	return s
-}
-
-func (s *ALiYunTransaction) SetPeriod(v int64) *ALiYunTransaction {
-	s.Period = &v
-	return s
-}
-
-func (s *ALiYunTransaction) SetNonce(v string) *ALiYunTransaction {
-	s.Nonce = &v
-	return s
-}
-
-func (s *ALiYunTransaction) SetGas(v string) *ALiYunTransaction {
-	s.Gas = &v
-	return s
-}
-
-func (s *ALiYunTransaction) SetValue(v string) *ALiYunTransaction {
-	s.Value = &v
-	return s
-}
-
-func (s *ALiYunTransaction) SetSignatures(v []*string) *ALiYunTransaction {
-	s.Signatures = v
-	return s
-}
-
-func (s *ALiYunTransaction) SetExtentions(v []*string) *ALiYunTransaction {
-	s.Extentions = v
+func (s *CertInstanceDetail) SetGmtModified(v string) *CertInstanceDetail {
+	s.GmtModified = &v
 	return s
 }
 
@@ -2523,81 +2871,6 @@ func (s *ChainPurpose) SetPurposeItem(v string) *ChainPurpose {
 	return s
 }
 
-// 阿里云存证链信息
-type ALiYunNotaryBlockchain struct {
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// bizid
-	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty"`
-	// chain_type
-	ChainType *string `json:"chain_type,omitempty" xml:"chain_type,omitempty"`
-	// node_num
-	NodeNum *int64 `json:"node_num,omitempty" xml:"node_num,omitempty"`
-	// member_status
-	MemberStatus *string `json:"member_status,omitempty" xml:"member_status,omitempty"`
-	// block_height
-	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty"`
-	// transactions
-	Transactions *int64 `json:"transactions,omitempty" xml:"transactions,omitempty"`
-	// network
-	Network *string `json:"network,omitempty" xml:"network,omitempty"`
-	// version
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-}
-
-func (s ALiYunNotaryBlockchain) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunNotaryBlockchain) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunNotaryBlockchain) SetName(v string) *ALiYunNotaryBlockchain {
-	s.Name = &v
-	return s
-}
-
-func (s *ALiYunNotaryBlockchain) SetBizid(v string) *ALiYunNotaryBlockchain {
-	s.Bizid = &v
-	return s
-}
-
-func (s *ALiYunNotaryBlockchain) SetChainType(v string) *ALiYunNotaryBlockchain {
-	s.ChainType = &v
-	return s
-}
-
-func (s *ALiYunNotaryBlockchain) SetNodeNum(v int64) *ALiYunNotaryBlockchain {
-	s.NodeNum = &v
-	return s
-}
-
-func (s *ALiYunNotaryBlockchain) SetMemberStatus(v string) *ALiYunNotaryBlockchain {
-	s.MemberStatus = &v
-	return s
-}
-
-func (s *ALiYunNotaryBlockchain) SetBlockHeight(v int64) *ALiYunNotaryBlockchain {
-	s.BlockHeight = &v
-	return s
-}
-
-func (s *ALiYunNotaryBlockchain) SetTransactions(v int64) *ALiYunNotaryBlockchain {
-	s.Transactions = &v
-	return s
-}
-
-func (s *ALiYunNotaryBlockchain) SetNetwork(v string) *ALiYunNotaryBlockchain {
-	s.Network = &v
-	return s
-}
-
-func (s *ALiYunNotaryBlockchain) SetVersion(v string) *ALiYunNotaryBlockchain {
-	s.Version = &v
-	return s
-}
-
 // 证书颁发校验错误描述
 type TemplateInstanceErrorDetailDTO struct {
 	// 当前错误类型的错误行数
@@ -2635,6 +2908,3525 @@ func (s *TemplateInstanceErrorDetailDTO) SetErrorColumnIndex(v int64) *TemplateI
 
 func (s *TemplateInstanceErrorDetailDTO) SetErrorDescription(v string) *TemplateInstanceErrorDetailDTO {
 	s.ErrorDescription = &v
+	return s
+}
+
+// 申请用户授权的目标可验证声明内容、过期时间等配置
+type Claim struct {
+	// 一个json的string，内容包含具体需要的声明，不同业务场景不同。
+	ClaimContent *string `json:"claim_content,omitempty" xml:"claim_content,omitempty" require:"true"`
+	// 如果在相同的biz_type下，还需要针对声明claim进行细化划分，可以使用此字段。
+	ClaimType *string `json:"claim_type,omitempty" xml:"claim_type,omitempty"`
+	// 申请声明颁发后的有效期，可选参数，如果不指定则默认申请永久有效。
+	Expire *int64 `json:"expire,omitempty" xml:"expire,omitempty"`
+	// 授权颁发可验证声明的目标did信息，通常为机构或组织的did
+	Did *string `json:"did,omitempty" xml:"did,omitempty"`
+	// 目标待授权的名称，标定唯一性，与claim内容配合使用，如果不指定did可以考虑使用此字段。
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+}
+
+func (s Claim) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Claim) GoString() string {
+	return s.String()
+}
+
+func (s *Claim) SetClaimContent(v string) *Claim {
+	s.ClaimContent = &v
+	return s
+}
+
+func (s *Claim) SetClaimType(v string) *Claim {
+	s.ClaimType = &v
+	return s
+}
+
+func (s *Claim) SetExpire(v int64) *Claim {
+	s.Expire = &v
+	return s
+}
+
+func (s *Claim) SetDid(v string) *Claim {
+	s.Did = &v
+	return s
+}
+
+func (s *Claim) SetName(v string) *Claim {
+	s.Name = &v
+	return s
+}
+
+// 阿里云子链检查结果
+type ALiYunChainSubnetCheck struct {
+	// 检查结果
+	CheckResult *string `json:"check_result,omitempty" xml:"check_result,omitempty"`
+	// 子链成员列表
+	ConsortiumMemberList []*string `json:"consortium_member_list,omitempty" xml:"consortium_member_list,omitempty" type:"Repeated"`
+	// 节点信息列表
+	ChainNodeInfoList []*ALiYunChainNodeInfo `json:"chain_node_info_list,omitempty" xml:"chain_node_info_list,omitempty" type:"Repeated"`
+	// 联盟管理员
+	ConsortiumAdmin *bool `json:"consortium_admin,omitempty" xml:"consortium_admin,omitempty"`
+	// 子链成员列表
+	ConsortiumMemberInfoList []*ALiYunMember `json:"consortium_member_info_list,omitempty" xml:"consortium_member_info_list,omitempty" type:"Repeated"`
+	// 分页信息
+	Pagination *ALiYunPagination `json:"pagination,omitempty" xml:"pagination,omitempty"`
+}
+
+func (s ALiYunChainSubnetCheck) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunChainSubnetCheck) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunChainSubnetCheck) SetCheckResult(v string) *ALiYunChainSubnetCheck {
+	s.CheckResult = &v
+	return s
+}
+
+func (s *ALiYunChainSubnetCheck) SetConsortiumMemberList(v []*string) *ALiYunChainSubnetCheck {
+	s.ConsortiumMemberList = v
+	return s
+}
+
+func (s *ALiYunChainSubnetCheck) SetChainNodeInfoList(v []*ALiYunChainNodeInfo) *ALiYunChainSubnetCheck {
+	s.ChainNodeInfoList = v
+	return s
+}
+
+func (s *ALiYunChainSubnetCheck) SetConsortiumAdmin(v bool) *ALiYunChainSubnetCheck {
+	s.ConsortiumAdmin = &v
+	return s
+}
+
+func (s *ALiYunChainSubnetCheck) SetConsortiumMemberInfoList(v []*ALiYunMember) *ALiYunChainSubnetCheck {
+	s.ConsortiumMemberInfoList = v
+	return s
+}
+
+func (s *ALiYunChainSubnetCheck) SetPagination(v *ALiYunPagination) *ALiYunChainSubnetCheck {
+	s.Pagination = v
+	return s
+}
+
+// 授权规则详细信息
+type AuthorizationRule struct {
+	// 规则来源
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 规则索引
+	Index *string `json:"index,omitempty" xml:"index,omitempty" require:"true"`
+	// 规则类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 规则表达式
+	Expression *string `json:"expression,omitempty" xml:"expression,omitempty" require:"true"`
+	// 规则内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+}
+
+func (s AuthorizationRule) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthorizationRule) GoString() string {
+	return s.String()
+}
+
+func (s *AuthorizationRule) SetSource(v string) *AuthorizationRule {
+	s.Source = &v
+	return s
+}
+
+func (s *AuthorizationRule) SetIndex(v string) *AuthorizationRule {
+	s.Index = &v
+	return s
+}
+
+func (s *AuthorizationRule) SetType(v string) *AuthorizationRule {
+	s.Type = &v
+	return s
+}
+
+func (s *AuthorizationRule) SetExpression(v string) *AuthorizationRule {
+	s.Expression = &v
+	return s
+}
+
+func (s *AuthorizationRule) SetContent(v string) *AuthorizationRule {
+	s.Content = &v
+	return s
+}
+
+// 账户映射结果
+type AccountMappingResult struct {
+	// 该账户在链上的唯一标示
+	Baccount *string `json:"baccount,omitempty" xml:"baccount,omitempty" require:"true"`
+	// 当前账户映射结果描述语句
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+	// 状态描述符
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 自有系统中该账户唯一标示
+	Uid *string `json:"uid,omitempty" xml:"uid,omitempty" require:"true"`
+}
+
+func (s AccountMappingResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccountMappingResult) GoString() string {
+	return s.String()
+}
+
+func (s *AccountMappingResult) SetBaccount(v string) *AccountMappingResult {
+	s.Baccount = &v
+	return s
+}
+
+func (s *AccountMappingResult) SetMessage(v string) *AccountMappingResult {
+	s.Message = &v
+	return s
+}
+
+func (s *AccountMappingResult) SetStatus(v string) *AccountMappingResult {
+	s.Status = &v
+	return s
+}
+
+func (s *AccountMappingResult) SetUid(v string) *AccountMappingResult {
+	s.Uid = &v
+	return s
+}
+
+// 可验证声明的完整内容以及状态，当前持有者的did等信息
+type VcContent struct {
+	// 可验证声明的唯一标识id，status 为 “1” 时候非空
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty" require:"true"`
+	// 可验证声明完整内容， status 为 “1” 时候非空
+	VcContent *string `json:"vc_content,omitempty" xml:"vc_content,omitempty" require:"true"`
+	// 可验证声明的颁发状态说明： -1：颁发失败，0：未授权 1：授权成功，此时vc_content字段会包含授权后的声明内容，其它状态码，待定义后增加。
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 被颁发当前可验证声明的目标did
+	Did *string `json:"did,omitempty" xml:"did,omitempty"`
+	// 如果status 是 “-1”，则说明当前可验证声明颁发失败，此字段说明失败原因。
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s VcContent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VcContent) GoString() string {
+	return s.String()
+}
+
+func (s *VcContent) SetVcId(v string) *VcContent {
+	s.VcId = &v
+	return s
+}
+
+func (s *VcContent) SetVcContent(v string) *VcContent {
+	s.VcContent = &v
+	return s
+}
+
+func (s *VcContent) SetStatus(v string) *VcContent {
+	s.Status = &v
+	return s
+}
+
+func (s *VcContent) SetDid(v string) *VcContent {
+	s.Did = &v
+	return s
+}
+
+func (s *VcContent) SetMessage(v string) *VcContent {
+	s.Message = &v
+	return s
+}
+
+// 用户身份、账户及手机号信息
+type UserInfoParam struct {
+	// 用户手机号信息
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty" require:"true"`
+	// 用户账号信息
+	UserAccount *string `json:"user_account,omitempty" xml:"user_account,omitempty" require:"true"`
+	// 用户名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+}
+
+func (s UserInfoParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UserInfoParam) GoString() string {
+	return s.String()
+}
+
+func (s *UserInfoParam) SetPhone(v string) *UserInfoParam {
+	s.Phone = &v
+	return s
+}
+
+func (s *UserInfoParam) SetUserAccount(v string) *UserInfoParam {
+	s.UserAccount = &v
+	return s
+}
+
+func (s *UserInfoParam) SetUserName(v string) *UserInfoParam {
+	s.UserName = &v
+	return s
+}
+
+// 任务人群匹配返回列表
+type TaskCrowdMatchResp struct {
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 人群匹配结果
+	CrowdMatchResult *CrowdMatchResult `json:"crowd_match_result,omitempty" xml:"crowd_match_result,omitempty" require:"true"`
+}
+
+func (s TaskCrowdMatchResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TaskCrowdMatchResp) GoString() string {
+	return s.String()
+}
+
+func (s *TaskCrowdMatchResp) SetTaskId(v string) *TaskCrowdMatchResp {
+	s.TaskId = &v
+	return s
+}
+
+func (s *TaskCrowdMatchResp) SetCrowdMatchResult(v *CrowdMatchResult) *TaskCrowdMatchResp {
+	s.CrowdMatchResult = v
+	return s
+}
+
+// 链详情
+type MyChainInfo struct {
+	// 链id
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 授权租户id
+	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
+}
+
+func (s MyChainInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MyChainInfo) GoString() string {
+	return s.String()
+}
+
+func (s *MyChainInfo) SetBizId(v string) *MyChainInfo {
+	s.BizId = &v
+	return s
+}
+
+func (s *MyChainInfo) SetTenant(v string) *MyChainInfo {
+	s.Tenant = &v
+	return s
+}
+
+// 派生DID的具体参数
+type DeriveDid struct {
+	// 派生的子did
+	Childdid *string `json:"childdid,omitempty" xml:"childdid,omitempty" require:"true"`
+	// 子did 的did doc
+	Childdiddoc *string `json:"childdiddoc,omitempty" xml:"childdiddoc,omitempty" require:"true"`
+	// 用户输入用于派生子did的派生码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+}
+
+func (s DeriveDid) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeriveDid) GoString() string {
+	return s.String()
+}
+
+func (s *DeriveDid) SetChilddid(v string) *DeriveDid {
+	s.Childdid = &v
+	return s
+}
+
+func (s *DeriveDid) SetChilddiddoc(v string) *DeriveDid {
+	s.Childdiddoc = &v
+	return s
+}
+
+func (s *DeriveDid) SetCode(v string) *DeriveDid {
+	s.Code = &v
+	return s
+}
+
+// 授权明细详情
+type AuthorizationDetail struct {
+	// 授权凭证ID
+	AuthorityCertId *string `json:"authority_cert_id,omitempty" xml:"authority_cert_id,omitempty" require:"true"`
+	// 授权ID
+	AuthorizationId *string `json:"authorization_id,omitempty" xml:"authorization_id,omitempty"`
+	// 区块号
+	BlockNum *int64 `json:"block_num,omitempty" xml:"block_num,omitempty" require:"true"`
+	// 过期时间
+	Expire *int64 `json:"expire,omitempty" xml:"expire,omitempty"`
+	// 授权时间
+	IssuanceTime *int64 `json:"issuance_time,omitempty" xml:"issuance_time,omitempty" require:"true"`
+	// 授权人
+	Issuer *Participant `json:"issuer,omitempty" xml:"issuer,omitempty" require:"true"`
+	// 被授权人
+	Subject *Participant `json:"subject,omitempty" xml:"subject,omitempty" require:"true"`
+	// 哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 资产所有者
+	Owner *Participant `json:"owner,omitempty" xml:"owner,omitempty" require:"true"`
+}
+
+func (s AuthorizationDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthorizationDetail) GoString() string {
+	return s.String()
+}
+
+func (s *AuthorizationDetail) SetAuthorityCertId(v string) *AuthorizationDetail {
+	s.AuthorityCertId = &v
+	return s
+}
+
+func (s *AuthorizationDetail) SetAuthorizationId(v string) *AuthorizationDetail {
+	s.AuthorizationId = &v
+	return s
+}
+
+func (s *AuthorizationDetail) SetBlockNum(v int64) *AuthorizationDetail {
+	s.BlockNum = &v
+	return s
+}
+
+func (s *AuthorizationDetail) SetExpire(v int64) *AuthorizationDetail {
+	s.Expire = &v
+	return s
+}
+
+func (s *AuthorizationDetail) SetIssuanceTime(v int64) *AuthorizationDetail {
+	s.IssuanceTime = &v
+	return s
+}
+
+func (s *AuthorizationDetail) SetIssuer(v *Participant) *AuthorizationDetail {
+	s.Issuer = v
+	return s
+}
+
+func (s *AuthorizationDetail) SetSubject(v *Participant) *AuthorizationDetail {
+	s.Subject = v
+	return s
+}
+
+func (s *AuthorizationDetail) SetTxHash(v string) *AuthorizationDetail {
+	s.TxHash = &v
+	return s
+}
+
+func (s *AuthorizationDetail) SetOwner(v *Participant) *AuthorizationDetail {
+	s.Owner = v
+	return s
+}
+
+// 阿里云CloudIde的配置
+type ALiYunChainCloudIdeConfig struct {
+	// bizid
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// trial_account
+	TrialAccount *string `json:"trial_account,omitempty" xml:"trial_account,omitempty"`
+	// trial_account_private_key
+	TrialAccountPrivateKey *string `json:"trial_account_private_key,omitempty" xml:"trial_account_private_key,omitempty"`
+	// ant_chain_id
+	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty"`
+	// ant_chain_name
+	AntChainName *string `json:"ant_chain_name,omitempty" xml:"ant_chain_name,omitempty"`
+	// version
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+}
+
+func (s ALiYunChainCloudIdeConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunChainCloudIdeConfig) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunChainCloudIdeConfig) SetBizid(v string) *ALiYunChainCloudIdeConfig {
+	s.Bizid = &v
+	return s
+}
+
+func (s *ALiYunChainCloudIdeConfig) SetName(v string) *ALiYunChainCloudIdeConfig {
+	s.Name = &v
+	return s
+}
+
+func (s *ALiYunChainCloudIdeConfig) SetTrialAccount(v string) *ALiYunChainCloudIdeConfig {
+	s.TrialAccount = &v
+	return s
+}
+
+func (s *ALiYunChainCloudIdeConfig) SetTrialAccountPrivateKey(v string) *ALiYunChainCloudIdeConfig {
+	s.TrialAccountPrivateKey = &v
+	return s
+}
+
+func (s *ALiYunChainCloudIdeConfig) SetAntChainId(v string) *ALiYunChainCloudIdeConfig {
+	s.AntChainId = &v
+	return s
+}
+
+func (s *ALiYunChainCloudIdeConfig) SetAntChainName(v string) *ALiYunChainCloudIdeConfig {
+	s.AntChainName = &v
+	return s
+}
+
+func (s *ALiYunChainCloudIdeConfig) SetVersion(v string) *ALiYunChainCloudIdeConfig {
+	s.Version = &v
+	return s
+}
+
+// 创建应用响应信息
+type ApplicationCreateResp struct {
+	// 应用标识
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
+}
+
+func (s ApplicationCreateResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplicationCreateResp) GoString() string {
+	return s.String()
+}
+
+func (s *ApplicationCreateResp) SetApplicationId(v string) *ApplicationCreateResp {
+	s.ApplicationId = &v
+	return s
+}
+
+// 阿里云联盟返回结果
+type ALiYunUnion struct {
+	// 联盟内链的集合
+	AntChains []*ALiYunAntChain `json:"ant_chains,omitempty" xml:"ant_chains,omitempty" type:"Repeated"`
+	// 联盟信息
+	AntConsortiums []*ALiYunAntConsortium `json:"ant_consortiums,omitempty" xml:"ant_consortiums,omitempty" type:"Repeated"`
+	// 联盟Id
+	ConsortiumId *string `json:"consortium_id,omitempty" xml:"consortium_id,omitempty"`
+	// 联盟成员信息
+	Members []*ALiYunMember `json:"members,omitempty" xml:"members,omitempty" type:"Repeated"`
+	// 阿里云分页属性
+	Pagination *ALiYunPagination `json:"pagination,omitempty" xml:"pagination,omitempty"`
+	// is_exist
+	IsExist *bool `json:"is_exist,omitempty" xml:"is_exist,omitempty"`
+}
+
+func (s ALiYunUnion) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunUnion) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunUnion) SetAntChains(v []*ALiYunAntChain) *ALiYunUnion {
+	s.AntChains = v
+	return s
+}
+
+func (s *ALiYunUnion) SetAntConsortiums(v []*ALiYunAntConsortium) *ALiYunUnion {
+	s.AntConsortiums = v
+	return s
+}
+
+func (s *ALiYunUnion) SetConsortiumId(v string) *ALiYunUnion {
+	s.ConsortiumId = &v
+	return s
+}
+
+func (s *ALiYunUnion) SetMembers(v []*ALiYunMember) *ALiYunUnion {
+	s.Members = v
+	return s
+}
+
+func (s *ALiYunUnion) SetPagination(v *ALiYunPagination) *ALiYunUnion {
+	s.Pagination = v
+	return s
+}
+
+func (s *ALiYunUnion) SetIsExist(v bool) *ALiYunUnion {
+	s.IsExist = &v
+	return s
+}
+
+// 数据授权服务公钥矩阵关系结构体
+type PublicKeyRelation struct {
+	// 公钥颁发者ID
+	IssuerId *string `json:"issuer_id,omitempty" xml:"issuer_id,omitempty" require:"true"`
+	// 公钥接受者ID
+	RecipientId *string `json:"recipient_id,omitempty" xml:"recipient_id,omitempty" require:"true"`
+}
+
+func (s PublicKeyRelation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PublicKeyRelation) GoString() string {
+	return s.String()
+}
+
+func (s *PublicKeyRelation) SetIssuerId(v string) *PublicKeyRelation {
+	s.IssuerId = &v
+	return s
+}
+
+func (s *PublicKeyRelation) SetRecipientId(v string) *PublicKeyRelation {
+	s.RecipientId = &v
+	return s
+}
+
+// 合约类型
+type ContractTypeResp struct {
+	// 合约服务类型
+	TypeList []*ContractTypeListResp `json:"type_list,omitempty" xml:"type_list,omitempty" type:"Repeated"`
+}
+
+func (s ContractTypeResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractTypeResp) GoString() string {
+	return s.String()
+}
+
+func (s *ContractTypeResp) SetTypeList(v []*ContractTypeListResp) *ContractTypeResp {
+	s.TypeList = v
+	return s
+}
+
+// 物流金融平台运单轨迹信息
+type LogisticLocation struct {
+	// 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 行政区划代码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty"`
+	// 纬度
+	Lat *string `json:"lat,omitempty" xml:"lat,omitempty" require:"true"`
+	// 经度
+	Lon *string `json:"lon,omitempty" xml:"lon,omitempty" require:"true"`
+	// 轨迹时间戳
+	TrackTime *int64 `json:"track_time,omitempty" xml:"track_time,omitempty" require:"true"`
+}
+
+func (s LogisticLocation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LogisticLocation) GoString() string {
+	return s.String()
+}
+
+func (s *LogisticLocation) SetAddress(v string) *LogisticLocation {
+	s.Address = &v
+	return s
+}
+
+func (s *LogisticLocation) SetCityCode(v string) *LogisticLocation {
+	s.CityCode = &v
+	return s
+}
+
+func (s *LogisticLocation) SetLat(v string) *LogisticLocation {
+	s.Lat = &v
+	return s
+}
+
+func (s *LogisticLocation) SetLon(v string) *LogisticLocation {
+	s.Lon = &v
+	return s
+}
+
+func (s *LogisticLocation) SetTrackTime(v int64) *LogisticLocation {
+	s.TrackTime = &v
+	return s
+}
+
+// 阿里云订单结果
+type ALiYunOrderResult struct {
+	// request_id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// data
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// code
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// message
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// synchro
+	Synchro *bool `json:"synchro,omitempty" xml:"synchro,omitempty"`
+}
+
+func (s ALiYunOrderResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunOrderResult) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunOrderResult) SetRequestId(v string) *ALiYunOrderResult {
+	s.RequestId = &v
+	return s
+}
+
+func (s *ALiYunOrderResult) SetData(v string) *ALiYunOrderResult {
+	s.Data = &v
+	return s
+}
+
+func (s *ALiYunOrderResult) SetSuccess(v bool) *ALiYunOrderResult {
+	s.Success = &v
+	return s
+}
+
+func (s *ALiYunOrderResult) SetCode(v string) *ALiYunOrderResult {
+	s.Code = &v
+	return s
+}
+
+func (s *ALiYunOrderResult) SetMessage(v string) *ALiYunOrderResult {
+	s.Message = &v
+	return s
+}
+
+func (s *ALiYunOrderResult) SetSynchro(v bool) *ALiYunOrderResult {
+	s.Synchro = &v
+	return s
+}
+
+// 批量查询商户下已映射的账户信息接口，返回的对象
+type QueryMappingBatchResult struct {
+	// 本次查询获取的账户信息
+	Accounts []*AccountMappingInfo `json:"accounts,omitempty" xml:"accounts,omitempty" require:"true" type:"Repeated"`
+	// 该商户下总共映射账户的数量
+	TotalNum *int64 `json:"total_num,omitempty" xml:"total_num,omitempty" require:"true"`
+	// 该商户下账户信息的总页数
+	TotalPage *int64 `json:"total_page,omitempty" xml:"total_page,omitempty" require:"true"`
+}
+
+func (s QueryMappingBatchResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMappingBatchResult) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMappingBatchResult) SetAccounts(v []*AccountMappingInfo) *QueryMappingBatchResult {
+	s.Accounts = v
+	return s
+}
+
+func (s *QueryMappingBatchResult) SetTotalNum(v int64) *QueryMappingBatchResult {
+	s.TotalNum = &v
+	return s
+}
+
+func (s *QueryMappingBatchResult) SetTotalPage(v int64) *QueryMappingBatchResult {
+	s.TotalPage = &v
+	return s
+}
+
+// 阿里云区块链区块信息
+type ALiYunChainBlock struct {
+	// ant_chain_id
+	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty"`
+	// block_hash
+	BlockHash *string `json:"block_hash,omitempty" xml:"block_hash,omitempty"`
+	// create_time
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// height
+	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
+	// previous_hash
+	PreviousHash *string `json:"previous_hash,omitempty" xml:"previous_hash,omitempty"`
+	// root_tx_hash
+	RootTxHash *string `json:"root_tx_hash,omitempty" xml:"root_tx_hash,omitempty"`
+	// transaction_size
+	TransactionSize *int64 `json:"transaction_size,omitempty" xml:"transaction_size,omitempty"`
+	// trans_summary_list
+	TransSummaryList []*ALiYunTransactionSummary `json:"trans_summary_list,omitempty" xml:"trans_summary_list,omitempty" type:"Repeated"`
+	// Version
+	Version *int64 `json:"version,omitempty" xml:"version,omitempty"`
+}
+
+func (s ALiYunChainBlock) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunChainBlock) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunChainBlock) SetAntChainId(v string) *ALiYunChainBlock {
+	s.AntChainId = &v
+	return s
+}
+
+func (s *ALiYunChainBlock) SetBlockHash(v string) *ALiYunChainBlock {
+	s.BlockHash = &v
+	return s
+}
+
+func (s *ALiYunChainBlock) SetCreateTime(v int64) *ALiYunChainBlock {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *ALiYunChainBlock) SetHeight(v int64) *ALiYunChainBlock {
+	s.Height = &v
+	return s
+}
+
+func (s *ALiYunChainBlock) SetPreviousHash(v string) *ALiYunChainBlock {
+	s.PreviousHash = &v
+	return s
+}
+
+func (s *ALiYunChainBlock) SetRootTxHash(v string) *ALiYunChainBlock {
+	s.RootTxHash = &v
+	return s
+}
+
+func (s *ALiYunChainBlock) SetTransactionSize(v int64) *ALiYunChainBlock {
+	s.TransactionSize = &v
+	return s
+}
+
+func (s *ALiYunChainBlock) SetTransSummaryList(v []*ALiYunTransactionSummary) *ALiYunChainBlock {
+	s.TransSummaryList = v
+	return s
+}
+
+func (s *ALiYunChainBlock) SetVersion(v int64) *ALiYunChainBlock {
+	s.Version = &v
+	return s
+}
+
+// 应用授权列表查询
+type ApplicationPageResp struct {
+	// 应用授权列表
+	List []*ApplicationPageListResp `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+}
+
+func (s ApplicationPageResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplicationPageResp) GoString() string {
+	return s.String()
+}
+
+func (s *ApplicationPageResp) SetList(v []*ApplicationPageListResp) *ApplicationPageResp {
+	s.List = v
+	return s
+}
+
+func (s *ApplicationPageResp) SetTotal(v int64) *ApplicationPageResp {
+	s.Total = &v
+	return s
+}
+
+// did中使用ZKP生成证明需要的信息
+type DidZKPInfo struct {
+	// 需要生成证明的路径
+	Path *string `json:"path,omitempty" xml:"path,omitempty" require:"true"`
+	// 生成ZKP证明的公共信息
+	PublicInputs *string `json:"public_inputs,omitempty" xml:"public_inputs,omitempty" require:"true"`
+	// zkp方法
+	ZkpType *string `json:"zkp_type,omitempty" xml:"zkp_type,omitempty" require:"true"`
+}
+
+func (s DidZKPInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DidZKPInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DidZKPInfo) SetPath(v string) *DidZKPInfo {
+	s.Path = &v
+	return s
+}
+
+func (s *DidZKPInfo) SetPublicInputs(v string) *DidZKPInfo {
+	s.PublicInputs = &v
+	return s
+}
+
+func (s *DidZKPInfo) SetZkpType(v string) *DidZKPInfo {
+	s.ZkpType = &v
+	return s
+}
+
+// 阿里云账户列表信息
+type ALiYunAccountList struct {
+	// pagination
+	Pagination *ALiYunPagination `json:"pagination,omitempty" xml:"pagination,omitempty"`
+	// accounts
+	Accounts []*ALiYunAccount `json:"accounts,omitempty" xml:"accounts,omitempty" type:"Repeated"`
+	// 联盟管理员
+	ConsortiumAdmin *bool `json:"consortium_admin,omitempty" xml:"consortium_admin,omitempty"`
+}
+
+func (s ALiYunAccountList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunAccountList) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunAccountList) SetPagination(v *ALiYunPagination) *ALiYunAccountList {
+	s.Pagination = v
+	return s
+}
+
+func (s *ALiYunAccountList) SetAccounts(v []*ALiYunAccount) *ALiYunAccountList {
+	s.Accounts = v
+	return s
+}
+
+func (s *ALiYunAccountList) SetConsortiumAdmin(v bool) *ALiYunAccountList {
+	s.ConsortiumAdmin = &v
+	return s
+}
+
+// 蚂蚁链用途申报结构体
+type AntChainPurposeResponse struct {
+	// 用户申报用途状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 已申报的用途，比如供应链金融
+	Purpose *string `json:"purpose,omitempty" xml:"purpose,omitempty"`
+	// 申报时间
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 简短说明用途
+	ChainPurposeItem *string `json:"chain_purpose_item,omitempty" xml:"chain_purpose_item,omitempty"`
+	// 用途详情
+	ChainPurposeExtend *string `json:"chain_purpose_extend,omitempty" xml:"chain_purpose_extend,omitempty"`
+	// 申请用途列表
+	RecordList []*ChainPurpose `json:"record_list,omitempty" xml:"record_list,omitempty" type:"Repeated"`
+}
+
+func (s AntChainPurposeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AntChainPurposeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AntChainPurposeResponse) SetStatus(v string) *AntChainPurposeResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *AntChainPurposeResponse) SetPurpose(v string) *AntChainPurposeResponse {
+	s.Purpose = &v
+	return s
+}
+
+func (s *AntChainPurposeResponse) SetCreateTime(v string) *AntChainPurposeResponse {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *AntChainPurposeResponse) SetChainPurposeItem(v string) *AntChainPurposeResponse {
+	s.ChainPurposeItem = &v
+	return s
+}
+
+func (s *AntChainPurposeResponse) SetChainPurposeExtend(v string) *AntChainPurposeResponse {
+	s.ChainPurposeExtend = &v
+	return s
+}
+
+func (s *AntChainPurposeResponse) SetRecordList(v []*ChainPurpose) *AntChainPurposeResponse {
+	s.RecordList = v
+	return s
+}
+
+// 阿里云交易收据
+type ALiYunTransactionReceipt struct {
+	// data
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// gas_used
+	GasUsed *string `json:"gas_used,omitempty" xml:"gas_used,omitempty"`
+	// result
+	Result *int64 `json:"result,omitempty" xml:"result,omitempty"`
+	// logs
+	Logs []*string `json:"logs,omitempty" xml:"logs,omitempty" type:"Repeated"`
+}
+
+func (s ALiYunTransactionReceipt) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunTransactionReceipt) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunTransactionReceipt) SetData(v string) *ALiYunTransactionReceipt {
+	s.Data = &v
+	return s
+}
+
+func (s *ALiYunTransactionReceipt) SetGasUsed(v string) *ALiYunTransactionReceipt {
+	s.GasUsed = &v
+	return s
+}
+
+func (s *ALiYunTransactionReceipt) SetResult(v int64) *ALiYunTransactionReceipt {
+	s.Result = &v
+	return s
+}
+
+func (s *ALiYunTransactionReceipt) SetLogs(v []*string) *ALiYunTransactionReceipt {
+	s.Logs = v
+	return s
+}
+
+// 实例进度
+type ContractCreateProcessResp struct {
+	// 当前进度信息
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 合约部署进度
+	ProgressInfoList []*InstanceProgressInfo `json:"progress_info_list,omitempty" xml:"progress_info_list,omitempty" type:"Repeated"`
+}
+
+func (s ContractCreateProcessResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractCreateProcessResp) GoString() string {
+	return s.String()
+}
+
+func (s *ContractCreateProcessResp) SetStatus(v string) *ContractCreateProcessResp {
+	s.Status = &v
+	return s
+}
+
+func (s *ContractCreateProcessResp) SetProgressInfoList(v []*InstanceProgressInfo) *ContractCreateProcessResp {
+	s.ProgressInfoList = v
+	return s
+}
+
+// 新建合约服务
+type ContractCreateResp struct {
+	// 合约标识
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+}
+
+func (s ContractCreateResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractCreateResp) GoString() string {
+	return s.String()
+}
+
+func (s *ContractCreateResp) SetServiceId(v string) *ContractCreateResp {
+	s.ServiceId = &v
+	return s
+}
+
+// 内部建链信息查询
+type CreateBlockchainInfo struct {
+	// 链id
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
+	// 链的状态
+	BlockchainStatus *string `json:"blockchain_status,omitempty" xml:"blockchain_status,omitempty" require:"true"`
+	// 链的类型
+	BlockchainType *string `json:"blockchain_type,omitempty" xml:"blockchain_type,omitempty" require:"true"`
+	// 链的名称
+	BlockchainName *string `json:"blockchain_name,omitempty" xml:"blockchain_name,omitempty" require:"true"`
+	// 节点数量
+	BlockchanNodeNum *int64 `json:"blockchan_node_num,omitempty" xml:"blockchan_node_num,omitempty" require:"true"`
+	// 创建时间
+	BlockchainCreateTime *int64 `json:"blockchain_create_time,omitempty" xml:"blockchain_create_time,omitempty" require:"true"`
+}
+
+func (s CreateBlockchainInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBlockchainInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBlockchainInfo) SetBizid(v string) *CreateBlockchainInfo {
+	s.Bizid = &v
+	return s
+}
+
+func (s *CreateBlockchainInfo) SetBlockchainStatus(v string) *CreateBlockchainInfo {
+	s.BlockchainStatus = &v
+	return s
+}
+
+func (s *CreateBlockchainInfo) SetBlockchainType(v string) *CreateBlockchainInfo {
+	s.BlockchainType = &v
+	return s
+}
+
+func (s *CreateBlockchainInfo) SetBlockchainName(v string) *CreateBlockchainInfo {
+	s.BlockchainName = &v
+	return s
+}
+
+func (s *CreateBlockchainInfo) SetBlockchanNodeNum(v int64) *CreateBlockchainInfo {
+	s.BlockchanNodeNum = &v
+	return s
+}
+
+func (s *CreateBlockchainInfo) SetBlockchainCreateTime(v int64) *CreateBlockchainInfo {
+	s.BlockchainCreateTime = &v
+	return s
+}
+
+// VC分享的结果
+type VcShareResult struct {
+	// 目标分享的VC的id
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty" require:"true"`
+	// 分享给目标接受者的did
+	TargetDid *string `json:"target_did,omitempty" xml:"target_did,omitempty" require:"true"`
+	// 分享链上VC数据的交易hash，可用于直连区块链查询交易内容时使用。
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 分享是否成功，true：成功，false：失败
+	Status *bool `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 失败的对应原因信息
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s VcShareResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VcShareResult) GoString() string {
+	return s.String()
+}
+
+func (s *VcShareResult) SetVcId(v string) *VcShareResult {
+	s.VcId = &v
+	return s
+}
+
+func (s *VcShareResult) SetTargetDid(v string) *VcShareResult {
+	s.TargetDid = &v
+	return s
+}
+
+func (s *VcShareResult) SetTxHash(v string) *VcShareResult {
+	s.TxHash = &v
+	return s
+}
+
+func (s *VcShareResult) SetStatus(v bool) *VcShareResult {
+	s.Status = &v
+	return s
+}
+
+func (s *VcShareResult) SetMsg(v string) *VcShareResult {
+	s.Msg = &v
+	return s
+}
+
+// 合约加密字段
+type ContractEncryptKeyItem struct {
+	// 字段对应的id
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// 0:encrypt_text,
+	// 1:encrypt_array_text,
+	// 2:encrypt_int
+	// 3:encrypt_array_int
+	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 字段对应的数据
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s ContractEncryptKeyItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractEncryptKeyItem) GoString() string {
+	return s.String()
+}
+
+func (s *ContractEncryptKeyItem) SetKey(v string) *ContractEncryptKeyItem {
+	s.Key = &v
+	return s
+}
+
+func (s *ContractEncryptKeyItem) SetType(v int64) *ContractEncryptKeyItem {
+	s.Type = &v
+	return s
+}
+
+func (s *ContractEncryptKeyItem) SetValue(v string) *ContractEncryptKeyItem {
+	s.Value = &v
+	return s
+}
+
+// did更新事件
+type DidEvent struct {
+	// 事件对应的合约方法
+	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
+	// 对应did
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// did对应doc
+	DidDoc *string `json:"did_doc,omitempty" xml:"did_doc,omitempty" require:"true"`
+	// 本次事件的触发者
+	From *string `json:"from,omitempty" xml:"from,omitempty" require:"true"`
+	// 6500
+	Height *int64 `json:"height,omitempty" xml:"height,omitempty" require:"true"`
+	// 交易hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 交易在区块中的index
+	TxIndex *int64 `json:"tx_index,omitempty" xml:"tx_index,omitempty" require:"true"`
+}
+
+func (s DidEvent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DidEvent) GoString() string {
+	return s.String()
+}
+
+func (s *DidEvent) SetAction(v string) *DidEvent {
+	s.Action = &v
+	return s
+}
+
+func (s *DidEvent) SetDid(v string) *DidEvent {
+	s.Did = &v
+	return s
+}
+
+func (s *DidEvent) SetDidDoc(v string) *DidEvent {
+	s.DidDoc = &v
+	return s
+}
+
+func (s *DidEvent) SetFrom(v string) *DidEvent {
+	s.From = &v
+	return s
+}
+
+func (s *DidEvent) SetHeight(v int64) *DidEvent {
+	s.Height = &v
+	return s
+}
+
+func (s *DidEvent) SetTxHash(v string) *DidEvent {
+	s.TxHash = &v
+	return s
+}
+
+func (s *DidEvent) SetTxIndex(v int64) *DidEvent {
+	s.TxIndex = &v
+	return s
+}
+
+// Vc可信传输实际参数
+type VcTransmitPayload struct {
+	// 目标did相关信息列表
+	TargetVerifier []*VcTransmitTargetStruct `json:"target_verifier,omitempty" xml:"target_verifier,omitempty" require:"true" type:"Repeated"`
+	// 要传输的vc_id
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty" require:"true"`
+	// vc原文，如果vc原文出现在传输接口，那么VC仓库不会从本地查找，而是直接将传输的VC上链
+	VcContent *string `json:"vc_content,omitempty" xml:"vc_content,omitempty"`
+}
+
+func (s VcTransmitPayload) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VcTransmitPayload) GoString() string {
+	return s.String()
+}
+
+func (s *VcTransmitPayload) SetTargetVerifier(v []*VcTransmitTargetStruct) *VcTransmitPayload {
+	s.TargetVerifier = v
+	return s
+}
+
+func (s *VcTransmitPayload) SetVcId(v string) *VcTransmitPayload {
+	s.VcId = &v
+	return s
+}
+
+func (s *VcTransmitPayload) SetVcContent(v string) *VcTransmitPayload {
+	s.VcContent = &v
+	return s
+}
+
+// 阿里云合约内容
+type ALiYunChainContractContent struct {
+	// content
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// content_id
+	ContentId *string `json:"content_id,omitempty" xml:"content_id,omitempty"`
+	// content_name
+	ContentName *string `json:"content_name,omitempty" xml:"content_name,omitempty"`
+	// create_time
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// is_directory
+	IsDirectory *bool `json:"is_directory,omitempty" xml:"is_directory,omitempty"`
+	// parent_content_id
+	ParentContentId *string `json:"parent_content_id,omitempty" xml:"parent_content_id,omitempty"`
+	// project_id
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
+	// update_time
+	UpdateTime *int64 `json:"update_time,omitempty" xml:"update_time,omitempty"`
+}
+
+func (s ALiYunChainContractContent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunChainContractContent) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunChainContractContent) SetContent(v string) *ALiYunChainContractContent {
+	s.Content = &v
+	return s
+}
+
+func (s *ALiYunChainContractContent) SetContentId(v string) *ALiYunChainContractContent {
+	s.ContentId = &v
+	return s
+}
+
+func (s *ALiYunChainContractContent) SetContentName(v string) *ALiYunChainContractContent {
+	s.ContentName = &v
+	return s
+}
+
+func (s *ALiYunChainContractContent) SetCreateTime(v int64) *ALiYunChainContractContent {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *ALiYunChainContractContent) SetIsDirectory(v bool) *ALiYunChainContractContent {
+	s.IsDirectory = &v
+	return s
+}
+
+func (s *ALiYunChainContractContent) SetParentContentId(v string) *ALiYunChainContractContent {
+	s.ParentContentId = &v
+	return s
+}
+
+func (s *ALiYunChainContractContent) SetProjectId(v string) *ALiYunChainContractContent {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *ALiYunChainContractContent) SetUpdateTime(v int64) *ALiYunChainContractContent {
+	s.UpdateTime = &v
+	return s
+}
+
+// 结果
+type Result struct {
+	// 联盟id
+	ConsortiumId *string `json:"consortium_id,omitempty" xml:"consortium_id,omitempty" require:"true"`
+}
+
+func (s Result) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Result) GoString() string {
+	return s.String()
+}
+
+func (s *Result) SetConsortiumId(v string) *Result {
+	s.ConsortiumId = &v
+	return s
+}
+
+// 更新did doc中的service信息
+type UpdateDidService struct {
+	// 待更新did之前的版本号
+	PreviousVersion *int64 `json:"previous_version,omitempty" xml:"previous_version,omitempty" require:"true"`
+	// did doc中的service id
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+	// 服务信息
+	ServiceInfo *DidServiceInfo `json:"service_info,omitempty" xml:"service_info,omitempty" require:"true"`
+	// 服务类型
+	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty" require:"true"`
+}
+
+func (s UpdateDidService) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateDidService) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateDidService) SetPreviousVersion(v int64) *UpdateDidService {
+	s.PreviousVersion = &v
+	return s
+}
+
+func (s *UpdateDidService) SetServiceId(v string) *UpdateDidService {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *UpdateDidService) SetServiceInfo(v *DidServiceInfo) *UpdateDidService {
+	s.ServiceInfo = v
+	return s
+}
+
+func (s *UpdateDidService) SetServiceType(v string) *UpdateDidService {
+	s.ServiceType = &v
+	return s
+}
+
+// 包含业务组的用户信息
+type AccountInfoWithBiz struct {
+	// 注册地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 业务场景code
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
+	// 业务名称
+	BizName *string `json:"biz_name,omitempty" xml:"biz_name,omitempty" require:"true"`
+	// 业务类型，预留
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 用户创建时间，格式yyyy-MM-dd HH:mm:ss
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 用户注销时间，格式yyyy-MM-dd HH:mm:ss
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty"`
+	// 扩展字段，使用json格式
+	Extension *string `json:"extension,omitempty" xml:"extension,omitempty" maxLength:"200"`
+	// 业务组code
+	GroupCode *string `json:"group_code,omitempty" xml:"group_code,omitempty" require:"true"`
+	// 业务组名称
+	GroupName *string `json:"group_name,omitempty" xml:"group_name,omitempty" require:"true"`
+	// 唯一标示类型，0:统一信用代码,1:开票机构代码,2:身份证号
+	IdentityType *int64 `json:"identity_type,omitempty" xml:"identity_type,omitempty"`
+	// 唯一标示码
+	IdentityValue *string `json:"identity_value,omitempty" xml:"identity_value,omitempty"`
+	// 用户标签
+	Label *string `json:"label,omitempty" xml:"label,omitempty"`
+	// 间连用户的上层直连用户名称
+	Parent *string `json:"parent,omitempty" xml:"parent,omitempty"`
+	// 统计时间，时间格式：yyyy-MM-dd HH:mm:ss
+	StatDate *string `json:"stat_date,omitempty" xml:"stat_date,omitempty"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户或企业名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
+	// 用户类型：direct直连，indirect间连，partner合作伙伴
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
+}
+
+func (s AccountInfoWithBiz) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccountInfoWithBiz) GoString() string {
+	return s.String()
+}
+
+func (s *AccountInfoWithBiz) SetAddress(v string) *AccountInfoWithBiz {
+	s.Address = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetBizCode(v string) *AccountInfoWithBiz {
+	s.BizCode = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetBizName(v string) *AccountInfoWithBiz {
+	s.BizName = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetBizType(v string) *AccountInfoWithBiz {
+	s.BizType = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetCreateTime(v string) *AccountInfoWithBiz {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetEndTime(v string) *AccountInfoWithBiz {
+	s.EndTime = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetExtension(v string) *AccountInfoWithBiz {
+	s.Extension = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetGroupCode(v string) *AccountInfoWithBiz {
+	s.GroupCode = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetGroupName(v string) *AccountInfoWithBiz {
+	s.GroupName = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetIdentityType(v int64) *AccountInfoWithBiz {
+	s.IdentityType = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetIdentityValue(v string) *AccountInfoWithBiz {
+	s.IdentityValue = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetLabel(v string) *AccountInfoWithBiz {
+	s.Label = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetParent(v string) *AccountInfoWithBiz {
+	s.Parent = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetStatDate(v string) *AccountInfoWithBiz {
+	s.StatDate = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetUserId(v string) *AccountInfoWithBiz {
+	s.UserId = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetUserName(v string) *AccountInfoWithBiz {
+	s.UserName = &v
+	return s
+}
+
+func (s *AccountInfoWithBiz) SetUserType(v string) *AccountInfoWithBiz {
+	s.UserType = &v
+	return s
+}
+
+// 物流金融信用凭证信息
+type IssueInfo struct {
+	// 信用流转批次号
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty"`
+	// 合同编号
+	ContractId *string `json:"contract_id,omitempty" xml:"contract_id,omitempty"`
+	// 信用凭证额度
+	CreditLimit *string `json:"credit_limit,omitempty" xml:"credit_limit,omitempty"`
+	// 失败原因信息
+	ErrMsg *string `json:"err_msg,omitempty" xml:"err_msg,omitempty"`
+	// 信用凭证到期时间
+	ExpireDate *string `json:"expire_date,omitempty" xml:"expire_date,omitempty"`
+	// 信用凭证发起时间
+	IssueDate *string `json:"issue_date,omitempty" xml:"issue_date,omitempty"`
+	// 信用流转凭证
+	IssueId *string `json:"issue_id,omitempty" xml:"issue_id,omitempty"`
+	// 发行结果状态
+	// -1:发行失败状态， 0:未完成状态， 1:已发行状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	// 发行信用流转的运单号
+	WaybillId *string `json:"waybill_id,omitempty" xml:"waybill_id,omitempty"`
+}
+
+func (s IssueInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IssueInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IssueInfo) SetBatchId(v string) *IssueInfo {
+	s.BatchId = &v
+	return s
+}
+
+func (s *IssueInfo) SetContractId(v string) *IssueInfo {
+	s.ContractId = &v
+	return s
+}
+
+func (s *IssueInfo) SetCreditLimit(v string) *IssueInfo {
+	s.CreditLimit = &v
+	return s
+}
+
+func (s *IssueInfo) SetErrMsg(v string) *IssueInfo {
+	s.ErrMsg = &v
+	return s
+}
+
+func (s *IssueInfo) SetExpireDate(v string) *IssueInfo {
+	s.ExpireDate = &v
+	return s
+}
+
+func (s *IssueInfo) SetIssueDate(v string) *IssueInfo {
+	s.IssueDate = &v
+	return s
+}
+
+func (s *IssueInfo) SetIssueId(v string) *IssueInfo {
+	s.IssueId = &v
+	return s
+}
+
+func (s *IssueInfo) SetStatus(v int64) *IssueInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *IssueInfo) SetWaybillId(v string) *IssueInfo {
+	s.WaybillId = &v
+	return s
+}
+
+// 查看应用秘钥响应信息
+type ApplicationGetSkResp struct {
+	// 应用秘钥
+	Sk *string `json:"sk,omitempty" xml:"sk,omitempty"`
+}
+
+func (s ApplicationGetSkResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplicationGetSkResp) GoString() string {
+	return s.String()
+}
+
+func (s *ApplicationGetSkResp) SetSk(v string) *ApplicationGetSkResp {
+	s.Sk = &v
+	return s
+}
+
+// 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+type CommonResponsePageableStructBody struct {
+	// 页面规格
+	PageSize *string `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 当前页码
+	Current *string `json:"current,omitempty" xml:"current,omitempty"`
+	// 总条数
+	Total *string `json:"total,omitempty" xml:"total,omitempty"`
+	// 失败日志数组
+	List []*TriggerLogDTOStructBody `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s CommonResponsePageableStructBody) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CommonResponsePageableStructBody) GoString() string {
+	return s.String()
+}
+
+func (s *CommonResponsePageableStructBody) SetPageSize(v string) *CommonResponsePageableStructBody {
+	s.PageSize = &v
+	return s
+}
+
+func (s *CommonResponsePageableStructBody) SetCurrent(v string) *CommonResponsePageableStructBody {
+	s.Current = &v
+	return s
+}
+
+func (s *CommonResponsePageableStructBody) SetTotal(v string) *CommonResponsePageableStructBody {
+	s.Total = &v
+	return s
+}
+
+func (s *CommonResponsePageableStructBody) SetList(v []*TriggerLogDTOStructBody) *CommonResponsePageableStructBody {
+	s.List = v
+	return s
+}
+
+// 阿里云售卖区信息
+type ALiYunChainRegion struct {
+	// region_id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	// region_name
+	RegionName *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
+}
+
+func (s ALiYunChainRegion) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunChainRegion) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunChainRegion) SetRegionId(v string) *ALiYunChainRegion {
+	s.RegionId = &v
+	return s
+}
+
+func (s *ALiYunChainRegion) SetRegionName(v string) *ALiYunChainRegion {
+	s.RegionName = &v
+	return s
+}
+
+// 阿里云售卖联盟信息
+type ALiYunBuyUnion struct {
+	// consortium_name
+	ConsortiumName *string `json:"consortium_name,omitempty" xml:"consortium_name,omitempty"`
+	// consortium_id
+	ConsortiumId *string `json:"consortium_id,omitempty" xml:"consortium_id,omitempty"`
+}
+
+func (s ALiYunBuyUnion) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunBuyUnion) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunBuyUnion) SetConsortiumName(v string) *ALiYunBuyUnion {
+	s.ConsortiumName = &v
+	return s
+}
+
+func (s *ALiYunBuyUnion) SetConsortiumId(v string) *ALiYunBuyUnion {
+	s.ConsortiumId = &v
+	return s
+}
+
+// 分享可验证声明时的核心内容
+type VcShareStruct struct {
+	// 分享的目标VC的id
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty" require:"true"`
+	// 目标的VC持有者的did
+	OwnerDid *string `json:"owner_did,omitempty" xml:"owner_did,omitempty" require:"true"`
+	// 在支持声明的claim字段级别分享能力时使用，可以指定哪些字段隐藏，哪些字段分享。示例中标记为”1“的是隐藏，”0“的是分享明文。
+	Index *string `json:"index,omitempty" xml:"index,omitempty"`
+	// 非托管模式下owner_did的签名，作为授权凭证
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty"`
+}
+
+func (s VcShareStruct) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VcShareStruct) GoString() string {
+	return s.String()
+}
+
+func (s *VcShareStruct) SetVcId(v string) *VcShareStruct {
+	s.VcId = &v
+	return s
+}
+
+func (s *VcShareStruct) SetOwnerDid(v string) *VcShareStruct {
+	s.OwnerDid = &v
+	return s
+}
+
+func (s *VcShareStruct) SetIndex(v string) *VcShareStruct {
+	s.Index = &v
+	return s
+}
+
+func (s *VcShareStruct) SetSignature(v string) *VcShareStruct {
+	s.Signature = &v
+	return s
+}
+
+// 小程序浏览器授权类型
+type MiniAppBrowserAuthType struct {
+	// 授权类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+}
+
+func (s MiniAppBrowserAuthType) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MiniAppBrowserAuthType) GoString() string {
+	return s.String()
+}
+
+func (s *MiniAppBrowserAuthType) SetAuthType(v string) *MiniAppBrowserAuthType {
+	s.AuthType = &v
+	return s
+}
+
+// 服务发现结果
+type ServiceDiscoveryResult struct {
+	// 提供该服务能力的did
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// 提供该服务能力的endpoint信息
+	Services []*DidDocServicesInfo `json:"services,omitempty" xml:"services,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ServiceDiscoveryResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ServiceDiscoveryResult) GoString() string {
+	return s.String()
+}
+
+func (s *ServiceDiscoveryResult) SetDid(v string) *ServiceDiscoveryResult {
+	s.Did = &v
+	return s
+}
+
+func (s *ServiceDiscoveryResult) SetServices(v []*DidDocServicesInfo) *ServiceDiscoveryResult {
+	s.Services = v
+	return s
+}
+
+// 蚂蚁链交易汇总信息
+type BlockchainBrowserTransactionStatistic struct {
+	// 蚂蚁链id
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
+	// 开始时间
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true"`
+	// 时间点
+	DateTime *string `json:"date_time,omitempty" xml:"date_time,omitempty" require:"true"`
+	// 统计时间内最新块高度
+	LastSumBlockHeight *int64 `json:"last_sum_block_height,omitempty" xml:"last_sum_block_height,omitempty" require:"true"`
+	// 统计周期内交易的数量
+	TransCount *int64 `json:"trans_count,omitempty" xml:"trans_count,omitempty" require:"true"`
+}
+
+func (s BlockchainBrowserTransactionStatistic) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BlockchainBrowserTransactionStatistic) GoString() string {
+	return s.String()
+}
+
+func (s *BlockchainBrowserTransactionStatistic) SetBizid(v string) *BlockchainBrowserTransactionStatistic {
+	s.Bizid = &v
+	return s
+}
+
+func (s *BlockchainBrowserTransactionStatistic) SetCreateTime(v int64) *BlockchainBrowserTransactionStatistic {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *BlockchainBrowserTransactionStatistic) SetDateTime(v string) *BlockchainBrowserTransactionStatistic {
+	s.DateTime = &v
+	return s
+}
+
+func (s *BlockchainBrowserTransactionStatistic) SetLastSumBlockHeight(v int64) *BlockchainBrowserTransactionStatistic {
+	s.LastSumBlockHeight = &v
+	return s
+}
+
+func (s *BlockchainBrowserTransactionStatistic) SetTransCount(v int64) *BlockchainBrowserTransactionStatistic {
+	s.TransCount = &v
+	return s
+}
+
+// 阿里云区块链Rest信息
+type ALiYunChainRest struct {
+	// access_id
+	AccessId *string `json:"access_id,omitempty" xml:"access_id,omitempty"`
+	// create_time
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// rest
+	Rest *string `json:"rest,omitempty" xml:"rest,omitempty"`
+	// update_time
+	UpdateTime *int64 `json:"update_time,omitempty" xml:"update_time,omitempty"`
+	// REST开通结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s ALiYunChainRest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunChainRest) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunChainRest) SetAccessId(v string) *ALiYunChainRest {
+	s.AccessId = &v
+	return s
+}
+
+func (s *ALiYunChainRest) SetCreateTime(v int64) *ALiYunChainRest {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *ALiYunChainRest) SetRest(v string) *ALiYunChainRest {
+	s.Rest = &v
+	return s
+}
+
+func (s *ALiYunChainRest) SetUpdateTime(v int64) *ALiYunChainRest {
+	s.UpdateTime = &v
+	return s
+}
+
+func (s *ALiYunChainRest) SetResult(v string) *ALiYunChainRest {
+	s.Result = &v
+	return s
+}
+
+// 通过controller注册用户
+type VcControllerAddUserRegisterPayload struct {
+	// 注册用户did
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// 用户did对应的授权公钥
+	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty" require:"true"`
+	// 业务区块连的bizid
+	VcChannel *string `json:"vc_channel,omitempty" xml:"vc_channel,omitempty" maxLength:"32" minLength:"8"`
+}
+
+func (s VcControllerAddUserRegisterPayload) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VcControllerAddUserRegisterPayload) GoString() string {
+	return s.String()
+}
+
+func (s *VcControllerAddUserRegisterPayload) SetDid(v string) *VcControllerAddUserRegisterPayload {
+	s.Did = &v
+	return s
+}
+
+func (s *VcControllerAddUserRegisterPayload) SetPublicKey(v string) *VcControllerAddUserRegisterPayload {
+	s.PublicKey = &v
+	return s
+}
+
+func (s *VcControllerAddUserRegisterPayload) SetVcChannel(v string) *VcControllerAddUserRegisterPayload {
+	s.VcChannel = &v
+	return s
+}
+
+// 账户信息
+type AccountInfo struct {
+	// 版通数量
+	EpAmount *int64 `json:"ep_amount,omitempty" xml:"ep_amount,omitempty" require:"true"`
+	// 版通代码
+	EpCode *string `json:"ep_code,omitempty" xml:"ep_code,omitempty" require:"true"`
+}
+
+func (s AccountInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccountInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AccountInfo) SetEpAmount(v int64) *AccountInfo {
+	s.EpAmount = &v
+	return s
+}
+
+func (s *AccountInfo) SetEpCode(v string) *AccountInfo {
+	s.EpCode = &v
+	return s
+}
+
+// 阿里云区块链配置信息
+type ALiYunChainConfigOption struct {
+	// config_option
+	ConfigOption *string `json:"config_option,omitempty" xml:"config_option,omitempty"`
+	// show_name
+	ShowName *string `json:"show_name,omitempty" xml:"show_name,omitempty"`
+	// enable
+	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty"`
+}
+
+func (s ALiYunChainConfigOption) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunChainConfigOption) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunChainConfigOption) SetConfigOption(v string) *ALiYunChainConfigOption {
+	s.ConfigOption = &v
+	return s
+}
+
+func (s *ALiYunChainConfigOption) SetShowName(v string) *ALiYunChainConfigOption {
+	s.ShowName = &v
+	return s
+}
+
+func (s *ALiYunChainConfigOption) SetEnable(v bool) *ALiYunChainConfigOption {
+	s.Enable = &v
+	return s
+}
+
+// 删除资源返回结果
+type ALiYunDeleteResource struct {
+	// data
+	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s ALiYunDeleteResource) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunDeleteResource) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunDeleteResource) SetData(v bool) *ALiYunDeleteResource {
+	s.Data = &v
+	return s
+}
+
+func (s *ALiYunDeleteResource) SetSuccess(v bool) *ALiYunDeleteResource {
+	s.Success = &v
+	return s
+}
+
+// 交易详情
+type TransactionInfo struct {
+	// 交易时间戳
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+	// 交易hash
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty" require:"true"`
+	// 交易块高
+	Height *int64 `json:"height,omitempty" xml:"height,omitempty" require:"true"`
+	// 交易所在块高
+	Blockhash *string `json:"blockhash,omitempty" xml:"blockhash,omitempty" require:"true"`
+	// 交易来源
+	From *string `json:"from,omitempty" xml:"from,omitempty" require:"true"`
+	// 交易地址
+	To *string `json:"to,omitempty" xml:"to,omitempty" require:"true"`
+	// 交易类型
+	Txtype *int64 `json:"txtype,omitempty" xml:"txtype,omitempty" require:"true"`
+	// 转账额度
+	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// logs
+	Logs *string `json:"logs,omitempty" xml:"logs,omitempty" require:"true"`
+	// 燃料消耗
+	Gasused *int64 `json:"gasused,omitempty" xml:"gasused,omitempty" require:"true"`
+	// result
+	Result *string `json:"result,omitempty" xml:"result,omitempty" require:"true"`
+	// 拓展json字段
+	Json *string `json:"json,omitempty" xml:"json,omitempty" require:"true"`
+}
+
+func (s TransactionInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransactionInfo) GoString() string {
+	return s.String()
+}
+
+func (s *TransactionInfo) SetTimestamp(v int64) *TransactionInfo {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *TransactionInfo) SetHash(v string) *TransactionInfo {
+	s.Hash = &v
+	return s
+}
+
+func (s *TransactionInfo) SetHeight(v int64) *TransactionInfo {
+	s.Height = &v
+	return s
+}
+
+func (s *TransactionInfo) SetBlockhash(v string) *TransactionInfo {
+	s.Blockhash = &v
+	return s
+}
+
+func (s *TransactionInfo) SetFrom(v string) *TransactionInfo {
+	s.From = &v
+	return s
+}
+
+func (s *TransactionInfo) SetTo(v string) *TransactionInfo {
+	s.To = &v
+	return s
+}
+
+func (s *TransactionInfo) SetTxtype(v int64) *TransactionInfo {
+	s.Txtype = &v
+	return s
+}
+
+func (s *TransactionInfo) SetValue(v int64) *TransactionInfo {
+	s.Value = &v
+	return s
+}
+
+func (s *TransactionInfo) SetLogs(v string) *TransactionInfo {
+	s.Logs = &v
+	return s
+}
+
+func (s *TransactionInfo) SetGasused(v int64) *TransactionInfo {
+	s.Gasused = &v
+	return s
+}
+
+func (s *TransactionInfo) SetResult(v string) *TransactionInfo {
+	s.Result = &v
+	return s
+}
+
+func (s *TransactionInfo) SetJson(v string) *TransactionInfo {
+	s.Json = &v
+	return s
+}
+
+// 阿里云区块链小程序权限控制信息
+type ALiYunChainMiniAppAuthorization struct {
+	// ant_chain_id
+	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty"`
+	// q_r_code_type
+	QRCodeType *string `json:"q_r_code_type,omitempty" xml:"q_r_code_type,omitempty"`
+	// authorization_type
+	AuthorizationType *string `json:"authorization_type,omitempty" xml:"authorization_type,omitempty"`
+}
+
+func (s ALiYunChainMiniAppAuthorization) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunChainMiniAppAuthorization) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunChainMiniAppAuthorization) SetAntChainId(v string) *ALiYunChainMiniAppAuthorization {
+	s.AntChainId = &v
+	return s
+}
+
+func (s *ALiYunChainMiniAppAuthorization) SetQRCodeType(v string) *ALiYunChainMiniAppAuthorization {
+	s.QRCodeType = &v
+	return s
+}
+
+func (s *ALiYunChainMiniAppAuthorization) SetAuthorizationType(v string) *ALiYunChainMiniAppAuthorization {
+	s.AuthorizationType = &v
+	return s
+}
+
+// 历史任务信息
+type OldTaskInfo struct {
+	// 任务标题(同一个租户不能重复)
+	TaskName *string `json:"task_name,omitempty" xml:"task_name,omitempty" require:"true"`
+	// appId
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 问卷ID
+	SurveyId *string `json:"survey_id,omitempty" xml:"survey_id,omitempty" require:"true"`
+	// 备注信息
+	Notes *string `json:"notes,omitempty" xml:"notes,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 操作者ID
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// banner标题
+	BannerTitle *string `json:"banner_title,omitempty" xml:"banner_title,omitempty" require:"true"`
+	// banner图片地址（最多支持3张）
+	BannerImageUrls *string `json:"banner_image_urls,omitempty" xml:"banner_image_urls,omitempty"`
+	// banner 图片地址, 拼装后的url
+	BannerImageFullUrls []*string `json:"banner_image_full_urls,omitempty" xml:"banner_image_full_urls,omitempty" type:"Repeated"`
+	// 题量
+	QuestionNum *int64 `json:"question_num,omitempty" xml:"question_num,omitempty" require:"true"`
+	// 任务连接地址
+	TaskLinkUrl *string `json:"task_link_url,omitempty" xml:"task_link_url,omitempty" require:"true"`
+	// 人群划分描述
+	PersonDivideContent *string `json:"person_divide_content,omitempty" xml:"person_divide_content,omitempty"`
+	// 城市列表
+	CityDivideUrls *string `json:"city_divide_urls,omitempty" xml:"city_divide_urls,omitempty"`
+	// 城市列表, 拼装后的url
+	CityDivideFullUrls []*string `json:"city_divide_full_urls,omitempty" xml:"city_divide_full_urls,omitempty" type:"Repeated"`
+	// 样本数量
+	SampleNum *int64 `json:"sample_num,omitempty" xml:"sample_num,omitempty" require:"true"`
+	// 完成样本量
+	CompletedNum *int64 `json:"completed_num,omitempty" xml:"completed_num,omitempty" require:"true"`
+	// 产品下单code类型（1-资源包 2-后付费）
+	ProductCodeType *string `json:"product_code_type,omitempty" xml:"product_code_type,omitempty" require:"true"`
+	// 产品余量
+	ProductCapacity *int64 `json:"product_capacity,omitempty" xml:"product_capacity,omitempty" require:"true"`
+	// 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
+	PrizeChannel *int64 `json:"prize_channel,omitempty" xml:"prize_channel,omitempty" require:"true"`
+	// 支付宝账号
+	AlipayAccountId *string `json:"alipay_account_id,omitempty" xml:"alipay_account_id,omitempty"`
+	// 奖励类型（0-定额红包）
+	PrizeType *int64 `json:"prize_type,omitempty" xml:"prize_type,omitempty" require:"true"`
+	// 全额红包金额，奖励渠道为0和1时
+	FullRedPacketAmount *string `json:"full_red_packet_amount,omitempty" xml:"full_red_packet_amount,omitempty" require:"true"`
+	// 全额红包描述，奖励渠道为2时，此处必填
+	FullRedPacketTextInfo *string `json:"full_red_packet_text_info,omitempty" xml:"full_red_packet_text_info,omitempty"`
+	// 甄别红包金额
+	ExamineRedPacketAmount *string `json:"examine_red_packet_amount,omitempty" xml:"examine_red_packet_amount,omitempty" require:"true"`
+	// 关联的证书instanceId
+	CertInstanceId *string `json:"cert_instance_id,omitempty" xml:"cert_instance_id,omitempty"`
+	// 证书实例详情
+	CertInstanceDetail *CertInstanceDetail `json:"cert_instance_detail,omitempty" xml:"cert_instance_detail,omitempty"`
+	// 审核建议
+	VerifyComment *string `json:"verify_comment,omitempty" xml:"verify_comment,omitempty"`
+	// 任务创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
+	// 任务更新时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true"`
+	// 审核理由
+	ReviewContent *string `json:"review_content,omitempty" xml:"review_content,omitempty"`
+	// 人群配置信息
+	CrowdConfig *string `json:"crowd_config,omitempty" xml:"crowd_config,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s OldTaskInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OldTaskInfo) GoString() string {
+	return s.String()
+}
+
+func (s *OldTaskInfo) SetTaskName(v string) *OldTaskInfo {
+	s.TaskName = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetAppId(v string) *OldTaskInfo {
+	s.AppId = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetSurveyId(v string) *OldTaskInfo {
+	s.SurveyId = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetNotes(v string) *OldTaskInfo {
+	s.Notes = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetTenantId(v string) *OldTaskInfo {
+	s.TenantId = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetOperator(v string) *OldTaskInfo {
+	s.Operator = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetBannerTitle(v string) *OldTaskInfo {
+	s.BannerTitle = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetBannerImageUrls(v string) *OldTaskInfo {
+	s.BannerImageUrls = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetBannerImageFullUrls(v []*string) *OldTaskInfo {
+	s.BannerImageFullUrls = v
+	return s
+}
+
+func (s *OldTaskInfo) SetQuestionNum(v int64) *OldTaskInfo {
+	s.QuestionNum = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetTaskLinkUrl(v string) *OldTaskInfo {
+	s.TaskLinkUrl = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetPersonDivideContent(v string) *OldTaskInfo {
+	s.PersonDivideContent = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetCityDivideUrls(v string) *OldTaskInfo {
+	s.CityDivideUrls = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetCityDivideFullUrls(v []*string) *OldTaskInfo {
+	s.CityDivideFullUrls = v
+	return s
+}
+
+func (s *OldTaskInfo) SetSampleNum(v int64) *OldTaskInfo {
+	s.SampleNum = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetCompletedNum(v int64) *OldTaskInfo {
+	s.CompletedNum = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetProductCodeType(v string) *OldTaskInfo {
+	s.ProductCodeType = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetProductCapacity(v int64) *OldTaskInfo {
+	s.ProductCapacity = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetPrizeChannel(v int64) *OldTaskInfo {
+	s.PrizeChannel = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetAlipayAccountId(v string) *OldTaskInfo {
+	s.AlipayAccountId = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetPrizeType(v int64) *OldTaskInfo {
+	s.PrizeType = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetFullRedPacketAmount(v string) *OldTaskInfo {
+	s.FullRedPacketAmount = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetFullRedPacketTextInfo(v string) *OldTaskInfo {
+	s.FullRedPacketTextInfo = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetExamineRedPacketAmount(v string) *OldTaskInfo {
+	s.ExamineRedPacketAmount = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetCertInstanceId(v string) *OldTaskInfo {
+	s.CertInstanceId = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetCertInstanceDetail(v *CertInstanceDetail) *OldTaskInfo {
+	s.CertInstanceDetail = v
+	return s
+}
+
+func (s *OldTaskInfo) SetVerifyComment(v string) *OldTaskInfo {
+	s.VerifyComment = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetGmtCreate(v string) *OldTaskInfo {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetGmtModified(v string) *OldTaskInfo {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetReviewContent(v string) *OldTaskInfo {
+	s.ReviewContent = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetCrowdConfig(v string) *OldTaskInfo {
+	s.CrowdConfig = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetTaskId(v string) *OldTaskInfo {
+	s.TaskId = &v
+	return s
+}
+
+func (s *OldTaskInfo) SetStatus(v int64) *OldTaskInfo {
+	s.Status = &v
+	return s
+}
+
+// 阿里云蚂蚁区块链相关下载结果
+type ALiYunChainDownload struct {
+	// private_key
+	PrivateKey *string `json:"private_key,omitempty" xml:"private_key,omitempty"`
+	// download_path
+	DownloadPath *ALiYunDownloadPath `json:"download_path,omitempty" xml:"download_path,omitempty"`
+}
+
+func (s ALiYunChainDownload) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunChainDownload) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunChainDownload) SetPrivateKey(v string) *ALiYunChainDownload {
+	s.PrivateKey = &v
+	return s
+}
+
+func (s *ALiYunChainDownload) SetDownloadPath(v *ALiYunDownloadPath) *ALiYunChainDownload {
+	s.DownloadPath = v
+	return s
+}
+
+// 阿里云链统计信息
+type ALiYunChainStatics struct {
+	// alias
+	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
+	// Dt
+	Dt *int64 `json:"dt,omitempty" xml:"dt,omitempty"`
+	// trans_count
+	TransCount *int64 `json:"trans_count,omitempty" xml:"trans_count,omitempty"`
+	// last_sum_block_height
+	LastSumBlockHeight *int64 `json:"last_sum_block_height,omitempty" xml:"last_sum_block_height,omitempty"`
+	// creat_time
+	CreatTime *int64 `json:"creat_time,omitempty" xml:"creat_time,omitempty"`
+}
+
+func (s ALiYunChainStatics) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunChainStatics) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunChainStatics) SetAlias(v string) *ALiYunChainStatics {
+	s.Alias = &v
+	return s
+}
+
+func (s *ALiYunChainStatics) SetDt(v int64) *ALiYunChainStatics {
+	s.Dt = &v
+	return s
+}
+
+func (s *ALiYunChainStatics) SetTransCount(v int64) *ALiYunChainStatics {
+	s.TransCount = &v
+	return s
+}
+
+func (s *ALiYunChainStatics) SetLastSumBlockHeight(v int64) *ALiYunChainStatics {
+	s.LastSumBlockHeight = &v
+	return s
+}
+
+func (s *ALiYunChainStatics) SetCreatTime(v int64) *ALiYunChainStatics {
+	s.CreatTime = &v
+	return s
+}
+
+// 阿里云蚂蚁区块链证书列表信息
+type ALiYunCertificateApplications struct {
+	// pagination
+	Pagination *ALiYunPagination `json:"pagination,omitempty" xml:"pagination,omitempty"`
+	// certificate_application
+	CertificateApplications []*ALiYunCertificateApplication `json:"certificate_applications,omitempty" xml:"certificate_applications,omitempty" type:"Repeated"`
+}
+
+func (s ALiYunCertificateApplications) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunCertificateApplications) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunCertificateApplications) SetPagination(v *ALiYunPagination) *ALiYunCertificateApplications {
+	s.Pagination = v
+	return s
+}
+
+func (s *ALiYunCertificateApplications) SetCertificateApplications(v []*ALiYunCertificateApplication) *ALiYunCertificateApplications {
+	s.CertificateApplications = v
+	return s
+}
+
+// vc传输初始化结果
+type VcTransmitInitResult struct {
+	// 初始化成功与否
+	IsSuccess *bool `json:"is_success,omitempty" xml:"is_success,omitempty" require:"true"`
+	// 失败时返回的额外信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+	// 接受者did
+	TargetVerifier *string `json:"target_verifier,omitempty" xml:"target_verifier,omitempty" require:"true"`
+	// 待签名的交易hash
+	NeedSignatureTxHash *string `json:"need_signature_tx_hash,omitempty" xml:"need_signature_tx_hash,omitempty" require:"true"`
+}
+
+func (s VcTransmitInitResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VcTransmitInitResult) GoString() string {
+	return s.String()
+}
+
+func (s *VcTransmitInitResult) SetIsSuccess(v bool) *VcTransmitInitResult {
+	s.IsSuccess = &v
+	return s
+}
+
+func (s *VcTransmitInitResult) SetMessage(v string) *VcTransmitInitResult {
+	s.Message = &v
+	return s
+}
+
+func (s *VcTransmitInitResult) SetTargetVerifier(v string) *VcTransmitInitResult {
+	s.TargetVerifier = &v
+	return s
+}
+
+func (s *VcTransmitInitResult) SetNeedSignatureTxHash(v string) *VcTransmitInitResult {
+	s.NeedSignatureTxHash = &v
+	return s
+}
+
+// 具体实体的身份信息
+type EntityInfo struct {
+	// 0，身份证；1，电话；2，email，3，企业营业执照号
+	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 具体号码
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s EntityInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EntityInfo) GoString() string {
+	return s.String()
+}
+
+func (s *EntityInfo) SetType(v int64) *EntityInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *EntityInfo) SetValue(v string) *EntityInfo {
+	s.Value = &v
+	return s
+}
+
+// 链节点信息
+type NodeInfo struct {
+	// 链的区块高度
+	Blockheight *int64 `json:"blockheight,omitempty" xml:"blockheight,omitempty"`
+	// 节点名称
+	Nodename *string `json:"nodename,omitempty" xml:"nodename,omitempty"`
+	// 节点健康状况
+	Status *bool `json:"status,omitempty" xml:"status,omitempty"`
+	// 节点版本
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+}
+
+func (s NodeInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NodeInfo) GoString() string {
+	return s.String()
+}
+
+func (s *NodeInfo) SetBlockheight(v int64) *NodeInfo {
+	s.Blockheight = &v
+	return s
+}
+
+func (s *NodeInfo) SetNodename(v string) *NodeInfo {
+	s.Nodename = &v
+	return s
+}
+
+func (s *NodeInfo) SetStatus(v bool) *NodeInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *NodeInfo) SetVersion(v string) *NodeInfo {
+	s.Version = &v
+	return s
+}
+
+// Did服务类型描述结构体
+type DidServiceType struct {
+	// 枚举类型，描述访问服务的方式
+	AccessMode *string `json:"access_mode,omitempty" xml:"access_mode,omitempty"`
+	// 对服务的文字描述，<1000个字符
+	Description *string `json:"description,omitempty" xml:"description,omitempty" maxLength:"1000"`
+	// 服务类型创建者did
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// { "item1":"", "item2":"",...
+	ServiceInput *string `json:"service_input,omitempty" xml:"service_input,omitempty"`
+	// 返回值类型描述，json形式
+	ServiceOutput *string `json:"service_output,omitempty" xml:"service_output,omitempty"`
+	// 自定义服务类型，字符数16～32个
+	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty" require:"true"`
+}
+
+func (s DidServiceType) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DidServiceType) GoString() string {
+	return s.String()
+}
+
+func (s *DidServiceType) SetAccessMode(v string) *DidServiceType {
+	s.AccessMode = &v
+	return s
+}
+
+func (s *DidServiceType) SetDescription(v string) *DidServiceType {
+	s.Description = &v
+	return s
+}
+
+func (s *DidServiceType) SetDid(v string) *DidServiceType {
+	s.Did = &v
+	return s
+}
+
+func (s *DidServiceType) SetServiceInput(v string) *DidServiceType {
+	s.ServiceInput = &v
+	return s
+}
+
+func (s *DidServiceType) SetServiceOutput(v string) *DidServiceType {
+	s.ServiceOutput = &v
+	return s
+}
+
+func (s *DidServiceType) SetServiceType(v string) *DidServiceType {
+	s.ServiceType = &v
+	return s
+}
+
+// 应用请求
+type ApplicationQueryReq struct {
+	// 应用程序ID
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+}
+
+func (s ApplicationQueryReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplicationQueryReq) GoString() string {
+	return s.String()
+}
+
+func (s *ApplicationQueryReq) SetApplicationId(v string) *ApplicationQueryReq {
+	s.ApplicationId = &v
+	return s
+}
+
+// 合约信息
+type ContractInfo struct {
+	// 合约地址
+	Contract *string `json:"contract,omitempty" xml:"contract,omitempty"`
+	// 部署hash
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+	// 合约部署时间
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
+}
+
+func (s ContractInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ContractInfo) SetContract(v string) *ContractInfo {
+	s.Contract = &v
+	return s
+}
+
+func (s *ContractInfo) SetHash(v string) *ContractInfo {
+	s.Hash = &v
+	return s
+}
+
+func (s *ContractInfo) SetTimestamp(v int64) *ContractInfo {
+	s.Timestamp = &v
+	return s
+}
+
+// 创建VC参数
+type AddVC struct {
+	// vc原文hash
+	ContentHash *string `json:"content_hash,omitempty" xml:"content_hash,omitempty" require:"true"`
+	// issuer后缀的hash值
+	IssuerHash *string `json:"issuer_hash,omitempty" xml:"issuer_hash,omitempty" require:"true"`
+	// valid or invalid
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 接收者后缀hash值
+	SubjectHash *string `json:"subject_hash,omitempty" xml:"subject_hash,omitempty" require:"true"`
+	// 可验证声明id
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty" require:"true"`
+}
+
+func (s AddVC) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddVC) GoString() string {
+	return s.String()
+}
+
+func (s *AddVC) SetContentHash(v string) *AddVC {
+	s.ContentHash = &v
+	return s
+}
+
+func (s *AddVC) SetIssuerHash(v string) *AddVC {
+	s.IssuerHash = &v
+	return s
+}
+
+func (s *AddVC) SetStatus(v string) *AddVC {
+	s.Status = &v
+	return s
+}
+
+func (s *AddVC) SetSubjectHash(v string) *AddVC {
+	s.SubjectHash = &v
+	return s
+}
+
+func (s *AddVC) SetVcId(v string) *AddVC {
+	s.VcId = &v
+	return s
+}
+
+// 带单位的值
+type ValueUnitPair struct {
+	// 数值
+	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 单位
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
+}
+
+func (s ValueUnitPair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ValueUnitPair) GoString() string {
+	return s.String()
+}
+
+func (s *ValueUnitPair) SetValue(v int64) *ValueUnitPair {
+	s.Value = &v
+	return s
+}
+
+func (s *ValueUnitPair) SetUnit(v string) *ValueUnitPair {
+	s.Unit = &v
+	return s
+}
+
+// 阿里云区块链小程序交易二维码生成
+type ALiYunChainMiniAppCodeCreate struct {
+	// ant_chain_id
+	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty"`
+	// transaction_hash
+	TransactionHash *string `json:"transaction_hash,omitempty" xml:"transaction_hash,omitempty"`
+	// base64_q_r_code_p_n_g
+	Base64QRCodePNG *string `json:"base64_q_r_code_p_n_g,omitempty" xml:"base64_q_r_code_p_n_g,omitempty"`
+	// q_r_code_content
+	QRCodeContent *string `json:"q_r_code_content,omitempty" xml:"q_r_code_content,omitempty"`
+}
+
+func (s ALiYunChainMiniAppCodeCreate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunChainMiniAppCodeCreate) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunChainMiniAppCodeCreate) SetAntChainId(v string) *ALiYunChainMiniAppCodeCreate {
+	s.AntChainId = &v
+	return s
+}
+
+func (s *ALiYunChainMiniAppCodeCreate) SetTransactionHash(v string) *ALiYunChainMiniAppCodeCreate {
+	s.TransactionHash = &v
+	return s
+}
+
+func (s *ALiYunChainMiniAppCodeCreate) SetBase64QRCodePNG(v string) *ALiYunChainMiniAppCodeCreate {
+	s.Base64QRCodePNG = &v
+	return s
+}
+
+func (s *ALiYunChainMiniAppCodeCreate) SetQRCodeContent(v string) *ALiYunChainMiniAppCodeCreate {
+	s.QRCodeContent = &v
+	return s
+}
+
+// 描述分布的结构，目前主要包含date和value值
+type Curve struct {
+	// 分布以day为单位的日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 以day为单位的一天凭证颁发的数据量统计。
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s Curve) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Curve) GoString() string {
+	return s.String()
+}
+
+func (s *Curve) SetDate(v string) *Curve {
+	s.Date = &v
+	return s
+}
+
+func (s *Curve) SetValue(v string) *Curve {
+	s.Value = &v
+	return s
+}
+
+// 存证元数据
+type NotaryMetaParam struct {
+	// 描述本条存证在存证事务中的阶段，用户可自行维护
+	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
+	// 扩展字段
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 全局唯一的存证事务ID
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+}
+
+func (s NotaryMetaParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotaryMetaParam) GoString() string {
+	return s.String()
+}
+
+func (s *NotaryMetaParam) SetPhase(v string) *NotaryMetaParam {
+	s.Phase = &v
+	return s
+}
+
+func (s *NotaryMetaParam) SetProperties(v string) *NotaryMetaParam {
+	s.Properties = &v
+	return s
+}
+
+func (s *NotaryMetaParam) SetToken(v string) *NotaryMetaParam {
+	s.Token = &v
+	return s
+}
+
+// 用于内部业务统计的信息，外部商户请忽略
+type BizInfo struct {
+	// BPWZPFCN
+	ClientTenent *string `json:"client_tenent,omitempty" xml:"client_tenent,omitempty"`
+	// 业务代码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+}
+
+func (s BizInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BizInfo) GoString() string {
+	return s.String()
+}
+
+func (s *BizInfo) SetClientTenent(v string) *BizInfo {
+	s.ClientTenent = &v
+	return s
+}
+
+func (s *BizInfo) SetCode(v string) *BizInfo {
+	s.Code = &v
+	return s
+}
+
+// 数字资产管理平台版通交易信息
+type EPTradeInfo struct {
+	// 版通代码
+	EpCode *string `json:"ep_code,omitempty" xml:"ep_code,omitempty" require:"true"`
+	// 版通交易号
+	TxCode *string `json:"tx_code,omitempty" xml:"tx_code,omitempty" require:"true"`
+	// 卖方账户
+	TxFrom *string `json:"tx_from,omitempty" xml:"tx_from,omitempty" require:"true"`
+	// 交易时间戳
+	TxTime *int64 `json:"tx_time,omitempty" xml:"tx_time,omitempty" require:"true"`
+	// 买方账户
+	TxTo *string `json:"tx_to,omitempty" xml:"tx_to,omitempty" require:"true"`
+	// 交易数量
+	TxValue *int64 `json:"tx_value,omitempty" xml:"tx_value,omitempty" require:"true"`
+}
+
+func (s EPTradeInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EPTradeInfo) GoString() string {
+	return s.String()
+}
+
+func (s *EPTradeInfo) SetEpCode(v string) *EPTradeInfo {
+	s.EpCode = &v
+	return s
+}
+
+func (s *EPTradeInfo) SetTxCode(v string) *EPTradeInfo {
+	s.TxCode = &v
+	return s
+}
+
+func (s *EPTradeInfo) SetTxFrom(v string) *EPTradeInfo {
+	s.TxFrom = &v
+	return s
+}
+
+func (s *EPTradeInfo) SetTxTime(v int64) *EPTradeInfo {
+	s.TxTime = &v
+	return s
+}
+
+func (s *EPTradeInfo) SetTxTo(v string) *EPTradeInfo {
+	s.TxTo = &v
+	return s
+}
+
+func (s *EPTradeInfo) SetTxValue(v int64) *EPTradeInfo {
+	s.TxValue = &v
+	return s
+}
+
+// 可信存证身份识别信息
+type Identity struct {
+	// 经办人姓名，企业认证必选
+	Agent *string `json:"agent,omitempty" xml:"agent,omitempty"`
+	// 经办人身份证
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 用户名称
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 证件号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 证件类型，个人只支持身份证IDENTITY_CARD，企业支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	// 法人姓名，企业认证必选
+	LegalPerson *string `json:"legal_person,omitempty" xml:"legal_person,omitempty"`
+	// 法人身份证,  企业认证必选
+	LegalPersonId *string `json:"legal_person_id,omitempty" xml:"legal_person_id,omitempty"`
+	// 用户手机号码
+	MobileNo *string `json:"mobile_no,omitempty" xml:"mobile_no,omitempty"`
+	// 扩展属性
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 用户类型，PERSON或者ENTERPRISE
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+}
+
+func (s Identity) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Identity) GoString() string {
+	return s.String()
+}
+
+func (s *Identity) SetAgent(v string) *Identity {
+	s.Agent = &v
+	return s
+}
+
+func (s *Identity) SetAgentId(v string) *Identity {
+	s.AgentId = &v
+	return s
+}
+
+func (s *Identity) SetCertName(v string) *Identity {
+	s.CertName = &v
+	return s
+}
+
+func (s *Identity) SetCertNo(v string) *Identity {
+	s.CertNo = &v
+	return s
+}
+
+func (s *Identity) SetCertType(v string) *Identity {
+	s.CertType = &v
+	return s
+}
+
+func (s *Identity) SetLegalPerson(v string) *Identity {
+	s.LegalPerson = &v
+	return s
+}
+
+func (s *Identity) SetLegalPersonId(v string) *Identity {
+	s.LegalPersonId = &v
+	return s
+}
+
+func (s *Identity) SetMobileNo(v string) *Identity {
+	s.MobileNo = &v
+	return s
+}
+
+func (s *Identity) SetProperties(v string) *Identity {
+	s.Properties = &v
+	return s
+}
+
+func (s *Identity) SetUserType(v string) *Identity {
+	s.UserType = &v
+	return s
+}
+
+// 营销分销平台推广人账户信息
+type FundInfo struct {
+	// 可提现余额
+	Balance *string `json:"balance,omitempty" xml:"balance,omitempty" require:"true"`
+	// 待结算额度
+	SettleQuota *string `json:"settle_quota,omitempty" xml:"settle_quota,omitempty" require:"true"`
+	// 商户id
+	ShopId *string `json:"shop_id,omitempty" xml:"shop_id,omitempty" require:"true"`
+}
+
+func (s FundInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FundInfo) GoString() string {
+	return s.String()
+}
+
+func (s *FundInfo) SetBalance(v string) *FundInfo {
+	s.Balance = &v
+	return s
+}
+
+func (s *FundInfo) SetSettleQuota(v string) *FundInfo {
+	s.SettleQuota = &v
+	return s
+}
+
+func (s *FundInfo) SetShopId(v string) *FundInfo {
+	s.ShopId = &v
+	return s
+}
+
+// VC Repo用户注册结构体
+type VcUserRegisterPayload struct {
+	// 用户did对应的授权公钥
+	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty"`
+	// 业务区块连的bizid
+	VcChannel *string `json:"vc_channel,omitempty" xml:"vc_channel,omitempty" maxLength:"32" minLength:"8"`
+}
+
+func (s VcUserRegisterPayload) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VcUserRegisterPayload) GoString() string {
+	return s.String()
+}
+
+func (s *VcUserRegisterPayload) SetPublicKey(v string) *VcUserRegisterPayload {
+	s.PublicKey = &v
+	return s
+}
+
+func (s *VcUserRegisterPayload) SetVcChannel(v string) *VcUserRegisterPayload {
+	s.VcChannel = &v
+	return s
+}
+
+// 阿里云请求结果
+type ALiYunHandleBabelMns struct {
+	// message
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// request_id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s ALiYunHandleBabelMns) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ALiYunHandleBabelMns) GoString() string {
+	return s.String()
+}
+
+func (s *ALiYunHandleBabelMns) SetMessage(v string) *ALiYunHandleBabelMns {
+	s.Message = &v
+	return s
+}
+
+func (s *ALiYunHandleBabelMns) SetRequestId(v string) *ALiYunHandleBabelMns {
+	s.RequestId = &v
+	return s
+}
+
+func (s *ALiYunHandleBabelMns) SetSuccess(v bool) *ALiYunHandleBabelMns {
+	s.Success = &v
+	return s
+}
+
+// 溯源信息中的一项记录。
+type Item struct {
+	// 溯源项的具体内容
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty" require:"true"`
+	// 扩展信息 ，json格式
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+	// 溯源项的键值
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// 溯源项的中文标题
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+	// 内容类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s Item) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Item) GoString() string {
+	return s.String()
+}
+
+func (s *Item) SetDesc(v string) *Item {
+	s.Desc = &v
+	return s
+}
+
+func (s *Item) SetExtInfo(v string) *Item {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *Item) SetKey(v string) *Item {
+	s.Key = &v
+	return s
+}
+
+func (s *Item) SetTitle(v string) *Item {
+	s.Title = &v
+	return s
+}
+
+func (s *Item) SetType(v string) *Item {
+	s.Type = &v
+	return s
+}
+
+// C3S可信计算服务TAPP应用信息
+type TappInfo struct {
+	// C3S可信计算TAPP应用标识
+	TaapId *string `json:"taap_id,omitempty" xml:"taap_id,omitempty" require:"true"`
+	// C3S可信计算TAPP版本
+	TappVersion *int64 `json:"tapp_version,omitempty" xml:"tapp_version,omitempty" require:"true"`
+}
+
+func (s TappInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TappInfo) GoString() string {
+	return s.String()
+}
+
+func (s *TappInfo) SetTaapId(v string) *TappInfo {
+	s.TaapId = &v
+	return s
+}
+
+func (s *TappInfo) SetTappVersion(v int64) *TappInfo {
+	s.TappVersion = &v
+	return s
+}
+
+// BaaS平台联盟信息
+type BaasUnionInfo struct {
+	// 联盟名称
+	UnionName *string `json:"union_name,omitempty" xml:"union_name,omitempty" require:"true"`
+	// 描述
+	UnionDescription *string `json:"union_description,omitempty" xml:"union_description,omitempty" require:"true"`
+	// 联系人
+	UnionUser *string `json:"union_user,omitempty" xml:"union_user,omitempty" require:"true"`
+	// 联盟联系人手机号码
+	UnionUserCell *string `json:"union_user_cell,omitempty" xml:"union_user_cell,omitempty" require:"true"`
+	// 联盟联系人邮箱
+	UnionUserMail *string `json:"union_user_mail,omitempty" xml:"union_user_mail,omitempty" require:"true"`
+}
+
+func (s BaasUnionInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaasUnionInfo) GoString() string {
+	return s.String()
+}
+
+func (s *BaasUnionInfo) SetUnionName(v string) *BaasUnionInfo {
+	s.UnionName = &v
+	return s
+}
+
+func (s *BaasUnionInfo) SetUnionDescription(v string) *BaasUnionInfo {
+	s.UnionDescription = &v
+	return s
+}
+
+func (s *BaasUnionInfo) SetUnionUser(v string) *BaasUnionInfo {
+	s.UnionUser = &v
+	return s
+}
+
+func (s *BaasUnionInfo) SetUnionUserCell(v string) *BaasUnionInfo {
+	s.UnionUserCell = &v
+	return s
+}
+
+func (s *BaasUnionInfo) SetUnionUserMail(v string) *BaasUnionInfo {
+	s.UnionUserMail = &v
+	return s
+}
+
+// blockchain交易结构体
+type TransactionPo struct {
+	// 交易所在块hash
+	BlockHash *string `json:"block_hash,omitempty" xml:"block_hash,omitempty"`
+	// 交易来源
+	From *string `json:"from,omitempty" xml:"from,omitempty"`
+	// gas消耗
+	GasUsed *int64 `json:"gas_used,omitempty" xml:"gas_used,omitempty"`
+	// 交易hash
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+	// 交易所在块 块高
+	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
+	// 交易返回结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+	// 交易时间
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
+	// 交易地址
+	To *string `json:"to,omitempty" xml:"to,omitempty"`
+	// 交易类型 同SDK
+	TxType *int64 `json:"tx_type,omitempty" xml:"tx_type,omitempty"`
+	// 转账额度
+	Value *int64 `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s TransactionPo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransactionPo) GoString() string {
+	return s.String()
+}
+
+func (s *TransactionPo) SetBlockHash(v string) *TransactionPo {
+	s.BlockHash = &v
+	return s
+}
+
+func (s *TransactionPo) SetFrom(v string) *TransactionPo {
+	s.From = &v
+	return s
+}
+
+func (s *TransactionPo) SetGasUsed(v int64) *TransactionPo {
+	s.GasUsed = &v
+	return s
+}
+
+func (s *TransactionPo) SetHash(v string) *TransactionPo {
+	s.Hash = &v
+	return s
+}
+
+func (s *TransactionPo) SetHeight(v int64) *TransactionPo {
+	s.Height = &v
+	return s
+}
+
+func (s *TransactionPo) SetResult(v string) *TransactionPo {
+	s.Result = &v
+	return s
+}
+
+func (s *TransactionPo) SetTimestamp(v int64) *TransactionPo {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *TransactionPo) SetTo(v string) *TransactionPo {
+	s.To = &v
+	return s
+}
+
+func (s *TransactionPo) SetTxType(v int64) *TransactionPo {
+	s.TxType = &v
+	return s
+}
+
+func (s *TransactionPo) SetValue(v int64) *TransactionPo {
+	s.Value = &v
+	return s
+}
+
+// VC链上传输结果
+type VcTransmitResult struct {
+	// 成功或者失败
+	IsSuccess *bool `json:"is_success,omitempty" xml:"is_success,omitempty" require:"true"`
+	// 失败信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 验证verifier did
+	TargetVerifier *string `json:"target_verifier,omitempty" xml:"target_verifier,omitempty" require:"true"`
+	// 交易hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+}
+
+func (s VcTransmitResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VcTransmitResult) GoString() string {
+	return s.String()
+}
+
+func (s *VcTransmitResult) SetIsSuccess(v bool) *VcTransmitResult {
+	s.IsSuccess = &v
+	return s
+}
+
+func (s *VcTransmitResult) SetMessage(v string) *VcTransmitResult {
+	s.Message = &v
+	return s
+}
+
+func (s *VcTransmitResult) SetTargetVerifier(v string) *VcTransmitResult {
+	s.TargetVerifier = &v
+	return s
+}
+
+func (s *VcTransmitResult) SetTxHash(v string) *VcTransmitResult {
+	s.TxHash = &v
+	return s
+}
+
+// 可信时间信息结构
+type TsrResponse struct {
+	// hash后的信息
+	HashedMessage *string `json:"hashed_message,omitempty" xml:"hashed_message,omitempty" require:"true"`
+	// 哈希算法
+	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty" require:"true"`
+	// 时间
+	Ts *string `json:"ts,omitempty" xml:"ts,omitempty" require:"true"`
+}
+
+func (s TsrResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TsrResponse) GoString() string {
+	return s.String()
+}
+
+func (s *TsrResponse) SetHashedMessage(v string) *TsrResponse {
+	s.HashedMessage = &v
+	return s
+}
+
+func (s *TsrResponse) SetHashAlgorithm(v string) *TsrResponse {
+	s.HashAlgorithm = &v
+	return s
+}
+
+func (s *TsrResponse) SetTs(v string) *TsrResponse {
+	s.Ts = &v
+	return s
+}
+
+// 阿里云数据导出服务TriggerDTO结构体
+type TriggerDTOStructBody struct {
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 源
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+	// 创建时间
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 错误信息
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// option（map结构，由于金融云无map接口所以通过string类型传输json格式）
+	Option *string `json:"option,omitempty" xml:"option,omitempty"`
+	// checkpoint类
+	Checkpoint *CheckPointStructBody `json:"checkpoint,omitempty" xml:"checkpoint,omitempty"`
+	// 待处理的错误事件总数
+	PendingErrorLogs *string `json:"pending_error_logs,omitempty" xml:"pending_error_logs,omitempty"`
+}
+
+func (s TriggerDTOStructBody) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TriggerDTOStructBody) GoString() string {
+	return s.String()
+}
+
+func (s *TriggerDTOStructBody) SetName(v string) *TriggerDTOStructBody {
+	s.Name = &v
+	return s
+}
+
+func (s *TriggerDTOStructBody) SetType(v string) *TriggerDTOStructBody {
+	s.Type = &v
+	return s
+}
+
+func (s *TriggerDTOStructBody) SetSource(v string) *TriggerDTOStructBody {
+	s.Source = &v
+	return s
+}
+
+func (s *TriggerDTOStructBody) SetCreateTime(v string) *TriggerDTOStructBody {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *TriggerDTOStructBody) SetErrorMessage(v string) *TriggerDTOStructBody {
+	s.ErrorMessage = &v
+	return s
+}
+
+func (s *TriggerDTOStructBody) SetStatus(v string) *TriggerDTOStructBody {
+	s.Status = &v
+	return s
+}
+
+func (s *TriggerDTOStructBody) SetOption(v string) *TriggerDTOStructBody {
+	s.Option = &v
+	return s
+}
+
+func (s *TriggerDTOStructBody) SetCheckpoint(v *CheckPointStructBody) *TriggerDTOStructBody {
+	s.Checkpoint = v
+	return s
+}
+
+func (s *TriggerDTOStructBody) SetPendingErrorLogs(v string) *TriggerDTOStructBody {
+	s.PendingErrorLogs = &v
+	return s
+}
+
+// 人群配置
+type CrowdNodeDTO struct {
+	// 节点id
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
+	// 节点类型
+	NodeType *CrowdNodeTypeEnum `json:"node_type,omitempty" xml:"node_type,omitempty" require:"true"`
+	// 是否排除
+	Exclude *bool `json:"exclude,omitempty" xml:"exclude,omitempty" require:"true"`
+	// 节点配置
+	NodeConfig *string `json:"node_config,omitempty" xml:"node_config,omitempty" require:"true"`
+}
+
+func (s CrowdNodeDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CrowdNodeDTO) GoString() string {
+	return s.String()
+}
+
+func (s *CrowdNodeDTO) SetNodeId(v string) *CrowdNodeDTO {
+	s.NodeId = &v
+	return s
+}
+
+func (s *CrowdNodeDTO) SetNodeType(v *CrowdNodeTypeEnum) *CrowdNodeDTO {
+	s.NodeType = v
+	return s
+}
+
+func (s *CrowdNodeDTO) SetExclude(v bool) *CrowdNodeDTO {
+	s.Exclude = &v
+	return s
+}
+
+func (s *CrowdNodeDTO) SetNodeConfig(v string) *CrowdNodeDTO {
+	s.NodeConfig = &v
 	return s
 }
 
@@ -2706,53 +6498,6 @@ func (s *Location) SetWifiMac(v string) *Location {
 	return s
 }
 
-// 申请用户授权的目标可验证声明内容、过期时间等配置
-type Claim struct {
-	// 一个json的string，内容包含具体需要的声明，不同业务场景不同。
-	ClaimContent *string `json:"claim_content,omitempty" xml:"claim_content,omitempty" require:"true"`
-	// 如果在相同的biz_type下，还需要针对声明claim进行细化划分，可以使用此字段。
-	ClaimType *string `json:"claim_type,omitempty" xml:"claim_type,omitempty"`
-	// 申请声明颁发后的有效期，可选参数，如果不指定则默认申请永久有效。
-	Expire *int64 `json:"expire,omitempty" xml:"expire,omitempty"`
-	// 授权颁发可验证声明的目标did信息，通常为机构或组织的did
-	Did *string `json:"did,omitempty" xml:"did,omitempty"`
-	// 目标待授权的名称，标定唯一性，与claim内容配合使用，如果不指定did可以考虑使用此字段。
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-}
-
-func (s Claim) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Claim) GoString() string {
-	return s.String()
-}
-
-func (s *Claim) SetClaimContent(v string) *Claim {
-	s.ClaimContent = &v
-	return s
-}
-
-func (s *Claim) SetClaimType(v string) *Claim {
-	s.ClaimType = &v
-	return s
-}
-
-func (s *Claim) SetExpire(v int64) *Claim {
-	s.Expire = &v
-	return s
-}
-
-func (s *Claim) SetDid(v string) *Claim {
-	s.Did = &v
-	return s
-}
-
-func (s *Claim) SetName(v string) *Claim {
-	s.Name = &v
-	return s
-}
-
 // 营销分销推广人账户流水信息
 type CapitalInfo struct {
 	// 记录流水额度
@@ -2793,60 +6538,6 @@ func (s *CapitalInfo) SetTxHash(v string) *CapitalInfo {
 	return s
 }
 
-// 阿里云子链检查结果
-type ALiYunChainSubnetCheck struct {
-	// 检查结果
-	CheckResult *string `json:"check_result,omitempty" xml:"check_result,omitempty"`
-	// 子链成员列表
-	ConsortiumMemberList []*string `json:"consortium_member_list,omitempty" xml:"consortium_member_list,omitempty" type:"Repeated"`
-	// 节点信息列表
-	ChainNodeInfoList []*ALiYunChainNodeInfo `json:"chain_node_info_list,omitempty" xml:"chain_node_info_list,omitempty" type:"Repeated"`
-	// 联盟管理员
-	ConsortiumAdmin *bool `json:"consortium_admin,omitempty" xml:"consortium_admin,omitempty"`
-	// 子链成员列表
-	ConsortiumMemberInfoList []*ALiYunMember `json:"consortium_member_info_list,omitempty" xml:"consortium_member_info_list,omitempty" type:"Repeated"`
-	// 分页信息
-	Pagination *ALiYunPagination `json:"pagination,omitempty" xml:"pagination,omitempty"`
-}
-
-func (s ALiYunChainSubnetCheck) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunChainSubnetCheck) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunChainSubnetCheck) SetCheckResult(v string) *ALiYunChainSubnetCheck {
-	s.CheckResult = &v
-	return s
-}
-
-func (s *ALiYunChainSubnetCheck) SetConsortiumMemberList(v []*string) *ALiYunChainSubnetCheck {
-	s.ConsortiumMemberList = v
-	return s
-}
-
-func (s *ALiYunChainSubnetCheck) SetChainNodeInfoList(v []*ALiYunChainNodeInfo) *ALiYunChainSubnetCheck {
-	s.ChainNodeInfoList = v
-	return s
-}
-
-func (s *ALiYunChainSubnetCheck) SetConsortiumAdmin(v bool) *ALiYunChainSubnetCheck {
-	s.ConsortiumAdmin = &v
-	return s
-}
-
-func (s *ALiYunChainSubnetCheck) SetConsortiumMemberInfoList(v []*ALiYunMember) *ALiYunChainSubnetCheck {
-	s.ConsortiumMemberInfoList = v
-	return s
-}
-
-func (s *ALiYunChainSubnetCheck) SetPagination(v *ALiYunPagination) *ALiYunChainSubnetCheck {
-	s.Pagination = v
-	return s
-}
-
 // 阿里云区块链小程序日志查询
 type ALiYunChainMiniAppLog struct {
 	// access_count
@@ -2870,53 +6561,6 @@ func (s *ALiYunChainMiniAppLog) SetAccessCount(v int64) *ALiYunChainMiniAppLog {
 
 func (s *ALiYunChainMiniAppLog) SetAccessAlipayAccountCount(v int64) *ALiYunChainMiniAppLog {
 	s.AccessAlipayAccountCount = &v
-	return s
-}
-
-// 授权规则详细信息
-type AuthorizationRule struct {
-	// 规则来源
-	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
-	// 规则索引
-	Index *string `json:"index,omitempty" xml:"index,omitempty" require:"true"`
-	// 规则类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 规则表达式
-	Expression *string `json:"expression,omitempty" xml:"expression,omitempty" require:"true"`
-	// 规则内容
-	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
-}
-
-func (s AuthorizationRule) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AuthorizationRule) GoString() string {
-	return s.String()
-}
-
-func (s *AuthorizationRule) SetSource(v string) *AuthorizationRule {
-	s.Source = &v
-	return s
-}
-
-func (s *AuthorizationRule) SetIndex(v string) *AuthorizationRule {
-	s.Index = &v
-	return s
-}
-
-func (s *AuthorizationRule) SetType(v string) *AuthorizationRule {
-	s.Type = &v
-	return s
-}
-
-func (s *AuthorizationRule) SetExpression(v string) *AuthorizationRule {
-	s.Expression = &v
-	return s
-}
-
-func (s *AuthorizationRule) SetContent(v string) *AuthorizationRule {
-	s.Content = &v
 	return s
 }
 
@@ -3249,46 +6893,6 @@ func (s *VcTransmitCnf) SetVerifierId(v string) *VcTransmitCnf {
 	return s
 }
 
-// 账户映射结果
-type AccountMappingResult struct {
-	// 该账户在链上的唯一标示
-	Baccount *string `json:"baccount,omitempty" xml:"baccount,omitempty" require:"true"`
-	// 当前账户映射结果描述语句
-	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
-	// 状态描述符
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 自有系统中该账户唯一标示
-	Uid *string `json:"uid,omitempty" xml:"uid,omitempty" require:"true"`
-}
-
-func (s AccountMappingResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AccountMappingResult) GoString() string {
-	return s.String()
-}
-
-func (s *AccountMappingResult) SetBaccount(v string) *AccountMappingResult {
-	s.Baccount = &v
-	return s
-}
-
-func (s *AccountMappingResult) SetMessage(v string) *AccountMappingResult {
-	s.Message = &v
-	return s
-}
-
-func (s *AccountMappingResult) SetStatus(v string) *AccountMappingResult {
-	s.Status = &v
-	return s
-}
-
-func (s *AccountMappingResult) SetUid(v string) *AccountMappingResult {
-	s.Uid = &v
-	return s
-}
-
 // 阿里云区块链小程序用户权限查询
 type ALiYunChainMiniAppUserPrivilege struct {
 	// ant_chain_id
@@ -3333,53 +6937,6 @@ func (s *ALiYunChainMiniAppUserPrivilege) SetPagination(v *ALiYunPagination) *AL
 
 func (s *ALiYunChainMiniAppUserPrivilege) SetAuthorizedUserList(v []*ALiYunChainMiniAppAuthorizedUser) *ALiYunChainMiniAppUserPrivilege {
 	s.AuthorizedUserList = v
-	return s
-}
-
-// 可验证声明的完整内容以及状态，当前持有者的did等信息
-type VcContent struct {
-	// 可验证声明的唯一标识id，status 为 “1” 时候非空
-	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty" require:"true"`
-	// 可验证声明完整内容， status 为 “1” 时候非空
-	VcContent *string `json:"vc_content,omitempty" xml:"vc_content,omitempty" require:"true"`
-	// 可验证声明的颁发状态说明： -1：颁发失败，0：未授权 1：授权成功，此时vc_content字段会包含授权后的声明内容，其它状态码，待定义后增加。
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 被颁发当前可验证声明的目标did
-	Did *string `json:"did,omitempty" xml:"did,omitempty"`
-	// 如果status 是 “-1”，则说明当前可验证声明颁发失败，此字段说明失败原因。
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-}
-
-func (s VcContent) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VcContent) GoString() string {
-	return s.String()
-}
-
-func (s *VcContent) SetVcId(v string) *VcContent {
-	s.VcId = &v
-	return s
-}
-
-func (s *VcContent) SetVcContent(v string) *VcContent {
-	s.VcContent = &v
-	return s
-}
-
-func (s *VcContent) SetStatus(v string) *VcContent {
-	s.Status = &v
-	return s
-}
-
-func (s *VcContent) SetDid(v string) *VcContent {
-	s.Did = &v
-	return s
-}
-
-func (s *VcContent) SetMessage(v string) *VcContent {
-	s.Message = &v
 	return s
 }
 
@@ -3441,39 +6998,6 @@ func (s *ProcessInfo) SetTotalCount(v int64) *ProcessInfo {
 
 func (s *ProcessInfo) SetDataId(v string) *ProcessInfo {
 	s.DataId = &v
-	return s
-}
-
-// 用户身份、账户及手机号信息
-type UserInfoParam struct {
-	// 用户手机号信息
-	Phone *string `json:"phone,omitempty" xml:"phone,omitempty" require:"true"`
-	// 用户账号信息
-	UserAccount *string `json:"user_account,omitempty" xml:"user_account,omitempty" require:"true"`
-	// 用户名称
-	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
-}
-
-func (s UserInfoParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UserInfoParam) GoString() string {
-	return s.String()
-}
-
-func (s *UserInfoParam) SetPhone(v string) *UserInfoParam {
-	s.Phone = &v
-	return s
-}
-
-func (s *UserInfoParam) SetUserAccount(v string) *UserInfoParam {
-	s.UserAccount = &v
-	return s
-}
-
-func (s *UserInfoParam) SetUserName(v string) *UserInfoParam {
-	s.UserName = &v
 	return s
 }
 
@@ -3659,201 +7183,6 @@ func (s *AccountMap) SetUid(v string) *AccountMap {
 	return s
 }
 
-// 链详情
-type MyChainInfo struct {
-	// 链id
-	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
-	// 授权租户id
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
-}
-
-func (s MyChainInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MyChainInfo) GoString() string {
-	return s.String()
-}
-
-func (s *MyChainInfo) SetBizId(v string) *MyChainInfo {
-	s.BizId = &v
-	return s
-}
-
-func (s *MyChainInfo) SetTenant(v string) *MyChainInfo {
-	s.Tenant = &v
-	return s
-}
-
-// 派生DID的具体参数
-type DeriveDid struct {
-	// 派生的子did
-	Childdid *string `json:"childdid,omitempty" xml:"childdid,omitempty" require:"true"`
-	// 子did 的did doc
-	Childdiddoc *string `json:"childdiddoc,omitempty" xml:"childdiddoc,omitempty" require:"true"`
-	// 用户输入用于派生子did的派生码
-	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
-}
-
-func (s DeriveDid) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeriveDid) GoString() string {
-	return s.String()
-}
-
-func (s *DeriveDid) SetChilddid(v string) *DeriveDid {
-	s.Childdid = &v
-	return s
-}
-
-func (s *DeriveDid) SetChilddiddoc(v string) *DeriveDid {
-	s.Childdiddoc = &v
-	return s
-}
-
-func (s *DeriveDid) SetCode(v string) *DeriveDid {
-	s.Code = &v
-	return s
-}
-
-// 授权明细详情
-type AuthorizationDetail struct {
-	// 授权凭证ID
-	AuthorityCertId *string `json:"authority_cert_id,omitempty" xml:"authority_cert_id,omitempty" require:"true"`
-	// 授权ID
-	AuthorizationId *string `json:"authorization_id,omitempty" xml:"authorization_id,omitempty"`
-	// 区块号
-	BlockNum *int64 `json:"block_num,omitempty" xml:"block_num,omitempty" require:"true"`
-	// 过期时间
-	Expire *int64 `json:"expire,omitempty" xml:"expire,omitempty"`
-	// 授权时间
-	IssuanceTime *int64 `json:"issuance_time,omitempty" xml:"issuance_time,omitempty" require:"true"`
-	// 授权人
-	Issuer *Participant `json:"issuer,omitempty" xml:"issuer,omitempty" require:"true"`
-	// 被授权人
-	Subject *Participant `json:"subject,omitempty" xml:"subject,omitempty" require:"true"`
-	// 哈希
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 资产所有者
-	Owner *Participant `json:"owner,omitempty" xml:"owner,omitempty" require:"true"`
-}
-
-func (s AuthorizationDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AuthorizationDetail) GoString() string {
-	return s.String()
-}
-
-func (s *AuthorizationDetail) SetAuthorityCertId(v string) *AuthorizationDetail {
-	s.AuthorityCertId = &v
-	return s
-}
-
-func (s *AuthorizationDetail) SetAuthorizationId(v string) *AuthorizationDetail {
-	s.AuthorizationId = &v
-	return s
-}
-
-func (s *AuthorizationDetail) SetBlockNum(v int64) *AuthorizationDetail {
-	s.BlockNum = &v
-	return s
-}
-
-func (s *AuthorizationDetail) SetExpire(v int64) *AuthorizationDetail {
-	s.Expire = &v
-	return s
-}
-
-func (s *AuthorizationDetail) SetIssuanceTime(v int64) *AuthorizationDetail {
-	s.IssuanceTime = &v
-	return s
-}
-
-func (s *AuthorizationDetail) SetIssuer(v *Participant) *AuthorizationDetail {
-	s.Issuer = v
-	return s
-}
-
-func (s *AuthorizationDetail) SetSubject(v *Participant) *AuthorizationDetail {
-	s.Subject = v
-	return s
-}
-
-func (s *AuthorizationDetail) SetTxHash(v string) *AuthorizationDetail {
-	s.TxHash = &v
-	return s
-}
-
-func (s *AuthorizationDetail) SetOwner(v *Participant) *AuthorizationDetail {
-	s.Owner = v
-	return s
-}
-
-// 阿里云CloudIde的配置
-type ALiYunChainCloudIdeConfig struct {
-	// bizid
-	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// trial_account
-	TrialAccount *string `json:"trial_account,omitempty" xml:"trial_account,omitempty"`
-	// trial_account_private_key
-	TrialAccountPrivateKey *string `json:"trial_account_private_key,omitempty" xml:"trial_account_private_key,omitempty"`
-	// ant_chain_id
-	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty"`
-	// ant_chain_name
-	AntChainName *string `json:"ant_chain_name,omitempty" xml:"ant_chain_name,omitempty"`
-	// version
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-}
-
-func (s ALiYunChainCloudIdeConfig) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunChainCloudIdeConfig) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunChainCloudIdeConfig) SetBizid(v string) *ALiYunChainCloudIdeConfig {
-	s.Bizid = &v
-	return s
-}
-
-func (s *ALiYunChainCloudIdeConfig) SetName(v string) *ALiYunChainCloudIdeConfig {
-	s.Name = &v
-	return s
-}
-
-func (s *ALiYunChainCloudIdeConfig) SetTrialAccount(v string) *ALiYunChainCloudIdeConfig {
-	s.TrialAccount = &v
-	return s
-}
-
-func (s *ALiYunChainCloudIdeConfig) SetTrialAccountPrivateKey(v string) *ALiYunChainCloudIdeConfig {
-	s.TrialAccountPrivateKey = &v
-	return s
-}
-
-func (s *ALiYunChainCloudIdeConfig) SetAntChainId(v string) *ALiYunChainCloudIdeConfig {
-	s.AntChainId = &v
-	return s
-}
-
-func (s *ALiYunChainCloudIdeConfig) SetAntChainName(v string) *ALiYunChainCloudIdeConfig {
-	s.AntChainName = &v
-	return s
-}
-
-func (s *ALiYunChainCloudIdeConfig) SetVersion(v string) *ALiYunChainCloudIdeConfig {
-	s.Version = &v
-	return s
-}
-
 // 服务端签名oss的url然后client直传文件到oss，此结构包含了服务端签名后的数据。
 type PresignedUrlPolicy struct {
 	// oss访问的临时access id
@@ -4002,60 +7331,6 @@ func (s *DidDetail) SetDidDoc(v string) *DidDetail {
 	return s
 }
 
-// 阿里云联盟返回结果
-type ALiYunUnion struct {
-	// 联盟内链的集合
-	AntChains []*ALiYunAntChain `json:"ant_chains,omitempty" xml:"ant_chains,omitempty" type:"Repeated"`
-	// 联盟信息
-	AntConsortiums []*ALiYunAntConsortium `json:"ant_consortiums,omitempty" xml:"ant_consortiums,omitempty" type:"Repeated"`
-	// 联盟Id
-	ConsortiumId *string `json:"consortium_id,omitempty" xml:"consortium_id,omitempty"`
-	// 联盟成员信息
-	Members []*ALiYunMember `json:"members,omitempty" xml:"members,omitempty" type:"Repeated"`
-	// 阿里云分页属性
-	Pagination *ALiYunPagination `json:"pagination,omitempty" xml:"pagination,omitempty"`
-	// is_exist
-	IsExist *bool `json:"is_exist,omitempty" xml:"is_exist,omitempty"`
-}
-
-func (s ALiYunUnion) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunUnion) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunUnion) SetAntChains(v []*ALiYunAntChain) *ALiYunUnion {
-	s.AntChains = v
-	return s
-}
-
-func (s *ALiYunUnion) SetAntConsortiums(v []*ALiYunAntConsortium) *ALiYunUnion {
-	s.AntConsortiums = v
-	return s
-}
-
-func (s *ALiYunUnion) SetConsortiumId(v string) *ALiYunUnion {
-	s.ConsortiumId = &v
-	return s
-}
-
-func (s *ALiYunUnion) SetMembers(v []*ALiYunMember) *ALiYunUnion {
-	s.Members = v
-	return s
-}
-
-func (s *ALiYunUnion) SetPagination(v *ALiYunPagination) *ALiYunUnion {
-	s.Pagination = v
-	return s
-}
-
-func (s *ALiYunUnion) SetIsExist(v bool) *ALiYunUnion {
-	s.IsExist = &v
-	return s
-}
-
 // 蚂蚁链浏览器区块信息
 type BlockchainBrowserBlock struct {
 	// bizid
@@ -4145,95 +7420,62 @@ func (s *BlockchainBrowserBlock) SetTransactionSize(v int64) *BlockchainBrowserB
 	return s
 }
 
-// 数据授权服务公钥矩阵关系结构体
-type PublicKeyRelation struct {
-	// 公钥颁发者ID
-	IssuerId *string `json:"issuer_id,omitempty" xml:"issuer_id,omitempty" require:"true"`
-	// 公钥接受者ID
-	RecipientId *string `json:"recipient_id,omitempty" xml:"recipient_id,omitempty" require:"true"`
+// 任务人群配置
+type TaskCrowdNodeDTO struct {
+	// 节点ID
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
+	// 节点类型
+	NodeType *string `json:"node_type,omitempty" xml:"node_type,omitempty" require:"true"`
+	// 是否排除
+	Exclude *bool `json:"exclude,omitempty" xml:"exclude,omitempty" require:"true"`
+	// 节点配置
+	NodeConfig *string `json:"node_config,omitempty" xml:"node_config,omitempty" require:"true"`
 }
 
-func (s PublicKeyRelation) String() string {
+func (s TaskCrowdNodeDTO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s PublicKeyRelation) GoString() string {
+func (s TaskCrowdNodeDTO) GoString() string {
 	return s.String()
 }
 
-func (s *PublicKeyRelation) SetIssuerId(v string) *PublicKeyRelation {
-	s.IssuerId = &v
+func (s *TaskCrowdNodeDTO) SetNodeId(v string) *TaskCrowdNodeDTO {
+	s.NodeId = &v
 	return s
 }
 
-func (s *PublicKeyRelation) SetRecipientId(v string) *PublicKeyRelation {
-	s.RecipientId = &v
+func (s *TaskCrowdNodeDTO) SetNodeType(v string) *TaskCrowdNodeDTO {
+	s.NodeType = &v
 	return s
 }
 
-// 合约类型
-type ContractTypeResp struct {
-	// 合约服务类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+func (s *TaskCrowdNodeDTO) SetExclude(v bool) *TaskCrowdNodeDTO {
+	s.Exclude = &v
+	return s
 }
 
-func (s ContractTypeResp) String() string {
+func (s *TaskCrowdNodeDTO) SetNodeConfig(v string) *TaskCrowdNodeDTO {
+	s.NodeConfig = &v
+	return s
+}
+
+// 人群匹配结果
+type MatchResult struct {
+	// 是否匹配
+	Match *bool `json:"match,omitempty" xml:"match,omitempty" require:"true"`
+}
+
+func (s MatchResult) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ContractTypeResp) GoString() string {
+func (s MatchResult) GoString() string {
 	return s.String()
 }
 
-func (s *ContractTypeResp) SetType(v string) *ContractTypeResp {
-	s.Type = &v
-	return s
-}
-
-// 物流金融平台运单轨迹信息
-type LogisticLocation struct {
-	// 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
-	Address *string `json:"address,omitempty" xml:"address,omitempty"`
-	// 行政区划代码
-	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty"`
-	// 纬度
-	Lat *string `json:"lat,omitempty" xml:"lat,omitempty" require:"true"`
-	// 经度
-	Lon *string `json:"lon,omitempty" xml:"lon,omitempty" require:"true"`
-	// 轨迹时间戳
-	TrackTime *int64 `json:"track_time,omitempty" xml:"track_time,omitempty" require:"true"`
-}
-
-func (s LogisticLocation) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LogisticLocation) GoString() string {
-	return s.String()
-}
-
-func (s *LogisticLocation) SetAddress(v string) *LogisticLocation {
-	s.Address = &v
-	return s
-}
-
-func (s *LogisticLocation) SetCityCode(v string) *LogisticLocation {
-	s.CityCode = &v
-	return s
-}
-
-func (s *LogisticLocation) SetLat(v string) *LogisticLocation {
-	s.Lat = &v
-	return s
-}
-
-func (s *LogisticLocation) SetLon(v string) *LogisticLocation {
-	s.Lon = &v
-	return s
-}
-
-func (s *LogisticLocation) SetTrackTime(v int64) *LogisticLocation {
-	s.TrackTime = &v
+func (s *MatchResult) SetMatch(v bool) *MatchResult {
+	s.Match = &v
 	return s
 }
 
@@ -4267,60 +7509,6 @@ func (s *ALiYunChain) SetContractBlockchain(v *ALiYunContractBlockchain) *ALiYun
 
 func (s *ALiYunChain) SetOldContractBlockchain(v *ALiYunOldContractBlockchain) *ALiYunChain {
 	s.OldContractBlockchain = v
-	return s
-}
-
-// 阿里云订单结果
-type ALiYunOrderResult struct {
-	// request_id
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
-	// data
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
-	// success
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// code
-	Code *string `json:"code,omitempty" xml:"code,omitempty"`
-	// message
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-	// synchro
-	Synchro *bool `json:"synchro,omitempty" xml:"synchro,omitempty"`
-}
-
-func (s ALiYunOrderResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunOrderResult) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunOrderResult) SetRequestId(v string) *ALiYunOrderResult {
-	s.RequestId = &v
-	return s
-}
-
-func (s *ALiYunOrderResult) SetData(v string) *ALiYunOrderResult {
-	s.Data = &v
-	return s
-}
-
-func (s *ALiYunOrderResult) SetSuccess(v bool) *ALiYunOrderResult {
-	s.Success = &v
-	return s
-}
-
-func (s *ALiYunOrderResult) SetCode(v string) *ALiYunOrderResult {
-	s.Code = &v
-	return s
-}
-
-func (s *ALiYunOrderResult) SetMessage(v string) *ALiYunOrderResult {
-	s.Message = &v
-	return s
-}
-
-func (s *ALiYunOrderResult) SetSynchro(v bool) *ALiYunOrderResult {
-	s.Synchro = &v
 	return s
 }
 
@@ -4430,114 +7618,6 @@ func (s *ALiYunChainKmsAccount) SetMyKmsKeyId(v string) *ALiYunChainKmsAccount {
 	return s
 }
 
-// 批量查询商户下已映射的账户信息接口，返回的对象
-type QueryMappingBatchResult struct {
-	// 本次查询获取的账户信息
-	Accounts []*AccountMappingInfo `json:"accounts,omitempty" xml:"accounts,omitempty" require:"true" type:"Repeated"`
-	// 该商户下总共映射账户的数量
-	TotalNum *int64 `json:"total_num,omitempty" xml:"total_num,omitempty" require:"true"`
-	// 该商户下账户信息的总页数
-	TotalPage *int64 `json:"total_page,omitempty" xml:"total_page,omitempty" require:"true"`
-}
-
-func (s QueryMappingBatchResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryMappingBatchResult) GoString() string {
-	return s.String()
-}
-
-func (s *QueryMappingBatchResult) SetAccounts(v []*AccountMappingInfo) *QueryMappingBatchResult {
-	s.Accounts = v
-	return s
-}
-
-func (s *QueryMappingBatchResult) SetTotalNum(v int64) *QueryMappingBatchResult {
-	s.TotalNum = &v
-	return s
-}
-
-func (s *QueryMappingBatchResult) SetTotalPage(v int64) *QueryMappingBatchResult {
-	s.TotalPage = &v
-	return s
-}
-
-// 阿里云区块链区块信息
-type ALiYunChainBlock struct {
-	// ant_chain_id
-	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty"`
-	// block_hash
-	BlockHash *string `json:"block_hash,omitempty" xml:"block_hash,omitempty"`
-	// create_time
-	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// height
-	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
-	// previous_hash
-	PreviousHash *string `json:"previous_hash,omitempty" xml:"previous_hash,omitempty"`
-	// root_tx_hash
-	RootTxHash *string `json:"root_tx_hash,omitempty" xml:"root_tx_hash,omitempty"`
-	// transaction_size
-	TransactionSize *int64 `json:"transaction_size,omitempty" xml:"transaction_size,omitempty"`
-	// trans_summary_list
-	TransSummaryList []*ALiYunTransactionSummary `json:"trans_summary_list,omitempty" xml:"trans_summary_list,omitempty" type:"Repeated"`
-	// Version
-	Version *int64 `json:"version,omitempty" xml:"version,omitempty"`
-}
-
-func (s ALiYunChainBlock) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunChainBlock) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunChainBlock) SetAntChainId(v string) *ALiYunChainBlock {
-	s.AntChainId = &v
-	return s
-}
-
-func (s *ALiYunChainBlock) SetBlockHash(v string) *ALiYunChainBlock {
-	s.BlockHash = &v
-	return s
-}
-
-func (s *ALiYunChainBlock) SetCreateTime(v int64) *ALiYunChainBlock {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *ALiYunChainBlock) SetHeight(v int64) *ALiYunChainBlock {
-	s.Height = &v
-	return s
-}
-
-func (s *ALiYunChainBlock) SetPreviousHash(v string) *ALiYunChainBlock {
-	s.PreviousHash = &v
-	return s
-}
-
-func (s *ALiYunChainBlock) SetRootTxHash(v string) *ALiYunChainBlock {
-	s.RootTxHash = &v
-	return s
-}
-
-func (s *ALiYunChainBlock) SetTransactionSize(v int64) *ALiYunChainBlock {
-	s.TransactionSize = &v
-	return s
-}
-
-func (s *ALiYunChainBlock) SetTransSummaryList(v []*ALiYunTransactionSummary) *ALiYunChainBlock {
-	s.TransSummaryList = v
-	return s
-}
-
-func (s *ALiYunChainBlock) SetVersion(v int64) *ALiYunChainBlock {
-	s.Version = &v
-	return s
-}
-
 // 物流金融平台用户信息
 type LogisticFinUser struct {
 	// 纳税人识别号
@@ -4571,123 +7651,48 @@ func (s *LogisticFinUser) SetUserId(v string) *LogisticFinUser {
 	return s
 }
 
-// did中使用ZKP生成证明需要的信息
-type DidZKPInfo struct {
-	// 需要生成证明的路径
-	Path *string `json:"path,omitempty" xml:"path,omitempty" require:"true"`
-	// 生成ZKP证明的公共信息
-	PublicInputs *string `json:"public_inputs,omitempty" xml:"public_inputs,omitempty" require:"true"`
-	// zkp方法
-	ZkpType *string `json:"zkp_type,omitempty" xml:"zkp_type,omitempty" require:"true"`
+// 合约查询
+type ContractQueryDetailReq struct {
+	// 服务ID
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
 }
 
-func (s DidZKPInfo) String() string {
+func (s ContractQueryDetailReq) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DidZKPInfo) GoString() string {
+func (s ContractQueryDetailReq) GoString() string {
 	return s.String()
 }
 
-func (s *DidZKPInfo) SetPath(v string) *DidZKPInfo {
-	s.Path = &v
+func (s *ContractQueryDetailReq) SetServiceId(v string) *ContractQueryDetailReq {
+	s.ServiceId = &v
 	return s
 }
 
-func (s *DidZKPInfo) SetPublicInputs(v string) *DidZKPInfo {
-	s.PublicInputs = &v
-	return s
+// 智能合约市场列表查询
+type ContractTemplateQueryReq struct {
+	// 页码
+	Num *int64 `json:"num,omitempty" xml:"num,omitempty" require:"true"`
+	// 页大小
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
 }
 
-func (s *DidZKPInfo) SetZkpType(v string) *DidZKPInfo {
-	s.ZkpType = &v
-	return s
-}
-
-// 阿里云账户列表信息
-type ALiYunAccountList struct {
-	// pagination
-	Pagination *ALiYunPagination `json:"pagination,omitempty" xml:"pagination,omitempty"`
-	// accounts
-	Accounts []*ALiYunAccount `json:"accounts,omitempty" xml:"accounts,omitempty" type:"Repeated"`
-	// 联盟管理员
-	ConsortiumAdmin *bool `json:"consortium_admin,omitempty" xml:"consortium_admin,omitempty"`
-}
-
-func (s ALiYunAccountList) String() string {
+func (s ContractTemplateQueryReq) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ALiYunAccountList) GoString() string {
+func (s ContractTemplateQueryReq) GoString() string {
 	return s.String()
 }
 
-func (s *ALiYunAccountList) SetPagination(v *ALiYunPagination) *ALiYunAccountList {
-	s.Pagination = v
+func (s *ContractTemplateQueryReq) SetNum(v int64) *ContractTemplateQueryReq {
+	s.Num = &v
 	return s
 }
 
-func (s *ALiYunAccountList) SetAccounts(v []*ALiYunAccount) *ALiYunAccountList {
-	s.Accounts = v
-	return s
-}
-
-func (s *ALiYunAccountList) SetConsortiumAdmin(v bool) *ALiYunAccountList {
-	s.ConsortiumAdmin = &v
-	return s
-}
-
-// 蚂蚁链用途申报结构体
-type AntChainPurposeResponse struct {
-	// 用户申报用途状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 已申报的用途，比如供应链金融
-	Purpose *string `json:"purpose,omitempty" xml:"purpose,omitempty"`
-	// 申报时间
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// 简短说明用途
-	ChainPurposeItem *string `json:"chain_purpose_item,omitempty" xml:"chain_purpose_item,omitempty"`
-	// 用途详情
-	ChainPurposeExtend *string `json:"chain_purpose_extend,omitempty" xml:"chain_purpose_extend,omitempty"`
-	// 申请用途列表
-	RecordList []*ChainPurpose `json:"record_list,omitempty" xml:"record_list,omitempty" type:"Repeated"`
-}
-
-func (s AntChainPurposeResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AntChainPurposeResponse) GoString() string {
-	return s.String()
-}
-
-func (s *AntChainPurposeResponse) SetStatus(v string) *AntChainPurposeResponse {
-	s.Status = &v
-	return s
-}
-
-func (s *AntChainPurposeResponse) SetPurpose(v string) *AntChainPurposeResponse {
-	s.Purpose = &v
-	return s
-}
-
-func (s *AntChainPurposeResponse) SetCreateTime(v string) *AntChainPurposeResponse {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *AntChainPurposeResponse) SetChainPurposeItem(v string) *AntChainPurposeResponse {
-	s.ChainPurposeItem = &v
-	return s
-}
-
-func (s *AntChainPurposeResponse) SetChainPurposeExtend(v string) *AntChainPurposeResponse {
-	s.ChainPurposeExtend = &v
-	return s
-}
-
-func (s *AntChainPurposeResponse) SetRecordList(v []*ChainPurpose) *AntChainPurposeResponse {
-	s.RecordList = v
+func (s *ContractTemplateQueryReq) SetSize(v int64) *ContractTemplateQueryReq {
+	s.Size = &v
 	return s
 }
 
@@ -4724,69 +7729,29 @@ func (s *DistributionUser) SetUserId(v string) *DistributionUser {
 	return s
 }
 
-// 阿里云交易收据
-type ALiYunTransactionReceipt struct {
-	// data
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
-	// gas_used
-	GasUsed *string `json:"gas_used,omitempty" xml:"gas_used,omitempty"`
-	// result
-	Result *int64 `json:"result,omitempty" xml:"result,omitempty"`
-	// logs
-	Logs []*string `json:"logs,omitempty" xml:"logs,omitempty" type:"Repeated"`
+// 智能合约市场列表
+type ContractTemplateListResp struct {
+	// 合约市场列表
+	List []*ContractTemplateResp `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
 }
 
-func (s ALiYunTransactionReceipt) String() string {
+func (s ContractTemplateListResp) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ALiYunTransactionReceipt) GoString() string {
+func (s ContractTemplateListResp) GoString() string {
 	return s.String()
 }
 
-func (s *ALiYunTransactionReceipt) SetData(v string) *ALiYunTransactionReceipt {
-	s.Data = &v
+func (s *ContractTemplateListResp) SetList(v []*ContractTemplateResp) *ContractTemplateListResp {
+	s.List = v
 	return s
 }
 
-func (s *ALiYunTransactionReceipt) SetGasUsed(v string) *ALiYunTransactionReceipt {
-	s.GasUsed = &v
-	return s
-}
-
-func (s *ALiYunTransactionReceipt) SetResult(v int64) *ALiYunTransactionReceipt {
-	s.Result = &v
-	return s
-}
-
-func (s *ALiYunTransactionReceipt) SetLogs(v []*string) *ALiYunTransactionReceipt {
-	s.Logs = v
-	return s
-}
-
-// 实例进度
-type ContractCreateProcessResp struct {
-	// 当前进度信息
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 合约部署进度
-	ProgressInfoList []*InstanceProgressInfo `json:"progress_info_list,omitempty" xml:"progress_info_list,omitempty" type:"Repeated"`
-}
-
-func (s ContractCreateProcessResp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractCreateProcessResp) GoString() string {
-	return s.String()
-}
-
-func (s *ContractCreateProcessResp) SetStatus(v string) *ContractCreateProcessResp {
-	s.Status = &v
-	return s
-}
-
-func (s *ContractCreateProcessResp) SetProgressInfoList(v []*InstanceProgressInfo) *ContractCreateProcessResp {
-	s.ProgressInfoList = v
+func (s *ContractTemplateListResp) SetTotal(v int64) *ContractTemplateListResp {
+	s.Total = &v
 	return s
 }
 
@@ -4862,60 +7827,6 @@ func (s *ProcessResult) SetBlockNumber(v int64) *ProcessResult {
 
 func (s *ProcessResult) SetAuthorityCert(v string) *ProcessResult {
 	s.AuthorityCert = &v
-	return s
-}
-
-// 内部建链信息查询
-type CreateBlockchainInfo struct {
-	// 链id
-	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
-	// 链的状态
-	BlockchainStatus *string `json:"blockchain_status,omitempty" xml:"blockchain_status,omitempty" require:"true"`
-	// 链的类型
-	BlockchainType *string `json:"blockchain_type,omitempty" xml:"blockchain_type,omitempty" require:"true"`
-	// 链的名称
-	BlockchainName *string `json:"blockchain_name,omitempty" xml:"blockchain_name,omitempty" require:"true"`
-	// 节点数量
-	BlockchanNodeNum *int64 `json:"blockchan_node_num,omitempty" xml:"blockchan_node_num,omitempty" require:"true"`
-	// 创建时间
-	BlockchainCreateTime *int64 `json:"blockchain_create_time,omitempty" xml:"blockchain_create_time,omitempty" require:"true"`
-}
-
-func (s CreateBlockchainInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreateBlockchainInfo) GoString() string {
-	return s.String()
-}
-
-func (s *CreateBlockchainInfo) SetBizid(v string) *CreateBlockchainInfo {
-	s.Bizid = &v
-	return s
-}
-
-func (s *CreateBlockchainInfo) SetBlockchainStatus(v string) *CreateBlockchainInfo {
-	s.BlockchainStatus = &v
-	return s
-}
-
-func (s *CreateBlockchainInfo) SetBlockchainType(v string) *CreateBlockchainInfo {
-	s.BlockchainType = &v
-	return s
-}
-
-func (s *CreateBlockchainInfo) SetBlockchainName(v string) *CreateBlockchainInfo {
-	s.BlockchainName = &v
-	return s
-}
-
-func (s *CreateBlockchainInfo) SetBlockchanNodeNum(v int64) *CreateBlockchainInfo {
-	s.BlockchanNodeNum = &v
-	return s
-}
-
-func (s *CreateBlockchainInfo) SetBlockchainCreateTime(v int64) *CreateBlockchainInfo {
-	s.BlockchainCreateTime = &v
 	return s
 }
 
@@ -5088,89 +7999,6 @@ func (s *BlockchainBrowserTransactionReceipt) SetResult(v int64) *BlockchainBrow
 	return s
 }
 
-// VC分享的结果
-type VcShareResult struct {
-	// 目标分享的VC的id
-	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty" require:"true"`
-	// 分享给目标接受者的did
-	TargetDid *string `json:"target_did,omitempty" xml:"target_did,omitempty" require:"true"`
-	// 分享链上VC数据的交易hash，可用于直连区块链查询交易内容时使用。
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
-	// 分享是否成功，true：成功，false：失败
-	Status *bool `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 失败的对应原因信息
-	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
-}
-
-func (s VcShareResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VcShareResult) GoString() string {
-	return s.String()
-}
-
-func (s *VcShareResult) SetVcId(v string) *VcShareResult {
-	s.VcId = &v
-	return s
-}
-
-func (s *VcShareResult) SetTargetDid(v string) *VcShareResult {
-	s.TargetDid = &v
-	return s
-}
-
-func (s *VcShareResult) SetTxHash(v string) *VcShareResult {
-	s.TxHash = &v
-	return s
-}
-
-func (s *VcShareResult) SetStatus(v bool) *VcShareResult {
-	s.Status = &v
-	return s
-}
-
-func (s *VcShareResult) SetMsg(v string) *VcShareResult {
-	s.Msg = &v
-	return s
-}
-
-// 合约加密字段
-type ContractEncryptKeyItem struct {
-	// 字段对应的id
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// 0:encrypt_text,
-	// 1:encrypt_array_text,
-	// 2:encrypt_int
-	// 3:encrypt_array_int
-	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 字段对应的数据
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s ContractEncryptKeyItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractEncryptKeyItem) GoString() string {
-	return s.String()
-}
-
-func (s *ContractEncryptKeyItem) SetKey(v string) *ContractEncryptKeyItem {
-	s.Key = &v
-	return s
-}
-
-func (s *ContractEncryptKeyItem) SetType(v int64) *ContractEncryptKeyItem {
-	s.Type = &v
-	return s
-}
-
-func (s *ContractEncryptKeyItem) SetValue(v string) *ContractEncryptKeyItem {
-	s.Value = &v
-	return s
-}
-
 // 数字资产管理平台批发结构
 type AccountWholesaleParam struct {
 	// 批发数量
@@ -5197,165 +8025,246 @@ func (s *AccountWholesaleParam) SetUserAccount(v string) *AccountWholesaleParam 
 	return s
 }
 
-// did更新事件
-type DidEvent struct {
-	// 事件对应的合约方法
-	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
-	// 对应did
-	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
-	// did对应doc
-	DidDoc *string `json:"did_doc,omitempty" xml:"did_doc,omitempty" require:"true"`
-	// 本次事件的触发者
-	From *string `json:"from,omitempty" xml:"from,omitempty" require:"true"`
-	// 6500
-	Height *int64 `json:"height,omitempty" xml:"height,omitempty" require:"true"`
-	// 交易hash
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 交易在区块中的index
-	TxIndex *int64 `json:"tx_index,omitempty" xml:"tx_index,omitempty" require:"true"`
+// 更新后的任务信息
+type UpdatedTaskInfo struct {
+	// 任务标题(同一个租户不能重复)
+	TaskName *string `json:"task_name,omitempty" xml:"task_name,omitempty" require:"true"`
+	// appId
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 问卷ID
+	SurveyId *string `json:"survey_id,omitempty" xml:"survey_id,omitempty" require:"true"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 备注信息
+	Notes *string `json:"notes,omitempty" xml:"notes,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 操作者ID
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// banner标题
+	BannerTitle *string `json:"banner_title,omitempty" xml:"banner_title,omitempty" require:"true"`
+	// banner图片地址（最多支持3张）
+	BannerImageUrls *string `json:"banner_image_urls,omitempty" xml:"banner_image_urls,omitempty"`
+	// banner 图片地址, 拼装后的url
+	BannerImageFullUrls []*string `json:"banner_image_full_urls,omitempty" xml:"banner_image_full_urls,omitempty" type:"Repeated"`
+	// 题量
+	QuestionNum *int64 `json:"question_num,omitempty" xml:"question_num,omitempty" require:"true"`
+	// 任务连接地址
+	TaskLinkUrl *string `json:"task_link_url,omitempty" xml:"task_link_url,omitempty" require:"true"`
+	// 人群划分描述
+	PersonDivideContent *string `json:"person_divide_content,omitempty" xml:"person_divide_content,omitempty"`
+	// 城市列表
+	CityDivideUrls *string `json:"city_divide_urls,omitempty" xml:"city_divide_urls,omitempty"`
+	// 城市列表, 拼装后的url
+	CityDivideFullUrls []*string `json:"city_divide_full_urls,omitempty" xml:"city_divide_full_urls,omitempty" type:"Repeated"`
+	// 样本数量
+	SampleNum *int64 `json:"sample_num,omitempty" xml:"sample_num,omitempty" require:"true"`
+	// 完成样本量
+	CompletedNum *int64 `json:"completed_num,omitempty" xml:"completed_num,omitempty" require:"true"`
+	// 产品下单code类型（1-资源包 2-后付费）
+	ProductCodeType *string `json:"product_code_type,omitempty" xml:"product_code_type,omitempty" require:"true"`
+	// 产品余量
+	ProductCapacity *int64 `json:"product_capacity,omitempty" xml:"product_capacity,omitempty" require:"true"`
+	// 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
+	PrizeChannel *int64 `json:"prize_channel,omitempty" xml:"prize_channel,omitempty" require:"true"`
+	// 支付宝账号
+	AlipayAccountId *string `json:"alipay_account_id,omitempty" xml:"alipay_account_id,omitempty"`
+	// 奖励类型（0-定额红包）
+	PrizeType *int64 `json:"prize_type,omitempty" xml:"prize_type,omitempty" require:"true"`
+	// 全额红包金额，奖励渠道为0和1时
+	FullRedPacketAmount *string `json:"full_red_packet_amount,omitempty" xml:"full_red_packet_amount,omitempty" require:"true"`
+	// 全额红包描述，奖励渠道为2时，此处必填
+	FullRedPacketTextInfo *string `json:"full_red_packet_text_info,omitempty" xml:"full_red_packet_text_info,omitempty"`
+	// 甄别红包金额
+	ExamineRedPacketAmount *string `json:"examine_red_packet_amount,omitempty" xml:"examine_red_packet_amount,omitempty" require:"true"`
+	// 关联的证书instanceId
+	CertInstanceId *string `json:"cert_instance_id,omitempty" xml:"cert_instance_id,omitempty"`
+	// 证书实例详情
+	CertInstanceDetail *CertInstanceDetail `json:"cert_instance_detail,omitempty" xml:"cert_instance_detail,omitempty" require:"true"`
+	// 审核意见
+	VerifyOmment *string `json:"verify_omment,omitempty" xml:"verify_omment,omitempty"`
+	// 任务创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
+	// 任务修改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true"`
+	// 审核理由
+	ReviewContent *string `json:"review_content,omitempty" xml:"review_content,omitempty"`
+	// 状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 人群配置
+	CrowdConfig *string `json:"crowd_config,omitempty" xml:"crowd_config,omitempty" require:"true"`
 }
 
-func (s DidEvent) String() string {
+func (s UpdatedTaskInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DidEvent) GoString() string {
+func (s UpdatedTaskInfo) GoString() string {
 	return s.String()
 }
 
-func (s *DidEvent) SetAction(v string) *DidEvent {
-	s.Action = &v
+func (s *UpdatedTaskInfo) SetTaskName(v string) *UpdatedTaskInfo {
+	s.TaskName = &v
 	return s
 }
 
-func (s *DidEvent) SetDid(v string) *DidEvent {
-	s.Did = &v
+func (s *UpdatedTaskInfo) SetAppId(v string) *UpdatedTaskInfo {
+	s.AppId = &v
 	return s
 }
 
-func (s *DidEvent) SetDidDoc(v string) *DidEvent {
-	s.DidDoc = &v
+func (s *UpdatedTaskInfo) SetSurveyId(v string) *UpdatedTaskInfo {
+	s.SurveyId = &v
 	return s
 }
 
-func (s *DidEvent) SetFrom(v string) *DidEvent {
-	s.From = &v
+func (s *UpdatedTaskInfo) SetTaskId(v string) *UpdatedTaskInfo {
+	s.TaskId = &v
 	return s
 }
 
-func (s *DidEvent) SetHeight(v int64) *DidEvent {
-	s.Height = &v
+func (s *UpdatedTaskInfo) SetNotes(v string) *UpdatedTaskInfo {
+	s.Notes = &v
 	return s
 }
 
-func (s *DidEvent) SetTxHash(v string) *DidEvent {
-	s.TxHash = &v
+func (s *UpdatedTaskInfo) SetTenantId(v string) *UpdatedTaskInfo {
+	s.TenantId = &v
 	return s
 }
 
-func (s *DidEvent) SetTxIndex(v int64) *DidEvent {
-	s.TxIndex = &v
+func (s *UpdatedTaskInfo) SetOperator(v string) *UpdatedTaskInfo {
+	s.Operator = &v
 	return s
 }
 
-// Vc可信传输实际参数
-type VcTransmitPayload struct {
-	// 目标did相关信息列表
-	TargetVerifier []*VcTransmitTargetStruct `json:"target_verifier,omitempty" xml:"target_verifier,omitempty" require:"true" type:"Repeated"`
-	// 要传输的vc_id
-	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty" require:"true"`
-	// vc原文，如果vc原文出现在传输接口，那么VC仓库不会从本地查找，而是直接将传输的VC上链
-	VcContent *string `json:"vc_content,omitempty" xml:"vc_content,omitempty"`
-}
-
-func (s VcTransmitPayload) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VcTransmitPayload) GoString() string {
-	return s.String()
-}
-
-func (s *VcTransmitPayload) SetTargetVerifier(v []*VcTransmitTargetStruct) *VcTransmitPayload {
-	s.TargetVerifier = v
+func (s *UpdatedTaskInfo) SetBannerTitle(v string) *UpdatedTaskInfo {
+	s.BannerTitle = &v
 	return s
 }
 
-func (s *VcTransmitPayload) SetVcId(v string) *VcTransmitPayload {
-	s.VcId = &v
+func (s *UpdatedTaskInfo) SetBannerImageUrls(v string) *UpdatedTaskInfo {
+	s.BannerImageUrls = &v
 	return s
 }
 
-func (s *VcTransmitPayload) SetVcContent(v string) *VcTransmitPayload {
-	s.VcContent = &v
+func (s *UpdatedTaskInfo) SetBannerImageFullUrls(v []*string) *UpdatedTaskInfo {
+	s.BannerImageFullUrls = v
 	return s
 }
 
-// 阿里云合约内容
-type ALiYunChainContractContent struct {
-	// content
-	Content *string `json:"content,omitempty" xml:"content,omitempty"`
-	// content_id
-	ContentId *string `json:"content_id,omitempty" xml:"content_id,omitempty"`
-	// content_name
-	ContentName *string `json:"content_name,omitempty" xml:"content_name,omitempty"`
-	// create_time
-	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// is_directory
-	IsDirectory *bool `json:"is_directory,omitempty" xml:"is_directory,omitempty"`
-	// parent_content_id
-	ParentContentId *string `json:"parent_content_id,omitempty" xml:"parent_content_id,omitempty"`
-	// project_id
-	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
-	// update_time
-	UpdateTime *int64 `json:"update_time,omitempty" xml:"update_time,omitempty"`
-}
-
-func (s ALiYunChainContractContent) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunChainContractContent) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunChainContractContent) SetContent(v string) *ALiYunChainContractContent {
-	s.Content = &v
+func (s *UpdatedTaskInfo) SetQuestionNum(v int64) *UpdatedTaskInfo {
+	s.QuestionNum = &v
 	return s
 }
 
-func (s *ALiYunChainContractContent) SetContentId(v string) *ALiYunChainContractContent {
-	s.ContentId = &v
+func (s *UpdatedTaskInfo) SetTaskLinkUrl(v string) *UpdatedTaskInfo {
+	s.TaskLinkUrl = &v
 	return s
 }
 
-func (s *ALiYunChainContractContent) SetContentName(v string) *ALiYunChainContractContent {
-	s.ContentName = &v
+func (s *UpdatedTaskInfo) SetPersonDivideContent(v string) *UpdatedTaskInfo {
+	s.PersonDivideContent = &v
 	return s
 }
 
-func (s *ALiYunChainContractContent) SetCreateTime(v int64) *ALiYunChainContractContent {
-	s.CreateTime = &v
+func (s *UpdatedTaskInfo) SetCityDivideUrls(v string) *UpdatedTaskInfo {
+	s.CityDivideUrls = &v
 	return s
 }
 
-func (s *ALiYunChainContractContent) SetIsDirectory(v bool) *ALiYunChainContractContent {
-	s.IsDirectory = &v
+func (s *UpdatedTaskInfo) SetCityDivideFullUrls(v []*string) *UpdatedTaskInfo {
+	s.CityDivideFullUrls = v
 	return s
 }
 
-func (s *ALiYunChainContractContent) SetParentContentId(v string) *ALiYunChainContractContent {
-	s.ParentContentId = &v
+func (s *UpdatedTaskInfo) SetSampleNum(v int64) *UpdatedTaskInfo {
+	s.SampleNum = &v
 	return s
 }
 
-func (s *ALiYunChainContractContent) SetProjectId(v string) *ALiYunChainContractContent {
-	s.ProjectId = &v
+func (s *UpdatedTaskInfo) SetCompletedNum(v int64) *UpdatedTaskInfo {
+	s.CompletedNum = &v
 	return s
 }
 
-func (s *ALiYunChainContractContent) SetUpdateTime(v int64) *ALiYunChainContractContent {
-	s.UpdateTime = &v
+func (s *UpdatedTaskInfo) SetProductCodeType(v string) *UpdatedTaskInfo {
+	s.ProductCodeType = &v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetProductCapacity(v int64) *UpdatedTaskInfo {
+	s.ProductCapacity = &v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetPrizeChannel(v int64) *UpdatedTaskInfo {
+	s.PrizeChannel = &v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetAlipayAccountId(v string) *UpdatedTaskInfo {
+	s.AlipayAccountId = &v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetPrizeType(v int64) *UpdatedTaskInfo {
+	s.PrizeType = &v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetFullRedPacketAmount(v string) *UpdatedTaskInfo {
+	s.FullRedPacketAmount = &v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetFullRedPacketTextInfo(v string) *UpdatedTaskInfo {
+	s.FullRedPacketTextInfo = &v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetExamineRedPacketAmount(v string) *UpdatedTaskInfo {
+	s.ExamineRedPacketAmount = &v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetCertInstanceId(v string) *UpdatedTaskInfo {
+	s.CertInstanceId = &v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetCertInstanceDetail(v *CertInstanceDetail) *UpdatedTaskInfo {
+	s.CertInstanceDetail = v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetVerifyOmment(v string) *UpdatedTaskInfo {
+	s.VerifyOmment = &v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetGmtCreate(v string) *UpdatedTaskInfo {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetGmtModified(v string) *UpdatedTaskInfo {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetReviewContent(v string) *UpdatedTaskInfo {
+	s.ReviewContent = &v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetStatus(v int64) *UpdatedTaskInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *UpdatedTaskInfo) SetCrowdConfig(v string) *UpdatedTaskInfo {
+	s.CrowdConfig = &v
 	return s
 }
 
@@ -5413,25 +8322,6 @@ func (s *ALiYunTransactionResult) SetTransaction(v *ALiYunTransaction) *ALiYunTr
 	return s
 }
 
-// 结果
-type Result struct {
-	// 联盟id
-	ConsortiumId *string `json:"consortium_id,omitempty" xml:"consortium_id,omitempty" require:"true"`
-}
-
-func (s Result) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Result) GoString() string {
-	return s.String()
-}
-
-func (s *Result) SetConsortiumId(v string) *Result {
-	s.ConsortiumId = &v
-	return s
-}
-
 // waas公钥信息
 type PublicKeyInfo struct {
 	// 公钥id
@@ -5486,46 +8376,6 @@ func (s *PublicKeyInfo) SetController(v string) *PublicKeyInfo {
 	return s
 }
 
-// 更新did doc中的service信息
-type UpdateDidService struct {
-	// 待更新did之前的版本号
-	PreviousVersion *int64 `json:"previous_version,omitempty" xml:"previous_version,omitempty" require:"true"`
-	// did doc中的service id
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
-	// 服务信息
-	ServiceInfo *DidServiceInfo `json:"service_info,omitempty" xml:"service_info,omitempty" require:"true"`
-	// 服务类型
-	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty" require:"true"`
-}
-
-func (s UpdateDidService) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UpdateDidService) GoString() string {
-	return s.String()
-}
-
-func (s *UpdateDidService) SetPreviousVersion(v int64) *UpdateDidService {
-	s.PreviousVersion = &v
-	return s
-}
-
-func (s *UpdateDidService) SetServiceId(v string) *UpdateDidService {
-	s.ServiceId = &v
-	return s
-}
-
-func (s *UpdateDidService) SetServiceInfo(v *DidServiceInfo) *UpdateDidService {
-	s.ServiceInfo = v
-	return s
-}
-
-func (s *UpdateDidService) SetServiceType(v string) *UpdateDidService {
-	s.ServiceType = &v
-	return s
-}
-
 // 更新VC状态数据结构
 type UpdateVCStatus struct {
 	// valid or invalid
@@ -5549,6 +8399,32 @@ func (s *UpdateVCStatus) SetStatus(v string) *UpdateVCStatus {
 
 func (s *UpdateVCStatus) SetVcId(v string) *UpdateVCStatus {
 	s.VcId = &v
+	return s
+}
+
+// 关联应用
+type ContractBindAppReq struct {
+	// 应用ID
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 合约服务标识集合
+	ServiceIds []*string `json:"service_ids,omitempty" xml:"service_ids,omitempty" type:"Repeated"`
+}
+
+func (s ContractBindAppReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractBindAppReq) GoString() string {
+	return s.String()
+}
+
+func (s *ContractBindAppReq) SetApplicationId(v string) *ContractBindAppReq {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *ContractBindAppReq) SetServiceIds(v []*string) *ContractBindAppReq {
+	s.ServiceIds = v
 	return s
 }
 
@@ -5582,163 +8458,6 @@ func (s *OCUserData) SetPhoneNumber(v string) *OCUserData {
 
 func (s *OCUserData) SetUserName(v string) *OCUserData {
 	s.UserName = &v
-	return s
-}
-
-// 应用授权列表查询
-type PageRespApplicationListResp struct {
-	// 总数
-	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
-	// 列表数据
-	DataList []*ApplicationListResp `json:"data_list,omitempty" xml:"data_list,omitempty" type:"Repeated"`
-}
-
-func (s PageRespApplicationListResp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PageRespApplicationListResp) GoString() string {
-	return s.String()
-}
-
-func (s *PageRespApplicationListResp) SetTotal(v int64) *PageRespApplicationListResp {
-	s.Total = &v
-	return s
-}
-
-func (s *PageRespApplicationListResp) SetDataList(v []*ApplicationListResp) *PageRespApplicationListResp {
-	s.DataList = v
-	return s
-}
-
-// 包含业务组的用户信息
-type AccountInfoWithBiz struct {
-	// 注册地址
-	Address *string `json:"address,omitempty" xml:"address,omitempty"`
-	// 业务场景code
-	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
-	// 业务名称
-	BizName *string `json:"biz_name,omitempty" xml:"biz_name,omitempty" require:"true"`
-	// 业务类型，预留
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
-	// 用户创建时间，格式yyyy-MM-dd HH:mm:ss
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// 用户注销时间，格式yyyy-MM-dd HH:mm:ss
-	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty"`
-	// 扩展字段，使用json格式
-	Extension *string `json:"extension,omitempty" xml:"extension,omitempty" maxLength:"200"`
-	// 业务组code
-	GroupCode *string `json:"group_code,omitempty" xml:"group_code,omitempty" require:"true"`
-	// 业务组名称
-	GroupName *string `json:"group_name,omitempty" xml:"group_name,omitempty" require:"true"`
-	// 唯一标示类型，0:统一信用代码,1:开票机构代码,2:身份证号
-	IdentityType *int64 `json:"identity_type,omitempty" xml:"identity_type,omitempty"`
-	// 唯一标示码
-	IdentityValue *string `json:"identity_value,omitempty" xml:"identity_value,omitempty"`
-	// 用户标签
-	Label *string `json:"label,omitempty" xml:"label,omitempty"`
-	// 间连用户的上层直连用户名称
-	Parent *string `json:"parent,omitempty" xml:"parent,omitempty"`
-	// 统计时间，时间格式：yyyy-MM-dd HH:mm:ss
-	StatDate *string `json:"stat_date,omitempty" xml:"stat_date,omitempty"`
-	// 用户id
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
-	// 用户或企业名称
-	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
-	// 用户类型：direct直连，indirect间连，partner合作伙伴
-	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
-}
-
-func (s AccountInfoWithBiz) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AccountInfoWithBiz) GoString() string {
-	return s.String()
-}
-
-func (s *AccountInfoWithBiz) SetAddress(v string) *AccountInfoWithBiz {
-	s.Address = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetBizCode(v string) *AccountInfoWithBiz {
-	s.BizCode = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetBizName(v string) *AccountInfoWithBiz {
-	s.BizName = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetBizType(v string) *AccountInfoWithBiz {
-	s.BizType = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetCreateTime(v string) *AccountInfoWithBiz {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetEndTime(v string) *AccountInfoWithBiz {
-	s.EndTime = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetExtension(v string) *AccountInfoWithBiz {
-	s.Extension = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetGroupCode(v string) *AccountInfoWithBiz {
-	s.GroupCode = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetGroupName(v string) *AccountInfoWithBiz {
-	s.GroupName = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetIdentityType(v int64) *AccountInfoWithBiz {
-	s.IdentityType = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetIdentityValue(v string) *AccountInfoWithBiz {
-	s.IdentityValue = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetLabel(v string) *AccountInfoWithBiz {
-	s.Label = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetParent(v string) *AccountInfoWithBiz {
-	s.Parent = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetStatDate(v string) *AccountInfoWithBiz {
-	s.StatDate = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetUserId(v string) *AccountInfoWithBiz {
-	s.UserId = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetUserName(v string) *AccountInfoWithBiz {
-	s.UserName = &v
-	return s
-}
-
-func (s *AccountInfoWithBiz) SetUserType(v string) *AccountInfoWithBiz {
-	s.UserType = &v
 	return s
 }
 
@@ -5808,256 +8527,62 @@ func (s *ALiYunChainSubnetList) SetBlockchainSubnetList(v []*ALiYunChainSubnet) 
 	return s
 }
 
-// 物流金融信用凭证信息
-type IssueInfo struct {
-	// 信用流转批次号
-	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty"`
-	// 合同编号
-	ContractId *string `json:"contract_id,omitempty" xml:"contract_id,omitempty"`
-	// 信用凭证额度
-	CreditLimit *string `json:"credit_limit,omitempty" xml:"credit_limit,omitempty"`
-	// 失败原因信息
-	ErrMsg *string `json:"err_msg,omitempty" xml:"err_msg,omitempty"`
-	// 信用凭证到期时间
-	ExpireDate *string `json:"expire_date,omitempty" xml:"expire_date,omitempty"`
-	// 信用凭证发起时间
-	IssueDate *string `json:"issue_date,omitempty" xml:"issue_date,omitempty"`
-	// 信用流转凭证
-	IssueId *string `json:"issue_id,omitempty" xml:"issue_id,omitempty"`
-	// 发行结果状态
-	// -1:发行失败状态， 0:未完成状态， 1:已发行状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
-	// 发行信用流转的运单号
-	WaybillId *string `json:"waybill_id,omitempty" xml:"waybill_id,omitempty"`
+// 合约服务列表查询
+type ContracPageReq struct {
+	// 合约服务类别
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 页码
+	Num *int64 `json:"num,omitempty" xml:"num,omitempty" require:"true"`
+	// 页大小
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
 }
 
-func (s IssueInfo) String() string {
+func (s ContracPageReq) String() string {
 	return tea.Prettify(s)
 }
 
-func (s IssueInfo) GoString() string {
+func (s ContracPageReq) GoString() string {
 	return s.String()
 }
 
-func (s *IssueInfo) SetBatchId(v string) *IssueInfo {
-	s.BatchId = &v
+func (s *ContracPageReq) SetType(v string) *ContracPageReq {
+	s.Type = &v
 	return s
 }
 
-func (s *IssueInfo) SetContractId(v string) *IssueInfo {
-	s.ContractId = &v
+func (s *ContracPageReq) SetNum(v int64) *ContracPageReq {
+	s.Num = &v
 	return s
 }
 
-func (s *IssueInfo) SetCreditLimit(v string) *IssueInfo {
-	s.CreditLimit = &v
+func (s *ContracPageReq) SetSize(v int64) *ContracPageReq {
+	s.Size = &v
 	return s
 }
 
-func (s *IssueInfo) SetErrMsg(v string) *IssueInfo {
-	s.ErrMsg = &v
-	return s
+// 人群标签枚举集合对象
+type CrowdTagEnumResp struct {
+	// 人群标签code
+	CrowdTag *string `json:"crowd_tag,omitempty" xml:"crowd_tag,omitempty" require:"true"`
+	// 人群标签枚举列表对象
+	CrowTagEnumItemList []*CrowdTagEnumItemDTO `json:"crow_tag_enum_item_list,omitempty" xml:"crow_tag_enum_item_list,omitempty" require:"true" type:"Repeated"`
 }
 
-func (s *IssueInfo) SetExpireDate(v string) *IssueInfo {
-	s.ExpireDate = &v
-	return s
-}
-
-func (s *IssueInfo) SetIssueDate(v string) *IssueInfo {
-	s.IssueDate = &v
-	return s
-}
-
-func (s *IssueInfo) SetIssueId(v string) *IssueInfo {
-	s.IssueId = &v
-	return s
-}
-
-func (s *IssueInfo) SetStatus(v int64) *IssueInfo {
-	s.Status = &v
-	return s
-}
-
-func (s *IssueInfo) SetWaybillId(v string) *IssueInfo {
-	s.WaybillId = &v
-	return s
-}
-
-// 分页失败的展示日志（过滤器：待处理、成功、已忽略）
-type CommonResponsePageableStructBody struct {
-	// 页面规格
-	PageSize *string `json:"page_size,omitempty" xml:"page_size,omitempty"`
-	// 当前页码
-	Current *string `json:"current,omitempty" xml:"current,omitempty"`
-	// 总条数
-	Total *string `json:"total,omitempty" xml:"total,omitempty"`
-	// 失败日志数组
-	List []*TriggerLogDTOStructBody `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
-}
-
-func (s CommonResponsePageableStructBody) String() string {
+func (s CrowdTagEnumResp) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CommonResponsePageableStructBody) GoString() string {
+func (s CrowdTagEnumResp) GoString() string {
 	return s.String()
 }
 
-func (s *CommonResponsePageableStructBody) SetPageSize(v string) *CommonResponsePageableStructBody {
-	s.PageSize = &v
+func (s *CrowdTagEnumResp) SetCrowdTag(v string) *CrowdTagEnumResp {
+	s.CrowdTag = &v
 	return s
 }
 
-func (s *CommonResponsePageableStructBody) SetCurrent(v string) *CommonResponsePageableStructBody {
-	s.Current = &v
-	return s
-}
-
-func (s *CommonResponsePageableStructBody) SetTotal(v string) *CommonResponsePageableStructBody {
-	s.Total = &v
-	return s
-}
-
-func (s *CommonResponsePageableStructBody) SetList(v []*TriggerLogDTOStructBody) *CommonResponsePageableStructBody {
-	s.List = v
-	return s
-}
-
-// 阿里云售卖区信息
-type ALiYunChainRegion struct {
-	// region_id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
-	// region_name
-	RegionName *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
-}
-
-func (s ALiYunChainRegion) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunChainRegion) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunChainRegion) SetRegionId(v string) *ALiYunChainRegion {
-	s.RegionId = &v
-	return s
-}
-
-func (s *ALiYunChainRegion) SetRegionName(v string) *ALiYunChainRegion {
-	s.RegionName = &v
-	return s
-}
-
-// 阿里云售卖联盟信息
-type ALiYunBuyUnion struct {
-	// consortium_name
-	ConsortiumName *string `json:"consortium_name,omitempty" xml:"consortium_name,omitempty"`
-	// consortium_id
-	ConsortiumId *string `json:"consortium_id,omitempty" xml:"consortium_id,omitempty"`
-}
-
-func (s ALiYunBuyUnion) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunBuyUnion) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunBuyUnion) SetConsortiumName(v string) *ALiYunBuyUnion {
-	s.ConsortiumName = &v
-	return s
-}
-
-func (s *ALiYunBuyUnion) SetConsortiumId(v string) *ALiYunBuyUnion {
-	s.ConsortiumId = &v
-	return s
-}
-
-// 合约列表响应
-type PageRespContractListResp struct {
-	// 总数
-	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
-	// 列表数据
-	DataList []*ContractListResp `json:"data_list,omitempty" xml:"data_list,omitempty" type:"Repeated"`
-}
-
-func (s PageRespContractListResp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PageRespContractListResp) GoString() string {
-	return s.String()
-}
-
-func (s *PageRespContractListResp) SetTotal(v int64) *PageRespContractListResp {
-	s.Total = &v
-	return s
-}
-
-func (s *PageRespContractListResp) SetDataList(v []*ContractListResp) *PageRespContractListResp {
-	s.DataList = v
-	return s
-}
-
-// 分享可验证声明时的核心内容
-type VcShareStruct struct {
-	// 分享的目标VC的id
-	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty" require:"true"`
-	// 目标的VC持有者的did
-	OwnerDid *string `json:"owner_did,omitempty" xml:"owner_did,omitempty" require:"true"`
-	// 在支持声明的claim字段级别分享能力时使用，可以指定哪些字段隐藏，哪些字段分享。示例中标记为”1“的是隐藏，”0“的是分享明文。
-	Index *string `json:"index,omitempty" xml:"index,omitempty"`
-	// 非托管模式下owner_did的签名，作为授权凭证
-	Signature *string `json:"signature,omitempty" xml:"signature,omitempty"`
-}
-
-func (s VcShareStruct) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VcShareStruct) GoString() string {
-	return s.String()
-}
-
-func (s *VcShareStruct) SetVcId(v string) *VcShareStruct {
-	s.VcId = &v
-	return s
-}
-
-func (s *VcShareStruct) SetOwnerDid(v string) *VcShareStruct {
-	s.OwnerDid = &v
-	return s
-}
-
-func (s *VcShareStruct) SetIndex(v string) *VcShareStruct {
-	s.Index = &v
-	return s
-}
-
-func (s *VcShareStruct) SetSignature(v string) *VcShareStruct {
-	s.Signature = &v
-	return s
-}
-
-// 小程序浏览器授权类型
-type MiniAppBrowserAuthType struct {
-	// 授权类型
-	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
-}
-
-func (s MiniAppBrowserAuthType) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MiniAppBrowserAuthType) GoString() string {
-	return s.String()
-}
-
-func (s *MiniAppBrowserAuthType) SetAuthType(v string) *MiniAppBrowserAuthType {
-	s.AuthType = &v
+func (s *CrowdTagEnumResp) SetCrowTagEnumItemList(v []*CrowdTagEnumItemDTO) *CrowdTagEnumResp {
+	s.CrowTagEnumItemList = v
 	return s
 }
 
@@ -6190,6 +8715,32 @@ func (s *DiscreteValue) SetValue(v string) *DiscreteValue {
 	return s
 }
 
+// 合约列表
+type ContractPageResp struct {
+	// 合约列表
+	List []*ContractPageListResp `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+}
+
+func (s ContractPageResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractPageResp) GoString() string {
+	return s.String()
+}
+
+func (s *ContractPageResp) SetList(v []*ContractPageListResp) *ContractPageResp {
+	s.List = v
+	return s
+}
+
+func (s *ContractPageResp) SetTotal(v int64) *ContractPageResp {
+	s.Total = &v
+	return s
+}
+
 // AccountPo
 type AccountPo struct {
 	// 账户 hash
@@ -6230,32 +8781,6 @@ func (s *AccountPo) SetParent(v string) *AccountPo {
 	return s
 }
 
-// 服务发现结果
-type ServiceDiscoveryResult struct {
-	// 提供该服务能力的did
-	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
-	// 提供该服务能力的endpoint信息
-	Services []*DidDocServicesInfo `json:"services,omitempty" xml:"services,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s ServiceDiscoveryResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ServiceDiscoveryResult) GoString() string {
-	return s.String()
-}
-
-func (s *ServiceDiscoveryResult) SetDid(v string) *ServiceDiscoveryResult {
-	s.Did = &v
-	return s
-}
-
-func (s *ServiceDiscoveryResult) SetServices(v []*DidDocServicesInfo) *ServiceDiscoveryResult {
-	s.Services = v
-	return s
-}
-
 // doc删除service
 type DidDeleteService struct {
 	// 修改前did doc版本
@@ -6279,159 +8804,6 @@ func (s *DidDeleteService) SetPreviousVersion(v int64) *DidDeleteService {
 
 func (s *DidDeleteService) SetServiceId(v string) *DidDeleteService {
 	s.ServiceId = &v
-	return s
-}
-
-// 蚂蚁链交易汇总信息
-type BlockchainBrowserTransactionStatistic struct {
-	// 蚂蚁链id
-	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
-	// 开始时间
-	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true"`
-	// 时间点
-	DateTime *string `json:"date_time,omitempty" xml:"date_time,omitempty" require:"true"`
-	// 统计时间内最新块高度
-	LastSumBlockHeight *int64 `json:"last_sum_block_height,omitempty" xml:"last_sum_block_height,omitempty" require:"true"`
-	// 统计周期内交易的数量
-	TransCount *int64 `json:"trans_count,omitempty" xml:"trans_count,omitempty" require:"true"`
-}
-
-func (s BlockchainBrowserTransactionStatistic) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BlockchainBrowserTransactionStatistic) GoString() string {
-	return s.String()
-}
-
-func (s *BlockchainBrowserTransactionStatistic) SetBizid(v string) *BlockchainBrowserTransactionStatistic {
-	s.Bizid = &v
-	return s
-}
-
-func (s *BlockchainBrowserTransactionStatistic) SetCreateTime(v int64) *BlockchainBrowserTransactionStatistic {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *BlockchainBrowserTransactionStatistic) SetDateTime(v string) *BlockchainBrowserTransactionStatistic {
-	s.DateTime = &v
-	return s
-}
-
-func (s *BlockchainBrowserTransactionStatistic) SetLastSumBlockHeight(v int64) *BlockchainBrowserTransactionStatistic {
-	s.LastSumBlockHeight = &v
-	return s
-}
-
-func (s *BlockchainBrowserTransactionStatistic) SetTransCount(v int64) *BlockchainBrowserTransactionStatistic {
-	s.TransCount = &v
-	return s
-}
-
-// 阿里云区块链Rest信息
-type ALiYunChainRest struct {
-	// access_id
-	AccessId *string `json:"access_id,omitempty" xml:"access_id,omitempty"`
-	// create_time
-	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// rest
-	Rest *string `json:"rest,omitempty" xml:"rest,omitempty"`
-	// update_time
-	UpdateTime *int64 `json:"update_time,omitempty" xml:"update_time,omitempty"`
-	// REST开通结果
-	Result *string `json:"result,omitempty" xml:"result,omitempty"`
-}
-
-func (s ALiYunChainRest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunChainRest) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunChainRest) SetAccessId(v string) *ALiYunChainRest {
-	s.AccessId = &v
-	return s
-}
-
-func (s *ALiYunChainRest) SetCreateTime(v int64) *ALiYunChainRest {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *ALiYunChainRest) SetRest(v string) *ALiYunChainRest {
-	s.Rest = &v
-	return s
-}
-
-func (s *ALiYunChainRest) SetUpdateTime(v int64) *ALiYunChainRest {
-	s.UpdateTime = &v
-	return s
-}
-
-func (s *ALiYunChainRest) SetResult(v string) *ALiYunChainRest {
-	s.Result = &v
-	return s
-}
-
-// 通过controller注册用户
-type VcControllerAddUserRegisterPayload struct {
-	// 注册用户did
-	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
-	// 用户did对应的授权公钥
-	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty" require:"true"`
-	// 业务区块连的bizid
-	VcChannel *string `json:"vc_channel,omitempty" xml:"vc_channel,omitempty" maxLength:"32" minLength:"8"`
-}
-
-func (s VcControllerAddUserRegisterPayload) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VcControllerAddUserRegisterPayload) GoString() string {
-	return s.String()
-}
-
-func (s *VcControllerAddUserRegisterPayload) SetDid(v string) *VcControllerAddUserRegisterPayload {
-	s.Did = &v
-	return s
-}
-
-func (s *VcControllerAddUserRegisterPayload) SetPublicKey(v string) *VcControllerAddUserRegisterPayload {
-	s.PublicKey = &v
-	return s
-}
-
-func (s *VcControllerAddUserRegisterPayload) SetVcChannel(v string) *VcControllerAddUserRegisterPayload {
-	s.VcChannel = &v
-	return s
-}
-
-// 账户信息
-type AccountInfo struct {
-	// 版通数量
-	EpAmount *int64 `json:"ep_amount,omitempty" xml:"ep_amount,omitempty" require:"true"`
-	// 版通代码
-	EpCode *string `json:"ep_code,omitempty" xml:"ep_code,omitempty" require:"true"`
-}
-
-func (s AccountInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AccountInfo) GoString() string {
-	return s.String()
-}
-
-func (s *AccountInfo) SetEpAmount(v int64) *AccountInfo {
-	s.EpAmount = &v
-	return s
-}
-
-func (s *AccountInfo) SetEpCode(v string) *AccountInfo {
-	s.EpCode = &v
 	return s
 }
 
@@ -6558,161 +8930,6 @@ func (s *DisServiceInfo) SetServiceType(v string) *DisServiceInfo {
 	return s
 }
 
-// 阿里云区块链配置信息
-type ALiYunChainConfigOption struct {
-	// config_option
-	ConfigOption *string `json:"config_option,omitempty" xml:"config_option,omitempty"`
-	// show_name
-	ShowName *string `json:"show_name,omitempty" xml:"show_name,omitempty"`
-	// enable
-	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty"`
-}
-
-func (s ALiYunChainConfigOption) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunChainConfigOption) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunChainConfigOption) SetConfigOption(v string) *ALiYunChainConfigOption {
-	s.ConfigOption = &v
-	return s
-}
-
-func (s *ALiYunChainConfigOption) SetShowName(v string) *ALiYunChainConfigOption {
-	s.ShowName = &v
-	return s
-}
-
-func (s *ALiYunChainConfigOption) SetEnable(v bool) *ALiYunChainConfigOption {
-	s.Enable = &v
-	return s
-}
-
-// 删除资源返回结果
-type ALiYunDeleteResource struct {
-	// data
-	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
-	// success
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-}
-
-func (s ALiYunDeleteResource) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunDeleteResource) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunDeleteResource) SetData(v bool) *ALiYunDeleteResource {
-	s.Data = &v
-	return s
-}
-
-func (s *ALiYunDeleteResource) SetSuccess(v bool) *ALiYunDeleteResource {
-	s.Success = &v
-	return s
-}
-
-// 交易详情
-type TransactionInfo struct {
-	// 交易时间戳
-	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
-	// 交易hash
-	Hash *string `json:"hash,omitempty" xml:"hash,omitempty" require:"true"`
-	// 交易块高
-	Height *int64 `json:"height,omitempty" xml:"height,omitempty" require:"true"`
-	// 交易所在块高
-	Blockhash *string `json:"blockhash,omitempty" xml:"blockhash,omitempty" require:"true"`
-	// 交易来源
-	From *string `json:"from,omitempty" xml:"from,omitempty" require:"true"`
-	// 交易地址
-	To *string `json:"to,omitempty" xml:"to,omitempty" require:"true"`
-	// 交易类型
-	Txtype *int64 `json:"txtype,omitempty" xml:"txtype,omitempty" require:"true"`
-	// 转账额度
-	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-	// logs
-	Logs *string `json:"logs,omitempty" xml:"logs,omitempty" require:"true"`
-	// 燃料消耗
-	Gasused *int64 `json:"gasused,omitempty" xml:"gasused,omitempty" require:"true"`
-	// result
-	Result *string `json:"result,omitempty" xml:"result,omitempty" require:"true"`
-	// 拓展json字段
-	Json *string `json:"json,omitempty" xml:"json,omitempty" require:"true"`
-}
-
-func (s TransactionInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TransactionInfo) GoString() string {
-	return s.String()
-}
-
-func (s *TransactionInfo) SetTimestamp(v int64) *TransactionInfo {
-	s.Timestamp = &v
-	return s
-}
-
-func (s *TransactionInfo) SetHash(v string) *TransactionInfo {
-	s.Hash = &v
-	return s
-}
-
-func (s *TransactionInfo) SetHeight(v int64) *TransactionInfo {
-	s.Height = &v
-	return s
-}
-
-func (s *TransactionInfo) SetBlockhash(v string) *TransactionInfo {
-	s.Blockhash = &v
-	return s
-}
-
-func (s *TransactionInfo) SetFrom(v string) *TransactionInfo {
-	s.From = &v
-	return s
-}
-
-func (s *TransactionInfo) SetTo(v string) *TransactionInfo {
-	s.To = &v
-	return s
-}
-
-func (s *TransactionInfo) SetTxtype(v int64) *TransactionInfo {
-	s.Txtype = &v
-	return s
-}
-
-func (s *TransactionInfo) SetValue(v int64) *TransactionInfo {
-	s.Value = &v
-	return s
-}
-
-func (s *TransactionInfo) SetLogs(v string) *TransactionInfo {
-	s.Logs = &v
-	return s
-}
-
-func (s *TransactionInfo) SetGasused(v int64) *TransactionInfo {
-	s.Gasused = &v
-	return s
-}
-
-func (s *TransactionInfo) SetResult(v string) *TransactionInfo {
-	s.Result = &v
-	return s
-}
-
-func (s *TransactionInfo) SetJson(v string) *TransactionInfo {
-	s.Json = &v
-	return s
-}
-
 // POAP徽章的详细信息
 type PoapInfo struct {
 	// 徽章ID，具有唯一性
@@ -6785,65 +9002,6 @@ func (s *PoapInfo) SetDetailAlipaysUrl(v string) *PoapInfo {
 
 func (s *PoapInfo) SetDetailAlipaysUrlExpireTime(v string) *PoapInfo {
 	s.DetailAlipaysUrlExpireTime = &v
-	return s
-}
-
-// 阿里云区块链小程序权限控制信息
-type ALiYunChainMiniAppAuthorization struct {
-	// ant_chain_id
-	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty"`
-	// q_r_code_type
-	QRCodeType *string `json:"q_r_code_type,omitempty" xml:"q_r_code_type,omitempty"`
-	// authorization_type
-	AuthorizationType *string `json:"authorization_type,omitempty" xml:"authorization_type,omitempty"`
-}
-
-func (s ALiYunChainMiniAppAuthorization) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunChainMiniAppAuthorization) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunChainMiniAppAuthorization) SetAntChainId(v string) *ALiYunChainMiniAppAuthorization {
-	s.AntChainId = &v
-	return s
-}
-
-func (s *ALiYunChainMiniAppAuthorization) SetQRCodeType(v string) *ALiYunChainMiniAppAuthorization {
-	s.QRCodeType = &v
-	return s
-}
-
-func (s *ALiYunChainMiniAppAuthorization) SetAuthorizationType(v string) *ALiYunChainMiniAppAuthorization {
-	s.AuthorizationType = &v
-	return s
-}
-
-// 阿里云蚂蚁区块链相关下载结果
-type ALiYunChainDownload struct {
-	// private_key
-	PrivateKey *string `json:"private_key,omitempty" xml:"private_key,omitempty"`
-	// download_path
-	DownloadPath *ALiYunDownloadPath `json:"download_path,omitempty" xml:"download_path,omitempty"`
-}
-
-func (s ALiYunChainDownload) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunChainDownload) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunChainDownload) SetPrivateKey(v string) *ALiYunChainDownload {
-	s.PrivateKey = &v
-	return s
-}
-
-func (s *ALiYunChainDownload) SetDownloadPath(v *ALiYunDownloadPath) *ALiYunChainDownload {
-	s.DownloadPath = v
 	return s
 }
 
@@ -7028,119 +9186,6 @@ func (s *CreditTransferStatementInfo) SetToDid(v string) *CreditTransferStatemen
 	return s
 }
 
-// 阿里云链统计信息
-type ALiYunChainStatics struct {
-	// alias
-	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
-	// Dt
-	Dt *int64 `json:"dt,omitempty" xml:"dt,omitempty"`
-	// trans_count
-	TransCount *int64 `json:"trans_count,omitempty" xml:"trans_count,omitempty"`
-	// last_sum_block_height
-	LastSumBlockHeight *int64 `json:"last_sum_block_height,omitempty" xml:"last_sum_block_height,omitempty"`
-	// creat_time
-	CreatTime *int64 `json:"creat_time,omitempty" xml:"creat_time,omitempty"`
-}
-
-func (s ALiYunChainStatics) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunChainStatics) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunChainStatics) SetAlias(v string) *ALiYunChainStatics {
-	s.Alias = &v
-	return s
-}
-
-func (s *ALiYunChainStatics) SetDt(v int64) *ALiYunChainStatics {
-	s.Dt = &v
-	return s
-}
-
-func (s *ALiYunChainStatics) SetTransCount(v int64) *ALiYunChainStatics {
-	s.TransCount = &v
-	return s
-}
-
-func (s *ALiYunChainStatics) SetLastSumBlockHeight(v int64) *ALiYunChainStatics {
-	s.LastSumBlockHeight = &v
-	return s
-}
-
-func (s *ALiYunChainStatics) SetCreatTime(v int64) *ALiYunChainStatics {
-	s.CreatTime = &v
-	return s
-}
-
-// 34
-type EWRFW struct {
-	// FFF
-	Sdf []*DidDocServicesInfo `json:"sdf,omitempty" xml:"sdf,omitempty" require:"true" type:"Repeated"`
-	// www
-	Www *string `json:"www,omitempty" xml:"www,omitempty" require:"true"`
-	// ss
-	ListString []*string `json:"list_string,omitempty" xml:"list_string,omitempty" require:"true" type:"Repeated"`
-	// aaa
-	Aaa *DidDocServicesInfo `json:"aaa,omitempty" xml:"aaa,omitempty" require:"true"`
-}
-
-func (s EWRFW) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EWRFW) GoString() string {
-	return s.String()
-}
-
-func (s *EWRFW) SetSdf(v []*DidDocServicesInfo) *EWRFW {
-	s.Sdf = v
-	return s
-}
-
-func (s *EWRFW) SetWww(v string) *EWRFW {
-	s.Www = &v
-	return s
-}
-
-func (s *EWRFW) SetListString(v []*string) *EWRFW {
-	s.ListString = v
-	return s
-}
-
-func (s *EWRFW) SetAaa(v *DidDocServicesInfo) *EWRFW {
-	s.Aaa = v
-	return s
-}
-
-// 阿里云蚂蚁区块链证书列表信息
-type ALiYunCertificateApplications struct {
-	// pagination
-	Pagination *ALiYunPagination `json:"pagination,omitempty" xml:"pagination,omitempty"`
-	// certificate_application
-	CertificateApplications []*ALiYunCertificateApplication `json:"certificate_applications,omitempty" xml:"certificate_applications,omitempty" type:"Repeated"`
-}
-
-func (s ALiYunCertificateApplications) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunCertificateApplications) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunCertificateApplications) SetPagination(v *ALiYunPagination) *ALiYunCertificateApplications {
-	s.Pagination = v
-	return s
-}
-
-func (s *ALiYunCertificateApplications) SetCertificateApplications(v []*ALiYunCertificateApplication) *ALiYunCertificateApplications {
-	s.CertificateApplications = v
-	return s
-}
-
 // 阿里云合约工程信息查询
 type ALiYunContractProjects struct {
 	// pagination
@@ -7204,46 +9249,6 @@ func (s *ALiYunChainResouceType) SetMemory(v int64) *ALiYunChainResouceType {
 
 func (s *ALiYunChainResouceType) SetDisk(v int64) *ALiYunChainResouceType {
 	s.Disk = &v
-	return s
-}
-
-// vc传输初始化结果
-type VcTransmitInitResult struct {
-	// 初始化成功与否
-	IsSuccess *bool `json:"is_success,omitempty" xml:"is_success,omitempty" require:"true"`
-	// 失败时返回的额外信息
-	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
-	// 接受者did
-	TargetVerifier *string `json:"target_verifier,omitempty" xml:"target_verifier,omitempty" require:"true"`
-	// 待签名的交易hash
-	NeedSignatureTxHash *string `json:"need_signature_tx_hash,omitempty" xml:"need_signature_tx_hash,omitempty" require:"true"`
-}
-
-func (s VcTransmitInitResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VcTransmitInitResult) GoString() string {
-	return s.String()
-}
-
-func (s *VcTransmitInitResult) SetIsSuccess(v bool) *VcTransmitInitResult {
-	s.IsSuccess = &v
-	return s
-}
-
-func (s *VcTransmitInitResult) SetMessage(v string) *VcTransmitInitResult {
-	s.Message = &v
-	return s
-}
-
-func (s *VcTransmitInitResult) SetTargetVerifier(v string) *VcTransmitInitResult {
-	s.TargetVerifier = &v
-	return s
-}
-
-func (s *VcTransmitInitResult) SetNeedSignatureTxHash(v string) *VcTransmitInitResult {
-	s.NeedSignatureTxHash = &v
 	return s
 }
 
@@ -7347,123 +9352,29 @@ func (s *ALiYunLatestTransaction) SetCreateTime(v int64) *ALiYunLatestTransactio
 	return s
 }
 
-// 具体实体的身份信息
-type EntityInfo struct {
-	// 0，身份证；1，电话；2，email，3，企业营业执照号
-	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 具体号码
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+// 分页查询请求信息
+type PageReq struct {
+	// 页码
+	Num *int64 `json:"num,omitempty" xml:"num,omitempty" require:"true"`
+	// 页大小
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
 }
 
-func (s EntityInfo) String() string {
+func (s PageReq) String() string {
 	return tea.Prettify(s)
 }
 
-func (s EntityInfo) GoString() string {
+func (s PageReq) GoString() string {
 	return s.String()
 }
 
-func (s *EntityInfo) SetType(v int64) *EntityInfo {
-	s.Type = &v
+func (s *PageReq) SetNum(v int64) *PageReq {
+	s.Num = &v
 	return s
 }
 
-func (s *EntityInfo) SetValue(v string) *EntityInfo {
-	s.Value = &v
-	return s
-}
-
-// 链节点信息
-type NodeInfo struct {
-	// 链的区块高度
-	Blockheight *int64 `json:"blockheight,omitempty" xml:"blockheight,omitempty"`
-	// 节点名称
-	Nodename *string `json:"nodename,omitempty" xml:"nodename,omitempty"`
-	// 节点健康状况
-	Status *bool `json:"status,omitempty" xml:"status,omitempty"`
-	// 节点版本
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-}
-
-func (s NodeInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NodeInfo) GoString() string {
-	return s.String()
-}
-
-func (s *NodeInfo) SetBlockheight(v int64) *NodeInfo {
-	s.Blockheight = &v
-	return s
-}
-
-func (s *NodeInfo) SetNodename(v string) *NodeInfo {
-	s.Nodename = &v
-	return s
-}
-
-func (s *NodeInfo) SetStatus(v bool) *NodeInfo {
-	s.Status = &v
-	return s
-}
-
-func (s *NodeInfo) SetVersion(v string) *NodeInfo {
-	s.Version = &v
-	return s
-}
-
-// Did服务类型描述结构体
-type DidServiceType struct {
-	// 枚举类型，描述访问服务的方式
-	AccessMode *string `json:"access_mode,omitempty" xml:"access_mode,omitempty"`
-	// 对服务的文字描述，<1000个字符
-	Description *string `json:"description,omitempty" xml:"description,omitempty" maxLength:"1000"`
-	// 服务类型创建者did
-	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
-	// { "item1":"", "item2":"",...
-	ServiceInput *string `json:"service_input,omitempty" xml:"service_input,omitempty"`
-	// 返回值类型描述，json形式
-	ServiceOutput *string `json:"service_output,omitempty" xml:"service_output,omitempty"`
-	// 自定义服务类型，字符数16～32个
-	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty" require:"true"`
-}
-
-func (s DidServiceType) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DidServiceType) GoString() string {
-	return s.String()
-}
-
-func (s *DidServiceType) SetAccessMode(v string) *DidServiceType {
-	s.AccessMode = &v
-	return s
-}
-
-func (s *DidServiceType) SetDescription(v string) *DidServiceType {
-	s.Description = &v
-	return s
-}
-
-func (s *DidServiceType) SetDid(v string) *DidServiceType {
-	s.Did = &v
-	return s
-}
-
-func (s *DidServiceType) SetServiceInput(v string) *DidServiceType {
-	s.ServiceInput = &v
-	return s
-}
-
-func (s *DidServiceType) SetServiceOutput(v string) *DidServiceType {
-	s.ServiceOutput = &v
-	return s
-}
-
-func (s *DidServiceType) SetServiceType(v string) *DidServiceType {
-	s.ServiceType = &v
+func (s *PageReq) SetSize(v int64) *PageReq {
+	s.Size = &v
 	return s
 }
 
@@ -7538,122 +9449,28 @@ func (s *ContractIdeConfigResult) SetContractIdeConfigList(v []*ContractIdeConfi
 	return s
 }
 
-// 合约信息
-type ContractInfo struct {
-	// 合约地址
-	Contract *string `json:"contract,omitempty" xml:"contract,omitempty"`
-	// 部署hash
-	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
-	// 合约部署时间
-	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
-}
-
-func (s ContractInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ContractInfo) SetContract(v string) *ContractInfo {
-	s.Contract = &v
-	return s
-}
-
-func (s *ContractInfo) SetHash(v string) *ContractInfo {
-	s.Hash = &v
-	return s
-}
-
-func (s *ContractInfo) SetTimestamp(v int64) *ContractInfo {
-	s.Timestamp = &v
-	return s
-}
-
 // 合约与应用关联信息
-type ContractBindAppResp struct {
-	// 合约标识
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
-	// 合约名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 是否已关联
-	Bind *bool `json:"bind,omitempty" xml:"bind,omitempty"`
+type ContractBindListResp struct {
+	// 合约关联列表
+	List []*ContractBindResp `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
 }
 
-func (s ContractBindAppResp) String() string {
+func (s ContractBindListResp) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ContractBindAppResp) GoString() string {
+func (s ContractBindListResp) GoString() string {
 	return s.String()
 }
 
-func (s *ContractBindAppResp) SetServiceId(v string) *ContractBindAppResp {
-	s.ServiceId = &v
-	return s
-}
-
-func (s *ContractBindAppResp) SetName(v string) *ContractBindAppResp {
-	s.Name = &v
-	return s
-}
-
-func (s *ContractBindAppResp) SetBind(v bool) *ContractBindAppResp {
-	s.Bind = &v
-	return s
-}
-
-// 创建VC参数
-type AddVC struct {
-	// vc原文hash
-	ContentHash *string `json:"content_hash,omitempty" xml:"content_hash,omitempty" require:"true"`
-	// issuer后缀的hash值
-	IssuerHash *string `json:"issuer_hash,omitempty" xml:"issuer_hash,omitempty" require:"true"`
-	// valid or invalid
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 接收者后缀hash值
-	SubjectHash *string `json:"subject_hash,omitempty" xml:"subject_hash,omitempty" require:"true"`
-	// 可验证声明id
-	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty" require:"true"`
-}
-
-func (s AddVC) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AddVC) GoString() string {
-	return s.String()
-}
-
-func (s *AddVC) SetContentHash(v string) *AddVC {
-	s.ContentHash = &v
-	return s
-}
-
-func (s *AddVC) SetIssuerHash(v string) *AddVC {
-	s.IssuerHash = &v
-	return s
-}
-
-func (s *AddVC) SetStatus(v string) *AddVC {
-	s.Status = &v
-	return s
-}
-
-func (s *AddVC) SetSubjectHash(v string) *AddVC {
-	s.SubjectHash = &v
-	return s
-}
-
-func (s *AddVC) SetVcId(v string) *AddVC {
-	s.VcId = &v
+func (s *ContractBindListResp) SetList(v []*ContractBindResp) *ContractBindListResp {
+	s.List = v
 	return s
 }
 
 // 合约详情
 type ContractDetailResp struct {
-	// 合约标识
+	// 合约服务ID
 	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
 	// 合约服务名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
@@ -7730,211 +9547,6 @@ func (s *ContractDetailResp) SetProgressInfoList(v []*InstanceProgressInfo) *Con
 
 func (s *ContractDetailResp) SetRecordInfoList(v []*InstanceRecordInfo) *ContractDetailResp {
 	s.RecordInfoList = v
-	return s
-}
-
-// 带单位的值
-type ValueUnitPair struct {
-	// 数值
-	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-	// 单位
-	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
-}
-
-func (s ValueUnitPair) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ValueUnitPair) GoString() string {
-	return s.String()
-}
-
-func (s *ValueUnitPair) SetValue(v int64) *ValueUnitPair {
-	s.Value = &v
-	return s
-}
-
-func (s *ValueUnitPair) SetUnit(v string) *ValueUnitPair {
-	s.Unit = &v
-	return s
-}
-
-// 阿里云区块链小程序交易二维码生成
-type ALiYunChainMiniAppCodeCreate struct {
-	// ant_chain_id
-	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty"`
-	// transaction_hash
-	TransactionHash *string `json:"transaction_hash,omitempty" xml:"transaction_hash,omitempty"`
-	// base64_q_r_code_p_n_g
-	Base64QRCodePNG *string `json:"base64_q_r_code_p_n_g,omitempty" xml:"base64_q_r_code_p_n_g,omitempty"`
-	// q_r_code_content
-	QRCodeContent *string `json:"q_r_code_content,omitempty" xml:"q_r_code_content,omitempty"`
-}
-
-func (s ALiYunChainMiniAppCodeCreate) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunChainMiniAppCodeCreate) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunChainMiniAppCodeCreate) SetAntChainId(v string) *ALiYunChainMiniAppCodeCreate {
-	s.AntChainId = &v
-	return s
-}
-
-func (s *ALiYunChainMiniAppCodeCreate) SetTransactionHash(v string) *ALiYunChainMiniAppCodeCreate {
-	s.TransactionHash = &v
-	return s
-}
-
-func (s *ALiYunChainMiniAppCodeCreate) SetBase64QRCodePNG(v string) *ALiYunChainMiniAppCodeCreate {
-	s.Base64QRCodePNG = &v
-	return s
-}
-
-func (s *ALiYunChainMiniAppCodeCreate) SetQRCodeContent(v string) *ALiYunChainMiniAppCodeCreate {
-	s.QRCodeContent = &v
-	return s
-}
-
-// 描述分布的结构，目前主要包含date和value值
-type Curve struct {
-	// 分布以day为单位的日期
-	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
-	// 以day为单位的一天凭证颁发的数据量统计。
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s Curve) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Curve) GoString() string {
-	return s.String()
-}
-
-func (s *Curve) SetDate(v string) *Curve {
-	s.Date = &v
-	return s
-}
-
-func (s *Curve) SetValue(v string) *Curve {
-	s.Value = &v
-	return s
-}
-
-// 存证元数据
-type NotaryMetaParam struct {
-	// 描述本条存证在存证事务中的阶段，用户可自行维护
-	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
-	// 扩展字段
-	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
-	// 全局唯一的存证事务ID
-	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
-}
-
-func (s NotaryMetaParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NotaryMetaParam) GoString() string {
-	return s.String()
-}
-
-func (s *NotaryMetaParam) SetPhase(v string) *NotaryMetaParam {
-	s.Phase = &v
-	return s
-}
-
-func (s *NotaryMetaParam) SetProperties(v string) *NotaryMetaParam {
-	s.Properties = &v
-	return s
-}
-
-func (s *NotaryMetaParam) SetToken(v string) *NotaryMetaParam {
-	s.Token = &v
-	return s
-}
-
-// 用于内部业务统计的信息，外部商户请忽略
-type BizInfo struct {
-	// BPWZPFCN
-	ClientTenent *string `json:"client_tenent,omitempty" xml:"client_tenent,omitempty"`
-	// 业务代码
-	Code *string `json:"code,omitempty" xml:"code,omitempty"`
-}
-
-func (s BizInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BizInfo) GoString() string {
-	return s.String()
-}
-
-func (s *BizInfo) SetClientTenent(v string) *BizInfo {
-	s.ClientTenent = &v
-	return s
-}
-
-func (s *BizInfo) SetCode(v string) *BizInfo {
-	s.Code = &v
-	return s
-}
-
-// 数字资产管理平台版通交易信息
-type EPTradeInfo struct {
-	// 版通代码
-	EpCode *string `json:"ep_code,omitempty" xml:"ep_code,omitempty" require:"true"`
-	// 版通交易号
-	TxCode *string `json:"tx_code,omitempty" xml:"tx_code,omitempty" require:"true"`
-	// 卖方账户
-	TxFrom *string `json:"tx_from,omitempty" xml:"tx_from,omitempty" require:"true"`
-	// 交易时间戳
-	TxTime *int64 `json:"tx_time,omitempty" xml:"tx_time,omitempty" require:"true"`
-	// 买方账户
-	TxTo *string `json:"tx_to,omitempty" xml:"tx_to,omitempty" require:"true"`
-	// 交易数量
-	TxValue *int64 `json:"tx_value,omitempty" xml:"tx_value,omitempty" require:"true"`
-}
-
-func (s EPTradeInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EPTradeInfo) GoString() string {
-	return s.String()
-}
-
-func (s *EPTradeInfo) SetEpCode(v string) *EPTradeInfo {
-	s.EpCode = &v
-	return s
-}
-
-func (s *EPTradeInfo) SetTxCode(v string) *EPTradeInfo {
-	s.TxCode = &v
-	return s
-}
-
-func (s *EPTradeInfo) SetTxFrom(v string) *EPTradeInfo {
-	s.TxFrom = &v
-	return s
-}
-
-func (s *EPTradeInfo) SetTxTime(v int64) *EPTradeInfo {
-	s.TxTime = &v
-	return s
-}
-
-func (s *EPTradeInfo) SetTxTo(v string) *EPTradeInfo {
-	s.TxTo = &v
-	return s
-}
-
-func (s *EPTradeInfo) SetTxValue(v int64) *EPTradeInfo {
-	s.TxValue = &v
 	return s
 }
 
@@ -8072,88 +9684,6 @@ func (s *CertIssueProgressDTO) SetErrorDetails(v []*TemplateInstanceErrorDetailD
 	return s
 }
 
-// 可信存证身份识别信息
-type Identity struct {
-	// 经办人姓名，企业认证必选
-	Agent *string `json:"agent,omitempty" xml:"agent,omitempty"`
-	// 经办人身份证
-	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
-	// 用户名称
-	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
-	// 证件号
-	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
-	// 证件类型，个人只支持身份证IDENTITY_CARD，企业支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号
-	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
-	// 法人姓名，企业认证必选
-	LegalPerson *string `json:"legal_person,omitempty" xml:"legal_person,omitempty"`
-	// 法人身份证,  企业认证必选
-	LegalPersonId *string `json:"legal_person_id,omitempty" xml:"legal_person_id,omitempty"`
-	// 用户手机号码
-	MobileNo *string `json:"mobile_no,omitempty" xml:"mobile_no,omitempty"`
-	// 扩展属性
-	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
-	// 用户类型，PERSON或者ENTERPRISE
-	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
-}
-
-func (s Identity) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Identity) GoString() string {
-	return s.String()
-}
-
-func (s *Identity) SetAgent(v string) *Identity {
-	s.Agent = &v
-	return s
-}
-
-func (s *Identity) SetAgentId(v string) *Identity {
-	s.AgentId = &v
-	return s
-}
-
-func (s *Identity) SetCertName(v string) *Identity {
-	s.CertName = &v
-	return s
-}
-
-func (s *Identity) SetCertNo(v string) *Identity {
-	s.CertNo = &v
-	return s
-}
-
-func (s *Identity) SetCertType(v string) *Identity {
-	s.CertType = &v
-	return s
-}
-
-func (s *Identity) SetLegalPerson(v string) *Identity {
-	s.LegalPerson = &v
-	return s
-}
-
-func (s *Identity) SetLegalPersonId(v string) *Identity {
-	s.LegalPersonId = &v
-	return s
-}
-
-func (s *Identity) SetMobileNo(v string) *Identity {
-	s.MobileNo = &v
-	return s
-}
-
-func (s *Identity) SetProperties(v string) *Identity {
-	s.Properties = &v
-	return s
-}
-
-func (s *Identity) SetUserType(v string) *Identity {
-	s.UserType = &v
-	return s
-}
-
 // 存证信息集合
 type NotaryTransaction struct {
 	// 如果存证类型为text, 则为存证内容
@@ -8185,39 +9715,6 @@ func (s *NotaryTransaction) SetTransactionHash(v string) *NotaryTransaction {
 
 func (s *NotaryTransaction) SetType(v string) *NotaryTransaction {
 	s.Type = &v
-	return s
-}
-
-// 营销分销平台推广人账户信息
-type FundInfo struct {
-	// 可提现余额
-	Balance *string `json:"balance,omitempty" xml:"balance,omitempty" require:"true"`
-	// 待结算额度
-	SettleQuota *string `json:"settle_quota,omitempty" xml:"settle_quota,omitempty" require:"true"`
-	// 商户id
-	ShopId *string `json:"shop_id,omitempty" xml:"shop_id,omitempty" require:"true"`
-}
-
-func (s FundInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FundInfo) GoString() string {
-	return s.String()
-}
-
-func (s *FundInfo) SetBalance(v string) *FundInfo {
-	s.Balance = &v
-	return s
-}
-
-func (s *FundInfo) SetSettleQuota(v string) *FundInfo {
-	s.SettleQuota = &v
-	return s
-}
-
-func (s *FundInfo) SetShopId(v string) *FundInfo {
-	s.ShopId = &v
 	return s
 }
 
@@ -8268,204 +9765,6 @@ func (s *BlockchainBrowserLatestTransaction) SetTransactionType(v string) *Block
 	return s
 }
 
-// VC Repo用户注册结构体
-type VcUserRegisterPayload struct {
-	// 用户did对应的授权公钥
-	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty"`
-	// 业务区块连的bizid
-	VcChannel *string `json:"vc_channel,omitempty" xml:"vc_channel,omitempty" maxLength:"32" minLength:"8"`
-}
-
-func (s VcUserRegisterPayload) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VcUserRegisterPayload) GoString() string {
-	return s.String()
-}
-
-func (s *VcUserRegisterPayload) SetPublicKey(v string) *VcUserRegisterPayload {
-	s.PublicKey = &v
-	return s
-}
-
-func (s *VcUserRegisterPayload) SetVcChannel(v string) *VcUserRegisterPayload {
-	s.VcChannel = &v
-	return s
-}
-
-// 阿里云请求结果
-type ALiYunHandleBabelMns struct {
-	// message
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-	// request_id
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
-	// success
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-}
-
-func (s ALiYunHandleBabelMns) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ALiYunHandleBabelMns) GoString() string {
-	return s.String()
-}
-
-func (s *ALiYunHandleBabelMns) SetMessage(v string) *ALiYunHandleBabelMns {
-	s.Message = &v
-	return s
-}
-
-func (s *ALiYunHandleBabelMns) SetRequestId(v string) *ALiYunHandleBabelMns {
-	s.RequestId = &v
-	return s
-}
-
-func (s *ALiYunHandleBabelMns) SetSuccess(v bool) *ALiYunHandleBabelMns {
-	s.Success = &v
-	return s
-}
-
-// 溯源信息中的一项记录。
-type Item struct {
-	// 溯源项的具体内容
-	Desc *string `json:"desc,omitempty" xml:"desc,omitempty" require:"true"`
-	// 扩展信息 ，json格式
-	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
-	// 溯源项的键值
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// 溯源项的中文标题
-	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
-	// 内容类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-}
-
-func (s Item) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Item) GoString() string {
-	return s.String()
-}
-
-func (s *Item) SetDesc(v string) *Item {
-	s.Desc = &v
-	return s
-}
-
-func (s *Item) SetExtInfo(v string) *Item {
-	s.ExtInfo = &v
-	return s
-}
-
-func (s *Item) SetKey(v string) *Item {
-	s.Key = &v
-	return s
-}
-
-func (s *Item) SetTitle(v string) *Item {
-	s.Title = &v
-	return s
-}
-
-func (s *Item) SetType(v string) *Item {
-	s.Type = &v
-	return s
-}
-
-// 合约服务列表查询
-type ContractListReq struct {
-	// 合约服务类别
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-}
-
-func (s ContractListReq) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractListReq) GoString() string {
-	return s.String()
-}
-
-func (s *ContractListReq) SetType(v string) *ContractListReq {
-	s.Type = &v
-	return s
-}
-
-// C3S可信计算服务TAPP应用信息
-type TappInfo struct {
-	// C3S可信计算TAPP应用标识
-	TaapId *string `json:"taap_id,omitempty" xml:"taap_id,omitempty" require:"true"`
-	// C3S可信计算TAPP版本
-	TappVersion *int64 `json:"tapp_version,omitempty" xml:"tapp_version,omitempty" require:"true"`
-}
-
-func (s TappInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TappInfo) GoString() string {
-	return s.String()
-}
-
-func (s *TappInfo) SetTaapId(v string) *TappInfo {
-	s.TaapId = &v
-	return s
-}
-
-func (s *TappInfo) SetTappVersion(v int64) *TappInfo {
-	s.TappVersion = &v
-	return s
-}
-
-// BaaS平台联盟信息
-type BaasUnionInfo struct {
-	// 联盟名称
-	UnionName *string `json:"union_name,omitempty" xml:"union_name,omitempty" require:"true"`
-	// 描述
-	UnionDescription *string `json:"union_description,omitempty" xml:"union_description,omitempty" require:"true"`
-	// 联系人
-	UnionUser *string `json:"union_user,omitempty" xml:"union_user,omitempty" require:"true"`
-	// 联盟联系人手机号码
-	UnionUserCell *string `json:"union_user_cell,omitempty" xml:"union_user_cell,omitempty" require:"true"`
-	// 联盟联系人邮箱
-	UnionUserMail *string `json:"union_user_mail,omitempty" xml:"union_user_mail,omitempty" require:"true"`
-}
-
-func (s BaasUnionInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaasUnionInfo) GoString() string {
-	return s.String()
-}
-
-func (s *BaasUnionInfo) SetUnionName(v string) *BaasUnionInfo {
-	s.UnionName = &v
-	return s
-}
-
-func (s *BaasUnionInfo) SetUnionDescription(v string) *BaasUnionInfo {
-	s.UnionDescription = &v
-	return s
-}
-
-func (s *BaasUnionInfo) SetUnionUser(v string) *BaasUnionInfo {
-	s.UnionUser = &v
-	return s
-}
-
-func (s *BaasUnionInfo) SetUnionUserCell(v string) *BaasUnionInfo {
-	s.UnionUserCell = &v
-	return s
-}
-
-func (s *BaasUnionInfo) SetUnionUserMail(v string) *BaasUnionInfo {
-	s.UnionUserMail = &v
-	return s
-}
-
 // 版通历史发行记录信息
 type EPIssueHisInfo struct {
 	// 版通发行日期时间戳
@@ -8506,88 +9805,6 @@ func (s *EPIssueHisInfo) SetSelfIssueAmount(v int64) *EPIssueHisInfo {
 	return s
 }
 
-// blockchain交易结构体
-type TransactionPo struct {
-	// 交易所在块hash
-	BlockHash *string `json:"block_hash,omitempty" xml:"block_hash,omitempty"`
-	// 交易来源
-	From *string `json:"from,omitempty" xml:"from,omitempty"`
-	// gas消耗
-	GasUsed *int64 `json:"gas_used,omitempty" xml:"gas_used,omitempty"`
-	// 交易hash
-	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
-	// 交易所在块 块高
-	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
-	// 交易返回结果
-	Result *string `json:"result,omitempty" xml:"result,omitempty"`
-	// 交易时间
-	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
-	// 交易地址
-	To *string `json:"to,omitempty" xml:"to,omitempty"`
-	// 交易类型 同SDK
-	TxType *int64 `json:"tx_type,omitempty" xml:"tx_type,omitempty"`
-	// 转账额度
-	Value *int64 `json:"value,omitempty" xml:"value,omitempty"`
-}
-
-func (s TransactionPo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TransactionPo) GoString() string {
-	return s.String()
-}
-
-func (s *TransactionPo) SetBlockHash(v string) *TransactionPo {
-	s.BlockHash = &v
-	return s
-}
-
-func (s *TransactionPo) SetFrom(v string) *TransactionPo {
-	s.From = &v
-	return s
-}
-
-func (s *TransactionPo) SetGasUsed(v int64) *TransactionPo {
-	s.GasUsed = &v
-	return s
-}
-
-func (s *TransactionPo) SetHash(v string) *TransactionPo {
-	s.Hash = &v
-	return s
-}
-
-func (s *TransactionPo) SetHeight(v int64) *TransactionPo {
-	s.Height = &v
-	return s
-}
-
-func (s *TransactionPo) SetResult(v string) *TransactionPo {
-	s.Result = &v
-	return s
-}
-
-func (s *TransactionPo) SetTimestamp(v int64) *TransactionPo {
-	s.Timestamp = &v
-	return s
-}
-
-func (s *TransactionPo) SetTo(v string) *TransactionPo {
-	s.To = &v
-	return s
-}
-
-func (s *TransactionPo) SetTxType(v int64) *TransactionPo {
-	s.TxType = &v
-	return s
-}
-
-func (s *TransactionPo) SetValue(v int64) *TransactionPo {
-	s.Value = &v
-	return s
-}
-
 // 数据资产分页查询
 type ListDataEntityResult struct {
 	// 数据模型信息
@@ -8614,151 +9831,36 @@ func (s *ListDataEntityResult) SetDataEntity(v *DataEntity) *ListDataEntityResul
 	return s
 }
 
-// VC链上传输结果
-type VcTransmitResult struct {
-	// 成功或者失败
-	IsSuccess *bool `json:"is_success,omitempty" xml:"is_success,omitempty" require:"true"`
-	// 失败信息
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-	// 验证verifier did
-	TargetVerifier *string `json:"target_verifier,omitempty" xml:"target_verifier,omitempty" require:"true"`
-	// 交易hash
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+// 新建合约服务
+type ContractCreateReq struct {
+	// 链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+	// 合约模板标识
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true"`
+	// 合约名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 }
 
-func (s VcTransmitResult) String() string {
+func (s ContractCreateReq) String() string {
 	return tea.Prettify(s)
 }
 
-func (s VcTransmitResult) GoString() string {
+func (s ContractCreateReq) GoString() string {
 	return s.String()
 }
 
-func (s *VcTransmitResult) SetIsSuccess(v bool) *VcTransmitResult {
-	s.IsSuccess = &v
+func (s *ContractCreateReq) SetChainId(v string) *ContractCreateReq {
+	s.ChainId = &v
 	return s
 }
 
-func (s *VcTransmitResult) SetMessage(v string) *VcTransmitResult {
-	s.Message = &v
+func (s *ContractCreateReq) SetTemplateId(v string) *ContractCreateReq {
+	s.TemplateId = &v
 	return s
 }
 
-func (s *VcTransmitResult) SetTargetVerifier(v string) *VcTransmitResult {
-	s.TargetVerifier = &v
-	return s
-}
-
-func (s *VcTransmitResult) SetTxHash(v string) *VcTransmitResult {
-	s.TxHash = &v
-	return s
-}
-
-// 可信时间信息结构
-type TsrResponse struct {
-	// hash后的信息
-	HashedMessage *string `json:"hashed_message,omitempty" xml:"hashed_message,omitempty" require:"true"`
-	// 哈希算法
-	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty" require:"true"`
-	// 时间
-	Ts *string `json:"ts,omitempty" xml:"ts,omitempty" require:"true"`
-}
-
-func (s TsrResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TsrResponse) GoString() string {
-	return s.String()
-}
-
-func (s *TsrResponse) SetHashedMessage(v string) *TsrResponse {
-	s.HashedMessage = &v
-	return s
-}
-
-func (s *TsrResponse) SetHashAlgorithm(v string) *TsrResponse {
-	s.HashAlgorithm = &v
-	return s
-}
-
-func (s *TsrResponse) SetTs(v string) *TsrResponse {
-	s.Ts = &v
-	return s
-}
-
-// 阿里云数据导出服务TriggerDTO结构体
-type TriggerDTOStructBody struct {
-	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// 源
-	Source *string `json:"source,omitempty" xml:"source,omitempty"`
-	// 创建时间
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// 错误信息
-	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
-	// 状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// option（map结构，由于金融云无map接口所以通过string类型传输json格式）
-	Option *string `json:"option,omitempty" xml:"option,omitempty"`
-	// checkpoint类
-	Checkpoint *CheckPointStructBody `json:"checkpoint,omitempty" xml:"checkpoint,omitempty"`
-	// 待处理的错误事件总数
-	PendingErrorLogs *string `json:"pending_error_logs,omitempty" xml:"pending_error_logs,omitempty"`
-}
-
-func (s TriggerDTOStructBody) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TriggerDTOStructBody) GoString() string {
-	return s.String()
-}
-
-func (s *TriggerDTOStructBody) SetName(v string) *TriggerDTOStructBody {
+func (s *ContractCreateReq) SetName(v string) *ContractCreateReq {
 	s.Name = &v
-	return s
-}
-
-func (s *TriggerDTOStructBody) SetType(v string) *TriggerDTOStructBody {
-	s.Type = &v
-	return s
-}
-
-func (s *TriggerDTOStructBody) SetSource(v string) *TriggerDTOStructBody {
-	s.Source = &v
-	return s
-}
-
-func (s *TriggerDTOStructBody) SetCreateTime(v string) *TriggerDTOStructBody {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *TriggerDTOStructBody) SetErrorMessage(v string) *TriggerDTOStructBody {
-	s.ErrorMessage = &v
-	return s
-}
-
-func (s *TriggerDTOStructBody) SetStatus(v string) *TriggerDTOStructBody {
-	s.Status = &v
-	return s
-}
-
-func (s *TriggerDTOStructBody) SetOption(v string) *TriggerDTOStructBody {
-	s.Option = &v
-	return s
-}
-
-func (s *TriggerDTOStructBody) SetCheckpoint(v *CheckPointStructBody) *TriggerDTOStructBody {
-	s.Checkpoint = v
-	return s
-}
-
-func (s *TriggerDTOStructBody) SetPendingErrorLogs(v string) *TriggerDTOStructBody {
-	s.PendingErrorLogs = &v
 	return s
 }
 
@@ -8942,60 +10044,6 @@ func (s DidAddDoc) GoString() string {
 
 func (s *DidAddDoc) SetDoc(v string) *DidAddDoc {
 	s.Doc = &v
-	return s
-}
-
-// 合约市场
-type ContractTemplateResp struct {
-	// 模板标识
-	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty"`
-	// 合约名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 缩略图url
-	ThumbUrl *string `json:"thumb_url,omitempty" xml:"thumb_url,omitempty"`
-	// 合约描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 是否已开通合约
-	Open *bool `json:"open,omitempty" xml:"open,omitempty"`
-	// 后续展示：购买用户头像
-	AvatarLogoList []*string `json:"avatar_logo_list,omitempty" xml:"avatar_logo_list,omitempty" type:"Repeated"`
-}
-
-func (s ContractTemplateResp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractTemplateResp) GoString() string {
-	return s.String()
-}
-
-func (s *ContractTemplateResp) SetTemplateId(v string) *ContractTemplateResp {
-	s.TemplateId = &v
-	return s
-}
-
-func (s *ContractTemplateResp) SetName(v string) *ContractTemplateResp {
-	s.Name = &v
-	return s
-}
-
-func (s *ContractTemplateResp) SetThumbUrl(v string) *ContractTemplateResp {
-	s.ThumbUrl = &v
-	return s
-}
-
-func (s *ContractTemplateResp) SetDescription(v string) *ContractTemplateResp {
-	s.Description = &v
-	return s
-}
-
-func (s *ContractTemplateResp) SetOpen(v bool) *ContractTemplateResp {
-	s.Open = &v
-	return s
-}
-
-func (s *ContractTemplateResp) SetAvatarLogoList(v []*string) *ContractTemplateResp {
-	s.AvatarLogoList = v
 	return s
 }
 
@@ -20013,6 +21061,278 @@ func (s *CreateChainAccountAntkmsResponse) SetResultMsg(v string) *CreateChainAc
 
 func (s *CreateChainAccountAntkmsResponse) SetResult(v *ALiYunChainKmsAccount) *CreateChainAccountAntkmsResponse {
 	s.Result = v
+	return s
+}
+
+type OpenChainServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 2e7e22c42bb8419bbf99b7f56aa2f17f
+	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty" require:"true"`
+	// 联盟id
+	ConsortiumId *string `json:"consortium_id,omitempty" xml:"consortium_id,omitempty" require:"true"`
+	// 内部产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 自定义信息，json格式
+	Extend *string `json:"extend,omitempty" xml:"extend,omitempty"`
+}
+
+func (s OpenChainServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenChainServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OpenChainServiceRequest) SetAuthToken(v string) *OpenChainServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OpenChainServiceRequest) SetProductInstanceId(v string) *OpenChainServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OpenChainServiceRequest) SetAntChainId(v string) *OpenChainServiceRequest {
+	s.AntChainId = &v
+	return s
+}
+
+func (s *OpenChainServiceRequest) SetConsortiumId(v string) *OpenChainServiceRequest {
+	s.ConsortiumId = &v
+	return s
+}
+
+func (s *OpenChainServiceRequest) SetProductCode(v string) *OpenChainServiceRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *OpenChainServiceRequest) SetExtend(v string) *OpenChainServiceRequest {
+	s.Extend = &v
+	return s
+}
+
+type OpenChainServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 服务开通受理状态：
+	//     UN_OPEN(0, "product.status.unopen"),
+	//     INIT(1, "product.status.init"),
+	//     OPEN(2, "product.status.open"),
+	//     CLOSE(3, "product.status.close"),
+	//     UNKNOWN(4, "product.status.unknown"),
+	//     STOP(5, "product.status.stop");
+	Result *int64 `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s OpenChainServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenChainServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OpenChainServiceResponse) SetReqMsgId(v string) *OpenChainServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OpenChainServiceResponse) SetResultCode(v string) *OpenChainServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OpenChainServiceResponse) SetResultMsg(v string) *OpenChainServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OpenChainServiceResponse) SetResult(v int64) *OpenChainServiceResponse {
+	s.Result = &v
+	return s
+}
+
+type CheckChainServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链id
+	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty" require:"true"`
+	// 联盟id
+	ConsortiumId *string `json:"consortium_id,omitempty" xml:"consortium_id,omitempty" require:"true"`
+	// BAAS-SERVICE1
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+}
+
+func (s CheckChainServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckChainServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckChainServiceRequest) SetAuthToken(v string) *CheckChainServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckChainServiceRequest) SetProductInstanceId(v string) *CheckChainServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckChainServiceRequest) SetAntChainId(v string) *CheckChainServiceRequest {
+	s.AntChainId = &v
+	return s
+}
+
+func (s *CheckChainServiceRequest) SetConsortiumId(v string) *CheckChainServiceRequest {
+	s.ConsortiumId = &v
+	return s
+}
+
+func (s *CheckChainServiceRequest) SetProductCode(v string) *CheckChainServiceRequest {
+	s.ProductCode = &v
+	return s
+}
+
+type CheckChainServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 服务开通受理状态： UN_OPEN(0, "product.status.unopen"), INIT(1, "product.status.init"), OPEN(2, "product.status.open"), CLOSE(3, "product.status.close"), UNKNOWN(4, "product.status.unknown"), STOP(5, "product.status.stop");
+	Result *int64 `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s CheckChainServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckChainServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckChainServiceResponse) SetReqMsgId(v string) *CheckChainServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckChainServiceResponse) SetResultCode(v string) *CheckChainServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckChainServiceResponse) SetResultMsg(v string) *CheckChainServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckChainServiceResponse) SetResult(v int64) *CheckChainServiceResponse {
+	s.Result = &v
+	return s
+}
+
+type CloseChainServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链id
+	AntChainId *string `json:"ant_chain_id,omitempty" xml:"ant_chain_id,omitempty" require:"true"`
+	// 联盟id
+	ConsortiumId *string `json:"consortium_id,omitempty" xml:"consortium_id,omitempty" require:"true"`
+	// 内部产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 自定义信息，json格式
+	Extend *string `json:"extend,omitempty" xml:"extend,omitempty"`
+}
+
+func (s CloseChainServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CloseChainServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CloseChainServiceRequest) SetAuthToken(v string) *CloseChainServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CloseChainServiceRequest) SetProductInstanceId(v string) *CloseChainServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CloseChainServiceRequest) SetAntChainId(v string) *CloseChainServiceRequest {
+	s.AntChainId = &v
+	return s
+}
+
+func (s *CloseChainServiceRequest) SetConsortiumId(v string) *CloseChainServiceRequest {
+	s.ConsortiumId = &v
+	return s
+}
+
+func (s *CloseChainServiceRequest) SetProductCode(v string) *CloseChainServiceRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *CloseChainServiceRequest) SetExtend(v string) *CloseChainServiceRequest {
+	s.Extend = &v
+	return s
+}
+
+type CloseChainServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 服务关闭受理状态： UN_OPEN(0, "product.status.unopen"), INIT(1, "product.status.init"), OPEN(2, "product.status.open"), CLOSE(3, "product.status.close"), UNKNOWN(4, "product.status.unknown"), STOP(5, "product.status.stop");
+	Result *int64 `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s CloseChainServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CloseChainServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CloseChainServiceResponse) SetReqMsgId(v string) *CloseChainServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CloseChainServiceResponse) SetResultCode(v string) *CloseChainServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CloseChainServiceResponse) SetResultMsg(v string) *CloseChainServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CloseChainServiceResponse) SetResult(v int64) *CloseChainServiceResponse {
+	s.Result = &v
 	return s
 }
 
@@ -32855,587 +34175,6 @@ func (s *QueryApiDwhbTransactionResponse) SetTransactionList(v []*TransactionInf
 	return s
 }
 
-type CreateCaasApplicationManageRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s CreateCaasApplicationManageRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreateCaasApplicationManageRequest) GoString() string {
-	return s.String()
-}
-
-func (s *CreateCaasApplicationManageRequest) SetAuthToken(v string) *CreateCaasApplicationManageRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *CreateCaasApplicationManageRequest) SetProductInstanceId(v string) *CreateCaasApplicationManageRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type CreateCaasApplicationManageResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 请求是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 异常码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-	// 应用id
-	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
-}
-
-func (s CreateCaasApplicationManageResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreateCaasApplicationManageResponse) GoString() string {
-	return s.String()
-}
-
-func (s *CreateCaasApplicationManageResponse) SetReqMsgId(v string) *CreateCaasApplicationManageResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *CreateCaasApplicationManageResponse) SetResultCode(v string) *CreateCaasApplicationManageResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *CreateCaasApplicationManageResponse) SetResultMsg(v string) *CreateCaasApplicationManageResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *CreateCaasApplicationManageResponse) SetVersion(v string) *CreateCaasApplicationManageResponse {
-	s.Version = &v
-	return s
-}
-
-func (s *CreateCaasApplicationManageResponse) SetSuccess(v bool) *CreateCaasApplicationManageResponse {
-	s.Success = &v
-	return s
-}
-
-func (s *CreateCaasApplicationManageResponse) SetErrorCode(v string) *CreateCaasApplicationManageResponse {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *CreateCaasApplicationManageResponse) SetErrorMsg(v string) *CreateCaasApplicationManageResponse {
-	s.ErrorMsg = &v
-	return s
-}
-
-func (s *CreateCaasApplicationManageResponse) SetApplicationId(v string) *CreateCaasApplicationManageResponse {
-	s.ApplicationId = &v
-	return s
-}
-
-type PagequeryCaasApplicationManageRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 页码
-	Num *int64 `json:"num,omitempty" xml:"num,omitempty" require:"true"`
-	// 页大小
-	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
-}
-
-func (s PagequeryCaasApplicationManageRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PagequeryCaasApplicationManageRequest) GoString() string {
-	return s.String()
-}
-
-func (s *PagequeryCaasApplicationManageRequest) SetAuthToken(v string) *PagequeryCaasApplicationManageRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *PagequeryCaasApplicationManageRequest) SetProductInstanceId(v string) *PagequeryCaasApplicationManageRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *PagequeryCaasApplicationManageRequest) SetNum(v int64) *PagequeryCaasApplicationManageRequest {
-	s.Num = &v
-	return s
-}
-
-func (s *PagequeryCaasApplicationManageRequest) SetSize(v int64) *PagequeryCaasApplicationManageRequest {
-	s.Size = &v
-	return s
-}
-
-type PagequeryCaasApplicationManageResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 请求是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 异常码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-	// 请求结果数据
-	Data *PageRespApplicationListResp `json:"data,omitempty" xml:"data,omitempty"`
-}
-
-func (s PagequeryCaasApplicationManageResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PagequeryCaasApplicationManageResponse) GoString() string {
-	return s.String()
-}
-
-func (s *PagequeryCaasApplicationManageResponse) SetReqMsgId(v string) *PagequeryCaasApplicationManageResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *PagequeryCaasApplicationManageResponse) SetResultCode(v string) *PagequeryCaasApplicationManageResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *PagequeryCaasApplicationManageResponse) SetResultMsg(v string) *PagequeryCaasApplicationManageResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *PagequeryCaasApplicationManageResponse) SetVersion(v string) *PagequeryCaasApplicationManageResponse {
-	s.Version = &v
-	return s
-}
-
-func (s *PagequeryCaasApplicationManageResponse) SetSuccess(v bool) *PagequeryCaasApplicationManageResponse {
-	s.Success = &v
-	return s
-}
-
-func (s *PagequeryCaasApplicationManageResponse) SetErrorCode(v string) *PagequeryCaasApplicationManageResponse {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *PagequeryCaasApplicationManageResponse) SetErrorMsg(v string) *PagequeryCaasApplicationManageResponse {
-	s.ErrorMsg = &v
-	return s
-}
-
-func (s *PagequeryCaasApplicationManageResponse) SetData(v *PageRespApplicationListResp) *PagequeryCaasApplicationManageResponse {
-	s.Data = v
-	return s
-}
-
-type GetCaasApplicationManageRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 应用程序ID
-	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
-}
-
-func (s GetCaasApplicationManageRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GetCaasApplicationManageRequest) GoString() string {
-	return s.String()
-}
-
-func (s *GetCaasApplicationManageRequest) SetAuthToken(v string) *GetCaasApplicationManageRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *GetCaasApplicationManageRequest) SetProductInstanceId(v string) *GetCaasApplicationManageRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *GetCaasApplicationManageRequest) SetApplicationId(v string) *GetCaasApplicationManageRequest {
-	s.ApplicationId = &v
-	return s
-}
-
-type GetCaasApplicationManageResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 请求是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 异常码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-	// 应用秘钥
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
-}
-
-func (s GetCaasApplicationManageResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GetCaasApplicationManageResponse) GoString() string {
-	return s.String()
-}
-
-func (s *GetCaasApplicationManageResponse) SetReqMsgId(v string) *GetCaasApplicationManageResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *GetCaasApplicationManageResponse) SetResultCode(v string) *GetCaasApplicationManageResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *GetCaasApplicationManageResponse) SetResultMsg(v string) *GetCaasApplicationManageResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *GetCaasApplicationManageResponse) SetVersion(v string) *GetCaasApplicationManageResponse {
-	s.Version = &v
-	return s
-}
-
-func (s *GetCaasApplicationManageResponse) SetSuccess(v bool) *GetCaasApplicationManageResponse {
-	s.Success = &v
-	return s
-}
-
-func (s *GetCaasApplicationManageResponse) SetErrorCode(v string) *GetCaasApplicationManageResponse {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *GetCaasApplicationManageResponse) SetErrorMsg(v string) *GetCaasApplicationManageResponse {
-	s.ErrorMsg = &v
-	return s
-}
-
-func (s *GetCaasApplicationManageResponse) SetData(v string) *GetCaasApplicationManageResponse {
-	s.Data = &v
-	return s
-}
-
-type QueryCaasApplicationManageRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 应用程序ID
-	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
-}
-
-func (s QueryCaasApplicationManageRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryCaasApplicationManageRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryCaasApplicationManageRequest) SetAuthToken(v string) *QueryCaasApplicationManageRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryCaasApplicationManageRequest) SetProductInstanceId(v string) *QueryCaasApplicationManageRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *QueryCaasApplicationManageRequest) SetApplicationId(v string) *QueryCaasApplicationManageRequest {
-	s.ApplicationId = &v
-	return s
-}
-
-type QueryCaasApplicationManageResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 请求是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 异常码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-	// 请求结果数据
-	Data []*ContractBindAppResp `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
-}
-
-func (s QueryCaasApplicationManageResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryCaasApplicationManageResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryCaasApplicationManageResponse) SetReqMsgId(v string) *QueryCaasApplicationManageResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryCaasApplicationManageResponse) SetResultCode(v string) *QueryCaasApplicationManageResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryCaasApplicationManageResponse) SetResultMsg(v string) *QueryCaasApplicationManageResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *QueryCaasApplicationManageResponse) SetVersion(v string) *QueryCaasApplicationManageResponse {
-	s.Version = &v
-	return s
-}
-
-func (s *QueryCaasApplicationManageResponse) SetSuccess(v bool) *QueryCaasApplicationManageResponse {
-	s.Success = &v
-	return s
-}
-
-func (s *QueryCaasApplicationManageResponse) SetErrorCode(v string) *QueryCaasApplicationManageResponse {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *QueryCaasApplicationManageResponse) SetErrorMsg(v string) *QueryCaasApplicationManageResponse {
-	s.ErrorMsg = &v
-	return s
-}
-
-func (s *QueryCaasApplicationManageResponse) SetData(v []*ContractBindAppResp) *QueryCaasApplicationManageResponse {
-	s.Data = v
-	return s
-}
-
-type UnbindCaasApplicationManageRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 应用程序ID
-	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
-}
-
-func (s UnbindCaasApplicationManageRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UnbindCaasApplicationManageRequest) GoString() string {
-	return s.String()
-}
-
-func (s *UnbindCaasApplicationManageRequest) SetAuthToken(v string) *UnbindCaasApplicationManageRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *UnbindCaasApplicationManageRequest) SetProductInstanceId(v string) *UnbindCaasApplicationManageRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *UnbindCaasApplicationManageRequest) SetApplicationId(v string) *UnbindCaasApplicationManageRequest {
-	s.ApplicationId = &v
-	return s
-}
-
-type UnbindCaasApplicationManageResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 请求是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 异常码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-}
-
-func (s UnbindCaasApplicationManageResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UnbindCaasApplicationManageResponse) GoString() string {
-	return s.String()
-}
-
-func (s *UnbindCaasApplicationManageResponse) SetReqMsgId(v string) *UnbindCaasApplicationManageResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *UnbindCaasApplicationManageResponse) SetResultCode(v string) *UnbindCaasApplicationManageResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *UnbindCaasApplicationManageResponse) SetResultMsg(v string) *UnbindCaasApplicationManageResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *UnbindCaasApplicationManageResponse) SetVersion(v string) *UnbindCaasApplicationManageResponse {
-	s.Version = &v
-	return s
-}
-
-func (s *UnbindCaasApplicationManageResponse) SetSuccess(v bool) *UnbindCaasApplicationManageResponse {
-	s.Success = &v
-	return s
-}
-
-func (s *UnbindCaasApplicationManageResponse) SetErrorCode(v string) *UnbindCaasApplicationManageResponse {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *UnbindCaasApplicationManageResponse) SetErrorMsg(v string) *UnbindCaasApplicationManageResponse {
-	s.ErrorMsg = &v
-	return s
-}
-
-type BindCaasApplicationManageRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 应用程序ID
-	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
-	// 合约服务标识集合
-	ServiceIds []*string `json:"service_ids,omitempty" xml:"service_ids,omitempty" type:"Repeated"`
-}
-
-func (s BindCaasApplicationManageRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindCaasApplicationManageRequest) GoString() string {
-	return s.String()
-}
-
-func (s *BindCaasApplicationManageRequest) SetAuthToken(v string) *BindCaasApplicationManageRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *BindCaasApplicationManageRequest) SetProductInstanceId(v string) *BindCaasApplicationManageRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *BindCaasApplicationManageRequest) SetApplicationId(v string) *BindCaasApplicationManageRequest {
-	s.ApplicationId = &v
-	return s
-}
-
-func (s *BindCaasApplicationManageRequest) SetServiceIds(v []*string) *BindCaasApplicationManageRequest {
-	s.ServiceIds = v
-	return s
-}
-
-type BindCaasApplicationManageResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 请求是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 异常码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-}
-
-func (s BindCaasApplicationManageResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindCaasApplicationManageResponse) GoString() string {
-	return s.String()
-}
-
-func (s *BindCaasApplicationManageResponse) SetReqMsgId(v string) *BindCaasApplicationManageResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *BindCaasApplicationManageResponse) SetResultCode(v string) *BindCaasApplicationManageResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *BindCaasApplicationManageResponse) SetResultMsg(v string) *BindCaasApplicationManageResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *BindCaasApplicationManageResponse) SetVersion(v string) *BindCaasApplicationManageResponse {
-	s.Version = &v
-	return s
-}
-
-func (s *BindCaasApplicationManageResponse) SetSuccess(v bool) *BindCaasApplicationManageResponse {
-	s.Success = &v
-	return s
-}
-
-func (s *BindCaasApplicationManageResponse) SetErrorCode(v string) *BindCaasApplicationManageResponse {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *BindCaasApplicationManageResponse) SetErrorMsg(v string) *BindCaasApplicationManageResponse {
-	s.ErrorMsg = &v
-	return s
-}
-
 type DeleteCaasContractServiceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -33474,14 +34213,6 @@ type DeleteCaasContractServiceResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 请求是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 异常码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
 }
 
 func (s DeleteCaasContractServiceResponse) String() string {
@@ -33507,36 +34238,18 @@ func (s *DeleteCaasContractServiceResponse) SetResultMsg(v string) *DeleteCaasCo
 	return s
 }
 
-func (s *DeleteCaasContractServiceResponse) SetVersion(v string) *DeleteCaasContractServiceResponse {
-	s.Version = &v
-	return s
-}
-
-func (s *DeleteCaasContractServiceResponse) SetSuccess(v bool) *DeleteCaasContractServiceResponse {
-	s.Success = &v
-	return s
-}
-
-func (s *DeleteCaasContractServiceResponse) SetErrorCode(v string) *DeleteCaasContractServiceResponse {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *DeleteCaasContractServiceResponse) SetErrorMsg(v string) *DeleteCaasContractServiceResponse {
-	s.ErrorMsg = &v
-	return s
-}
-
 type CreateCaasContractServiceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 链ID
-	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 联盟ID
+	UnionId *string `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
 	// 合约模板标识
-	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true"`
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
 	// 合约名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true" maxLength:"64" minLength:"1"`
 }
 
 func (s CreateCaasContractServiceRequest) String() string {
@@ -33562,6 +34275,11 @@ func (s *CreateCaasContractServiceRequest) SetChainId(v string) *CreateCaasContr
 	return s
 }
 
+func (s *CreateCaasContractServiceRequest) SetUnionId(v string) *CreateCaasContractServiceRequest {
+	s.UnionId = &v
+	return s
+}
+
 func (s *CreateCaasContractServiceRequest) SetTemplateId(v string) *CreateCaasContractServiceRequest {
 	s.TemplateId = &v
 	return s
@@ -33579,16 +34297,8 @@ type CreateCaasContractServiceResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 请求是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 异常码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-	// 请求结果数据
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 返回结果
+	Result *ContractCreateResp `json:"result,omitempty" xml:"result,omitempty"`
 }
 
 func (s CreateCaasContractServiceResponse) String() string {
@@ -33614,28 +34324,8 @@ func (s *CreateCaasContractServiceResponse) SetResultMsg(v string) *CreateCaasCo
 	return s
 }
 
-func (s *CreateCaasContractServiceResponse) SetVersion(v string) *CreateCaasContractServiceResponse {
-	s.Version = &v
-	return s
-}
-
-func (s *CreateCaasContractServiceResponse) SetSuccess(v bool) *CreateCaasContractServiceResponse {
-	s.Success = &v
-	return s
-}
-
-func (s *CreateCaasContractServiceResponse) SetErrorCode(v string) *CreateCaasContractServiceResponse {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *CreateCaasContractServiceResponse) SetErrorMsg(v string) *CreateCaasContractServiceResponse {
-	s.ErrorMsg = &v
-	return s
-}
-
-func (s *CreateCaasContractServiceResponse) SetData(v string) *CreateCaasContractServiceResponse {
-	s.Data = &v
+func (s *CreateCaasContractServiceResponse) SetResult(v *ContractCreateResp) *CreateCaasContractServiceResponse {
+	s.Result = v
 	return s
 }
 
@@ -33643,12 +34333,14 @@ type PagequeryCaasContractServiceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 合约服务类别
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// 页码
 	Num *int64 `json:"num,omitempty" xml:"num,omitempty" require:"true"`
 	// 页大小
 	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
-	// 业务数据
-	Data *ContractListReq `json:"data,omitempty" xml:"data,omitempty"`
+	// 链id
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
 }
 
 func (s PagequeryCaasContractServiceRequest) String() string {
@@ -33669,6 +34361,11 @@ func (s *PagequeryCaasContractServiceRequest) SetProductInstanceId(v string) *Pa
 	return s
 }
 
+func (s *PagequeryCaasContractServiceRequest) SetType(v string) *PagequeryCaasContractServiceRequest {
+	s.Type = &v
+	return s
+}
+
 func (s *PagequeryCaasContractServiceRequest) SetNum(v int64) *PagequeryCaasContractServiceRequest {
 	s.Num = &v
 	return s
@@ -33679,8 +34376,8 @@ func (s *PagequeryCaasContractServiceRequest) SetSize(v int64) *PagequeryCaasCon
 	return s
 }
 
-func (s *PagequeryCaasContractServiceRequest) SetData(v *ContractListReq) *PagequeryCaasContractServiceRequest {
-	s.Data = v
+func (s *PagequeryCaasContractServiceRequest) SetChainId(v string) *PagequeryCaasContractServiceRequest {
+	s.ChainId = &v
 	return s
 }
 
@@ -33691,16 +34388,8 @@ type PagequeryCaasContractServiceResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 请求是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 异常码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-	// 请求结果数据
-	Data *PageRespContractListResp `json:"data,omitempty" xml:"data,omitempty"`
+	// 返回结果
+	Result *ContractPageResp `json:"result,omitempty" xml:"result,omitempty"`
 }
 
 func (s PagequeryCaasContractServiceResponse) String() string {
@@ -33726,329 +34415,8 @@ func (s *PagequeryCaasContractServiceResponse) SetResultMsg(v string) *Pagequery
 	return s
 }
 
-func (s *PagequeryCaasContractServiceResponse) SetVersion(v string) *PagequeryCaasContractServiceResponse {
-	s.Version = &v
-	return s
-}
-
-func (s *PagequeryCaasContractServiceResponse) SetSuccess(v bool) *PagequeryCaasContractServiceResponse {
-	s.Success = &v
-	return s
-}
-
-func (s *PagequeryCaasContractServiceResponse) SetErrorCode(v string) *PagequeryCaasContractServiceResponse {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *PagequeryCaasContractServiceResponse) SetErrorMsg(v string) *PagequeryCaasContractServiceResponse {
-	s.ErrorMsg = &v
-	return s
-}
-
-func (s *PagequeryCaasContractServiceResponse) SetData(v *PageRespContractListResp) *PagequeryCaasContractServiceResponse {
-	s.Data = v
-	return s
-}
-
-type ListCaasContractServiceRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s ListCaasContractServiceRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ListCaasContractServiceRequest) GoString() string {
-	return s.String()
-}
-
-func (s *ListCaasContractServiceRequest) SetAuthToken(v string) *ListCaasContractServiceRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *ListCaasContractServiceRequest) SetProductInstanceId(v string) *ListCaasContractServiceRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type ListCaasContractServiceResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 请求是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 异常码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-	// 请求结果数据
-	Data []*ContractTypeResp `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
-}
-
-func (s ListCaasContractServiceResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ListCaasContractServiceResponse) GoString() string {
-	return s.String()
-}
-
-func (s *ListCaasContractServiceResponse) SetReqMsgId(v string) *ListCaasContractServiceResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *ListCaasContractServiceResponse) SetResultCode(v string) *ListCaasContractServiceResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *ListCaasContractServiceResponse) SetResultMsg(v string) *ListCaasContractServiceResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *ListCaasContractServiceResponse) SetVersion(v string) *ListCaasContractServiceResponse {
-	s.Version = &v
-	return s
-}
-
-func (s *ListCaasContractServiceResponse) SetSuccess(v bool) *ListCaasContractServiceResponse {
-	s.Success = &v
-	return s
-}
-
-func (s *ListCaasContractServiceResponse) SetErrorCode(v string) *ListCaasContractServiceResponse {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *ListCaasContractServiceResponse) SetErrorMsg(v string) *ListCaasContractServiceResponse {
-	s.ErrorMsg = &v
-	return s
-}
-
-func (s *ListCaasContractServiceResponse) SetData(v []*ContractTypeResp) *ListCaasContractServiceResponse {
-	s.Data = v
-	return s
-}
-
-type DeployCaasContractServiceRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 链ID
-	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
-	// 合约模板标识
-	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true"`
-	// 合约名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-}
-
-func (s DeployCaasContractServiceRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeployCaasContractServiceRequest) GoString() string {
-	return s.String()
-}
-
-func (s *DeployCaasContractServiceRequest) SetAuthToken(v string) *DeployCaasContractServiceRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *DeployCaasContractServiceRequest) SetProductInstanceId(v string) *DeployCaasContractServiceRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *DeployCaasContractServiceRequest) SetChainId(v string) *DeployCaasContractServiceRequest {
-	s.ChainId = &v
-	return s
-}
-
-func (s *DeployCaasContractServiceRequest) SetTemplateId(v string) *DeployCaasContractServiceRequest {
-	s.TemplateId = &v
-	return s
-}
-
-func (s *DeployCaasContractServiceRequest) SetName(v string) *DeployCaasContractServiceRequest {
-	s.Name = &v
-	return s
-}
-
-type DeployCaasContractServiceResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 请求是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 异常码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-	// 请求结果数据
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
-}
-
-func (s DeployCaasContractServiceResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeployCaasContractServiceResponse) GoString() string {
-	return s.String()
-}
-
-func (s *DeployCaasContractServiceResponse) SetReqMsgId(v string) *DeployCaasContractServiceResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *DeployCaasContractServiceResponse) SetResultCode(v string) *DeployCaasContractServiceResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *DeployCaasContractServiceResponse) SetResultMsg(v string) *DeployCaasContractServiceResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *DeployCaasContractServiceResponse) SetVersion(v string) *DeployCaasContractServiceResponse {
-	s.Version = &v
-	return s
-}
-
-func (s *DeployCaasContractServiceResponse) SetSuccess(v bool) *DeployCaasContractServiceResponse {
-	s.Success = &v
-	return s
-}
-
-func (s *DeployCaasContractServiceResponse) SetErrorCode(v string) *DeployCaasContractServiceResponse {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *DeployCaasContractServiceResponse) SetErrorMsg(v string) *DeployCaasContractServiceResponse {
-	s.ErrorMsg = &v
-	return s
-}
-
-func (s *DeployCaasContractServiceResponse) SetData(v string) *DeployCaasContractServiceResponse {
-	s.Data = &v
-	return s
-}
-
-type DetailCaasContractServiceRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 服务ID
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
-}
-
-func (s DetailCaasContractServiceRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DetailCaasContractServiceRequest) GoString() string {
-	return s.String()
-}
-
-func (s *DetailCaasContractServiceRequest) SetAuthToken(v string) *DetailCaasContractServiceRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *DetailCaasContractServiceRequest) SetProductInstanceId(v string) *DetailCaasContractServiceRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *DetailCaasContractServiceRequest) SetServiceId(v string) *DetailCaasContractServiceRequest {
-	s.ServiceId = &v
-	return s
-}
-
-type DetailCaasContractServiceResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 请求是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 异常码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-	// 请求结果数据
-	Data *ContractDetailResp `json:"data,omitempty" xml:"data,omitempty"`
-}
-
-func (s DetailCaasContractServiceResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DetailCaasContractServiceResponse) GoString() string {
-	return s.String()
-}
-
-func (s *DetailCaasContractServiceResponse) SetReqMsgId(v string) *DetailCaasContractServiceResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *DetailCaasContractServiceResponse) SetResultCode(v string) *DetailCaasContractServiceResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *DetailCaasContractServiceResponse) SetResultMsg(v string) *DetailCaasContractServiceResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *DetailCaasContractServiceResponse) SetVersion(v string) *DetailCaasContractServiceResponse {
-	s.Version = &v
-	return s
-}
-
-func (s *DetailCaasContractServiceResponse) SetSuccess(v bool) *DetailCaasContractServiceResponse {
-	s.Success = &v
-	return s
-}
-
-func (s *DetailCaasContractServiceResponse) SetErrorCode(v string) *DetailCaasContractServiceResponse {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *DetailCaasContractServiceResponse) SetErrorMsg(v string) *DetailCaasContractServiceResponse {
-	s.ErrorMsg = &v
-	return s
-}
-
-func (s *DetailCaasContractServiceResponse) SetData(v *ContractDetailResp) *DetailCaasContractServiceResponse {
-	s.Data = v
+func (s *PagequeryCaasContractServiceResponse) SetResult(v *ContractPageResp) *PagequeryCaasContractServiceResponse {
+	s.Result = v
 	return s
 }
 
@@ -34090,16 +34458,8 @@ type QueryCaasContractServiceResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 请求是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 异常码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-	// 请求结果数据
-	Data *ContractCreateProcessResp `json:"data,omitempty" xml:"data,omitempty"`
+	// 返回结果
+	Result *ContractCreateProcessResp `json:"result,omitempty" xml:"result,omitempty"`
 }
 
 func (s QueryCaasContractServiceResponse) String() string {
@@ -34125,28 +34485,673 @@ func (s *QueryCaasContractServiceResponse) SetResultMsg(v string) *QueryCaasCont
 	return s
 }
 
-func (s *QueryCaasContractServiceResponse) SetVersion(v string) *QueryCaasContractServiceResponse {
-	s.Version = &v
+func (s *QueryCaasContractServiceResponse) SetResult(v *ContractCreateProcessResp) *QueryCaasContractServiceResponse {
+	s.Result = v
 	return s
 }
 
-func (s *QueryCaasContractServiceResponse) SetSuccess(v bool) *QueryCaasContractServiceResponse {
-	s.Success = &v
+type DeployCaasContractServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 联盟id
+	UnionId *string `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
+	// 合约模板标识
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 合约名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true" maxLength:"64" minLength:"1"`
+}
+
+func (s DeployCaasContractServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeployCaasContractServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeployCaasContractServiceRequest) SetAuthToken(v string) *DeployCaasContractServiceRequest {
+	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryCaasContractServiceResponse) SetErrorCode(v string) *QueryCaasContractServiceResponse {
-	s.ErrorCode = &v
+func (s *DeployCaasContractServiceRequest) SetProductInstanceId(v string) *DeployCaasContractServiceRequest {
+	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryCaasContractServiceResponse) SetErrorMsg(v string) *QueryCaasContractServiceResponse {
-	s.ErrorMsg = &v
+func (s *DeployCaasContractServiceRequest) SetChainId(v string) *DeployCaasContractServiceRequest {
+	s.ChainId = &v
 	return s
 }
 
-func (s *QueryCaasContractServiceResponse) SetData(v *ContractCreateProcessResp) *QueryCaasContractServiceResponse {
-	s.Data = v
+func (s *DeployCaasContractServiceRequest) SetUnionId(v string) *DeployCaasContractServiceRequest {
+	s.UnionId = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceRequest) SetTemplateId(v string) *DeployCaasContractServiceRequest {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceRequest) SetName(v string) *DeployCaasContractServiceRequest {
+	s.Name = &v
+	return s
+}
+
+type DeployCaasContractServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ContractCreateResp `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s DeployCaasContractServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeployCaasContractServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeployCaasContractServiceResponse) SetReqMsgId(v string) *DeployCaasContractServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceResponse) SetResultCode(v string) *DeployCaasContractServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceResponse) SetResultMsg(v string) *DeployCaasContractServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeployCaasContractServiceResponse) SetResult(v *ContractCreateResp) *DeployCaasContractServiceResponse {
+	s.Result = v
+	return s
+}
+
+type ListCaasContractServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+}
+
+func (s ListCaasContractServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListCaasContractServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListCaasContractServiceRequest) SetAuthToken(v string) *ListCaasContractServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListCaasContractServiceRequest) SetProductInstanceId(v string) *ListCaasContractServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListCaasContractServiceRequest) SetChainId(v string) *ListCaasContractServiceRequest {
+	s.ChainId = &v
+	return s
+}
+
+type ListCaasContractServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ContractTypeResp `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s ListCaasContractServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListCaasContractServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListCaasContractServiceResponse) SetReqMsgId(v string) *ListCaasContractServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListCaasContractServiceResponse) SetResultCode(v string) *ListCaasContractServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListCaasContractServiceResponse) SetResultMsg(v string) *ListCaasContractServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListCaasContractServiceResponse) SetResult(v *ContractTypeResp) *ListCaasContractServiceResponse {
+	s.Result = v
+	return s
+}
+
+type DetailCaasContractServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 服务ID
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+}
+
+func (s DetailCaasContractServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailCaasContractServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailCaasContractServiceRequest) SetAuthToken(v string) *DetailCaasContractServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailCaasContractServiceRequest) SetProductInstanceId(v string) *DetailCaasContractServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailCaasContractServiceRequest) SetServiceId(v string) *DetailCaasContractServiceRequest {
+	s.ServiceId = &v
+	return s
+}
+
+type DetailCaasContractServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ContractDetailResp `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s DetailCaasContractServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailCaasContractServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailCaasContractServiceResponse) SetReqMsgId(v string) *DetailCaasContractServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailCaasContractServiceResponse) SetResultCode(v string) *DetailCaasContractServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailCaasContractServiceResponse) SetResultMsg(v string) *DetailCaasContractServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailCaasContractServiceResponse) SetResult(v *ContractDetailResp) *DetailCaasContractServiceResponse {
+	s.Result = v
+	return s
+}
+
+type CreateCaasApplicationManageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+	// 联盟id
+	UnionId *string `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
+}
+
+func (s CreateCaasApplicationManageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateCaasApplicationManageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateCaasApplicationManageRequest) SetAuthToken(v string) *CreateCaasApplicationManageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateCaasApplicationManageRequest) SetProductInstanceId(v string) *CreateCaasApplicationManageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateCaasApplicationManageRequest) SetChainId(v string) *CreateCaasApplicationManageRequest {
+	s.ChainId = &v
+	return s
+}
+
+func (s *CreateCaasApplicationManageRequest) SetUnionId(v string) *CreateCaasApplicationManageRequest {
+	s.UnionId = &v
+	return s
+}
+
+type CreateCaasApplicationManageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ApplicationCreateResp `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s CreateCaasApplicationManageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateCaasApplicationManageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateCaasApplicationManageResponse) SetReqMsgId(v string) *CreateCaasApplicationManageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateCaasApplicationManageResponse) SetResultCode(v string) *CreateCaasApplicationManageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateCaasApplicationManageResponse) SetResultMsg(v string) *CreateCaasApplicationManageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateCaasApplicationManageResponse) SetResult(v *ApplicationCreateResp) *CreateCaasApplicationManageResponse {
+	s.Result = v
+	return s
+}
+
+type PagequeryCaasApplicationManageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 页码
+	Num *int64 `json:"num,omitempty" xml:"num,omitempty" require:"true"`
+	// 页大小
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
+	// 链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+}
+
+func (s PagequeryCaasApplicationManageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryCaasApplicationManageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryCaasApplicationManageRequest) SetAuthToken(v string) *PagequeryCaasApplicationManageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageRequest) SetProductInstanceId(v string) *PagequeryCaasApplicationManageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageRequest) SetNum(v int64) *PagequeryCaasApplicationManageRequest {
+	s.Num = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageRequest) SetSize(v int64) *PagequeryCaasApplicationManageRequest {
+	s.Size = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageRequest) SetChainId(v string) *PagequeryCaasApplicationManageRequest {
+	s.ChainId = &v
+	return s
+}
+
+type PagequeryCaasApplicationManageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ApplicationPageResp `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s PagequeryCaasApplicationManageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryCaasApplicationManageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryCaasApplicationManageResponse) SetReqMsgId(v string) *PagequeryCaasApplicationManageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageResponse) SetResultCode(v string) *PagequeryCaasApplicationManageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageResponse) SetResultMsg(v string) *PagequeryCaasApplicationManageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryCaasApplicationManageResponse) SetResult(v *ApplicationPageResp) *PagequeryCaasApplicationManageResponse {
+	s.Result = v
+	return s
+}
+
+type QueryCaasApplicationManageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用程序ID
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
+}
+
+func (s QueryCaasApplicationManageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCaasApplicationManageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCaasApplicationManageRequest) SetAuthToken(v string) *QueryCaasApplicationManageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCaasApplicationManageRequest) SetProductInstanceId(v string) *QueryCaasApplicationManageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCaasApplicationManageRequest) SetApplicationId(v string) *QueryCaasApplicationManageRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+type QueryCaasApplicationManageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ContractBindListResp `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryCaasApplicationManageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCaasApplicationManageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCaasApplicationManageResponse) SetReqMsgId(v string) *QueryCaasApplicationManageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCaasApplicationManageResponse) SetResultCode(v string) *QueryCaasApplicationManageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCaasApplicationManageResponse) SetResultMsg(v string) *QueryCaasApplicationManageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCaasApplicationManageResponse) SetResult(v *ContractBindListResp) *QueryCaasApplicationManageResponse {
+	s.Result = v
+	return s
+}
+
+type UnbindCaasApplicationManageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用程序ID
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
+}
+
+func (s UnbindCaasApplicationManageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnbindCaasApplicationManageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UnbindCaasApplicationManageRequest) SetAuthToken(v string) *UnbindCaasApplicationManageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UnbindCaasApplicationManageRequest) SetProductInstanceId(v string) *UnbindCaasApplicationManageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UnbindCaasApplicationManageRequest) SetApplicationId(v string) *UnbindCaasApplicationManageRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+type UnbindCaasApplicationManageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UnbindCaasApplicationManageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnbindCaasApplicationManageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UnbindCaasApplicationManageResponse) SetReqMsgId(v string) *UnbindCaasApplicationManageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UnbindCaasApplicationManageResponse) SetResultCode(v string) *UnbindCaasApplicationManageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UnbindCaasApplicationManageResponse) SetResultMsg(v string) *UnbindCaasApplicationManageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type BindCaasApplicationManageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用ID
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
+	// 合约服务标识集合
+	ServiceIds []*string `json:"service_ids,omitempty" xml:"service_ids,omitempty" type:"Repeated"`
+}
+
+func (s BindCaasApplicationManageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCaasApplicationManageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindCaasApplicationManageRequest) SetAuthToken(v string) *BindCaasApplicationManageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindCaasApplicationManageRequest) SetProductInstanceId(v string) *BindCaasApplicationManageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindCaasApplicationManageRequest) SetApplicationId(v string) *BindCaasApplicationManageRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *BindCaasApplicationManageRequest) SetServiceIds(v []*string) *BindCaasApplicationManageRequest {
+	s.ServiceIds = v
+	return s
+}
+
+type BindCaasApplicationManageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BindCaasApplicationManageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCaasApplicationManageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindCaasApplicationManageResponse) SetReqMsgId(v string) *BindCaasApplicationManageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindCaasApplicationManageResponse) SetResultCode(v string) *BindCaasApplicationManageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindCaasApplicationManageResponse) SetResultMsg(v string) *BindCaasApplicationManageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type GetCaasApplicationManageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用程序ID
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
+}
+
+func (s GetCaasApplicationManageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetCaasApplicationManageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetCaasApplicationManageRequest) SetAuthToken(v string) *GetCaasApplicationManageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetCaasApplicationManageRequest) SetProductInstanceId(v string) *GetCaasApplicationManageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetCaasApplicationManageRequest) SetApplicationId(v string) *GetCaasApplicationManageRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+type GetCaasApplicationManageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *ApplicationGetSkResp `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s GetCaasApplicationManageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetCaasApplicationManageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetCaasApplicationManageResponse) SetReqMsgId(v string) *GetCaasApplicationManageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetCaasApplicationManageResponse) SetResultCode(v string) *GetCaasApplicationManageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetCaasApplicationManageResponse) SetResultMsg(v string) *GetCaasApplicationManageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetCaasApplicationManageResponse) SetResult(v *ApplicationGetSkResp) *GetCaasApplicationManageResponse {
+	s.Result = v
 	return s
 }
 
@@ -34154,6 +35159,12 @@ type PagequeryCaasContractMarketRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 页码
+	Num *int64 `json:"num,omitempty" xml:"num,omitempty" require:"true"`
+	// 页大小
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
+	// 链id
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
 }
 
 func (s PagequeryCaasContractMarketRequest) String() string {
@@ -34174,6 +35185,21 @@ func (s *PagequeryCaasContractMarketRequest) SetProductInstanceId(v string) *Pag
 	return s
 }
 
+func (s *PagequeryCaasContractMarketRequest) SetNum(v int64) *PagequeryCaasContractMarketRequest {
+	s.Num = &v
+	return s
+}
+
+func (s *PagequeryCaasContractMarketRequest) SetSize(v int64) *PagequeryCaasContractMarketRequest {
+	s.Size = &v
+	return s
+}
+
+func (s *PagequeryCaasContractMarketRequest) SetChainId(v string) *PagequeryCaasContractMarketRequest {
+	s.ChainId = &v
+	return s
+}
+
 type PagequeryCaasContractMarketResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -34181,16 +35207,8 @@ type PagequeryCaasContractMarketResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 请求是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 异常码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-	// 请求结果数据
-	Data []*ContractTemplateResp `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 返回结果
+	Result *ContractTemplateListResp `json:"result,omitempty" xml:"result,omitempty"`
 }
 
 func (s PagequeryCaasContractMarketResponse) String() string {
@@ -34216,28 +35234,8 @@ func (s *PagequeryCaasContractMarketResponse) SetResultMsg(v string) *PagequeryC
 	return s
 }
 
-func (s *PagequeryCaasContractMarketResponse) SetVersion(v string) *PagequeryCaasContractMarketResponse {
-	s.Version = &v
-	return s
-}
-
-func (s *PagequeryCaasContractMarketResponse) SetSuccess(v bool) *PagequeryCaasContractMarketResponse {
-	s.Success = &v
-	return s
-}
-
-func (s *PagequeryCaasContractMarketResponse) SetErrorCode(v string) *PagequeryCaasContractMarketResponse {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *PagequeryCaasContractMarketResponse) SetErrorMsg(v string) *PagequeryCaasContractMarketResponse {
-	s.ErrorMsg = &v
-	return s
-}
-
-func (s *PagequeryCaasContractMarketResponse) SetData(v []*ContractTemplateResp) *PagequeryCaasContractMarketResponse {
-	s.Data = v
+func (s *PagequeryCaasContractMarketResponse) SetResult(v *ContractTemplateListResp) *PagequeryCaasContractMarketResponse {
+	s.Result = v
 	return s
 }
 
@@ -47409,6 +48407,8 @@ type NotifyAuthTaskStatusRequest struct {
 	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 状态发生时间
 	HappenTime *string `json:"happen_time,omitempty" xml:"happen_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 业务流水号，问卷方传给主站后透传给授权宝
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty"`
 }
 
 func (s NotifyAuthTaskStatusRequest) String() string {
@@ -47449,6 +48449,11 @@ func (s *NotifyAuthTaskStatusRequest) SetHappenTime(v string) *NotifyAuthTaskSta
 	return s
 }
 
+func (s *NotifyAuthTaskStatusRequest) SetOutBizNo(v string) *NotifyAuthTaskStatusRequest {
+	s.OutBizNo = &v
+	return s
+}
+
 type NotifyAuthTaskStatusResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -47478,6 +48483,1245 @@ func (s *NotifyAuthTaskStatusResponse) SetResultCode(v string) *NotifyAuthTaskSt
 
 func (s *NotifyAuthTaskStatusResponse) SetResultMsg(v string) *NotifyAuthTaskStatusResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type PauseAuthTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s PauseAuthTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PauseAuthTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PauseAuthTaskRequest) SetAuthToken(v string) *PauseAuthTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PauseAuthTaskRequest) SetProductInstanceId(v string) *PauseAuthTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PauseAuthTaskRequest) SetTaskId(v string) *PauseAuthTaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+type PauseAuthTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务暂停成功/失败
+	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s PauseAuthTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PauseAuthTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PauseAuthTaskResponse) SetReqMsgId(v string) *PauseAuthTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PauseAuthTaskResponse) SetResultCode(v string) *PauseAuthTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PauseAuthTaskResponse) SetResultMsg(v string) *PauseAuthTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PauseAuthTaskResponse) SetData(v bool) *PauseAuthTaskResponse {
+	s.Data = &v
+	return s
+}
+
+type FinishAuthTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s FinishAuthTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishAuthTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FinishAuthTaskRequest) SetAuthToken(v string) *FinishAuthTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FinishAuthTaskRequest) SetProductInstanceId(v string) *FinishAuthTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *FinishAuthTaskRequest) SetTaskId(v string) *FinishAuthTaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+type FinishAuthTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务完成操作成功/失败
+	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s FinishAuthTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishAuthTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FinishAuthTaskResponse) SetReqMsgId(v string) *FinishAuthTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FinishAuthTaskResponse) SetResultCode(v string) *FinishAuthTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FinishAuthTaskResponse) SetResultMsg(v string) *FinishAuthTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *FinishAuthTaskResponse) SetData(v bool) *FinishAuthTaskResponse {
+	s.Data = &v
+	return s
+}
+
+type ReopenAuthTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s ReopenAuthTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReopenAuthTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ReopenAuthTaskRequest) SetAuthToken(v string) *ReopenAuthTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ReopenAuthTaskRequest) SetProductInstanceId(v string) *ReopenAuthTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ReopenAuthTaskRequest) SetTaskId(v string) *ReopenAuthTaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+type ReopenAuthTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务重启成功/失败
+	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ReopenAuthTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReopenAuthTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ReopenAuthTaskResponse) SetReqMsgId(v string) *ReopenAuthTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ReopenAuthTaskResponse) SetResultCode(v string) *ReopenAuthTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ReopenAuthTaskResponse) SetResultMsg(v string) *ReopenAuthTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ReopenAuthTaskResponse) SetData(v bool) *ReopenAuthTaskResponse {
+	s.Data = &v
+	return s
+}
+
+type OperateAuthTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 样本数量
+	SampleNum *int64 `json:"sample_num,omitempty" xml:"sample_num,omitempty" require:"true"`
+	// 操作人ID
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+}
+
+func (s OperateAuthTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateAuthTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateAuthTaskRequest) SetAuthToken(v string) *OperateAuthTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateAuthTaskRequest) SetProductInstanceId(v string) *OperateAuthTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateAuthTaskRequest) SetTaskId(v string) *OperateAuthTaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+func (s *OperateAuthTaskRequest) SetSampleNum(v int64) *OperateAuthTaskRequest {
+	s.SampleNum = &v
+	return s
+}
+
+func (s *OperateAuthTaskRequest) SetOperator(v string) *OperateAuthTaskRequest {
+	s.Operator = &v
+	return s
+}
+
+type OperateAuthTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s OperateAuthTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateAuthTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateAuthTaskResponse) SetReqMsgId(v string) *OperateAuthTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateAuthTaskResponse) SetResultCode(v string) *OperateAuthTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateAuthTaskResponse) SetResultMsg(v string) *OperateAuthTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryAuthTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 标签列表
+	TagCodeList []*string `json:"tag_code_list,omitempty" xml:"tag_code_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryAuthTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthTaskRequest) SetAuthToken(v string) *QueryAuthTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAuthTaskRequest) SetProductInstanceId(v string) *QueryAuthTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAuthTaskRequest) SetTagCodeList(v []*string) *QueryAuthTaskRequest {
+	s.TagCodeList = v
+	return s
+}
+
+type QueryAuthTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 人群标签返回列表
+	Data []*CrowdTagEnumResp `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAuthTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthTaskResponse) SetReqMsgId(v string) *QueryAuthTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAuthTaskResponse) SetResultCode(v string) *QueryAuthTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAuthTaskResponse) SetResultMsg(v string) *QueryAuthTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAuthTaskResponse) SetData(v []*CrowdTagEnumResp) *QueryAuthTaskResponse {
+	s.Data = v
+	return s
+}
+
+type CountAuthTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s CountAuthTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CountAuthTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CountAuthTaskRequest) SetAuthToken(v string) *CountAuthTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CountAuthTaskRequest) SetProductInstanceId(v string) *CountAuthTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CountAuthTaskRequest) SetTaskId(v string) *CountAuthTaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+type CountAuthTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务对应的人群预估数量
+	Data *int64 `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CountAuthTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CountAuthTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CountAuthTaskResponse) SetReqMsgId(v string) *CountAuthTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CountAuthTaskResponse) SetResultCode(v string) *CountAuthTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CountAuthTaskResponse) SetResultMsg(v string) *CountAuthTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CountAuthTaskResponse) SetData(v int64) *CountAuthTaskResponse {
+	s.Data = &v
+	return s
+}
+
+type MatchAuthTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 任务ID，支持批量
+	TaskIds []*string `json:"task_ids,omitempty" xml:"task_ids,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s MatchAuthTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MatchAuthTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *MatchAuthTaskRequest) SetAuthToken(v string) *MatchAuthTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *MatchAuthTaskRequest) SetProductInstanceId(v string) *MatchAuthTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *MatchAuthTaskRequest) SetUserId(v string) *MatchAuthTaskRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *MatchAuthTaskRequest) SetTaskIds(v []*string) *MatchAuthTaskRequest {
+	s.TaskIds = v
+	return s
+}
+
+type MatchAuthTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 人群匹配结果
+	Data []*TaskCrowdMatchResp `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s MatchAuthTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MatchAuthTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *MatchAuthTaskResponse) SetReqMsgId(v string) *MatchAuthTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *MatchAuthTaskResponse) SetResultCode(v string) *MatchAuthTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *MatchAuthTaskResponse) SetResultMsg(v string) *MatchAuthTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *MatchAuthTaskResponse) SetData(v []*TaskCrowdMatchResp) *MatchAuthTaskResponse {
+	s.Data = v
+	return s
+}
+
+type SubmitAuthTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务标题(同一个租户不能重复)
+	TaskName *string `json:"task_name,omitempty" xml:"task_name,omitempty" require:"true" maxLength:"20"`
+	// appId
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true" maxLength:"32"`
+	// 问卷id(同一个租户不能重复，只能包含字母、数组或者下划线)
+	SurveyId *string `json:"survey_id,omitempty" xml:"survey_id,omitempty" require:"true" maxLength:"32"`
+	// notes
+	Notes *string `json:"notes,omitempty" xml:"notes,omitempty" maxLength:"32"`
+	// 任务创建者用户ID
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true" maxLength:"100"`
+	// banner标题
+	BannerTitle *string `json:"banner_title,omitempty" xml:"banner_title,omitempty" require:"true" maxLength:"30"`
+	// banner图片地址（最多支持3张）
+	BannerImageUrls []*string `json:"banner_image_urls,omitempty" xml:"banner_image_urls,omitempty" type:"Repeated"`
+	// 题量
+	QuestionNum *int64 `json:"question_num,omitempty" xml:"question_num,omitempty" require:"true" maximum:"1000"`
+	// 任务连接地址
+	TaskLinkUrl *string `json:"task_link_url,omitempty" xml:"task_link_url,omitempty" require:"true" maxLength:"1000"`
+	// 人群划分描述
+	PersonDivideContent *string `json:"person_divide_content,omitempty" xml:"person_divide_content,omitempty" maxLength:"1000"`
+	// 城市列表
+	CityDivideUrls []*string `json:"city_divide_urls,omitempty" xml:"city_divide_urls,omitempty" type:"Repeated"`
+	// 样本数量
+	SampleNum *int64 `json:"sample_num,omitempty" xml:"sample_num,omitempty" require:"true" maximum:"100000"`
+	// 产品下单code类型（1-资源包 2-后付费）
+	ProductCodeType *string `json:"product_code_type,omitempty" xml:"product_code_type,omitempty" require:"true" maxLength:"4"`
+	// 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
+	PrizeChannel *int64 `json:"prize_channel,omitempty" xml:"prize_channel,omitempty" require:"true"`
+	// 支付宝账号
+	AlipayAccountId *string `json:"alipay_account_id,omitempty" xml:"alipay_account_id,omitempty" maxLength:"100"`
+	// 奖励类型（0-定额红包）
+	PrizeType *int64 `json:"prize_type,omitempty" xml:"prize_type,omitempty" require:"true"`
+	// 全额红包金额（价格在0.01~100），奖励渠道为0和1时
+	FullRedPacketAmount *string `json:"full_red_packet_amount,omitempty" xml:"full_red_packet_amount,omitempty" require:"true"`
+	// 甄别红包金额
+	ExamineRedPacketAmount *string `json:"examine_red_packet_amount,omitempty" xml:"examine_red_packet_amount,omitempty" require:"true"`
+	// 全额红包描述，奖励渠道为2时，此处必填
+	FullRedPacketTextInfo *string `json:"full_red_packet_text_info,omitempty" xml:"full_red_packet_text_info,omitempty"`
+	// 证书内容
+	CertContent *string `json:"cert_content,omitempty" xml:"cert_content,omitempty"`
+	// 人群配置
+	CrowdConfig *string `json:"crowd_config,omitempty" xml:"crowd_config,omitempty" require:"true"`
+	// 是否草稿，1表示草稿
+	Draft *string `json:"draft,omitempty" xml:"draft,omitempty" require:"true"`
+}
+
+func (s SubmitAuthTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAuthTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAuthTaskRequest) SetAuthToken(v string) *SubmitAuthTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetProductInstanceId(v string) *SubmitAuthTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetTaskName(v string) *SubmitAuthTaskRequest {
+	s.TaskName = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetAppId(v string) *SubmitAuthTaskRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetSurveyId(v string) *SubmitAuthTaskRequest {
+	s.SurveyId = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetNotes(v string) *SubmitAuthTaskRequest {
+	s.Notes = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetOperator(v string) *SubmitAuthTaskRequest {
+	s.Operator = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetBannerTitle(v string) *SubmitAuthTaskRequest {
+	s.BannerTitle = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetBannerImageUrls(v []*string) *SubmitAuthTaskRequest {
+	s.BannerImageUrls = v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetQuestionNum(v int64) *SubmitAuthTaskRequest {
+	s.QuestionNum = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetTaskLinkUrl(v string) *SubmitAuthTaskRequest {
+	s.TaskLinkUrl = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetPersonDivideContent(v string) *SubmitAuthTaskRequest {
+	s.PersonDivideContent = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetCityDivideUrls(v []*string) *SubmitAuthTaskRequest {
+	s.CityDivideUrls = v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetSampleNum(v int64) *SubmitAuthTaskRequest {
+	s.SampleNum = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetProductCodeType(v string) *SubmitAuthTaskRequest {
+	s.ProductCodeType = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetPrizeChannel(v int64) *SubmitAuthTaskRequest {
+	s.PrizeChannel = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetAlipayAccountId(v string) *SubmitAuthTaskRequest {
+	s.AlipayAccountId = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetPrizeType(v int64) *SubmitAuthTaskRequest {
+	s.PrizeType = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetFullRedPacketAmount(v string) *SubmitAuthTaskRequest {
+	s.FullRedPacketAmount = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetExamineRedPacketAmount(v string) *SubmitAuthTaskRequest {
+	s.ExamineRedPacketAmount = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetFullRedPacketTextInfo(v string) *SubmitAuthTaskRequest {
+	s.FullRedPacketTextInfo = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetCertContent(v string) *SubmitAuthTaskRequest {
+	s.CertContent = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetCrowdConfig(v string) *SubmitAuthTaskRequest {
+	s.CrowdConfig = &v
+	return s
+}
+
+func (s *SubmitAuthTaskRequest) SetDraft(v string) *SubmitAuthTaskRequest {
+	s.Draft = &v
+	return s
+}
+
+type SubmitAuthTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务id
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s SubmitAuthTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAuthTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAuthTaskResponse) SetReqMsgId(v string) *SubmitAuthTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAuthTaskResponse) SetResultCode(v string) *SubmitAuthTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAuthTaskResponse) SetResultMsg(v string) *SubmitAuthTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitAuthTaskResponse) SetData(v string) *SubmitAuthTaskResponse {
+	s.Data = &v
+	return s
+}
+
+type DetailAuthTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s DetailAuthTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailAuthTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailAuthTaskRequest) SetAuthToken(v string) *DetailAuthTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailAuthTaskRequest) SetProductInstanceId(v string) *DetailAuthTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailAuthTaskRequest) SetTaskId(v string) *DetailAuthTaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+type DetailAuthTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 历史任务信息
+	OldTaskInfo *OldTaskInfo `json:"old_task_info,omitempty" xml:"old_task_info,omitempty"`
+	// 最新的任务信息
+	UpdateTaskInfo *UpdatedTaskInfo `json:"update_task_info,omitempty" xml:"update_task_info,omitempty"`
+	// 是否有未完成的圈人任务
+	HaveNotFinishedCrowdTask *bool `json:"have_not_finished_crowd_task,omitempty" xml:"have_not_finished_crowd_task,omitempty"`
+}
+
+func (s DetailAuthTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailAuthTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailAuthTaskResponse) SetReqMsgId(v string) *DetailAuthTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailAuthTaskResponse) SetResultCode(v string) *DetailAuthTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailAuthTaskResponse) SetResultMsg(v string) *DetailAuthTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailAuthTaskResponse) SetOldTaskInfo(v *OldTaskInfo) *DetailAuthTaskResponse {
+	s.OldTaskInfo = v
+	return s
+}
+
+func (s *DetailAuthTaskResponse) SetUpdateTaskInfo(v *UpdatedTaskInfo) *DetailAuthTaskResponse {
+	s.UpdateTaskInfo = v
+	return s
+}
+
+func (s *DetailAuthTaskResponse) SetHaveNotFinishedCrowdTask(v bool) *DetailAuthTaskResponse {
+	s.HaveNotFinishedCrowdTask = &v
+	return s
+}
+
+type UpdateAuthTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true" maxLength:"20"`
+	// 任务标题(同一个租户不能重复)
+	TaskName *string `json:"task_name,omitempty" xml:"task_name,omitempty" require:"true" maxLength:"20"`
+	// appId
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true" maxLength:"32"`
+	// 问卷id(同一个租户不能重复，只能包含字母、数组或者下划线)
+	SurveyId *string `json:"survey_id,omitempty" xml:"survey_id,omitempty" require:"true" maxLength:"32"`
+	// notes
+	Notes *string `json:"notes,omitempty" xml:"notes,omitempty" maxLength:"32"`
+	// 操作者ID
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true" maxLength:"100"`
+	// banner标题
+	BannerTitle *string `json:"banner_title,omitempty" xml:"banner_title,omitempty" require:"true" maxLength:"30"`
+	// banner图片地址（最多支持3张）
+	BannerImageUrls []*string `json:"banner_image_urls,omitempty" xml:"banner_image_urls,omitempty" type:"Repeated"`
+	// 题量
+	QuestionNum *int64 `json:"question_num,omitempty" xml:"question_num,omitempty" require:"true"`
+	// 任务连接地址
+	TaskLinkUrl *string `json:"task_link_url,omitempty" xml:"task_link_url,omitempty" require:"true" maxLength:"1000"`
+	// 人群划分描述
+	PersonDivideContent *string `json:"person_divide_content,omitempty" xml:"person_divide_content,omitempty" maxLength:"1000"`
+	// 城市列表
+	CityDivideUrls []*string `json:"city_divide_urls,omitempty" xml:"city_divide_urls,omitempty" type:"Repeated"`
+	// 样本数量
+	SampleNum *int64 `json:"sample_num,omitempty" xml:"sample_num,omitempty" require:"true"`
+	// 产品下单code类型（1-资源包 2-后付费）
+	ProductCodeType *string `json:"product_code_type,omitempty" xml:"product_code_type,omitempty" require:"true" maxLength:"4"`
+	// 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
+	PrizeChannel *int64 `json:"prize_channel,omitempty" xml:"prize_channel,omitempty" require:"true"`
+	// 支付宝账号
+	AlipayAccountId *string `json:"alipay_account_id,omitempty" xml:"alipay_account_id,omitempty"`
+	// 奖励类型（0-定额红包）
+	PrizeType *int64 `json:"prize_type,omitempty" xml:"prize_type,omitempty" require:"true"`
+	// 全额红包金额（价格在0.01~100），奖励渠道为0和1时
+	FullRedPacketAmount *string `json:"full_red_packet_amount,omitempty" xml:"full_red_packet_amount,omitempty" require:"true"`
+	// 甄别红包金额
+	ExamineRedPacketAmount *string `json:"examine_red_packet_amount,omitempty" xml:"examine_red_packet_amount,omitempty" require:"true"`
+	// 全额红包描述，奖励渠道为2时，此处必填
+	FullRedPacketTextInfo *string `json:"full_red_packet_text_info,omitempty" xml:"full_red_packet_text_info,omitempty"`
+	// 证书内容
+	CertContent *string `json:"cert_content,omitempty" xml:"cert_content,omitempty" require:"true"`
+	// 人群配置
+	CrowdConfig *string `json:"crowd_config,omitempty" xml:"crowd_config,omitempty" require:"true"`
+	// 是否草稿，1表示草稿
+	Draft *string `json:"draft,omitempty" xml:"draft,omitempty" require:"true"`
+}
+
+func (s UpdateAuthTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateAuthTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateAuthTaskRequest) SetAuthToken(v string) *UpdateAuthTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetProductInstanceId(v string) *UpdateAuthTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetTaskId(v string) *UpdateAuthTaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetTaskName(v string) *UpdateAuthTaskRequest {
+	s.TaskName = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetAppId(v string) *UpdateAuthTaskRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetSurveyId(v string) *UpdateAuthTaskRequest {
+	s.SurveyId = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetNotes(v string) *UpdateAuthTaskRequest {
+	s.Notes = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetOperator(v string) *UpdateAuthTaskRequest {
+	s.Operator = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetBannerTitle(v string) *UpdateAuthTaskRequest {
+	s.BannerTitle = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetBannerImageUrls(v []*string) *UpdateAuthTaskRequest {
+	s.BannerImageUrls = v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetQuestionNum(v int64) *UpdateAuthTaskRequest {
+	s.QuestionNum = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetTaskLinkUrl(v string) *UpdateAuthTaskRequest {
+	s.TaskLinkUrl = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetPersonDivideContent(v string) *UpdateAuthTaskRequest {
+	s.PersonDivideContent = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetCityDivideUrls(v []*string) *UpdateAuthTaskRequest {
+	s.CityDivideUrls = v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetSampleNum(v int64) *UpdateAuthTaskRequest {
+	s.SampleNum = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetProductCodeType(v string) *UpdateAuthTaskRequest {
+	s.ProductCodeType = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetPrizeChannel(v int64) *UpdateAuthTaskRequest {
+	s.PrizeChannel = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetAlipayAccountId(v string) *UpdateAuthTaskRequest {
+	s.AlipayAccountId = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetPrizeType(v int64) *UpdateAuthTaskRequest {
+	s.PrizeType = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetFullRedPacketAmount(v string) *UpdateAuthTaskRequest {
+	s.FullRedPacketAmount = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetExamineRedPacketAmount(v string) *UpdateAuthTaskRequest {
+	s.ExamineRedPacketAmount = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetFullRedPacketTextInfo(v string) *UpdateAuthTaskRequest {
+	s.FullRedPacketTextInfo = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetCertContent(v string) *UpdateAuthTaskRequest {
+	s.CertContent = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetCrowdConfig(v string) *UpdateAuthTaskRequest {
+	s.CrowdConfig = &v
+	return s
+}
+
+func (s *UpdateAuthTaskRequest) SetDraft(v string) *UpdateAuthTaskRequest {
+	s.Draft = &v
+	return s
+}
+
+type UpdateAuthTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateAuthTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateAuthTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateAuthTaskResponse) SetReqMsgId(v string) *UpdateAuthTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateAuthTaskResponse) SetResultCode(v string) *UpdateAuthTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateAuthTaskResponse) SetResultMsg(v string) *UpdateAuthTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CountAuthTaskCrowdRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s CountAuthTaskCrowdRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CountAuthTaskCrowdRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CountAuthTaskCrowdRequest) SetAuthToken(v string) *CountAuthTaskCrowdRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CountAuthTaskCrowdRequest) SetProductInstanceId(v string) *CountAuthTaskCrowdRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CountAuthTaskCrowdRequest) SetTaskId(v string) *CountAuthTaskCrowdRequest {
+	s.TaskId = &v
+	return s
+}
+
+type CountAuthTaskCrowdResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 人群预估数量
+	Data *int64 `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CountAuthTaskCrowdResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CountAuthTaskCrowdResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CountAuthTaskCrowdResponse) SetReqMsgId(v string) *CountAuthTaskCrowdResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CountAuthTaskCrowdResponse) SetResultCode(v string) *CountAuthTaskCrowdResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CountAuthTaskCrowdResponse) SetResultMsg(v string) *CountAuthTaskCrowdResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CountAuthTaskCrowdResponse) SetData(v int64) *CountAuthTaskCrowdResponse {
+	s.Data = &v
+	return s
+}
+
+type MatchAuthTaskCrowdRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 任务ID
+	TaskIds []*string `json:"task_ids,omitempty" xml:"task_ids,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s MatchAuthTaskCrowdRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MatchAuthTaskCrowdRequest) GoString() string {
+	return s.String()
+}
+
+func (s *MatchAuthTaskCrowdRequest) SetAuthToken(v string) *MatchAuthTaskCrowdRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *MatchAuthTaskCrowdRequest) SetProductInstanceId(v string) *MatchAuthTaskCrowdRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *MatchAuthTaskCrowdRequest) SetUserId(v string) *MatchAuthTaskCrowdRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *MatchAuthTaskCrowdRequest) SetTaskIds(v []*string) *MatchAuthTaskCrowdRequest {
+	s.TaskIds = v
+	return s
+}
+
+type MatchAuthTaskCrowdResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 人群匹配结果
+	Data []*TaskCrowdMatchResp `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s MatchAuthTaskCrowdResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MatchAuthTaskCrowdResponse) GoString() string {
+	return s.String()
+}
+
+func (s *MatchAuthTaskCrowdResponse) SetReqMsgId(v string) *MatchAuthTaskCrowdResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *MatchAuthTaskCrowdResponse) SetResultCode(v string) *MatchAuthTaskCrowdResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *MatchAuthTaskCrowdResponse) SetResultMsg(v string) *MatchAuthTaskCrowdResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *MatchAuthTaskCrowdResponse) SetData(v []*TaskCrowdMatchResp) *MatchAuthTaskCrowdResponse {
+	s.Data = v
+	return s
+}
+
+type QueryAuthTaskLabelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 人群标签
+	TagCodeList []*string `json:"tag_code_list,omitempty" xml:"tag_code_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryAuthTaskLabelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthTaskLabelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthTaskLabelRequest) SetAuthToken(v string) *QueryAuthTaskLabelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAuthTaskLabelRequest) SetProductInstanceId(v string) *QueryAuthTaskLabelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAuthTaskLabelRequest) SetTagCodeList(v []*string) *QueryAuthTaskLabelRequest {
+	s.TagCodeList = v
+	return s
+}
+
+type QueryAuthTaskLabelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 人群标签返回结果
+	Data []*CrowdTagEnumResp `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAuthTaskLabelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthTaskLabelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthTaskLabelResponse) SetReqMsgId(v string) *QueryAuthTaskLabelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAuthTaskLabelResponse) SetResultCode(v string) *QueryAuthTaskLabelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAuthTaskLabelResponse) SetResultMsg(v string) *QueryAuthTaskLabelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAuthTaskLabelResponse) SetData(v []*CrowdTagEnumResp) *QueryAuthTaskLabelResponse {
+	s.Data = v
 	return s
 }
 
@@ -66779,7 +69023,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.26.36"),
+				"sdk_version":      tea.String("1.27.8"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -71024,6 +73268,108 @@ func (client *Client) CreateChainAccountAntkmsEx(request *CreateChainAccountAntk
 }
 
 /**
+ * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现计量计费
+ * Summary: 阿里云渠道链相关商业化服务开通
+ */
+func (client *Client) OpenChainService(request *OpenChainServiceRequest) (_result *OpenChainServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OpenChainServiceResponse{}
+	_body, _err := client.OpenChainServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现计量计费
+ * Summary: 阿里云渠道链相关商业化服务开通
+ */
+func (client *Client) OpenChainServiceEx(request *OpenChainServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OpenChainServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OpenChainServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.chain.service.open"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云渠道链相关商业化服务开通结果查询
+ * Summary: 阿里云渠道链相关商业化服务开通结果查询
+ */
+func (client *Client) CheckChainService(request *CheckChainServiceRequest) (_result *CheckChainServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckChainServiceResponse{}
+	_body, _err := client.CheckChainServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云渠道链相关商业化服务开通结果查询
+ * Summary: 阿里云渠道链相关商业化服务开通结果查询
+ */
+func (client *Client) CheckChainServiceEx(request *CheckChainServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckChainServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckChainServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.chain.service.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现服务关闭
+ * Summary: 阿里云渠道链相关商业化服务关闭
+ */
+func (client *Client) CloseChainService(request *CloseChainServiceRequest) (_result *CloseChainServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CloseChainServiceResponse{}
+	_body, _err := client.CloseChainServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现服务关闭
+ * Summary: 阿里云渠道链相关商业化服务关闭
+ */
+func (client *Client) CloseChainServiceEx(request *CloseChainServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CloseChainServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CloseChainServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.chain.service.close"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 企业通过调用该接口准备接入反洗钱信息共享平台
  * Summary: 反洗钱信息共享平台入驻接口
  */
@@ -74982,6 +77328,244 @@ func (client *Client) QueryApiDwhbTransactionEx(request *QueryApiDwhbTransaction
 }
 
 /**
+ * Description: 删除合约
+ * Summary: 删除合约
+ */
+func (client *Client) DeleteCaasContractService(request *DeleteCaasContractServiceRequest) (_result *DeleteCaasContractServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteCaasContractServiceResponse{}
+	_body, _err := client.DeleteCaasContractServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除合约
+ * Summary: 删除合约
+ */
+func (client *Client) DeleteCaasContractServiceEx(request *DeleteCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteCaasContractServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteCaasContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 新建合约服务
+ * Summary: 新建合约服务
+ */
+func (client *Client) CreateCaasContractService(request *CreateCaasContractServiceRequest) (_result *CreateCaasContractServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateCaasContractServiceResponse{}
+	_body, _err := client.CreateCaasContractServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 新建合约服务
+ * Summary: 新建合约服务
+ */
+func (client *Client) CreateCaasContractServiceEx(request *CreateCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateCaasContractServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateCaasContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 合约列表查询
+ * Summary: 合约列表查询
+ */
+func (client *Client) PagequeryCaasContractService(request *PagequeryCaasContractServiceRequest) (_result *PagequeryCaasContractServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryCaasContractServiceResponse{}
+	_body, _err := client.PagequeryCaasContractServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 合约列表查询
+ * Summary: 合约列表查询
+ */
+func (client *Client) PagequeryCaasContractServiceEx(request *PagequeryCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryCaasContractServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryCaasContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询创建实例进度
+ * Summary: 查询创建实例进度
+ */
+func (client *Client) QueryCaasContractService(request *QueryCaasContractServiceRequest) (_result *QueryCaasContractServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCaasContractServiceResponse{}
+	_body, _err := client.QueryCaasContractServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询创建实例进度
+ * Summary: 查询创建实例进度
+ */
+func (client *Client) QueryCaasContractServiceEx(request *QueryCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCaasContractServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCaasContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 自动化部署合约服务
+ * Summary: 自动化部署合约服务
+ */
+func (client *Client) DeployCaasContractService(request *DeployCaasContractServiceRequest) (_result *DeployCaasContractServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeployCaasContractServiceResponse{}
+	_body, _err := client.DeployCaasContractServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 自动化部署合约服务
+ * Summary: 自动化部署合约服务
+ */
+func (client *Client) DeployCaasContractServiceEx(request *DeployCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeployCaasContractServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeployCaasContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.deploy"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询合约类型列表
+ * Summary: 查询合约类型列表
+ */
+func (client *Client) ListCaasContractService(request *ListCaasContractServiceRequest) (_result *ListCaasContractServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListCaasContractServiceResponse{}
+	_body, _err := client.ListCaasContractServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询合约类型列表
+ * Summary: 查询合约类型列表
+ */
+func (client *Client) ListCaasContractServiceEx(request *ListCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListCaasContractServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListCaasContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 合约详情
+ * Summary: 合约详情
+ */
+func (client *Client) DetailCaasContractService(request *DetailCaasContractServiceRequest) (_result *DetailCaasContractServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailCaasContractServiceResponse{}
+	_body, _err := client.DetailCaasContractServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 合约详情
+ * Summary: 合约详情
+ */
+func (client *Client) DetailCaasContractServiceEx(request *DetailCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailCaasContractServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailCaasContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 新建应用
  * Summary: 新建应用
  */
@@ -75042,40 +77626,6 @@ func (client *Client) PagequeryCaasApplicationManageEx(request *PagequeryCaasApp
 	}
 	_result = &PagequeryCaasApplicationManageResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.application.manage.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 查看sk
- * Summary: 查看sk
- */
-func (client *Client) GetCaasApplicationManage(request *GetCaasApplicationManageRequest) (_result *GetCaasApplicationManageResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &GetCaasApplicationManageResponse{}
-	_body, _err := client.GetCaasApplicationManageEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 查看sk
- * Summary: 查看sk
- */
-func (client *Client) GetCaasApplicationManageEx(request *GetCaasApplicationManageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetCaasApplicationManageResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &GetCaasApplicationManageResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.application.manage.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -75186,14 +77736,14 @@ func (client *Client) BindCaasApplicationManageEx(request *BindCaasApplicationMa
 }
 
 /**
- * Description: 删除合约
- * Summary: 删除合约
+ * Description: 查看sk
+ * Summary: 查看sk
  */
-func (client *Client) DeleteCaasContractService(request *DeleteCaasContractServiceRequest) (_result *DeleteCaasContractServiceResponse, _err error) {
+func (client *Client) GetCaasApplicationManage(request *GetCaasApplicationManageRequest) (_result *GetCaasApplicationManageResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &DeleteCaasContractServiceResponse{}
-	_body, _err := client.DeleteCaasContractServiceEx(request, headers, runtime)
+	_result = &GetCaasApplicationManageResponse{}
+	_body, _err := client.GetCaasApplicationManageEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -75202,220 +77752,16 @@ func (client *Client) DeleteCaasContractService(request *DeleteCaasContractServi
 }
 
 /**
- * Description: 删除合约
- * Summary: 删除合约
+ * Description: 查看sk
+ * Summary: 查看sk
  */
-func (client *Client) DeleteCaasContractServiceEx(request *DeleteCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteCaasContractServiceResponse, _err error) {
+func (client *Client) GetCaasApplicationManageEx(request *GetCaasApplicationManageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetCaasApplicationManageResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &DeleteCaasContractServiceResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 新建合约服务
- * Summary: 新建合约服务
- */
-func (client *Client) CreateCaasContractService(request *CreateCaasContractServiceRequest) (_result *CreateCaasContractServiceResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &CreateCaasContractServiceResponse{}
-	_body, _err := client.CreateCaasContractServiceEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 新建合约服务
- * Summary: 新建合约服务
- */
-func (client *Client) CreateCaasContractServiceEx(request *CreateCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateCaasContractServiceResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &CreateCaasContractServiceResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 我的合约列表查询
- * Summary: 我的合约列表查询
- */
-func (client *Client) PagequeryCaasContractService(request *PagequeryCaasContractServiceRequest) (_result *PagequeryCaasContractServiceResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &PagequeryCaasContractServiceResponse{}
-	_body, _err := client.PagequeryCaasContractServiceEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 我的合约列表查询
- * Summary: 我的合约列表查询
- */
-func (client *Client) PagequeryCaasContractServiceEx(request *PagequeryCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryCaasContractServiceResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &PagequeryCaasContractServiceResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 查询合约类型列表
- * Summary: 查询合约类型列表
- */
-func (client *Client) ListCaasContractService(request *ListCaasContractServiceRequest) (_result *ListCaasContractServiceResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &ListCaasContractServiceResponse{}
-	_body, _err := client.ListCaasContractServiceEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 查询合约类型列表
- * Summary: 查询合约类型列表
- */
-func (client *Client) ListCaasContractServiceEx(request *ListCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListCaasContractServiceResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &ListCaasContractServiceResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
- * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
- */
-func (client *Client) DeployCaasContractService(request *DeployCaasContractServiceRequest) (_result *DeployCaasContractServiceResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &DeployCaasContractServiceResponse{}
-	_body, _err := client.DeployCaasContractServiceEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
- * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
- */
-func (client *Client) DeployCaasContractServiceEx(request *DeployCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeployCaasContractServiceResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &DeployCaasContractServiceResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.deploy"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 合约详情
- * Summary: 合约详情
- */
-func (client *Client) DetailCaasContractService(request *DetailCaasContractServiceRequest) (_result *DetailCaasContractServiceResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &DetailCaasContractServiceResponse{}
-	_body, _err := client.DetailCaasContractServiceEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 合约详情
- * Summary: 合约详情
- */
-func (client *Client) DetailCaasContractServiceEx(request *DetailCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailCaasContractServiceResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &DetailCaasContractServiceResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 查询创建实例进度
- * Summary: 查询创建实例进度
- */
-func (client *Client) QueryCaasContractService(request *QueryCaasContractServiceRequest) (_result *QueryCaasContractServiceResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryCaasContractServiceResponse{}
-	_body, _err := client.QueryCaasContractServiceEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 查询创建实例进度
- * Summary: 查询创建实例进度
- */
-func (client *Client) QueryCaasContractServiceEx(request *QueryCaasContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCaasContractServiceResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryCaasContractServiceResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.contract.service.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &GetCaasApplicationManageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.caas.application.manage.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -80168,6 +82514,448 @@ func (client *Client) NotifyAuthTaskStatusEx(request *NotifyAuthTaskStatusReques
 	}
 	_result = &NotifyAuthTaskStatusResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.status.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 任务暂停
+ * Summary: 任务暂停
+ */
+func (client *Client) PauseAuthTask(request *PauseAuthTaskRequest) (_result *PauseAuthTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PauseAuthTaskResponse{}
+	_body, _err := client.PauseAuthTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 任务暂停
+ * Summary: 任务暂停
+ */
+func (client *Client) PauseAuthTaskEx(request *PauseAuthTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PauseAuthTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PauseAuthTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.pause"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 任务完成
+ * Summary: 任务完成
+ */
+func (client *Client) FinishAuthTask(request *FinishAuthTaskRequest) (_result *FinishAuthTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FinishAuthTaskResponse{}
+	_body, _err := client.FinishAuthTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 任务完成
+ * Summary: 任务完成
+ */
+func (client *Client) FinishAuthTaskEx(request *FinishAuthTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FinishAuthTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FinishAuthTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.finish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 任务重启
+ * Summary: 任务重启
+ */
+func (client *Client) ReopenAuthTask(request *ReopenAuthTaskRequest) (_result *ReopenAuthTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ReopenAuthTaskResponse{}
+	_body, _err := client.ReopenAuthTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 任务重启
+ * Summary: 任务重启
+ */
+func (client *Client) ReopenAuthTaskEx(request *ReopenAuthTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReopenAuthTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ReopenAuthTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.reopen"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 样本量修改
+ * Summary: 样本量修改
+ */
+func (client *Client) OperateAuthTask(request *OperateAuthTaskRequest) (_result *OperateAuthTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateAuthTaskResponse{}
+	_body, _err := client.OperateAuthTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 样本量修改
+ * Summary: 样本量修改
+ */
+func (client *Client) OperateAuthTaskEx(request *OperateAuthTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateAuthTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateAuthTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询人群标签取值范围
+ * Summary: 查询人群标签取值范围
+ */
+func (client *Client) QueryAuthTask(request *QueryAuthTaskRequest) (_result *QueryAuthTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAuthTaskResponse{}
+	_body, _err := client.QueryAuthTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询人群标签取值范围
+ * Summary: 查询人群标签取值范围
+ */
+func (client *Client) QueryAuthTaskEx(request *QueryAuthTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAuthTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAuthTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 人群量级查询
+ * Summary: 人群量级查询
+ */
+func (client *Client) CountAuthTask(request *CountAuthTaskRequest) (_result *CountAuthTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CountAuthTaskResponse{}
+	_body, _err := client.CountAuthTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 人群量级查询
+ * Summary: 人群量级查询
+ */
+func (client *Client) CountAuthTaskEx(request *CountAuthTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CountAuthTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CountAuthTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.count"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 人群匹配查询
+ * Summary: 人群匹配查询
+ */
+func (client *Client) MatchAuthTask(request *MatchAuthTaskRequest) (_result *MatchAuthTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &MatchAuthTaskResponse{}
+	_body, _err := client.MatchAuthTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 人群匹配查询
+ * Summary: 人群匹配查询
+ */
+func (client *Client) MatchAuthTaskEx(request *MatchAuthTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *MatchAuthTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &MatchAuthTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.match"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 问卷任务提交
+ * Summary: 问卷任务提交
+ */
+func (client *Client) SubmitAuthTask(request *SubmitAuthTaskRequest) (_result *SubmitAuthTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAuthTaskResponse{}
+	_body, _err := client.SubmitAuthTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 问卷任务提交
+ * Summary: 问卷任务提交
+ */
+func (client *Client) SubmitAuthTaskEx(request *SubmitAuthTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAuthTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAuthTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 问卷任务详情
+ * Summary: 问卷任务详情
+ */
+func (client *Client) DetailAuthTask(request *DetailAuthTaskRequest) (_result *DetailAuthTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailAuthTaskResponse{}
+	_body, _err := client.DetailAuthTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 问卷任务详情
+ * Summary: 问卷任务详情
+ */
+func (client *Client) DetailAuthTaskEx(request *DetailAuthTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailAuthTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailAuthTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 任务修改
+ * Summary: 任务修改
+ */
+func (client *Client) UpdateAuthTask(request *UpdateAuthTaskRequest) (_result *UpdateAuthTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateAuthTaskResponse{}
+	_body, _err := client.UpdateAuthTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 任务修改
+ * Summary: 任务修改
+ */
+func (client *Client) UpdateAuthTaskEx(request *UpdateAuthTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateAuthTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateAuthTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 人群量级查询
+ * Summary: 人群量级查询
+ */
+func (client *Client) CountAuthTaskCrowd(request *CountAuthTaskCrowdRequest) (_result *CountAuthTaskCrowdResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CountAuthTaskCrowdResponse{}
+	_body, _err := client.CountAuthTaskCrowdEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 人群量级查询
+ * Summary: 人群量级查询
+ */
+func (client *Client) CountAuthTaskCrowdEx(request *CountAuthTaskCrowdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CountAuthTaskCrowdResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CountAuthTaskCrowdResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.crowd.count"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 人群匹配查询
+ * Summary: 人群匹配查询
+ */
+func (client *Client) MatchAuthTaskCrowd(request *MatchAuthTaskCrowdRequest) (_result *MatchAuthTaskCrowdResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &MatchAuthTaskCrowdResponse{}
+	_body, _err := client.MatchAuthTaskCrowdEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 人群匹配查询
+ * Summary: 人群匹配查询
+ */
+func (client *Client) MatchAuthTaskCrowdEx(request *MatchAuthTaskCrowdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *MatchAuthTaskCrowdResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &MatchAuthTaskCrowdResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.crowd.match"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 人群标签取值范围查询
+ * Summary: 人群标签取值范围查询
+ */
+func (client *Client) QueryAuthTaskLabel(request *QueryAuthTaskLabelRequest) (_result *QueryAuthTaskLabelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAuthTaskLabelResponse{}
+	_body, _err := client.QueryAuthTaskLabelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 人群标签取值范围查询
+ * Summary: 人群标签取值范围查询
+ */
+func (client *Client) QueryAuthTaskLabelEx(request *QueryAuthTaskLabelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAuthTaskLabelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAuthTaskLabelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.label.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
