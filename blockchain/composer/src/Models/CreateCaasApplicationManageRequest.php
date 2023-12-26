@@ -18,13 +18,29 @@ class CreateCaasApplicationManageRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 链ID
+    /**
+     * @var string
+     */
+    public $chainId;
+
+    // 联盟id
+    /**
+     * @var string
+     */
+    public $unionId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'chainId'           => 'chain_id',
+        'unionId'           => 'union_id',
     ];
 
     public function validate()
     {
+        Model::validateRequired('chainId', $this->chainId, true);
+        Model::validateRequired('unionId', $this->unionId, true);
     }
 
     public function toMap()
@@ -35,6 +51,12 @@ class CreateCaasApplicationManageRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->chainId) {
+            $res['chain_id'] = $this->chainId;
+        }
+        if (null !== $this->unionId) {
+            $res['union_id'] = $this->unionId;
         }
 
         return $res;
@@ -53,6 +75,12 @@ class CreateCaasApplicationManageRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['chain_id'])) {
+            $model->chainId = $map['chain_id'];
+        }
+        if (isset($map['union_id'])) {
+            $model->unionId = $map['union_id'];
         }
 
         return $model;

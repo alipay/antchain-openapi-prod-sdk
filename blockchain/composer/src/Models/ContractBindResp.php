@@ -6,7 +6,7 @@ namespace AntChain\BLOCKCHAIN\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ContractBindAppResp extends Model
+class ContractBindResp extends Model
 {
     // 合约标识
     /**
@@ -60,7 +60,7 @@ class ContractBindAppResp extends Model
     /**
      * @param array $map
      *
-     * @return ContractBindAppResp
+     * @return ContractBindResp
      */
     public static function fromMap($map = [])
     {

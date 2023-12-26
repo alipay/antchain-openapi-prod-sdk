@@ -30,17 +30,25 @@ class PagequeryCaasApplicationManageRequest extends Model
      * @var int
      */
     public $size;
+
+    // 链ID
+    /**
+     * @var string
+     */
+    public $chainId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'num'               => 'num',
         'size'              => 'size',
+        'chainId'           => 'chain_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('num', $this->num, true);
         Model::validateRequired('size', $this->size, true);
+        Model::validateRequired('chainId', $this->chainId, true);
     }
 
     public function toMap()
@@ -57,6 +65,9 @@ class PagequeryCaasApplicationManageRequest extends Model
         }
         if (null !== $this->size) {
             $res['size'] = $this->size;
+        }
+        if (null !== $this->chainId) {
+            $res['chain_id'] = $this->chainId;
         }
 
         return $res;
@@ -81,6 +92,9 @@ class PagequeryCaasApplicationManageRequest extends Model
         }
         if (isset($map['size'])) {
             $model->size = $map['size'];
+        }
+        if (isset($map['chain_id'])) {
+            $model->chainId = $map['chain_id'];
         }
 
         return $model;

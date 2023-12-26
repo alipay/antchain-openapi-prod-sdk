@@ -10,13 +10,13 @@ class ContractTypeResp extends Model
 {
     // 合约服务类型
     /**
-     * @example 存证合约
+     * @example
      *
-     * @var string
+     * @var ContractTypeListResp[]
      */
-    public $type;
+    public $typeList;
     protected $_name = [
-        'type' => 'type',
+        'typeList' => 'type_list',
     ];
 
     public function validate()
@@ -26,8 +26,14 @@ class ContractTypeResp extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->type) {
-            $res['type'] = $this->type;
+        if (null !== $this->typeList) {
+            $res['type_list'] = [];
+            if (null !== $this->typeList && \is_array($this->typeList)) {
+                $n = 0;
+                foreach ($this->typeList as $item) {
+                    $res['type_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -41,8 +47,14 @@ class ContractTypeResp extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['type'])) {
-            $model->type = $map['type'];
+        if (isset($map['type_list'])) {
+            if (!empty($map['type_list'])) {
+                $model->typeList = [];
+                $n               = 0;
+                foreach ($map['type_list'] as $item) {
+                    $model->typeList[$n++] = null !== $item ? ContractTypeListResp::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

@@ -16,6 +16,14 @@ class ContractTemplateResp extends Model
      */
     public $templateId;
 
+    // 产品码
+    /**
+     * @example 0001
+     *
+     * @var string
+     */
+    public $productCode;
+
     // 合约名称
     /**
      * @example 资产合约
@@ -40,6 +48,14 @@ class ContractTemplateResp extends Model
      */
     public $description;
 
+    // 文档地址
+    /**
+     * @example https://help.aliyun.com/product/84950.html
+     *
+     * @var string
+     */
+    public $detailUrl;
+
     // 是否已开通合约
     /**
      * @example true
@@ -55,13 +71,24 @@ class ContractTemplateResp extends Model
      * @var string[]
      */
     public $avatarLogoList;
+
+    // 定制合约价格
+    /**
+     * @example 定制合约服务费用：80,000元/年
+     *
+     * @var string
+     */
+    public $priceMessage;
     protected $_name = [
         'templateId'     => 'template_id',
+        'productCode'    => 'product_code',
         'name'           => 'name',
         'thumbUrl'       => 'thumb_url',
         'description'    => 'description',
+        'detailUrl'      => 'detail_url',
         'open'           => 'open',
         'avatarLogoList' => 'avatar_logo_list',
+        'priceMessage'   => 'price_message',
     ];
 
     public function validate()
@@ -74,6 +101,9 @@ class ContractTemplateResp extends Model
         if (null !== $this->templateId) {
             $res['template_id'] = $this->templateId;
         }
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
+        }
         if (null !== $this->name) {
             $res['name'] = $this->name;
         }
@@ -83,11 +113,17 @@ class ContractTemplateResp extends Model
         if (null !== $this->description) {
             $res['description'] = $this->description;
         }
+        if (null !== $this->detailUrl) {
+            $res['detail_url'] = $this->detailUrl;
+        }
         if (null !== $this->open) {
             $res['open'] = $this->open;
         }
         if (null !== $this->avatarLogoList) {
             $res['avatar_logo_list'] = $this->avatarLogoList;
+        }
+        if (null !== $this->priceMessage) {
+            $res['price_message'] = $this->priceMessage;
         }
 
         return $res;
@@ -104,6 +140,9 @@ class ContractTemplateResp extends Model
         if (isset($map['template_id'])) {
             $model->templateId = $map['template_id'];
         }
+        if (isset($map['product_code'])) {
+            $model->productCode = $map['product_code'];
+        }
         if (isset($map['name'])) {
             $model->name = $map['name'];
         }
@@ -113,6 +152,9 @@ class ContractTemplateResp extends Model
         if (isset($map['description'])) {
             $model->description = $map['description'];
         }
+        if (isset($map['detail_url'])) {
+            $model->detailUrl = $map['detail_url'];
+        }
         if (isset($map['open'])) {
             $model->open = $map['open'];
         }
@@ -120,6 +162,9 @@ class ContractTemplateResp extends Model
             if (!empty($map['avatar_logo_list'])) {
                 $model->avatarLogoList = $map['avatar_logo_list'];
             }
+        }
+        if (isset($map['price_message'])) {
+            $model->priceMessage = $map['price_message'];
         }
 
         return $model;

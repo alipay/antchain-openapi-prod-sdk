@@ -26,44 +26,16 @@ class GetCaasApplicationManageResponse extends Model
      */
     public $resultMsg;
 
-    // 响应版本号
+    // 返回结果
     /**
-     * @var string
+     * @var ApplicationGetSkResp
      */
-    public $version;
-
-    // 请求是否成功
-    /**
-     * @var bool
-     */
-    public $success;
-
-    // 异常码
-    /**
-     * @var string
-     */
-    public $errorCode;
-
-    // 异常信息
-    /**
-     * @var string
-     */
-    public $errorMsg;
-
-    // 应用秘钥
-    /**
-     * @var string
-     */
-    public $data;
+    public $result;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'version'    => 'version',
-        'success'    => 'success',
-        'errorCode'  => 'error_code',
-        'errorMsg'   => 'error_msg',
-        'data'       => 'data',
+        'result'     => 'result',
     ];
 
     public function validate()
@@ -82,20 +54,8 @@ class GetCaasApplicationManageResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->version) {
-            $res['version'] = $this->version;
-        }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
-        }
-        if (null !== $this->errorCode) {
-            $res['error_code'] = $this->errorCode;
-        }
-        if (null !== $this->errorMsg) {
-            $res['error_msg'] = $this->errorMsg;
-        }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
+        if (null !== $this->result) {
+            $res['result'] = null !== $this->result ? $this->result->toMap() : null;
         }
 
         return $res;
@@ -118,20 +78,8 @@ class GetCaasApplicationManageResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['version'])) {
-            $model->version = $map['version'];
-        }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
-        }
-        if (isset($map['error_code'])) {
-            $model->errorCode = $map['error_code'];
-        }
-        if (isset($map['error_msg'])) {
-            $model->errorMsg = $map['error_msg'];
-        }
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
+        if (isset($map['result'])) {
+            $model->result = ApplicationGetSkResp::fromMap($map['result']);
         }
 
         return $model;

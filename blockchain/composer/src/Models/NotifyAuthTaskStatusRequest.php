@@ -42,6 +42,12 @@ class NotifyAuthTaskStatusRequest extends Model
      * @var string
      */
     public $happenTime;
+
+    // 业务流水号，问卷方传给主站后透传给授权宝
+    /**
+     * @var string
+     */
+    public $outBizNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class NotifyAuthTaskStatusRequest extends Model
         'userId'            => 'user_id',
         'status'            => 'status',
         'happenTime'        => 'happen_time',
+        'outBizNo'          => 'out_biz_no',
     ];
 
     public function validate()
@@ -81,6 +88,9 @@ class NotifyAuthTaskStatusRequest extends Model
         if (null !== $this->happenTime) {
             $res['happen_time'] = $this->happenTime;
         }
+        if (null !== $this->outBizNo) {
+            $res['out_biz_no'] = $this->outBizNo;
+        }
 
         return $res;
     }
@@ -110,6 +120,9 @@ class NotifyAuthTaskStatusRequest extends Model
         }
         if (isset($map['happen_time'])) {
             $model->happenTime = $map['happen_time'];
+        }
+        if (isset($map['out_biz_no'])) {
+            $model->outBizNo = $map['out_biz_no'];
         }
 
         return $model;

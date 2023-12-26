@@ -19,7 +19,7 @@ class BindCaasApplicationManageRequest extends Model
      */
     public $productInstanceId;
 
-    // 应用程序ID
+    // 应用ID
     /**
      * @var string
      */

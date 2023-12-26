@@ -25,6 +25,12 @@ class CreateCaasContractServiceRequest extends Model
      */
     public $chainId;
 
+    // 联盟ID
+    /**
+     * @var string
+     */
+    public $unionId;
+
     // 合约模板标识
     /**
      * @var string
@@ -40,6 +46,7 @@ class CreateCaasContractServiceRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'chainId'           => 'chain_id',
+        'unionId'           => 'union_id',
         'templateId'        => 'template_id',
         'name'              => 'name',
     ];
@@ -47,8 +54,15 @@ class CreateCaasContractServiceRequest extends Model
     public function validate()
     {
         Model::validateRequired('chainId', $this->chainId, true);
+        Model::validateRequired('unionId', $this->unionId, true);
         Model::validateRequired('templateId', $this->templateId, true);
         Model::validateRequired('name', $this->name, true);
+        Model::validateMaxLength('chainId', $this->chainId, 64);
+        Model::validateMaxLength('templateId', $this->templateId, 64);
+        Model::validateMaxLength('name', $this->name, 64);
+        Model::validateMinLength('chainId', $this->chainId, 1);
+        Model::validateMinLength('templateId', $this->templateId, 1);
+        Model::validateMinLength('name', $this->name, 1);
     }
 
     public function toMap()
@@ -62,6 +76,9 @@ class CreateCaasContractServiceRequest extends Model
         }
         if (null !== $this->chainId) {
             $res['chain_id'] = $this->chainId;
+        }
+        if (null !== $this->unionId) {
+            $res['union_id'] = $this->unionId;
         }
         if (null !== $this->templateId) {
             $res['template_id'] = $this->templateId;
@@ -89,6 +106,9 @@ class CreateCaasContractServiceRequest extends Model
         }
         if (isset($map['chain_id'])) {
             $model->chainId = $map['chain_id'];
+        }
+        if (isset($map['union_id'])) {
+            $model->unionId = $map['union_id'];
         }
         if (isset($map['template_id'])) {
             $model->templateId = $map['template_id'];

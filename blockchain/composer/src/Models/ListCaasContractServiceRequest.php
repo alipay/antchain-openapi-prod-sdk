@@ -18,13 +18,21 @@ class ListCaasContractServiceRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 链ID
+    /**
+     * @var string
+     */
+    public $chainId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'chainId'           => 'chain_id',
     ];
 
     public function validate()
     {
+        Model::validateRequired('chainId', $this->chainId, true);
     }
 
     public function toMap()
@@ -35,6 +43,9 @@ class ListCaasContractServiceRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->chainId) {
+            $res['chain_id'] = $this->chainId;
         }
 
         return $res;
@@ -53,6 +64,9 @@ class ListCaasContractServiceRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['chain_id'])) {
+            $model->chainId = $map['chain_id'];
         }
 
         return $model;

@@ -103,6 +103,8 @@ use AntChain\BLOCKCHAIN\Models\CheckBlockchainResourceRequest;
 use AntChain\BLOCKCHAIN\Models\CheckBlockchainResourceResponse;
 use AntChain\BLOCKCHAIN\Models\CheckChainSensitiveWordsRequest;
 use AntChain\BLOCKCHAIN\Models\CheckChainSensitiveWordsResponse;
+use AntChain\BLOCKCHAIN\Models\CheckChainServiceRequest;
+use AntChain\BLOCKCHAIN\Models\CheckChainServiceResponse;
 use AntChain\BLOCKCHAIN\Models\CheckChainSubnetCreateRequest;
 use AntChain\BLOCKCHAIN\Models\CheckChainSubnetCreateResponse;
 use AntChain\BLOCKCHAIN\Models\CheckChainSubnetMemberRequest;
@@ -121,6 +123,8 @@ use AntChain\BLOCKCHAIN\Models\CheckOpenchainCorporateFaceRequest;
 use AntChain\BLOCKCHAIN\Models\CheckOpenchainCorporateFaceResponse;
 use AntChain\BLOCKCHAIN\Models\CloneChainContractProjectRequest;
 use AntChain\BLOCKCHAIN\Models\CloneChainContractProjectResponse;
+use AntChain\BLOCKCHAIN\Models\CloseChainServiceRequest;
+use AntChain\BLOCKCHAIN\Models\CloseChainServiceResponse;
 use AntChain\BLOCKCHAIN\Models\CloseDataauthorizationAuthorizationServiceRequest;
 use AntChain\BLOCKCHAIN\Models\CloseDataauthorizationAuthorizationServiceResponse;
 use AntChain\BLOCKCHAIN\Models\CloseOcpProductRequest;
@@ -133,6 +137,10 @@ use AntChain\BLOCKCHAIN\Models\ConfirmVcVcrepoVctransmitRequest;
 use AntChain\BLOCKCHAIN\Models\ConfirmVcVcrepoVctransmitResponse;
 use AntChain\BLOCKCHAIN\Models\ConnectBlockchainOrderRequest;
 use AntChain\BLOCKCHAIN\Models\ConnectBlockchainOrderResponse;
+use AntChain\BLOCKCHAIN\Models\CountAuthTaskCrowdRequest;
+use AntChain\BLOCKCHAIN\Models\CountAuthTaskCrowdResponse;
+use AntChain\BLOCKCHAIN\Models\CountAuthTaskRequest;
+use AntChain\BLOCKCHAIN\Models\CountAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\CreateAccountMappingInfoRequest;
 use AntChain\BLOCKCHAIN\Models\CreateAccountMappingInfoResponse;
 use AntChain\BLOCKCHAIN\Models\CreateAntcloudGatewayxFileUploadRequest;
@@ -367,6 +375,8 @@ use AntChain\BLOCKCHAIN\Models\DeployCaasContractServiceRequest;
 use AntChain\BLOCKCHAIN\Models\DeployCaasContractServiceResponse;
 use AntChain\BLOCKCHAIN\Models\DeployNotaryLeaseContractRequest;
 use AntChain\BLOCKCHAIN\Models\DeployNotaryLeaseContractResponse;
+use AntChain\BLOCKCHAIN\Models\DetailAuthTaskRequest;
+use AntChain\BLOCKCHAIN\Models\DetailAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\DetailCaasContractServiceRequest;
 use AntChain\BLOCKCHAIN\Models\DetailCaasContractServiceResponse;
 use AntChain\BLOCKCHAIN\Models\DownloadChainCertAntRequest;
@@ -405,6 +415,8 @@ use AntChain\BLOCKCHAIN\Models\ExecDidServicetypeCreateRequest;
 use AntChain\BLOCKCHAIN\Models\ExecDidServicetypeCreateResponse;
 use AntChain\BLOCKCHAIN\Models\ExecOcpTaskRequest;
 use AntChain\BLOCKCHAIN\Models\ExecOcpTaskResponse;
+use AntChain\BLOCKCHAIN\Models\FinishAuthTaskRequest;
+use AntChain\BLOCKCHAIN\Models\FinishAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\FinishLogisticFinanceOrderRequest;
 use AntChain\BLOCKCHAIN\Models\FinishLogisticFinanceOrderResponse;
 use AntChain\BLOCKCHAIN\Models\FinishMydidcommunWorkergroupSyncRequest;
@@ -525,6 +537,10 @@ use AntChain\BLOCKCHAIN\Models\ListMydidcommunWorkergroupPodversionRequest;
 use AntChain\BLOCKCHAIN\Models\ListMydidcommunWorkergroupPodversionResponse;
 use AntChain\BLOCKCHAIN\Models\ListWaasDidValidpublickeysRequest;
 use AntChain\BLOCKCHAIN\Models\ListWaasDidValidpublickeysResponse;
+use AntChain\BLOCKCHAIN\Models\MatchAuthTaskCrowdRequest;
+use AntChain\BLOCKCHAIN\Models\MatchAuthTaskCrowdResponse;
+use AntChain\BLOCKCHAIN\Models\MatchAuthTaskRequest;
+use AntChain\BLOCKCHAIN\Models\MatchAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\NotifyAuthTaskStatusRequest;
 use AntChain\BLOCKCHAIN\Models\NotifyAuthTaskStatusResponse;
 use AntChain\BLOCKCHAIN\Models\NotifyWaasBusinessOrderRequest;
@@ -533,6 +549,8 @@ use AntChain\BLOCKCHAIN\Models\OfflineContractRecordRequest;
 use AntChain\BLOCKCHAIN\Models\OfflineContractRecordResponse;
 use AntChain\BLOCKCHAIN\Models\OnlineContractRecordRequest;
 use AntChain\BLOCKCHAIN\Models\OnlineContractRecordResponse;
+use AntChain\BLOCKCHAIN\Models\OpenChainServiceRequest;
+use AntChain\BLOCKCHAIN\Models\OpenChainServiceResponse;
 use AntChain\BLOCKCHAIN\Models\OpenDataauthorizationAuthorizationServiceRequest;
 use AntChain\BLOCKCHAIN\Models\OpenDataauthorizationAuthorizationServiceResponse;
 use AntChain\BLOCKCHAIN\Models\OpenDidAdminServiceRequest;
@@ -541,12 +559,16 @@ use AntChain\BLOCKCHAIN\Models\OpenDidResolverServiceRequest;
 use AntChain\BLOCKCHAIN\Models\OpenDidResolverServiceResponse;
 use AntChain\BLOCKCHAIN\Models\OpenOcpProductRequest;
 use AntChain\BLOCKCHAIN\Models\OpenOcpProductResponse;
+use AntChain\BLOCKCHAIN\Models\OperateAuthTaskRequest;
+use AntChain\BLOCKCHAIN\Models\OperateAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\PagequeryCaasApplicationManageRequest;
 use AntChain\BLOCKCHAIN\Models\PagequeryCaasApplicationManageResponse;
 use AntChain\BLOCKCHAIN\Models\PagequeryCaasContractMarketRequest;
 use AntChain\BLOCKCHAIN\Models\PagequeryCaasContractMarketResponse;
 use AntChain\BLOCKCHAIN\Models\PagequeryCaasContractServiceRequest;
 use AntChain\BLOCKCHAIN\Models\PagequeryCaasContractServiceResponse;
+use AntChain\BLOCKCHAIN\Models\PauseAuthTaskRequest;
+use AntChain\BLOCKCHAIN\Models\PauseAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\PullAuthClaimVcRequest;
 use AntChain\BLOCKCHAIN\Models\PullAuthClaimVcResponse;
 use AntChain\BLOCKCHAIN\Models\PullAuthUserDidRequest;
@@ -593,6 +615,10 @@ use AntChain\BLOCKCHAIN\Models\QueryAuthPoapRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthPoapResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthSceneAuthstatusRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthSceneAuthstatusResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthTaskLabelRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthTaskLabelResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthTaskRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVcContentRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVcContentResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVcRealtimeRequest;
@@ -865,6 +891,8 @@ use AntChain\BLOCKCHAIN\Models\ReleaseBlockchainOrderLogicalRequest;
 use AntChain\BLOCKCHAIN\Models\ReleaseBlockchainOrderLogicalResponse;
 use AntChain\BLOCKCHAIN\Models\ReleaseBlockchainOrderPhysicalRequest;
 use AntChain\BLOCKCHAIN\Models\ReleaseBlockchainOrderPhysicalResponse;
+use AntChain\BLOCKCHAIN\Models\ReopenAuthTaskRequest;
+use AntChain\BLOCKCHAIN\Models\ReopenAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\ResumeDataauthorizationAuthorizationRequest;
 use AntChain\BLOCKCHAIN\Models\ResumeDataauthorizationAuthorizationResponse;
 use AntChain\BLOCKCHAIN\Models\RetryChainContractProjectRequest;
@@ -1103,6 +1131,8 @@ use AntChain\BLOCKCHAIN\Models\StopDidResolverServiceRequest;
 use AntChain\BLOCKCHAIN\Models\StopDidResolverServiceResponse;
 use AntChain\BLOCKCHAIN\Models\StopOcpProductRequest;
 use AntChain\BLOCKCHAIN\Models\StopOcpProductResponse;
+use AntChain\BLOCKCHAIN\Models\SubmitAuthTaskRequest;
+use AntChain\BLOCKCHAIN\Models\SubmitAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\SyncMydidcommunWorkergroupGroupRequest;
 use AntChain\BLOCKCHAIN\Models\SyncMydidcommunWorkergroupGroupResponse;
 use AntChain\BLOCKCHAIN\Models\UnbindCaasApplicationManageRequest;
@@ -1111,6 +1141,8 @@ use AntChain\BLOCKCHAIN\Models\UnfreezeChainAccountAntRequest;
 use AntChain\BLOCKCHAIN\Models\UnfreezeChainAccountAntResponse;
 use AntChain\BLOCKCHAIN\Models\UnfreezeDigitalassetartArtAccountRequest;
 use AntChain\BLOCKCHAIN\Models\UnfreezeDigitalassetartArtAccountResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateAuthTaskRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\UpdateChainContractContentRequest;
 use AntChain\BLOCKCHAIN\Models\UpdateChainContractContentResponse;
 use AntChain\BLOCKCHAIN\Models\UpdateChainContractProjectRequest;
@@ -1304,7 +1336,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 蚂蚁链浏览器合约链交易内容
+            // 数据授权服务审批流程节点结构体
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -1332,7 +1364,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.26.36',
+                    'sdk_version'      => '1.27.8',
                     '_prod_code'       => 'BLOCKCHAIN',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5444,6 +5476,105 @@ class Client
     }
 
     /**
+     * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现计量计费
+     * Summary: 阿里云渠道链相关商业化服务开通.
+     *
+     * @param OpenChainServiceRequest $request
+     *
+     * @return OpenChainServiceResponse
+     */
+    public function openChainService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->openChainServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现计量计费
+     * Summary: 阿里云渠道链相关商业化服务开通.
+     *
+     * @param OpenChainServiceRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return OpenChainServiceResponse
+     */
+    public function openChainServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OpenChainServiceResponse::fromMap($this->doRequest('1.0', 'baas.chain.service.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云渠道链相关商业化服务开通结果查询
+     * Summary: 阿里云渠道链相关商业化服务开通结果查询.
+     *
+     * @param CheckChainServiceRequest $request
+     *
+     * @return CheckChainServiceResponse
+     */
+    public function checkChainService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkChainServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云渠道链相关商业化服务开通结果查询
+     * Summary: 阿里云渠道链相关商业化服务开通结果查询.
+     *
+     * @param CheckChainServiceRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CheckChainServiceResponse
+     */
+    public function checkChainServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckChainServiceResponse::fromMap($this->doRequest('1.0', 'baas.chain.service.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现服务关闭
+     * Summary: 阿里云渠道链相关商业化服务关闭.
+     *
+     * @param CloseChainServiceRequest $request
+     *
+     * @return CloseChainServiceResponse
+     */
+    public function closeChainService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->closeChainServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现服务关闭
+     * Summary: 阿里云渠道链相关商业化服务关闭.
+     *
+     * @param CloseChainServiceRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CloseChainServiceResponse
+     */
+    public function closeChainServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CloseChainServiceResponse::fromMap($this->doRequest('1.0', 'baas.chain.service.close', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 企业通过调用该接口准备接入反洗钱信息共享平台
      * Summary: 反洗钱信息共享平台入驻接口.
      *
@@ -9286,6 +9417,237 @@ class Client
     }
 
     /**
+     * Description: 删除合约
+     * Summary: 删除合约.
+     *
+     * @param DeleteCaasContractServiceRequest $request
+     *
+     * @return DeleteCaasContractServiceResponse
+     */
+    public function deleteCaasContractService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteCaasContractServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除合约
+     * Summary: 删除合约.
+     *
+     * @param DeleteCaasContractServiceRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return DeleteCaasContractServiceResponse
+     */
+    public function deleteCaasContractServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteCaasContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.caas.contract.service.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新建合约服务
+     * Summary: 新建合约服务
+     *
+     * @param CreateCaasContractServiceRequest $request
+     *
+     * @return CreateCaasContractServiceResponse
+     */
+    public function createCaasContractService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createCaasContractServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新建合约服务
+     * Summary: 新建合约服务
+     *
+     * @param CreateCaasContractServiceRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CreateCaasContractServiceResponse
+     */
+    public function createCaasContractServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateCaasContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.caas.contract.service.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合约列表查询
+     * Summary: 合约列表查询.
+     *
+     * @param PagequeryCaasContractServiceRequest $request
+     *
+     * @return PagequeryCaasContractServiceResponse
+     */
+    public function pagequeryCaasContractService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryCaasContractServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合约列表查询
+     * Summary: 合约列表查询.
+     *
+     * @param PagequeryCaasContractServiceRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return PagequeryCaasContractServiceResponse
+     */
+    public function pagequeryCaasContractServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryCaasContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.caas.contract.service.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询创建实例进度
+     * Summary: 查询创建实例进度.
+     *
+     * @param QueryCaasContractServiceRequest $request
+     *
+     * @return QueryCaasContractServiceResponse
+     */
+    public function queryCaasContractService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCaasContractServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询创建实例进度
+     * Summary: 查询创建实例进度.
+     *
+     * @param QueryCaasContractServiceRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryCaasContractServiceResponse
+     */
+    public function queryCaasContractServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCaasContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.caas.contract.service.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化部署合约服务
+     * Summary: 自动化部署合约服务
+     *
+     * @param DeployCaasContractServiceRequest $request
+     *
+     * @return DeployCaasContractServiceResponse
+     */
+    public function deployCaasContractService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deployCaasContractServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化部署合约服务
+     * Summary: 自动化部署合约服务
+     *
+     * @param DeployCaasContractServiceRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return DeployCaasContractServiceResponse
+     */
+    public function deployCaasContractServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeployCaasContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.caas.contract.service.deploy', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询合约类型列表
+     * Summary: 查询合约类型列表.
+     *
+     * @param ListCaasContractServiceRequest $request
+     *
+     * @return ListCaasContractServiceResponse
+     */
+    public function listCaasContractService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listCaasContractServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询合约类型列表
+     * Summary: 查询合约类型列表.
+     *
+     * @param ListCaasContractServiceRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ListCaasContractServiceResponse
+     */
+    public function listCaasContractServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListCaasContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.caas.contract.service.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合约详情
+     * Summary: 合约详情.
+     *
+     * @param DetailCaasContractServiceRequest $request
+     *
+     * @return DetailCaasContractServiceResponse
+     */
+    public function detailCaasContractService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailCaasContractServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合约详情
+     * Summary: 合约详情.
+     *
+     * @param DetailCaasContractServiceRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return DetailCaasContractServiceResponse
+     */
+    public function detailCaasContractServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailCaasContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.caas.contract.service.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 新建应用
      * Summary: 新建应用.
      *
@@ -9349,39 +9711,6 @@ class Client
         Utils::validateModel($request);
 
         return PagequeryCaasApplicationManageResponse::fromMap($this->doRequest('1.0', 'baas.caas.application.manage.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 查看sk
-     * Summary: 查看sk.
-     *
-     * @param GetCaasApplicationManageRequest $request
-     *
-     * @return GetCaasApplicationManageResponse
-     */
-    public function getCaasApplicationManage($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->getCaasApplicationManageEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 查看sk
-     * Summary: 查看sk.
-     *
-     * @param GetCaasApplicationManageRequest $request
-     * @param string[]                        $headers
-     * @param RuntimeOptions                  $runtime
-     *
-     * @return GetCaasApplicationManageResponse
-     */
-    public function getCaasApplicationManageEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return GetCaasApplicationManageResponse::fromMap($this->doRequest('1.0', 'baas.caas.application.manage.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -9484,234 +9813,36 @@ class Client
     }
 
     /**
-     * Description: 删除合约
-     * Summary: 删除合约.
+     * Description: 查看sk
+     * Summary: 查看sk.
      *
-     * @param DeleteCaasContractServiceRequest $request
+     * @param GetCaasApplicationManageRequest $request
      *
-     * @return DeleteCaasContractServiceResponse
+     * @return GetCaasApplicationManageResponse
      */
-    public function deleteCaasContractService($request)
+    public function getCaasApplicationManage($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->deleteCaasContractServiceEx($request, $headers, $runtime);
+        return $this->getCaasApplicationManageEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 删除合约
-     * Summary: 删除合约.
+     * Description: 查看sk
+     * Summary: 查看sk.
      *
-     * @param DeleteCaasContractServiceRequest $request
-     * @param string[]                         $headers
-     * @param RuntimeOptions                   $runtime
-     *
-     * @return DeleteCaasContractServiceResponse
-     */
-    public function deleteCaasContractServiceEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return DeleteCaasContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.caas.contract.service.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 新建合约服务
-     * Summary: 新建合约服务
-     *
-     * @param CreateCaasContractServiceRequest $request
-     *
-     * @return CreateCaasContractServiceResponse
-     */
-    public function createCaasContractService($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->createCaasContractServiceEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 新建合约服务
-     * Summary: 新建合约服务
-     *
-     * @param CreateCaasContractServiceRequest $request
-     * @param string[]                         $headers
-     * @param RuntimeOptions                   $runtime
-     *
-     * @return CreateCaasContractServiceResponse
-     */
-    public function createCaasContractServiceEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return CreateCaasContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.caas.contract.service.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 我的合约列表查询
-     * Summary: 我的合约列表查询.
-     *
-     * @param PagequeryCaasContractServiceRequest $request
-     *
-     * @return PagequeryCaasContractServiceResponse
-     */
-    public function pagequeryCaasContractService($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->pagequeryCaasContractServiceEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 我的合约列表查询
-     * Summary: 我的合约列表查询.
-     *
-     * @param PagequeryCaasContractServiceRequest $request
-     * @param string[]                            $headers
-     * @param RuntimeOptions                      $runtime
-     *
-     * @return PagequeryCaasContractServiceResponse
-     */
-    public function pagequeryCaasContractServiceEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return PagequeryCaasContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.caas.contract.service.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 查询合约类型列表
-     * Summary: 查询合约类型列表.
-     *
-     * @param ListCaasContractServiceRequest $request
-     *
-     * @return ListCaasContractServiceResponse
-     */
-    public function listCaasContractService($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->listCaasContractServiceEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 查询合约类型列表
-     * Summary: 查询合约类型列表.
-     *
-     * @param ListCaasContractServiceRequest $request
-     * @param string[]                       $headers
-     * @param RuntimeOptions                 $runtime
-     *
-     * @return ListCaasContractServiceResponse
-     */
-    public function listCaasContractServiceEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return ListCaasContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.caas.contract.service.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
-     * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）.
-     *
-     * @param DeployCaasContractServiceRequest $request
-     *
-     * @return DeployCaasContractServiceResponse
-     */
-    public function deployCaasContractService($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->deployCaasContractServiceEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
-     * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）.
-     *
-     * @param DeployCaasContractServiceRequest $request
-     * @param string[]                         $headers
-     * @param RuntimeOptions                   $runtime
-     *
-     * @return DeployCaasContractServiceResponse
-     */
-    public function deployCaasContractServiceEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return DeployCaasContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.caas.contract.service.deploy', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 合约详情
-     * Summary: 合约详情.
-     *
-     * @param DetailCaasContractServiceRequest $request
-     *
-     * @return DetailCaasContractServiceResponse
-     */
-    public function detailCaasContractService($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->detailCaasContractServiceEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 合约详情
-     * Summary: 合约详情.
-     *
-     * @param DetailCaasContractServiceRequest $request
-     * @param string[]                         $headers
-     * @param RuntimeOptions                   $runtime
-     *
-     * @return DetailCaasContractServiceResponse
-     */
-    public function detailCaasContractServiceEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return DetailCaasContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.caas.contract.service.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 查询创建实例进度
-     * Summary: 查询创建实例进度.
-     *
-     * @param QueryCaasContractServiceRequest $request
-     *
-     * @return QueryCaasContractServiceResponse
-     */
-    public function queryCaasContractService($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryCaasContractServiceEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 查询创建实例进度
-     * Summary: 查询创建实例进度.
-     *
-     * @param QueryCaasContractServiceRequest $request
+     * @param GetCaasApplicationManageRequest $request
      * @param string[]                        $headers
      * @param RuntimeOptions                  $runtime
      *
-     * @return QueryCaasContractServiceResponse
+     * @return GetCaasApplicationManageResponse
      */
-    public function queryCaasContractServiceEx($request, $headers, $runtime)
+    public function getCaasApplicationManageEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryCaasContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.caas.contract.service.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return GetCaasApplicationManageResponse::fromMap($this->doRequest('1.0', 'baas.caas.application.manage.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -14304,6 +14435,435 @@ class Client
         Utils::validateModel($request);
 
         return NotifyAuthTaskStatusResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.status.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 任务暂停
+     * Summary: 任务暂停.
+     *
+     * @param PauseAuthTaskRequest $request
+     *
+     * @return PauseAuthTaskResponse
+     */
+    public function pauseAuthTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pauseAuthTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 任务暂停
+     * Summary: 任务暂停.
+     *
+     * @param PauseAuthTaskRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return PauseAuthTaskResponse
+     */
+    public function pauseAuthTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PauseAuthTaskResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.pause', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 任务完成
+     * Summary: 任务完成.
+     *
+     * @param FinishAuthTaskRequest $request
+     *
+     * @return FinishAuthTaskResponse
+     */
+    public function finishAuthTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->finishAuthTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 任务完成
+     * Summary: 任务完成.
+     *
+     * @param FinishAuthTaskRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return FinishAuthTaskResponse
+     */
+    public function finishAuthTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FinishAuthTaskResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 任务重启
+     * Summary: 任务重启.
+     *
+     * @param ReopenAuthTaskRequest $request
+     *
+     * @return ReopenAuthTaskResponse
+     */
+    public function reopenAuthTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->reopenAuthTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 任务重启
+     * Summary: 任务重启.
+     *
+     * @param ReopenAuthTaskRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return ReopenAuthTaskResponse
+     */
+    public function reopenAuthTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReopenAuthTaskResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.reopen', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 样本量修改
+     * Summary: 样本量修改.
+     *
+     * @param OperateAuthTaskRequest $request
+     *
+     * @return OperateAuthTaskResponse
+     */
+    public function operateAuthTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateAuthTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 样本量修改
+     * Summary: 样本量修改.
+     *
+     * @param OperateAuthTaskRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return OperateAuthTaskResponse
+     */
+    public function operateAuthTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateAuthTaskResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询人群标签取值范围
+     * Summary: 查询人群标签取值范围.
+     *
+     * @param QueryAuthTaskRequest $request
+     *
+     * @return QueryAuthTaskResponse
+     */
+    public function queryAuthTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询人群标签取值范围
+     * Summary: 查询人群标签取值范围.
+     *
+     * @param QueryAuthTaskRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryAuthTaskResponse
+     */
+    public function queryAuthTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthTaskResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 人群量级查询
+     * Summary: 人群量级查询.
+     *
+     * @param CountAuthTaskRequest $request
+     *
+     * @return CountAuthTaskResponse
+     */
+    public function countAuthTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->countAuthTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 人群量级查询
+     * Summary: 人群量级查询.
+     *
+     * @param CountAuthTaskRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return CountAuthTaskResponse
+     */
+    public function countAuthTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CountAuthTaskResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.count', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 人群匹配查询
+     * Summary: 人群匹配查询.
+     *
+     * @param MatchAuthTaskRequest $request
+     *
+     * @return MatchAuthTaskResponse
+     */
+    public function matchAuthTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->matchAuthTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 人群匹配查询
+     * Summary: 人群匹配查询.
+     *
+     * @param MatchAuthTaskRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return MatchAuthTaskResponse
+     */
+    public function matchAuthTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return MatchAuthTaskResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.match', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 问卷任务提交
+     * Summary: 问卷任务提交.
+     *
+     * @param SubmitAuthTaskRequest $request
+     *
+     * @return SubmitAuthTaskResponse
+     */
+    public function submitAuthTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAuthTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 问卷任务提交
+     * Summary: 问卷任务提交.
+     *
+     * @param SubmitAuthTaskRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return SubmitAuthTaskResponse
+     */
+    public function submitAuthTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAuthTaskResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 问卷任务详情
+     * Summary: 问卷任务详情.
+     *
+     * @param DetailAuthTaskRequest $request
+     *
+     * @return DetailAuthTaskResponse
+     */
+    public function detailAuthTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailAuthTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 问卷任务详情
+     * Summary: 问卷任务详情.
+     *
+     * @param DetailAuthTaskRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return DetailAuthTaskResponse
+     */
+    public function detailAuthTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailAuthTaskResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 任务修改
+     * Summary: 任务修改.
+     *
+     * @param UpdateAuthTaskRequest $request
+     *
+     * @return UpdateAuthTaskResponse
+     */
+    public function updateAuthTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAuthTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 任务修改
+     * Summary: 任务修改.
+     *
+     * @param UpdateAuthTaskRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return UpdateAuthTaskResponse
+     */
+    public function updateAuthTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAuthTaskResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 人群量级查询
+     * Summary: 人群量级查询.
+     *
+     * @param CountAuthTaskCrowdRequest $request
+     *
+     * @return CountAuthTaskCrowdResponse
+     */
+    public function countAuthTaskCrowd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->countAuthTaskCrowdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 人群量级查询
+     * Summary: 人群量级查询.
+     *
+     * @param CountAuthTaskCrowdRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CountAuthTaskCrowdResponse
+     */
+    public function countAuthTaskCrowdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CountAuthTaskCrowdResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.crowd.count', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 人群匹配查询
+     * Summary: 人群匹配查询.
+     *
+     * @param MatchAuthTaskCrowdRequest $request
+     *
+     * @return MatchAuthTaskCrowdResponse
+     */
+    public function matchAuthTaskCrowd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->matchAuthTaskCrowdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 人群匹配查询
+     * Summary: 人群匹配查询.
+     *
+     * @param MatchAuthTaskCrowdRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return MatchAuthTaskCrowdResponse
+     */
+    public function matchAuthTaskCrowdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return MatchAuthTaskCrowdResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.crowd.match', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 人群标签取值范围查询
+     * Summary: 人群标签取值范围查询.
+     *
+     * @param QueryAuthTaskLabelRequest $request
+     *
+     * @return QueryAuthTaskLabelResponse
+     */
+    public function queryAuthTaskLabel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthTaskLabelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 人群标签取值范围查询
+     * Summary: 人群标签取值范围查询.
+     *
+     * @param QueryAuthTaskLabelRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryAuthTaskLabelResponse
+     */
+    public function queryAuthTaskLabelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthTaskLabelResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.label.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

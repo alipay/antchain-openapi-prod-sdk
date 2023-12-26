@@ -6,9 +6,9 @@ namespace AntChain\BLOCKCHAIN\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplicationListResp extends Model
+class ApplicationPageListResp extends Model
 {
-    // 应用程序ID
+    // 应用标识
     /**
      * @example app20230725115808679d4f
      *
@@ -60,7 +60,7 @@ class ApplicationListResp extends Model
     /**
      * @param array $map
      *
-     * @return ApplicationListResp
+     * @return ApplicationPageListResp
      */
     public static function fromMap($map = [])
     {

@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class ContractDetailResp extends Model
 {
-    // 合约标识
+    // 合约服务ID
     /**
      * @example cme20230724104931af3a4d
      *

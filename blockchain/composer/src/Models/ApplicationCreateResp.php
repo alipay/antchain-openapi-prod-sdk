@@ -6,17 +6,17 @@ namespace AntChain\BLOCKCHAIN\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ContractListReq extends Model
+class ApplicationCreateResp extends Model
 {
-    // 合约服务类别
+    // 应用标识
     /**
-     * @example 存证合约
+     * @example app20230725115808679d4f
      *
      * @var string
      */
-    public $type;
+    public $applicationId;
     protected $_name = [
-        'type' => 'type',
+        'applicationId' => 'application_id',
     ];
 
     public function validate()
@@ -26,8 +26,8 @@ class ContractListReq extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->type) {
-            $res['type'] = $this->type;
+        if (null !== $this->applicationId) {
+            $res['application_id'] = $this->applicationId;
         }
 
         return $res;
@@ -36,13 +36,13 @@ class ContractListReq extends Model
     /**
      * @param array $map
      *
-     * @return ContractListReq
+     * @return ApplicationCreateResp
      */
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['type'])) {
-            $model->type = $map['type'];
+        if (isset($map['application_id'])) {
+            $model->applicationId = $map['application_id'];
         }
 
         return $model;

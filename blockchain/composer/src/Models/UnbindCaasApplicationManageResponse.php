@@ -25,38 +25,10 @@ class UnbindCaasApplicationManageResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 响应版本号
-    /**
-     * @var string
-     */
-    public $version;
-
-    // 请求是否成功
-    /**
-     * @var bool
-     */
-    public $success;
-
-    // 异常码
-    /**
-     * @var string
-     */
-    public $errorCode;
-
-    // 异常信息
-    /**
-     * @var string
-     */
-    public $errorMsg;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'version'    => 'version',
-        'success'    => 'success',
-        'errorCode'  => 'error_code',
-        'errorMsg'   => 'error_msg',
     ];
 
     public function validate()
@@ -74,18 +46,6 @@ class UnbindCaasApplicationManageResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->version) {
-            $res['version'] = $this->version;
-        }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
-        }
-        if (null !== $this->errorCode) {
-            $res['error_code'] = $this->errorCode;
-        }
-        if (null !== $this->errorMsg) {
-            $res['error_msg'] = $this->errorMsg;
         }
 
         return $res;
@@ -107,18 +67,6 @@ class UnbindCaasApplicationManageResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['version'])) {
-            $model->version = $map['version'];
-        }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
-        }
-        if (isset($map['error_code'])) {
-            $model->errorCode = $map['error_code'];
-        }
-        if (isset($map['error_msg'])) {
-            $model->errorMsg = $map['error_msg'];
         }
 
         return $model;

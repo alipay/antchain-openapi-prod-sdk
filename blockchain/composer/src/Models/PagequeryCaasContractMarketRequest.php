@@ -18,13 +18,37 @@ class PagequeryCaasContractMarketRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 页码
+    /**
+     * @var int
+     */
+    public $num;
+
+    // 页大小
+    /**
+     * @var int
+     */
+    public $size;
+
+    // 链id
+    /**
+     * @var string
+     */
+    public $chainId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'num'               => 'num',
+        'size'              => 'size',
+        'chainId'           => 'chain_id',
     ];
 
     public function validate()
     {
+        Model::validateRequired('num', $this->num, true);
+        Model::validateRequired('size', $this->size, true);
+        Model::validateRequired('chainId', $this->chainId, true);
     }
 
     public function toMap()
@@ -35,6 +59,15 @@ class PagequeryCaasContractMarketRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->num) {
+            $res['num'] = $this->num;
+        }
+        if (null !== $this->size) {
+            $res['size'] = $this->size;
+        }
+        if (null !== $this->chainId) {
+            $res['chain_id'] = $this->chainId;
         }
 
         return $res;
@@ -53,6 +86,15 @@ class PagequeryCaasContractMarketRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['num'])) {
+            $model->num = $map['num'];
+        }
+        if (isset($map['size'])) {
+            $model->size = $map['size'];
+        }
+        if (isset($map['chain_id'])) {
+            $model->chainId = $map['chain_id'];
         }
 
         return $model;

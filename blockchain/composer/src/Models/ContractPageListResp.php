@@ -6,7 +6,7 @@ namespace AntChain\BLOCKCHAIN\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ContractListResp extends Model
+class ContractPageListResp extends Model
 {
     // 服务ID
     /**
@@ -72,7 +72,7 @@ class ContractListResp extends Model
     /**
      * @param array $map
      *
-     * @return ContractListResp
+     * @return ContractPageListResp
      */
     public static function fromMap($map = [])
     {

@@ -19,6 +19,12 @@ class PagequeryCaasContractServiceRequest extends Model
      */
     public $productInstanceId;
 
+    // 合约服务类别
+    /**
+     * @var string
+     */
+    public $type;
+
     // 页码
     /**
      * @var int
@@ -31,23 +37,25 @@ class PagequeryCaasContractServiceRequest extends Model
      */
     public $size;
 
-    // 业务数据
+    // 链id
     /**
-     * @var ContractListReq
+     * @var string
      */
-    public $data;
+    public $chainId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'type'              => 'type',
         'num'               => 'num',
         'size'              => 'size',
-        'data'              => 'data',
+        'chainId'           => 'chain_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('num', $this->num, true);
         Model::validateRequired('size', $this->size, true);
+        Model::validateRequired('chainId', $this->chainId, true);
     }
 
     public function toMap()
@@ -59,14 +67,17 @@ class PagequeryCaasContractServiceRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
+        }
         if (null !== $this->num) {
             $res['num'] = $this->num;
         }
         if (null !== $this->size) {
             $res['size'] = $this->size;
         }
-        if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
+        if (null !== $this->chainId) {
+            $res['chain_id'] = $this->chainId;
         }
 
         return $res;
@@ -86,14 +97,17 @@ class PagequeryCaasContractServiceRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if (isset($map['type'])) {
+            $model->type = $map['type'];
+        }
         if (isset($map['num'])) {
             $model->num = $map['num'];
         }
         if (isset($map['size'])) {
             $model->size = $map['size'];
         }
-        if (isset($map['data'])) {
-            $model->data = ContractListReq::fromMap($map['data']);
+        if (isset($map['chain_id'])) {
+            $model->chainId = $map['chain_id'];
         }
 
         return $model;
