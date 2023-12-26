@@ -23,6 +23,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public string TaskId { get; set; }
 
+        // 操作者ID
+        [NameInMap("operator")]
+        [Validation(Required=true)]
+        public string Operator { get; set; }
+
     }
 
 }
