@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.26.36',
+    sdk_version = '1.27.8',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -161,6 +161,16 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 数据授权服务审批流程节点结构体
+model ProcessNode {
+  // 审批节点ID
+  nodeId: string(maxLength=100, name='node_id', example='did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2'),
+  // 节点名称
+  nodeName: string(maxLength=64, name='node_name', example='Bob'),
+  // 节点序号，从1开始编号
+  nodeNum: long(minimum=1, name='node_num', example='1'),
+}
+
 // 蚂蚁链浏览器合约链交易内容
 model BlockchainBrowserTransactionContract {
   // data
@@ -185,16 +195,6 @@ model BlockchainBrowserTransactionContract {
   transactionType: string(name='transaction_type', example='TX_DEPOSIT_DATA'),
   // value
   value: long(name='value', example='0'),
-}
-
-// 数据授权服务审批流程节点结构体
-model ProcessNode {
-  // 审批节点ID
-  nodeId: string(maxLength=100, name='node_id', example='did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2'),
-  // 节点名称
-  nodeName: string(maxLength=64, name='node_name', example='Bob'),
-  // 节点序号，从1开始编号
-  nodeNum: long(minimum=1, name='node_num', example='1'),
 }
 
 // TriggerLogDTO类成员
@@ -243,90 +243,22 @@ model Participant {
   account?: string(name='account', example='account1'),
 }
 
-// 数据授权服务数据对象结构体
-model DataEntity {
-  // 授权状态
-  authStatus?: string(name='auth_status', example='AUTHORIZED'),
-  // 业务系统唯一标示
-  bizUid?: string(maxLength=64, name='biz_uid', example='76a0e716164848168dc726460042ee25'),
-  // 区块链ID
-  blockchainId?: string(name='blockchain_id', example='8c777cf9a71b660233215b6337dca78d'),
-  // 数据类别
-  category: string(maxLength=32, name='category', example='TABLE,FILE...'),
-  // 数据ID
-  dataId: string(maxLength=100, name='data_id', example='did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2'),
-  // 数据模型ID
-  dataModelId?: string(name='data_model_id', example='DATA_MODEL_Q23'),
-  // 扩展信息，标准JSON格式
-  extensionInfo?: string(name='extension_info', example='{"strategy":"test”}'),
-  // 数据名称
-  name: string(maxLength=64, name='name', example='testdata'),
-  // 数据所有者ID
-  ownerId: string(maxLength=100, name='owner_id', example='did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2'),
-  // 流程节点信息
-  processTemplate?: [ ProcessNode ](name='process_template', example=''),
-  // 数据状态
-  status?: string(maxLength=16, name='status', example='ACTIVE,DELETED...'),
-  // 创建时间
-  createTime: long(name='create_time', example='1595574776000'),
-  // 修改时间
-  updateTime?: long(name='update_time', example='1592810480442'),
-  // DID doc里的公开信息
-  publicInfo?: string(name='public_info', example='{}'),
+// 合约绑定关系
+model ContractBindResp {
+  // 合约标识
+  serviceId?: string(name='service_id', example='cme20230724104931af3a4d'),
+  // 合约名称
+  name?: string(name='name', example='资产合约'),
+  // 是否已关联
+  bind?: boolean(name='bind', example='true'),
 }
 
-// 阿里云蚂蚁链对象
-model ALiYunAntChain {
-  // ant_chain_id
-  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
-  // 链名称
-  antChainName?: string(name='ant_chain_name', example='name'),
-  // 链的类型
-  chainType?: string(name='chain_type', example='链的类型'),
-  // cipher_suit
-  cipherSuit?: string(name='cipher_suit', example='cipher_suit'),
-  // 创建时间
-  createTime?: long(name='create_time', example='创建时间'),
-  // expire_time
-  expireTime?: long(name='expire_time', example='1123123123123'),
-  // instance_id
-  instanceId?: string(name='instance_id', example='instance_id'),
-  // is_admin
-  isAdmin?: boolean(name='is_admin', example='true、false'),
-  // 成员状态
-  memberStatus?: string(name='member_status', example='成员状态'),
-  // merkle_tree_suit
-  merkleTreeSuit?: string(name='merkle_tree_suit', example='merkle_tree_suit'),
-  // Network
-  network?: string(name='network', example='Network'),
-  // 节点数
-  nodeNum?: long(name='node_num', example='节点数'),
-  // 区域信息
-  regionId?: string(name='region_id', example='区域信息'),
-  // 链的资源大小
-  resourceSize?: string(name='resource_size', example='链的资源大小'),
-  // rest_status
-  restStatus?: string(name='rest_status', example='rest_status'),
-  // 算法参数
-  tlsAlgo?: string(name='tls_algo', example='算法参数'),
-  // 版本信息
-  version?: string(name='version', example='0.10.2.12.5'),
-  // monitor_status
-  monitorStatus?: boolean(name='monitor_status', example='monitor_status'),
-}
-
-// Did Doc中的服务字段描述
-model DidDocServicesInfo {
-  // 服务的扩展字段
-  extension?: string(name='extension', example='json string'),
-  // 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务：
-  // DidAuthService， 有且只能有一个，并且id必须为didauth-1；
-  // VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
-  id: string(name='id', example='service-id1'),
-  // 服务的可访问地址
-  serviceEndpoint: string(name='service_endpoint', example='http://example.com'),
-  // 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
-  type: string(name='type', example='KYBServiceType'),
+// 节点类型
+model CrowdNodeTypeEnum {
+  // 组合节点
+  group?: string(name='group', example='xx'),
+  // 条件节点
+  condition?: string(name='condition', example='xx'),
 }
 
 // 阿里云联盟成员信息
@@ -343,71 +275,14 @@ model ALiYunMember {
   status?: string(name='status', example='状态'),
 }
 
-// 阿里云蚂蚁区块链证书信息
-model ALiYunCertificateApplication {
-  // ant_chain_id
-  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
-  // username
-  username?: string(name='username', example='username'),
-  // createtime
-  createtime?: long(name='createtime', example='createtime'),
-  // updatetime
-  updatetime?: long(name='updatetime', example='1231231231231'),
-  // bid
-  bid?: string(name='bid', example='bid'),
-  // status
-  status?: string(name='status', example='status'),
-}
-
-// DidDoc中service的信息
-model DisServicesInfo {
-  // did doc service扩展字段
-  extesion?: string(name='extesion', example='{}'),
-  // did doc service id
-  id: string(name='id', example='didauth-1'),
-  // 服务endpoint
-  serviceEndpoint: string(name='service_endpoint', example='http://auth.mydid.agent.com'),
-  // service type
-  type: string(name='type', example='DidAuthService'),
-  // EXIST
-  // CONFLICT
-  // VALID
-  // INVALID
-  desc?: string(name='desc', example='描述'),
-}
-
-// 合约列表响应
-model ContractListResp {
-  // 服务ID
-  serviceId?: string(name='service_id', example='cme20230724104931af3a4d'),
-  // 合约名称
-  name?: string(name='name', example='资产合约'),
-  // 合约类型
-  type?: string(name='type', example='存证合约'),
-  // 创建时间
-  createTime?: long(name='create_time', example='1690166971465'),
-}
-
-// 阿里云合约链信息
-model ALiYunContractBlockchain {
-  // name
-  name?: string(name='name', example='name'),
-  // bizid
-  bizid?: string(name='bizid', example='bizid'),
-  // chain_type
-  chainType?: string(name='chain_type', example='chain_type'),
-  // node_num
-  nodeNum?: long(name='node_num', example='3'),
-  // member_status
-  memberStatus?: string(name='member_status', example='member_status'),
-  // block_height
-  blockHeight?: long(name='block_height', example='4'),
-  // transactions
-  transactions?: long(name='transactions', example='121'),
-  // network
-  network?: string(name='network', example='network'),
-  // version
-  version?: string(name='version', example='version'),
+// 应用授权列表
+model ApplicationPageListResp {
+  // 应用标识
+  applicationId?: string(name='application_id', example='app20230725115808679d4f'),
+  // 链ID
+  accessKey?: string(name='access_key', example='284f75bc-8069-443f-9d46-4576bb15f210'),
+  // 合约(创建实例时填写的合约名称。)
+  nameList?: [ string ](name='name_list', example=''),
 }
 
 // 实例进度信息
@@ -424,16 +299,6 @@ model InstanceProgressInfo {
   typeName?: string(name='type_name', example='部署合约服务'),
   // 额外参数
   data?: string(name='data', example='{json}'),
-}
-
-// 阿里云区块链小程序用户权限信息
-model ALiYunChainMiniAppAuthorizedUser {
-  // phone
-  phone?: string(name='phone', example='phone'),
-  // gmt_authorized
-  gmtAuthorized?: string(name='gmt_authorized', example='gmt_authorized'),
-  // 记录id
-  userId?: long(name='user_id', example='112'),
 }
 
 // 授权服务数据模型结构体
@@ -522,22 +387,12 @@ model TriggerLogDTOStructBody {
   position?: PositionStructBody(name='position', example='{}'),
 }
 
-// 阿里云合约工程信息
-model ALiYunContractProject {
-  // consortium_id
-  consortiumId?: string(name='consortium_id', example='consortium_id'),
-  // create_time
-  createTime?: long(name='create_time', example='123123123'),
-  // project_description
-  projectDescription?: string(name='project_description', example='project_description'),
-  // project_id
-  projectId?: string(name='project_id', example='project_id'),
-  // project_name
-  projectName?: string(name='project_name', example='project_name'),
-  // project_version
-  projectVersion?: string(name='project_version', example='project_version'),
-  // update_time
-  updateTime?: long(name='update_time', example='update_time'),
+// 合约类型
+model ContractTypeListResp {
+  // 名称
+  name?: string(name='name', example='存证合约'),
+  // 值
+  value?: string(name='value', example='DEPOSITE'),
 }
 
 // 蚂蚁链浏览器交易信息
@@ -580,28 +435,6 @@ model BlockchainBrowserTransaction {
   transactionContract: BlockchainBrowserTransactionContract(name='transaction_contract', example='transaction_contract'),
 }
 
-// 阿里云区块链信息
-model ALiYunOldContractBlockchain {
-  // name
-  name?: string(name='name', example='name'),
-  // bizid
-  bizid?: string(name='bizid', example='bizid'),
-  // chain_type
-  chainType?: string(name='chain_type', example='chain_type'),
-  // node_num
-  nodeNum?: long(name='node_num', example='node_num'),
-  // member_status
-  memberStatus?: string(name='member_status', example='member_status'),
-  // block_height
-  blockHeight?: long(name='block_height', example='block_height'),
-  // transactions
-  transactions?: long(name='transactions', example='transactions'),
-  // network
-  network?: string(name='network', example='network'),
-  // version
-  version?: string(name='version', example='version'),
-}
-
 // 阿里云蚂蚁链相关下载链接
 model ALiYunDownloadPath {
   // client_crt_url
@@ -642,50 +475,12 @@ model ALiYunChainSubnet {
   groupId?: string(name='group_id', example='0000000000000002000000000000000000000000'),
 }
 
-// 分页属性
-model ALiYunPagination {
-  // 分页大小
-  pageSize?: long(name='page_size', example='20'),
-  // 分页编号
-  pageNumber?: long(name='page_number', example='1'),
-  // 总数大小
-  totalCount?: long(name='total_count', example='100'),
-}
-
 // Did doc中的service info
 model DidServiceInfo {
   // 服务的end point info
   endPoint: string(name='end_point', example='http://xxxxxx'),
   // 扩展字段信息
   extensionInfo: string(name='extension_info', example='{"item1":""}'),
-}
-
-// 阿里云区块链交易的汇总信息
-model ALiYunTransactionSummary {
-  // alias
-  alias?: string(name='alias', example='alias'),
-  // hash
-  hash?: string(name='hash', example='hash'),
-  // trans_type_v6
-  transTypeV6?: string(name='trans_type_v6', example='trans_type_v6'),
-  // trans_type_v10
-  transTypeV10?: string(name='trans_type_v10', example='trans_type_v10'),
-  // category
-  category?: long(name='category', example='1'),
-  // height
-  height?: long(name='height', example='2131231'),
-  // block_hash
-  blockHash?: string(name='block_hash', example='block_hash'),
-  // create_time
-  createTime?: long(name='create_time', example='123123123'),
-  // reference_count
-  referenceCount?: long(name='reference_count', example='1'),
-  // from
-  from?: string(name='from', example='from'),
-  // to
-  to?: string(name='to', example='to'),
-  // gas_used
-  gasUsed?: long(name='gas_used', example='123'),
 }
 
 // 实例最近调用记录
@@ -746,6 +541,337 @@ model ALiYunChainNodeInfo {
   publicKey?: string(name='public_key', example='121231bcd'),
 }
 
+// VC可信传输时，指定的目标did信息
+model VcTransmitTargetStruct {
+  // 目标did的公钥
+  publicKey?: string(name='public_key', example='xxxx'),
+  // 传输vc使用的区块链id
+  vcChannel?: string(maxLength=32, minLength=8, name='vc_channel', example='bizid'),
+  // 验证者did
+  verifierDid: string(name='verifier_did', example='did:mychain:xxxx'),
+}
+
+// 人群标签对象
+model CrowdTagEnumItemDTO {
+  // 枚举名称
+  name: string(name='name', example='xx'),
+  // 枚举值
+  val: string(name='val', example='F'),
+}
+
+// 阿里云交易查询信息
+model ALiYunTransaction {
+  // tx_type
+  txType?: string(name='tx_type', example='tx_type'),
+  // data
+  data?: string(name='data', example='data'),
+  // hash
+  hash?: string(name='hash', example='hash'),
+  // from
+  from?: string(name='from', example='from'),
+  // to
+  to?: string(name='to', example='to'),
+  // timestamp
+  timestamp?: long(name='timestamp', example='1231231'),
+  // period
+  period?: long(name='period', example='12312312'),
+  // nonce
+  nonce?: string(name='nonce', example='nonce'),
+  // gas
+  gas?: string(name='gas', example='gas'),
+  // value
+  value?: string(name='value', example='value'),
+  // signatures
+  signatures?: [ string ](name='signatures', example='signatures'),
+  // extentions
+  extentions?: [ string ](name='extentions', example='extentions'),
+}
+
+// 阿里云存证链信息
+model ALiYunNotaryBlockchain {
+  // name
+  name?: string(name='name', example='name'),
+  // bizid
+  bizid?: string(name='bizid', example='bizid'),
+  // chain_type
+  chainType?: string(name='chain_type', example='chain_type'),
+  // node_num
+  nodeNum?: long(name='node_num', example='node_num'),
+  // member_status
+  memberStatus?: string(name='member_status', example='member_status'),
+  // block_height
+  blockHeight?: long(name='block_height', example='block_height'),
+  // transactions
+  transactions?: long(name='transactions', example='transactions'),
+  // network
+  network?: string(name='network', example='network'),
+  // version
+  version?: string(name='version', example='version'),
+}
+
+// 合约市场列表
+model ContractTemplateResp {
+  // 模板标识
+  templateId?: string(name='template_id', example='tme202307251209228357cc'),
+  // 产品码
+  productCode?: string(name='product_code', example='0001'),
+  // 合约名称
+  name?: string(name='name', example='资产合约'),
+  // 缩略图url
+  thumbUrl?: string(name='thumb_url', example='http://www.xxx.com'),
+  // 合约描述
+  description?: string(name='description', example='实现数据不可删除，不可篡改，不可抵赖的存证效果'),
+  // 文档地址
+  detailUrl?: string(name='detail_url', example='https://help.aliyun.com/product/84950.html'),
+  // 是否已开通合约
+  open?: boolean(name='open', example='true'),
+  // 后续展示：购买用户头像
+  avatarLogoList?: [ string ](name='avatar_logo_list', example=''),
+  // 定制合约价格
+  priceMessage?: string(name='price_message', example='定制合约服务费用：80,000元/年'),
+}
+
+// 数据授权服务数据对象结构体
+model DataEntity {
+  // 授权状态
+  authStatus?: string(name='auth_status', example='AUTHORIZED'),
+  // 业务系统唯一标示
+  bizUid?: string(maxLength=64, name='biz_uid', example='76a0e716164848168dc726460042ee25'),
+  // 区块链ID
+  blockchainId?: string(name='blockchain_id', example='8c777cf9a71b660233215b6337dca78d'),
+  // 数据类别
+  category: string(maxLength=32, name='category', example='TABLE,FILE...'),
+  // 数据ID
+  dataId: string(maxLength=100, name='data_id', example='did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2'),
+  // 数据模型ID
+  dataModelId?: string(name='data_model_id', example='DATA_MODEL_Q23'),
+  // 扩展信息，标准JSON格式
+  extensionInfo?: string(name='extension_info', example='{"strategy":"test”}'),
+  // 数据名称
+  name: string(maxLength=64, name='name', example='testdata'),
+  // 数据所有者ID
+  ownerId: string(maxLength=100, name='owner_id', example='did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2'),
+  // 流程节点信息
+  processTemplate?: [ ProcessNode ](name='process_template', example=''),
+  // 数据状态
+  status?: string(maxLength=16, name='status', example='ACTIVE,DELETED...'),
+  // 创建时间
+  createTime: long(name='create_time', example='1595574776000'),
+  // 修改时间
+  updateTime?: long(name='update_time', example='1592810480442'),
+  // DID doc里的公开信息
+  publicInfo?: string(name='public_info', example='{}'),
+}
+
+// 阿里云蚂蚁链对象
+model ALiYunAntChain {
+  // ant_chain_id
+  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
+  // 链名称
+  antChainName?: string(name='ant_chain_name', example='name'),
+  // 链的类型
+  chainType?: string(name='chain_type', example='链的类型'),
+  // cipher_suit
+  cipherSuit?: string(name='cipher_suit', example='cipher_suit'),
+  // 创建时间
+  createTime?: long(name='create_time', example='创建时间'),
+  // expire_time
+  expireTime?: long(name='expire_time', example='1123123123123'),
+  // instance_id
+  instanceId?: string(name='instance_id', example='instance_id'),
+  // is_admin
+  isAdmin?: boolean(name='is_admin', example='true、false'),
+  // 成员状态
+  memberStatus?: string(name='member_status', example='成员状态'),
+  // merkle_tree_suit
+  merkleTreeSuit?: string(name='merkle_tree_suit', example='merkle_tree_suit'),
+  // Network
+  network?: string(name='network', example='Network'),
+  // 节点数
+  nodeNum?: long(name='node_num', example='节点数'),
+  // 区域信息
+  regionId?: string(name='region_id', example='区域信息'),
+  // 链的资源大小
+  resourceSize?: string(name='resource_size', example='链的资源大小'),
+  // rest_status
+  restStatus?: string(name='rest_status', example='rest_status'),
+  // 算法参数
+  tlsAlgo?: string(name='tls_algo', example='算法参数'),
+  // 版本信息
+  version?: string(name='version', example='0.10.2.12.5'),
+  // monitor_status
+  monitorStatus?: boolean(name='monitor_status', example='monitor_status'),
+}
+
+// Did Doc中的服务字段描述
+model DidDocServicesInfo {
+  // 服务的扩展字段
+  extension?: string(name='extension', example='json string'),
+  // 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务：
+  // DidAuthService， 有且只能有一个，并且id必须为didauth-1；
+  // VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
+  id: string(name='id', example='service-id1'),
+  // 服务的可访问地址
+  serviceEndpoint: string(name='service_endpoint', example='http://example.com'),
+  // 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
+  type: string(name='type', example='KYBServiceType'),
+}
+
+// 阿里云蚂蚁区块链证书信息
+model ALiYunCertificateApplication {
+  // ant_chain_id
+  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
+  // username
+  username?: string(name='username', example='username'),
+  // createtime
+  createtime?: long(name='createtime', example='createtime'),
+  // updatetime
+  updatetime?: long(name='updatetime', example='1231231231231'),
+  // bid
+  bid?: string(name='bid', example='bid'),
+  // status
+  status?: string(name='status', example='status'),
+}
+
+// DidDoc中service的信息
+model DisServicesInfo {
+  // did doc service扩展字段
+  extesion?: string(name='extesion', example='{}'),
+  // did doc service id
+  id: string(name='id', example='didauth-1'),
+  // 服务endpoint
+  serviceEndpoint: string(name='service_endpoint', example='http://auth.mydid.agent.com'),
+  // service type
+  type: string(name='type', example='DidAuthService'),
+  // EXIST
+  // CONFLICT
+  // VALID
+  // INVALID
+  desc?: string(name='desc', example='描述'),
+}
+
+// 阿里云合约链信息
+model ALiYunContractBlockchain {
+  // name
+  name?: string(name='name', example='name'),
+  // bizid
+  bizid?: string(name='bizid', example='bizid'),
+  // chain_type
+  chainType?: string(name='chain_type', example='chain_type'),
+  // node_num
+  nodeNum?: long(name='node_num', example='3'),
+  // member_status
+  memberStatus?: string(name='member_status', example='member_status'),
+  // block_height
+  blockHeight?: long(name='block_height', example='4'),
+  // transactions
+  transactions?: long(name='transactions', example='121'),
+  // network
+  network?: string(name='network', example='network'),
+  // version
+  version?: string(name='version', example='version'),
+}
+
+// 阿里云区块链小程序用户权限信息
+model ALiYunChainMiniAppAuthorizedUser {
+  // phone
+  phone?: string(name='phone', example='phone'),
+  // gmt_authorized
+  gmtAuthorized?: string(name='gmt_authorized', example='gmt_authorized'),
+  // 记录id
+  userId?: long(name='user_id', example='112'),
+}
+
+// 阿里云合约工程信息
+model ALiYunContractProject {
+  // consortium_id
+  consortiumId?: string(name='consortium_id', example='consortium_id'),
+  // create_time
+  createTime?: long(name='create_time', example='123123123'),
+  // project_description
+  projectDescription?: string(name='project_description', example='project_description'),
+  // project_id
+  projectId?: string(name='project_id', example='project_id'),
+  // project_name
+  projectName?: string(name='project_name', example='project_name'),
+  // project_version
+  projectVersion?: string(name='project_version', example='project_version'),
+  // update_time
+  updateTime?: long(name='update_time', example='update_time'),
+}
+
+// 合约列表
+model ContractPageListResp {
+  // 服务ID
+  serviceId?: string(name='service_id', example='cme20230724104931af3a4d'),
+  // 合约名称
+  name?: string(name='name', example='资产合约'),
+  // 合约类型
+  type?: string(name='type', example='存证合约'),
+  // 创建时间
+  createTime?: long(name='create_time', example='1690166971465'),
+}
+
+// 阿里云区块链信息
+model ALiYunOldContractBlockchain {
+  // name
+  name?: string(name='name', example='name'),
+  // bizid
+  bizid?: string(name='bizid', example='bizid'),
+  // chain_type
+  chainType?: string(name='chain_type', example='chain_type'),
+  // node_num
+  nodeNum?: long(name='node_num', example='node_num'),
+  // member_status
+  memberStatus?: string(name='member_status', example='member_status'),
+  // block_height
+  blockHeight?: long(name='block_height', example='block_height'),
+  // transactions
+  transactions?: long(name='transactions', example='transactions'),
+  // network
+  network?: string(name='network', example='network'),
+  // version
+  version?: string(name='version', example='version'),
+}
+
+// 分页属性
+model ALiYunPagination {
+  // 分页大小
+  pageSize?: long(name='page_size', example='20'),
+  // 分页编号
+  pageNumber?: long(name='page_number', example='1'),
+  // 总数大小
+  totalCount?: long(name='total_count', example='100'),
+}
+
+// 阿里云区块链交易的汇总信息
+model ALiYunTransactionSummary {
+  // alias
+  alias?: string(name='alias', example='alias'),
+  // hash
+  hash?: string(name='hash', example='hash'),
+  // trans_type_v6
+  transTypeV6?: string(name='trans_type_v6', example='trans_type_v6'),
+  // trans_type_v10
+  transTypeV10?: string(name='trans_type_v10', example='trans_type_v10'),
+  // category
+  category?: long(name='category', example='1'),
+  // height
+  height?: long(name='height', example='2131231'),
+  // block_hash
+  blockHash?: string(name='block_hash', example='block_hash'),
+  // create_time
+  createTime?: long(name='create_time', example='123123123'),
+  // reference_count
+  referenceCount?: long(name='reference_count', example='1'),
+  // from
+  from?: string(name='from', example='from'),
+  // to
+  to?: string(name='to', example='to'),
+  // gas_used
+  gasUsed?: long(name='gas_used', example='123'),
+}
+
 // 阿里云联盟信息
 model ALiYunAntConsortium {
   // 链的数量
@@ -784,6 +910,12 @@ model CheckPointStructBody {
   totalCount?: string(name='total_count', example='0'),
 }
 
+// 人群匹配结果
+model CrowdMatchResult {
+  // 人群匹配结果
+  match: boolean(name='match', example='true, false'),
+}
+
 // 账户映射情况
 model AccountMappingInfo {
   // 链上账户id
@@ -796,52 +928,24 @@ model AccountMappingInfo {
   uid: string(name='uid', example='userid'),
 }
 
-// 应用授权列表查询
-model ApplicationListResp {
-  // 应用程序ID
-  applicationId?: string(name='application_id', example='app20230725115808679d4f'),
-  // 链ID
-  accessKey?: string(name='access_key', example='284f75bc-8069-443f-9d46-4576bb15f210'),
-  // 合约(创建实例时填写的合约名称。)
-  nameList?: [ string ](name='name_list', example=''),
-}
-
-// VC可信传输时，指定的目标did信息
-model VcTransmitTargetStruct {
-  // 目标did的公钥
-  publicKey?: string(name='public_key', example='xxxx'),
-  // 传输vc使用的区块链id
-  vcChannel?: string(maxLength=32, minLength=8, name='vc_channel', example='bizid'),
-  // 验证者did
-  verifierDid: string(name='verifier_did', example='did:mychain:xxxx'),
-}
-
-// 阿里云交易查询信息
-model ALiYunTransaction {
-  // tx_type
-  txType?: string(name='tx_type', example='tx_type'),
-  // data
-  data?: string(name='data', example='data'),
-  // hash
-  hash?: string(name='hash', example='hash'),
-  // from
-  from?: string(name='from', example='from'),
-  // to
-  to?: string(name='to', example='to'),
-  // timestamp
-  timestamp?: long(name='timestamp', example='1231231'),
-  // period
-  period?: long(name='period', example='12312312'),
-  // nonce
-  nonce?: string(name='nonce', example='nonce'),
-  // gas
-  gas?: string(name='gas', example='gas'),
-  // value
-  value?: string(name='value', example='value'),
-  // signatures
-  signatures?: [ string ](name='signatures', example='signatures'),
-  // extentions
-  extentions?: [ string ](name='extentions', example='extentions'),
+// 证书实例详情
+model CertInstanceDetail {
+  // 主键
+  bizId: string(name='biz_id', example='xx'),
+  // 实例名称
+  name: string(name='name', example='xx'),
+  // 版发者
+  issuer: string(name='issuer', example='xx'),
+  // 实例内容
+  claimContent: string(name='claim_content', example='xx'),
+  // 状态；-1：已删除 0：审核未通过, 1：审核通过, 2：待审核, 3：编辑中
+  status: long(name='status', example=''),
+  // 审核建议
+  verifyComment: string(name='verify_comment', example='xx'),
+  // 创建时间
+  gmtCreate: string(name='gmt_create', example='1701227612000'),
+  // 修改时间
+  gmtModified: string(name='gmt_modified', example='1701227612000'),
 }
 
 // 蚂蚁链用途申报结构体
@@ -864,28 +968,6 @@ model ChainPurpose {
   purposeItem?: string(name='purpose_item', example='""'),
 }
 
-// 阿里云存证链信息
-model ALiYunNotaryBlockchain {
-  // name
-  name?: string(name='name', example='name'),
-  // bizid
-  bizid?: string(name='bizid', example='bizid'),
-  // chain_type
-  chainType?: string(name='chain_type', example='chain_type'),
-  // node_num
-  nodeNum?: long(name='node_num', example='node_num'),
-  // member_status
-  memberStatus?: string(name='member_status', example='member_status'),
-  // block_height
-  blockHeight?: long(name='block_height', example='block_height'),
-  // transactions
-  transactions?: long(name='transactions', example='transactions'),
-  // network
-  network?: string(name='network', example='network'),
-  // version
-  version?: string(name='version', example='version'),
-}
-
 // 证书颁发校验错误描述
 model TemplateInstanceErrorDetailDTO {
   // 当前错误类型的错误行数
@@ -896,6 +978,1060 @@ model TemplateInstanceErrorDetailDTO {
   errorColumnIndex: long(name='error_column_index', example='0'),
   // 当前错误类型的描述
   errorDescription: string(name='error_description', example='身份证号格式不正确'),
+}
+
+// 申请用户授权的目标可验证声明内容、过期时间等配置
+model Claim {
+  // 一个json的string，内容包含具体需要的声明，不同业务场景不同。
+  claimContent: string(name='claim_content', example='{"issuerName":"XX有限公司","userNo":"12123434"}'),
+  // 如果在相同的biz_type下，还需要针对声明claim进行细化划分，可以使用此字段。
+  claimType?: string(name='claim_type', example='Level1'),
+  // 申请声明颁发后的有效期，可选参数，如果不指定则默认申请永久有效。
+  expire?: long(name='expire', example='-1'),
+  // 授权颁发可验证声明的目标did信息，通常为机构或组织的did
+  did?: string(name='did', example='did:mychain:6d8f3ff4af91532eaa7fc477be6b68dea14ed3bcfd5755ccedced43f6c248214'),
+  // 目标待授权的名称，标定唯一性，与claim内容配合使用，如果不指定did可以考虑使用此字段。
+  name?: string(name='name', example='XX有限公司'),
+}
+
+// 阿里云子链检查结果
+model ALiYunChainSubnetCheck {
+  // 检查结果
+  checkResult?: string(name='check_result', example='OK'),
+  // 子链成员列表
+  consortiumMemberList?: [ string ](name='consortium_member_list', example=''),
+  // 节点信息列表
+  chainNodeInfoList?: [ ALiYunChainNodeInfo ](name='chain_node_info_list', example=''),
+  // 联盟管理员
+  consortiumAdmin?: boolean(name='consortium_admin', example='true, false'),
+  // 子链成员列表
+  consortiumMemberInfoList?: [ ALiYunMember ](name='consortium_member_info_list', example=''),
+  // 分页信息
+  pagination?: ALiYunPagination(name='pagination', example=''),
+}
+
+// 授权规则详细信息
+model AuthorizationRule {
+  // 规则来源
+  source: string(name='source', example='DID'),
+  // 规则索引
+  index: string(name='index', example='serviceType'),
+  // 规则类型
+  type: string(name='type', example='DEFAULT'),
+  // 规则表达式
+  expression: string(name='expression', example='EQUALS'),
+  // 规则内容
+  content: string(name='content', example='content'),
+}
+
+// 账户映射结果
+model AccountMappingResult {
+  // 该账户在链上的唯一标示
+  baccount: string(name='baccount', example='1234:1234:123'),
+  // 当前账户映射结果描述语句
+  message: string(name='message', example='成功'),
+  // 状态描述符
+  status: string(name='status', example='success'),
+  // 自有系统中该账户唯一标示
+  uid: string(name='uid', example='1234'),
+}
+
+// 可验证声明的完整内容以及状态，当前持有者的did等信息
+model VcContent {
+  // 可验证声明的唯一标识id，status 为 “1” 时候非空
+  vcId: string(name='vc_id', example='未定义'),
+  // 可验证声明完整内容， status 为 “1” 时候非空
+  vcContent: string(name='vc_content', example='声明内容，JSON字符串'),
+  // 可验证声明的颁发状态说明： -1：颁发失败，0：未授权 1：授权成功，此时vc_content字段会包含授权后的声明内容，其它状态码，待定义后增加。
+  status: string(name='status', example='“1”'),
+  // 被颁发当前可验证声明的目标did
+  did?: string(name='did', example='did:mychain:6d8f3ff4af91532eaa7fc477be6b68dea14ed3bcfd5755ccedced43f6c248214'),
+  // 如果status 是 “-1”，则说明当前可验证声明颁发失败，此字段说明失败原因。
+  message?: string(name='message', example='“颁发可验证声明失败”'),
+}
+
+// 用户身份、账户及手机号信息
+model UserInfoParam {
+  // 用户手机号信息
+  phone: string(name='phone', example='13222222222'),
+  // 用户账号信息
+  userAccount: string(name='user_account', example='13222222222'),
+  // 用户名称
+  userName: string(name='user_name', example='wangerxiao'),
+}
+
+// 任务人群匹配返回列表
+model TaskCrowdMatchResp {
+  // 任务ID
+  taskId: string(name='task_id', example='NQYwDb1w5'),
+  // 人群匹配结果
+  crowdMatchResult: CrowdMatchResult(name='crowd_match_result', example=''),
+}
+
+// 链详情
+model MyChainInfo {
+  // 链id
+  bizId: string(name='biz_id', example='xxxid'),
+  // 授权租户id
+  tenant: string(name='tenant', example='tenantID'),
+}
+
+// 派生DID的具体参数
+model DeriveDid {
+  // 派生的子did
+  childdid: string(name='childdid', example='did:mychain:xxxx'),
+  // 子did 的did doc
+  childdiddoc: string(name='childdiddoc', example='xxx'),
+  // 用户输入用于派生子did的派生码
+  code: string(name='code', example='asdfghj'),
+}
+
+// 授权明细详情
+model AuthorizationDetail {
+  // 授权凭证ID
+  authorityCertId: string(name='authority_cert_id', example='vc:private:0000:7bd647663cec087bc424941ad35cb588e96f38c2dcb512442410596c02e8ef681595560495530110'),
+  // 授权ID
+  authorizationId?: string(name='authorization_id', example='8c777cf9a71b660233215b6337dca78d66e10f25feca50a2761c09df7d4d0506'),
+  // 区块号
+  blockNum: long(name='block_num', example='1324'),
+  // 过期时间
+  expire?: long(name='expire', example='1592810480442'),
+  // 授权时间
+  issuanceTime: long(name='issuance_time', example='1595574776000'),
+  // 授权人
+  issuer: Participant(name='issuer', example=''),
+  // 被授权人
+  subject: Participant(name='subject', example=''),
+  // 哈希
+  txHash: string(name='tx_hash', example='d4dbde485203ed445b59fa7cf7976ecc56cf7494cca2d0185c1cac130463ac91'),
+  // 资产所有者
+  owner: Participant(name='owner', example=''),
+}
+
+// 阿里云CloudIde的配置
+model ALiYunChainCloudIdeConfig {
+  // bizid
+  bizid?: string(name='bizid', example='bizid'),
+  // name
+  name?: string(name='name', example='name'),
+  // trial_account
+  trialAccount?: string(name='trial_account', example='trial_account'),
+  // trial_account_private_key
+  trialAccountPrivateKey?: string(name='trial_account_private_key', example='trial_account_private_key'),
+  // ant_chain_id
+  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
+  // ant_chain_name
+  antChainName?: string(name='ant_chain_name', example='ant_chain_name'),
+  // version
+  version?: string(name='version', example='version'),
+}
+
+// 创建应用响应信息
+model ApplicationCreateResp {
+  // 应用标识
+  applicationId?: string(name='application_id', example='app20230725115808679d4f'),
+}
+
+// 阿里云联盟返回结果
+model ALiYunUnion {
+  // 联盟内链的集合
+  antChains?: [ ALiYunAntChain ](name='ant_chains', example='联盟内链的集合'),
+  // 联盟信息
+  antConsortiums?: [ ALiYunAntConsortium ](name='ant_consortiums', example='联盟信息'),
+  // 联盟Id
+  consortiumId?: string(name='consortium_id', example='联盟Id'),
+  // 联盟成员信息
+  members?: [ ALiYunMember ](name='members', example='联盟成员信息'),
+  // 阿里云分页属性
+  pagination?: ALiYunPagination(name='pagination', example='阿里云分页属性'),
+  // is_exist
+  isExist?: boolean(name='is_exist', example='true, false'),
+}
+
+// 数据授权服务公钥矩阵关系结构体
+model PublicKeyRelation {
+  // 公钥颁发者ID
+  issuerId: string(name='issuer_id', example='did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2'),
+  // 公钥接受者ID
+  recipientId: string(name='recipient_id', example='did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2'),
+}
+
+// 合约类型
+model ContractTypeResp {
+  // 合约服务类型
+  typeList?: [ ContractTypeListResp ](name='type_list', example=''),
+}
+
+// 物流金融平台运单轨迹信息
+model LogisticLocation {
+  // 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
+  address?: string(name='address', example='北京市朝阳区阜通东大街6号'),
+  // 行政区划代码
+  cityCode?: string(name='city_code', example='110000'),
+  // 纬度
+  lat: string(name='lat', example='39.916527'),
+  // 经度
+  lon: string(name='lon', example='116.397128'),
+  // 轨迹时间戳
+  trackTime: long(name='track_time', example='1566221266000'),
+}
+
+// 阿里云订单结果
+model ALiYunOrderResult {
+  // request_id
+  requestId?: string(name='request_id', example='request_id'),
+  // data
+  data?: string(name='data', example='data'),
+  // success
+  success?: boolean(name='success', example='true, false'),
+  // code
+  code?: string(name='code', example='code'),
+  // message
+  message?: string(name='message', example='message'),
+  // synchro
+  synchro?: boolean(name='synchro', example='true, false'),
+}
+
+// 批量查询商户下已映射的账户信息接口，返回的对象
+model QueryMappingBatchResult {
+  // 本次查询获取的账户信息
+  accounts: [ AccountMappingInfo ](name='accounts', example=''),
+  // 该商户下总共映射账户的数量
+  totalNum: long(name='total_num', example='200'),
+  // 该商户下账户信息的总页数
+  totalPage: long(name='total_page', example='10'),
+}
+
+// 阿里云区块链区块信息
+model ALiYunChainBlock {
+  // ant_chain_id
+  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
+  // block_hash
+  blockHash?: string(name='block_hash', example='block_hash'),
+  // create_time
+  createTime?: long(name='create_time', example='create_time'),
+  // height
+  height?: long(name='height', example='123123'),
+  // previous_hash
+  previousHash?: string(name='previous_hash', example='previous_hash'),
+  // root_tx_hash
+  rootTxHash?: string(name='root_tx_hash', example='root_tx_hash'),
+  // transaction_size
+  transactionSize?: long(name='transaction_size', example='3'),
+  // trans_summary_list
+  transSummaryList?: [ ALiYunTransactionSummary ](name='trans_summary_list', example='trans_summary_list'),
+  // Version
+  version?: long(name='version', example='10'),
+}
+
+// 应用授权列表查询
+model ApplicationPageResp {
+  // 应用授权列表
+  list?: [ ApplicationPageListResp ](name='list', example=''),
+  // 总数
+  total?: long(name='total', example='200'),
+}
+
+// did中使用ZKP生成证明需要的信息
+model DidZKPInfo {
+  // 需要生成证明的路径
+  path: string(name='path', example='"$./path"'),
+  // 生成ZKP证明的公共信息
+  publicInputs: string(name='public_inputs', example='json array string'),
+  // zkp方法
+  zkpType: string(name='zkp_type', example='more,less,contain'),
+}
+
+// 阿里云账户列表信息
+model ALiYunAccountList {
+  // pagination
+  pagination?: ALiYunPagination(name='pagination', example='pagination'),
+  // accounts
+  accounts?: [ ALiYunAccount ](name='accounts', example='accounts'),
+  // 联盟管理员
+  consortiumAdmin?: boolean(name='consortium_admin', example='true, false'),
+}
+
+// 蚂蚁链用途申报结构体
+model AntChainPurposeResponse {
+  // 用户申报用途状态
+  status?: string(name='status', example='1'),
+  // 已申报的用途，比如供应链金融
+  purpose?: string(name='purpose', example='已申报的用途，比如供应链金融'),
+  // 申报时间
+  createTime?: string(name='create_time', example='21-1-1'),
+  // 简短说明用途
+  chainPurposeItem?: string(name='chain_purpose_item', example='简短说明用途'),
+  // 用途详情
+  chainPurposeExtend?: string(name='chain_purpose_extend', example='用途详情'),
+  // 申请用途列表
+  recordList?: [ ChainPurpose ](name='record_list', example='[]'),
+}
+
+// 阿里云交易收据
+model ALiYunTransactionReceipt {
+  // data
+  data?: string(name='data', example='data'),
+  // gas_used
+  gasUsed?: string(name='gas_used', example='gas_used'),
+  // result
+  result?: long(name='result', example='result'),
+  // logs
+  logs?: [ string ](name='logs', example='logs'),
+}
+
+// 实例进度
+model ContractCreateProcessResp {
+  // 当前进度信息
+  status?: string(name='status', example='SERVICE_START'),
+  // 合约部署进度
+  progressInfoList?: [ InstanceProgressInfo ](name='progress_info_list', example=''),
+}
+
+// 新建合约服务
+model ContractCreateResp {
+  // 合约标识
+  serviceId?: string(name='service_id', example='cme20230724104931af3a4d'),
+}
+
+// 内部建链信息查询
+model CreateBlockchainInfo {
+  // 链id
+  bizid: string(name='bizid', example='141a48c42f1e47b085a4502dab442553'),
+  // 链的状态
+  blockchainStatus: string(name='blockchain_status', example='NOMAL'),
+  // 链的类型
+  blockchainType: string(name='blockchain_type', example='PROD、TEST'),
+  // 链的名称
+  blockchainName: string(name='blockchain_name', example='区块链'),
+  // 节点数量
+  blockchanNodeNum: long(name='blockchan_node_num', example='1'),
+  // 创建时间
+  blockchainCreateTime: long(name='blockchain_create_time', example='1609731134000'),
+}
+
+// VC分享的结果
+model VcShareResult {
+  // 目标分享的VC的id
+  vcId: string(name='vc_id', example='vc:mychain:dec9725c55bc7ad28b97340230f211b2ad96a35f5131ce9f77c1bd7b67f919451572244785477124'),
+  // 分享给目标接受者的did
+  targetDid: string(name='target_did', example='did:mychain:6d8f3ff4af91532eaa7fc477be6b68dea14ed3bcfd5755ccedced43f6c248214 '),
+  // 分享链上VC数据的交易hash，可用于直连区块链查询交易内容时使用。
+  txHash?: string(name='tx_hash', example='388d0822df016aa66c954344e22c36ec89e4a4573ef0491220bd80c1fe3469cb'),
+  // 分享是否成功，true：成功，false：失败
+  status: boolean(name='status', example='true，false'),
+  // 失败的对应原因信息
+  msg?: string(name='msg', example='“失败原因”'),
+}
+
+// 合约加密字段
+model ContractEncryptKeyItem {
+  // 字段对应的id
+  key: string(name='key', example='keyId'),
+  // 0:encrypt_text,
+  // 1:encrypt_array_text,
+  // 2:encrypt_int
+  // 3:encrypt_array_int
+  type: long(name='type', example='0'),
+  // 字段对应的数据
+  value: string(name='value', example='"value_1"'),
+}
+
+// did更新事件
+model DidEvent {
+  // 事件对应的合约方法
+  action: string(name='action', example='add'),
+  // 对应did
+  did: string(name='did', example='did:mychain:XXXX'),
+  // did对应doc
+  didDoc: string(name='did_doc', example='{}'),
+  // 本次事件的触发者
+  from: string(name='from', example='XXXXXXXXX'),
+  // 6500
+  height: long(name='height', example='事件在区块的高度'),
+  // 交易hash
+  txHash: string(name='tx_hash', example='xxxxxx'),
+  // 交易在区块中的index
+  txIndex: long(name='tx_index', example='1'),
+}
+
+// Vc可信传输实际参数
+model VcTransmitPayload {
+  // 目标did相关信息列表
+  targetVerifier: [ VcTransmitTargetStruct ](name='target_verifier', example=''),
+  // 要传输的vc_id
+  vcId: string(name='vc_id', example='vc:mychain:xxxxx'),
+  // vc原文，如果vc原文出现在传输接口，那么VC仓库不会从本地查找，而是直接将传输的VC上链
+  vcContent?: string(name='vc_content', example='json string'),
+}
+
+// 阿里云合约内容
+model ALiYunChainContractContent {
+  // content
+  content?: string(name='content', example='content'),
+  // content_id
+  contentId?: string(name='content_id', example='content_id'),
+  // content_name
+  contentName?: string(name='content_name', example='content_name'),
+  // create_time
+  createTime?: long(name='create_time', example='create_time'),
+  // is_directory
+  isDirectory?: boolean(name='is_directory', example='true'),
+  // parent_content_id
+  parentContentId?: string(name='parent_content_id', example='parent_content_id'),
+  // project_id
+  projectId?: string(name='project_id', example='project_id'),
+  // update_time
+  updateTime?: long(name='update_time', example='update_time'),
+}
+
+// 结果
+model Result {
+  // 联盟id
+  consortiumId: string(name='consortium_id', example='00001'),
+}
+
+// 更新did doc中的service信息
+model UpdateDidService {
+  // 待更新did之前的版本号
+  previousVersion: long(name='previous_version', example='2'),
+  // did doc中的service id
+  serviceId: string(name='service_id', example='service#1'),
+  // 服务信息
+  serviceInfo: DidServiceInfo(name='service_info', example=''),
+  // 服务类型
+  serviceType: string(name='service_type', example='auth'),
+}
+
+// 包含业务组的用户信息
+model AccountInfoWithBiz {
+  // 注册地址
+  address?: string(name='address', example='北京'),
+  // 业务场景code
+  bizCode: string(name='biz_code', example='020301'),
+  // 业务名称
+  bizName: string(name='biz_name', example='test1'),
+  // 业务类型，预留
+  bizType?: string(name='biz_type', example='test1'),
+  // 用户创建时间，格式yyyy-MM-dd HH:mm:ss
+  createTime?: string(name='create_time', example='2019-06-12 00:00:00'),
+  // 用户注销时间，格式yyyy-MM-dd HH:mm:ss
+  endTime?: string(name='end_time', example='2019-06-13 00:00:00  '),
+  // 扩展字段，使用json格式
+  extension?: string(maxLength=200, name='extension', example='{"status":1}'),
+  // 业务组code
+  groupCode: string(name='group_code', example='0101'),
+  // 业务组名称
+  groupName: string(name='group_name', example='baas平台'),
+  // 唯一标示类型，0:统一信用代码,1:开票机构代码,2:身份证号
+  identityType?: long(name='identity_type', example='0'),
+  // 唯一标示码
+  identityValue?: string(name='identity_value', example='370211198106130000'),
+  // 用户标签
+  label?: string(name='label', example='<kpi>0</kpi>'),
+  // 间连用户的上层直连用户名称
+  parent?: string(name='parent', example='某某公司'),
+  // 统计时间，时间格式：yyyy-MM-dd HH:mm:ss
+  statDate?: string(name='stat_date', example='2019-06-12 00:00:00'),
+  // 用户id
+  userId?: string(name='user_id', example='bjc1111   '),
+  // 用户或企业名称
+  userName?: string(name='user_name', example='北京公司A'),
+  // 用户类型：direct直连，indirect间连，partner合作伙伴
+  userType?: string(name='user_type', example='direct'),
+}
+
+// 物流金融信用凭证信息
+model IssueInfo {
+  // 信用流转批次号
+  batchId?: string(name='batch_id', example='001abc'),
+  // 合同编号
+  contractId?: string(name='contract_id', example='8888888'),
+  // 信用凭证额度
+  creditLimit?: string(name='credit_limit', example='1898.98'),
+  // 失败原因信息
+  errMsg?: string(name='err_msg', example='发行额度不足'),
+  // 信用凭证到期时间
+  expireDate?: string(name='expire_date', example='20191212'),
+  // 信用凭证发起时间
+  issueDate?: string(name='issue_date', example='20190101'),
+  // 信用流转凭证
+  issueId?: string(name='issue_id', example='002abc'),
+  // 发行结果状态 
+  // -1:发行失败状态， 0:未完成状态， 1:已发行状态
+  status?: long(name='status', example='1'),
+  // 发行信用流转的运单号
+  waybillId?: string(name='waybill_id', example='003abc'),
+}
+
+// 查看应用秘钥响应信息
+model ApplicationGetSkResp {
+  // 应用秘钥
+  sk?: string(name='sk', example='******'),
+}
+
+// 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+model CommonResponsePageableStructBody {
+  // 页面规格
+  pageSize?: string(name='page_size', example='10'),
+  // 当前页码
+  current?: string(name='current', example='10'),
+  // 总条数
+  total?: string(name='total', example='total'),
+  // 失败日志数组
+  list?: [ TriggerLogDTOStructBody ](name='list', example='{}'),
+}
+
+// 阿里云售卖区信息
+model ALiYunChainRegion {
+  // region_id
+  regionId?: string(name='region_id', example='region_id'),
+  // region_name
+  regionName?: string(name='region_name', example='region_name'),
+}
+
+// 阿里云售卖联盟信息
+model ALiYunBuyUnion {
+  // consortium_name
+  consortiumName?: string(name='consortium_name', example='consortium_name'),
+  // consortium_id
+  consortiumId?: string(name='consortium_id', example='consortium_id'),
+}
+
+// 分享可验证声明时的核心内容
+model VcShareStruct {
+  // 分享的目标VC的id
+  vcId: string(name='vc_id', example='未定义'),
+  // 目标的VC持有者的did
+  ownerDid: string(name='owner_did', example='did:mychain:6d8f3ff4af91532eaa7fc477be6b68dea14ed3bcfd5755ccedced43f6c248214'),
+  // 在支持声明的claim字段级别分享能力时使用，可以指定哪些字段隐藏，哪些字段分享。示例中标记为”1“的是隐藏，”0“的是分享明文。
+  index?: string(name='index', example='{ "Item1": "1", "学历信息": [ { "学历": "0", "毕业院校": "0", "专业": "0", "Item2":"1", }, "1", ], "Item3":"1" }'),
+  // 非托管模式下owner_did的签名，作为授权凭证
+  signature?: string(name='signature', example='jN1LVH5YhbTvgrdeBqlImPJBWDzVdNyyHZ1n9A0pSOQKnt11jWM5Qn707+wEa7bc8TOd1WvRItTe\r\nmx4xYCqX0gE=\r\n '),
+}
+
+// 小程序浏览器授权类型
+model MiniAppBrowserAuthType {
+  // 授权类型
+  authType: string(name='auth_type', example='DISABLED, ALL_USER, SPECIFIC_USER'),
+}
+
+// 服务发现结果
+model ServiceDiscoveryResult {
+  // 提供该服务能力的did
+  did: string(name='did', example='did:mychain:...'),
+  // 提供该服务能力的endpoint信息
+  services: [ DidDocServicesInfo ](name='services', example=''),
+}
+
+// 蚂蚁链交易汇总信息
+model BlockchainBrowserTransactionStatistic {
+  // 蚂蚁链id
+  bizid: string(name='bizid', example='27ce375122ef483691488395808e009e'),
+  // 开始时间
+  createTime: long(name='create_time', example='1604480401000'),
+  // 时间点
+  dateTime: string(name='date_time', example='2020-10-28'),
+  // 统计时间内最新块高度
+  lastSumBlockHeight: long(name='last_sum_block_height', example='6372915'),
+  // 统计周期内交易的数量
+  transCount: long(name='trans_count', example='2750038'),
+}
+
+// 阿里云区块链Rest信息
+model ALiYunChainRest {
+  // access_id
+  accessId?: string(name='access_id', example='access_id'),
+  // create_time
+  createTime?: long(name='create_time', example='123123123'),
+  // rest
+  rest?: string(name='rest', example='rest'),
+  // update_time
+  updateTime?: long(name='update_time', example='123123123'),
+  // REST开通结果
+  result?: string(name='result', example='OK'),
+}
+
+// 通过controller注册用户
+model VcControllerAddUserRegisterPayload {
+  // 注册用户did
+  did: string(name='did', example='did:mychain:xxxxx'),
+  // 用户did对应的授权公钥
+  publicKey: string(name='public_key', example='xxxxxx'),
+  // 业务区块连的bizid
+  vcChannel?: string(maxLength=32, minLength=8, name='vc_channel', example='xxx'),
+}
+
+// 账户信息
+model AccountInfo {
+  // 版通数量
+  epAmount: long(name='ep_amount', example='1000'),
+  // 版通代码
+  epCode: string(name='ep_code', example='000111'),
+}
+
+// 阿里云区块链配置信息
+model ALiYunChainConfigOption {
+  // config_option
+  configOption?: string(name='config_option', example='config_option'),
+  // show_name
+  showName?: string(name='show_name', example='show_name'),
+  // enable
+  enable?: boolean(name='enable', example='true, false'),
+}
+
+// 删除资源返回结果
+model ALiYunDeleteResource {
+  // data
+  data?: boolean(name='data', example='data'),
+  // success
+  success?: boolean(name='success', example='true, false'),
+}
+
+// 交易详情
+model TransactionInfo {
+  // 交易时间戳
+  timestamp: long(name='timestamp', example='timestamp'),
+  // 交易hash
+  hash: string(name='hash', example='hash'),
+  // 交易块高
+  height: long(name='height', example='1'),
+  // 交易所在块高
+  blockhash: string(name='blockhash', example='hash'),
+  // 交易来源
+  from: string(name='from', example='hash'),
+  // 交易地址
+  to: string(name='to', example='hash'),
+  // 交易类型
+  txtype: long(name='txtype', example='11'),
+  // 转账额度
+  value: long(name='value', example='1'),
+  // logs
+  logs: string(name='logs', example='logs'),
+  // 燃料消耗
+  gasused: long(name='gasused', example='11'),
+  // result
+  result: string(name='result', example='result'),
+  // 拓展json字段
+  json: string(name='json', example='json'),
+}
+
+// 阿里云区块链小程序权限控制信息
+model ALiYunChainMiniAppAuthorization {
+  // ant_chain_id
+  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
+  // q_r_code_type
+  qRCodeType?: string(name='q_r_code_type', example='q_r_code_type'),
+  // authorization_type
+  authorizationType?: string(name='authorization_type', example='authorization_type'),
+}
+
+// 历史任务信息
+model OldTaskInfo {
+  // 任务标题(同一个租户不能重复)
+  taskName: string(name='task_name', example='xx'),
+  // appId
+  appId: string(name='app_id', example='xx'),
+  // 问卷ID
+  surveyId: string(name='survey_id', example='xx'),
+  // 备注信息
+  notes?: string(name='notes', example='xx'),
+  // 租户ID
+  tenantId: string(name='tenant_id', example='xx'),
+  // 操作者ID
+  operator: string(name='operator', example='xx'),
+  // banner标题
+  bannerTitle: string(name='banner_title', example='xx'),
+  // banner图片地址（最多支持3张）
+  bannerImageUrls?: string(name='banner_image_urls', example='xxx'),
+  // banner 图片地址, 拼装后的url
+  bannerImageFullUrls?: [ string ](name='banner_image_full_urls', example='[_xxx_]'),
+  // 题量
+  questionNum: long(name='question_num', example=''),
+  // 任务连接地址
+  taskLinkUrl: string(name='task_link_url', example='xx'),
+  // 人群划分描述
+  personDivideContent?: string(name='person_divide_content', example='xx'),
+  // 城市列表
+  cityDivideUrls?: string(name='city_divide_urls', example='xx'),
+  // 城市列表, 拼装后的url
+  cityDivideFullUrls?: [ string ](name='city_divide_full_urls', example='[_xx_]'),
+  // 样本数量
+  sampleNum: long(name='sample_num', example=''),
+  // 完成样本量
+  completedNum: long(name='completed_num', example=''),
+  // 产品下单code类型（1-资源包 2-后付费）
+  productCodeType: string(name='product_code_type', example='1'),
+  // 产品余量
+  productCapacity: long(name='product_capacity', example=''),
+  // 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
+  prizeChannel: long(name='prize_channel', example=''),
+  // 支付宝账号
+  alipayAccountId?: string(name='alipay_account_id', example='xx'),
+  // 奖励类型（0-定额红包）
+  prizeType: long(name='prize_type', example=''),
+  // 全额红包金额，奖励渠道为0和1时
+  fullRedPacketAmount: string(name='full_red_packet_amount', example='0.02'),
+  // 全额红包描述，奖励渠道为2时，此处必填
+  fullRedPacketTextInfo?: string(name='full_red_packet_text_info', example='xx'),
+  // 甄别红包金额
+  examineRedPacketAmount: string(name='examine_red_packet_amount', example='0.01'),
+  // 关联的证书instanceId
+  certInstanceId?: string(name='cert_instance_id', example='xx'),
+  // 证书实例详情
+  certInstanceDetail?: CertInstanceDetail(name='cert_instance_detail', example=''),
+  // 审核建议
+  verifyComment?: string(name='verify_comment', example='xxx'),
+  // 任务创建时间
+  gmtCreate: string(name='gmt_create', example='210101011112'),
+  // 任务更新时间
+  gmtModified: string(name='gmt_modified', example='22232113131'),
+  // 审核理由
+  reviewContent?: string(name='review_content', example='xx'),
+  // 人群配置信息
+  crowdConfig?: string(name='crowd_config', example='{}'),
+  // 任务ID
+  taskId: string(name='task_id', example='qdQxqU5gz'),
+  // 状态
+  status: long(name='status', example='xx'),
+}
+
+// 阿里云蚂蚁区块链相关下载结果
+model ALiYunChainDownload {
+  // private_key
+  privateKey?: string(name='private_key', example='private_key'),
+  // download_path
+  downloadPath?: ALiYunDownloadPath(name='download_path', example='download_path'),
+}
+
+// 阿里云链统计信息
+model ALiYunChainStatics {
+  // alias
+  alias?: string(name='alias', example='alias'),
+  // Dt
+  dt?: long(name='dt', example='Dt'),
+  // trans_count
+  transCount?: long(name='trans_count', example='21323'),
+  // last_sum_block_height
+  lastSumBlockHeight?: long(name='last_sum_block_height', example='1231'),
+  // creat_time
+  creatTime?: long(name='creat_time', example='creat_time'),
+}
+
+// 阿里云蚂蚁区块链证书列表信息
+model ALiYunCertificateApplications {
+  // pagination
+  pagination?: ALiYunPagination(name='pagination', example='pagination'),
+  // certificate_application
+  certificateApplications?: [ ALiYunCertificateApplication ](name='certificate_applications', example='certificate_application'),
+}
+
+// vc传输初始化结果
+model VcTransmitInitResult {
+  // 初始化成功与否
+  isSuccess: boolean(name='is_success', example='true, false'),
+  // 失败时返回的额外信息
+  message: string(name='message', example='附属消息'),
+  // 接受者did
+  targetVerifier: string(name='target_verifier', example='did:mychain:xxxx'),
+  // 待签名的交易hash
+  needSignatureTxHash: string(name='need_signature_tx_hash', example='123123'),
+}
+
+// 具体实体的身份信息
+model EntityInfo {
+  // 0，身份证；1，电话；2，email，3，企业营业执照号
+  type: long(name='type', example=''),
+  // 具体号码
+  value: string(name='value', example='18701507222'),
+}
+
+// 链节点信息
+model NodeInfo {
+  // 链的区块高度
+  blockheight?: long(name='blockheight', example='10000'),
+  // 节点名称
+  nodename?: string(name='nodename', example='名字'),
+  // 节点健康状况
+  status?: boolean(name='status', example='true'),
+  // 节点版本
+  version?: string(name='version', example='0.10'),
+}
+
+// Did服务类型描述结构体
+model DidServiceType {
+  // 枚举类型，描述访问服务的方式
+  accessMode?: string(name='access_mode', example='http,https,openapi,ftp,other...'),
+  // 对服务的文字描述，<1000个字符
+  description?: string(maxLength=1000, name='description', example='对服务描述'),
+  // 服务类型创建者did
+  did: string(name='did', example='did:mychain:xxxx'),
+  // { "item1":"", "item2":"",...
+  serviceInput?: string(name='service_input', example='json描述服务入参'),
+  // 返回值类型描述，json形式
+  serviceOutput?: string(name='service_output', example='{ "item1":"" "item2":"" ... }'),
+  // 自定义服务类型，字符数16～32个
+  serviceType: string(name='service_type', example='KYBServiceType'),
+}
+
+// 应用请求
+model ApplicationQueryReq {
+  // 应用程序ID
+  applicationId: string(maxLength=64, minLength=1, name='application_id', example='app20230725115808679d4f'),
+}
+
+// 合约信息
+model ContractInfo {
+  // 合约地址
+  contract?: string(name='contract', example='ac01ceb0d8df822e042e5ea3b677201655250dbf54b9bd0c364de6f3f2a1dc7e'),
+  // 部署hash
+  hash?: string(name='hash', example='1c625b49992ed3b55abaac677f964a35c4151d4112da8204ac874b6497bf1143'),
+  // 合约部署时间
+  timestamp?: long(name='timestamp', example='1573401600000'),
+}
+
+// 创建VC参数
+model AddVC {
+  // vc原文hash
+  contentHash: string(name='content_hash', example='1232'),
+  // issuer后缀的hash值
+  issuerHash: string(name='issuer_hash', example='12345667'),
+  // valid or invalid
+  status: string(name='status', example='valid'),
+  // 接收者后缀hash值
+  subjectHash: string(name='subject_hash', example='1234567'),
+  // 可验证声明id
+  vcId: string(name='vc_id', example='vc:mychain:xxxxxx'),
+}
+
+// 带单位的值
+model ValueUnitPair {
+  // 数值
+  value: long(name='value', example=''),
+  // 单位
+  unit: string(name='unit', example='d'),
+}
+
+// 阿里云区块链小程序交易二维码生成
+model ALiYunChainMiniAppCodeCreate {
+  // ant_chain_id
+  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
+  // transaction_hash
+  transactionHash?: string(name='transaction_hash', example='transaction_hash'),
+  // base64_q_r_code_p_n_g
+  base64QRCodePNG?: string(name='base64_q_r_code_p_n_g', example='base64_q_r_code_p_n_g'),
+  // q_r_code_content
+  qRCodeContent?: string(name='q_r_code_content', example='q_r_code_content'),
+}
+
+// 描述分布的结构，目前主要包含date和value值
+model Curve {
+  // 分布以day为单位的日期
+  date: string(name='date', example='2021-03-19'),
+  // 以day为单位的一天凭证颁发的数据量统计。
+  value: string(name='value', example='1001'),
+}
+
+// 存证元数据
+model NotaryMetaParam {
+  // 描述本条存证在存证事务中的阶段，用户可自行维护
+  phase: string(name='phase', example='合同内容'),
+  // 扩展字段
+  properties?: string(name='properties', example='{"key":"value"}'),
+  // 全局唯一的存证事务ID
+  token: string(name='token', example='877c4383-9c83-477b-b7ec-03828a946e54'),
+}
+
+// 用于内部业务统计的信息，外部商户请忽略
+model BizInfo {
+  // BPWZPFCN
+  clientTenent?: string(name='client_tenent', example='用户的金融科技租户id'),
+  // 业务代码
+  code?: string(name='code', example='BAAS_ANTFIN|BAAS_ALICLOUD|MORSE|RECEIVABLE|TRACE|GLOBAL_PAYMENT|JUDICIAL|INVOICE'),
+}
+
+// 数字资产管理平台版通交易信息
+model EPTradeInfo {
+  // 版通代码
+  epCode: string(name='ep_code', example='000111'),
+  // 版通交易号
+  txCode: string(name='tx_code', example='123123'),
+  // 卖方账户
+  txFrom: string(name='tx_from', example='testAccount'),
+  // 交易时间戳
+  txTime: long(name='tx_time', example='1560827725'),
+  // 买方账户
+  txTo: string(name='tx_to', example='testAccount'),
+  // 交易数量
+  txValue: long(name='tx_value', example='1000'),
+}
+
+// 可信存证身份识别信息
+model Identity {
+  // 经办人姓名，企业认证必选
+  agent?: string(name='agent', example='小明'),
+  // 经办人身份证
+  agentId?: string(name='agent_id', example='123123123123'),
+  // 用户名称
+  certName: string(name='cert_name', example='小王'),
+  // 证件号
+  certNo: string(name='cert_no', example='12332112312312'),
+  // 证件类型，个人只支持身份证IDENTITY_CARD，企业支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号
+  certType: string(name='cert_type', example='IDENTITY_CARD'),
+  // 法人姓名，企业认证必选
+  legalPerson?: string(name='legal_person', example='小李'),
+  // 法人身份证,  企业认证必选
+  legalPersonId?: string(name='legal_person_id', example='123123321123'),
+  // 用户手机号码
+  mobileNo?: string(name='mobile_no', example='1231231231'),
+  // 扩展属性
+  properties?: string(name='properties', example='{"key":"value"}'),
+  // 用户类型，PERSON或者ENTERPRISE
+  userType: string(name='user_type', example='PERSON'),
+}
+
+// 营销分销平台推广人账户信息
+model FundInfo {
+  // 可提现余额
+  balance: string(name='balance', example='10.8'),
+  // 待结算额度
+  settleQuota: string(name='settle_quota', example='11.4'),
+  // 商户id
+  shopId: string(name='shop_id', example='tset id'),
+}
+
+// VC Repo用户注册结构体
+model VcUserRegisterPayload {
+  // 用户did对应的授权公钥
+  publicKey?: string(name='public_key', example='用户did对应的授权公钥'),
+  // 业务区块连的bizid
+  vcChannel?: string(maxLength=32, minLength=8, name='vc_channel', example='业务区块连的bizid'),
+}
+
+// 阿里云请求结果
+model ALiYunHandleBabelMns {
+  // message
+  message?: string(name='message', example='message'),
+  // request_id
+  requestId?: string(name='request_id', example='request_id'),
+  // success
+  success?: boolean(name='success', example='true, false'),
+}
+
+// 溯源信息中的一项记录。
+model Item {
+  // 溯源项的具体内容
+  desc: string(name='desc', example='枭洒保税所有海关可用严禁修改'),
+  // 扩展信息 ，json格式
+  extInfo: string(name='ext_info', example='"{"isUrl",true,"usrid":"123231"}"'),
+  // 溯源项的键值
+  key: string(name='key', example='itemName'),
+  // 溯源项的中文标题 
+  title: string(name='title', example='品名'),
+  // 内容类型 
+  type: string(name='type', example='text, image, region, link, longtext'),
+}
+
+// C3S可信计算服务TAPP应用信息
+model TappInfo {
+  // C3S可信计算TAPP应用标识
+  taapId: string(name='taap_id', example='fafafafaf'),
+  // C3S可信计算TAPP版本
+  tappVersion: long(name='tapp_version', example='1'),
+}
+
+// BaaS平台联盟信息
+model BaasUnionInfo {
+  // 联盟名称
+  unionName: string(name='union_name', example='name'),
+  // 描述
+  unionDescription: string(name='union_description', example='描述'),
+  // 联系人
+  unionUser: string(name='union_user', example='联系人'),
+  // 联盟联系人手机号码
+  unionUserCell: string(name='union_user_cell', example='联盟联系人手机号码'),
+  // 联盟联系人邮箱
+  unionUserMail: string(name='union_user_mail', example='联盟联系人邮箱'),
+}
+
+// blockchain交易结构体
+model TransactionPo {
+  // 交易所在块hash
+  blockHash?: string(name='block_hash', example='b0c13c3bdeb4b3e0892ab2d2ddd28f9972abba66a3fae0799507dec6fcfa7ba0'),
+  // 交易来源
+  from?: string(name='from', example='b0c13c3bdeb4b3e0892ab2d2ddd28f9972abba66a3fae0799507dec6fcfa7ba0'),
+  // gas消耗
+  gasUsed?: long(name='gas_used', example='1111'),
+  // 交易hash
+  hash?: string(name='hash', example='ce386c5510df2e358056893b86ba77178fcf00d90de9c56bd788fd1968c9b58d'),
+  // 交易所在块 块高
+  height?: long(name='height', example='1000'),
+  // 交易返回结果
+  result?: string(name='result', example='0'),
+  // 交易时间
+  timestamp?: long(name='timestamp', example='1573401600000'),
+  // 交易地址
+  to?: string(name='to', example='4a5e107d0ea041f25ca7bfb58503e6549913e67e5d07aadfe359418440359fec'),
+  // 交易类型 同SDK
+  txType?: long(name='tx_type', example='11'),
+  // 转账额度
+  value?: long(name='value', example='1111'),
+}
+
+// VC链上传输结果
+model VcTransmitResult {
+  // 成功或者失败
+  isSuccess: boolean(name='is_success', example='true, false'),
+  // 失败信息
+  message?: string(name='message', example='失败信息'),
+  // 验证verifier did
+  targetVerifier: string(name='target_verifier', example='did:mychian:xxxxx'),
+  // 交易hash
+  txHash?: string(name='tx_hash', example='xxxxx'),
+}
+
+// 可信时间信息结构
+model TsrResponse {
+  // hash后的信息
+  hashedMessage: string(name='hashed_message', example='AAAAA '),
+  // 哈希算法
+  hashAlgorithm: string(name='hash_algorithm', example='321'),
+  // 时间
+  ts: string(name='ts', example='123'),
+}
+
+// 阿里云数据导出服务TriggerDTO结构体
+model TriggerDTOStructBody {
+  // 名称
+  name?: string(name='name', example='9481b612d6ca4cfdbecc5c5d395eda4237c749fa-97fc-4156-9c23-e21cd6060669'),
+  // 类型
+  type?: string(name='type', example='"BLOCK"'),
+  // 源
+  source?: string(name='source', example='“”'),
+  // 创建时间
+  createTime?: string(name='create_time', example='103422'),
+  // 错误信息
+  errorMessage?: string(name='error_message', example='"error"'),
+  // 状态
+  status?: string(name='status', example='“success”'),
+  // option（map结构，由于金融云无map接口所以通过string类型传输json格式）
+  option?: string(name='option', example='{a:"123",  b:"123"}'),
+  // checkpoint类
+  checkpoint?: CheckPointStructBody(name='checkpoint', example='{}'),
+  // 待处理的错误事件总数
+  pendingErrorLogs?: string(name='pending_error_logs', example='待处理的错误事件总数'),
+}
+
+// 人群配置
+model CrowdNodeDTO {
+  // 节点id
+  nodeId: string(name='node_id', example='c1bff3fe-f1fb-42a2-8fc7-9cbb1a011713'),
+  // 节点类型
+  nodeType: CrowdNodeTypeEnum(name='node_type', example='GROUP'),
+  // 是否排除
+  exclude: boolean(name='exclude', example='true, false'),
+  // 节点配置
+  nodeConfig: string(name='node_config', example='"nodeConfig": {   "tagCode": "P0010GC6",   "valueList": [     {       "selectedValues": [         "18",         "30"       ],       "operator": "BT"     }   ],   "tagType": "BASE" }'),
 }
 
 // 可信存证存证地点信息
@@ -918,20 +2054,6 @@ model Location {
   wifiMac?: string(name='wifi_mac', example='00-01-6C-06-A6-29'),
 }
 
-// 申请用户授权的目标可验证声明内容、过期时间等配置
-model Claim {
-  // 一个json的string，内容包含具体需要的声明，不同业务场景不同。
-  claimContent: string(name='claim_content', example='{"issuerName":"XX有限公司","userNo":"12123434"}'),
-  // 如果在相同的biz_type下，还需要针对声明claim进行细化划分，可以使用此字段。
-  claimType?: string(name='claim_type', example='Level1'),
-  // 申请声明颁发后的有效期，可选参数，如果不指定则默认申请永久有效。
-  expire?: long(name='expire', example='-1'),
-  // 授权颁发可验证声明的目标did信息，通常为机构或组织的did
-  did?: string(name='did', example='did:mychain:6d8f3ff4af91532eaa7fc477be6b68dea14ed3bcfd5755ccedced43f6c248214'),
-  // 目标待授权的名称，标定唯一性，与claim内容配合使用，如果不指定did可以考虑使用此字段。
-  name?: string(name='name', example='XX有限公司'),
-}
-
 // 营销分销推广人账户流水信息
 model CapitalInfo {
   // 记录流水额度
@@ -944,42 +2066,12 @@ model CapitalInfo {
   txHash: string(name='tx_hash', example='123'),
 }
 
-// 阿里云子链检查结果
-model ALiYunChainSubnetCheck {
-  // 检查结果
-  checkResult?: string(name='check_result', example='OK'),
-  // 子链成员列表
-  consortiumMemberList?: [ string ](name='consortium_member_list', example=''),
-  // 节点信息列表
-  chainNodeInfoList?: [ ALiYunChainNodeInfo ](name='chain_node_info_list', example=''),
-  // 联盟管理员
-  consortiumAdmin?: boolean(name='consortium_admin', example='true, false'),
-  // 子链成员列表
-  consortiumMemberInfoList?: [ ALiYunMember ](name='consortium_member_info_list', example=''),
-  // 分页信息
-  pagination?: ALiYunPagination(name='pagination', example=''),
-}
-
 // 阿里云区块链小程序日志查询
 model ALiYunChainMiniAppLog {
   // access_count
   accessCount?: long(name='access_count', example='100'),
   // access_alipay_account_count
   accessAlipayAccountCount?: long(name='access_alipay_account_count', example='1000'),
-}
-
-// 授权规则详细信息
-model AuthorizationRule {
-  // 规则来源
-  source: string(name='source', example='DID'),
-  // 规则索引
-  index: string(name='index', example='serviceType'),
-  // 规则类型
-  type: string(name='type', example='DEFAULT'),
-  // 规则表达式
-  expression: string(name='expression', example='EQUALS'),
-  // 规则内容
-  content: string(name='content', example='content'),
 }
 
 // 订单结果
@@ -1080,18 +2172,6 @@ model VcTransmitCnf {
   verifierId: string(name='verifier_id', example='验证者id'),
 }
 
-// 账户映射结果
-model AccountMappingResult {
-  // 该账户在链上的唯一标示
-  baccount: string(name='baccount', example='1234:1234:123'),
-  // 当前账户映射结果描述语句
-  message: string(name='message', example='成功'),
-  // 状态描述符
-  status: string(name='status', example='success'),
-  // 自有系统中该账户唯一标示
-  uid: string(name='uid', example='1234'),
-}
-
 // 阿里云区块链小程序用户权限查询
 model ALiYunChainMiniAppUserPrivilege {
   // ant_chain_id
@@ -1104,20 +2184,6 @@ model ALiYunChainMiniAppUserPrivilege {
   pagination?: ALiYunPagination(name='pagination', example='pagination'),
   // ALiYunChainMiniAppAuthorizedUser
   authorizedUserList?: [ ALiYunChainMiniAppAuthorizedUser ](name='authorized_user_list', example='ALiYunChainMiniAppAuthorizedUser'),
-}
-
-// 可验证声明的完整内容以及状态，当前持有者的did等信息
-model VcContent {
-  // 可验证声明的唯一标识id，status 为 “1” 时候非空
-  vcId: string(name='vc_id', example='未定义'),
-  // 可验证声明完整内容， status 为 “1” 时候非空
-  vcContent: string(name='vc_content', example='声明内容，JSON字符串'),
-  // 可验证声明的颁发状态说明： -1：颁发失败，0：未授权 1：授权成功，此时vc_content字段会包含授权后的声明内容，其它状态码，待定义后增加。
-  status: string(name='status', example='“1”'),
-  // 被颁发当前可验证声明的目标did
-  did?: string(name='did', example='did:mychain:6d8f3ff4af91532eaa7fc477be6b68dea14ed3bcfd5755ccedced43f6c248214'),
-  // 如果status 是 “-1”，则说明当前可验证声明颁发失败，此字段说明失败原因。
-  message?: string(name='message', example='“颁发可验证声明失败”'),
 }
 
 // 授权服务流程信息
@@ -1136,16 +2202,6 @@ model ProcessInfo {
   totalCount: long(minimum=0, name='total_count', example='1'),
   // 数据对象ID
   dataId: string(name='data_id', example='did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2'),
-}
-
-// 用户身份、账户及手机号信息
-model UserInfoParam {
-  // 用户手机号信息
-  phone: string(name='phone', example='13222222222'),
-  // 用户账号信息
-  userAccount: string(name='user_account', example='13222222222'),
-  // 用户名称
-  userName: string(name='user_name', example='wangerxiao'),
 }
 
 // 阿里云区块链售卖资源信息
@@ -1203,64 +2259,6 @@ model AccountMap {
   uid: string(name='uid', example='huihui'),
 }
 
-// 链详情
-model MyChainInfo {
-  // 链id
-  bizId: string(name='biz_id', example='xxxid'),
-  // 授权租户id
-  tenant: string(name='tenant', example='tenantID'),
-}
-
-// 派生DID的具体参数
-model DeriveDid {
-  // 派生的子did
-  childdid: string(name='childdid', example='did:mychain:xxxx'),
-  // 子did 的did doc
-  childdiddoc: string(name='childdiddoc', example='xxx'),
-  // 用户输入用于派生子did的派生码
-  code: string(name='code', example='asdfghj'),
-}
-
-// 授权明细详情
-model AuthorizationDetail {
-  // 授权凭证ID
-  authorityCertId: string(name='authority_cert_id', example='vc:private:0000:7bd647663cec087bc424941ad35cb588e96f38c2dcb512442410596c02e8ef681595560495530110'),
-  // 授权ID
-  authorizationId?: string(name='authorization_id', example='8c777cf9a71b660233215b6337dca78d66e10f25feca50a2761c09df7d4d0506'),
-  // 区块号
-  blockNum: long(name='block_num', example='1324'),
-  // 过期时间
-  expire?: long(name='expire', example='1592810480442'),
-  // 授权时间
-  issuanceTime: long(name='issuance_time', example='1595574776000'),
-  // 授权人
-  issuer: Participant(name='issuer', example=''),
-  // 被授权人
-  subject: Participant(name='subject', example=''),
-  // 哈希
-  txHash: string(name='tx_hash', example='d4dbde485203ed445b59fa7cf7976ecc56cf7494cca2d0185c1cac130463ac91'),
-  // 资产所有者
-  owner: Participant(name='owner', example=''),
-}
-
-// 阿里云CloudIde的配置
-model ALiYunChainCloudIdeConfig {
-  // bizid
-  bizid?: string(name='bizid', example='bizid'),
-  // name
-  name?: string(name='name', example='name'),
-  // trial_account
-  trialAccount?: string(name='trial_account', example='trial_account'),
-  // trial_account_private_key
-  trialAccountPrivateKey?: string(name='trial_account_private_key', example='trial_account_private_key'),
-  // ant_chain_id
-  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
-  // ant_chain_name
-  antChainName?: string(name='ant_chain_name', example='ant_chain_name'),
-  // version
-  version?: string(name='version', example='version'),
-}
-
 // 服务端签名oss的url然后client直传文件到oss，此结构包含了服务端签名后的数据。
 model PresignedUrlPolicy {
   // oss访问的临时access id
@@ -1305,22 +2303,6 @@ model DidDetail {
   didDoc: string(name='did_doc', example='json字段'),
 }
 
-// 阿里云联盟返回结果
-model ALiYunUnion {
-  // 联盟内链的集合
-  antChains?: [ ALiYunAntChain ](name='ant_chains', example='联盟内链的集合'),
-  // 联盟信息
-  antConsortiums?: [ ALiYunAntConsortium ](name='ant_consortiums', example='联盟信息'),
-  // 联盟Id
-  consortiumId?: string(name='consortium_id', example='联盟Id'),
-  // 联盟成员信息
-  members?: [ ALiYunMember ](name='members', example='联盟成员信息'),
-  // 阿里云分页属性
-  pagination?: ALiYunPagination(name='pagination', example='阿里云分页属性'),
-  // is_exist
-  isExist?: boolean(name='is_exist', example='true, false'),
-}
-
 // 蚂蚁链浏览器区块信息
 model BlockchainBrowserBlock {
   // bizid
@@ -1347,32 +2329,22 @@ model BlockchainBrowserBlock {
   transactionSize: long(name='transaction_size', example='11'),
 }
 
-// 数据授权服务公钥矩阵关系结构体
-model PublicKeyRelation {
-  // 公钥颁发者ID
-  issuerId: string(name='issuer_id', example='did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2'),
-  // 公钥接受者ID
-  recipientId: string(name='recipient_id', example='did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2'),
+// 任务人群配置
+model TaskCrowdNodeDTO {
+  // 节点ID
+  nodeId: string(name='node_id', example='c1bff3fe-f1fb-42a2-8fc7-9cbb1a011713'),
+  // 节点类型
+  nodeType: string(name='node_type', example='GROUP、AND'),
+  // 是否排除
+  exclude: boolean(name='exclude', example='true, false'),
+  // 节点配置
+  nodeConfig: string(name='node_config', example='"nodeConfig": { "tagCode": "P0010GC6", "valueList": [ { "selectedValues": [ "18", "30" ], "operator": "BT" } ], "tagType": "BASE" }'),
 }
 
-// 合约类型
-model ContractTypeResp {
-  // 合约服务类型
-  type?: string(name='type', example='存证合约'),
-}
-
-// 物流金融平台运单轨迹信息
-model LogisticLocation {
-  // 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
-  address?: string(name='address', example='北京市朝阳区阜通东大街6号'),
-  // 行政区划代码
-  cityCode?: string(name='city_code', example='110000'),
-  // 纬度
-  lat: string(name='lat', example='39.916527'),
-  // 经度
-  lon: string(name='lon', example='116.397128'),
-  // 轨迹时间戳
-  trackTime: long(name='track_time', example='1566221266000'),
+// 人群匹配结果
+model MatchResult {
+  // 是否匹配
+  match: boolean(name='match', example='true, false'),
 }
 
 // 阿里云蚂蚁区块链信息
@@ -1383,22 +2355,6 @@ model ALiYunChain {
   contractBlockchain?: ALiYunContractBlockchain(name='contract_blockchain', example='contract_blockchain'),
   // old_contract_blockchain
   oldContractBlockchain?: ALiYunOldContractBlockchain(name='old_contract_blockchain', example='old_contract_blockchain'),
-}
-
-// 阿里云订单结果
-model ALiYunOrderResult {
-  // request_id
-  requestId?: string(name='request_id', example='request_id'),
-  // data
-  data?: string(name='data', example='data'),
-  // success
-  success?: boolean(name='success', example='true, false'),
-  // code
-  code?: string(name='code', example='code'),
-  // message
-  message?: string(name='message', example='message'),
-  // synchro
-  synchro?: boolean(name='synchro', example='true, false'),
 }
 
 // 营销分销平台返佣信息
@@ -1433,38 +2389,6 @@ model ALiYunChainKmsAccount {
   myKmsKeyId?: string(name='my_kms_key_id', example='1234567890'),
 }
 
-// 批量查询商户下已映射的账户信息接口，返回的对象
-model QueryMappingBatchResult {
-  // 本次查询获取的账户信息
-  accounts: [ AccountMappingInfo ](name='accounts', example=''),
-  // 该商户下总共映射账户的数量
-  totalNum: long(name='total_num', example='200'),
-  // 该商户下账户信息的总页数
-  totalPage: long(name='total_page', example='10'),
-}
-
-// 阿里云区块链区块信息
-model ALiYunChainBlock {
-  // ant_chain_id
-  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
-  // block_hash
-  blockHash?: string(name='block_hash', example='block_hash'),
-  // create_time
-  createTime?: long(name='create_time', example='create_time'),
-  // height
-  height?: long(name='height', example='123123'),
-  // previous_hash
-  previousHash?: string(name='previous_hash', example='previous_hash'),
-  // root_tx_hash
-  rootTxHash?: string(name='root_tx_hash', example='root_tx_hash'),
-  // transaction_size
-  transactionSize?: long(name='transaction_size', example='3'),
-  // trans_summary_list
-  transSummaryList?: [ ALiYunTransactionSummary ](name='trans_summary_list', example='trans_summary_list'),
-  // Version
-  version?: long(name='version', example='10'),
-}
-
 // 物流金融平台用户信息
 model LogisticFinUser {
   // 纳税人识别号
@@ -1475,40 +2399,18 @@ model LogisticFinUser {
   userId: string(name='user_id', example='456'),
 }
 
-// did中使用ZKP生成证明需要的信息
-model DidZKPInfo {
-  // 需要生成证明的路径
-  path: string(name='path', example='"$./path"'),
-  // 生成ZKP证明的公共信息
-  publicInputs: string(name='public_inputs', example='json array string'),
-  // zkp方法
-  zkpType: string(name='zkp_type', example='more,less,contain'),
+// 合约查询
+model ContractQueryDetailReq {
+  // 服务ID
+  serviceId: string(maxLength=64, minLength=1, name='service_id', example='cme20230724104931af3a4d'),
 }
 
-// 阿里云账户列表信息
-model ALiYunAccountList {
-  // pagination
-  pagination?: ALiYunPagination(name='pagination', example='pagination'),
-  // accounts
-  accounts?: [ ALiYunAccount ](name='accounts', example='accounts'),
-  // 联盟管理员
-  consortiumAdmin?: boolean(name='consortium_admin', example='true, false'),
-}
-
-// 蚂蚁链用途申报结构体
-model AntChainPurposeResponse {
-  // 用户申报用途状态
-  status?: string(name='status', example='1'),
-  // 已申报的用途，比如供应链金融
-  purpose?: string(name='purpose', example='已申报的用途，比如供应链金融'),
-  // 申报时间
-  createTime?: string(name='create_time', example='21-1-1'),
-  // 简短说明用途
-  chainPurposeItem?: string(name='chain_purpose_item', example='简短说明用途'),
-  // 用途详情
-  chainPurposeExtend?: string(name='chain_purpose_extend', example='用途详情'),
-  // 申请用途列表
-  recordList?: [ ChainPurpose ](name='record_list', example='[]'),
+// 智能合约市场列表查询
+model ContractTemplateQueryReq {
+  // 页码
+  num: long(name='num', example='1'),
+  // 页大小
+  size: long(name='size', example='200'),
 }
 
 // 分销会员用户信息
@@ -1521,24 +2423,12 @@ model DistributionUser {
   userId: string(name='user_id', example='000:111:222:333'),
 }
 
-// 阿里云交易收据
-model ALiYunTransactionReceipt {
-  // data
-  data?: string(name='data', example='data'),
-  // gas_used
-  gasUsed?: string(name='gas_used', example='gas_used'),
-  // result
-  result?: long(name='result', example='result'),
-  // logs
-  logs?: [ string ](name='logs', example='logs'),
-}
-
-// 实例进度
-model ContractCreateProcessResp {
-  // 当前进度信息
-  status?: string(name='status', example='SERVICE_START'),
-  // 合约部署进度
-  progressInfoList?: [ InstanceProgressInfo ](name='progress_info_list', example=''),
+// 智能合约市场列表
+model ContractTemplateListResp {
+  // 合约市场列表
+  list?: [ ContractTemplateResp ](name='list', example=''),
+  // 总数
+  total?: long(name='total', example='200'),
 }
 
 // 授权流程操作结果
@@ -1561,22 +2451,6 @@ model ProcessResult {
   blockNumber?: long(name='block_number', example='1256'),
   // 授权凭证
   authorityCert?: string(name='authority_cert', example='JSON格式'),
-}
-
-// 内部建链信息查询
-model CreateBlockchainInfo {
-  // 链id
-  bizid: string(name='bizid', example='141a48c42f1e47b085a4502dab442553'),
-  // 链的状态
-  blockchainStatus: string(name='blockchain_status', example='NOMAL'),
-  // 链的类型
-  blockchainType: string(name='blockchain_type', example='PROD、TEST'),
-  // 链的名称
-  blockchainName: string(name='blockchain_name', example='区块链'),
-  // 节点数量
-  blockchanNodeNum: long(name='blockchan_node_num', example='1'),
-  // 创建时间
-  blockchainCreateTime: long(name='blockchain_create_time', example='1609731134000'),
 }
 
 // 数据授权服务用户公钥结构体
@@ -1629,33 +2503,6 @@ model BlockchainBrowserTransactionReceipt {
   result: long(name='result', example='0'),
 }
 
-// VC分享的结果
-model VcShareResult {
-  // 目标分享的VC的id
-  vcId: string(name='vc_id', example='vc:mychain:dec9725c55bc7ad28b97340230f211b2ad96a35f5131ce9f77c1bd7b67f919451572244785477124'),
-  // 分享给目标接受者的did
-  targetDid: string(name='target_did', example='did:mychain:6d8f3ff4af91532eaa7fc477be6b68dea14ed3bcfd5755ccedced43f6c248214 '),
-  // 分享链上VC数据的交易hash，可用于直连区块链查询交易内容时使用。
-  txHash?: string(name='tx_hash', example='388d0822df016aa66c954344e22c36ec89e4a4573ef0491220bd80c1fe3469cb'),
-  // 分享是否成功，true：成功，false：失败
-  status: boolean(name='status', example='true，false'),
-  // 失败的对应原因信息
-  msg?: string(name='msg', example='“失败原因”'),
-}
-
-// 合约加密字段
-model ContractEncryptKeyItem {
-  // 字段对应的id
-  key: string(name='key', example='keyId'),
-  // 0:encrypt_text,
-  // 1:encrypt_array_text,
-  // 2:encrypt_int
-  // 3:encrypt_array_int
-  type: long(name='type', example='0'),
-  // 字段对应的数据
-  value: string(name='value', example='"value_1"'),
-}
-
 // 数字资产管理平台批发结构
 model AccountWholesaleParam {
   // 批发数量
@@ -1664,52 +2511,74 @@ model AccountWholesaleParam {
   userAccount: string(name='user_account', example='testAccount'),
 }
 
-// did更新事件
-model DidEvent {
-  // 事件对应的合约方法
-  action: string(name='action', example='add'),
-  // 对应did
-  did: string(name='did', example='did:mychain:XXXX'),
-  // did对应doc
-  didDoc: string(name='did_doc', example='{}'),
-  // 本次事件的触发者
-  from: string(name='from', example='XXXXXXXXX'),
-  // 6500
-  height: long(name='height', example='事件在区块的高度'),
-  // 交易hash
-  txHash: string(name='tx_hash', example='xxxxxx'),
-  // 交易在区块中的index
-  txIndex: long(name='tx_index', example='1'),
-}
-
-// Vc可信传输实际参数
-model VcTransmitPayload {
-  // 目标did相关信息列表
-  targetVerifier: [ VcTransmitTargetStruct ](name='target_verifier', example=''),
-  // 要传输的vc_id
-  vcId: string(name='vc_id', example='vc:mychain:xxxxx'),
-  // vc原文，如果vc原文出现在传输接口，那么VC仓库不会从本地查找，而是直接将传输的VC上链
-  vcContent?: string(name='vc_content', example='json string'),
-}
-
-// 阿里云合约内容
-model ALiYunChainContractContent {
-  // content
-  content?: string(name='content', example='content'),
-  // content_id
-  contentId?: string(name='content_id', example='content_id'),
-  // content_name
-  contentName?: string(name='content_name', example='content_name'),
-  // create_time
-  createTime?: long(name='create_time', example='create_time'),
-  // is_directory
-  isDirectory?: boolean(name='is_directory', example='true'),
-  // parent_content_id
-  parentContentId?: string(name='parent_content_id', example='parent_content_id'),
-  // project_id
-  projectId?: string(name='project_id', example='project_id'),
-  // update_time
-  updateTime?: long(name='update_time', example='update_time'),
+// 更新后的任务信息
+model UpdatedTaskInfo {
+  // 任务标题(同一个租户不能重复)
+  taskName: string(name='task_name', example='xxx'),
+  // appId
+  appId: string(name='app_id', example='xxx'),
+  // 问卷ID
+  surveyId: string(name='survey_id', example='xxx'),
+  // 任务ID
+  taskId: string(name='task_id', example='qdQxqU5gz'),
+  // 备注信息
+  notes?: string(name='notes', example='xxx'),
+  // 租户ID
+  tenantId: string(name='tenant_id', example='xxx'),
+  // 操作者ID
+  operator: string(name='operator', example='xxx'),
+  // banner标题
+  bannerTitle: string(name='banner_title', example='xxx'),
+  // banner图片地址（最多支持3张）
+  bannerImageUrls?: string(name='banner_image_urls', example='aaa'),
+  // banner 图片地址, 拼装后的url
+  bannerImageFullUrls?: [ string ](name='banner_image_full_urls', example='[_aa_,_bb_]'),
+  // 题量
+  questionNum: long(name='question_num', example=''),
+  // 任务连接地址
+  taskLinkUrl: string(name='task_link_url', example='xxx'),
+  // 人群划分描述
+  personDivideContent?: string(name='person_divide_content', example='xxx'),
+  // 城市列表
+  cityDivideUrls?: string(name='city_divide_urls', example='xxx'),
+  // 城市列表, 拼装后的url
+  cityDivideFullUrls?: [ string ](name='city_divide_full_urls', example='[_a_]'),
+  // 样本数量
+  sampleNum: long(name='sample_num', example=''),
+  // 完成样本量
+  completedNum: long(name='completed_num', example=''),
+  // 产品下单code类型（1-资源包 2-后付费）
+  productCodeType: string(name='product_code_type', example='1'),
+  // 产品余量
+  productCapacity: long(name='product_capacity', example=''),
+  // 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
+  prizeChannel: long(name='prize_channel', example=''),
+  // 支付宝账号
+  alipayAccountId?: string(name='alipay_account_id', example='xxx'),
+  // 奖励类型（0-定额红包）
+  prizeType: long(name='prize_type', example='0'),
+  // 全额红包金额，奖励渠道为0和1时
+  fullRedPacketAmount: string(name='full_red_packet_amount', example='0.02'),
+  // 全额红包描述，奖励渠道为2时，此处必填
+  fullRedPacketTextInfo?: string(name='full_red_packet_text_info', example='xxx'),
+  // 甄别红包金额
+  examineRedPacketAmount: string(name='examine_red_packet_amount', example='0.01'),
+  // 关联的证书instanceId
+  certInstanceId?: string(name='cert_instance_id', example='xxx'),
+  // 证书实例详情
+  certInstanceDetail: CertInstanceDetail(name='cert_instance_detail', example=''),
+  // 审核意见
+  verifyOmment?: string(name='verify_omment', example='xxx'),
+  // 任务创建时间
+  gmtCreate: string(name='gmt_create', example='17010000'),
+  // 任务修改时间
+  gmtModified: string(name='gmt_modified', example='17098899'),
+  // 审核理由
+  reviewContent?: string(name='review_content', example='xxx'),
+  // 状态
+  status: long(name='status', example=''),
+  // 人群配置
+  crowdConfig: string(name='crowd_config', example='{}'),
 }
 
 // 阿里云交易查询结果
@@ -1728,12 +2597,6 @@ model ALiYunTransactionResult {
   transaction?: ALiYunTransaction(name='transaction', example='Transaction'),
 }
 
-// 结果
-model Result {
-  // 联盟id
-  consortiumId: string(name='consortium_id', example='00001'),
-}
-
 // waas公钥信息
 model PublicKeyInfo {
   // 公钥id
@@ -1750,24 +2613,20 @@ model PublicKeyInfo {
   controller?: string(name='controller', example='did:xxxx:xxxxxxxx'),
 }
 
-// 更新did doc中的service信息
-model UpdateDidService {
-  // 待更新did之前的版本号
-  previousVersion: long(name='previous_version', example='2'),
-  // did doc中的service id
-  serviceId: string(name='service_id', example='service#1'),
-  // 服务信息
-  serviceInfo: DidServiceInfo(name='service_info', example=''),
-  // 服务类型
-  serviceType: string(name='service_type', example='auth'),
-}
-
 // 更新VC状态数据结构
 model UpdateVCStatus {
   // valid or invalid
   status: string(name='status', example='valid'),
   // 可验证声明id
   vcId: string(name='vc_id', example='vc:mychain:xxxx'),
+}
+
+// 关联应用
+model ContractBindAppReq {
+  // 应用ID
+  applicationId: string(maxLength=64, minLength=1, name='application_id', example='app20230725115808679d4f'),
+  // 合约服务标识集合
+  serviceIds?: [ string ](name='service_ids', example=''),
 }
 
 // 用户数据
@@ -1778,52 +2637,6 @@ model OCUserData {
   phoneNumber: string(name='phone_number', example='186xxxxx'),
   // 用户姓名
   userName: string(name='user_name', example='xxxxxxx'),
-}
-
-// 应用授权列表查询
-model PageRespApplicationListResp {
-  // 总数
-  total?: long(name='total', example='200'),
-  // 列表数据
-  dataList?: [ ApplicationListResp ](name='data_list', example=''),
-}
-
-// 包含业务组的用户信息
-model AccountInfoWithBiz {
-  // 注册地址
-  address?: string(name='address', example='北京'),
-  // 业务场景code
-  bizCode: string(name='biz_code', example='020301'),
-  // 业务名称
-  bizName: string(name='biz_name', example='test1'),
-  // 业务类型，预留
-  bizType?: string(name='biz_type', example='test1'),
-  // 用户创建时间，格式yyyy-MM-dd HH:mm:ss
-  createTime?: string(name='create_time', example='2019-06-12 00:00:00'),
-  // 用户注销时间，格式yyyy-MM-dd HH:mm:ss
-  endTime?: string(name='end_time', example='2019-06-13 00:00:00  '),
-  // 扩展字段，使用json格式
-  extension?: string(maxLength=200, name='extension', example='{"status":1}'),
-  // 业务组code
-  groupCode: string(name='group_code', example='0101'),
-  // 业务组名称
-  groupName: string(name='group_name', example='baas平台'),
-  // 唯一标示类型，0:统一信用代码,1:开票机构代码,2:身份证号
-  identityType?: long(name='identity_type', example='0'),
-  // 唯一标示码
-  identityValue?: string(name='identity_value', example='370211198106130000'),
-  // 用户标签
-  label?: string(name='label', example='<kpi>0</kpi>'),
-  // 间连用户的上层直连用户名称
-  parent?: string(name='parent', example='某某公司'),
-  // 统计时间，时间格式：yyyy-MM-dd HH:mm:ss
-  statDate?: string(name='stat_date', example='2019-06-12 00:00:00'),
-  // 用户id
-  userId?: string(name='user_id', example='bjc1111   '),
-  // 用户或企业名称
-  userName?: string(name='user_name', example='北京公司A'),
-  // 用户类型：direct直连，indirect间连，partner合作伙伴
-  userType?: string(name='user_type', example='direct'),
 }
 
 // 用户身份信息
@@ -1846,81 +2659,22 @@ model ALiYunChainSubnetList {
   blockchainSubnetList?: [ ALiYunChainSubnet ](name='blockchain_subnet_list', example=''),
 }
 
-// 物流金融信用凭证信息
-model IssueInfo {
-  // 信用流转批次号
-  batchId?: string(name='batch_id', example='001abc'),
-  // 合同编号
-  contractId?: string(name='contract_id', example='8888888'),
-  // 信用凭证额度
-  creditLimit?: string(name='credit_limit', example='1898.98'),
-  // 失败原因信息
-  errMsg?: string(name='err_msg', example='发行额度不足'),
-  // 信用凭证到期时间
-  expireDate?: string(name='expire_date', example='20191212'),
-  // 信用凭证发起时间
-  issueDate?: string(name='issue_date', example='20190101'),
-  // 信用流转凭证
-  issueId?: string(name='issue_id', example='002abc'),
-  // 发行结果状态 
-  // -1:发行失败状态， 0:未完成状态， 1:已发行状态
-  status?: long(name='status', example='1'),
-  // 发行信用流转的运单号
-  waybillId?: string(name='waybill_id', example='003abc'),
+// 合约服务列表查询
+model ContracPageReq {
+  // 合约服务类别
+  type?: string(name='type', example='存证合约'),
+  // 页码
+  num: long(name='num', example='1'),
+  // 页大小
+  size: long(name='size', example='200'),
 }
 
-// 分页失败的展示日志（过滤器：待处理、成功、已忽略）
-model CommonResponsePageableStructBody {
-  // 页面规格
-  pageSize?: string(name='page_size', example='10'),
-  // 当前页码
-  current?: string(name='current', example='10'),
-  // 总条数
-  total?: string(name='total', example='total'),
-  // 失败日志数组
-  list?: [ TriggerLogDTOStructBody ](name='list', example='{}'),
-}
-
-// 阿里云售卖区信息
-model ALiYunChainRegion {
-  // region_id
-  regionId?: string(name='region_id', example='region_id'),
-  // region_name
-  regionName?: string(name='region_name', example='region_name'),
-}
-
-// 阿里云售卖联盟信息
-model ALiYunBuyUnion {
-  // consortium_name
-  consortiumName?: string(name='consortium_name', example='consortium_name'),
-  // consortium_id
-  consortiumId?: string(name='consortium_id', example='consortium_id'),
-}
-
-// 合约列表响应
-model PageRespContractListResp {
-  // 总数
-  total?: long(name='total', example='200'),
-  // 列表数据
-  dataList?: [ ContractListResp ](name='data_list', example=''),
-}
-
-// 分享可验证声明时的核心内容
-model VcShareStruct {
-  // 分享的目标VC的id
-  vcId: string(name='vc_id', example='未定义'),
-  // 目标的VC持有者的did
-  ownerDid: string(name='owner_did', example='did:mychain:6d8f3ff4af91532eaa7fc477be6b68dea14ed3bcfd5755ccedced43f6c248214'),
-  // 在支持声明的claim字段级别分享能力时使用，可以指定哪些字段隐藏，哪些字段分享。示例中标记为”1“的是隐藏，”0“的是分享明文。
-  index?: string(name='index', example='{ "Item1": "1", "学历信息": [ { "学历": "0", "毕业院校": "0", "专业": "0", "Item2":"1", }, "1", ], "Item3":"1" }'),
-  // 非托管模式下owner_did的签名，作为授权凭证
-  signature?: string(name='signature', example='jN1LVH5YhbTvgrdeBqlImPJBWDzVdNyyHZ1n9A0pSOQKnt11jWM5Qn707+wEa7bc8TOd1WvRItTe\r\nmx4xYCqX0gE=\r\n '),
-}
-
-// 小程序浏览器授权类型
-model MiniAppBrowserAuthType {
-  // 授权类型
-  authType: string(name='auth_type', example='DISABLED, ALL_USER, SPECIFIC_USER'),
+// 人群标签枚举集合对象
+model CrowdTagEnumResp {
+  // 人群标签code
+  crowdTag: string(name='crowd_tag', example='xx'),
+  // 人群标签枚举列表对象
+  crowTagEnumItemList: [ CrowdTagEnumItemDTO ](name='crow_tag_enum_item_list', example=''),
 }
 
 // 阿里云最新区块列表查询的单元信息
@@ -1961,6 +2715,14 @@ model DiscreteValue {
   value: string(name='value', example='值内容'),
 }
 
+// 合约列表
+model ContractPageResp {
+  // 合约列表
+  list?: [ ContractPageListResp ](name='list', example=''),
+  // 总数
+  total?: long(name='total', example='200'),
+}
+
 // AccountPo
 model AccountPo {
   // 账户 hash
@@ -1973,66 +2735,12 @@ model AccountPo {
   parent?: string(name='parent', example='e7d3e769f3f593dadcb8634cc5b09fc90dd3a61c4a06a79cb0923662fe6fae6b'),
 }
 
-// 服务发现结果
-model ServiceDiscoveryResult {
-  // 提供该服务能力的did
-  did: string(name='did', example='did:mychain:...'),
-  // 提供该服务能力的endpoint信息
-  services: [ DidDocServicesInfo ](name='services', example=''),
-}
-
 // doc删除service
 model DidDeleteService {
   // 修改前did doc版本
   previousVersion: long(name='previous_version', example='2'),
   // 指定服务的id
   serviceId: string(name='service_id', example='service#2'),
-}
-
-// 蚂蚁链交易汇总信息
-model BlockchainBrowserTransactionStatistic {
-  // 蚂蚁链id
-  bizid: string(name='bizid', example='27ce375122ef483691488395808e009e'),
-  // 开始时间
-  createTime: long(name='create_time', example='1604480401000'),
-  // 时间点
-  dateTime: string(name='date_time', example='2020-10-28'),
-  // 统计时间内最新块高度
-  lastSumBlockHeight: long(name='last_sum_block_height', example='6372915'),
-  // 统计周期内交易的数量
-  transCount: long(name='trans_count', example='2750038'),
-}
-
-// 阿里云区块链Rest信息
-model ALiYunChainRest {
-  // access_id
-  accessId?: string(name='access_id', example='access_id'),
-  // create_time
-  createTime?: long(name='create_time', example='123123123'),
-  // rest
-  rest?: string(name='rest', example='rest'),
-  // update_time
-  updateTime?: long(name='update_time', example='123123123'),
-  // REST开通结果
-  result?: string(name='result', example='OK'),
-}
-
-// 通过controller注册用户
-model VcControllerAddUserRegisterPayload {
-  // 注册用户did
-  did: string(name='did', example='did:mychain:xxxxx'),
-  // 用户did对应的授权公钥
-  publicKey: string(name='public_key', example='xxxxxx'),
-  // 业务区块连的bizid
-  vcChannel?: string(maxLength=32, minLength=8, name='vc_channel', example='xxx'),
-}
-
-// 账户信息
-model AccountInfo {
-  // 版通数量
-  epAmount: long(name='ep_amount', example='1000'),
-  // 版通代码
-  epCode: string(name='ep_code', example='000111'),
 }
 
 // 可验证声明相关的事件
@@ -2072,52 +2780,6 @@ model DisServiceInfo {
   serviceType: string(name='service_type', example='xxxx'),
 }
 
-// 阿里云区块链配置信息
-model ALiYunChainConfigOption {
-  // config_option
-  configOption?: string(name='config_option', example='config_option'),
-  // show_name
-  showName?: string(name='show_name', example='show_name'),
-  // enable
-  enable?: boolean(name='enable', example='true, false'),
-}
-
-// 删除资源返回结果
-model ALiYunDeleteResource {
-  // data
-  data?: boolean(name='data', example='data'),
-  // success
-  success?: boolean(name='success', example='true, false'),
-}
-
-// 交易详情
-model TransactionInfo {
-  // 交易时间戳
-  timestamp: long(name='timestamp', example='timestamp'),
-  // 交易hash
-  hash: string(name='hash', example='hash'),
-  // 交易块高
-  height: long(name='height', example='1'),
-  // 交易所在块高
-  blockhash: string(name='blockhash', example='hash'),
-  // 交易来源
-  from: string(name='from', example='hash'),
-  // 交易地址
-  to: string(name='to', example='hash'),
-  // 交易类型
-  txtype: long(name='txtype', example='11'),
-  // 转账额度
-  value: long(name='value', example='1'),
-  // logs
-  logs: string(name='logs', example='logs'),
-  // 燃料消耗
-  gasused: long(name='gasused', example='11'),
-  // result
-  result: string(name='result', example='result'),
-  // 拓展json字段
-  json: string(name='json', example='json'),
-}
-
 // POAP徽章的详细信息
 model PoapInfo {
   // 徽章ID，具有唯一性
@@ -2138,24 +2800,6 @@ model PoapInfo {
   detailAlipaysUrl?: string(name='detail_alipays_url', example='alipays://platformapi/startapp?'),
   // 详情页跳转URL过期时间
   detailAlipaysUrlExpireTime?: string(name='detail_alipays_url_expire_time', example='2022-12-31 23:59:59'),
-}
-
-// 阿里云区块链小程序权限控制信息
-model ALiYunChainMiniAppAuthorization {
-  // ant_chain_id
-  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
-  // q_r_code_type
-  qRCodeType?: string(name='q_r_code_type', example='q_r_code_type'),
-  // authorization_type
-  authorizationType?: string(name='authorization_type', example='authorization_type'),
-}
-
-// 阿里云蚂蚁区块链相关下载结果
-model ALiYunChainDownload {
-  // private_key
-  privateKey?: string(name='private_key', example='private_key'),
-  // download_path
-  downloadPath?: ALiYunDownloadPath(name='download_path', example='download_path'),
 }
 
 // 分布式数字身份信息
@@ -2212,40 +2856,6 @@ model CreditTransferStatementInfo {
   toDid?: string(name='to_did', example='did:mychain:1b8b30228ec99cb5de99b2265538f3c505b274e0bef98fb9cee7aabd8f5f47eb'),
 }
 
-// 阿里云链统计信息
-model ALiYunChainStatics {
-  // alias
-  alias?: string(name='alias', example='alias'),
-  // Dt
-  dt?: long(name='dt', example='Dt'),
-  // trans_count
-  transCount?: long(name='trans_count', example='21323'),
-  // last_sum_block_height
-  lastSumBlockHeight?: long(name='last_sum_block_height', example='1231'),
-  // creat_time
-  creatTime?: long(name='creat_time', example='creat_time'),
-}
-
-// 34
-model EWRFW {
-  // FFF
-  sdf: [ DidDocServicesInfo ](name='sdf', example=''),
-  // www
-  www: string(name='www', example='www'),
-  // ss
-  listString: [ string ](name='list_string', example=''),
-  // aaa
-  aaa: DidDocServicesInfo(name='aaa', example=''),
-}
-
-// 阿里云蚂蚁区块链证书列表信息
-model ALiYunCertificateApplications {
-  // pagination
-  pagination?: ALiYunPagination(name='pagination', example='pagination'),
-  // certificate_application
-  certificateApplications?: [ ALiYunCertificateApplication ](name='certificate_applications', example='certificate_application'),
-}
-
 // 阿里云合约工程信息查询
 model ALiYunContractProjects {
   // pagination
@@ -2264,18 +2874,6 @@ model ALiYunChainResouceType {
   memory?: long(name='memory', example='24'),
   // disk
   disk?: long(name='disk', example='500'),
-}
-
-// vc传输初始化结果
-model VcTransmitInitResult {
-  // 初始化成功与否
-  isSuccess: boolean(name='is_success', example='true, false'),
-  // 失败时返回的额外信息
-  message: string(name='message', example='附属消息'),
-  // 接受者did
-  targetVerifier: string(name='target_verifier', example='did:mychain:xxxx'),
-  // 待签名的交易hash
-  needSignatureTxHash: string(name='need_signature_tx_hash', example='123123'),
 }
 
 // 结构化存证类型
@@ -2312,40 +2910,12 @@ model ALiYunLatestTransaction {
   createTime?: long(name='create_time', example='1231231231'),
 }
 
-// 具体实体的身份信息
-model EntityInfo {
-  // 0，身份证；1，电话；2，email，3，企业营业执照号
-  type: long(name='type', example=''),
-  // 具体号码
-  value: string(name='value', example='18701507222'),
-}
-
-// 链节点信息
-model NodeInfo {
-  // 链的区块高度
-  blockheight?: long(name='blockheight', example='10000'),
-  // 节点名称
-  nodename?: string(name='nodename', example='名字'),
-  // 节点健康状况
-  status?: boolean(name='status', example='true'),
-  // 节点版本
-  version?: string(name='version', example='0.10'),
-}
-
-// Did服务类型描述结构体
-model DidServiceType {
-  // 枚举类型，描述访问服务的方式
-  accessMode?: string(name='access_mode', example='http,https,openapi,ftp,other...'),
-  // 对服务的文字描述，<1000个字符
-  description?: string(maxLength=1000, name='description', example='对服务描述'),
-  // 服务类型创建者did
-  did: string(name='did', example='did:mychain:xxxx'),
-  // { "item1":"", "item2":"",...
-  serviceInput?: string(name='service_input', example='json描述服务入参'),
-  // 返回值类型描述，json形式
-  serviceOutput?: string(name='service_output', example='{ "item1":"" "item2":"" ... }'),
-  // 自定义服务类型，字符数16～32个
-  serviceType: string(name='service_type', example='KYBServiceType'),
+// 分页查询请求信息
+model PageReq {
+  // 页码
+  num: long(name='num', example='1'),
+  // 页大小
+  size: long(name='size', example='200'),
 }
 
 // 用户密钥信息
@@ -2370,43 +2940,15 @@ model ContractIdeConfigResult {
   contractIdeConfigList: [ ContractIdeConfig ](name='contract_ide_config_list', example=''),
 }
 
-// 合约信息
-model ContractInfo {
-  // 合约地址
-  contract?: string(name='contract', example='ac01ceb0d8df822e042e5ea3b677201655250dbf54b9bd0c364de6f3f2a1dc7e'),
-  // 部署hash
-  hash?: string(name='hash', example='1c625b49992ed3b55abaac677f964a35c4151d4112da8204ac874b6497bf1143'),
-  // 合约部署时间
-  timestamp?: long(name='timestamp', example='1573401600000'),
-}
-
 // 合约与应用关联信息
-model ContractBindAppResp {
-  // 合约标识
-  serviceId?: string(name='service_id', example='cme20230724104931af3a4d'),
-  // 合约名称
-  name?: string(name='name', example='资产合约'),
-  // 是否已关联
-  bind?: boolean(name='bind', example='true'),
-}
-
-// 创建VC参数
-model AddVC {
-  // vc原文hash
-  contentHash: string(name='content_hash', example='1232'),
-  // issuer后缀的hash值
-  issuerHash: string(name='issuer_hash', example='12345667'),
-  // valid or invalid
-  status: string(name='status', example='valid'),
-  // 接收者后缀hash值
-  subjectHash: string(name='subject_hash', example='1234567'),
-  // 可验证声明id
-  vcId: string(name='vc_id', example='vc:mychain:xxxxxx'),
+model ContractBindListResp {
+  // 合约关联列表
+  list?: [ ContractBindResp ](name='list', example=''),
 }
 
 // 合约详情
 model ContractDetailResp {
-  // 合约标识
+  // 合约服务ID
   serviceId?: string(name='service_id', example='cme20230724104931af3a4d'),
   // 合约服务名称
   name?: string(name='name', example='存证合约'),
@@ -2426,68 +2968,6 @@ model ContractDetailResp {
   progressInfoList?: [ InstanceProgressInfo ](name='progress_info_list', example=''),
   // 实例最近调用记录(暂缓，先不做)
   recordInfoList?: [ InstanceRecordInfo ](name='record_info_list', example=''),
-}
-
-// 带单位的值
-model ValueUnitPair {
-  // 数值
-  value: long(name='value', example=''),
-  // 单位
-  unit: string(name='unit', example='d'),
-}
-
-// 阿里云区块链小程序交易二维码生成
-model ALiYunChainMiniAppCodeCreate {
-  // ant_chain_id
-  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
-  // transaction_hash
-  transactionHash?: string(name='transaction_hash', example='transaction_hash'),
-  // base64_q_r_code_p_n_g
-  base64QRCodePNG?: string(name='base64_q_r_code_p_n_g', example='base64_q_r_code_p_n_g'),
-  // q_r_code_content
-  qRCodeContent?: string(name='q_r_code_content', example='q_r_code_content'),
-}
-
-// 描述分布的结构，目前主要包含date和value值
-model Curve {
-  // 分布以day为单位的日期
-  date: string(name='date', example='2021-03-19'),
-  // 以day为单位的一天凭证颁发的数据量统计。
-  value: string(name='value', example='1001'),
-}
-
-// 存证元数据
-model NotaryMetaParam {
-  // 描述本条存证在存证事务中的阶段，用户可自行维护
-  phase: string(name='phase', example='合同内容'),
-  // 扩展字段
-  properties?: string(name='properties', example='{"key":"value"}'),
-  // 全局唯一的存证事务ID
-  token: string(name='token', example='877c4383-9c83-477b-b7ec-03828a946e54'),
-}
-
-// 用于内部业务统计的信息，外部商户请忽略
-model BizInfo {
-  // BPWZPFCN
-  clientTenent?: string(name='client_tenent', example='用户的金融科技租户id'),
-  // 业务代码
-  code?: string(name='code', example='BAAS_ANTFIN|BAAS_ALICLOUD|MORSE|RECEIVABLE|TRACE|GLOBAL_PAYMENT|JUDICIAL|INVOICE'),
-}
-
-// 数字资产管理平台版通交易信息
-model EPTradeInfo {
-  // 版通代码
-  epCode: string(name='ep_code', example='000111'),
-  // 版通交易号
-  txCode: string(name='tx_code', example='123123'),
-  // 卖方账户
-  txFrom: string(name='tx_from', example='testAccount'),
-  // 交易时间戳
-  txTime: long(name='tx_time', example='1560827725'),
-  // 买方账户
-  txTo: string(name='tx_to', example='testAccount'),
-  // 交易数量
-  txValue: long(name='tx_value', example='1000'),
 }
 
 // 托管数据库ManagedMQDTO结构体
@@ -2533,30 +3013,6 @@ model CertIssueProgressDTO {
   errorDetails: [ TemplateInstanceErrorDetailDTO ](name='error_details', example=''),
 }
 
-// 可信存证身份识别信息
-model Identity {
-  // 经办人姓名，企业认证必选
-  agent?: string(name='agent', example='小明'),
-  // 经办人身份证
-  agentId?: string(name='agent_id', example='123123123123'),
-  // 用户名称
-  certName: string(name='cert_name', example='小王'),
-  // 证件号
-  certNo: string(name='cert_no', example='12332112312312'),
-  // 证件类型，个人只支持身份证IDENTITY_CARD，企业支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号
-  certType: string(name='cert_type', example='IDENTITY_CARD'),
-  // 法人姓名，企业认证必选
-  legalPerson?: string(name='legal_person', example='小李'),
-  // 法人身份证,  企业认证必选
-  legalPersonId?: string(name='legal_person_id', example='123123321123'),
-  // 用户手机号码
-  mobileNo?: string(name='mobile_no', example='1231231231'),
-  // 扩展属性
-  properties?: string(name='properties', example='{"key":"value"}'),
-  // 用户类型，PERSON或者ENTERPRISE
-  userType: string(name='user_type', example='PERSON'),
-}
-
 // 存证信息集合
 model NotaryTransaction {
   // 如果存证类型为text, 则为存证内容
@@ -2566,16 +3022,6 @@ model NotaryTransaction {
   transactionHash: string(name='transaction_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269'),
   // 存证类型
   type: string(name='type', example='text,file'),
-}
-
-// 营销分销平台推广人账户信息
-model FundInfo {
-  // 可提现余额
-  balance: string(name='balance', example='10.8'),
-  // 待结算额度
-  settleQuota: string(name='settle_quota', example='11.4'),
-  // 商户id
-  shopId: string(name='shop_id', example='tset id'),
 }
 
 // 蚂蚁链最新交易信息
@@ -2592,66 +3038,6 @@ model BlockchainBrowserLatestTransaction {
   transactionType: string(name='transaction_type', example='TX_DEPOSIT_DATA'),
 }
 
-// VC Repo用户注册结构体
-model VcUserRegisterPayload {
-  // 用户did对应的授权公钥
-  publicKey?: string(name='public_key', example='用户did对应的授权公钥'),
-  // 业务区块连的bizid
-  vcChannel?: string(maxLength=32, minLength=8, name='vc_channel', example='业务区块连的bizid'),
-}
-
-// 阿里云请求结果
-model ALiYunHandleBabelMns {
-  // message
-  message?: string(name='message', example='message'),
-  // request_id
-  requestId?: string(name='request_id', example='request_id'),
-  // success
-  success?: boolean(name='success', example='true, false'),
-}
-
-// 溯源信息中的一项记录。
-model Item {
-  // 溯源项的具体内容
-  desc: string(name='desc', example='枭洒保税所有海关可用严禁修改'),
-  // 扩展信息 ，json格式
-  extInfo: string(name='ext_info', example='"{"isUrl",true,"usrid":"123231"}"'),
-  // 溯源项的键值
-  key: string(name='key', example='itemName'),
-  // 溯源项的中文标题 
-  title: string(name='title', example='品名'),
-  // 内容类型 
-  type: string(name='type', example='text, image, region, link, longtext'),
-}
-
-// 合约服务列表查询
-model ContractListReq {
-  // 合约服务类别
-  type?: string(name='type', example='存证合约'),
-}
-
-// C3S可信计算服务TAPP应用信息
-model TappInfo {
-  // C3S可信计算TAPP应用标识
-  taapId: string(name='taap_id', example='fafafafaf'),
-  // C3S可信计算TAPP版本
-  tappVersion: long(name='tapp_version', example='1'),
-}
-
-// BaaS平台联盟信息
-model BaasUnionInfo {
-  // 联盟名称
-  unionName: string(name='union_name', example='name'),
-  // 描述
-  unionDescription: string(name='union_description', example='描述'),
-  // 联系人
-  unionUser: string(name='union_user', example='联系人'),
-  // 联盟联系人手机号码
-  unionUserCell: string(name='union_user_cell', example='联盟联系人手机号码'),
-  // 联盟联系人邮箱
-  unionUserMail: string(name='union_user_mail', example='联盟联系人邮箱'),
-}
-
 // 版通历史发行记录信息
 model EPIssueHisInfo {
   // 版通发行日期时间戳
@@ -2664,30 +3050,6 @@ model EPIssueHisInfo {
   selfIssueAmount: long(name='self_issue_amount', example='1000'),
 }
 
-// blockchain交易结构体
-model TransactionPo {
-  // 交易所在块hash
-  blockHash?: string(name='block_hash', example='b0c13c3bdeb4b3e0892ab2d2ddd28f9972abba66a3fae0799507dec6fcfa7ba0'),
-  // 交易来源
-  from?: string(name='from', example='b0c13c3bdeb4b3e0892ab2d2ddd28f9972abba66a3fae0799507dec6fcfa7ba0'),
-  // gas消耗
-  gasUsed?: long(name='gas_used', example='1111'),
-  // 交易hash
-  hash?: string(name='hash', example='ce386c5510df2e358056893b86ba77178fcf00d90de9c56bd788fd1968c9b58d'),
-  // 交易所在块 块高
-  height?: long(name='height', example='1000'),
-  // 交易返回结果
-  result?: string(name='result', example='0'),
-  // 交易时间
-  timestamp?: long(name='timestamp', example='1573401600000'),
-  // 交易地址
-  to?: string(name='to', example='4a5e107d0ea041f25ca7bfb58503e6549913e67e5d07aadfe359418440359fec'),
-  // 交易类型 同SDK
-  txType?: long(name='tx_type', example='11'),
-  // 转账额度
-  value?: long(name='value', example='1111'),
-}
-
 // 数据资产分页查询
 model ListDataEntityResult {
   // 数据模型信息
@@ -2696,48 +3058,14 @@ model ListDataEntityResult {
   dataEntity: DataEntity(name='data_entity', example=''),
 }
 
-// VC链上传输结果
-model VcTransmitResult {
-  // 成功或者失败
-  isSuccess: boolean(name='is_success', example='true, false'),
-  // 失败信息
-  message?: string(name='message', example='失败信息'),
-  // 验证verifier did
-  targetVerifier: string(name='target_verifier', example='did:mychian:xxxxx'),
-  // 交易hash
-  txHash?: string(name='tx_hash', example='xxxxx'),
-}
-
-// 可信时间信息结构
-model TsrResponse {
-  // hash后的信息
-  hashedMessage: string(name='hashed_message', example='AAAAA '),
-  // 哈希算法
-  hashAlgorithm: string(name='hash_algorithm', example='321'),
-  // 时间
-  ts: string(name='ts', example='123'),
-}
-
-// 阿里云数据导出服务TriggerDTO结构体
-model TriggerDTOStructBody {
-  // 名称
-  name?: string(name='name', example='9481b612d6ca4cfdbecc5c5d395eda4237c749fa-97fc-4156-9c23-e21cd6060669'),
-  // 类型
-  type?: string(name='type', example='"BLOCK"'),
-  // 源
-  source?: string(name='source', example='“”'),
-  // 创建时间
-  createTime?: string(name='create_time', example='103422'),
-  // 错误信息
-  errorMessage?: string(name='error_message', example='"error"'),
-  // 状态
-  status?: string(name='status', example='“success”'),
-  // option（map结构，由于金融云无map接口所以通过string类型传输json格式）
-  option?: string(name='option', example='{a:"123",  b:"123"}'),
-  // checkpoint类
-  checkpoint?: CheckPointStructBody(name='checkpoint', example='{}'),
-  // 待处理的错误事件总数
-  pendingErrorLogs?: string(name='pending_error_logs', example='待处理的错误事件总数'),
+// 新建合约服务
+model ContractCreateReq {
+  // 链ID
+  chainId: string(name='chain_id', example='284f75bc-8069-443f-9d46-4576bb15f210'),
+  // 合约模板标识
+  templateId: string(name='template_id', example='cme2023072511571851e2f3'),
+  // 合约名称
+  name: string(name='name', example='资产合约'),
 }
 
 // identity parameter
@@ -2792,22 +3120,6 @@ model ALiYunChainInfo {
 model DidAddDoc {
   // did doc content
   doc: string(name='doc', example='json string'),
-}
-
-// 合约市场
-model ContractTemplateResp {
-  // 模板标识
-  templateId?: string(name='template_id', example='tme202307251209228357cc'),
-  // 合约名称
-  name?: string(name='name', example='资产合约'),
-  // 缩略图url
-  thumbUrl?: string(name='thumb_url', example='http://www.xxx.com'),
-  // 合约描述
-  description?: string(name='description', example='实现数据不可删除，不可篡改，不可抵赖的存证效果'),
-  // 是否已开通合约
-  open?: boolean(name='open', example='true'),
-  // 后续展示：购买用户头像
-  avatarLogoList?: [ string ](name='avatar_logo_list', example=''),
 }
 
 // 证书模板详情类
@@ -8177,6 +8489,142 @@ async function createChainAccountAntkms(request: CreateChainAccountAntkmsRequest
 async function createChainAccountAntkmsEx(request: CreateChainAccountAntkmsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateChainAccountAntkmsResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.chain.account.antkms.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OpenChainServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 2e7e22c42bb8419bbf99b7f56aa2f17f
+  antChainId: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // 内部产品code
+  productCode: string(name='product_code'),
+  // 自定义信息，json格式
+  extend?: string(name='extend'),
+}
+
+model OpenChainServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 服务开通受理状态：
+  //     UN_OPEN(0, "product.status.unopen"),
+  //     INIT(1, "product.status.init"),
+  //     OPEN(2, "product.status.open"),
+  //     CLOSE(3, "product.status.close"),
+  //     UNKNOWN(4, "product.status.unknown"),
+  //     STOP(5, "product.status.stop");
+  result?: long(name='result'),
+}
+
+/**
+ * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现计量计费
+ * Summary: 阿里云渠道链相关商业化服务开通
+ */
+async function openChainService(request: OpenChainServiceRequest): OpenChainServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return openChainServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现计量计费
+ * Summary: 阿里云渠道链相关商业化服务开通
+ */
+async function openChainServiceEx(request: OpenChainServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OpenChainServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.service.open', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckChainServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // BAAS-SERVICE1
+  productCode: string(name='product_code'),
+}
+
+model CheckChainServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 服务开通受理状态： UN_OPEN(0, "product.status.unopen"), INIT(1, "product.status.init"), OPEN(2, "product.status.open"), CLOSE(3, "product.status.close"), UNKNOWN(4, "product.status.unknown"), STOP(5, "product.status.stop");
+  result?: long(name='result'),
+}
+
+/**
+ * Description: 阿里云渠道链相关商业化服务开通结果查询
+ * Summary: 阿里云渠道链相关商业化服务开通结果查询
+ */
+async function checkChainService(request: CheckChainServiceRequest): CheckChainServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkChainServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云渠道链相关商业化服务开通结果查询
+ * Summary: 阿里云渠道链相关商业化服务开通结果查询
+ */
+async function checkChainServiceEx(request: CheckChainServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckChainServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.service.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CloseChainServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // 内部产品code
+  productCode: string(name='product_code'),
+  // 自定义信息，json格式
+  extend?: string(name='extend'),
+}
+
+model CloseChainServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 服务关闭受理状态： UN_OPEN(0, "product.status.unopen"), INIT(1, "product.status.init"), OPEN(2, "product.status.open"), CLOSE(3, "product.status.close"), UNKNOWN(4, "product.status.unknown"), STOP(5, "product.status.stop");
+  result?: long(name='result'),
+}
+
+/**
+ * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现服务关闭
+ * Summary: 阿里云渠道链相关商业化服务关闭
+ */
+async function closeChainService(request: CloseChainServiceRequest): CloseChainServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return closeChainServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云渠道链相关商业化服务开通，后台经由ocp转发，实现服务关闭
+ * Summary: 阿里云渠道链相关商业化服务关闭
+ */
+async function closeChainServiceEx(request: CloseChainServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CloseChainServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.service.close', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartAmlCorporationJoinprepareRequest = {
@@ -13975,10 +14423,296 @@ async function queryApiDwhbTransactionEx(request: QueryApiDwhbTransactionRequest
   return doRequest('1.0' ,'baas.api.dwhb.transaction.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model DeleteCaasContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 服务ID
+  serviceId: string(name='service_id'),
+}
+
+model DeleteCaasContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除合约
+ * Summary: 删除合约
+ */
+async function deleteCaasContractService(request: DeleteCaasContractServiceRequest): DeleteCaasContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteCaasContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除合约
+ * Summary: 删除合约
+ */
+async function deleteCaasContractServiceEx(request: DeleteCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteCaasContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.service.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateCaasContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  chainId: string(maxLength=64, minLength=1, name='chain_id'),
+  // 联盟ID
+  unionId: string(name='union_id'),
+  // 合约模板标识
+  templateId: string(maxLength=64, minLength=1, name='template_id'),
+  // 合约名称
+  name: string(maxLength=64, minLength=1, name='name'),
+}
+
+model CreateCaasContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ContractCreateResp(name='result'),
+}
+
+/**
+ * Description: 新建合约服务
+ * Summary: 新建合约服务
+ */
+async function createCaasContractService(request: CreateCaasContractServiceRequest): CreateCaasContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCaasContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新建合约服务
+ * Summary: 新建合约服务
+ */
+async function createCaasContractServiceEx(request: CreateCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCaasContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.service.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryCaasContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约服务类别
+  type?: string(name='type'),
+  // 页码
+  num: long(name='num'),
+  // 页大小
+  size: long(name='size'),
+  // 链id
+  chainId: string(name='chain_id'),
+}
+
+model PagequeryCaasContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ContractPageResp(name='result'),
+}
+
+/**
+ * Description: 合约列表查询
+ * Summary: 合约列表查询
+ */
+async function pagequeryCaasContractService(request: PagequeryCaasContractServiceRequest): PagequeryCaasContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryCaasContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合约列表查询
+ * Summary: 合约列表查询
+ */
+async function pagequeryCaasContractServiceEx(request: PagequeryCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryCaasContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.service.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCaasContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 服务ID
+  serviceId: string(name='service_id'),
+}
+
+model QueryCaasContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ContractCreateProcessResp(name='result'),
+}
+
+/**
+ * Description: 查询创建实例进度
+ * Summary: 查询创建实例进度
+ */
+async function queryCaasContractService(request: QueryCaasContractServiceRequest): QueryCaasContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCaasContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询创建实例进度
+ * Summary: 查询创建实例进度
+ */
+async function queryCaasContractServiceEx(request: QueryCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCaasContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.service.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeployCaasContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  chainId: string(maxLength=64, minLength=1, name='chain_id'),
+  // 联盟id
+  unionId: string(name='union_id'),
+  // 合约模板标识
+  templateId: string(maxLength=64, minLength=1, name='template_id'),
+  // 合约名称
+  name: string(maxLength=64, minLength=1, name='name'),
+}
+
+model DeployCaasContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ContractCreateResp(name='result'),
+}
+
+/**
+ * Description: 自动化部署合约服务
+ * Summary: 自动化部署合约服务
+ */
+async function deployCaasContractService(request: DeployCaasContractServiceRequest): DeployCaasContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deployCaasContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自动化部署合约服务
+ * Summary: 自动化部署合约服务
+ */
+async function deployCaasContractServiceEx(request: DeployCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeployCaasContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.service.deploy', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListCaasContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  chainId: string(name='chain_id'),
+}
+
+model ListCaasContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ContractTypeResp(name='result'),
+}
+
+/**
+ * Description: 查询合约类型列表
+ * Summary: 查询合约类型列表
+ */
+async function listCaasContractService(request: ListCaasContractServiceRequest): ListCaasContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listCaasContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询合约类型列表
+ * Summary: 查询合约类型列表
+ */
+async function listCaasContractServiceEx(request: ListCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCaasContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.service.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailCaasContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 服务ID
+  serviceId: string(name='service_id'),
+}
+
+model DetailCaasContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ContractDetailResp(name='result'),
+}
+
+/**
+ * Description: 合约详情
+ * Summary: 合约详情
+ */
+async function detailCaasContractService(request: DetailCaasContractServiceRequest): DetailCaasContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailCaasContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合约详情
+ * Summary: 合约详情
+ */
+async function detailCaasContractServiceEx(request: DetailCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailCaasContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.caas.contract.service.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateCaasApplicationManageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  chainId: string(name='chain_id'),
+  // 联盟id
+  unionId: string(name='union_id'),
 }
 
 model CreateCaasApplicationManageResponse = {
@@ -13988,16 +14722,8 @@ model CreateCaasApplicationManageResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 响应版本号
-  version?: string(name='version'),
-  // 请求是否成功
-  success?: boolean(name='success'),
-  // 异常码
-  errorCode?: string(name='error_code'),
-  // 异常信息
-  errorMsg?: string(name='error_msg'),
-  // 应用id
-  applicationId?: string(name='application_id'),
+  // 返回结果
+  result?: ApplicationCreateResp(name='result'),
 }
 
 /**
@@ -14027,6 +14753,8 @@ model PagequeryCaasApplicationManageRequest = {
   num: long(name='num'),
   // 页大小
   size: long(name='size'),
+  // 链ID
+  chainId: string(name='chain_id'),
 }
 
 model PagequeryCaasApplicationManageResponse = {
@@ -14036,16 +14764,8 @@ model PagequeryCaasApplicationManageResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 响应版本号
-  version?: string(name='version'),
-  // 请求是否成功
-  success?: boolean(name='success'),
-  // 异常码
-  errorCode?: string(name='error_code'),
-  // 异常信息
-  errorMsg?: string(name='error_msg'),
-  // 请求结果数据
-  data?: PageRespApplicationListResp(name='data'),
+  // 返回结果
+  result?: ApplicationPageResp(name='result'),
 }
 
 /**
@@ -14067,52 +14787,6 @@ async function pagequeryCaasApplicationManageEx(request: PagequeryCaasApplicatio
   return doRequest('1.0' ,'baas.caas.application.manage.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model GetCaasApplicationManageRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 应用程序ID
-  applicationId: string(name='application_id'),
-}
-
-model GetCaasApplicationManageResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 响应版本号
-  version?: string(name='version'),
-  // 请求是否成功
-  success?: boolean(name='success'),
-  // 异常码
-  errorCode?: string(name='error_code'),
-  // 异常信息
-  errorMsg?: string(name='error_msg'),
-  // 应用秘钥
-  data?: string(name='data'),
-}
-
-/**
- * Description: 查看sk
- * Summary: 查看sk
- */
-async function getCaasApplicationManage(request: GetCaasApplicationManageRequest): GetCaasApplicationManageResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return getCaasApplicationManageEx(request, headers, runtime);
-}
-
-/**
- * Description: 查看sk
- * Summary: 查看sk
- */
-async function getCaasApplicationManageEx(request: GetCaasApplicationManageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetCaasApplicationManageResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'baas.caas.application.manage.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
 model QueryCaasApplicationManageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -14128,16 +14802,8 @@ model QueryCaasApplicationManageResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 响应版本号
-  version?: string(name='version'),
-  // 请求是否成功
-  success?: boolean(name='success'),
-  // 异常码
-  errorCode?: string(name='error_code'),
-  // 异常信息
-  errorMsg?: string(name='error_msg'),
-  // 请求结果数据
-  data?: [ ContractBindAppResp ](name='data'),
+  // 返回结果
+  result?: ContractBindListResp(name='result'),
 }
 
 /**
@@ -14174,14 +14840,6 @@ model UnbindCaasApplicationManageResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 响应版本号
-  version?: string(name='version'),
-  // 请求是否成功
-  success?: boolean(name='success'),
-  // 异常码
-  errorCode?: string(name='error_code'),
-  // 异常信息
-  errorMsg?: string(name='error_msg'),
 }
 
 /**
@@ -14207,7 +14865,7 @@ model BindCaasApplicationManageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 应用程序ID
+  // 应用ID
   applicationId: string(name='application_id'),
   // 合约服务标识集合
   serviceIds?: [ string ](name='service_ids'),
@@ -14220,14 +14878,6 @@ model BindCaasApplicationManageResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 响应版本号
-  version?: string(name='version'),
-  // 请求是否成功
-  success?: boolean(name='success'),
-  // 异常码
-  errorCode?: string(name='error_code'),
-  // 异常信息
-  errorMsg?: string(name='error_msg'),
 }
 
 /**
@@ -14249,101 +14899,45 @@ async function bindCaasApplicationManageEx(request: BindCaasApplicationManageReq
   return doRequest('1.0' ,'baas.caas.application.manage.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model DeleteCaasContractServiceRequest = {
+model GetCaasApplicationManageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 服务ID
-  serviceId: string(name='service_id'),
+  // 应用程序ID
+  applicationId: string(name='application_id'),
 }
 
-model DeleteCaasContractServiceResponse = {
+model GetCaasApplicationManageResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 响应版本号
-  version?: string(name='version'),
-  // 请求是否成功
-  success?: boolean(name='success'),
-  // 异常码
-  errorCode?: string(name='error_code'),
-  // 异常信息
-  errorMsg?: string(name='error_msg'),
+  // 返回结果
+  result?: ApplicationGetSkResp(name='result'),
 }
 
 /**
- * Description: 删除合约
- * Summary: 删除合约
+ * Description: 查看sk
+ * Summary: 查看sk
  */
-async function deleteCaasContractService(request: DeleteCaasContractServiceRequest): DeleteCaasContractServiceResponse {
+async function getCaasApplicationManage(request: GetCaasApplicationManageRequest): GetCaasApplicationManageResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return deleteCaasContractServiceEx(request, headers, runtime);
+  return getCaasApplicationManageEx(request, headers, runtime);
 }
 
 /**
- * Description: 删除合约
- * Summary: 删除合约
+ * Description: 查看sk
+ * Summary: 查看sk
  */
-async function deleteCaasContractServiceEx(request: DeleteCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteCaasContractServiceResponse {
+async function getCaasApplicationManageEx(request: GetCaasApplicationManageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetCaasApplicationManageResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'baas.caas.contract.service.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'baas.caas.application.manage.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model CreateCaasContractServiceRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 链ID
-  chainId: string(name='chain_id'),
-  // 合约模板标识
-  templateId: string(name='template_id'),
-  // 合约名称
-  name: string(name='name'),
-}
-
-model CreateCaasContractServiceResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 响应版本号
-  version?: string(name='version'),
-  // 请求是否成功
-  success?: boolean(name='success'),
-  // 异常码
-  errorCode?: string(name='error_code'),
-  // 异常信息
-  errorMsg?: string(name='error_msg'),
-  // 请求结果数据
-  data?: string(name='data'),
-}
-
-/**
- * Description: 新建合约服务
- * Summary: 新建合约服务
- */
-async function createCaasContractService(request: CreateCaasContractServiceRequest): CreateCaasContractServiceResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return createCaasContractServiceEx(request, headers, runtime);
-}
-
-/**
- * Description: 新建合约服务
- * Summary: 新建合约服务
- */
-async function createCaasContractServiceEx(request: CreateCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCaasContractServiceResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'baas.caas.contract.service.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model PagequeryCaasContractServiceRequest = {
+model PagequeryCaasContractMarketRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -14351,238 +14945,8 @@ model PagequeryCaasContractServiceRequest = {
   num: long(name='num'),
   // 页大小
   size: long(name='size'),
-  // 业务数据
-  data?: ContractListReq(name='data'),
-}
-
-model PagequeryCaasContractServiceResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 响应版本号
-  version?: string(name='version'),
-  // 请求是否成功
-  success?: boolean(name='success'),
-  // 异常码
-  errorCode?: string(name='error_code'),
-  // 异常信息
-  errorMsg?: string(name='error_msg'),
-  // 请求结果数据
-  data?: PageRespContractListResp(name='data'),
-}
-
-/**
- * Description: 我的合约列表查询
- * Summary: 我的合约列表查询
- */
-async function pagequeryCaasContractService(request: PagequeryCaasContractServiceRequest): PagequeryCaasContractServiceResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return pagequeryCaasContractServiceEx(request, headers, runtime);
-}
-
-/**
- * Description: 我的合约列表查询
- * Summary: 我的合约列表查询
- */
-async function pagequeryCaasContractServiceEx(request: PagequeryCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryCaasContractServiceResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'baas.caas.contract.service.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model ListCaasContractServiceRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-}
-
-model ListCaasContractServiceResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 响应版本号
-  version?: string(name='version'),
-  // 请求是否成功
-  success?: boolean(name='success'),
-  // 异常码
-  errorCode?: string(name='error_code'),
-  // 异常信息
-  errorMsg?: string(name='error_msg'),
-  // 请求结果数据
-  data?: [ ContractTypeResp ](name='data'),
-}
-
-/**
- * Description: 查询合约类型列表
- * Summary: 查询合约类型列表
- */
-async function listCaasContractService(request: ListCaasContractServiceRequest): ListCaasContractServiceResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return listCaasContractServiceEx(request, headers, runtime);
-}
-
-/**
- * Description: 查询合约类型列表
- * Summary: 查询合约类型列表
- */
-async function listCaasContractServiceEx(request: ListCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCaasContractServiceResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'baas.caas.contract.service.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model DeployCaasContractServiceRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 链ID
+  // 链id
   chainId: string(name='chain_id'),
-  // 合约模板标识
-  templateId: string(name='template_id'),
-  // 合约名称
-  name: string(name='name'),
-}
-
-model DeployCaasContractServiceResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 响应版本号
-  version?: string(name='version'),
-  // 请求是否成功
-  success?: boolean(name='success'),
-  // 异常码
-  errorCode?: string(name='error_code'),
-  // 异常信息
-  errorMsg?: string(name='error_msg'),
-  // 请求结果数据
-  data?: string(name='data'),
-}
-
-/**
- * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
- * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
- */
-async function deployCaasContractService(request: DeployCaasContractServiceRequest): DeployCaasContractServiceResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return deployCaasContractServiceEx(request, headers, runtime);
-}
-
-/**
- * Description: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
- * Summary: 自动化部署合约服务（合约部署 + 应用创建 + 应用合约授权）
- */
-async function deployCaasContractServiceEx(request: DeployCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeployCaasContractServiceResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'baas.caas.contract.service.deploy', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model DetailCaasContractServiceRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 服务ID
-  serviceId: string(name='service_id'),
-}
-
-model DetailCaasContractServiceResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 响应版本号
-  version?: string(name='version'),
-  // 请求是否成功
-  success?: boolean(name='success'),
-  // 异常码
-  errorCode?: string(name='error_code'),
-  // 异常信息
-  errorMsg?: string(name='error_msg'),
-  // 请求结果数据
-  data?: ContractDetailResp(name='data'),
-}
-
-/**
- * Description: 合约详情
- * Summary: 合约详情
- */
-async function detailCaasContractService(request: DetailCaasContractServiceRequest): DetailCaasContractServiceResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return detailCaasContractServiceEx(request, headers, runtime);
-}
-
-/**
- * Description: 合约详情
- * Summary: 合约详情
- */
-async function detailCaasContractServiceEx(request: DetailCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailCaasContractServiceResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'baas.caas.contract.service.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryCaasContractServiceRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 服务ID
-  serviceId: string(name='service_id'),
-}
-
-model QueryCaasContractServiceResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 响应版本号
-  version?: string(name='version'),
-  // 请求是否成功
-  success?: boolean(name='success'),
-  // 异常码
-  errorCode?: string(name='error_code'),
-  // 异常信息
-  errorMsg?: string(name='error_msg'),
-  // 请求结果数据
-  data?: ContractCreateProcessResp(name='data'),
-}
-
-/**
- * Description: 查询创建实例进度
- * Summary: 查询创建实例进度
- */
-async function queryCaasContractService(request: QueryCaasContractServiceRequest): QueryCaasContractServiceResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryCaasContractServiceEx(request, headers, runtime);
-}
-
-/**
- * Description: 查询创建实例进度
- * Summary: 查询创建实例进度
- */
-async function queryCaasContractServiceEx(request: QueryCaasContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCaasContractServiceResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'baas.caas.contract.service.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model PagequeryCaasContractMarketRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
 }
 
 model PagequeryCaasContractMarketResponse = {
@@ -14592,16 +14956,8 @@ model PagequeryCaasContractMarketResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 响应版本号
-  version?: string(name='version'),
-  // 请求是否成功
-  success?: boolean(name='success'),
-  // 异常码
-  errorCode?: string(name='error_code'),
-  // 异常信息
-  errorMsg?: string(name='error_msg'),
-  // 请求结果数据
-  data?: [ ContractTemplateResp ](name='data'),
+  // 返回结果
+  result?: ContractTemplateListResp(name='result'),
 }
 
 /**
@@ -20945,6 +21301,8 @@ model NotifyAuthTaskStatusRequest = {
   status: string(name='status'),
   // 状态发生时间
   happenTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='happen_time'),
+  // 业务流水号，问卷方传给主站后透传给授权宝
+  outBizNo?: string(name='out_biz_no'),
 }
 
 model NotifyAuthTaskStatusResponse = {
@@ -20973,6 +21331,594 @@ async function notifyAuthTaskStatus(request: NotifyAuthTaskStatusRequest): Notif
 async function notifyAuthTaskStatusEx(request: NotifyAuthTaskStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyAuthTaskStatusResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.task.status.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PauseAuthTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务id
+  taskId: string(name='task_id'),
+}
+
+model PauseAuthTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务暂停成功/失败
+  data?: boolean(name='data'),
+}
+
+/**
+ * Description: 任务暂停
+ * Summary: 任务暂停
+ */
+async function pauseAuthTask(request: PauseAuthTaskRequest): PauseAuthTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pauseAuthTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 任务暂停
+ * Summary: 任务暂停
+ */
+async function pauseAuthTaskEx(request: PauseAuthTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PauseAuthTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.pause', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FinishAuthTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务id
+  taskId: string(name='task_id'),
+}
+
+model FinishAuthTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务完成操作成功/失败
+  data?: boolean(name='data'),
+}
+
+/**
+ * Description: 任务完成
+ * Summary: 任务完成
+ */
+async function finishAuthTask(request: FinishAuthTaskRequest): FinishAuthTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return finishAuthTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 任务完成
+ * Summary: 任务完成
+ */
+async function finishAuthTaskEx(request: FinishAuthTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FinishAuthTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.finish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReopenAuthTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务id
+  taskId: string(name='task_id'),
+}
+
+model ReopenAuthTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务重启成功/失败
+  data?: boolean(name='data'),
+}
+
+/**
+ * Description: 任务重启
+ * Summary: 任务重启
+ */
+async function reopenAuthTask(request: ReopenAuthTaskRequest): ReopenAuthTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return reopenAuthTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 任务重启
+ * Summary: 任务重启
+ */
+async function reopenAuthTaskEx(request: ReopenAuthTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReopenAuthTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.reopen', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateAuthTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务id
+  taskId: string(name='task_id'),
+  // 样本数量
+  sampleNum: long(name='sample_num'),
+  // 操作人ID
+  operator: string(name='operator'),
+}
+
+model OperateAuthTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 样本量修改
+ * Summary: 样本量修改
+ */
+async function operateAuthTask(request: OperateAuthTaskRequest): OperateAuthTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateAuthTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 样本量修改
+ * Summary: 样本量修改
+ */
+async function operateAuthTaskEx(request: OperateAuthTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateAuthTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuthTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 标签列表
+  tagCodeList: [ string ](name='tag_code_list'),
+}
+
+model QueryAuthTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 人群标签返回列表
+  data?: [ CrowdTagEnumResp ](name='data'),
+}
+
+/**
+ * Description: 查询人群标签取值范围
+ * Summary: 查询人群标签取值范围
+ */
+async function queryAuthTask(request: QueryAuthTaskRequest): QueryAuthTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuthTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询人群标签取值范围
+ * Summary: 查询人群标签取值范围
+ */
+async function queryAuthTaskEx(request: QueryAuthTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountAuthTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务id
+  taskId: string(name='task_id'),
+}
+
+model CountAuthTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务对应的人群预估数量
+  data?: long(name='data'),
+}
+
+/**
+ * Description: 人群量级查询
+ * Summary: 人群量级查询
+ */
+async function countAuthTask(request: CountAuthTaskRequest): CountAuthTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countAuthTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 人群量级查询
+ * Summary: 人群量级查询
+ */
+async function countAuthTaskEx(request: CountAuthTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountAuthTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model MatchAuthTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 任务ID，支持批量
+  taskIds: [ string ](name='task_ids'),
+}
+
+model MatchAuthTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 人群匹配结果
+  data?: [ TaskCrowdMatchResp ](name='data'),
+}
+
+/**
+ * Description: 人群匹配查询
+ * Summary: 人群匹配查询
+ */
+async function matchAuthTask(request: MatchAuthTaskRequest): MatchAuthTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return matchAuthTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 人群匹配查询
+ * Summary: 人群匹配查询
+ */
+async function matchAuthTaskEx(request: MatchAuthTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): MatchAuthTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.match', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAuthTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务标题(同一个租户不能重复)
+  taskName: string(maxLength=20, name='task_name'),
+  // appId
+  appId: string(maxLength=32, name='app_id'),
+  // 问卷id(同一个租户不能重复，只能包含字母、数组或者下划线)
+  surveyId: string(maxLength=32, name='survey_id'),
+  // notes
+  notes?: string(maxLength=32, name='notes'),
+  // 任务创建者用户ID
+  operator: string(maxLength=100, name='operator'),
+  // banner标题
+  bannerTitle: string(maxLength=30, name='banner_title'),
+  // banner图片地址（最多支持3张）
+  bannerImageUrls?: [ string ](name='banner_image_urls'),
+  // 题量
+  questionNum: long(maximum=1000, name='question_num'),
+  // 任务连接地址
+  taskLinkUrl: string(maxLength=1000, name='task_link_url'),
+  // 人群划分描述
+  personDivideContent?: string(maxLength=1000, name='person_divide_content'),
+  // 城市列表
+  cityDivideUrls?: [ string ](name='city_divide_urls'),
+  // 样本数量
+  sampleNum: long(maximum=100000, name='sample_num'),
+  // 产品下单code类型（1-资源包 2-后付费）
+  productCodeType: string(maxLength=4, name='product_code_type'),
+  // 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
+  prizeChannel: long(name='prize_channel'),
+  // 支付宝账号
+  alipayAccountId?: string(maxLength=100, name='alipay_account_id'),
+  // 奖励类型（0-定额红包）
+  prizeType: long(name='prize_type'),
+  // 全额红包金额（价格在0.01~100），奖励渠道为0和1时
+  fullRedPacketAmount: string(name='full_red_packet_amount'),
+  // 甄别红包金额
+  examineRedPacketAmount: string(name='examine_red_packet_amount'),
+  // 全额红包描述，奖励渠道为2时，此处必填
+  fullRedPacketTextInfo?: string(name='full_red_packet_text_info'),
+  // 证书内容
+  certContent?: string(name='cert_content'),
+  // 人群配置
+  crowdConfig: string(name='crowd_config'),
+  // 是否草稿，1表示草稿
+  draft: string(name='draft'),
+}
+
+model SubmitAuthTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务id
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 问卷任务提交
+ * Summary: 问卷任务提交
+ */
+async function submitAuthTask(request: SubmitAuthTaskRequest): SubmitAuthTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAuthTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 问卷任务提交
+ * Summary: 问卷任务提交
+ */
+async function submitAuthTaskEx(request: SubmitAuthTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAuthTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailAuthTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model DetailAuthTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 历史任务信息
+  oldTaskInfo?: OldTaskInfo(name='old_task_info'),
+  // 最新的任务信息
+  updateTaskInfo?: UpdatedTaskInfo(name='update_task_info'),
+  // 是否有未完成的圈人任务
+  haveNotFinishedCrowdTask?: boolean(name='have_not_finished_crowd_task'),
+}
+
+/**
+ * Description: 问卷任务详情
+ * Summary: 问卷任务详情
+ */
+async function detailAuthTask(request: DetailAuthTaskRequest): DetailAuthTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailAuthTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 问卷任务详情
+ * Summary: 问卷任务详情
+ */
+async function detailAuthTaskEx(request: DetailAuthTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailAuthTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAuthTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(maxLength=20, name='task_id'),
+  // 任务标题(同一个租户不能重复)
+  taskName: string(maxLength=20, name='task_name'),
+  // appId
+  appId: string(maxLength=32, name='app_id'),
+  // 问卷id(同一个租户不能重复，只能包含字母、数组或者下划线)
+  surveyId: string(maxLength=32, name='survey_id'),
+  // notes
+  notes?: string(maxLength=32, name='notes'),
+  // 操作者ID
+  operator: string(maxLength=100, name='operator'),
+  // banner标题
+  bannerTitle: string(maxLength=30, name='banner_title'),
+  // banner图片地址（最多支持3张）
+  bannerImageUrls?: [ string ](name='banner_image_urls'),
+  // 题量
+  questionNum: long(name='question_num'),
+  // 任务连接地址
+  taskLinkUrl: string(maxLength=1000, name='task_link_url'),
+  // 人群划分描述
+  personDivideContent?: string(maxLength=1000, name='person_divide_content'),
+  // 城市列表
+  cityDivideUrls?: [ string ](name='city_divide_urls'),
+  // 样本数量
+  sampleNum: long(name='sample_num'),
+  // 产品下单code类型（1-资源包 2-后付费）
+  productCodeType: string(maxLength=4, name='product_code_type'),
+  // 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
+  prizeChannel: long(name='prize_channel'),
+  // 支付宝账号
+  alipayAccountId?: string(name='alipay_account_id'),
+  // 奖励类型（0-定额红包）
+  prizeType: long(name='prize_type'),
+  // 全额红包金额（价格在0.01~100），奖励渠道为0和1时
+  fullRedPacketAmount: string(name='full_red_packet_amount'),
+  // 甄别红包金额
+  examineRedPacketAmount: string(name='examine_red_packet_amount'),
+  // 全额红包描述，奖励渠道为2时，此处必填
+  fullRedPacketTextInfo?: string(name='full_red_packet_text_info'),
+  // 证书内容
+  certContent: string(name='cert_content'),
+  // 人群配置
+  crowdConfig: string(name='crowd_config'),
+  // 是否草稿，1表示草稿
+  draft: string(name='draft'),
+}
+
+model UpdateAuthTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 任务修改
+ * Summary: 任务修改
+ */
+async function updateAuthTask(request: UpdateAuthTaskRequest): UpdateAuthTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAuthTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 任务修改
+ * Summary: 任务修改
+ */
+async function updateAuthTaskEx(request: UpdateAuthTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAuthTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountAuthTaskCrowdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model CountAuthTaskCrowdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 人群预估数量
+  data?: long(name='data'),
+}
+
+/**
+ * Description: 人群量级查询
+ * Summary: 人群量级查询
+ */
+async function countAuthTaskCrowd(request: CountAuthTaskCrowdRequest): CountAuthTaskCrowdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countAuthTaskCrowdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 人群量级查询
+ * Summary: 人群量级查询
+ */
+async function countAuthTaskCrowdEx(request: CountAuthTaskCrowdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountAuthTaskCrowdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.crowd.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model MatchAuthTaskCrowdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户ID
+  userId: string(name='user_id'),
+  // 任务ID
+  taskIds: [ string ](name='task_ids'),
+}
+
+model MatchAuthTaskCrowdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 人群匹配结果
+  data?: [ TaskCrowdMatchResp ](name='data'),
+}
+
+/**
+ * Description: 人群匹配查询
+ * Summary: 人群匹配查询
+ */
+async function matchAuthTaskCrowd(request: MatchAuthTaskCrowdRequest): MatchAuthTaskCrowdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return matchAuthTaskCrowdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 人群匹配查询
+ * Summary: 人群匹配查询
+ */
+async function matchAuthTaskCrowdEx(request: MatchAuthTaskCrowdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): MatchAuthTaskCrowdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.crowd.match', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuthTaskLabelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 人群标签
+  tagCodeList: [ string ](name='tag_code_list'),
+}
+
+model QueryAuthTaskLabelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 人群标签返回结果
+  data?: [ CrowdTagEnumResp ](name='data'),
+}
+
+/**
+ * Description: 人群标签取值范围查询
+ * Summary: 人群标签取值范围查询
+ */
+async function queryAuthTaskLabel(request: QueryAuthTaskLabelRequest): QueryAuthTaskLabelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuthTaskLabelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 人群标签取值范围查询
+ * Summary: 人群标签取值范围查询
+ */
+async function queryAuthTaskLabelEx(request: QueryAuthTaskLabelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthTaskLabelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.label.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
