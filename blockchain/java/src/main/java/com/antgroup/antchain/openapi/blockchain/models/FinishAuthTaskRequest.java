@@ -16,6 +16,11 @@ public class FinishAuthTaskRequest extends TeaModel {
     @Validation(required = true)
     public String taskId;
 
+    // 操作者ID
+    @NameInMap("operator")
+    @Validation(required = true)
+    public String operator;
+
     public static FinishAuthTaskRequest build(java.util.Map<String, ?> map) throws Exception {
         FinishAuthTaskRequest self = new FinishAuthTaskRequest();
         return TeaModel.build(map, self);
@@ -43,6 +48,14 @@ public class FinishAuthTaskRequest extends TeaModel {
     }
     public String getTaskId() {
         return this.taskId;
+    }
+
+    public FinishAuthTaskRequest setOperator(String operator) {
+        this.operator = operator;
+        return this;
+    }
+    public String getOperator() {
+        return this.operator;
     }
 
 }
