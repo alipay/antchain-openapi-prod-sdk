@@ -48492,6 +48492,8 @@ type PauseAuthTaskRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 任务id
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 操作者ID
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
 }
 
 func (s PauseAuthTaskRequest) String() string {
@@ -48514,6 +48516,11 @@ func (s *PauseAuthTaskRequest) SetProductInstanceId(v string) *PauseAuthTaskRequ
 
 func (s *PauseAuthTaskRequest) SetTaskId(v string) *PauseAuthTaskRequest {
 	s.TaskId = &v
+	return s
+}
+
+func (s *PauseAuthTaskRequest) SetOperator(v string) *PauseAuthTaskRequest {
+	s.Operator = &v
 	return s
 }
 
@@ -48562,6 +48569,8 @@ type FinishAuthTaskRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 任务id
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 操作者ID
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
 }
 
 func (s FinishAuthTaskRequest) String() string {
@@ -48584,6 +48593,11 @@ func (s *FinishAuthTaskRequest) SetProductInstanceId(v string) *FinishAuthTaskRe
 
 func (s *FinishAuthTaskRequest) SetTaskId(v string) *FinishAuthTaskRequest {
 	s.TaskId = &v
+	return s
+}
+
+func (s *FinishAuthTaskRequest) SetOperator(v string) *FinishAuthTaskRequest {
+	s.Operator = &v
 	return s
 }
 
@@ -69023,7 +69037,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.27.8"),
+				"sdk_version":      tea.String("1.27.10"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
