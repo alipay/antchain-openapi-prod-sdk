@@ -10,12 +10,21 @@
     }
   ],
   "releases": {
+<<<<<<< Updated upstream
     "java": "com.antgroup.antchain.openapi:openapi-realperson:1.15.3",
     "go": "github.com/antchain-openapi-sdk-go/realperson/client:v1.15.3",
     "csharp": "AntChain.SDK.REALPERSON:1.15.3",
     "ts": "@antchain/realperson:1.15.3",
     "php": "antchain/realperson:1.15.3",
     "python": "antchain_sdk_realperson:1.15.3"
+=======
+    "java": "com.antgroup.antchain.openapi:openapi-realperson:1.15.2",
+    "go": "github.com/antchain-openapi-sdk-go/realperson/client:v1.15.3",
+    "csharp": "AntChain.SDK.REALPERSON:1.15.2",
+    "ts": "@antchain/realperson:1.15.2",
+    "php": "antchain/realperson:1.15.3",
+    "python": "antchain_sdk_realperson:1.15.2"
+>>>>>>> Stashed changes
   },
   "libraries": {
     "Util": "darabonba:Util:*",
