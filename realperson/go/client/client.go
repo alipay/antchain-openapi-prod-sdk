@@ -3872,6 +3872,114 @@ func (s *QueryNfcServerResponse) SetMaterialInfo(v string) *QueryNfcServerRespon
 	return s
 }
 
+type QuerySocialriskDetailRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权抽查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// NONE：不加密；
+	// RSA：RSA加密；
+	// SM2：SM2加密。
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty" require:"true"`
+	// 姓名（根据enc_type决定加密方式）
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 身份证号（根据enc_type决定加密方式）
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QuerySocialriskDetailRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySocialriskDetailRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySocialriskDetailRequest) SetAuthToken(v string) *QuerySocialriskDetailRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailRequest) SetProductInstanceId(v string) *QuerySocialriskDetailRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailRequest) SetOuterOrderNo(v string) *QuerySocialriskDetailRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailRequest) SetEncType(v string) *QuerySocialriskDetailRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailRequest) SetCertName(v string) *QuerySocialriskDetailRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailRequest) SetCertNo(v string) *QuerySocialriskDetailRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailRequest) SetExternParam(v string) *QuerySocialriskDetailRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QuerySocialriskDetailResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 风险信息，为JSONObject.
+	RiskInfo *string `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
+	// 扩展信息，预留字段。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QuerySocialriskDetailResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySocialriskDetailResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySocialriskDetailResponse) SetReqMsgId(v string) *QuerySocialriskDetailResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailResponse) SetResultCode(v string) *QuerySocialriskDetailResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailResponse) SetResultMsg(v string) *QuerySocialriskDetailResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailResponse) SetRiskInfo(v string) *QuerySocialriskDetailResponse {
+	s.RiskInfo = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailResponse) SetExternInfo(v string) *QuerySocialriskDetailResponse {
+	s.ExternInfo = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4114,7 +4222,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.2"),
+				"sdk_version":      tea.String("1.15.3"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5214,6 +5322,40 @@ func (client *Client) QueryNfcServerEx(request *QueryNfcServerRequest, headers m
 	}
 	_result = &QueryNfcServerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.nfc.server.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 社会安全风险
+ * Summary: 社会安全风险
+ */
+func (client *Client) QuerySocialriskDetail(request *QuerySocialriskDetailRequest) (_result *QuerySocialriskDetailResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySocialriskDetailResponse{}
+	_body, _err := client.QuerySocialriskDetailEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 社会安全风险
+ * Summary: 社会安全风险
+ */
+func (client *Client) QuerySocialriskDetailEx(request *QuerySocialriskDetailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySocialriskDetailResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySocialriskDetailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.socialrisk.detail.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
