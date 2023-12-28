@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.2',
+                    'sdk_version': '1.15.3',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.2',
+                    'sdk_version': '1.15.3',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -1987,6 +1987,62 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QueryNfcServerResponse(),
             await self.do_request_async('1.0', 'di.realperson.nfc.server.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_socialrisk_detail(
+        self,
+        request: realperson_models.QuerySocialriskDetailRequest,
+    ) -> realperson_models.QuerySocialriskDetailResponse:
+        """
+        Description: 社会安全风险
+        Summary: 社会安全风险
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_socialrisk_detail_ex(request, headers, runtime)
+
+    async def query_socialrisk_detail_async(
+        self,
+        request: realperson_models.QuerySocialriskDetailRequest,
+    ) -> realperson_models.QuerySocialriskDetailResponse:
+        """
+        Description: 社会安全风险
+        Summary: 社会安全风险
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_socialrisk_detail_ex_async(request, headers, runtime)
+
+    def query_socialrisk_detail_ex(
+        self,
+        request: realperson_models.QuerySocialriskDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QuerySocialriskDetailResponse:
+        """
+        Description: 社会安全风险
+        Summary: 社会安全风险
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QuerySocialriskDetailResponse(),
+            self.do_request('1.0', 'di.realperson.socialrisk.detail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_socialrisk_detail_ex_async(
+        self,
+        request: realperson_models.QuerySocialriskDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QuerySocialriskDetailResponse:
+        """
+        Description: 社会安全风险
+        Summary: 社会安全风险
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QuerySocialriskDetailResponse(),
+            await self.do_request_async('1.0', 'di.realperson.socialrisk.detail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
