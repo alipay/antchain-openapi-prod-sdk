@@ -2818,6 +2818,88 @@ export class QueryNfcServerResponse extends $tea.Model {
   }
 }
 
+export class QuerySocialriskDetailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权抽查。
+  outerOrderNo: string;
+  // 入参加密模式：
+  // NONE：不加密；
+  // RSA：RSA加密；
+  // SM2：SM2加密。
+  encType: string;
+  // 姓名（根据enc_type决定加密方式）
+  certName: string;
+  // 身份证号（根据enc_type决定加密方式）
+  certNo: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      encType: 'enc_type',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      encType: 'string',
+      certName: 'string',
+      certNo: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySocialriskDetailResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 风险信息，为JSONObject.
+  riskInfo?: string;
+  // 扩展信息，预留字段。
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      riskInfo: 'risk_info',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      riskInfo: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3019,7 +3101,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.2",
+          sdk_version: "1.15.3",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -3656,6 +3738,25 @@ export default class Client {
   async queryNfcServerEx(request: QueryNfcServerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNfcServerResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryNfcServerResponse>(await this.doRequest("1.0", "di.realperson.nfc.server.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNfcServerResponse({}));
+  }
+
+  /**
+   * Description: 社会安全风险
+   * Summary: 社会安全风险
+   */
+  async querySocialriskDetail(request: QuerySocialriskDetailRequest): Promise<QuerySocialriskDetailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySocialriskDetailEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 社会安全风险
+   * Summary: 社会安全风险
+   */
+  async querySocialriskDetailEx(request: QuerySocialriskDetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySocialriskDetailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySocialriskDetailResponse>(await this.doRequest("1.0", "di.realperson.socialrisk.detail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySocialriskDetailResponse({}));
   }
 
   /**
