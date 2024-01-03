@@ -191,6 +191,38 @@ class AvatarDTO extends Model
      * @var string
      */
     public $defaultUnityConfig;
+
+    // 袜子配置
+    /**
+     * @example
+     *
+     * @var AvatarMaterialDTO
+     */
+    public $sock;
+
+    // 背持配置
+    /**
+     * @example
+     *
+     * @var AvatarMaterialDTO
+     */
+    public $backpack;
+
+    // 手部配置
+    /**
+     * @example
+     *
+     * @var AvatarMaterialDTO
+     */
+    public $hand;
+
+    // 耳环配置
+    /**
+     * @example
+     *
+     * @var AvatarMaterialDTO
+     */
+    public $earring;
     protected $_name = [
         'upcloth'                   => 'upcloth',
         'downcloth'                 => 'downcloth',
@@ -215,6 +247,10 @@ class AvatarDTO extends Model
         'avatarIosUnityBodyUrl'     => 'avatar_ios_unity_body_url',
         'avatarAndroidUnityBodyUrl' => 'avatar_android_unity_body_url',
         'defaultUnityConfig'        => 'default_unity_config',
+        'sock'                      => 'sock',
+        'backpack'                  => 'backpack',
+        'hand'                      => 'hand',
+        'earring'                   => 'earring',
     ];
 
     public function validate()
@@ -242,6 +278,10 @@ class AvatarDTO extends Model
         Model::validateRequired('avatarIosUnityBodyUrl', $this->avatarIosUnityBodyUrl, true);
         Model::validateRequired('avatarAndroidUnityBodyUrl', $this->avatarAndroidUnityBodyUrl, true);
         Model::validateRequired('defaultUnityConfig', $this->defaultUnityConfig, true);
+        Model::validateRequired('sock', $this->sock, true);
+        Model::validateRequired('backpack', $this->backpack, true);
+        Model::validateRequired('hand', $this->hand, true);
+        Model::validateRequired('earring', $this->earring, true);
     }
 
     public function toMap()
@@ -315,6 +355,18 @@ class AvatarDTO extends Model
         }
         if (null !== $this->defaultUnityConfig) {
             $res['default_unity_config'] = $this->defaultUnityConfig;
+        }
+        if (null !== $this->sock) {
+            $res['sock'] = null !== $this->sock ? $this->sock->toMap() : null;
+        }
+        if (null !== $this->backpack) {
+            $res['backpack'] = null !== $this->backpack ? $this->backpack->toMap() : null;
+        }
+        if (null !== $this->hand) {
+            $res['hand'] = null !== $this->hand ? $this->hand->toMap() : null;
+        }
+        if (null !== $this->earring) {
+            $res['earring'] = null !== $this->earring ? $this->earring->toMap() : null;
         }
 
         return $res;
@@ -396,6 +448,18 @@ class AvatarDTO extends Model
         }
         if (isset($map['default_unity_config'])) {
             $model->defaultUnityConfig = $map['default_unity_config'];
+        }
+        if (isset($map['sock'])) {
+            $model->sock = AvatarMaterialDTO::fromMap($map['sock']);
+        }
+        if (isset($map['backpack'])) {
+            $model->backpack = AvatarMaterialDTO::fromMap($map['backpack']);
+        }
+        if (isset($map['hand'])) {
+            $model->hand = AvatarMaterialDTO::fromMap($map['hand']);
+        }
+        if (isset($map['earring'])) {
+            $model->earring = AvatarMaterialDTO::fromMap($map['earring']);
         }
 
         return $model;
