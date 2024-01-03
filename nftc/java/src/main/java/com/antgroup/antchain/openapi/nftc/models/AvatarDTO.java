@@ -119,6 +119,26 @@ public class AvatarDTO extends TeaModel {
     @Validation(required = true)
     public String defaultUnityConfig;
 
+    // 袜子配置
+    @NameInMap("sock")
+    @Validation(required = true)
+    public AvatarMaterialDTO sock;
+
+    // 背持配置
+    @NameInMap("backpack")
+    @Validation(required = true)
+    public AvatarMaterialDTO backpack;
+
+    // 手部配置
+    @NameInMap("hand")
+    @Validation(required = true)
+    public AvatarMaterialDTO hand;
+
+    // 耳环配置
+    @NameInMap("earring")
+    @Validation(required = true)
+    public AvatarMaterialDTO earring;
+
     public static AvatarDTO build(java.util.Map<String, ?> map) throws Exception {
         AvatarDTO self = new AvatarDTO();
         return TeaModel.build(map, self);
@@ -306,6 +326,38 @@ public class AvatarDTO extends TeaModel {
     }
     public String getDefaultUnityConfig() {
         return this.defaultUnityConfig;
+    }
+
+    public AvatarDTO setSock(AvatarMaterialDTO sock) {
+        this.sock = sock;
+        return this;
+    }
+    public AvatarMaterialDTO getSock() {
+        return this.sock;
+    }
+
+    public AvatarDTO setBackpack(AvatarMaterialDTO backpack) {
+        this.backpack = backpack;
+        return this;
+    }
+    public AvatarMaterialDTO getBackpack() {
+        return this.backpack;
+    }
+
+    public AvatarDTO setHand(AvatarMaterialDTO hand) {
+        this.hand = hand;
+        return this;
+    }
+    public AvatarMaterialDTO getHand() {
+        return this.hand;
+    }
+
+    public AvatarDTO setEarring(AvatarMaterialDTO earring) {
+        this.earring = earring;
+        return this;
+    }
+    public AvatarMaterialDTO getEarring() {
+        return this.earring;
     }
 
 }
