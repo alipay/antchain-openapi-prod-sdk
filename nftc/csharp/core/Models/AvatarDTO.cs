@@ -125,6 +125,26 @@ namespace AntChain.SDK.NFTC.Models
         [Validation(Required=true)]
         public string DefaultUnityConfig { get; set; }
 
+        // 袜子配置
+        [NameInMap("sock")]
+        [Validation(Required=true)]
+        public AvatarMaterialDTO Sock { get; set; }
+
+        // 背持配置
+        [NameInMap("backpack")]
+        [Validation(Required=true)]
+        public AvatarMaterialDTO Backpack { get; set; }
+
+        // 手部配置
+        [NameInMap("hand")]
+        [Validation(Required=true)]
+        public AvatarMaterialDTO Hand { get; set; }
+
+        // 耳环配置
+        [NameInMap("earring")]
+        [Validation(Required=true)]
+        public AvatarMaterialDTO Earring { get; set; }
+
     }
 
 }
