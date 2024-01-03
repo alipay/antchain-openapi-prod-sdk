@@ -262,6 +262,14 @@ export class AvatarDTO extends $tea.Model {
   avatarAndroidUnityBodyUrl: string;
   // 默认Unity配置
   defaultUnityConfig: string;
+  // 袜子配置
+  sock: AvatarMaterialDTO;
+  // 背持配置
+  backpack: AvatarMaterialDTO;
+  // 手部配置
+  hand: AvatarMaterialDTO;
+  // 耳环配置
+  earring: AvatarMaterialDTO;
   static names(): { [key: string]: string } {
     return {
       upcloth: 'upcloth',
@@ -287,6 +295,10 @@ export class AvatarDTO extends $tea.Model {
       avatarIosUnityBodyUrl: 'avatar_ios_unity_body_url',
       avatarAndroidUnityBodyUrl: 'avatar_android_unity_body_url',
       defaultUnityConfig: 'default_unity_config',
+      sock: 'sock',
+      backpack: 'backpack',
+      hand: 'hand',
+      earring: 'earring',
     };
   }
 
@@ -315,6 +327,10 @@ export class AvatarDTO extends $tea.Model {
       avatarIosUnityBodyUrl: 'string',
       avatarAndroidUnityBodyUrl: 'string',
       defaultUnityConfig: 'string',
+      sock: AvatarMaterialDTO,
+      backpack: AvatarMaterialDTO,
+      hand: AvatarMaterialDTO,
+      earring: AvatarMaterialDTO,
     };
   }
 
@@ -1557,7 +1573,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.11",
+          sdk_version: "1.0.12",
           _prod_code: "NFTC",
           _prod_channel: "undefined",
         };
