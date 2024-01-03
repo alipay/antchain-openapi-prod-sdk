@@ -401,6 +401,10 @@ class AvatarDTO(TeaModel):
         avatar_ios_unity_body_url: str = None,
         avatar_android_unity_body_url: str = None,
         default_unity_config: str = None,
+        sock: AvatarMaterialDTO = None,
+        backpack: AvatarMaterialDTO = None,
+        hand: AvatarMaterialDTO = None,
+        earring: AvatarMaterialDTO = None,
     ):
         # 上衣配置
         self.upcloth = upcloth
@@ -448,6 +452,14 @@ class AvatarDTO(TeaModel):
         self.avatar_android_unity_body_url = avatar_android_unity_body_url
         # 默认Unity配置
         self.default_unity_config = default_unity_config
+        # 袜子配置
+        self.sock = sock
+        # 背持配置
+        self.backpack = backpack
+        # 手部配置
+        self.hand = hand
+        # 耳环配置
+        self.earring = earring
 
     def validate(self):
         self.validate_required(self.upcloth, 'upcloth')
@@ -511,6 +523,18 @@ class AvatarDTO(TeaModel):
         self.validate_required(self.avatar_ios_unity_body_url, 'avatar_ios_unity_body_url')
         self.validate_required(self.avatar_android_unity_body_url, 'avatar_android_unity_body_url')
         self.validate_required(self.default_unity_config, 'default_unity_config')
+        self.validate_required(self.sock, 'sock')
+        if self.sock:
+            self.sock.validate()
+        self.validate_required(self.backpack, 'backpack')
+        if self.backpack:
+            self.backpack.validate()
+        self.validate_required(self.hand, 'hand')
+        if self.hand:
+            self.hand.validate()
+        self.validate_required(self.earring, 'earring')
+        if self.earring:
+            self.earring.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -564,6 +588,14 @@ class AvatarDTO(TeaModel):
             result['avatar_android_unity_body_url'] = self.avatar_android_unity_body_url
         if self.default_unity_config is not None:
             result['default_unity_config'] = self.default_unity_config
+        if self.sock is not None:
+            result['sock'] = self.sock.to_map()
+        if self.backpack is not None:
+            result['backpack'] = self.backpack.to_map()
+        if self.hand is not None:
+            result['hand'] = self.hand.to_map()
+        if self.earring is not None:
+            result['earring'] = self.earring.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -633,6 +665,18 @@ class AvatarDTO(TeaModel):
             self.avatar_android_unity_body_url = m.get('avatar_android_unity_body_url')
         if m.get('default_unity_config') is not None:
             self.default_unity_config = m.get('default_unity_config')
+        if m.get('sock') is not None:
+            temp_model = AvatarMaterialDTO()
+            self.sock = temp_model.from_map(m['sock'])
+        if m.get('backpack') is not None:
+            temp_model = AvatarMaterialDTO()
+            self.backpack = temp_model.from_map(m['backpack'])
+        if m.get('hand') is not None:
+            temp_model = AvatarMaterialDTO()
+            self.hand = temp_model.from_map(m['hand'])
+        if m.get('earring') is not None:
+            temp_model = AvatarMaterialDTO()
+            self.earring = temp_model.from_map(m['earring'])
         return self
 
 
