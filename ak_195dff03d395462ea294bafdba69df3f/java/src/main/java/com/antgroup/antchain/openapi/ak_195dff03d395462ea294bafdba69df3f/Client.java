@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.2"),
+                    new TeaPair("sdk_version", "1.1.0"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -162,6 +162,101 @@ public class Client {
     }
 
     /**
+     * Description: 对账saas交易信息同步接口
+     * Summary: 对账saas交易信息同步接口
+     */
+    public SyncAntchainAtoTradeResponse syncAntchainAtoTrade(SyncAntchainAtoTradeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAntchainAtoTradeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 对账saas交易信息同步接口
+     * Summary: 对账saas交易信息同步接口
+     */
+    public SyncAntchainAtoTradeResponse syncAntchainAtoTradeEx(SyncAntchainAtoTradeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoTradeResponse());
+    }
+
+    /**
+     * Description: 获取详情
+     * Summary: 获取详情
+     */
+    public GetAntchainAtoTradeResponse getAntchainAtoTrade(GetAntchainAtoTradeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAntchainAtoTradeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取详情
+     * Summary: 获取详情
+     */
+    public GetAntchainAtoTradeResponse getAntchainAtoTradeEx(GetAntchainAtoTradeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAntchainAtoTradeResponse());
+    }
+
+    /**
+     * Description: 可信身份认证，创建认证
+     * Summary: 创建认证
+     */
+    public CreateAntchainAtoRealpersonFacevrfResponse createAntchainAtoRealpersonFacevrf(CreateAntchainAtoRealpersonFacevrfRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntchainAtoRealpersonFacevrfEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 可信身份认证，创建认证
+     * Summary: 创建认证
+     */
+    public CreateAntchainAtoRealpersonFacevrfResponse createAntchainAtoRealpersonFacevrfEx(CreateAntchainAtoRealpersonFacevrfRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.realperson.facevrf.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntchainAtoRealpersonFacevrfResponse());
+    }
+
+    /**
+     * Description: 查询认证的结果和相关信息
+     * Summary: 查询认证结果
+     */
+    public QueryAntchainAtoRealpersonFacevrfResponse queryAntchainAtoRealpersonFacevrf(QueryAntchainAtoRealpersonFacevrfRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainAtoRealpersonFacevrfEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询认证的结果和相关信息
+     * Summary: 查询认证结果
+     */
+    public QueryAntchainAtoRealpersonFacevrfResponse queryAntchainAtoRealpersonFacevrfEx(QueryAntchainAtoRealpersonFacevrfRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.realperson.facevrf.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainAtoRealpersonFacevrfResponse());
+    }
+
+    /**
+     * Description: 电子合同签署的合同模板查询服务
+     * Summary: 电子合同签署的合同模板查询服务
+     */
+    public AllAntchainAtoSignTemplateResponse allAntchainAtoSignTemplate(AllAntchainAtoSignTemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.allAntchainAtoSignTemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 电子合同签署的合同模板查询服务
+     * Summary: 电子合同签署的合同模板查询服务
+     */
+    public AllAntchainAtoSignTemplateResponse allAntchainAtoSignTemplateEx(AllAntchainAtoSignTemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.sign.template.all", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AllAntchainAtoSignTemplateResponse());
+    }
+
+    /**
      * Description: 提交电子合同的签署流程(后置签署模式)
      * Summary: 提交电子合同的签署流程（后置签署模式）
      */
@@ -178,6 +273,215 @@ public class Client {
     public SubmitAntchainAtoSignFlowResponse submitAntchainAtoSignFlowEx(SubmitAntchainAtoSignFlowRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.sign.flow.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAntchainAtoSignFlowResponse());
+    }
+
+    /**
+     * Description: 查询签署流程详情
+     * Summary: 查询签署流程详情
+     */
+    public GetAntchainAtoSignFlowResponse getAntchainAtoSignFlow(GetAntchainAtoSignFlowRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAntchainAtoSignFlowEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询签署流程详情
+     * Summary: 查询签署流程详情
+     */
+    public GetAntchainAtoSignFlowResponse getAntchainAtoSignFlowEx(GetAntchainAtoSignFlowRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.sign.flow.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAntchainAtoSignFlowResponse());
+    }
+
+    /**
+     * Description: 分账流水同步
+     * Summary: 【仅测试环境生效】分账流水同步
+     */
+    public SyncAntchainAtoFundSplittingResponse syncAntchainAtoFundSplitting(SyncAntchainAtoFundSplittingRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAntchainAtoFundSplittingEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分账流水同步
+     * Summary: 【仅测试环境生效】分账流水同步
+     */
+    public SyncAntchainAtoFundSplittingResponse syncAntchainAtoFundSplittingEx(SyncAntchainAtoFundSplittingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.splitting.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoFundSplittingResponse());
+    }
+
+    /**
+     * Description: 同步租赁订单的代扣协议
+     * Summary: 【仅测试环境生效】同步租赁订单的代扣协议
+     */
+    public SyncAntchainAtoFundWithholdingcontractResponse syncAntchainAtoFundWithholdingcontract(SyncAntchainAtoFundWithholdingcontractRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAntchainAtoFundWithholdingcontractEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 同步租赁订单的代扣协议
+     * Summary: 【仅测试环境生效】同步租赁订单的代扣协议
+     */
+    public SyncAntchainAtoFundWithholdingcontractResponse syncAntchainAtoFundWithholdingcontractEx(SyncAntchainAtoFundWithholdingcontractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.withholdingcontract.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoFundWithholdingcontractResponse());
+    }
+
+    /**
+     * Description: 资方回传一条订单还款履约信息
+     * Summary: 【仅测试环境生效】同步订单还款履约信息
+     */
+    public SyncAntchainAtoFundOrderfulfillmentResponse syncAntchainAtoFundOrderfulfillment(SyncAntchainAtoFundOrderfulfillmentRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAntchainAtoFundOrderfulfillmentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 资方回传一条订单还款履约信息
+     * Summary: 【仅测试环境生效】同步订单还款履约信息
+     */
+    public SyncAntchainAtoFundOrderfulfillmentResponse syncAntchainAtoFundOrderfulfillmentEx(SyncAntchainAtoFundOrderfulfillmentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.orderfulfillment.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoFundOrderfulfillmentResponse());
+    }
+
+    /**
+     * Description: 获取订单的履约信息
+     * Summary: 【仅测试环境生效】获取订单的履约信息
+     */
+    public GetAntchainAtoFundOrderfulfillmentResponse getAntchainAtoFundOrderfulfillment(GetAntchainAtoFundOrderfulfillmentRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAntchainAtoFundOrderfulfillmentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取订单的履约信息
+     * Summary: 【仅测试环境生效】获取订单的履约信息
+     */
+    public GetAntchainAtoFundOrderfulfillmentResponse getAntchainAtoFundOrderfulfillmentEx(GetAntchainAtoFundOrderfulfillmentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.orderfulfillment.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAntchainAtoFundOrderfulfillmentResponse());
+    }
+
+    /**
+     * Description: 代扣签约
+     * Summary: 代扣签约
+     */
+    public CreateAntchainAtoWithholdSignResponse createAntchainAtoWithholdSign(CreateAntchainAtoWithholdSignRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntchainAtoWithholdSignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣签约
+     * Summary: 代扣签约
+     */
+    public CreateAntchainAtoWithholdSignResponse createAntchainAtoWithholdSignEx(CreateAntchainAtoWithholdSignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.sign.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntchainAtoWithholdSignResponse());
+    }
+
+    /**
+     * Description: 代扣签约查询
+     * Summary: 代扣签约查询
+     */
+    public QueryAntchainAtoWithholdSignResponse queryAntchainAtoWithholdSign(QueryAntchainAtoWithholdSignRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainAtoWithholdSignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣签约查询
+     * Summary: 代扣签约查询
+     */
+    public QueryAntchainAtoWithholdSignResponse queryAntchainAtoWithholdSignEx(QueryAntchainAtoWithholdSignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.sign.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainAtoWithholdSignResponse());
+    }
+
+    /**
+     * Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
+     * Summary: 电子合同签署流程落签操作
+     */
+    public AuthAntchainAtoSignFlowResponse authAntchainAtoSignFlow(AuthAntchainAtoSignFlowRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.authAntchainAtoSignFlowEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
+     * Summary: 电子合同签署流程落签操作
+     */
+    public AuthAntchainAtoSignFlowResponse authAntchainAtoSignFlowEx(AuthAntchainAtoSignFlowRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.sign.flow.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthAntchainAtoSignFlowResponse());
+    }
+
+    /**
+     * Description: 订单关闭后,可以通过此接口解绑签约
+     * Summary: 代扣签约解绑
+     */
+    public UnbindAntchainAtoWithholdSignResponse unbindAntchainAtoWithholdSign(UnbindAntchainAtoWithholdSignRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.unbindAntchainAtoWithholdSignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 订单关闭后,可以通过此接口解绑签约
+     * Summary: 代扣签约解绑
+     */
+    public UnbindAntchainAtoWithholdSignResponse unbindAntchainAtoWithholdSignEx(UnbindAntchainAtoWithholdSignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.sign.unbind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UnbindAntchainAtoWithholdSignResponse());
+    }
+
+    /**
+     * Description: 取消代扣计划，将未扣款的全部代扣计划进行取消
+     * Summary: 取消代扣计划
+     */
+    public CancelAntchainAtoWithholdPlanResponse cancelAntchainAtoWithholdPlan(CancelAntchainAtoWithholdPlanRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelAntchainAtoWithholdPlanEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 取消代扣计划，将未扣款的全部代扣计划进行取消
+     * Summary: 取消代扣计划
+     */
+    public CancelAntchainAtoWithholdPlanResponse cancelAntchainAtoWithholdPlanEx(CancelAntchainAtoWithholdPlanRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.plan.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelAntchainAtoWithholdPlanResponse());
+    }
+
+    /**
+     * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
+     * Summary: 代扣计划清偿/清欠
+     */
+    public RepayAntchainAtoWithholdPlanResponse repayAntchainAtoWithholdPlan(RepayAntchainAtoWithholdPlanRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.repayAntchainAtoWithholdPlanEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
+     * Summary: 代扣计划清偿/清欠
+     */
+    public RepayAntchainAtoWithholdPlanResponse repayAntchainAtoWithholdPlanEx(RepayAntchainAtoWithholdPlanRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.plan.repay", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RepayAntchainAtoWithholdPlanResponse());
     }
 
     /**
@@ -216,5 +520,368 @@ public class Client {
     public SyncAntchainAtoFrontTradeResponse syncAntchainAtoFrontTradeEx(SyncAntchainAtoFrontTradeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.front.trade.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoFrontTradeResponse());
+    }
+
+    /**
+     * Description: 当代扣未成功时，商户可与用户进行沟通补款到支付宝，补款完成后通过代扣重试能力实时触发重试扣款。
+     * Summary: 扣款计划重试
+     */
+    public RetryAntchainAtoWithholdPlanResponse retryAntchainAtoWithholdPlan(RetryAntchainAtoWithholdPlanRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.retryAntchainAtoWithholdPlanEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 当代扣未成功时，商户可与用户进行沟通补款到支付宝，补款完成后通过代扣重试能力实时触发重试扣款。
+     * Summary: 扣款计划重试
+     */
+    public RetryAntchainAtoWithholdPlanResponse retryAntchainAtoWithholdPlanEx(RetryAntchainAtoWithholdPlanRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.plan.retry", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RetryAntchainAtoWithholdPlanResponse());
+    }
+
+    /**
+     * Description: 当代扣签约时，用户在支付宝侧发起异步解约，此时需要经过商户确认才可以完成解约。saas会通知商户用户的异步解约申请，由商户通过此接口确认是否解约
+     * Summary: 代扣签约的异步解约确认
+     */
+    public ConfirmAntchainAtoWithholdSignasyncunsignResponse confirmAntchainAtoWithholdSignasyncunsign(ConfirmAntchainAtoWithholdSignasyncunsignRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmAntchainAtoWithholdSignasyncunsignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 当代扣签约时，用户在支付宝侧发起异步解约，此时需要经过商户确认才可以完成解约。saas会通知商户用户的异步解约申请，由商户通过此接口确认是否解约
+     * Summary: 代扣签约的异步解约确认
+     */
+    public ConfirmAntchainAtoWithholdSignasyncunsignResponse confirmAntchainAtoWithholdSignasyncunsignEx(ConfirmAntchainAtoWithholdSignasyncunsignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.signasyncunsign.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmAntchainAtoWithholdSignasyncunsignResponse());
+    }
+
+    /**
+     * Description: 用于资方将盖章后的合同文件上传
+     * Summary: 资方合同文件上传接口
+     */
+    public UploadAntchainAtoFundFlowResponse uploadAntchainAtoFundFlow(UploadAntchainAtoFundFlowRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadAntchainAtoFundFlowEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用于资方将盖章后的合同文件上传
+     * Summary: 资方合同文件上传接口
+     */
+    public UploadAntchainAtoFundFlowResponse uploadAntchainAtoFundFlowEx(UploadAntchainAtoFundFlowRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antchain.ato.fund.flow.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadAntchainAtoFundFlowResponse uploadAntchainAtoFundFlowResponse = UploadAntchainAtoFundFlowResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadAntchainAtoFundFlowResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.flow.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAntchainAtoFundFlowResponse());
+    }
+
+    /**
+     * Description: 获取商户签署后的合同文件，用于资方签署落章
+     * Summary: 资方合同文件获取接口
+     */
+    public GetAntchainAtoFundFlowResponse getAntchainAtoFundFlow(GetAntchainAtoFundFlowRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAntchainAtoFundFlowEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取商户签署后的合同文件，用于资方签署落章
+     * Summary: 资方合同文件获取接口
+     */
+    public GetAntchainAtoFundFlowResponse getAntchainAtoFundFlowEx(GetAntchainAtoFundFlowRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.flow.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAntchainAtoFundFlowResponse());
+    }
+
+    /**
+     * Description: 用户资方通知合同签署的状态，一般用于拒绝落章文件时，需要通知拒绝原因
+     * Summary: 资方合同签署状态通知
+     */
+    public RefuseAntchainAtoFundFlowResponse refuseAntchainAtoFundFlow(RefuseAntchainAtoFundFlowRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.refuseAntchainAtoFundFlowEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用户资方通知合同签署的状态，一般用于拒绝落章文件时，需要通知拒绝原因
+     * Summary: 资方合同签署状态通知
+     */
+    public RefuseAntchainAtoFundFlowResponse refuseAntchainAtoFundFlowEx(RefuseAntchainAtoFundFlowRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.flow.refuse", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RefuseAntchainAtoFundFlowResponse());
+    }
+
+    /**
+     * Description: 资方调用，授权通过e签宝进行落签
+     * Summary: 资方e签宝落签接口
+     */
+    public AuthAntchainAtoFundFlowResponse authAntchainAtoFundFlow(AuthAntchainAtoFundFlowRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.authAntchainAtoFundFlowEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 资方调用，授权通过e签宝进行落签
+     * Summary: 资方e签宝落签接口
+     */
+    public AuthAntchainAtoFundFlowResponse authAntchainAtoFundFlowEx(AuthAntchainAtoFundFlowRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.flow.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthAntchainAtoFundFlowResponse());
+    }
+
+    /**
+     * Description: 代扣主动支付创建
+     * Summary: 代扣主动支付创建
+     */
+    public CreateAntchainAtoWithholdActivepayResponse createAntchainAtoWithholdActivepay(CreateAntchainAtoWithholdActivepayRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntchainAtoWithholdActivepayEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣主动支付创建
+     * Summary: 代扣主动支付创建
+     */
+    public CreateAntchainAtoWithholdActivepayResponse createAntchainAtoWithholdActivepayEx(CreateAntchainAtoWithholdActivepayRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.activepay.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntchainAtoWithholdActivepayResponse());
+    }
+
+    /**
+     * Description: 代扣主动支付查询
+     * Summary: 代扣主动支付查询
+     */
+    public QueryAntchainAtoWithholdActivepayResponse queryAntchainAtoWithholdActivepay(QueryAntchainAtoWithholdActivepayRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainAtoWithholdActivepayEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣主动支付查询
+     * Summary: 代扣主动支付查询
+     */
+    public QueryAntchainAtoWithholdActivepayResponse queryAntchainAtoWithholdActivepayEx(QueryAntchainAtoWithholdActivepayRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.activepay.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainAtoWithholdActivepayResponse());
+    }
+
+    /**
+     * Description: 代扣主动支付取消
+     * Summary: 代扣主动支付取消
+     */
+    public CancelAntchainAtoWithholdActivepayResponse cancelAntchainAtoWithholdActivepay(CancelAntchainAtoWithholdActivepayRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelAntchainAtoWithholdActivepayEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣主动支付取消
+     * Summary: 代扣主动支付取消
+     */
+    public CancelAntchainAtoWithholdActivepayResponse cancelAntchainAtoWithholdActivepayEx(CancelAntchainAtoWithholdActivepayRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.activepay.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelAntchainAtoWithholdActivepayResponse());
+    }
+
+    /**
+     * Description: 资方调用，取消商户履约计划
+     * Summary: 商户履约计划取消
+     */
+    public CancelAntchainAtoFundPlanResponse cancelAntchainAtoFundPlan(CancelAntchainAtoFundPlanRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelAntchainAtoFundPlanEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 资方调用，取消商户履约计划
+     * Summary: 商户履约计划取消
+     */
+    public CancelAntchainAtoFundPlanResponse cancelAntchainAtoFundPlanEx(CancelAntchainAtoFundPlanRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.plan.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelAntchainAtoFundPlanResponse());
+    }
+
+    /**
+     * Description: 通知回调
+     * Summary: 通知回调
+     */
+    public CallbackAntchainAtoFundNotifyResponse callbackAntchainAtoFundNotify(CallbackAntchainAtoFundNotifyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackAntchainAtoFundNotifyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通知回调
+     * Summary: 通知回调
+     */
+    public CallbackAntchainAtoFundNotifyResponse callbackAntchainAtoFundNotifyEx(CallbackAntchainAtoFundNotifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.notify.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackAntchainAtoFundNotifyResponse());
+    }
+
+    /**
+     * Description: 融资放款申请接口
+     * Summary: 融资放款申请接口
+     */
+    public SyncAntchainAtoTradeFinanceloanapplyResponse syncAntchainAtoTradeFinanceloanapply(SyncAntchainAtoTradeFinanceloanapplyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAntchainAtoTradeFinanceloanapplyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 融资放款申请接口
+     * Summary: 融资放款申请接口
+     */
+    public SyncAntchainAtoTradeFinanceloanapplyResponse syncAntchainAtoTradeFinanceloanapplyEx(SyncAntchainAtoTradeFinanceloanapplyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.financeloanapply.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoTradeFinanceloanapplyResponse());
+    }
+
+    /**
+     * Description: 商户履约查询
+     * Summary: 商户履约查询
+     */
+    public GetAntchainAtoTradeMerchantfulfillmentResponse getAntchainAtoTradeMerchantfulfillment(GetAntchainAtoTradeMerchantfulfillmentRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAntchainAtoTradeMerchantfulfillmentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商户履约查询
+     * Summary: 商户履约查询
+     */
+    public GetAntchainAtoTradeMerchantfulfillmentResponse getAntchainAtoTradeMerchantfulfillmentEx(GetAntchainAtoTradeMerchantfulfillmentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.merchantfulfillment.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAntchainAtoTradeMerchantfulfillmentResponse());
+    }
+
+    /**
+     * Description: 商户还款承诺同步
+     * Summary: 商户还款承诺同步
+     */
+    public SyncAntchainAtoFundMerchantpromiseResponse syncAntchainAtoFundMerchantpromise(SyncAntchainAtoFundMerchantpromiseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAntchainAtoFundMerchantpromiseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商户还款承诺同步
+     * Summary: 商户还款承诺同步
+     */
+    public SyncAntchainAtoFundMerchantpromiseResponse syncAntchainAtoFundMerchantpromiseEx(SyncAntchainAtoFundMerchantpromiseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.merchantpromise.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoFundMerchantpromiseResponse());
+    }
+
+    /**
+     * Description: 融资放款申请咨询
+     * Summary: 融资放款申请咨询
+     */
+    public SyncAntchainAtoFundFinanceloanapplyResponse syncAntchainAtoFundFinanceloanapply(SyncAntchainAtoFundFinanceloanapplyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAntchainAtoFundFinanceloanapplyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 融资放款申请咨询
+     * Summary: 融资放款申请咨询
+     */
+    public SyncAntchainAtoFundFinanceloanapplyResponse syncAntchainAtoFundFinanceloanapplyEx(SyncAntchainAtoFundFinanceloanapplyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.financeloanapply.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoFundFinanceloanapplyResponse());
+    }
+
+    /**
+     * Description: 融资放款结果同步
+     * Summary: 融资放款结果同步
+     */
+    public SyncAntchainAtoFundFinanceloanresultsResponse syncAntchainAtoFundFinanceloanresults(SyncAntchainAtoFundFinanceloanresultsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAntchainAtoFundFinanceloanresultsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 融资放款结果同步
+     * Summary: 融资放款结果同步
+     */
+    public SyncAntchainAtoFundFinanceloanresultsResponse syncAntchainAtoFundFinanceloanresultsEx(SyncAntchainAtoFundFinanceloanresultsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.financeloanresults.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoFundFinanceloanresultsResponse());
+    }
+
+    /**
+     * Description: 查询用户承诺
+     * Summary: 查询用户承诺
+     */
+    public GetAntchainAtoFundUserpromiseResponse getAntchainAtoFundUserpromise(GetAntchainAtoFundUserpromiseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAntchainAtoFundUserpromiseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询用户承诺
+     * Summary: 查询用户承诺
+     */
+    public GetAntchainAtoFundUserpromiseResponse getAntchainAtoFundUserpromiseEx(GetAntchainAtoFundUserpromiseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.userpromise.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAntchainAtoFundUserpromiseResponse());
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse());
     }
 }
