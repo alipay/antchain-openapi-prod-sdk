@@ -148,6 +148,247 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+type SubmitAntchainAtoSignFlowRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// CRED_PSN_CH_IDCARD： 大陆身份证
+	// CRED_PSN_CH_TWCARD：台湾来往大陆通行证
+	// CRED_PSN_CH_MACAO"：澳门来往大陆通行证
+	// CRED_PSN_CH_HONGKONG：香港来往大陆通行证
+	// CRED_PSN_PASSPORT：护照
+	UserIdType *string `json:"user_id_type,omitempty" xml:"user_id_type,omitempty" require:"true"`
+	// 用户证件号，需要采用RSA加密传输
+	UserIdNumber *string `json:"user_id_number,omitempty" xml:"user_id_number,omitempty" require:"true"`
+	// 姓名，需要采用RSA加密传输
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 用户手机号，可不传；传的话需要采用RSA加密传输
+	UserMobile *string `json:"user_mobile,omitempty" xml:"user_mobile,omitempty"`
+	// 用户的电子邮箱，可不传；传的话需要采用RSA加密传输
+	UserEmail *string `json:"user_email,omitempty" xml:"user_email,omitempty"`
+	// 签署有效期，时间戳，例如：new Date().getTime()
+	SignValidity *string `json:"sign_validity,omitempty" xml:"sign_validity,omitempty"`
+	// 1-短信；2-邮件
+	FlowNotifyType *string `json:"flow_notify_type,omitempty" xml:"flow_notify_type,omitempty"`
+	// 业务场景，电子合同签署协议的时候的标题
+	BusinessScene *string `json:"business_scene,omitempty" xml:"business_scene,omitempty" require:"true"`
+	// 签署完成跳转链接
+	SignedRedirectUrl *string `json:"signed_redirect_url,omitempty" xml:"signed_redirect_url,omitempty"`
+	// 签署的电子合同模板信息，List<Object>的JSON格式，Object如下：
+	// {
+	// templateId:__, // String格式
+	// templateArgs: {
+	//     "模板参数key":"模板参数值", // 必须为String
+	//   }
+	// }
+	TemplateList *string `json:"template_list,omitempty" xml:"template_list,omitempty" require:"true"`
+	// 用户的支付宝uid
+	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty" require:"true" maxLength:"20" minLength:"12"`
+	// 公司名称
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty" require:"true" maxLength:"256" minLength:"2"`
+	// 商户签署区域标识。对应在合同模板的机构签署区域中的tag值(如果合同模板的签署区域的tag值为空，则可以不传这个参数)。必须完全对应，否则在多方签署的情况下根据tag找到不到对应的签署机构，会出错。
+	MerchantTag *string `json:"merchant_tag,omitempty" xml:"merchant_tag,omitempty" maxLength:"32" minLength:"0"`
+	// 商户需要盖的印章ID
+	MerchantSealId *string `json:"merchant_seal_id,omitempty" xml:"merchant_seal_id,omitempty"`
+	// 电子合同签署顺序，如果只有1方企业签署，传入1即可。如果是多方，并且需要设置签署顺序，则需要将这个值以及thirdSigner中的signOrder做一个签署顺序。
+	MerchantSignOrder *int64 `json:"merchant_sign_order,omitempty" xml:"merchant_sign_order,omitempty" maximum:"10000" minimum:"1"`
+	// CRED_ORG_USCC：统一社会信用代码，CRED_ORG_REGCODE：工商注册号，只支持这两个值
+	MerchantIdType *string `json:"merchant_id_type,omitempty" xml:"merchant_id_type,omitempty" require:"true" maxLength:"20" minLength:"6"`
+	// 商户证件号，需要采用RSA加密传输
+	MerchantIdNumber *string `json:"merchant_id_number,omitempty" xml:"merchant_id_number,omitempty" require:"true" maxLength:"1000" minLength:"4"`
+	// 法人姓名，需要RSA加密传输
+	MerchantLegalName *string `json:"merchant_legal_name,omitempty" xml:"merchant_legal_name,omitempty"`
+	// 法人证件号，需要采用RSA加密传输
+	MerchantLegalIdNumber *string `json:"merchant_legal_id_number,omitempty" xml:"merchant_legal_id_number,omitempty"`
+	// 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
+	ThirdSigner *string `json:"third_signer,omitempty" xml:"third_signer,omitempty" maxLength:"2000" minLength:"0"`
+}
+
+func (s SubmitAntchainAtoSignFlowRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAntchainAtoSignFlowRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetAuthToken(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetProductInstanceId(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetOrderId(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetUserIdType(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.UserIdType = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetUserIdNumber(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.UserIdNumber = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetUserName(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.UserName = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetUserMobile(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.UserMobile = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetUserEmail(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.UserEmail = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetSignValidity(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.SignValidity = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetFlowNotifyType(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.FlowNotifyType = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetBusinessScene(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.BusinessScene = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetSignedRedirectUrl(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.SignedRedirectUrl = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetTemplateList(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.TemplateList = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetAlipayUserId(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.AlipayUserId = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetMerchantName(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetMerchantTag(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.MerchantTag = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetMerchantSealId(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.MerchantSealId = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetMerchantSignOrder(v int64) *SubmitAntchainAtoSignFlowRequest {
+	s.MerchantSignOrder = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetMerchantIdType(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.MerchantIdType = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetMerchantIdNumber(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.MerchantIdNumber = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetMerchantLegalName(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.MerchantLegalName = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetMerchantLegalIdNumber(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.MerchantLegalIdNumber = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowRequest) SetThirdSigner(v string) *SubmitAntchainAtoSignFlowRequest {
+	s.ThirdSigner = &v
+	return s
+}
+
+type SubmitAntchainAtoSignFlowResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 签署合同单号
+	SignNo *string `json:"sign_no,omitempty" xml:"sign_no,omitempty"`
+	// 电子签署流程ID
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty"`
+	// 签署用户ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 签署附加信息，用于获取签署链接等。JSON格式的字符串。
+	SignInfo *string `json:"sign_info,omitempty" xml:"sign_info,omitempty"`
+}
+
+func (s SubmitAntchainAtoSignFlowResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAntchainAtoSignFlowResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAntchainAtoSignFlowResponse) SetReqMsgId(v string) *SubmitAntchainAtoSignFlowResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowResponse) SetResultCode(v string) *SubmitAntchainAtoSignFlowResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowResponse) SetResultMsg(v string) *SubmitAntchainAtoSignFlowResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowResponse) SetSignNo(v string) *SubmitAntchainAtoSignFlowResponse {
+	s.SignNo = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowResponse) SetFlowId(v string) *SubmitAntchainAtoSignFlowResponse {
+	s.FlowId = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowResponse) SetAccountId(v string) *SubmitAntchainAtoSignFlowResponse {
+	s.AccountId = &v
+	return s
+}
+
+func (s *SubmitAntchainAtoSignFlowResponse) SetSignInfo(v string) *SubmitAntchainAtoSignFlowResponse {
+	s.SignInfo = &v
+	return s
+}
+
 type SubmitAntchainAtoFrontSignRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -595,7 +836,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.2"),
 				"_prod_code":       tea.String("ak_195dff03d395462ea294bafdba69df3f"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -651,6 +892,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 提交电子合同的签署流程(后置签署模式)
+ * Summary: 提交电子合同的签署流程（后置签署模式）
+ */
+func (client *Client) SubmitAntchainAtoSignFlow(request *SubmitAntchainAtoSignFlowRequest) (_result *SubmitAntchainAtoSignFlowResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAntchainAtoSignFlowResponse{}
+	_body, _err := client.SubmitAntchainAtoSignFlowEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提交电子合同的签署流程(后置签署模式)
+ * Summary: 提交电子合同的签署流程（后置签署模式）
+ */
+func (client *Client) SubmitAntchainAtoSignFlowEx(request *SubmitAntchainAtoSignFlowRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAntchainAtoSignFlowResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAntchainAtoSignFlowResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.sign.flow.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
