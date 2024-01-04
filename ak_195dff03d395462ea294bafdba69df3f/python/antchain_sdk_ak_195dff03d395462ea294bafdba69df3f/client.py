@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -272,6 +272,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def submit_antchain_ato_sign_flow(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoSignFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoSignFlowResponse:
+        """
+        Description: 提交电子合同的签署流程(后置签署模式)
+        Summary: 提交电子合同的签署流程（后置签署模式）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_antchain_ato_sign_flow_ex(request, headers, runtime)
+
+    async def submit_antchain_ato_sign_flow_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoSignFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoSignFlowResponse:
+        """
+        Description: 提交电子合同的签署流程(后置签署模式)
+        Summary: 提交电子合同的签署流程（后置签署模式）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_antchain_ato_sign_flow_ex_async(request, headers, runtime)
+
+    def submit_antchain_ato_sign_flow_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoSignFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoSignFlowResponse:
+        """
+        Description: 提交电子合同的签署流程(后置签署模式)
+        Summary: 提交电子合同的签署流程（后置签署模式）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoSignFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.sign.flow.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_antchain_ato_sign_flow_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoSignFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoSignFlowResponse:
+        """
+        Description: 提交电子合同的签署流程(后置签署模式)
+        Summary: 提交电子合同的签署流程（后置签署模式）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoSignFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.sign.flow.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def submit_antchain_ato_front_sign(
         self,

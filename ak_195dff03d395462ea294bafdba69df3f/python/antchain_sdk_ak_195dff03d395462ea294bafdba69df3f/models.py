@@ -153,6 +153,291 @@ class Config(TeaModel):
         return self
 
 
+class SubmitAntchainAtoSignFlowRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        user_id_type: str = None,
+        user_id_number: str = None,
+        user_name: str = None,
+        user_mobile: str = None,
+        user_email: str = None,
+        sign_validity: str = None,
+        flow_notify_type: str = None,
+        business_scene: str = None,
+        signed_redirect_url: str = None,
+        template_list: str = None,
+        alipay_user_id: str = None,
+        merchant_name: str = None,
+        merchant_tag: str = None,
+        merchant_seal_id: str = None,
+        merchant_sign_order: int = None,
+        merchant_id_type: str = None,
+        merchant_id_number: str = None,
+        merchant_legal_name: str = None,
+        merchant_legal_id_number: str = None,
+        third_signer: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单号
+        self.order_id = order_id
+        # CRED_PSN_CH_IDCARD： 大陆身份证
+        # CRED_PSN_CH_TWCARD：台湾来往大陆通行证
+        # CRED_PSN_CH_MACAO"：澳门来往大陆通行证
+        # CRED_PSN_CH_HONGKONG：香港来往大陆通行证
+        # CRED_PSN_PASSPORT：护照
+        self.user_id_type = user_id_type
+        # 用户证件号，需要采用RSA加密传输
+        self.user_id_number = user_id_number
+        # 姓名，需要采用RSA加密传输
+        self.user_name = user_name
+        # 用户手机号，可不传；传的话需要采用RSA加密传输
+        self.user_mobile = user_mobile
+        # 用户的电子邮箱，可不传；传的话需要采用RSA加密传输
+        self.user_email = user_email
+        # 签署有效期，时间戳，例如：new Date().getTime()
+        self.sign_validity = sign_validity
+        # 1-短信；2-邮件
+        self.flow_notify_type = flow_notify_type
+        # 业务场景，电子合同签署协议的时候的标题
+        self.business_scene = business_scene
+        # 签署完成跳转链接
+        self.signed_redirect_url = signed_redirect_url
+        # 签署的电子合同模板信息，List<Object>的JSON格式，Object如下：
+        # {
+        # templateId:__, // String格式
+        # templateArgs: {
+        # "模板参数key":"模板参数值", // 必须为String
+        # }
+        # }
+        self.template_list = template_list
+        # 用户的支付宝uid
+        self.alipay_user_id = alipay_user_id
+        # 公司名称
+        self.merchant_name = merchant_name
+        # 商户签署区域标识。对应在合同模板的机构签署区域中的tag值(如果合同模板的签署区域的tag值为空，则可以不传这个参数)。必须完全对应，否则在多方签署的情况下根据tag找到不到对应的签署机构，会出错。
+        self.merchant_tag = merchant_tag
+        # 商户需要盖的印章ID
+        self.merchant_seal_id = merchant_seal_id
+        # 电子合同签署顺序，如果只有1方企业签署，传入1即可。如果是多方，并且需要设置签署顺序，则需要将这个值以及thirdSigner中的signOrder做一个签署顺序。
+        self.merchant_sign_order = merchant_sign_order
+        # CRED_ORG_USCC：统一社会信用代码，CRED_ORG_REGCODE：工商注册号，只支持这两个值
+        self.merchant_id_type = merchant_id_type
+        # 商户证件号，需要采用RSA加密传输
+        self.merchant_id_number = merchant_id_number
+        # 法人姓名，需要RSA加密传输
+        self.merchant_legal_name = merchant_legal_name
+        # 法人证件号，需要采用RSA加密传输
+        self.merchant_legal_id_number = merchant_legal_id_number
+        # 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
+        self.third_signer = third_signer
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.user_id_type, 'user_id_type')
+        self.validate_required(self.user_id_number, 'user_id_number')
+        self.validate_required(self.user_name, 'user_name')
+        self.validate_required(self.business_scene, 'business_scene')
+        self.validate_required(self.template_list, 'template_list')
+        self.validate_required(self.alipay_user_id, 'alipay_user_id')
+        if self.alipay_user_id is not None:
+            self.validate_max_length(self.alipay_user_id, 'alipay_user_id', 20)
+        self.validate_required(self.merchant_name, 'merchant_name')
+        if self.merchant_name is not None:
+            self.validate_max_length(self.merchant_name, 'merchant_name', 256)
+        if self.merchant_tag is not None:
+            self.validate_max_length(self.merchant_tag, 'merchant_tag', 32)
+        if self.merchant_sign_order is not None:
+            self.validate_maximum(self.merchant_sign_order, 'merchant_sign_order', 10000)
+            self.validate_minimum(self.merchant_sign_order, 'merchant_sign_order', 1)
+        self.validate_required(self.merchant_id_type, 'merchant_id_type')
+        if self.merchant_id_type is not None:
+            self.validate_max_length(self.merchant_id_type, 'merchant_id_type', 20)
+        self.validate_required(self.merchant_id_number, 'merchant_id_number')
+        if self.merchant_id_number is not None:
+            self.validate_max_length(self.merchant_id_number, 'merchant_id_number', 1000)
+        if self.third_signer is not None:
+            self.validate_max_length(self.third_signer, 'third_signer', 2000)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.user_id_type is not None:
+            result['user_id_type'] = self.user_id_type
+        if self.user_id_number is not None:
+            result['user_id_number'] = self.user_id_number
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.user_mobile is not None:
+            result['user_mobile'] = self.user_mobile
+        if self.user_email is not None:
+            result['user_email'] = self.user_email
+        if self.sign_validity is not None:
+            result['sign_validity'] = self.sign_validity
+        if self.flow_notify_type is not None:
+            result['flow_notify_type'] = self.flow_notify_type
+        if self.business_scene is not None:
+            result['business_scene'] = self.business_scene
+        if self.signed_redirect_url is not None:
+            result['signed_redirect_url'] = self.signed_redirect_url
+        if self.template_list is not None:
+            result['template_list'] = self.template_list
+        if self.alipay_user_id is not None:
+            result['alipay_user_id'] = self.alipay_user_id
+        if self.merchant_name is not None:
+            result['merchant_name'] = self.merchant_name
+        if self.merchant_tag is not None:
+            result['merchant_tag'] = self.merchant_tag
+        if self.merchant_seal_id is not None:
+            result['merchant_seal_id'] = self.merchant_seal_id
+        if self.merchant_sign_order is not None:
+            result['merchant_sign_order'] = self.merchant_sign_order
+        if self.merchant_id_type is not None:
+            result['merchant_id_type'] = self.merchant_id_type
+        if self.merchant_id_number is not None:
+            result['merchant_id_number'] = self.merchant_id_number
+        if self.merchant_legal_name is not None:
+            result['merchant_legal_name'] = self.merchant_legal_name
+        if self.merchant_legal_id_number is not None:
+            result['merchant_legal_id_number'] = self.merchant_legal_id_number
+        if self.third_signer is not None:
+            result['third_signer'] = self.third_signer
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('user_id_type') is not None:
+            self.user_id_type = m.get('user_id_type')
+        if m.get('user_id_number') is not None:
+            self.user_id_number = m.get('user_id_number')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('user_mobile') is not None:
+            self.user_mobile = m.get('user_mobile')
+        if m.get('user_email') is not None:
+            self.user_email = m.get('user_email')
+        if m.get('sign_validity') is not None:
+            self.sign_validity = m.get('sign_validity')
+        if m.get('flow_notify_type') is not None:
+            self.flow_notify_type = m.get('flow_notify_type')
+        if m.get('business_scene') is not None:
+            self.business_scene = m.get('business_scene')
+        if m.get('signed_redirect_url') is not None:
+            self.signed_redirect_url = m.get('signed_redirect_url')
+        if m.get('template_list') is not None:
+            self.template_list = m.get('template_list')
+        if m.get('alipay_user_id') is not None:
+            self.alipay_user_id = m.get('alipay_user_id')
+        if m.get('merchant_name') is not None:
+            self.merchant_name = m.get('merchant_name')
+        if m.get('merchant_tag') is not None:
+            self.merchant_tag = m.get('merchant_tag')
+        if m.get('merchant_seal_id') is not None:
+            self.merchant_seal_id = m.get('merchant_seal_id')
+        if m.get('merchant_sign_order') is not None:
+            self.merchant_sign_order = m.get('merchant_sign_order')
+        if m.get('merchant_id_type') is not None:
+            self.merchant_id_type = m.get('merchant_id_type')
+        if m.get('merchant_id_number') is not None:
+            self.merchant_id_number = m.get('merchant_id_number')
+        if m.get('merchant_legal_name') is not None:
+            self.merchant_legal_name = m.get('merchant_legal_name')
+        if m.get('merchant_legal_id_number') is not None:
+            self.merchant_legal_id_number = m.get('merchant_legal_id_number')
+        if m.get('third_signer') is not None:
+            self.third_signer = m.get('third_signer')
+        return self
+
+
+class SubmitAntchainAtoSignFlowResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sign_no: str = None,
+        flow_id: str = None,
+        account_id: str = None,
+        sign_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 签署合同单号
+        self.sign_no = sign_no
+        # 电子签署流程ID
+        self.flow_id = flow_id
+        # 签署用户ID
+        self.account_id = account_id
+        # 签署附加信息，用于获取签署链接等。JSON格式的字符串。
+        self.sign_info = sign_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.sign_no is not None:
+            result['sign_no'] = self.sign_no
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.sign_info is not None:
+            result['sign_info'] = self.sign_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('sign_no') is not None:
+            self.sign_no = m.get('sign_no')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('sign_info') is not None:
+            self.sign_info = m.get('sign_info')
+        return self
+
+
 class SubmitAntchainAtoFrontSignRequest(TeaModel):
     def __init__(
         self,
