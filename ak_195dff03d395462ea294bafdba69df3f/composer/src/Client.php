@@ -11,12 +11,80 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AllAntchainAtoSignTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AllAntchainAtoSignTemplateResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoFundFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoFundFlowResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoSignFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoSignFlowResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CallbackAntchainAtoFundNotifyRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CallbackAntchainAtoFundNotifyResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoFundPlanRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoFundPlanResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoWithholdActivepayRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoWithholdActivepayResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoWithholdPlanRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoWithholdPlanResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ConfirmAntchainAtoWithholdSignasyncunsignRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ConfirmAntchainAtoWithholdSignasyncunsignResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoRealpersonFacevrfRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoRealpersonFacevrfResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdActivepayRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdActivepayResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdSignRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdSignResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundFlowResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundOrderfulfillmentRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundOrderfulfillmentResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundUserpromiseRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundUserpromiseResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoSignFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoSignFlowResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeMerchantfulfillmentRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeMerchantfulfillmentResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoRealpersonFacevrfRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoRealpersonFacevrfResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdActivepayRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdActivepayResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdSignRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdSignResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RefuseAntchainAtoFundFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RefuseAntchainAtoFundFlowResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RepayAntchainAtoWithholdPlanRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RepayAntchainAtoWithholdPlanResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithholdPlanRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithholdPlanResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFrontSignRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFrontSignResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoSignFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoSignFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontTradeRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontTradeResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceloanapplyRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceloanapplyResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceloanresultsRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceloanresultsResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundMerchantpromiseRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundMerchantpromiseResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundOrderfulfillmentRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundOrderfulfillmentResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundSplittingRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundSplittingResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundWithholdingcontractRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundWithholdingcontractResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeFinanceloanapplyRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeFinanceloanapplyResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithholdSignRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithholdSignResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoFundFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoFundFlowResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -136,6 +204,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 主动支付单据
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -163,7 +232,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.1.0',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -212,6 +281,171 @@ class Client
     }
 
     /**
+     * Description: 对账saas交易信息同步接口
+     * Summary: 对账saas交易信息同步接口.
+     *
+     * @param SyncAntchainAtoTradeRequest $request
+     *
+     * @return SyncAntchainAtoTradeResponse
+     */
+    public function syncAntchainAtoTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对账saas交易信息同步接口
+     * Summary: 对账saas交易信息同步接口.
+     *
+     * @param SyncAntchainAtoTradeRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return SyncAntchainAtoTradeResponse
+     */
+    public function syncAntchainAtoTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoTradeResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取详情
+     * Summary: 获取详情.
+     *
+     * @param GetAntchainAtoTradeRequest $request
+     *
+     * @return GetAntchainAtoTradeResponse
+     */
+    public function getAntchainAtoTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAntchainAtoTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取详情
+     * Summary: 获取详情.
+     *
+     * @param GetAntchainAtoTradeRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return GetAntchainAtoTradeResponse
+     */
+    public function getAntchainAtoTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAntchainAtoTradeResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可信身份认证，创建认证
+     * Summary: 创建认证
+     *
+     * @param CreateAntchainAtoRealpersonFacevrfRequest $request
+     *
+     * @return CreateAntchainAtoRealpersonFacevrfResponse
+     */
+    public function createAntchainAtoRealpersonFacevrf($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntchainAtoRealpersonFacevrfEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可信身份认证，创建认证
+     * Summary: 创建认证
+     *
+     * @param CreateAntchainAtoRealpersonFacevrfRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return CreateAntchainAtoRealpersonFacevrfResponse
+     */
+    public function createAntchainAtoRealpersonFacevrfEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntchainAtoRealpersonFacevrfResponse::fromMap($this->doRequest('1.0', 'antchain.ato.realperson.facevrf.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询认证的结果和相关信息
+     * Summary: 查询认证结果.
+     *
+     * @param QueryAntchainAtoRealpersonFacevrfRequest $request
+     *
+     * @return QueryAntchainAtoRealpersonFacevrfResponse
+     */
+    public function queryAntchainAtoRealpersonFacevrf($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoRealpersonFacevrfEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询认证的结果和相关信息
+     * Summary: 查询认证结果.
+     *
+     * @param QueryAntchainAtoRealpersonFacevrfRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryAntchainAtoRealpersonFacevrfResponse
+     */
+    public function queryAntchainAtoRealpersonFacevrfEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoRealpersonFacevrfResponse::fromMap($this->doRequest('1.0', 'antchain.ato.realperson.facevrf.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 电子合同签署的合同模板查询服务
+     * Summary: 电子合同签署的合同模板查询服务
+     *
+     * @param AllAntchainAtoSignTemplateRequest $request
+     *
+     * @return AllAntchainAtoSignTemplateResponse
+     */
+    public function allAntchainAtoSignTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->allAntchainAtoSignTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 电子合同签署的合同模板查询服务
+     * Summary: 电子合同签署的合同模板查询服务
+     *
+     * @param AllAntchainAtoSignTemplateRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return AllAntchainAtoSignTemplateResponse
+     */
+    public function allAntchainAtoSignTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AllAntchainAtoSignTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.template.all', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 提交电子合同的签署流程(后置签署模式)
      * Summary: 提交电子合同的签署流程（后置签署模式）.
      *
@@ -242,6 +476,369 @@ class Client
         Utils::validateModel($request);
 
         return SubmitAntchainAtoSignFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.flow.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询签署流程详情
+     * Summary: 查询签署流程详情.
+     *
+     * @param GetAntchainAtoSignFlowRequest $request
+     *
+     * @return GetAntchainAtoSignFlowResponse
+     */
+    public function getAntchainAtoSignFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAntchainAtoSignFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询签署流程详情
+     * Summary: 查询签署流程详情.
+     *
+     * @param GetAntchainAtoSignFlowRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return GetAntchainAtoSignFlowResponse
+     */
+    public function getAntchainAtoSignFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAntchainAtoSignFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.flow.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分账流水同步
+     * Summary: 【仅测试环境生效】分账流水同步.
+     *
+     * @param SyncAntchainAtoFundSplittingRequest $request
+     *
+     * @return SyncAntchainAtoFundSplittingResponse
+     */
+    public function syncAntchainAtoFundSplitting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoFundSplittingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分账流水同步
+     * Summary: 【仅测试环境生效】分账流水同步.
+     *
+     * @param SyncAntchainAtoFundSplittingRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return SyncAntchainAtoFundSplittingResponse
+     */
+    public function syncAntchainAtoFundSplittingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoFundSplittingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.splitting.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 同步租赁订单的代扣协议
+     * Summary: 【仅测试环境生效】同步租赁订单的代扣协议.
+     *
+     * @param SyncAntchainAtoFundWithholdingcontractRequest $request
+     *
+     * @return SyncAntchainAtoFundWithholdingcontractResponse
+     */
+    public function syncAntchainAtoFundWithholdingcontract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoFundWithholdingcontractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 同步租赁订单的代扣协议
+     * Summary: 【仅测试环境生效】同步租赁订单的代扣协议.
+     *
+     * @param SyncAntchainAtoFundWithholdingcontractRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return SyncAntchainAtoFundWithholdingcontractResponse
+     */
+    public function syncAntchainAtoFundWithholdingcontractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoFundWithholdingcontractResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.withholdingcontract.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方回传一条订单还款履约信息
+     * Summary: 【仅测试环境生效】同步订单还款履约信息.
+     *
+     * @param SyncAntchainAtoFundOrderfulfillmentRequest $request
+     *
+     * @return SyncAntchainAtoFundOrderfulfillmentResponse
+     */
+    public function syncAntchainAtoFundOrderfulfillment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoFundOrderfulfillmentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方回传一条订单还款履约信息
+     * Summary: 【仅测试环境生效】同步订单还款履约信息.
+     *
+     * @param SyncAntchainAtoFundOrderfulfillmentRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return SyncAntchainAtoFundOrderfulfillmentResponse
+     */
+    public function syncAntchainAtoFundOrderfulfillmentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoFundOrderfulfillmentResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.orderfulfillment.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取订单的履约信息
+     * Summary: 【仅测试环境生效】获取订单的履约信息.
+     *
+     * @param GetAntchainAtoFundOrderfulfillmentRequest $request
+     *
+     * @return GetAntchainAtoFundOrderfulfillmentResponse
+     */
+    public function getAntchainAtoFundOrderfulfillment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAntchainAtoFundOrderfulfillmentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取订单的履约信息
+     * Summary: 【仅测试环境生效】获取订单的履约信息.
+     *
+     * @param GetAntchainAtoFundOrderfulfillmentRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return GetAntchainAtoFundOrderfulfillmentResponse
+     */
+    public function getAntchainAtoFundOrderfulfillmentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAntchainAtoFundOrderfulfillmentResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.orderfulfillment.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣签约
+     * Summary: 代扣签约.
+     *
+     * @param CreateAntchainAtoWithholdSignRequest $request
+     *
+     * @return CreateAntchainAtoWithholdSignResponse
+     */
+    public function createAntchainAtoWithholdSign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntchainAtoWithholdSignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣签约
+     * Summary: 代扣签约.
+     *
+     * @param CreateAntchainAtoWithholdSignRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CreateAntchainAtoWithholdSignResponse
+     */
+    public function createAntchainAtoWithholdSignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntchainAtoWithholdSignResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.sign.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣签约查询
+     * Summary: 代扣签约查询.
+     *
+     * @param QueryAntchainAtoWithholdSignRequest $request
+     *
+     * @return QueryAntchainAtoWithholdSignResponse
+     */
+    public function queryAntchainAtoWithholdSign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoWithholdSignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣签约查询
+     * Summary: 代扣签约查询.
+     *
+     * @param QueryAntchainAtoWithholdSignRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryAntchainAtoWithholdSignResponse
+     */
+    public function queryAntchainAtoWithholdSignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoWithholdSignResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.sign.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
+     * Summary: 电子合同签署流程落签操作.
+     *
+     * @param AuthAntchainAtoSignFlowRequest $request
+     *
+     * @return AuthAntchainAtoSignFlowResponse
+     */
+    public function authAntchainAtoSignFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authAntchainAtoSignFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
+     * Summary: 电子合同签署流程落签操作.
+     *
+     * @param AuthAntchainAtoSignFlowRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return AuthAntchainAtoSignFlowResponse
+     */
+    public function authAntchainAtoSignFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthAntchainAtoSignFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.flow.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单关闭后,可以通过此接口解绑签约
+     * Summary: 代扣签约解绑.
+     *
+     * @param UnbindAntchainAtoWithholdSignRequest $request
+     *
+     * @return UnbindAntchainAtoWithholdSignResponse
+     */
+    public function unbindAntchainAtoWithholdSign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unbindAntchainAtoWithholdSignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单关闭后,可以通过此接口解绑签约
+     * Summary: 代扣签约解绑.
+     *
+     * @param UnbindAntchainAtoWithholdSignRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return UnbindAntchainAtoWithholdSignResponse
+     */
+    public function unbindAntchainAtoWithholdSignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnbindAntchainAtoWithholdSignResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.sign.unbind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 取消代扣计划，将未扣款的全部代扣计划进行取消
+     * Summary: 取消代扣计划.
+     *
+     * @param CancelAntchainAtoWithholdPlanRequest $request
+     *
+     * @return CancelAntchainAtoWithholdPlanResponse
+     */
+    public function cancelAntchainAtoWithholdPlan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelAntchainAtoWithholdPlanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 取消代扣计划，将未扣款的全部代扣计划进行取消
+     * Summary: 取消代扣计划.
+     *
+     * @param CancelAntchainAtoWithholdPlanRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CancelAntchainAtoWithholdPlanResponse
+     */
+    public function cancelAntchainAtoWithholdPlanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelAntchainAtoWithholdPlanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.plan.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
+     * Summary: 代扣计划清偿/清欠.
+     *
+     * @param RepayAntchainAtoWithholdPlanRequest $request
+     *
+     * @return RepayAntchainAtoWithholdPlanResponse
+     */
+    public function repayAntchainAtoWithholdPlan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->repayAntchainAtoWithholdPlanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
+     * Summary: 代扣计划清偿/清欠.
+     *
+     * @param RepayAntchainAtoWithholdPlanRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return RepayAntchainAtoWithholdPlanResponse
+     */
+    public function repayAntchainAtoWithholdPlanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RepayAntchainAtoWithholdPlanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.plan.repay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -308,5 +905,617 @@ class Client
         Utils::validateModel($request);
 
         return SyncAntchainAtoFrontTradeResponse::fromMap($this->doRequest('1.0', 'antchain.ato.front.trade.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 当代扣未成功时，商户可与用户进行沟通补款到支付宝，补款完成后通过代扣重试能力实时触发重试扣款。
+     * Summary: 扣款计划重试.
+     *
+     * @param RetryAntchainAtoWithholdPlanRequest $request
+     *
+     * @return RetryAntchainAtoWithholdPlanResponse
+     */
+    public function retryAntchainAtoWithholdPlan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->retryAntchainAtoWithholdPlanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 当代扣未成功时，商户可与用户进行沟通补款到支付宝，补款完成后通过代扣重试能力实时触发重试扣款。
+     * Summary: 扣款计划重试.
+     *
+     * @param RetryAntchainAtoWithholdPlanRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return RetryAntchainAtoWithholdPlanResponse
+     */
+    public function retryAntchainAtoWithholdPlanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RetryAntchainAtoWithholdPlanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.plan.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 当代扣签约时，用户在支付宝侧发起异步解约，此时需要经过商户确认才可以完成解约。saas会通知商户用户的异步解约申请，由商户通过此接口确认是否解约
+     * Summary: 代扣签约的异步解约确认.
+     *
+     * @param ConfirmAntchainAtoWithholdSignasyncunsignRequest $request
+     *
+     * @return ConfirmAntchainAtoWithholdSignasyncunsignResponse
+     */
+    public function confirmAntchainAtoWithholdSignasyncunsign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmAntchainAtoWithholdSignasyncunsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 当代扣签约时，用户在支付宝侧发起异步解约，此时需要经过商户确认才可以完成解约。saas会通知商户用户的异步解约申请，由商户通过此接口确认是否解约
+     * Summary: 代扣签约的异步解约确认.
+     *
+     * @param ConfirmAntchainAtoWithholdSignasyncunsignRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return ConfirmAntchainAtoWithholdSignasyncunsignResponse
+     */
+    public function confirmAntchainAtoWithholdSignasyncunsignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmAntchainAtoWithholdSignasyncunsignResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.signasyncunsign.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于资方将盖章后的合同文件上传
+     * Summary: 资方合同文件上传接口.
+     *
+     * @param UploadAntchainAtoFundFlowRequest $request
+     *
+     * @return UploadAntchainAtoFundFlowResponse
+     */
+    public function uploadAntchainAtoFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAntchainAtoFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于资方将盖章后的合同文件上传
+     * Summary: 资方合同文件上传接口.
+     *
+     * @param UploadAntchainAtoFundFlowRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UploadAntchainAtoFundFlowResponse
+     */
+    public function uploadAntchainAtoFundFlowEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.ato.fund.flow.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadAntchainAtoFundFlowResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取商户签署后的合同文件，用于资方签署落章
+     * Summary: 资方合同文件获取接口.
+     *
+     * @param GetAntchainAtoFundFlowRequest $request
+     *
+     * @return GetAntchainAtoFundFlowResponse
+     */
+    public function getAntchainAtoFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAntchainAtoFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取商户签署后的合同文件，用于资方签署落章
+     * Summary: 资方合同文件获取接口.
+     *
+     * @param GetAntchainAtoFundFlowRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return GetAntchainAtoFundFlowResponse
+     */
+    public function getAntchainAtoFundFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户资方通知合同签署的状态，一般用于拒绝落章文件时，需要通知拒绝原因
+     * Summary: 资方合同签署状态通知.
+     *
+     * @param RefuseAntchainAtoFundFlowRequest $request
+     *
+     * @return RefuseAntchainAtoFundFlowResponse
+     */
+    public function refuseAntchainAtoFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->refuseAntchainAtoFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户资方通知合同签署的状态，一般用于拒绝落章文件时，需要通知拒绝原因
+     * Summary: 资方合同签署状态通知.
+     *
+     * @param RefuseAntchainAtoFundFlowRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return RefuseAntchainAtoFundFlowResponse
+     */
+    public function refuseAntchainAtoFundFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RefuseAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.refuse', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方调用，授权通过e签宝进行落签
+     * Summary: 资方e签宝落签接口.
+     *
+     * @param AuthAntchainAtoFundFlowRequest $request
+     *
+     * @return AuthAntchainAtoFundFlowResponse
+     */
+    public function authAntchainAtoFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authAntchainAtoFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方调用，授权通过e签宝进行落签
+     * Summary: 资方e签宝落签接口.
+     *
+     * @param AuthAntchainAtoFundFlowRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return AuthAntchainAtoFundFlowResponse
+     */
+    public function authAntchainAtoFundFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣主动支付创建
+     * Summary: 代扣主动支付创建.
+     *
+     * @param CreateAntchainAtoWithholdActivepayRequest $request
+     *
+     * @return CreateAntchainAtoWithholdActivepayResponse
+     */
+    public function createAntchainAtoWithholdActivepay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntchainAtoWithholdActivepayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣主动支付创建
+     * Summary: 代扣主动支付创建.
+     *
+     * @param CreateAntchainAtoWithholdActivepayRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return CreateAntchainAtoWithholdActivepayResponse
+     */
+    public function createAntchainAtoWithholdActivepayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntchainAtoWithholdActivepayResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.activepay.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣主动支付查询
+     * Summary: 代扣主动支付查询.
+     *
+     * @param QueryAntchainAtoWithholdActivepayRequest $request
+     *
+     * @return QueryAntchainAtoWithholdActivepayResponse
+     */
+    public function queryAntchainAtoWithholdActivepay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoWithholdActivepayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣主动支付查询
+     * Summary: 代扣主动支付查询.
+     *
+     * @param QueryAntchainAtoWithholdActivepayRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryAntchainAtoWithholdActivepayResponse
+     */
+    public function queryAntchainAtoWithholdActivepayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoWithholdActivepayResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.activepay.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣主动支付取消
+     * Summary: 代扣主动支付取消.
+     *
+     * @param CancelAntchainAtoWithholdActivepayRequest $request
+     *
+     * @return CancelAntchainAtoWithholdActivepayResponse
+     */
+    public function cancelAntchainAtoWithholdActivepay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelAntchainAtoWithholdActivepayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣主动支付取消
+     * Summary: 代扣主动支付取消.
+     *
+     * @param CancelAntchainAtoWithholdActivepayRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return CancelAntchainAtoWithholdActivepayResponse
+     */
+    public function cancelAntchainAtoWithholdActivepayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelAntchainAtoWithholdActivepayResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.activepay.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方调用，取消商户履约计划
+     * Summary: 商户履约计划取消.
+     *
+     * @param CancelAntchainAtoFundPlanRequest $request
+     *
+     * @return CancelAntchainAtoFundPlanResponse
+     */
+    public function cancelAntchainAtoFundPlan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelAntchainAtoFundPlanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方调用，取消商户履约计划
+     * Summary: 商户履约计划取消.
+     *
+     * @param CancelAntchainAtoFundPlanRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CancelAntchainAtoFundPlanResponse
+     */
+    public function cancelAntchainAtoFundPlanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelAntchainAtoFundPlanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.plan.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通知回调
+     * Summary: 通知回调.
+     *
+     * @param CallbackAntchainAtoFundNotifyRequest $request
+     *
+     * @return CallbackAntchainAtoFundNotifyResponse
+     */
+    public function callbackAntchainAtoFundNotify($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackAntchainAtoFundNotifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通知回调
+     * Summary: 通知回调.
+     *
+     * @param CallbackAntchainAtoFundNotifyRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CallbackAntchainAtoFundNotifyResponse
+     */
+    public function callbackAntchainAtoFundNotifyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackAntchainAtoFundNotifyResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.notify.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资放款申请接口
+     * Summary: 融资放款申请接口.
+     *
+     * @param SyncAntchainAtoTradeFinanceloanapplyRequest $request
+     *
+     * @return SyncAntchainAtoTradeFinanceloanapplyResponse
+     */
+    public function syncAntchainAtoTradeFinanceloanapply($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoTradeFinanceloanapplyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资放款申请接口
+     * Summary: 融资放款申请接口.
+     *
+     * @param SyncAntchainAtoTradeFinanceloanapplyRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return SyncAntchainAtoTradeFinanceloanapplyResponse
+     */
+    public function syncAntchainAtoTradeFinanceloanapplyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoTradeFinanceloanapplyResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.financeloanapply.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户履约查询
+     * Summary: 商户履约查询.
+     *
+     * @param GetAntchainAtoTradeMerchantfulfillmentRequest $request
+     *
+     * @return GetAntchainAtoTradeMerchantfulfillmentResponse
+     */
+    public function getAntchainAtoTradeMerchantfulfillment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAntchainAtoTradeMerchantfulfillmentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户履约查询
+     * Summary: 商户履约查询.
+     *
+     * @param GetAntchainAtoTradeMerchantfulfillmentRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return GetAntchainAtoTradeMerchantfulfillmentResponse
+     */
+    public function getAntchainAtoTradeMerchantfulfillmentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAntchainAtoTradeMerchantfulfillmentResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.merchantfulfillment.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户还款承诺同步
+     * Summary: 商户还款承诺同步.
+     *
+     * @param SyncAntchainAtoFundMerchantpromiseRequest $request
+     *
+     * @return SyncAntchainAtoFundMerchantpromiseResponse
+     */
+    public function syncAntchainAtoFundMerchantpromise($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoFundMerchantpromiseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户还款承诺同步
+     * Summary: 商户还款承诺同步.
+     *
+     * @param SyncAntchainAtoFundMerchantpromiseRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return SyncAntchainAtoFundMerchantpromiseResponse
+     */
+    public function syncAntchainAtoFundMerchantpromiseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoFundMerchantpromiseResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.merchantpromise.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资放款申请咨询
+     * Summary: 融资放款申请咨询.
+     *
+     * @param SyncAntchainAtoFundFinanceloanapplyRequest $request
+     *
+     * @return SyncAntchainAtoFundFinanceloanapplyResponse
+     */
+    public function syncAntchainAtoFundFinanceloanapply($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoFundFinanceloanapplyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资放款申请咨询
+     * Summary: 融资放款申请咨询.
+     *
+     * @param SyncAntchainAtoFundFinanceloanapplyRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return SyncAntchainAtoFundFinanceloanapplyResponse
+     */
+    public function syncAntchainAtoFundFinanceloanapplyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoFundFinanceloanapplyResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.financeloanapply.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资放款结果同步
+     * Summary: 融资放款结果同步.
+     *
+     * @param SyncAntchainAtoFundFinanceloanresultsRequest $request
+     *
+     * @return SyncAntchainAtoFundFinanceloanresultsResponse
+     */
+    public function syncAntchainAtoFundFinanceloanresults($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoFundFinanceloanresultsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资放款结果同步
+     * Summary: 融资放款结果同步.
+     *
+     * @param SyncAntchainAtoFundFinanceloanresultsRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return SyncAntchainAtoFundFinanceloanresultsResponse
+     */
+    public function syncAntchainAtoFundFinanceloanresultsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoFundFinanceloanresultsResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.financeloanresults.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询用户承诺
+     * Summary: 查询用户承诺.
+     *
+     * @param GetAntchainAtoFundUserpromiseRequest $request
+     *
+     * @return GetAntchainAtoFundUserpromiseResponse
+     */
+    public function getAntchainAtoFundUserpromise($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAntchainAtoFundUserpromiseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询用户承诺
+     * Summary: 查询用户承诺.
+     *
+     * @param GetAntchainAtoFundUserpromiseRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return GetAntchainAtoFundUserpromiseResponse
+     */
+    public function getAntchainAtoFundUserpromiseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAntchainAtoFundUserpromiseResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.userpromise.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
