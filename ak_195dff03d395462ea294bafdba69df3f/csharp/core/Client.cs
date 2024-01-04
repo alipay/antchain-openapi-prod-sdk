@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.2"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.2"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -319,6 +319,48 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 提交电子合同的签署流程(后置签署模式)
+         * Summary: 提交电子合同的签署流程（后置签署模式）
+         */
+        public SubmitAntchainAtoSignFlowResponse SubmitAntchainAtoSignFlow(SubmitAntchainAtoSignFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAntchainAtoSignFlowEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提交电子合同的签署流程(后置签署模式)
+         * Summary: 提交电子合同的签署流程（后置签署模式）
+         */
+        public async Task<SubmitAntchainAtoSignFlowResponse> SubmitAntchainAtoSignFlowAsync(SubmitAntchainAtoSignFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAntchainAtoSignFlowExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提交电子合同的签署流程(后置签署模式)
+         * Summary: 提交电子合同的签署流程（后置签署模式）
+         */
+        public SubmitAntchainAtoSignFlowResponse SubmitAntchainAtoSignFlowEx(SubmitAntchainAtoSignFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAntchainAtoSignFlowResponse>(DoRequest("1.0", "antchain.ato.sign.flow.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提交电子合同的签署流程(后置签署模式)
+         * Summary: 提交电子合同的签署流程（后置签署模式）
+         */
+        public async Task<SubmitAntchainAtoSignFlowResponse> SubmitAntchainAtoSignFlowExAsync(SubmitAntchainAtoSignFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAntchainAtoSignFlowResponse>(await DoRequestAsync("1.0", "antchain.ato.sign.flow.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
