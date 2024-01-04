@@ -77,6 +77,167 @@ export class Config extends $tea.Model {
   }
 }
 
+export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  orderId: string;
+  // CRED_PSN_CH_IDCARD： 大陆身份证
+  // CRED_PSN_CH_TWCARD：台湾来往大陆通行证
+  // CRED_PSN_CH_MACAO"：澳门来往大陆通行证
+  // CRED_PSN_CH_HONGKONG：香港来往大陆通行证
+  // CRED_PSN_PASSPORT：护照
+  userIdType: string;
+  // 用户证件号，需要采用RSA加密传输
+  userIdNumber: string;
+  // 姓名，需要采用RSA加密传输
+  userName: string;
+  // 用户手机号，可不传；传的话需要采用RSA加密传输
+  userMobile?: string;
+  // 用户的电子邮箱，可不传；传的话需要采用RSA加密传输
+  userEmail?: string;
+  // 签署有效期，时间戳，例如：new Date().getTime()
+  signValidity?: string;
+  // 1-短信；2-邮件
+  flowNotifyType?: string;
+  // 业务场景，电子合同签署协议的时候的标题
+  businessScene: string;
+  // 签署完成跳转链接
+  signedRedirectUrl?: string;
+  // 签署的电子合同模板信息，List<Object>的JSON格式，Object如下：
+  // {
+  // templateId:__, // String格式
+  // templateArgs: {
+  //     "模板参数key":"模板参数值", // 必须为String
+  //   }
+  // }
+  templateList: string;
+  // 用户的支付宝uid
+  alipayUserId: string;
+  // 公司名称
+  merchantName: string;
+  // 商户签署区域标识。对应在合同模板的机构签署区域中的tag值(如果合同模板的签署区域的tag值为空，则可以不传这个参数)。必须完全对应，否则在多方签署的情况下根据tag找到不到对应的签署机构，会出错。
+  merchantTag?: string;
+  // 商户需要盖的印章ID
+  merchantSealId?: string;
+  // 电子合同签署顺序，如果只有1方企业签署，传入1即可。如果是多方，并且需要设置签署顺序，则需要将这个值以及thirdSigner中的signOrder做一个签署顺序。
+  merchantSignOrder?: number;
+  // CRED_ORG_USCC：统一社会信用代码，CRED_ORG_REGCODE：工商注册号，只支持这两个值
+  merchantIdType: string;
+  // 商户证件号，需要采用RSA加密传输
+  merchantIdNumber: string;
+  // 法人姓名，需要RSA加密传输
+  merchantLegalName?: string;
+  // 法人证件号，需要采用RSA加密传输
+  merchantLegalIdNumber?: string;
+  // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
+  thirdSigner?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      userIdType: 'user_id_type',
+      userIdNumber: 'user_id_number',
+      userName: 'user_name',
+      userMobile: 'user_mobile',
+      userEmail: 'user_email',
+      signValidity: 'sign_validity',
+      flowNotifyType: 'flow_notify_type',
+      businessScene: 'business_scene',
+      signedRedirectUrl: 'signed_redirect_url',
+      templateList: 'template_list',
+      alipayUserId: 'alipay_user_id',
+      merchantName: 'merchant_name',
+      merchantTag: 'merchant_tag',
+      merchantSealId: 'merchant_seal_id',
+      merchantSignOrder: 'merchant_sign_order',
+      merchantIdType: 'merchant_id_type',
+      merchantIdNumber: 'merchant_id_number',
+      merchantLegalName: 'merchant_legal_name',
+      merchantLegalIdNumber: 'merchant_legal_id_number',
+      thirdSigner: 'third_signer',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      userIdType: 'string',
+      userIdNumber: 'string',
+      userName: 'string',
+      userMobile: 'string',
+      userEmail: 'string',
+      signValidity: 'string',
+      flowNotifyType: 'string',
+      businessScene: 'string',
+      signedRedirectUrl: 'string',
+      templateList: 'string',
+      alipayUserId: 'string',
+      merchantName: 'string',
+      merchantTag: 'string',
+      merchantSealId: 'string',
+      merchantSignOrder: 'number',
+      merchantIdType: 'string',
+      merchantIdNumber: 'string',
+      merchantLegalName: 'string',
+      merchantLegalIdNumber: 'string',
+      thirdSigner: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAntchainAtoSignFlowResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签署合同单号
+  signNo?: string;
+  // 电子签署流程ID
+  flowId?: string;
+  // 签署用户ID
+  accountId?: string;
+  // 签署附加信息，用于获取签署链接等。JSON格式的字符串。
+  signInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signNo: 'sign_no',
+      flowId: 'flow_id',
+      accountId: 'account_id',
+      signInfo: 'sign_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signNo: 'string',
+      flowId: 'string',
+      accountId: 'string',
+      signInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -421,7 +582,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "1.0.2",
           _prod_code: "ak_195dff03d395462ea294bafdba69df3f",
           _prod_channel: "saas",
         };
@@ -467,6 +628,25 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 提交电子合同的签署流程(后置签署模式)
+   * Summary: 提交电子合同的签署流程（后置签署模式）
+   */
+  async submitAntchainAtoSignFlow(request: SubmitAntchainAtoSignFlowRequest): Promise<SubmitAntchainAtoSignFlowResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAntchainAtoSignFlowEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 提交电子合同的签署流程(后置签署模式)
+   * Summary: 提交电子合同的签署流程（后置签署模式）
+   */
+  async submitAntchainAtoSignFlowEx(request: SubmitAntchainAtoSignFlowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAntchainAtoSignFlowResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAntchainAtoSignFlowResponse>(await this.doRequest("1.0", "antchain.ato.sign.flow.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAntchainAtoSignFlowResponse({}));
   }
 
   /**
