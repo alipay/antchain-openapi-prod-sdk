@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFrontSignRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFrontSignResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoSignFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoSignFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontTradeRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontTradeResponse;
 use AntChain\Util\UtilClient;
@@ -161,7 +163,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.2',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -207,6 +209,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 提交电子合同的签署流程(后置签署模式)
+     * Summary: 提交电子合同的签署流程（后置签署模式）.
+     *
+     * @param SubmitAntchainAtoSignFlowRequest $request
+     *
+     * @return SubmitAntchainAtoSignFlowResponse
+     */
+    public function submitAntchainAtoSignFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAntchainAtoSignFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交电子合同的签署流程(后置签署模式)
+     * Summary: 提交电子合同的签署流程（后置签署模式）.
+     *
+     * @param SubmitAntchainAtoSignFlowRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return SubmitAntchainAtoSignFlowResponse
+     */
+    public function submitAntchainAtoSignFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAntchainAtoSignFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.flow.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
