@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1"),
+                    new TeaPair("sdk_version", "1.0.2"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -159,6 +159,25 @@ public class Client {
         }
 
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    /**
+     * Description: 提交电子合同的签署流程(后置签署模式)
+     * Summary: 提交电子合同的签署流程（后置签署模式）
+     */
+    public SubmitAntchainAtoSignFlowResponse submitAntchainAtoSignFlow(SubmitAntchainAtoSignFlowRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAntchainAtoSignFlowEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 提交电子合同的签署流程(后置签署模式)
+     * Summary: 提交电子合同的签署流程（后置签署模式）
+     */
+    public SubmitAntchainAtoSignFlowResponse submitAntchainAtoSignFlowEx(SubmitAntchainAtoSignFlowRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.sign.flow.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAntchainAtoSignFlowResponse());
     }
 
     /**
