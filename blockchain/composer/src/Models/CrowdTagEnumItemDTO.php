@@ -10,7 +10,7 @@ class CrowdTagEnumItemDTO extends Model
 {
     // 枚举名称
     /**
-     * @example xx
+     * @example 性别
      *
      * @var string
      */

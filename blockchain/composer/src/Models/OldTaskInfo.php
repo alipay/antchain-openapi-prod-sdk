@@ -10,7 +10,7 @@ class OldTaskInfo extends Model
 {
     // 任务标题(同一个租户不能重复)
     /**
-     * @example xx
+     * @example 普通任务
      *
      * @var string
      */
@@ -18,7 +18,7 @@ class OldTaskInfo extends Model
 
     // appId
     /**
-     * @example xx
+     * @example 2021004121633301
      *
      * @var string
      */
@@ -26,7 +26,7 @@ class OldTaskInfo extends Model
 
     // 问卷ID
     /**
-     * @example xx
+     * @example ybl1112
      *
      * @var string
      */
@@ -34,7 +34,7 @@ class OldTaskInfo extends Model
 
     // 备注信息
     /**
-     * @example xx
+     * @example 普通任务备注
      *
      * @var string
      */
@@ -42,15 +42,15 @@ class OldTaskInfo extends Model
 
     // 租户ID
     /**
-     * @example xx
+     * @example RIVUFSJG
      *
      * @var string
      */
     public $tenantId;
 
-    // 操作者ID
+    // 操作者
     /**
-     * @example xx
+     * @example eipzps@alitest.comtest
      *
      * @var string
      */
@@ -58,7 +58,7 @@ class OldTaskInfo extends Model
 
     // banner标题
     /**
-     * @example xx
+     * @example 普通任务banner
      *
      * @var string
      */
@@ -66,7 +66,7 @@ class OldTaskInfo extends Model
 
     // banner图片地址（最多支持3张）
     /**
-     * @example xxx
+     * @example testTenant_1.png,testTenant_1.png
      *
      * @var string
      */
@@ -74,7 +74,7 @@ class OldTaskInfo extends Model
 
     // banner 图片地址, 拼装后的url
     /**
-     * @example [_xxx_]
+     * @example ["testTenant_1.png","testTenant_1.png"]
      *
      * @var string[]
      */
@@ -82,7 +82,7 @@ class OldTaskInfo extends Model
 
     // 题量
     /**
-     * @example
+     * @example 100
      *
      * @var int
      */
@@ -90,7 +90,7 @@ class OldTaskInfo extends Model
 
     // 任务连接地址
     /**
-     * @example xx
+     * @example https://pro.wenjuan.com/t/a2
      *
      * @var string
      */
@@ -98,7 +98,7 @@ class OldTaskInfo extends Model
 
     // 人群划分描述
     /**
-     * @example xx
+     * @example 购买过健身服装的人群
      *
      * @var string
      */
@@ -106,7 +106,7 @@ class OldTaskInfo extends Model
 
     // 城市列表
     /**
-     * @example xx
+     * @example 北京,上海,新加坡
      *
      * @var string
      */
@@ -114,7 +114,7 @@ class OldTaskInfo extends Model
 
     // 城市列表, 拼装后的url
     /**
-     * @example [_xx_]
+     * @example ["北京","上海","新加坡"]
      *
      * @var string[]
      */
@@ -122,7 +122,7 @@ class OldTaskInfo extends Model
 
     // 样本数量
     /**
-     * @example
+     * @example 20
      *
      * @var int
      */
@@ -130,7 +130,7 @@ class OldTaskInfo extends Model
 
     // 完成样本量
     /**
-     * @example
+     * @example 1
      *
      * @var int
      */
@@ -146,7 +146,7 @@ class OldTaskInfo extends Model
 
     // 产品余量
     /**
-     * @example
+     * @example 20
      *
      * @var int
      */
@@ -154,7 +154,7 @@ class OldTaskInfo extends Model
 
     // 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
     /**
-     * @example
+     * @example 1
      *
      * @var int
      */
@@ -162,7 +162,7 @@ class OldTaskInfo extends Model
 
     // 支付宝账号
     /**
-     * @example xx
+     * @example kefu@lingdangshuo.com
      *
      * @var string
      */
@@ -170,7 +170,7 @@ class OldTaskInfo extends Model
 
     // 奖励类型（0-定额红包）
     /**
-     * @example
+     * @example 0
      *
      * @var int
      */
@@ -178,7 +178,7 @@ class OldTaskInfo extends Model
 
     // 全额红包金额，奖励渠道为0和1时
     /**
-     * @example 0.02
+     * @example 1.00
      *
      * @var string
      */
@@ -186,7 +186,7 @@ class OldTaskInfo extends Model
 
     // 全额红包描述，奖励渠道为2时，此处必填
     /**
-     * @example xx
+     * @example 1-5元红包
      *
      * @var string
      */
@@ -202,7 +202,7 @@ class OldTaskInfo extends Model
 
     // 关联的证书instanceId
     /**
-     * @example xx
+     * @example 6511ce4b43414e9588114682bbf9a893
      *
      * @var string
      */
@@ -218,7 +218,7 @@ class OldTaskInfo extends Model
 
     // 审核建议
     /**
-     * @example xxx
+     * @example 拒绝
      *
      * @var string
      */
@@ -226,7 +226,7 @@ class OldTaskInfo extends Model
 
     // 任务创建时间
     /**
-     * @example 210101011112
+     * @example 2023-12-20 12:19:00
      *
      * @var string
      */
@@ -234,7 +234,7 @@ class OldTaskInfo extends Model
 
     // 任务更新时间
     /**
-     * @example 22232113131
+     * @example 2023-12-20 12:45:00
      *
      * @var string
      */
@@ -242,7 +242,7 @@ class OldTaskInfo extends Model
 
     // 审核理由
     /**
-     * @example xx
+     * @example 不合适
      *
      * @var string
      */
@@ -250,7 +250,7 @@ class OldTaskInfo extends Model
 
     // 人群配置信息
     /**
-     * @example {}
+     * @example {"exclude": false,"nodeConfig": {"groupType": "AND","children": ["exclude": false,"nodeType": "GROUP","nodeId": "1303661d-a7da-4d8a-b646-0819f2fc2855","nodeConfig": {"groupType": "AND","children": []}}]},"nodeId": "ROOT","nodeType": "GROUP"}
      *
      * @var string
      */
@@ -266,7 +266,7 @@ class OldTaskInfo extends Model
 
     // 状态
     /**
-     * @example xx
+     * @example 9
      *
      * @var int
      */

@@ -25,7 +25,7 @@ class PauseAuthTaskRequest extends Model
      */
     public $taskId;
 
-    // 操作者ID
+    // 操作者
     /**
      * @var string
      */

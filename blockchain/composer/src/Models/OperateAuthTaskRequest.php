@@ -31,7 +31,7 @@ class OperateAuthTaskRequest extends Model
      */
     public $sampleNum;
 
-    // 操作人ID
+    // 操作人
     /**
      * @var string
      */

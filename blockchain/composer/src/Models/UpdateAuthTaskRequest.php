@@ -49,7 +49,7 @@ class UpdateAuthTaskRequest extends Model
      */
     public $notes;
 
-    // 操作者ID
+    // 任务调整操作者
     /**
      * @var string
      */

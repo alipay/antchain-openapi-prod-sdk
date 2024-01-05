@@ -511,6 +511,8 @@ use AntChain\BLOCKCHAIN\Models\InvalidateBlockchainOrderRequest;
 use AntChain\BLOCKCHAIN\Models\InvalidateBlockchainOrderResponse;
 use AntChain\BLOCKCHAIN\Models\ListAkdfUserbizkeyRequest;
 use AntChain\BLOCKCHAIN\Models\ListAkdfUserbizkeyResponse;
+use AntChain\BLOCKCHAIN\Models\ListAuthTaskRequest;
+use AntChain\BLOCKCHAIN\Models\ListAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\ListCaasContractServiceRequest;
 use AntChain\BLOCKCHAIN\Models\ListCaasContractServiceResponse;
 use AntChain\BLOCKCHAIN\Models\ListDataauthorizationAuthorityCertRequest;
@@ -1364,7 +1366,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.27.10',
+                    'sdk_version'      => '1.27.11',
                     '_prod_code'       => 'BLOCKCHAIN',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -14864,6 +14866,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryAuthTaskLabelResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.label.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 任务列表查询
+     * Summary: 任务列表查询.
+     *
+     * @param ListAuthTaskRequest $request
+     *
+     * @return ListAuthTaskResponse
+     */
+    public function listAuthTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAuthTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 任务列表查询
+     * Summary: 任务列表查询.
+     *
+     * @param ListAuthTaskRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return ListAuthTaskResponse
+     */
+    public function listAuthTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAuthTaskResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

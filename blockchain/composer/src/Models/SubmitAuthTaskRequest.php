@@ -43,7 +43,7 @@ class SubmitAuthTaskRequest extends Model
      */
     public $notes;
 
-    // 任务创建者用户ID
+    // 任务创建者
     /**
      * @var string
      */

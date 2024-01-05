@@ -6,7 +6,7 @@ namespace AntChain\BLOCKCHAIN\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CountAuthTaskCrowdResponse extends Model
+class ListAuthTaskResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,16 @@ class CountAuthTaskCrowdResponse extends Model
      */
     public $resultMsg;
 
-    // 人群预估数量
+    // 任务分页列表返回体
     /**
-     * @var int
+     * @var PageTaskListDTO
      */
-    public $crowdCount;
-
-    // 人群导出时间
-    /**
-     * @var string
-     */
-    public $bizDate;
+    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'crowdCount' => 'crowd_count',
-        'bizDate'    => 'biz_date',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -61,11 +54,8 @@ class CountAuthTaskCrowdResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->crowdCount) {
-            $res['crowd_count'] = $this->crowdCount;
-        }
-        if (null !== $this->bizDate) {
-            $res['biz_date'] = $this->bizDate;
+        if (null !== $this->data) {
+            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -74,7 +64,7 @@ class CountAuthTaskCrowdResponse extends Model
     /**
      * @param array $map
      *
-     * @return CountAuthTaskCrowdResponse
+     * @return ListAuthTaskResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +78,8 @@ class CountAuthTaskCrowdResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['crowd_count'])) {
-            $model->crowdCount = $map['crowd_count'];
-        }
-        if (isset($map['biz_date'])) {
-            $model->bizDate = $map['biz_date'];
+        if (isset($map['data'])) {
+            $model->data = PageTaskListDTO::fromMap($map['data']);
         }
 
         return $model;

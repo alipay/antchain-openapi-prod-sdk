@@ -10,7 +10,7 @@ class CrowdTagEnumResp extends Model
 {
     // 人群标签code
     /**
-     * @example xx
+     * @example P0010GC6
      *
      * @var string
      */
