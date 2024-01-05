@@ -574,6 +574,236 @@ class CrowdNodeTypeEnum(TeaModel):
         return self
 
 
+class TaskListInfoDTO(TeaModel):
+    def __init__(
+        self,
+        task_name: str = None,
+        task_id: str = None,
+        app_id: str = None,
+        survey_id: str = None,
+        tenant_id: str = None,
+        tenant_name: str = None,
+        operator: str = None,
+        sample_num: int = None,
+        completed_num: int = None,
+        screen_num: int = None,
+        sample_total_amount: str = None,
+        red_packet_total_amount: str = None,
+        task_total_amount: str = None,
+        full_red_packet_amount: str = None,
+        examine_red_packet_amount: str = None,
+        issued_num: int = None,
+        product_code_type: str = None,
+        review_content: str = None,
+        status: str = None,
+        ap_status: str = None,
+        prize_channel: int = None,
+        full_red_packet_text_info: str = None,
+        gmt_modified: str = None,
+        gmt_create: str = None,
+        gmt_online: str = None,
+        gmt_pause_or_complete: str = None,
+        last_round_time: int = None,
+    ):
+        # 任务名称
+        self.task_name = task_name
+        # 任务ID
+        self.task_id = task_id
+        # appId
+        self.app_id = app_id
+        # 自有ID
+        self.survey_id = survey_id
+        # 租户ID
+        self.tenant_id = tenant_id
+        # 租户名称
+        self.tenant_name = tenant_name
+        # 操作员
+        self.operator = operator
+        # 样本数量
+        self.sample_num = sample_num
+        # 完成数量
+        self.completed_num = completed_num
+        # 甄别数量
+        self.screen_num = screen_num
+        # 样本总金额
+        self.sample_total_amount = sample_total_amount
+        # 全额红包总金额
+        self.red_packet_total_amount = red_packet_total_amount
+        # 该任务总金额
+        self.task_total_amount = task_total_amount
+        # 全额红包金额
+        self.full_red_packet_amount = full_red_packet_amount
+        # 甄别红包金额
+        self.examine_red_packet_amount = examine_red_packet_amount
+        # 发证量
+        self.issued_num = issued_num
+        # 产品下单code类型（1-资源包 2-后付费）
+        self.product_code_type = product_code_type
+        # 审核理由
+        self.review_content = review_content
+        # 任务状态：0-已删、1-已完成、2-审核未通过、3-暂停、4-投放中、5-暂停中未重启、6、投放中未暂停、7-投放中未调整、8-投放中未完成、9-待投放、10-草稿任务
+        self.status = status
+        # ap状态，1:启用，0：审批中
+        self.ap_status = ap_status
+        # 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
+        self.prize_channel = prize_channel
+        # 奖励渠道为问卷自带时，全额红包信息
+        self.full_red_packet_text_info = full_red_packet_text_info
+        # 修改时间
+        self.gmt_modified = gmt_modified
+        # 创建时间
+        self.gmt_create = gmt_create
+        # 投放时间
+        self.gmt_online = gmt_online
+        # 最近暂停/完成时间
+        self.gmt_pause_or_complete = gmt_pause_or_complete
+        # 最近一轮用时（h）
+        self.last_round_time = last_round_time
+
+    def validate(self):
+        self.validate_required(self.task_name, 'task_name')
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.survey_id, 'survey_id')
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.tenant_name, 'tenant_name')
+        self.validate_required(self.operator, 'operator')
+        self.validate_required(self.sample_num, 'sample_num')
+        self.validate_required(self.completed_num, 'completed_num')
+        self.validate_required(self.screen_num, 'screen_num')
+        self.validate_required(self.sample_total_amount, 'sample_total_amount')
+        self.validate_required(self.red_packet_total_amount, 'red_packet_total_amount')
+        self.validate_required(self.task_total_amount, 'task_total_amount')
+        self.validate_required(self.full_red_packet_amount, 'full_red_packet_amount')
+        self.validate_required(self.examine_red_packet_amount, 'examine_red_packet_amount')
+        self.validate_required(self.product_code_type, 'product_code_type')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.ap_status, 'ap_status')
+        self.validate_required(self.prize_channel, 'prize_channel')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
+        self.validate_required(self.gmt_create, 'gmt_create')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.task_name is not None:
+            result['task_name'] = self.task_name
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.survey_id is not None:
+            result['survey_id'] = self.survey_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.operator is not None:
+            result['operator'] = self.operator
+        if self.sample_num is not None:
+            result['sample_num'] = self.sample_num
+        if self.completed_num is not None:
+            result['completed_num'] = self.completed_num
+        if self.screen_num is not None:
+            result['screen_num'] = self.screen_num
+        if self.sample_total_amount is not None:
+            result['sample_total_amount'] = self.sample_total_amount
+        if self.red_packet_total_amount is not None:
+            result['red_packet_total_amount'] = self.red_packet_total_amount
+        if self.task_total_amount is not None:
+            result['task_total_amount'] = self.task_total_amount
+        if self.full_red_packet_amount is not None:
+            result['full_red_packet_amount'] = self.full_red_packet_amount
+        if self.examine_red_packet_amount is not None:
+            result['examine_red_packet_amount'] = self.examine_red_packet_amount
+        if self.issued_num is not None:
+            result['issued_num'] = self.issued_num
+        if self.product_code_type is not None:
+            result['product_code_type'] = self.product_code_type
+        if self.review_content is not None:
+            result['review_content'] = self.review_content
+        if self.status is not None:
+            result['status'] = self.status
+        if self.ap_status is not None:
+            result['ap_status'] = self.ap_status
+        if self.prize_channel is not None:
+            result['prize_channel'] = self.prize_channel
+        if self.full_red_packet_text_info is not None:
+            result['full_red_packet_text_info'] = self.full_red_packet_text_info
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_online is not None:
+            result['gmt_online'] = self.gmt_online
+        if self.gmt_pause_or_complete is not None:
+            result['gmt_pause_or_complete'] = self.gmt_pause_or_complete
+        if self.last_round_time is not None:
+            result['last_round_time'] = self.last_round_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('task_name') is not None:
+            self.task_name = m.get('task_name')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('survey_id') is not None:
+            self.survey_id = m.get('survey_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
+        if m.get('sample_num') is not None:
+            self.sample_num = m.get('sample_num')
+        if m.get('completed_num') is not None:
+            self.completed_num = m.get('completed_num')
+        if m.get('screen_num') is not None:
+            self.screen_num = m.get('screen_num')
+        if m.get('sample_total_amount') is not None:
+            self.sample_total_amount = m.get('sample_total_amount')
+        if m.get('red_packet_total_amount') is not None:
+            self.red_packet_total_amount = m.get('red_packet_total_amount')
+        if m.get('task_total_amount') is not None:
+            self.task_total_amount = m.get('task_total_amount')
+        if m.get('full_red_packet_amount') is not None:
+            self.full_red_packet_amount = m.get('full_red_packet_amount')
+        if m.get('examine_red_packet_amount') is not None:
+            self.examine_red_packet_amount = m.get('examine_red_packet_amount')
+        if m.get('issued_num') is not None:
+            self.issued_num = m.get('issued_num')
+        if m.get('product_code_type') is not None:
+            self.product_code_type = m.get('product_code_type')
+        if m.get('review_content') is not None:
+            self.review_content = m.get('review_content')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('ap_status') is not None:
+            self.ap_status = m.get('ap_status')
+        if m.get('prize_channel') is not None:
+            self.prize_channel = m.get('prize_channel')
+        if m.get('full_red_packet_text_info') is not None:
+            self.full_red_packet_text_info = m.get('full_red_packet_text_info')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_online') is not None:
+            self.gmt_online = m.get('gmt_online')
+        if m.get('gmt_pause_or_complete') is not None:
+            self.gmt_pause_or_complete = m.get('gmt_pause_or_complete')
+        if m.get('last_round_time') is not None:
+            self.last_round_time = m.get('last_round_time')
+        return self
+
+
 class ALiYunMember(TeaModel):
     def __init__(
         self,
@@ -6324,7 +6554,7 @@ class OldTaskInfo(TeaModel):
         self.notes = notes
         # 租户ID
         self.tenant_id = tenant_id
-        # 操作者ID
+        # 操作者
         self.operator = operator
         # banner标题
         self.banner_title = banner_title
@@ -8952,6 +9182,83 @@ class AccountMap(TeaModel):
             self.type = m.get('type')
         if m.get('uid') is not None:
             self.uid = m.get('uid')
+        return self
+
+
+class PageTaskListDTO(TeaModel):
+    def __init__(
+        self,
+        content: List[TaskListInfoDTO] = None,
+        total_elements: int = None,
+        total_pages: int = None,
+        number: int = None,
+        size: int = None,
+        number_of_elements: int = None,
+    ):
+        # 任务列表集合
+        self.content = content
+        # 总记录条目
+        self.total_elements = total_elements
+        # 记录总页数
+        self.total_pages = total_pages
+        # 页码
+        self.number = number
+        # 每页记录条目
+        self.size = size
+        # 每页元素个数
+        self.number_of_elements = number_of_elements
+
+    def validate(self):
+        self.validate_required(self.content, 'content')
+        if self.content:
+            for k in self.content:
+                if k:
+                    k.validate()
+        self.validate_required(self.total_elements, 'total_elements')
+        self.validate_required(self.total_pages, 'total_pages')
+        self.validate_required(self.number, 'number')
+        self.validate_required(self.size, 'size')
+        self.validate_required(self.number_of_elements, 'number_of_elements')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['content'] = []
+        if self.content is not None:
+            for k in self.content:
+                result['content'].append(k.to_map() if k else None)
+        if self.total_elements is not None:
+            result['total_elements'] = self.total_elements
+        if self.total_pages is not None:
+            result['total_pages'] = self.total_pages
+        if self.number is not None:
+            result['number'] = self.number
+        if self.size is not None:
+            result['size'] = self.size
+        if self.number_of_elements is not None:
+            result['number_of_elements'] = self.number_of_elements
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.content = []
+        if m.get('content') is not None:
+            for k in m.get('content'):
+                temp_model = TaskListInfoDTO()
+                self.content.append(temp_model.from_map(k))
+        if m.get('total_elements') is not None:
+            self.total_elements = m.get('total_elements')
+        if m.get('total_pages') is not None:
+            self.total_pages = m.get('total_pages')
+        if m.get('number') is not None:
+            self.number = m.get('number')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        if m.get('number_of_elements') is not None:
+            self.number_of_elements = m.get('number_of_elements')
         return self
 
 
@@ -60656,7 +60963,7 @@ class PauseAuthTaskRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 任务id
         self.task_id = task_id
-        # 操作者ID
+        # 操作者
         self.operator = operator
 
     def validate(self):
@@ -60754,7 +61061,7 @@ class FinishAuthTaskRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 任务id
         self.task_id = task_id
-        # 操作者ID
+        # 操作者
         self.operator = operator
 
     def validate(self):
@@ -60945,7 +61252,7 @@ class OperateAuthTaskRequest(TeaModel):
         self.task_id = task_id
         # 样本数量
         self.sample_num = sample_num
-        # 操作人ID
+        # 操作人
         self.operator = operator
 
     def validate(self):
@@ -61361,7 +61668,7 @@ class SubmitAuthTaskRequest(TeaModel):
         self.survey_id = survey_id
         # notes
         self.notes = notes
-        # 任务创建者用户ID
+        # 任务创建者
         self.operator = operator
         # banner标题
         self.banner_title = banner_title
@@ -61748,7 +62055,7 @@ class UpdateAuthTaskRequest(TeaModel):
         self.survey_id = survey_id
         # notes
         self.notes = notes
-        # 操作者ID
+        # 任务调整操作者
         self.operator = operator
         # banner标题
         self.banner_title = banner_title
@@ -62026,7 +62333,8 @@ class CountAuthTaskCrowdResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        data: int = None,
+        crowd_count: int = None,
+        biz_date: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -62035,7 +62343,9 @@ class CountAuthTaskCrowdResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # 人群预估数量
-        self.data = data
+        self.crowd_count = crowd_count
+        # 人群导出时间
+        self.biz_date = biz_date
 
     def validate(self):
         pass
@@ -62052,8 +62362,10 @@ class CountAuthTaskCrowdResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.data is not None:
-            result['data'] = self.data
+        if self.crowd_count is not None:
+            result['crowd_count'] = self.crowd_count
+        if self.biz_date is not None:
+            result['biz_date'] = self.biz_date
         return result
 
     def from_map(self, m: dict = None):
@@ -62064,8 +62376,10 @@ class CountAuthTaskCrowdResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('data') is not None:
-            self.data = m.get('data')
+        if m.get('crowd_count') is not None:
+            self.crowd_count = m.get('crowd_count')
+        if m.get('biz_date') is not None:
+            self.biz_date = m.get('biz_date')
         return self
 
 
@@ -62270,6 +62584,120 @@ class QueryAuthTaskLabelResponse(TeaModel):
             for k in m.get('data'):
                 temp_model = CrowdTagEnumResp()
                 self.data.append(temp_model.from_map(k))
+        return self
+
+
+class ListAuthTaskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        task_name: str = None,
+        page_no: int = None,
+        page_size: int = None,
+        operators: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 任务名称/任务id/自有id 模糊搜索
+        self.task_name = task_name
+        # 页码，默认是0开始
+        self.page_no = page_no
+        # 每页大小，默认是6
+        self.page_size = page_size
+        # 操作人列表
+        self.operators = operators
+
+    def validate(self):
+        self.validate_required(self.page_no, 'page_no')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.task_name is not None:
+            result['task_name'] = self.task_name
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.operators is not None:
+            result['operators'] = self.operators
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('task_name') is not None:
+            self.task_name = m.get('task_name')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('operators') is not None:
+            self.operators = m.get('operators')
+        return self
+
+
+class ListAuthTaskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: PageTaskListDTO = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 任务分页列表返回体
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = PageTaskListDTO()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 

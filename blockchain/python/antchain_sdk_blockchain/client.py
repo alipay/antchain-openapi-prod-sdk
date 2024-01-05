@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.27.10',
+                    'sdk_version': '1.27.11',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.27.10',
+                    'sdk_version': '1.27.11',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -23117,6 +23117,62 @@ class Client:
         return TeaCore.from_map(
             blockchain_models.QueryAuthTaskLabelResponse(),
             await self.do_request_async('1.0', 'baas.auth.task.label.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_auth_task(
+        self,
+        request: blockchain_models.ListAuthTaskRequest,
+    ) -> blockchain_models.ListAuthTaskResponse:
+        """
+        Description: 任务列表查询
+        Summary: 任务列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_auth_task_ex(request, headers, runtime)
+
+    async def list_auth_task_async(
+        self,
+        request: blockchain_models.ListAuthTaskRequest,
+    ) -> blockchain_models.ListAuthTaskResponse:
+        """
+        Description: 任务列表查询
+        Summary: 任务列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_auth_task_ex_async(request, headers, runtime)
+
+    def list_auth_task_ex(
+        self,
+        request: blockchain_models.ListAuthTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ListAuthTaskResponse:
+        """
+        Description: 任务列表查询
+        Summary: 任务列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ListAuthTaskResponse(),
+            self.do_request('1.0', 'baas.auth.task.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_auth_task_ex_async(
+        self,
+        request: blockchain_models.ListAuthTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ListAuthTaskResponse:
+        """
+        Description: 任务列表查询
+        Summary: 任务列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ListAuthTaskResponse(),
+            await self.do_request_async('1.0', 'baas.auth.task.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(
