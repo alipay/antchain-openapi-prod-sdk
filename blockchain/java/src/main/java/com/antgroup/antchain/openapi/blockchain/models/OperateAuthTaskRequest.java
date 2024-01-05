@@ -21,7 +21,7 @@ public class OperateAuthTaskRequest extends TeaModel {
     @Validation(required = true)
     public Long sampleNum;
 
-    // 操作人ID
+    // 操作人
     @NameInMap("operator")
     @Validation(required = true)
     public String operator;

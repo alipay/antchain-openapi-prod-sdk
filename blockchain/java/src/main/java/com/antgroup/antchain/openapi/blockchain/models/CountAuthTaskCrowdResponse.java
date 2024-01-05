@@ -17,8 +17,12 @@ public class CountAuthTaskCrowdResponse extends TeaModel {
     public String resultMsg;
 
     // 人群预估数量
-    @NameInMap("data")
-    public Long data;
+    @NameInMap("crowd_count")
+    public Long crowdCount;
+
+    // 人群导出时间
+    @NameInMap("biz_date")
+    public String bizDate;
 
     public static CountAuthTaskCrowdResponse build(java.util.Map<String, ?> map) throws Exception {
         CountAuthTaskCrowdResponse self = new CountAuthTaskCrowdResponse();
@@ -49,12 +53,20 @@ public class CountAuthTaskCrowdResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CountAuthTaskCrowdResponse setData(Long data) {
-        this.data = data;
+    public CountAuthTaskCrowdResponse setCrowdCount(Long crowdCount) {
+        this.crowdCount = crowdCount;
         return this;
     }
-    public Long getData() {
-        return this.data;
+    public Long getCrowdCount() {
+        return this.crowdCount;
+    }
+
+    public CountAuthTaskCrowdResponse setBizDate(String bizDate) {
+        this.bizDate = bizDate;
+        return this;
+    }
+    public String getBizDate() {
+        return this.bizDate;
     }
 
 }

@@ -28,7 +28,7 @@ public class OldTaskInfo extends TeaModel {
     @Validation(required = true)
     public String tenantId;
 
-    // 操作者ID
+    // 操作者
     @NameInMap("operator")
     @Validation(required = true)
     public String operator;

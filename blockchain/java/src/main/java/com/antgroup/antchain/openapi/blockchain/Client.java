@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.27.10"),
+                    new TeaPair("sdk_version", "1.27.11"),
                     new TeaPair("_prod_code", "BLOCKCHAIN"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -7935,6 +7935,25 @@ public class Client {
     public QueryAuthTaskLabelResponse queryAuthTaskLabelEx(QueryAuthTaskLabelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.label.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthTaskLabelResponse());
+    }
+
+    /**
+     * Description: 任务列表查询
+     * Summary: 任务列表查询
+     */
+    public ListAuthTaskResponse listAuthTask(ListAuthTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAuthTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 任务列表查询
+     * Summary: 任务列表查询
+     */
+    public ListAuthTaskResponse listAuthTaskEx(ListAuthTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAuthTaskResponse());
     }
 
     /**

@@ -31,7 +31,7 @@ public class SubmitAuthTaskRequest extends TeaModel {
     @Validation(maxLength = 32)
     public String notes;
 
-    // 任务创建者用户ID
+    // 任务创建者
     @NameInMap("operator")
     @Validation(required = true, maxLength = 100)
     public String operator;

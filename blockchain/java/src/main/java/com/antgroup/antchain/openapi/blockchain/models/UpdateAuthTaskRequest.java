@@ -36,7 +36,7 @@ public class UpdateAuthTaskRequest extends TeaModel {
     @Validation(maxLength = 32)
     public String notes;
 
-    // 操作者ID
+    // 任务调整操作者
     @NameInMap("operator")
     @Validation(required = true, maxLength = 100)
     public String operator;

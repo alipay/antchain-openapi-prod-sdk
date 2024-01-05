@@ -16,7 +16,7 @@ public class PauseAuthTaskRequest extends TeaModel {
     @Validation(required = true)
     public String taskId;
 
-    // 操作者ID
+    // 操作者
     @NameInMap("operator")
     @Validation(required = true)
     public String operator;
