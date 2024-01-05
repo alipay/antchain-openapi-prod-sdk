@@ -35,7 +35,7 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public string TenantId { get; set; }
 
-        // 操作者ID
+        // 操作者
         [NameInMap("operator")]
         [Validation(Required=true)]
         public string Operator { get; set; }

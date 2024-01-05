@@ -28,7 +28,7 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public long? SampleNum { get; set; }
 
-        // 操作人ID
+        // 操作人
         [NameInMap("operator")]
         [Validation(Required=true)]
         public string Operator { get; set; }

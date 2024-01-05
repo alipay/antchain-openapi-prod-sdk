@@ -43,7 +43,7 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false, MaxLength=32)]
         public string Notes { get; set; }
 
-        // 操作者ID
+        // 任务调整操作者
         [NameInMap("operator")]
         [Validation(Required=true, MaxLength=100)]
         public string Operator { get; set; }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BLOCKCHAIN.Models
 {
-    public class CountAuthTaskCrowdResponse : TeaModel {
+    public class ListAuthTaskResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,10 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 人群预估数量
-        [NameInMap("crowd_count")]
+        // 任务分页列表返回体
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public long? CrowdCount { get; set; }
-
-        // 人群导出时间
-        [NameInMap("biz_date")]
-        [Validation(Required=false)]
-        public string BizDate { get; set; }
+        public PageTaskListDTO Data { get; set; }
 
     }
 

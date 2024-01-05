@@ -137,7 +137,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.27.10"},
+                        {"sdk_version", "1.27.11"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.27.10"},
+                        {"sdk_version", "1.27.11"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -17503,6 +17503,48 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAuthTaskLabelResponse>(await DoRequestAsync("1.0", "baas.auth.task.label.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务列表查询
+         * Summary: 任务列表查询
+         */
+        public ListAuthTaskResponse ListAuthTask(ListAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAuthTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务列表查询
+         * Summary: 任务列表查询
+         */
+        public async Task<ListAuthTaskResponse> ListAuthTaskAsync(ListAuthTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAuthTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务列表查询
+         * Summary: 任务列表查询
+         */
+        public ListAuthTaskResponse ListAuthTaskEx(ListAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAuthTaskResponse>(DoRequest("1.0", "baas.auth.task.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务列表查询
+         * Summary: 任务列表查询
+         */
+        public async Task<ListAuthTaskResponse> ListAuthTaskExAsync(ListAuthTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAuthTaskResponse>(await DoRequestAsync("1.0", "baas.auth.task.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
