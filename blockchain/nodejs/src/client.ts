@@ -332,6 +332,131 @@ export class CrowdNodeTypeEnum extends $tea.Model {
   }
 }
 
+// 任务列表返回体
+export class TaskListInfoDTO extends $tea.Model {
+  // 任务名称
+  taskName: string;
+  // 任务ID
+  taskId: string;
+  // appId
+  appId: string;
+  // 自有ID
+  surveyId: string;
+  // 租户ID
+  tenantId: string;
+  // 租户名称
+  tenantName: string;
+  // 操作员
+  operator: string;
+  // 样本数量
+  sampleNum: number;
+  // 完成数量
+  completedNum: number;
+  // 甄别数量
+  screenNum: number;
+  // 样本总金额
+  sampleTotalAmount: string;
+  // 全额红包总金额
+  redPacketTotalAmount: string;
+  // 该任务总金额
+  taskTotalAmount: string;
+  // 全额红包金额
+  fullRedPacketAmount: string;
+  // 甄别红包金额
+  examineRedPacketAmount: string;
+  // 发证量
+  issuedNum?: number;
+  // 产品下单code类型（1-资源包 2-后付费）
+  productCodeType: string;
+  // 审核理由
+  reviewContent?: string;
+  // 任务状态：0-已删、1-已完成、2-审核未通过、3-暂停、4-投放中、5-暂停中未重启、6、投放中未暂停、7-投放中未调整、8-投放中未完成、9-待投放、10-草稿任务
+  status: string;
+  // ap状态，1:启用，0：审批中
+  apStatus: string;
+  // 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
+  prizeChannel: number;
+  // 奖励渠道为问卷自带时，全额红包信息
+  fullRedPacketTextInfo?: string;
+  // 修改时间
+  gmtModified: string;
+  // 创建时间
+  gmtCreate: string;
+  // 投放时间
+  gmtOnline?: string;
+  // 最近暂停/完成时间
+  gmtPauseOrComplete?: string;
+  // 最近一轮用时（h）
+  lastRoundTime?: number;
+  static names(): { [key: string]: string } {
+    return {
+      taskName: 'task_name',
+      taskId: 'task_id',
+      appId: 'app_id',
+      surveyId: 'survey_id',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      operator: 'operator',
+      sampleNum: 'sample_num',
+      completedNum: 'completed_num',
+      screenNum: 'screen_num',
+      sampleTotalAmount: 'sample_total_amount',
+      redPacketTotalAmount: 'red_packet_total_amount',
+      taskTotalAmount: 'task_total_amount',
+      fullRedPacketAmount: 'full_red_packet_amount',
+      examineRedPacketAmount: 'examine_red_packet_amount',
+      issuedNum: 'issued_num',
+      productCodeType: 'product_code_type',
+      reviewContent: 'review_content',
+      status: 'status',
+      apStatus: 'ap_status',
+      prizeChannel: 'prize_channel',
+      fullRedPacketTextInfo: 'full_red_packet_text_info',
+      gmtModified: 'gmt_modified',
+      gmtCreate: 'gmt_create',
+      gmtOnline: 'gmt_online',
+      gmtPauseOrComplete: 'gmt_pause_or_complete',
+      lastRoundTime: 'last_round_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      taskName: 'string',
+      taskId: 'string',
+      appId: 'string',
+      surveyId: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      operator: 'string',
+      sampleNum: 'number',
+      completedNum: 'number',
+      screenNum: 'number',
+      sampleTotalAmount: 'string',
+      redPacketTotalAmount: 'string',
+      taskTotalAmount: 'string',
+      fullRedPacketAmount: 'string',
+      examineRedPacketAmount: 'string',
+      issuedNum: 'number',
+      productCodeType: 'string',
+      reviewContent: 'string',
+      status: 'string',
+      apStatus: 'string',
+      prizeChannel: 'number',
+      fullRedPacketTextInfo: 'string',
+      gmtModified: 'string',
+      gmtCreate: 'string',
+      gmtOnline: 'string',
+      gmtPauseOrComplete: 'string',
+      lastRoundTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 阿里云联盟成员信息
 export class ALiYunMember extends $tea.Model {
   // 加入时间
@@ -3884,7 +4009,7 @@ export class OldTaskInfo extends $tea.Model {
   notes?: string;
   // 租户ID
   tenantId: string;
-  // 操作者ID
+  // 操作者
   operator: string;
   // banner标题
   bannerTitle: string;
@@ -5534,6 +5659,47 @@ export class AccountMap extends $tea.Model {
       targetName: 'string',
       type: 'number',
       uid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 任务列表分页结构体
+export class PageTaskListDTO extends $tea.Model {
+  // 任务列表集合
+  content: TaskListInfoDTO[];
+  // 总记录条目
+  totalElements: number;
+  // 记录总页数
+  totalPages: number;
+  // 页码
+  number: number;
+  // 每页记录条目
+  size: number;
+  // 每页元素个数
+  numberOfElements: number;
+  static names(): { [key: string]: string } {
+    return {
+      content: 'content',
+      totalElements: 'total_elements',
+      totalPages: 'total_pages',
+      number: 'number',
+      size: 'size',
+      numberOfElements: 'number_of_elements',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      content: { 'type': 'array', 'itemType': TaskListInfoDTO },
+      totalElements: 'number',
+      totalPages: 'number',
+      number: 'number',
+      size: 'number',
+      numberOfElements: 'number',
     };
   }
 
@@ -37327,7 +37493,7 @@ export class PauseAuthTaskRequest extends $tea.Model {
   productInstanceId?: string;
   // 任务id
   taskId: string;
-  // 操作者ID
+  // 操作者
   operator: string;
   static names(): { [key: string]: string } {
     return {
@@ -37390,7 +37556,7 @@ export class FinishAuthTaskRequest extends $tea.Model {
   productInstanceId?: string;
   // 任务id
   taskId: string;
-  // 操作者ID
+  // 操作者
   operator: string;
   static names(): { [key: string]: string } {
     return {
@@ -37514,7 +37680,7 @@ export class OperateAuthTaskRequest extends $tea.Model {
   taskId: string;
   // 样本数量
   sampleNum: number;
-  // 操作人ID
+  // 操作人
   operator: string;
   static names(): { [key: string]: string } {
     return {
@@ -37762,7 +37928,7 @@ export class SubmitAuthTaskRequest extends $tea.Model {
   surveyId: string;
   // notes
   notes?: string;
-  // 任务创建者用户ID
+  // 任务创建者
   operator: string;
   // banner标题
   bannerTitle: string;
@@ -37974,7 +38140,7 @@ export class UpdateAuthTaskRequest extends $tea.Model {
   surveyId: string;
   // notes
   notes?: string;
-  // 操作者ID
+  // 任务调整操作者
   operator: string;
   // banner标题
   bannerTitle: string;
@@ -38138,13 +38304,16 @@ export class CountAuthTaskCrowdResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 人群预估数量
-  data?: number;
+  crowdCount?: number;
+  // 人群导出时间
+  bizDate?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      data: 'data',
+      crowdCount: 'crowd_count',
+      bizDate: 'biz_date',
     };
   }
 
@@ -38153,7 +38322,8 @@ export class CountAuthTaskCrowdResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: 'number',
+      crowdCount: 'number',
+      bizDate: 'string',
     };
   }
 
@@ -38276,6 +38446,77 @@ export class QueryAuthTaskLabelResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       data: { 'type': 'array', 'itemType': CrowdTagEnumResp },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAuthTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务名称/任务id/自有id 模糊搜索
+  taskName?: string;
+  // 页码，默认是0开始
+  pageNo: number;
+  // 每页大小，默认是6
+  pageSize: number;
+  // 操作人列表
+  operators?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskName: 'task_name',
+      pageNo: 'page_no',
+      pageSize: 'page_size',
+      operators: 'operators',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskName: 'string',
+      pageNo: 'number',
+      pageSize: 'number',
+      operators: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAuthTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务分页列表返回体
+  data?: PageTaskListDTO;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: PageTaskListDTO,
     };
   }
 
@@ -53162,7 +53403,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.27.10",
+          sdk_version: "1.27.11",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
@@ -60984,6 +61225,25 @@ export default class Client {
   async queryAuthTaskLabelEx(request: QueryAuthTaskLabelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthTaskLabelResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAuthTaskLabelResponse>(await this.doRequest("1.0", "baas.auth.task.label.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthTaskLabelResponse({}));
+  }
+
+  /**
+   * Description: 任务列表查询
+   * Summary: 任务列表查询
+   */
+  async listAuthTask(request: ListAuthTaskRequest): Promise<ListAuthTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listAuthTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 任务列表查询
+   * Summary: 任务列表查询
+   */
+  async listAuthTaskEx(request: ListAuthTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAuthTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListAuthTaskResponse>(await this.doRequest("1.0", "baas.auth.task.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAuthTaskResponse({}));
   }
 
   /**
