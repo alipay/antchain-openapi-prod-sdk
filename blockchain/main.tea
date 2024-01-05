@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.27.10',
+    sdk_version = '1.27.11',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -259,6 +259,64 @@ model CrowdNodeTypeEnum {
   group?: string(name='group', example='xx'),
   // 条件节点
   condition?: string(name='condition', example='xx'),
+}
+
+// 任务列表返回体
+model TaskListInfoDTO {
+  // 任务名称
+  taskName: string(name='task_name', example='普通任务'),
+  // 任务ID
+  taskId: string(name='task_id', example='qdQxqU5gz'),
+  // appId
+  appId: string(name='app_id', example='2021004121633301'),
+  // 自有ID
+  surveyId: string(name='survey_id', example='ybl1112'),
+  // 租户ID
+  tenantId: string(name='tenant_id', example='RIVUFSJG'),
+  // 租户名称
+  tenantName: string(name='tenant_name', example='李强'),
+  // 操作员
+  operator: string(name='operator', example='eipzps@alitest.comtest'),
+  // 样本数量
+  sampleNum: long(name='sample_num', example=''),
+  // 完成数量
+  completedNum: long(name='completed_num', example=''),
+  // 甄别数量
+  screenNum: long(name='screen_num', example=''),
+  // 样本总金额
+  sampleTotalAmount: string(name='sample_total_amount', example='10.00'),
+  // 全额红包总金额
+  redPacketTotalAmount: string(name='red_packet_total_amount', example='20.00'),
+  // 该任务总金额
+  taskTotalAmount: string(name='task_total_amount', example='30.00'),
+  // 全额红包金额
+  fullRedPacketAmount: string(name='full_red_packet_amount', example='1.00'),
+  // 甄别红包金额
+  examineRedPacketAmount: string(name='examine_red_packet_amount', example='0.05'),
+  // 发证量
+  issuedNum?: long(name='issued_num', example=''),
+  // 产品下单code类型（1-资源包 2-后付费）
+  productCodeType: string(name='product_code_type', example='1'),
+  // 审核理由
+  reviewContent?: string(name='review_content', example='拒绝,图片不合适'),
+  // 任务状态：0-已删、1-已完成、2-审核未通过、3-暂停、4-投放中、5-暂停中未重启、6、投放中未暂停、7-投放中未调整、8-投放中未完成、9-待投放、10-草稿任务
+  status: string(name='status', example='9'),
+  // ap状态，1:启用，0：审批中
+  apStatus: string(name='ap_status', example='1'),
+  // 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
+  prizeChannel: long(name='prize_channel', example='1'),
+  // 奖励渠道为问卷自带时，全额红包信息
+  fullRedPacketTextInfo?: string(name='full_red_packet_text_info', example='1-5元红包'),
+  // 修改时间
+  gmtModified: string(name='gmt_modified', example='2023-12-22 10:34:11'),
+  // 创建时间
+  gmtCreate: string(name='gmt_create', example='2023-12-22 10:11:33'),
+  // 投放时间
+  gmtOnline?: string(name='gmt_online', example='2023-12-23 10:11:22'),
+  // 最近暂停/完成时间
+  gmtPauseOrComplete?: string(name='gmt_pause_or_complete', example='2022-12-22 09:11:11'),
+  // 最近一轮用时（h）
+  lastRoundTime?: long(name='last_round_time', example='1'),
 }
 
 // 阿里云联盟成员信息
@@ -554,7 +612,7 @@ model VcTransmitTargetStruct {
 // 人群标签对象
 model CrowdTagEnumItemDTO {
   // 枚举名称
-  name: string(name='name', example='xx'),
+  name: string(name='name', example='性别'),
   // 枚举值
   val: string(name='val', example='F'),
 }
@@ -1629,71 +1687,71 @@ model ALiYunChainMiniAppAuthorization {
 // 历史任务信息
 model OldTaskInfo {
   // 任务标题(同一个租户不能重复)
-  taskName: string(name='task_name', example='xx'),
+  taskName: string(name='task_name', example='普通任务'),
   // appId
-  appId: string(name='app_id', example='xx'),
+  appId: string(name='app_id', example='2021004121633301'),
   // 问卷ID
-  surveyId: string(name='survey_id', example='xx'),
+  surveyId: string(name='survey_id', example='ybl1112'),
   // 备注信息
-  notes?: string(name='notes', example='xx'),
+  notes?: string(name='notes', example='普通任务备注'),
   // 租户ID
-  tenantId: string(name='tenant_id', example='xx'),
-  // 操作者ID
-  operator: string(name='operator', example='xx'),
+  tenantId: string(name='tenant_id', example='RIVUFSJG'),
+  // 操作者
+  operator: string(name='operator', example='eipzps@alitest.comtest'),
   // banner标题
-  bannerTitle: string(name='banner_title', example='xx'),
+  bannerTitle: string(name='banner_title', example='普通任务banner'),
   // banner图片地址（最多支持3张）
-  bannerImageUrls?: string(name='banner_image_urls', example='xxx'),
+  bannerImageUrls?: string(name='banner_image_urls', example='testTenant_1.png,testTenant_1.png'),
   // banner 图片地址, 拼装后的url
-  bannerImageFullUrls?: [ string ](name='banner_image_full_urls', example='[_xxx_]'),
+  bannerImageFullUrls?: [ string ](name='banner_image_full_urls', example='["testTenant_1.png","testTenant_1.png"]'),
   // 题量
-  questionNum: long(name='question_num', example=''),
+  questionNum: long(name='question_num', example='100'),
   // 任务连接地址
-  taskLinkUrl: string(name='task_link_url', example='xx'),
+  taskLinkUrl: string(name='task_link_url', example='https://pro.wenjuan.com/t/a2'),
   // 人群划分描述
-  personDivideContent?: string(name='person_divide_content', example='xx'),
+  personDivideContent?: string(name='person_divide_content', example='购买过健身服装的人群'),
   // 城市列表
-  cityDivideUrls?: string(name='city_divide_urls', example='xx'),
+  cityDivideUrls?: string(name='city_divide_urls', example='北京,上海,新加坡'),
   // 城市列表, 拼装后的url
-  cityDivideFullUrls?: [ string ](name='city_divide_full_urls', example='[_xx_]'),
+  cityDivideFullUrls?: [ string ](name='city_divide_full_urls', example='["北京","上海","新加坡"]'),
   // 样本数量
-  sampleNum: long(name='sample_num', example=''),
+  sampleNum: long(name='sample_num', example='20'),
   // 完成样本量
-  completedNum: long(name='completed_num', example=''),
+  completedNum: long(name='completed_num', example='1'),
   // 产品下单code类型（1-资源包 2-后付费）
   productCodeType: string(name='product_code_type', example='1'),
   // 产品余量
-  productCapacity: long(name='product_capacity', example=''),
+  productCapacity: long(name='product_capacity', example='20'),
   // 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
-  prizeChannel: long(name='prize_channel', example=''),
+  prizeChannel: long(name='prize_channel', example='1'),
   // 支付宝账号
-  alipayAccountId?: string(name='alipay_account_id', example='xx'),
+  alipayAccountId?: string(name='alipay_account_id', example='kefu@lingdangshuo.com'),
   // 奖励类型（0-定额红包）
-  prizeType: long(name='prize_type', example=''),
+  prizeType: long(name='prize_type', example='0'),
   // 全额红包金额，奖励渠道为0和1时
-  fullRedPacketAmount: string(name='full_red_packet_amount', example='0.02'),
+  fullRedPacketAmount: string(name='full_red_packet_amount', example='1.00'),
   // 全额红包描述，奖励渠道为2时，此处必填
-  fullRedPacketTextInfo?: string(name='full_red_packet_text_info', example='xx'),
+  fullRedPacketTextInfo?: string(name='full_red_packet_text_info', example='1-5元红包'),
   // 甄别红包金额
   examineRedPacketAmount: string(name='examine_red_packet_amount', example='0.01'),
   // 关联的证书instanceId
-  certInstanceId?: string(name='cert_instance_id', example='xx'),
+  certInstanceId?: string(name='cert_instance_id', example='6511ce4b43414e9588114682bbf9a893'),
   // 证书实例详情
   certInstanceDetail?: CertInstanceDetail(name='cert_instance_detail', example=''),
   // 审核建议
-  verifyComment?: string(name='verify_comment', example='xxx'),
+  verifyComment?: string(name='verify_comment', example='拒绝'),
   // 任务创建时间
-  gmtCreate: string(name='gmt_create', example='210101011112'),
+  gmtCreate: string(name='gmt_create', example='2023-12-20 12:19:00'),
   // 任务更新时间
-  gmtModified: string(name='gmt_modified', example='22232113131'),
+  gmtModified: string(name='gmt_modified', example='2023-12-20 12:45:00'),
   // 审核理由
-  reviewContent?: string(name='review_content', example='xx'),
+  reviewContent?: string(name='review_content', example='不合适'),
   // 人群配置信息
-  crowdConfig?: string(name='crowd_config', example='{}'),
+  crowdConfig?: string(name='crowd_config', example='{"exclude": false,"nodeConfig": {"groupType": "AND","children": ["exclude": false,"nodeType": "GROUP","nodeId": "1303661d-a7da-4d8a-b646-0819f2fc2855","nodeConfig": {"groupType": "AND","children": []}}]},"nodeId": "ROOT","nodeType": "GROUP"}'),
   // 任务ID
   taskId: string(name='task_id', example='qdQxqU5gz'),
   // 状态
-  status: long(name='status', example='xx'),
+  status: long(name='status', example='9'),
 }
 
 // 阿里云蚂蚁区块链相关下载结果
@@ -2259,6 +2317,22 @@ model AccountMap {
   uid: string(name='uid', example='huihui'),
 }
 
+// 任务列表分页结构体
+model PageTaskListDTO {
+  // 任务列表集合
+  content: [ TaskListInfoDTO ](name='content', example=''),
+  // 总记录条目
+  totalElements: long(name='total_elements', example='6'),
+  // 记录总页数
+  totalPages: long(name='total_pages', example='20'),
+  // 页码
+  number: long(name='number', example='0'),
+  // 每页记录条目
+  size: long(name='size', example='6'),
+  // 每页元素个数
+  numberOfElements: long(name='number_of_elements', example=''),
+}
+
 // 服务端签名oss的url然后client直传文件到oss，此结构包含了服务端签名后的数据。
 model PresignedUrlPolicy {
   // oss访问的临时access id
@@ -2514,71 +2588,71 @@ model AccountWholesaleParam {
 // 更新后的任务信息
 model UpdatedTaskInfo {
   // 任务标题(同一个租户不能重复)
-  taskName: string(name='task_name', example='xxx'),
+  taskName: string(name='task_name', example='普通任务修改'),
   // appId
-  appId: string(name='app_id', example='xxx'),
+  appId: string(name='app_id', example='2021004121633301'),
   // 问卷ID
-  surveyId: string(name='survey_id', example='xxx'),
+  surveyId: string(name='survey_id', example='ybl1112'),
   // 任务ID
   taskId: string(name='task_id', example='qdQxqU5gz'),
   // 备注信息
-  notes?: string(name='notes', example='xxx'),
+  notes?: string(name='notes', example='普通任务修改测试'),
   // 租户ID
-  tenantId: string(name='tenant_id', example='xxx'),
+  tenantId: string(name='tenant_id', example='RIVUFSJG'),
   // 操作者ID
-  operator: string(name='operator', example='xxx'),
+  operator: string(name='operator', example='eipzps@alitest.comtest'),
   // banner标题
-  bannerTitle: string(name='banner_title', example='xxx'),
+  bannerTitle: string(name='banner_title', example='普通任务banner'),
   // banner图片地址（最多支持3张）
-  bannerImageUrls?: string(name='banner_image_urls', example='aaa'),
+  bannerImageUrls?: string(name='banner_image_urls', example='testTenant_1.png,testTenant_1.png'),
   // banner 图片地址, 拼装后的url
-  bannerImageFullUrls?: [ string ](name='banner_image_full_urls', example='[_aa_,_bb_]'),
+  bannerImageFullUrls?: [ string ](name='banner_image_full_urls', example='["testTenant_1.png","testTenant_1.png"]'),
   // 题量
-  questionNum: long(name='question_num', example=''),
+  questionNum: long(name='question_num', example='10'),
   // 任务连接地址
-  taskLinkUrl: string(name='task_link_url', example='xxx'),
+  taskLinkUrl: string(name='task_link_url', example='https://pro.wenjuan.com/t/a1'),
   // 人群划分描述
-  personDivideContent?: string(name='person_divide_content', example='xxx'),
+  personDivideContent?: string(name='person_divide_content', example='购买过健身服装的人群'),
   // 城市列表
-  cityDivideUrls?: string(name='city_divide_urls', example='xxx'),
+  cityDivideUrls?: string(name='city_divide_urls', example='新加坡,纽约,tokey'),
   // 城市列表, 拼装后的url
-  cityDivideFullUrls?: [ string ](name='city_divide_full_urls', example='[_a_]'),
+  cityDivideFullUrls?: [ string ](name='city_divide_full_urls', example='[_新加坡_,"纽约","tokey"]'),
   // 样本数量
-  sampleNum: long(name='sample_num', example=''),
+  sampleNum: long(name='sample_num', example='100'),
   // 完成样本量
-  completedNum: long(name='completed_num', example=''),
+  completedNum: long(name='completed_num', example='2'),
   // 产品下单code类型（1-资源包 2-后付费）
   productCodeType: string(name='product_code_type', example='1'),
   // 产品余量
-  productCapacity: long(name='product_capacity', example=''),
+  productCapacity: long(name='product_capacity', example='13'),
   // 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
-  prizeChannel: long(name='prize_channel', example=''),
+  prizeChannel: long(name='prize_channel', example='1'),
   // 支付宝账号
-  alipayAccountId?: string(name='alipay_account_id', example='xxx'),
+  alipayAccountId?: string(name='alipay_account_id', example='kefu@lingdangshuo.com'),
   // 奖励类型（0-定额红包）
   prizeType: long(name='prize_type', example='0'),
   // 全额红包金额，奖励渠道为0和1时
-  fullRedPacketAmount: string(name='full_red_packet_amount', example='0.02'),
+  fullRedPacketAmount: string(name='full_red_packet_amount', example='1.00'),
   // 全额红包描述，奖励渠道为2时，此处必填
-  fullRedPacketTextInfo?: string(name='full_red_packet_text_info', example='xxx'),
+  fullRedPacketTextInfo?: string(name='full_red_packet_text_info', example='1-6元红包'),
   // 甄别红包金额
   examineRedPacketAmount: string(name='examine_red_packet_amount', example='0.01'),
   // 关联的证书instanceId
-  certInstanceId?: string(name='cert_instance_id', example='xxx'),
+  certInstanceId?: string(name='cert_instance_id', example='6511ce4b43414e9588114682bbf9a893'),
   // 证书实例详情
   certInstanceDetail: CertInstanceDetail(name='cert_instance_detail', example=''),
   // 审核意见
-  verifyOmment?: string(name='verify_omment', example='xxx'),
+  verifyOmment?: string(name='verify_omment', example='拒绝'),
   // 任务创建时间
-  gmtCreate: string(name='gmt_create', example='17010000'),
+  gmtCreate: string(name='gmt_create', example='2023-12-20 12:19:00'),
   // 任务修改时间
-  gmtModified: string(name='gmt_modified', example='17098899'),
+  gmtModified: string(name='gmt_modified', example='2023-12-20 12:45:00'),
   // 审核理由
-  reviewContent?: string(name='review_content', example='xxx'),
+  reviewContent?: string(name='review_content', example='不合适'),
   // 状态
-  status: long(name='status', example=''),
+  status: long(name='status', example='9'),
   // 人群配置
-  crowdConfig: string(name='crowd_config', example='{}'),
+  crowdConfig: string(name='crowd_config', example='{"exclude": false,"nodeConfig": {"groupType": "AND","children": ["exclude": false,"nodeType": "GROUP","nodeId": "1303661d-a7da-4d8a-b646-0819f2fc2855","nodeConfig": {"groupType": "AND","children": []}}]},"nodeId": "ROOT","nodeType": "GROUP"}'),
 }
 
 // 阿里云交易查询结果
@@ -2672,7 +2746,7 @@ model ContracPageReq {
 // 人群标签枚举集合对象
 model CrowdTagEnumResp {
   // 人群标签code
-  crowdTag: string(name='crowd_tag', example='xx'),
+  crowdTag: string(name='crowd_tag', example='P0010GC6'),
   // 人群标签枚举列表对象
   crowTagEnumItemList: [ CrowdTagEnumItemDTO ](name='crow_tag_enum_item_list', example=''),
 }
@@ -21339,7 +21413,7 @@ model PauseAuthTaskRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 任务id
   taskId: string(name='task_id'),
-  // 操作者ID
+  // 操作者
   operator: string(name='operator'),
 }
 
@@ -21379,7 +21453,7 @@ model FinishAuthTaskRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 任务id
   taskId: string(name='task_id'),
-  // 操作者ID
+  // 操作者
   operator: string(name='operator'),
 }
 
@@ -21459,7 +21533,7 @@ model OperateAuthTaskRequest = {
   taskId: string(name='task_id'),
   // 样本数量
   sampleNum: long(name='sample_num'),
-  // 操作人ID
+  // 操作人
   operator: string(name='operator'),
 }
 
@@ -21619,7 +21693,7 @@ model SubmitAuthTaskRequest = {
   surveyId: string(maxLength=32, name='survey_id'),
   // notes
   notes?: string(maxLength=32, name='notes'),
-  // 任务创建者用户ID
+  // 任务创建者
   operator: string(maxLength=100, name='operator'),
   // banner标题
   bannerTitle: string(maxLength=30, name='banner_title'),
@@ -21743,7 +21817,7 @@ model UpdateAuthTaskRequest = {
   surveyId: string(maxLength=32, name='survey_id'),
   // notes
   notes?: string(maxLength=32, name='notes'),
-  // 操作者ID
+  // 任务调整操作者
   operator: string(maxLength=100, name='operator'),
   // banner标题
   bannerTitle: string(maxLength=30, name='banner_title'),
@@ -21825,7 +21899,9 @@ model CountAuthTaskCrowdResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 人群预估数量
-  data?: long(name='data'),
+  crowdCount?: long(name='crowd_count'),
+  // 人群导出时间
+  bizDate?: string(name='biz_date'),
 }
 
 /**
@@ -21923,6 +21999,50 @@ async function queryAuthTaskLabel(request: QueryAuthTaskLabelRequest): QueryAuth
 async function queryAuthTaskLabelEx(request: QueryAuthTaskLabelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthTaskLabelResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.task.label.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAuthTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务名称/任务id/自有id 模糊搜索
+  taskName?: string(name='task_name'),
+  // 页码，默认是0开始
+  pageNo: long(name='page_no'),
+  // 每页大小，默认是6
+  pageSize: long(name='page_size'),
+  // 操作人列表
+  operators?: [ string ](name='operators'),
+}
+
+model ListAuthTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务分页列表返回体
+  data?: PageTaskListDTO(name='data'),
+}
+
+/**
+ * Description: 任务列表查询
+ * Summary: 任务列表查询
+ */
+async function listAuthTask(request: ListAuthTaskRequest): ListAuthTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAuthTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 任务列表查询
+ * Summary: 任务列表查询
+ */
+async function listAuthTaskEx(request: ListAuthTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAuthTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.task.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
