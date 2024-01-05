@@ -487,6 +487,207 @@ func (s *CrowdNodeTypeEnum) SetCondition(v string) *CrowdNodeTypeEnum {
 	return s
 }
 
+// 任务列表返回体
+type TaskListInfoDTO struct {
+	// 任务名称
+	TaskName *string `json:"task_name,omitempty" xml:"task_name,omitempty" require:"true"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// appId
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 自有ID
+	SurveyId *string `json:"survey_id,omitempty" xml:"survey_id,omitempty" require:"true"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 租户名称
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty" require:"true"`
+	// 操作员
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// 样本数量
+	SampleNum *int64 `json:"sample_num,omitempty" xml:"sample_num,omitempty" require:"true"`
+	// 完成数量
+	CompletedNum *int64 `json:"completed_num,omitempty" xml:"completed_num,omitempty" require:"true"`
+	// 甄别数量
+	ScreenNum *int64 `json:"screen_num,omitempty" xml:"screen_num,omitempty" require:"true"`
+	// 样本总金额
+	SampleTotalAmount *string `json:"sample_total_amount,omitempty" xml:"sample_total_amount,omitempty" require:"true"`
+	// 全额红包总金额
+	RedPacketTotalAmount *string `json:"red_packet_total_amount,omitempty" xml:"red_packet_total_amount,omitempty" require:"true"`
+	// 该任务总金额
+	TaskTotalAmount *string `json:"task_total_amount,omitempty" xml:"task_total_amount,omitempty" require:"true"`
+	// 全额红包金额
+	FullRedPacketAmount *string `json:"full_red_packet_amount,omitempty" xml:"full_red_packet_amount,omitempty" require:"true"`
+	// 甄别红包金额
+	ExamineRedPacketAmount *string `json:"examine_red_packet_amount,omitempty" xml:"examine_red_packet_amount,omitempty" require:"true"`
+	// 发证量
+	IssuedNum *int64 `json:"issued_num,omitempty" xml:"issued_num,omitempty"`
+	// 产品下单code类型（1-资源包 2-后付费）
+	ProductCodeType *string `json:"product_code_type,omitempty" xml:"product_code_type,omitempty" require:"true"`
+	// 审核理由
+	ReviewContent *string `json:"review_content,omitempty" xml:"review_content,omitempty"`
+	// 任务状态：0-已删、1-已完成、2-审核未通过、3-暂停、4-投放中、5-暂停中未重启、6、投放中未暂停、7-投放中未调整、8-投放中未完成、9-待投放、10-草稿任务
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// ap状态，1:启用，0：审批中
+	ApStatus *string `json:"ap_status,omitempty" xml:"ap_status,omitempty" require:"true"`
+	// 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
+	PrizeChannel *int64 `json:"prize_channel,omitempty" xml:"prize_channel,omitempty" require:"true"`
+	// 奖励渠道为问卷自带时，全额红包信息
+	FullRedPacketTextInfo *string `json:"full_red_packet_text_info,omitempty" xml:"full_red_packet_text_info,omitempty"`
+	// 修改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
+	// 投放时间
+	GmtOnline *string `json:"gmt_online,omitempty" xml:"gmt_online,omitempty"`
+	// 最近暂停/完成时间
+	GmtPauseOrComplete *string `json:"gmt_pause_or_complete,omitempty" xml:"gmt_pause_or_complete,omitempty"`
+	// 最近一轮用时（h）
+	LastRoundTime *int64 `json:"last_round_time,omitempty" xml:"last_round_time,omitempty"`
+}
+
+func (s TaskListInfoDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TaskListInfoDTO) GoString() string {
+	return s.String()
+}
+
+func (s *TaskListInfoDTO) SetTaskName(v string) *TaskListInfoDTO {
+	s.TaskName = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetTaskId(v string) *TaskListInfoDTO {
+	s.TaskId = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetAppId(v string) *TaskListInfoDTO {
+	s.AppId = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetSurveyId(v string) *TaskListInfoDTO {
+	s.SurveyId = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetTenantId(v string) *TaskListInfoDTO {
+	s.TenantId = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetTenantName(v string) *TaskListInfoDTO {
+	s.TenantName = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetOperator(v string) *TaskListInfoDTO {
+	s.Operator = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetSampleNum(v int64) *TaskListInfoDTO {
+	s.SampleNum = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetCompletedNum(v int64) *TaskListInfoDTO {
+	s.CompletedNum = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetScreenNum(v int64) *TaskListInfoDTO {
+	s.ScreenNum = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetSampleTotalAmount(v string) *TaskListInfoDTO {
+	s.SampleTotalAmount = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetRedPacketTotalAmount(v string) *TaskListInfoDTO {
+	s.RedPacketTotalAmount = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetTaskTotalAmount(v string) *TaskListInfoDTO {
+	s.TaskTotalAmount = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetFullRedPacketAmount(v string) *TaskListInfoDTO {
+	s.FullRedPacketAmount = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetExamineRedPacketAmount(v string) *TaskListInfoDTO {
+	s.ExamineRedPacketAmount = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetIssuedNum(v int64) *TaskListInfoDTO {
+	s.IssuedNum = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetProductCodeType(v string) *TaskListInfoDTO {
+	s.ProductCodeType = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetReviewContent(v string) *TaskListInfoDTO {
+	s.ReviewContent = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetStatus(v string) *TaskListInfoDTO {
+	s.Status = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetApStatus(v string) *TaskListInfoDTO {
+	s.ApStatus = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetPrizeChannel(v int64) *TaskListInfoDTO {
+	s.PrizeChannel = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetFullRedPacketTextInfo(v string) *TaskListInfoDTO {
+	s.FullRedPacketTextInfo = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetGmtModified(v string) *TaskListInfoDTO {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetGmtCreate(v string) *TaskListInfoDTO {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetGmtOnline(v string) *TaskListInfoDTO {
+	s.GmtOnline = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetGmtPauseOrComplete(v string) *TaskListInfoDTO {
+	s.GmtPauseOrComplete = &v
+	return s
+}
+
+func (s *TaskListInfoDTO) SetLastRoundTime(v int64) *TaskListInfoDTO {
+	s.LastRoundTime = &v
+	return s
+}
+
 // 阿里云联盟成员信息
 type ALiYunMember struct {
 	// 加入时间
@@ -5072,7 +5273,7 @@ type OldTaskInfo struct {
 	Notes *string `json:"notes,omitempty" xml:"notes,omitempty"`
 	// 租户ID
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 操作者ID
+	// 操作者
 	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
 	// banner标题
 	BannerTitle *string `json:"banner_title,omitempty" xml:"banner_title,omitempty" require:"true"`
@@ -7180,6 +7381,60 @@ func (s *AccountMap) SetType(v int64) *AccountMap {
 
 func (s *AccountMap) SetUid(v string) *AccountMap {
 	s.Uid = &v
+	return s
+}
+
+// 任务列表分页结构体
+type PageTaskListDTO struct {
+	// 任务列表集合
+	Content []*TaskListInfoDTO `json:"content,omitempty" xml:"content,omitempty" require:"true" type:"Repeated"`
+	// 总记录条目
+	TotalElements *int64 `json:"total_elements,omitempty" xml:"total_elements,omitempty" require:"true"`
+	// 记录总页数
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty" require:"true"`
+	// 页码
+	Number *int64 `json:"number,omitempty" xml:"number,omitempty" require:"true"`
+	// 每页记录条目
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
+	// 每页元素个数
+	NumberOfElements *int64 `json:"number_of_elements,omitempty" xml:"number_of_elements,omitempty" require:"true"`
+}
+
+func (s PageTaskListDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PageTaskListDTO) GoString() string {
+	return s.String()
+}
+
+func (s *PageTaskListDTO) SetContent(v []*TaskListInfoDTO) *PageTaskListDTO {
+	s.Content = v
+	return s
+}
+
+func (s *PageTaskListDTO) SetTotalElements(v int64) *PageTaskListDTO {
+	s.TotalElements = &v
+	return s
+}
+
+func (s *PageTaskListDTO) SetTotalPages(v int64) *PageTaskListDTO {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *PageTaskListDTO) SetNumber(v int64) *PageTaskListDTO {
+	s.Number = &v
+	return s
+}
+
+func (s *PageTaskListDTO) SetSize(v int64) *PageTaskListDTO {
+	s.Size = &v
+	return s
+}
+
+func (s *PageTaskListDTO) SetNumberOfElements(v int64) *PageTaskListDTO {
+	s.NumberOfElements = &v
 	return s
 }
 
@@ -48492,7 +48747,7 @@ type PauseAuthTaskRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 任务id
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
-	// 操作者ID
+	// 操作者
 	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
 }
 
@@ -48569,7 +48824,7 @@ type FinishAuthTaskRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 任务id
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
-	// 操作者ID
+	// 操作者
 	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
 }
 
@@ -48718,7 +48973,7 @@ type OperateAuthTaskRequest struct {
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 	// 样本数量
 	SampleNum *int64 `json:"sample_num,omitempty" xml:"sample_num,omitempty" require:"true"`
-	// 操作人ID
+	// 操作人
 	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
 }
 
@@ -49016,7 +49271,7 @@ type SubmitAuthTaskRequest struct {
 	SurveyId *string `json:"survey_id,omitempty" xml:"survey_id,omitempty" require:"true" maxLength:"32"`
 	// notes
 	Notes *string `json:"notes,omitempty" xml:"notes,omitempty" maxLength:"32"`
-	// 任务创建者用户ID
+	// 任务创建者
 	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true" maxLength:"100"`
 	// banner标题
 	BannerTitle *string `json:"banner_title,omitempty" xml:"banner_title,omitempty" require:"true" maxLength:"30"`
@@ -49319,7 +49574,7 @@ type UpdateAuthTaskRequest struct {
 	SurveyId *string `json:"survey_id,omitempty" xml:"survey_id,omitempty" require:"true" maxLength:"32"`
 	// notes
 	Notes *string `json:"notes,omitempty" xml:"notes,omitempty" maxLength:"32"`
-	// 操作者ID
+	// 任务调整操作者
 	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true" maxLength:"100"`
 	// banner标题
 	BannerTitle *string `json:"banner_title,omitempty" xml:"banner_title,omitempty" require:"true" maxLength:"30"`
@@ -49561,7 +49816,9 @@ type CountAuthTaskCrowdResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 人群预估数量
-	Data *int64 `json:"data,omitempty" xml:"data,omitempty"`
+	CrowdCount *int64 `json:"crowd_count,omitempty" xml:"crowd_count,omitempty"`
+	// 人群导出时间
+	BizDate *string `json:"biz_date,omitempty" xml:"biz_date,omitempty"`
 }
 
 func (s CountAuthTaskCrowdResponse) String() string {
@@ -49587,8 +49844,13 @@ func (s *CountAuthTaskCrowdResponse) SetResultMsg(v string) *CountAuthTaskCrowdR
 	return s
 }
 
-func (s *CountAuthTaskCrowdResponse) SetData(v int64) *CountAuthTaskCrowdResponse {
-	s.Data = &v
+func (s *CountAuthTaskCrowdResponse) SetCrowdCount(v int64) *CountAuthTaskCrowdResponse {
+	s.CrowdCount = &v
+	return s
+}
+
+func (s *CountAuthTaskCrowdResponse) SetBizDate(v string) *CountAuthTaskCrowdResponse {
+	s.BizDate = &v
 	return s
 }
 
@@ -49735,6 +49997,97 @@ func (s *QueryAuthTaskLabelResponse) SetResultMsg(v string) *QueryAuthTaskLabelR
 }
 
 func (s *QueryAuthTaskLabelResponse) SetData(v []*CrowdTagEnumResp) *QueryAuthTaskLabelResponse {
+	s.Data = v
+	return s
+}
+
+type ListAuthTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务名称/任务id/自有id 模糊搜索
+	TaskName *string `json:"task_name,omitempty" xml:"task_name,omitempty"`
+	// 页码，默认是0开始
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" require:"true"`
+	// 每页大小，默认是6
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 操作人列表
+	Operators []*string `json:"operators,omitempty" xml:"operators,omitempty" type:"Repeated"`
+}
+
+func (s ListAuthTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAuthTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListAuthTaskRequest) SetAuthToken(v string) *ListAuthTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAuthTaskRequest) SetProductInstanceId(v string) *ListAuthTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListAuthTaskRequest) SetTaskName(v string) *ListAuthTaskRequest {
+	s.TaskName = &v
+	return s
+}
+
+func (s *ListAuthTaskRequest) SetPageNo(v int64) *ListAuthTaskRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *ListAuthTaskRequest) SetPageSize(v int64) *ListAuthTaskRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListAuthTaskRequest) SetOperators(v []*string) *ListAuthTaskRequest {
+	s.Operators = v
+	return s
+}
+
+type ListAuthTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务分页列表返回体
+	Data *PageTaskListDTO `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ListAuthTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAuthTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListAuthTaskResponse) SetReqMsgId(v string) *ListAuthTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListAuthTaskResponse) SetResultCode(v string) *ListAuthTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListAuthTaskResponse) SetResultMsg(v string) *ListAuthTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListAuthTaskResponse) SetData(v *PageTaskListDTO) *ListAuthTaskResponse {
 	s.Data = v
 	return s
 }
@@ -69037,7 +69390,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.27.10"),
+				"sdk_version":      tea.String("1.27.11"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -82970,6 +83323,40 @@ func (client *Client) QueryAuthTaskLabelEx(request *QueryAuthTaskLabelRequest, h
 	}
 	_result = &QueryAuthTaskLabelResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.label.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 任务列表查询
+ * Summary: 任务列表查询
+ */
+func (client *Client) ListAuthTask(request *ListAuthTaskRequest) (_result *ListAuthTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListAuthTaskResponse{}
+	_body, _err := client.ListAuthTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 任务列表查询
+ * Summary: 任务列表查询
+ */
+func (client *Client) ListAuthTaskEx(request *ListAuthTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAuthTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListAuthTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
