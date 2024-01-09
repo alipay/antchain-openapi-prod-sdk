@@ -39,7 +39,7 @@ public class UpdateDciUserRequest extends TeaModel {
 
     // 法人信息
     @NameInMap("legal_person_info")
-    public LegalPersonInfo legalPersonInfo;
+    public EnterpriseLegalPersonInfo legalPersonInfo;
 
     public static UpdateDciUserRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateDciUserRequest self = new UpdateDciUserRequest();
@@ -110,11 +110,11 @@ public class UpdateDciUserRequest extends TeaModel {
         return this.copyrightCertificationType;
     }
 
-    public UpdateDciUserRequest setLegalPersonInfo(LegalPersonInfo legalPersonInfo) {
+    public UpdateDciUserRequest setLegalPersonInfo(EnterpriseLegalPersonInfo legalPersonInfo) {
         this.legalPersonInfo = legalPersonInfo;
         return this;
     }
-    public LegalPersonInfo getLegalPersonInfo() {
+    public EnterpriseLegalPersonInfo getLegalPersonInfo() {
         return this.legalPersonInfo;
     }
 

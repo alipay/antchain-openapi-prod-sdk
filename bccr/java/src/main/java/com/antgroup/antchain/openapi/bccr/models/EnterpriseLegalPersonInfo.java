@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bccr.models;
 
 import com.aliyun.tea.*;
 
-public class LegalPersonInfo extends TeaModel {
+public class EnterpriseLegalPersonInfo extends TeaModel {
     // 法人姓名
     @NameInMap("legal_person_cert_name")
     public String legalPersonCertName;
@@ -16,12 +16,12 @@ public class LegalPersonInfo extends TeaModel {
     @NameInMap("legal_person_cert_no")
     public String legalPersonCertNo;
 
-    public static LegalPersonInfo build(java.util.Map<String, ?> map) throws Exception {
-        LegalPersonInfo self = new LegalPersonInfo();
+    public static EnterpriseLegalPersonInfo build(java.util.Map<String, ?> map) throws Exception {
+        EnterpriseLegalPersonInfo self = new EnterpriseLegalPersonInfo();
         return TeaModel.build(map, self);
     }
 
-    public LegalPersonInfo setLegalPersonCertName(String legalPersonCertName) {
+    public EnterpriseLegalPersonInfo setLegalPersonCertName(String legalPersonCertName) {
         this.legalPersonCertName = legalPersonCertName;
         return this;
     }
@@ -29,7 +29,7 @@ public class LegalPersonInfo extends TeaModel {
         return this.legalPersonCertName;
     }
 
-    public LegalPersonInfo setLegalPersonCertType(String legalPersonCertType) {
+    public EnterpriseLegalPersonInfo setLegalPersonCertType(String legalPersonCertType) {
         this.legalPersonCertType = legalPersonCertType;
         return this;
     }
@@ -37,7 +37,7 @@ public class LegalPersonInfo extends TeaModel {
         return this.legalPersonCertType;
     }
 
-    public LegalPersonInfo setLegalPersonCertNo(String legalPersonCertNo) {
+    public EnterpriseLegalPersonInfo setLegalPersonCertNo(String legalPersonCertNo) {
         this.legalPersonCertNo = legalPersonCertNo;
         return this;
     }
