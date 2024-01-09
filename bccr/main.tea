@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.17.77',
+    sdk_version = '1.17.78',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -431,6 +431,16 @@ model DayStatisticsInfo {
   dayAverageViewDuration: string(name='day_average_view_duration', example='100'),
   // 日预计收入
   revenue: string(name='revenue', example='100'),
+}
+
+// 企业法人信息
+model LegalPersonInfo {
+  // 法人姓名
+  legalPersonCertName?: string(name='legal_person_cert_name', example='张三'),
+  // 法人证件类型
+  legalPersonCertType?: string(name='legal_person_cert_type', example='IDENTITY_CARD'),
+  // 法人证件号
+  legalPersonCertNo?: string(name='legal_person_cert_no', example='341227199711226752'),
 }
 
 // 系列图错误原因
@@ -2860,6 +2870,8 @@ model UpdateDciUserRequest = {
   clientToken?: string(name='client_token'),
   // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
   copyrightCertificationType?: string(name='copyright_certification_type'),
+  // 法人信息
+  legalPersonInfo?: LegalPersonInfo(name='legal_person_info'),
 }
 
 model UpdateDciUserResponse = {
