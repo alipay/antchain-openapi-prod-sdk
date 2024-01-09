@@ -51,7 +51,7 @@ namespace AntChain.SDK.BCCR.Models
         // 法人信息
         [NameInMap("legal_person_info")]
         [Validation(Required=false)]
-        public LegalPersonInfo LegalPersonInfo { get; set; }
+        public EnterpriseLegalPersonInfo LegalPersonInfo { get; set; }
 
     }
 
