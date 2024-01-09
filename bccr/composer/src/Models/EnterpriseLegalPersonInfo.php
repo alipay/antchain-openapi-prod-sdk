@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class LegalPersonInfo extends Model
+class EnterpriseLegalPersonInfo extends Model
 {
     // 法人姓名
     /**
@@ -60,7 +60,7 @@ class LegalPersonInfo extends Model
     /**
      * @param array $map
      *
-     * @return LegalPersonInfo
+     * @return EnterpriseLegalPersonInfo
      */
     public static function fromMap($map = [])
     {

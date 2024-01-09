@@ -57,7 +57,7 @@ class UpdateDciUserRequest extends Model
 
     // 法人信息
     /**
-     * @var LegalPersonInfo
+     * @var EnterpriseLegalPersonInfo
      */
     public $legalPersonInfo;
     protected $_name = [
@@ -145,7 +145,7 @@ class UpdateDciUserRequest extends Model
             $model->copyrightCertificationType = $map['copyright_certification_type'];
         }
         if (isset($map['legal_person_info'])) {
-            $model->legalPersonInfo = LegalPersonInfo::fromMap($map['legal_person_info']);
+            $model->legalPersonInfo = EnterpriseLegalPersonInfo::fromMap($map['legal_person_info']);
         }
 
         return $model;
