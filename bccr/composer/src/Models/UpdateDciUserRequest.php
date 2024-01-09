@@ -54,6 +54,12 @@ class UpdateDciUserRequest extends Model
      * @var string
      */
     public $copyrightCertificationType;
+
+    // 法人信息
+    /**
+     * @var LegalPersonInfo
+     */
+    public $legalPersonInfo;
     protected $_name = [
         'authToken'                  => 'auth_token',
         'productInstanceId'          => 'product_instance_id',
@@ -63,6 +69,7 @@ class UpdateDciUserRequest extends Model
         'phone'                      => 'phone',
         'clientToken'                => 'client_token',
         'copyrightCertificationType' => 'copyright_certification_type',
+        'legalPersonInfo'            => 'legal_person_info',
     ];
 
     public function validate()
@@ -97,6 +104,9 @@ class UpdateDciUserRequest extends Model
         }
         if (null !== $this->copyrightCertificationType) {
             $res['copyright_certification_type'] = $this->copyrightCertificationType;
+        }
+        if (null !== $this->legalPersonInfo) {
+            $res['legal_person_info'] = null !== $this->legalPersonInfo ? $this->legalPersonInfo->toMap() : null;
         }
 
         return $res;
@@ -133,6 +143,9 @@ class UpdateDciUserRequest extends Model
         }
         if (isset($map['copyright_certification_type'])) {
             $model->copyrightCertificationType = $map['copyright_certification_type'];
+        }
+        if (isset($map['legal_person_info'])) {
+            $model->legalPersonInfo = LegalPersonInfo::fromMap($map['legal_person_info']);
         }
 
         return $model;
