@@ -37,6 +37,10 @@ public class UpdateDciUserRequest extends TeaModel {
     @NameInMap("copyright_certification_type")
     public String copyrightCertificationType;
 
+    // 法人信息
+    @NameInMap("legal_person_info")
+    public LegalPersonInfo legalPersonInfo;
+
     public static UpdateDciUserRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateDciUserRequest self = new UpdateDciUserRequest();
         return TeaModel.build(map, self);
@@ -104,6 +108,14 @@ public class UpdateDciUserRequest extends TeaModel {
     }
     public String getCopyrightCertificationType() {
         return this.copyrightCertificationType;
+    }
+
+    public UpdateDciUserRequest setLegalPersonInfo(LegalPersonInfo legalPersonInfo) {
+        this.legalPersonInfo = legalPersonInfo;
+        return this;
+    }
+    public LegalPersonInfo getLegalPersonInfo() {
+        return this.legalPersonInfo;
     }
 
 }
