@@ -1064,6 +1064,39 @@ func (s *DayStatisticsInfo) SetRevenue(v string) *DayStatisticsInfo {
 	return s
 }
 
+// 企业法人信息
+type LegalPersonInfo struct {
+	// 法人姓名
+	LegalPersonCertName *string `json:"legal_person_cert_name,omitempty" xml:"legal_person_cert_name,omitempty"`
+	// 法人证件类型
+	LegalPersonCertType *string `json:"legal_person_cert_type,omitempty" xml:"legal_person_cert_type,omitempty"`
+	// 法人证件号
+	LegalPersonCertNo *string `json:"legal_person_cert_no,omitempty" xml:"legal_person_cert_no,omitempty"`
+}
+
+func (s LegalPersonInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LegalPersonInfo) GoString() string {
+	return s.String()
+}
+
+func (s *LegalPersonInfo) SetLegalPersonCertName(v string) *LegalPersonInfo {
+	s.LegalPersonCertName = &v
+	return s
+}
+
+func (s *LegalPersonInfo) SetLegalPersonCertType(v string) *LegalPersonInfo {
+	s.LegalPersonCertType = &v
+	return s
+}
+
+func (s *LegalPersonInfo) SetLegalPersonCertNo(v string) *LegalPersonInfo {
+	s.LegalPersonCertNo = &v
+	return s
+}
+
 // 系列图错误原因
 type SeriesDiagramErrorReason struct {
 	// 系列图单个图片所属页码
@@ -7391,6 +7424,8 @@ type UpdateDciUserRequest struct {
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
 	// 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
 	CopyrightCertificationType *string `json:"copyright_certification_type,omitempty" xml:"copyright_certification_type,omitempty"`
+	// 法人信息
+	LegalPersonInfo *LegalPersonInfo `json:"legal_person_info,omitempty" xml:"legal_person_info,omitempty"`
 }
 
 func (s UpdateDciUserRequest) String() string {
@@ -7438,6 +7473,11 @@ func (s *UpdateDciUserRequest) SetClientToken(v string) *UpdateDciUserRequest {
 
 func (s *UpdateDciUserRequest) SetCopyrightCertificationType(v string) *UpdateDciUserRequest {
 	s.CopyrightCertificationType = &v
+	return s
+}
+
+func (s *UpdateDciUserRequest) SetLegalPersonInfo(v *LegalPersonInfo) *UpdateDciUserRequest {
+	s.LegalPersonInfo = v
 	return s
 }
 
@@ -11089,7 +11129,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.77"),
+				"sdk_version":      tea.String("1.17.78"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
