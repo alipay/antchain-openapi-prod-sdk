@@ -783,35 +783,6 @@ export class DayStatisticsInfo extends $tea.Model {
   }
 }
 
-// 企业法人信息
-export class LegalPersonInfo extends $tea.Model {
-  // 法人姓名
-  legalPersonCertName?: string;
-  // 法人证件类型
-  legalPersonCertType?: string;
-  // 法人证件号
-  legalPersonCertNo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      legalPersonCertName: 'legal_person_cert_name',
-      legalPersonCertType: 'legal_person_cert_type',
-      legalPersonCertNo: 'legal_person_cert_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      legalPersonCertName: 'string',
-      legalPersonCertType: 'string',
-      legalPersonCertNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 系列图错误原因
 export class SeriesDiagramErrorReason extends $tea.Model {
   // 系列图单个图片所属页码
@@ -2191,6 +2162,35 @@ export class MonitorProviderType extends $tea.Model {
       submitType: 'string',
       fileFormat: 'string',
       monitorProviders: { 'type': 'array', 'itemType': MonitorProviderCapability },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业法人信息
+export class EnterpriseLegalPersonInfo extends $tea.Model {
+  // 法人姓名
+  legalPersonCertName?: string;
+  // 法人证件类型
+  legalPersonCertType?: string;
+  // 法人证件号
+  legalPersonCertNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      legalPersonCertName: 'legal_person_cert_name',
+      legalPersonCertType: 'legal_person_cert_type',
+      legalPersonCertNo: 'legal_person_cert_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      legalPersonCertName: 'string',
+      legalPersonCertType: 'string',
+      legalPersonCertNo: 'string',
     };
   }
 
@@ -5469,7 +5469,7 @@ export class UpdateDciUserRequest extends $tea.Model {
   // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
   copyrightCertificationType?: string;
   // 法人信息
-  legalPersonInfo?: LegalPersonInfo;
+  legalPersonInfo?: EnterpriseLegalPersonInfo;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5494,7 +5494,7 @@ export class UpdateDciUserRequest extends $tea.Model {
       phone: 'string',
       clientToken: 'string',
       copyrightCertificationType: 'string',
-      legalPersonInfo: LegalPersonInfo,
+      legalPersonInfo: EnterpriseLegalPersonInfo,
     };
   }
 
@@ -8268,7 +8268,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.78",
+          sdk_version: "1.17.79",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
