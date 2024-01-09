@@ -1299,48 +1299,6 @@ class DayStatisticsInfo(TeaModel):
         return self
 
 
-class LegalPersonInfo(TeaModel):
-    def __init__(
-        self,
-        legal_person_cert_name: str = None,
-        legal_person_cert_type: str = None,
-        legal_person_cert_no: str = None,
-    ):
-        # 法人姓名
-        self.legal_person_cert_name = legal_person_cert_name
-        # 法人证件类型
-        self.legal_person_cert_type = legal_person_cert_type
-        # 法人证件号
-        self.legal_person_cert_no = legal_person_cert_no
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.legal_person_cert_name is not None:
-            result['legal_person_cert_name'] = self.legal_person_cert_name
-        if self.legal_person_cert_type is not None:
-            result['legal_person_cert_type'] = self.legal_person_cert_type
-        if self.legal_person_cert_no is not None:
-            result['legal_person_cert_no'] = self.legal_person_cert_no
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('legal_person_cert_name') is not None:
-            self.legal_person_cert_name = m.get('legal_person_cert_name')
-        if m.get('legal_person_cert_type') is not None:
-            self.legal_person_cert_type = m.get('legal_person_cert_type')
-        if m.get('legal_person_cert_no') is not None:
-            self.legal_person_cert_no = m.get('legal_person_cert_no')
-        return self
-
-
 class SeriesDiagramErrorReason(TeaModel):
     def __init__(
         self,
@@ -3567,6 +3525,48 @@ class MonitorProviderType(TeaModel):
             for k in m.get('monitor_providers'):
                 temp_model = MonitorProviderCapability()
                 self.monitor_providers.append(temp_model.from_map(k))
+        return self
+
+
+class EnterpriseLegalPersonInfo(TeaModel):
+    def __init__(
+        self,
+        legal_person_cert_name: str = None,
+        legal_person_cert_type: str = None,
+        legal_person_cert_no: str = None,
+    ):
+        # 法人姓名
+        self.legal_person_cert_name = legal_person_cert_name
+        # 法人证件类型
+        self.legal_person_cert_type = legal_person_cert_type
+        # 法人证件号
+        self.legal_person_cert_no = legal_person_cert_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.legal_person_cert_name is not None:
+            result['legal_person_cert_name'] = self.legal_person_cert_name
+        if self.legal_person_cert_type is not None:
+            result['legal_person_cert_type'] = self.legal_person_cert_type
+        if self.legal_person_cert_no is not None:
+            result['legal_person_cert_no'] = self.legal_person_cert_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('legal_person_cert_name') is not None:
+            self.legal_person_cert_name = m.get('legal_person_cert_name')
+        if m.get('legal_person_cert_type') is not None:
+            self.legal_person_cert_type = m.get('legal_person_cert_type')
+        if m.get('legal_person_cert_no') is not None:
+            self.legal_person_cert_no = m.get('legal_person_cert_no')
         return self
 
 
@@ -9100,7 +9100,7 @@ class UpdateDciUserRequest(TeaModel):
         phone: str = None,
         client_token: str = None,
         copyright_certification_type: str = None,
-        legal_person_info: LegalPersonInfo = None,
+        legal_person_info: EnterpriseLegalPersonInfo = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -9171,7 +9171,7 @@ class UpdateDciUserRequest(TeaModel):
         if m.get('copyright_certification_type') is not None:
             self.copyright_certification_type = m.get('copyright_certification_type')
         if m.get('legal_person_info') is not None:
-            temp_model = LegalPersonInfo()
+            temp_model = EnterpriseLegalPersonInfo()
             self.legal_person_info = temp_model.from_map(m['legal_person_info'])
         return self
 
