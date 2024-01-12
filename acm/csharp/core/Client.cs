@@ -137,7 +137,7 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.2"},
+                        {"sdk_version", "1.6.0"},
                         {"_prod_code", "acm"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.2"},
+                        {"sdk_version", "1.6.0"},
                         {"_prod_code", "acm"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1999,6 +1999,132 @@ namespace AntChain.SDK.Acm
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<VerifyServiceaccountSignatureResponse>(await DoRequestAsync("1.0", "antcloud.acm.serviceaccount.signature.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建用户登录态（线下环境使用）
+         * Summary: 创建用户登录态（线下环境使用）
+         */
+        public CreateUserTokenResponse CreateUserToken(CreateUserTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateUserTokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建用户登录态（线下环境使用）
+         * Summary: 创建用户登录态（线下环境使用）
+         */
+        public async Task<CreateUserTokenResponse> CreateUserTokenAsync(CreateUserTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateUserTokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建用户登录态（线下环境使用）
+         * Summary: 创建用户登录态（线下环境使用）
+         */
+        public CreateUserTokenResponse CreateUserTokenEx(CreateUserTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateUserTokenResponse>(DoRequest("1.0", "antcloud.acm.user.token.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建用户登录态（线下环境使用）
+         * Summary: 创建用户登录态（线下环境使用）
+         */
+        public async Task<CreateUserTokenResponse> CreateUserTokenExAsync(CreateUserTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateUserTokenResponse>(await DoRequestAsync("1.0", "antcloud.acm.user.token.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 刷新用户登录态（线下环境使用）
+         * Summary: 刷新用户登录态（线下环境使用）
+         */
+        public RefreshUserTokenResponse RefreshUserToken(RefreshUserTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RefreshUserTokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 刷新用户登录态（线下环境使用）
+         * Summary: 刷新用户登录态（线下环境使用）
+         */
+        public async Task<RefreshUserTokenResponse> RefreshUserTokenAsync(RefreshUserTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RefreshUserTokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 刷新用户登录态（线下环境使用）
+         * Summary: 刷新用户登录态（线下环境使用）
+         */
+        public RefreshUserTokenResponse RefreshUserTokenEx(RefreshUserTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RefreshUserTokenResponse>(DoRequest("1.0", "antcloud.acm.user.token.refresh", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 刷新用户登录态（线下环境使用）
+         * Summary: 刷新用户登录态（线下环境使用）
+         */
+        public async Task<RefreshUserTokenResponse> RefreshUserTokenExAsync(RefreshUserTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RefreshUserTokenResponse>(await DoRequestAsync("1.0", "antcloud.acm.user.token.refresh", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方会员免密登录token删除
+         * Summary: 三方会员免密登录token删除
+         */
+        public DeleteTrustloginTokenResponse DeleteTrustloginToken(DeleteTrustloginTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteTrustloginTokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方会员免密登录token删除
+         * Summary: 三方会员免密登录token删除
+         */
+        public async Task<DeleteTrustloginTokenResponse> DeleteTrustloginTokenAsync(DeleteTrustloginTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteTrustloginTokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方会员免密登录token删除
+         * Summary: 三方会员免密登录token删除
+         */
+        public DeleteTrustloginTokenResponse DeleteTrustloginTokenEx(DeleteTrustloginTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteTrustloginTokenResponse>(DoRequest("1.0", "antcloud.acm.trustlogin.token.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方会员免密登录token删除
+         * Summary: 三方会员免密登录token删除
+         */
+        public async Task<DeleteTrustloginTokenResponse> DeleteTrustloginTokenExAsync(DeleteTrustloginTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteTrustloginTokenResponse>(await DoRequestAsync("1.0", "antcloud.acm.trustlogin.token.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
