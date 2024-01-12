@@ -1916,6 +1916,32 @@ func (s *SecurityDataQueryStruct) SetVersion(v string) *SecurityDataQueryStruct 
 	return s
 }
 
+// 场景决策列表
+type SceneInfos struct {
+	// 决策结果
+	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
+	// 场景code
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s SceneInfos) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SceneInfos) GoString() string {
+	return s.String()
+}
+
+func (s *SceneInfos) SetDecision(v string) *SceneInfos {
+	s.Decision = &v
+	return s
+}
+
+func (s *SceneInfos) SetSceneCode(v string) *SceneInfos {
+	s.SceneCode = &v
+	return s
+}
+
 // 触达策略信息
 type ActionPlanDetailInfo struct {
 	// 场景策略id
@@ -5834,9 +5860,13 @@ type QuerySecurityPolicyRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 风险类型：表示风险处理或风险咨询——process/advice
-	RiskType       *string         `json:"risk_type,omitempty" xml:"risk_type,omitempty" require:"true"`
-	SecurityScene  *SecurityScene  `json:"security_scene,omitempty" xml:"security_scene,omitempty" require:"true"`
-	ServiceContext *ServiceContext `json:"service_context,omitempty" xml:"service_context,omitempty" require:"true"`
+	RiskType *string `json:"risk_type,omitempty" xml:"risk_type,omitempty"`
+	// 风险场景信息
+	SecurityScene *SecurityScene `json:"security_scene,omitempty" xml:"security_scene,omitempty"`
+	// 服务上下文
+	ServiceContext *ServiceContext `json:"service_context,omitempty" xml:"service_context,omitempty"`
+	// 事件业务属性
+	EventInfo *string `json:"event_info,omitempty" xml:"event_info,omitempty" require:"true"`
 }
 
 func (s QuerySecurityPolicyRequest) String() string {
@@ -5872,6 +5902,11 @@ func (s *QuerySecurityPolicyRequest) SetServiceContext(v *ServiceContext) *Query
 	return s
 }
 
+func (s *QuerySecurityPolicyRequest) SetEventInfo(v string) *QuerySecurityPolicyRequest {
+	s.EventInfo = &v
+	return s
+}
+
 type QuerySecurityPolicyResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -5879,8 +5914,6 @@ type QuerySecurityPolicyResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 风险咨询情况下返回的风险等级，风险处理不会返回该值
-	Level *int64 `json:"level,omitempty" xml:"level,omitempty"`
 	// 反馈成功之后的id
 	SecurityId *string `json:"security_id,omitempty" xml:"security_id,omitempty"`
 	// 安全处理结果，枚举值为：reject[拒绝],validate[校验],accept[放过]
@@ -5897,6 +5930,8 @@ type QuerySecurityPolicyResponse struct {
 	VariableDetails *VariableDetails `json:"variable_details,omitempty" xml:"variable_details,omitempty"`
 	// 策略详情
 	StrategyDetails *StrategyDetails `json:"strategy_details,omitempty" xml:"strategy_details,omitempty"`
+	// 场景决策
+	SceneInfos *SceneInfos `json:"scene_infos,omitempty" xml:"scene_infos,omitempty"`
 }
 
 func (s QuerySecurityPolicyResponse) String() string {
@@ -5919,11 +5954,6 @@ func (s *QuerySecurityPolicyResponse) SetResultCode(v string) *QuerySecurityPoli
 
 func (s *QuerySecurityPolicyResponse) SetResultMsg(v string) *QuerySecurityPolicyResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *QuerySecurityPolicyResponse) SetLevel(v int64) *QuerySecurityPolicyResponse {
-	s.Level = &v
 	return s
 }
 
@@ -5964,6 +5994,11 @@ func (s *QuerySecurityPolicyResponse) SetVariableDetails(v *VariableDetails) *Qu
 
 func (s *QuerySecurityPolicyResponse) SetStrategyDetails(v *StrategyDetails) *QuerySecurityPolicyResponse {
 	s.StrategyDetails = v
+	return s
+}
+
+func (s *QuerySecurityPolicyResponse) SetSceneInfos(v *SceneInfos) *QuerySecurityPolicyResponse {
+	s.SceneInfos = v
 	return s
 }
 
@@ -22465,7 +22500,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.0"),
+				"sdk_version":      tea.String("1.17.1"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -22524,8 +22559,8 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: 外部客户业务接入风控+，进行风险识别和风险决策。
- * Summary: 策略咨询服务输出
+ * Description: 风控云风险咨询接口
+ * Summary: 风控云风险咨询接口
  */
 func (client *Client) QuerySecurityPolicy(request *QuerySecurityPolicyRequest) (_result *QuerySecurityPolicyResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -22540,8 +22575,8 @@ func (client *Client) QuerySecurityPolicy(request *QuerySecurityPolicyRequest) (
 }
 
 /**
- * Description: 外部客户业务接入风控+，进行风险识别和风险决策。
- * Summary: 策略咨询服务输出
+ * Description: 风控云风险咨询接口
+ * Summary: 风控云风险咨询接口
  */
 func (client *Client) QuerySecurityPolicyEx(request *QuerySecurityPolicyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySecurityPolicyResponse, _err error) {
 	_err = util.ValidateModel(request)
