@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.16.59"),
+                    new TeaPair("sdk_version", "1.17.0"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2506,6 +2506,25 @@ public class Client {
     public QuerySnapshotEventResponse querySnapshotEventEx(QuerySnapshotEventRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.snapshot.event.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySnapshotEventResponse());
+    }
+
+    /**
+     * Description: saas风险咨询，决策流模式
+     * Summary: saas风险咨询
+     */
+    public QueryTdisaasSecurityPolicyResponse queryTdisaasSecurityPolicy(QueryTdisaasSecurityPolicyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTdisaasSecurityPolicyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: saas风险咨询，决策流模式
+     * Summary: saas风险咨询
+     */
+    public QueryTdisaasSecurityPolicyResponse queryTdisaasSecurityPolicyEx(QueryTdisaasSecurityPolicyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.tdisaas.security.policy.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTdisaasSecurityPolicyResponse());
     }
 
     /**

@@ -33,14 +33,6 @@ public class QuerySecurityPolicyResponse extends TeaModel {
     @Validation(required = true)
     public String success;
 
-    // 有风险需要失败业务情况下的返回码
-    @NameInMap("template_code")
-    public String templateCode;
-
-    // 有风险需要失败业务情况下的返回码描述
-    @NameInMap("template_desc")
-    public String templateDesc;
-
     // native场景下的核身id
     @NameInMap("verify_id")
     public String verifyId;
@@ -48,6 +40,18 @@ public class QuerySecurityPolicyResponse extends TeaModel {
     // h5场景下的核身地址
     @NameInMap("verify_url")
     public String verifyUrl;
+
+    // 场景分
+    @NameInMap("model_details")
+    public ModelDetails modelDetails;
+
+    // 输出变量
+    @NameInMap("variable_details")
+    public VariableDetails variableDetails;
+
+    // 策略详情
+    @NameInMap("strategy_details")
+    public StrategyDetails strategyDetails;
 
     public static QuerySecurityPolicyResponse build(java.util.Map<String, ?> map) throws Exception {
         QuerySecurityPolicyResponse self = new QuerySecurityPolicyResponse();
@@ -110,22 +114,6 @@ public class QuerySecurityPolicyResponse extends TeaModel {
         return this.success;
     }
 
-    public QuerySecurityPolicyResponse setTemplateCode(String templateCode) {
-        this.templateCode = templateCode;
-        return this;
-    }
-    public String getTemplateCode() {
-        return this.templateCode;
-    }
-
-    public QuerySecurityPolicyResponse setTemplateDesc(String templateDesc) {
-        this.templateDesc = templateDesc;
-        return this;
-    }
-    public String getTemplateDesc() {
-        return this.templateDesc;
-    }
-
     public QuerySecurityPolicyResponse setVerifyId(String verifyId) {
         this.verifyId = verifyId;
         return this;
@@ -140,6 +128,30 @@ public class QuerySecurityPolicyResponse extends TeaModel {
     }
     public String getVerifyUrl() {
         return this.verifyUrl;
+    }
+
+    public QuerySecurityPolicyResponse setModelDetails(ModelDetails modelDetails) {
+        this.modelDetails = modelDetails;
+        return this;
+    }
+    public ModelDetails getModelDetails() {
+        return this.modelDetails;
+    }
+
+    public QuerySecurityPolicyResponse setVariableDetails(VariableDetails variableDetails) {
+        this.variableDetails = variableDetails;
+        return this;
+    }
+    public VariableDetails getVariableDetails() {
+        return this.variableDetails;
+    }
+
+    public QuerySecurityPolicyResponse setStrategyDetails(StrategyDetails strategyDetails) {
+        this.strategyDetails = strategyDetails;
+        return this;
+    }
+    public StrategyDetails getStrategyDetails() {
+        return this.strategyDetails;
     }
 
 }

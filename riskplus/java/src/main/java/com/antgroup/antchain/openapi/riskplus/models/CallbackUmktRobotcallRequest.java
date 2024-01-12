@@ -56,7 +56,7 @@ public class CallbackUmktRobotcallRequest extends TeaModel {
     @Validation(required = true)
     public Long taskId;
 
-    // 渠道侧任务名称
+    // 外呼任务名称
     @NameInMap("task_name")
     @Validation(required = true)
     public String taskName;
