@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.59',
+                    'sdk_version': '1.17.0',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.59',
+                    'sdk_version': '1.17.0',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -7077,6 +7077,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QuerySnapshotEventResponse(),
             await self.do_request_async('1.0', 'riskplus.snapshot.event.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_tdisaas_security_policy(
+        self,
+        request: riskplus_models.QueryTdisaasSecurityPolicyRequest,
+    ) -> riskplus_models.QueryTdisaasSecurityPolicyResponse:
+        """
+        Description: saas风险咨询，决策流模式
+        Summary: saas风险咨询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_tdisaas_security_policy_ex(request, headers, runtime)
+
+    async def query_tdisaas_security_policy_async(
+        self,
+        request: riskplus_models.QueryTdisaasSecurityPolicyRequest,
+    ) -> riskplus_models.QueryTdisaasSecurityPolicyResponse:
+        """
+        Description: saas风险咨询，决策流模式
+        Summary: saas风险咨询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_tdisaas_security_policy_ex_async(request, headers, runtime)
+
+    def query_tdisaas_security_policy_ex(
+        self,
+        request: riskplus_models.QueryTdisaasSecurityPolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryTdisaasSecurityPolicyResponse:
+        """
+        Description: saas风险咨询，决策流模式
+        Summary: saas风险咨询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryTdisaasSecurityPolicyResponse(),
+            self.do_request('1.0', 'riskplus.tdisaas.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_tdisaas_security_policy_ex_async(
+        self,
+        request: riskplus_models.QueryTdisaasSecurityPolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryTdisaasSecurityPolicyResponse:
+        """
+        Description: saas风险咨询，决策流模式
+        Summary: saas风险咨询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryTdisaasSecurityPolicyResponse(),
+            await self.do_request_async('1.0', 'riskplus.tdisaas.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def upload_umkt_params_file(

@@ -6690,6 +6690,50 @@ class CpaasSmsTemplate(TeaModel):
         return self
 
 
+class VariableDetails(TeaModel):
+    def __init__(
+        self,
+        variable_name: str = None,
+        variable_value: str = None,
+        variable_type: str = None,
+    ):
+        # 输出变量名称
+        self.variable_name = variable_name
+        # 输出变量值
+        self.variable_value = variable_value
+        # 输出变量值类型
+        self.variable_type = variable_type
+
+    def validate(self):
+        self.validate_required(self.variable_name, 'variable_name')
+        self.validate_required(self.variable_value, 'variable_value')
+        self.validate_required(self.variable_type, 'variable_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.variable_name is not None:
+            result['variable_name'] = self.variable_name
+        if self.variable_value is not None:
+            result['variable_value'] = self.variable_value
+        if self.variable_type is not None:
+            result['variable_type'] = self.variable_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('variable_name') is not None:
+            self.variable_name = m.get('variable_name')
+        if m.get('variable_value') is not None:
+            self.variable_value = m.get('variable_value')
+        if m.get('variable_type') is not None:
+            self.variable_type = m.get('variable_type')
+        return self
+
+
 class RtopCompanyOpinionDetail(TeaModel):
     def __init__(
         self,
@@ -7233,10 +7277,11 @@ class QuerySecurityPolicyResponse(TeaModel):
         security_id: str = None,
         security_result: str = None,
         success: str = None,
-        template_code: str = None,
-        template_desc: str = None,
         verify_id: str = None,
         verify_url: str = None,
+        model_details: ModelDetails = None,
+        variable_details: VariableDetails = None,
+        strategy_details: StrategyDetails = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -7252,17 +7297,25 @@ class QuerySecurityPolicyResponse(TeaModel):
         self.security_result = security_result
         # 是否成功
         self.success = success
-        # 有风险需要失败业务情况下的返回码
-        self.template_code = template_code
-        # 有风险需要失败业务情况下的返回码描述
-        self.template_desc = template_desc
         # native场景下的核身id
         self.verify_id = verify_id
         # h5场景下的核身地址
         self.verify_url = verify_url
+        # 场景分
+        self.model_details = model_details
+        # 输出变量
+        self.variable_details = variable_details
+        # 策略详情
+        self.strategy_details = strategy_details
 
     def validate(self):
         self.validate_required(self.success, 'success')
+        if self.model_details:
+            self.model_details.validate()
+        if self.variable_details:
+            self.variable_details.validate()
+        if self.strategy_details:
+            self.strategy_details.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -7284,14 +7337,16 @@ class QuerySecurityPolicyResponse(TeaModel):
             result['security_result'] = self.security_result
         if self.success is not None:
             result['success'] = self.success
-        if self.template_code is not None:
-            result['template_code'] = self.template_code
-        if self.template_desc is not None:
-            result['template_desc'] = self.template_desc
         if self.verify_id is not None:
             result['verify_id'] = self.verify_id
         if self.verify_url is not None:
             result['verify_url'] = self.verify_url
+        if self.model_details is not None:
+            result['model_details'] = self.model_details.to_map()
+        if self.variable_details is not None:
+            result['variable_details'] = self.variable_details.to_map()
+        if self.strategy_details is not None:
+            result['strategy_details'] = self.strategy_details.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -7310,14 +7365,19 @@ class QuerySecurityPolicyResponse(TeaModel):
             self.security_result = m.get('security_result')
         if m.get('success') is not None:
             self.success = m.get('success')
-        if m.get('template_code') is not None:
-            self.template_code = m.get('template_code')
-        if m.get('template_desc') is not None:
-            self.template_desc = m.get('template_desc')
         if m.get('verify_id') is not None:
             self.verify_id = m.get('verify_id')
         if m.get('verify_url') is not None:
             self.verify_url = m.get('verify_url')
+        if m.get('model_details') is not None:
+            temp_model = ModelDetails()
+            self.model_details = temp_model.from_map(m['model_details'])
+        if m.get('variable_details') is not None:
+            temp_model = VariableDetails()
+            self.variable_details = temp_model.from_map(m['variable_details'])
+        if m.get('strategy_details') is not None:
+            temp_model = StrategyDetails()
+            self.strategy_details = temp_model.from_map(m['strategy_details'])
         return self
 
 
@@ -22938,6 +22998,161 @@ class QuerySnapshotEventResponse(TeaModel):
         return self
 
 
+class QueryTdisaasSecurityPolicyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        event_info: EventInfo = None,
+        risk_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 风控事件咨询查询入参
+        self.event_info = event_info
+        # 请求处理方式
+        self.risk_type = risk_type
+
+    def validate(self):
+        self.validate_required(self.event_info, 'event_info')
+        if self.event_info:
+            self.event_info.validate()
+        self.validate_required(self.risk_type, 'risk_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.event_info is not None:
+            result['event_info'] = self.event_info.to_map()
+        if self.risk_type is not None:
+            result['risk_type'] = self.risk_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('event_info') is not None:
+            temp_model = EventInfo()
+            self.event_info = temp_model.from_map(m['event_info'])
+        if m.get('risk_type') is not None:
+            self.risk_type = m.get('risk_type')
+        return self
+
+
+class QueryTdisaasSecurityPolicyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        model_details: List[ModelDetails] = None,
+        security_id: str = None,
+        security_result: str = None,
+        strategy_details: List[StrategyDetails] = None,
+        df_scene_infos: List[DfSceneInfos] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 场景分
+        self.model_details = model_details
+        # 安全请求id
+        self.security_id = security_id
+        # 策略结果
+        self.security_result = security_result
+        # 策略结果详情
+        self.strategy_details = strategy_details
+        # 决策流信息
+        self.df_scene_infos = df_scene_infos
+
+    def validate(self):
+        if self.model_details:
+            for k in self.model_details:
+                if k:
+                    k.validate()
+        if self.strategy_details:
+            for k in self.strategy_details:
+                if k:
+                    k.validate()
+        if self.df_scene_infos:
+            for k in self.df_scene_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['model_details'] = []
+        if self.model_details is not None:
+            for k in self.model_details:
+                result['model_details'].append(k.to_map() if k else None)
+        if self.security_id is not None:
+            result['security_id'] = self.security_id
+        if self.security_result is not None:
+            result['security_result'] = self.security_result
+        result['strategy_details'] = []
+        if self.strategy_details is not None:
+            for k in self.strategy_details:
+                result['strategy_details'].append(k.to_map() if k else None)
+        result['df_scene_infos'] = []
+        if self.df_scene_infos is not None:
+            for k in self.df_scene_infos:
+                result['df_scene_infos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.model_details = []
+        if m.get('model_details') is not None:
+            for k in m.get('model_details'):
+                temp_model = ModelDetails()
+                self.model_details.append(temp_model.from_map(k))
+        if m.get('security_id') is not None:
+            self.security_id = m.get('security_id')
+        if m.get('security_result') is not None:
+            self.security_result = m.get('security_result')
+        self.strategy_details = []
+        if m.get('strategy_details') is not None:
+            for k in m.get('strategy_details'):
+                temp_model = StrategyDetails()
+                self.strategy_details.append(temp_model.from_map(k))
+        self.df_scene_infos = []
+        if m.get('df_scene_infos') is not None:
+            for k in m.get('df_scene_infos'):
+                temp_model = DfSceneInfos()
+                self.df_scene_infos.append(temp_model.from_map(k))
+        return self
+
+
 class UploadUmktParamsFileRequest(TeaModel):
     def __init__(
         self,
@@ -26053,7 +26268,7 @@ class CallbackUmktRobotcallRequest(TeaModel):
         self.call_id = call_id
         # 外呼任务编号
         self.task_id = task_id
-        # 渠道侧任务名称
+        # 外呼任务名称
         self.task_name = task_name
         # 外呼的话术模板ID，可以为空
         self.template_id = template_id
