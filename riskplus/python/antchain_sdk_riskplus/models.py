@@ -2418,6 +2418,42 @@ class SecurityDataQueryStruct(TeaModel):
         return self
 
 
+class SceneInfos(TeaModel):
+    def __init__(
+        self,
+        decision: str = None,
+        scene_code: str = None,
+    ):
+        # 决策结果
+        self.decision = decision
+        # 场景code
+        self.scene_code = scene_code
+
+    def validate(self):
+        self.validate_required(self.decision, 'decision')
+        self.validate_required(self.scene_code, 'scene_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.decision is not None:
+            result['decision'] = self.decision
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('decision') is not None:
+            self.decision = m.get('decision')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        return self
+
+
 class ActionPlanDetailInfo(TeaModel):
     def __init__(
         self,
@@ -7214,23 +7250,26 @@ class QuerySecurityPolicyRequest(TeaModel):
         risk_type: str = None,
         security_scene: SecurityScene = None,
         service_context: ServiceContext = None,
+        event_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 风险类型：表示风险处理或风险咨询——process/advice
         self.risk_type = risk_type
+        # 风险场景信息
         self.security_scene = security_scene
+        # 服务上下文
         self.service_context = service_context
+        # 事件业务属性
+        self.event_info = event_info
 
     def validate(self):
-        self.validate_required(self.risk_type, 'risk_type')
-        self.validate_required(self.security_scene, 'security_scene')
         if self.security_scene:
             self.security_scene.validate()
-        self.validate_required(self.service_context, 'service_context')
         if self.service_context:
             self.service_context.validate()
+        self.validate_required(self.event_info, 'event_info')
 
     def to_map(self):
         _map = super().to_map()
@@ -7248,6 +7287,8 @@ class QuerySecurityPolicyRequest(TeaModel):
             result['security_scene'] = self.security_scene.to_map()
         if self.service_context is not None:
             result['service_context'] = self.service_context.to_map()
+        if self.event_info is not None:
+            result['event_info'] = self.event_info
         return result
 
     def from_map(self, m: dict = None):
@@ -7264,6 +7305,8 @@ class QuerySecurityPolicyRequest(TeaModel):
         if m.get('service_context') is not None:
             temp_model = ServiceContext()
             self.service_context = temp_model.from_map(m['service_context'])
+        if m.get('event_info') is not None:
+            self.event_info = m.get('event_info')
         return self
 
 
@@ -7273,7 +7316,6 @@ class QuerySecurityPolicyResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        level: int = None,
         security_id: str = None,
         security_result: str = None,
         success: str = None,
@@ -7282,6 +7324,7 @@ class QuerySecurityPolicyResponse(TeaModel):
         model_details: ModelDetails = None,
         variable_details: VariableDetails = None,
         strategy_details: StrategyDetails = None,
+        scene_infos: SceneInfos = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -7289,8 +7332,6 @@ class QuerySecurityPolicyResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 风险咨询情况下返回的风险等级，风险处理不会返回该值
-        self.level = level
         # 反馈成功之后的id
         self.security_id = security_id
         # 安全处理结果，枚举值为：reject[拒绝],validate[校验],accept[放过]
@@ -7307,6 +7348,8 @@ class QuerySecurityPolicyResponse(TeaModel):
         self.variable_details = variable_details
         # 策略详情
         self.strategy_details = strategy_details
+        # 场景决策
+        self.scene_infos = scene_infos
 
     def validate(self):
         self.validate_required(self.success, 'success')
@@ -7316,6 +7359,8 @@ class QuerySecurityPolicyResponse(TeaModel):
             self.variable_details.validate()
         if self.strategy_details:
             self.strategy_details.validate()
+        if self.scene_infos:
+            self.scene_infos.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -7329,8 +7374,6 @@ class QuerySecurityPolicyResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.level is not None:
-            result['level'] = self.level
         if self.security_id is not None:
             result['security_id'] = self.security_id
         if self.security_result is not None:
@@ -7347,6 +7390,8 @@ class QuerySecurityPolicyResponse(TeaModel):
             result['variable_details'] = self.variable_details.to_map()
         if self.strategy_details is not None:
             result['strategy_details'] = self.strategy_details.to_map()
+        if self.scene_infos is not None:
+            result['scene_infos'] = self.scene_infos.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -7357,8 +7402,6 @@ class QuerySecurityPolicyResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('level') is not None:
-            self.level = m.get('level')
         if m.get('security_id') is not None:
             self.security_id = m.get('security_id')
         if m.get('security_result') is not None:
@@ -7378,6 +7421,9 @@ class QuerySecurityPolicyResponse(TeaModel):
         if m.get('strategy_details') is not None:
             temp_model = StrategyDetails()
             self.strategy_details = temp_model.from_map(m['strategy_details'])
+        if m.get('scene_infos') is not None:
+            temp_model = SceneInfos()
+            self.scene_infos = temp_model.from_map(m['scene_infos'])
         return self
 
 

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.0',
+                    'sdk_version': '1.17.1',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.0',
+                    'sdk_version': '1.17.1',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -280,8 +280,8 @@ class Client:
         request: riskplus_models.QuerySecurityPolicyRequest,
     ) -> riskplus_models.QuerySecurityPolicyResponse:
         """
-        Description: 外部客户业务接入风控+，进行风险识别和风险决策。
-        Summary: 策略咨询服务输出
+        Description: 风控云风险咨询接口
+        Summary: 风控云风险咨询接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -292,8 +292,8 @@ class Client:
         request: riskplus_models.QuerySecurityPolicyRequest,
     ) -> riskplus_models.QuerySecurityPolicyResponse:
         """
-        Description: 外部客户业务接入风控+，进行风险识别和风险决策。
-        Summary: 策略咨询服务输出
+        Description: 风控云风险咨询接口
+        Summary: 风控云风险咨询接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -306,8 +306,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> riskplus_models.QuerySecurityPolicyResponse:
         """
-        Description: 外部客户业务接入风控+，进行风险识别和风险决策。
-        Summary: 策略咨询服务输出
+        Description: 风控云风险咨询接口
+        Summary: 风控云风险咨询接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -322,8 +322,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> riskplus_models.QuerySecurityPolicyResponse:
         """
-        Description: 外部客户业务接入风控+，进行风险识别和风险决策。
-        Summary: 策略咨询服务输出
+        Description: 风控云风险咨询接口
+        Summary: 风控云风险咨询接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
