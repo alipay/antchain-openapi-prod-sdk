@@ -1447,6 +1447,31 @@ export class SecurityDataQueryStruct extends $tea.Model {
   }
 }
 
+// 场景决策列表
+export class SceneInfos extends $tea.Model {
+  // 决策结果
+  decision: string;
+  // 场景code
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      decision: 'decision',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      decision: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 触达策略信息
 export class ActionPlanDetailInfo extends $tea.Model {
   // 场景策略id
@@ -4284,9 +4309,13 @@ export class QuerySecurityPolicyRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 风险类型：表示风险处理或风险咨询——process/advice
-  riskType: string;
-  securityScene: SecurityScene;
-  serviceContext: ServiceContext;
+  riskType?: string;
+  // 风险场景信息
+  securityScene?: SecurityScene;
+  // 服务上下文
+  serviceContext?: ServiceContext;
+  // 事件业务属性
+  eventInfo: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4294,6 +4323,7 @@ export class QuerySecurityPolicyRequest extends $tea.Model {
       riskType: 'risk_type',
       securityScene: 'security_scene',
       serviceContext: 'service_context',
+      eventInfo: 'event_info',
     };
   }
 
@@ -4304,6 +4334,7 @@ export class QuerySecurityPolicyRequest extends $tea.Model {
       riskType: 'string',
       securityScene: SecurityScene,
       serviceContext: ServiceContext,
+      eventInfo: 'string',
     };
   }
 
@@ -4319,8 +4350,6 @@ export class QuerySecurityPolicyResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 风险咨询情况下返回的风险等级，风险处理不会返回该值
-  level?: number;
   // 反馈成功之后的id
   securityId?: string;
   // 安全处理结果，枚举值为：reject[拒绝],validate[校验],accept[放过]
@@ -4337,12 +4366,13 @@ export class QuerySecurityPolicyResponse extends $tea.Model {
   variableDetails?: VariableDetails;
   // 策略详情
   strategyDetails?: StrategyDetails;
+  // 场景决策
+  sceneInfos?: SceneInfos;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      level: 'level',
       securityId: 'security_id',
       securityResult: 'security_result',
       success: 'success',
@@ -4351,6 +4381,7 @@ export class QuerySecurityPolicyResponse extends $tea.Model {
       modelDetails: 'model_details',
       variableDetails: 'variable_details',
       strategyDetails: 'strategy_details',
+      sceneInfos: 'scene_infos',
     };
   }
 
@@ -4359,7 +4390,6 @@ export class QuerySecurityPolicyResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      level: 'number',
       securityId: 'string',
       securityResult: 'string',
       success: 'string',
@@ -4368,6 +4398,7 @@ export class QuerySecurityPolicyResponse extends $tea.Model {
       modelDetails: ModelDetails,
       variableDetails: VariableDetails,
       strategyDetails: StrategyDetails,
+      sceneInfos: SceneInfos,
     };
   }
 
@@ -16779,7 +16810,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.0",
+          sdk_version: "1.17.1",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -16828,8 +16859,8 @@ export default class Client {
   }
 
   /**
-   * Description: 外部客户业务接入风控+，进行风险识别和风险决策。
-   * Summary: 策略咨询服务输出
+   * Description: 风控云风险咨询接口
+   * Summary: 风控云风险咨询接口
    */
   async querySecurityPolicy(request: QuerySecurityPolicyRequest): Promise<QuerySecurityPolicyResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -16838,8 +16869,8 @@ export default class Client {
   }
 
   /**
-   * Description: 外部客户业务接入风控+，进行风险识别和风险决策。
-   * Summary: 策略咨询服务输出
+   * Description: 风控云风险咨询接口
+   * Summary: 风控云风险咨询接口
    */
   async querySecurityPolicyEx(request: QuerySecurityPolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySecurityPolicyResponse> {
     Util.validateModel(request);
