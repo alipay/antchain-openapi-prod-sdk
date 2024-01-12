@@ -44,16 +44,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string Success { get; set; }
 
-        // 有风险需要失败业务情况下的返回码
-        [NameInMap("template_code")]
-        [Validation(Required=false)]
-        public string TemplateCode { get; set; }
-
-        // 有风险需要失败业务情况下的返回码描述
-        [NameInMap("template_desc")]
-        [Validation(Required=false)]
-        public string TemplateDesc { get; set; }
-
         // native场景下的核身id
         [NameInMap("verify_id")]
         [Validation(Required=false)]
@@ -63,6 +53,21 @@ namespace AntChain.SDK.RISKPLUS.Models
         [NameInMap("verify_url")]
         [Validation(Required=false)]
         public string VerifyUrl { get; set; }
+
+        // 场景分
+        [NameInMap("model_details")]
+        [Validation(Required=false)]
+        public ModelDetails ModelDetails { get; set; }
+
+        // 输出变量
+        [NameInMap("variable_details")]
+        [Validation(Required=false)]
+        public VariableDetails VariableDetails { get; set; }
+
+        // 策略详情
+        [NameInMap("strategy_details")]
+        [Validation(Required=false)]
+        public StrategyDetails StrategyDetails { get; set; }
 
     }
 
