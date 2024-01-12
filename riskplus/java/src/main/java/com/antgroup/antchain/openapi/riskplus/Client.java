@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.17.0"),
+                    new TeaPair("sdk_version", "1.17.1"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -162,8 +162,8 @@ public class Client {
     }
 
     /**
-     * Description: 外部客户业务接入风控+，进行风险识别和风险决策。
-     * Summary: 策略咨询服务输出
+     * Description: 风控云风险咨询接口
+     * Summary: 风控云风险咨询接口
      */
     public QuerySecurityPolicyResponse querySecurityPolicy(QuerySecurityPolicyRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -172,8 +172,8 @@ public class Client {
     }
 
     /**
-     * Description: 外部客户业务接入风控+，进行风险识别和风险决策。
-     * Summary: 策略咨询服务输出
+     * Description: 风控云风险咨询接口
+     * Summary: 风控云风险咨询接口
      */
     public QuerySecurityPolicyResponse querySecurityPolicyEx(QuerySecurityPolicyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

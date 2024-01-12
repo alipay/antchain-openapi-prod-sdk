@@ -16,10 +16,6 @@ public class QuerySecurityPolicyResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 风险咨询情况下返回的风险等级，风险处理不会返回该值
-    @NameInMap("level")
-    public Long level;
-
     // 反馈成功之后的id
     @NameInMap("security_id")
     public String securityId;
@@ -53,6 +49,10 @@ public class QuerySecurityPolicyResponse extends TeaModel {
     @NameInMap("strategy_details")
     public StrategyDetails strategyDetails;
 
+    // 场景决策
+    @NameInMap("scene_infos")
+    public SceneInfos sceneInfos;
+
     public static QuerySecurityPolicyResponse build(java.util.Map<String, ?> map) throws Exception {
         QuerySecurityPolicyResponse self = new QuerySecurityPolicyResponse();
         return TeaModel.build(map, self);
@@ -80,14 +80,6 @@ public class QuerySecurityPolicyResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public QuerySecurityPolicyResponse setLevel(Long level) {
-        this.level = level;
-        return this;
-    }
-    public Long getLevel() {
-        return this.level;
     }
 
     public QuerySecurityPolicyResponse setSecurityId(String securityId) {
@@ -152,6 +144,14 @@ public class QuerySecurityPolicyResponse extends TeaModel {
     }
     public StrategyDetails getStrategyDetails() {
         return this.strategyDetails;
+    }
+
+    public QuerySecurityPolicyResponse setSceneInfos(SceneInfos sceneInfos) {
+        this.sceneInfos = sceneInfos;
+        return this;
+    }
+    public SceneInfos getSceneInfos() {
+        return this.sceneInfos;
     }
 
 }
