@@ -3967,6 +3967,35 @@ export class CpaasSmsTemplate extends $tea.Model {
   }
 }
 
+// 输出变量列表
+export class VariableDetails extends $tea.Model {
+  // 输出变量名称
+  variableName: string;
+  // 输出变量值
+  variableValue: string;
+  // 输出变量值类型
+  variableType: string;
+  static names(): { [key: string]: string } {
+    return {
+      variableName: 'variable_name',
+      variableValue: 'variable_value',
+      variableType: 'variable_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      variableName: 'string',
+      variableValue: 'string',
+      variableType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 舆情的详情
 export class RtopCompanyOpinionDetail extends $tea.Model {
   // 具体的舆情内容
@@ -4298,14 +4327,16 @@ export class QuerySecurityPolicyResponse extends $tea.Model {
   securityResult?: string;
   // 是否成功
   success: string;
-  // 有风险需要失败业务情况下的返回码
-  templateCode?: string;
-  // 有风险需要失败业务情况下的返回码描述
-  templateDesc?: string;
   // native场景下的核身id
   verifyId?: string;
   // h5场景下的核身地址
   verifyUrl?: string;
+  // 场景分
+  modelDetails?: ModelDetails;
+  // 输出变量
+  variableDetails?: VariableDetails;
+  // 策略详情
+  strategyDetails?: StrategyDetails;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -4315,10 +4346,11 @@ export class QuerySecurityPolicyResponse extends $tea.Model {
       securityId: 'security_id',
       securityResult: 'security_result',
       success: 'success',
-      templateCode: 'template_code',
-      templateDesc: 'template_desc',
       verifyId: 'verify_id',
       verifyUrl: 'verify_url',
+      modelDetails: 'model_details',
+      variableDetails: 'variable_details',
+      strategyDetails: 'strategy_details',
     };
   }
 
@@ -4331,10 +4363,11 @@ export class QuerySecurityPolicyResponse extends $tea.Model {
       securityId: 'string',
       securityResult: 'string',
       success: 'string',
-      templateCode: 'string',
-      templateDesc: 'string',
       verifyId: 'string',
       verifyUrl: 'string',
+      modelDetails: ModelDetails,
+      variableDetails: VariableDetails,
+      strategyDetails: StrategyDetails,
     };
   }
 
@@ -13731,6 +13764,85 @@ export class QuerySnapshotEventResponse extends $tea.Model {
   }
 }
 
+export class QueryTdisaasSecurityPolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 风控事件咨询查询入参
+  eventInfo: EventInfo;
+  // 请求处理方式
+  riskType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      eventInfo: 'event_info',
+      riskType: 'risk_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      eventInfo: EventInfo,
+      riskType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTdisaasSecurityPolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 场景分
+  modelDetails?: ModelDetails[];
+  // 安全请求id
+  securityId?: string;
+  // 策略结果
+  securityResult?: string;
+  // 策略结果详情
+  strategyDetails?: StrategyDetails[];
+  // 决策流信息
+  dfSceneInfos?: DfSceneInfos[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      modelDetails: 'model_details',
+      securityId: 'security_id',
+      securityResult: 'security_result',
+      strategyDetails: 'strategy_details',
+      dfSceneInfos: 'df_scene_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      modelDetails: { 'type': 'array', 'itemType': ModelDetails },
+      securityId: 'string',
+      securityResult: 'string',
+      strategyDetails: { 'type': 'array', 'itemType': StrategyDetails },
+      dfSceneInfos: { 'type': 'array', 'itemType': DfSceneInfos },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class UploadUmktParamsFileRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -15588,7 +15700,7 @@ export class CallbackUmktRobotcallRequest extends $tea.Model {
   callId: string;
   // 外呼任务编号
   taskId: number;
-  // 渠道侧任务名称
+  // 外呼任务名称
   taskName: string;
   // 外呼的话术模板ID，可以为空
   templateId?: number;
@@ -16667,7 +16779,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.59",
+          sdk_version: "1.17.0",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -19060,6 +19172,25 @@ export default class Client {
   async querySnapshotEventEx(request: QuerySnapshotEventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySnapshotEventResponse> {
     Util.validateModel(request);
     return $tea.cast<QuerySnapshotEventResponse>(await this.doRequest("1.0", "riskplus.snapshot.event.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySnapshotEventResponse({}));
+  }
+
+  /**
+   * Description: saas风险咨询，决策流模式
+   * Summary: saas风险咨询
+   */
+  async queryTdisaasSecurityPolicy(request: QueryTdisaasSecurityPolicyRequest): Promise<QueryTdisaasSecurityPolicyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTdisaasSecurityPolicyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: saas风险咨询，决策流模式
+   * Summary: saas风险咨询
+   */
+  async queryTdisaasSecurityPolicyEx(request: QueryTdisaasSecurityPolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTdisaasSecurityPolicyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTdisaasSecurityPolicyResponse>(await this.doRequest("1.0", "riskplus.tdisaas.security.policy.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTdisaasSecurityPolicyResponse({}));
   }
 
   /**
