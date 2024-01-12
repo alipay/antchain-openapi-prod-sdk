@@ -73,7 +73,7 @@ class CallbackUmktRobotcallRequest extends Model
      */
     public $taskId;
 
-    // 渠道侧任务名称
+    // 外呼任务名称
     /**
      * @var string
      */

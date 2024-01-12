@@ -249,6 +249,8 @@ use AntChain\RISKPLUS\Models\QuerySecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QuerySecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventRequest;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventResponse;
+use AntChain\RISKPLUS\Models\QueryTdisaasSecurityPolicyRequest;
+use AntChain\RISKPLUS\Models\QueryTdisaasSecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QueryUmktCardsmsSupportRequest;
 use AntChain\RISKPLUS\Models\QueryUmktCardsmsSupportResponse;
 use AntChain\RISKPLUS\Models\QueryUmktCpaassmsTemplateRequest;
@@ -466,7 +468,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.59',
+                    'sdk_version'      => '1.17.0',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4513,6 +4515,39 @@ class Client
         Utils::validateModel($request);
 
         return QuerySnapshotEventResponse::fromMap($this->doRequest('1.0', 'riskplus.snapshot.event.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: saas风险咨询，决策流模式
+     * Summary: saas风险咨询.
+     *
+     * @param QueryTdisaasSecurityPolicyRequest $request
+     *
+     * @return QueryTdisaasSecurityPolicyResponse
+     */
+    public function queryTdisaasSecurityPolicy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTdisaasSecurityPolicyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: saas风险咨询，决策流模式
+     * Summary: saas风险咨询.
+     *
+     * @param QueryTdisaasSecurityPolicyRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryTdisaasSecurityPolicyResponse
+     */
+    public function queryTdisaasSecurityPolicyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTdisaasSecurityPolicyResponse::fromMap($this->doRequest('1.0', 'riskplus.tdisaas.security.policy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

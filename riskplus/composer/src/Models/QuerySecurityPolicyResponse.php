@@ -50,18 +50,6 @@ class QuerySecurityPolicyResponse extends Model
      */
     public $success;
 
-    // 有风险需要失败业务情况下的返回码
-    /**
-     * @var string
-     */
-    public $templateCode;
-
-    // 有风险需要失败业务情况下的返回码描述
-    /**
-     * @var string
-     */
-    public $templateDesc;
-
     // native场景下的核身id
     /**
      * @var string
@@ -73,18 +61,37 @@ class QuerySecurityPolicyResponse extends Model
      * @var string
      */
     public $verifyUrl;
+
+    // 场景分
+    /**
+     * @var ModelDetails
+     */
+    public $modelDetails;
+
+    // 输出变量
+    /**
+     * @var VariableDetails
+     */
+    public $variableDetails;
+
+    // 策略详情
+    /**
+     * @var StrategyDetails
+     */
+    public $strategyDetails;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'level'          => 'level',
-        'securityId'     => 'security_id',
-        'securityResult' => 'security_result',
-        'success'        => 'success',
-        'templateCode'   => 'template_code',
-        'templateDesc'   => 'template_desc',
-        'verifyId'       => 'verify_id',
-        'verifyUrl'      => 'verify_url',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'level'           => 'level',
+        'securityId'      => 'security_id',
+        'securityResult'  => 'security_result',
+        'success'         => 'success',
+        'verifyId'        => 'verify_id',
+        'verifyUrl'       => 'verify_url',
+        'modelDetails'    => 'model_details',
+        'variableDetails' => 'variable_details',
+        'strategyDetails' => 'strategy_details',
     ];
 
     public function validate()
@@ -116,17 +123,20 @@ class QuerySecurityPolicyResponse extends Model
         if (null !== $this->success) {
             $res['success'] = $this->success;
         }
-        if (null !== $this->templateCode) {
-            $res['template_code'] = $this->templateCode;
-        }
-        if (null !== $this->templateDesc) {
-            $res['template_desc'] = $this->templateDesc;
-        }
         if (null !== $this->verifyId) {
             $res['verify_id'] = $this->verifyId;
         }
         if (null !== $this->verifyUrl) {
             $res['verify_url'] = $this->verifyUrl;
+        }
+        if (null !== $this->modelDetails) {
+            $res['model_details'] = null !== $this->modelDetails ? $this->modelDetails->toMap() : null;
+        }
+        if (null !== $this->variableDetails) {
+            $res['variable_details'] = null !== $this->variableDetails ? $this->variableDetails->toMap() : null;
+        }
+        if (null !== $this->strategyDetails) {
+            $res['strategy_details'] = null !== $this->strategyDetails ? $this->strategyDetails->toMap() : null;
         }
 
         return $res;
@@ -161,17 +171,20 @@ class QuerySecurityPolicyResponse extends Model
         if (isset($map['success'])) {
             $model->success = $map['success'];
         }
-        if (isset($map['template_code'])) {
-            $model->templateCode = $map['template_code'];
-        }
-        if (isset($map['template_desc'])) {
-            $model->templateDesc = $map['template_desc'];
-        }
         if (isset($map['verify_id'])) {
             $model->verifyId = $map['verify_id'];
         }
         if (isset($map['verify_url'])) {
             $model->verifyUrl = $map['verify_url'];
+        }
+        if (isset($map['model_details'])) {
+            $model->modelDetails = ModelDetails::fromMap($map['model_details']);
+        }
+        if (isset($map['variable_details'])) {
+            $model->variableDetails = VariableDetails::fromMap($map['variable_details']);
+        }
+        if (isset($map['strategy_details'])) {
+            $model->strategyDetails = StrategyDetails::fromMap($map['strategy_details']);
         }
 
         return $model;
