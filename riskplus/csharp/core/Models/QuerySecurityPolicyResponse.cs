@@ -24,11 +24,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 风险咨询情况下返回的风险等级，风险处理不会返回该值
-        [NameInMap("level")]
-        [Validation(Required=false)]
-        public long? Level { get; set; }
-
         // 反馈成功之后的id
         [NameInMap("security_id")]
         [Validation(Required=false)]
@@ -68,6 +63,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [NameInMap("strategy_details")]
         [Validation(Required=false)]
         public StrategyDetails StrategyDetails { get; set; }
+
+        // 场景决策
+        [NameInMap("scene_infos")]
+        [Validation(Required=false)]
+        public SceneInfos SceneInfos { get; set; }
 
     }
 

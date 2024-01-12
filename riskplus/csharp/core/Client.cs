@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.0"},
+                        {"sdk_version", "1.17.1"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.0"},
+                        {"sdk_version", "1.17.1"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -322,8 +322,8 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
-         * Description: 外部客户业务接入风控+，进行风险识别和风险决策。
-         * Summary: 策略咨询服务输出
+         * Description: 风控云风险咨询接口
+         * Summary: 风控云风险咨询接口
          */
         public QuerySecurityPolicyResponse QuerySecurityPolicy(QuerySecurityPolicyRequest request)
         {
@@ -333,8 +333,8 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
-         * Description: 外部客户业务接入风控+，进行风险识别和风险决策。
-         * Summary: 策略咨询服务输出
+         * Description: 风控云风险咨询接口
+         * Summary: 风控云风险咨询接口
          */
         public async Task<QuerySecurityPolicyResponse> QuerySecurityPolicyAsync(QuerySecurityPolicyRequest request)
         {
@@ -344,8 +344,8 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
-         * Description: 外部客户业务接入风控+，进行风险识别和风险决策。
-         * Summary: 策略咨询服务输出
+         * Description: 风控云风险咨询接口
+         * Summary: 风控云风险咨询接口
          */
         public QuerySecurityPolicyResponse QuerySecurityPolicyEx(QuerySecurityPolicyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -354,8 +354,8 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
-         * Description: 外部客户业务接入风控+，进行风险识别和风险决策。
-         * Summary: 策略咨询服务输出
+         * Description: 风控云风险咨询接口
+         * Summary: 风控云风险咨询接口
          */
         public async Task<QuerySecurityPolicyResponse> QuerySecurityPolicyExAsync(QuerySecurityPolicyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
