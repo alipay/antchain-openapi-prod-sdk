@@ -25,28 +25,35 @@ class QuerySecurityPolicyRequest extends Model
      */
     public $riskType;
 
+    // 风险场景信息
     /**
      * @var SecurityScene
      */
     public $securityScene;
 
+    // 服务上下文
     /**
      * @var ServiceContext
      */
     public $serviceContext;
+
+    // 事件业务属性
+    /**
+     * @var string
+     */
+    public $eventInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'riskType'          => 'risk_type',
         'securityScene'     => 'security_scene',
         'serviceContext'    => 'service_context',
+        'eventInfo'         => 'event_info',
     ];
 
     public function validate()
     {
-        Model::validateRequired('riskType', $this->riskType, true);
-        Model::validateRequired('securityScene', $this->securityScene, true);
-        Model::validateRequired('serviceContext', $this->serviceContext, true);
+        Model::validateRequired('eventInfo', $this->eventInfo, true);
     }
 
     public function toMap()
@@ -66,6 +73,9 @@ class QuerySecurityPolicyRequest extends Model
         }
         if (null !== $this->serviceContext) {
             $res['service_context'] = null !== $this->serviceContext ? $this->serviceContext->toMap() : null;
+        }
+        if (null !== $this->eventInfo) {
+            $res['event_info'] = $this->eventInfo;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class QuerySecurityPolicyRequest extends Model
         }
         if (isset($map['service_context'])) {
             $model->serviceContext = ServiceContext::fromMap($map['service_context']);
+        }
+        if (isset($map['event_info'])) {
+            $model->eventInfo = $map['event_info'];
         }
 
         return $model;

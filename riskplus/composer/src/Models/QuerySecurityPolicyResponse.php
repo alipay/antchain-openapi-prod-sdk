@@ -26,12 +26,6 @@ class QuerySecurityPolicyResponse extends Model
      */
     public $resultMsg;
 
-    // 风险咨询情况下返回的风险等级，风险处理不会返回该值
-    /**
-     * @var int
-     */
-    public $level;
-
     // 反馈成功之后的id
     /**
      * @var string
@@ -79,11 +73,16 @@ class QuerySecurityPolicyResponse extends Model
      * @var StrategyDetails
      */
     public $strategyDetails;
+
+    // 场景决策
+    /**
+     * @var SceneInfos
+     */
+    public $sceneInfos;
     protected $_name = [
         'reqMsgId'        => 'req_msg_id',
         'resultCode'      => 'result_code',
         'resultMsg'       => 'result_msg',
-        'level'           => 'level',
         'securityId'      => 'security_id',
         'securityResult'  => 'security_result',
         'success'         => 'success',
@@ -92,6 +91,7 @@ class QuerySecurityPolicyResponse extends Model
         'modelDetails'    => 'model_details',
         'variableDetails' => 'variable_details',
         'strategyDetails' => 'strategy_details',
+        'sceneInfos'      => 'scene_infos',
     ];
 
     public function validate()
@@ -110,9 +110,6 @@ class QuerySecurityPolicyResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->level) {
-            $res['level'] = $this->level;
         }
         if (null !== $this->securityId) {
             $res['security_id'] = $this->securityId;
@@ -138,6 +135,9 @@ class QuerySecurityPolicyResponse extends Model
         if (null !== $this->strategyDetails) {
             $res['strategy_details'] = null !== $this->strategyDetails ? $this->strategyDetails->toMap() : null;
         }
+        if (null !== $this->sceneInfos) {
+            $res['scene_infos'] = null !== $this->sceneInfos ? $this->sceneInfos->toMap() : null;
+        }
 
         return $res;
     }
@@ -158,9 +158,6 @@ class QuerySecurityPolicyResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['level'])) {
-            $model->level = $map['level'];
         }
         if (isset($map['security_id'])) {
             $model->securityId = $map['security_id'];
@@ -185,6 +182,9 @@ class QuerySecurityPolicyResponse extends Model
         }
         if (isset($map['strategy_details'])) {
             $model->strategyDetails = StrategyDetails::fromMap($map['strategy_details']);
+        }
+        if (isset($map['scene_infos'])) {
+            $model->sceneInfos = SceneInfos::fromMap($map['scene_infos']);
         }
 
         return $model;
