@@ -4466,6 +4466,212 @@ func (s *VerifyServiceaccountSignatureResponse) SetVerifyResult(v bool) *VerifyS
 	return s
 }
 
+type CreateUserTokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 登录账号，邮箱
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
+	// 密码
+	Password *string `json:"password,omitempty" xml:"password,omitempty" require:"true"`
+}
+
+func (s CreateUserTokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateUserTokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateUserTokenRequest) SetAuthToken(v string) *CreateUserTokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateUserTokenRequest) SetLoginName(v string) *CreateUserTokenRequest {
+	s.LoginName = &v
+	return s
+}
+
+func (s *CreateUserTokenRequest) SetPassword(v string) *CreateUserTokenRequest {
+	s.Password = &v
+	return s
+}
+
+type CreateUserTokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 登录凭证
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+}
+
+func (s CreateUserTokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateUserTokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateUserTokenResponse) SetReqMsgId(v string) *CreateUserTokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateUserTokenResponse) SetResultCode(v string) *CreateUserTokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateUserTokenResponse) SetResultMsg(v string) *CreateUserTokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateUserTokenResponse) SetToken(v string) *CreateUserTokenResponse {
+	s.Token = &v
+	return s
+}
+
+type RefreshUserTokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 登录凭证
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+}
+
+func (s RefreshUserTokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RefreshUserTokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RefreshUserTokenRequest) SetAuthToken(v string) *RefreshUserTokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RefreshUserTokenRequest) SetToken(v string) *RefreshUserTokenRequest {
+	s.Token = &v
+	return s
+}
+
+type RefreshUserTokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 刷新结果
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s RefreshUserTokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RefreshUserTokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RefreshUserTokenResponse) SetReqMsgId(v string) *RefreshUserTokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RefreshUserTokenResponse) SetResultCode(v string) *RefreshUserTokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RefreshUserTokenResponse) SetResultMsg(v string) *RefreshUserTokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RefreshUserTokenResponse) SetResult(v bool) *RefreshUserTokenResponse {
+	s.Result = &v
+	return s
+}
+
+type DeleteTrustloginTokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 系统来源
+	SourceSystem *string `json:"source_system,omitempty" xml:"source_system,omitempty" require:"true"`
+	// 免登凭证
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+}
+
+func (s DeleteTrustloginTokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteTrustloginTokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteTrustloginTokenRequest) SetAuthToken(v string) *DeleteTrustloginTokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteTrustloginTokenRequest) SetSourceSystem(v string) *DeleteTrustloginTokenRequest {
+	s.SourceSystem = &v
+	return s
+}
+
+func (s *DeleteTrustloginTokenRequest) SetAccessToken(v string) *DeleteTrustloginTokenRequest {
+	s.AccessToken = &v
+	return s
+}
+
+type DeleteTrustloginTokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// true, false
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s DeleteTrustloginTokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteTrustloginTokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteTrustloginTokenResponse) SetReqMsgId(v string) *DeleteTrustloginTokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteTrustloginTokenResponse) SetResultCode(v string) *DeleteTrustloginTokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteTrustloginTokenResponse) SetResultMsg(v string) *DeleteTrustloginTokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeleteTrustloginTokenResponse) SetResult(v bool) *DeleteTrustloginTokenResponse {
+	s.Result = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -4588,7 +4794,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.2"),
+				"sdk_version":      tea.String("1.6.0"),
 				"_prod_code":       tea.String("acm"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5999,6 +6205,108 @@ func (client *Client) VerifyServiceaccountSignatureEx(request *VerifyServiceacco
 	}
 	_result = &VerifyServiceaccountSignatureResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.serviceaccount.signature.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建用户登录态（线下环境使用）
+ * Summary: 创建用户登录态（线下环境使用）
+ */
+func (client *Client) CreateUserToken(request *CreateUserTokenRequest) (_result *CreateUserTokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateUserTokenResponse{}
+	_body, _err := client.CreateUserTokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建用户登录态（线下环境使用）
+ * Summary: 创建用户登录态（线下环境使用）
+ */
+func (client *Client) CreateUserTokenEx(request *CreateUserTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateUserTokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateUserTokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.user.token.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 刷新用户登录态（线下环境使用）
+ * Summary: 刷新用户登录态（线下环境使用）
+ */
+func (client *Client) RefreshUserToken(request *RefreshUserTokenRequest) (_result *RefreshUserTokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RefreshUserTokenResponse{}
+	_body, _err := client.RefreshUserTokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 刷新用户登录态（线下环境使用）
+ * Summary: 刷新用户登录态（线下环境使用）
+ */
+func (client *Client) RefreshUserTokenEx(request *RefreshUserTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RefreshUserTokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RefreshUserTokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.user.token.refresh"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 三方会员免密登录token删除
+ * Summary: 三方会员免密登录token删除
+ */
+func (client *Client) DeleteTrustloginToken(request *DeleteTrustloginTokenRequest) (_result *DeleteTrustloginTokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteTrustloginTokenResponse{}
+	_body, _err := client.DeleteTrustloginTokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 三方会员免密登录token删除
+ * Summary: 三方会员免密登录token删除
+ */
+func (client *Client) DeleteTrustloginTokenEx(request *DeleteTrustloginTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteTrustloginTokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteTrustloginTokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.trustlogin.token.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
