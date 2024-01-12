@@ -33,8 +33,12 @@ use AntChain\Acm\Models\CreateServiceaccountOnepartyRequest;
 use AntChain\Acm\Models\CreateServiceaccountOnepartyResponse;
 use AntChain\Acm\Models\CreateTenantRequest;
 use AntChain\Acm\Models\CreateTenantResponse;
+use AntChain\Acm\Models\CreateUserTokenRequest;
+use AntChain\Acm\Models\CreateUserTokenResponse;
 use AntChain\Acm\Models\DeleteOperatorRequest;
 use AntChain\Acm\Models\DeleteOperatorResponse;
+use AntChain\Acm\Models\DeleteTrustloginTokenRequest;
+use AntChain\Acm\Models\DeleteTrustloginTokenResponse;
 use AntChain\Acm\Models\DisableOauthMobileloginRequest;
 use AntChain\Acm\Models\DisableOauthMobileloginResponse;
 use AntChain\Acm\Models\EnableOauthMobileloginRequest;
@@ -75,6 +79,8 @@ use AntChain\Acm\Models\QueryTenantTagRequest;
 use AntChain\Acm\Models\QueryTenantTagResponse;
 use AntChain\Acm\Models\QueryUserRoleRequest;
 use AntChain\Acm\Models\QueryUserRoleResponse;
+use AntChain\Acm\Models\RefreshUserTokenRequest;
+use AntChain\Acm\Models\RefreshUserTokenResponse;
 use AntChain\Acm\Models\RemoveTenantBusinesstagRequest;
 use AntChain\Acm\Models\RemoveTenantBusinesstagResponse;
 use AntChain\Acm\Models\SearchOperatorRequest;
@@ -238,7 +244,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.2',
+                    'sdk_version'      => '1.6.0',
                     '_prod_code'       => 'acm',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1604,5 +1610,104 @@ class Client
         Utils::validateModel($request);
 
         return VerifyServiceaccountSignatureResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.serviceaccount.signature.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建用户登录态（线下环境使用）
+     * Summary: 创建用户登录态（线下环境使用）.
+     *
+     * @param CreateUserTokenRequest $request
+     *
+     * @return CreateUserTokenResponse
+     */
+    public function createUserToken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createUserTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建用户登录态（线下环境使用）
+     * Summary: 创建用户登录态（线下环境使用）.
+     *
+     * @param CreateUserTokenRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return CreateUserTokenResponse
+     */
+    public function createUserTokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateUserTokenResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.user.token.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 刷新用户登录态（线下环境使用）
+     * Summary: 刷新用户登录态（线下环境使用）.
+     *
+     * @param RefreshUserTokenRequest $request
+     *
+     * @return RefreshUserTokenResponse
+     */
+    public function refreshUserToken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->refreshUserTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 刷新用户登录态（线下环境使用）
+     * Summary: 刷新用户登录态（线下环境使用）.
+     *
+     * @param RefreshUserTokenRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return RefreshUserTokenResponse
+     */
+    public function refreshUserTokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RefreshUserTokenResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.user.token.refresh', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三方会员免密登录token删除
+     * Summary: 三方会员免密登录token删除.
+     *
+     * @param DeleteTrustloginTokenRequest $request
+     *
+     * @return DeleteTrustloginTokenResponse
+     */
+    public function deleteTrustloginToken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteTrustloginTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三方会员免密登录token删除
+     * Summary: 三方会员免密登录token删除.
+     *
+     * @param DeleteTrustloginTokenRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return DeleteTrustloginTokenResponse
+     */
+    public function deleteTrustloginTokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteTrustloginTokenResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.trustlogin.token.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
