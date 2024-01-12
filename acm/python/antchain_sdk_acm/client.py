@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.2',
+                    'sdk_version': '1.6.0',
                     '_prod_code': 'acm',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.2',
+                    'sdk_version': '1.6.0',
                     '_prod_code': 'acm',
                     '_prod_channel': 'undefined'
                 }
@@ -2513,4 +2513,172 @@ class Client:
         return TeaCore.from_map(
             acm_models.VerifyServiceaccountSignatureResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.serviceaccount.signature.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_user_token(
+        self,
+        request: acm_models.CreateUserTokenRequest,
+    ) -> acm_models.CreateUserTokenResponse:
+        """
+        Description: 创建用户登录态（线下环境使用）
+        Summary: 创建用户登录态（线下环境使用）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_user_token_ex(request, headers, runtime)
+
+    async def create_user_token_async(
+        self,
+        request: acm_models.CreateUserTokenRequest,
+    ) -> acm_models.CreateUserTokenResponse:
+        """
+        Description: 创建用户登录态（线下环境使用）
+        Summary: 创建用户登录态（线下环境使用）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_user_token_ex_async(request, headers, runtime)
+
+    def create_user_token_ex(
+        self,
+        request: acm_models.CreateUserTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.CreateUserTokenResponse:
+        """
+        Description: 创建用户登录态（线下环境使用）
+        Summary: 创建用户登录态（线下环境使用）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.CreateUserTokenResponse(),
+            self.do_request('1.0', 'antcloud.acm.user.token.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_user_token_ex_async(
+        self,
+        request: acm_models.CreateUserTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.CreateUserTokenResponse:
+        """
+        Description: 创建用户登录态（线下环境使用）
+        Summary: 创建用户登录态（线下环境使用）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.CreateUserTokenResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.user.token.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def refresh_user_token(
+        self,
+        request: acm_models.RefreshUserTokenRequest,
+    ) -> acm_models.RefreshUserTokenResponse:
+        """
+        Description: 刷新用户登录态（线下环境使用）
+        Summary: 刷新用户登录态（线下环境使用）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.refresh_user_token_ex(request, headers, runtime)
+
+    async def refresh_user_token_async(
+        self,
+        request: acm_models.RefreshUserTokenRequest,
+    ) -> acm_models.RefreshUserTokenResponse:
+        """
+        Description: 刷新用户登录态（线下环境使用）
+        Summary: 刷新用户登录态（线下环境使用）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.refresh_user_token_ex_async(request, headers, runtime)
+
+    def refresh_user_token_ex(
+        self,
+        request: acm_models.RefreshUserTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.RefreshUserTokenResponse:
+        """
+        Description: 刷新用户登录态（线下环境使用）
+        Summary: 刷新用户登录态（线下环境使用）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.RefreshUserTokenResponse(),
+            self.do_request('1.0', 'antcloud.acm.user.token.refresh', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def refresh_user_token_ex_async(
+        self,
+        request: acm_models.RefreshUserTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.RefreshUserTokenResponse:
+        """
+        Description: 刷新用户登录态（线下环境使用）
+        Summary: 刷新用户登录态（线下环境使用）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.RefreshUserTokenResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.user.token.refresh', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_trustlogin_token(
+        self,
+        request: acm_models.DeleteTrustloginTokenRequest,
+    ) -> acm_models.DeleteTrustloginTokenResponse:
+        """
+        Description: 三方会员免密登录token删除
+        Summary: 三方会员免密登录token删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_trustlogin_token_ex(request, headers, runtime)
+
+    async def delete_trustlogin_token_async(
+        self,
+        request: acm_models.DeleteTrustloginTokenRequest,
+    ) -> acm_models.DeleteTrustloginTokenResponse:
+        """
+        Description: 三方会员免密登录token删除
+        Summary: 三方会员免密登录token删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_trustlogin_token_ex_async(request, headers, runtime)
+
+    def delete_trustlogin_token_ex(
+        self,
+        request: acm_models.DeleteTrustloginTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.DeleteTrustloginTokenResponse:
+        """
+        Description: 三方会员免密登录token删除
+        Summary: 三方会员免密登录token删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.DeleteTrustloginTokenResponse(),
+            self.do_request('1.0', 'antcloud.acm.trustlogin.token.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_trustlogin_token_ex_async(
+        self,
+        request: acm_models.DeleteTrustloginTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.DeleteTrustloginTokenResponse:
+        """
+        Description: 三方会员免密登录token删除
+        Summary: 三方会员免密登录token删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.DeleteTrustloginTokenResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.trustlogin.token.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
