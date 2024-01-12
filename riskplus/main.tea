@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.59',
+    sdk_version = '1.17.0',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -1737,6 +1737,16 @@ model CpaasSmsTemplate {
   createTime?: string(name='create_time', example='短信创建时间'),
 }
 
+// 输出变量列表
+model VariableDetails {
+  // 输出变量名称
+  variableName: string(name='variable_name', example='yidun_aft_v3'),
+  // 输出变量值
+  variableValue: string(name='variable_value', example='66.6'),
+  // 输出变量值类型
+  variableType: string(name='variable_type', example='Double'),
+}
+
 // 舆情的详情
 model RtopCompanyOpinionDetail {
   // 具体的舆情内容
@@ -1872,14 +1882,16 @@ model QuerySecurityPolicyResponse = {
   securityResult?: string(name='security_result'),
   // 是否成功
   success: string(name='success'),
-  // 有风险需要失败业务情况下的返回码
-  templateCode?: string(name='template_code'),
-  // 有风险需要失败业务情况下的返回码描述
-  templateDesc?: string(name='template_desc'),
   // native场景下的核身id
   verifyId?: string(name='verify_id'),
   // h5场景下的核身地址
   verifyUrl?: string(name='verify_url'),
+  // 场景分
+  modelDetails?: ModelDetails(name='model_details'),
+  // 输出变量
+  variableDetails?: VariableDetails(name='variable_details'),
+  // 策略详情
+  strategyDetails?: StrategyDetails(name='strategy_details'),
 }
 
 /**
@@ -7683,6 +7695,54 @@ async function querySnapshotEventEx(request: QuerySnapshotEventRequest, headers:
   return doRequest('1.0' ,'riskplus.snapshot.event.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryTdisaasSecurityPolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 风控事件咨询查询入参
+  eventInfo: EventInfo(name='event_info'),
+  // 请求处理方式
+  riskType: string(name='risk_type'),
+}
+
+model QueryTdisaasSecurityPolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 场景分
+  modelDetails?: [ ModelDetails ](name='model_details'),
+  // 安全请求id
+  securityId?: string(name='security_id'),
+  // 策略结果
+  securityResult?: string(name='security_result'),
+  // 策略结果详情
+  strategyDetails?: [ StrategyDetails ](name='strategy_details'),
+  // 决策流信息
+  dfSceneInfos?: [ DfSceneInfos ](name='df_scene_infos'),
+}
+
+/**
+ * Description: saas风险咨询，决策流模式
+ * Summary: saas风险咨询
+ */
+async function queryTdisaasSecurityPolicy(request: QueryTdisaasSecurityPolicyRequest): QueryTdisaasSecurityPolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTdisaasSecurityPolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: saas风险咨询，决策流模式
+ * Summary: saas风险咨询
+ */
+async function queryTdisaasSecurityPolicyEx(request: QueryTdisaasSecurityPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTdisaasSecurityPolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.tdisaas.security.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model UploadUmktParamsFileRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -8851,7 +8911,7 @@ model CallbackUmktRobotcallRequest = {
   callId: string(name='call_id'),
   // 外呼任务编号
   taskId: long(name='task_id'),
-  // 渠道侧任务名称
+  // 外呼任务名称
   taskName: string(name='task_name'),
   // 外呼的话术模板ID，可以为空
   templateId?: long(name='template_id'),
