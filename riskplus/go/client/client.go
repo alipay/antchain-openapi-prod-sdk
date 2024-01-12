@@ -5425,6 +5425,39 @@ func (s *CpaasSmsTemplate) SetCreateTime(v string) *CpaasSmsTemplate {
 	return s
 }
 
+// 输出变量列表
+type VariableDetails struct {
+	// 输出变量名称
+	VariableName *string `json:"variable_name,omitempty" xml:"variable_name,omitempty" require:"true"`
+	// 输出变量值
+	VariableValue *string `json:"variable_value,omitempty" xml:"variable_value,omitempty" require:"true"`
+	// 输出变量值类型
+	VariableType *string `json:"variable_type,omitempty" xml:"variable_type,omitempty" require:"true"`
+}
+
+func (s VariableDetails) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VariableDetails) GoString() string {
+	return s.String()
+}
+
+func (s *VariableDetails) SetVariableName(v string) *VariableDetails {
+	s.VariableName = &v
+	return s
+}
+
+func (s *VariableDetails) SetVariableValue(v string) *VariableDetails {
+	s.VariableValue = &v
+	return s
+}
+
+func (s *VariableDetails) SetVariableType(v string) *VariableDetails {
+	s.VariableType = &v
+	return s
+}
+
 // 舆情的详情
 type RtopCompanyOpinionDetail struct {
 	// 具体的舆情内容
@@ -5854,14 +5887,16 @@ type QuerySecurityPolicyResponse struct {
 	SecurityResult *string `json:"security_result,omitempty" xml:"security_result,omitempty"`
 	// 是否成功
 	Success *string `json:"success,omitempty" xml:"success,omitempty" require:"true"`
-	// 有风险需要失败业务情况下的返回码
-	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty"`
-	// 有风险需要失败业务情况下的返回码描述
-	TemplateDesc *string `json:"template_desc,omitempty" xml:"template_desc,omitempty"`
 	// native场景下的核身id
 	VerifyId *string `json:"verify_id,omitempty" xml:"verify_id,omitempty"`
 	// h5场景下的核身地址
 	VerifyUrl *string `json:"verify_url,omitempty" xml:"verify_url,omitempty"`
+	// 场景分
+	ModelDetails *ModelDetails `json:"model_details,omitempty" xml:"model_details,omitempty"`
+	// 输出变量
+	VariableDetails *VariableDetails `json:"variable_details,omitempty" xml:"variable_details,omitempty"`
+	// 策略详情
+	StrategyDetails *StrategyDetails `json:"strategy_details,omitempty" xml:"strategy_details,omitempty"`
 }
 
 func (s QuerySecurityPolicyResponse) String() string {
@@ -5907,16 +5942,6 @@ func (s *QuerySecurityPolicyResponse) SetSuccess(v string) *QuerySecurityPolicyR
 	return s
 }
 
-func (s *QuerySecurityPolicyResponse) SetTemplateCode(v string) *QuerySecurityPolicyResponse {
-	s.TemplateCode = &v
-	return s
-}
-
-func (s *QuerySecurityPolicyResponse) SetTemplateDesc(v string) *QuerySecurityPolicyResponse {
-	s.TemplateDesc = &v
-	return s
-}
-
 func (s *QuerySecurityPolicyResponse) SetVerifyId(v string) *QuerySecurityPolicyResponse {
 	s.VerifyId = &v
 	return s
@@ -5924,6 +5949,21 @@ func (s *QuerySecurityPolicyResponse) SetVerifyId(v string) *QuerySecurityPolicy
 
 func (s *QuerySecurityPolicyResponse) SetVerifyUrl(v string) *QuerySecurityPolicyResponse {
 	s.VerifyUrl = &v
+	return s
+}
+
+func (s *QuerySecurityPolicyResponse) SetModelDetails(v *ModelDetails) *QuerySecurityPolicyResponse {
+	s.ModelDetails = v
+	return s
+}
+
+func (s *QuerySecurityPolicyResponse) SetVariableDetails(v *VariableDetails) *QuerySecurityPolicyResponse {
+	s.VariableDetails = v
+	return s
+}
+
+func (s *QuerySecurityPolicyResponse) SetStrategyDetails(v *StrategyDetails) *QuerySecurityPolicyResponse {
+	s.StrategyDetails = v
 	return s
 }
 
@@ -18430,6 +18470,111 @@ func (s *QuerySnapshotEventResponse) SetResultMsg(v string) *QuerySnapshotEventR
 	return s
 }
 
+type QueryTdisaasSecurityPolicyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 风控事件咨询查询入参
+	EventInfo *EventInfo `json:"event_info,omitempty" xml:"event_info,omitempty" require:"true"`
+	// 请求处理方式
+	RiskType *string `json:"risk_type,omitempty" xml:"risk_type,omitempty" require:"true"`
+}
+
+func (s QueryTdisaasSecurityPolicyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTdisaasSecurityPolicyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTdisaasSecurityPolicyRequest) SetAuthToken(v string) *QueryTdisaasSecurityPolicyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTdisaasSecurityPolicyRequest) SetProductInstanceId(v string) *QueryTdisaasSecurityPolicyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTdisaasSecurityPolicyRequest) SetEventInfo(v *EventInfo) *QueryTdisaasSecurityPolicyRequest {
+	s.EventInfo = v
+	return s
+}
+
+func (s *QueryTdisaasSecurityPolicyRequest) SetRiskType(v string) *QueryTdisaasSecurityPolicyRequest {
+	s.RiskType = &v
+	return s
+}
+
+type QueryTdisaasSecurityPolicyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 场景分
+	ModelDetails []*ModelDetails `json:"model_details,omitempty" xml:"model_details,omitempty" type:"Repeated"`
+	// 安全请求id
+	SecurityId *string `json:"security_id,omitempty" xml:"security_id,omitempty"`
+	// 策略结果
+	SecurityResult *string `json:"security_result,omitempty" xml:"security_result,omitempty"`
+	// 策略结果详情
+	StrategyDetails []*StrategyDetails `json:"strategy_details,omitempty" xml:"strategy_details,omitempty" type:"Repeated"`
+	// 决策流信息
+	DfSceneInfos []*DfSceneInfos `json:"df_scene_infos,omitempty" xml:"df_scene_infos,omitempty" type:"Repeated"`
+}
+
+func (s QueryTdisaasSecurityPolicyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTdisaasSecurityPolicyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTdisaasSecurityPolicyResponse) SetReqMsgId(v string) *QueryTdisaasSecurityPolicyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTdisaasSecurityPolicyResponse) SetResultCode(v string) *QueryTdisaasSecurityPolicyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTdisaasSecurityPolicyResponse) SetResultMsg(v string) *QueryTdisaasSecurityPolicyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTdisaasSecurityPolicyResponse) SetModelDetails(v []*ModelDetails) *QueryTdisaasSecurityPolicyResponse {
+	s.ModelDetails = v
+	return s
+}
+
+func (s *QueryTdisaasSecurityPolicyResponse) SetSecurityId(v string) *QueryTdisaasSecurityPolicyResponse {
+	s.SecurityId = &v
+	return s
+}
+
+func (s *QueryTdisaasSecurityPolicyResponse) SetSecurityResult(v string) *QueryTdisaasSecurityPolicyResponse {
+	s.SecurityResult = &v
+	return s
+}
+
+func (s *QueryTdisaasSecurityPolicyResponse) SetStrategyDetails(v []*StrategyDetails) *QueryTdisaasSecurityPolicyResponse {
+	s.StrategyDetails = v
+	return s
+}
+
+func (s *QueryTdisaasSecurityPolicyResponse) SetDfSceneInfos(v []*DfSceneInfos) *QueryTdisaasSecurityPolicyResponse {
+	s.DfSceneInfos = v
+	return s
+}
+
 type UploadUmktParamsFileRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -20859,7 +21004,7 @@ type CallbackUmktRobotcallRequest struct {
 	CallId *string `json:"call_id,omitempty" xml:"call_id,omitempty" require:"true"`
 	// 外呼任务编号
 	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
-	// 渠道侧任务名称
+	// 外呼任务名称
 	TaskName *string `json:"task_name,omitempty" xml:"task_name,omitempty" require:"true"`
 	// 外呼的话术模板ID，可以为空
 	TemplateId *int64 `json:"template_id,omitempty" xml:"template_id,omitempty"`
@@ -22320,7 +22465,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.59"),
+				"sdk_version":      tea.String("1.17.0"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -26535,6 +26680,40 @@ func (client *Client) QuerySnapshotEventEx(request *QuerySnapshotEventRequest, h
 	}
 	_result = &QuerySnapshotEventResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.snapshot.event.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: saas风险咨询，决策流模式
+ * Summary: saas风险咨询
+ */
+func (client *Client) QueryTdisaasSecurityPolicy(request *QueryTdisaasSecurityPolicyRequest) (_result *QueryTdisaasSecurityPolicyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTdisaasSecurityPolicyResponse{}
+	_body, _err := client.QueryTdisaasSecurityPolicyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: saas风险咨询，决策流模式
+ * Summary: saas风险咨询
+ */
+func (client *Client) QueryTdisaasSecurityPolicyEx(request *QueryTdisaasSecurityPolicyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTdisaasSecurityPolicyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTdisaasSecurityPolicyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.tdisaas.security.policy.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
