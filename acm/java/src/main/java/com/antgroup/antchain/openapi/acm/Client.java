@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.5.2"),
+                    new TeaPair("sdk_version", "1.6.0"),
                     new TeaPair("_prod_code", "acm"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -919,5 +919,62 @@ public class Client {
     public VerifyServiceaccountSignatureResponse verifyServiceaccountSignatureEx(VerifyServiceaccountSignatureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.serviceaccount.signature.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyServiceaccountSignatureResponse());
+    }
+
+    /**
+     * Description: 创建用户登录态（线下环境使用）
+     * Summary: 创建用户登录态（线下环境使用）
+     */
+    public CreateUserTokenResponse createUserToken(CreateUserTokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createUserTokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建用户登录态（线下环境使用）
+     * Summary: 创建用户登录态（线下环境使用）
+     */
+    public CreateUserTokenResponse createUserTokenEx(CreateUserTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.user.token.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateUserTokenResponse());
+    }
+
+    /**
+     * Description: 刷新用户登录态（线下环境使用）
+     * Summary: 刷新用户登录态（线下环境使用）
+     */
+    public RefreshUserTokenResponse refreshUserToken(RefreshUserTokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.refreshUserTokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 刷新用户登录态（线下环境使用）
+     * Summary: 刷新用户登录态（线下环境使用）
+     */
+    public RefreshUserTokenResponse refreshUserTokenEx(RefreshUserTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.user.token.refresh", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RefreshUserTokenResponse());
+    }
+
+    /**
+     * Description: 三方会员免密登录token删除
+     * Summary: 三方会员免密登录token删除
+     */
+    public DeleteTrustloginTokenResponse deleteTrustloginToken(DeleteTrustloginTokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteTrustloginTokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 三方会员免密登录token删除
+     * Summary: 三方会员免密登录token删除
+     */
+    public DeleteTrustloginTokenResponse deleteTrustloginTokenEx(DeleteTrustloginTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.trustlogin.token.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteTrustloginTokenResponse());
     }
 }
