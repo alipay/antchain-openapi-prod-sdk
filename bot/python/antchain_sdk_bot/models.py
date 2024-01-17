@@ -32901,6 +32901,139 @@ class QueryCustomerentityServiceResponse(TeaModel):
         return self
 
 
+class ApplyTechintegrationSkushipRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_model: str = None,
+        quota: int = None,
+        product_type: str = None,
+        security_mechanism: str = None,
+        cert_type: str = None,
+        features: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 产品型号
+        self.device_model = device_model
+        # 出货数量，上限8
+        self.quota = quota
+        # 产品类型
+        self.product_type = product_type
+        # 安全方案
+        self.security_mechanism = security_mechanism
+        # 证书类型
+        self.cert_type = cert_type
+        # 凭证种类
+        self.features = features
+
+    def validate(self):
+        self.validate_required(self.device_model, 'device_model')
+        self.validate_required(self.quota, 'quota')
+        if self.quota is not None:
+            self.validate_maximum(self.quota, 'quota', 8)
+            self.validate_minimum(self.quota, 'quota', 1)
+        self.validate_required(self.product_type, 'product_type')
+        self.validate_required(self.security_mechanism, 'security_mechanism')
+        self.validate_required(self.cert_type, 'cert_type')
+        self.validate_required(self.features, 'features')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_model is not None:
+            result['device_model'] = self.device_model
+        if self.quota is not None:
+            result['quota'] = self.quota
+        if self.product_type is not None:
+            result['product_type'] = self.product_type
+        if self.security_mechanism is not None:
+            result['security_mechanism'] = self.security_mechanism
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.features is not None:
+            result['features'] = self.features
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_model') is not None:
+            self.device_model = m.get('device_model')
+        if m.get('quota') is not None:
+            self.quota = m.get('quota')
+        if m.get('product_type') is not None:
+            self.product_type = m.get('product_type')
+        if m.get('security_mechanism') is not None:
+            self.security_mechanism = m.get('security_mechanism')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('features') is not None:
+            self.features = m.get('features')
+        return self
+
+
+class ApplyTechintegrationSkushipResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 支付芯证书列表
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
 class ExecThingsdidOneapiRequest(TeaModel):
     def __init__(
         self,
