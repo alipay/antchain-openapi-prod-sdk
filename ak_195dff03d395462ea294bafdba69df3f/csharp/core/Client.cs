@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.0"},
+                        {"sdk_version", "1.1.1"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.0"},
+                        {"sdk_version", "1.1.1"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -1751,48 +1751,6 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncAntchainAtoFundMerchantpromiseResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.merchantpromise.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 融资放款申请咨询
-         * Summary: 融资放款申请咨询
-         */
-        public SyncAntchainAtoFundFinanceloanapplyResponse SyncAntchainAtoFundFinanceloanapply(SyncAntchainAtoFundFinanceloanapplyRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return SyncAntchainAtoFundFinanceloanapplyEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 融资放款申请咨询
-         * Summary: 融资放款申请咨询
-         */
-        public async Task<SyncAntchainAtoFundFinanceloanapplyResponse> SyncAntchainAtoFundFinanceloanapplyAsync(SyncAntchainAtoFundFinanceloanapplyRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await SyncAntchainAtoFundFinanceloanapplyExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 融资放款申请咨询
-         * Summary: 融资放款申请咨询
-         */
-        public SyncAntchainAtoFundFinanceloanapplyResponse SyncAntchainAtoFundFinanceloanapplyEx(SyncAntchainAtoFundFinanceloanapplyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<SyncAntchainAtoFundFinanceloanapplyResponse>(DoRequest("1.0", "antchain.ato.fund.financeloanapply.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 融资放款申请咨询
-         * Summary: 融资放款申请咨询
-         */
-        public async Task<SyncAntchainAtoFundFinanceloanapplyResponse> SyncAntchainAtoFundFinanceloanapplyExAsync(SyncAntchainAtoFundFinanceloanapplyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<SyncAntchainAtoFundFinanceloanapplyResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.financeloanapply.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

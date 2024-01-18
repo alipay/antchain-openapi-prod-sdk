@@ -34,6 +34,12 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string MerchantId { get; set; }
 
+        // "ERROR": 放款同步异常
+        // “SUCCESS":放款同步成功
+        [NameInMap("loan_result")]
+        [Validation(Required=false)]
+        public string LoanResult { get; set; }
+
     }
 
 }
