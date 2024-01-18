@@ -34,6 +34,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string BizDate { get; set; }
 
+        // 生效的圈选人群的设置
+        [NameInMap("crowd_config_info")]
+        [Validation(Required=false)]
+        public string CrowdConfigInfo { get; set; }
+
     }
 
 }
