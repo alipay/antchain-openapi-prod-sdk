@@ -3593,105 +3593,6 @@ func (s *SyncAntchainAtoFundMerchantpromiseResponse) SetMerchantId(v string) *Sy
 	return s
 }
 
-type SyncAntchainAtoFundFinanceloanapplyRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 订单id
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50" minLength:"1"`
-	// 订单所属商户的社会信用代码
-	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"200" minLength:"1"`
-	// json字符串,填入「FinanceLoanApplyReq」的json字符串
-	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true" minLength:"1"`
-}
-
-func (s SyncAntchainAtoFundFinanceloanapplyRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SyncAntchainAtoFundFinanceloanapplyRequest) GoString() string {
-	return s.String()
-}
-
-func (s *SyncAntchainAtoFundFinanceloanapplyRequest) SetAuthToken(v string) *SyncAntchainAtoFundFinanceloanapplyRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *SyncAntchainAtoFundFinanceloanapplyRequest) SetProductInstanceId(v string) *SyncAntchainAtoFundFinanceloanapplyRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *SyncAntchainAtoFundFinanceloanapplyRequest) SetOrderId(v string) *SyncAntchainAtoFundFinanceloanapplyRequest {
-	s.OrderId = &v
-	return s
-}
-
-func (s *SyncAntchainAtoFundFinanceloanapplyRequest) SetMerchantId(v string) *SyncAntchainAtoFundFinanceloanapplyRequest {
-	s.MerchantId = &v
-	return s
-}
-
-func (s *SyncAntchainAtoFundFinanceloanapplyRequest) SetBizContent(v string) *SyncAntchainAtoFundFinanceloanapplyRequest {
-	s.BizContent = &v
-	return s
-}
-
-type SyncAntchainAtoFundFinanceloanapplyResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// APPROVE ： 通过
-	// REFUSE :拒绝
-	Result *string `json:"result,omitempty" xml:"result,omitempty"`
-	// 订单id
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
-	// 订单所属商户的社会信用代码
-	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
-}
-
-func (s SyncAntchainAtoFundFinanceloanapplyResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SyncAntchainAtoFundFinanceloanapplyResponse) GoString() string {
-	return s.String()
-}
-
-func (s *SyncAntchainAtoFundFinanceloanapplyResponse) SetReqMsgId(v string) *SyncAntchainAtoFundFinanceloanapplyResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *SyncAntchainAtoFundFinanceloanapplyResponse) SetResultCode(v string) *SyncAntchainAtoFundFinanceloanapplyResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *SyncAntchainAtoFundFinanceloanapplyResponse) SetResultMsg(v string) *SyncAntchainAtoFundFinanceloanapplyResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *SyncAntchainAtoFundFinanceloanapplyResponse) SetResult(v string) *SyncAntchainAtoFundFinanceloanapplyResponse {
-	s.Result = &v
-	return s
-}
-
-func (s *SyncAntchainAtoFundFinanceloanapplyResponse) SetOrderId(v string) *SyncAntchainAtoFundFinanceloanapplyResponse {
-	s.OrderId = &v
-	return s
-}
-
-func (s *SyncAntchainAtoFundFinanceloanapplyResponse) SetMerchantId(v string) *SyncAntchainAtoFundFinanceloanapplyResponse {
-	s.MerchantId = &v
-	return s
-}
-
 type SyncAntchainAtoFundFinanceloanresultsRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3748,6 +3649,9 @@ type SyncAntchainAtoFundFinanceloanresultsResponse struct {
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
 	// 订单所属商户的社会信用代码
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// "ERROR": 放款同步异常
+	// “SUCCESS":放款同步成功
+	LoanResult *string `json:"loan_result,omitempty" xml:"loan_result,omitempty"`
 }
 
 func (s SyncAntchainAtoFundFinanceloanresultsResponse) String() string {
@@ -3780,6 +3684,11 @@ func (s *SyncAntchainAtoFundFinanceloanresultsResponse) SetOrderId(v string) *Sy
 
 func (s *SyncAntchainAtoFundFinanceloanresultsResponse) SetMerchantId(v string) *SyncAntchainAtoFundFinanceloanresultsResponse {
 	s.MerchantId = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundFinanceloanresultsResponse) SetLoanResult(v string) *SyncAntchainAtoFundFinanceloanresultsResponse {
+	s.LoanResult = &v
 	return s
 }
 
@@ -4102,7 +4011,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.0"),
+				"sdk_version":      tea.String("1.1.1"),
 				"_prod_code":       tea.String("ak_195dff03d395462ea294bafdba69df3f"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -5304,40 +5213,6 @@ func (client *Client) SyncAntchainAtoFundMerchantpromiseEx(request *SyncAntchain
 	}
 	_result = &SyncAntchainAtoFundMerchantpromiseResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.merchantpromise.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 融资放款申请咨询
- * Summary: 融资放款申请咨询
- */
-func (client *Client) SyncAntchainAtoFundFinanceloanapply(request *SyncAntchainAtoFundFinanceloanapplyRequest) (_result *SyncAntchainAtoFundFinanceloanapplyResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &SyncAntchainAtoFundFinanceloanapplyResponse{}
-	_body, _err := client.SyncAntchainAtoFundFinanceloanapplyEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 融资放款申请咨询
- * Summary: 融资放款申请咨询
- */
-func (client *Client) SyncAntchainAtoFundFinanceloanapplyEx(request *SyncAntchainAtoFundFinanceloanapplyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncAntchainAtoFundFinanceloanapplyResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &SyncAntchainAtoFundFinanceloanapplyResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.financeloanapply.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
