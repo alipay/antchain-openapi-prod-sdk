@@ -65,8 +65,6 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoSignFlo
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoSignFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontTradeRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontTradeResponse;
-use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceloanapplyRequest;
-use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceloanapplyResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceloanresultsRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceloanresultsResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundMerchantpromiseRequest;
@@ -232,7 +230,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.0',
+                    'sdk_version'      => '1.1.1',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -1385,39 +1383,6 @@ class Client
         Utils::validateModel($request);
 
         return SyncAntchainAtoFundMerchantpromiseResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.merchantpromise.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 融资放款申请咨询
-     * Summary: 融资放款申请咨询.
-     *
-     * @param SyncAntchainAtoFundFinanceloanapplyRequest $request
-     *
-     * @return SyncAntchainAtoFundFinanceloanapplyResponse
-     */
-    public function syncAntchainAtoFundFinanceloanapply($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->syncAntchainAtoFundFinanceloanapplyEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 融资放款申请咨询
-     * Summary: 融资放款申请咨询.
-     *
-     * @param SyncAntchainAtoFundFinanceloanapplyRequest $request
-     * @param string[]                                   $headers
-     * @param RuntimeOptions                             $runtime
-     *
-     * @return SyncAntchainAtoFundFinanceloanapplyResponse
-     */
-    public function syncAntchainAtoFundFinanceloanapplyEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return SyncAntchainAtoFundFinanceloanapplyResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.financeloanapply.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

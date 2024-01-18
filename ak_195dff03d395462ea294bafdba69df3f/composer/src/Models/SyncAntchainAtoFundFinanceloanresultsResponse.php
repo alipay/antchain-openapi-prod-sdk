@@ -37,12 +37,20 @@ class SyncAntchainAtoFundFinanceloanresultsResponse extends Model
      * @var string
      */
     public $merchantId;
+
+    // "ERROR": 放款同步异常
+    // “SUCCESS":放款同步成功
+    /**
+     * @var string
+     */
+    public $loanResult;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'orderId'    => 'order_id',
         'merchantId' => 'merchant_id',
+        'loanResult' => 'loan_result',
     ];
 
     public function validate()
@@ -66,6 +74,9 @@ class SyncAntchainAtoFundFinanceloanresultsResponse extends Model
         }
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->loanResult) {
+            $res['loan_result'] = $this->loanResult;
         }
 
         return $res;
@@ -93,6 +104,9 @@ class SyncAntchainAtoFundFinanceloanresultsResponse extends Model
         }
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];
+        }
+        if (isset($map['loan_result'])) {
+            $model->loanResult = $map['loan_result'];
         }
 
         return $model;
