@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.0',
+    sdk_version = '1.1.1',
     _prod_code = 'ak_195dff03d395462ea294bafdba69df3f',
     _prod_channel = 'saas'
   };
@@ -1820,53 +1820,6 @@ async function syncAntchainAtoFundMerchantpromiseEx(request: SyncAntchainAtoFund
   return doRequest('1.0' ,'antchain.ato.fund.merchantpromise.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model SyncAntchainAtoFundFinanceloanapplyRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 订单id
-  orderId: string(maxLength=50, minLength=1, name='order_id'),
-  // 订单所属商户的社会信用代码
-  merchantId: string(maxLength=200, minLength=1, name='merchant_id'),
-  // json字符串,填入「FinanceLoanApplyReq」的json字符串
-  bizContent: string(minLength=1, name='biz_content'),
-}
-
-model SyncAntchainAtoFundFinanceloanapplyResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // APPROVE ： 通过
-  // REFUSE :拒绝
-  result?: string(name='result'),
-  // 订单id
-  orderId?: string(name='order_id'),
-  // 订单所属商户的社会信用代码
-  merchantId?: string(name='merchant_id'),
-}
-
-/**
- * Description: 融资放款申请咨询
- * Summary: 融资放款申请咨询
- */
-async function syncAntchainAtoFundFinanceloanapply(request: SyncAntchainAtoFundFinanceloanapplyRequest): SyncAntchainAtoFundFinanceloanapplyResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return syncAntchainAtoFundFinanceloanapplyEx(request, headers, runtime);
-}
-
-/**
- * Description: 融资放款申请咨询
- * Summary: 融资放款申请咨询
- */
-async function syncAntchainAtoFundFinanceloanapplyEx(request: SyncAntchainAtoFundFinanceloanapplyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncAntchainAtoFundFinanceloanapplyResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'antchain.ato.fund.financeloanapply.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
 model SyncAntchainAtoFundFinanceloanresultsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1890,6 +1843,9 @@ model SyncAntchainAtoFundFinanceloanresultsResponse = {
   orderId?: string(name='order_id'),
   // 订单所属商户的社会信用代码
   merchantId?: string(name='merchant_id'),
+  // "ERROR": 放款同步异常
+  // “SUCCESS":放款同步成功
+  loanResult?: string(name='loan_result'),
 }
 
 /**
