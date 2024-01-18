@@ -37,12 +37,19 @@ class CountAuthTaskCrowdResponse extends Model
      * @var string
      */
     public $bizDate;
+
+    // 生效的圈选人群的设置
+    /**
+     * @var string
+     */
+    public $crowdConfigInfo;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'crowdCount' => 'crowd_count',
-        'bizDate'    => 'biz_date',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'crowdCount'      => 'crowd_count',
+        'bizDate'         => 'biz_date',
+        'crowdConfigInfo' => 'crowd_config_info',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class CountAuthTaskCrowdResponse extends Model
         }
         if (null !== $this->bizDate) {
             $res['biz_date'] = $this->bizDate;
+        }
+        if (null !== $this->crowdConfigInfo) {
+            $res['crowd_config_info'] = $this->crowdConfigInfo;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class CountAuthTaskCrowdResponse extends Model
         }
         if (isset($map['biz_date'])) {
             $model->bizDate = $map['biz_date'];
+        }
+        if (isset($map['crowd_config_info'])) {
+            $model->crowdConfigInfo = $map['crowd_config_info'];
         }
 
         return $model;
