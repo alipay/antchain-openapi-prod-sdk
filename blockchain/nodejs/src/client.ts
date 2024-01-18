@@ -38307,6 +38307,8 @@ export class CountAuthTaskCrowdResponse extends $tea.Model {
   crowdCount?: number;
   // 人群导出时间
   bizDate?: string;
+  // 生效的圈选人群的设置
+  crowdConfigInfo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -38314,6 +38316,7 @@ export class CountAuthTaskCrowdResponse extends $tea.Model {
       resultMsg: 'result_msg',
       crowdCount: 'crowd_count',
       bizDate: 'biz_date',
+      crowdConfigInfo: 'crowd_config_info',
     };
   }
 
@@ -38324,6 +38327,7 @@ export class CountAuthTaskCrowdResponse extends $tea.Model {
       resultMsg: 'string',
       crowdCount: 'number',
       bizDate: 'string',
+      crowdConfigInfo: 'string',
     };
   }
 
@@ -53403,7 +53407,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.27.12",
+          sdk_version: "1.27.13",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
