@@ -24,6 +24,11 @@ public class SyncAntchainAtoFundFinanceloanresultsResponse extends TeaModel {
     @NameInMap("merchant_id")
     public String merchantId;
 
+    // "ERROR": 放款同步异常
+    // “SUCCESS":放款同步成功
+    @NameInMap("loan_result")
+    public String loanResult;
+
     public static SyncAntchainAtoFundFinanceloanresultsResponse build(java.util.Map<String, ?> map) throws Exception {
         SyncAntchainAtoFundFinanceloanresultsResponse self = new SyncAntchainAtoFundFinanceloanresultsResponse();
         return TeaModel.build(map, self);
@@ -67,6 +72,14 @@ public class SyncAntchainAtoFundFinanceloanresultsResponse extends TeaModel {
     }
     public String getMerchantId() {
         return this.merchantId;
+    }
+
+    public SyncAntchainAtoFundFinanceloanresultsResponse setLoanResult(String loanResult) {
+        this.loanResult = loanResult;
+        return this;
+    }
+    public String getLoanResult() {
+        return this.loanResult;
     }
 
 }

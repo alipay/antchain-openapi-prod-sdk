@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.0"),
+                    new TeaPair("sdk_version", "1.1.1"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -807,25 +807,6 @@ public class Client {
     public SyncAntchainAtoFundMerchantpromiseResponse syncAntchainAtoFundMerchantpromiseEx(SyncAntchainAtoFundMerchantpromiseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.merchantpromise.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoFundMerchantpromiseResponse());
-    }
-
-    /**
-     * Description: 融资放款申请咨询
-     * Summary: 融资放款申请咨询
-     */
-    public SyncAntchainAtoFundFinanceloanapplyResponse syncAntchainAtoFundFinanceloanapply(SyncAntchainAtoFundFinanceloanapplyRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.syncAntchainAtoFundFinanceloanapplyEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 融资放款申请咨询
-     * Summary: 融资放款申请咨询
-     */
-    public SyncAntchainAtoFundFinanceloanapplyResponse syncAntchainAtoFundFinanceloanapplyEx(SyncAntchainAtoFundFinanceloanapplyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.financeloanapply.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoFundFinanceloanapplyResponse());
     }
 
     /**
