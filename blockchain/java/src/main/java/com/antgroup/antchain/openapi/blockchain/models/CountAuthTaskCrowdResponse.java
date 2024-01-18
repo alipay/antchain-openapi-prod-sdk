@@ -24,6 +24,10 @@ public class CountAuthTaskCrowdResponse extends TeaModel {
     @NameInMap("biz_date")
     public String bizDate;
 
+    // 生效的圈选人群的设置
+    @NameInMap("crowd_config_info")
+    public String crowdConfigInfo;
+
     public static CountAuthTaskCrowdResponse build(java.util.Map<String, ?> map) throws Exception {
         CountAuthTaskCrowdResponse self = new CountAuthTaskCrowdResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class CountAuthTaskCrowdResponse extends TeaModel {
     }
     public String getBizDate() {
         return this.bizDate;
+    }
+
+    public CountAuthTaskCrowdResponse setCrowdConfigInfo(String crowdConfigInfo) {
+        this.crowdConfigInfo = crowdConfigInfo;
+        return this;
+    }
+    public String getCrowdConfigInfo() {
+        return this.crowdConfigInfo;
     }
 
 }
