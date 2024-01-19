@@ -426,12 +426,15 @@ export class QueryBlockchainTaxRiskEvaluationResponse extends $tea.Model {
   resultMsg?: string;
   // unix秒时间戳,查询时间，用来对账使用
   queryTime?: string;
+  // 是否查的，空数据标识
+  nullDataFlag?: boolean;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       queryTime: 'query_time',
+      nullDataFlag: 'null_data_flag',
     };
   }
 
@@ -441,6 +444,7 @@ export class QueryBlockchainTaxRiskEvaluationResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       queryTime: 'string',
+      nullDataFlag: 'boolean',
     };
   }
 
@@ -610,6 +614,8 @@ export class StartBlockchainTaxRiskEvaluationResponse extends $tea.Model {
   expireTime?: number;
   // 授权时间，unix时间戳 毫秒
   authTime?: number;
+  // 预测的常驻省份
+  predictProvCode?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -619,6 +625,7 @@ export class StartBlockchainTaxRiskEvaluationResponse extends $tea.Model {
       authSuccess: 'auth_success',
       expireTime: 'expire_time',
       authTime: 'auth_time',
+      predictProvCode: 'predict_prov_code',
     };
   }
 
@@ -631,6 +638,7 @@ export class StartBlockchainTaxRiskEvaluationResponse extends $tea.Model {
       authSuccess: 'string',
       expireTime: 'number',
       authTime: 'number',
+      predictProvCode: 'string',
     };
   }
 
@@ -752,7 +760,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.0",
+          sdk_version: "1.1.1",
           _prod_code: "ak_aafd16538edd4fc0ab50acd01355adb6",
           _prod_channel: "saas",
         };
