@@ -723,6 +723,7 @@ class QueryBlockchainTaxRiskEvaluationResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         query_time: str = None,
+        null_data_flag: bool = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -732,6 +733,8 @@ class QueryBlockchainTaxRiskEvaluationResponse(TeaModel):
         self.result_msg = result_msg
         # unix秒时间戳,查询时间，用来对账使用
         self.query_time = query_time
+        # 是否查的，空数据标识
+        self.null_data_flag = null_data_flag
 
     def validate(self):
         pass
@@ -750,6 +753,8 @@ class QueryBlockchainTaxRiskEvaluationResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.query_time is not None:
             result['query_time'] = self.query_time
+        if self.null_data_flag is not None:
+            result['null_data_flag'] = self.null_data_flag
         return result
 
     def from_map(self, m: dict = None):
@@ -762,6 +767,8 @@ class QueryBlockchainTaxRiskEvaluationResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('query_time') is not None:
             self.query_time = m.get('query_time')
+        if m.get('null_data_flag') is not None:
+            self.null_data_flag = m.get('null_data_flag')
         return self
 
 
@@ -1024,6 +1031,7 @@ class StartBlockchainTaxRiskEvaluationResponse(TeaModel):
         auth_success: str = None,
         expire_time: int = None,
         auth_time: int = None,
+        predict_prov_code: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1039,6 +1047,8 @@ class StartBlockchainTaxRiskEvaluationResponse(TeaModel):
         self.expire_time = expire_time
         # 授权时间，unix时间戳 毫秒
         self.auth_time = auth_time
+        # 预测的常驻省份
+        self.predict_prov_code = predict_prov_code
 
     def validate(self):
         pass
@@ -1063,6 +1073,8 @@ class StartBlockchainTaxRiskEvaluationResponse(TeaModel):
             result['expire_time'] = self.expire_time
         if self.auth_time is not None:
             result['auth_time'] = self.auth_time
+        if self.predict_prov_code is not None:
+            result['predict_prov_code'] = self.predict_prov_code
         return result
 
     def from_map(self, m: dict = None):
@@ -1081,6 +1093,8 @@ class StartBlockchainTaxRiskEvaluationResponse(TeaModel):
             self.expire_time = m.get('expire_time')
         if m.get('auth_time') is not None:
             self.auth_time = m.get('auth_time')
+        if m.get('predict_prov_code') is not None:
+            self.predict_prov_code = m.get('predict_prov_code')
         return self
 
 
