@@ -44,6 +44,11 @@ namespace AntChain.SDK.Ak_aafd16538edd4fc0ab50acd01355adb6.Models
         [Validation(Required=false)]
         public long? AuthTime { get; set; }
 
+        // 预测的常驻省份
+        [NameInMap("predict_prov_code")]
+        [Validation(Required=false)]
+        public string PredictProvCode { get; set; }
+
     }
 
 }

@@ -29,6 +29,11 @@ namespace AntChain.SDK.Ak_aafd16538edd4fc0ab50acd01355adb6.Models
         [Validation(Required=false)]
         public string QueryTime { get; set; }
 
+        // 是否查的，空数据标识
+        [NameInMap("null_data_flag")]
+        [Validation(Required=false)]
+        public bool? NullDataFlag { get; set; }
+
     }
 
 }
