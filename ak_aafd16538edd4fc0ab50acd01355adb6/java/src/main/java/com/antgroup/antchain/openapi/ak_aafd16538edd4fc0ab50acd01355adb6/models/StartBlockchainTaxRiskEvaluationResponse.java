@@ -32,6 +32,10 @@ public class StartBlockchainTaxRiskEvaluationResponse extends TeaModel {
     @NameInMap("auth_time")
     public Long authTime;
 
+    // 预测的常驻省份
+    @NameInMap("predict_prov_code")
+    public String predictProvCode;
+
     public static StartBlockchainTaxRiskEvaluationResponse build(java.util.Map<String, ?> map) throws Exception {
         StartBlockchainTaxRiskEvaluationResponse self = new StartBlockchainTaxRiskEvaluationResponse();
         return TeaModel.build(map, self);
@@ -91,6 +95,14 @@ public class StartBlockchainTaxRiskEvaluationResponse extends TeaModel {
     }
     public Long getAuthTime() {
         return this.authTime;
+    }
+
+    public StartBlockchainTaxRiskEvaluationResponse setPredictProvCode(String predictProvCode) {
+        this.predictProvCode = predictProvCode;
+        return this;
+    }
+    public String getPredictProvCode() {
+        return this.predictProvCode;
     }
 
 }
