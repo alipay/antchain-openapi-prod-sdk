@@ -49,14 +49,21 @@ class StartBlockchainTaxRiskEvaluationResponse extends Model
      * @var int
      */
     public $authTime;
+
+    // 预测的常驻省份
+    /**
+     * @var string
+     */
+    public $predictProvCode;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'orderNo'     => 'order_no',
-        'authSuccess' => 'auth_success',
-        'expireTime'  => 'expire_time',
-        'authTime'    => 'auth_time',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'orderNo'         => 'order_no',
+        'authSuccess'     => 'auth_success',
+        'expireTime'      => 'expire_time',
+        'authTime'        => 'auth_time',
+        'predictProvCode' => 'predict_prov_code',
     ];
 
     public function validate()
@@ -86,6 +93,9 @@ class StartBlockchainTaxRiskEvaluationResponse extends Model
         }
         if (null !== $this->authTime) {
             $res['auth_time'] = $this->authTime;
+        }
+        if (null !== $this->predictProvCode) {
+            $res['predict_prov_code'] = $this->predictProvCode;
         }
 
         return $res;
@@ -119,6 +129,9 @@ class StartBlockchainTaxRiskEvaluationResponse extends Model
         }
         if (isset($map['auth_time'])) {
             $model->authTime = $map['auth_time'];
+        }
+        if (isset($map['predict_prov_code'])) {
+            $model->predictProvCode = $map['predict_prov_code'];
         }
 
         return $model;

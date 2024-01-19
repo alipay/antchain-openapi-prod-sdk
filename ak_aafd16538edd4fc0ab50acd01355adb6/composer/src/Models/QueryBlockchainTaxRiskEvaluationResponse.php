@@ -31,11 +31,18 @@ class QueryBlockchainTaxRiskEvaluationResponse extends Model
      * @var string
      */
     public $queryTime;
+
+    // 是否查的，空数据标识
+    /**
+     * @var bool
+     */
+    public $nullDataFlag;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'queryTime'  => 'query_time',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'queryTime'    => 'query_time',
+        'nullDataFlag' => 'null_data_flag',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class QueryBlockchainTaxRiskEvaluationResponse extends Model
         }
         if (null !== $this->queryTime) {
             $res['query_time'] = $this->queryTime;
+        }
+        if (null !== $this->nullDataFlag) {
+            $res['null_data_flag'] = $this->nullDataFlag;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class QueryBlockchainTaxRiskEvaluationResponse extends Model
         }
         if (isset($map['query_time'])) {
             $model->queryTime = $map['query_time'];
+        }
+        if (isset($map['null_data_flag'])) {
+            $model->nullDataFlag = $map['null_data_flag'];
         }
 
         return $model;
