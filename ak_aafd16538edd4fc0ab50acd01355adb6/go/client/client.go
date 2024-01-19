@@ -610,6 +610,8 @@ type QueryBlockchainTaxRiskEvaluationResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// unix秒时间戳,查询时间，用来对账使用
 	QueryTime *string `json:"query_time,omitempty" xml:"query_time,omitempty"`
+	// 是否查的，空数据标识
+	NullDataFlag *bool `json:"null_data_flag,omitempty" xml:"null_data_flag,omitempty"`
 }
 
 func (s QueryBlockchainTaxRiskEvaluationResponse) String() string {
@@ -637,6 +639,11 @@ func (s *QueryBlockchainTaxRiskEvaluationResponse) SetResultMsg(v string) *Query
 
 func (s *QueryBlockchainTaxRiskEvaluationResponse) SetQueryTime(v string) *QueryBlockchainTaxRiskEvaluationResponse {
 	s.QueryTime = &v
+	return s
+}
+
+func (s *QueryBlockchainTaxRiskEvaluationResponse) SetNullDataFlag(v bool) *QueryBlockchainTaxRiskEvaluationResponse {
+	s.NullDataFlag = &v
 	return s
 }
 
@@ -861,6 +868,8 @@ type StartBlockchainTaxRiskEvaluationResponse struct {
 	ExpireTime *int64 `json:"expire_time,omitempty" xml:"expire_time,omitempty"`
 	// 授权时间，unix时间戳 毫秒
 	AuthTime *int64 `json:"auth_time,omitempty" xml:"auth_time,omitempty"`
+	// 预测的常驻省份
+	PredictProvCode *string `json:"predict_prov_code,omitempty" xml:"predict_prov_code,omitempty"`
 }
 
 func (s StartBlockchainTaxRiskEvaluationResponse) String() string {
@@ -903,6 +912,11 @@ func (s *StartBlockchainTaxRiskEvaluationResponse) SetExpireTime(v int64) *Start
 
 func (s *StartBlockchainTaxRiskEvaluationResponse) SetAuthTime(v int64) *StartBlockchainTaxRiskEvaluationResponse {
 	s.AuthTime = &v
+	return s
+}
+
+func (s *StartBlockchainTaxRiskEvaluationResponse) SetPredictProvCode(v string) *StartBlockchainTaxRiskEvaluationResponse {
+	s.PredictProvCode = &v
 	return s
 }
 
@@ -1028,7 +1042,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.0"),
+				"sdk_version":      tea.String("1.1.1"),
 				"_prod_code":       tea.String("ak_aafd16538edd4fc0ab50acd01355adb6"),
 				"_prod_channel":    tea.String("saas"),
 			}
