@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.3',
+    sdk_version = '1.2.9',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -217,6 +217,26 @@ model RequestHead {
   secretId: string(name='secret_id', example='91440300892305861T'),
   // 客户签约产品code
   productCode: string(name='product_code', example='RDDB04201PR'),
+  // response输出类型，默认json
+  formatType?: string(name='format_type', example='"tlv"'),
+}
+
+// 终端安全-Android应用加固-RuntimeProtectConfig
+model RuntimeProtectConfig {
+  // 重打包,签名校验,AndroidManifest防篡改,签名文件保护,0为检测到风险退出,1不处理
+  antiSignature: long(name='anti_signature', example='.'),
+  // 防调试,0为检测到风险退出,1不处理
+  antiDebug: long(name='anti_debug', example='.'),
+  // 防hook,0为检测到风险退出,1不处理
+  antiHook: long(name='anti_hook', example='.'),
+  // 防注入,防内存dump,防内存数据修改,读取,0为检测到风险退出,1不处理
+  antiInject: long(name='anti_inject', example='.'),
+  // 模拟器检查,0为检测到风险退出,1不处理
+  antiEmulator: long(name='anti_emulator', example='.'),
+  // 防root,0为检测到风险退出,1不处理
+  antiRoot: long(name='anti_root', example='.'),
+  // 防多开软件运行,0为检测到风险退出,1不处理
+  antiMultiApp: long(name='anti_multi_app', example='.'),
 }
 
 // 人脸盾结果
@@ -229,6 +249,22 @@ model FaceShieldResult {
   riskDesc: string(name='risk_desc', example='本次咨询设备风险水平很高,风险编号:10000010.8.0'),
   // 处理的建议，如PAAS
   sugAction: string(name='sug_action', example='建议直接拦截'),
+}
+
+// 终端安全-Android加固-Response
+model FileTokenForUpload {
+  // .
+  accessId: string(name='access_id', example='.'),
+  // dir
+  dir: string(name='dir', example='dir'),
+  // expire
+  expire: string(name='expire', example='expire'),
+  // host
+  host: string(name='host', example='host'),
+  // policy
+  policy: string(name='policy', example='policy'),
+  // signature
+  signature: string(name='signature', example='signature'),
 }
 
 // result.resultData
@@ -279,6 +315,26 @@ model InsureInfo {
   insureCompCreditNo: string(name='insure_comp_credit_no', example='91440300892305861T'),
 }
 
+// 设备风险咨询结果
+model RiskQueryData {
+  // 风险评分
+  riskScore: string(name='risk_score', example='.'),
+  // 风险标签
+  riskLabels: [ string ](name='risk_labels', example='.'),
+}
+
+// 安卓加固HardeningTaskResponse
+model HardeningTaskResponse {
+  // 加固任务的 ID，后续用来轮询调用
+  taskId: string(name='task_id', example='task_id'),
+  // 加固任务的状态
+  status: long(name='status', example=''),
+  // 加固后 APK/ABB 的 MD5
+  afterMdFive: string(name='after_md_five', example='after_md_five'),
+  // 加固后 APK/ABB 的大小
+  afterSize: long(name='after_size', example=''),
+}
+
 // 设备风险查询data
 model DeviceRiskResp {
   // apdid
@@ -315,6 +371,14 @@ model IifaaEkytResponse {
 model BizQueryParam {
   // 参数列表，数组
   bizParams: [ BizParam ](name='biz_params', example=''),
+}
+
+// 终端安全-Android应用加固-ClassMethodConfig
+model ClassMethodConfig {
+  // 加固类名
+  className: string(name='class_name', example='class_name'),
+  // 方法集合，使用英文逗号分隔
+  methods: string(name='methods', example='methods'),
 }
 
 // 风险评估结果
@@ -699,6 +763,10 @@ model InitIifaaDeviceRequest = {
   deviceType: string(name='device_type'),
   // 设备信息
   deviceInfo: string(name='device_info'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 用于加密回传数据的公钥
+  pubKey?: string(name='pub_key'),
 }
 
 model InitIifaaDeviceResponse = {
@@ -1427,5 +1495,415 @@ async function applyIifaaDevicekey(request: ApplyIifaaDevicekeyRequest): ApplyIi
 async function applyIifaaDevicekeyEx(request: ApplyIifaaDevicekeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyIifaaDevicekeyResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.devicekey.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeviceplusRiskqueryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户id
+  clientId: string(name='client_id'),
+  // 请求id
+  requestId: string(name='request_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 加密电话号码
+  phoneNumber: string(name='phone_number'),
+}
+
+model QueryDeviceplusRiskqueryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 返回码
+  code?: long(name='code'),
+  // 返回信息
+  message?: string(name='message'),
+  // 供nearx排查的链路业务请求id
+  requestId?: string(name='request_id'),
+  // 风险咨询信息
+  data?: RiskQueryData(name='data'),
+}
+
+/**
+ * Description: 设备风险咨询
+ * Summary: 设备风险咨询
+ */
+async function queryDeviceplusRiskquery(request: QueryDeviceplusRiskqueryRequest): QueryDeviceplusRiskqueryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeviceplusRiskqueryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 设备风险咨询
+ * Summary: 设备风险咨询
+ */
+async function queryDeviceplusRiskqueryEx(request: QueryDeviceplusRiskqueryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceplusRiskqueryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.deviceplus.riskquery.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeviceplusMpaasRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // mpaas环境id
+  workspaceId: string(name='workspace_id'),
+  // mpaas应用id
+  appId: string(name='app_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 加密电话号码
+  phoneNumber: string(name='phone_number'),
+}
+
+model QueryDeviceplusMpaasResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 返回码
+  code?: long(name='code'),
+  // 返回信息
+  message?: string(name='message'),
+  // 供nearx排查的链路业务请求id
+  requestId?: string(name='request_id'),
+  // 风险咨询信息
+  data?: RiskQueryData(name='data'),
+}
+
+/**
+ * Description: 设备风险咨询mpaas
+ * Summary: 设备风险咨询mpaas
+ */
+async function queryDeviceplusMpaas(request: QueryDeviceplusMpaasRequest): QueryDeviceplusMpaasResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeviceplusMpaasEx(request, headers, runtime);
+}
+
+/**
+ * Description: 设备风险咨询mpaas
+ * Summary: 设备风险咨询mpaas
+ */
+async function queryDeviceplusMpaasEx(request: QueryDeviceplusMpaasRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceplusMpaasResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.deviceplus.mpaas.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAshieldPeriodhardeningtaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // APK,ABB 上传后的地址
+  fileUrl: string(name='file_url'),
+  // 开启so加固
+  soProtect?: string(name='so_protect'),
+  // 开启so加固后,设置的so加固配置文件,默认对apk中libs目录下所有so进行加固,以逗号分隔
+  soProtectConfig?: string(name='so_protect_config'),
+  // 开启对assets下的资源文件进行加固
+  assetsProtect?: string(name='assets_protect'),
+  // 开启assets加固后,指定要对apk中assets目录下的哪些文件做加固,默认对assets下所有的文件进行保护,以逗号分隔
+  assetsProtectConfing?: string(name='assets_protect_confing'),
+  // 开启运行时保护,需要填写的参数,具体参数见下方,json格式
+  runtimeProtectConfig?: RuntimeProtectConfig(name='runtime_protect_config'),
+  // 对生命周期函数进行java2jni保护
+  enableLifeFunc?: string(name='enable_life_func'),
+  // java2jni配置文件
+  javatocJniConfig?: [ ClassMethodConfig ](name='javatoc_jni_config'),
+  // 扩展信息,json字符串,暂不使用
+  extInfo?: string(name='ext_info'),
+}
+
+model SubmitAshieldPeriodhardeningtaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 查询是否成功
+  resSuccess?: boolean(name='res_success'),
+  // SUCCESS为成功,其他为失败
+  resCode?: string(name='res_code'),
+  // 返回信息描述
+  resMessage?: string(name='res_message'),
+  // 返回的具体对象
+  resData?: HardeningTaskResponse(name='res_data'),
+}
+
+/**
+ * Description: 终端安全-Android应用加固-启动加固任务(包月)
+ * Summary: 启动加固任务(包月)
+ */
+async function submitAshieldPeriodhardeningtask(request: SubmitAshieldPeriodhardeningtaskRequest): SubmitAshieldPeriodhardeningtaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAshieldPeriodhardeningtaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全-Android应用加固-启动加固任务(包月)
+ * Summary: 启动加固任务(包月)
+ */
+async function submitAshieldPeriodhardeningtaskEx(request: SubmitAshieldPeriodhardeningtaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAshieldPeriodhardeningtaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.ashield.periodhardeningtask.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAshieldFiletokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model GetAshieldFiletokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // .
+  requestId?: string(name='request_id'),
+  // res_success
+  resSuccess?: boolean(name='res_success'),
+  // res_code
+  resCode?: string(name='res_code'),
+  // res_message
+  resMessage?: string(name='res_message'),
+  // .
+  resData?: FileTokenForUpload(name='res_data'),
+}
+
+/**
+ * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+ * Summary: 获取上传文件的临时URL
+ */
+async function getAshieldFiletoken(request: GetAshieldFiletokenRequest): GetAshieldFiletokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAshieldFiletokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+ * Summary: 获取上传文件的临时URL
+ */
+async function getAshieldFiletokenEx(request: GetAshieldFiletokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAshieldFiletokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.ashield.filetoken.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAshieldHardeningtaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // APK,ABB 上传后的地址
+  fileUrl: string(name='file_url'),
+  // 开启so加固
+  soProtect?: string(name='so_protect'),
+  // 开启so加固后,设置的so加固配置文件,默认对apk中libs目录下所有so进行加固,以逗号分隔
+  soProtectConfig?: string(name='so_protect_config'),
+  // 开启对assets下的资源文件进行加固
+  assetsProtect?: string(name='assets_protect'),
+  // 开启assets加固后,指定要对apk中assets目录下的哪些文件做加固,默认对assets下所有的文件进行保护,以逗号分隔
+  assetsProtectConfing?: string(name='assets_protect_confing'),
+  // 开启运行时保护,需要填写的参数,具体参数见下方,json格式
+  runtimeProtectConfig?: RuntimeProtectConfig(name='runtime_protect_config'),
+  // 对生命周期函数进行java2jni保护
+  enableLifeFunc?: string(name='enable_life_func'),
+  // java2jni配置文件
+  javatocJniConfig?: [ ClassMethodConfig ](name='javatoc_jni_config'),
+  // 扩展信息,json字符串,暂不使用
+  extInfo?: string(name='ext_info'),
+}
+
+model SubmitAshieldHardeningtaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 查询是否成功
+  resSuccess?: boolean(name='res_success'),
+  // SUCCESS为成功,其他为失败
+  resCode?: string(name='res_code'),
+  // 返回信息描述
+  resMessage?: string(name='res_message'),
+  // 返回的具体对象
+  resData?: HardeningTaskResponse(name='res_data'),
+}
+
+/**
+ * Description: 终端安全-Android应用加固-启动加固任务
+ * Summary: 启动加固任务(按次计费)
+ */
+async function submitAshieldHardeningtask(request: SubmitAshieldHardeningtaskRequest): SubmitAshieldHardeningtaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAshieldHardeningtaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全-Android应用加固-启动加固任务
+ * Summary: 启动加固任务(按次计费)
+ */
+async function submitAshieldHardeningtaskEx(request: SubmitAshieldHardeningtaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAshieldHardeningtaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.ashield.hardeningtask.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAshieldHardeningtaskprocessRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 加固任务 ID
+  taskId: string(name='task_id'),
+}
+
+model GetAshieldHardeningtaskprocessResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 查询是否成功
+  resSuccess?: boolean(name='res_success'),
+  // SUCCESS为成功，其他为失败
+  resCode?: string(name='res_code'),
+  // 返回信息描述
+  resMessage?: string(name='res_message'),
+  // 返回的具体对象
+  resData?: HardeningTaskResponse(name='res_data'),
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固任务进度
+ * Summary: 查询加固任务进度
+ */
+async function getAshieldHardeningtaskprocess(request: GetAshieldHardeningtaskprocessRequest): GetAshieldHardeningtaskprocessResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAshieldHardeningtaskprocessEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固任务进度
+ * Summary: 查询加固任务进度
+ */
+async function getAshieldHardeningtaskprocessEx(request: GetAshieldHardeningtaskprocessRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAshieldHardeningtaskprocessResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.ashield.hardeningtaskprocess.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAshieldHardeningresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 加固任务 ID
+  taskId: string(name='task_id'),
+}
+
+model GetAshieldHardeningresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 查询是否成功
+  resSuccess?: boolean(name='res_success'),
+  // SUCCESS为成功，其他为失败
+  resCode?: string(name='res_code'),
+  // 返回信息描述
+  resMessage?: string(name='res_message'),
+  // 返回的下载链接
+  resData?: string(name='res_data'),
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+ * Summary: 查询加固后的产物下载链接
+ */
+async function getAshieldHardeningresult(request: GetAshieldHardeningresultRequest): GetAshieldHardeningresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAshieldHardeningresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+ * Summary: 查询加固后的产物下载链接
+ */
+async function getAshieldHardeningresultEx(request: GetAshieldHardeningresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAshieldHardeningresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.ashield.hardeningresult.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAshieldHardeninglogRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 加固任务 ID
+  taskId: string(name='task_id'),
+}
+
+model GetAshieldHardeninglogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 查询是否成功
+  resSuccess?: boolean(name='res_success'),
+  // SUCCESS为成功，其他为失败
+  resCode?: string(name='res_code'),
+  // 返回信息描述
+  resMessage?: string(name='res_message'),
+  // 返回的下载链接
+  resData?: string(name='res_data'),
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+ * Summary: 查询加固后的日志下载链接
+ */
+async function getAshieldHardeninglog(request: GetAshieldHardeninglogRequest): GetAshieldHardeninglogResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAshieldHardeninglogEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+ * Summary: 查询加固后的日志下载链接
+ */
+async function getAshieldHardeninglogEx(request: GetAshieldHardeninglogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAshieldHardeninglogResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.ashield.hardeninglog.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
