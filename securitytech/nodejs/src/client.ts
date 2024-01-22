@@ -235,11 +235,14 @@ export class RequestHead extends $tea.Model {
   secretId: string;
   // 客户签约产品code
   productCode: string;
+  // response输出类型，默认json
+  formatType?: string;
   static names(): { [key: string]: string } {
     return {
       requestId: 'request_id',
       secretId: 'secret_id',
       productCode: 'product_code',
+      formatType: 'format_type',
     };
   }
 
@@ -248,6 +251,52 @@ export class RequestHead extends $tea.Model {
       requestId: 'string',
       secretId: 'string',
       productCode: 'string',
+      formatType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 终端安全-Android应用加固-RuntimeProtectConfig
+export class RuntimeProtectConfig extends $tea.Model {
+  // 重打包,签名校验,AndroidManifest防篡改,签名文件保护,0为检测到风险退出,1不处理
+  antiSignature: number;
+  // 防调试,0为检测到风险退出,1不处理
+  antiDebug: number;
+  // 防hook,0为检测到风险退出,1不处理
+  antiHook: number;
+  // 防注入,防内存dump,防内存数据修改,读取,0为检测到风险退出,1不处理
+  antiInject: number;
+  // 模拟器检查,0为检测到风险退出,1不处理
+  antiEmulator: number;
+  // 防root,0为检测到风险退出,1不处理
+  antiRoot: number;
+  // 防多开软件运行,0为检测到风险退出,1不处理
+  antiMultiApp: number;
+  static names(): { [key: string]: string } {
+    return {
+      antiSignature: 'anti_signature',
+      antiDebug: 'anti_debug',
+      antiHook: 'anti_hook',
+      antiInject: 'anti_inject',
+      antiEmulator: 'anti_emulator',
+      antiRoot: 'anti_root',
+      antiMultiApp: 'anti_multi_app',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      antiSignature: 'number',
+      antiDebug: 'number',
+      antiHook: 'number',
+      antiInject: 'number',
+      antiEmulator: 'number',
+      antiRoot: 'number',
+      antiMultiApp: 'number',
     };
   }
 
@@ -281,6 +330,47 @@ export class FaceShieldResult extends $tea.Model {
       riskLevel: 'number',
       riskDesc: 'string',
       sugAction: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 终端安全-Android加固-Response
+export class FileTokenForUpload extends $tea.Model {
+  // .
+  accessId: string;
+  // dir
+  dir: string;
+  // expire
+  expire: string;
+  // host
+  host: string;
+  // policy
+  policy: string;
+  // signature
+  signature: string;
+  static names(): { [key: string]: string } {
+    return {
+      accessId: 'access_id',
+      dir: 'dir',
+      expire: 'expire',
+      host: 'host',
+      policy: 'policy',
+      signature: 'signature',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accessId: 'string',
+      dir: 'string',
+      expire: 'string',
+      host: 'string',
+      policy: 'string',
+      signature: 'string',
     };
   }
 
@@ -403,6 +493,64 @@ export class InsureInfo extends $tea.Model {
   }
 }
 
+// 设备风险咨询结果
+export class RiskQueryData extends $tea.Model {
+  // 风险评分
+  riskScore: string;
+  // 风险标签
+  riskLabels: string[];
+  static names(): { [key: string]: string } {
+    return {
+      riskScore: 'risk_score',
+      riskLabels: 'risk_labels',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      riskScore: 'string',
+      riskLabels: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 安卓加固HardeningTaskResponse
+export class HardeningTaskResponse extends $tea.Model {
+  // 加固任务的 ID，后续用来轮询调用
+  taskId: string;
+  // 加固任务的状态
+  status: number;
+  // 加固后 APK/ABB 的 MD5
+  afterMdFive: string;
+  // 加固后 APK/ABB 的大小
+  afterSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      taskId: 'task_id',
+      status: 'status',
+      afterMdFive: 'after_md_five',
+      afterSize: 'after_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      taskId: 'string',
+      status: 'number',
+      afterMdFive: 'string',
+      afterSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 设备风险查询data
 export class DeviceRiskResp extends $tea.Model {
   // apdid
@@ -507,6 +655,31 @@ export class BizQueryParam extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       bizParams: { 'type': 'array', 'itemType': BizParam },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 终端安全-Android应用加固-ClassMethodConfig
+export class ClassMethodConfig extends $tea.Model {
+  // 加固类名
+  className: string;
+  // 方法集合，使用英文逗号分隔
+  methods: string;
+  static names(): { [key: string]: string } {
+    return {
+      className: 'class_name',
+      methods: 'methods',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      className: 'string',
+      methods: 'string',
     };
   }
 
@@ -1183,6 +1356,10 @@ export class InitIifaaDeviceRequest extends $tea.Model {
   deviceType: string;
   // 设备信息
   deviceInfo: string;
+  // 产品code
+  productCode: string;
+  // 用于加密回传数据的公钥
+  pubKey?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1190,6 +1367,8 @@ export class InitIifaaDeviceRequest extends $tea.Model {
       corpCode: 'corp_code',
       deviceType: 'device_type',
       deviceInfo: 'device_info',
+      productCode: 'product_code',
+      pubKey: 'pub_key',
     };
   }
 
@@ -1200,6 +1379,8 @@ export class InitIifaaDeviceRequest extends $tea.Model {
       corpCode: 'string',
       deviceType: 'string',
       deviceInfo: 'string',
+      productCode: 'string',
+      pubKey: 'string',
     };
   }
 
@@ -2379,6 +2560,690 @@ export class ApplyIifaaDevicekeyResponse extends $tea.Model {
   }
 }
 
+export class QueryDeviceplusRiskqueryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户id
+  clientId: string;
+  // 请求id
+  requestId: string;
+  // 场景码
+  sceneCode: string;
+  // 加密电话号码
+  phoneNumber: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      clientId: 'client_id',
+      requestId: 'request_id',
+      sceneCode: 'scene_code',
+      phoneNumber: 'phone_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      clientId: 'string',
+      requestId: 'string',
+      sceneCode: 'string',
+      phoneNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeviceplusRiskqueryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 返回码
+  code?: number;
+  // 返回信息
+  message?: string;
+  // 供nearx排查的链路业务请求id
+  requestId?: string;
+  // 风险咨询信息
+  data?: RiskQueryData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      requestId: 'request_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'number',
+      message: 'string',
+      requestId: 'string',
+      data: RiskQueryData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeviceplusMpaasRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // mpaas环境id
+  workspaceId: string;
+  // mpaas应用id
+  appId: string;
+  // 场景码
+  sceneCode: string;
+  // 加密电话号码
+  phoneNumber: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      workspaceId: 'workspace_id',
+      appId: 'app_id',
+      sceneCode: 'scene_code',
+      phoneNumber: 'phone_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      workspaceId: 'string',
+      appId: 'string',
+      sceneCode: 'string',
+      phoneNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeviceplusMpaasResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 返回码
+  code?: number;
+  // 返回信息
+  message?: string;
+  // 供nearx排查的链路业务请求id
+  requestId?: string;
+  // 风险咨询信息
+  data?: RiskQueryData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      requestId: 'request_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'number',
+      message: 'string',
+      requestId: 'string',
+      data: RiskQueryData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAshieldPeriodhardeningtaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // APK,ABB 上传后的地址
+  fileUrl: string;
+  // 开启so加固
+  soProtect?: string;
+  // 开启so加固后,设置的so加固配置文件,默认对apk中libs目录下所有so进行加固,以逗号分隔
+  soProtectConfig?: string;
+  // 开启对assets下的资源文件进行加固
+  assetsProtect?: string;
+  // 开启assets加固后,指定要对apk中assets目录下的哪些文件做加固,默认对assets下所有的文件进行保护,以逗号分隔
+  assetsProtectConfing?: string;
+  // 开启运行时保护,需要填写的参数,具体参数见下方,json格式
+  runtimeProtectConfig?: RuntimeProtectConfig;
+  // 对生命周期函数进行java2jni保护
+  enableLifeFunc?: string;
+  // java2jni配置文件
+  javatocJniConfig?: ClassMethodConfig[];
+  // 扩展信息,json字符串,暂不使用
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileUrl: 'file_url',
+      soProtect: 'so_protect',
+      soProtectConfig: 'so_protect_config',
+      assetsProtect: 'assets_protect',
+      assetsProtectConfing: 'assets_protect_confing',
+      runtimeProtectConfig: 'runtime_protect_config',
+      enableLifeFunc: 'enable_life_func',
+      javatocJniConfig: 'javatoc_jni_config',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileUrl: 'string',
+      soProtect: 'string',
+      soProtectConfig: 'string',
+      assetsProtect: 'string',
+      assetsProtectConfing: 'string',
+      runtimeProtectConfig: RuntimeProtectConfig,
+      enableLifeFunc: 'string',
+      javatocJniConfig: { 'type': 'array', 'itemType': ClassMethodConfig },
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAshieldPeriodhardeningtaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  // 查询是否成功
+  resSuccess?: boolean;
+  // SUCCESS为成功,其他为失败
+  resCode?: string;
+  // 返回信息描述
+  resMessage?: string;
+  // 返回的具体对象
+  resData?: HardeningTaskResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      resSuccess: 'res_success',
+      resCode: 'res_code',
+      resMessage: 'res_message',
+      resData: 'res_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      resSuccess: 'boolean',
+      resCode: 'string',
+      resMessage: 'string',
+      resData: HardeningTaskResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAshieldFiletokenRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAshieldFiletokenResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // .
+  requestId?: string;
+  // res_success
+  resSuccess?: boolean;
+  // res_code
+  resCode?: string;
+  // res_message
+  resMessage?: string;
+  // .
+  resData?: FileTokenForUpload;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      resSuccess: 'res_success',
+      resCode: 'res_code',
+      resMessage: 'res_message',
+      resData: 'res_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      resSuccess: 'boolean',
+      resCode: 'string',
+      resMessage: 'string',
+      resData: FileTokenForUpload,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAshieldHardeningtaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // APK,ABB 上传后的地址
+  fileUrl: string;
+  // 开启so加固
+  soProtect?: string;
+  // 开启so加固后,设置的so加固配置文件,默认对apk中libs目录下所有so进行加固,以逗号分隔
+  soProtectConfig?: string;
+  // 开启对assets下的资源文件进行加固
+  assetsProtect?: string;
+  // 开启assets加固后,指定要对apk中assets目录下的哪些文件做加固,默认对assets下所有的文件进行保护,以逗号分隔
+  assetsProtectConfing?: string;
+  // 开启运行时保护,需要填写的参数,具体参数见下方,json格式
+  runtimeProtectConfig?: RuntimeProtectConfig;
+  // 对生命周期函数进行java2jni保护
+  enableLifeFunc?: string;
+  // java2jni配置文件
+  javatocJniConfig?: ClassMethodConfig[];
+  // 扩展信息,json字符串,暂不使用
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileUrl: 'file_url',
+      soProtect: 'so_protect',
+      soProtectConfig: 'so_protect_config',
+      assetsProtect: 'assets_protect',
+      assetsProtectConfing: 'assets_protect_confing',
+      runtimeProtectConfig: 'runtime_protect_config',
+      enableLifeFunc: 'enable_life_func',
+      javatocJniConfig: 'javatoc_jni_config',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileUrl: 'string',
+      soProtect: 'string',
+      soProtectConfig: 'string',
+      assetsProtect: 'string',
+      assetsProtectConfing: 'string',
+      runtimeProtectConfig: RuntimeProtectConfig,
+      enableLifeFunc: 'string',
+      javatocJniConfig: { 'type': 'array', 'itemType': ClassMethodConfig },
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAshieldHardeningtaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  // 查询是否成功
+  resSuccess?: boolean;
+  // SUCCESS为成功,其他为失败
+  resCode?: string;
+  // 返回信息描述
+  resMessage?: string;
+  // 返回的具体对象
+  resData?: HardeningTaskResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      resSuccess: 'res_success',
+      resCode: 'res_code',
+      resMessage: 'res_message',
+      resData: 'res_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      resSuccess: 'boolean',
+      resCode: 'string',
+      resMessage: 'string',
+      resData: HardeningTaskResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAshieldHardeningtaskprocessRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 加固任务 ID
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAshieldHardeningtaskprocessResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  // 查询是否成功
+  resSuccess?: boolean;
+  // SUCCESS为成功，其他为失败
+  resCode?: string;
+  // 返回信息描述
+  resMessage?: string;
+  // 返回的具体对象
+  resData?: HardeningTaskResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      resSuccess: 'res_success',
+      resCode: 'res_code',
+      resMessage: 'res_message',
+      resData: 'res_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      resSuccess: 'boolean',
+      resCode: 'string',
+      resMessage: 'string',
+      resData: HardeningTaskResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAshieldHardeningresultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 加固任务 ID
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAshieldHardeningresultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  // 查询是否成功
+  resSuccess?: boolean;
+  // SUCCESS为成功，其他为失败
+  resCode?: string;
+  // 返回信息描述
+  resMessage?: string;
+  // 返回的下载链接
+  resData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      resSuccess: 'res_success',
+      resCode: 'res_code',
+      resMessage: 'res_message',
+      resData: 'res_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      resSuccess: 'boolean',
+      resCode: 'string',
+      resMessage: 'string',
+      resData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAshieldHardeninglogRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 加固任务 ID
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAshieldHardeninglogResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  // 查询是否成功
+  resSuccess?: boolean;
+  // SUCCESS为成功，其他为失败
+  resCode?: string;
+  // 返回信息描述
+  resMessage?: string;
+  // 返回的下载链接
+  resData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      resSuccess: 'res_success',
+      resCode: 'res_code',
+      resMessage: 'res_message',
+      resData: 'res_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      resSuccess: 'boolean',
+      resCode: 'string',
+      resMessage: 'string',
+      resData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2492,7 +3357,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.3",
+          sdk_version: "1.2.9",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -2958,6 +3823,158 @@ export default class Client {
   async applyIifaaDevicekeyEx(request: ApplyIifaaDevicekeyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyIifaaDevicekeyResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyIifaaDevicekeyResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.iifaa.devicekey.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyIifaaDevicekeyResponse({}));
+  }
+
+  /**
+   * Description: 设备风险咨询
+   * Summary: 设备风险咨询
+   */
+  async queryDeviceplusRiskquery(request: QueryDeviceplusRiskqueryRequest): Promise<QueryDeviceplusRiskqueryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDeviceplusRiskqueryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 设备风险咨询
+   * Summary: 设备风险咨询
+   */
+  async queryDeviceplusRiskqueryEx(request: QueryDeviceplusRiskqueryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDeviceplusRiskqueryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDeviceplusRiskqueryResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.deviceplus.riskquery.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDeviceplusRiskqueryResponse({}));
+  }
+
+  /**
+   * Description: 设备风险咨询mpaas
+   * Summary: 设备风险咨询mpaas
+   */
+  async queryDeviceplusMpaas(request: QueryDeviceplusMpaasRequest): Promise<QueryDeviceplusMpaasResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDeviceplusMpaasEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 设备风险咨询mpaas
+   * Summary: 设备风险咨询mpaas
+   */
+  async queryDeviceplusMpaasEx(request: QueryDeviceplusMpaasRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDeviceplusMpaasResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDeviceplusMpaasResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.deviceplus.mpaas.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDeviceplusMpaasResponse({}));
+  }
+
+  /**
+   * Description: 终端安全-Android应用加固-启动加固任务(包月)
+   * Summary: 启动加固任务(包月)
+   */
+  async submitAshieldPeriodhardeningtask(request: SubmitAshieldPeriodhardeningtaskRequest): Promise<SubmitAshieldPeriodhardeningtaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAshieldPeriodhardeningtaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 终端安全-Android应用加固-启动加固任务(包月)
+   * Summary: 启动加固任务(包月)
+   */
+  async submitAshieldPeriodhardeningtaskEx(request: SubmitAshieldPeriodhardeningtaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAshieldPeriodhardeningtaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAshieldPeriodhardeningtaskResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ashield.periodhardeningtask.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAshieldPeriodhardeningtaskResponse({}));
+  }
+
+  /**
+   * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+   * Summary: 获取上传文件的临时URL
+   */
+  async getAshieldFiletoken(request: GetAshieldFiletokenRequest): Promise<GetAshieldFiletokenResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAshieldFiletokenEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+   * Summary: 获取上传文件的临时URL
+   */
+  async getAshieldFiletokenEx(request: GetAshieldFiletokenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAshieldFiletokenResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAshieldFiletokenResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ashield.filetoken.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAshieldFiletokenResponse({}));
+  }
+
+  /**
+   * Description: 终端安全-Android应用加固-启动加固任务
+   * Summary: 启动加固任务(按次计费)
+   */
+  async submitAshieldHardeningtask(request: SubmitAshieldHardeningtaskRequest): Promise<SubmitAshieldHardeningtaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAshieldHardeningtaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 终端安全-Android应用加固-启动加固任务
+   * Summary: 启动加固任务(按次计费)
+   */
+  async submitAshieldHardeningtaskEx(request: SubmitAshieldHardeningtaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAshieldHardeningtaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAshieldHardeningtaskResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ashield.hardeningtask.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAshieldHardeningtaskResponse({}));
+  }
+
+  /**
+   * Description: 终端安全-Android应用加固-查询加固任务进度
+   * Summary: 查询加固任务进度
+   */
+  async getAshieldHardeningtaskprocess(request: GetAshieldHardeningtaskprocessRequest): Promise<GetAshieldHardeningtaskprocessResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAshieldHardeningtaskprocessEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 终端安全-Android应用加固-查询加固任务进度
+   * Summary: 查询加固任务进度
+   */
+  async getAshieldHardeningtaskprocessEx(request: GetAshieldHardeningtaskprocessRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAshieldHardeningtaskprocessResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAshieldHardeningtaskprocessResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ashield.hardeningtaskprocess.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAshieldHardeningtaskprocessResponse({}));
+  }
+
+  /**
+   * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+   * Summary: 查询加固后的产物下载链接
+   */
+  async getAshieldHardeningresult(request: GetAshieldHardeningresultRequest): Promise<GetAshieldHardeningresultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAshieldHardeningresultEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+   * Summary: 查询加固后的产物下载链接
+   */
+  async getAshieldHardeningresultEx(request: GetAshieldHardeningresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAshieldHardeningresultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAshieldHardeningresultResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ashield.hardeningresult.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAshieldHardeningresultResponse({}));
+  }
+
+  /**
+   * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+   * Summary: 查询加固后的日志下载链接
+   */
+  async getAshieldHardeninglog(request: GetAshieldHardeninglogRequest): Promise<GetAshieldHardeninglogResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAshieldHardeninglogEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+   * Summary: 查询加固后的日志下载链接
+   */
+  async getAshieldHardeninglogEx(request: GetAshieldHardeninglogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAshieldHardeninglogResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAshieldHardeninglogResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ashield.hardeninglog.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAshieldHardeninglogResponse({}));
   }
 
 }
