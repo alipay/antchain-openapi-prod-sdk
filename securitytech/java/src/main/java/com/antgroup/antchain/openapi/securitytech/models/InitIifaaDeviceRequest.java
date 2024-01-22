@@ -26,6 +26,15 @@ public class InitIifaaDeviceRequest extends TeaModel {
     @Validation(required = true)
     public String deviceInfo;
 
+    // 产品code
+    @NameInMap("product_code")
+    @Validation(required = true)
+    public String productCode;
+
+    // 用于加密回传数据的公钥
+    @NameInMap("pub_key")
+    public String pubKey;
+
     public static InitIifaaDeviceRequest build(java.util.Map<String, ?> map) throws Exception {
         InitIifaaDeviceRequest self = new InitIifaaDeviceRequest();
         return TeaModel.build(map, self);
@@ -69,6 +78,22 @@ public class InitIifaaDeviceRequest extends TeaModel {
     }
     public String getDeviceInfo() {
         return this.deviceInfo;
+    }
+
+    public InitIifaaDeviceRequest setProductCode(String productCode) {
+        this.productCode = productCode;
+        return this;
+    }
+    public String getProductCode() {
+        return this.productCode;
+    }
+
+    public InitIifaaDeviceRequest setPubKey(String pubKey) {
+        this.pubKey = pubKey;
+        return this;
+    }
+    public String getPubKey() {
+        return this.pubKey;
     }
 
 }

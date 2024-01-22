@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.3"),
+                    new TeaPair("sdk_version", "1.2.9"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -579,5 +579,157 @@ public class Client {
     public ApplyIifaaDevicekeyResponse applyIifaaDevicekeyEx(ApplyIifaaDevicekeyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.devicekey.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyIifaaDevicekeyResponse());
+    }
+
+    /**
+     * Description: 设备风险咨询
+     * Summary: 设备风险咨询
+     */
+    public QueryDeviceplusRiskqueryResponse queryDeviceplusRiskquery(QueryDeviceplusRiskqueryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDeviceplusRiskqueryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 设备风险咨询
+     * Summary: 设备风险咨询
+     */
+    public QueryDeviceplusRiskqueryResponse queryDeviceplusRiskqueryEx(QueryDeviceplusRiskqueryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.deviceplus.riskquery.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceplusRiskqueryResponse());
+    }
+
+    /**
+     * Description: 设备风险咨询mpaas
+     * Summary: 设备风险咨询mpaas
+     */
+    public QueryDeviceplusMpaasResponse queryDeviceplusMpaas(QueryDeviceplusMpaasRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDeviceplusMpaasEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 设备风险咨询mpaas
+     * Summary: 设备风险咨询mpaas
+     */
+    public QueryDeviceplusMpaasResponse queryDeviceplusMpaasEx(QueryDeviceplusMpaasRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.deviceplus.mpaas.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceplusMpaasResponse());
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-启动加固任务(包月)
+     * Summary: 启动加固任务(包月)
+     */
+    public SubmitAshieldPeriodhardeningtaskResponse submitAshieldPeriodhardeningtask(SubmitAshieldPeriodhardeningtaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAshieldPeriodhardeningtaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-启动加固任务(包月)
+     * Summary: 启动加固任务(包月)
+     */
+    public SubmitAshieldPeriodhardeningtaskResponse submitAshieldPeriodhardeningtaskEx(SubmitAshieldPeriodhardeningtaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ashield.periodhardeningtask.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAshieldPeriodhardeningtaskResponse());
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+     * Summary: 获取上传文件的临时URL
+     */
+    public GetAshieldFiletokenResponse getAshieldFiletoken(GetAshieldFiletokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAshieldFiletokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+     * Summary: 获取上传文件的临时URL
+     */
+    public GetAshieldFiletokenResponse getAshieldFiletokenEx(GetAshieldFiletokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ashield.filetoken.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAshieldFiletokenResponse());
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-启动加固任务
+     * Summary: 启动加固任务(按次计费)
+     */
+    public SubmitAshieldHardeningtaskResponse submitAshieldHardeningtask(SubmitAshieldHardeningtaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAshieldHardeningtaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-启动加固任务
+     * Summary: 启动加固任务(按次计费)
+     */
+    public SubmitAshieldHardeningtaskResponse submitAshieldHardeningtaskEx(SubmitAshieldHardeningtaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ashield.hardeningtask.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAshieldHardeningtaskResponse());
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固任务进度
+     * Summary: 查询加固任务进度
+     */
+    public GetAshieldHardeningtaskprocessResponse getAshieldHardeningtaskprocess(GetAshieldHardeningtaskprocessRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAshieldHardeningtaskprocessEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固任务进度
+     * Summary: 查询加固任务进度
+     */
+    public GetAshieldHardeningtaskprocessResponse getAshieldHardeningtaskprocessEx(GetAshieldHardeningtaskprocessRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ashield.hardeningtaskprocess.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAshieldHardeningtaskprocessResponse());
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+     * Summary: 查询加固后的产物下载链接
+     */
+    public GetAshieldHardeningresultResponse getAshieldHardeningresult(GetAshieldHardeningresultRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAshieldHardeningresultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+     * Summary: 查询加固后的产物下载链接
+     */
+    public GetAshieldHardeningresultResponse getAshieldHardeningresultEx(GetAshieldHardeningresultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ashield.hardeningresult.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAshieldHardeningresultResponse());
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+     * Summary: 查询加固后的日志下载链接
+     */
+    public GetAshieldHardeninglogResponse getAshieldHardeninglog(GetAshieldHardeninglogRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAshieldHardeninglogEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+     * Summary: 查询加固后的日志下载链接
+     */
+    public GetAshieldHardeninglogResponse getAshieldHardeninglogEx(GetAshieldHardeninglogRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ashield.hardeninglog.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAshieldHardeninglogResponse());
     }
 }
