@@ -25,6 +25,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string ProductCode { get; set; }
 
+        // response输出类型，默认json
+        [NameInMap("format_type")]
+        [Validation(Required=false)]
+        public string FormatType { get; set; }
+
     }
 
 }

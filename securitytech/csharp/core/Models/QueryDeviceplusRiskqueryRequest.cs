@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SECURITYTECH.Models
 {
-    public class InitIifaaDeviceRequest : TeaModel {
+    public class QueryDeviceplusRiskqueryRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,30 +18,25 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 产商code
-        [NameInMap("corp_code")]
+        // 客户id
+        [NameInMap("client_id")]
         [Validation(Required=true)]
-        public string CorpCode { get; set; }
+        public string ClientId { get; set; }
 
-        // 设备类型
-        [NameInMap("device_type")]
+        // 请求id
+        [NameInMap("request_id")]
         [Validation(Required=true)]
-        public string DeviceType { get; set; }
+        public string RequestId { get; set; }
 
-        // 设备信息
-        [NameInMap("device_info")]
+        // 场景码
+        [NameInMap("scene_code")]
         [Validation(Required=true)]
-        public string DeviceInfo { get; set; }
+        public string SceneCode { get; set; }
 
-        // 产品code
-        [NameInMap("product_code")]
+        // 加密电话号码
+        [NameInMap("phone_number")]
         [Validation(Required=true)]
-        public string ProductCode { get; set; }
-
-        // 用于加密回传数据的公钥
-        [NameInMap("pub_key")]
-        [Validation(Required=false)]
-        public string PubKey { get; set; }
+        public string PhoneNumber { get; set; }
 
     }
 

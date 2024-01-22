@@ -137,7 +137,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.3"},
+                        {"sdk_version", "1.2.9"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.3"},
+                        {"sdk_version", "1.2.9"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1247,6 +1247,342 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyIifaaDevicekeyResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.iifaa.devicekey.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备风险咨询
+         * Summary: 设备风险咨询
+         */
+        public QueryDeviceplusRiskqueryResponse QueryDeviceplusRiskquery(QueryDeviceplusRiskqueryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDeviceplusRiskqueryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备风险咨询
+         * Summary: 设备风险咨询
+         */
+        public async Task<QueryDeviceplusRiskqueryResponse> QueryDeviceplusRiskqueryAsync(QueryDeviceplusRiskqueryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDeviceplusRiskqueryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备风险咨询
+         * Summary: 设备风险咨询
+         */
+        public QueryDeviceplusRiskqueryResponse QueryDeviceplusRiskqueryEx(QueryDeviceplusRiskqueryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceplusRiskqueryResponse>(DoRequest("1.0", "antsecuritytech.gateway.deviceplus.riskquery.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备风险咨询
+         * Summary: 设备风险咨询
+         */
+        public async Task<QueryDeviceplusRiskqueryResponse> QueryDeviceplusRiskqueryExAsync(QueryDeviceplusRiskqueryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceplusRiskqueryResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.deviceplus.riskquery.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备风险咨询mpaas
+         * Summary: 设备风险咨询mpaas
+         */
+        public QueryDeviceplusMpaasResponse QueryDeviceplusMpaas(QueryDeviceplusMpaasRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDeviceplusMpaasEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备风险咨询mpaas
+         * Summary: 设备风险咨询mpaas
+         */
+        public async Task<QueryDeviceplusMpaasResponse> QueryDeviceplusMpaasAsync(QueryDeviceplusMpaasRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDeviceplusMpaasExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备风险咨询mpaas
+         * Summary: 设备风险咨询mpaas
+         */
+        public QueryDeviceplusMpaasResponse QueryDeviceplusMpaasEx(QueryDeviceplusMpaasRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceplusMpaasResponse>(DoRequest("1.0", "antsecuritytech.gateway.deviceplus.mpaas.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备风险咨询mpaas
+         * Summary: 设备风险咨询mpaas
+         */
+        public async Task<QueryDeviceplusMpaasResponse> QueryDeviceplusMpaasExAsync(QueryDeviceplusMpaasRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceplusMpaasResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.deviceplus.mpaas.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-启动加固任务(包月)
+         * Summary: 启动加固任务(包月)
+         */
+        public SubmitAshieldPeriodhardeningtaskResponse SubmitAshieldPeriodhardeningtask(SubmitAshieldPeriodhardeningtaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAshieldPeriodhardeningtaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-启动加固任务(包月)
+         * Summary: 启动加固任务(包月)
+         */
+        public async Task<SubmitAshieldPeriodhardeningtaskResponse> SubmitAshieldPeriodhardeningtaskAsync(SubmitAshieldPeriodhardeningtaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAshieldPeriodhardeningtaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-启动加固任务(包月)
+         * Summary: 启动加固任务(包月)
+         */
+        public SubmitAshieldPeriodhardeningtaskResponse SubmitAshieldPeriodhardeningtaskEx(SubmitAshieldPeriodhardeningtaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAshieldPeriodhardeningtaskResponse>(DoRequest("1.0", "antsecuritytech.gateway.ashield.periodhardeningtask.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-启动加固任务(包月)
+         * Summary: 启动加固任务(包月)
+         */
+        public async Task<SubmitAshieldPeriodhardeningtaskResponse> SubmitAshieldPeriodhardeningtaskExAsync(SubmitAshieldPeriodhardeningtaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAshieldPeriodhardeningtaskResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ashield.periodhardeningtask.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+         * Summary: 获取上传文件的临时URL
+         */
+        public GetAshieldFiletokenResponse GetAshieldFiletoken(GetAshieldFiletokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetAshieldFiletokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+         * Summary: 获取上传文件的临时URL
+         */
+        public async Task<GetAshieldFiletokenResponse> GetAshieldFiletokenAsync(GetAshieldFiletokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetAshieldFiletokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+         * Summary: 获取上传文件的临时URL
+         */
+        public GetAshieldFiletokenResponse GetAshieldFiletokenEx(GetAshieldFiletokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAshieldFiletokenResponse>(DoRequest("1.0", "antsecuritytech.gateway.ashield.filetoken.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+         * Summary: 获取上传文件的临时URL
+         */
+        public async Task<GetAshieldFiletokenResponse> GetAshieldFiletokenExAsync(GetAshieldFiletokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAshieldFiletokenResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ashield.filetoken.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-启动加固任务
+         * Summary: 启动加固任务(按次计费)
+         */
+        public SubmitAshieldHardeningtaskResponse SubmitAshieldHardeningtask(SubmitAshieldHardeningtaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAshieldHardeningtaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-启动加固任务
+         * Summary: 启动加固任务(按次计费)
+         */
+        public async Task<SubmitAshieldHardeningtaskResponse> SubmitAshieldHardeningtaskAsync(SubmitAshieldHardeningtaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAshieldHardeningtaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-启动加固任务
+         * Summary: 启动加固任务(按次计费)
+         */
+        public SubmitAshieldHardeningtaskResponse SubmitAshieldHardeningtaskEx(SubmitAshieldHardeningtaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAshieldHardeningtaskResponse>(DoRequest("1.0", "antsecuritytech.gateway.ashield.hardeningtask.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-启动加固任务
+         * Summary: 启动加固任务(按次计费)
+         */
+        public async Task<SubmitAshieldHardeningtaskResponse> SubmitAshieldHardeningtaskExAsync(SubmitAshieldHardeningtaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAshieldHardeningtaskResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ashield.hardeningtask.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-查询加固任务进度
+         * Summary: 查询加固任务进度
+         */
+        public GetAshieldHardeningtaskprocessResponse GetAshieldHardeningtaskprocess(GetAshieldHardeningtaskprocessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetAshieldHardeningtaskprocessEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-查询加固任务进度
+         * Summary: 查询加固任务进度
+         */
+        public async Task<GetAshieldHardeningtaskprocessResponse> GetAshieldHardeningtaskprocessAsync(GetAshieldHardeningtaskprocessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetAshieldHardeningtaskprocessExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-查询加固任务进度
+         * Summary: 查询加固任务进度
+         */
+        public GetAshieldHardeningtaskprocessResponse GetAshieldHardeningtaskprocessEx(GetAshieldHardeningtaskprocessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAshieldHardeningtaskprocessResponse>(DoRequest("1.0", "antsecuritytech.gateway.ashield.hardeningtaskprocess.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-查询加固任务进度
+         * Summary: 查询加固任务进度
+         */
+        public async Task<GetAshieldHardeningtaskprocessResponse> GetAshieldHardeningtaskprocessExAsync(GetAshieldHardeningtaskprocessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAshieldHardeningtaskprocessResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ashield.hardeningtaskprocess.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+         * Summary: 查询加固后的产物下载链接
+         */
+        public GetAshieldHardeningresultResponse GetAshieldHardeningresult(GetAshieldHardeningresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetAshieldHardeningresultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+         * Summary: 查询加固后的产物下载链接
+         */
+        public async Task<GetAshieldHardeningresultResponse> GetAshieldHardeningresultAsync(GetAshieldHardeningresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetAshieldHardeningresultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+         * Summary: 查询加固后的产物下载链接
+         */
+        public GetAshieldHardeningresultResponse GetAshieldHardeningresultEx(GetAshieldHardeningresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAshieldHardeningresultResponse>(DoRequest("1.0", "antsecuritytech.gateway.ashield.hardeningresult.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+         * Summary: 查询加固后的产物下载链接
+         */
+        public async Task<GetAshieldHardeningresultResponse> GetAshieldHardeningresultExAsync(GetAshieldHardeningresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAshieldHardeningresultResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ashield.hardeningresult.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+         * Summary: 查询加固后的日志下载链接
+         */
+        public GetAshieldHardeninglogResponse GetAshieldHardeninglog(GetAshieldHardeninglogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetAshieldHardeninglogEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+         * Summary: 查询加固后的日志下载链接
+         */
+        public async Task<GetAshieldHardeninglogResponse> GetAshieldHardeninglogAsync(GetAshieldHardeninglogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetAshieldHardeninglogExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+         * Summary: 查询加固后的日志下载链接
+         */
+        public GetAshieldHardeninglogResponse GetAshieldHardeninglogEx(GetAshieldHardeninglogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAshieldHardeninglogResponse>(DoRequest("1.0", "antsecuritytech.gateway.ashield.hardeninglog.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+         * Summary: 查询加固后的日志下载链接
+         */
+        public async Task<GetAshieldHardeninglogResponse> GetAshieldHardeninglogExAsync(GetAshieldHardeninglogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAshieldHardeninglogResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ashield.hardeninglog.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
