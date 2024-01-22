@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.3',
+                    'sdk_version': '1.2.9',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.3',
+                    'sdk_version': '1.2.9',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -1509,4 +1509,452 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.ApplyIifaaDevicekeyResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.iifaa.devicekey.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_deviceplus_riskquery(
+        self,
+        request: securitytech_models.QueryDeviceplusRiskqueryRequest,
+    ) -> securitytech_models.QueryDeviceplusRiskqueryResponse:
+        """
+        Description: 设备风险咨询
+        Summary: 设备风险咨询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_deviceplus_riskquery_ex(request, headers, runtime)
+
+    async def query_deviceplus_riskquery_async(
+        self,
+        request: securitytech_models.QueryDeviceplusRiskqueryRequest,
+    ) -> securitytech_models.QueryDeviceplusRiskqueryResponse:
+        """
+        Description: 设备风险咨询
+        Summary: 设备风险咨询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_deviceplus_riskquery_ex_async(request, headers, runtime)
+
+    def query_deviceplus_riskquery_ex(
+        self,
+        request: securitytech_models.QueryDeviceplusRiskqueryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDeviceplusRiskqueryResponse:
+        """
+        Description: 设备风险咨询
+        Summary: 设备风险咨询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDeviceplusRiskqueryResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.deviceplus.riskquery.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_deviceplus_riskquery_ex_async(
+        self,
+        request: securitytech_models.QueryDeviceplusRiskqueryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDeviceplusRiskqueryResponse:
+        """
+        Description: 设备风险咨询
+        Summary: 设备风险咨询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDeviceplusRiskqueryResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.deviceplus.riskquery.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_deviceplus_mpaas(
+        self,
+        request: securitytech_models.QueryDeviceplusMpaasRequest,
+    ) -> securitytech_models.QueryDeviceplusMpaasResponse:
+        """
+        Description: 设备风险咨询mpaas
+        Summary: 设备风险咨询mpaas
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_deviceplus_mpaas_ex(request, headers, runtime)
+
+    async def query_deviceplus_mpaas_async(
+        self,
+        request: securitytech_models.QueryDeviceplusMpaasRequest,
+    ) -> securitytech_models.QueryDeviceplusMpaasResponse:
+        """
+        Description: 设备风险咨询mpaas
+        Summary: 设备风险咨询mpaas
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_deviceplus_mpaas_ex_async(request, headers, runtime)
+
+    def query_deviceplus_mpaas_ex(
+        self,
+        request: securitytech_models.QueryDeviceplusMpaasRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDeviceplusMpaasResponse:
+        """
+        Description: 设备风险咨询mpaas
+        Summary: 设备风险咨询mpaas
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDeviceplusMpaasResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.deviceplus.mpaas.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_deviceplus_mpaas_ex_async(
+        self,
+        request: securitytech_models.QueryDeviceplusMpaasRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDeviceplusMpaasResponse:
+        """
+        Description: 设备风险咨询mpaas
+        Summary: 设备风险咨询mpaas
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDeviceplusMpaasResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.deviceplus.mpaas.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_ashield_periodhardeningtask(
+        self,
+        request: securitytech_models.SubmitAshieldPeriodhardeningtaskRequest,
+    ) -> securitytech_models.SubmitAshieldPeriodhardeningtaskResponse:
+        """
+        Description: 终端安全-Android应用加固-启动加固任务(包月)
+        Summary: 启动加固任务(包月)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_ashield_periodhardeningtask_ex(request, headers, runtime)
+
+    async def submit_ashield_periodhardeningtask_async(
+        self,
+        request: securitytech_models.SubmitAshieldPeriodhardeningtaskRequest,
+    ) -> securitytech_models.SubmitAshieldPeriodhardeningtaskResponse:
+        """
+        Description: 终端安全-Android应用加固-启动加固任务(包月)
+        Summary: 启动加固任务(包月)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_ashield_periodhardeningtask_ex_async(request, headers, runtime)
+
+    def submit_ashield_periodhardeningtask_ex(
+        self,
+        request: securitytech_models.SubmitAshieldPeriodhardeningtaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.SubmitAshieldPeriodhardeningtaskResponse:
+        """
+        Description: 终端安全-Android应用加固-启动加固任务(包月)
+        Summary: 启动加固任务(包月)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.SubmitAshieldPeriodhardeningtaskResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.ashield.periodhardeningtask.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_ashield_periodhardeningtask_ex_async(
+        self,
+        request: securitytech_models.SubmitAshieldPeriodhardeningtaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.SubmitAshieldPeriodhardeningtaskResponse:
+        """
+        Description: 终端安全-Android应用加固-启动加固任务(包月)
+        Summary: 启动加固任务(包月)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.SubmitAshieldPeriodhardeningtaskResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.ashield.periodhardeningtask.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_ashield_filetoken(
+        self,
+        request: securitytech_models.GetAshieldFiletokenRequest,
+    ) -> securitytech_models.GetAshieldFiletokenResponse:
+        """
+        Description: 终端安全-Android应用加固-获取上传文件的临时URL
+        Summary: 获取上传文件的临时URL
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_ashield_filetoken_ex(request, headers, runtime)
+
+    async def get_ashield_filetoken_async(
+        self,
+        request: securitytech_models.GetAshieldFiletokenRequest,
+    ) -> securitytech_models.GetAshieldFiletokenResponse:
+        """
+        Description: 终端安全-Android应用加固-获取上传文件的临时URL
+        Summary: 获取上传文件的临时URL
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_ashield_filetoken_ex_async(request, headers, runtime)
+
+    def get_ashield_filetoken_ex(
+        self,
+        request: securitytech_models.GetAshieldFiletokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.GetAshieldFiletokenResponse:
+        """
+        Description: 终端安全-Android应用加固-获取上传文件的临时URL
+        Summary: 获取上传文件的临时URL
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.GetAshieldFiletokenResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.ashield.filetoken.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_ashield_filetoken_ex_async(
+        self,
+        request: securitytech_models.GetAshieldFiletokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.GetAshieldFiletokenResponse:
+        """
+        Description: 终端安全-Android应用加固-获取上传文件的临时URL
+        Summary: 获取上传文件的临时URL
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.GetAshieldFiletokenResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.ashield.filetoken.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_ashield_hardeningtask(
+        self,
+        request: securitytech_models.SubmitAshieldHardeningtaskRequest,
+    ) -> securitytech_models.SubmitAshieldHardeningtaskResponse:
+        """
+        Description: 终端安全-Android应用加固-启动加固任务
+        Summary: 启动加固任务(按次计费)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_ashield_hardeningtask_ex(request, headers, runtime)
+
+    async def submit_ashield_hardeningtask_async(
+        self,
+        request: securitytech_models.SubmitAshieldHardeningtaskRequest,
+    ) -> securitytech_models.SubmitAshieldHardeningtaskResponse:
+        """
+        Description: 终端安全-Android应用加固-启动加固任务
+        Summary: 启动加固任务(按次计费)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_ashield_hardeningtask_ex_async(request, headers, runtime)
+
+    def submit_ashield_hardeningtask_ex(
+        self,
+        request: securitytech_models.SubmitAshieldHardeningtaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.SubmitAshieldHardeningtaskResponse:
+        """
+        Description: 终端安全-Android应用加固-启动加固任务
+        Summary: 启动加固任务(按次计费)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.SubmitAshieldHardeningtaskResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.ashield.hardeningtask.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_ashield_hardeningtask_ex_async(
+        self,
+        request: securitytech_models.SubmitAshieldHardeningtaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.SubmitAshieldHardeningtaskResponse:
+        """
+        Description: 终端安全-Android应用加固-启动加固任务
+        Summary: 启动加固任务(按次计费)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.SubmitAshieldHardeningtaskResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.ashield.hardeningtask.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_ashield_hardeningtaskprocess(
+        self,
+        request: securitytech_models.GetAshieldHardeningtaskprocessRequest,
+    ) -> securitytech_models.GetAshieldHardeningtaskprocessResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固任务进度
+        Summary: 查询加固任务进度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_ashield_hardeningtaskprocess_ex(request, headers, runtime)
+
+    async def get_ashield_hardeningtaskprocess_async(
+        self,
+        request: securitytech_models.GetAshieldHardeningtaskprocessRequest,
+    ) -> securitytech_models.GetAshieldHardeningtaskprocessResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固任务进度
+        Summary: 查询加固任务进度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_ashield_hardeningtaskprocess_ex_async(request, headers, runtime)
+
+    def get_ashield_hardeningtaskprocess_ex(
+        self,
+        request: securitytech_models.GetAshieldHardeningtaskprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.GetAshieldHardeningtaskprocessResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固任务进度
+        Summary: 查询加固任务进度
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.GetAshieldHardeningtaskprocessResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.ashield.hardeningtaskprocess.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_ashield_hardeningtaskprocess_ex_async(
+        self,
+        request: securitytech_models.GetAshieldHardeningtaskprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.GetAshieldHardeningtaskprocessResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固任务进度
+        Summary: 查询加固任务进度
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.GetAshieldHardeningtaskprocessResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.ashield.hardeningtaskprocess.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_ashield_hardeningresult(
+        self,
+        request: securitytech_models.GetAshieldHardeningresultRequest,
+    ) -> securitytech_models.GetAshieldHardeningresultResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+        Summary: 查询加固后的产物下载链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_ashield_hardeningresult_ex(request, headers, runtime)
+
+    async def get_ashield_hardeningresult_async(
+        self,
+        request: securitytech_models.GetAshieldHardeningresultRequest,
+    ) -> securitytech_models.GetAshieldHardeningresultResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+        Summary: 查询加固后的产物下载链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_ashield_hardeningresult_ex_async(request, headers, runtime)
+
+    def get_ashield_hardeningresult_ex(
+        self,
+        request: securitytech_models.GetAshieldHardeningresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.GetAshieldHardeningresultResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+        Summary: 查询加固后的产物下载链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.GetAshieldHardeningresultResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.ashield.hardeningresult.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_ashield_hardeningresult_ex_async(
+        self,
+        request: securitytech_models.GetAshieldHardeningresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.GetAshieldHardeningresultResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+        Summary: 查询加固后的产物下载链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.GetAshieldHardeningresultResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.ashield.hardeningresult.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_ashield_hardeninglog(
+        self,
+        request: securitytech_models.GetAshieldHardeninglogRequest,
+    ) -> securitytech_models.GetAshieldHardeninglogResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+        Summary: 查询加固后的日志下载链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_ashield_hardeninglog_ex(request, headers, runtime)
+
+    async def get_ashield_hardeninglog_async(
+        self,
+        request: securitytech_models.GetAshieldHardeninglogRequest,
+    ) -> securitytech_models.GetAshieldHardeninglogResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+        Summary: 查询加固后的日志下载链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_ashield_hardeninglog_ex_async(request, headers, runtime)
+
+    def get_ashield_hardeninglog_ex(
+        self,
+        request: securitytech_models.GetAshieldHardeninglogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.GetAshieldHardeninglogResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+        Summary: 查询加固后的日志下载链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.GetAshieldHardeninglogResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.ashield.hardeninglog.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_ashield_hardeninglog_ex_async(
+        self,
+        request: securitytech_models.GetAshieldHardeninglogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.GetAshieldHardeninglogResponse:
+        """
+        Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+        Summary: 查询加固后的日志下载链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.GetAshieldHardeninglogResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.ashield.hardeninglog.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
