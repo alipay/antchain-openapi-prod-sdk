@@ -23,10 +23,22 @@ use AntChain\SECURITYTECH\Models\ExecEkytInsureRequest;
 use AntChain\SECURITYTECH\Models\ExecEkytInsureResponse;
 use AntChain\SECURITYTECH\Models\ExecIifaaInsureRequest;
 use AntChain\SECURITYTECH\Models\ExecIifaaInsureResponse;
+use AntChain\SECURITYTECH\Models\GetAshieldFiletokenRequest;
+use AntChain\SECURITYTECH\Models\GetAshieldFiletokenResponse;
+use AntChain\SECURITYTECH\Models\GetAshieldHardeninglogRequest;
+use AntChain\SECURITYTECH\Models\GetAshieldHardeninglogResponse;
+use AntChain\SECURITYTECH\Models\GetAshieldHardeningresultRequest;
+use AntChain\SECURITYTECH\Models\GetAshieldHardeningresultResponse;
+use AntChain\SECURITYTECH\Models\GetAshieldHardeningtaskprocessRequest;
+use AntChain\SECURITYTECH\Models\GetAshieldHardeningtaskprocessResponse;
 use AntChain\SECURITYTECH\Models\InitIifaaDeviceRequest;
 use AntChain\SECURITYTECH\Models\InitIifaaDeviceResponse;
 use AntChain\SECURITYTECH\Models\QueryCctPictureRequest;
 use AntChain\SECURITYTECH\Models\QueryCctPictureResponse;
+use AntChain\SECURITYTECH\Models\QueryDeviceplusMpaasRequest;
+use AntChain\SECURITYTECH\Models\QueryDeviceplusMpaasResponse;
+use AntChain\SECURITYTECH\Models\QueryDeviceplusRiskqueryRequest;
+use AntChain\SECURITYTECH\Models\QueryDeviceplusRiskqueryResponse;
 use AntChain\SECURITYTECH\Models\QueryDeviceriskDeviceriskRequest;
 use AntChain\SECURITYTECH\Models\QueryDeviceriskDeviceriskResponse;
 use AntChain\SECURITYTECH\Models\QueryDeviceriskFingerRequest;
@@ -51,6 +63,10 @@ use AntChain\SECURITYTECH\Models\RunGeneralRequest;
 use AntChain\SECURITYTECH\Models\RunGeneralResponse;
 use AntChain\SECURITYTECH\Models\RunXhunterSpiRequest;
 use AntChain\SECURITYTECH\Models\RunXhunterSpiResponse;
+use AntChain\SECURITYTECH\Models\SubmitAshieldHardeningtaskRequest;
+use AntChain\SECURITYTECH\Models\SubmitAshieldHardeningtaskResponse;
+use AntChain\SECURITYTECH\Models\SubmitAshieldPeriodhardeningtaskRequest;
+use AntChain\SECURITYTECH\Models\SubmitAshieldPeriodhardeningtaskResponse;
 use AntChain\SECURITYTECH\Models\SubmitDeviceriskReportRequest;
 use AntChain\SECURITYTECH\Models\SubmitDeviceriskReportResponse;
 use AntChain\SECURITYTECH\Models\VerifyIifaaDeviceRequest;
@@ -202,7 +218,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.3',
+                    'sdk_version'      => '1.2.9',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -976,5 +992,269 @@ class Client
         Utils::validateModel($request);
 
         return ApplyIifaaDevicekeyResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.iifaa.devicekey.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备风险咨询
+     * Summary: 设备风险咨询.
+     *
+     * @param QueryDeviceplusRiskqueryRequest $request
+     *
+     * @return QueryDeviceplusRiskqueryResponse
+     */
+    public function queryDeviceplusRiskquery($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeviceplusRiskqueryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备风险咨询
+     * Summary: 设备风险咨询.
+     *
+     * @param QueryDeviceplusRiskqueryRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryDeviceplusRiskqueryResponse
+     */
+    public function queryDeviceplusRiskqueryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeviceplusRiskqueryResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.deviceplus.riskquery.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备风险咨询mpaas
+     * Summary: 设备风险咨询mpaas.
+     *
+     * @param QueryDeviceplusMpaasRequest $request
+     *
+     * @return QueryDeviceplusMpaasResponse
+     */
+    public function queryDeviceplusMpaas($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeviceplusMpaasEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备风险咨询mpaas
+     * Summary: 设备风险咨询mpaas.
+     *
+     * @param QueryDeviceplusMpaasRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryDeviceplusMpaasResponse
+     */
+    public function queryDeviceplusMpaasEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeviceplusMpaasResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.deviceplus.mpaas.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-启动加固任务(包月)
+     * Summary: 启动加固任务(包月).
+     *
+     * @param SubmitAshieldPeriodhardeningtaskRequest $request
+     *
+     * @return SubmitAshieldPeriodhardeningtaskResponse
+     */
+    public function submitAshieldPeriodhardeningtask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAshieldPeriodhardeningtaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-启动加固任务(包月)
+     * Summary: 启动加固任务(包月).
+     *
+     * @param SubmitAshieldPeriodhardeningtaskRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return SubmitAshieldPeriodhardeningtaskResponse
+     */
+    public function submitAshieldPeriodhardeningtaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAshieldPeriodhardeningtaskResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ashield.periodhardeningtask.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+     * Summary: 获取上传文件的临时URL.
+     *
+     * @param GetAshieldFiletokenRequest $request
+     *
+     * @return GetAshieldFiletokenResponse
+     */
+    public function getAshieldFiletoken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAshieldFiletokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+     * Summary: 获取上传文件的临时URL.
+     *
+     * @param GetAshieldFiletokenRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return GetAshieldFiletokenResponse
+     */
+    public function getAshieldFiletokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAshieldFiletokenResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ashield.filetoken.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-启动加固任务
+     * Summary: 启动加固任务(按次计费).
+     *
+     * @param SubmitAshieldHardeningtaskRequest $request
+     *
+     * @return SubmitAshieldHardeningtaskResponse
+     */
+    public function submitAshieldHardeningtask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAshieldHardeningtaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-启动加固任务
+     * Summary: 启动加固任务(按次计费).
+     *
+     * @param SubmitAshieldHardeningtaskRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return SubmitAshieldHardeningtaskResponse
+     */
+    public function submitAshieldHardeningtaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAshieldHardeningtaskResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ashield.hardeningtask.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固任务进度
+     * Summary: 查询加固任务进度.
+     *
+     * @param GetAshieldHardeningtaskprocessRequest $request
+     *
+     * @return GetAshieldHardeningtaskprocessResponse
+     */
+    public function getAshieldHardeningtaskprocess($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAshieldHardeningtaskprocessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固任务进度
+     * Summary: 查询加固任务进度.
+     *
+     * @param GetAshieldHardeningtaskprocessRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return GetAshieldHardeningtaskprocessResponse
+     */
+    public function getAshieldHardeningtaskprocessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAshieldHardeningtaskprocessResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ashield.hardeningtaskprocess.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+     * Summary: 查询加固后的产物下载链接.
+     *
+     * @param GetAshieldHardeningresultRequest $request
+     *
+     * @return GetAshieldHardeningresultResponse
+     */
+    public function getAshieldHardeningresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAshieldHardeningresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+     * Summary: 查询加固后的产物下载链接.
+     *
+     * @param GetAshieldHardeningresultRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return GetAshieldHardeningresultResponse
+     */
+    public function getAshieldHardeningresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAshieldHardeningresultResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ashield.hardeningresult.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+     * Summary: 查询加固后的日志下载链接.
+     *
+     * @param GetAshieldHardeninglogRequest $request
+     *
+     * @return GetAshieldHardeninglogResponse
+     */
+    public function getAshieldHardeninglog($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAshieldHardeninglogEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+     * Summary: 查询加固后的日志下载链接.
+     *
+     * @param GetAshieldHardeninglogRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return GetAshieldHardeninglogResponse
+     */
+    public function getAshieldHardeninglogEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAshieldHardeninglogResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ashield.hardeninglog.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

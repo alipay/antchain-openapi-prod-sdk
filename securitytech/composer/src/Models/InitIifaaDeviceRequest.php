@@ -36,12 +36,26 @@ class InitIifaaDeviceRequest extends Model
      * @var string
      */
     public $deviceInfo;
+
+    // 产品code
+    /**
+     * @var string
+     */
+    public $productCode;
+
+    // 用于加密回传数据的公钥
+    /**
+     * @var string
+     */
+    public $pubKey;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'corpCode'          => 'corp_code',
         'deviceType'        => 'device_type',
         'deviceInfo'        => 'device_info',
+        'productCode'       => 'product_code',
+        'pubKey'            => 'pub_key',
     ];
 
     public function validate()
@@ -49,6 +63,7 @@ class InitIifaaDeviceRequest extends Model
         Model::validateRequired('corpCode', $this->corpCode, true);
         Model::validateRequired('deviceType', $this->deviceType, true);
         Model::validateRequired('deviceInfo', $this->deviceInfo, true);
+        Model::validateRequired('productCode', $this->productCode, true);
     }
 
     public function toMap()
@@ -68,6 +83,12 @@ class InitIifaaDeviceRequest extends Model
         }
         if (null !== $this->deviceInfo) {
             $res['device_info'] = $this->deviceInfo;
+        }
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
+        }
+        if (null !== $this->pubKey) {
+            $res['pub_key'] = $this->pubKey;
         }
 
         return $res;
@@ -95,6 +116,12 @@ class InitIifaaDeviceRequest extends Model
         }
         if (isset($map['device_info'])) {
             $model->deviceInfo = $map['device_info'];
+        }
+        if (isset($map['product_code'])) {
+            $model->productCode = $map['product_code'];
+        }
+        if (isset($map['pub_key'])) {
+            $model->pubKey = $map['pub_key'];
         }
 
         return $model;
