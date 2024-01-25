@@ -11,6 +11,11 @@ public class QueryDeviceplusMpaasRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 评分模型id
+    @NameInMap("model_id")
+    @Validation(required = true)
+    public String modelId;
+
     // mpaas环境id
     @NameInMap("workspace_id")
     @Validation(required = true)
@@ -50,6 +55,14 @@ public class QueryDeviceplusMpaasRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public QueryDeviceplusMpaasRequest setModelId(String modelId) {
+        this.modelId = modelId;
+        return this;
+    }
+    public String getModelId() {
+        return this.modelId;
     }
 
     public QueryDeviceplusMpaasRequest setWorkspaceId(String workspaceId) {
