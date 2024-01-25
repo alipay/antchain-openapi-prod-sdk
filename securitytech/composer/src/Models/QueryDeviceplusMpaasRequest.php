@@ -19,6 +19,12 @@ class QueryDeviceplusMpaasRequest extends Model
      */
     public $productInstanceId;
 
+    // 评分模型id
+    /**
+     * @var string
+     */
+    public $modelId;
+
     // mpaas环境id
     /**
      * @var string
@@ -45,6 +51,7 @@ class QueryDeviceplusMpaasRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'modelId'           => 'model_id',
         'workspaceId'       => 'workspace_id',
         'appId'             => 'app_id',
         'sceneCode'         => 'scene_code',
@@ -53,6 +60,7 @@ class QueryDeviceplusMpaasRequest extends Model
 
     public function validate()
     {
+        Model::validateRequired('modelId', $this->modelId, true);
         Model::validateRequired('workspaceId', $this->workspaceId, true);
         Model::validateRequired('appId', $this->appId, true);
         Model::validateRequired('sceneCode', $this->sceneCode, true);
@@ -67,6 +75,9 @@ class QueryDeviceplusMpaasRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->modelId) {
+            $res['model_id'] = $this->modelId;
         }
         if (null !== $this->workspaceId) {
             $res['workspace_id'] = $this->workspaceId;
@@ -97,6 +108,9 @@ class QueryDeviceplusMpaasRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['model_id'])) {
+            $model->modelId = $map['model_id'];
         }
         if (isset($map['workspace_id'])) {
             $model->workspaceId = $map['workspace_id'];
