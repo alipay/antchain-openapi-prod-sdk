@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.252',
+    sdk_version = '1.0.256',
     _prod_code = 'DEMO',
     _prod_channel = 'undefined'
   };
@@ -161,6 +161,14 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// host
+model Host {
+  // test_2e1ae924805f
+  systemName: string(name='system_name', example='test_2e1ae924805f'),
+  // 地址
+  address: string(name='address', example='test_941f18a4013b'),
+}
+
 // 身份
 model Identity {
   // ak
@@ -189,22 +197,6 @@ model SCRealEstateQueryResponseData {
   qlrmc: string(name='qlrmc', example='qlrmc'),
   // scjzmj
   scjzmj: string(name='scjzmj', example='scjzmj'),
-}
-
-// host
-model Host {
-  // test_2e1ae924805f
-  systemName: string(name='system_name', example='test_2e1ae924805f'),
-  // 地址
-  address: string(name='address', example='test_941f18a4013b'),
-}
-
-// 编码
-model Cmd {
-  // cmd编码
-  cmdCode: string(name='cmd_code', example='SC-RealEstate-Query'),
-  // 版本号
-  version: string(name='version', example='test_d19bd9d59915'),
 }
 
 // 头文件
@@ -247,18 +239,6 @@ model DemoClass {
   someList: [ string ](name='some_list', example=''),
 }
 
-// SCRealEstateQueryResponsePayload
-model SCRealEstateQueryResponsePayload {
-  // code
-  code: string(name='code', example='200'),
-  // data
-  data: [ SCRealEstateQueryResponseData ](name='data', example=''),
-  // uuid
-  uuid: string(name='uuid', example='uuid'),
-  // ret_msg
-  retMsg: string(name='ret_msg', example='ret_msg'),
-}
-
 // SCRealEstateQueryRequestPayload
 model SCRealEstateQueryRequestPayload {
   // xm
@@ -275,26 +255,24 @@ model NameValuePair {
   value: string(name='value', example='value'),
 }
 
-// 自动生成单测代码model
-model AutoCodeModel {
-  // 111
-  modelStringParam: string(name='model_string_param', example='111'),
-  // 111
-  modelDateParam: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='model_date_param', example='2018-10-10T10:10:00Z'),
-  // 111
-  modelArrayParam: [ string ](name='model_array_param', example='111'),
+// 编码
+model Cmd {
+  // cmd编码
+  cmdCode: string(name='cmd_code', example='SC-RealEstate-Query'),
+  // 版本号
+  version: string(name='version', example='test_d19bd9d59915'),
 }
 
-// SCRealEstateQueryRequestBody
-model SCRealEstateQueryRequestBody {
-  // cmd
-  cmd: Cmd(name='cmd', example='"cmd": {       "cmdCode": "SC-RealEstate-Query",       "version": "test_d19bd9d59915"     }'),
-  // 路由信息
-  routeCondition: RouteCondition(name='route_condition', example='"routeCondition": {       "channelId": "HZZKZTKJ"     }'),
-  // requestId
-  requestId: string(name='request_id', example='test_8c964bb7781a'),
-  // payload
-  payload: SCRealEstateQueryRequestPayload(name='payload', example='{ "xm": "张三",   "sfz": "51382219970820817X"}'),
+// SCRealEstateQueryResponsePayload
+model SCRealEstateQueryResponsePayload {
+  // code
+  code: string(name='code', example='200'),
+  // data
+  data: [ SCRealEstateQueryResponseData ](name='data', example=''),
+  // uuid
+  uuid: string(name='uuid', example='uuid'),
+  // ret_msg
+  retMsg: string(name='ret_msg', example='ret_msg'),
 }
 
 // 大安全佐罗测试接口结构体
@@ -311,6 +289,14 @@ model SCRealEstateQueryInvokerRequest {
   header: Header(name='header', example='"header": {}'),
   // body
   body: SCRealEstateQueryBody(name='body', example='"body":{}'),
+}
+
+// 用于上海非金迭代的测试使用
+model ShangHaiTest {
+  // string
+  param1?: string(name='param_1', example='test'),
+  // number
+  param2?: long(name='param_2', example='1'),
 }
 
 // init接口响应结果，map类型
@@ -345,6 +331,8 @@ model TestClass {
   demo: string(name='demo', example='testclass'),
   // 3
   demo1: string(name='demo1', example='id2'),
+  // 22
+  demo2: string(name='demo2', example='12'),
 }
 
 // TestStruct
@@ -361,6 +349,38 @@ model TestStruct {
 model DemoTestx {
   // ability_id
   abilityId: string(name='ability_id', example='8000'),
+}
+
+// 另一个Demo类
+model AnotherClass {
+  // 测试字段
+  bar: string(name='bar', example='some string'),
+  // 引用字段
+  ref: DemoClass(name='ref', example=''),
+  // 列表引用Struct
+  refList?: [ DemoClass ](name='refList', example=''),
+}
+
+// 自动生成单测代码model
+model AutoCodeModel {
+  // 111
+  modelStringParam: string(name='model_string_param', example='111'),
+  // 111
+  modelDateParam: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='model_date_param', example='2018-10-10T10:10:00Z'),
+  // 111
+  modelArrayParam: [ string ](name='model_array_param', example='111'),
+}
+
+// SCRealEstateQueryRequestBody
+model SCRealEstateQueryRequestBody {
+  // cmd
+  cmd: Cmd(name='cmd', example='"cmd": {       "cmdCode": "SC-RealEstate-Query",       "version": "test_d19bd9d59915"     }'),
+  // 路由信息
+  routeCondition: RouteCondition(name='route_condition', example='"routeCondition": {       "channelId": "HZZKZTKJ"     }'),
+  // requestId
+  requestId: string(name='request_id', example='test_8c964bb7781a'),
+  // payload
+  payload: SCRealEstateQueryRequestPayload(name='payload', example='{ "xm": "张三",   "sfz": "51382219970820817X"}'),
 }
 
 // ResponseBody
@@ -383,16 +403,6 @@ model QueryMap {
   name: string(name='name', example='BUSINESS_CODE'),
   // 额外用户信息
   value?: [ NameValuePair ](name='value', example=''),
-}
-
-// 另一个Demo类
-model AnotherClass {
-  // 测试字段
-  bar: string(name='bar', example='some string'),
-  // 引用字段
-  ref: DemoClass(name='ref', example=''),
-  // 列表引用Struct
-  refList?: [ DemoClass ](name='refList', example=''),
 }
 
 // 123
@@ -1653,6 +1663,74 @@ async function queryDemoAbcAbcEx(request: QueryDemoAbcAbcRequest, headers: map[s
   return doRequest('1.0' ,'demo.demo.abc.abc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryTestobTestobTestobRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryTestobTestobTestobResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: testob
+ * Summary: testob
+ */
+async function queryTestobTestobTestob(request: QueryTestobTestobTestobRequest): QueryTestobTestobTestobResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTestobTestobTestobEx(request, headers, runtime);
+}
+
+/**
+ * Description: testob
+ * Summary: testob
+ */
+async function queryTestobTestobTestobEx(request: QueryTestobTestobTestobRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestobTestobTestobResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.testob.testob.testob.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTestaaaaTestobTestobRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryTestaaaaTestobTestobResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: testob
+ * Summary: testob
+ */
+async function queryTestaaaaTestobTestob(request: QueryTestaaaaTestobTestobRequest): QueryTestaaaaTestobTestobResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTestaaaaTestobTestobEx(request, headers, runtime);
+}
+
+/**
+ * Description: testob
+ * Summary: testob
+ */
+async function queryTestaaaaTestobTestobEx(request: QueryTestaaaaTestobTestobRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestaaaaTestobTestobResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.testaaaa.testob.testob.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryApprovalTestRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1775,6 +1853,42 @@ async function initBbpInsuranceUser(request: InitBbpInsuranceUserRequest): InitB
 async function initBbpInsuranceUserEx(request: InitBbpInsuranceUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitBbpInsuranceUserResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.bbp.insurance.user.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateShanghaiPreTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 参数1
+  param1: string(name='param1'),
+}
+
+model OperateShanghaiPreTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用于上海非金生产环境的同步测试
+ * Summary: 上海非金生产环境测试
+ */
+async function operateShanghaiPreTest(request: OperateShanghaiPreTestRequest): OperateShanghaiPreTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateShanghaiPreTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于上海非金生产环境的同步测试
+ * Summary: 上海非金生产环境测试
+ */
+async function operateShanghaiPreTestEx(request: OperateShanghaiPreTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateShanghaiPreTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.shanghai.pre.test.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryShaofangTestRequest = {
@@ -2110,6 +2224,102 @@ async function queryTestGatewayTest(request: QueryTestGatewayTestRequest): Query
 async function queryTestGatewayTestEx(request: QueryTestGatewayTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestGatewayTestResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.test.gateway.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTestproductTestobjectTestsubRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 主键
+  id?: long(name='id'),
+  // 名字
+  name?: string(name='name'),
+  // 性别
+  sex: string(name='sex'),
+  // 年龄
+  age?: long(name='age'),
+}
+
+model QueryTestproductTestobjectTestsubResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 主键
+  id?: long(name='id'),
+  // 姓名
+  name?: string(name='name'),
+  // 性别
+  sex?: string(name='sex'),
+  // 年龄
+  age?: long(name='age'),
+}
+
+/**
+ * Description: 新增API测试
+ * Summary: 新增API测试查询接口
+ */
+async function queryTestproductTestobjectTestsub(request: QueryTestproductTestobjectTestsubRequest): QueryTestproductTestobjectTestsubResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTestproductTestobjectTestsubEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增API测试
+ * Summary: 新增API测试查询接口
+ */
+async function queryTestproductTestobjectTestsubEx(request: QueryTestproductTestobjectTestsubRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestproductTestobjectTestsubResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.testproduct.testobject.testsub.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAcopmTestobjectTestsubRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // consumerId
+  consumerid?: string(name='consumerid'),
+  // originMsgId
+  originmsgid?: string(name='originmsgid'),
+  // prodCode
+  prodcode?: string(name='prodcode'),
+  // msgSource
+  msgsource?: string(name='msgsource'),
+}
+
+model QueryAcopmTestobjectTestsubResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // msgId
+  msgid?: string(name='msgid'),
+  // providerId
+  providerid?: string(name='providerid'),
+}
+
+/**
+ * Description: 新增API接口测试
+ * Summary: 新增API测试查询接口(只是测试使用)
+ */
+async function queryAcopmTestobjectTestsub(request: QueryAcopmTestobjectTestsubRequest): QueryAcopmTestobjectTestsubResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAcopmTestobjectTestsubEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增API接口测试
+ * Summary: 新增API测试查询接口(只是测试使用)
+ */
+async function queryAcopmTestobjectTestsubEx(request: QueryAcopmTestobjectTestsubRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAcopmTestobjectTestsubResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.acopm.testobject.testsub.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryGongxiangTestDemoRequest = {
