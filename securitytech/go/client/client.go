@@ -3463,6 +3463,8 @@ type QueryDeviceplusMpaasRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 评分模型id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
 	// mpaas环境id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
 	// mpaas应用id
@@ -3488,6 +3490,11 @@ func (s *QueryDeviceplusMpaasRequest) SetAuthToken(v string) *QueryDeviceplusMpa
 
 func (s *QueryDeviceplusMpaasRequest) SetProductInstanceId(v string) *QueryDeviceplusMpaasRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeviceplusMpaasRequest) SetModelId(v string) *QueryDeviceplusMpaasRequest {
+	s.ModelId = &v
 	return s
 }
 
@@ -4393,7 +4400,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.9"),
+				"sdk_version":      tea.String("1.2.11"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
