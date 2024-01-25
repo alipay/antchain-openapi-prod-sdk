@@ -31,10 +31,19 @@ class TestClass extends Model
      * @var string
      */
     public $demo1;
+
+    // 22
+    /**
+     * @example 12
+     *
+     * @var string
+     */
+    public $demo2;
     protected $_name = [
         'test'  => 'test',
         'demo'  => 'demo',
         'demo1' => 'demo1',
+        'demo2' => 'demo2',
     ];
 
     public function validate()
@@ -42,6 +51,7 @@ class TestClass extends Model
         Model::validateRequired('test', $this->test, true);
         Model::validateRequired('demo', $this->demo, true);
         Model::validateRequired('demo1', $this->demo1, true);
+        Model::validateRequired('demo2', $this->demo2, true);
     }
 
     public function toMap()
@@ -55,6 +65,9 @@ class TestClass extends Model
         }
         if (null !== $this->demo1) {
             $res['demo1'] = $this->demo1;
+        }
+        if (null !== $this->demo2) {
+            $res['demo2'] = $this->demo2;
         }
 
         return $res;
@@ -76,6 +89,9 @@ class TestClass extends Model
         }
         if (isset($map['demo1'])) {
             $model->demo1 = $map['demo1'];
+        }
+        if (isset($map['demo2'])) {
+            $model->demo2 = $map['demo2'];
         }
 
         return $model;

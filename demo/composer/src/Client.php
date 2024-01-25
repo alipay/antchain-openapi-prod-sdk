@@ -53,12 +53,16 @@ use AntChain\DEMO\Models\InitCjtestAcopmResRequest;
 use AntChain\DEMO\Models\InitCjtestAcopmResResponse;
 use AntChain\DEMO\Models\InitGatewayRoadRequest;
 use AntChain\DEMO\Models\InitGatewayRoadResponse;
+use AntChain\DEMO\Models\OperateShanghaiPreTestRequest;
+use AntChain\DEMO\Models\OperateShanghaiPreTestResponse;
 use AntChain\DEMO\Models\PublishSaasTestTestcRequest;
 use AntChain\DEMO\Models\PublishSaasTestTestcResponse;
 use AntChain\DEMO\Models\QueryAaaBbbCccRequest;
 use AntChain\DEMO\Models\QueryAaaBbbCccResponse;
 use AntChain\DEMO\Models\QueryAbcAbcAbcRequest;
 use AntChain\DEMO\Models\QueryAbcAbcAbcResponse;
+use AntChain\DEMO\Models\QueryAcopmTestobjectTestsubRequest;
+use AntChain\DEMO\Models\QueryAcopmTestobjectTestsubResponse;
 use AntChain\DEMO\Models\QueryAdAsdAsdRequest;
 use AntChain\DEMO\Models\QueryAdAsdAsdResponse;
 use AntChain\DEMO\Models\QueryApiOfflineStatusRequest;
@@ -109,8 +113,14 @@ use AntChain\DEMO\Models\QueryShaofangTestRequest;
 use AntChain\DEMO\Models\QueryShaofangTestResponse;
 use AntChain\DEMO\Models\QueryShaofangTestTrRequest;
 use AntChain\DEMO\Models\QueryShaofangTestTrResponse;
+use AntChain\DEMO\Models\QueryTestaaaaTestobTestobRequest;
+use AntChain\DEMO\Models\QueryTestaaaaTestobTestobResponse;
 use AntChain\DEMO\Models\QueryTestGatewayTestRequest;
 use AntChain\DEMO\Models\QueryTestGatewayTestResponse;
+use AntChain\DEMO\Models\QueryTestobTestobTestobRequest;
+use AntChain\DEMO\Models\QueryTestobTestobTestobResponse;
+use AntChain\DEMO\Models\QueryTestproductTestobjectTestsubRequest;
+use AntChain\DEMO\Models\QueryTestproductTestobjectTestsubResponse;
 use AntChain\DEMO\Models\QueryTestTestobjectBbbRequest;
 use AntChain\DEMO\Models\QueryTestTestobjectBbbResponse;
 use AntChain\DEMO\Models\RegisterTestBizeventMessageRequest;
@@ -248,7 +258,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 身份
+            // host
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -276,7 +286,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.252',
+                    'sdk_version'      => '1.0.256',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1384,6 +1394,72 @@ class Client
     }
 
     /**
+     * Description: testob
+     * Summary: testob.
+     *
+     * @param QueryTestobTestobTestobRequest $request
+     *
+     * @return QueryTestobTestobTestobResponse
+     */
+    public function queryTestobTestobTestob($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestobTestobTestobEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: testob
+     * Summary: testob.
+     *
+     * @param QueryTestobTestobTestobRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryTestobTestobTestobResponse
+     */
+    public function queryTestobTestobTestobEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestobTestobTestobResponse::fromMap($this->doRequest('1.0', 'demo.testob.testob.testob.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: testob
+     * Summary: testob.
+     *
+     * @param QueryTestaaaaTestobTestobRequest $request
+     *
+     * @return QueryTestaaaaTestobTestobResponse
+     */
+    public function queryTestaaaaTestobTestob($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestaaaaTestobTestobEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: testob
+     * Summary: testob.
+     *
+     * @param QueryTestaaaaTestobTestobRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryTestaaaaTestobTestobResponse
+     */
+    public function queryTestaaaaTestobTestobEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestaaaaTestobTestobResponse::fromMap($this->doRequest('1.0', 'demo.testaaaa.testob.testob.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 用于测试api评审接入SDL的测试使用
      * 测试评审。评审字段测试ACCCCC
      * Summary: api评审测试CCCC.
@@ -1482,6 +1558,39 @@ class Client
         Utils::validateModel($request);
 
         return InitBbpInsuranceUserResponse::fromMap($this->doRequest('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于上海非金生产环境的同步测试
+     * Summary: 上海非金生产环境测试.
+     *
+     * @param OperateShanghaiPreTestRequest $request
+     *
+     * @return OperateShanghaiPreTestResponse
+     */
+    public function operateShanghaiPreTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateShanghaiPreTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于上海非金生产环境的同步测试
+     * Summary: 上海非金生产环境测试.
+     *
+     * @param OperateShanghaiPreTestRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return OperateShanghaiPreTestResponse
+     */
+    public function operateShanghaiPreTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateShanghaiPreTestResponse::fromMap($this->doRequest('1.0', 'demo.shanghai.pre.test.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1764,6 +1873,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryTestGatewayTestResponse::fromMap($this->doRequest('1.0', 'demo.test.gateway.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增API测试
+     * Summary: 新增API测试查询接口.
+     *
+     * @param QueryTestproductTestobjectTestsubRequest $request
+     *
+     * @return array|QueryTestproductTestobjectTestsubResponse
+     */
+    public function queryTestproductTestobjectTestsub($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestproductTestobjectTestsubEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增API测试
+     * Summary: 新增API测试查询接口.
+     *
+     * @param QueryTestproductTestobjectTestsubRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return array|QueryTestproductTestobjectTestsubResponse
+     */
+    public function queryTestproductTestobjectTestsubEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestproductTestobjectTestsubResponse::fromMap($this->doRequest('1.0', 'demo.testproduct.testobject.testsub.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增API接口测试
+     * Summary: 新增API测试查询接口(只是测试使用).
+     *
+     * @param QueryAcopmTestobjectTestsubRequest $request
+     *
+     * @return array|QueryAcopmTestobjectTestsubResponse
+     */
+    public function queryAcopmTestobjectTestsub($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAcopmTestobjectTestsubEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增API接口测试
+     * Summary: 新增API测试查询接口(只是测试使用).
+     *
+     * @param QueryAcopmTestobjectTestsubRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return array|QueryAcopmTestobjectTestsubResponse
+     */
+    public function queryAcopmTestobjectTestsubEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAcopmTestobjectTestsubResponse::fromMap($this->doRequest('1.0', 'demo.acopm.testobject.testsub.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
