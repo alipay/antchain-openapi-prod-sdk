@@ -18,6 +18,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 评分模型id
+        [NameInMap("model_id")]
+        [Validation(Required=true)]
+        public string ModelId { get; set; }
+
         // mpaas环境id
         [NameInMap("workspace_id")]
         [Validation(Required=true)]
