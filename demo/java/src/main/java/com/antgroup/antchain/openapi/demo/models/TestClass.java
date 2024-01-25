@@ -19,6 +19,11 @@ public class TestClass extends TeaModel {
     @Validation(required = true)
     public String demo1;
 
+    // 22
+    @NameInMap("demo2")
+    @Validation(required = true)
+    public String demo2;
+
     public static TestClass build(java.util.Map<String, ?> map) throws Exception {
         TestClass self = new TestClass();
         return TeaModel.build(map, self);
@@ -46,6 +51,14 @@ public class TestClass extends TeaModel {
     }
     public String getDemo1() {
         return this.demo1;
+    }
+
+    public TestClass setDemo2(String demo2) {
+        this.demo2 = demo2;
+        return this;
+    }
+    public String getDemo2() {
+        return this.demo2;
     }
 
 }
