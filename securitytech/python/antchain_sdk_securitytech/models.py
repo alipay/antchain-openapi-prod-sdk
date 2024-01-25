@@ -4333,6 +4333,7 @@ class QueryDeviceplusMpaasRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        model_id: str = None,
         workspace_id: str = None,
         app_id: str = None,
         scene_code: str = None,
@@ -4341,6 +4342,8 @@ class QueryDeviceplusMpaasRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 评分模型id
+        self.model_id = model_id
         # mpaas环境id
         self.workspace_id = workspace_id
         # mpaas应用id
@@ -4351,6 +4354,7 @@ class QueryDeviceplusMpaasRequest(TeaModel):
         self.phone_number = phone_number
 
     def validate(self):
+        self.validate_required(self.model_id, 'model_id')
         self.validate_required(self.workspace_id, 'workspace_id')
         self.validate_required(self.app_id, 'app_id')
         self.validate_required(self.scene_code, 'scene_code')
@@ -4366,6 +4370,8 @@ class QueryDeviceplusMpaasRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.model_id is not None:
+            result['model_id'] = self.model_id
         if self.workspace_id is not None:
             result['workspace_id'] = self.workspace_id
         if self.app_id is not None:
@@ -4382,6 +4388,8 @@ class QueryDeviceplusMpaasRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('model_id') is not None:
+            self.model_id = m.get('model_id')
         if m.get('workspace_id') is not None:
             self.workspace_id = m.get('workspace_id')
         if m.get('app_id') is not None:
