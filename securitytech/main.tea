@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.9',
+    sdk_version = '1.2.11',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -1553,6 +1553,8 @@ model QueryDeviceplusMpaasRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 评分模型id
+  modelId: string(name='model_id'),
   // mpaas环境id
   workspaceId: string(name='workspace_id'),
   // mpaas应用id
