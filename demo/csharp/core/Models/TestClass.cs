@@ -25,6 +25,11 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=true)]
         public string Demo1 { get; set; }
 
+        // 22
+        [NameInMap("demo2")]
+        [Validation(Required=true)]
+        public string Demo2 { get; set; }
+
     }
 
 }
