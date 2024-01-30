@@ -895,6 +895,8 @@ use AntChain\BLOCKCHAIN\Models\ReleaseBlockchainOrderPhysicalRequest;
 use AntChain\BLOCKCHAIN\Models\ReleaseBlockchainOrderPhysicalResponse;
 use AntChain\BLOCKCHAIN\Models\ReopenAuthTaskRequest;
 use AntChain\BLOCKCHAIN\Models\ReopenAuthTaskResponse;
+use AntChain\BLOCKCHAIN\Models\RepayAuthEquityRequest;
+use AntChain\BLOCKCHAIN\Models\RepayAuthEquityResponse;
 use AntChain\BLOCKCHAIN\Models\ResumeDataauthorizationAuthorizationRequest;
 use AntChain\BLOCKCHAIN\Models\ResumeDataauthorizationAuthorizationResponse;
 use AntChain\BLOCKCHAIN\Models\RetryChainContractProjectRequest;
@@ -1137,6 +1139,8 @@ use AntChain\BLOCKCHAIN\Models\SubmitAuthTaskRequest;
 use AntChain\BLOCKCHAIN\Models\SubmitAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\SyncMydidcommunWorkergroupGroupRequest;
 use AntChain\BLOCKCHAIN\Models\SyncMydidcommunWorkergroupGroupResponse;
+use AntChain\BLOCKCHAIN\Models\UnbindAuthEquityRequest;
+use AntChain\BLOCKCHAIN\Models\UnbindAuthEquityResponse;
 use AntChain\BLOCKCHAIN\Models\UnbindCaasApplicationManageRequest;
 use AntChain\BLOCKCHAIN\Models\UnbindCaasApplicationManageResponse;
 use AntChain\BLOCKCHAIN\Models\UnfreezeChainAccountAntRequest;
@@ -1366,7 +1370,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.27.13',
+                    'sdk_version'      => '1.28.0',
                     '_prod_code'       => 'BLOCKCHAIN',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -14899,6 +14903,72 @@ class Client
         Utils::validateModel($request);
 
         return ListAuthTaskResponse::fromMap($this->doRequest('1.0', 'baas.auth.task.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益退订openAPI接口
+     * Summary: 权益退订.
+     *
+     * @param UnbindAuthEquityRequest $request
+     *
+     * @return UnbindAuthEquityResponse
+     */
+    public function unbindAuthEquity($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unbindAuthEquityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益退订openAPI接口
+     * Summary: 权益退订.
+     *
+     * @param UnbindAuthEquityRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return UnbindAuthEquityResponse
+     */
+    public function unbindAuthEquityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnbindAuthEquityResponse::fromMap($this->doRequest('1.0', 'baas.auth.equity.unbind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益退款
+     * Summary: 权益退款接口.
+     *
+     * @param RepayAuthEquityRequest $request
+     *
+     * @return RepayAuthEquityResponse
+     */
+    public function repayAuthEquity($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->repayAuthEquityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益退款
+     * Summary: 权益退款接口.
+     *
+     * @param RepayAuthEquityRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return RepayAuthEquityResponse
+     */
+    public function repayAuthEquityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RepayAuthEquityResponse::fromMap($this->doRequest('1.0', 'baas.auth.equity.repay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
