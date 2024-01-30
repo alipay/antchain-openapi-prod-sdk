@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.27.13',
+    sdk_version = '1.28.0',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -22045,6 +22045,82 @@ async function listAuthTask(request: ListAuthTaskRequest): ListAuthTaskResponse 
 async function listAuthTaskEx(request: ListAuthTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAuthTaskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.task.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnbindAuthEquityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 权益开通时ISV返回的业务订单号
+  outBizNo: string(name='out_biz_no'),
+}
+
+model UnbindAuthEquityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 权益退订openAPI接口
+ * Summary: 权益退订
+ */
+async function unbindAuthEquity(request: UnbindAuthEquityRequest): UnbindAuthEquityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unbindAuthEquityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 权益退订openAPI接口
+ * Summary: 权益退订
+ */
+async function unbindAuthEquityEx(request: UnbindAuthEquityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindAuthEquityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.equity.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RepayAuthEquityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 权益开通时ISV返回的业务订单号
+  outBizNo: string(name='out_biz_no'),
+  // 需要退款的交易订单号(权益扣款成功后回调消息返回的交易号)
+  tradeNo: string(name='trade_no'),
+}
+
+model RepayAuthEquityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应结果消息，调用失败的时候会显示具体的错误信息
+  resultMessage?: string(name='result_message'),
+}
+
+/**
+ * Description: 权益退款
+ * Summary: 权益退款接口
+ */
+async function repayAuthEquity(request: RepayAuthEquityRequest): RepayAuthEquityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return repayAuthEquityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 权益退款
+ * Summary: 权益退款接口
+ */
+async function repayAuthEquityEx(request: RepayAuthEquityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RepayAuthEquityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.equity.repay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
