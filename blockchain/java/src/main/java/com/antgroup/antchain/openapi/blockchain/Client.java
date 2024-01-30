@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.27.13"),
+                    new TeaPair("sdk_version", "1.28.0"),
                     new TeaPair("_prod_code", "BLOCKCHAIN"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -7954,6 +7954,44 @@ public class Client {
     public ListAuthTaskResponse listAuthTaskEx(ListAuthTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.auth.task.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAuthTaskResponse());
+    }
+
+    /**
+     * Description: 权益退订openAPI接口
+     * Summary: 权益退订
+     */
+    public UnbindAuthEquityResponse unbindAuthEquity(UnbindAuthEquityRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.unbindAuthEquityEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 权益退订openAPI接口
+     * Summary: 权益退订
+     */
+    public UnbindAuthEquityResponse unbindAuthEquityEx(UnbindAuthEquityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.equity.unbind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UnbindAuthEquityResponse());
+    }
+
+    /**
+     * Description: 权益退款
+     * Summary: 权益退款接口
+     */
+    public RepayAuthEquityResponse repayAuthEquity(RepayAuthEquityRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.repayAuthEquityEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 权益退款
+     * Summary: 权益退款接口
+     */
+    public RepayAuthEquityResponse repayAuthEquityEx(RepayAuthEquityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.equity.repay", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RepayAuthEquityResponse());
     }
 
     /**
