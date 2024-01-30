@@ -137,7 +137,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.27.13"},
+                        {"sdk_version", "1.28.0"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.27.13"},
+                        {"sdk_version", "1.28.0"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -17545,6 +17545,90 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ListAuthTaskResponse>(await DoRequestAsync("1.0", "baas.auth.task.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 权益退订openAPI接口
+         * Summary: 权益退订
+         */
+        public UnbindAuthEquityResponse UnbindAuthEquity(UnbindAuthEquityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UnbindAuthEquityEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 权益退订openAPI接口
+         * Summary: 权益退订
+         */
+        public async Task<UnbindAuthEquityResponse> UnbindAuthEquityAsync(UnbindAuthEquityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UnbindAuthEquityExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 权益退订openAPI接口
+         * Summary: 权益退订
+         */
+        public UnbindAuthEquityResponse UnbindAuthEquityEx(UnbindAuthEquityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnbindAuthEquityResponse>(DoRequest("1.0", "baas.auth.equity.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 权益退订openAPI接口
+         * Summary: 权益退订
+         */
+        public async Task<UnbindAuthEquityResponse> UnbindAuthEquityExAsync(UnbindAuthEquityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnbindAuthEquityResponse>(await DoRequestAsync("1.0", "baas.auth.equity.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 权益退款
+         * Summary: 权益退款接口
+         */
+        public RepayAuthEquityResponse RepayAuthEquity(RepayAuthEquityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RepayAuthEquityEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 权益退款
+         * Summary: 权益退款接口
+         */
+        public async Task<RepayAuthEquityResponse> RepayAuthEquityAsync(RepayAuthEquityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RepayAuthEquityExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 权益退款
+         * Summary: 权益退款接口
+         */
+        public RepayAuthEquityResponse RepayAuthEquityEx(RepayAuthEquityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RepayAuthEquityResponse>(DoRequest("1.0", "baas.auth.equity.repay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 权益退款
+         * Summary: 权益退款接口
+         */
+        public async Task<RepayAuthEquityResponse> RepayAuthEquityExAsync(RepayAuthEquityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RepayAuthEquityResponse>(await DoRequestAsync("1.0", "baas.auth.equity.repay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
