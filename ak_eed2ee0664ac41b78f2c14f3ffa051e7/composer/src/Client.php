@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_eed2ee0664ac41b78f2c14f3ffa051e7\Models\BindDemoDemoCheckEeeRequest;
 use AntChain\Ak_eed2ee0664ac41b78f2c14f3ffa051e7\Models\BindDemoDemoCheckEeeResponse;
+use AntChain\Ak_eed2ee0664ac41b78f2c14f3ffa051e7\Models\InitDemoBbpInsuranceUserRequest;
+use AntChain\Ak_eed2ee0664ac41b78f2c14f3ffa051e7\Models\InitDemoBbpInsuranceUserResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -132,6 +134,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 键值对，兼容map用
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -238,5 +241,38 @@ class Client
         Utils::validateModel($request);
 
         return BindDemoDemoCheckEeeResponse::fromMap($this->doRequest('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保司用户埋点信息
+     * Summary: 用户登陆页面埋点.
+     *
+     * @param InitDemoBbpInsuranceUserRequest $request
+     *
+     * @return InitDemoBbpInsuranceUserResponse
+     */
+    public function initDemoBbpInsuranceUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initDemoBbpInsuranceUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保司用户埋点信息
+     * Summary: 用户登陆页面埋点.
+     *
+     * @param InitDemoBbpInsuranceUserRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return InitDemoBbpInsuranceUserResponse
+     */
+    public function initDemoBbpInsuranceUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitDemoBbpInsuranceUserResponse::fromMap($this->doRequest('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
