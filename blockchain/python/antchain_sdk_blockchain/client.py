@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.27.13',
+                    'sdk_version': '1.28.0',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.27.13',
+                    'sdk_version': '1.28.0',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -23173,6 +23173,118 @@ class Client:
         return TeaCore.from_map(
             blockchain_models.ListAuthTaskResponse(),
             await self.do_request_async('1.0', 'baas.auth.task.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unbind_auth_equity(
+        self,
+        request: blockchain_models.UnbindAuthEquityRequest,
+    ) -> blockchain_models.UnbindAuthEquityResponse:
+        """
+        Description: 权益退订openAPI接口
+        Summary: 权益退订
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unbind_auth_equity_ex(request, headers, runtime)
+
+    async def unbind_auth_equity_async(
+        self,
+        request: blockchain_models.UnbindAuthEquityRequest,
+    ) -> blockchain_models.UnbindAuthEquityResponse:
+        """
+        Description: 权益退订openAPI接口
+        Summary: 权益退订
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unbind_auth_equity_ex_async(request, headers, runtime)
+
+    def unbind_auth_equity_ex(
+        self,
+        request: blockchain_models.UnbindAuthEquityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UnbindAuthEquityResponse:
+        """
+        Description: 权益退订openAPI接口
+        Summary: 权益退订
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.UnbindAuthEquityResponse(),
+            self.do_request('1.0', 'baas.auth.equity.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unbind_auth_equity_ex_async(
+        self,
+        request: blockchain_models.UnbindAuthEquityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UnbindAuthEquityResponse:
+        """
+        Description: 权益退订openAPI接口
+        Summary: 权益退订
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.UnbindAuthEquityResponse(),
+            await self.do_request_async('1.0', 'baas.auth.equity.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def repay_auth_equity(
+        self,
+        request: blockchain_models.RepayAuthEquityRequest,
+    ) -> blockchain_models.RepayAuthEquityResponse:
+        """
+        Description: 权益退款
+        Summary: 权益退款接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.repay_auth_equity_ex(request, headers, runtime)
+
+    async def repay_auth_equity_async(
+        self,
+        request: blockchain_models.RepayAuthEquityRequest,
+    ) -> blockchain_models.RepayAuthEquityResponse:
+        """
+        Description: 权益退款
+        Summary: 权益退款接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.repay_auth_equity_ex_async(request, headers, runtime)
+
+    def repay_auth_equity_ex(
+        self,
+        request: blockchain_models.RepayAuthEquityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.RepayAuthEquityResponse:
+        """
+        Description: 权益退款
+        Summary: 权益退款接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.RepayAuthEquityResponse(),
+            self.do_request('1.0', 'baas.auth.equity.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def repay_auth_equity_ex_async(
+        self,
+        request: blockchain_models.RepayAuthEquityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.RepayAuthEquityResponse:
+        """
+        Description: 权益退款
+        Summary: 权益退款接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.RepayAuthEquityResponse(),
+            await self.do_request_async('1.0', 'baas.auth.equity.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(
