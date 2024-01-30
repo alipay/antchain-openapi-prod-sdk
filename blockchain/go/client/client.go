@@ -50099,6 +50099,146 @@ func (s *ListAuthTaskResponse) SetData(v *PageTaskListDTO) *ListAuthTaskResponse
 	return s
 }
 
+type UnbindAuthEquityRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 权益开通时ISV返回的业务订单号
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+}
+
+func (s UnbindAuthEquityRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnbindAuthEquityRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UnbindAuthEquityRequest) SetAuthToken(v string) *UnbindAuthEquityRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UnbindAuthEquityRequest) SetProductInstanceId(v string) *UnbindAuthEquityRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UnbindAuthEquityRequest) SetOutBizNo(v string) *UnbindAuthEquityRequest {
+	s.OutBizNo = &v
+	return s
+}
+
+type UnbindAuthEquityResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UnbindAuthEquityResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnbindAuthEquityResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UnbindAuthEquityResponse) SetReqMsgId(v string) *UnbindAuthEquityResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UnbindAuthEquityResponse) SetResultCode(v string) *UnbindAuthEquityResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UnbindAuthEquityResponse) SetResultMsg(v string) *UnbindAuthEquityResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type RepayAuthEquityRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 权益开通时ISV返回的业务订单号
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+	// 需要退款的交易订单号(权益扣款成功后回调消息返回的交易号)
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true"`
+}
+
+func (s RepayAuthEquityRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RepayAuthEquityRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RepayAuthEquityRequest) SetAuthToken(v string) *RepayAuthEquityRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RepayAuthEquityRequest) SetProductInstanceId(v string) *RepayAuthEquityRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RepayAuthEquityRequest) SetOutBizNo(v string) *RepayAuthEquityRequest {
+	s.OutBizNo = &v
+	return s
+}
+
+func (s *RepayAuthEquityRequest) SetTradeNo(v string) *RepayAuthEquityRequest {
+	s.TradeNo = &v
+	return s
+}
+
+type RepayAuthEquityResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应结果消息，调用失败的时候会显示具体的错误信息
+	ResultMessage *string `json:"result_message,omitempty" xml:"result_message,omitempty"`
+}
+
+func (s RepayAuthEquityResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RepayAuthEquityResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RepayAuthEquityResponse) SetReqMsgId(v string) *RepayAuthEquityResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RepayAuthEquityResponse) SetResultCode(v string) *RepayAuthEquityResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RepayAuthEquityResponse) SetResultMsg(v string) *RepayAuthEquityResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RepayAuthEquityResponse) SetResultMessage(v string) *RepayAuthEquityResponse {
+	s.ResultMessage = &v
+	return s
+}
+
 type StartDidCorporateAgentcreateRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -69397,7 +69537,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.27.13"),
+				"sdk_version":      tea.String("1.28.0"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -83364,6 +83504,74 @@ func (client *Client) ListAuthTaskEx(request *ListAuthTaskRequest, headers map[s
 	}
 	_result = &ListAuthTaskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.task.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 权益退订openAPI接口
+ * Summary: 权益退订
+ */
+func (client *Client) UnbindAuthEquity(request *UnbindAuthEquityRequest) (_result *UnbindAuthEquityResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UnbindAuthEquityResponse{}
+	_body, _err := client.UnbindAuthEquityEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 权益退订openAPI接口
+ * Summary: 权益退订
+ */
+func (client *Client) UnbindAuthEquityEx(request *UnbindAuthEquityRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UnbindAuthEquityResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UnbindAuthEquityResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.equity.unbind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 权益退款
+ * Summary: 权益退款接口
+ */
+func (client *Client) RepayAuthEquity(request *RepayAuthEquityRequest) (_result *RepayAuthEquityResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RepayAuthEquityResponse{}
+	_body, _err := client.RepayAuthEquityEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 权益退款
+ * Summary: 权益退款接口
+ */
+func (client *Client) RepayAuthEquityEx(request *RepayAuthEquityRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RepayAuthEquityResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RepayAuthEquityResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.equity.repay"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
