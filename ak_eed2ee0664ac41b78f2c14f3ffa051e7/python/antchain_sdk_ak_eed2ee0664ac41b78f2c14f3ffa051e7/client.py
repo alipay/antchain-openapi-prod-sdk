@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 键值对，兼容map用
         }
         _last_request = None
         _last_exception = None
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 键值对，兼容map用
         }
         _last_request = None
         _last_exception = None
@@ -327,4 +329,60 @@ class Client:
         return TeaCore.from_map(
             ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.BindDemoDemoCheckEeeResponse(),
             await self.do_request_async('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_demo_bbp_insurance_user(
+        self,
+        request: ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.InitDemoBbpInsuranceUserRequest,
+    ) -> ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.InitDemoBbpInsuranceUserResponse:
+        """
+        Description: 保司用户埋点信息
+        Summary: 用户登陆页面埋点
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_demo_bbp_insurance_user_ex(request, headers, runtime)
+
+    async def init_demo_bbp_insurance_user_async(
+        self,
+        request: ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.InitDemoBbpInsuranceUserRequest,
+    ) -> ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.InitDemoBbpInsuranceUserResponse:
+        """
+        Description: 保司用户埋点信息
+        Summary: 用户登陆页面埋点
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_demo_bbp_insurance_user_ex_async(request, headers, runtime)
+
+    def init_demo_bbp_insurance_user_ex(
+        self,
+        request: ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.InitDemoBbpInsuranceUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.InitDemoBbpInsuranceUserResponse:
+        """
+        Description: 保司用户埋点信息
+        Summary: 用户登陆页面埋点
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.InitDemoBbpInsuranceUserResponse(),
+            self.do_request('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_demo_bbp_insurance_user_ex_async(
+        self,
+        request: ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.InitDemoBbpInsuranceUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.InitDemoBbpInsuranceUserResponse:
+        """
+        Description: 保司用户埋点信息
+        Summary: 用户登陆页面埋点
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.InitDemoBbpInsuranceUserResponse(),
+            await self.do_request_async('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
