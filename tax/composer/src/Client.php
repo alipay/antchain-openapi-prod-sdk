@@ -61,6 +61,8 @@ use AntChain\TAX\Models\QueryApiSimpleauthstandardRequest;
 use AntChain\TAX\Models\QueryApiSimpleauthstandardResponse;
 use AntChain\TAX\Models\QueryChargeAuthRequest;
 use AntChain\TAX\Models\QueryChargeAuthResponse;
+use AntChain\TAX\Models\QueryEnterpriseElectronicasyncRequest;
+use AntChain\TAX\Models\QueryEnterpriseElectronicasyncResponse;
 use AntChain\TAX\Models\QueryIcmInvoiceRequest;
 use AntChain\TAX\Models\QueryIcmInvoiceResponse;
 use AntChain\TAX\Models\QueryIcmSimpleauthRequest;
@@ -228,7 +230,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.8',
+                    'sdk_version'      => '1.8.12',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1297,6 +1299,39 @@ class Client
         Utils::validateModel($request);
 
         return StartRiskEvaluationResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.risk.evaluation.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 电力异步接口
+     * Summary: 电力异步接口.
+     *
+     * @param QueryEnterpriseElectronicasyncRequest $request
+     *
+     * @return QueryEnterpriseElectronicasyncResponse
+     */
+    public function queryEnterpriseElectronicasync($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEnterpriseElectronicasyncEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 电力异步接口
+     * Summary: 电力异步接口.
+     *
+     * @param QueryEnterpriseElectronicasyncRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryEnterpriseElectronicasyncResponse
+     */
+    public function queryEnterpriseElectronicasyncEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEnterpriseElectronicasyncResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.enterprise.electronicasync.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

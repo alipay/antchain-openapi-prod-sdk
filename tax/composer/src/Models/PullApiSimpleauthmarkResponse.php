@@ -36,7 +36,7 @@ class PullApiSimpleauthmarkResponse extends Model
     /**
      * @var string
      */
-    public $bizRequestId;
+    public $bizUniqueId;
 
     // 调用的租户
     /**
@@ -59,14 +59,14 @@ class PullApiSimpleauthmarkResponse extends Model
      */
     public $secret;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'timestamp'    => 'timestamp',
-        'bizRequestId' => 'biz_request_id',
-        'instCode'     => 'inst_code',
-        'resultList'   => 'result_list',
-        'secret'       => 'secret',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'timestamp'   => 'timestamp',
+        'bizUniqueId' => 'biz_unique_id',
+        'instCode'    => 'inst_code',
+        'resultList'  => 'result_list',
+        'secret'      => 'secret',
     ];
 
     public function validate()
@@ -89,8 +89,8 @@ class PullApiSimpleauthmarkResponse extends Model
         if (null !== $this->timestamp) {
             $res['timestamp'] = $this->timestamp;
         }
-        if (null !== $this->bizRequestId) {
-            $res['biz_request_id'] = $this->bizRequestId;
+        if (null !== $this->bizUniqueId) {
+            $res['biz_unique_id'] = $this->bizUniqueId;
         }
         if (null !== $this->instCode) {
             $res['inst_code'] = $this->instCode;
@@ -125,8 +125,8 @@ class PullApiSimpleauthmarkResponse extends Model
         if (isset($map['timestamp'])) {
             $model->timestamp = $map['timestamp'];
         }
-        if (isset($map['biz_request_id'])) {
-            $model->bizRequestId = $map['biz_request_id'];
+        if (isset($map['biz_unique_id'])) {
+            $model->bizUniqueId = $map['biz_unique_id'];
         }
         if (isset($map['inst_code'])) {
             $model->instCode = $map['inst_code'];

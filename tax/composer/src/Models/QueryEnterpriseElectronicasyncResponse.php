@@ -6,7 +6,7 @@ namespace AntChain\TAX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryRiskEvaluationResponse extends Model
+class QueryEnterpriseElectronicasyncResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,24 +25,10 @@ class QueryRiskEvaluationResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // unix秒时间戳,查询时间，用来对账使用
-    /**
-     * @var string
-     */
-    public $queryTime;
-
-    // 是否查的，空数据标识
-    /**
-     * @var bool
-     */
-    public $nullDataFlag;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'queryTime'    => 'query_time',
-        'nullDataFlag' => 'null_data_flag',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -61,12 +47,6 @@ class QueryRiskEvaluationResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->queryTime) {
-            $res['query_time'] = $this->queryTime;
-        }
-        if (null !== $this->nullDataFlag) {
-            $res['null_data_flag'] = $this->nullDataFlag;
-        }
 
         return $res;
     }
@@ -74,7 +54,7 @@ class QueryRiskEvaluationResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryRiskEvaluationResponse
+     * @return QueryEnterpriseElectronicasyncResponse
      */
     public static function fromMap($map = [])
     {
@@ -87,12 +67,6 @@ class QueryRiskEvaluationResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['query_time'])) {
-            $model->queryTime = $map['query_time'];
-        }
-        if (isset($map['null_data_flag'])) {
-            $model->nullDataFlag = $map['null_data_flag'];
         }
 
         return $model;
