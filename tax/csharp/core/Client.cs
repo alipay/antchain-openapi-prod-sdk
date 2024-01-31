@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.8"},
+                        {"sdk_version", "1.8.12"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.8"},
+                        {"sdk_version", "1.8.12"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1621,6 +1621,48 @@ namespace AntChain.SDK.TAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<StartRiskEvaluationResponse>(await DoRequestAsync("1.0", "blockchain.tax.risk.evaluation.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 电力异步接口
+         * Summary: 电力异步接口
+         */
+        public QueryEnterpriseElectronicasyncResponse QueryEnterpriseElectronicasync(QueryEnterpriseElectronicasyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEnterpriseElectronicasyncEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 电力异步接口
+         * Summary: 电力异步接口
+         */
+        public async Task<QueryEnterpriseElectronicasyncResponse> QueryEnterpriseElectronicasyncAsync(QueryEnterpriseElectronicasyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEnterpriseElectronicasyncExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 电力异步接口
+         * Summary: 电力异步接口
+         */
+        public QueryEnterpriseElectronicasyncResponse QueryEnterpriseElectronicasyncEx(QueryEnterpriseElectronicasyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEnterpriseElectronicasyncResponse>(DoRequest("1.0", "blockchain.tax.enterprise.electronicasync.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 电力异步接口
+         * Summary: 电力异步接口
+         */
+        public async Task<QueryEnterpriseElectronicasyncResponse> QueryEnterpriseElectronicasyncExAsync(QueryEnterpriseElectronicasyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEnterpriseElectronicasyncResponse>(await DoRequestAsync("1.0", "blockchain.tax.enterprise.electronicasync.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -30,9 +30,9 @@ namespace AntChain.SDK.TAX.Models
         public string Timestamp { get; set; }
 
         // 请求id，幂等控制
-        [NameInMap("biz_request_id")]
+        [NameInMap("biz_unique_id")]
         [Validation(Required=false)]
-        public string BizRequestId { get; set; }
+        public string BizUniqueId { get; set; }
 
         // 调用的租户
         [NameInMap("inst_code")]
