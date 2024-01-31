@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.8"),
+                    new TeaPair("sdk_version", "1.8.12"),
                     new TeaPair("_prod_code", "TAX"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -748,6 +748,25 @@ public class Client {
     public StartRiskEvaluationResponse startRiskEvaluationEx(StartRiskEvaluationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.risk.evaluation.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartRiskEvaluationResponse());
+    }
+
+    /**
+     * Description: 电力异步接口
+     * Summary: 电力异步接口
+     */
+    public QueryEnterpriseElectronicasyncResponse queryEnterpriseElectronicasync(QueryEnterpriseElectronicasyncRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEnterpriseElectronicasyncEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 电力异步接口
+     * Summary: 电力异步接口
+     */
+    public QueryEnterpriseElectronicasyncResponse queryEnterpriseElectronicasyncEx(QueryEnterpriseElectronicasyncRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.enterprise.electronicasync.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEnterpriseElectronicasyncResponse());
     }
 
     /**

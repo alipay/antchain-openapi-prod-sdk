@@ -20,6 +20,10 @@ public class QueryRiskEvaluationResponse extends TeaModel {
     @NameInMap("query_time")
     public String queryTime;
 
+    // 是否查的，空数据标识
+    @NameInMap("null_data_flag")
+    public Boolean nullDataFlag;
+
     public static QueryRiskEvaluationResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryRiskEvaluationResponse self = new QueryRiskEvaluationResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class QueryRiskEvaluationResponse extends TeaModel {
     }
     public String getQueryTime() {
         return this.queryTime;
+    }
+
+    public QueryRiskEvaluationResponse setNullDataFlag(Boolean nullDataFlag) {
+        this.nullDataFlag = nullDataFlag;
+        return this;
+    }
+    public Boolean getNullDataFlag() {
+        return this.nullDataFlag;
     }
 
 }

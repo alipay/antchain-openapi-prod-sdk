@@ -22,8 +22,8 @@ public class PullApiSimpleauthmarkResponse extends TeaModel {
     public String timestamp;
 
     // 请求id，幂等控制
-    @NameInMap("biz_request_id")
-    public String bizRequestId;
+    @NameInMap("biz_unique_id")
+    public String bizUniqueId;
 
     // 调用的租户
     @NameInMap("inst_code")
@@ -77,12 +77,12 @@ public class PullApiSimpleauthmarkResponse extends TeaModel {
         return this.timestamp;
     }
 
-    public PullApiSimpleauthmarkResponse setBizRequestId(String bizRequestId) {
-        this.bizRequestId = bizRequestId;
+    public PullApiSimpleauthmarkResponse setBizUniqueId(String bizUniqueId) {
+        this.bizUniqueId = bizUniqueId;
         return this;
     }
-    public String getBizRequestId() {
-        return this.bizRequestId;
+    public String getBizUniqueId() {
+        return this.bizUniqueId;
     }
 
     public PullApiSimpleauthmarkResponse setInstCode(String instCode) {

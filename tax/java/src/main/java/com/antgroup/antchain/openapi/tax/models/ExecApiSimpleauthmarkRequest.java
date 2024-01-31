@@ -11,11 +11,6 @@ public class ExecApiSimpleauthmarkRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 税号清单
-    @NameInMap("identity_info")
-    @Validation(required = true)
-    public String identityInfo;
-
     // 租户号
     @NameInMap("inst_code")
     @Validation(required = true)
@@ -30,6 +25,11 @@ public class ExecApiSimpleauthmarkRequest extends TeaModel {
     @NameInMap("auth_type")
     @Validation(required = true)
     public String authType;
+
+    // 申请打标的税号
+    @NameInMap("identity_id_list")
+    @Validation(required = true)
+    public java.util.List<IdentityInfo> identityIdList;
 
     public static ExecApiSimpleauthmarkRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecApiSimpleauthmarkRequest self = new ExecApiSimpleauthmarkRequest();
@@ -50,14 +50,6 @@ public class ExecApiSimpleauthmarkRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public ExecApiSimpleauthmarkRequest setIdentityInfo(String identityInfo) {
-        this.identityInfo = identityInfo;
-        return this;
-    }
-    public String getIdentityInfo() {
-        return this.identityInfo;
     }
 
     public ExecApiSimpleauthmarkRequest setInstCode(String instCode) {
@@ -82,6 +74,14 @@ public class ExecApiSimpleauthmarkRequest extends TeaModel {
     }
     public String getAuthType() {
         return this.authType;
+    }
+
+    public ExecApiSimpleauthmarkRequest setIdentityIdList(java.util.List<IdentityInfo> identityIdList) {
+        this.identityIdList = identityIdList;
+        return this;
+    }
+    public java.util.List<IdentityInfo> getIdentityIdList() {
+        return this.identityIdList;
     }
 
 }
