@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.8',
+                    'sdk_version': '1.8.12',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.8',
+                    'sdk_version': '1.8.12',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -2009,6 +2009,62 @@ class Client:
         return TeaCore.from_map(
             tax_models.StartRiskEvaluationResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.risk.evaluation.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_enterprise_electronicasync(
+        self,
+        request: tax_models.QueryEnterpriseElectronicasyncRequest,
+    ) -> tax_models.QueryEnterpriseElectronicasyncResponse:
+        """
+        Description: 电力异步接口
+        Summary: 电力异步接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_enterprise_electronicasync_ex(request, headers, runtime)
+
+    async def query_enterprise_electronicasync_async(
+        self,
+        request: tax_models.QueryEnterpriseElectronicasyncRequest,
+    ) -> tax_models.QueryEnterpriseElectronicasyncResponse:
+        """
+        Description: 电力异步接口
+        Summary: 电力异步接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_enterprise_electronicasync_ex_async(request, headers, runtime)
+
+    def query_enterprise_electronicasync_ex(
+        self,
+        request: tax_models.QueryEnterpriseElectronicasyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryEnterpriseElectronicasyncResponse:
+        """
+        Description: 电力异步接口
+        Summary: 电力异步接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryEnterpriseElectronicasyncResponse(),
+            self.do_request('1.0', 'blockchain.tax.enterprise.electronicasync.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_enterprise_electronicasync_ex_async(
+        self,
+        request: tax_models.QueryEnterpriseElectronicasyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryEnterpriseElectronicasyncResponse:
+        """
+        Description: 电力异步接口
+        Summary: 电力异步接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryEnterpriseElectronicasyncResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.enterprise.electronicasync.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_pdata_personalincome(
