@@ -3820,6 +3820,8 @@ type QueryRiskEvaluationResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// unix秒时间戳,查询时间，用来对账使用
 	QueryTime *string `json:"query_time,omitempty" xml:"query_time,omitempty"`
+	// 是否查的，空数据标识
+	NullDataFlag *bool `json:"null_data_flag,omitempty" xml:"null_data_flag,omitempty"`
 }
 
 func (s QueryRiskEvaluationResponse) String() string {
@@ -3847,6 +3849,11 @@ func (s *QueryRiskEvaluationResponse) SetResultMsg(v string) *QueryRiskEvaluatio
 
 func (s *QueryRiskEvaluationResponse) SetQueryTime(v string) *QueryRiskEvaluationResponse {
 	s.QueryTime = &v
+	return s
+}
+
+func (s *QueryRiskEvaluationResponse) SetNullDataFlag(v bool) *QueryRiskEvaluationResponse {
+	s.NullDataFlag = &v
 	return s
 }
 
@@ -4104,14 +4111,14 @@ type ExecApiSimpleauthmarkRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 税号清单
-	IdentityInfo *string `json:"identity_info,omitempty" xml:"identity_info,omitempty" require:"true"`
 	// 租户号
 	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
 	// 请求id
 	BizUniqueId *string `json:"biz_unique_id,omitempty" xml:"biz_unique_id,omitempty" require:"true"`
 	// 产品类型
 	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 申请打标的税号
+	IdentityIdList []*IdentityInfo `json:"identity_id_list,omitempty" xml:"identity_id_list,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s ExecApiSimpleauthmarkRequest) String() string {
@@ -4132,11 +4139,6 @@ func (s *ExecApiSimpleauthmarkRequest) SetProductInstanceId(v string) *ExecApiSi
 	return s
 }
 
-func (s *ExecApiSimpleauthmarkRequest) SetIdentityInfo(v string) *ExecApiSimpleauthmarkRequest {
-	s.IdentityInfo = &v
-	return s
-}
-
 func (s *ExecApiSimpleauthmarkRequest) SetInstCode(v string) *ExecApiSimpleauthmarkRequest {
 	s.InstCode = &v
 	return s
@@ -4149,6 +4151,11 @@ func (s *ExecApiSimpleauthmarkRequest) SetBizUniqueId(v string) *ExecApiSimpleau
 
 func (s *ExecApiSimpleauthmarkRequest) SetAuthType(v string) *ExecApiSimpleauthmarkRequest {
 	s.AuthType = &v
+	return s
+}
+
+func (s *ExecApiSimpleauthmarkRequest) SetIdentityIdList(v []*IdentityInfo) *ExecApiSimpleauthmarkRequest {
+	s.IdentityIdList = v
 	return s
 }
 
@@ -4309,7 +4316,7 @@ type PullApiSimpleauthmarkResponse struct {
 	// 拉取推送系统时间
 	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 请求id，幂等控制
-	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty"`
+	BizUniqueId *string `json:"biz_unique_id,omitempty" xml:"biz_unique_id,omitempty"`
 	// 调用的租户
 	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty"`
 	// oss文件的域名地址
@@ -4349,8 +4356,8 @@ func (s *PullApiSimpleauthmarkResponse) SetTimestamp(v string) *PullApiSimpleaut
 	return s
 }
 
-func (s *PullApiSimpleauthmarkResponse) SetBizRequestId(v string) *PullApiSimpleauthmarkResponse {
-	s.BizRequestId = &v
+func (s *PullApiSimpleauthmarkResponse) SetBizUniqueId(v string) *PullApiSimpleauthmarkResponse {
+	s.BizUniqueId = &v
 	return s
 }
 
@@ -5020,6 +5027,104 @@ func (s *StartRiskEvaluationResponse) SetPredictProvCode(v string) *StartRiskEva
 	return s
 }
 
+type QueryEnterpriseElectronicasyncRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授权类型，401
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 调用机构编码
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 本次调用id
+	BizUniqueId *string `json:"biz_unique_id,omitempty" xml:"biz_unique_id,omitempty" require:"true"`
+	// 身份id，统一社会信用编码or其他
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 授权单号，使用授权接口返回的orderNo
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 地区行政编码
+	AreaCode *string `json:"area_code,omitempty" xml:"area_code,omitempty" require:"true"`
+}
+
+func (s QueryEnterpriseElectronicasyncRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEnterpriseElectronicasyncRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEnterpriseElectronicasyncRequest) SetAuthToken(v string) *QueryEnterpriseElectronicasyncRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEnterpriseElectronicasyncRequest) SetProductInstanceId(v string) *QueryEnterpriseElectronicasyncRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEnterpriseElectronicasyncRequest) SetAuthType(v string) *QueryEnterpriseElectronicasyncRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *QueryEnterpriseElectronicasyncRequest) SetInstCode(v string) *QueryEnterpriseElectronicasyncRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *QueryEnterpriseElectronicasyncRequest) SetBizUniqueId(v string) *QueryEnterpriseElectronicasyncRequest {
+	s.BizUniqueId = &v
+	return s
+}
+
+func (s *QueryEnterpriseElectronicasyncRequest) SetIdentityId(v string) *QueryEnterpriseElectronicasyncRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *QueryEnterpriseElectronicasyncRequest) SetOrderNo(v string) *QueryEnterpriseElectronicasyncRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryEnterpriseElectronicasyncRequest) SetAreaCode(v string) *QueryEnterpriseElectronicasyncRequest {
+	s.AreaCode = &v
+	return s
+}
+
+type QueryEnterpriseElectronicasyncResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryEnterpriseElectronicasyncResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEnterpriseElectronicasyncResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEnterpriseElectronicasyncResponse) SetReqMsgId(v string) *QueryEnterpriseElectronicasyncResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEnterpriseElectronicasyncResponse) SetResultCode(v string) *QueryEnterpriseElectronicasyncResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEnterpriseElectronicasyncResponse) SetResultMsg(v string) *QueryEnterpriseElectronicasyncResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type QueryPdataPersonalincomeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5653,7 +5758,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.8"),
+				"sdk_version":      tea.String("1.8.12"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6758,6 +6863,40 @@ func (client *Client) StartRiskEvaluationEx(request *StartRiskEvaluationRequest,
 	}
 	_result = &StartRiskEvaluationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.risk.evaluation.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 电力异步接口
+ * Summary: 电力异步接口
+ */
+func (client *Client) QueryEnterpriseElectronicasync(request *QueryEnterpriseElectronicasyncRequest) (_result *QueryEnterpriseElectronicasyncResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEnterpriseElectronicasyncResponse{}
+	_body, _err := client.QueryEnterpriseElectronicasyncEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 电力异步接口
+ * Summary: 电力异步接口
+ */
+func (client *Client) QueryEnterpriseElectronicasyncEx(request *QueryEnterpriseElectronicasyncRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEnterpriseElectronicasyncResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEnterpriseElectronicasyncResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.enterprise.electronicasync.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
