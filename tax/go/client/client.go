@@ -5636,6 +5636,153 @@ func (s *QueryPdataRiskResponse) SetScore(v string) *QueryPdataRiskResponse {
 	return s
 }
 
+type QueryPdataUnderwriteRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务流水号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 加密后的入参数据（包括姓名和身份ID）
+	EncryptData *string `json:"encrypt_data,omitempty" xml:"encrypt_data,omitempty"`
+	// 省份行政区划代码list
+	RecommandProvinceList []*string `json:"recommand_province_list,omitempty" xml:"recommand_province_list,omitempty" type:"Repeated"`
+	// 授权编号
+	AuthorizationNo *string `json:"authorization_no,omitempty" xml:"authorization_no,omitempty"`
+	// 授权凭证
+	AuthorizationCredential *string `json:"authorization_credential,omitempty" xml:"authorization_credential,omitempty"`
+	// 凭证格式
+	CredentialType *string `json:"credential_type,omitempty" xml:"credential_type,omitempty"`
+	// 授权有效期
+	AuthorizationExpirationTime *string `json:"authorization_expiration_time,omitempty" xml:"authorization_expiration_time,omitempty"`
+	// 授权对象
+	AuthorizationType *string `json:"authorization_type,omitempty" xml:"authorization_type,omitempty"`
+}
+
+func (s QueryPdataUnderwriteRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdataUnderwriteRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdataUnderwriteRequest) SetAuthToken(v string) *QueryPdataUnderwriteRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPdataUnderwriteRequest) SetProductInstanceId(v string) *QueryPdataUnderwriteRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPdataUnderwriteRequest) SetBizId(v string) *QueryPdataUnderwriteRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *QueryPdataUnderwriteRequest) SetEncryptData(v string) *QueryPdataUnderwriteRequest {
+	s.EncryptData = &v
+	return s
+}
+
+func (s *QueryPdataUnderwriteRequest) SetRecommandProvinceList(v []*string) *QueryPdataUnderwriteRequest {
+	s.RecommandProvinceList = v
+	return s
+}
+
+func (s *QueryPdataUnderwriteRequest) SetAuthorizationNo(v string) *QueryPdataUnderwriteRequest {
+	s.AuthorizationNo = &v
+	return s
+}
+
+func (s *QueryPdataUnderwriteRequest) SetAuthorizationCredential(v string) *QueryPdataUnderwriteRequest {
+	s.AuthorizationCredential = &v
+	return s
+}
+
+func (s *QueryPdataUnderwriteRequest) SetCredentialType(v string) *QueryPdataUnderwriteRequest {
+	s.CredentialType = &v
+	return s
+}
+
+func (s *QueryPdataUnderwriteRequest) SetAuthorizationExpirationTime(v string) *QueryPdataUnderwriteRequest {
+	s.AuthorizationExpirationTime = &v
+	return s
+}
+
+func (s *QueryPdataUnderwriteRequest) SetAuthorizationType(v string) *QueryPdataUnderwriteRequest {
+	s.AuthorizationType = &v
+	return s
+}
+
+type QueryPdataUnderwriteResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 姓名（md5）
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 身份证(md5)
+	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty"`
+	// 成功的请求省份行政区划代码
+	SuccessRecommandProvinceList []*string `json:"success_recommand_province_list,omitempty" xml:"success_recommand_province_list,omitempty" type:"Repeated"`
+	// 失败的请求省份行政区划代码
+	FailRecommandProvinceList []*string `json:"fail_recommand_province_list,omitempty" xml:"fail_recommand_province_list,omitempty" type:"Repeated"`
+	// 加密后的出参数据
+	EncryptData *string `json:"encrypt_data,omitempty" xml:"encrypt_data,omitempty"`
+}
+
+func (s QueryPdataUnderwriteResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdataUnderwriteResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdataUnderwriteResponse) SetReqMsgId(v string) *QueryPdataUnderwriteResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPdataUnderwriteResponse) SetResultCode(v string) *QueryPdataUnderwriteResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPdataUnderwriteResponse) SetResultMsg(v string) *QueryPdataUnderwriteResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryPdataUnderwriteResponse) SetName(v string) *QueryPdataUnderwriteResponse {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryPdataUnderwriteResponse) SetCardNo(v string) *QueryPdataUnderwriteResponse {
+	s.CardNo = &v
+	return s
+}
+
+func (s *QueryPdataUnderwriteResponse) SetSuccessRecommandProvinceList(v []*string) *QueryPdataUnderwriteResponse {
+	s.SuccessRecommandProvinceList = v
+	return s
+}
+
+func (s *QueryPdataUnderwriteResponse) SetFailRecommandProvinceList(v []*string) *QueryPdataUnderwriteResponse {
+	s.FailRecommandProvinceList = v
+	return s
+}
+
+func (s *QueryPdataUnderwriteResponse) SetEncryptData(v string) *QueryPdataUnderwriteResponse {
+	s.EncryptData = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -5758,7 +5905,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.12"),
+				"sdk_version":      tea.String("1.8.13"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -7037,6 +7184,40 @@ func (client *Client) QueryPdataRiskEx(request *QueryPdataRiskRequest, headers m
 	}
 	_result = &QueryPdataRiskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.pdata.risk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 核保医疗查询
+ * Summary: 核保医疗查询
+ */
+func (client *Client) QueryPdataUnderwrite(request *QueryPdataUnderwriteRequest) (_result *QueryPdataUnderwriteResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPdataUnderwriteResponse{}
+	_body, _err := client.QueryPdataUnderwriteEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 核保医疗查询
+ * Summary: 核保医疗查询
+ */
+func (client *Client) QueryPdataUnderwriteEx(request *QueryPdataUnderwriteRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPdataUnderwriteResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPdataUnderwriteResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.pdata.underwrite.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
