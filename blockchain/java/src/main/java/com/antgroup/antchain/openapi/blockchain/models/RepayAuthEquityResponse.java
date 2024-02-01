@@ -16,10 +16,6 @@ public class RepayAuthEquityResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 响应结果消息，调用失败的时候会显示具体的错误信息
-    @NameInMap("result_message")
-    public String resultMessage;
-
     public static RepayAuthEquityResponse build(java.util.Map<String, ?> map) throws Exception {
         RepayAuthEquityResponse self = new RepayAuthEquityResponse();
         return TeaModel.build(map, self);
@@ -47,14 +43,6 @@ public class RepayAuthEquityResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public RepayAuthEquityResponse setResultMessage(String resultMessage) {
-        this.resultMessage = resultMessage;
-        return this;
-    }
-    public String getResultMessage() {
-        return this.resultMessage;
     }
 
 }
