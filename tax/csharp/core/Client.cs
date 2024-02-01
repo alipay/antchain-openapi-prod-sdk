@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.12"},
+                        {"sdk_version", "1.8.13"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.12"},
+                        {"sdk_version", "1.8.13"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1839,6 +1839,48 @@ namespace AntChain.SDK.TAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryPdataRiskResponse>(await DoRequestAsync("1.0", "blockchain.tax.pdata.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 核保医疗查询
+         * Summary: 核保医疗查询
+         */
+        public QueryPdataUnderwriteResponse QueryPdataUnderwrite(QueryPdataUnderwriteRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryPdataUnderwriteEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 核保医疗查询
+         * Summary: 核保医疗查询
+         */
+        public async Task<QueryPdataUnderwriteResponse> QueryPdataUnderwriteAsync(QueryPdataUnderwriteRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryPdataUnderwriteExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 核保医疗查询
+         * Summary: 核保医疗查询
+         */
+        public QueryPdataUnderwriteResponse QueryPdataUnderwriteEx(QueryPdataUnderwriteRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPdataUnderwriteResponse>(DoRequest("1.0", "blockchain.tax.pdata.underwrite.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 核保医疗查询
+         * Summary: 核保医疗查询
+         */
+        public async Task<QueryPdataUnderwriteResponse> QueryPdataUnderwriteExAsync(QueryPdataUnderwriteRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPdataUnderwriteResponse>(await DoRequestAsync("1.0", "blockchain.tax.pdata.underwrite.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
