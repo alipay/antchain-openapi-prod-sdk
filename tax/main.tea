@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.12',
+    sdk_version = '1.8.13',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -2455,5 +2455,65 @@ async function queryPdataRisk(request: QueryPdataRiskRequest): QueryPdataRiskRes
 async function queryPdataRiskEx(request: QueryPdataRiskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPdataRiskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.tax.pdata.risk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPdataUnderwriteRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务流水号
+  bizId?: string(name='biz_id'),
+  // 加密后的入参数据（包括姓名和身份ID）
+  encryptData?: string(name='encrypt_data'),
+  // 省份行政区划代码list
+  recommandProvinceList?: [ string ](name='recommand_province_list'),
+  // 授权编号
+  authorizationNo?: string(name='authorization_no'),
+  // 授权凭证
+  authorizationCredential?: string(name='authorization_credential'),
+  // 凭证格式
+  credentialType?: string(name='credential_type'),
+  // 授权有效期
+  authorizationExpirationTime?: string(name='authorization_expiration_time'),
+  // 授权对象
+  authorizationType?: string(name='authorization_type'),
+}
+
+model QueryPdataUnderwriteResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 姓名（md5）
+  name?: string(name='name'),
+  // 身份证(md5)
+  cardNo?: string(name='card_no'),
+  // 成功的请求省份行政区划代码
+  successRecommandProvinceList?: [ string ](name='success_recommand_province_list'),
+  // 失败的请求省份行政区划代码
+  failRecommandProvinceList?: [ string ](name='fail_recommand_province_list'),
+  // 加密后的出参数据
+  encryptData?: string(name='encrypt_data'),
+}
+
+/**
+ * Description: 核保医疗查询
+ * Summary: 核保医疗查询
+ */
+async function queryPdataUnderwrite(request: QueryPdataUnderwriteRequest): QueryPdataUnderwriteResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPdataUnderwriteEx(request, headers, runtime);
+}
+
+/**
+ * Description: 核保医疗查询
+ * Summary: 核保医疗查询
+ */
+async function queryPdataUnderwriteEx(request: QueryPdataUnderwriteRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPdataUnderwriteResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.pdata.underwrite.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
