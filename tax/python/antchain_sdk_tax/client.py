@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.12',
+                    'sdk_version': '1.8.13',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.12',
+                    'sdk_version': '1.8.13',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -2297,4 +2297,60 @@ class Client:
         return TeaCore.from_map(
             tax_models.QueryPdataRiskResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.pdata.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_pdata_underwrite(
+        self,
+        request: tax_models.QueryPdataUnderwriteRequest,
+    ) -> tax_models.QueryPdataUnderwriteResponse:
+        """
+        Description: 核保医疗查询
+        Summary: 核保医疗查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_pdata_underwrite_ex(request, headers, runtime)
+
+    async def query_pdata_underwrite_async(
+        self,
+        request: tax_models.QueryPdataUnderwriteRequest,
+    ) -> tax_models.QueryPdataUnderwriteResponse:
+        """
+        Description: 核保医疗查询
+        Summary: 核保医疗查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_pdata_underwrite_ex_async(request, headers, runtime)
+
+    def query_pdata_underwrite_ex(
+        self,
+        request: tax_models.QueryPdataUnderwriteRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryPdataUnderwriteResponse:
+        """
+        Description: 核保医疗查询
+        Summary: 核保医疗查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryPdataUnderwriteResponse(),
+            self.do_request('1.0', 'blockchain.tax.pdata.underwrite.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_pdata_underwrite_ex_async(
+        self,
+        request: tax_models.QueryPdataUnderwriteRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryPdataUnderwriteResponse:
+        """
+        Description: 核保医疗查询
+        Summary: 核保医疗查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryPdataUnderwriteResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.pdata.underwrite.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

@@ -6978,3 +6978,170 @@ class QueryPdataRiskResponse(TeaModel):
         return self
 
 
+class QueryPdataUnderwriteRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        encrypt_data: str = None,
+        recommand_province_list: List[str] = None,
+        authorization_no: str = None,
+        authorization_credential: str = None,
+        credential_type: str = None,
+        authorization_expiration_time: str = None,
+        authorization_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务流水号
+        self.biz_id = biz_id
+        # 加密后的入参数据（包括姓名和身份ID）
+        self.encrypt_data = encrypt_data
+        # 省份行政区划代码list
+        self.recommand_province_list = recommand_province_list
+        # 授权编号
+        self.authorization_no = authorization_no
+        # 授权凭证
+        self.authorization_credential = authorization_credential
+        # 凭证格式
+        self.credential_type = credential_type
+        # 授权有效期
+        self.authorization_expiration_time = authorization_expiration_time
+        # 授权对象
+        self.authorization_type = authorization_type
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.encrypt_data is not None:
+            result['encrypt_data'] = self.encrypt_data
+        if self.recommand_province_list is not None:
+            result['recommand_province_list'] = self.recommand_province_list
+        if self.authorization_no is not None:
+            result['authorization_no'] = self.authorization_no
+        if self.authorization_credential is not None:
+            result['authorization_credential'] = self.authorization_credential
+        if self.credential_type is not None:
+            result['credential_type'] = self.credential_type
+        if self.authorization_expiration_time is not None:
+            result['authorization_expiration_time'] = self.authorization_expiration_time
+        if self.authorization_type is not None:
+            result['authorization_type'] = self.authorization_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('encrypt_data') is not None:
+            self.encrypt_data = m.get('encrypt_data')
+        if m.get('recommand_province_list') is not None:
+            self.recommand_province_list = m.get('recommand_province_list')
+        if m.get('authorization_no') is not None:
+            self.authorization_no = m.get('authorization_no')
+        if m.get('authorization_credential') is not None:
+            self.authorization_credential = m.get('authorization_credential')
+        if m.get('credential_type') is not None:
+            self.credential_type = m.get('credential_type')
+        if m.get('authorization_expiration_time') is not None:
+            self.authorization_expiration_time = m.get('authorization_expiration_time')
+        if m.get('authorization_type') is not None:
+            self.authorization_type = m.get('authorization_type')
+        return self
+
+
+class QueryPdataUnderwriteResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        name: str = None,
+        card_no: str = None,
+        success_recommand_province_list: List[str] = None,
+        fail_recommand_province_list: List[str] = None,
+        encrypt_data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 姓名（md5）
+        self.name = name
+        # 身份证(md5)
+        self.card_no = card_no
+        # 成功的请求省份行政区划代码
+        self.success_recommand_province_list = success_recommand_province_list
+        # 失败的请求省份行政区划代码
+        self.fail_recommand_province_list = fail_recommand_province_list
+        # 加密后的出参数据
+        self.encrypt_data = encrypt_data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.name is not None:
+            result['name'] = self.name
+        if self.card_no is not None:
+            result['card_no'] = self.card_no
+        if self.success_recommand_province_list is not None:
+            result['success_recommand_province_list'] = self.success_recommand_province_list
+        if self.fail_recommand_province_list is not None:
+            result['fail_recommand_province_list'] = self.fail_recommand_province_list
+        if self.encrypt_data is not None:
+            result['encrypt_data'] = self.encrypt_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('card_no') is not None:
+            self.card_no = m.get('card_no')
+        if m.get('success_recommand_province_list') is not None:
+            self.success_recommand_province_list = m.get('success_recommand_province_list')
+        if m.get('fail_recommand_province_list') is not None:
+            self.fail_recommand_province_list = m.get('fail_recommand_province_list')
+        if m.get('encrypt_data') is not None:
+            self.encrypt_data = m.get('encrypt_data')
+        return self
+
+
