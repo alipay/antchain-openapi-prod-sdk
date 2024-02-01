@@ -25,17 +25,10 @@ class RepayAuthEquityResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 响应结果消息，调用失败的时候会显示具体的错误信息
-    /**
-     * @var string
-     */
-    public $resultMessage;
     protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'resultMessage' => 'result_message',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -53,9 +46,6 @@ class RepayAuthEquityResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->resultMessage) {
-            $res['result_message'] = $this->resultMessage;
         }
 
         return $res;
@@ -77,9 +67,6 @@ class RepayAuthEquityResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['result_message'])) {
-            $model->resultMessage = $map['result_message'];
         }
 
         return $model;
