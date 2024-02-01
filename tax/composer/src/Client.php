@@ -73,6 +73,8 @@ use AntChain\TAX\Models\QueryPdataRiskRequest;
 use AntChain\TAX\Models\QueryPdataRiskResponse;
 use AntChain\TAX\Models\QueryPdataSocialincomeRequest;
 use AntChain\TAX\Models\QueryPdataSocialincomeResponse;
+use AntChain\TAX\Models\QueryPdataUnderwriteRequest;
+use AntChain\TAX\Models\QueryPdataUnderwriteResponse;
 use AntChain\TAX\Models\QueryRiskEvaluationRequest;
 use AntChain\TAX\Models\QueryRiskEvaluationResponse;
 use AntChain\TAX\Models\QuerySimpleauthIdentitystateRequest;
@@ -230,7 +232,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.12',
+                    'sdk_version'      => '1.8.13',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1468,5 +1470,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryPdataRiskResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.pdata.risk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 核保医疗查询
+     * Summary: 核保医疗查询.
+     *
+     * @param QueryPdataUnderwriteRequest $request
+     *
+     * @return QueryPdataUnderwriteResponse
+     */
+    public function queryPdataUnderwrite($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPdataUnderwriteEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 核保医疗查询
+     * Summary: 核保医疗查询.
+     *
+     * @param QueryPdataUnderwriteRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryPdataUnderwriteResponse
+     */
+    public function queryPdataUnderwriteEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPdataUnderwriteResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.pdata.underwrite.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
