@@ -50207,8 +50207,6 @@ type RepayAuthEquityResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 响应结果消息，调用失败的时候会显示具体的错误信息
-	ResultMessage *string `json:"result_message,omitempty" xml:"result_message,omitempty"`
 }
 
 func (s RepayAuthEquityResponse) String() string {
@@ -50231,11 +50229,6 @@ func (s *RepayAuthEquityResponse) SetResultCode(v string) *RepayAuthEquityRespon
 
 func (s *RepayAuthEquityResponse) SetResultMsg(v string) *RepayAuthEquityResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *RepayAuthEquityResponse) SetResultMessage(v string) *RepayAuthEquityResponse {
-	s.ResultMessage = &v
 	return s
 }
 
@@ -69537,7 +69530,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.0"),
+				"sdk_version":      tea.String("1.28.1"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
