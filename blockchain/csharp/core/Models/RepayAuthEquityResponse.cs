@@ -24,11 +24,6 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 响应结果消息，调用失败的时候会显示具体的错误信息
-        [NameInMap("result_message")]
-        [Validation(Required=false)]
-        public string ResultMessage { get; set; }
-
     }
 
 }
