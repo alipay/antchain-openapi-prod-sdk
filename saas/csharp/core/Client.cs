@@ -137,7 +137,7 @@ namespace AntChain.SDK.SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.25"},
+                        {"sdk_version", "1.1.29"},
                         {"_prod_code", "SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.25"},
+                        {"sdk_version", "1.1.29"},
                         {"_prod_code", "SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -823,6 +823,258 @@ namespace AntChain.SDK.SAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryBusinessProductResponse>(await DoRequestAsync("1.0", "antchain.saas.business.product.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询计量规则信息
+         * Summary: 查询计量规则信息
+         */
+        public QueryMeteringRuleResponse QueryMeteringRule(QueryMeteringRuleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMeteringRuleEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询计量规则信息
+         * Summary: 查询计量规则信息
+         */
+        public async Task<QueryMeteringRuleResponse> QueryMeteringRuleAsync(QueryMeteringRuleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMeteringRuleExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询计量规则信息
+         * Summary: 查询计量规则信息
+         */
+        public QueryMeteringRuleResponse QueryMeteringRuleEx(QueryMeteringRuleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMeteringRuleResponse>(DoRequest("1.0", "antchain.saas.metering.rule.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询计量规则信息
+         * Summary: 查询计量规则信息
+         */
+        public async Task<QueryMeteringRuleResponse> QueryMeteringRuleExAsync(QueryMeteringRuleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMeteringRuleResponse>(await DoRequestAsync("1.0", "antchain.saas.metering.rule.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建计量规则
+         * Summary: 创建计量规则
+         */
+        public CreateMeteringRuleResponse CreateMeteringRule(CreateMeteringRuleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateMeteringRuleEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建计量规则
+         * Summary: 创建计量规则
+         */
+        public async Task<CreateMeteringRuleResponse> CreateMeteringRuleAsync(CreateMeteringRuleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateMeteringRuleExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建计量规则
+         * Summary: 创建计量规则
+         */
+        public CreateMeteringRuleResponse CreateMeteringRuleEx(CreateMeteringRuleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateMeteringRuleResponse>(DoRequest("1.0", "antchain.saas.metering.rule.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建计量规则
+         * Summary: 创建计量规则
+         */
+        public async Task<CreateMeteringRuleResponse> CreateMeteringRuleExAsync(CreateMeteringRuleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateMeteringRuleResponse>(await DoRequestAsync("1.0", "antchain.saas.metering.rule.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新计量规则信息
+         * Summary: 更新计量规则信息
+         */
+        public UpdateMeteringRuleResponse UpdateMeteringRule(UpdateMeteringRuleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateMeteringRuleEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新计量规则信息
+         * Summary: 更新计量规则信息
+         */
+        public async Task<UpdateMeteringRuleResponse> UpdateMeteringRuleAsync(UpdateMeteringRuleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateMeteringRuleExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新计量规则信息
+         * Summary: 更新计量规则信息
+         */
+        public UpdateMeteringRuleResponse UpdateMeteringRuleEx(UpdateMeteringRuleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateMeteringRuleResponse>(DoRequest("1.0", "antchain.saas.metering.rule.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新计量规则信息
+         * Summary: 更新计量规则信息
+         */
+        public async Task<UpdateMeteringRuleResponse> UpdateMeteringRuleExAsync(UpdateMeteringRuleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateMeteringRuleResponse>(await DoRequestAsync("1.0", "antchain.saas.metering.rule.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询计量项信息
+         * Summary: 查询计量项信息
+         */
+        public QueryMeteringItemResponse QueryMeteringItem(QueryMeteringItemRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMeteringItemEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询计量项信息
+         * Summary: 查询计量项信息
+         */
+        public async Task<QueryMeteringItemResponse> QueryMeteringItemAsync(QueryMeteringItemRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMeteringItemExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询计量项信息
+         * Summary: 查询计量项信息
+         */
+        public QueryMeteringItemResponse QueryMeteringItemEx(QueryMeteringItemRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMeteringItemResponse>(DoRequest("1.0", "antchain.saas.metering.item.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询计量项信息
+         * Summary: 查询计量项信息
+         */
+        public async Task<QueryMeteringItemResponse> QueryMeteringItemExAsync(QueryMeteringItemRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMeteringItemResponse>(await DoRequestAsync("1.0", "antchain.saas.metering.item.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新增计量项
+         * Summary: 新增计量项
+         */
+        public CreateMeteringItemResponse CreateMeteringItem(CreateMeteringItemRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateMeteringItemEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新增计量项
+         * Summary: 新增计量项
+         */
+        public async Task<CreateMeteringItemResponse> CreateMeteringItemAsync(CreateMeteringItemRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateMeteringItemExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新增计量项
+         * Summary: 新增计量项
+         */
+        public CreateMeteringItemResponse CreateMeteringItemEx(CreateMeteringItemRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateMeteringItemResponse>(DoRequest("1.0", "antchain.saas.metering.item.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新增计量项
+         * Summary: 新增计量项
+         */
+        public async Task<CreateMeteringItemResponse> CreateMeteringItemExAsync(CreateMeteringItemRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateMeteringItemResponse>(await DoRequestAsync("1.0", "antchain.saas.metering.item.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新计量规则
+         * Summary: 更新计量规则
+         */
+        public UpdateMeteringItemResponse UpdateMeteringItem(UpdateMeteringItemRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateMeteringItemEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新计量规则
+         * Summary: 更新计量规则
+         */
+        public async Task<UpdateMeteringItemResponse> UpdateMeteringItemAsync(UpdateMeteringItemRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateMeteringItemExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新计量规则
+         * Summary: 更新计量规则
+         */
+        public UpdateMeteringItemResponse UpdateMeteringItemEx(UpdateMeteringItemRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateMeteringItemResponse>(DoRequest("1.0", "antchain.saas.metering.item.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新计量规则
+         * Summary: 更新计量规则
+         */
+        public async Task<UpdateMeteringItemResponse> UpdateMeteringItemExAsync(UpdateMeteringItemRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateMeteringItemResponse>(await DoRequestAsync("1.0", "antchain.saas.metering.item.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
