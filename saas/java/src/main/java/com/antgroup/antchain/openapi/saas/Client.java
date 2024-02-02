@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.25"),
+                    new TeaPair("sdk_version", "1.1.29"),
                     new TeaPair("_prod_code", "SAAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -387,5 +387,119 @@ public class Client {
     public QueryBusinessProductResponse queryBusinessProductEx(QueryBusinessProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.business.product.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBusinessProductResponse());
+    }
+
+    /**
+     * Description: 查询计量规则信息
+     * Summary: 查询计量规则信息
+     */
+    public QueryMeteringRuleResponse queryMeteringRule(QueryMeteringRuleRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMeteringRuleEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询计量规则信息
+     * Summary: 查询计量规则信息
+     */
+    public QueryMeteringRuleResponse queryMeteringRuleEx(QueryMeteringRuleRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.metering.rule.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMeteringRuleResponse());
+    }
+
+    /**
+     * Description: 创建计量规则
+     * Summary: 创建计量规则
+     */
+    public CreateMeteringRuleResponse createMeteringRule(CreateMeteringRuleRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createMeteringRuleEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建计量规则
+     * Summary: 创建计量规则
+     */
+    public CreateMeteringRuleResponse createMeteringRuleEx(CreateMeteringRuleRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.metering.rule.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateMeteringRuleResponse());
+    }
+
+    /**
+     * Description: 更新计量规则信息
+     * Summary: 更新计量规则信息
+     */
+    public UpdateMeteringRuleResponse updateMeteringRule(UpdateMeteringRuleRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateMeteringRuleEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新计量规则信息
+     * Summary: 更新计量规则信息
+     */
+    public UpdateMeteringRuleResponse updateMeteringRuleEx(UpdateMeteringRuleRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.metering.rule.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateMeteringRuleResponse());
+    }
+
+    /**
+     * Description: 查询计量项信息
+     * Summary: 查询计量项信息
+     */
+    public QueryMeteringItemResponse queryMeteringItem(QueryMeteringItemRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMeteringItemEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询计量项信息
+     * Summary: 查询计量项信息
+     */
+    public QueryMeteringItemResponse queryMeteringItemEx(QueryMeteringItemRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.metering.item.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMeteringItemResponse());
+    }
+
+    /**
+     * Description: 新增计量项
+     * Summary: 新增计量项
+     */
+    public CreateMeteringItemResponse createMeteringItem(CreateMeteringItemRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createMeteringItemEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 新增计量项
+     * Summary: 新增计量项
+     */
+    public CreateMeteringItemResponse createMeteringItemEx(CreateMeteringItemRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.metering.item.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateMeteringItemResponse());
+    }
+
+    /**
+     * Description: 更新计量规则
+     * Summary: 更新计量规则
+     */
+    public UpdateMeteringItemResponse updateMeteringItem(UpdateMeteringItemRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateMeteringItemEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新计量规则
+     * Summary: 更新计量规则
+     */
+    public UpdateMeteringItemResponse updateMeteringItemEx(UpdateMeteringItemRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.metering.item.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateMeteringItemResponse());
     }
 }
