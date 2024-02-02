@@ -12,6 +12,11 @@ public class BindAaaBbbCccRequest extends TeaModel {
     public String productInstanceId;
 
     // 123
+    @NameInMap("date")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String date;
+
+    // 123
     @NameInMap("data")
     @Validation(required = true)
     public String data;
@@ -35,6 +40,14 @@ public class BindAaaBbbCccRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public BindAaaBbbCccRequest setDate(String date) {
+        this.date = date;
+        return this;
+    }
+    public String getDate() {
+        return this.date;
     }
 
     public BindAaaBbbCccRequest setData(String data) {

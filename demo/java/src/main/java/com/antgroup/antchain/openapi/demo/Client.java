@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.256"),
+                    new TeaPair("sdk_version", "1.0.257"),
                     new TeaPair("_prod_code", "DEMO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -828,6 +828,25 @@ public class Client {
     public QueryTestaaaaTestobTestobResponse queryTestaaaaTestobTestobEx(QueryTestaaaaTestobTestobRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.testaaaa.testob.testob.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestaaaaTestobTestobResponse());
+    }
+
+    /**
+     * Description: testxaxaa
+     * Summary: test
+     */
+    public QueryTestxaxaaTestxaxaaTestxaxaaResponse queryTestxaxaaTestxaxaaTestxaxaa(QueryTestxaxaaTestxaxaaTestxaxaaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestxaxaaTestxaxaaTestxaxaaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: testxaxaa
+     * Summary: test
+     */
+    public QueryTestxaxaaTestxaxaaTestxaxaaResponse queryTestxaxaaTestxaxaaTestxaxaaEx(QueryTestxaxaaTestxaxaaTestxaxaaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.testxaxaa.testxaxaa.testxaxaa.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestxaxaaTestxaxaaTestxaxaaResponse());
     }
 
     /**

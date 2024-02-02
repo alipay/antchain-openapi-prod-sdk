@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class UploadCjtestSourceFileResponse extends TeaModel {
+public class QueryTestxaxaaTestxaxaaTestxaxaaResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,12 @@ public class UploadCjtestSourceFileResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // test
-    @NameInMap("res")
-    public String res;
-
-    public static UploadCjtestSourceFileResponse build(java.util.Map<String, ?> map) throws Exception {
-        UploadCjtestSourceFileResponse self = new UploadCjtestSourceFileResponse();
+    public static QueryTestxaxaaTestxaxaaTestxaxaaResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryTestxaxaaTestxaxaaTestxaxaaResponse self = new QueryTestxaxaaTestxaxaaTestxaxaaResponse();
         return TeaModel.build(map, self);
     }
 
-    public UploadCjtestSourceFileResponse setReqMsgId(String reqMsgId) {
+    public QueryTestxaxaaTestxaxaaTestxaxaaResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +29,7 @@ public class UploadCjtestSourceFileResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UploadCjtestSourceFileResponse setResultCode(String resultCode) {
+    public QueryTestxaxaaTestxaxaaTestxaxaaResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,20 +37,12 @@ public class UploadCjtestSourceFileResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UploadCjtestSourceFileResponse setResultMsg(String resultMsg) {
+    public QueryTestxaxaaTestxaxaaTestxaxaaResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public UploadCjtestSourceFileResponse setRes(String res) {
-        this.res = res;
-        return this;
-    }
-    public String getRes() {
-        return this.res;
     }
 
 }
