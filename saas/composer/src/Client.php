@@ -17,6 +17,10 @@ use AntChain\SAAS\Models\BindAbilityRequest;
 use AntChain\SAAS\Models\BindAbilityResponse;
 use AntChain\SAAS\Models\CallbackAbilityRequest;
 use AntChain\SAAS\Models\CallbackAbilityResponse;
+use AntChain\SAAS\Models\CreateMeteringItemRequest;
+use AntChain\SAAS\Models\CreateMeteringItemResponse;
+use AntChain\SAAS\Models\CreateMeteringRuleRequest;
+use AntChain\SAAS\Models\CreateMeteringRuleResponse;
 use AntChain\SAAS\Models\PagequeryAbilityRequest;
 use AntChain\SAAS\Models\PagequeryAbilityResponse;
 use AntChain\SAAS\Models\QueryAbilityBusinesscodeRequest;
@@ -33,8 +37,16 @@ use AntChain\SAAS\Models\QueryFoundationProtobufRequest;
 use AntChain\SAAS\Models\QueryFoundationProtobufResponse;
 use AntChain\SAAS\Models\QueryMarketSolutionRequest;
 use AntChain\SAAS\Models\QueryMarketSolutionResponse;
+use AntChain\SAAS\Models\QueryMeteringItemRequest;
+use AntChain\SAAS\Models\QueryMeteringItemResponse;
+use AntChain\SAAS\Models\QueryMeteringRuleRequest;
+use AntChain\SAAS\Models\QueryMeteringRuleResponse;
 use AntChain\SAAS\Models\RunMarketServiceRequest;
 use AntChain\SAAS\Models\RunMarketServiceResponse;
+use AntChain\SAAS\Models\UpdateMeteringItemRequest;
+use AntChain\SAAS\Models\UpdateMeteringItemResponse;
+use AntChain\SAAS\Models\UpdateMeteringRuleRequest;
+use AntChain\SAAS\Models\UpdateMeteringRuleResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -182,7 +194,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.25',
+                    'sdk_version'      => '1.1.29',
                     '_prod_code'       => 'SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -624,5 +636,203 @@ class Client
         Utils::validateModel($request);
 
         return QueryBusinessProductResponse::fromMap($this->doRequest('1.0', 'antchain.saas.business.product.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询计量规则信息
+     * Summary: 查询计量规则信息.
+     *
+     * @param QueryMeteringRuleRequest $request
+     *
+     * @return QueryMeteringRuleResponse
+     */
+    public function queryMeteringRule($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMeteringRuleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询计量规则信息
+     * Summary: 查询计量规则信息.
+     *
+     * @param QueryMeteringRuleRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryMeteringRuleResponse
+     */
+    public function queryMeteringRuleEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMeteringRuleResponse::fromMap($this->doRequest('1.0', 'antchain.saas.metering.rule.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建计量规则
+     * Summary: 创建计量规则.
+     *
+     * @param CreateMeteringRuleRequest $request
+     *
+     * @return CreateMeteringRuleResponse
+     */
+    public function createMeteringRule($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createMeteringRuleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建计量规则
+     * Summary: 创建计量规则.
+     *
+     * @param CreateMeteringRuleRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateMeteringRuleResponse
+     */
+    public function createMeteringRuleEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateMeteringRuleResponse::fromMap($this->doRequest('1.0', 'antchain.saas.metering.rule.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新计量规则信息
+     * Summary: 更新计量规则信息.
+     *
+     * @param UpdateMeteringRuleRequest $request
+     *
+     * @return UpdateMeteringRuleResponse
+     */
+    public function updateMeteringRule($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateMeteringRuleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新计量规则信息
+     * Summary: 更新计量规则信息.
+     *
+     * @param UpdateMeteringRuleRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return UpdateMeteringRuleResponse
+     */
+    public function updateMeteringRuleEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateMeteringRuleResponse::fromMap($this->doRequest('1.0', 'antchain.saas.metering.rule.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询计量项信息
+     * Summary: 查询计量项信息.
+     *
+     * @param QueryMeteringItemRequest $request
+     *
+     * @return QueryMeteringItemResponse
+     */
+    public function queryMeteringItem($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMeteringItemEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询计量项信息
+     * Summary: 查询计量项信息.
+     *
+     * @param QueryMeteringItemRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryMeteringItemResponse
+     */
+    public function queryMeteringItemEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMeteringItemResponse::fromMap($this->doRequest('1.0', 'antchain.saas.metering.item.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增计量项
+     * Summary: 新增计量项.
+     *
+     * @param CreateMeteringItemRequest $request
+     *
+     * @return CreateMeteringItemResponse
+     */
+    public function createMeteringItem($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createMeteringItemEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增计量项
+     * Summary: 新增计量项.
+     *
+     * @param CreateMeteringItemRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateMeteringItemResponse
+     */
+    public function createMeteringItemEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateMeteringItemResponse::fromMap($this->doRequest('1.0', 'antchain.saas.metering.item.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新计量规则
+     * Summary: 更新计量规则.
+     *
+     * @param UpdateMeteringItemRequest $request
+     *
+     * @return UpdateMeteringItemResponse
+     */
+    public function updateMeteringItem($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateMeteringItemEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新计量规则
+     * Summary: 更新计量规则.
+     *
+     * @param UpdateMeteringItemRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return UpdateMeteringItemResponse
+     */
+    public function updateMeteringItemEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateMeteringItemResponse::fromMap($this->doRequest('1.0', 'antchain.saas.metering.item.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
