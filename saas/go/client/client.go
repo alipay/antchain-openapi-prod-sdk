@@ -202,6 +202,32 @@ func (s *ApiInfoModel) SetProviderId(v string) *ApiInfoModel {
 	return s
 }
 
+// 匹配规则
+type ItemMatchingRule struct {
+	// 计量项匹配规则
+	MeteringMatchingRule *string `json:"metering_matching_rule,omitempty" xml:"metering_matching_rule,omitempty"`
+	// 1
+	MeteringValue *string `json:"metering_value,omitempty" xml:"metering_value,omitempty" require:"true"`
+}
+
+func (s ItemMatchingRule) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ItemMatchingRule) GoString() string {
+	return s.String()
+}
+
+func (s *ItemMatchingRule) SetMeteringMatchingRule(v string) *ItemMatchingRule {
+	s.MeteringMatchingRule = &v
+	return s
+}
+
+func (s *ItemMatchingRule) SetMeteringValue(v string) *ItemMatchingRule {
+	s.MeteringValue = &v
+	return s
+}
+
 // 能力信息
 type AbilityInfo struct {
 	// 能力编号
@@ -310,6 +336,32 @@ func (s *AbilityApiRelation) SetAbilityInfoList(v []*AbilityInfo) *AbilityApiRel
 	return s
 }
 
+// 计量项
+type ItemRule struct {
+	// 上报次数
+	MeteringItem *string `json:"metering_item,omitempty" xml:"metering_item,omitempty" require:"true"`
+	// 计量项列表
+	ItemMatchingRules []*ItemMatchingRule `json:"item_matching_rules,omitempty" xml:"item_matching_rules,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ItemRule) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ItemRule) GoString() string {
+	return s.String()
+}
+
+func (s *ItemRule) SetMeteringItem(v string) *ItemRule {
+	s.MeteringItem = &v
+	return s
+}
+
+func (s *ItemRule) SetItemMatchingRules(v []*ItemMatchingRule) *ItemRule {
+	s.ItemMatchingRules = v
+	return s
+}
+
 // api 信息
 type ApiInfo struct {
 	// 查询不动产接口
@@ -373,6 +425,32 @@ func (s *RelUser) SetNickName(v string) *RelUser {
 
 func (s *RelUser) SetRole(v string) *RelUser {
 	s.Role = &v
+	return s
+}
+
+//  计量规则
+type MethodMatchingRule struct {
+	// 网关api
+	Method *string `json:"method,omitempty" xml:"method,omitempty" require:"true"`
+	// 匹配规则
+	MatchingRule *string `json:"matching_rule,omitempty" xml:"matching_rule,omitempty" require:"true"`
+}
+
+func (s MethodMatchingRule) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MethodMatchingRule) GoString() string {
+	return s.String()
+}
+
+func (s *MethodMatchingRule) SetMethod(v string) *MethodMatchingRule {
+	s.Method = &v
+	return s
+}
+
+func (s *MethodMatchingRule) SetMatchingRule(v string) *MethodMatchingRule {
+	s.MatchingRule = &v
 	return s
 }
 
@@ -1408,6 +1486,496 @@ func (s *QueryBusinessProductResponse) SetSlaUrl(v string) *QueryBusinessProduct
 	return s
 }
 
+type QueryMeteringRuleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 技术产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 商业产品码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
+}
+
+func (s QueryMeteringRuleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMeteringRuleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMeteringRuleRequest) SetAuthToken(v string) *QueryMeteringRuleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMeteringRuleRequest) SetProductInstanceId(v string) *QueryMeteringRuleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMeteringRuleRequest) SetProductCode(v string) *QueryMeteringRuleRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *QueryMeteringRuleRequest) SetBusinessCode(v string) *QueryMeteringRuleRequest {
+	s.BusinessCode = &v
+	return s
+}
+
+type QueryMeteringRuleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 技术产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 商业产品码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty"`
+	// 计量规则
+	MeteringRules []*MethodMatchingRule `json:"metering_rules,omitempty" xml:"metering_rules,omitempty" type:"Repeated"`
+}
+
+func (s QueryMeteringRuleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMeteringRuleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMeteringRuleResponse) SetReqMsgId(v string) *QueryMeteringRuleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMeteringRuleResponse) SetResultCode(v string) *QueryMeteringRuleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMeteringRuleResponse) SetResultMsg(v string) *QueryMeteringRuleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMeteringRuleResponse) SetProductCode(v string) *QueryMeteringRuleResponse {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *QueryMeteringRuleResponse) SetBusinessCode(v string) *QueryMeteringRuleResponse {
+	s.BusinessCode = &v
+	return s
+}
+
+func (s *QueryMeteringRuleResponse) SetMeteringRules(v []*MethodMatchingRule) *QueryMeteringRuleResponse {
+	s.MeteringRules = v
+	return s
+}
+
+type CreateMeteringRuleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 技术产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 商业产品码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
+	// 方法匹配规则
+	MethodMatchingRules []*MethodMatchingRule `json:"method_matching_rules,omitempty" xml:"method_matching_rules,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CreateMeteringRuleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateMeteringRuleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateMeteringRuleRequest) SetAuthToken(v string) *CreateMeteringRuleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateMeteringRuleRequest) SetProductInstanceId(v string) *CreateMeteringRuleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateMeteringRuleRequest) SetProductCode(v string) *CreateMeteringRuleRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *CreateMeteringRuleRequest) SetBusinessCode(v string) *CreateMeteringRuleRequest {
+	s.BusinessCode = &v
+	return s
+}
+
+func (s *CreateMeteringRuleRequest) SetMethodMatchingRules(v []*MethodMatchingRule) *CreateMeteringRuleRequest {
+	s.MethodMatchingRules = v
+	return s
+}
+
+type CreateMeteringRuleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CreateMeteringRuleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateMeteringRuleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateMeteringRuleResponse) SetReqMsgId(v string) *CreateMeteringRuleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateMeteringRuleResponse) SetResultCode(v string) *CreateMeteringRuleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateMeteringRuleResponse) SetResultMsg(v string) *CreateMeteringRuleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UpdateMeteringRuleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 技术产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 商业产品码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
+	// 方法匹配规则
+	MethodMatchingRules []*MethodMatchingRule `json:"method_matching_rules,omitempty" xml:"method_matching_rules,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s UpdateMeteringRuleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateMeteringRuleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateMeteringRuleRequest) SetAuthToken(v string) *UpdateMeteringRuleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateMeteringRuleRequest) SetProductInstanceId(v string) *UpdateMeteringRuleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateMeteringRuleRequest) SetProductCode(v string) *UpdateMeteringRuleRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *UpdateMeteringRuleRequest) SetBusinessCode(v string) *UpdateMeteringRuleRequest {
+	s.BusinessCode = &v
+	return s
+}
+
+func (s *UpdateMeteringRuleRequest) SetMethodMatchingRules(v []*MethodMatchingRule) *UpdateMeteringRuleRequest {
+	s.MethodMatchingRules = v
+	return s
+}
+
+type UpdateMeteringRuleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateMeteringRuleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateMeteringRuleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateMeteringRuleResponse) SetReqMsgId(v string) *UpdateMeteringRuleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateMeteringRuleResponse) SetResultCode(v string) *UpdateMeteringRuleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateMeteringRuleResponse) SetResultMsg(v string) *UpdateMeteringRuleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryMeteringItemRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商业产品码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
+	// 计量域
+	MeteringDomainCode *string `json:"metering_domain_code,omitempty" xml:"metering_domain_code,omitempty" require:"true"`
+}
+
+func (s QueryMeteringItemRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMeteringItemRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMeteringItemRequest) SetAuthToken(v string) *QueryMeteringItemRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMeteringItemRequest) SetProductInstanceId(v string) *QueryMeteringItemRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMeteringItemRequest) SetBusinessCode(v string) *QueryMeteringItemRequest {
+	s.BusinessCode = &v
+	return s
+}
+
+func (s *QueryMeteringItemRequest) SetMeteringDomainCode(v string) *QueryMeteringItemRequest {
+	s.MeteringDomainCode = &v
+	return s
+}
+
+type QueryMeteringItemResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商业产品码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty"`
+	// 计量域
+	MeteringDomainCode *string `json:"metering_domain_code,omitempty" xml:"metering_domain_code,omitempty"`
+	// 计量项
+	ItemRules []*ItemRule `json:"item_rules,omitempty" xml:"item_rules,omitempty" type:"Repeated"`
+}
+
+func (s QueryMeteringItemResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMeteringItemResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMeteringItemResponse) SetReqMsgId(v string) *QueryMeteringItemResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMeteringItemResponse) SetResultCode(v string) *QueryMeteringItemResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMeteringItemResponse) SetResultMsg(v string) *QueryMeteringItemResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMeteringItemResponse) SetBusinessCode(v string) *QueryMeteringItemResponse {
+	s.BusinessCode = &v
+	return s
+}
+
+func (s *QueryMeteringItemResponse) SetMeteringDomainCode(v string) *QueryMeteringItemResponse {
+	s.MeteringDomainCode = &v
+	return s
+}
+
+func (s *QueryMeteringItemResponse) SetItemRules(v []*ItemRule) *QueryMeteringItemResponse {
+	s.ItemRules = v
+	return s
+}
+
+type CreateMeteringItemRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商业产品码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
+	// 计量域
+	MeteringDomainCode *string `json:"metering_domain_code,omitempty" xml:"metering_domain_code,omitempty" require:"true"`
+	// 计量规则
+	ItemRules []*ItemRule `json:"item_rules,omitempty" xml:"item_rules,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CreateMeteringItemRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateMeteringItemRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateMeteringItemRequest) SetAuthToken(v string) *CreateMeteringItemRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateMeteringItemRequest) SetProductInstanceId(v string) *CreateMeteringItemRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateMeteringItemRequest) SetBusinessCode(v string) *CreateMeteringItemRequest {
+	s.BusinessCode = &v
+	return s
+}
+
+func (s *CreateMeteringItemRequest) SetMeteringDomainCode(v string) *CreateMeteringItemRequest {
+	s.MeteringDomainCode = &v
+	return s
+}
+
+func (s *CreateMeteringItemRequest) SetItemRules(v []*ItemRule) *CreateMeteringItemRequest {
+	s.ItemRules = v
+	return s
+}
+
+type CreateMeteringItemResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CreateMeteringItemResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateMeteringItemResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateMeteringItemResponse) SetReqMsgId(v string) *CreateMeteringItemResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateMeteringItemResponse) SetResultCode(v string) *CreateMeteringItemResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateMeteringItemResponse) SetResultMsg(v string) *CreateMeteringItemResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UpdateMeteringItemRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商业产品码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
+	// 计量域
+	MeteringDomainCode *string `json:"metering_domain_code,omitempty" xml:"metering_domain_code,omitempty" require:"true"`
+	// 计量项列表
+	ItemRules []*ItemRule `json:"item_rules,omitempty" xml:"item_rules,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s UpdateMeteringItemRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateMeteringItemRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateMeteringItemRequest) SetAuthToken(v string) *UpdateMeteringItemRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateMeteringItemRequest) SetProductInstanceId(v string) *UpdateMeteringItemRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateMeteringItemRequest) SetBusinessCode(v string) *UpdateMeteringItemRequest {
+	s.BusinessCode = &v
+	return s
+}
+
+func (s *UpdateMeteringItemRequest) SetMeteringDomainCode(v string) *UpdateMeteringItemRequest {
+	s.MeteringDomainCode = &v
+	return s
+}
+
+func (s *UpdateMeteringItemRequest) SetItemRules(v []*ItemRule) *UpdateMeteringItemRequest {
+	s.ItemRules = v
+	return s
+}
+
+type UpdateMeteringItemResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateMeteringItemResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateMeteringItemResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateMeteringItemResponse) SetReqMsgId(v string) *UpdateMeteringItemResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateMeteringItemResponse) SetResultCode(v string) *UpdateMeteringItemResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateMeteringItemResponse) SetResultMsg(v string) *UpdateMeteringItemResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1530,7 +2098,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.25"),
+				"sdk_version":      tea.String("1.1.29"),
 				"_prod_code":       tea.String("SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -1989,6 +2557,210 @@ func (client *Client) QueryBusinessProductEx(request *QueryBusinessProductReques
 	}
 	_result = &QueryBusinessProductResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.business.product.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询计量规则信息
+ * Summary: 查询计量规则信息
+ */
+func (client *Client) QueryMeteringRule(request *QueryMeteringRuleRequest) (_result *QueryMeteringRuleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMeteringRuleResponse{}
+	_body, _err := client.QueryMeteringRuleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询计量规则信息
+ * Summary: 查询计量规则信息
+ */
+func (client *Client) QueryMeteringRuleEx(request *QueryMeteringRuleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMeteringRuleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMeteringRuleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.metering.rule.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建计量规则
+ * Summary: 创建计量规则
+ */
+func (client *Client) CreateMeteringRule(request *CreateMeteringRuleRequest) (_result *CreateMeteringRuleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateMeteringRuleResponse{}
+	_body, _err := client.CreateMeteringRuleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建计量规则
+ * Summary: 创建计量规则
+ */
+func (client *Client) CreateMeteringRuleEx(request *CreateMeteringRuleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateMeteringRuleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateMeteringRuleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.metering.rule.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新计量规则信息
+ * Summary: 更新计量规则信息
+ */
+func (client *Client) UpdateMeteringRule(request *UpdateMeteringRuleRequest) (_result *UpdateMeteringRuleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateMeteringRuleResponse{}
+	_body, _err := client.UpdateMeteringRuleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新计量规则信息
+ * Summary: 更新计量规则信息
+ */
+func (client *Client) UpdateMeteringRuleEx(request *UpdateMeteringRuleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateMeteringRuleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateMeteringRuleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.metering.rule.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询计量项信息
+ * Summary: 查询计量项信息
+ */
+func (client *Client) QueryMeteringItem(request *QueryMeteringItemRequest) (_result *QueryMeteringItemResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMeteringItemResponse{}
+	_body, _err := client.QueryMeteringItemEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询计量项信息
+ * Summary: 查询计量项信息
+ */
+func (client *Client) QueryMeteringItemEx(request *QueryMeteringItemRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMeteringItemResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMeteringItemResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.metering.item.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 新增计量项
+ * Summary: 新增计量项
+ */
+func (client *Client) CreateMeteringItem(request *CreateMeteringItemRequest) (_result *CreateMeteringItemResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateMeteringItemResponse{}
+	_body, _err := client.CreateMeteringItemEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 新增计量项
+ * Summary: 新增计量项
+ */
+func (client *Client) CreateMeteringItemEx(request *CreateMeteringItemRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateMeteringItemResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateMeteringItemResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.metering.item.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新计量规则
+ * Summary: 更新计量规则
+ */
+func (client *Client) UpdateMeteringItem(request *UpdateMeteringItemRequest) (_result *UpdateMeteringItemResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateMeteringItemResponse{}
+	_body, _err := client.UpdateMeteringItemEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新计量规则
+ * Summary: 更新计量规则
+ */
+func (client *Client) UpdateMeteringItemEx(request *UpdateMeteringItemRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateMeteringItemResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateMeteringItemResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.metering.item.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
