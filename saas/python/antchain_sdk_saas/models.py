@@ -222,6 +222,41 @@ class ApiInfoModel(TeaModel):
         return self
 
 
+class ItemMatchingRule(TeaModel):
+    def __init__(
+        self,
+        metering_matching_rule: str = None,
+        metering_value: str = None,
+    ):
+        # 计量项匹配规则
+        self.metering_matching_rule = metering_matching_rule
+        # 1
+        self.metering_value = metering_value
+
+    def validate(self):
+        self.validate_required(self.metering_value, 'metering_value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.metering_matching_rule is not None:
+            result['metering_matching_rule'] = self.metering_matching_rule
+        if self.metering_value is not None:
+            result['metering_value'] = self.metering_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('metering_matching_rule') is not None:
+            self.metering_matching_rule = m.get('metering_matching_rule')
+        if m.get('metering_value') is not None:
+            self.metering_value = m.get('metering_value')
+        return self
+
+
 class AbilityInfo(TeaModel):
     def __init__(
         self,
@@ -374,6 +409,51 @@ class AbilityApiRelation(TeaModel):
         return self
 
 
+class ItemRule(TeaModel):
+    def __init__(
+        self,
+        metering_item: str = None,
+        item_matching_rules: List[ItemMatchingRule] = None,
+    ):
+        # 上报次数
+        self.metering_item = metering_item
+        # 计量项列表
+        self.item_matching_rules = item_matching_rules
+
+    def validate(self):
+        self.validate_required(self.metering_item, 'metering_item')
+        self.validate_required(self.item_matching_rules, 'item_matching_rules')
+        if self.item_matching_rules:
+            for k in self.item_matching_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.metering_item is not None:
+            result['metering_item'] = self.metering_item
+        result['item_matching_rules'] = []
+        if self.item_matching_rules is not None:
+            for k in self.item_matching_rules:
+                result['item_matching_rules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('metering_item') is not None:
+            self.metering_item = m.get('metering_item')
+        self.item_matching_rules = []
+        if m.get('item_matching_rules') is not None:
+            for k in m.get('item_matching_rules'):
+                temp_model = ItemMatchingRule()
+                self.item_matching_rules.append(temp_model.from_map(k))
+        return self
+
+
 class ApiInfo(TeaModel):
     def __init__(
         self,
@@ -459,6 +539,42 @@ class RelUser(TeaModel):
             self.nick_name = m.get('nick_name')
         if m.get('role') is not None:
             self.role = m.get('role')
+        return self
+
+
+class MethodMatchingRule(TeaModel):
+    def __init__(
+        self,
+        method: str = None,
+        matching_rule: str = None,
+    ):
+        # 网关api
+        self.method = method
+        # 匹配规则
+        self.matching_rule = matching_rule
+
+    def validate(self):
+        self.validate_required(self.method, 'method')
+        self.validate_required(self.matching_rule, 'matching_rule')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.method is not None:
+            result['method'] = self.method
+        if self.matching_rule is not None:
+            result['matching_rule'] = self.matching_rule
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('method') is not None:
+            self.method = m.get('method')
+        if m.get('matching_rule') is not None:
+            self.matching_rule = m.get('matching_rule')
         return self
 
 
@@ -1842,6 +1958,678 @@ class QueryBusinessProductResponse(TeaModel):
             self.task_status = m.get('task_status')
         if m.get('sla_url') is not None:
             self.sla_url = m.get('sla_url')
+        return self
+
+
+class QueryMeteringRuleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        product_code: str = None,
+        business_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 技术产品码
+        self.product_code = product_code
+        # 商业产品码
+        self.business_code = business_code
+
+    def validate(self):
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.business_code, 'business_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        return self
+
+
+class QueryMeteringRuleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        product_code: str = None,
+        business_code: str = None,
+        metering_rules: List[MethodMatchingRule] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 技术产品码
+        self.product_code = product_code
+        # 商业产品码
+        self.business_code = business_code
+        # 计量规则
+        self.metering_rules = metering_rules
+
+    def validate(self):
+        if self.metering_rules:
+            for k in self.metering_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        result['metering_rules'] = []
+        if self.metering_rules is not None:
+            for k in self.metering_rules:
+                result['metering_rules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        self.metering_rules = []
+        if m.get('metering_rules') is not None:
+            for k in m.get('metering_rules'):
+                temp_model = MethodMatchingRule()
+                self.metering_rules.append(temp_model.from_map(k))
+        return self
+
+
+class CreateMeteringRuleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        product_code: str = None,
+        business_code: str = None,
+        method_matching_rules: List[MethodMatchingRule] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 技术产品码
+        self.product_code = product_code
+        # 商业产品码
+        self.business_code = business_code
+        # 方法匹配规则
+        self.method_matching_rules = method_matching_rules
+
+    def validate(self):
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.business_code, 'business_code')
+        self.validate_required(self.method_matching_rules, 'method_matching_rules')
+        if self.method_matching_rules:
+            for k in self.method_matching_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        result['method_matching_rules'] = []
+        if self.method_matching_rules is not None:
+            for k in self.method_matching_rules:
+                result['method_matching_rules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        self.method_matching_rules = []
+        if m.get('method_matching_rules') is not None:
+            for k in m.get('method_matching_rules'):
+                temp_model = MethodMatchingRule()
+                self.method_matching_rules.append(temp_model.from_map(k))
+        return self
+
+
+class CreateMeteringRuleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class UpdateMeteringRuleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        product_code: str = None,
+        business_code: str = None,
+        method_matching_rules: List[MethodMatchingRule] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 技术产品码
+        self.product_code = product_code
+        # 商业产品码
+        self.business_code = business_code
+        # 方法匹配规则
+        self.method_matching_rules = method_matching_rules
+
+    def validate(self):
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.business_code, 'business_code')
+        self.validate_required(self.method_matching_rules, 'method_matching_rules')
+        if self.method_matching_rules:
+            for k in self.method_matching_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        result['method_matching_rules'] = []
+        if self.method_matching_rules is not None:
+            for k in self.method_matching_rules:
+                result['method_matching_rules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        self.method_matching_rules = []
+        if m.get('method_matching_rules') is not None:
+            for k in m.get('method_matching_rules'):
+                temp_model = MethodMatchingRule()
+                self.method_matching_rules.append(temp_model.from_map(k))
+        return self
+
+
+class UpdateMeteringRuleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryMeteringItemRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        business_code: str = None,
+        metering_domain_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商业产品码
+        self.business_code = business_code
+        # 计量域
+        self.metering_domain_code = metering_domain_code
+
+    def validate(self):
+        self.validate_required(self.business_code, 'business_code')
+        self.validate_required(self.metering_domain_code, 'metering_domain_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        if self.metering_domain_code is not None:
+            result['metering_domain_code'] = self.metering_domain_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        if m.get('metering_domain_code') is not None:
+            self.metering_domain_code = m.get('metering_domain_code')
+        return self
+
+
+class QueryMeteringItemResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        business_code: str = None,
+        metering_domain_code: str = None,
+        item_rules: List[ItemRule] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 商业产品码
+        self.business_code = business_code
+        # 计量域
+        self.metering_domain_code = metering_domain_code
+        # 计量项
+        self.item_rules = item_rules
+
+    def validate(self):
+        if self.item_rules:
+            for k in self.item_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        if self.metering_domain_code is not None:
+            result['metering_domain_code'] = self.metering_domain_code
+        result['item_rules'] = []
+        if self.item_rules is not None:
+            for k in self.item_rules:
+                result['item_rules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        if m.get('metering_domain_code') is not None:
+            self.metering_domain_code = m.get('metering_domain_code')
+        self.item_rules = []
+        if m.get('item_rules') is not None:
+            for k in m.get('item_rules'):
+                temp_model = ItemRule()
+                self.item_rules.append(temp_model.from_map(k))
+        return self
+
+
+class CreateMeteringItemRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        business_code: str = None,
+        metering_domain_code: str = None,
+        item_rules: List[ItemRule] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商业产品码
+        self.business_code = business_code
+        # 计量域
+        self.metering_domain_code = metering_domain_code
+        # 计量规则
+        self.item_rules = item_rules
+
+    def validate(self):
+        self.validate_required(self.business_code, 'business_code')
+        self.validate_required(self.metering_domain_code, 'metering_domain_code')
+        self.validate_required(self.item_rules, 'item_rules')
+        if self.item_rules:
+            for k in self.item_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        if self.metering_domain_code is not None:
+            result['metering_domain_code'] = self.metering_domain_code
+        result['item_rules'] = []
+        if self.item_rules is not None:
+            for k in self.item_rules:
+                result['item_rules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        if m.get('metering_domain_code') is not None:
+            self.metering_domain_code = m.get('metering_domain_code')
+        self.item_rules = []
+        if m.get('item_rules') is not None:
+            for k in m.get('item_rules'):
+                temp_model = ItemRule()
+                self.item_rules.append(temp_model.from_map(k))
+        return self
+
+
+class CreateMeteringItemResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class UpdateMeteringItemRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        business_code: str = None,
+        metering_domain_code: str = None,
+        item_rules: List[ItemRule] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商业产品码
+        self.business_code = business_code
+        # 计量域
+        self.metering_domain_code = metering_domain_code
+        # 计量项列表
+        self.item_rules = item_rules
+
+    def validate(self):
+        self.validate_required(self.business_code, 'business_code')
+        self.validate_required(self.metering_domain_code, 'metering_domain_code')
+        self.validate_required(self.item_rules, 'item_rules')
+        if self.item_rules:
+            for k in self.item_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        if self.metering_domain_code is not None:
+            result['metering_domain_code'] = self.metering_domain_code
+        result['item_rules'] = []
+        if self.item_rules is not None:
+            for k in self.item_rules:
+                result['item_rules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        if m.get('metering_domain_code') is not None:
+            self.metering_domain_code = m.get('metering_domain_code')
+        self.item_rules = []
+        if m.get('item_rules') is not None:
+            for k in m.get('item_rules'):
+                temp_model = ItemRule()
+                self.item_rules.append(temp_model.from_map(k))
+        return self
+
+
+class UpdateMeteringItemResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 

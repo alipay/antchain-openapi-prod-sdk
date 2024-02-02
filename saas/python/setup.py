@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_saas.
 
-Created on 09/08/2023
+Created on 02/02/2024
 
 @author: Ant Chain SDK
 """

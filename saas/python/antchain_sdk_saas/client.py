@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.25',
+                    'sdk_version': '1.1.29',
                     '_prod_code': 'SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.25',
+                    'sdk_version': '1.1.29',
                     '_prod_code': 'SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -945,4 +945,340 @@ class Client:
         return TeaCore.from_map(
             saas_models.QueryBusinessProductResponse(),
             await self.do_request_async('1.0', 'antchain.saas.business.product.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_metering_rule(
+        self,
+        request: saas_models.QueryMeteringRuleRequest,
+    ) -> saas_models.QueryMeteringRuleResponse:
+        """
+        Description: 查询计量规则信息
+        Summary: 查询计量规则信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_metering_rule_ex(request, headers, runtime)
+
+    async def query_metering_rule_async(
+        self,
+        request: saas_models.QueryMeteringRuleRequest,
+    ) -> saas_models.QueryMeteringRuleResponse:
+        """
+        Description: 查询计量规则信息
+        Summary: 查询计量规则信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_metering_rule_ex_async(request, headers, runtime)
+
+    def query_metering_rule_ex(
+        self,
+        request: saas_models.QueryMeteringRuleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> saas_models.QueryMeteringRuleResponse:
+        """
+        Description: 查询计量规则信息
+        Summary: 查询计量规则信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            saas_models.QueryMeteringRuleResponse(),
+            self.do_request('1.0', 'antchain.saas.metering.rule.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_metering_rule_ex_async(
+        self,
+        request: saas_models.QueryMeteringRuleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> saas_models.QueryMeteringRuleResponse:
+        """
+        Description: 查询计量规则信息
+        Summary: 查询计量规则信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            saas_models.QueryMeteringRuleResponse(),
+            await self.do_request_async('1.0', 'antchain.saas.metering.rule.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_metering_rule(
+        self,
+        request: saas_models.CreateMeteringRuleRequest,
+    ) -> saas_models.CreateMeteringRuleResponse:
+        """
+        Description: 创建计量规则
+        Summary: 创建计量规则
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_metering_rule_ex(request, headers, runtime)
+
+    async def create_metering_rule_async(
+        self,
+        request: saas_models.CreateMeteringRuleRequest,
+    ) -> saas_models.CreateMeteringRuleResponse:
+        """
+        Description: 创建计量规则
+        Summary: 创建计量规则
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_metering_rule_ex_async(request, headers, runtime)
+
+    def create_metering_rule_ex(
+        self,
+        request: saas_models.CreateMeteringRuleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> saas_models.CreateMeteringRuleResponse:
+        """
+        Description: 创建计量规则
+        Summary: 创建计量规则
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            saas_models.CreateMeteringRuleResponse(),
+            self.do_request('1.0', 'antchain.saas.metering.rule.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_metering_rule_ex_async(
+        self,
+        request: saas_models.CreateMeteringRuleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> saas_models.CreateMeteringRuleResponse:
+        """
+        Description: 创建计量规则
+        Summary: 创建计量规则
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            saas_models.CreateMeteringRuleResponse(),
+            await self.do_request_async('1.0', 'antchain.saas.metering.rule.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_metering_rule(
+        self,
+        request: saas_models.UpdateMeteringRuleRequest,
+    ) -> saas_models.UpdateMeteringRuleResponse:
+        """
+        Description: 更新计量规则信息
+        Summary: 更新计量规则信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_metering_rule_ex(request, headers, runtime)
+
+    async def update_metering_rule_async(
+        self,
+        request: saas_models.UpdateMeteringRuleRequest,
+    ) -> saas_models.UpdateMeteringRuleResponse:
+        """
+        Description: 更新计量规则信息
+        Summary: 更新计量规则信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_metering_rule_ex_async(request, headers, runtime)
+
+    def update_metering_rule_ex(
+        self,
+        request: saas_models.UpdateMeteringRuleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> saas_models.UpdateMeteringRuleResponse:
+        """
+        Description: 更新计量规则信息
+        Summary: 更新计量规则信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            saas_models.UpdateMeteringRuleResponse(),
+            self.do_request('1.0', 'antchain.saas.metering.rule.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_metering_rule_ex_async(
+        self,
+        request: saas_models.UpdateMeteringRuleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> saas_models.UpdateMeteringRuleResponse:
+        """
+        Description: 更新计量规则信息
+        Summary: 更新计量规则信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            saas_models.UpdateMeteringRuleResponse(),
+            await self.do_request_async('1.0', 'antchain.saas.metering.rule.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_metering_item(
+        self,
+        request: saas_models.QueryMeteringItemRequest,
+    ) -> saas_models.QueryMeteringItemResponse:
+        """
+        Description: 查询计量项信息
+        Summary: 查询计量项信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_metering_item_ex(request, headers, runtime)
+
+    async def query_metering_item_async(
+        self,
+        request: saas_models.QueryMeteringItemRequest,
+    ) -> saas_models.QueryMeteringItemResponse:
+        """
+        Description: 查询计量项信息
+        Summary: 查询计量项信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_metering_item_ex_async(request, headers, runtime)
+
+    def query_metering_item_ex(
+        self,
+        request: saas_models.QueryMeteringItemRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> saas_models.QueryMeteringItemResponse:
+        """
+        Description: 查询计量项信息
+        Summary: 查询计量项信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            saas_models.QueryMeteringItemResponse(),
+            self.do_request('1.0', 'antchain.saas.metering.item.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_metering_item_ex_async(
+        self,
+        request: saas_models.QueryMeteringItemRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> saas_models.QueryMeteringItemResponse:
+        """
+        Description: 查询计量项信息
+        Summary: 查询计量项信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            saas_models.QueryMeteringItemResponse(),
+            await self.do_request_async('1.0', 'antchain.saas.metering.item.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_metering_item(
+        self,
+        request: saas_models.CreateMeteringItemRequest,
+    ) -> saas_models.CreateMeteringItemResponse:
+        """
+        Description: 新增计量项
+        Summary: 新增计量项
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_metering_item_ex(request, headers, runtime)
+
+    async def create_metering_item_async(
+        self,
+        request: saas_models.CreateMeteringItemRequest,
+    ) -> saas_models.CreateMeteringItemResponse:
+        """
+        Description: 新增计量项
+        Summary: 新增计量项
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_metering_item_ex_async(request, headers, runtime)
+
+    def create_metering_item_ex(
+        self,
+        request: saas_models.CreateMeteringItemRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> saas_models.CreateMeteringItemResponse:
+        """
+        Description: 新增计量项
+        Summary: 新增计量项
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            saas_models.CreateMeteringItemResponse(),
+            self.do_request('1.0', 'antchain.saas.metering.item.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_metering_item_ex_async(
+        self,
+        request: saas_models.CreateMeteringItemRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> saas_models.CreateMeteringItemResponse:
+        """
+        Description: 新增计量项
+        Summary: 新增计量项
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            saas_models.CreateMeteringItemResponse(),
+            await self.do_request_async('1.0', 'antchain.saas.metering.item.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_metering_item(
+        self,
+        request: saas_models.UpdateMeteringItemRequest,
+    ) -> saas_models.UpdateMeteringItemResponse:
+        """
+        Description: 更新计量规则
+        Summary: 更新计量规则
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_metering_item_ex(request, headers, runtime)
+
+    async def update_metering_item_async(
+        self,
+        request: saas_models.UpdateMeteringItemRequest,
+    ) -> saas_models.UpdateMeteringItemResponse:
+        """
+        Description: 更新计量规则
+        Summary: 更新计量规则
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_metering_item_ex_async(request, headers, runtime)
+
+    def update_metering_item_ex(
+        self,
+        request: saas_models.UpdateMeteringItemRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> saas_models.UpdateMeteringItemResponse:
+        """
+        Description: 更新计量规则
+        Summary: 更新计量规则
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            saas_models.UpdateMeteringItemResponse(),
+            self.do_request('1.0', 'antchain.saas.metering.item.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_metering_item_ex_async(
+        self,
+        request: saas_models.UpdateMeteringItemRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> saas_models.UpdateMeteringItemResponse:
+        """
+        Description: 更新计量规则
+        Summary: 更新计量规则
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            saas_models.UpdateMeteringItemResponse(),
+            await self.do_request_async('1.0', 'antchain.saas.metering.item.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
