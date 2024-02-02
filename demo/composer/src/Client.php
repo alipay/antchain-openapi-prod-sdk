@@ -123,6 +123,8 @@ use AntChain\DEMO\Models\QueryTestproductTestobjectTestsubRequest;
 use AntChain\DEMO\Models\QueryTestproductTestobjectTestsubResponse;
 use AntChain\DEMO\Models\QueryTestTestobjectBbbRequest;
 use AntChain\DEMO\Models\QueryTestTestobjectBbbResponse;
+use AntChain\DEMO\Models\QueryTestxaxaaTestxaxaaTestxaxaaRequest;
+use AntChain\DEMO\Models\QueryTestxaxaaTestxaxaaTestxaxaaResponse;
 use AntChain\DEMO\Models\RegisterTestBizeventMessageRequest;
 use AntChain\DEMO\Models\RegisterTestBizeventMessageResponse;
 use AntChain\DEMO\Models\ResetComCnCcRequest;
@@ -286,7 +288,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.256',
+                    'sdk_version'      => '1.0.257',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1457,6 +1459,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryTestaaaaTestobTestobResponse::fromMap($this->doRequest('1.0', 'demo.testaaaa.testob.testob.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: testxaxaa
+     * Summary: test.
+     *
+     * @param QueryTestxaxaaTestxaxaaTestxaxaaRequest $request
+     *
+     * @return QueryTestxaxaaTestxaxaaTestxaxaaResponse
+     */
+    public function queryTestxaxaaTestxaxaaTestxaxaa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestxaxaaTestxaxaaTestxaxaaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: testxaxaa
+     * Summary: test.
+     *
+     * @param QueryTestxaxaaTestxaxaaTestxaxaaRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return QueryTestxaxaaTestxaxaaTestxaxaaResponse
+     */
+    public function queryTestxaxaaTestxaxaaTestxaxaaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestxaxaaTestxaxaaTestxaxaaResponse::fromMap($this->doRequest('1.0', 'demo.testxaxaa.testxaxaa.testxaxaa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

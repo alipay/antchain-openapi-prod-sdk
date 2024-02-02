@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UploadCjtestSourceFileResponse extends Model
+class QueryTestxaxaaTestxaxaaTestxaxaaResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class UploadCjtestSourceFileResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // test
-    /**
-     * @var string
-     */
-    public $res;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'res'        => 'res',
     ];
 
     public function validate()
@@ -54,9 +47,6 @@ class UploadCjtestSourceFileResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->res) {
-            $res['res'] = $this->res;
-        }
 
         return $res;
     }
@@ -64,7 +54,7 @@ class UploadCjtestSourceFileResponse extends Model
     /**
      * @param array $map
      *
-     * @return UploadCjtestSourceFileResponse
+     * @return QueryTestxaxaaTestxaxaaTestxaxaaResponse
      */
     public static function fromMap($map = [])
     {
@@ -77,9 +67,6 @@ class UploadCjtestSourceFileResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['res'])) {
-            $model->res = $map['res'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BindAaaBbbCccRequest extends Model
+class QueryTestxaxaaTestxaxaaTestxaxaaRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,30 +18,13 @@ class BindAaaBbbCccRequest extends Model
      * @var string
      */
     public $productInstanceId;
-
-    // 123
-    /**
-     * @var string
-     */
-    public $date;
-
-    // 123
-    /**
-     * @var string
-     */
-    public $data;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'date'              => 'date',
-        'data'              => 'data',
     ];
 
     public function validate()
     {
-        Model::validateRequired('date', $this->date, true);
-        Model::validateRequired('data', $this->data, true);
-        Model::validatePattern('date', $this->date, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -53,12 +36,6 @@ class BindAaaBbbCccRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->date) {
-            $res['date'] = $this->date;
-        }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
-        }
 
         return $res;
     }
@@ -66,7 +43,7 @@ class BindAaaBbbCccRequest extends Model
     /**
      * @param array $map
      *
-     * @return BindAaaBbbCccRequest
+     * @return QueryTestxaxaaTestxaxaaTestxaxaaRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,12 +53,6 @@ class BindAaaBbbCccRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['date'])) {
-            $model->date = $map['date'];
-        }
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
         }
 
         return $model;
