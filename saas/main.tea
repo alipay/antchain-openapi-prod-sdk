@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.25',
+    sdk_version = '1.1.29',
     _prod_code = 'SAAS',
     _prod_channel = 'undefined'
   };
@@ -177,6 +177,14 @@ model ApiInfoModel {
   providerId: string(name='provider_id', example='0000567567'),
 }
 
+// 匹配规则
+model ItemMatchingRule {
+  // 计量项匹配规则
+  meteringMatchingRule?: string(name='metering_matching_rule', example='method == _saas.antchain.metering.item.query_'),
+  // 1
+  meteringValue: string(name='metering_value', example='1'),
+}
+
 // 能力信息
 model AbilityInfo {
   // 能力编号
@@ -209,6 +217,14 @@ model AbilityApiRelation {
   abilityInfoList: [ AbilityInfo ](name='ability_info_list', example='[{"abilityId":"ak_3821c8f0145440dab91b9b23edb1dc73","abilityName":"B2B支付网关","devOwner":"张三","gmtCreate":"2023-01-02 12:00:00","description":"适用场景：企业资金支付场景 适合行业：存在企业采购/企业充值/企业转账等企业支付场景的行业 归属行业线：B类基础产品 产品描述：将交易场景与企业对公账户支付线上关联，订单交易对应的支付"}] '),
 }
 
+// 计量项
+model ItemRule {
+  // 上报次数
+  meteringItem: string(name='metering_item', example='INVOKE_COUNT'),
+  // 计量项列表
+  itemMatchingRules: [ ItemMatchingRule ](name='item_matching_rules', example='[{"meteringMatchingRule":"method == _identity.marriage.marriage.info_","meteringValue":"M"}]'),
+}
+
 // api 信息
 model ApiInfo {
   // 查询不动产接口
@@ -227,6 +243,14 @@ model RelUser {
   nickName: string(name='nick_name', example='张三'),
   // 角色，PD-产品经理，DEV-研发
   role: string(name='role', example='PD'),
+}
+
+//  计量规则
+model MethodMatchingRule {
+  // 网关api
+  method: string(name='method', example='saas.antchain.metering.rule.query'),
+  // 匹配规则
+  matchingRule: string(name='matching_rule', example='request.result_code == 200'),
 }
 
 // sdk的maven依赖信息
@@ -739,5 +763,253 @@ async function queryBusinessProduct(request: QueryBusinessProductRequest): Query
 async function queryBusinessProductEx(request: QueryBusinessProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBusinessProductResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.saas.business.product.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMeteringRuleRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 技术产品码
+  productCode: string(name='product_code'),
+  // 商业产品码
+  businessCode: string(name='business_code'),
+}
+
+model QueryMeteringRuleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 技术产品码
+  productCode?: string(name='product_code'),
+  // 商业产品码
+  businessCode?: string(name='business_code'),
+  // 计量规则
+  meteringRules?: [ MethodMatchingRule ](name='metering_rules'),
+}
+
+/**
+ * Description: 查询计量规则信息
+ * Summary: 查询计量规则信息
+ */
+async function queryMeteringRule(request: QueryMeteringRuleRequest): QueryMeteringRuleResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMeteringRuleEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询计量规则信息
+ * Summary: 查询计量规则信息
+ */
+async function queryMeteringRuleEx(request: QueryMeteringRuleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMeteringRuleResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.metering.rule.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateMeteringRuleRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 技术产品码
+  productCode: string(name='product_code'),
+  // 商业产品码
+  businessCode: string(name='business_code'),
+  // 方法匹配规则
+  methodMatchingRules: [ MethodMatchingRule ](name='method_matching_rules'),
+}
+
+model CreateMeteringRuleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建计量规则
+ * Summary: 创建计量规则
+ */
+async function createMeteringRule(request: CreateMeteringRuleRequest): CreateMeteringRuleResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createMeteringRuleEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建计量规则
+ * Summary: 创建计量规则
+ */
+async function createMeteringRuleEx(request: CreateMeteringRuleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateMeteringRuleResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.metering.rule.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateMeteringRuleRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 技术产品码
+  productCode: string(name='product_code'),
+  // 商业产品码
+  businessCode: string(name='business_code'),
+  // 方法匹配规则
+  methodMatchingRules: [ MethodMatchingRule ](name='method_matching_rules'),
+}
+
+model UpdateMeteringRuleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新计量规则信息
+ * Summary: 更新计量规则信息
+ */
+async function updateMeteringRule(request: UpdateMeteringRuleRequest): UpdateMeteringRuleResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateMeteringRuleEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新计量规则信息
+ * Summary: 更新计量规则信息
+ */
+async function updateMeteringRuleEx(request: UpdateMeteringRuleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateMeteringRuleResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.metering.rule.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMeteringItemRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商业产品码
+  businessCode: string(name='business_code'),
+  // 计量域
+  meteringDomainCode: string(name='metering_domain_code'),
+}
+
+model QueryMeteringItemResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商业产品码
+  businessCode?: string(name='business_code'),
+  // 计量域
+  meteringDomainCode?: string(name='metering_domain_code'),
+  // 计量项
+  itemRules?: [ ItemRule ](name='item_rules'),
+}
+
+/**
+ * Description: 查询计量项信息
+ * Summary: 查询计量项信息
+ */
+async function queryMeteringItem(request: QueryMeteringItemRequest): QueryMeteringItemResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMeteringItemEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询计量项信息
+ * Summary: 查询计量项信息
+ */
+async function queryMeteringItemEx(request: QueryMeteringItemRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMeteringItemResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.metering.item.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateMeteringItemRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商业产品码
+  businessCode: string(name='business_code'),
+  // 计量域
+  meteringDomainCode: string(name='metering_domain_code'),
+  // 计量规则
+  itemRules: [ ItemRule ](name='item_rules'),
+}
+
+model CreateMeteringItemResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 新增计量项
+ * Summary: 新增计量项
+ */
+async function createMeteringItem(request: CreateMeteringItemRequest): CreateMeteringItemResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createMeteringItemEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增计量项
+ * Summary: 新增计量项
+ */
+async function createMeteringItemEx(request: CreateMeteringItemRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateMeteringItemResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.metering.item.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateMeteringItemRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商业产品码
+  businessCode: string(name='business_code'),
+  // 计量域
+  meteringDomainCode: string(name='metering_domain_code'),
+  // 计量项列表
+  itemRules: [ ItemRule ](name='item_rules'),
+}
+
+model UpdateMeteringItemResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新计量规则
+ * Summary: 更新计量规则
+ */
+async function updateMeteringItem(request: UpdateMeteringItemRequest): UpdateMeteringItemResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateMeteringItemEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新计量规则
+ * Summary: 更新计量规则
+ */
+async function updateMeteringItemEx(request: UpdateMeteringItemRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateMeteringItemResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.metering.item.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
