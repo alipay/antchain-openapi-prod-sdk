@@ -43,6 +43,14 @@ class CountAuthTaskCrowdResponse extends Model
      * @var string
      */
     public $crowdConfigInfo;
+
+    // EXPORTING 导出中
+    // SUCCESS 导出成功
+    // FAIL 导出失败
+    /**
+     * @var string
+     */
+    public $exportStatus;
     protected $_name = [
         'reqMsgId'        => 'req_msg_id',
         'resultCode'      => 'result_code',
@@ -50,6 +58,7 @@ class CountAuthTaskCrowdResponse extends Model
         'crowdCount'      => 'crowd_count',
         'bizDate'         => 'biz_date',
         'crowdConfigInfo' => 'crowd_config_info',
+        'exportStatus'    => 'export_status',
     ];
 
     public function validate()
@@ -76,6 +85,9 @@ class CountAuthTaskCrowdResponse extends Model
         }
         if (null !== $this->crowdConfigInfo) {
             $res['crowd_config_info'] = $this->crowdConfigInfo;
+        }
+        if (null !== $this->exportStatus) {
+            $res['export_status'] = $this->exportStatus;
         }
 
         return $res;
@@ -106,6 +118,9 @@ class CountAuthTaskCrowdResponse extends Model
         }
         if (isset($map['crowd_config_info'])) {
             $model->crowdConfigInfo = $map['crowd_config_info'];
+        }
+        if (isset($map['export_status'])) {
+            $model->exportStatus = $map['export_status'];
         }
 
         return $model;
