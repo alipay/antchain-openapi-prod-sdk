@@ -28,6 +28,12 @@ public class CountAuthTaskCrowdResponse extends TeaModel {
     @NameInMap("crowd_config_info")
     public String crowdConfigInfo;
 
+    // EXPORTING 导出中
+    // SUCCESS 导出成功
+    // FAIL 导出失败
+    @NameInMap("export_status")
+    public String exportStatus;
+
     public static CountAuthTaskCrowdResponse build(java.util.Map<String, ?> map) throws Exception {
         CountAuthTaskCrowdResponse self = new CountAuthTaskCrowdResponse();
         return TeaModel.build(map, self);
@@ -79,6 +85,14 @@ public class CountAuthTaskCrowdResponse extends TeaModel {
     }
     public String getCrowdConfigInfo() {
         return this.crowdConfigInfo;
+    }
+
+    public CountAuthTaskCrowdResponse setExportStatus(String exportStatus) {
+        this.exportStatus = exportStatus;
+        return this;
+    }
+    public String getExportStatus() {
+        return this.exportStatus;
     }
 
 }
