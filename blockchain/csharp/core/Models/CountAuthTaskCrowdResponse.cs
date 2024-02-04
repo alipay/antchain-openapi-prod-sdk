@@ -39,6 +39,13 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string CrowdConfigInfo { get; set; }
 
+        // EXPORTING 导出中
+        // SUCCESS 导出成功
+        // FAIL 导出失败
+        [NameInMap("export_status")]
+        [Validation(Required=false)]
+        public string ExportStatus { get; set; }
+
     }
 
 }
