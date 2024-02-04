@@ -62336,6 +62336,7 @@ class CountAuthTaskCrowdResponse(TeaModel):
         crowd_count: int = None,
         biz_date: str = None,
         crowd_config_info: str = None,
+        export_status: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -62349,6 +62350,10 @@ class CountAuthTaskCrowdResponse(TeaModel):
         self.biz_date = biz_date
         # 生效的圈选人群的设置
         self.crowd_config_info = crowd_config_info
+        # EXPORTING 导出中
+        # SUCCESS 导出成功
+        # FAIL 导出失败
+        self.export_status = export_status
 
     def validate(self):
         pass
@@ -62371,6 +62376,8 @@ class CountAuthTaskCrowdResponse(TeaModel):
             result['biz_date'] = self.biz_date
         if self.crowd_config_info is not None:
             result['crowd_config_info'] = self.crowd_config_info
+        if self.export_status is not None:
+            result['export_status'] = self.export_status
         return result
 
     def from_map(self, m: dict = None):
@@ -62387,6 +62394,8 @@ class CountAuthTaskCrowdResponse(TeaModel):
             self.biz_date = m.get('biz_date')
         if m.get('crowd_config_info') is not None:
             self.crowd_config_info = m.get('crowd_config_info')
+        if m.get('export_status') is not None:
+            self.export_status = m.get('export_status')
         return self
 
 
