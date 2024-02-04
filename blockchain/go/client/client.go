@@ -49821,6 +49821,10 @@ type CountAuthTaskCrowdResponse struct {
 	BizDate *string `json:"biz_date,omitempty" xml:"biz_date,omitempty"`
 	// 生效的圈选人群的设置
 	CrowdConfigInfo *string `json:"crowd_config_info,omitempty" xml:"crowd_config_info,omitempty"`
+	// EXPORTING 导出中
+	// SUCCESS 导出成功
+	// FAIL 导出失败
+	ExportStatus *string `json:"export_status,omitempty" xml:"export_status,omitempty"`
 }
 
 func (s CountAuthTaskCrowdResponse) String() string {
@@ -49858,6 +49862,11 @@ func (s *CountAuthTaskCrowdResponse) SetBizDate(v string) *CountAuthTaskCrowdRes
 
 func (s *CountAuthTaskCrowdResponse) SetCrowdConfigInfo(v string) *CountAuthTaskCrowdResponse {
 	s.CrowdConfigInfo = &v
+	return s
+}
+
+func (s *CountAuthTaskCrowdResponse) SetExportStatus(v string) *CountAuthTaskCrowdResponse {
+	s.ExportStatus = &v
 	return s
 }
 
@@ -69530,7 +69539,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.1"),
+				"sdk_version":      tea.String("1.28.2"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
