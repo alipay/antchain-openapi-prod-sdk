@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.1',
+    sdk_version = '1.28.2',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -21904,6 +21904,10 @@ model CountAuthTaskCrowdResponse = {
   bizDate?: string(name='biz_date'),
   // 生效的圈选人群的设置
   crowdConfigInfo?: string(name='crowd_config_info'),
+  // EXPORTING 导出中
+  // SUCCESS 导出成功
+  // FAIL 导出失败
+  exportStatus?: string(name='export_status'),
 }
 
 /**
