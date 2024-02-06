@@ -21,6 +21,11 @@ public class SyncAntchainAtoTradeFinanceloanapplyRequest extends TeaModel {
     @Validation(required = true, maxLength = 64, minLength = 1)
     public String merchantId;
 
+    // 融资放款申请接口
+    @NameInMap("merchant_name")
+    @Validation(required = true)
+    public String merchantName;
+
     public static SyncAntchainAtoTradeFinanceloanapplyRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncAntchainAtoTradeFinanceloanapplyRequest self = new SyncAntchainAtoTradeFinanceloanapplyRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class SyncAntchainAtoTradeFinanceloanapplyRequest extends TeaModel {
     }
     public String getMerchantId() {
         return this.merchantId;
+    }
+
+    public SyncAntchainAtoTradeFinanceloanapplyRequest setMerchantName(String merchantName) {
+        this.merchantName = merchantName;
+        return this;
+    }
+    public String getMerchantName() {
+        return this.merchantName;
     }
 
 }
