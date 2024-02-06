@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_195dff03d395462ea294bafdba69df3f.models
 
 import com.aliyun.tea.*;
 
-public class SyncAntchainAtoFundWithholdingcontractResponse extends TeaModel {
+public class GetAntchainAtoTradeMerchantperformanceResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class SyncAntchainAtoFundWithholdingcontractResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 存储成功
+    // 「MerchantPerformanceInfo」的json字符串
     @NameInMap("response_data")
     public String responseData;
 
-    public static SyncAntchainAtoFundWithholdingcontractResponse build(java.util.Map<String, ?> map) throws Exception {
-        SyncAntchainAtoFundWithholdingcontractResponse self = new SyncAntchainAtoFundWithholdingcontractResponse();
+    public static GetAntchainAtoTradeMerchantperformanceResponse build(java.util.Map<String, ?> map) throws Exception {
+        GetAntchainAtoTradeMerchantperformanceResponse self = new GetAntchainAtoTradeMerchantperformanceResponse();
         return TeaModel.build(map, self);
     }
 
-    public SyncAntchainAtoFundWithholdingcontractResponse setReqMsgId(String reqMsgId) {
+    public GetAntchainAtoTradeMerchantperformanceResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class SyncAntchainAtoFundWithholdingcontractResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public SyncAntchainAtoFundWithholdingcontractResponse setResultCode(String resultCode) {
+    public GetAntchainAtoTradeMerchantperformanceResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class SyncAntchainAtoFundWithholdingcontractResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public SyncAntchainAtoFundWithholdingcontractResponse setResultMsg(String resultMsg) {
+    public GetAntchainAtoTradeMerchantperformanceResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class SyncAntchainAtoFundWithholdingcontractResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public SyncAntchainAtoFundWithholdingcontractResponse setResponseData(String responseData) {
+    public GetAntchainAtoTradeMerchantperformanceResponse setResponseData(String responseData) {
         this.responseData = responseData;
         return this;
     }

@@ -18,7 +18,7 @@ public class SyncAntchainAtoTradeFinanceloanapplyRequest extends TeaModel {
 
     // 订单所属商户的社会信用代码
     @NameInMap("merchant_id")
-    @Validation(required = true, maxLength = 200, minLength = 1)
+    @Validation(required = true, maxLength = 64, minLength = 1)
     public String merchantId;
 
     public static SyncAntchainAtoTradeFinanceloanapplyRequest build(java.util.Map<String, ?> map) throws Exception {

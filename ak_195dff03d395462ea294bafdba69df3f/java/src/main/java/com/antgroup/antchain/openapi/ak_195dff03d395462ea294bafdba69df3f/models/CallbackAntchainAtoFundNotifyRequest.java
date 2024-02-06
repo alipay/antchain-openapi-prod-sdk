@@ -11,16 +11,6 @@ public class CallbackAntchainAtoFundNotifyRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 订单id 长度不可超过50
-    @NameInMap("order_id")
-    @Validation(required = true)
-    public String orderId;
-
-    // 订单所属商户的社会信用代码
-    @NameInMap("merchant_id")
-    @Validation(required = true)
-    public String merchantId;
-
     // ASYNC_UNSIGN_APPLY
     @NameInMap("type")
     @Validation(required = true)
@@ -50,22 +40,6 @@ public class CallbackAntchainAtoFundNotifyRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public CallbackAntchainAtoFundNotifyRequest setOrderId(String orderId) {
-        this.orderId = orderId;
-        return this;
-    }
-    public String getOrderId() {
-        return this.orderId;
-    }
-
-    public CallbackAntchainAtoFundNotifyRequest setMerchantId(String merchantId) {
-        this.merchantId = merchantId;
-        return this;
-    }
-    public String getMerchantId() {
-        return this.merchantId;
     }
 
     public CallbackAntchainAtoFundNotifyRequest setType(String type) {

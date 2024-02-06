@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_195dff03d395462ea294bafdba69df3f.models
 
 import com.aliyun.tea.*;
 
-public class SyncAntchainAtoFundOrderfulfillmentResponse extends TeaModel {
+public class GetAntchainAtoFundMerchantperformanceResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class SyncAntchainAtoFundOrderfulfillmentResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 添加成功
+    // 「MerchantPerformanceInfo」的json字符串
     @NameInMap("response_data")
     public String responseData;
 
-    public static SyncAntchainAtoFundOrderfulfillmentResponse build(java.util.Map<String, ?> map) throws Exception {
-        SyncAntchainAtoFundOrderfulfillmentResponse self = new SyncAntchainAtoFundOrderfulfillmentResponse();
+    public static GetAntchainAtoFundMerchantperformanceResponse build(java.util.Map<String, ?> map) throws Exception {
+        GetAntchainAtoFundMerchantperformanceResponse self = new GetAntchainAtoFundMerchantperformanceResponse();
         return TeaModel.build(map, self);
     }
 
-    public SyncAntchainAtoFundOrderfulfillmentResponse setReqMsgId(String reqMsgId) {
+    public GetAntchainAtoFundMerchantperformanceResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class SyncAntchainAtoFundOrderfulfillmentResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public SyncAntchainAtoFundOrderfulfillmentResponse setResultCode(String resultCode) {
+    public GetAntchainAtoFundMerchantperformanceResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class SyncAntchainAtoFundOrderfulfillmentResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public SyncAntchainAtoFundOrderfulfillmentResponse setResultMsg(String resultMsg) {
+    public GetAntchainAtoFundMerchantperformanceResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class SyncAntchainAtoFundOrderfulfillmentResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public SyncAntchainAtoFundOrderfulfillmentResponse setResponseData(String responseData) {
+    public GetAntchainAtoFundMerchantperformanceResponse setResponseData(String responseData) {
         this.responseData = responseData;
         return this;
     }

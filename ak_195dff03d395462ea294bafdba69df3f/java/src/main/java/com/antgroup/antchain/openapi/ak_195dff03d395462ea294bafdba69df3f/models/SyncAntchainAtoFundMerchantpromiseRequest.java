@@ -18,7 +18,7 @@ public class SyncAntchainAtoFundMerchantpromiseRequest extends TeaModel {
 
     // 订单所属商户的社会信用代码
     @NameInMap("merchant_id")
-    @Validation(required = true, maxLength = 200, minLength = 1)
+    @Validation(required = true, maxLength = 64, minLength = 1)
     public String merchantId;
 
     // json字符串,填入「MerchantPromiseReq」的json字符串

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_195dff03d395462ea294bafdba69df3f.models
 
 import com.aliyun.tea.*;
 
-public class SyncAntchainAtoFundSplittingResponse extends TeaModel {
+public class GetAntchainAtoTradeUserperformanceResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class SyncAntchainAtoFundSplittingResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 流水同步描述信息
+    // 「UserPerformanceInfo」的json字符串
     @NameInMap("response_data")
     public String responseData;
 
-    public static SyncAntchainAtoFundSplittingResponse build(java.util.Map<String, ?> map) throws Exception {
-        SyncAntchainAtoFundSplittingResponse self = new SyncAntchainAtoFundSplittingResponse();
+    public static GetAntchainAtoTradeUserperformanceResponse build(java.util.Map<String, ?> map) throws Exception {
+        GetAntchainAtoTradeUserperformanceResponse self = new GetAntchainAtoTradeUserperformanceResponse();
         return TeaModel.build(map, self);
     }
 
-    public SyncAntchainAtoFundSplittingResponse setReqMsgId(String reqMsgId) {
+    public GetAntchainAtoTradeUserperformanceResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class SyncAntchainAtoFundSplittingResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public SyncAntchainAtoFundSplittingResponse setResultCode(String resultCode) {
+    public GetAntchainAtoTradeUserperformanceResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class SyncAntchainAtoFundSplittingResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public SyncAntchainAtoFundSplittingResponse setResultMsg(String resultMsg) {
+    public GetAntchainAtoTradeUserperformanceResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class SyncAntchainAtoFundSplittingResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public SyncAntchainAtoFundSplittingResponse setResponseData(String responseData) {
+    public GetAntchainAtoTradeUserperformanceResponse setResponseData(String responseData) {
         this.responseData = responseData;
         return this;
     }

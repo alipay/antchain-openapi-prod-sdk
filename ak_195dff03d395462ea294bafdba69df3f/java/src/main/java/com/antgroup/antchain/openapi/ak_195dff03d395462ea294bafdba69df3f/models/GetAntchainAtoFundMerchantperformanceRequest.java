@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_195dff03d395462ea294bafdba69df3f.models
 
 import com.aliyun.tea.*;
 
-public class GetAntchainAtoTradeMerchantfulfillmentRequest extends TeaModel {
+public class GetAntchainAtoFundMerchantperformanceRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,7 +11,7 @@ public class GetAntchainAtoTradeMerchantfulfillmentRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 订单id
+    // 订单id 
     @NameInMap("order_id")
     @Validation(required = true, maxLength = 50, minLength = 1)
     public String orderId;
@@ -21,17 +21,17 @@ public class GetAntchainAtoTradeMerchantfulfillmentRequest extends TeaModel {
     @Validation(required = true, maxLength = 64, minLength = 1)
     public String merchantId;
 
-    // 履约期数，不填返回为所有履约期的履约信息
-    // - 如果有填写，返回当前期数的履约信息，列表长度为1
-    @NameInMap("term_idx")
-    public Long termIdx;
+    // 订单所属融资方的社会信用代码
+    @NameInMap("fund_id")
+    @Validation(required = true, maxLength = 64, minLength = 1)
+    public String fundId;
 
-    public static GetAntchainAtoTradeMerchantfulfillmentRequest build(java.util.Map<String, ?> map) throws Exception {
-        GetAntchainAtoTradeMerchantfulfillmentRequest self = new GetAntchainAtoTradeMerchantfulfillmentRequest();
+    public static GetAntchainAtoFundMerchantperformanceRequest build(java.util.Map<String, ?> map) throws Exception {
+        GetAntchainAtoFundMerchantperformanceRequest self = new GetAntchainAtoFundMerchantperformanceRequest();
         return TeaModel.build(map, self);
     }
 
-    public GetAntchainAtoTradeMerchantfulfillmentRequest setAuthToken(String authToken) {
+    public GetAntchainAtoFundMerchantperformanceRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -39,7 +39,7 @@ public class GetAntchainAtoTradeMerchantfulfillmentRequest extends TeaModel {
         return this.authToken;
     }
 
-    public GetAntchainAtoTradeMerchantfulfillmentRequest setProductInstanceId(String productInstanceId) {
+    public GetAntchainAtoFundMerchantperformanceRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -47,7 +47,7 @@ public class GetAntchainAtoTradeMerchantfulfillmentRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public GetAntchainAtoTradeMerchantfulfillmentRequest setOrderId(String orderId) {
+    public GetAntchainAtoFundMerchantperformanceRequest setOrderId(String orderId) {
         this.orderId = orderId;
         return this;
     }
@@ -55,7 +55,7 @@ public class GetAntchainAtoTradeMerchantfulfillmentRequest extends TeaModel {
         return this.orderId;
     }
 
-    public GetAntchainAtoTradeMerchantfulfillmentRequest setMerchantId(String merchantId) {
+    public GetAntchainAtoFundMerchantperformanceRequest setMerchantId(String merchantId) {
         this.merchantId = merchantId;
         return this;
     }
@@ -63,12 +63,12 @@ public class GetAntchainAtoTradeMerchantfulfillmentRequest extends TeaModel {
         return this.merchantId;
     }
 
-    public GetAntchainAtoTradeMerchantfulfillmentRequest setTermIdx(Long termIdx) {
-        this.termIdx = termIdx;
+    public GetAntchainAtoFundMerchantperformanceRequest setFundId(String fundId) {
+        this.fundId = fundId;
         return this;
     }
-    public Long getTermIdx() {
-        return this.termIdx;
+    public String getFundId() {
+        return this.fundId;
     }
 
 }
