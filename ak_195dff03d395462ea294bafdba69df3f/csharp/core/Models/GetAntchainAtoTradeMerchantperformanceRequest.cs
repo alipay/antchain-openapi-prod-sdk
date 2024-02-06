@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 {
-    public class SyncAntchainAtoFundMerchantpromiseRequest : TeaModel {
+    public class GetAntchainAtoTradeMerchantperformanceRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,7 +18,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 订单id 
+        // 订单id
         [NameInMap("order_id")]
         [Validation(Required=true, MaxLength=50)]
         public string OrderId { get; set; }
@@ -27,11 +27,6 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [NameInMap("merchant_id")]
         [Validation(Required=true, MaxLength=64)]
         public string MerchantId { get; set; }
-
-        // json字符串,填入「MerchantPromiseReq」的json字符串
-        [NameInMap("biz_content")]
-        [Validation(Required=true)]
-        public string BizContent { get; set; }
 
     }
 

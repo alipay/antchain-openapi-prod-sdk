@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 {
-    public class GetAntchainAtoFundOrderfulfillmentResponse : TeaModel {
+    public class GetAntchainAtoTradeMerchantperformanceResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,11 +24,10 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 订单履约信息的列表数组
-        // List<OrderFulfillment> 的jsonArray.toString
-        [NameInMap("order_fulfillment_data_list")]
+        // 「MerchantPerformanceInfo」的json字符串
+        [NameInMap("response_data")]
         [Validation(Required=false)]
-        public string OrderFulfillmentDataList { get; set; }
+        public string ResponseData { get; set; }
 
     }
 
