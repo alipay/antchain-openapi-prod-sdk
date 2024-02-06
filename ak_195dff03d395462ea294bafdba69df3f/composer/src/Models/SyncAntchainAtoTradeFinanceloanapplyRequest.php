@@ -30,17 +30,25 @@ class SyncAntchainAtoTradeFinanceloanapplyRequest extends Model
      * @var string
      */
     public $merchantId;
+
+    // 融资放款申请接口
+    /**
+     * @var string
+     */
+    public $merchantName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderId'           => 'order_id',
         'merchantId'        => 'merchant_id',
+        'merchantName'      => 'merchant_name',
     ];
 
     public function validate()
     {
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateRequired('merchantName', $this->merchantName, true);
         Model::validateMaxLength('orderId', $this->orderId, 50);
         Model::validateMaxLength('merchantId', $this->merchantId, 64);
         Model::validateMinLength('orderId', $this->orderId, 1);
@@ -61,6 +69,9 @@ class SyncAntchainAtoTradeFinanceloanapplyRequest extends Model
         }
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->merchantName) {
+            $res['merchant_name'] = $this->merchantName;
         }
 
         return $res;
@@ -85,6 +96,9 @@ class SyncAntchainAtoTradeFinanceloanapplyRequest extends Model
         }
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];
+        }
+        if (isset($map['merchant_name'])) {
+            $model->merchantName = $map['merchant_name'];
         }
 
         return $model;
