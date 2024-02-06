@@ -2851,6 +2851,8 @@ type SyncAntchainAtoTradeFinanceloanapplyRequest struct {
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50" minLength:"1"`
 	// 订单所属商户的社会信用代码
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 融资放款申请接口
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty" require:"true"`
 }
 
 func (s SyncAntchainAtoTradeFinanceloanapplyRequest) String() string {
@@ -2878,6 +2880,11 @@ func (s *SyncAntchainAtoTradeFinanceloanapplyRequest) SetOrderId(v string) *Sync
 
 func (s *SyncAntchainAtoTradeFinanceloanapplyRequest) SetMerchantId(v string) *SyncAntchainAtoTradeFinanceloanapplyRequest {
 	s.MerchantId = &v
+	return s
+}
+
+func (s *SyncAntchainAtoTradeFinanceloanapplyRequest) SetMerchantName(v string) *SyncAntchainAtoTradeFinanceloanapplyRequest {
+	s.MerchantName = &v
 	return s
 }
 
@@ -3927,7 +3934,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.2"),
+				"sdk_version":      tea.String("1.1.3"),
 				"_prod_code":       tea.String("ak_195dff03d395462ea294bafdba69df3f"),
 				"_prod_channel":    tea.String("saas"),
 			}
