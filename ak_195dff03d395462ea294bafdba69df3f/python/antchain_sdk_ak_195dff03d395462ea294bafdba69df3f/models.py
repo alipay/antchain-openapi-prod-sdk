@@ -3565,6 +3565,7 @@ class SyncAntchainAtoTradeFinanceloanapplyRequest(TeaModel):
         product_instance_id: str = None,
         order_id: str = None,
         merchant_id: str = None,
+        merchant_name: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3573,6 +3574,8 @@ class SyncAntchainAtoTradeFinanceloanapplyRequest(TeaModel):
         self.order_id = order_id
         # 订单所属商户的社会信用代码
         self.merchant_id = merchant_id
+        # 融资放款申请接口
+        self.merchant_name = merchant_name
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -3581,6 +3584,7 @@ class SyncAntchainAtoTradeFinanceloanapplyRequest(TeaModel):
         self.validate_required(self.merchant_id, 'merchant_id')
         if self.merchant_id is not None:
             self.validate_max_length(self.merchant_id, 'merchant_id', 64)
+        self.validate_required(self.merchant_name, 'merchant_name')
 
     def to_map(self):
         _map = super().to_map()
@@ -3596,6 +3600,8 @@ class SyncAntchainAtoTradeFinanceloanapplyRequest(TeaModel):
             result['order_id'] = self.order_id
         if self.merchant_id is not None:
             result['merchant_id'] = self.merchant_id
+        if self.merchant_name is not None:
+            result['merchant_name'] = self.merchant_name
         return result
 
     def from_map(self, m: dict = None):
@@ -3608,6 +3614,8 @@ class SyncAntchainAtoTradeFinanceloanapplyRequest(TeaModel):
             self.order_id = m.get('order_id')
         if m.get('merchant_id') is not None:
             self.merchant_id = m.get('merchant_id')
+        if m.get('merchant_name') is not None:
+            self.merchant_name = m.get('merchant_name')
         return self
 
 
