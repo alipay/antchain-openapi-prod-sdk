@@ -42,7 +42,7 @@ class SyncAntchainAtoTradeFinanceloanapplyRequest extends Model
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('merchantId', $this->merchantId, true);
         Model::validateMaxLength('orderId', $this->orderId, 50);
-        Model::validateMaxLength('merchantId', $this->merchantId, 200);
+        Model::validateMaxLength('merchantId', $this->merchantId, 64);
         Model::validateMinLength('orderId', $this->orderId, 1);
         Model::validateMinLength('merchantId', $this->merchantId, 1);
     }

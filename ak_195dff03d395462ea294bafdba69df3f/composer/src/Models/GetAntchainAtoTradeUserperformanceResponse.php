@@ -6,7 +6,7 @@ namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetAntchainAtoFundOrderfulfillmentResponse extends Model
+class GetAntchainAtoTradeUserperformanceResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,17 +26,16 @@ class GetAntchainAtoFundOrderfulfillmentResponse extends Model
      */
     public $resultMsg;
 
-    // 订单履约信息的列表数组
-    // List<OrderFulfillment> 的jsonArray.toString
+    // 「UserPerformanceInfo」的json字符串
     /**
      * @var string
      */
-    public $orderFulfillmentDataList;
+    public $responseData;
     protected $_name = [
-        'reqMsgId'                 => 'req_msg_id',
-        'resultCode'               => 'result_code',
-        'resultMsg'                => 'result_msg',
-        'orderFulfillmentDataList' => 'order_fulfillment_data_list',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'responseData' => 'response_data',
     ];
 
     public function validate()
@@ -55,8 +54,8 @@ class GetAntchainAtoFundOrderfulfillmentResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->orderFulfillmentDataList) {
-            $res['order_fulfillment_data_list'] = $this->orderFulfillmentDataList;
+        if (null !== $this->responseData) {
+            $res['response_data'] = $this->responseData;
         }
 
         return $res;
@@ -65,7 +64,7 @@ class GetAntchainAtoFundOrderfulfillmentResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetAntchainAtoFundOrderfulfillmentResponse
+     * @return GetAntchainAtoTradeUserperformanceResponse
      */
     public static function fromMap($map = [])
     {
@@ -79,8 +78,8 @@ class GetAntchainAtoFundOrderfulfillmentResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['order_fulfillment_data_list'])) {
-            $model->orderFulfillmentDataList = $map['order_fulfillment_data_list'];
+        if (isset($map['response_data'])) {
+            $model->responseData = $map['response_data'];
         }
 
         return $model;

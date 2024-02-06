@@ -6,7 +6,7 @@ namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetAntchainAtoFundOrderfulfillmentRequest extends Model
+class GetAntchainAtoFundMerchantperformanceRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,35 +25,36 @@ class GetAntchainAtoFundOrderfulfillmentRequest extends Model
      */
     public $orderId;
 
-    // 租赁订单所属商家租户id
+    // 订单所属商户的社会信用代码
     /**
      * @var string
      */
-    public $merchantTenantId;
+    public $merchantId;
 
-    // 期数
-    // 如果填入，获取term_idx下的履约记录
-    // 如果不填入，获取order_id下的所有履约记录
+    // 订单所属融资方的社会信用代码
     /**
-     * @var int
+     * @var string
      */
-    public $termIdx;
+    public $fundId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderId'           => 'order_id',
-        'merchantTenantId'  => 'merchant_tenant_id',
-        'termIdx'           => 'term_idx',
+        'merchantId'        => 'merchant_id',
+        'fundId'            => 'fund_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('merchantTenantId', $this->merchantTenantId, true);
-        Model::validateMaxLength('orderId', $this->orderId, 49);
-        Model::validateMaxLength('merchantTenantId', $this->merchantTenantId, 49);
+        Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateRequired('fundId', $this->fundId, true);
+        Model::validateMaxLength('orderId', $this->orderId, 50);
+        Model::validateMaxLength('merchantId', $this->merchantId, 64);
+        Model::validateMaxLength('fundId', $this->fundId, 64);
         Model::validateMinLength('orderId', $this->orderId, 1);
-        Model::validateMinLength('merchantTenantId', $this->merchantTenantId, 1);
+        Model::validateMinLength('merchantId', $this->merchantId, 1);
+        Model::validateMinLength('fundId', $this->fundId, 1);
     }
 
     public function toMap()
@@ -68,11 +69,11 @@ class GetAntchainAtoFundOrderfulfillmentRequest extends Model
         if (null !== $this->orderId) {
             $res['order_id'] = $this->orderId;
         }
-        if (null !== $this->merchantTenantId) {
-            $res['merchant_tenant_id'] = $this->merchantTenantId;
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
         }
-        if (null !== $this->termIdx) {
-            $res['term_idx'] = $this->termIdx;
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
         }
 
         return $res;
@@ -81,7 +82,7 @@ class GetAntchainAtoFundOrderfulfillmentRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetAntchainAtoFundOrderfulfillmentRequest
+     * @return GetAntchainAtoFundMerchantperformanceRequest
      */
     public static function fromMap($map = [])
     {
@@ -95,11 +96,11 @@ class GetAntchainAtoFundOrderfulfillmentRequest extends Model
         if (isset($map['order_id'])) {
             $model->orderId = $map['order_id'];
         }
-        if (isset($map['merchant_tenant_id'])) {
-            $model->merchantTenantId = $map['merchant_tenant_id'];
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
         }
-        if (isset($map['term_idx'])) {
-            $model->termIdx = $map['term_idx'];
+        if (isset($map['fund_id'])) {
+            $model->fundId = $map['fund_id'];
         }
 
         return $model;

@@ -19,18 +19,6 @@ class CallbackAntchainAtoFundNotifyRequest extends Model
      */
     public $productInstanceId;
 
-    // 订单id 长度不可超过50
-    /**
-     * @var string
-     */
-    public $orderId;
-
-    // 订单所属商户的社会信用代码
-    /**
-     * @var string
-     */
-    public $merchantId;
-
     // ASYNC_UNSIGN_APPLY
     /**
      * @var string
@@ -45,16 +33,12 @@ class CallbackAntchainAtoFundNotifyRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'orderId'           => 'order_id',
-        'merchantId'        => 'merchant_id',
         'type'              => 'type',
         'data'              => 'data',
     ];
 
     public function validate()
     {
-        Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('merchantId', $this->merchantId, true);
         Model::validateRequired('type', $this->type, true);
         Model::validateRequired('data', $this->data, true);
     }
@@ -67,12 +51,6 @@ class CallbackAntchainAtoFundNotifyRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->merchantId) {
-            $res['merchant_id'] = $this->merchantId;
         }
         if (null !== $this->type) {
             $res['type'] = $this->type;
@@ -97,12 +75,6 @@ class CallbackAntchainAtoFundNotifyRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['merchant_id'])) {
-            $model->merchantId = $map['merchant_id'];
         }
         if (isset($map['type'])) {
             $model->type = $map['type'];

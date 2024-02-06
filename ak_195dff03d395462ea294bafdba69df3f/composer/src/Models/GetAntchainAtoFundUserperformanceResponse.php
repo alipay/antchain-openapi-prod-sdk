@@ -6,7 +6,7 @@ namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SyncAntchainAtoFundOrderfulfillmentResponse extends Model
+class GetAntchainAtoFundUserperformanceResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,7 +26,7 @@ class SyncAntchainAtoFundOrderfulfillmentResponse extends Model
      */
     public $resultMsg;
 
-    // 添加成功
+    // 「UserPerformanceInfo」的json字符串
     /**
      * @var string
      */
@@ -64,7 +64,7 @@ class SyncAntchainAtoFundOrderfulfillmentResponse extends Model
     /**
      * @param array $map
      *
-     * @return SyncAntchainAtoFundOrderfulfillmentResponse
+     * @return GetAntchainAtoFundUserperformanceResponse
      */
     public static function fromMap($map = [])
     {

@@ -6,7 +6,7 @@ namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetAntchainAtoTradeMerchantfulfillmentRequest extends Model
+class GetAntchainAtoTradeUserperformanceRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,24 +25,16 @@ class GetAntchainAtoTradeMerchantfulfillmentRequest extends Model
      */
     public $orderId;
 
-    // 订单所属商户的社会信用代码
+    // 商家公司社会信用代码
     /**
      * @var string
      */
     public $merchantId;
-
-    // 履约期数，不填返回为所有履约期的履约信息
-    // - 如果有填写，返回当前期数的履约信息，列表长度为1
-    /**
-     * @var int
-     */
-    public $termIdx;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderId'           => 'order_id',
         'merchantId'        => 'merchant_id',
-        'termIdx'           => 'term_idx',
     ];
 
     public function validate()
@@ -70,9 +62,6 @@ class GetAntchainAtoTradeMerchantfulfillmentRequest extends Model
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
         }
-        if (null !== $this->termIdx) {
-            $res['term_idx'] = $this->termIdx;
-        }
 
         return $res;
     }
@@ -80,7 +69,7 @@ class GetAntchainAtoTradeMerchantfulfillmentRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetAntchainAtoTradeMerchantfulfillmentRequest
+     * @return GetAntchainAtoTradeUserperformanceRequest
      */
     public static function fromMap($map = [])
     {
@@ -96,9 +85,6 @@ class GetAntchainAtoTradeMerchantfulfillmentRequest extends Model
         }
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];
-        }
-        if (isset($map['term_idx'])) {
-            $model->termIdx = $map['term_idx'];
         }
 
         return $model;
