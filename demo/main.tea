@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.259',
+    sdk_version = '1.0.262',
     _prod_code = 'DEMO',
     _prod_channel = 'undefined'
   };
@@ -2356,6 +2356,48 @@ async function queryAcopmTestobjectTestsub(request: QueryAcopmTestobjectTestsubR
 async function queryAcopmTestobjectTestsubEx(request: QueryAcopmTestobjectTestsubRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAcopmTestobjectTestsubResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.acopm.testobject.testsub.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAcopmTestobTestsubRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 主键
+  id: long(minimum=1, name='id'),
+  // 名称
+  name: string(name='name'),
+}
+
+model QueryAcopmTestobTestsubResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 主键
+  id?: long(name='id'),
+  // 名称
+  name?: string(name='name'),
+}
+
+/**
+ * Description: 测试API创建流程
+ * Summary: API测试查询接口(只是测试使用)
+ */
+async function queryAcopmTestobTestsub(request: QueryAcopmTestobTestsubRequest): QueryAcopmTestobTestsubResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAcopmTestobTestsubEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试API创建流程
+ * Summary: API测试查询接口(只是测试使用)
+ */
+async function queryAcopmTestobTestsubEx(request: QueryAcopmTestobTestsubRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAcopmTestobTestsubResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.acopm.testob.testsub.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryGongxiangTestDemoRequest = {
