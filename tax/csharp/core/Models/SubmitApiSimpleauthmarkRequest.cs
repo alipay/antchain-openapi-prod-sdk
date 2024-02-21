@@ -28,6 +28,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string AuthType { get; set; }
 
+        // 租户信息
+        [NameInMap("inst_code")]
+        [Validation(Required=true)]
+        public string InstCode { get; set; }
+
     }
 
 }
