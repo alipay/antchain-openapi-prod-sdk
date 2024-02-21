@@ -30,16 +30,24 @@ class SubmitApiSimpleauthmarkRequest extends Model
      * @var string
      */
     public $authType;
+
+    // 租户信息
+    /**
+     * @var string
+     */
+    public $instCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'identityGroupList' => 'identity_group_list',
         'authType'          => 'auth_type',
+        'instCode'          => 'inst_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('identityGroupList', $this->identityGroupList, true);
+        Model::validateRequired('instCode', $this->instCode, true);
     }
 
     public function toMap()
@@ -62,6 +70,9 @@ class SubmitApiSimpleauthmarkRequest extends Model
         }
         if (null !== $this->authType) {
             $res['auth_type'] = $this->authType;
+        }
+        if (null !== $this->instCode) {
+            $res['inst_code'] = $this->instCode;
         }
 
         return $res;
@@ -92,6 +103,9 @@ class SubmitApiSimpleauthmarkRequest extends Model
         }
         if (isset($map['auth_type'])) {
             $model->authType = $map['auth_type'];
+        }
+        if (isset($map['inst_code'])) {
+            $model->instCode = $map['inst_code'];
         }
 
         return $model;

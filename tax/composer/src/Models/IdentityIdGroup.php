@@ -16,14 +16,6 @@ class IdentityIdGroup extends Model
      */
     public $groupId;
 
-    // 打标数据返回的url
-    /**
-     * @example http://aaaa/dddd
-     *
-     * @var string
-     */
-    public $fileUrl;
-
     // 请求id，用于幂等控制
     /**
      * @example f8b63ae0ad8d406ebf60eb8835afeba9
@@ -31,17 +23,35 @@ class IdentityIdGroup extends Model
      * @var string
      */
     public $bizUniqueId;
+
+    // 数据源
+    /**
+     * @example SHANDONG
+     *
+     * @var string
+     */
+    public $channel;
+
+    // 上传的文件
+    /**
+     * @example jklsdjfl
+     *
+     * @var string
+     */
+    public $fileUrl;
     protected $_name = [
         'groupId'     => 'group_id',
-        'fileUrl'     => 'file_url',
         'bizUniqueId' => 'biz_unique_id',
+        'channel'     => 'channel',
+        'fileUrl'     => 'file_url',
     ];
 
     public function validate()
     {
         Model::validateRequired('groupId', $this->groupId, true);
-        Model::validateRequired('fileUrl', $this->fileUrl, true);
         Model::validateRequired('bizUniqueId', $this->bizUniqueId, true);
+        Model::validateRequired('channel', $this->channel, true);
+        Model::validateRequired('fileUrl', $this->fileUrl, true);
     }
 
     public function toMap()
@@ -50,11 +60,14 @@ class IdentityIdGroup extends Model
         if (null !== $this->groupId) {
             $res['group_id'] = $this->groupId;
         }
-        if (null !== $this->fileUrl) {
-            $res['file_url'] = $this->fileUrl;
-        }
         if (null !== $this->bizUniqueId) {
             $res['biz_unique_id'] = $this->bizUniqueId;
+        }
+        if (null !== $this->channel) {
+            $res['channel'] = $this->channel;
+        }
+        if (null !== $this->fileUrl) {
+            $res['file_url'] = $this->fileUrl;
         }
 
         return $res;
@@ -71,11 +84,14 @@ class IdentityIdGroup extends Model
         if (isset($map['group_id'])) {
             $model->groupId = $map['group_id'];
         }
-        if (isset($map['file_url'])) {
-            $model->fileUrl = $map['file_url'];
-        }
         if (isset($map['biz_unique_id'])) {
             $model->bizUniqueId = $map['biz_unique_id'];
+        }
+        if (isset($map['channel'])) {
+            $model->channel = $map['channel'];
+        }
+        if (isset($map['file_url'])) {
+            $model->fileUrl = $map['file_url'];
         }
 
         return $model;
