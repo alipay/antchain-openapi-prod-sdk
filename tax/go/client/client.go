@@ -867,10 +867,12 @@ func (s *MarriageCheckEvaluationFacade) SetCheckResult(v string) *MarriageCheckE
 type IdentityIdGroup struct {
 	// 44-20230810-9-channel
 	GroupId *string `json:"group_id,omitempty" xml:"group_id,omitempty" require:"true"`
-	// 打标数据返回的url
-	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
 	// 请求id，用于幂等控制
 	BizUniqueId *string `json:"biz_unique_id,omitempty" xml:"biz_unique_id,omitempty" require:"true"`
+	// 数据源
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+	// 上传的文件
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
 }
 
 func (s IdentityIdGroup) String() string {
@@ -886,13 +888,18 @@ func (s *IdentityIdGroup) SetGroupId(v string) *IdentityIdGroup {
 	return s
 }
 
-func (s *IdentityIdGroup) SetFileUrl(v string) *IdentityIdGroup {
-	s.FileUrl = &v
+func (s *IdentityIdGroup) SetBizUniqueId(v string) *IdentityIdGroup {
+	s.BizUniqueId = &v
 	return s
 }
 
-func (s *IdentityIdGroup) SetBizUniqueId(v string) *IdentityIdGroup {
-	s.BizUniqueId = &v
+func (s *IdentityIdGroup) SetChannel(v string) *IdentityIdGroup {
+	s.Channel = &v
+	return s
+}
+
+func (s *IdentityIdGroup) SetFileUrl(v string) *IdentityIdGroup {
+	s.FileUrl = &v
 	return s
 }
 
@@ -1225,6 +1232,32 @@ func (s *RiskEvaluationExtendInfoRequest) SetAgreementList(v []*RiskEvaluationAg
 
 func (s *RiskEvaluationExtendInfoRequest) SetDistrictExt(v *RiskEvaluationDistrictExtRequest) *RiskEvaluationExtendInfoRequest {
 	s.DistrictExt = v
+	return s
+}
+
+// 要素授权打标返回结果
+type DataMarkFileResult struct {
+	// 返回数据再oss上的地址
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 秘钥
+	Secret *string `json:"secret,omitempty" xml:"secret,omitempty" require:"true"`
+}
+
+func (s DataMarkFileResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataMarkFileResult) GoString() string {
+	return s.String()
+}
+
+func (s *DataMarkFileResult) SetFileUrl(v string) *DataMarkFileResult {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *DataMarkFileResult) SetSecret(v string) *DataMarkFileResult {
+	s.Secret = &v
 	return s
 }
 
@@ -4199,6 +4232,8 @@ type SubmitApiSimpleauthmarkRequest struct {
 	IdentityGroupList []*IdentityIdGroup `json:"identity_group_list,omitempty" xml:"identity_group_list,omitempty" require:"true" type:"Repeated"`
 	// 产品类型
 	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
+	// 租户信息
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
 }
 
 func (s SubmitApiSimpleauthmarkRequest) String() string {
@@ -4226,6 +4261,11 @@ func (s *SubmitApiSimpleauthmarkRequest) SetIdentityGroupList(v []*IdentityIdGro
 
 func (s *SubmitApiSimpleauthmarkRequest) SetAuthType(v string) *SubmitApiSimpleauthmarkRequest {
 	s.AuthType = &v
+	return s
+}
+
+func (s *SubmitApiSimpleauthmarkRequest) SetInstCode(v string) *SubmitApiSimpleauthmarkRequest {
+	s.InstCode = &v
 	return s
 }
 
@@ -5905,7 +5945,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.13"),
+				"sdk_version":      tea.String("1.8.21"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
