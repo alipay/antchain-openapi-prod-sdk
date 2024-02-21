@@ -1124,20 +1124,24 @@ class IdentityIdGroup(TeaModel):
     def __init__(
         self,
         group_id: str = None,
-        file_url: str = None,
         biz_unique_id: str = None,
+        channel: str = None,
+        file_url: str = None,
     ):
         # 44-20230810-9-channel
         self.group_id = group_id
-        # 打标数据返回的url
-        self.file_url = file_url
         # 请求id，用于幂等控制
         self.biz_unique_id = biz_unique_id
+        # 数据源
+        self.channel = channel
+        # 上传的文件
+        self.file_url = file_url
 
     def validate(self):
         self.validate_required(self.group_id, 'group_id')
-        self.validate_required(self.file_url, 'file_url')
         self.validate_required(self.biz_unique_id, 'biz_unique_id')
+        self.validate_required(self.channel, 'channel')
+        self.validate_required(self.file_url, 'file_url')
 
     def to_map(self):
         _map = super().to_map()
@@ -1147,20 +1151,24 @@ class IdentityIdGroup(TeaModel):
         result = dict()
         if self.group_id is not None:
             result['group_id'] = self.group_id
-        if self.file_url is not None:
-            result['file_url'] = self.file_url
         if self.biz_unique_id is not None:
             result['biz_unique_id'] = self.biz_unique_id
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.file_url is not None:
+            result['file_url'] = self.file_url
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('group_id') is not None:
             self.group_id = m.get('group_id')
-        if m.get('file_url') is not None:
-            self.file_url = m.get('file_url')
         if m.get('biz_unique_id') is not None:
             self.biz_unique_id = m.get('biz_unique_id')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('file_url') is not None:
+            self.file_url = m.get('file_url')
         return self
 
 
@@ -1611,6 +1619,42 @@ class RiskEvaluationExtendInfoRequest(TeaModel):
         if m.get('district_ext') is not None:
             temp_model = RiskEvaluationDistrictExtRequest()
             self.district_ext = temp_model.from_map(m['district_ext'])
+        return self
+
+
+class DataMarkFileResult(TeaModel):
+    def __init__(
+        self,
+        file_url: str = None,
+        secret: str = None,
+    ):
+        # 返回数据再oss上的地址
+        self.file_url = file_url
+        # 秘钥
+        self.secret = secret
+
+    def validate(self):
+        self.validate_required(self.file_url, 'file_url')
+        self.validate_required(self.secret, 'secret')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_url is not None:
+            result['file_url'] = self.file_url
+        if self.secret is not None:
+            result['secret'] = self.secret
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('file_url') is not None:
+            self.file_url = m.get('file_url')
+        if m.get('secret') is not None:
+            self.secret = m.get('secret')
         return self
 
 
@@ -5240,6 +5284,7 @@ class SubmitApiSimpleauthmarkRequest(TeaModel):
         product_instance_id: str = None,
         identity_group_list: List[IdentityIdGroup] = None,
         auth_type: str = None,
+        inst_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -5248,6 +5293,8 @@ class SubmitApiSimpleauthmarkRequest(TeaModel):
         self.identity_group_list = identity_group_list
         # 产品类型
         self.auth_type = auth_type
+        # 租户信息
+        self.inst_code = inst_code
 
     def validate(self):
         self.validate_required(self.identity_group_list, 'identity_group_list')
@@ -5255,6 +5302,7 @@ class SubmitApiSimpleauthmarkRequest(TeaModel):
             for k in self.identity_group_list:
                 if k:
                     k.validate()
+        self.validate_required(self.inst_code, 'inst_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -5272,6 +5320,8 @@ class SubmitApiSimpleauthmarkRequest(TeaModel):
                 result['identity_group_list'].append(k.to_map() if k else None)
         if self.auth_type is not None:
             result['auth_type'] = self.auth_type
+        if self.inst_code is not None:
+            result['inst_code'] = self.inst_code
         return result
 
     def from_map(self, m: dict = None):
@@ -5287,6 +5337,8 @@ class SubmitApiSimpleauthmarkRequest(TeaModel):
                 self.identity_group_list.append(temp_model.from_map(k))
         if m.get('auth_type') is not None:
             self.auth_type = m.get('auth_type')
+        if m.get('inst_code') is not None:
+            self.inst_code = m.get('inst_code')
         return self
 
 
