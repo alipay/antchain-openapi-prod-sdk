@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.13',
+    sdk_version = '1.8.21',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -399,10 +399,12 @@ model MarriageCheckEvaluationFacade {
 model IdentityIdGroup {
   // 44-20230810-9-channel
   groupId: string(name='group_id', example='批次id'),
-  // 打标数据返回的url
-  fileUrl: string(name='file_url', example='http://aaaa/dddd'),
   // 请求id，用于幂等控制
   bizUniqueId: string(name='biz_unique_id', example='f8b63ae0ad8d406ebf60eb8835afeba9'),
+  // 数据源
+  channel: string(name='channel', example='SHANDONG'),
+  // 上传的文件
+  fileUrl: string(name='file_url', example='jklsdjfl'),
 }
 
 // 返回详情
@@ -503,6 +505,14 @@ model RiskEvaluationExtendInfoRequest {
   agreementList: [ RiskEvaluationAgreementExtRequest ](name='agreement_list', example=''),
   // 地区请求
   districtExt: RiskEvaluationDistrictExtRequest(name='district_ext', example='地区请求'),
+}
+
+// 要素授权打标返回结果
+model DataMarkFileResult {
+  // 返回数据再oss上的地址
+  fileUrl: string(name='file_url', example='http://invoice'),
+  // 秘钥
+  secret: string(name='secret', example='秘钥'),
 }
 
 // 发票标准模型
@@ -1830,6 +1840,8 @@ model SubmitApiSimpleauthmarkRequest = {
   identityGroupList: [ IdentityIdGroup ](name='identity_group_list'),
   // 产品类型
   authType?: string(name='auth_type'),
+  // 租户信息
+  instCode: string(name='inst_code'),
 }
 
 model SubmitApiSimpleauthmarkResponse = {
