@@ -63,6 +63,8 @@ use AntChain\DEMO\Models\QueryAbcAbcAbcRequest;
 use AntChain\DEMO\Models\QueryAbcAbcAbcResponse;
 use AntChain\DEMO\Models\QueryAcopmTestobjectTestsubRequest;
 use AntChain\DEMO\Models\QueryAcopmTestobjectTestsubResponse;
+use AntChain\DEMO\Models\QueryAcopmTestobTestsubRequest;
+use AntChain\DEMO\Models\QueryAcopmTestobTestsubResponse;
 use AntChain\DEMO\Models\QueryAdAsdAsdRequest;
 use AntChain\DEMO\Models\QueryAdAsdAsdResponse;
 use AntChain\DEMO\Models\QueryApiOfflineStatusRequest;
@@ -288,7 +290,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.259',
+                    'sdk_version'      => '1.0.262',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1974,6 +1976,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryAcopmTestobjectTestsubResponse::fromMap($this->doRequest('1.0', 'demo.acopm.testobject.testsub.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试API创建流程
+     * Summary: API测试查询接口(只是测试使用).
+     *
+     * @param QueryAcopmTestobTestsubRequest $request
+     *
+     * @return QueryAcopmTestobTestsubResponse
+     */
+    public function queryAcopmTestobTestsub($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAcopmTestobTestsubEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试API创建流程
+     * Summary: API测试查询接口(只是测试使用).
+     *
+     * @param QueryAcopmTestobTestsubRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryAcopmTestobTestsubResponse
+     */
+    public function queryAcopmTestobTestsubEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAcopmTestobTestsubResponse::fromMap($this->doRequest('1.0', 'demo.acopm.testob.testsub.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
