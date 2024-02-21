@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.259',
+                    'sdk_version': '1.0.262',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.259',
+                    'sdk_version': '1.0.262',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -3067,6 +3067,62 @@ class Client:
         return TeaCore.from_map(
             demo_models.QueryAcopmTestobjectTestsubResponse(),
             await self.do_request_async('1.0', 'demo.acopm.testobject.testsub.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_acopm_testob_testsub(
+        self,
+        request: demo_models.QueryAcopmTestobTestsubRequest,
+    ) -> demo_models.QueryAcopmTestobTestsubResponse:
+        """
+        Description: 测试API创建流程
+        Summary: API测试查询接口(只是测试使用)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_acopm_testob_testsub_ex(request, headers, runtime)
+
+    async def query_acopm_testob_testsub_async(
+        self,
+        request: demo_models.QueryAcopmTestobTestsubRequest,
+    ) -> demo_models.QueryAcopmTestobTestsubResponse:
+        """
+        Description: 测试API创建流程
+        Summary: API测试查询接口(只是测试使用)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_acopm_testob_testsub_ex_async(request, headers, runtime)
+
+    def query_acopm_testob_testsub_ex(
+        self,
+        request: demo_models.QueryAcopmTestobTestsubRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryAcopmTestobTestsubResponse:
+        """
+        Description: 测试API创建流程
+        Summary: API测试查询接口(只是测试使用)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryAcopmTestobTestsubResponse(),
+            self.do_request('1.0', 'demo.acopm.testob.testsub.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_acopm_testob_testsub_ex_async(
+        self,
+        request: demo_models.QueryAcopmTestobTestsubRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryAcopmTestobTestsubResponse:
+        """
+        Description: 测试API创建流程
+        Summary: API测试查询接口(只是测试使用)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryAcopmTestobTestsubResponse(),
+            await self.do_request_async('1.0', 'demo.acopm.testob.testsub.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_gongxiang_test_demo(
