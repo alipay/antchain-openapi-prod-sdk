@@ -20,6 +20,11 @@ public class SubmitApiSimpleauthmarkRequest extends TeaModel {
     @NameInMap("auth_type")
     public String authType;
 
+    // 租户信息
+    @NameInMap("inst_code")
+    @Validation(required = true)
+    public String instCode;
+
     public static SubmitApiSimpleauthmarkRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitApiSimpleauthmarkRequest self = new SubmitApiSimpleauthmarkRequest();
         return TeaModel.build(map, self);
@@ -55,6 +60,14 @@ public class SubmitApiSimpleauthmarkRequest extends TeaModel {
     }
     public String getAuthType() {
         return this.authType;
+    }
+
+    public SubmitApiSimpleauthmarkRequest setInstCode(String instCode) {
+        this.instCode = instCode;
+        return this;
+    }
+    public String getInstCode() {
+        return this.instCode;
     }
 
 }
