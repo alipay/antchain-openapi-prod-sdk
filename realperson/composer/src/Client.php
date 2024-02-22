@@ -47,6 +47,8 @@ use AntChain\REALPERSON\Models\GetFacevrfEvidenceRequest;
 use AntChain\REALPERSON\Models\GetFacevrfEvidenceResponse;
 use AntChain\REALPERSON\Models\InitFacevrfZimRequest;
 use AntChain\REALPERSON\Models\InitFacevrfZimResponse;
+use AntChain\REALPERSON\Models\QueryCarrierNetstatusRequest;
+use AntChain\REALPERSON\Models\QueryCarrierNetstatusResponse;
 use AntChain\REALPERSON\Models\QueryDeepsecRiskRequest;
 use AntChain\REALPERSON\Models\QueryDeepsecRiskResponse;
 use AntChain\REALPERSON\Models\QueryDeepsecTsbmrqRequest;
@@ -222,7 +224,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.15.4',
+                    'sdk_version'      => '1.15.5',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1309,6 +1311,39 @@ class Client
         Utils::validateModel($request);
 
         return QuerySocialriskDetailResponse::fromMap($this->doRequest('1.0', 'di.realperson.socialrisk.detail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 运营商在网状态查询
+     * Summary: 运营商在网状态查询.
+     *
+     * @param QueryCarrierNetstatusRequest $request
+     *
+     * @return QueryCarrierNetstatusResponse
+     */
+    public function queryCarrierNetstatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCarrierNetstatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 运营商在网状态查询
+     * Summary: 运营商在网状态查询.
+     *
+     * @param QueryCarrierNetstatusRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryCarrierNetstatusResponse
+     */
+    public function queryCarrierNetstatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCarrierNetstatusResponse::fromMap($this->doRequest('1.0', 'di.realperson.carrier.netstatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
