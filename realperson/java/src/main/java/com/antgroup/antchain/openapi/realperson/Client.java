@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.15.4"),
+                    new TeaPair("sdk_version", "1.15.5"),
                     new TeaPair("_prod_code", "REALPERSON"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -769,6 +769,25 @@ public class Client {
     public QuerySocialriskDetailResponse querySocialriskDetailEx(QuerySocialriskDetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.socialrisk.detail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySocialriskDetailResponse());
+    }
+
+    /**
+     * Description: 运营商在网状态查询
+     * Summary: 运营商在网状态查询
+     */
+    public QueryCarrierNetstatusResponse queryCarrierNetstatus(QueryCarrierNetstatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCarrierNetstatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 运营商在网状态查询
+     * Summary: 运营商在网状态查询
+     */
+    public QueryCarrierNetstatusResponse queryCarrierNetstatusEx(QueryCarrierNetstatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.carrier.netstatus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCarrierNetstatusResponse());
     }
 
     /**
