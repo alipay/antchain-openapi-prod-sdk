@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.4',
+                    'sdk_version': '1.15.5',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.4',
+                    'sdk_version': '1.15.5',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -2043,6 +2043,62 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QuerySocialriskDetailResponse(),
             await self.do_request_async('1.0', 'di.realperson.socialrisk.detail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_carrier_netstatus(
+        self,
+        request: realperson_models.QueryCarrierNetstatusRequest,
+    ) -> realperson_models.QueryCarrierNetstatusResponse:
+        """
+        Description: 运营商在网状态查询
+        Summary: 运营商在网状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_carrier_netstatus_ex(request, headers, runtime)
+
+    async def query_carrier_netstatus_async(
+        self,
+        request: realperson_models.QueryCarrierNetstatusRequest,
+    ) -> realperson_models.QueryCarrierNetstatusResponse:
+        """
+        Description: 运营商在网状态查询
+        Summary: 运营商在网状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_carrier_netstatus_ex_async(request, headers, runtime)
+
+    def query_carrier_netstatus_ex(
+        self,
+        request: realperson_models.QueryCarrierNetstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCarrierNetstatusResponse:
+        """
+        Description: 运营商在网状态查询
+        Summary: 运营商在网状态查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCarrierNetstatusResponse(),
+            self.do_request('1.0', 'di.realperson.carrier.netstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_carrier_netstatus_ex_async(
+        self,
+        request: realperson_models.QueryCarrierNetstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCarrierNetstatusResponse:
+        """
+        Description: 运营商在网状态查询
+        Summary: 运营商在网状态查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCarrierNetstatusResponse(),
+            await self.do_request_async('1.0', 'di.realperson.carrier.netstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
