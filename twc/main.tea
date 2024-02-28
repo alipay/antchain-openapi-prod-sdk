@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.16',
+    sdk_version = '1.12.17',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -294,18 +294,20 @@ model BclOrderProductInfo {
 model InsuranceCancelRecordInfo {
   // 保单单号
   bclInsuranceRecordId: string(name='bcl_insurance_record_id', example='123123123123213'),
-  // 退保保单号
+  // 退保id
   cancelInsuranceId: string(name='cancel_insurance_id', example='12312312312123'),
-  // 退还保费 单位分
-  cancelAmount: long(name='cancel_amount', example='12312'),
+  // 退还保费 单位分, 退保成功时返回
+  cancelAmount?: long(name='cancel_amount', example='12312'),
   // 申请退保时间
   // 格式: yyyy-MM-dd HH:mm:ss
   cancelApplyTime: string(name='cancel_apply_time', example='2023-04-05 12:12:23'),
   // 退保状态
-  // CANCEL_INIT: 退保初始化
-  // CANCEL_SUCC: 退保成功
-  // CANCEL_FAIL: 退保失败
-  cancelStatus: string(name='cancel_status', example='CANCEL_SUCC'),
+  // RECORD_CANCEL_INIT: 退保初始
+  // RECORD_CANCEL_SUCC: 退保成功
+  // RECORD_CANCEL_FAIL: 退保失败
+  cancelStatus: string(name='cancel_status', example='RECORD_CANCEL_SUCC'),
+  // 退保失败原, 退保失败时返回
+  remark?: string(name='remark', example='退保失败, 保单已失效'),
 }
 
 // 存证关联实体（个人/企业）的身份识别信息
@@ -2319,27 +2321,34 @@ model InsuranceRecordInfo {
   // 保司信息
   insurancer: BclInsuranceUserInfo(name='insurancer', example=''),
   // 保单状态
-  // INSURE_INIT: 投保初始化
-  // INSURE_WAIT: 投保等待
-  // INSURE_SUCC: 投保成功
-  // INSURE_FAIL: 投保失败
-  insuranceStatus: string(name='insurance_status', example='INSRUE_SUCC'),
+  // RECORD_INSURE_INIT: 投保流程初始化
+  // RECORD_INSURE_TOBE: 待投保
+  // RECORD_INSURE_EXCHANGE_SUCC: 投保申请成功
+  // RECORD_INSURE_EXCHANGE_FAIL: 投保申请失败
+  // RECORD_INSURE_SUCC: 投保成功
+  // RECORD_INSURE_FAIL: 投保失败
+  // RECORD_CANCEL_INIT: 退保初始
+  // RECORD_CANCEL_SUCC: 退保成功
+  // RECORD_CANCEL_FAIL: 退保失败
+  insuranceStatus: string(name='insurance_status', example='RECORD_INSURE_SUCC'),
   // 起保时间
   // 格式: yyyy-MM-dd HH:mm:ss
-  insuranceStartTime: string(name='insurance_start_time', example='2023-04-05 12:12:23'),
+  insuranceStartTime?: string(name='insurance_start_time', example='2023-04-05 12:12:23'),
   // 终保时间
   // 格式: yyyy-MM-dd HH:mm:ss
-  insuranceEndTime: string(name='insurance_end_time', example='2023-04-05 12:12:23'),
+  insuranceEndTime?: string(name='insurance_end_time', example='2023-04-05 12:12:23'),
   // 保额 单位分
-  insuranceAmount: long(name='insurance_amount', example='1232'),
+  insuranceAmount?: long(name='insurance_amount', example='1232'),
   // 保费 单位分
-  premium: long(name='premium', example='12312'),
+  premium?: long(name='premium', example='12312'),
   // riskGo分数
-  riskgoScore: long(name='riskgo_score', example='60'),
+  riskgoScore?: long(name='riskgo_score', example='60'),
   // 保险详情地址
-  insuranceUrl: string(name='insurance_url', example='http://xxasd.com'),
+  insuranceUrl?: string(name='insurance_url', example='http://xxasd.com'),
+  // 投保失败的具体原因, 投保失败时返回
+  remark?: string(name='remark', example='缴费失败, 费用不足'),
   // 退保详情
-  insuranceCancelRecordInfoList: [ InsuranceCancelRecordInfo ](name='insurance_cancel_record_info_list', example=''),
+  insuranceCancelRecordInfoList?: [ InsuranceCancelRecordInfo ](name='insurance_cancel_record_info_list', example=''),
 }
 
 // 签字人
