@@ -16,7 +16,7 @@ class InsuranceCancelRecordInfo extends Model
      */
     public $bclInsuranceRecordId;
 
-    // 退保保单号
+    // 退保id
     /**
      * @example 12312312312123
      *
@@ -24,7 +24,7 @@ class InsuranceCancelRecordInfo extends Model
      */
     public $cancelInsuranceId;
 
-    // 退还保费 单位分
+    // 退还保费 单位分, 退保成功时返回
     /**
      * @example 12312
      *
@@ -42,28 +42,36 @@ class InsuranceCancelRecordInfo extends Model
     public $cancelApplyTime;
 
     // 退保状态
-    // CANCEL_INIT: 退保初始化
-    // CANCEL_SUCC: 退保成功
-    // CANCEL_FAIL: 退保失败
+    // RECORD_CANCEL_INIT: 退保初始
+    // RECORD_CANCEL_SUCC: 退保成功
+    // RECORD_CANCEL_FAIL: 退保失败
     /**
-     * @example CANCEL_SUCC
+     * @example RECORD_CANCEL_SUCC
      *
      * @var string
      */
     public $cancelStatus;
+
+    // 退保失败原, 退保失败时返回
+    /**
+     * @example 退保失败, 保单已失效
+     *
+     * @var string
+     */
+    public $remark;
     protected $_name = [
         'bclInsuranceRecordId' => 'bcl_insurance_record_id',
         'cancelInsuranceId'    => 'cancel_insurance_id',
         'cancelAmount'         => 'cancel_amount',
         'cancelApplyTime'      => 'cancel_apply_time',
         'cancelStatus'         => 'cancel_status',
+        'remark'               => 'remark',
     ];
 
     public function validate()
     {
         Model::validateRequired('bclInsuranceRecordId', $this->bclInsuranceRecordId, true);
         Model::validateRequired('cancelInsuranceId', $this->cancelInsuranceId, true);
-        Model::validateRequired('cancelAmount', $this->cancelAmount, true);
         Model::validateRequired('cancelApplyTime', $this->cancelApplyTime, true);
         Model::validateRequired('cancelStatus', $this->cancelStatus, true);
     }
@@ -85,6 +93,9 @@ class InsuranceCancelRecordInfo extends Model
         }
         if (null !== $this->cancelStatus) {
             $res['cancel_status'] = $this->cancelStatus;
+        }
+        if (null !== $this->remark) {
+            $res['remark'] = $this->remark;
         }
 
         return $res;
@@ -112,6 +123,9 @@ class InsuranceCancelRecordInfo extends Model
         }
         if (isset($map['cancel_status'])) {
             $model->cancelStatus = $map['cancel_status'];
+        }
+        if (isset($map['remark'])) {
+            $model->remark = $map['remark'];
         }
 
         return $model;

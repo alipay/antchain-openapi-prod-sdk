@@ -49,12 +49,17 @@ class InsuranceRecordInfo extends Model
     public $insurancer;
 
     // 保单状态
-    // INSURE_INIT: 投保初始化
-    // INSURE_WAIT: 投保等待
-    // INSURE_SUCC: 投保成功
-    // INSURE_FAIL: 投保失败
+    // RECORD_INSURE_INIT: 投保流程初始化
+    // RECORD_INSURE_TOBE: 待投保
+    // RECORD_INSURE_EXCHANGE_SUCC: 投保申请成功
+    // RECORD_INSURE_EXCHANGE_FAIL: 投保申请失败
+    // RECORD_INSURE_SUCC: 投保成功
+    // RECORD_INSURE_FAIL: 投保失败
+    // RECORD_CANCEL_INIT: 退保初始
+    // RECORD_CANCEL_SUCC: 退保成功
+    // RECORD_CANCEL_FAIL: 退保失败
     /**
-     * @example INSRUE_SUCC
+     * @example RECORD_INSURE_SUCC
      *
      * @var string
      */
@@ -110,6 +115,14 @@ class InsuranceRecordInfo extends Model
      */
     public $insuranceUrl;
 
+    // 投保失败的具体原因, 投保失败时返回
+    /**
+     * @example 缴费失败, 费用不足
+     *
+     * @var string
+     */
+    public $remark;
+
     // 退保详情
     /**
      * @example
@@ -130,6 +143,7 @@ class InsuranceRecordInfo extends Model
         'premium'                       => 'premium',
         'riskgoScore'                   => 'riskgo_score',
         'insuranceUrl'                  => 'insurance_url',
+        'remark'                        => 'remark',
         'insuranceCancelRecordInfoList' => 'insurance_cancel_record_info_list',
     ];
 
@@ -141,13 +155,6 @@ class InsuranceRecordInfo extends Model
         Model::validateRequired('insured', $this->insured, true);
         Model::validateRequired('insurancer', $this->insurancer, true);
         Model::validateRequired('insuranceStatus', $this->insuranceStatus, true);
-        Model::validateRequired('insuranceStartTime', $this->insuranceStartTime, true);
-        Model::validateRequired('insuranceEndTime', $this->insuranceEndTime, true);
-        Model::validateRequired('insuranceAmount', $this->insuranceAmount, true);
-        Model::validateRequired('premium', $this->premium, true);
-        Model::validateRequired('riskgoScore', $this->riskgoScore, true);
-        Model::validateRequired('insuranceUrl', $this->insuranceUrl, true);
-        Model::validateRequired('insuranceCancelRecordInfoList', $this->insuranceCancelRecordInfoList, true);
     }
 
     public function toMap()
@@ -188,6 +195,9 @@ class InsuranceRecordInfo extends Model
         }
         if (null !== $this->insuranceUrl) {
             $res['insurance_url'] = $this->insuranceUrl;
+        }
+        if (null !== $this->remark) {
+            $res['remark'] = $this->remark;
         }
         if (null !== $this->insuranceCancelRecordInfoList) {
             $res['insurance_cancel_record_info_list'] = [];
@@ -245,6 +255,9 @@ class InsuranceRecordInfo extends Model
         }
         if (isset($map['insurance_url'])) {
             $model->insuranceUrl = $map['insurance_url'];
+        }
+        if (isset($map['remark'])) {
+            $model->remark = $map['remark'];
         }
         if (isset($map['insurance_cancel_record_info_list'])) {
             if (!empty($map['insurance_cancel_record_info_list'])) {
