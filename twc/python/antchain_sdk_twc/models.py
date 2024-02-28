@@ -617,26 +617,28 @@ class InsuranceCancelRecordInfo(TeaModel):
         cancel_amount: int = None,
         cancel_apply_time: str = None,
         cancel_status: str = None,
+        remark: str = None,
     ):
         # 保单单号
         self.bcl_insurance_record_id = bcl_insurance_record_id
-        # 退保保单号
+        # 退保id
         self.cancel_insurance_id = cancel_insurance_id
-        # 退还保费 单位分
+        # 退还保费 单位分, 退保成功时返回
         self.cancel_amount = cancel_amount
         # 申请退保时间
         # 格式: yyyy-MM-dd HH:mm:ss
         self.cancel_apply_time = cancel_apply_time
         # 退保状态
-        # CANCEL_INIT: 退保初始化
-        # CANCEL_SUCC: 退保成功
-        # CANCEL_FAIL: 退保失败
+        # RECORD_CANCEL_INIT: 退保初始
+        # RECORD_CANCEL_SUCC: 退保成功
+        # RECORD_CANCEL_FAIL: 退保失败
         self.cancel_status = cancel_status
+        # 退保失败原, 退保失败时返回
+        self.remark = remark
 
     def validate(self):
         self.validate_required(self.bcl_insurance_record_id, 'bcl_insurance_record_id')
         self.validate_required(self.cancel_insurance_id, 'cancel_insurance_id')
-        self.validate_required(self.cancel_amount, 'cancel_amount')
         self.validate_required(self.cancel_apply_time, 'cancel_apply_time')
         self.validate_required(self.cancel_status, 'cancel_status')
 
@@ -656,6 +658,8 @@ class InsuranceCancelRecordInfo(TeaModel):
             result['cancel_apply_time'] = self.cancel_apply_time
         if self.cancel_status is not None:
             result['cancel_status'] = self.cancel_status
+        if self.remark is not None:
+            result['remark'] = self.remark
         return result
 
     def from_map(self, m: dict = None):
@@ -670,6 +674,8 @@ class InsuranceCancelRecordInfo(TeaModel):
             self.cancel_apply_time = m.get('cancel_apply_time')
         if m.get('cancel_status') is not None:
             self.cancel_status = m.get('cancel_status')
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
         return self
 
 
@@ -8694,6 +8700,7 @@ class InsuranceRecordInfo(TeaModel):
         premium: int = None,
         riskgo_score: int = None,
         insurance_url: str = None,
+        remark: str = None,
         insurance_cancel_record_info_list: List[InsuranceCancelRecordInfo] = None,
     ):
         # bcl订单id
@@ -8707,10 +8714,15 @@ class InsuranceRecordInfo(TeaModel):
         # 保司信息
         self.insurancer = insurancer
         # 保单状态
-        # INSURE_INIT: 投保初始化
-        # INSURE_WAIT: 投保等待
-        # INSURE_SUCC: 投保成功
-        # INSURE_FAIL: 投保失败
+        # RECORD_INSURE_INIT: 投保流程初始化
+        # RECORD_INSURE_TOBE: 待投保
+        # RECORD_INSURE_EXCHANGE_SUCC: 投保申请成功
+        # RECORD_INSURE_EXCHANGE_FAIL: 投保申请失败
+        # RECORD_INSURE_SUCC: 投保成功
+        # RECORD_INSURE_FAIL: 投保失败
+        # RECORD_CANCEL_INIT: 退保初始
+        # RECORD_CANCEL_SUCC: 退保成功
+        # RECORD_CANCEL_FAIL: 退保失败
         self.insurance_status = insurance_status
         # 起保时间
         # 格式: yyyy-MM-dd HH:mm:ss
@@ -8726,6 +8738,8 @@ class InsuranceRecordInfo(TeaModel):
         self.riskgo_score = riskgo_score
         # 保险详情地址
         self.insurance_url = insurance_url
+        # 投保失败的具体原因, 投保失败时返回
+        self.remark = remark
         # 退保详情
         self.insurance_cancel_record_info_list = insurance_cancel_record_info_list
 
@@ -8742,13 +8756,6 @@ class InsuranceRecordInfo(TeaModel):
         if self.insurancer:
             self.insurancer.validate()
         self.validate_required(self.insurance_status, 'insurance_status')
-        self.validate_required(self.insurance_start_time, 'insurance_start_time')
-        self.validate_required(self.insurance_end_time, 'insurance_end_time')
-        self.validate_required(self.insurance_amount, 'insurance_amount')
-        self.validate_required(self.premium, 'premium')
-        self.validate_required(self.riskgo_score, 'riskgo_score')
-        self.validate_required(self.insurance_url, 'insurance_url')
-        self.validate_required(self.insurance_cancel_record_info_list, 'insurance_cancel_record_info_list')
         if self.insurance_cancel_record_info_list:
             for k in self.insurance_cancel_record_info_list:
                 if k:
@@ -8784,6 +8791,8 @@ class InsuranceRecordInfo(TeaModel):
             result['riskgo_score'] = self.riskgo_score
         if self.insurance_url is not None:
             result['insurance_url'] = self.insurance_url
+        if self.remark is not None:
+            result['remark'] = self.remark
         result['insurance_cancel_record_info_list'] = []
         if self.insurance_cancel_record_info_list is not None:
             for k in self.insurance_cancel_record_info_list:
@@ -8819,6 +8828,8 @@ class InsuranceRecordInfo(TeaModel):
             self.riskgo_score = m.get('riskgo_score')
         if m.get('insurance_url') is not None:
             self.insurance_url = m.get('insurance_url')
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
         self.insurance_cancel_record_info_list = []
         if m.get('insurance_cancel_record_info_list') is not None:
             for k in m.get('insurance_cancel_record_info_list'):
