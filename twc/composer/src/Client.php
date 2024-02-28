@@ -59,6 +59,8 @@ use AntChain\TWC\Models\CallbackArbitrationSignstatusRequest;
 use AntChain\TWC\Models\CallbackArbitrationSignstatusResponse;
 use AntChain\TWC\Models\CallbackArbitrationStatusRequest;
 use AntChain\TWC\Models\CallbackArbitrationStatusResponse;
+use AntChain\TWC\Models\CancelBclInsuranceRequest;
+use AntChain\TWC\Models\CancelBclInsuranceResponse;
 use AntChain\TWC\Models\CancelBclWithholdRequest;
 use AntChain\TWC\Models\CancelBclWithholdResponse;
 use AntChain\TWC\Models\CancelContractPaysingletradeRequest;
@@ -99,6 +101,8 @@ use AntChain\TWC\Models\ConfirmContractMerchantRequest;
 use AntChain\TWC\Models\ConfirmContractMerchantResponse;
 use AntChain\TWC\Models\ConfirmWitnessFlowRequest;
 use AntChain\TWC\Models\ConfirmWitnessFlowResponse;
+use AntChain\TWC\Models\CreateBclInsuranceRequest;
+use AntChain\TWC\Models\CreateBclInsuranceResponse;
 use AntChain\TWC\Models\CreateBclOrderRequest;
 use AntChain\TWC\Models\CreateBclOrderResponse;
 use AntChain\TWC\Models\CreateBclPayeeRequest;
@@ -437,6 +441,8 @@ use AntChain\TWC\Models\QueryBclComplaineventidsRequest;
 use AntChain\TWC\Models\QueryBclComplaineventidsResponse;
 use AntChain\TWC\Models\QueryBclComplainRequest;
 use AntChain\TWC\Models\QueryBclComplainResponse;
+use AntChain\TWC\Models\QueryBclInsuranceRequest;
+use AntChain\TWC\Models\QueryBclInsuranceResponse;
 use AntChain\TWC\Models\QueryBclMerchantRequest;
 use AntChain\TWC\Models\QueryBclMerchantResponse;
 use AntChain\TWC\Models\QueryBclOrderRequest;
@@ -844,7 +850,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.10',
+                    'sdk_version'      => '1.12.16',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1814,6 +1820,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryBclRefundResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.refund.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁宝plus投保
+     * Summary: 租赁宝plus投保.
+     *
+     * @param CreateBclInsuranceRequest $request
+     *
+     * @return CreateBclInsuranceResponse
+     */
+    public function createBclInsurance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBclInsuranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁宝plus投保
+     * Summary: 租赁宝plus投保.
+     *
+     * @param CreateBclInsuranceRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateBclInsuranceResponse
+     */
+    public function createBclInsuranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBclInsuranceResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.insurance.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁宝plus退保
+     * Summary: 租赁宝plus退保.
+     *
+     * @param CancelBclInsuranceRequest $request
+     *
+     * @return CancelBclInsuranceResponse
+     */
+    public function cancelBclInsurance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelBclInsuranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁宝plus退保
+     * Summary: 租赁宝plus退保.
+     *
+     * @param CancelBclInsuranceRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CancelBclInsuranceResponse
+     */
+    public function cancelBclInsuranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelBclInsuranceResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.insurance.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁宝plus查询订单保险详情
+     * Summary: 租赁宝plus查询订单保险详情.
+     *
+     * @param QueryBclInsuranceRequest $request
+     *
+     * @return QueryBclInsuranceResponse
+     */
+    public function queryBclInsurance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBclInsuranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁宝plus查询订单保险详情
+     * Summary: 租赁宝plus查询订单保险详情.
+     *
+     * @param QueryBclInsuranceRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryBclInsuranceResponse
+     */
+    public function queryBclInsuranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBclInsuranceResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.insurance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
