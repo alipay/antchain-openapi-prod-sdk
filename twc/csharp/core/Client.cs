@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.10"},
+                        {"sdk_version", "1.12.16"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.10"},
+                        {"sdk_version", "1.12.16"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1495,6 +1495,132 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryBclRefundResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁宝plus投保
+         * Summary: 租赁宝plus投保
+         */
+        public CreateBclInsuranceResponse CreateBclInsurance(CreateBclInsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateBclInsuranceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁宝plus投保
+         * Summary: 租赁宝plus投保
+         */
+        public async Task<CreateBclInsuranceResponse> CreateBclInsuranceAsync(CreateBclInsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateBclInsuranceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁宝plus投保
+         * Summary: 租赁宝plus投保
+         */
+        public CreateBclInsuranceResponse CreateBclInsuranceEx(CreateBclInsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBclInsuranceResponse>(DoRequest("1.0", "twc.notary.bcl.insurance.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁宝plus投保
+         * Summary: 租赁宝plus投保
+         */
+        public async Task<CreateBclInsuranceResponse> CreateBclInsuranceExAsync(CreateBclInsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBclInsuranceResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.insurance.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁宝plus退保
+         * Summary: 租赁宝plus退保
+         */
+        public CancelBclInsuranceResponse CancelBclInsurance(CancelBclInsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelBclInsuranceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁宝plus退保
+         * Summary: 租赁宝plus退保
+         */
+        public async Task<CancelBclInsuranceResponse> CancelBclInsuranceAsync(CancelBclInsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelBclInsuranceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁宝plus退保
+         * Summary: 租赁宝plus退保
+         */
+        public CancelBclInsuranceResponse CancelBclInsuranceEx(CancelBclInsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelBclInsuranceResponse>(DoRequest("1.0", "twc.notary.bcl.insurance.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁宝plus退保
+         * Summary: 租赁宝plus退保
+         */
+        public async Task<CancelBclInsuranceResponse> CancelBclInsuranceExAsync(CancelBclInsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelBclInsuranceResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.insurance.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁宝plus查询订单保险详情
+         * Summary: 租赁宝plus查询订单保险详情
+         */
+        public QueryBclInsuranceResponse QueryBclInsurance(QueryBclInsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBclInsuranceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁宝plus查询订单保险详情
+         * Summary: 租赁宝plus查询订单保险详情
+         */
+        public async Task<QueryBclInsuranceResponse> QueryBclInsuranceAsync(QueryBclInsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBclInsuranceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁宝plus查询订单保险详情
+         * Summary: 租赁宝plus查询订单保险详情
+         */
+        public QueryBclInsuranceResponse QueryBclInsuranceEx(QueryBclInsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBclInsuranceResponse>(DoRequest("1.0", "twc.notary.bcl.insurance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁宝plus查询订单保险详情
+         * Summary: 租赁宝plus查询订单保险详情
+         */
+        public async Task<QueryBclInsuranceResponse> QueryBclInsuranceExAsync(QueryBclInsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBclInsuranceResponse>(await DoRequestAsync("1.0", "twc.notary.bcl.insurance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
