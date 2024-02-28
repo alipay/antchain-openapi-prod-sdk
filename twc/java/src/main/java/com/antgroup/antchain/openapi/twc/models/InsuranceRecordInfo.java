@@ -30,10 +30,15 @@ public class InsuranceRecordInfo extends TeaModel {
     public BclInsuranceUserInfo insurancer;
 
     // 保单状态
-    // INSURE_INIT: 投保初始化
-    // INSURE_WAIT: 投保等待
-    // INSURE_SUCC: 投保成功
-    // INSURE_FAIL: 投保失败
+    // RECORD_INSURE_INIT: 投保流程初始化
+    // RECORD_INSURE_TOBE: 待投保
+    // RECORD_INSURE_EXCHANGE_SUCC: 投保申请成功
+    // RECORD_INSURE_EXCHANGE_FAIL: 投保申请失败
+    // RECORD_INSURE_SUCC: 投保成功
+    // RECORD_INSURE_FAIL: 投保失败
+    // RECORD_CANCEL_INIT: 退保初始
+    // RECORD_CANCEL_SUCC: 退保成功
+    // RECORD_CANCEL_FAIL: 退保失败
     @NameInMap("insurance_status")
     @Validation(required = true)
     public String insuranceStatus;
@@ -41,38 +46,35 @@ public class InsuranceRecordInfo extends TeaModel {
     // 起保时间
     // 格式: yyyy-MM-dd HH:mm:ss
     @NameInMap("insurance_start_time")
-    @Validation(required = true)
     public String insuranceStartTime;
 
     // 终保时间
     // 格式: yyyy-MM-dd HH:mm:ss
     @NameInMap("insurance_end_time")
-    @Validation(required = true)
     public String insuranceEndTime;
 
     // 保额 单位分
     @NameInMap("insurance_amount")
-    @Validation(required = true)
     public Long insuranceAmount;
 
     // 保费 单位分
     @NameInMap("premium")
-    @Validation(required = true)
     public Long premium;
 
     // riskGo分数
     @NameInMap("riskgo_score")
-    @Validation(required = true)
     public Long riskgoScore;
 
     // 保险详情地址
     @NameInMap("insurance_url")
-    @Validation(required = true)
     public String insuranceUrl;
+
+    // 投保失败的具体原因, 投保失败时返回
+    @NameInMap("remark")
+    public String remark;
 
     // 退保详情
     @NameInMap("insurance_cancel_record_info_list")
-    @Validation(required = true)
     public java.util.List<InsuranceCancelRecordInfo> insuranceCancelRecordInfoList;
 
     public static InsuranceRecordInfo build(java.util.Map<String, ?> map) throws Exception {
@@ -174,6 +176,14 @@ public class InsuranceRecordInfo extends TeaModel {
     }
     public String getInsuranceUrl() {
         return this.insuranceUrl;
+    }
+
+    public InsuranceRecordInfo setRemark(String remark) {
+        this.remark = remark;
+        return this;
+    }
+    public String getRemark() {
+        return this.remark;
     }
 
     public InsuranceRecordInfo setInsuranceCancelRecordInfoList(java.util.List<InsuranceCancelRecordInfo> insuranceCancelRecordInfoList) {

@@ -9,14 +9,13 @@ public class InsuranceCancelRecordInfo extends TeaModel {
     @Validation(required = true)
     public String bclInsuranceRecordId;
 
-    // 退保保单号
+    // 退保id
     @NameInMap("cancel_insurance_id")
     @Validation(required = true)
     public String cancelInsuranceId;
 
-    // 退还保费 单位分
+    // 退还保费 单位分, 退保成功时返回
     @NameInMap("cancel_amount")
-    @Validation(required = true)
     public Long cancelAmount;
 
     // 申请退保时间
@@ -26,12 +25,16 @@ public class InsuranceCancelRecordInfo extends TeaModel {
     public String cancelApplyTime;
 
     // 退保状态
-    // CANCEL_INIT: 退保初始化
-    // CANCEL_SUCC: 退保成功
-    // CANCEL_FAIL: 退保失败
+    // RECORD_CANCEL_INIT: 退保初始
+    // RECORD_CANCEL_SUCC: 退保成功
+    // RECORD_CANCEL_FAIL: 退保失败
     @NameInMap("cancel_status")
     @Validation(required = true)
     public String cancelStatus;
+
+    // 退保失败原, 退保失败时返回
+    @NameInMap("remark")
+    public String remark;
 
     public static InsuranceCancelRecordInfo build(java.util.Map<String, ?> map) throws Exception {
         InsuranceCancelRecordInfo self = new InsuranceCancelRecordInfo();
@@ -76,6 +79,14 @@ public class InsuranceCancelRecordInfo extends TeaModel {
     }
     public String getCancelStatus() {
         return this.cancelStatus;
+    }
+
+    public InsuranceCancelRecordInfo setRemark(String remark) {
+        this.remark = remark;
+        return this;
+    }
+    public String getRemark() {
+        return this.remark;
     }
 
 }
