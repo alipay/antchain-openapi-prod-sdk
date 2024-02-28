@@ -507,18 +507,20 @@ func (s *BclOrderProductInfo) SetProductNumber(v int64) *BclOrderProductInfo {
 type InsuranceCancelRecordInfo struct {
 	// 保单单号
 	BclInsuranceRecordId *string `json:"bcl_insurance_record_id,omitempty" xml:"bcl_insurance_record_id,omitempty" require:"true"`
-	// 退保保单号
+	// 退保id
 	CancelInsuranceId *string `json:"cancel_insurance_id,omitempty" xml:"cancel_insurance_id,omitempty" require:"true"`
-	// 退还保费 单位分
-	CancelAmount *int64 `json:"cancel_amount,omitempty" xml:"cancel_amount,omitempty" require:"true"`
+	// 退还保费 单位分, 退保成功时返回
+	CancelAmount *int64 `json:"cancel_amount,omitempty" xml:"cancel_amount,omitempty"`
 	// 申请退保时间
 	// 格式: yyyy-MM-dd HH:mm:ss
 	CancelApplyTime *string `json:"cancel_apply_time,omitempty" xml:"cancel_apply_time,omitempty" require:"true"`
 	// 退保状态
-	// CANCEL_INIT: 退保初始化
-	// CANCEL_SUCC: 退保成功
-	// CANCEL_FAIL: 退保失败
+	// RECORD_CANCEL_INIT: 退保初始
+	// RECORD_CANCEL_SUCC: 退保成功
+	// RECORD_CANCEL_FAIL: 退保失败
 	CancelStatus *string `json:"cancel_status,omitempty" xml:"cancel_status,omitempty" require:"true"`
+	// 退保失败原, 退保失败时返回
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
 }
 
 func (s InsuranceCancelRecordInfo) String() string {
@@ -551,6 +553,11 @@ func (s *InsuranceCancelRecordInfo) SetCancelApplyTime(v string) *InsuranceCance
 
 func (s *InsuranceCancelRecordInfo) SetCancelStatus(v string) *InsuranceCancelRecordInfo {
 	s.CancelStatus = &v
+	return s
+}
+
+func (s *InsuranceCancelRecordInfo) SetRemark(v string) *InsuranceCancelRecordInfo {
+	s.Remark = &v
 	return s
 }
 
@@ -6976,27 +6983,34 @@ type InsuranceRecordInfo struct {
 	// 保司信息
 	Insurancer *BclInsuranceUserInfo `json:"insurancer,omitempty" xml:"insurancer,omitempty" require:"true"`
 	// 保单状态
-	// INSURE_INIT: 投保初始化
-	// INSURE_WAIT: 投保等待
-	// INSURE_SUCC: 投保成功
-	// INSURE_FAIL: 投保失败
+	// RECORD_INSURE_INIT: 投保流程初始化
+	// RECORD_INSURE_TOBE: 待投保
+	// RECORD_INSURE_EXCHANGE_SUCC: 投保申请成功
+	// RECORD_INSURE_EXCHANGE_FAIL: 投保申请失败
+	// RECORD_INSURE_SUCC: 投保成功
+	// RECORD_INSURE_FAIL: 投保失败
+	// RECORD_CANCEL_INIT: 退保初始
+	// RECORD_CANCEL_SUCC: 退保成功
+	// RECORD_CANCEL_FAIL: 退保失败
 	InsuranceStatus *string `json:"insurance_status,omitempty" xml:"insurance_status,omitempty" require:"true"`
 	// 起保时间
 	// 格式: yyyy-MM-dd HH:mm:ss
-	InsuranceStartTime *string `json:"insurance_start_time,omitempty" xml:"insurance_start_time,omitempty" require:"true"`
+	InsuranceStartTime *string `json:"insurance_start_time,omitempty" xml:"insurance_start_time,omitempty"`
 	// 终保时间
 	// 格式: yyyy-MM-dd HH:mm:ss
-	InsuranceEndTime *string `json:"insurance_end_time,omitempty" xml:"insurance_end_time,omitempty" require:"true"`
+	InsuranceEndTime *string `json:"insurance_end_time,omitempty" xml:"insurance_end_time,omitempty"`
 	// 保额 单位分
-	InsuranceAmount *int64 `json:"insurance_amount,omitempty" xml:"insurance_amount,omitempty" require:"true"`
+	InsuranceAmount *int64 `json:"insurance_amount,omitempty" xml:"insurance_amount,omitempty"`
 	// 保费 单位分
-	Premium *int64 `json:"premium,omitempty" xml:"premium,omitempty" require:"true"`
+	Premium *int64 `json:"premium,omitempty" xml:"premium,omitempty"`
 	// riskGo分数
-	RiskgoScore *int64 `json:"riskgo_score,omitempty" xml:"riskgo_score,omitempty" require:"true"`
+	RiskgoScore *int64 `json:"riskgo_score,omitempty" xml:"riskgo_score,omitempty"`
 	// 保险详情地址
-	InsuranceUrl *string `json:"insurance_url,omitempty" xml:"insurance_url,omitempty" require:"true"`
+	InsuranceUrl *string `json:"insurance_url,omitempty" xml:"insurance_url,omitempty"`
+	// 投保失败的具体原因, 投保失败时返回
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
 	// 退保详情
-	InsuranceCancelRecordInfoList []*InsuranceCancelRecordInfo `json:"insurance_cancel_record_info_list,omitempty" xml:"insurance_cancel_record_info_list,omitempty" require:"true" type:"Repeated"`
+	InsuranceCancelRecordInfoList []*InsuranceCancelRecordInfo `json:"insurance_cancel_record_info_list,omitempty" xml:"insurance_cancel_record_info_list,omitempty" type:"Repeated"`
 }
 
 func (s InsuranceRecordInfo) String() string {
@@ -7064,6 +7078,11 @@ func (s *InsuranceRecordInfo) SetRiskgoScore(v int64) *InsuranceRecordInfo {
 
 func (s *InsuranceRecordInfo) SetInsuranceUrl(v string) *InsuranceRecordInfo {
 	s.InsuranceUrl = &v
+	return s
+}
+
+func (s *InsuranceRecordInfo) SetRemark(v string) *InsuranceRecordInfo {
+	s.Remark = &v
 	return s
 }
 
@@ -47940,7 +47959,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.16"),
+				"sdk_version":      tea.String("1.12.17"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
