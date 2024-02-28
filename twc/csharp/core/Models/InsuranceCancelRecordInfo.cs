@@ -15,14 +15,14 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string BclInsuranceRecordId { get; set; }
 
-        // 退保保单号
+        // 退保id
         [NameInMap("cancel_insurance_id")]
         [Validation(Required=true)]
         public string CancelInsuranceId { get; set; }
 
-        // 退还保费 单位分
+        // 退还保费 单位分, 退保成功时返回
         [NameInMap("cancel_amount")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? CancelAmount { get; set; }
 
         // 申请退保时间
@@ -32,12 +32,17 @@ namespace AntChain.SDK.TWC.Models
         public string CancelApplyTime { get; set; }
 
         // 退保状态
-        // CANCEL_INIT: 退保初始化
-        // CANCEL_SUCC: 退保成功
-        // CANCEL_FAIL: 退保失败
+        // RECORD_CANCEL_INIT: 退保初始
+        // RECORD_CANCEL_SUCC: 退保成功
+        // RECORD_CANCEL_FAIL: 退保失败
         [NameInMap("cancel_status")]
         [Validation(Required=true)]
         public string CancelStatus { get; set; }
+
+        // 退保失败原, 退保失败时返回
+        [NameInMap("remark")]
+        [Validation(Required=false)]
+        public string Remark { get; set; }
 
     }
 
