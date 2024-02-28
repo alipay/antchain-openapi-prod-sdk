@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.10"),
+                    new TeaPair("sdk_version", "1.12.16"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -691,6 +691,63 @@ public class Client {
     public QueryBclRefundResponse queryBclRefundEx(QueryBclRefundRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.refund.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBclRefundResponse());
+    }
+
+    /**
+     * Description: 租赁宝plus投保
+     * Summary: 租赁宝plus投保
+     */
+    public CreateBclInsuranceResponse createBclInsurance(CreateBclInsuranceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBclInsuranceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租赁宝plus投保
+     * Summary: 租赁宝plus投保
+     */
+    public CreateBclInsuranceResponse createBclInsuranceEx(CreateBclInsuranceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.insurance.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBclInsuranceResponse());
+    }
+
+    /**
+     * Description: 租赁宝plus退保
+     * Summary: 租赁宝plus退保
+     */
+    public CancelBclInsuranceResponse cancelBclInsurance(CancelBclInsuranceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelBclInsuranceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租赁宝plus退保
+     * Summary: 租赁宝plus退保
+     */
+    public CancelBclInsuranceResponse cancelBclInsuranceEx(CancelBclInsuranceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.insurance.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelBclInsuranceResponse());
+    }
+
+    /**
+     * Description: 租赁宝plus查询订单保险详情
+     * Summary: 租赁宝plus查询订单保险详情
+     */
+    public QueryBclInsuranceResponse queryBclInsurance(QueryBclInsuranceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBclInsuranceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租赁宝plus查询订单保险详情
+     * Summary: 租赁宝plus查询订单保险详情
+     */
+    public QueryBclInsuranceResponse queryBclInsuranceEx(QueryBclInsuranceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.insurance.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBclInsuranceResponse());
     }
 
     /**
