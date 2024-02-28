@@ -609,6 +609,70 @@ class BclOrderProductInfo(TeaModel):
         return self
 
 
+class InsuranceCancelRecordInfo(TeaModel):
+    def __init__(
+        self,
+        bcl_insurance_record_id: str = None,
+        cancel_insurance_id: str = None,
+        cancel_amount: int = None,
+        cancel_apply_time: str = None,
+        cancel_status: str = None,
+    ):
+        # 保单单号
+        self.bcl_insurance_record_id = bcl_insurance_record_id
+        # 退保保单号
+        self.cancel_insurance_id = cancel_insurance_id
+        # 退还保费 单位分
+        self.cancel_amount = cancel_amount
+        # 申请退保时间
+        # 格式: yyyy-MM-dd HH:mm:ss
+        self.cancel_apply_time = cancel_apply_time
+        # 退保状态
+        # CANCEL_INIT: 退保初始化
+        # CANCEL_SUCC: 退保成功
+        # CANCEL_FAIL: 退保失败
+        self.cancel_status = cancel_status
+
+    def validate(self):
+        self.validate_required(self.bcl_insurance_record_id, 'bcl_insurance_record_id')
+        self.validate_required(self.cancel_insurance_id, 'cancel_insurance_id')
+        self.validate_required(self.cancel_amount, 'cancel_amount')
+        self.validate_required(self.cancel_apply_time, 'cancel_apply_time')
+        self.validate_required(self.cancel_status, 'cancel_status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bcl_insurance_record_id is not None:
+            result['bcl_insurance_record_id'] = self.bcl_insurance_record_id
+        if self.cancel_insurance_id is not None:
+            result['cancel_insurance_id'] = self.cancel_insurance_id
+        if self.cancel_amount is not None:
+            result['cancel_amount'] = self.cancel_amount
+        if self.cancel_apply_time is not None:
+            result['cancel_apply_time'] = self.cancel_apply_time
+        if self.cancel_status is not None:
+            result['cancel_status'] = self.cancel_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('bcl_insurance_record_id') is not None:
+            self.bcl_insurance_record_id = m.get('bcl_insurance_record_id')
+        if m.get('cancel_insurance_id') is not None:
+            self.cancel_insurance_id = m.get('cancel_insurance_id')
+        if m.get('cancel_amount') is not None:
+            self.cancel_amount = m.get('cancel_amount')
+        if m.get('cancel_apply_time') is not None:
+            self.cancel_apply_time = m.get('cancel_apply_time')
+        if m.get('cancel_status') is not None:
+            self.cancel_status = m.get('cancel_status')
+        return self
+
+
 class NotaryUser(TeaModel):
     def __init__(
         self,
@@ -1840,6 +1904,86 @@ class PhaseNotary(TeaModel):
             self.notary_content = m.get('notary_content')
         if m.get('origin_data_id') is not None:
             self.origin_data_id = m.get('origin_data_id')
+        return self
+
+
+class BclInsuranceUserInfo(TeaModel):
+    def __init__(
+        self,
+        user_name: str = None,
+        user_type: str = None,
+        id_type: str = None,
+        id_number: str = None,
+        address: str = None,
+        mobile: str = None,
+        mail: str = None,
+    ):
+        # 用户名称
+        self.user_name = user_name
+        # 保险用户类型：
+        # HOLDER_ORG: 投保人（机构）
+        # INSURED_ORG: 被保人（机构）
+        # INSURANCE_ORG: 保司（机构）
+        self.user_type = user_type
+        # 证件号名称:
+        # USCC，社会统一信用代码，目前仅支持
+        self.id_type = id_type
+        # 证件号码
+        self.id_number = id_number
+        # 联系地址
+        self.address = address
+        # 联系方式
+        self.mobile = mobile
+        # 邮件地址
+        self.mail = mail
+
+    def validate(self):
+        self.validate_required(self.user_name, 'user_name')
+        self.validate_required(self.user_type, 'user_type')
+        self.validate_required(self.id_type, 'id_type')
+        self.validate_required(self.id_number, 'id_number')
+        self.validate_required(self.address, 'address')
+        self.validate_required(self.mobile, 'mobile')
+        self.validate_required(self.mail, 'mail')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        if self.id_type is not None:
+            result['id_type'] = self.id_type
+        if self.id_number is not None:
+            result['id_number'] = self.id_number
+        if self.address is not None:
+            result['address'] = self.address
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.mail is not None:
+            result['mail'] = self.mail
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        if m.get('id_type') is not None:
+            self.id_type = m.get('id_type')
+        if m.get('id_number') is not None:
+            self.id_number = m.get('id_number')
+        if m.get('address') is not None:
+            self.address = m.get('address')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('mail') is not None:
+            self.mail = m.get('mail')
         return self
 
 
@@ -8535,6 +8679,154 @@ class CompanyTwoMetaInfo(TeaModel):
         return self
 
 
+class InsuranceRecordInfo(TeaModel):
+    def __init__(
+        self,
+        order_id: str = None,
+        bcl_insurance_record_id: str = None,
+        holder: BclInsuranceUserInfo = None,
+        insured: BclInsuranceUserInfo = None,
+        insurancer: BclInsuranceUserInfo = None,
+        insurance_status: str = None,
+        insurance_start_time: str = None,
+        insurance_end_time: str = None,
+        insurance_amount: int = None,
+        premium: int = None,
+        riskgo_score: int = None,
+        insurance_url: str = None,
+        insurance_cancel_record_info_list: List[InsuranceCancelRecordInfo] = None,
+    ):
+        # bcl订单id
+        self.order_id = order_id
+        # 保险单号
+        self.bcl_insurance_record_id = bcl_insurance_record_id
+        # 投保人信息
+        self.holder = holder
+        # 被保人信息
+        self.insured = insured
+        # 保司信息
+        self.insurancer = insurancer
+        # 保单状态
+        # INSURE_INIT: 投保初始化
+        # INSURE_WAIT: 投保等待
+        # INSURE_SUCC: 投保成功
+        # INSURE_FAIL: 投保失败
+        self.insurance_status = insurance_status
+        # 起保时间
+        # 格式: yyyy-MM-dd HH:mm:ss
+        self.insurance_start_time = insurance_start_time
+        # 终保时间
+        # 格式: yyyy-MM-dd HH:mm:ss
+        self.insurance_end_time = insurance_end_time
+        # 保额 单位分
+        self.insurance_amount = insurance_amount
+        # 保费 单位分
+        self.premium = premium
+        # riskGo分数
+        self.riskgo_score = riskgo_score
+        # 保险详情地址
+        self.insurance_url = insurance_url
+        # 退保详情
+        self.insurance_cancel_record_info_list = insurance_cancel_record_info_list
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.bcl_insurance_record_id, 'bcl_insurance_record_id')
+        self.validate_required(self.holder, 'holder')
+        if self.holder:
+            self.holder.validate()
+        self.validate_required(self.insured, 'insured')
+        if self.insured:
+            self.insured.validate()
+        self.validate_required(self.insurancer, 'insurancer')
+        if self.insurancer:
+            self.insurancer.validate()
+        self.validate_required(self.insurance_status, 'insurance_status')
+        self.validate_required(self.insurance_start_time, 'insurance_start_time')
+        self.validate_required(self.insurance_end_time, 'insurance_end_time')
+        self.validate_required(self.insurance_amount, 'insurance_amount')
+        self.validate_required(self.premium, 'premium')
+        self.validate_required(self.riskgo_score, 'riskgo_score')
+        self.validate_required(self.insurance_url, 'insurance_url')
+        self.validate_required(self.insurance_cancel_record_info_list, 'insurance_cancel_record_info_list')
+        if self.insurance_cancel_record_info_list:
+            for k in self.insurance_cancel_record_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.bcl_insurance_record_id is not None:
+            result['bcl_insurance_record_id'] = self.bcl_insurance_record_id
+        if self.holder is not None:
+            result['holder'] = self.holder.to_map()
+        if self.insured is not None:
+            result['insured'] = self.insured.to_map()
+        if self.insurancer is not None:
+            result['insurancer'] = self.insurancer.to_map()
+        if self.insurance_status is not None:
+            result['insurance_status'] = self.insurance_status
+        if self.insurance_start_time is not None:
+            result['insurance_start_time'] = self.insurance_start_time
+        if self.insurance_end_time is not None:
+            result['insurance_end_time'] = self.insurance_end_time
+        if self.insurance_amount is not None:
+            result['insurance_amount'] = self.insurance_amount
+        if self.premium is not None:
+            result['premium'] = self.premium
+        if self.riskgo_score is not None:
+            result['riskgo_score'] = self.riskgo_score
+        if self.insurance_url is not None:
+            result['insurance_url'] = self.insurance_url
+        result['insurance_cancel_record_info_list'] = []
+        if self.insurance_cancel_record_info_list is not None:
+            for k in self.insurance_cancel_record_info_list:
+                result['insurance_cancel_record_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('bcl_insurance_record_id') is not None:
+            self.bcl_insurance_record_id = m.get('bcl_insurance_record_id')
+        if m.get('holder') is not None:
+            temp_model = BclInsuranceUserInfo()
+            self.holder = temp_model.from_map(m['holder'])
+        if m.get('insured') is not None:
+            temp_model = BclInsuranceUserInfo()
+            self.insured = temp_model.from_map(m['insured'])
+        if m.get('insurancer') is not None:
+            temp_model = BclInsuranceUserInfo()
+            self.insurancer = temp_model.from_map(m['insurancer'])
+        if m.get('insurance_status') is not None:
+            self.insurance_status = m.get('insurance_status')
+        if m.get('insurance_start_time') is not None:
+            self.insurance_start_time = m.get('insurance_start_time')
+        if m.get('insurance_end_time') is not None:
+            self.insurance_end_time = m.get('insurance_end_time')
+        if m.get('insurance_amount') is not None:
+            self.insurance_amount = m.get('insurance_amount')
+        if m.get('premium') is not None:
+            self.premium = m.get('premium')
+        if m.get('riskgo_score') is not None:
+            self.riskgo_score = m.get('riskgo_score')
+        if m.get('insurance_url') is not None:
+            self.insurance_url = m.get('insurance_url')
+        self.insurance_cancel_record_info_list = []
+        if m.get('insurance_cancel_record_info_list') is not None:
+            for k in m.get('insurance_cancel_record_info_list'):
+                temp_model = InsuranceCancelRecordInfo()
+                self.insurance_cancel_record_info_list.append(temp_model.from_map(k))
+        return self
+
+
 class ContractFlowSigner(TeaModel):
     def __init__(
         self,
@@ -13974,6 +14266,360 @@ class QueryBclRefundResponse(TeaModel):
             self.refund_status = m.get('refund_status')
         if m.get('err_msg') is not None:
             self.err_msg = m.get('err_msg')
+        return self
+
+
+class CreateBclInsuranceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        insurance_code: str = None,
+        holder: BclInsuranceUserInfo = None,
+        insured: BclInsuranceUserInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # bcl订单id
+        self.order_id = order_id
+        # 保司code，枚举值
+        # HZRB: 杭州人保
+        self.insurance_code = insurance_code
+        # 投保人信息
+        self.holder = holder
+        # 被保人信息
+        self.insured = insured
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        if self.order_id is not None:
+            self.validate_max_length(self.order_id, 'order_id', 32)
+        self.validate_required(self.insurance_code, 'insurance_code')
+        if self.insurance_code is not None:
+            self.validate_max_length(self.insurance_code, 'insurance_code', 32)
+        self.validate_required(self.holder, 'holder')
+        if self.holder:
+            self.holder.validate()
+        self.validate_required(self.insured, 'insured')
+        if self.insured:
+            self.insured.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.insurance_code is not None:
+            result['insurance_code'] = self.insurance_code
+        if self.holder is not None:
+            result['holder'] = self.holder.to_map()
+        if self.insured is not None:
+            result['insured'] = self.insured.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('insurance_code') is not None:
+            self.insurance_code = m.get('insurance_code')
+        if m.get('holder') is not None:
+            temp_model = BclInsuranceUserInfo()
+            self.holder = temp_model.from_map(m['holder'])
+        if m.get('insured') is not None:
+            temp_model = BclInsuranceUserInfo()
+            self.insured = temp_model.from_map(m['insured'])
+        return self
+
+
+class CreateBclInsuranceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        bcl_insurance_record_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 本次投保的保险记录id，建议保存，用于查询与退保使用
+        self.bcl_insurance_record_id = bcl_insurance_record_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.bcl_insurance_record_id is not None:
+            result['bcl_insurance_record_id'] = self.bcl_insurance_record_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('bcl_insurance_record_id') is not None:
+            self.bcl_insurance_record_id = m.get('bcl_insurance_record_id')
+        return self
+
+
+class CancelBclInsuranceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        bcl_insurance_record_id: str = None,
+        renbao_ext_info: RenbaoExtInfo = None,
+        insurance_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租赁宝plus订单id
+        self.order_id = order_id
+        # 保险单号
+        self.bcl_insurance_record_id = bcl_insurance_record_id
+        # 人保退保时必填
+        self.renbao_ext_info = renbao_ext_info
+        # 保司code，枚举值 HZ_RENBAO: 杭州人保
+        self.insurance_code = insurance_code
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.bcl_insurance_record_id, 'bcl_insurance_record_id')
+        if self.bcl_insurance_record_id is not None:
+            self.validate_max_length(self.bcl_insurance_record_id, 'bcl_insurance_record_id', 64)
+        if self.renbao_ext_info:
+            self.renbao_ext_info.validate()
+        self.validate_required(self.insurance_code, 'insurance_code')
+        if self.insurance_code is not None:
+            self.validate_max_length(self.insurance_code, 'insurance_code', 32)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.bcl_insurance_record_id is not None:
+            result['bcl_insurance_record_id'] = self.bcl_insurance_record_id
+        if self.renbao_ext_info is not None:
+            result['renbao_ext_info'] = self.renbao_ext_info.to_map()
+        if self.insurance_code is not None:
+            result['insurance_code'] = self.insurance_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('bcl_insurance_record_id') is not None:
+            self.bcl_insurance_record_id = m.get('bcl_insurance_record_id')
+        if m.get('renbao_ext_info') is not None:
+            temp_model = RenbaoExtInfo()
+            self.renbao_ext_info = temp_model.from_map(m['renbao_ext_info'])
+        if m.get('insurance_code') is not None:
+            self.insurance_code = m.get('insurance_code')
+        return self
+
+
+class CancelBclInsuranceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        cancel_insurance_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 退保保单号
+        self.cancel_insurance_id = cancel_insurance_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.cancel_insurance_id is not None:
+            result['cancel_insurance_id'] = self.cancel_insurance_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('cancel_insurance_id') is not None:
+            self.cancel_insurance_id = m.get('cancel_insurance_id')
+        return self
+
+
+class QueryBclInsuranceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        bcl_insurance_record_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租赁宝plus订单id
+        self.order_id = order_id
+        # 保单单号
+        self.bcl_insurance_record_id = bcl_insurance_record_id
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        if self.order_id is not None:
+            self.validate_max_length(self.order_id, 'order_id', 32)
+        if self.bcl_insurance_record_id is not None:
+            self.validate_max_length(self.bcl_insurance_record_id, 'bcl_insurance_record_id', 64)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.bcl_insurance_record_id is not None:
+            result['bcl_insurance_record_id'] = self.bcl_insurance_record_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('bcl_insurance_record_id') is not None:
+            self.bcl_insurance_record_id = m.get('bcl_insurance_record_id')
+        return self
+
+
+class QueryBclInsuranceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        insurance_record_list: List[InsuranceRecordInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 租赁宝plus订单保险详情
+        self.insurance_record_list = insurance_record_list
+
+    def validate(self):
+        if self.insurance_record_list:
+            for k in self.insurance_record_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['insurance_record_list'] = []
+        if self.insurance_record_list is not None:
+            for k in self.insurance_record_list:
+                result['insurance_record_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.insurance_record_list = []
+        if m.get('insurance_record_list') is not None:
+            for k in m.get('insurance_record_list'):
+                temp_model = InsuranceRecordInfo()
+                self.insurance_record_list.append(temp_model.from_map(k))
         return self
 
 

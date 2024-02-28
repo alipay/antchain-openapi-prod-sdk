@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.10',
+                    'sdk_version': '1.12.16',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.10',
+                    'sdk_version': '1.12.16',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -1841,6 +1841,174 @@ class Client:
         return TeaCore.from_map(
             twc_models.QueryBclRefundResponse(),
             await self.do_request_async('1.0', 'twc.notary.bcl.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_bcl_insurance(
+        self,
+        request: twc_models.CreateBclInsuranceRequest,
+    ) -> twc_models.CreateBclInsuranceResponse:
+        """
+        Description: 租赁宝plus投保
+        Summary: 租赁宝plus投保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_bcl_insurance_ex(request, headers, runtime)
+
+    async def create_bcl_insurance_async(
+        self,
+        request: twc_models.CreateBclInsuranceRequest,
+    ) -> twc_models.CreateBclInsuranceResponse:
+        """
+        Description: 租赁宝plus投保
+        Summary: 租赁宝plus投保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_bcl_insurance_ex_async(request, headers, runtime)
+
+    def create_bcl_insurance_ex(
+        self,
+        request: twc_models.CreateBclInsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateBclInsuranceResponse:
+        """
+        Description: 租赁宝plus投保
+        Summary: 租赁宝plus投保
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateBclInsuranceResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.insurance.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_bcl_insurance_ex_async(
+        self,
+        request: twc_models.CreateBclInsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateBclInsuranceResponse:
+        """
+        Description: 租赁宝plus投保
+        Summary: 租赁宝plus投保
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateBclInsuranceResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.insurance.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_bcl_insurance(
+        self,
+        request: twc_models.CancelBclInsuranceRequest,
+    ) -> twc_models.CancelBclInsuranceResponse:
+        """
+        Description: 租赁宝plus退保
+        Summary: 租赁宝plus退保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_bcl_insurance_ex(request, headers, runtime)
+
+    async def cancel_bcl_insurance_async(
+        self,
+        request: twc_models.CancelBclInsuranceRequest,
+    ) -> twc_models.CancelBclInsuranceResponse:
+        """
+        Description: 租赁宝plus退保
+        Summary: 租赁宝plus退保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_bcl_insurance_ex_async(request, headers, runtime)
+
+    def cancel_bcl_insurance_ex(
+        self,
+        request: twc_models.CancelBclInsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CancelBclInsuranceResponse:
+        """
+        Description: 租赁宝plus退保
+        Summary: 租赁宝plus退保
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CancelBclInsuranceResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.insurance.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_bcl_insurance_ex_async(
+        self,
+        request: twc_models.CancelBclInsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CancelBclInsuranceResponse:
+        """
+        Description: 租赁宝plus退保
+        Summary: 租赁宝plus退保
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CancelBclInsuranceResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.insurance.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_bcl_insurance(
+        self,
+        request: twc_models.QueryBclInsuranceRequest,
+    ) -> twc_models.QueryBclInsuranceResponse:
+        """
+        Description: 租赁宝plus查询订单保险详情
+        Summary: 租赁宝plus查询订单保险详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bcl_insurance_ex(request, headers, runtime)
+
+    async def query_bcl_insurance_async(
+        self,
+        request: twc_models.QueryBclInsuranceRequest,
+    ) -> twc_models.QueryBclInsuranceResponse:
+        """
+        Description: 租赁宝plus查询订单保险详情
+        Summary: 租赁宝plus查询订单保险详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bcl_insurance_ex_async(request, headers, runtime)
+
+    def query_bcl_insurance_ex(
+        self,
+        request: twc_models.QueryBclInsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryBclInsuranceResponse:
+        """
+        Description: 租赁宝plus查询订单保险详情
+        Summary: 租赁宝plus查询订单保险详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryBclInsuranceResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.insurance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bcl_insurance_ex_async(
+        self,
+        request: twc_models.QueryBclInsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryBclInsuranceResponse:
+        """
+        Description: 租赁宝plus查询订单保险详情
+        Summary: 租赁宝plus查询订单保险详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryBclInsuranceResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.insurance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_contract_account(
