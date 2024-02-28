@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.10',
+    sdk_version = '1.12.16',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -288,6 +288,24 @@ model BclOrderProductInfo {
   // 商品数量
   // 目前只允许一个商品
   productNumber: long(minimum=1, name='product_number', example='1'),
+}
+
+// 租赁宝plus退保详情
+model InsuranceCancelRecordInfo {
+  // 保单单号
+  bclInsuranceRecordId: string(name='bcl_insurance_record_id', example='123123123123213'),
+  // 退保保单号
+  cancelInsuranceId: string(name='cancel_insurance_id', example='12312312312123'),
+  // 退还保费 单位分
+  cancelAmount: long(name='cancel_amount', example='12312'),
+  // 申请退保时间
+  // 格式: yyyy-MM-dd HH:mm:ss
+  cancelApplyTime: string(name='cancel_apply_time', example='2023-04-05 12:12:23'),
+  // 退保状态
+  // CANCEL_INIT: 退保初始化
+  // CANCEL_SUCC: 退保成功
+  // CANCEL_FAIL: 退保失败
+  cancelStatus: string(name='cancel_status', example='CANCEL_SUCC'),
 }
 
 // 存证关联实体（个人/企业）的身份识别信息
@@ -591,6 +609,28 @@ model PhaseNotary {
   // 业务方原始数据ID，业务方确保唯一，方便与业务方进行数据核对使用
   // 
   originDataId: string(name='origin_data_id', example='xxxx'),
+}
+
+// 租赁宝plus用户信息
+model BclInsuranceUserInfo {
+  // 用户名称
+  userName: string(name='user_name', example='蚂蚁区块链科技（上海）有限公司'),
+  // 保险用户类型：
+  // HOLDER_ORG: 投保人（机构）
+  // INSURED_ORG: 被保人（机构）
+  // INSURANCE_ORG: 保司（机构）
+  userType: string(name='user_type', example='HOLDER_ORG'),
+  // 证件号名称:
+  // USCC，社会统一信用代码，目前仅支持
+  idType: string(name='id_type', example='USCC'),
+  // 证件号码
+  idNumber: string(name='id_number', example='91310101MA1FPCXA3G'),
+  // 联系地址
+  address: string(name='address', example='上海市黄浦区外马路618号8层803室'),
+  // 联系方式
+  mobile: string(name='mobile', example='021-61686888'),
+  // 邮件地址
+  mail: string(name='mail', example='xxx@aa.com'),
 }
 
 // 租赁用户信息
@@ -2264,6 +2304,42 @@ model CompanyTwoMetaInfo {
   certNo: string(name='cert_no', example='9111011421316034XK'),
   // 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
   certType?: string(name='cert_type', example='NATIONAL_LEGAL_MERGE'),
+}
+
+// 租赁宝plus保单详情
+model InsuranceRecordInfo {
+  // bcl订单id
+  orderId: string(name='order_id', example='PROD12312312311232'),
+  // 保险单号
+  bclInsuranceRecordId: string(name='bcl_insurance_record_id', example='1231234343423423'),
+  // 投保人信息
+  holder: BclInsuranceUserInfo(name='holder', example=''),
+  // 被保人信息
+  insured: BclInsuranceUserInfo(name='insured', example=''),
+  // 保司信息
+  insurancer: BclInsuranceUserInfo(name='insurancer', example=''),
+  // 保单状态
+  // INSURE_INIT: 投保初始化
+  // INSURE_WAIT: 投保等待
+  // INSURE_SUCC: 投保成功
+  // INSURE_FAIL: 投保失败
+  insuranceStatus: string(name='insurance_status', example='INSRUE_SUCC'),
+  // 起保时间
+  // 格式: yyyy-MM-dd HH:mm:ss
+  insuranceStartTime: string(name='insurance_start_time', example='2023-04-05 12:12:23'),
+  // 终保时间
+  // 格式: yyyy-MM-dd HH:mm:ss
+  insuranceEndTime: string(name='insurance_end_time', example='2023-04-05 12:12:23'),
+  // 保额 单位分
+  insuranceAmount: long(name='insurance_amount', example='1232'),
+  // 保费 单位分
+  premium: long(name='premium', example='12312'),
+  // riskGo分数
+  riskgoScore: long(name='riskgo_score', example='60'),
+  // 保险详情地址
+  insuranceUrl: string(name='insurance_url', example='http://xxasd.com'),
+  // 退保详情
+  insuranceCancelRecordInfoList: [ InsuranceCancelRecordInfo ](name='insurance_cancel_record_info_list', example=''),
 }
 
 // 签字人
@@ -4126,6 +4202,135 @@ async function queryBclRefund(request: QueryBclRefundRequest): QueryBclRefundRes
 async function queryBclRefundEx(request: QueryBclRefundRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBclRefundResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.bcl.refund.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBclInsuranceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // bcl订单id
+  orderId: string(maxLength=32, minLength=16, name='order_id'),
+  // 保司code，枚举值
+  // HZRB: 杭州人保
+  insuranceCode: string(maxLength=32, minLength=8, name='insurance_code'),
+  // 投保人信息
+  holder: BclInsuranceUserInfo(name='holder'),
+  // 被保人信息
+  insured: BclInsuranceUserInfo(name='insured'),
+}
+
+model CreateBclInsuranceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 本次投保的保险记录id，建议保存，用于查询与退保使用
+  bclInsuranceRecordId?: string(name='bcl_insurance_record_id'),
+}
+
+/**
+ * Description: 租赁宝plus投保
+ * Summary: 租赁宝plus投保
+ */
+async function createBclInsurance(request: CreateBclInsuranceRequest): CreateBclInsuranceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBclInsuranceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁宝plus投保
+ * Summary: 租赁宝plus投保
+ */
+async function createBclInsuranceEx(request: CreateBclInsuranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBclInsuranceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.bcl.insurance.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelBclInsuranceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租赁宝plus订单id
+  orderId: string(name='order_id'),
+  // 保险单号
+  bclInsuranceRecordId: string(maxLength=64, name='bcl_insurance_record_id'),
+  // 人保退保时必填
+  renbaoExtInfo?: RenbaoExtInfo(name='renbao_ext_info'),
+  // 保司code，枚举值 HZ_RENBAO: 杭州人保
+  insuranceCode: string(maxLength=32, name='insurance_code'),
+}
+
+model CancelBclInsuranceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 退保保单号
+  cancelInsuranceId?: string(name='cancel_insurance_id'),
+}
+
+/**
+ * Description: 租赁宝plus退保
+ * Summary: 租赁宝plus退保
+ */
+async function cancelBclInsurance(request: CancelBclInsuranceRequest): CancelBclInsuranceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelBclInsuranceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁宝plus退保
+ * Summary: 租赁宝plus退保
+ */
+async function cancelBclInsuranceEx(request: CancelBclInsuranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelBclInsuranceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.bcl.insurance.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBclInsuranceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租赁宝plus订单id
+  orderId: string(maxLength=32, minLength=16, name='order_id'),
+  // 保单单号
+  bclInsuranceRecordId?: string(maxLength=64, minLength=16, name='bcl_insurance_record_id'),
+}
+
+model QueryBclInsuranceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 租赁宝plus订单保险详情
+  insuranceRecordList?: [ InsuranceRecordInfo ](name='insurance_record_list'),
+}
+
+/**
+ * Description: 租赁宝plus查询订单保险详情
+ * Summary: 租赁宝plus查询订单保险详情
+ */
+async function queryBclInsurance(request: QueryBclInsuranceRequest): QueryBclInsuranceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBclInsuranceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁宝plus查询订单保险详情
+ * Summary: 租赁宝plus查询订单保险详情
+ */
+async function queryBclInsuranceEx(request: QueryBclInsuranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBclInsuranceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.bcl.insurance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateContractAccountRequest = {
