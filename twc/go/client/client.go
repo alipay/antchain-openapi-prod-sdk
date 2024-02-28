@@ -503,6 +503,57 @@ func (s *BclOrderProductInfo) SetProductNumber(v int64) *BclOrderProductInfo {
 	return s
 }
 
+// 租赁宝plus退保详情
+type InsuranceCancelRecordInfo struct {
+	// 保单单号
+	BclInsuranceRecordId *string `json:"bcl_insurance_record_id,omitempty" xml:"bcl_insurance_record_id,omitempty" require:"true"`
+	// 退保保单号
+	CancelInsuranceId *string `json:"cancel_insurance_id,omitempty" xml:"cancel_insurance_id,omitempty" require:"true"`
+	// 退还保费 单位分
+	CancelAmount *int64 `json:"cancel_amount,omitempty" xml:"cancel_amount,omitempty" require:"true"`
+	// 申请退保时间
+	// 格式: yyyy-MM-dd HH:mm:ss
+	CancelApplyTime *string `json:"cancel_apply_time,omitempty" xml:"cancel_apply_time,omitempty" require:"true"`
+	// 退保状态
+	// CANCEL_INIT: 退保初始化
+	// CANCEL_SUCC: 退保成功
+	// CANCEL_FAIL: 退保失败
+	CancelStatus *string `json:"cancel_status,omitempty" xml:"cancel_status,omitempty" require:"true"`
+}
+
+func (s InsuranceCancelRecordInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InsuranceCancelRecordInfo) GoString() string {
+	return s.String()
+}
+
+func (s *InsuranceCancelRecordInfo) SetBclInsuranceRecordId(v string) *InsuranceCancelRecordInfo {
+	s.BclInsuranceRecordId = &v
+	return s
+}
+
+func (s *InsuranceCancelRecordInfo) SetCancelInsuranceId(v string) *InsuranceCancelRecordInfo {
+	s.CancelInsuranceId = &v
+	return s
+}
+
+func (s *InsuranceCancelRecordInfo) SetCancelAmount(v int64) *InsuranceCancelRecordInfo {
+	s.CancelAmount = &v
+	return s
+}
+
+func (s *InsuranceCancelRecordInfo) SetCancelApplyTime(v string) *InsuranceCancelRecordInfo {
+	s.CancelApplyTime = &v
+	return s
+}
+
+func (s *InsuranceCancelRecordInfo) SetCancelStatus(v string) *InsuranceCancelRecordInfo {
+	s.CancelStatus = &v
+	return s
+}
+
 // 存证关联实体（个人/企业）的身份识别信息
 type NotaryUser struct {
 	// 用户类型，PERSON或者ENTERPRISE
@@ -1469,6 +1520,71 @@ func (s *PhaseNotary) SetNotaryContent(v string) *PhaseNotary {
 
 func (s *PhaseNotary) SetOriginDataId(v string) *PhaseNotary {
 	s.OriginDataId = &v
+	return s
+}
+
+// 租赁宝plus用户信息
+type BclInsuranceUserInfo struct {
+	// 用户名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 保险用户类型：
+	// HOLDER_ORG: 投保人（机构）
+	// INSURED_ORG: 被保人（机构）
+	// INSURANCE_ORG: 保司（机构）
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+	// 证件号名称:
+	// USCC，社会统一信用代码，目前仅支持
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
+	// 证件号码
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty" require:"true"`
+	// 联系地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
+	// 联系方式
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 邮件地址
+	Mail *string `json:"mail,omitempty" xml:"mail,omitempty" require:"true"`
+}
+
+func (s BclInsuranceUserInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BclInsuranceUserInfo) GoString() string {
+	return s.String()
+}
+
+func (s *BclInsuranceUserInfo) SetUserName(v string) *BclInsuranceUserInfo {
+	s.UserName = &v
+	return s
+}
+
+func (s *BclInsuranceUserInfo) SetUserType(v string) *BclInsuranceUserInfo {
+	s.UserType = &v
+	return s
+}
+
+func (s *BclInsuranceUserInfo) SetIdType(v string) *BclInsuranceUserInfo {
+	s.IdType = &v
+	return s
+}
+
+func (s *BclInsuranceUserInfo) SetIdNumber(v string) *BclInsuranceUserInfo {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *BclInsuranceUserInfo) SetAddress(v string) *BclInsuranceUserInfo {
+	s.Address = &v
+	return s
+}
+
+func (s *BclInsuranceUserInfo) SetMobile(v string) *BclInsuranceUserInfo {
+	s.Mobile = &v
+	return s
+}
+
+func (s *BclInsuranceUserInfo) SetMail(v string) *BclInsuranceUserInfo {
+	s.Mail = &v
 	return s
 }
 
@@ -6847,6 +6963,115 @@ func (s *CompanyTwoMetaInfo) SetCertType(v string) *CompanyTwoMetaInfo {
 	return s
 }
 
+// 租赁宝plus保单详情
+type InsuranceRecordInfo struct {
+	// bcl订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 保险单号
+	BclInsuranceRecordId *string `json:"bcl_insurance_record_id,omitempty" xml:"bcl_insurance_record_id,omitempty" require:"true"`
+	// 投保人信息
+	Holder *BclInsuranceUserInfo `json:"holder,omitempty" xml:"holder,omitempty" require:"true"`
+	// 被保人信息
+	Insured *BclInsuranceUserInfo `json:"insured,omitempty" xml:"insured,omitempty" require:"true"`
+	// 保司信息
+	Insurancer *BclInsuranceUserInfo `json:"insurancer,omitempty" xml:"insurancer,omitempty" require:"true"`
+	// 保单状态
+	// INSURE_INIT: 投保初始化
+	// INSURE_WAIT: 投保等待
+	// INSURE_SUCC: 投保成功
+	// INSURE_FAIL: 投保失败
+	InsuranceStatus *string `json:"insurance_status,omitempty" xml:"insurance_status,omitempty" require:"true"`
+	// 起保时间
+	// 格式: yyyy-MM-dd HH:mm:ss
+	InsuranceStartTime *string `json:"insurance_start_time,omitempty" xml:"insurance_start_time,omitempty" require:"true"`
+	// 终保时间
+	// 格式: yyyy-MM-dd HH:mm:ss
+	InsuranceEndTime *string `json:"insurance_end_time,omitempty" xml:"insurance_end_time,omitempty" require:"true"`
+	// 保额 单位分
+	InsuranceAmount *int64 `json:"insurance_amount,omitempty" xml:"insurance_amount,omitempty" require:"true"`
+	// 保费 单位分
+	Premium *int64 `json:"premium,omitempty" xml:"premium,omitempty" require:"true"`
+	// riskGo分数
+	RiskgoScore *int64 `json:"riskgo_score,omitempty" xml:"riskgo_score,omitempty" require:"true"`
+	// 保险详情地址
+	InsuranceUrl *string `json:"insurance_url,omitempty" xml:"insurance_url,omitempty" require:"true"`
+	// 退保详情
+	InsuranceCancelRecordInfoList []*InsuranceCancelRecordInfo `json:"insurance_cancel_record_info_list,omitempty" xml:"insurance_cancel_record_info_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s InsuranceRecordInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InsuranceRecordInfo) GoString() string {
+	return s.String()
+}
+
+func (s *InsuranceRecordInfo) SetOrderId(v string) *InsuranceRecordInfo {
+	s.OrderId = &v
+	return s
+}
+
+func (s *InsuranceRecordInfo) SetBclInsuranceRecordId(v string) *InsuranceRecordInfo {
+	s.BclInsuranceRecordId = &v
+	return s
+}
+
+func (s *InsuranceRecordInfo) SetHolder(v *BclInsuranceUserInfo) *InsuranceRecordInfo {
+	s.Holder = v
+	return s
+}
+
+func (s *InsuranceRecordInfo) SetInsured(v *BclInsuranceUserInfo) *InsuranceRecordInfo {
+	s.Insured = v
+	return s
+}
+
+func (s *InsuranceRecordInfo) SetInsurancer(v *BclInsuranceUserInfo) *InsuranceRecordInfo {
+	s.Insurancer = v
+	return s
+}
+
+func (s *InsuranceRecordInfo) SetInsuranceStatus(v string) *InsuranceRecordInfo {
+	s.InsuranceStatus = &v
+	return s
+}
+
+func (s *InsuranceRecordInfo) SetInsuranceStartTime(v string) *InsuranceRecordInfo {
+	s.InsuranceStartTime = &v
+	return s
+}
+
+func (s *InsuranceRecordInfo) SetInsuranceEndTime(v string) *InsuranceRecordInfo {
+	s.InsuranceEndTime = &v
+	return s
+}
+
+func (s *InsuranceRecordInfo) SetInsuranceAmount(v int64) *InsuranceRecordInfo {
+	s.InsuranceAmount = &v
+	return s
+}
+
+func (s *InsuranceRecordInfo) SetPremium(v int64) *InsuranceRecordInfo {
+	s.Premium = &v
+	return s
+}
+
+func (s *InsuranceRecordInfo) SetRiskgoScore(v int64) *InsuranceRecordInfo {
+	s.RiskgoScore = &v
+	return s
+}
+
+func (s *InsuranceRecordInfo) SetInsuranceUrl(v string) *InsuranceRecordInfo {
+	s.InsuranceUrl = &v
+	return s
+}
+
+func (s *InsuranceRecordInfo) SetInsuranceCancelRecordInfoList(v []*InsuranceCancelRecordInfo) *InsuranceRecordInfo {
+	s.InsuranceCancelRecordInfoList = v
+	return s
+}
+
 // 签字人
 type ContractFlowSigner struct {
 	// 签署顺序
@@ -11160,6 +11385,266 @@ func (s *QueryBclRefundResponse) SetRefundStatus(v string) *QueryBclRefundRespon
 
 func (s *QueryBclRefundResponse) SetErrMsg(v string) *QueryBclRefundResponse {
 	s.ErrMsg = &v
+	return s
+}
+
+type CreateBclInsuranceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// bcl订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"32" minLength:"16"`
+	// 保司code，枚举值
+	// HZRB: 杭州人保
+	InsuranceCode *string `json:"insurance_code,omitempty" xml:"insurance_code,omitempty" require:"true" maxLength:"32" minLength:"8"`
+	// 投保人信息
+	Holder *BclInsuranceUserInfo `json:"holder,omitempty" xml:"holder,omitempty" require:"true"`
+	// 被保人信息
+	Insured *BclInsuranceUserInfo `json:"insured,omitempty" xml:"insured,omitempty" require:"true"`
+}
+
+func (s CreateBclInsuranceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBclInsuranceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBclInsuranceRequest) SetAuthToken(v string) *CreateBclInsuranceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBclInsuranceRequest) SetProductInstanceId(v string) *CreateBclInsuranceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateBclInsuranceRequest) SetOrderId(v string) *CreateBclInsuranceRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CreateBclInsuranceRequest) SetInsuranceCode(v string) *CreateBclInsuranceRequest {
+	s.InsuranceCode = &v
+	return s
+}
+
+func (s *CreateBclInsuranceRequest) SetHolder(v *BclInsuranceUserInfo) *CreateBclInsuranceRequest {
+	s.Holder = v
+	return s
+}
+
+func (s *CreateBclInsuranceRequest) SetInsured(v *BclInsuranceUserInfo) *CreateBclInsuranceRequest {
+	s.Insured = v
+	return s
+}
+
+type CreateBclInsuranceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 本次投保的保险记录id，建议保存，用于查询与退保使用
+	BclInsuranceRecordId *string `json:"bcl_insurance_record_id,omitempty" xml:"bcl_insurance_record_id,omitempty"`
+}
+
+func (s CreateBclInsuranceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBclInsuranceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBclInsuranceResponse) SetReqMsgId(v string) *CreateBclInsuranceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateBclInsuranceResponse) SetResultCode(v string) *CreateBclInsuranceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateBclInsuranceResponse) SetResultMsg(v string) *CreateBclInsuranceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateBclInsuranceResponse) SetBclInsuranceRecordId(v string) *CreateBclInsuranceResponse {
+	s.BclInsuranceRecordId = &v
+	return s
+}
+
+type CancelBclInsuranceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租赁宝plus订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 保险单号
+	BclInsuranceRecordId *string `json:"bcl_insurance_record_id,omitempty" xml:"bcl_insurance_record_id,omitempty" require:"true" maxLength:"64"`
+	// 人保退保时必填
+	RenbaoExtInfo *RenbaoExtInfo `json:"renbao_ext_info,omitempty" xml:"renbao_ext_info,omitempty"`
+	// 保司code，枚举值 HZ_RENBAO: 杭州人保
+	InsuranceCode *string `json:"insurance_code,omitempty" xml:"insurance_code,omitempty" require:"true" maxLength:"32"`
+}
+
+func (s CancelBclInsuranceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelBclInsuranceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CancelBclInsuranceRequest) SetAuthToken(v string) *CancelBclInsuranceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelBclInsuranceRequest) SetProductInstanceId(v string) *CancelBclInsuranceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CancelBclInsuranceRequest) SetOrderId(v string) *CancelBclInsuranceRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CancelBclInsuranceRequest) SetBclInsuranceRecordId(v string) *CancelBclInsuranceRequest {
+	s.BclInsuranceRecordId = &v
+	return s
+}
+
+func (s *CancelBclInsuranceRequest) SetRenbaoExtInfo(v *RenbaoExtInfo) *CancelBclInsuranceRequest {
+	s.RenbaoExtInfo = v
+	return s
+}
+
+func (s *CancelBclInsuranceRequest) SetInsuranceCode(v string) *CancelBclInsuranceRequest {
+	s.InsuranceCode = &v
+	return s
+}
+
+type CancelBclInsuranceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 退保保单号
+	CancelInsuranceId *string `json:"cancel_insurance_id,omitempty" xml:"cancel_insurance_id,omitempty"`
+}
+
+func (s CancelBclInsuranceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelBclInsuranceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CancelBclInsuranceResponse) SetReqMsgId(v string) *CancelBclInsuranceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CancelBclInsuranceResponse) SetResultCode(v string) *CancelBclInsuranceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CancelBclInsuranceResponse) SetResultMsg(v string) *CancelBclInsuranceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CancelBclInsuranceResponse) SetCancelInsuranceId(v string) *CancelBclInsuranceResponse {
+	s.CancelInsuranceId = &v
+	return s
+}
+
+type QueryBclInsuranceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租赁宝plus订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"32" minLength:"16"`
+	// 保单单号
+	BclInsuranceRecordId *string `json:"bcl_insurance_record_id,omitempty" xml:"bcl_insurance_record_id,omitempty" maxLength:"64" minLength:"16"`
+}
+
+func (s QueryBclInsuranceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBclInsuranceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBclInsuranceRequest) SetAuthToken(v string) *QueryBclInsuranceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBclInsuranceRequest) SetProductInstanceId(v string) *QueryBclInsuranceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBclInsuranceRequest) SetOrderId(v string) *QueryBclInsuranceRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryBclInsuranceRequest) SetBclInsuranceRecordId(v string) *QueryBclInsuranceRequest {
+	s.BclInsuranceRecordId = &v
+	return s
+}
+
+type QueryBclInsuranceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 租赁宝plus订单保险详情
+	InsuranceRecordList []*InsuranceRecordInfo `json:"insurance_record_list,omitempty" xml:"insurance_record_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryBclInsuranceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBclInsuranceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBclInsuranceResponse) SetReqMsgId(v string) *QueryBclInsuranceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBclInsuranceResponse) SetResultCode(v string) *QueryBclInsuranceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBclInsuranceResponse) SetResultMsg(v string) *QueryBclInsuranceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBclInsuranceResponse) SetInsuranceRecordList(v []*InsuranceRecordInfo) *QueryBclInsuranceResponse {
+	s.InsuranceRecordList = v
 	return s
 }
 
@@ -47455,7 +47940,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.10"),
+				"sdk_version":      tea.String("1.12.16"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -48458,6 +48943,108 @@ func (client *Client) QueryBclRefundEx(request *QueryBclRefundRequest, headers m
 	}
 	_result = &QueryBclRefundResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.refund.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁宝plus投保
+ * Summary: 租赁宝plus投保
+ */
+func (client *Client) CreateBclInsurance(request *CreateBclInsuranceRequest) (_result *CreateBclInsuranceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateBclInsuranceResponse{}
+	_body, _err := client.CreateBclInsuranceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁宝plus投保
+ * Summary: 租赁宝plus投保
+ */
+func (client *Client) CreateBclInsuranceEx(request *CreateBclInsuranceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBclInsuranceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBclInsuranceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.insurance.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁宝plus退保
+ * Summary: 租赁宝plus退保
+ */
+func (client *Client) CancelBclInsurance(request *CancelBclInsuranceRequest) (_result *CancelBclInsuranceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CancelBclInsuranceResponse{}
+	_body, _err := client.CancelBclInsuranceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁宝plus退保
+ * Summary: 租赁宝plus退保
+ */
+func (client *Client) CancelBclInsuranceEx(request *CancelBclInsuranceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelBclInsuranceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CancelBclInsuranceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.insurance.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁宝plus查询订单保险详情
+ * Summary: 租赁宝plus查询订单保险详情
+ */
+func (client *Client) QueryBclInsurance(request *QueryBclInsuranceRequest) (_result *QueryBclInsuranceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBclInsuranceResponse{}
+	_body, _err := client.QueryBclInsuranceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁宝plus查询订单保险详情
+ * Summary: 租赁宝plus查询订单保险详情
+ */
+func (client *Client) QueryBclInsuranceEx(request *QueryBclInsuranceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBclInsuranceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBclInsuranceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.bcl.insurance.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
