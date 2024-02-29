@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.7"},
+                        {"sdk_version", "1.10.12"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.7"},
+                        {"sdk_version", "1.10.12"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -8261,6 +8261,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyTechintegrationSkushipResponse>(await DoRequestAsync("1.0", "blockchain.bot.techintegration.skuship.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付芯证书申请接口，适用于唯一编码软件接入形式
+         * Summary: 支付芯证书申请接口，唯一编码软件接入形式
+         */
+        public ApplyTechintegrationSkushipbyuidResponse ApplyTechintegrationSkushipbyuid(ApplyTechintegrationSkushipbyuidRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyTechintegrationSkushipbyuidEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付芯证书申请接口，适用于唯一编码软件接入形式
+         * Summary: 支付芯证书申请接口，唯一编码软件接入形式
+         */
+        public async Task<ApplyTechintegrationSkushipbyuidResponse> ApplyTechintegrationSkushipbyuidAsync(ApplyTechintegrationSkushipbyuidRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyTechintegrationSkushipbyuidExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付芯证书申请接口，适用于唯一编码软件接入形式
+         * Summary: 支付芯证书申请接口，唯一编码软件接入形式
+         */
+        public ApplyTechintegrationSkushipbyuidResponse ApplyTechintegrationSkushipbyuidEx(ApplyTechintegrationSkushipbyuidRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyTechintegrationSkushipbyuidResponse>(DoRequest("1.0", "blockchain.bot.techintegration.skushipbyuid.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付芯证书申请接口，适用于唯一编码软件接入形式
+         * Summary: 支付芯证书申请接口，唯一编码软件接入形式
+         */
+        public async Task<ApplyTechintegrationSkushipbyuidResponse> ApplyTechintegrationSkushipbyuidExAsync(ApplyTechintegrationSkushipbyuidRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyTechintegrationSkushipbyuidResponse>(await DoRequestAsync("1.0", "blockchain.bot.techintegration.skushipbyuid.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

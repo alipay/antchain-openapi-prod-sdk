@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class NotifyThirddeviceMessageResponse : TeaModel {
+    public class ApplyTechintegrationSkushipbyuidResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,17 +24,7 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 处理结果
-        [NameInMap("success")]
-        [Validation(Required=false)]
-        public bool? Success { get; set; }
-
-        // 设备信息同步命令
-        [NameInMap("command")]
-        [Validation(Required=false)]
-        public string Command { get; set; }
-
-        // 处理结果数据
+        // 证书字符串
         [NameInMap("result")]
         [Validation(Required=false)]
         public string Result { get; set; }
