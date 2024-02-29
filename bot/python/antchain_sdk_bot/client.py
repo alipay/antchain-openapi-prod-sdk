@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.7',
+                    'sdk_version': '1.10.12',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.7',
+                    'sdk_version': '1.10.12',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -10835,6 +10835,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.ApplyTechintegrationSkushipResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.techintegration.skuship.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_techintegration_skushipbyuid(
+        self,
+        request: bot_models.ApplyTechintegrationSkushipbyuidRequest,
+    ) -> bot_models.ApplyTechintegrationSkushipbyuidResponse:
+        """
+        Description: 支付芯证书申请接口，适用于唯一编码软件接入形式
+        Summary: 支付芯证书申请接口，唯一编码软件接入形式
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_techintegration_skushipbyuid_ex(request, headers, runtime)
+
+    async def apply_techintegration_skushipbyuid_async(
+        self,
+        request: bot_models.ApplyTechintegrationSkushipbyuidRequest,
+    ) -> bot_models.ApplyTechintegrationSkushipbyuidResponse:
+        """
+        Description: 支付芯证书申请接口，适用于唯一编码软件接入形式
+        Summary: 支付芯证书申请接口，唯一编码软件接入形式
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_techintegration_skushipbyuid_ex_async(request, headers, runtime)
+
+    def apply_techintegration_skushipbyuid_ex(
+        self,
+        request: bot_models.ApplyTechintegrationSkushipbyuidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ApplyTechintegrationSkushipbyuidResponse:
+        """
+        Description: 支付芯证书申请接口，适用于唯一编码软件接入形式
+        Summary: 支付芯证书申请接口，唯一编码软件接入形式
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ApplyTechintegrationSkushipbyuidResponse(),
+            self.do_request('1.0', 'blockchain.bot.techintegration.skushipbyuid.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_techintegration_skushipbyuid_ex_async(
+        self,
+        request: bot_models.ApplyTechintegrationSkushipbyuidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ApplyTechintegrationSkushipbyuidResponse:
+        """
+        Description: 支付芯证书申请接口，适用于唯一编码软件接入形式
+        Summary: 支付芯证书申请接口，唯一编码软件接入形式
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ApplyTechintegrationSkushipbyuidResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.techintegration.skushipbyuid.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(

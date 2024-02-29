@@ -19065,6 +19065,7 @@ class NotifyThirddeviceMessageResponse(TeaModel):
         result_msg: str = None,
         success: bool = None,
         command: str = None,
+        result: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -19076,6 +19077,8 @@ class NotifyThirddeviceMessageResponse(TeaModel):
         self.success = success
         # 设备信息同步命令
         self.command = command
+        # 处理结果数据
+        self.result = result
 
     def validate(self):
         pass
@@ -19096,6 +19099,8 @@ class NotifyThirddeviceMessageResponse(TeaModel):
             result['success'] = self.success
         if self.command is not None:
             result['command'] = self.command
+        if self.result is not None:
+            result['result'] = self.result
         return result
 
     def from_map(self, m: dict = None):
@@ -19110,6 +19115,8 @@ class NotifyThirddeviceMessageResponse(TeaModel):
             self.success = m.get('success')
         if m.get('command') is not None:
             self.command = m.get('command')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 
@@ -33031,6 +33038,163 @@ class ApplyTechintegrationSkushipResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
             self.data = m.get('data')
+        return self
+
+
+class ApplyTechintegrationSkushipbyuidRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        sku_name: str = None,
+        sku_model: str = None,
+        product_type: str = None,
+        security_mechanism: str = None,
+        cert_type: str = None,
+        features: List[str] = None,
+        uid_type: str = None,
+        uid: str = None,
+        scene: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 产品名称
+        self.sku_name = sku_name
+        # 产品型号
+        self.sku_model = sku_model
+        # 产品类型
+        self.product_type = product_type
+        # 安全方案
+        # 
+        self.security_mechanism = security_mechanism
+        # 证书类型
+        # 
+        self.cert_type = cert_type
+        # 凭证种类
+        # 
+        self.features = features
+        # 设备唯一编码类型
+        self.uid_type = uid_type
+        # 设备唯一编码值
+        self.uid = uid
+        # 场景码
+        self.scene = scene
+
+    def validate(self):
+        self.validate_required(self.sku_name, 'sku_name')
+        self.validate_required(self.sku_model, 'sku_model')
+        self.validate_required(self.product_type, 'product_type')
+        self.validate_required(self.security_mechanism, 'security_mechanism')
+        self.validate_required(self.cert_type, 'cert_type')
+        self.validate_required(self.features, 'features')
+        self.validate_required(self.uid_type, 'uid_type')
+        self.validate_required(self.uid, 'uid')
+        self.validate_required(self.scene, 'scene')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.sku_name is not None:
+            result['sku_name'] = self.sku_name
+        if self.sku_model is not None:
+            result['sku_model'] = self.sku_model
+        if self.product_type is not None:
+            result['product_type'] = self.product_type
+        if self.security_mechanism is not None:
+            result['security_mechanism'] = self.security_mechanism
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.features is not None:
+            result['features'] = self.features
+        if self.uid_type is not None:
+            result['uid_type'] = self.uid_type
+        if self.uid is not None:
+            result['uid'] = self.uid
+        if self.scene is not None:
+            result['scene'] = self.scene
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('sku_name') is not None:
+            self.sku_name = m.get('sku_name')
+        if m.get('sku_model') is not None:
+            self.sku_model = m.get('sku_model')
+        if m.get('product_type') is not None:
+            self.product_type = m.get('product_type')
+        if m.get('security_mechanism') is not None:
+            self.security_mechanism = m.get('security_mechanism')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('features') is not None:
+            self.features = m.get('features')
+        if m.get('uid_type') is not None:
+            self.uid_type = m.get('uid_type')
+        if m.get('uid') is not None:
+            self.uid = m.get('uid')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        return self
+
+
+class ApplyTechintegrationSkushipbyuidResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 证书字符串
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 
