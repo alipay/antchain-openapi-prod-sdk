@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.7"),
+                    new TeaPair("sdk_version", "1.10.12"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -3752,6 +3752,25 @@ public class Client {
     public ApplyTechintegrationSkushipResponse applyTechintegrationSkushipEx(ApplyTechintegrationSkushipRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.techintegration.skuship.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyTechintegrationSkushipResponse());
+    }
+
+    /**
+     * Description: 支付芯证书申请接口，适用于唯一编码软件接入形式
+     * Summary: 支付芯证书申请接口，唯一编码软件接入形式
+     */
+    public ApplyTechintegrationSkushipbyuidResponse applyTechintegrationSkushipbyuid(ApplyTechintegrationSkushipbyuidRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyTechintegrationSkushipbyuidEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 支付芯证书申请接口，适用于唯一编码软件接入形式
+     * Summary: 支付芯证书申请接口，唯一编码软件接入形式
+     */
+    public ApplyTechintegrationSkushipbyuidResponse applyTechintegrationSkushipbyuidEx(ApplyTechintegrationSkushipbyuidRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.techintegration.skushipbyuid.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyTechintegrationSkushipbyuidResponse());
     }
 
     /**

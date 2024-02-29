@@ -24,6 +24,10 @@ public class NotifyThirddeviceMessageResponse extends TeaModel {
     @NameInMap("command")
     public String command;
 
+    // 处理结果数据
+    @NameInMap("result")
+    public String result;
+
     public static NotifyThirddeviceMessageResponse build(java.util.Map<String, ?> map) throws Exception {
         NotifyThirddeviceMessageResponse self = new NotifyThirddeviceMessageResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class NotifyThirddeviceMessageResponse extends TeaModel {
     }
     public String getCommand() {
         return this.command;
+    }
+
+    public NotifyThirddeviceMessageResponse setResult(String result) {
+        this.result = result;
+        return this;
+    }
+    public String getResult() {
+        return this.result;
     }
 
 }
