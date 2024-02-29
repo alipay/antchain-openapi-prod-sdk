@@ -15176,6 +15176,8 @@ type NotifyThirddeviceMessageResponse struct {
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 	// 设备信息同步命令
 	Command *string `json:"command,omitempty" xml:"command,omitempty"`
+	// 处理结果数据
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
 }
 
 func (s NotifyThirddeviceMessageResponse) String() string {
@@ -15208,6 +15210,11 @@ func (s *NotifyThirddeviceMessageResponse) SetSuccess(v bool) *NotifyThirddevice
 
 func (s *NotifyThirddeviceMessageResponse) SetCommand(v string) *NotifyThirddeviceMessageResponse {
 	s.Command = &v
+	return s
+}
+
+func (s *NotifyThirddeviceMessageResponse) SetResult(v string) *NotifyThirddeviceMessageResponse {
+	s.Result = &v
 	return s
 }
 
@@ -26282,6 +26289,135 @@ func (s *ApplyTechintegrationSkushipResponse) SetData(v []*string) *ApplyTechint
 	return s
 }
 
+type ApplyTechintegrationSkushipbyuidRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产品名称
+	SkuName *string `json:"sku_name,omitempty" xml:"sku_name,omitempty" require:"true"`
+	// 产品型号
+	SkuModel *string `json:"sku_model,omitempty" xml:"sku_model,omitempty" require:"true"`
+	// 产品类型
+	ProductType *string `json:"product_type,omitempty" xml:"product_type,omitempty" require:"true"`
+	// 安全方案
+	//
+	SecurityMechanism *string `json:"security_mechanism,omitempty" xml:"security_mechanism,omitempty" require:"true"`
+	// 证书类型
+	//
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	// 凭证种类
+	//
+	Features []*string `json:"features,omitempty" xml:"features,omitempty" require:"true" type:"Repeated"`
+	// 设备唯一编码类型
+	UidType *string `json:"uid_type,omitempty" xml:"uid_type,omitempty" require:"true"`
+	// 设备唯一编码值
+	Uid *string `json:"uid,omitempty" xml:"uid,omitempty" require:"true"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+}
+
+func (s ApplyTechintegrationSkushipbyuidRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyTechintegrationSkushipbyuidRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyTechintegrationSkushipbyuidRequest) SetAuthToken(v string) *ApplyTechintegrationSkushipbyuidRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipbyuidRequest) SetProductInstanceId(v string) *ApplyTechintegrationSkushipbyuidRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipbyuidRequest) SetSkuName(v string) *ApplyTechintegrationSkushipbyuidRequest {
+	s.SkuName = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipbyuidRequest) SetSkuModel(v string) *ApplyTechintegrationSkushipbyuidRequest {
+	s.SkuModel = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipbyuidRequest) SetProductType(v string) *ApplyTechintegrationSkushipbyuidRequest {
+	s.ProductType = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipbyuidRequest) SetSecurityMechanism(v string) *ApplyTechintegrationSkushipbyuidRequest {
+	s.SecurityMechanism = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipbyuidRequest) SetCertType(v string) *ApplyTechintegrationSkushipbyuidRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipbyuidRequest) SetFeatures(v []*string) *ApplyTechintegrationSkushipbyuidRequest {
+	s.Features = v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipbyuidRequest) SetUidType(v string) *ApplyTechintegrationSkushipbyuidRequest {
+	s.UidType = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipbyuidRequest) SetUid(v string) *ApplyTechintegrationSkushipbyuidRequest {
+	s.Uid = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipbyuidRequest) SetScene(v string) *ApplyTechintegrationSkushipbyuidRequest {
+	s.Scene = &v
+	return s
+}
+
+type ApplyTechintegrationSkushipbyuidResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 证书字符串
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s ApplyTechintegrationSkushipbyuidResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyTechintegrationSkushipbyuidResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyTechintegrationSkushipbyuidResponse) SetReqMsgId(v string) *ApplyTechintegrationSkushipbyuidResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipbyuidResponse) SetResultCode(v string) *ApplyTechintegrationSkushipbyuidResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipbyuidResponse) SetResultMsg(v string) *ApplyTechintegrationSkushipbyuidResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipbyuidResponse) SetResult(v string) *ApplyTechintegrationSkushipbyuidResponse {
+	s.Result = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -28052,7 +28188,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.7"),
+				"sdk_version":      tea.String("1.10.12"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -34524,6 +34660,40 @@ func (client *Client) ApplyTechintegrationSkushipEx(request *ApplyTechintegratio
 	}
 	_result = &ApplyTechintegrationSkushipResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.techintegration.skuship.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 支付芯证书申请接口，适用于唯一编码软件接入形式
+ * Summary: 支付芯证书申请接口，唯一编码软件接入形式
+ */
+func (client *Client) ApplyTechintegrationSkushipbyuid(request *ApplyTechintegrationSkushipbyuidRequest) (_result *ApplyTechintegrationSkushipbyuidResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyTechintegrationSkushipbyuidResponse{}
+	_body, _err := client.ApplyTechintegrationSkushipbyuidEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 支付芯证书申请接口，适用于唯一编码软件接入形式
+ * Summary: 支付芯证书申请接口，唯一编码软件接入形式
+ */
+func (client *Client) ApplyTechintegrationSkushipbyuidEx(request *ApplyTechintegrationSkushipbyuidRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyTechintegrationSkushipbyuidResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyTechintegrationSkushipbyuidResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.techintegration.skushipbyuid.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
