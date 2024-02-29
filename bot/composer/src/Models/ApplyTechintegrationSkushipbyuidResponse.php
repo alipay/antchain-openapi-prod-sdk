@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class NotifyThirddeviceMessageResponse extends Model
+class ApplyTechintegrationSkushipbyuidResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,19 +26,7 @@ class NotifyThirddeviceMessageResponse extends Model
      */
     public $resultMsg;
 
-    // 处理结果
-    /**
-     * @var bool
-     */
-    public $success;
-
-    // 设备信息同步命令
-    /**
-     * @var string
-     */
-    public $command;
-
-    // 处理结果数据
+    // 证书字符串
     /**
      * @var string
      */
@@ -47,8 +35,6 @@ class NotifyThirddeviceMessageResponse extends Model
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'success'    => 'success',
-        'command'    => 'command',
         'result'     => 'result',
     ];
 
@@ -68,12 +54,6 @@ class NotifyThirddeviceMessageResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
-        }
-        if (null !== $this->command) {
-            $res['command'] = $this->command;
-        }
         if (null !== $this->result) {
             $res['result'] = $this->result;
         }
@@ -84,7 +64,7 @@ class NotifyThirddeviceMessageResponse extends Model
     /**
      * @param array $map
      *
-     * @return NotifyThirddeviceMessageResponse
+     * @return ApplyTechintegrationSkushipbyuidResponse
      */
     public static function fromMap($map = [])
     {
@@ -97,12 +77,6 @@ class NotifyThirddeviceMessageResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
-        }
-        if (isset($map['command'])) {
-            $model->command = $map['command'];
         }
         if (isset($map['result'])) {
             $model->result = $map['result'];

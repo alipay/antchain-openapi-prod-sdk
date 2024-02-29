@@ -33,6 +33,8 @@ use AntChain\BOT\Models\AddUserRoleRequest;
 use AntChain\BOT\Models\AddUserRoleResponse;
 use AntChain\BOT\Models\ApplyMqtokenRequest;
 use AntChain\BOT\Models\ApplyMqtokenResponse;
+use AntChain\BOT\Models\ApplyTechintegrationSkushipbyuidRequest;
+use AntChain\BOT\Models\ApplyTechintegrationSkushipbyuidResponse;
 use AntChain\BOT\Models\ApplyTechintegrationSkushipRequest;
 use AntChain\BOT\Models\ApplyTechintegrationSkushipResponse;
 use AntChain\BOT\Models\BatchcreateIotbasicDeviceRequest;
@@ -568,7 +570,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.7',
+                    'sdk_version'      => '1.10.12',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -6836,6 +6838,39 @@ class Client
         Utils::validateModel($request);
 
         return ApplyTechintegrationSkushipResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.techintegration.skuship.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支付芯证书申请接口，适用于唯一编码软件接入形式
+     * Summary: 支付芯证书申请接口，唯一编码软件接入形式.
+     *
+     * @param ApplyTechintegrationSkushipbyuidRequest $request
+     *
+     * @return ApplyTechintegrationSkushipbyuidResponse
+     */
+    public function applyTechintegrationSkushipbyuid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyTechintegrationSkushipbyuidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付芯证书申请接口，适用于唯一编码软件接入形式
+     * Summary: 支付芯证书申请接口，唯一编码软件接入形式.
+     *
+     * @param ApplyTechintegrationSkushipbyuidRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return ApplyTechintegrationSkushipbyuidResponse
+     */
+    public function applyTechintegrationSkushipbyuidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyTechintegrationSkushipbyuidResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.techintegration.skushipbyuid.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
