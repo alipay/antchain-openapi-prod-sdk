@@ -18,15 +18,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 产品名称
-        [NameInMap("sku_name")]
-        [Validation(Required=true)]
-        public string SkuName { get; set; }
-
         // 产品型号
-        [NameInMap("sku_model")]
+        [NameInMap("device_model")]
         [Validation(Required=true)]
-        public string SkuModel { get; set; }
+        public string DeviceModel { get; set; }
 
         // 产品类型
         [NameInMap("product_type")]
