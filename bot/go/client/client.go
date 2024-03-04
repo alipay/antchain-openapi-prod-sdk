@@ -26293,10 +26293,8 @@ type ApplyTechintegrationSkushipbyuidRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 产品名称
-	SkuName *string `json:"sku_name,omitempty" xml:"sku_name,omitempty" require:"true"`
 	// 产品型号
-	SkuModel *string `json:"sku_model,omitempty" xml:"sku_model,omitempty" require:"true"`
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty" require:"true"`
 	// 产品类型
 	ProductType *string `json:"product_type,omitempty" xml:"product_type,omitempty" require:"true"`
 	// 安全方案
@@ -26334,13 +26332,8 @@ func (s *ApplyTechintegrationSkushipbyuidRequest) SetProductInstanceId(v string)
 	return s
 }
 
-func (s *ApplyTechintegrationSkushipbyuidRequest) SetSkuName(v string) *ApplyTechintegrationSkushipbyuidRequest {
-	s.SkuName = &v
-	return s
-}
-
-func (s *ApplyTechintegrationSkushipbyuidRequest) SetSkuModel(v string) *ApplyTechintegrationSkushipbyuidRequest {
-	s.SkuModel = &v
+func (s *ApplyTechintegrationSkushipbyuidRequest) SetDeviceModel(v string) *ApplyTechintegrationSkushipbyuidRequest {
+	s.DeviceModel = &v
 	return s
 }
 
@@ -28188,7 +28181,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.12"),
+				"sdk_version":      tea.String("1.10.15"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
