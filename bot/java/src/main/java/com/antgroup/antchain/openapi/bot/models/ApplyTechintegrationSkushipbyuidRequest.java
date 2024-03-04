@@ -11,15 +11,10 @@ public class ApplyTechintegrationSkushipbyuidRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 产品名称
-    @NameInMap("sku_name")
-    @Validation(required = true)
-    public String skuName;
-
     // 产品型号
-    @NameInMap("sku_model")
+    @NameInMap("device_model")
     @Validation(required = true)
-    public String skuModel;
+    public String deviceModel;
 
     // 产品类型
     @NameInMap("product_type")
@@ -80,20 +75,12 @@ public class ApplyTechintegrationSkushipbyuidRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ApplyTechintegrationSkushipbyuidRequest setSkuName(String skuName) {
-        this.skuName = skuName;
+    public ApplyTechintegrationSkushipbyuidRequest setDeviceModel(String deviceModel) {
+        this.deviceModel = deviceModel;
         return this;
     }
-    public String getSkuName() {
-        return this.skuName;
-    }
-
-    public ApplyTechintegrationSkushipbyuidRequest setSkuModel(String skuModel) {
-        this.skuModel = skuModel;
-        return this;
-    }
-    public String getSkuModel() {
-        return this.skuModel;
+    public String getDeviceModel() {
+        return this.deviceModel;
     }
 
     public ApplyTechintegrationSkushipbyuidRequest setProductType(String productType) {
