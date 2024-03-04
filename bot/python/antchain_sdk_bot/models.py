@@ -33046,8 +33046,7 @@ class ApplyTechintegrationSkushipbyuidRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        sku_name: str = None,
-        sku_model: str = None,
+        device_model: str = None,
         product_type: str = None,
         security_mechanism: str = None,
         cert_type: str = None,
@@ -33059,10 +33058,8 @@ class ApplyTechintegrationSkushipbyuidRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 产品名称
-        self.sku_name = sku_name
         # 产品型号
-        self.sku_model = sku_model
+        self.device_model = device_model
         # 产品类型
         self.product_type = product_type
         # 安全方案
@@ -33082,8 +33079,7 @@ class ApplyTechintegrationSkushipbyuidRequest(TeaModel):
         self.scene = scene
 
     def validate(self):
-        self.validate_required(self.sku_name, 'sku_name')
-        self.validate_required(self.sku_model, 'sku_model')
+        self.validate_required(self.device_model, 'device_model')
         self.validate_required(self.product_type, 'product_type')
         self.validate_required(self.security_mechanism, 'security_mechanism')
         self.validate_required(self.cert_type, 'cert_type')
@@ -33102,10 +33098,8 @@ class ApplyTechintegrationSkushipbyuidRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.sku_name is not None:
-            result['sku_name'] = self.sku_name
-        if self.sku_model is not None:
-            result['sku_model'] = self.sku_model
+        if self.device_model is not None:
+            result['device_model'] = self.device_model
         if self.product_type is not None:
             result['product_type'] = self.product_type
         if self.security_mechanism is not None:
@@ -33128,10 +33122,8 @@ class ApplyTechintegrationSkushipbyuidRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('sku_name') is not None:
-            self.sku_name = m.get('sku_name')
-        if m.get('sku_model') is not None:
-            self.sku_model = m.get('sku_model')
+        if m.get('device_model') is not None:
+            self.device_model = m.get('device_model')
         if m.get('product_type') is not None:
             self.product_type = m.get('product_type')
         if m.get('security_mechanism') is not None:
