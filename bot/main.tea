@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.12',
+    sdk_version = '1.10.15',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -11509,10 +11509,8 @@ model ApplyTechintegrationSkushipbyuidRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 产品名称
-  skuName: string(name='sku_name'),
   // 产品型号
-  skuModel: string(name='sku_model'),
+  deviceModel: string(name='device_model'),
   // 产品类型
   productType: string(name='product_type'),
   // 安全方案
