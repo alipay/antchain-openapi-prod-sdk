@@ -19,17 +19,11 @@ class ApplyTechintegrationSkushipbyuidRequest extends Model
      */
     public $productInstanceId;
 
-    // 产品名称
-    /**
-     * @var string
-     */
-    public $skuName;
-
     // 产品型号
     /**
      * @var string
      */
-    public $skuModel;
+    public $deviceModel;
 
     // 产品类型
     /**
@@ -78,8 +72,7 @@ class ApplyTechintegrationSkushipbyuidRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'skuName'           => 'sku_name',
-        'skuModel'          => 'sku_model',
+        'deviceModel'       => 'device_model',
         'productType'       => 'product_type',
         'securityMechanism' => 'security_mechanism',
         'certType'          => 'cert_type',
@@ -91,8 +84,7 @@ class ApplyTechintegrationSkushipbyuidRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('skuName', $this->skuName, true);
-        Model::validateRequired('skuModel', $this->skuModel, true);
+        Model::validateRequired('deviceModel', $this->deviceModel, true);
         Model::validateRequired('productType', $this->productType, true);
         Model::validateRequired('securityMechanism', $this->securityMechanism, true);
         Model::validateRequired('certType', $this->certType, true);
@@ -111,11 +103,8 @@ class ApplyTechintegrationSkushipbyuidRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->skuName) {
-            $res['sku_name'] = $this->skuName;
-        }
-        if (null !== $this->skuModel) {
-            $res['sku_model'] = $this->skuModel;
+        if (null !== $this->deviceModel) {
+            $res['device_model'] = $this->deviceModel;
         }
         if (null !== $this->productType) {
             $res['product_type'] = $this->productType;
@@ -156,11 +145,8 @@ class ApplyTechintegrationSkushipbyuidRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['sku_name'])) {
-            $model->skuName = $map['sku_name'];
-        }
-        if (isset($map['sku_model'])) {
-            $model->skuModel = $map['sku_model'];
+        if (isset($map['device_model'])) {
+            $model->deviceModel = $map['device_model'];
         }
         if (isset($map['product_type'])) {
             $model->productType = $map['product_type'];
