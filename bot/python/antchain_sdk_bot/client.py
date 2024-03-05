@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.15',
+                    'sdk_version': '1.10.18',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.15',
+                    'sdk_version': '1.10.18',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -4731,6 +4731,118 @@ class Client:
         return TeaCore.from_map(
             bot_models.InitIotbasicDevicekeyResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.devicekey.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def set_device_property(
+        self,
+        request: bot_models.SetDevicePropertyRequest,
+    ) -> bot_models.SetDevicePropertyResponse:
+        """
+        Description: IoT设备平台-设置设备属性
+        Summary: IoT设备平台-设置设备属性
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.set_device_property_ex(request, headers, runtime)
+
+    async def set_device_property_async(
+        self,
+        request: bot_models.SetDevicePropertyRequest,
+    ) -> bot_models.SetDevicePropertyResponse:
+        """
+        Description: IoT设备平台-设置设备属性
+        Summary: IoT设备平台-设置设备属性
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.set_device_property_ex_async(request, headers, runtime)
+
+    def set_device_property_ex(
+        self,
+        request: bot_models.SetDevicePropertyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SetDevicePropertyResponse:
+        """
+        Description: IoT设备平台-设置设备属性
+        Summary: IoT设备平台-设置设备属性
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SetDevicePropertyResponse(),
+            self.do_request('1.0', 'blockchain.bot.device.property.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def set_device_property_ex_async(
+        self,
+        request: bot_models.SetDevicePropertyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SetDevicePropertyResponse:
+        """
+        Description: IoT设备平台-设置设备属性
+        Summary: IoT设备平台-设置设备属性
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SetDevicePropertyResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.device.property.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def set_devicelist_property(
+        self,
+        request: bot_models.SetDevicelistPropertyRequest,
+    ) -> bot_models.SetDevicelistPropertyResponse:
+        """
+        Description: IoT设备平台-批量设置设备属性
+        Summary: IoT设备平台-批量设置设备属性
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.set_devicelist_property_ex(request, headers, runtime)
+
+    async def set_devicelist_property_async(
+        self,
+        request: bot_models.SetDevicelistPropertyRequest,
+    ) -> bot_models.SetDevicelistPropertyResponse:
+        """
+        Description: IoT设备平台-批量设置设备属性
+        Summary: IoT设备平台-批量设置设备属性
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.set_devicelist_property_ex_async(request, headers, runtime)
+
+    def set_devicelist_property_ex(
+        self,
+        request: bot_models.SetDevicelistPropertyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SetDevicelistPropertyResponse:
+        """
+        Description: IoT设备平台-批量设置设备属性
+        Summary: IoT设备平台-批量设置设备属性
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SetDevicelistPropertyResponse(),
+            self.do_request('1.0', 'blockchain.bot.devicelist.property.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def set_devicelist_property_ex_async(
+        self,
+        request: bot_models.SetDevicelistPropertyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SetDevicelistPropertyResponse:
+        """
+        Description: IoT设备平台-批量设置设备属性
+        Summary: IoT设备平台-批量设置设备属性
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SetDevicelistPropertyResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.devicelist.property.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
