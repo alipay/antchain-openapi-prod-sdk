@@ -865,10 +865,6 @@ func (s *MarriageCheckEvaluationFacade) SetCheckResult(v string) *MarriageCheckE
 
 // 税号批次清单
 type IdentityIdGroup struct {
-	// 44-20230810-9-channel
-	GroupId *string `json:"group_id,omitempty" xml:"group_id,omitempty" require:"true"`
-	// 请求id，用于幂等控制
-	BizUniqueId *string `json:"biz_unique_id,omitempty" xml:"biz_unique_id,omitempty" require:"true"`
 	// 数据源
 	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
 	// 上传的文件
@@ -881,16 +877,6 @@ func (s IdentityIdGroup) String() string {
 
 func (s IdentityIdGroup) GoString() string {
 	return s.String()
-}
-
-func (s *IdentityIdGroup) SetGroupId(v string) *IdentityIdGroup {
-	s.GroupId = &v
-	return s
-}
-
-func (s *IdentityIdGroup) SetBizUniqueId(v string) *IdentityIdGroup {
-	s.BizUniqueId = &v
-	return s
 }
 
 func (s *IdentityIdGroup) SetChannel(v string) *IdentityIdGroup {
@@ -4363,9 +4349,7 @@ type PullApiSimpleauthmarkResponse struct {
 	// 测试环境域名：http://invoice-oss-sit.oss-cn-hangzhou.aliyuncs.com
 	// 生产环境域名：http://invoice-commercial-prod.oss-cn-hangzhou.aliyuncs.com
 	// 端口是默认的80
-	ResultList []*string `json:"result_list,omitempty" xml:"result_list,omitempty" type:"Repeated"`
-	// 解密的秘钥
-	Secret *string `json:"secret,omitempty" xml:"secret,omitempty"`
+	ResultList []*DataMarkFileResult `json:"result_list,omitempty" xml:"result_list,omitempty" type:"Repeated"`
 }
 
 func (s PullApiSimpleauthmarkResponse) String() string {
@@ -4406,13 +4390,8 @@ func (s *PullApiSimpleauthmarkResponse) SetInstCode(v string) *PullApiSimpleauth
 	return s
 }
 
-func (s *PullApiSimpleauthmarkResponse) SetResultList(v []*string) *PullApiSimpleauthmarkResponse {
+func (s *PullApiSimpleauthmarkResponse) SetResultList(v []*DataMarkFileResult) *PullApiSimpleauthmarkResponse {
 	s.ResultList = v
-	return s
-}
-
-func (s *PullApiSimpleauthmarkResponse) SetSecret(v string) *PullApiSimpleauthmarkResponse {
-	s.Secret = &v
 	return s
 }
 
@@ -5945,7 +5924,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.21"),
+				"sdk_version":      tea.String("1.8.23"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
