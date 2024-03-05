@@ -14394,6 +14394,8 @@ type QueryDeviceRegisterresultResponse struct {
 	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty"`
 	// 设备秘钥
 	PrivateKey *string `json:"private_key,omitempty" xml:"private_key,omitempty"`
+	// 设备sn
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty"`
 }
 
 func (s QueryDeviceRegisterresultResponse) String() string {
@@ -14431,6 +14433,11 @@ func (s *QueryDeviceRegisterresultResponse) SetDeviceDid(v string) *QueryDeviceR
 
 func (s *QueryDeviceRegisterresultResponse) SetPrivateKey(v string) *QueryDeviceRegisterresultResponse {
 	s.PrivateKey = &v
+	return s
+}
+
+func (s *QueryDeviceRegisterresultResponse) SetDeviceSn(v string) *QueryDeviceRegisterresultResponse {
+	s.DeviceSn = &v
 	return s
 }
 
@@ -15677,6 +15684,181 @@ func (s *InitIotbasicDevicekeyResponse) SetDeviceKey(v string) *InitIotbasicDevi
 
 func (s *InitIotbasicDevicekeyResponse) SetSuccess(v bool) *InitIotbasicDevicekeyResponse {
 	s.Success = &v
+	return s
+}
+
+type SetDevicePropertyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备did
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// json格式属性信息，由标识符与属性值（key:value）构成，多个属性用英文逗号隔开。
+	Property *string `json:"property,omitempty" xml:"property,omitempty" require:"true"`
+	// 签名，用设备秘钥进行签名，只对deviceDid加签
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+}
+
+func (s SetDevicePropertyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetDevicePropertyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SetDevicePropertyRequest) SetAuthToken(v string) *SetDevicePropertyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SetDevicePropertyRequest) SetProductInstanceId(v string) *SetDevicePropertyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SetDevicePropertyRequest) SetDeviceDid(v string) *SetDevicePropertyRequest {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *SetDevicePropertyRequest) SetProperty(v string) *SetDevicePropertyRequest {
+	s.Property = &v
+	return s
+}
+
+func (s *SetDevicePropertyRequest) SetSignature(v string) *SetDevicePropertyRequest {
+	s.Signature = &v
+	return s
+}
+
+type SetDevicePropertyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 处理结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s SetDevicePropertyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetDevicePropertyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SetDevicePropertyResponse) SetReqMsgId(v string) *SetDevicePropertyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SetDevicePropertyResponse) SetResultCode(v string) *SetDevicePropertyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SetDevicePropertyResponse) SetResultMsg(v string) *SetDevicePropertyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SetDevicePropertyResponse) SetSuccess(v bool) *SetDevicePropertyResponse {
+	s.Success = &v
+	return s
+}
+
+type SetDevicelistPropertyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备did列表
+	DeviceDidList []*string `json:"device_did_list,omitempty" xml:"device_did_list,omitempty" require:"true" type:"Repeated"`
+	// json格式属性信息，由标识符与属性值（key:value）构成，多个属性用英文逗号隔开。
+	Property *string `json:"property,omitempty" xml:"property,omitempty" require:"true"`
+	// 签名，用预置秘钥进行签名，只对deviceDidList加签
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+}
+
+func (s SetDevicelistPropertyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetDevicelistPropertyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SetDevicelistPropertyRequest) SetAuthToken(v string) *SetDevicelistPropertyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SetDevicelistPropertyRequest) SetProductInstanceId(v string) *SetDevicelistPropertyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SetDevicelistPropertyRequest) SetDeviceDidList(v []*string) *SetDevicelistPropertyRequest {
+	s.DeviceDidList = v
+	return s
+}
+
+func (s *SetDevicelistPropertyRequest) SetProperty(v string) *SetDevicelistPropertyRequest {
+	s.Property = &v
+	return s
+}
+
+func (s *SetDevicelistPropertyRequest) SetSignature(v string) *SetDevicelistPropertyRequest {
+	s.Signature = &v
+	return s
+}
+
+type SetDevicelistPropertyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 处理结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 失败列表
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s SetDevicelistPropertyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetDevicelistPropertyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SetDevicelistPropertyResponse) SetReqMsgId(v string) *SetDevicelistPropertyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SetDevicelistPropertyResponse) SetResultCode(v string) *SetDevicelistPropertyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SetDevicelistPropertyResponse) SetResultMsg(v string) *SetDevicelistPropertyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SetDevicelistPropertyResponse) SetSuccess(v bool) *SetDevicelistPropertyResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *SetDevicelistPropertyResponse) SetResult(v string) *SetDevicelistPropertyResponse {
+	s.Result = &v
 	return s
 }
 
@@ -28181,7 +28363,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.15"),
+				"sdk_version":      tea.String("1.10.18"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -30947,6 +31129,74 @@ func (client *Client) InitIotbasicDevicekeyEx(request *InitIotbasicDevicekeyRequ
 	}
 	_result = &InitIotbasicDevicekeyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.devicekey.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设置设备属性
+ * Summary: IoT设备平台-设置设备属性
+ */
+func (client *Client) SetDeviceProperty(request *SetDevicePropertyRequest) (_result *SetDevicePropertyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SetDevicePropertyResponse{}
+	_body, _err := client.SetDevicePropertyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设置设备属性
+ * Summary: IoT设备平台-设置设备属性
+ */
+func (client *Client) SetDevicePropertyEx(request *SetDevicePropertyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SetDevicePropertyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SetDevicePropertyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.property.set"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-批量设置设备属性
+ * Summary: IoT设备平台-批量设置设备属性
+ */
+func (client *Client) SetDevicelistProperty(request *SetDevicelistPropertyRequest) (_result *SetDevicelistPropertyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SetDevicelistPropertyResponse{}
+	_body, _err := client.SetDevicelistPropertyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-批量设置设备属性
+ * Summary: IoT设备平台-批量设置设备属性
+ */
+func (client *Client) SetDevicelistPropertyEx(request *SetDevicelistPropertyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SetDevicelistPropertyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SetDevicelistPropertyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.devicelist.property.set"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
