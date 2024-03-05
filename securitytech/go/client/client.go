@@ -314,6 +314,8 @@ type RequestHead struct {
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
 	// response输出类型，默认json
 	FormatType *string `json:"format_type,omitempty" xml:"format_type,omitempty"`
+	// false
+	OnlineFlag *bool `json:"online_flag,omitempty" xml:"online_flag,omitempty"`
 }
 
 func (s RequestHead) String() string {
@@ -341,6 +343,11 @@ func (s *RequestHead) SetProductCode(v string) *RequestHead {
 
 func (s *RequestHead) SetFormatType(v string) *RequestHead {
 	s.FormatType = &v
+	return s
+}
+
+func (s *RequestHead) SetOnlineFlag(v bool) *RequestHead {
+	s.OnlineFlag = &v
 	return s
 }
 
@@ -3346,12 +3353,12 @@ type QueryDeviceplusRiskqueryRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 客户id
 	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty" require:"true"`
-	// 请求id
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 	// 场景码
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 	// 加密电话号码
 	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 电话号码加密类型, 明文: 0; MD5加密: 1; SHA256: 2
+	PhoneNumberType *string `json:"phone_number_type,omitempty" xml:"phone_number_type,omitempty" require:"true"`
 }
 
 func (s QueryDeviceplusRiskqueryRequest) String() string {
@@ -3377,11 +3384,6 @@ func (s *QueryDeviceplusRiskqueryRequest) SetClientId(v string) *QueryDeviceplus
 	return s
 }
 
-func (s *QueryDeviceplusRiskqueryRequest) SetRequestId(v string) *QueryDeviceplusRiskqueryRequest {
-	s.RequestId = &v
-	return s
-}
-
 func (s *QueryDeviceplusRiskqueryRequest) SetSceneCode(v string) *QueryDeviceplusRiskqueryRequest {
 	s.SceneCode = &v
 	return s
@@ -3389,6 +3391,11 @@ func (s *QueryDeviceplusRiskqueryRequest) SetSceneCode(v string) *QueryDeviceplu
 
 func (s *QueryDeviceplusRiskqueryRequest) SetPhoneNumber(v string) *QueryDeviceplusRiskqueryRequest {
 	s.PhoneNumber = &v
+	return s
+}
+
+func (s *QueryDeviceplusRiskqueryRequest) SetPhoneNumberType(v string) *QueryDeviceplusRiskqueryRequest {
+	s.PhoneNumberType = &v
 	return s
 }
 
@@ -4400,7 +4407,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.12"),
+				"sdk_version":      tea.String("1.2.14"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
