@@ -49,15 +49,9 @@ class PullApiSimpleauthmarkResponse extends Model
     // 生产环境域名：http://invoice-commercial-prod.oss-cn-hangzhou.aliyuncs.com
     // 端口是默认的80
     /**
-     * @var string[]
+     * @var DataMarkFileResult[]
      */
     public $resultList;
-
-    // 解密的秘钥
-    /**
-     * @var string
-     */
-    public $secret;
     protected $_name = [
         'reqMsgId'    => 'req_msg_id',
         'resultCode'  => 'result_code',
@@ -66,7 +60,6 @@ class PullApiSimpleauthmarkResponse extends Model
         'bizUniqueId' => 'biz_unique_id',
         'instCode'    => 'inst_code',
         'resultList'  => 'result_list',
-        'secret'      => 'secret',
     ];
 
     public function validate()
@@ -96,10 +89,13 @@ class PullApiSimpleauthmarkResponse extends Model
             $res['inst_code'] = $this->instCode;
         }
         if (null !== $this->resultList) {
-            $res['result_list'] = $this->resultList;
-        }
-        if (null !== $this->secret) {
-            $res['secret'] = $this->secret;
+            $res['result_list'] = [];
+            if (null !== $this->resultList && \is_array($this->resultList)) {
+                $n = 0;
+                foreach ($this->resultList as $item) {
+                    $res['result_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -133,11 +129,12 @@ class PullApiSimpleauthmarkResponse extends Model
         }
         if (isset($map['result_list'])) {
             if (!empty($map['result_list'])) {
-                $model->resultList = $map['result_list'];
+                $model->resultList = [];
+                $n                 = 0;
+                foreach ($map['result_list'] as $item) {
+                    $model->resultList[$n++] = null !== $item ? DataMarkFileResult::fromMap($item) : $item;
+                }
             }
-        }
-        if (isset($map['secret'])) {
-            $model->secret = $map['secret'];
         }
 
         return $model;
