@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.15"},
+                        {"sdk_version", "1.10.18"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.15"},
+                        {"sdk_version", "1.10.18"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3683,6 +3683,90 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<InitIotbasicDevicekeyResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.devicekey.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-设置设备属性
+         * Summary: IoT设备平台-设置设备属性
+         */
+        public SetDevicePropertyResponse SetDeviceProperty(SetDevicePropertyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SetDevicePropertyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-设置设备属性
+         * Summary: IoT设备平台-设置设备属性
+         */
+        public async Task<SetDevicePropertyResponse> SetDevicePropertyAsync(SetDevicePropertyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SetDevicePropertyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-设置设备属性
+         * Summary: IoT设备平台-设置设备属性
+         */
+        public SetDevicePropertyResponse SetDevicePropertyEx(SetDevicePropertyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SetDevicePropertyResponse>(DoRequest("1.0", "blockchain.bot.device.property.set", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-设置设备属性
+         * Summary: IoT设备平台-设置设备属性
+         */
+        public async Task<SetDevicePropertyResponse> SetDevicePropertyExAsync(SetDevicePropertyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SetDevicePropertyResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.property.set", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-批量设置设备属性
+         * Summary: IoT设备平台-批量设置设备属性
+         */
+        public SetDevicelistPropertyResponse SetDevicelistProperty(SetDevicelistPropertyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SetDevicelistPropertyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-批量设置设备属性
+         * Summary: IoT设备平台-批量设置设备属性
+         */
+        public async Task<SetDevicelistPropertyResponse> SetDevicelistPropertyAsync(SetDevicelistPropertyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SetDevicelistPropertyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-批量设置设备属性
+         * Summary: IoT设备平台-批量设置设备属性
+         */
+        public SetDevicelistPropertyResponse SetDevicelistPropertyEx(SetDevicelistPropertyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SetDevicelistPropertyResponse>(DoRequest("1.0", "blockchain.bot.devicelist.property.set", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-批量设置设备属性
+         * Summary: IoT设备平台-批量设置设备属性
+         */
+        public async Task<SetDevicelistPropertyResponse> SetDevicelistPropertyExAsync(SetDevicelistPropertyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SetDevicelistPropertyResponse>(await DoRequestAsync("1.0", "blockchain.bot.devicelist.property.set", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

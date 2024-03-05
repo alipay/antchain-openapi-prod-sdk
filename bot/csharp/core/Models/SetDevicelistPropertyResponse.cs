@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class QueryDeviceRegisterresultResponse : TeaModel {
+    public class SetDevicelistPropertyResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 操作是否成功
+        // 处理结果
         [NameInMap("success")]
         [Validation(Required=false)]
         public bool? Success { get; set; }
 
-        // 设备did
-        [NameInMap("device_did")]
+        // 失败列表
+        [NameInMap("result")]
         [Validation(Required=false)]
-        public string DeviceDid { get; set; }
-
-        // 设备秘钥
-        [NameInMap("private_key")]
-        [Validation(Required=false)]
-        public string PrivateKey { get; set; }
-
-        // 设备sn
-        [NameInMap("device_sn")]
-        [Validation(Required=false)]
-        public string DeviceSn { get; set; }
+        public string Result { get; set; }
 
     }
 
