@@ -386,6 +386,7 @@ class RequestHead(TeaModel):
         secret_id: str = None,
         product_code: str = None,
         format_type: str = None,
+        online_flag: bool = None,
     ):
         # 请求唯一标识
         self.request_id = request_id
@@ -395,6 +396,8 @@ class RequestHead(TeaModel):
         self.product_code = product_code
         # response输出类型，默认json
         self.format_type = format_type
+        # false
+        self.online_flag = online_flag
 
     def validate(self):
         self.validate_required(self.request_id, 'request_id')
@@ -415,6 +418,8 @@ class RequestHead(TeaModel):
             result['product_code'] = self.product_code
         if self.format_type is not None:
             result['format_type'] = self.format_type
+        if self.online_flag is not None:
+            result['online_flag'] = self.online_flag
         return result
 
     def from_map(self, m: dict = None):
@@ -427,6 +432,8 @@ class RequestHead(TeaModel):
             self.product_code = m.get('product_code')
         if m.get('format_type') is not None:
             self.format_type = m.get('format_type')
+        if m.get('online_flag') is not None:
+            self.online_flag = m.get('online_flag')
         return self
 
 
@@ -4190,27 +4197,27 @@ class QueryDeviceplusRiskqueryRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         client_id: str = None,
-        request_id: str = None,
         scene_code: str = None,
         phone_number: str = None,
+        phone_number_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 客户id
         self.client_id = client_id
-        # 请求id
-        self.request_id = request_id
         # 场景码
         self.scene_code = scene_code
         # 加密电话号码
         self.phone_number = phone_number
+        # 电话号码加密类型, 明文: 0; MD5加密: 1; SHA256: 2
+        self.phone_number_type = phone_number_type
 
     def validate(self):
         self.validate_required(self.client_id, 'client_id')
-        self.validate_required(self.request_id, 'request_id')
         self.validate_required(self.scene_code, 'scene_code')
         self.validate_required(self.phone_number, 'phone_number')
+        self.validate_required(self.phone_number_type, 'phone_number_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -4224,12 +4231,12 @@ class QueryDeviceplusRiskqueryRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.client_id is not None:
             result['client_id'] = self.client_id
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.scene_code is not None:
             result['scene_code'] = self.scene_code
         if self.phone_number is not None:
             result['phone_number'] = self.phone_number
+        if self.phone_number_type is not None:
+            result['phone_number_type'] = self.phone_number_type
         return result
 
     def from_map(self, m: dict = None):
@@ -4240,12 +4247,12 @@ class QueryDeviceplusRiskqueryRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('client_id') is not None:
             self.client_id = m.get('client_id')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('scene_code') is not None:
             self.scene_code = m.get('scene_code')
         if m.get('phone_number') is not None:
             self.phone_number = m.get('phone_number')
+        if m.get('phone_number_type') is not None:
+            self.phone_number_type = m.get('phone_number_type')
         return self
 
 
