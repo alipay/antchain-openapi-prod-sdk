@@ -34,11 +34,7 @@ public class PullApiSimpleauthmarkResponse extends TeaModel {
     // 生产环境域名：http://invoice-commercial-prod.oss-cn-hangzhou.aliyuncs.com
     // 端口是默认的80
     @NameInMap("result_list")
-    public java.util.List<String> resultList;
-
-    // 解密的秘钥
-    @NameInMap("secret")
-    public String secret;
+    public java.util.List<DataMarkFileResult> resultList;
 
     public static PullApiSimpleauthmarkResponse build(java.util.Map<String, ?> map) throws Exception {
         PullApiSimpleauthmarkResponse self = new PullApiSimpleauthmarkResponse();
@@ -93,20 +89,12 @@ public class PullApiSimpleauthmarkResponse extends TeaModel {
         return this.instCode;
     }
 
-    public PullApiSimpleauthmarkResponse setResultList(java.util.List<String> resultList) {
+    public PullApiSimpleauthmarkResponse setResultList(java.util.List<DataMarkFileResult> resultList) {
         this.resultList = resultList;
         return this;
     }
-    public java.util.List<String> getResultList() {
+    public java.util.List<DataMarkFileResult> getResultList() {
         return this.resultList;
-    }
-
-    public PullApiSimpleauthmarkResponse setSecret(String secret) {
-        this.secret = secret;
-        return this;
-    }
-    public String getSecret() {
-        return this.secret;
     }
 
 }

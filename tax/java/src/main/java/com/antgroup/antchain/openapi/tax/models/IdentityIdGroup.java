@@ -4,16 +4,6 @@ package com.antgroup.antchain.openapi.tax.models;
 import com.aliyun.tea.*;
 
 public class IdentityIdGroup extends TeaModel {
-    // 44-20230810-9-channel
-    @NameInMap("group_id")
-    @Validation(required = true)
-    public String groupId;
-
-    // 请求id，用于幂等控制
-    @NameInMap("biz_unique_id")
-    @Validation(required = true)
-    public String bizUniqueId;
-
     // 数据源
     @NameInMap("channel")
     @Validation(required = true)
@@ -27,22 +17,6 @@ public class IdentityIdGroup extends TeaModel {
     public static IdentityIdGroup build(java.util.Map<String, ?> map) throws Exception {
         IdentityIdGroup self = new IdentityIdGroup();
         return TeaModel.build(map, self);
-    }
-
-    public IdentityIdGroup setGroupId(String groupId) {
-        this.groupId = groupId;
-        return this;
-    }
-    public String getGroupId() {
-        return this.groupId;
-    }
-
-    public IdentityIdGroup setBizUniqueId(String bizUniqueId) {
-        this.bizUniqueId = bizUniqueId;
-        return this;
-    }
-    public String getBizUniqueId() {
-        return this.bizUniqueId;
     }
 
     public IdentityIdGroup setChannel(String channel) {
