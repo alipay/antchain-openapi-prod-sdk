@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.15"),
+                    new TeaPair("sdk_version", "1.10.18"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1681,6 +1681,44 @@ public class Client {
     public InitIotbasicDevicekeyResponse initIotbasicDevicekeyEx(InitIotbasicDevicekeyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.devicekey.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitIotbasicDevicekeyResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-设置设备属性
+     * Summary: IoT设备平台-设置设备属性
+     */
+    public SetDevicePropertyResponse setDeviceProperty(SetDevicePropertyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.setDevicePropertyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设置设备属性
+     * Summary: IoT设备平台-设置设备属性
+     */
+    public SetDevicePropertyResponse setDevicePropertyEx(SetDevicePropertyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.property.set", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SetDevicePropertyResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-批量设置设备属性
+     * Summary: IoT设备平台-批量设置设备属性
+     */
+    public SetDevicelistPropertyResponse setDevicelistProperty(SetDevicelistPropertyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.setDevicelistPropertyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-批量设置设备属性
+     * Summary: IoT设备平台-批量设置设备属性
+     */
+    public SetDevicelistPropertyResponse setDevicelistPropertyEx(SetDevicelistPropertyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.devicelist.property.set", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SetDevicelistPropertyResponse());
     }
 
     /**

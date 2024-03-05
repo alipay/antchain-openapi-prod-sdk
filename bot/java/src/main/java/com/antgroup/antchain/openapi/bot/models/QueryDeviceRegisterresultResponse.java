@@ -28,6 +28,10 @@ public class QueryDeviceRegisterresultResponse extends TeaModel {
     @NameInMap("private_key")
     public String privateKey;
 
+    // 设备sn
+    @NameInMap("device_sn")
+    public String deviceSn;
+
     public static QueryDeviceRegisterresultResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDeviceRegisterresultResponse self = new QueryDeviceRegisterresultResponse();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class QueryDeviceRegisterresultResponse extends TeaModel {
     }
     public String getPrivateKey() {
         return this.privateKey;
+    }
+
+    public QueryDeviceRegisterresultResponse setDeviceSn(String deviceSn) {
+        this.deviceSn = deviceSn;
+        return this;
+    }
+    public String getDeviceSn() {
+        return this.deviceSn;
     }
 
 }
