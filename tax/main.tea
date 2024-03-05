@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.21',
+    sdk_version = '1.8.23',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -397,10 +397,6 @@ model MarriageCheckEvaluationFacade {
 
 // 税号批次清单
 model IdentityIdGroup {
-  // 44-20230810-9-channel
-  groupId: string(name='group_id', example='批次id'),
-  // 请求id，用于幂等控制
-  bizUniqueId: string(name='biz_unique_id', example='f8b63ae0ad8d406ebf60eb8835afeba9'),
   // 数据源
   channel: string(name='channel', example='SHANDONG'),
   // 上传的文件
@@ -1901,9 +1897,7 @@ model PullApiSimpleauthmarkResponse = {
   // 测试环境域名：http://invoice-oss-sit.oss-cn-hangzhou.aliyuncs.com
   // 生产环境域名：http://invoice-commercial-prod.oss-cn-hangzhou.aliyuncs.com
   // 端口是默认的80
-  resultList?: [ string ](name='result_list'),
-  // 解密的秘钥
-  secret?: string(name='secret'),
+  resultList?: [ DataMarkFileResult ](name='result_list'),
 }
 
 /**
