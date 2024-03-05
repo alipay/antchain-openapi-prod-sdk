@@ -23,11 +23,6 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string ClientId { get; set; }
 
-        // 请求id
-        [NameInMap("request_id")]
-        [Validation(Required=true)]
-        public string RequestId { get; set; }
-
         // 场景码
         [NameInMap("scene_code")]
         [Validation(Required=true)]
@@ -37,6 +32,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [NameInMap("phone_number")]
         [Validation(Required=true)]
         public string PhoneNumber { get; set; }
+
+        // 电话号码加密类型, 明文: 0; MD5加密: 1; SHA256: 2
+        [NameInMap("phone_number_type")]
+        [Validation(Required=true)]
+        public string PhoneNumberType { get; set; }
 
     }
 

@@ -30,6 +30,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string FormatType { get; set; }
 
+        // false
+        [NameInMap("online_flag")]
+        [Validation(Required=false)]
+        public bool? OnlineFlag { get; set; }
+
     }
 
 }
