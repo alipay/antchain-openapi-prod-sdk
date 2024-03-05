@@ -25,12 +25,6 @@ class QueryDeviceplusRiskqueryRequest extends Model
      */
     public $clientId;
 
-    // 请求id
-    /**
-     * @var string
-     */
-    public $requestId;
-
     // 场景码
     /**
      * @var string
@@ -42,21 +36,27 @@ class QueryDeviceplusRiskqueryRequest extends Model
      * @var string
      */
     public $phoneNumber;
+
+    // 电话号码加密类型, 明文: 0; MD5加密: 1; SHA256: 2
+    /**
+     * @var string
+     */
+    public $phoneNumberType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'clientId'          => 'client_id',
-        'requestId'         => 'request_id',
         'sceneCode'         => 'scene_code',
         'phoneNumber'       => 'phone_number',
+        'phoneNumberType'   => 'phone_number_type',
     ];
 
     public function validate()
     {
         Model::validateRequired('clientId', $this->clientId, true);
-        Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('sceneCode', $this->sceneCode, true);
         Model::validateRequired('phoneNumber', $this->phoneNumber, true);
+        Model::validateRequired('phoneNumberType', $this->phoneNumberType, true);
     }
 
     public function toMap()
@@ -71,14 +71,14 @@ class QueryDeviceplusRiskqueryRequest extends Model
         if (null !== $this->clientId) {
             $res['client_id'] = $this->clientId;
         }
-        if (null !== $this->requestId) {
-            $res['request_id'] = $this->requestId;
-        }
         if (null !== $this->sceneCode) {
             $res['scene_code'] = $this->sceneCode;
         }
         if (null !== $this->phoneNumber) {
             $res['phone_number'] = $this->phoneNumber;
+        }
+        if (null !== $this->phoneNumberType) {
+            $res['phone_number_type'] = $this->phoneNumberType;
         }
 
         return $res;
@@ -101,14 +101,14 @@ class QueryDeviceplusRiskqueryRequest extends Model
         if (isset($map['client_id'])) {
             $model->clientId = $map['client_id'];
         }
-        if (isset($map['request_id'])) {
-            $model->requestId = $map['request_id'];
-        }
         if (isset($map['scene_code'])) {
             $model->sceneCode = $map['scene_code'];
         }
         if (isset($map['phone_number'])) {
             $model->phoneNumber = $map['phone_number'];
+        }
+        if (isset($map['phone_number_type'])) {
+            $model->phoneNumberType = $map['phone_number_type'];
         }
 
         return $model;
