@@ -45,12 +45,7 @@ namespace AntChain.SDK.TAX.Models
         // 端口是默认的80
         [NameInMap("result_list")]
         [Validation(Required=false)]
-        public List<string> ResultList { get; set; }
-
-        // 解密的秘钥
-        [NameInMap("secret")]
-        [Validation(Required=false)]
-        public string Secret { get; set; }
+        public List<DataMarkFileResult> ResultList { get; set; }
 
     }
 
