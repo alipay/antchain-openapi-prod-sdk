@@ -16,11 +16,6 @@ public class QueryDeviceplusRiskqueryRequest extends TeaModel {
     @Validation(required = true)
     public String clientId;
 
-    // 请求id
-    @NameInMap("request_id")
-    @Validation(required = true)
-    public String requestId;
-
     // 场景码
     @NameInMap("scene_code")
     @Validation(required = true)
@@ -30,6 +25,11 @@ public class QueryDeviceplusRiskqueryRequest extends TeaModel {
     @NameInMap("phone_number")
     @Validation(required = true)
     public String phoneNumber;
+
+    // 电话号码加密类型, 明文: 0; MD5加密: 1; SHA256: 2
+    @NameInMap("phone_number_type")
+    @Validation(required = true)
+    public String phoneNumberType;
 
     public static QueryDeviceplusRiskqueryRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDeviceplusRiskqueryRequest self = new QueryDeviceplusRiskqueryRequest();
@@ -60,14 +60,6 @@ public class QueryDeviceplusRiskqueryRequest extends TeaModel {
         return this.clientId;
     }
 
-    public QueryDeviceplusRiskqueryRequest setRequestId(String requestId) {
-        this.requestId = requestId;
-        return this;
-    }
-    public String getRequestId() {
-        return this.requestId;
-    }
-
     public QueryDeviceplusRiskqueryRequest setSceneCode(String sceneCode) {
         this.sceneCode = sceneCode;
         return this;
@@ -82,6 +74,14 @@ public class QueryDeviceplusRiskqueryRequest extends TeaModel {
     }
     public String getPhoneNumber() {
         return this.phoneNumber;
+    }
+
+    public QueryDeviceplusRiskqueryRequest setPhoneNumberType(String phoneNumberType) {
+        this.phoneNumberType = phoneNumberType;
+        return this;
+    }
+    public String getPhoneNumberType() {
+        return this.phoneNumberType;
     }
 
 }
