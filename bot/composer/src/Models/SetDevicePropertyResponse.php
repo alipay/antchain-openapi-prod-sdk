@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDeviceRegisterresultResponse extends Model
+class SetDevicePropertyResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,37 +26,16 @@ class QueryDeviceRegisterresultResponse extends Model
      */
     public $resultMsg;
 
-    // 操作是否成功
+    // 处理结果
     /**
      * @var bool
      */
     public $success;
-
-    // 设备did
-    /**
-     * @var string
-     */
-    public $deviceDid;
-
-    // 设备秘钥
-    /**
-     * @var string
-     */
-    public $privateKey;
-
-    // 设备sn
-    /**
-     * @var string
-     */
-    public $deviceSn;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'success'    => 'success',
-        'deviceDid'  => 'device_did',
-        'privateKey' => 'private_key',
-        'deviceSn'   => 'device_sn',
     ];
 
     public function validate()
@@ -78,15 +57,6 @@ class QueryDeviceRegisterresultResponse extends Model
         if (null !== $this->success) {
             $res['success'] = $this->success;
         }
-        if (null !== $this->deviceDid) {
-            $res['device_did'] = $this->deviceDid;
-        }
-        if (null !== $this->privateKey) {
-            $res['private_key'] = $this->privateKey;
-        }
-        if (null !== $this->deviceSn) {
-            $res['device_sn'] = $this->deviceSn;
-        }
 
         return $res;
     }
@@ -94,7 +64,7 @@ class QueryDeviceRegisterresultResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryDeviceRegisterresultResponse
+     * @return SetDevicePropertyResponse
      */
     public static function fromMap($map = [])
     {
@@ -110,15 +80,6 @@ class QueryDeviceRegisterresultResponse extends Model
         }
         if (isset($map['success'])) {
             $model->success = $map['success'];
-        }
-        if (isset($map['device_did'])) {
-            $model->deviceDid = $map['device_did'];
-        }
-        if (isset($map['private_key'])) {
-            $model->privateKey = $map['private_key'];
-        }
-        if (isset($map['device_sn'])) {
-            $model->deviceSn = $map['device_sn'];
         }
 
         return $model;

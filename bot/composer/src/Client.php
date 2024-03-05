@@ -361,6 +361,10 @@ use AntChain\BOT\Models\SetConsumerSubscribeRequest;
 use AntChain\BOT\Models\SetConsumerSubscribeResponse;
 use AntChain\BOT\Models\SetConsumerUnsubscribeRequest;
 use AntChain\BOT\Models\SetConsumerUnsubscribeResponse;
+use AntChain\BOT\Models\SetDevicelistPropertyRequest;
+use AntChain\BOT\Models\SetDevicelistPropertyResponse;
+use AntChain\BOT\Models\SetDevicePropertyRequest;
+use AntChain\BOT\Models\SetDevicePropertyResponse;
 use AntChain\BOT\Models\StartEvidenceQueryRequest;
 use AntChain\BOT\Models\StartEvidenceQueryResponse;
 use AntChain\BOT\Models\StartEvidenceStoreRequest;
@@ -570,7 +574,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.15',
+                    'sdk_version'      => '1.10.18',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3241,6 +3245,72 @@ class Client
         Utils::validateModel($request);
 
         return InitIotbasicDevicekeyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.devicekey.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-设置设备属性
+     * Summary: IoT设备平台-设置设备属性.
+     *
+     * @param SetDevicePropertyRequest $request
+     *
+     * @return SetDevicePropertyResponse
+     */
+    public function setDeviceProperty($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setDevicePropertyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设置设备属性
+     * Summary: IoT设备平台-设置设备属性.
+     *
+     * @param SetDevicePropertyRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return SetDevicePropertyResponse
+     */
+    public function setDevicePropertyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetDevicePropertyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.property.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-批量设置设备属性
+     * Summary: IoT设备平台-批量设置设备属性.
+     *
+     * @param SetDevicelistPropertyRequest $request
+     *
+     * @return SetDevicelistPropertyResponse
+     */
+    public function setDevicelistProperty($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setDevicelistPropertyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-批量设置设备属性
+     * Summary: IoT设备平台-批量设置设备属性.
+     *
+     * @param SetDevicelistPropertyRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SetDevicelistPropertyResponse
+     */
+    public function setDevicelistPropertyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetDevicelistPropertyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.devicelist.property.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
