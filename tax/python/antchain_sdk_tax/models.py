@@ -1123,23 +1123,15 @@ class MarriageCheckEvaluationFacade(TeaModel):
 class IdentityIdGroup(TeaModel):
     def __init__(
         self,
-        group_id: str = None,
-        biz_unique_id: str = None,
         channel: str = None,
         file_url: str = None,
     ):
-        # 44-20230810-9-channel
-        self.group_id = group_id
-        # 请求id，用于幂等控制
-        self.biz_unique_id = biz_unique_id
         # 数据源
         self.channel = channel
         # 上传的文件
         self.file_url = file_url
 
     def validate(self):
-        self.validate_required(self.group_id, 'group_id')
-        self.validate_required(self.biz_unique_id, 'biz_unique_id')
         self.validate_required(self.channel, 'channel')
         self.validate_required(self.file_url, 'file_url')
 
@@ -1149,10 +1141,6 @@ class IdentityIdGroup(TeaModel):
             return _map
 
         result = dict()
-        if self.group_id is not None:
-            result['group_id'] = self.group_id
-        if self.biz_unique_id is not None:
-            result['biz_unique_id'] = self.biz_unique_id
         if self.channel is not None:
             result['channel'] = self.channel
         if self.file_url is not None:
@@ -1161,10 +1149,6 @@ class IdentityIdGroup(TeaModel):
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('group_id') is not None:
-            self.group_id = m.get('group_id')
-        if m.get('biz_unique_id') is not None:
-            self.biz_unique_id = m.get('biz_unique_id')
         if m.get('channel') is not None:
             self.channel = m.get('channel')
         if m.get('file_url') is not None:
@@ -5450,8 +5434,7 @@ class PullApiSimpleauthmarkResponse(TeaModel):
         timestamp: str = None,
         biz_unique_id: str = None,
         inst_code: str = None,
-        result_list: List[str] = None,
-        secret: str = None,
+        result_list: List[DataMarkFileResult] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -5470,12 +5453,14 @@ class PullApiSimpleauthmarkResponse(TeaModel):
         # 生产环境域名：http://invoice-commercial-prod.oss-cn-hangzhou.aliyuncs.com
         # 端口是默认的80
         self.result_list = result_list
-        # 解密的秘钥
-        self.secret = secret
 
     def validate(self):
         if self.timestamp is not None:
             self.validate_pattern(self.timestamp, 'timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.result_list:
+            for k in self.result_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -5495,10 +5480,10 @@ class PullApiSimpleauthmarkResponse(TeaModel):
             result['biz_unique_id'] = self.biz_unique_id
         if self.inst_code is not None:
             result['inst_code'] = self.inst_code
+        result['result_list'] = []
         if self.result_list is not None:
-            result['result_list'] = self.result_list
-        if self.secret is not None:
-            result['secret'] = self.secret
+            for k in self.result_list:
+                result['result_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -5515,10 +5500,11 @@ class PullApiSimpleauthmarkResponse(TeaModel):
             self.biz_unique_id = m.get('biz_unique_id')
         if m.get('inst_code') is not None:
             self.inst_code = m.get('inst_code')
+        self.result_list = []
         if m.get('result_list') is not None:
-            self.result_list = m.get('result_list')
-        if m.get('secret') is not None:
-            self.secret = m.get('secret')
+            for k in m.get('result_list'):
+                temp_model = DataMarkFileResult()
+                self.result_list.append(temp_model.from_map(k))
         return self
 
 
