@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.0',
+                    'sdk_version': '1.2.10',
                     '_prod_code': 'MPAASFACEVERIFY',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.0',
+                    'sdk_version': '1.2.10',
                     '_prod_code': 'MPAASFACEVERIFY',
                     '_prod_channel': 'undefined'
                 }
@@ -329,6 +329,62 @@ class Client:
         return TeaCore.from_map(
             mpaasfaceverify_models.QueryCertifyAnalysisResponse(),
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.certify.analysis.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_certify_analysisrecord(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyAnalysisrecordRequest,
+    ) -> mpaasfaceverify_models.QueryCertifyAnalysisrecordResponse:
+        """
+        Description: 人脸认证问题根据身份信息获取认证信息
+        Summary: 人脸认证问题根据身份信息获取认证信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_certify_analysisrecord_ex(request, headers, runtime)
+
+    async def query_certify_analysisrecord_async(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyAnalysisrecordRequest,
+    ) -> mpaasfaceverify_models.QueryCertifyAnalysisrecordResponse:
+        """
+        Description: 人脸认证问题根据身份信息获取认证信息
+        Summary: 人脸认证问题根据身份信息获取认证信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_certify_analysisrecord_ex_async(request, headers, runtime)
+
+    def query_certify_analysisrecord_ex(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyAnalysisrecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.QueryCertifyAnalysisrecordResponse:
+        """
+        Description: 人脸认证问题根据身份信息获取认证信息
+        Summary: 人脸认证问题根据身份信息获取认证信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryCertifyAnalysisrecordResponse(),
+            self.do_request('1.0', 'antfin.mpaasfaceverify.certify.analysisrecord.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_certify_analysisrecord_ex_async(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyAnalysisrecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.QueryCertifyAnalysisrecordResponse:
+        """
+        Description: 人脸认证问题根据身份信息获取认证信息
+        Summary: 人脸认证问题根据身份信息获取认证信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryCertifyAnalysisrecordResponse(),
+            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.certify.analysisrecord.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def init_faceauth(
@@ -1001,4 +1057,172 @@ class Client:
         return TeaCore.from_map(
             mpaasfaceverify_models.InitOneloginResponse(),
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.onelogin.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_oneverify(
+        self,
+        request: mpaasfaceverify_models.QueryOneverifyRequest,
+    ) -> mpaasfaceverify_models.QueryOneverifyResponse:
+        """
+        Description: 调用“融合认证查询”接口可以通过certifyId查询一键登录/本机校验的结果
+        Summary: 融合认证查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_oneverify_ex(request, headers, runtime)
+
+    async def query_oneverify_async(
+        self,
+        request: mpaasfaceverify_models.QueryOneverifyRequest,
+    ) -> mpaasfaceverify_models.QueryOneverifyResponse:
+        """
+        Description: 调用“融合认证查询”接口可以通过certifyId查询一键登录/本机校验的结果
+        Summary: 融合认证查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_oneverify_ex_async(request, headers, runtime)
+
+    def query_oneverify_ex(
+        self,
+        request: mpaasfaceverify_models.QueryOneverifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.QueryOneverifyResponse:
+        """
+        Description: 调用“融合认证查询”接口可以通过certifyId查询一键登录/本机校验的结果
+        Summary: 融合认证查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryOneverifyResponse(),
+            self.do_request('1.0', 'antfin.mpaasfaceverify.oneverify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_oneverify_ex_async(
+        self,
+        request: mpaasfaceverify_models.QueryOneverifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.QueryOneverifyResponse:
+        """
+        Description: 调用“融合认证查询”接口可以通过certifyId查询一键登录/本机校验的结果
+        Summary: 融合认证查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryOneverifyResponse(),
+            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.oneverify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_onepass(
+        self,
+        request: mpaasfaceverify_models.InitOnepassRequest,
+    ) -> mpaasfaceverify_models.InitOnepassResponse:
+        """
+        Description: 调用”本机校验初始化“接口，生成业务认证单据，返回单据号
+        Summary: 本机校验初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_onepass_ex(request, headers, runtime)
+
+    async def init_onepass_async(
+        self,
+        request: mpaasfaceverify_models.InitOnepassRequest,
+    ) -> mpaasfaceverify_models.InitOnepassResponse:
+        """
+        Description: 调用”本机校验初始化“接口，生成业务认证单据，返回单据号
+        Summary: 本机校验初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_onepass_ex_async(request, headers, runtime)
+
+    def init_onepass_ex(
+        self,
+        request: mpaasfaceverify_models.InitOnepassRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.InitOnepassResponse:
+        """
+        Description: 调用”本机校验初始化“接口，生成业务认证单据，返回单据号
+        Summary: 本机校验初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.InitOnepassResponse(),
+            self.do_request('1.0', 'antfin.mpaasfaceverify.onepass.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_onepass_ex_async(
+        self,
+        request: mpaasfaceverify_models.InitOnepassRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.InitOnepassResponse:
+        """
+        Description: 调用”本机校验初始化“接口，生成业务认证单据，返回单据号
+        Summary: 本机校验初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.InitOnepassResponse(),
+            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.onepass.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def certify_identitymeta_servermode(
+        self,
+        request: mpaasfaceverify_models.CertifyIdentitymetaServermodeRequest,
+    ) -> mpaasfaceverify_models.CertifyIdentitymetaServermodeResponse:
+        """
+        Description: 身份信息二要素认证,通过传入的姓名,身份证号码返回认证是否一致
+        Summary: 身份信息二要素认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.certify_identitymeta_servermode_ex(request, headers, runtime)
+
+    async def certify_identitymeta_servermode_async(
+        self,
+        request: mpaasfaceverify_models.CertifyIdentitymetaServermodeRequest,
+    ) -> mpaasfaceverify_models.CertifyIdentitymetaServermodeResponse:
+        """
+        Description: 身份信息二要素认证,通过传入的姓名,身份证号码返回认证是否一致
+        Summary: 身份信息二要素认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.certify_identitymeta_servermode_ex_async(request, headers, runtime)
+
+    def certify_identitymeta_servermode_ex(
+        self,
+        request: mpaasfaceverify_models.CertifyIdentitymetaServermodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.CertifyIdentitymetaServermodeResponse:
+        """
+        Description: 身份信息二要素认证,通过传入的姓名,身份证号码返回认证是否一致
+        Summary: 身份信息二要素认证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.CertifyIdentitymetaServermodeResponse(),
+            self.do_request('1.0', 'antfin.mpaasfaceverify.identitymeta.servermode.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def certify_identitymeta_servermode_ex_async(
+        self,
+        request: mpaasfaceverify_models.CertifyIdentitymetaServermodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.CertifyIdentitymetaServermodeResponse:
+        """
+        Description: 身份信息二要素认证,通过传入的姓名,身份证号码返回认证是否一致
+        Summary: 身份信息二要素认证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.CertifyIdentitymetaServermodeResponse(),
+            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.identitymeta.servermode.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
