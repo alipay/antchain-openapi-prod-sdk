@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.MPAASFACEVERIFY.Models
 {
-    public class InitOneloginRequest : TeaModel {
+    public class InitOnepassRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -22,6 +22,11 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
         [NameInMap("biz_id")]
         [Validation(Required=true)]
         public string BizId { get; set; }
+
+        // 手机号
+        [NameInMap("phone")]
+        [Validation(Required=true)]
+        public string Phone { get; set; }
 
         // 计费规则码
         [NameInMap("charge_code")]

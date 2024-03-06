@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.MPAASFACEVERIFY.Models
 {
-    public class InitOneloginRequest : TeaModel {
+    public class CertifyIdentitymetaServermodeRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,24 +18,32 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+        // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保...
         [NameInMap("biz_id")]
         [Validation(Required=true)]
         public string BizId { get; set; }
 
+        // 用户身份信息
+        // 
+        [NameInMap("identity_param")]
+        [Validation(Required=true)]
+        public string IdentityParam { get; set; }
+
         // 计费规则码
+        // 
         [NameInMap("charge_code")]
         [Validation(Required=true)]
         public string ChargeCode { get; set; }
 
-        // 操作类型
+        // operation_type
         [NameInMap("operation_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string OperationType { get; set; }
 
         // 预留扩展业务参数
+        // 
         [NameInMap("extern_param")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string ExternParam { get; set; }
 
     }

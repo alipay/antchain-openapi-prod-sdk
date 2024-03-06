@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.MPAASFACEVERIFY.Models
 {
-    public class InitCertifyrecordResponse : TeaModel {
+    public class InitOnepassResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,6 +24,11 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 认证单据号
+        [NameInMap("certify_id")]
+        [Validation(Required=false)]
+        public string CertifyId { get; set; }
+
         // 预留扩展结果
         [NameInMap("extern_info")]
         [Validation(Required=false)]
@@ -38,21 +43,6 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
         [NameInMap("result_msg_sub")]
         [Validation(Required=false)]
         public string ResultMsgSub { get; set; }
-
-        // 认证单据号
-        [NameInMap("certify_id")]
-        [Validation(Required=false)]
-        public string CertifyId { get; set; }
-
-        // H5过渡页唤起native刷脸地址
-        [NameInMap("certify_url")]
-        [Validation(Required=false)]
-        public string CertifyUrl { get; set; }
-
-        // 纯H5认证地址
-        [NameInMap("h5_url")]
-        [Validation(Required=false)]
-        public string H5Url { get; set; }
 
     }
 
