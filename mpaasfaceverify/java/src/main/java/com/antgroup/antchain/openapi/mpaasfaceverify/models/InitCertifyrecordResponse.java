@@ -32,9 +32,13 @@ public class InitCertifyrecordResponse extends TeaModel {
     @NameInMap("certify_id")
     public String certifyId;
 
-    // 认证h5 url
+    // H5过渡页唤起native刷脸地址
     @NameInMap("certify_url")
     public String certifyUrl;
+
+    // 纯H5认证地址
+    @NameInMap("h5_url")
+    public String h5Url;
 
     public static InitCertifyrecordResponse build(java.util.Map<String, ?> map) throws Exception {
         InitCertifyrecordResponse self = new InitCertifyrecordResponse();
@@ -103,6 +107,14 @@ public class InitCertifyrecordResponse extends TeaModel {
     }
     public String getCertifyUrl() {
         return this.certifyUrl;
+    }
+
+    public InitCertifyrecordResponse setH5Url(String h5Url) {
+        this.h5Url = h5Url;
+        return this;
+    }
+    public String getH5Url() {
+        return this.h5Url;
     }
 
 }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.mpaasfaceverify.models;
 
 import com.aliyun.tea.*;
 
-public class InitCertifyrecordRealpersonResponse extends TeaModel {
+public class CertifyIdentitymetaServermodeResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -17,6 +17,7 @@ public class InitCertifyrecordRealpersonResponse extends TeaModel {
     public String resultMsg;
 
     // 预留扩展结果
+    // 
     @NameInMap("extern_info")
     public String externInfo;
 
@@ -28,24 +29,12 @@ public class InitCertifyrecordRealpersonResponse extends TeaModel {
     @NameInMap("result_msg_sub")
     public String resultMsgSub;
 
-    // 认证单据号
-    @NameInMap("certify_id")
-    public String certifyId;
-
-    // H5过渡页唤起native刷脸地址
-    @NameInMap("certify_url")
-    public String certifyUrl;
-
-    // 纯H5认证地址
-    @NameInMap("h5_url")
-    public String h5Url;
-
-    public static InitCertifyrecordRealpersonResponse build(java.util.Map<String, ?> map) throws Exception {
-        InitCertifyrecordRealpersonResponse self = new InitCertifyrecordRealpersonResponse();
+    public static CertifyIdentitymetaServermodeResponse build(java.util.Map<String, ?> map) throws Exception {
+        CertifyIdentitymetaServermodeResponse self = new CertifyIdentitymetaServermodeResponse();
         return TeaModel.build(map, self);
     }
 
-    public InitCertifyrecordRealpersonResponse setReqMsgId(String reqMsgId) {
+    public CertifyIdentitymetaServermodeResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -53,7 +42,7 @@ public class InitCertifyrecordRealpersonResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public InitCertifyrecordRealpersonResponse setResultCode(String resultCode) {
+    public CertifyIdentitymetaServermodeResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -61,7 +50,7 @@ public class InitCertifyrecordRealpersonResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public InitCertifyrecordRealpersonResponse setResultMsg(String resultMsg) {
+    public CertifyIdentitymetaServermodeResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -69,7 +58,7 @@ public class InitCertifyrecordRealpersonResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public InitCertifyrecordRealpersonResponse setExternInfo(String externInfo) {
+    public CertifyIdentitymetaServermodeResponse setExternInfo(String externInfo) {
         this.externInfo = externInfo;
         return this;
     }
@@ -77,7 +66,7 @@ public class InitCertifyrecordRealpersonResponse extends TeaModel {
         return this.externInfo;
     }
 
-    public InitCertifyrecordRealpersonResponse setResultCodeSub(String resultCodeSub) {
+    public CertifyIdentitymetaServermodeResponse setResultCodeSub(String resultCodeSub) {
         this.resultCodeSub = resultCodeSub;
         return this;
     }
@@ -85,36 +74,12 @@ public class InitCertifyrecordRealpersonResponse extends TeaModel {
         return this.resultCodeSub;
     }
 
-    public InitCertifyrecordRealpersonResponse setResultMsgSub(String resultMsgSub) {
+    public CertifyIdentitymetaServermodeResponse setResultMsgSub(String resultMsgSub) {
         this.resultMsgSub = resultMsgSub;
         return this;
     }
     public String getResultMsgSub() {
         return this.resultMsgSub;
-    }
-
-    public InitCertifyrecordRealpersonResponse setCertifyId(String certifyId) {
-        this.certifyId = certifyId;
-        return this;
-    }
-    public String getCertifyId() {
-        return this.certifyId;
-    }
-
-    public InitCertifyrecordRealpersonResponse setCertifyUrl(String certifyUrl) {
-        this.certifyUrl = certifyUrl;
-        return this;
-    }
-    public String getCertifyUrl() {
-        return this.certifyUrl;
-    }
-
-    public InitCertifyrecordRealpersonResponse setH5Url(String h5Url) {
-        this.h5Url = h5Url;
-        return this;
-    }
-    public String getH5Url() {
-        return this.h5Url;
     }
 
 }

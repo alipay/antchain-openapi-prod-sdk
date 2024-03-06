@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.0"),
+                    new TeaPair("sdk_version", "1.2.10"),
                     new TeaPair("_prod_code", "MPAASFACEVERIFY"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -178,6 +178,25 @@ public class Client {
     public QueryCertifyAnalysisResponse queryCertifyAnalysisEx(QueryCertifyAnalysisRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.certify.analysis.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCertifyAnalysisResponse());
+    }
+
+    /**
+     * Description: 人脸认证问题根据身份信息获取认证信息
+     * Summary: 人脸认证问题根据身份信息获取认证信息
+     */
+    public QueryCertifyAnalysisrecordResponse queryCertifyAnalysisrecord(QueryCertifyAnalysisrecordRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCertifyAnalysisrecordEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 人脸认证问题根据身份信息获取认证信息
+     * Summary: 人脸认证问题根据身份信息获取认证信息
+     */
+    public QueryCertifyAnalysisrecordResponse queryCertifyAnalysisrecordEx(QueryCertifyAnalysisrecordRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.certify.analysisrecord.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCertifyAnalysisrecordResponse());
     }
 
     /**
@@ -406,5 +425,62 @@ public class Client {
     public InitOneloginResponse initOneloginEx(InitOneloginRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.onelogin.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitOneloginResponse());
+    }
+
+    /**
+     * Description: 调用“融合认证查询”接口可以通过certifyId查询一键登录/本机校验的结果
+     * Summary: 融合认证查询
+     */
+    public QueryOneverifyResponse queryOneverify(QueryOneverifyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOneverifyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 调用“融合认证查询”接口可以通过certifyId查询一键登录/本机校验的结果
+     * Summary: 融合认证查询
+     */
+    public QueryOneverifyResponse queryOneverifyEx(QueryOneverifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.oneverify.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOneverifyResponse());
+    }
+
+    /**
+     * Description: 调用”本机校验初始化“接口，生成业务认证单据，返回单据号
+     * Summary: 本机校验初始化
+     */
+    public InitOnepassResponse initOnepass(InitOnepassRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initOnepassEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 调用”本机校验初始化“接口，生成业务认证单据，返回单据号
+     * Summary: 本机校验初始化
+     */
+    public InitOnepassResponse initOnepassEx(InitOnepassRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.onepass.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitOnepassResponse());
+    }
+
+    /**
+     * Description: 身份信息二要素认证,通过传入的姓名,身份证号码返回认证是否一致
+     * Summary: 身份信息二要素认证
+     */
+    public CertifyIdentitymetaServermodeResponse certifyIdentitymetaServermode(CertifyIdentitymetaServermodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.certifyIdentitymetaServermodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 身份信息二要素认证,通过传入的姓名,身份证号码返回认证是否一致
+     * Summary: 身份信息二要素认证
+     */
+    public CertifyIdentitymetaServermodeResponse certifyIdentitymetaServermodeEx(CertifyIdentitymetaServermodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.identitymeta.servermode.certify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CertifyIdentitymetaServermodeResponse());
     }
 }

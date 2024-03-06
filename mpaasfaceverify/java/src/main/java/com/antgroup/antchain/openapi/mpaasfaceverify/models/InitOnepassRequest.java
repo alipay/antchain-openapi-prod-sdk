@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.mpaasfaceverify.models;
 
 import com.aliyun.tea.*;
 
-public class InitOneloginRequest extends TeaModel {
+public class InitOnepassRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -15,6 +15,11 @@ public class InitOneloginRequest extends TeaModel {
     @NameInMap("biz_id")
     @Validation(required = true)
     public String bizId;
+
+    // 手机号
+    @NameInMap("phone")
+    @Validation(required = true)
+    public String phone;
 
     // 计费规则码
     @NameInMap("charge_code")
@@ -30,12 +35,12 @@ public class InitOneloginRequest extends TeaModel {
     @NameInMap("extern_param")
     public String externParam;
 
-    public static InitOneloginRequest build(java.util.Map<String, ?> map) throws Exception {
-        InitOneloginRequest self = new InitOneloginRequest();
+    public static InitOnepassRequest build(java.util.Map<String, ?> map) throws Exception {
+        InitOnepassRequest self = new InitOnepassRequest();
         return TeaModel.build(map, self);
     }
 
-    public InitOneloginRequest setAuthToken(String authToken) {
+    public InitOnepassRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -43,7 +48,7 @@ public class InitOneloginRequest extends TeaModel {
         return this.authToken;
     }
 
-    public InitOneloginRequest setProductInstanceId(String productInstanceId) {
+    public InitOnepassRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -51,7 +56,7 @@ public class InitOneloginRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public InitOneloginRequest setBizId(String bizId) {
+    public InitOnepassRequest setBizId(String bizId) {
         this.bizId = bizId;
         return this;
     }
@@ -59,7 +64,15 @@ public class InitOneloginRequest extends TeaModel {
         return this.bizId;
     }
 
-    public InitOneloginRequest setChargeCode(String chargeCode) {
+    public InitOnepassRequest setPhone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public InitOnepassRequest setChargeCode(String chargeCode) {
         this.chargeCode = chargeCode;
         return this;
     }
@@ -67,7 +80,7 @@ public class InitOneloginRequest extends TeaModel {
         return this.chargeCode;
     }
 
-    public InitOneloginRequest setOperationType(String operationType) {
+    public InitOnepassRequest setOperationType(String operationType) {
         this.operationType = operationType;
         return this;
     }
@@ -75,7 +88,7 @@ public class InitOneloginRequest extends TeaModel {
         return this.operationType;
     }
 
-    public InitOneloginRequest setExternParam(String externParam) {
+    public InitOnepassRequest setExternParam(String externParam) {
         this.externParam = externParam;
         return this;
     }

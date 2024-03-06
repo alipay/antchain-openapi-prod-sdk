@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.mpaasfaceverify.models;
 
 import com.aliyun.tea.*;
 
-public class InitOneloginRequest extends TeaModel {
+public class CertifyIdentitymetaServermodeRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,31 +11,39 @@ public class InitOneloginRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+    // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保...
     @NameInMap("biz_id")
     @Validation(required = true)
     public String bizId;
 
+    // 用户身份信息
+    // 
+    @NameInMap("identity_param")
+    @Validation(required = true)
+    public String identityParam;
+
     // 计费规则码
+    // 
     @NameInMap("charge_code")
     @Validation(required = true)
     public String chargeCode;
 
-    // 操作类型
+    // operation_type
     @NameInMap("operation_type")
-    @Validation(required = true)
     public String operationType;
 
     // 预留扩展业务参数
+    // 
     @NameInMap("extern_param")
+    @Validation(required = true)
     public String externParam;
 
-    public static InitOneloginRequest build(java.util.Map<String, ?> map) throws Exception {
-        InitOneloginRequest self = new InitOneloginRequest();
+    public static CertifyIdentitymetaServermodeRequest build(java.util.Map<String, ?> map) throws Exception {
+        CertifyIdentitymetaServermodeRequest self = new CertifyIdentitymetaServermodeRequest();
         return TeaModel.build(map, self);
     }
 
-    public InitOneloginRequest setAuthToken(String authToken) {
+    public CertifyIdentitymetaServermodeRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -43,7 +51,7 @@ public class InitOneloginRequest extends TeaModel {
         return this.authToken;
     }
 
-    public InitOneloginRequest setProductInstanceId(String productInstanceId) {
+    public CertifyIdentitymetaServermodeRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -51,7 +59,7 @@ public class InitOneloginRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public InitOneloginRequest setBizId(String bizId) {
+    public CertifyIdentitymetaServermodeRequest setBizId(String bizId) {
         this.bizId = bizId;
         return this;
     }
@@ -59,7 +67,15 @@ public class InitOneloginRequest extends TeaModel {
         return this.bizId;
     }
 
-    public InitOneloginRequest setChargeCode(String chargeCode) {
+    public CertifyIdentitymetaServermodeRequest setIdentityParam(String identityParam) {
+        this.identityParam = identityParam;
+        return this;
+    }
+    public String getIdentityParam() {
+        return this.identityParam;
+    }
+
+    public CertifyIdentitymetaServermodeRequest setChargeCode(String chargeCode) {
         this.chargeCode = chargeCode;
         return this;
     }
@@ -67,7 +83,7 @@ public class InitOneloginRequest extends TeaModel {
         return this.chargeCode;
     }
 
-    public InitOneloginRequest setOperationType(String operationType) {
+    public CertifyIdentitymetaServermodeRequest setOperationType(String operationType) {
         this.operationType = operationType;
         return this;
     }
@@ -75,7 +91,7 @@ public class InitOneloginRequest extends TeaModel {
         return this.operationType;
     }
 
-    public InitOneloginRequest setExternParam(String externParam) {
+    public CertifyIdentitymetaServermodeRequest setExternParam(String externParam) {
         this.externParam = externParam;
         return this;
     }
