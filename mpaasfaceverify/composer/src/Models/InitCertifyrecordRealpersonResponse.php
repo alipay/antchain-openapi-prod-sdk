@@ -50,11 +50,17 @@ class InitCertifyrecordRealpersonResponse extends Model
      */
     public $certifyId;
 
-    // 认证h5 url
+    // H5过渡页唤起native刷脸地址
     /**
      * @var string
      */
     public $certifyUrl;
+
+    // 纯H5认证地址
+    /**
+     * @var string
+     */
+    public $h5Url;
     protected $_name = [
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
@@ -64,6 +70,7 @@ class InitCertifyrecordRealpersonResponse extends Model
         'resultMsgSub'  => 'result_msg_sub',
         'certifyId'     => 'certify_id',
         'certifyUrl'    => 'certify_url',
+        'h5Url'         => 'h5_url',
     ];
 
     public function validate()
@@ -96,6 +103,9 @@ class InitCertifyrecordRealpersonResponse extends Model
         }
         if (null !== $this->certifyUrl) {
             $res['certify_url'] = $this->certifyUrl;
+        }
+        if (null !== $this->h5Url) {
+            $res['h5_url'] = $this->h5Url;
         }
 
         return $res;
@@ -132,6 +142,9 @@ class InitCertifyrecordRealpersonResponse extends Model
         }
         if (isset($map['certify_url'])) {
             $model->certifyUrl = $map['certify_url'];
+        }
+        if (isset($map['h5_url'])) {
+            $model->h5Url = $map['h5_url'];
         }
 
         return $model;

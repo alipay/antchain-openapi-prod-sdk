@@ -6,7 +6,7 @@ namespace AntChain\MPAASFACEVERIFY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitOneloginRequest extends Model
+class QueryOneverifyRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,25 +19,13 @@ class InitOneloginRequest extends Model
      */
     public $productInstanceId;
 
-    // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+    // certifyId，用于查询认证结果
     /**
      * @var string
      */
-    public $bizId;
+    public $certifyId;
 
-    // 计费规则码
-    /**
-     * @var string
-     */
-    public $chargeCode;
-
-    // 操作类型
-    /**
-     * @var string
-     */
-    public $operationType;
-
-    // 预留扩展业务参数
+    // 预留扩展参数
     /**
      * @var string
      */
@@ -45,17 +33,13 @@ class InitOneloginRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'bizId'             => 'biz_id',
-        'chargeCode'        => 'charge_code',
-        'operationType'     => 'operation_type',
+        'certifyId'         => 'certify_id',
         'externParam'       => 'extern_param',
     ];
 
     public function validate()
     {
-        Model::validateRequired('bizId', $this->bizId, true);
-        Model::validateRequired('chargeCode', $this->chargeCode, true);
-        Model::validateRequired('operationType', $this->operationType, true);
+        Model::validateRequired('certifyId', $this->certifyId, true);
     }
 
     public function toMap()
@@ -67,14 +51,8 @@ class InitOneloginRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->bizId) {
-            $res['biz_id'] = $this->bizId;
-        }
-        if (null !== $this->chargeCode) {
-            $res['charge_code'] = $this->chargeCode;
-        }
-        if (null !== $this->operationType) {
-            $res['operation_type'] = $this->operationType;
+        if (null !== $this->certifyId) {
+            $res['certify_id'] = $this->certifyId;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
@@ -86,7 +64,7 @@ class InitOneloginRequest extends Model
     /**
      * @param array $map
      *
-     * @return InitOneloginRequest
+     * @return QueryOneverifyRequest
      */
     public static function fromMap($map = [])
     {
@@ -97,14 +75,8 @@ class InitOneloginRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['biz_id'])) {
-            $model->bizId = $map['biz_id'];
-        }
-        if (isset($map['charge_code'])) {
-            $model->chargeCode = $map['charge_code'];
-        }
-        if (isset($map['operation_type'])) {
-            $model->operationType = $map['operation_type'];
+        if (isset($map['certify_id'])) {
+            $model->certifyId = $map['certify_id'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];

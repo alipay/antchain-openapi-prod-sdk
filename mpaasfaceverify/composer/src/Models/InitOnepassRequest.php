@@ -6,7 +6,7 @@ namespace AntChain\MPAASFACEVERIFY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitOneloginRequest extends Model
+class InitOnepassRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -24,6 +24,12 @@ class InitOneloginRequest extends Model
      * @var string
      */
     public $bizId;
+
+    // 手机号
+    /**
+     * @var string
+     */
+    public $phone;
 
     // 计费规则码
     /**
@@ -46,6 +52,7 @@ class InitOneloginRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'bizId'             => 'biz_id',
+        'phone'             => 'phone',
         'chargeCode'        => 'charge_code',
         'operationType'     => 'operation_type',
         'externParam'       => 'extern_param',
@@ -54,6 +61,7 @@ class InitOneloginRequest extends Model
     public function validate()
     {
         Model::validateRequired('bizId', $this->bizId, true);
+        Model::validateRequired('phone', $this->phone, true);
         Model::validateRequired('chargeCode', $this->chargeCode, true);
         Model::validateRequired('operationType', $this->operationType, true);
     }
@@ -69,6 +77,9 @@ class InitOneloginRequest extends Model
         }
         if (null !== $this->bizId) {
             $res['biz_id'] = $this->bizId;
+        }
+        if (null !== $this->phone) {
+            $res['phone'] = $this->phone;
         }
         if (null !== $this->chargeCode) {
             $res['charge_code'] = $this->chargeCode;
@@ -86,7 +97,7 @@ class InitOneloginRequest extends Model
     /**
      * @param array $map
      *
-     * @return InitOneloginRequest
+     * @return InitOnepassRequest
      */
     public static function fromMap($map = [])
     {
@@ -99,6 +110,9 @@ class InitOneloginRequest extends Model
         }
         if (isset($map['biz_id'])) {
             $model->bizId = $map['biz_id'];
+        }
+        if (isset($map['phone'])) {
+            $model->phone = $map['phone'];
         }
         if (isset($map['charge_code'])) {
             $model->chargeCode = $map['charge_code'];

@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\MPAASFACEVERIFY\Models\CertifyIdentitymetaServermodeRequest;
+use AntChain\MPAASFACEVERIFY\Models\CertifyIdentitymetaServermodeResponse;
 use AntChain\MPAASFACEVERIFY\Models\CertifyServermodeRequest;
 use AntChain\MPAASFACEVERIFY\Models\CertifyServermodeResponse;
 use AntChain\MPAASFACEVERIFY\Models\InitCertifyrecordRealpersonRequest;
@@ -23,6 +25,10 @@ use AntChain\MPAASFACEVERIFY\Models\InitFaceplusRequest;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceplusResponse;
 use AntChain\MPAASFACEVERIFY\Models\InitOneloginRequest;
 use AntChain\MPAASFACEVERIFY\Models\InitOneloginResponse;
+use AntChain\MPAASFACEVERIFY\Models\InitOnepassRequest;
+use AntChain\MPAASFACEVERIFY\Models\InitOnepassResponse;
+use AntChain\MPAASFACEVERIFY\Models\QueryCertifyAnalysisrecordRequest;
+use AntChain\MPAASFACEVERIFY\Models\QueryCertifyAnalysisrecordResponse;
 use AntChain\MPAASFACEVERIFY\Models\QueryCertifyAnalysisRequest;
 use AntChain\MPAASFACEVERIFY\Models\QueryCertifyAnalysisResponse;
 use AntChain\MPAASFACEVERIFY\Models\QueryCertifyrecordChargeRequest;
@@ -35,6 +41,8 @@ use AntChain\MPAASFACEVERIFY\Models\QueryFaceauthRequest;
 use AntChain\MPAASFACEVERIFY\Models\QueryFaceauthResponse;
 use AntChain\MPAASFACEVERIFY\Models\QueryFaceplusRequest;
 use AntChain\MPAASFACEVERIFY\Models\QueryFaceplusResponse;
+use AntChain\MPAASFACEVERIFY\Models\QueryOneverifyRequest;
+use AntChain\MPAASFACEVERIFY\Models\QueryOneverifyResponse;
 use AntChain\MPAASFACEVERIFY\Models\UploadOcrServermodeRequest;
 use AntChain\MPAASFACEVERIFY\Models\UploadOcrServermodeResponse;
 use AntChain\Util\UtilClient;
@@ -184,7 +192,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.0',
+                    'sdk_version'      => '1.2.10',
                     '_prod_code'       => 'MPAASFACEVERIFY',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -263,6 +271,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryCertifyAnalysisResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.certify.analysis.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 人脸认证问题根据身份信息获取认证信息
+     * Summary: 人脸认证问题根据身份信息获取认证信息.
+     *
+     * @param QueryCertifyAnalysisrecordRequest $request
+     *
+     * @return QueryCertifyAnalysisrecordResponse
+     */
+    public function queryCertifyAnalysisrecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCertifyAnalysisrecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 人脸认证问题根据身份信息获取认证信息
+     * Summary: 人脸认证问题根据身份信息获取认证信息.
+     *
+     * @param QueryCertifyAnalysisrecordRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryCertifyAnalysisrecordResponse
+     */
+    public function queryCertifyAnalysisrecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCertifyAnalysisrecordResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.certify.analysisrecord.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -659,5 +700,104 @@ class Client
         Utils::validateModel($request);
 
         return InitOneloginResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.onelogin.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用“融合认证查询”接口可以通过certifyId查询一键登录/本机校验的结果
+     * Summary: 融合认证查询.
+     *
+     * @param QueryOneverifyRequest $request
+     *
+     * @return QueryOneverifyResponse
+     */
+    public function queryOneverify($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOneverifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用“融合认证查询”接口可以通过certifyId查询一键登录/本机校验的结果
+     * Summary: 融合认证查询.
+     *
+     * @param QueryOneverifyRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryOneverifyResponse
+     */
+    public function queryOneverifyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOneverifyResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.oneverify.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用”本机校验初始化“接口，生成业务认证单据，返回单据号
+     * Summary: 本机校验初始化.
+     *
+     * @param InitOnepassRequest $request
+     *
+     * @return InitOnepassResponse
+     */
+    public function initOnepass($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initOnepassEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用”本机校验初始化“接口，生成业务认证单据，返回单据号
+     * Summary: 本机校验初始化.
+     *
+     * @param InitOnepassRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return InitOnepassResponse
+     */
+    public function initOnepassEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitOnepassResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.onepass.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 身份信息二要素认证,通过传入的姓名,身份证号码返回认证是否一致
+     * Summary: 身份信息二要素认证
+     *
+     * @param CertifyIdentitymetaServermodeRequest $request
+     *
+     * @return CertifyIdentitymetaServermodeResponse
+     */
+    public function certifyIdentitymetaServermode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->certifyIdentitymetaServermodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 身份信息二要素认证,通过传入的姓名,身份证号码返回认证是否一致
+     * Summary: 身份信息二要素认证
+     *
+     * @param CertifyIdentitymetaServermodeRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CertifyIdentitymetaServermodeResponse
+     */
+    public function certifyIdentitymetaServermodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CertifyIdentitymetaServermodeResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.identitymeta.servermode.certify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

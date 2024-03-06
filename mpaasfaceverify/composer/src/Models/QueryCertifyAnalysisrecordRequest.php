@@ -6,7 +6,7 @@ namespace AntChain\MPAASFACEVERIFY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitOneloginRequest extends Model
+class QueryCertifyAnalysisrecordRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,23 +19,23 @@ class InitOneloginRequest extends Model
      */
     public $productInstanceId;
 
-    // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+    // 证件姓名
     /**
      * @var string
      */
-    public $bizId;
+    public $certName;
 
-    // 计费规则码
+    // 证件号码
     /**
      * @var string
      */
-    public $chargeCode;
+    public $certNo;
 
-    // 操作类型
+    // 接入方场景码
     /**
      * @var string
      */
-    public $operationType;
+    public $sceneCode;
 
     // 预留扩展业务参数
     /**
@@ -45,17 +45,17 @@ class InitOneloginRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'bizId'             => 'biz_id',
-        'chargeCode'        => 'charge_code',
-        'operationType'     => 'operation_type',
+        'certName'          => 'cert_name',
+        'certNo'            => 'cert_no',
+        'sceneCode'         => 'scene_code',
         'externParam'       => 'extern_param',
     ];
 
     public function validate()
     {
-        Model::validateRequired('bizId', $this->bizId, true);
-        Model::validateRequired('chargeCode', $this->chargeCode, true);
-        Model::validateRequired('operationType', $this->operationType, true);
+        Model::validateRequired('certName', $this->certName, true);
+        Model::validateRequired('certNo', $this->certNo, true);
+        Model::validateRequired('sceneCode', $this->sceneCode, true);
     }
 
     public function toMap()
@@ -67,14 +67,14 @@ class InitOneloginRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->bizId) {
-            $res['biz_id'] = $this->bizId;
+        if (null !== $this->certName) {
+            $res['cert_name'] = $this->certName;
         }
-        if (null !== $this->chargeCode) {
-            $res['charge_code'] = $this->chargeCode;
+        if (null !== $this->certNo) {
+            $res['cert_no'] = $this->certNo;
         }
-        if (null !== $this->operationType) {
-            $res['operation_type'] = $this->operationType;
+        if (null !== $this->sceneCode) {
+            $res['scene_code'] = $this->sceneCode;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
@@ -86,7 +86,7 @@ class InitOneloginRequest extends Model
     /**
      * @param array $map
      *
-     * @return InitOneloginRequest
+     * @return QueryCertifyAnalysisrecordRequest
      */
     public static function fromMap($map = [])
     {
@@ -97,14 +97,14 @@ class InitOneloginRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['biz_id'])) {
-            $model->bizId = $map['biz_id'];
+        if (isset($map['cert_name'])) {
+            $model->certName = $map['cert_name'];
         }
-        if (isset($map['charge_code'])) {
-            $model->chargeCode = $map['charge_code'];
+        if (isset($map['cert_no'])) {
+            $model->certNo = $map['cert_no'];
         }
-        if (isset($map['operation_type'])) {
-            $model->operationType = $map['operation_type'];
+        if (isset($map['scene_code'])) {
+            $model->sceneCode = $map['scene_code'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];

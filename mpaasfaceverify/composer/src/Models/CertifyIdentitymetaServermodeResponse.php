@@ -6,7 +6,7 @@ namespace AntChain\MPAASFACEVERIFY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitCertifyrecordResponse extends Model
+class CertifyIdentitymetaServermodeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -27,6 +27,7 @@ class InitCertifyrecordResponse extends Model
     public $resultMsg;
 
     // 预留扩展结果
+    //
     /**
      * @var string
      */
@@ -43,24 +44,6 @@ class InitCertifyrecordResponse extends Model
      * @var string
      */
     public $resultMsgSub;
-
-    // 认证单据号
-    /**
-     * @var string
-     */
-    public $certifyId;
-
-    // H5过渡页唤起native刷脸地址
-    /**
-     * @var string
-     */
-    public $certifyUrl;
-
-    // 纯H5认证地址
-    /**
-     * @var string
-     */
-    public $h5Url;
     protected $_name = [
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
@@ -68,9 +51,6 @@ class InitCertifyrecordResponse extends Model
         'externInfo'    => 'extern_info',
         'resultCodeSub' => 'result_code_sub',
         'resultMsgSub'  => 'result_msg_sub',
-        'certifyId'     => 'certify_id',
-        'certifyUrl'    => 'certify_url',
-        'h5Url'         => 'h5_url',
     ];
 
     public function validate()
@@ -98,15 +78,6 @@ class InitCertifyrecordResponse extends Model
         if (null !== $this->resultMsgSub) {
             $res['result_msg_sub'] = $this->resultMsgSub;
         }
-        if (null !== $this->certifyId) {
-            $res['certify_id'] = $this->certifyId;
-        }
-        if (null !== $this->certifyUrl) {
-            $res['certify_url'] = $this->certifyUrl;
-        }
-        if (null !== $this->h5Url) {
-            $res['h5_url'] = $this->h5Url;
-        }
 
         return $res;
     }
@@ -114,7 +85,7 @@ class InitCertifyrecordResponse extends Model
     /**
      * @param array $map
      *
-     * @return InitCertifyrecordResponse
+     * @return CertifyIdentitymetaServermodeResponse
      */
     public static function fromMap($map = [])
     {
@@ -136,15 +107,6 @@ class InitCertifyrecordResponse extends Model
         }
         if (isset($map['result_msg_sub'])) {
             $model->resultMsgSub = $map['result_msg_sub'];
-        }
-        if (isset($map['certify_id'])) {
-            $model->certifyId = $map['certify_id'];
-        }
-        if (isset($map['certify_url'])) {
-            $model->certifyUrl = $map['certify_url'];
-        }
-        if (isset($map['h5_url'])) {
-            $model->h5Url = $map['h5_url'];
         }
 
         return $model;
