@@ -66,6 +66,18 @@ class CallbackUmktSmsUpRequest extends Model
      * @var int
      */
     public $sequenceId;
+
+    // 手机号模版类型
+    /**
+     * @var string
+     */
+    public $keyTemplate;
+
+    // 原始手机号模版类型
+    /**
+     * @var string
+     */
+    public $originKeyTemplate;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +89,8 @@ class CallbackUmktSmsUpRequest extends Model
         'appKey'            => 'app_key',
         'destCode'          => 'dest_code',
         'sequenceId'        => 'sequence_id',
+        'keyTemplate'       => 'key_template',
+        'originKeyTemplate' => 'origin_key_template',
     ];
 
     public function validate()
@@ -124,6 +138,12 @@ class CallbackUmktSmsUpRequest extends Model
         if (null !== $this->sequenceId) {
             $res['sequence_id'] = $this->sequenceId;
         }
+        if (null !== $this->keyTemplate) {
+            $res['key_template'] = $this->keyTemplate;
+        }
+        if (null !== $this->originKeyTemplate) {
+            $res['origin_key_template'] = $this->originKeyTemplate;
+        }
 
         return $res;
     }
@@ -165,6 +185,12 @@ class CallbackUmktSmsUpRequest extends Model
         }
         if (isset($map['sequence_id'])) {
             $model->sequenceId = $map['sequence_id'];
+        }
+        if (isset($map['key_template'])) {
+            $model->keyTemplate = $map['key_template'];
+        }
+        if (isset($map['origin_key_template'])) {
+            $model->originKeyTemplate = $map['origin_key_template'];
         }
 
         return $model;

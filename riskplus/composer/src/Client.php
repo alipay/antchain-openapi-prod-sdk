@@ -23,6 +23,10 @@ use AntChain\RISKPLUS\Models\ApplyDubheCustomerAgreementsignRequest;
 use AntChain\RISKPLUS\Models\ApplyDubheCustomerAgreementsignResponse;
 use AntChain\RISKPLUS\Models\ApplyDubheUsecreditRequest;
 use AntChain\RISKPLUS\Models\ApplyDubheUsecreditResponse;
+use AntChain\RISKPLUS\Models\ApplyQmpRobotcallRequest;
+use AntChain\RISKPLUS\Models\ApplyQmpRobotcallResponse;
+use AntChain\RISKPLUS\Models\ApplyQmpRtBatchmarketingRequest;
+use AntChain\RISKPLUS\Models\ApplyQmpRtBatchmarketingResponse;
 use AntChain\RISKPLUS\Models\ApplyRbbCompanyCreditRequest;
 use AntChain\RISKPLUS\Models\ApplyRbbCompanyCreditResponse;
 use AntChain\RISKPLUS\Models\ApplyRbbCompanyGuardRequest;
@@ -125,10 +129,14 @@ use AntChain\RISKPLUS\Models\PushRiskplusUmktCommonbackflowRequest;
 use AntChain\RISKPLUS\Models\PushRiskplusUmktCommonbackflowResponse;
 use AntChain\RISKPLUS\Models\PushUmktBackflowEventRequest;
 use AntChain\RISKPLUS\Models\PushUmktBackflowEventResponse;
+use AntChain\RISKPLUS\Models\PushUmktBackflowJsondataRequest;
+use AntChain\RISKPLUS\Models\PushUmktBackflowJsondataResponse;
 use AntChain\RISKPLUS\Models\PushUmktCommonDataRequest;
 use AntChain\RISKPLUS\Models\PushUmktCommonDataResponse;
 use AntChain\RISKPLUS\Models\PushUmktCustomerGroupRequest;
 use AntChain\RISKPLUS\Models\PushUmktCustomerGroupResponse;
+use AntChain\RISKPLUS\Models\QueryBatchSecurityPolicyRequest;
+use AntChain\RISKPLUS\Models\QueryBatchSecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusRequest;
@@ -251,6 +259,8 @@ use AntChain\RISKPLUS\Models\QuerySnapshotEventRequest;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventResponse;
 use AntChain\RISKPLUS\Models\QueryTdisaasSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QueryTdisaasSecurityPolicyResponse;
+use AntChain\RISKPLUS\Models\QueryUmktCardsmsAnalysisRequest;
+use AntChain\RISKPLUS\Models\QueryUmktCardsmsAnalysisResponse;
 use AntChain\RISKPLUS\Models\QueryUmktCardsmsSupportRequest;
 use AntChain\RISKPLUS\Models\QueryUmktCardsmsSupportResponse;
 use AntChain\RISKPLUS\Models\QueryUmktCpaassmsTemplateRequest;
@@ -285,6 +295,10 @@ use AntChain\RISKPLUS\Models\SendDubbridgeSmsBatchRequest;
 use AntChain\RISKPLUS\Models\SendDubbridgeSmsBatchResponse;
 use AntChain\RISKPLUS\Models\SendDubbridgeSmsRequest;
 use AntChain\RISKPLUS\Models\SendDubbridgeSmsResponse;
+use AntChain\RISKPLUS\Models\SendQmpCardsmsBatchRequest;
+use AntChain\RISKPLUS\Models\SendQmpCardsmsBatchResponse;
+use AntChain\RISKPLUS\Models\SendQmpTextsmsBatchRequest;
+use AntChain\RISKPLUS\Models\SendQmpTextsmsBatchResponse;
 use AntChain\RISKPLUS\Models\SendSecurityDataRequest;
 use AntChain\RISKPLUS\Models\SendSecurityDataResponse;
 use AntChain\RISKPLUS\Models\SendUmktCardsmsBatchRequest;
@@ -468,7 +482,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.17.1',
+                    'sdk_version'      => '1.17.6',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -778,6 +792,39 @@ class Client
         Utils::validateModel($request);
 
         return QuerySaasSecurityPolicyResponse::fromMap($this->doRequest('1.0', 'riskplus.saas.security.policy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量决策
+     * Summary: 批量决策查询.
+     *
+     * @param QueryBatchSecurityPolicyRequest $request
+     *
+     * @return QueryBatchSecurityPolicyResponse
+     */
+    public function queryBatchSecurityPolicy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBatchSecurityPolicyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量决策
+     * Summary: 批量决策查询.
+     *
+     * @param QueryBatchSecurityPolicyRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryBatchSecurityPolicyResponse
+     */
+    public function queryBatchSecurityPolicyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBatchSecurityPolicyResponse::fromMap($this->doRequest('1.0', 'riskplus.batch.security.policy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2812,6 +2859,138 @@ class Client
         Utils::validateModel($request);
 
         return ReceiveMdipParamsRbbfileResponse::fromMap($this->doRequest('1.0', 'riskplus.mdip.params.rbbfile.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量实时触达接口
+     * Summary: 发起触达任务
+     *
+     * @param ApplyQmpRtBatchmarketingRequest $request
+     *
+     * @return ApplyQmpRtBatchmarketingResponse
+     */
+    public function applyQmpRtBatchmarketing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyQmpRtBatchmarketingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量实时触达接口
+     * Summary: 发起触达任务
+     *
+     * @param ApplyQmpRtBatchmarketingRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ApplyQmpRtBatchmarketingResponse
+     */
+    public function applyQmpRtBatchmarketingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyQmpRtBatchmarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.rt.batchmarketing.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文本短信批量发送接口
+     * Summary: 文本短信批量发送接口.
+     *
+     * @param SendQmpTextsmsBatchRequest $request
+     *
+     * @return SendQmpTextsmsBatchResponse
+     */
+    public function sendQmpTextsmsBatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendQmpTextsmsBatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文本短信批量发送接口
+     * Summary: 文本短信批量发送接口.
+     *
+     * @param SendQmpTextsmsBatchRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return SendQmpTextsmsBatchResponse
+     */
+    public function sendQmpTextsmsBatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendQmpTextsmsBatchResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.textsms.batch.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发起AI外呼
+     * Summary: 发起AI外呼
+     *
+     * @param ApplyQmpRobotcallRequest $request
+     *
+     * @return ApplyQmpRobotcallResponse
+     */
+    public function applyQmpRobotcall($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyQmpRobotcallEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发起AI外呼
+     * Summary: 发起AI外呼
+     *
+     * @param ApplyQmpRobotcallRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ApplyQmpRobotcallResponse
+     */
+    public function applyQmpRobotcallEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyQmpRobotcallResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.robotcall.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 卡片短信批量发送接口
+     * Summary: 卡片短信批量发送接口.
+     *
+     * @param SendQmpCardsmsBatchRequest $request
+     *
+     * @return SendQmpCardsmsBatchResponse
+     */
+    public function sendQmpCardsmsBatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendQmpCardsmsBatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 卡片短信批量发送接口
+     * Summary: 卡片短信批量发送接口.
+     *
+     * @param SendQmpCardsmsBatchRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return SendQmpCardsmsBatchResponse
+     */
+    public function sendQmpCardsmsBatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendQmpCardsmsBatchResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.cardsms.batch.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -5690,6 +5869,72 @@ class Client
         Utils::validateModel($request);
 
         return BatchqueryUmktTaskDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.task.detail.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾数据回流推送，用于客户定制json数据
+     * Summary: 营销盾数据回流json格式推送
+     *
+     * @param PushUmktBackflowJsondataRequest $request
+     *
+     * @return PushUmktBackflowJsondataResponse
+     */
+    public function pushUmktBackflowJsondata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushUmktBackflowJsondataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾数据回流推送，用于客户定制json数据
+     * Summary: 营销盾数据回流json格式推送
+     *
+     * @param PushUmktBackflowJsondataRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return PushUmktBackflowJsondataResponse
+     */
+    public function pushUmktBackflowJsondataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushUmktBackflowJsondataResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.backflow.jsondata.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾卡短解析服务能力提供接口
+     * Summary: 营销盾卡短解析服务接口.
+     *
+     * @param QueryUmktCardsmsAnalysisRequest $request
+     *
+     * @return QueryUmktCardsmsAnalysisResponse
+     */
+    public function queryUmktCardsmsAnalysis($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUmktCardsmsAnalysisEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾卡短解析服务能力提供接口
+     * Summary: 营销盾卡短解析服务接口.
+     *
+     * @param QueryUmktCardsmsAnalysisRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryUmktCardsmsAnalysisResponse
+     */
+    public function queryUmktCardsmsAnalysisEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUmktCardsmsAnalysisResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.cardsms.analysis.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

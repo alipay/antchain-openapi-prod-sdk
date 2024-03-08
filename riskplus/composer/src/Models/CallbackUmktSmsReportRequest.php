@@ -96,6 +96,12 @@ class CallbackUmktSmsReportRequest extends Model
      * @var string
      */
     public $city;
+
+    // 手机号模版类型
+    /**
+     * @var string
+     */
+    public $keyTemplate;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -112,6 +118,7 @@ class CallbackUmktSmsReportRequest extends Model
         'smsType'           => 'sms_type',
         'serviceProvider'   => 'service_provider',
         'city'              => 'city',
+        'keyTemplate'       => 'key_template',
     ];
 
     public function validate()
@@ -177,6 +184,9 @@ class CallbackUmktSmsReportRequest extends Model
         if (null !== $this->city) {
             $res['city'] = $this->city;
         }
+        if (null !== $this->keyTemplate) {
+            $res['key_template'] = $this->keyTemplate;
+        }
 
         return $res;
     }
@@ -233,6 +243,9 @@ class CallbackUmktSmsReportRequest extends Model
         }
         if (isset($map['city'])) {
             $model->city = $map['city'];
+        }
+        if (isset($map['key_template'])) {
+            $model->keyTemplate = $map['key_template'];
         }
 
         return $model;
