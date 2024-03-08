@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.263"},
+                        {"sdk_version", "1.0.266"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.263"},
+                        {"sdk_version", "1.0.266"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2519,6 +2519,48 @@ namespace AntChain.SDK.DEMO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAcopmTestobTestsubResponse>(await DoRequestAsync("1.0", "demo.acopm.testob.testsub.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试
+         * Summary: 测试ato异常
+         */
+        public QueryAcopmAtoWithholdResponse QueryAcopmAtoWithhold(QueryAcopmAtoWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAcopmAtoWithholdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试
+         * Summary: 测试ato异常
+         */
+        public async Task<QueryAcopmAtoWithholdResponse> QueryAcopmAtoWithholdAsync(QueryAcopmAtoWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAcopmAtoWithholdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试
+         * Summary: 测试ato异常
+         */
+        public QueryAcopmAtoWithholdResponse QueryAcopmAtoWithholdEx(QueryAcopmAtoWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAcopmAtoWithholdResponse>(DoRequest("1.0", "demo.acopm.ato.withhold.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试
+         * Summary: 测试ato异常
+         */
+        public async Task<QueryAcopmAtoWithholdResponse> QueryAcopmAtoWithholdExAsync(QueryAcopmAtoWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAcopmAtoWithholdResponse>(await DoRequestAsync("1.0", "demo.acopm.ato.withhold.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

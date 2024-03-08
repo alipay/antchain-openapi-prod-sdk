@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    public class QueryAcopmTestobTestsubResponse : TeaModel {
+    public class QueryAcopmAtoWithholdResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,26 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 主键
-        [NameInMap("id")]
-        [Validation(Required=false)]
-        public long? Id { get; set; }
-
-        // 名称
-        [NameInMap("name")]
-        [Validation(Required=false)]
-        public string Name { get; set; }
-
-        // 测试
-        [NameInMap("start_time")]
+        // 协议生效时间
+        [NameInMap("valid_time")]
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
-        public string StartTime { get; set; }
+        public string ValidTime { get; set; }
+
+        // 协议当前状态 1. UNSIGNED：未签约 2. SIG...
+        // 
+        [NameInMap("status")]
+        [Validation(Required=false)]
+        public string Status { get; set; }
+
+        // 协议失效时间
+        [NameInMap("invalid_time")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string InvalidTime { get; set; }
+
+        // 协议签署时间
+        [NameInMap("sign_time")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string SignTime { get; set; }
 
     }
 
