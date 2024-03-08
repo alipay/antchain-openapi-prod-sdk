@@ -4579,6 +4579,8 @@ type QueryAcopmTestobTestsubRequest struct {
 	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true" minimum:"1"`
 	// 名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 测试
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s QueryAcopmTestobTestsubRequest) String() string {
@@ -4609,6 +4611,11 @@ func (s *QueryAcopmTestobTestsubRequest) SetName(v string) *QueryAcopmTestobTest
 	return s
 }
 
+func (s *QueryAcopmTestobTestsubRequest) SetStartTime(v string) *QueryAcopmTestobTestsubRequest {
+	s.StartTime = &v
+	return s
+}
+
 type QueryAcopmTestobTestsubResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -4620,6 +4627,8 @@ type QueryAcopmTestobTestsubResponse struct {
 	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
 	// 名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 测试
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s QueryAcopmTestobTestsubResponse) String() string {
@@ -4652,6 +4661,103 @@ func (s *QueryAcopmTestobTestsubResponse) SetId(v int64) *QueryAcopmTestobTestsu
 
 func (s *QueryAcopmTestobTestsubResponse) SetName(v string) *QueryAcopmTestobTestsubResponse {
 	s.Name = &v
+	return s
+}
+
+func (s *QueryAcopmTestobTestsubResponse) SetStartTime(v string) *QueryAcopmTestobTestsubResponse {
+	s.StartTime = &v
+	return s
+}
+
+type QueryAcopmAtoWithholdRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id 长度不可超过50
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+}
+
+func (s QueryAcopmAtoWithholdRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAcopmAtoWithholdRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAcopmAtoWithholdRequest) SetAuthToken(v string) *QueryAcopmAtoWithholdRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAcopmAtoWithholdRequest) SetProductInstanceId(v string) *QueryAcopmAtoWithholdRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAcopmAtoWithholdRequest) SetOrderId(v string) *QueryAcopmAtoWithholdRequest {
+	s.OrderId = &v
+	return s
+}
+
+type QueryAcopmAtoWithholdResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 协议生效时间
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 协议当前状态 1. UNSIGNED：未签约 2. SIG...
+	//
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 协议失效时间
+	InvalidTime *string `json:"invalid_time,omitempty" xml:"invalid_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 协议签署时间
+	SignTime *string `json:"sign_time,omitempty" xml:"sign_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s QueryAcopmAtoWithholdResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAcopmAtoWithholdResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAcopmAtoWithholdResponse) SetReqMsgId(v string) *QueryAcopmAtoWithholdResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAcopmAtoWithholdResponse) SetResultCode(v string) *QueryAcopmAtoWithholdResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAcopmAtoWithholdResponse) SetResultMsg(v string) *QueryAcopmAtoWithholdResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAcopmAtoWithholdResponse) SetValidTime(v string) *QueryAcopmAtoWithholdResponse {
+	s.ValidTime = &v
+	return s
+}
+
+func (s *QueryAcopmAtoWithholdResponse) SetStatus(v string) *QueryAcopmAtoWithholdResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryAcopmAtoWithholdResponse) SetInvalidTime(v string) *QueryAcopmAtoWithholdResponse {
+	s.InvalidTime = &v
+	return s
+}
+
+func (s *QueryAcopmAtoWithholdResponse) SetSignTime(v string) *QueryAcopmAtoWithholdResponse {
+	s.SignTime = &v
 	return s
 }
 
@@ -6059,7 +6165,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.263"),
+				"sdk_version":      tea.String("1.0.266"),
 				"_prod_code":       tea.String("DEMO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -7865,6 +7971,40 @@ func (client *Client) QueryAcopmTestobTestsubEx(request *QueryAcopmTestobTestsub
 	}
 	_result = &QueryAcopmTestobTestsubResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.acopm.testob.testsub.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 测试
+ * Summary: 测试ato异常
+ */
+func (client *Client) QueryAcopmAtoWithhold(request *QueryAcopmAtoWithholdRequest) (_result *QueryAcopmAtoWithholdResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAcopmAtoWithholdResponse{}
+	_body, _err := client.QueryAcopmAtoWithholdEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试
+ * Summary: 测试ato异常
+ */
+func (client *Client) QueryAcopmAtoWithholdEx(request *QueryAcopmAtoWithholdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAcopmAtoWithholdResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAcopmAtoWithholdResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.acopm.ato.withhold.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
