@@ -74,6 +74,10 @@ public class CallbackUmktSmsReportRequest extends TeaModel {
     @NameInMap("city")
     public String city;
 
+    // 手机号模版类型
+    @NameInMap("key_template")
+    public String keyTemplate;
+
     public static CallbackUmktSmsReportRequest build(java.util.Map<String, ?> map) throws Exception {
         CallbackUmktSmsReportRequest self = new CallbackUmktSmsReportRequest();
         return TeaModel.build(map, self);
@@ -197,6 +201,14 @@ public class CallbackUmktSmsReportRequest extends TeaModel {
     }
     public String getCity() {
         return this.city;
+    }
+
+    public CallbackUmktSmsReportRequest setKeyTemplate(String keyTemplate) {
+        this.keyTemplate = keyTemplate;
+        return this;
+    }
+    public String getKeyTemplate() {
+        return this.keyTemplate;
     }
 
 }

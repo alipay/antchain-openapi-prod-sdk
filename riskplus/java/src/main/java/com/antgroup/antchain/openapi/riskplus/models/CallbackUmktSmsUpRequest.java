@@ -51,6 +51,14 @@ public class CallbackUmktSmsUpRequest extends TeaModel {
     @Validation(required = true)
     public Long sequenceId;
 
+    // 手机号模版类型
+    @NameInMap("key_template")
+    public String keyTemplate;
+
+    // 原始手机号模版类型
+    @NameInMap("origin_key_template")
+    public String originKeyTemplate;
+
     public static CallbackUmktSmsUpRequest build(java.util.Map<String, ?> map) throws Exception {
         CallbackUmktSmsUpRequest self = new CallbackUmktSmsUpRequest();
         return TeaModel.build(map, self);
@@ -134,6 +142,22 @@ public class CallbackUmktSmsUpRequest extends TeaModel {
     }
     public Long getSequenceId() {
         return this.sequenceId;
+    }
+
+    public CallbackUmktSmsUpRequest setKeyTemplate(String keyTemplate) {
+        this.keyTemplate = keyTemplate;
+        return this;
+    }
+    public String getKeyTemplate() {
+        return this.keyTemplate;
+    }
+
+    public CallbackUmktSmsUpRequest setOriginKeyTemplate(String originKeyTemplate) {
+        this.originKeyTemplate = originKeyTemplate;
+        return this;
+    }
+    public String getOriginKeyTemplate() {
+        return this.originKeyTemplate;
     }
 
 }
