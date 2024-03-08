@@ -37,16 +37,24 @@ class QueryAcopmTestobTestsubResponse extends Model
      * @var string
      */
     public $name;
+
+    // 测试
+    /**
+     * @var string
+     */
+    public $startTime;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'id'         => 'id',
         'name'       => 'name',
+        'startTime'  => 'start_time',
     ];
 
     public function validate()
     {
+        Model::validatePattern('startTime', $this->startTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -66,6 +74,9 @@ class QueryAcopmTestobTestsubResponse extends Model
         }
         if (null !== $this->name) {
             $res['name'] = $this->name;
+        }
+        if (null !== $this->startTime) {
+            $res['start_time'] = $this->startTime;
         }
 
         return $res;
@@ -93,6 +104,9 @@ class QueryAcopmTestobTestsubResponse extends Model
         }
         if (isset($map['name'])) {
             $model->name = $map['name'];
+        }
+        if (isset($map['start_time'])) {
+            $model->startTime = $map['start_time'];
         }
 
         return $model;

@@ -61,6 +61,8 @@ use AntChain\DEMO\Models\QueryAaaBbbCccRequest;
 use AntChain\DEMO\Models\QueryAaaBbbCccResponse;
 use AntChain\DEMO\Models\QueryAbcAbcAbcRequest;
 use AntChain\DEMO\Models\QueryAbcAbcAbcResponse;
+use AntChain\DEMO\Models\QueryAcopmAtoWithholdRequest;
+use AntChain\DEMO\Models\QueryAcopmAtoWithholdResponse;
 use AntChain\DEMO\Models\QueryAcopmTestobjectTestsubRequest;
 use AntChain\DEMO\Models\QueryAcopmTestobjectTestsubResponse;
 use AntChain\DEMO\Models\QueryAcopmTestobTestsubRequest;
@@ -290,7 +292,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.263',
+                    'sdk_version'      => '1.0.266',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2009,6 +2011,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryAcopmTestobTestsubResponse::fromMap($this->doRequest('1.0', 'demo.acopm.testob.testsub.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试
+     * Summary: 测试ato异常.
+     *
+     * @param QueryAcopmAtoWithholdRequest $request
+     *
+     * @return QueryAcopmAtoWithholdResponse
+     */
+    public function queryAcopmAtoWithhold($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAcopmAtoWithholdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试
+     * Summary: 测试ato异常.
+     *
+     * @param QueryAcopmAtoWithholdRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryAcopmAtoWithholdResponse
+     */
+    public function queryAcopmAtoWithholdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAcopmAtoWithholdResponse::fromMap($this->doRequest('1.0', 'demo.acopm.ato.withhold.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
