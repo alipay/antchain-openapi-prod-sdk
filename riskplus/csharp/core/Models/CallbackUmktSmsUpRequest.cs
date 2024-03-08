@@ -58,6 +58,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public long? SequenceId { get; set; }
 
+        // 手机号模版类型
+        [NameInMap("key_template")]
+        [Validation(Required=false)]
+        public string KeyTemplate { get; set; }
+
+        // 原始手机号模版类型
+        [NameInMap("origin_key_template")]
+        [Validation(Required=false)]
+        public string OriginKeyTemplate { get; set; }
+
     }
 
 }
