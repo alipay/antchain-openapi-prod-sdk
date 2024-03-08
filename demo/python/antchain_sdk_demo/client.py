@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.263',
+                    'sdk_version': '1.0.266',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.263',
+                    'sdk_version': '1.0.266',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -3123,6 +3123,62 @@ class Client:
         return TeaCore.from_map(
             demo_models.QueryAcopmTestobTestsubResponse(),
             await self.do_request_async('1.0', 'demo.acopm.testob.testsub.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_acopm_ato_withhold(
+        self,
+        request: demo_models.QueryAcopmAtoWithholdRequest,
+    ) -> demo_models.QueryAcopmAtoWithholdResponse:
+        """
+        Description: 测试
+        Summary: 测试ato异常
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_acopm_ato_withhold_ex(request, headers, runtime)
+
+    async def query_acopm_ato_withhold_async(
+        self,
+        request: demo_models.QueryAcopmAtoWithholdRequest,
+    ) -> demo_models.QueryAcopmAtoWithholdResponse:
+        """
+        Description: 测试
+        Summary: 测试ato异常
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_acopm_ato_withhold_ex_async(request, headers, runtime)
+
+    def query_acopm_ato_withhold_ex(
+        self,
+        request: demo_models.QueryAcopmAtoWithholdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryAcopmAtoWithholdResponse:
+        """
+        Description: 测试
+        Summary: 测试ato异常
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryAcopmAtoWithholdResponse(),
+            self.do_request('1.0', 'demo.acopm.ato.withhold.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_acopm_ato_withhold_ex_async(
+        self,
+        request: demo_models.QueryAcopmAtoWithholdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryAcopmAtoWithholdResponse:
+        """
+        Description: 测试
+        Summary: 测试ato异常
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryAcopmAtoWithholdResponse(),
+            await self.do_request_async('1.0', 'demo.acopm.ato.withhold.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_gongxiang_test_demo(

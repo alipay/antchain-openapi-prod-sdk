@@ -6055,6 +6055,7 @@ class QueryAcopmTestobTestsubRequest(TeaModel):
         product_instance_id: str = None,
         id: int = None,
         name: str = None,
+        start_time: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6063,12 +6064,16 @@ class QueryAcopmTestobTestsubRequest(TeaModel):
         self.id = id
         # 名称
         self.name = name
+        # 测试
+        self.start_time = start_time
 
     def validate(self):
         self.validate_required(self.id, 'id')
         if self.id is not None:
             self.validate_minimum(self.id, 'id', 1)
         self.validate_required(self.name, 'name')
+        if self.start_time is not None:
+            self.validate_pattern(self.start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         _map = super().to_map()
@@ -6084,6 +6089,8 @@ class QueryAcopmTestobTestsubRequest(TeaModel):
             result['id'] = self.id
         if self.name is not None:
             result['name'] = self.name
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
         return result
 
     def from_map(self, m: dict = None):
@@ -6096,6 +6103,8 @@ class QueryAcopmTestobTestsubRequest(TeaModel):
             self.id = m.get('id')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
         return self
 
 
@@ -6107,6 +6116,7 @@ class QueryAcopmTestobTestsubResponse(TeaModel):
         result_msg: str = None,
         id: int = None,
         name: str = None,
+        start_time: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -6118,9 +6128,12 @@ class QueryAcopmTestobTestsubResponse(TeaModel):
         self.id = id
         # 名称
         self.name = name
+        # 测试
+        self.start_time = start_time
 
     def validate(self):
-        pass
+        if self.start_time is not None:
+            self.validate_pattern(self.start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         _map = super().to_map()
@@ -6138,6 +6151,8 @@ class QueryAcopmTestobTestsubResponse(TeaModel):
             result['id'] = self.id
         if self.name is not None:
             result['name'] = self.name
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
         return result
 
     def from_map(self, m: dict = None):
@@ -6152,6 +6167,125 @@ class QueryAcopmTestobTestsubResponse(TeaModel):
             self.id = m.get('id')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        return self
+
+
+class QueryAcopmAtoWithholdRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单id 长度不可超过50
+        self.order_id = order_id
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class QueryAcopmAtoWithholdResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        valid_time: str = None,
+        status: str = None,
+        invalid_time: str = None,
+        sign_time: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 协议生效时间
+        self.valid_time = valid_time
+        # 协议当前状态 1. UNSIGNED：未签约 2. SIG...
+        # 
+        self.status = status
+        # 协议失效时间
+        self.invalid_time = invalid_time
+        # 协议签署时间
+        self.sign_time = sign_time
+
+    def validate(self):
+        if self.valid_time is not None:
+            self.validate_pattern(self.valid_time, 'valid_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.invalid_time is not None:
+            self.validate_pattern(self.invalid_time, 'invalid_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.sign_time is not None:
+            self.validate_pattern(self.sign_time, 'sign_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.valid_time is not None:
+            result['valid_time'] = self.valid_time
+        if self.status is not None:
+            result['status'] = self.status
+        if self.invalid_time is not None:
+            result['invalid_time'] = self.invalid_time
+        if self.sign_time is not None:
+            result['sign_time'] = self.sign_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('valid_time') is not None:
+            self.valid_time = m.get('valid_time')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('invalid_time') is not None:
+            self.invalid_time = m.get('invalid_time')
+        if m.get('sign_time') is not None:
+            self.sign_time = m.get('sign_time')
         return self
 
 
