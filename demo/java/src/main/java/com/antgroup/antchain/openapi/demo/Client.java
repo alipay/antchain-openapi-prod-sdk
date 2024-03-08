@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.263"),
+                    new TeaPair("sdk_version", "1.0.266"),
                     new TeaPair("_prod_code", "DEMO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1155,6 +1155,25 @@ public class Client {
     public QueryAcopmTestobTestsubResponse queryAcopmTestobTestsubEx(QueryAcopmTestobTestsubRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.acopm.testob.testsub.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAcopmTestobTestsubResponse());
+    }
+
+    /**
+     * Description: 测试
+     * Summary: 测试ato异常
+     */
+    public QueryAcopmAtoWithholdResponse queryAcopmAtoWithhold(QueryAcopmAtoWithholdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAcopmAtoWithholdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 测试
+     * Summary: 测试ato异常
+     */
+    public QueryAcopmAtoWithholdResponse queryAcopmAtoWithholdEx(QueryAcopmAtoWithholdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.acopm.ato.withhold.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAcopmAtoWithholdResponse());
     }
 
     /**

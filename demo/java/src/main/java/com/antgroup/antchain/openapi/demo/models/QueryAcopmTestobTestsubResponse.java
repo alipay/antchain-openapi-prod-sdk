@@ -24,6 +24,11 @@ public class QueryAcopmTestobTestsubResponse extends TeaModel {
     @NameInMap("name")
     public String name;
 
+    // 测试
+    @NameInMap("start_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String startTime;
+
     public static QueryAcopmTestobTestsubResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAcopmTestobTestsubResponse self = new QueryAcopmTestobTestsubResponse();
         return TeaModel.build(map, self);
@@ -67,6 +72,14 @@ public class QueryAcopmTestobTestsubResponse extends TeaModel {
     }
     public String getName() {
         return this.name;
+    }
+
+    public QueryAcopmTestobTestsubResponse setStartTime(String startTime) {
+        this.startTime = startTime;
+        return this;
+    }
+    public String getStartTime() {
+        return this.startTime;
     }
 
 }
