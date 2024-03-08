@@ -293,6 +293,39 @@ func (s *Contact) SetMobile(v string) *Contact {
 	return s
 }
 
+// 批量查询输出模型分
+type BatchQueryOutputModelInfo struct {
+	// 变量名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 变量值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 变量值类型
+	ValueType *string `json:"value_type,omitempty" xml:"value_type,omitempty" require:"true"`
+}
+
+func (s BatchQueryOutputModelInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchQueryOutputModelInfo) GoString() string {
+	return s.String()
+}
+
+func (s *BatchQueryOutputModelInfo) SetName(v string) *BatchQueryOutputModelInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *BatchQueryOutputModelInfo) SetValue(v string) *BatchQueryOutputModelInfo {
+	s.Value = &v
+	return s
+}
+
+func (s *BatchQueryOutputModelInfo) SetValueType(v string) *BatchQueryOutputModelInfo {
+	s.ValueType = &v
+	return s
+}
+
 // 涉众风险企业特征
 type RtopCrowdRiskFeatureTag struct {
 	// 标签描述
@@ -2959,6 +2992,39 @@ func (s *RtopCrowdRiskSummaryResp) SetRegisteredProvince(v string) *RtopCrowdRis
 	return s
 }
 
+// 批量决策单主体查询结果
+type BatchQueryResult struct {
+	// 查询主体
+	QueryKey *string `json:"query_key,omitempty" xml:"query_key,omitempty" require:"true"`
+	// 单用户决策结果
+	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
+	// 输出变量信息
+	OutputInfo *BatchQueryOutputModelInfo `json:"output_info,omitempty" xml:"output_info,omitempty" require:"true"`
+}
+
+func (s BatchQueryResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchQueryResult) GoString() string {
+	return s.String()
+}
+
+func (s *BatchQueryResult) SetQueryKey(v string) *BatchQueryResult {
+	s.QueryKey = &v
+	return s
+}
+
+func (s *BatchQueryResult) SetDecision(v string) *BatchQueryResult {
+	s.Decision = &v
+	return s
+}
+
+func (s *BatchQueryResult) SetOutputInfo(v *BatchQueryOutputModelInfo) *BatchQueryResult {
+	s.OutputInfo = v
+	return s
+}
+
 // 营销盾外呼记录
 type CommonRobotCallDetail struct {
 	// 客户请求时的透传字段
@@ -4475,6 +4541,32 @@ func (s *ApplyInfo) SetTotalAmount(v int64) *ApplyInfo {
 
 func (s *ApplyInfo) SetBalanceAmount(v int64) *ApplyInfo {
 	s.BalanceAmount = &v
+	return s
+}
+
+// 卡短解析服务返回参数
+type ShortUrlInfo struct {
+	// 支持卡片短信的手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 解析生成的短链
+	ShortUrl *string `json:"short_url,omitempty" xml:"short_url,omitempty" require:"true"`
+}
+
+func (s ShortUrlInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ShortUrlInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ShortUrlInfo) SetMobile(v string) *ShortUrlInfo {
+	s.Mobile = &v
+	return s
+}
+
+func (s *ShortUrlInfo) SetShortUrl(v string) *ShortUrlInfo {
+	s.ShortUrl = &v
 	return s
 }
 
@@ -6579,6 +6671,104 @@ func (s *QuerySaasSecurityPolicyResponse) SetStrategyDetails(v []*StrategyDetail
 
 func (s *QuerySaasSecurityPolicyResponse) SetDfSceneInfos(v []*DfSceneInfos) *QuerySaasSecurityPolicyResponse {
 	s.DfSceneInfos = v
+	return s
+}
+
+type QueryBatchSecurityPolicyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求事件编码
+	EventCode *string `json:"event_code,omitempty" xml:"event_code,omitempty" require:"true"`
+	// 查询客户主体
+	QueryKeys []*string `json:"query_keys,omitempty" xml:"query_keys,omitempty" require:"true" type:"Repeated"`
+	// 用户凭证类型, 手机号/身份证号/加密类型等
+	QueryKeyType *string `json:"query_key_type,omitempty" xml:"query_key_type,omitempty" require:"true"`
+	// 额外的事件属性
+	EventInfo []*EventInfo `json:"event_info,omitempty" xml:"event_info,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryBatchSecurityPolicyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBatchSecurityPolicyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBatchSecurityPolicyRequest) SetAuthToken(v string) *QueryBatchSecurityPolicyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBatchSecurityPolicyRequest) SetProductInstanceId(v string) *QueryBatchSecurityPolicyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBatchSecurityPolicyRequest) SetEventCode(v string) *QueryBatchSecurityPolicyRequest {
+	s.EventCode = &v
+	return s
+}
+
+func (s *QueryBatchSecurityPolicyRequest) SetQueryKeys(v []*string) *QueryBatchSecurityPolicyRequest {
+	s.QueryKeys = v
+	return s
+}
+
+func (s *QueryBatchSecurityPolicyRequest) SetQueryKeyType(v string) *QueryBatchSecurityPolicyRequest {
+	s.QueryKeyType = &v
+	return s
+}
+
+func (s *QueryBatchSecurityPolicyRequest) SetEventInfo(v []*EventInfo) *QueryBatchSecurityPolicyRequest {
+	s.EventInfo = v
+	return s
+}
+
+type QueryBatchSecurityPolicyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询结果是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 批量查询结果
+	QueryResults []*BatchQueryResult `json:"query_results,omitempty" xml:"query_results,omitempty" type:"Repeated"`
+}
+
+func (s QueryBatchSecurityPolicyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBatchSecurityPolicyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBatchSecurityPolicyResponse) SetReqMsgId(v string) *QueryBatchSecurityPolicyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBatchSecurityPolicyResponse) SetResultCode(v string) *QueryBatchSecurityPolicyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBatchSecurityPolicyResponse) SetResultMsg(v string) *QueryBatchSecurityPolicyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBatchSecurityPolicyResponse) SetSuccess(v bool) *QueryBatchSecurityPolicyResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryBatchSecurityPolicyResponse) SetQueryResults(v []*BatchQueryResult) *QueryBatchSecurityPolicyResponse {
+	s.QueryResults = v
 	return s
 }
 
@@ -13229,6 +13419,496 @@ func (s *ReceiveMdipParamsRbbfileResponse) SetResultCode(v string) *ReceiveMdipP
 
 func (s *ReceiveMdipParamsRbbfileResponse) SetResultMsg(v string) *ReceiveMdipParamsRbbfileResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type ApplyQmpRtBatchmarketingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 外部流水号
+	OutSerialNo *string `json:"out_serial_no,omitempty" xml:"out_serial_no,omitempty" require:"true"`
+	// 用户标识类型
+	ParamType *string `json:"param_type,omitempty" xml:"param_type,omitempty" require:"true"`
+	// 批量透传字段
+	OutInfo *string `json:"out_info,omitempty" xml:"out_info,omitempty"`
+	// 用户凭证列表
+	CustomerDetails []*CustomerDetail `json:"customer_details,omitempty" xml:"customer_details,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ApplyQmpRtBatchmarketingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyQmpRtBatchmarketingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyQmpRtBatchmarketingRequest) SetAuthToken(v string) *ApplyQmpRtBatchmarketingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyQmpRtBatchmarketingRequest) SetProductInstanceId(v string) *ApplyQmpRtBatchmarketingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyQmpRtBatchmarketingRequest) SetSceneStrategyId(v int64) *ApplyQmpRtBatchmarketingRequest {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *ApplyQmpRtBatchmarketingRequest) SetOutSerialNo(v string) *ApplyQmpRtBatchmarketingRequest {
+	s.OutSerialNo = &v
+	return s
+}
+
+func (s *ApplyQmpRtBatchmarketingRequest) SetParamType(v string) *ApplyQmpRtBatchmarketingRequest {
+	s.ParamType = &v
+	return s
+}
+
+func (s *ApplyQmpRtBatchmarketingRequest) SetOutInfo(v string) *ApplyQmpRtBatchmarketingRequest {
+	s.OutInfo = &v
+	return s
+}
+
+func (s *ApplyQmpRtBatchmarketingRequest) SetCustomerDetails(v []*CustomerDetail) *ApplyQmpRtBatchmarketingRequest {
+	s.CustomerDetails = v
+	return s
+}
+
+type ApplyQmpRtBatchmarketingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 批次流水号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+}
+
+func (s ApplyQmpRtBatchmarketingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyQmpRtBatchmarketingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyQmpRtBatchmarketingResponse) SetReqMsgId(v string) *ApplyQmpRtBatchmarketingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyQmpRtBatchmarketingResponse) SetResultCode(v string) *ApplyQmpRtBatchmarketingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyQmpRtBatchmarketingResponse) SetResultMsg(v string) *ApplyQmpRtBatchmarketingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyQmpRtBatchmarketingResponse) SetBizId(v string) *ApplyQmpRtBatchmarketingResponse {
+	s.BizId = &v
+	return s
+}
+
+type SendQmpTextsmsBatchRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// cpassAccessKey
+	CpassAk *string `json:"cpass_ak,omitempty" xml:"cpass_ak,omitempty"`
+	// 行业标签
+	IndustryTag *string `json:"industry_tag,omitempty" xml:"industry_tag,omitempty" require:"true"`
+	// 手机号json
+	PhoneNumberJson *string `json:"phone_number_json,omitempty" xml:"phone_number_json,omitempty" require:"true"`
+	// 签名信息
+	SignNameJson *string `json:"sign_name_json,omitempty" xml:"sign_name_json,omitempty" require:"true"`
+	// 文本短信模板code
+	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty" require:"true"`
+	// 文本短信模板参数
+	TemplateParamJson *string `json:"template_param_json,omitempty" xml:"template_param_json,omitempty" require:"true"`
+	// 上行短信扩展码
+	SmsUpExtendCodeJson *string `json:"sms_up_extend_code_json,omitempty" xml:"sms_up_extend_code_json,omitempty"`
+	// 透传字段
+	OutId *string `json:"out_id,omitempty" xml:"out_id,omitempty"`
+}
+
+func (s SendQmpTextsmsBatchRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendQmpTextsmsBatchRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendQmpTextsmsBatchRequest) SetAuthToken(v string) *SendQmpTextsmsBatchRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendQmpTextsmsBatchRequest) SetProductInstanceId(v string) *SendQmpTextsmsBatchRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendQmpTextsmsBatchRequest) SetCpassAk(v string) *SendQmpTextsmsBatchRequest {
+	s.CpassAk = &v
+	return s
+}
+
+func (s *SendQmpTextsmsBatchRequest) SetIndustryTag(v string) *SendQmpTextsmsBatchRequest {
+	s.IndustryTag = &v
+	return s
+}
+
+func (s *SendQmpTextsmsBatchRequest) SetPhoneNumberJson(v string) *SendQmpTextsmsBatchRequest {
+	s.PhoneNumberJson = &v
+	return s
+}
+
+func (s *SendQmpTextsmsBatchRequest) SetSignNameJson(v string) *SendQmpTextsmsBatchRequest {
+	s.SignNameJson = &v
+	return s
+}
+
+func (s *SendQmpTextsmsBatchRequest) SetTemplateCode(v string) *SendQmpTextsmsBatchRequest {
+	s.TemplateCode = &v
+	return s
+}
+
+func (s *SendQmpTextsmsBatchRequest) SetTemplateParamJson(v string) *SendQmpTextsmsBatchRequest {
+	s.TemplateParamJson = &v
+	return s
+}
+
+func (s *SendQmpTextsmsBatchRequest) SetSmsUpExtendCodeJson(v string) *SendQmpTextsmsBatchRequest {
+	s.SmsUpExtendCodeJson = &v
+	return s
+}
+
+func (s *SendQmpTextsmsBatchRequest) SetOutId(v string) *SendQmpTextsmsBatchRequest {
+	s.OutId = &v
+	return s
+}
+
+type SendQmpTextsmsBatchResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 回执id
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+}
+
+func (s SendQmpTextsmsBatchResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendQmpTextsmsBatchResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendQmpTextsmsBatchResponse) SetReqMsgId(v string) *SendQmpTextsmsBatchResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendQmpTextsmsBatchResponse) SetResultCode(v string) *SendQmpTextsmsBatchResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendQmpTextsmsBatchResponse) SetResultMsg(v string) *SendQmpTextsmsBatchResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendQmpTextsmsBatchResponse) SetBizId(v string) *SendQmpTextsmsBatchResponse {
+	s.BizId = &v
+	return s
+}
+
+type ApplyQmpRobotcallRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部流水号
+	OutSerialNo *string `json:"out_serial_no,omitempty" xml:"out_serial_no,omitempty" require:"true"`
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 客户透传字段
+	OutInfo *string `json:"out_info,omitempty" xml:"out_info,omitempty"`
+	// 用户参数类型
+	ParamTemplate *string `json:"param_template,omitempty" xml:"param_template,omitempty" require:"true"`
+	// 每个手机号的详细参数
+	CustomerDetails []*RobotCallCustomerParam `json:"customer_details,omitempty" xml:"customer_details,omitempty" type:"Repeated"`
+}
+
+func (s ApplyQmpRobotcallRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyQmpRobotcallRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyQmpRobotcallRequest) SetAuthToken(v string) *ApplyQmpRobotcallRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyQmpRobotcallRequest) SetProductInstanceId(v string) *ApplyQmpRobotcallRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyQmpRobotcallRequest) SetOutSerialNo(v string) *ApplyQmpRobotcallRequest {
+	s.OutSerialNo = &v
+	return s
+}
+
+func (s *ApplyQmpRobotcallRequest) SetSceneStrategyId(v int64) *ApplyQmpRobotcallRequest {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *ApplyQmpRobotcallRequest) SetOutInfo(v string) *ApplyQmpRobotcallRequest {
+	s.OutInfo = &v
+	return s
+}
+
+func (s *ApplyQmpRobotcallRequest) SetParamTemplate(v string) *ApplyQmpRobotcallRequest {
+	s.ParamTemplate = &v
+	return s
+}
+
+func (s *ApplyQmpRobotcallRequest) SetCustomerDetails(v []*RobotCallCustomerParam) *ApplyQmpRobotcallRequest {
+	s.CustomerDetails = v
+	return s
+}
+
+type ApplyQmpRobotcallResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 呼叫记录id
+	CallId *string `json:"call_id,omitempty" xml:"call_id,omitempty"`
+}
+
+func (s ApplyQmpRobotcallResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyQmpRobotcallResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyQmpRobotcallResponse) SetReqMsgId(v string) *ApplyQmpRobotcallResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyQmpRobotcallResponse) SetResultCode(v string) *ApplyQmpRobotcallResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyQmpRobotcallResponse) SetResultMsg(v string) *ApplyQmpRobotcallResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyQmpRobotcallResponse) SetCallId(v string) *ApplyQmpRobotcallResponse {
+	s.CallId = &v
+	return s
+}
+
+type SendQmpCardsmsBatchRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// cpassAccessKey
+	CpassAk *string `json:"cpass_ak,omitempty" xml:"cpass_ak,omitempty"`
+	// 行业标签
+	IndustryTag *string `json:"industry_tag,omitempty" xml:"industry_tag,omitempty" require:"true"`
+	// 卡片短信模板
+	CardTemplateCode *string `json:"card_template_code,omitempty" xml:"card_template_code,omitempty" require:"true"`
+	// 卡片短信模板参数json
+	CardTemplateParamJson *string `json:"card_template_param_json,omitempty" xml:"card_template_param_json,omitempty" require:"true"`
+	// 手机号json
+	PhoneNumberJson *string `json:"phone_number_json,omitempty" xml:"phone_number_json,omitempty" require:"true"`
+	// ["蚂蚁营销"]
+	SignNameJson *string `json:"sign_name_json,omitempty" xml:"sign_name_json,omitempty" require:"true"`
+	// 上行短信扩展码
+	SmsUpExtendCodeJson *string `json:"sms_up_extend_code_json,omitempty" xml:"sms_up_extend_code_json,omitempty"`
+	// 回落类型
+	FallbackType *string `json:"fallback_type,omitempty" xml:"fallback_type,omitempty"`
+	// 回落短信模版
+	FallbackTemplateCode *string `json:"fallback_template_code,omitempty" xml:"fallback_template_code,omitempty"`
+	// 回落短信模版参数
+	FallbackTemplateParamJson *string `json:"fallback_template_param_json,omitempty" xml:"fallback_template_param_json,omitempty"`
+	// 卡片短信对应的原始文本短信模板，不传则用默认文本
+	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty" require:"true"`
+	// 默认文本对应参数
+	TemplateParamJson *string `json:"template_param_json,omitempty" xml:"template_param_json,omitempty" require:"true"`
+}
+
+func (s SendQmpCardsmsBatchRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendQmpCardsmsBatchRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendQmpCardsmsBatchRequest) SetAuthToken(v string) *SendQmpCardsmsBatchRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchRequest) SetProductInstanceId(v string) *SendQmpCardsmsBatchRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchRequest) SetCpassAk(v string) *SendQmpCardsmsBatchRequest {
+	s.CpassAk = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchRequest) SetIndustryTag(v string) *SendQmpCardsmsBatchRequest {
+	s.IndustryTag = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchRequest) SetCardTemplateCode(v string) *SendQmpCardsmsBatchRequest {
+	s.CardTemplateCode = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchRequest) SetCardTemplateParamJson(v string) *SendQmpCardsmsBatchRequest {
+	s.CardTemplateParamJson = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchRequest) SetPhoneNumberJson(v string) *SendQmpCardsmsBatchRequest {
+	s.PhoneNumberJson = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchRequest) SetSignNameJson(v string) *SendQmpCardsmsBatchRequest {
+	s.SignNameJson = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchRequest) SetSmsUpExtendCodeJson(v string) *SendQmpCardsmsBatchRequest {
+	s.SmsUpExtendCodeJson = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchRequest) SetFallbackType(v string) *SendQmpCardsmsBatchRequest {
+	s.FallbackType = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchRequest) SetFallbackTemplateCode(v string) *SendQmpCardsmsBatchRequest {
+	s.FallbackTemplateCode = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchRequest) SetFallbackTemplateParamJson(v string) *SendQmpCardsmsBatchRequest {
+	s.FallbackTemplateParamJson = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchRequest) SetTemplateCode(v string) *SendQmpCardsmsBatchRequest {
+	s.TemplateCode = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchRequest) SetTemplateParamJson(v string) *SendQmpCardsmsBatchRequest {
+	s.TemplateParamJson = &v
+	return s
+}
+
+type SendQmpCardsmsBatchResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 卡片短信回执id
+	BizCardId *string `json:"biz_card_id,omitempty" xml:"biz_card_id,omitempty"`
+	// 支持的手机号
+	MediaMobiles *string `json:"media_mobiles,omitempty" xml:"media_mobiles,omitempty"`
+	// 不支持的手机号
+	NotMediaMobiles *string `json:"not_media_mobiles,omitempty" xml:"not_media_mobiles,omitempty"`
+	// 回落文本短信回执id
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 回落数字短信回执id
+	BizDigitalId *string `json:"biz_digital_id,omitempty" xml:"biz_digital_id,omitempty"`
+}
+
+func (s SendQmpCardsmsBatchResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendQmpCardsmsBatchResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendQmpCardsmsBatchResponse) SetReqMsgId(v string) *SendQmpCardsmsBatchResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchResponse) SetResultCode(v string) *SendQmpCardsmsBatchResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchResponse) SetResultMsg(v string) *SendQmpCardsmsBatchResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchResponse) SetBizCardId(v string) *SendQmpCardsmsBatchResponse {
+	s.BizCardId = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchResponse) SetMediaMobiles(v string) *SendQmpCardsmsBatchResponse {
+	s.MediaMobiles = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchResponse) SetNotMediaMobiles(v string) *SendQmpCardsmsBatchResponse {
+	s.NotMediaMobiles = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchResponse) SetBizId(v string) *SendQmpCardsmsBatchResponse {
+	s.BizId = &v
+	return s
+}
+
+func (s *SendQmpCardsmsBatchResponse) SetBizDigitalId(v string) *SendQmpCardsmsBatchResponse {
+	s.BizDigitalId = &v
 	return s
 }
 
@@ -21389,6 +22069,10 @@ type CallbackUmktSmsUpRequest struct {
 	DestCode *string `json:"dest_code,omitempty" xml:"dest_code,omitempty" require:"true"`
 	// 学历噩耗
 	SequenceId *int64 `json:"sequence_id,omitempty" xml:"sequence_id,omitempty" require:"true"`
+	// 手机号模版类型
+	KeyTemplate *string `json:"key_template,omitempty" xml:"key_template,omitempty"`
+	// 原始手机号模版类型
+	OriginKeyTemplate *string `json:"origin_key_template,omitempty" xml:"origin_key_template,omitempty"`
 }
 
 func (s CallbackUmktSmsUpRequest) String() string {
@@ -21446,6 +22130,16 @@ func (s *CallbackUmktSmsUpRequest) SetDestCode(v string) *CallbackUmktSmsUpReque
 
 func (s *CallbackUmktSmsUpRequest) SetSequenceId(v int64) *CallbackUmktSmsUpRequest {
 	s.SequenceId = &v
+	return s
+}
+
+func (s *CallbackUmktSmsUpRequest) SetKeyTemplate(v string) *CallbackUmktSmsUpRequest {
+	s.KeyTemplate = &v
+	return s
+}
+
+func (s *CallbackUmktSmsUpRequest) SetOriginKeyTemplate(v string) *CallbackUmktSmsUpRequest {
+	s.OriginKeyTemplate = &v
 	return s
 }
 
@@ -21511,6 +22205,8 @@ type CallbackUmktSmsReportRequest struct {
 	ServiceProvider *string `json:"service_provider,omitempty" xml:"service_provider,omitempty" require:"true"`
 	// 手机号码所属城市
 	City *string `json:"city,omitempty" xml:"city,omitempty"`
+	// 手机号模版类型
+	KeyTemplate *string `json:"key_template,omitempty" xml:"key_template,omitempty"`
 }
 
 func (s CallbackUmktSmsReportRequest) String() string {
@@ -21593,6 +22289,11 @@ func (s *CallbackUmktSmsReportRequest) SetServiceProvider(v string) *CallbackUmk
 
 func (s *CallbackUmktSmsReportRequest) SetCity(v string) *CallbackUmktSmsReportRequest {
 	s.City = &v
+	return s
+}
+
+func (s *CallbackUmktSmsReportRequest) SetKeyTemplate(v string) *CallbackUmktSmsReportRequest {
+	s.KeyTemplate = &v
 	return s
 }
 
@@ -22258,6 +22959,190 @@ func (s *BatchqueryUmktTaskDetailResponse) SetCallInfo(v []*CommonRobotCallDetai
 	return s
 }
 
+type PushUmktBackflowJsondataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 回流事件id，对应租户回流事件id
+	//
+	EventId *int64 `json:"event_id,omitempty" xml:"event_id,omitempty" require:"true"`
+	// 回流事件记录列表
+	//
+	EventRecords *string `json:"event_records,omitempty" xml:"event_records,omitempty" require:"true"`
+}
+
+func (s PushUmktBackflowJsondataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushUmktBackflowJsondataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushUmktBackflowJsondataRequest) SetAuthToken(v string) *PushUmktBackflowJsondataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushUmktBackflowJsondataRequest) SetProductInstanceId(v string) *PushUmktBackflowJsondataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushUmktBackflowJsondataRequest) SetEventId(v int64) *PushUmktBackflowJsondataRequest {
+	s.EventId = &v
+	return s
+}
+
+func (s *PushUmktBackflowJsondataRequest) SetEventRecords(v string) *PushUmktBackflowJsondataRequest {
+	s.EventRecords = &v
+	return s
+}
+
+type PushUmktBackflowJsondataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushUmktBackflowJsondataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushUmktBackflowJsondataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushUmktBackflowJsondataResponse) SetReqMsgId(v string) *PushUmktBackflowJsondataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushUmktBackflowJsondataResponse) SetResultCode(v string) *PushUmktBackflowJsondataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushUmktBackflowJsondataResponse) SetResultMsg(v string) *PushUmktBackflowJsondataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryUmktCardsmsAnalysisRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户的卡片短信模板id
+	CardTemplateCode *string `json:"card_template_code,omitempty" xml:"card_template_code,omitempty" require:"true"`
+	// 手机号列表,最多10个手机号
+	PhoneNumberJson *string `json:"phone_number_json,omitempty" xml:"phone_number_json,omitempty" require:"true"`
+	// 卡片短信模板参数
+	CardTemplateParamJson *string `json:"card_template_param_json,omitempty" xml:"card_template_param_json,omitempty" require:"true"`
+	// 短信签名。当前只支持填入一个签名。
+	SignNameJson *string `json:"sign_name_json,omitempty" xml:"sign_name_json,omitempty" require:"true"`
+	// 外部流水扩展字段
+	OutId *string `json:"out_id,omitempty" xml:"out_id,omitempty"`
+}
+
+func (s QueryUmktCardsmsAnalysisRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktCardsmsAnalysisRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktCardsmsAnalysisRequest) SetAuthToken(v string) *QueryUmktCardsmsAnalysisRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsAnalysisRequest) SetProductInstanceId(v string) *QueryUmktCardsmsAnalysisRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsAnalysisRequest) SetCardTemplateCode(v string) *QueryUmktCardsmsAnalysisRequest {
+	s.CardTemplateCode = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsAnalysisRequest) SetPhoneNumberJson(v string) *QueryUmktCardsmsAnalysisRequest {
+	s.PhoneNumberJson = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsAnalysisRequest) SetCardTemplateParamJson(v string) *QueryUmktCardsmsAnalysisRequest {
+	s.CardTemplateParamJson = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsAnalysisRequest) SetSignNameJson(v string) *QueryUmktCardsmsAnalysisRequest {
+	s.SignNameJson = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsAnalysisRequest) SetOutId(v string) *QueryUmktCardsmsAnalysisRequest {
+	s.OutId = &v
+	return s
+}
+
+type QueryUmktCardsmsAnalysisResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 卡片短信解析服务业务流水id，与渲染回执中的bizId保持一致
+	BizCardId *string `json:"biz_card_id,omitempty" xml:"biz_card_id,omitempty"`
+	// 不支持卡片短信的手机号，以,分隔
+	NotMediaMobiles *string `json:"not_media_mobiles,omitempty" xml:"not_media_mobiles,omitempty"`
+	// 卡短解析短链返回参数
+	ShortUrlInfos []*ShortUrlInfo `json:"short_url_infos,omitempty" xml:"short_url_infos,omitempty" type:"Repeated"`
+}
+
+func (s QueryUmktCardsmsAnalysisResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktCardsmsAnalysisResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktCardsmsAnalysisResponse) SetReqMsgId(v string) *QueryUmktCardsmsAnalysisResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsAnalysisResponse) SetResultCode(v string) *QueryUmktCardsmsAnalysisResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsAnalysisResponse) SetResultMsg(v string) *QueryUmktCardsmsAnalysisResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsAnalysisResponse) SetBizCardId(v string) *QueryUmktCardsmsAnalysisResponse {
+	s.BizCardId = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsAnalysisResponse) SetNotMediaMobiles(v string) *QueryUmktCardsmsAnalysisResponse {
+	s.NotMediaMobiles = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsAnalysisResponse) SetShortUrlInfos(v []*ShortUrlInfo) *QueryUmktCardsmsAnalysisResponse {
+	s.ShortUrlInfos = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -22500,7 +23385,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.1"),
+				"sdk_version":      tea.String("1.17.6"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -22823,6 +23708,40 @@ func (client *Client) QuerySaasSecurityPolicyEx(request *QuerySaasSecurityPolicy
 	}
 	_result = &QuerySaasSecurityPolicyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.saas.security.policy.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 批量决策
+ * Summary: 批量决策查询
+ */
+func (client *Client) QueryBatchSecurityPolicy(request *QueryBatchSecurityPolicyRequest) (_result *QueryBatchSecurityPolicyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBatchSecurityPolicyResponse{}
+	_body, _err := client.QueryBatchSecurityPolicyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 批量决策
+ * Summary: 批量决策查询
+ */
+func (client *Client) QueryBatchSecurityPolicyEx(request *QueryBatchSecurityPolicyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBatchSecurityPolicyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBatchSecurityPolicyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.batch.security.policy.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -24950,6 +25869,142 @@ func (client *Client) ReceiveMdipParamsRbbfileEx(request *ReceiveMdipParamsRbbfi
 	}
 	_result = &ReceiveMdipParamsRbbfileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.mdip.params.rbbfile.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 批量实时触达接口
+ * Summary: 发起触达任务
+ */
+func (client *Client) ApplyQmpRtBatchmarketing(request *ApplyQmpRtBatchmarketingRequest) (_result *ApplyQmpRtBatchmarketingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyQmpRtBatchmarketingResponse{}
+	_body, _err := client.ApplyQmpRtBatchmarketingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 批量实时触达接口
+ * Summary: 发起触达任务
+ */
+func (client *Client) ApplyQmpRtBatchmarketingEx(request *ApplyQmpRtBatchmarketingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyQmpRtBatchmarketingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyQmpRtBatchmarketingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.rt.batchmarketing.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文本短信批量发送接口
+ * Summary: 文本短信批量发送接口
+ */
+func (client *Client) SendQmpTextsmsBatch(request *SendQmpTextsmsBatchRequest) (_result *SendQmpTextsmsBatchResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendQmpTextsmsBatchResponse{}
+	_body, _err := client.SendQmpTextsmsBatchEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文本短信批量发送接口
+ * Summary: 文本短信批量发送接口
+ */
+func (client *Client) SendQmpTextsmsBatchEx(request *SendQmpTextsmsBatchRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendQmpTextsmsBatchResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendQmpTextsmsBatchResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.textsms.batch.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发起AI外呼
+ * Summary: 发起AI外呼
+ */
+func (client *Client) ApplyQmpRobotcall(request *ApplyQmpRobotcallRequest) (_result *ApplyQmpRobotcallResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyQmpRobotcallResponse{}
+	_body, _err := client.ApplyQmpRobotcallEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发起AI外呼
+ * Summary: 发起AI外呼
+ */
+func (client *Client) ApplyQmpRobotcallEx(request *ApplyQmpRobotcallRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyQmpRobotcallResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyQmpRobotcallResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.robotcall.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 卡片短信批量发送接口
+ * Summary: 卡片短信批量发送接口
+ */
+func (client *Client) SendQmpCardsmsBatch(request *SendQmpCardsmsBatchRequest) (_result *SendQmpCardsmsBatchResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendQmpCardsmsBatchResponse{}
+	_body, _err := client.SendQmpCardsmsBatchEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 卡片短信批量发送接口
+ * Summary: 卡片短信批量发送接口
+ */
+func (client *Client) SendQmpCardsmsBatchEx(request *SendQmpCardsmsBatchRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendQmpCardsmsBatchResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendQmpCardsmsBatchResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.cardsms.batch.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -27936,6 +28991,74 @@ func (client *Client) BatchqueryUmktTaskDetailEx(request *BatchqueryUmktTaskDeta
 	}
 	_result = &BatchqueryUmktTaskDetailResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.task.detail.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾数据回流推送，用于客户定制json数据
+ * Summary: 营销盾数据回流json格式推送
+ */
+func (client *Client) PushUmktBackflowJsondata(request *PushUmktBackflowJsondataRequest) (_result *PushUmktBackflowJsondataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushUmktBackflowJsondataResponse{}
+	_body, _err := client.PushUmktBackflowJsondataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾数据回流推送，用于客户定制json数据
+ * Summary: 营销盾数据回流json格式推送
+ */
+func (client *Client) PushUmktBackflowJsondataEx(request *PushUmktBackflowJsondataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushUmktBackflowJsondataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushUmktBackflowJsondataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.backflow.jsondata.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾卡短解析服务能力提供接口
+ * Summary: 营销盾卡短解析服务接口
+ */
+func (client *Client) QueryUmktCardsmsAnalysis(request *QueryUmktCardsmsAnalysisRequest) (_result *QueryUmktCardsmsAnalysisResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUmktCardsmsAnalysisResponse{}
+	_body, _err := client.QueryUmktCardsmsAnalysisEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾卡短解析服务能力提供接口
+ * Summary: 营销盾卡短解析服务接口
+ */
+func (client *Client) QueryUmktCardsmsAnalysisEx(request *QueryUmktCardsmsAnalysisRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktCardsmsAnalysisResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUmktCardsmsAnalysisResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.cardsms.analysis.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
