@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.17.1',
+    sdk_version = '1.17.6',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -208,6 +208,16 @@ model Contact {
   name: string(name='name', example='张三'),
   // 联系人手机号
   mobile: string(name='mobile', example='12345'),
+}
+
+// 批量查询输出模型分
+model BatchQueryOutputModelInfo {
+  // 变量名称
+  name: string(name='name', example='aft_v3'),
+  // 变量值
+  value: string(name='value', example='4.0'),
+  // 变量值类型
+  valueType: string(name='value_type', example='Double'),
 }
 
 // 涉众风险企业特征
@@ -1004,6 +1014,16 @@ model RtopCrowdRiskSummaryResp {
   registeredProvince?: string(name='registered_province', example='浙江省'),
 }
 
+// 批量决策单主体查询结果
+model BatchQueryResult {
+  // 查询主体
+  queryKey: string(name='query_key', example='test'),
+  // 单用户决策结果
+  decision: string(name='decision', example='accept'),
+  // 输出变量信息
+  outputInfo: BatchQueryOutputModelInfo(name='output_info', example=''),
+}
+
 // 营销盾外呼记录
 model CommonRobotCallDetail {
   // 客户请求时的透传字段
@@ -1448,6 +1468,14 @@ model ApplyInfo {
   totalAmount?: long(name='total_amount', example='xxxxx'),
   // 可用额度
   balanceAmount?: long(name='balance_amount', example='xxxxx'),
+}
+
+// 卡短解析服务返回参数
+model ShortUrlInfo {
+  // 支持卡片短信的手机号
+  mobile: string(name='mobile', example='15012345678'),
+  // 解析生成的短链
+  shortUrl: string(name='short_url', example='https://www.alipay.com/F49v0ifM'),
 }
 
 // 是否联登结构体
@@ -2214,6 +2242,52 @@ async function querySaasSecurityPolicy(request: QuerySaasSecurityPolicyRequest):
 async function querySaasSecurityPolicyEx(request: QuerySaasSecurityPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasSecurityPolicyResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.saas.security.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBatchSecurityPolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求事件编码
+  eventCode: string(name='event_code'),
+  // 查询客户主体
+  queryKeys: [ string ](name='query_keys'),
+  // 用户凭证类型, 手机号/身份证号/加密类型等
+  queryKeyType: string(name='query_key_type'),
+  // 额外的事件属性
+  eventInfo: [ EventInfo ](name='event_info'),
+}
+
+model QueryBatchSecurityPolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询结果是否成功
+  success?: boolean(name='success'),
+  // 批量查询结果
+  queryResults?: [ BatchQueryResult ](name='query_results'),
+}
+
+/**
+ * Description: 批量决策
+ * Summary: 批量决策查询
+ */
+async function queryBatchSecurityPolicy(request: QueryBatchSecurityPolicyRequest): QueryBatchSecurityPolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBatchSecurityPolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量决策
+ * Summary: 批量决策查询
+ */
+async function queryBatchSecurityPolicyEx(request: QueryBatchSecurityPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBatchSecurityPolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.batch.security.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryDubheTestRequest = {
@@ -5260,6 +5334,218 @@ async function receiveMdipParamsRbbfileEx(request: ReceiveMdipParamsRbbfileReque
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.mdip.params.rbbfile.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyQmpRtBatchmarketingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id'),
+  // 外部流水号
+  outSerialNo: string(name='out_serial_no'),
+  // 用户标识类型
+  paramType: string(name='param_type'),
+  // 批量透传字段
+  outInfo?: string(name='out_info'),
+  // 用户凭证列表
+  customerDetails: [ CustomerDetail ](name='customer_details'),
+}
+
+model ApplyQmpRtBatchmarketingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批次流水号
+  bizId?: string(name='biz_id'),
+}
+
+/**
+ * Description: 批量实时触达接口
+ * Summary: 发起触达任务
+ */
+async function applyQmpRtBatchmarketing(request: ApplyQmpRtBatchmarketingRequest): ApplyQmpRtBatchmarketingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyQmpRtBatchmarketingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量实时触达接口
+ * Summary: 发起触达任务
+ */
+async function applyQmpRtBatchmarketingEx(request: ApplyQmpRtBatchmarketingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyQmpRtBatchmarketingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.qmp.rt.batchmarketing.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendQmpTextsmsBatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // cpassAccessKey
+  cpassAk?: string(name='cpass_ak'),
+  // 行业标签
+  industryTag: string(name='industry_tag'),
+  // 手机号json
+  phoneNumberJson: string(name='phone_number_json'),
+  // 签名信息
+  signNameJson: string(name='sign_name_json'),
+  // 文本短信模板code
+  templateCode: string(name='template_code'),
+  // 文本短信模板参数
+  templateParamJson: string(name='template_param_json'),
+  // 上行短信扩展码
+  smsUpExtendCodeJson?: string(name='sms_up_extend_code_json'),
+  // 透传字段
+  outId?: string(name='out_id'),
+}
+
+model SendQmpTextsmsBatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 回执id
+  bizId?: string(name='biz_id'),
+}
+
+/**
+ * Description: 文本短信批量发送接口
+ * Summary: 文本短信批量发送接口
+ */
+async function sendQmpTextsmsBatch(request: SendQmpTextsmsBatchRequest): SendQmpTextsmsBatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendQmpTextsmsBatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文本短信批量发送接口
+ * Summary: 文本短信批量发送接口
+ */
+async function sendQmpTextsmsBatchEx(request: SendQmpTextsmsBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendQmpTextsmsBatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.qmp.textsms.batch.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyQmpRobotcallRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部流水号
+  outSerialNo: string(name='out_serial_no'),
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id'),
+  // 客户透传字段
+  outInfo?: string(name='out_info'),
+  // 用户参数类型
+  paramTemplate: string(name='param_template'),
+  // 每个手机号的详细参数
+  customerDetails?: [ RobotCallCustomerParam ](name='customer_details'),
+}
+
+model ApplyQmpRobotcallResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 呼叫记录id
+  callId?: string(name='call_id'),
+}
+
+/**
+ * Description: 发起AI外呼
+ * Summary: 发起AI外呼
+ */
+async function applyQmpRobotcall(request: ApplyQmpRobotcallRequest): ApplyQmpRobotcallResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyQmpRobotcallEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起AI外呼
+ * Summary: 发起AI外呼
+ */
+async function applyQmpRobotcallEx(request: ApplyQmpRobotcallRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyQmpRobotcallResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.qmp.robotcall.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendQmpCardsmsBatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // cpassAccessKey
+  cpassAk?: string(name='cpass_ak'),
+  // 行业标签
+  industryTag: string(name='industry_tag'),
+  // 卡片短信模板
+  cardTemplateCode: string(name='card_template_code'),
+  // 卡片短信模板参数json
+  cardTemplateParamJson: string(name='card_template_param_json'),
+  // 手机号json
+  phoneNumberJson: string(name='phone_number_json'),
+  // ["蚂蚁营销"]
+  signNameJson: string(name='sign_name_json'),
+  // 上行短信扩展码
+  smsUpExtendCodeJson?: string(name='sms_up_extend_code_json'),
+  // 回落类型
+  fallbackType?: string(name='fallback_type'),
+  // 回落短信模版
+  fallbackTemplateCode?: string(name='fallback_template_code'),
+  // 回落短信模版参数
+  fallbackTemplateParamJson?: string(name='fallback_template_param_json'),
+  // 卡片短信对应的原始文本短信模板，不传则用默认文本
+  templateCode: string(name='template_code'),
+  // 默认文本对应参数
+  templateParamJson: string(name='template_param_json'),
+}
+
+model SendQmpCardsmsBatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 卡片短信回执id
+  bizCardId?: string(name='biz_card_id'),
+  // 支持的手机号
+  mediaMobiles?: string(name='media_mobiles'),
+  // 不支持的手机号
+  notMediaMobiles?: string(name='not_media_mobiles'),
+  // 回落文本短信回执id
+  bizId?: string(name='biz_id'),
+  // 回落数字短信回执id
+  bizDigitalId?: string(name='biz_digital_id'),
+}
+
+/**
+ * Description: 卡片短信批量发送接口
+ * Summary: 卡片短信批量发送接口
+ */
+async function sendQmpCardsmsBatch(request: SendQmpCardsmsBatchRequest): SendQmpCardsmsBatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendQmpCardsmsBatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 卡片短信批量发送接口
+ * Summary: 卡片短信批量发送接口
+ */
+async function sendQmpCardsmsBatchEx(request: SendQmpCardsmsBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendQmpCardsmsBatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.qmp.cardsms.batch.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryRbbGenericInvokeRequest = {
@@ -9041,6 +9327,10 @@ model CallbackUmktSmsUpRequest = {
   destCode: string(name='dest_code'),
   // 学历噩耗
   sequenceId: long(name='sequence_id'),
+  // 手机号模版类型
+  keyTemplate?: string(name='key_template'),
+  // 原始手机号模版类型
+  originKeyTemplate?: string(name='origin_key_template'),
 }
 
 model CallbackUmktSmsUpResponse = {
@@ -9101,6 +9391,8 @@ model CallbackUmktSmsReportRequest = {
   serviceProvider: string(name='service_provider'),
   // 手机号码所属城市
   city?: string(name='city'),
+  // 手机号模版类型
+  keyTemplate?: string(name='key_template'),
 }
 
 model CallbackUmktSmsReportResponse = {
@@ -9437,6 +9729,96 @@ async function batchqueryUmktTaskDetail(request: BatchqueryUmktTaskDetailRequest
 async function batchqueryUmktTaskDetailEx(request: BatchqueryUmktTaskDetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryUmktTaskDetailResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.task.detail.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushUmktBackflowJsondataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回流事件id，对应租户回流事件id
+  // 
+  eventId: long(name='event_id'),
+  // 回流事件记录列表
+  // 
+  eventRecords: string(name='event_records'),
+}
+
+model PushUmktBackflowJsondataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 营销盾数据回流推送，用于客户定制json数据
+ * Summary: 营销盾数据回流json格式推送
+ */
+async function pushUmktBackflowJsondata(request: PushUmktBackflowJsondataRequest): PushUmktBackflowJsondataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushUmktBackflowJsondataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 营销盾数据回流推送，用于客户定制json数据
+ * Summary: 营销盾数据回流json格式推送
+ */
+async function pushUmktBackflowJsondataEx(request: PushUmktBackflowJsondataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushUmktBackflowJsondataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.backflow.jsondata.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUmktCardsmsAnalysisRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户的卡片短信模板id
+  cardTemplateCode: string(name='card_template_code'),
+  // 手机号列表,最多10个手机号
+  phoneNumberJson: string(name='phone_number_json'),
+  // 卡片短信模板参数
+  cardTemplateParamJson: string(name='card_template_param_json'),
+  // 短信签名。当前只支持填入一个签名。
+  signNameJson: string(name='sign_name_json'),
+  // 外部流水扩展字段
+  outId?: string(name='out_id'),
+}
+
+model QueryUmktCardsmsAnalysisResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 卡片短信解析服务业务流水id，与渲染回执中的bizId保持一致
+  bizCardId?: string(name='biz_card_id'),
+  // 不支持卡片短信的手机号，以,分隔
+  notMediaMobiles?: string(name='not_media_mobiles'),
+  // 卡短解析短链返回参数
+  shortUrlInfos?: [ ShortUrlInfo ](name='short_url_infos'),
+}
+
+/**
+ * Description: 营销盾卡短解析服务能力提供接口
+ * Summary: 营销盾卡短解析服务接口
+ */
+async function queryUmktCardsmsAnalysis(request: QueryUmktCardsmsAnalysisRequest): QueryUmktCardsmsAnalysisResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUmktCardsmsAnalysisEx(request, headers, runtime);
+}
+
+/**
+ * Description: 营销盾卡短解析服务能力提供接口
+ * Summary: 营销盾卡短解析服务接口
+ */
+async function queryUmktCardsmsAnalysisEx(request: QueryUmktCardsmsAnalysisRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktCardsmsAnalysisResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.cardsms.analysis.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
