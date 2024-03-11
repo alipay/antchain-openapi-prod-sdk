@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_31dc9f55b9684fe29acc7c0125a5d7a2.Models
 {
-    public class ExecAntcloudAdomAppmarketPrivacymodelRequest : TeaModel {
+    public class SubmitAntcloudAdomAppmarketPrivacymodelRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -19,7 +19,7 @@ namespace AntChain.SDK.Ak_31dc9f55b9684fe29acc7c0125a5d7a2.Models
         [Validation(Required=true)]
         public string InstanceId { get; set; }
 
-        // 文件标识，文件上传时的入参
+        // 文件名称
         [NameInMap("file_id")]
         [Validation(Required=false)]
         public string FileId { get; set; }

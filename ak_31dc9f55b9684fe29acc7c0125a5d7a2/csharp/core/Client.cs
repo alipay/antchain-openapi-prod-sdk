@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_31dc9f55b9684fe29acc7c0125a5d7a2
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "ak_31dc9f55b9684fe29acc7c0125a5d7a2"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_31dc9f55b9684fe29acc7c0125a5d7a2
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "ak_31dc9f55b9684fe29acc7c0125a5d7a2"},
                         {"_prod_channel", "saas"},
                     };
@@ -406,8 +406,8 @@ namespace AntChain.SDK.Ak_31dc9f55b9684fe29acc7c0125a5d7a2
         }
 
         /**
-         * Description: 应用开放市场隐私模型运行时链路-提交执行
-         * Summary: 应用开放市场隐私模型运行时链路-提交执行
+         * Description: 应用开放市场隐私模型运行时链路-同步执行
+         * Summary: 应用开放市场隐私模型运行时链路-同步执行
          */
         public ExecAntcloudAdomAppmarketPrivacymodelResponse ExecAntcloudAdomAppmarketPrivacymodel(ExecAntcloudAdomAppmarketPrivacymodelRequest request)
         {
@@ -417,8 +417,8 @@ namespace AntChain.SDK.Ak_31dc9f55b9684fe29acc7c0125a5d7a2
         }
 
         /**
-         * Description: 应用开放市场隐私模型运行时链路-提交执行
-         * Summary: 应用开放市场隐私模型运行时链路-提交执行
+         * Description: 应用开放市场隐私模型运行时链路-同步执行
+         * Summary: 应用开放市场隐私模型运行时链路-同步执行
          */
         public async Task<ExecAntcloudAdomAppmarketPrivacymodelResponse> ExecAntcloudAdomAppmarketPrivacymodelAsync(ExecAntcloudAdomAppmarketPrivacymodelRequest request)
         {
@@ -428,8 +428,8 @@ namespace AntChain.SDK.Ak_31dc9f55b9684fe29acc7c0125a5d7a2
         }
 
         /**
-         * Description: 应用开放市场隐私模型运行时链路-提交执行
-         * Summary: 应用开放市场隐私模型运行时链路-提交执行
+         * Description: 应用开放市场隐私模型运行时链路-同步执行
+         * Summary: 应用开放市场隐私模型运行时链路-同步执行
          */
         public ExecAntcloudAdomAppmarketPrivacymodelResponse ExecAntcloudAdomAppmarketPrivacymodelEx(ExecAntcloudAdomAppmarketPrivacymodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -438,13 +438,139 @@ namespace AntChain.SDK.Ak_31dc9f55b9684fe29acc7c0125a5d7a2
         }
 
         /**
-         * Description: 应用开放市场隐私模型运行时链路-提交执行
-         * Summary: 应用开放市场隐私模型运行时链路-提交执行
+         * Description: 应用开放市场隐私模型运行时链路-同步执行
+         * Summary: 应用开放市场隐私模型运行时链路-同步执行
          */
         public async Task<ExecAntcloudAdomAppmarketPrivacymodelResponse> ExecAntcloudAdomAppmarketPrivacymodelExAsync(ExecAntcloudAdomAppmarketPrivacymodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecAntcloudAdomAppmarketPrivacymodelResponse>(await DoRequestAsync("1.0", "antcloud.adom.appmarket.privacymodel.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用开放市场OCR服务-文件上传
+         * Summary: 应用开放市场OCR服务-文件上传
+         */
+        public UploadAntcloudAdomAppmarketOcrfileResponse UploadAntcloudAdomAppmarketOcrfile(UploadAntcloudAdomAppmarketOcrfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadAntcloudAdomAppmarketOcrfileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用开放市场OCR服务-文件上传
+         * Summary: 应用开放市场OCR服务-文件上传
+         */
+        public async Task<UploadAntcloudAdomAppmarketOcrfileResponse> UploadAntcloudAdomAppmarketOcrfileAsync(UploadAntcloudAdomAppmarketOcrfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadAntcloudAdomAppmarketOcrfileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用开放市场OCR服务-文件上传
+         * Summary: 应用开放市场OCR服务-文件上传
+         */
+        public UploadAntcloudAdomAppmarketOcrfileResponse UploadAntcloudAdomAppmarketOcrfileEx(UploadAntcloudAdomAppmarketOcrfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntcloudAdomAppmarketOcrfileResponse>(DoRequest("1.0", "antcloud.adom.appmarket.ocrfile.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用开放市场OCR服务-文件上传
+         * Summary: 应用开放市场OCR服务-文件上传
+         */
+        public async Task<UploadAntcloudAdomAppmarketOcrfileResponse> UploadAntcloudAdomAppmarketOcrfileExAsync(UploadAntcloudAdomAppmarketOcrfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntcloudAdomAppmarketOcrfileResponse>(await DoRequestAsync("1.0", "antcloud.adom.appmarket.ocrfile.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用开放市场OCR服务-营业执照识别
+         * Summary: 应用开放市场OCR服务-营业执照识别
+         */
+        public ExecAntcloudAdomAppmarketBusinesslicenseocrResponse ExecAntcloudAdomAppmarketBusinesslicenseocr(ExecAntcloudAdomAppmarketBusinesslicenseocrRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecAntcloudAdomAppmarketBusinesslicenseocrEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用开放市场OCR服务-营业执照识别
+         * Summary: 应用开放市场OCR服务-营业执照识别
+         */
+        public async Task<ExecAntcloudAdomAppmarketBusinesslicenseocrResponse> ExecAntcloudAdomAppmarketBusinesslicenseocrAsync(ExecAntcloudAdomAppmarketBusinesslicenseocrRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecAntcloudAdomAppmarketBusinesslicenseocrExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用开放市场OCR服务-营业执照识别
+         * Summary: 应用开放市场OCR服务-营业执照识别
+         */
+        public ExecAntcloudAdomAppmarketBusinesslicenseocrResponse ExecAntcloudAdomAppmarketBusinesslicenseocrEx(ExecAntcloudAdomAppmarketBusinesslicenseocrRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudAdomAppmarketBusinesslicenseocrResponse>(DoRequest("1.0", "antcloud.adom.appmarket.businesslicenseocr.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用开放市场OCR服务-营业执照识别
+         * Summary: 应用开放市场OCR服务-营业执照识别
+         */
+        public async Task<ExecAntcloudAdomAppmarketBusinesslicenseocrResponse> ExecAntcloudAdomAppmarketBusinesslicenseocrExAsync(ExecAntcloudAdomAppmarketBusinesslicenseocrRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudAdomAppmarketBusinesslicenseocrResponse>(await DoRequestAsync("1.0", "antcloud.adom.appmarket.businesslicenseocr.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用开放市场隐私模型运行时链路-提交执行
+         * Summary: 应用开放市场隐私模型运行时链路-提交执行
+         */
+        public SubmitAntcloudAdomAppmarketPrivacymodelResponse SubmitAntcloudAdomAppmarketPrivacymodel(SubmitAntcloudAdomAppmarketPrivacymodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAntcloudAdomAppmarketPrivacymodelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用开放市场隐私模型运行时链路-提交执行
+         * Summary: 应用开放市场隐私模型运行时链路-提交执行
+         */
+        public async Task<SubmitAntcloudAdomAppmarketPrivacymodelResponse> SubmitAntcloudAdomAppmarketPrivacymodelAsync(SubmitAntcloudAdomAppmarketPrivacymodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAntcloudAdomAppmarketPrivacymodelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用开放市场隐私模型运行时链路-提交执行
+         * Summary: 应用开放市场隐私模型运行时链路-提交执行
+         */
+        public SubmitAntcloudAdomAppmarketPrivacymodelResponse SubmitAntcloudAdomAppmarketPrivacymodelEx(SubmitAntcloudAdomAppmarketPrivacymodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAntcloudAdomAppmarketPrivacymodelResponse>(DoRequest("1.0", "antcloud.adom.appmarket.privacymodel.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用开放市场隐私模型运行时链路-提交执行
+         * Summary: 应用开放市场隐私模型运行时链路-提交执行
+         */
+        public async Task<SubmitAntcloudAdomAppmarketPrivacymodelResponse> SubmitAntcloudAdomAppmarketPrivacymodelExAsync(SubmitAntcloudAdomAppmarketPrivacymodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAntcloudAdomAppmarketPrivacymodelResponse>(await DoRequestAsync("1.0", "antcloud.adom.appmarket.privacymodel.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

@@ -39,6 +39,11 @@ namespace AntChain.SDK.Ak_31dc9f55b9684fe29acc7c0125a5d7a2.Models
         [Validation(Required=false)]
         public string FailedReason { get; set; }
 
+        // 结构化出参
+        [NameInMap("struct_output")]
+        [Validation(Required=false)]
+        public string StructOutput { get; set; }
+
     }
 
 }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_31dc9f55b9684fe29acc7c0125a5d7a2.Models
 {
-    public class ExecAntcloudAdomAppmarketPrivacymodelResponse : TeaModel {
+    public class SubmitAntcloudAdomAppmarketPrivacymodelResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,10 @@ namespace AntChain.SDK.Ak_31dc9f55b9684fe29acc7c0125a5d7a2.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 执行状态
-        [NameInMap("status")]
+        // 异步提交执行记录id
+        [NameInMap("record_id")]
         [Validation(Required=false)]
-        public string Status { get; set; }
-
-        // 结果文件url
-        [NameInMap("result_url")]
-        [Validation(Required=false)]
-        public string ResultUrl { get; set; }
-
-        // 执行失败原因
-        [NameInMap("failed_reason")]
-        [Validation(Required=false)]
-        public string FailedReason { get; set; }
-
-        // 结构化出参
-        [NameInMap("struct_output")]
-        [Validation(Required=false)]
-        public string StructOutput { get; set; }
+        public string RecordId { get; set; }
 
     }
 
