@@ -16,9 +16,21 @@ public class ExecAntcloudAdomAppmarketPrivacymodelResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 执行记录id
-    @NameInMap("record_id")
-    public String recordId;
+    // 执行状态
+    @NameInMap("status")
+    public String status;
+
+    // 结果文件url
+    @NameInMap("result_url")
+    public String resultUrl;
+
+    // 执行失败原因
+    @NameInMap("failed_reason")
+    public String failedReason;
+
+    // 结构化出参
+    @NameInMap("struct_output")
+    public String structOutput;
 
     public static ExecAntcloudAdomAppmarketPrivacymodelResponse build(java.util.Map<String, ?> map) throws Exception {
         ExecAntcloudAdomAppmarketPrivacymodelResponse self = new ExecAntcloudAdomAppmarketPrivacymodelResponse();
@@ -49,12 +61,36 @@ public class ExecAntcloudAdomAppmarketPrivacymodelResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ExecAntcloudAdomAppmarketPrivacymodelResponse setRecordId(String recordId) {
-        this.recordId = recordId;
+    public ExecAntcloudAdomAppmarketPrivacymodelResponse setStatus(String status) {
+        this.status = status;
         return this;
     }
-    public String getRecordId() {
-        return this.recordId;
+    public String getStatus() {
+        return this.status;
+    }
+
+    public ExecAntcloudAdomAppmarketPrivacymodelResponse setResultUrl(String resultUrl) {
+        this.resultUrl = resultUrl;
+        return this;
+    }
+    public String getResultUrl() {
+        return this.resultUrl;
+    }
+
+    public ExecAntcloudAdomAppmarketPrivacymodelResponse setFailedReason(String failedReason) {
+        this.failedReason = failedReason;
+        return this;
+    }
+    public String getFailedReason() {
+        return this.failedReason;
+    }
+
+    public ExecAntcloudAdomAppmarketPrivacymodelResponse setStructOutput(String structOutput) {
+        this.structOutput = structOutput;
+        return this;
+    }
+    public String getStructOutput() {
+        return this.structOutput;
     }
 
 }

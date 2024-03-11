@@ -28,6 +28,10 @@ public class QueryAntcloudAdomAppmarketPrivacyresultResponse extends TeaModel {
     @NameInMap("failed_reason")
     public String failedReason;
 
+    // 结构化出参
+    @NameInMap("struct_output")
+    public String structOutput;
+
     public static QueryAntcloudAdomAppmarketPrivacyresultResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAntcloudAdomAppmarketPrivacyresultResponse self = new QueryAntcloudAdomAppmarketPrivacyresultResponse();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class QueryAntcloudAdomAppmarketPrivacyresultResponse extends TeaModel {
     }
     public String getFailedReason() {
         return this.failedReason;
+    }
+
+    public QueryAntcloudAdomAppmarketPrivacyresultResponse setStructOutput(String structOutput) {
+        this.structOutput = structOutput;
+        return this;
+    }
+    public String getStructOutput() {
+        return this.structOutput;
     }
 
 }

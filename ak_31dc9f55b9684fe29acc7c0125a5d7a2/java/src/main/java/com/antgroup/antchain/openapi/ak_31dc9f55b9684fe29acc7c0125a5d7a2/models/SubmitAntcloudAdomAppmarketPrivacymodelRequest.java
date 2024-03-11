@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_31dc9f55b9684fe29acc7c0125a5d7a2.models
 
 import com.aliyun.tea.*;
 
-public class ExecAntcloudAdomAppmarketPrivacymodelRequest extends TeaModel {
+public class SubmitAntcloudAdomAppmarketPrivacymodelRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -13,7 +13,7 @@ public class ExecAntcloudAdomAppmarketPrivacymodelRequest extends TeaModel {
     @Validation(required = true)
     public String instanceId;
 
-    // 文件标识，文件上传时的入参
+    // 文件名称
     @NameInMap("file_id")
     public String fileId;
 
@@ -21,12 +21,12 @@ public class ExecAntcloudAdomAppmarketPrivacymodelRequest extends TeaModel {
     @NameInMap("struct_input")
     public String structInput;
 
-    public static ExecAntcloudAdomAppmarketPrivacymodelRequest build(java.util.Map<String, ?> map) throws Exception {
-        ExecAntcloudAdomAppmarketPrivacymodelRequest self = new ExecAntcloudAdomAppmarketPrivacymodelRequest();
+    public static SubmitAntcloudAdomAppmarketPrivacymodelRequest build(java.util.Map<String, ?> map) throws Exception {
+        SubmitAntcloudAdomAppmarketPrivacymodelRequest self = new SubmitAntcloudAdomAppmarketPrivacymodelRequest();
         return TeaModel.build(map, self);
     }
 
-    public ExecAntcloudAdomAppmarketPrivacymodelRequest setAuthToken(String authToken) {
+    public SubmitAntcloudAdomAppmarketPrivacymodelRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -34,7 +34,7 @@ public class ExecAntcloudAdomAppmarketPrivacymodelRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ExecAntcloudAdomAppmarketPrivacymodelRequest setInstanceId(String instanceId) {
+    public SubmitAntcloudAdomAppmarketPrivacymodelRequest setInstanceId(String instanceId) {
         this.instanceId = instanceId;
         return this;
     }
@@ -42,7 +42,7 @@ public class ExecAntcloudAdomAppmarketPrivacymodelRequest extends TeaModel {
         return this.instanceId;
     }
 
-    public ExecAntcloudAdomAppmarketPrivacymodelRequest setFileId(String fileId) {
+    public SubmitAntcloudAdomAppmarketPrivacymodelRequest setFileId(String fileId) {
         this.fileId = fileId;
         return this;
     }
@@ -50,7 +50,7 @@ public class ExecAntcloudAdomAppmarketPrivacymodelRequest extends TeaModel {
         return this.fileId;
     }
 
-    public ExecAntcloudAdomAppmarketPrivacymodelRequest setStructInput(String structInput) {
+    public SubmitAntcloudAdomAppmarketPrivacymodelRequest setStructInput(String structInput) {
         this.structInput = structInput;
         return this;
     }
