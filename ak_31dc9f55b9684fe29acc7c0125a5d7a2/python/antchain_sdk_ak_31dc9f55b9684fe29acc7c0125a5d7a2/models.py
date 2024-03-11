@@ -205,6 +205,7 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse(TeaModel):
         status: str = None,
         result_url: str = None,
         failed_reason: str = None,
+        struct_output: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -218,6 +219,8 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse(TeaModel):
         self.result_url = result_url
         # 失败的原因
         self.failed_reason = failed_reason
+        # 结构化出参
+        self.struct_output = struct_output
 
     def validate(self):
         pass
@@ -240,6 +243,8 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse(TeaModel):
             result['result_url'] = self.result_url
         if self.failed_reason is not None:
             result['failed_reason'] = self.failed_reason
+        if self.struct_output is not None:
+            result['struct_output'] = self.struct_output
         return result
 
     def from_map(self, m: dict = None):
@@ -256,6 +261,8 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse(TeaModel):
             self.result_url = m.get('result_url')
         if m.get('failed_reason') is not None:
             self.failed_reason = m.get('failed_reason')
+        if m.get('struct_output') is not None:
+            self.struct_output = m.get('struct_output')
         return self
 
 
@@ -357,6 +364,7 @@ class ExecAntcloudAdomAppmarketPrivacymodelRequest(TeaModel):
         auth_token: str = None,
         instance_id: str = None,
         file_id: str = None,
+        struct_input: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -364,10 +372,11 @@ class ExecAntcloudAdomAppmarketPrivacymodelRequest(TeaModel):
         self.instance_id = instance_id
         # 文件标识，文件上传时的入参
         self.file_id = file_id
+        # 结构化入参
+        self.struct_input = struct_input
 
     def validate(self):
         self.validate_required(self.instance_id, 'instance_id')
-        self.validate_required(self.file_id, 'file_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -381,6 +390,8 @@ class ExecAntcloudAdomAppmarketPrivacymodelRequest(TeaModel):
             result['instance_id'] = self.instance_id
         if self.file_id is not None:
             result['file_id'] = self.file_id
+        if self.struct_input is not None:
+            result['struct_input'] = self.struct_input
         return result
 
     def from_map(self, m: dict = None):
@@ -391,10 +402,447 @@ class ExecAntcloudAdomAppmarketPrivacymodelRequest(TeaModel):
             self.instance_id = m.get('instance_id')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
+        if m.get('struct_input') is not None:
+            self.struct_input = m.get('struct_input')
         return self
 
 
 class ExecAntcloudAdomAppmarketPrivacymodelResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        status: str = None,
+        result_url: str = None,
+        failed_reason: str = None,
+        struct_output: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 执行状态
+        self.status = status
+        # 结果文件url
+        self.result_url = result_url
+        # 执行失败原因
+        self.failed_reason = failed_reason
+        # 结构化出参
+        self.struct_output = struct_output
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.status is not None:
+            result['status'] = self.status
+        if self.result_url is not None:
+            result['result_url'] = self.result_url
+        if self.failed_reason is not None:
+            result['failed_reason'] = self.failed_reason
+        if self.struct_output is not None:
+            result['struct_output'] = self.struct_output
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('result_url') is not None:
+            self.result_url = m.get('result_url')
+        if m.get('failed_reason') is not None:
+            self.failed_reason = m.get('failed_reason')
+        if m.get('struct_output') is not None:
+            self.struct_output = m.get('struct_output')
+        return self
+
+
+class UploadAntcloudAdomAppmarketOcrfileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        instance_id: str = None,
+        file_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 所购商品实例id
+        self.instance_id = instance_id
+        # 文件名
+        self.file_name = file_name
+
+    def validate(self):
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.file_name, 'file_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        return self
+
+
+class UploadAntcloudAdomAppmarketOcrfileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        upload_url: str = None,
+        file_key: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 文件上传url
+        self.upload_url = upload_url
+        # 文件key
+        self.file_key = file_key
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.upload_url is not None:
+            result['upload_url'] = self.upload_url
+        if self.file_key is not None:
+            result['file_key'] = self.file_key
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('upload_url') is not None:
+            self.upload_url = m.get('upload_url')
+        if m.get('file_key') is not None:
+            self.file_key = m.get('file_key')
+        return self
+
+
+class ExecAntcloudAdomAppmarketBusinesslicenseocrRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        instance_id: str = None,
+        file_key: str = None,
+        file_url: str = None,
+        ext: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 商品实例id
+        self.instance_id = instance_id
+        # 文件key
+        self.file_key = file_key
+        # 文件url
+        self.file_url = file_url
+        # 扩展信息
+        self.ext = ext
+
+    def validate(self):
+        self.validate_required(self.instance_id, 'instance_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.file_key is not None:
+            result['file_key'] = self.file_key
+        if self.file_url is not None:
+            result['file_url'] = self.file_url
+        if self.ext is not None:
+            result['ext'] = self.ext
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('file_key') is not None:
+            self.file_key = m.get('file_key')
+        if m.get('file_url') is not None:
+            self.file_url = m.get('file_url')
+        if m.get('ext') is not None:
+            self.ext = m.get('ext')
+        return self
+
+
+class ExecAntcloudAdomAppmarketBusinesslicenseocrResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        address: str = None,
+        business: str = None,
+        captial: str = None,
+        establish_date: str = None,
+        name: str = None,
+        person: str = None,
+        reg_num: str = None,
+        stamp: str = None,
+        type: str = None,
+        valid_period: str = None,
+        title: str = None,
+        date: str = None,
+        num: str = None,
+        investors: str = None,
+        formation: str = None,
+        date_of_registration: str = None,
+        operators: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 地址
+        self.address = address
+        # 经营范围
+        self.business = business
+        # 注册资本
+        self.captial = captial
+        # 企业成立日期
+        self.establish_date = establish_date
+        # 名称，控股股东名称
+        self.name = name
+        # 法定代表人
+        self.person = person
+        # 统一社会信用代码，控股股东证件号码
+        self.reg_num = reg_num
+        # 印章
+        self.stamp = stamp
+        # 类型，如：有限责任公司(自然人独资)
+        self.type = type
+        # 营业期限，营业执照有效期，控股股东证件有效期
+        self.valid_period = valid_period
+        # 标题，如"营业执照"
+        self.title = title
+        # 颁发日期
+        self.date = date
+        # 编号
+        self.num = num
+        # 投资人
+        self.investors = investors
+        # 组成形式
+        self.formation = formation
+        # 注册日期
+        self.date_of_registration = date_of_registration
+        # 经营者
+        self.operators = operators
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.address is not None:
+            result['address'] = self.address
+        if self.business is not None:
+            result['business'] = self.business
+        if self.captial is not None:
+            result['captial'] = self.captial
+        if self.establish_date is not None:
+            result['establish_date'] = self.establish_date
+        if self.name is not None:
+            result['name'] = self.name
+        if self.person is not None:
+            result['person'] = self.person
+        if self.reg_num is not None:
+            result['reg_num'] = self.reg_num
+        if self.stamp is not None:
+            result['stamp'] = self.stamp
+        if self.type is not None:
+            result['type'] = self.type
+        if self.valid_period is not None:
+            result['valid_period'] = self.valid_period
+        if self.title is not None:
+            result['title'] = self.title
+        if self.date is not None:
+            result['date'] = self.date
+        if self.num is not None:
+            result['num'] = self.num
+        if self.investors is not None:
+            result['investors'] = self.investors
+        if self.formation is not None:
+            result['formation'] = self.formation
+        if self.date_of_registration is not None:
+            result['date_of_registration'] = self.date_of_registration
+        if self.operators is not None:
+            result['operators'] = self.operators
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('address') is not None:
+            self.address = m.get('address')
+        if m.get('business') is not None:
+            self.business = m.get('business')
+        if m.get('captial') is not None:
+            self.captial = m.get('captial')
+        if m.get('establish_date') is not None:
+            self.establish_date = m.get('establish_date')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('person') is not None:
+            self.person = m.get('person')
+        if m.get('reg_num') is not None:
+            self.reg_num = m.get('reg_num')
+        if m.get('stamp') is not None:
+            self.stamp = m.get('stamp')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('valid_period') is not None:
+            self.valid_period = m.get('valid_period')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('date') is not None:
+            self.date = m.get('date')
+        if m.get('num') is not None:
+            self.num = m.get('num')
+        if m.get('investors') is not None:
+            self.investors = m.get('investors')
+        if m.get('formation') is not None:
+            self.formation = m.get('formation')
+        if m.get('date_of_registration') is not None:
+            self.date_of_registration = m.get('date_of_registration')
+        if m.get('operators') is not None:
+            self.operators = m.get('operators')
+        return self
+
+
+class SubmitAntcloudAdomAppmarketPrivacymodelRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        instance_id: str = None,
+        file_id: str = None,
+        struct_input: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 商品实例id
+        self.instance_id = instance_id
+        # 文件名称
+        self.file_id = file_id
+        # 结构化入参
+        self.struct_input = struct_input
+
+    def validate(self):
+        self.validate_required(self.instance_id, 'instance_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.struct_input is not None:
+            result['struct_input'] = self.struct_input
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('struct_input') is not None:
+            self.struct_input = m.get('struct_input')
+        return self
+
+
+class SubmitAntcloudAdomAppmarketPrivacymodelResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -408,7 +856,7 @@ class ExecAntcloudAdomAppmarketPrivacymodelResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 执行记录id
+        # 异步提交执行记录id
         self.record_id = record_id
 
     def validate(self):
