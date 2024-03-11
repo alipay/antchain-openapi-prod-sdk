@@ -193,6 +193,8 @@ type QueryAntcloudAdomAppmarketPrivacyresultResponse struct {
 	ResultUrl *string `json:"result_url,omitempty" xml:"result_url,omitempty"`
 	// 失败的原因
 	FailedReason *string `json:"failed_reason,omitempty" xml:"failed_reason,omitempty"`
+	// 结构化出参
+	StructOutput *string `json:"struct_output,omitempty" xml:"struct_output,omitempty"`
 }
 
 func (s QueryAntcloudAdomAppmarketPrivacyresultResponse) String() string {
@@ -230,6 +232,11 @@ func (s *QueryAntcloudAdomAppmarketPrivacyresultResponse) SetResultUrl(v string)
 
 func (s *QueryAntcloudAdomAppmarketPrivacyresultResponse) SetFailedReason(v string) *QueryAntcloudAdomAppmarketPrivacyresultResponse {
 	s.FailedReason = &v
+	return s
+}
+
+func (s *QueryAntcloudAdomAppmarketPrivacyresultResponse) SetStructOutput(v string) *QueryAntcloudAdomAppmarketPrivacyresultResponse {
+	s.StructOutput = &v
 	return s
 }
 
@@ -310,7 +317,9 @@ type ExecAntcloudAdomAppmarketPrivacymodelRequest struct {
 	// 商品实例id
 	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
 	// 文件标识，文件上传时的入参
-	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 结构化入参
+	StructInput *string `json:"struct_input,omitempty" xml:"struct_input,omitempty"`
 }
 
 func (s ExecAntcloudAdomAppmarketPrivacymodelRequest) String() string {
@@ -336,6 +345,11 @@ func (s *ExecAntcloudAdomAppmarketPrivacymodelRequest) SetFileId(v string) *Exec
 	return s
 }
 
+func (s *ExecAntcloudAdomAppmarketPrivacymodelRequest) SetStructInput(v string) *ExecAntcloudAdomAppmarketPrivacymodelRequest {
+	s.StructInput = &v
+	return s
+}
+
 type ExecAntcloudAdomAppmarketPrivacymodelResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -343,8 +357,14 @@ type ExecAntcloudAdomAppmarketPrivacymodelResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 执行记录id
-	RecordId *string `json:"record_id,omitempty" xml:"record_id,omitempty"`
+	// 执行状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 结果文件url
+	ResultUrl *string `json:"result_url,omitempty" xml:"result_url,omitempty"`
+	// 执行失败原因
+	FailedReason *string `json:"failed_reason,omitempty" xml:"failed_reason,omitempty"`
+	// 结构化出参
+	StructOutput *string `json:"struct_output,omitempty" xml:"struct_output,omitempty"`
 }
 
 func (s ExecAntcloudAdomAppmarketPrivacymodelResponse) String() string {
@@ -370,7 +390,375 @@ func (s *ExecAntcloudAdomAppmarketPrivacymodelResponse) SetResultMsg(v string) *
 	return s
 }
 
-func (s *ExecAntcloudAdomAppmarketPrivacymodelResponse) SetRecordId(v string) *ExecAntcloudAdomAppmarketPrivacymodelResponse {
+func (s *ExecAntcloudAdomAppmarketPrivacymodelResponse) SetStatus(v string) *ExecAntcloudAdomAppmarketPrivacymodelResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketPrivacymodelResponse) SetResultUrl(v string) *ExecAntcloudAdomAppmarketPrivacymodelResponse {
+	s.ResultUrl = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketPrivacymodelResponse) SetFailedReason(v string) *ExecAntcloudAdomAppmarketPrivacymodelResponse {
+	s.FailedReason = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketPrivacymodelResponse) SetStructOutput(v string) *ExecAntcloudAdomAppmarketPrivacymodelResponse {
+	s.StructOutput = &v
+	return s
+}
+
+type UploadAntcloudAdomAppmarketOcrfileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 所购商品实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+}
+
+func (s UploadAntcloudAdomAppmarketOcrfileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAntcloudAdomAppmarketOcrfileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAntcloudAdomAppmarketOcrfileRequest) SetAuthToken(v string) *UploadAntcloudAdomAppmarketOcrfileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadAntcloudAdomAppmarketOcrfileRequest) SetInstanceId(v string) *UploadAntcloudAdomAppmarketOcrfileRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *UploadAntcloudAdomAppmarketOcrfileRequest) SetFileName(v string) *UploadAntcloudAdomAppmarketOcrfileRequest {
+	s.FileName = &v
+	return s
+}
+
+type UploadAntcloudAdomAppmarketOcrfileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件上传url
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+	// 文件key
+	FileKey *string `json:"file_key,omitempty" xml:"file_key,omitempty"`
+}
+
+func (s UploadAntcloudAdomAppmarketOcrfileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAntcloudAdomAppmarketOcrfileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAntcloudAdomAppmarketOcrfileResponse) SetReqMsgId(v string) *UploadAntcloudAdomAppmarketOcrfileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadAntcloudAdomAppmarketOcrfileResponse) SetResultCode(v string) *UploadAntcloudAdomAppmarketOcrfileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadAntcloudAdomAppmarketOcrfileResponse) SetResultMsg(v string) *UploadAntcloudAdomAppmarketOcrfileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadAntcloudAdomAppmarketOcrfileResponse) SetUploadUrl(v string) *UploadAntcloudAdomAppmarketOcrfileResponse {
+	s.UploadUrl = &v
+	return s
+}
+
+func (s *UploadAntcloudAdomAppmarketOcrfileResponse) SetFileKey(v string) *UploadAntcloudAdomAppmarketOcrfileResponse {
+	s.FileKey = &v
+	return s
+}
+
+type ExecAntcloudAdomAppmarketBusinesslicenseocrRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 商品实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 文件key
+	FileKey *string `json:"file_key,omitempty" xml:"file_key,omitempty"`
+	// 文件url
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+	// 扩展信息
+	Ext *string `json:"ext,omitempty" xml:"ext,omitempty"`
+}
+
+func (s ExecAntcloudAdomAppmarketBusinesslicenseocrRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudAdomAppmarketBusinesslicenseocrRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrRequest) SetAuthToken(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrRequest) SetInstanceId(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrRequest) SetFileKey(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrRequest {
+	s.FileKey = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrRequest) SetFileUrl(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrRequest {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrRequest) SetExt(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrRequest {
+	s.Ext = &v
+	return s
+}
+
+type ExecAntcloudAdomAppmarketBusinesslicenseocrResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 经营范围
+	Business *string `json:"business,omitempty" xml:"business,omitempty"`
+	// 注册资本
+	Captial *string `json:"captial,omitempty" xml:"captial,omitempty"`
+	// 企业成立日期
+	EstablishDate *string `json:"establish_date,omitempty" xml:"establish_date,omitempty"`
+	// 名称，控股股东名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 法定代表人
+	Person *string `json:"person,omitempty" xml:"person,omitempty"`
+	// 统一社会信用代码，控股股东证件号码
+	RegNum *string `json:"reg_num,omitempty" xml:"reg_num,omitempty"`
+	// 印章
+	Stamp *string `json:"stamp,omitempty" xml:"stamp,omitempty"`
+	// 类型，如：有限责任公司(自然人独资)
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 营业期限，营业执照有效期，控股股东证件有效期
+	ValidPeriod *string `json:"valid_period,omitempty" xml:"valid_period,omitempty"`
+	// 标题，如"营业执照"
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	// 颁发日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty"`
+	// 编号
+	Num *string `json:"num,omitempty" xml:"num,omitempty"`
+	// 投资人
+	Investors *string `json:"investors,omitempty" xml:"investors,omitempty"`
+	// 组成形式
+	Formation *string `json:"formation,omitempty" xml:"formation,omitempty"`
+	// 注册日期
+	DateOfRegistration *string `json:"date_of_registration,omitempty" xml:"date_of_registration,omitempty"`
+	// 经营者
+	Operators *string `json:"operators,omitempty" xml:"operators,omitempty"`
+}
+
+func (s ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetReqMsgId(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetResultCode(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetResultMsg(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetAddress(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.Address = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetBusiness(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.Business = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetCaptial(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.Captial = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetEstablishDate(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.EstablishDate = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetName(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.Name = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetPerson(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.Person = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetRegNum(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.RegNum = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetStamp(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.Stamp = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetType(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.Type = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetValidPeriod(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.ValidPeriod = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetTitle(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.Title = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetDate(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.Date = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetNum(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.Num = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetInvestors(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.Investors = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetFormation(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.Formation = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetDateOfRegistration(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.DateOfRegistration = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse) SetOperators(v string) *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+	s.Operators = &v
+	return s
+}
+
+type SubmitAntcloudAdomAppmarketPrivacymodelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 商品实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 文件名称
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 结构化入参
+	StructInput *string `json:"struct_input,omitempty" xml:"struct_input,omitempty"`
+}
+
+func (s SubmitAntcloudAdomAppmarketPrivacymodelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAntcloudAdomAppmarketPrivacymodelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAntcloudAdomAppmarketPrivacymodelRequest) SetAuthToken(v string) *SubmitAntcloudAdomAppmarketPrivacymodelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAntcloudAdomAppmarketPrivacymodelRequest) SetInstanceId(v string) *SubmitAntcloudAdomAppmarketPrivacymodelRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *SubmitAntcloudAdomAppmarketPrivacymodelRequest) SetFileId(v string) *SubmitAntcloudAdomAppmarketPrivacymodelRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *SubmitAntcloudAdomAppmarketPrivacymodelRequest) SetStructInput(v string) *SubmitAntcloudAdomAppmarketPrivacymodelRequest {
+	s.StructInput = &v
+	return s
+}
+
+type SubmitAntcloudAdomAppmarketPrivacymodelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异步提交执行记录id
+	RecordId *string `json:"record_id,omitempty" xml:"record_id,omitempty"`
+}
+
+func (s SubmitAntcloudAdomAppmarketPrivacymodelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAntcloudAdomAppmarketPrivacymodelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAntcloudAdomAppmarketPrivacymodelResponse) SetReqMsgId(v string) *SubmitAntcloudAdomAppmarketPrivacymodelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAntcloudAdomAppmarketPrivacymodelResponse) SetResultCode(v string) *SubmitAntcloudAdomAppmarketPrivacymodelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAntcloudAdomAppmarketPrivacymodelResponse) SetResultMsg(v string) *SubmitAntcloudAdomAppmarketPrivacymodelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitAntcloudAdomAppmarketPrivacymodelResponse) SetRecordId(v string) *SubmitAntcloudAdomAppmarketPrivacymodelResponse {
 	s.RecordId = &v
 	return s
 }
@@ -497,7 +885,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.1.0"),
 				"_prod_code":       tea.String("ak_31dc9f55b9684fe29acc7c0125a5d7a2"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -624,8 +1012,8 @@ func (client *Client) UploadAntcloudAdomAppmarketFileEx(request *UploadAntcloudA
 }
 
 /**
- * Description: 应用开放市场隐私模型运行时链路-提交执行
- * Summary: 应用开放市场隐私模型运行时链路-提交执行
+ * Description: 应用开放市场隐私模型运行时链路-同步执行
+ * Summary: 应用开放市场隐私模型运行时链路-同步执行
  */
 func (client *Client) ExecAntcloudAdomAppmarketPrivacymodel(request *ExecAntcloudAdomAppmarketPrivacymodelRequest) (_result *ExecAntcloudAdomAppmarketPrivacymodelResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -640,8 +1028,8 @@ func (client *Client) ExecAntcloudAdomAppmarketPrivacymodel(request *ExecAntclou
 }
 
 /**
- * Description: 应用开放市场隐私模型运行时链路-提交执行
- * Summary: 应用开放市场隐私模型运行时链路-提交执行
+ * Description: 应用开放市场隐私模型运行时链路-同步执行
+ * Summary: 应用开放市场隐私模型运行时链路-同步执行
  */
 func (client *Client) ExecAntcloudAdomAppmarketPrivacymodelEx(request *ExecAntcloudAdomAppmarketPrivacymodelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecAntcloudAdomAppmarketPrivacymodelResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -650,6 +1038,108 @@ func (client *Client) ExecAntcloudAdomAppmarketPrivacymodelEx(request *ExecAntcl
 	}
 	_result = &ExecAntcloudAdomAppmarketPrivacymodelResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.adom.appmarket.privacymodel.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场OCR服务-文件上传
+ * Summary: 应用开放市场OCR服务-文件上传
+ */
+func (client *Client) UploadAntcloudAdomAppmarketOcrfile(request *UploadAntcloudAdomAppmarketOcrfileRequest) (_result *UploadAntcloudAdomAppmarketOcrfileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadAntcloudAdomAppmarketOcrfileResponse{}
+	_body, _err := client.UploadAntcloudAdomAppmarketOcrfileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场OCR服务-文件上传
+ * Summary: 应用开放市场OCR服务-文件上传
+ */
+func (client *Client) UploadAntcloudAdomAppmarketOcrfileEx(request *UploadAntcloudAdomAppmarketOcrfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAntcloudAdomAppmarketOcrfileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadAntcloudAdomAppmarketOcrfileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.adom.appmarket.ocrfile.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场OCR服务-营业执照识别
+ * Summary: 应用开放市场OCR服务-营业执照识别
+ */
+func (client *Client) ExecAntcloudAdomAppmarketBusinesslicenseocr(request *ExecAntcloudAdomAppmarketBusinesslicenseocrRequest) (_result *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecAntcloudAdomAppmarketBusinesslicenseocrResponse{}
+	_body, _err := client.ExecAntcloudAdomAppmarketBusinesslicenseocrEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场OCR服务-营业执照识别
+ * Summary: 应用开放市场OCR服务-营业执照识别
+ */
+func (client *Client) ExecAntcloudAdomAppmarketBusinesslicenseocrEx(request *ExecAntcloudAdomAppmarketBusinesslicenseocrRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecAntcloudAdomAppmarketBusinesslicenseocrResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecAntcloudAdomAppmarketBusinesslicenseocrResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.adom.appmarket.businesslicenseocr.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-提交执行
+ * Summary: 应用开放市场隐私模型运行时链路-提交执行
+ */
+func (client *Client) SubmitAntcloudAdomAppmarketPrivacymodel(request *SubmitAntcloudAdomAppmarketPrivacymodelRequest) (_result *SubmitAntcloudAdomAppmarketPrivacymodelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAntcloudAdomAppmarketPrivacymodelResponse{}
+	_body, _err := client.SubmitAntcloudAdomAppmarketPrivacymodelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-提交执行
+ * Summary: 应用开放市场隐私模型运行时链路-提交执行
+ */
+func (client *Client) SubmitAntcloudAdomAppmarketPrivacymodelEx(request *SubmitAntcloudAdomAppmarketPrivacymodelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAntcloudAdomAppmarketPrivacymodelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAntcloudAdomAppmarketPrivacymodelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.adom.appmarket.privacymodel.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
