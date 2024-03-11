@@ -6,7 +6,7 @@ namespace AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntcloudAdomAppmarketPrivacyresultResponse extends Model
+class UploadAntcloudAdomAppmarketOcrfileResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,37 +26,23 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse extends Model
      */
     public $resultMsg;
 
-    // 隐私计算模型执行状态
+    // 文件上传url
     /**
      * @var string
      */
-    public $status;
+    public $uploadUrl;
 
-    // 结果文件路径
+    // 文件key
     /**
      * @var string
      */
-    public $resultUrl;
-
-    // 失败的原因
-    /**
-     * @var string
-     */
-    public $failedReason;
-
-    // 结构化出参
-    /**
-     * @var string
-     */
-    public $structOutput;
+    public $fileKey;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'status'       => 'status',
-        'resultUrl'    => 'result_url',
-        'failedReason' => 'failed_reason',
-        'structOutput' => 'struct_output',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'uploadUrl'  => 'upload_url',
+        'fileKey'    => 'file_key',
     ];
 
     public function validate()
@@ -75,17 +61,11 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
+        if (null !== $this->uploadUrl) {
+            $res['upload_url'] = $this->uploadUrl;
         }
-        if (null !== $this->resultUrl) {
-            $res['result_url'] = $this->resultUrl;
-        }
-        if (null !== $this->failedReason) {
-            $res['failed_reason'] = $this->failedReason;
-        }
-        if (null !== $this->structOutput) {
-            $res['struct_output'] = $this->structOutput;
+        if (null !== $this->fileKey) {
+            $res['file_key'] = $this->fileKey;
         }
 
         return $res;
@@ -94,7 +74,7 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntcloudAdomAppmarketPrivacyresultResponse
+     * @return UploadAntcloudAdomAppmarketOcrfileResponse
      */
     public static function fromMap($map = [])
     {
@@ -108,17 +88,11 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
+        if (isset($map['upload_url'])) {
+            $model->uploadUrl = $map['upload_url'];
         }
-        if (isset($map['result_url'])) {
-            $model->resultUrl = $map['result_url'];
-        }
-        if (isset($map['failed_reason'])) {
-            $model->failedReason = $map['failed_reason'];
-        }
-        if (isset($map['struct_output'])) {
-            $model->structOutput = $map['struct_output'];
+        if (isset($map['file_key'])) {
+            $model->fileKey = $map['file_key'];
         }
 
         return $model;

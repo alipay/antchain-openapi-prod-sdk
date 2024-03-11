@@ -11,12 +11,18 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models\ExecAntcloudAdomAppmarketBusinesslicenseocrRequest;
+use AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models\ExecAntcloudAdomAppmarketBusinesslicenseocrResponse;
 use AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models\ExecAntcloudAdomAppmarketPrivacymodelRequest;
 use AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models\ExecAntcloudAdomAppmarketPrivacymodelResponse;
 use AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models\QueryAntcloudAdomAppmarketPrivacyresultRequest;
 use AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models\QueryAntcloudAdomAppmarketPrivacyresultResponse;
+use AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models\SubmitAntcloudAdomAppmarketPrivacymodelRequest;
+use AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models\SubmitAntcloudAdomAppmarketPrivacymodelResponse;
 use AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models\UploadAntcloudAdomAppmarketFileRequest;
 use AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models\UploadAntcloudAdomAppmarketFileResponse;
+use AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models\UploadAntcloudAdomAppmarketOcrfileRequest;
+use AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models\UploadAntcloudAdomAppmarketOcrfileResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -163,7 +169,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.1.0',
                     '_prod_code'       => 'ak_31dc9f55b9684fe29acc7c0125a5d7a2',
                     '_prod_channel'    => 'saas',
                 ];
@@ -278,8 +284,8 @@ class Client
     }
 
     /**
-     * Description: 应用开放市场隐私模型运行时链路-提交执行
-     * Summary: 应用开放市场隐私模型运行时链路-提交执行.
+     * Description: 应用开放市场隐私模型运行时链路-同步执行
+     * Summary: 应用开放市场隐私模型运行时链路-同步执行.
      *
      * @param ExecAntcloudAdomAppmarketPrivacymodelRequest $request
      *
@@ -294,8 +300,8 @@ class Client
     }
 
     /**
-     * Description: 应用开放市场隐私模型运行时链路-提交执行
-     * Summary: 应用开放市场隐私模型运行时链路-提交执行.
+     * Description: 应用开放市场隐私模型运行时链路-同步执行
+     * Summary: 应用开放市场隐私模型运行时链路-同步执行.
      *
      * @param ExecAntcloudAdomAppmarketPrivacymodelRequest $request
      * @param string[]                                     $headers
@@ -308,5 +314,104 @@ class Client
         Utils::validateModel($request);
 
         return ExecAntcloudAdomAppmarketPrivacymodelResponse::fromMap($this->doRequest('1.0', 'antcloud.adom.appmarket.privacymodel.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用开放市场OCR服务-文件上传
+     * Summary: 应用开放市场OCR服务-文件上传.
+     *
+     * @param UploadAntcloudAdomAppmarketOcrfileRequest $request
+     *
+     * @return UploadAntcloudAdomAppmarketOcrfileResponse
+     */
+    public function uploadAntcloudAdomAppmarketOcrfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAntcloudAdomAppmarketOcrfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用开放市场OCR服务-文件上传
+     * Summary: 应用开放市场OCR服务-文件上传.
+     *
+     * @param UploadAntcloudAdomAppmarketOcrfileRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return UploadAntcloudAdomAppmarketOcrfileResponse
+     */
+    public function uploadAntcloudAdomAppmarketOcrfileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadAntcloudAdomAppmarketOcrfileResponse::fromMap($this->doRequest('1.0', 'antcloud.adom.appmarket.ocrfile.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用开放市场OCR服务-营业执照识别
+     * Summary: 应用开放市场OCR服务-营业执照识别.
+     *
+     * @param ExecAntcloudAdomAppmarketBusinesslicenseocrRequest $request
+     *
+     * @return ExecAntcloudAdomAppmarketBusinesslicenseocrResponse
+     */
+    public function execAntcloudAdomAppmarketBusinesslicenseocr($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execAntcloudAdomAppmarketBusinesslicenseocrEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用开放市场OCR服务-营业执照识别
+     * Summary: 应用开放市场OCR服务-营业执照识别.
+     *
+     * @param ExecAntcloudAdomAppmarketBusinesslicenseocrRequest $request
+     * @param string[]                                           $headers
+     * @param RuntimeOptions                                     $runtime
+     *
+     * @return ExecAntcloudAdomAppmarketBusinesslicenseocrResponse
+     */
+    public function execAntcloudAdomAppmarketBusinesslicenseocrEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecAntcloudAdomAppmarketBusinesslicenseocrResponse::fromMap($this->doRequest('1.0', 'antcloud.adom.appmarket.businesslicenseocr.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-提交执行
+     * Summary: 应用开放市场隐私模型运行时链路-提交执行.
+     *
+     * @param SubmitAntcloudAdomAppmarketPrivacymodelRequest $request
+     *
+     * @return SubmitAntcloudAdomAppmarketPrivacymodelResponse
+     */
+    public function submitAntcloudAdomAppmarketPrivacymodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAntcloudAdomAppmarketPrivacymodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-提交执行
+     * Summary: 应用开放市场隐私模型运行时链路-提交执行.
+     *
+     * @param SubmitAntcloudAdomAppmarketPrivacymodelRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return SubmitAntcloudAdomAppmarketPrivacymodelResponse
+     */
+    public function submitAntcloudAdomAppmarketPrivacymodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAntcloudAdomAppmarketPrivacymodelResponse::fromMap($this->doRequest('1.0', 'antcloud.adom.appmarket.privacymodel.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

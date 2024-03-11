@@ -26,16 +26,37 @@ class ExecAntcloudAdomAppmarketPrivacymodelResponse extends Model
      */
     public $resultMsg;
 
-    // 执行记录id
+    // 执行状态
     /**
      * @var string
      */
-    public $recordId;
+    public $status;
+
+    // 结果文件url
+    /**
+     * @var string
+     */
+    public $resultUrl;
+
+    // 执行失败原因
+    /**
+     * @var string
+     */
+    public $failedReason;
+
+    // 结构化出参
+    /**
+     * @var string
+     */
+    public $structOutput;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'recordId'   => 'record_id',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'status'       => 'status',
+        'resultUrl'    => 'result_url',
+        'failedReason' => 'failed_reason',
+        'structOutput' => 'struct_output',
     ];
 
     public function validate()
@@ -54,8 +75,17 @@ class ExecAntcloudAdomAppmarketPrivacymodelResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->recordId) {
-            $res['record_id'] = $this->recordId;
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->resultUrl) {
+            $res['result_url'] = $this->resultUrl;
+        }
+        if (null !== $this->failedReason) {
+            $res['failed_reason'] = $this->failedReason;
+        }
+        if (null !== $this->structOutput) {
+            $res['struct_output'] = $this->structOutput;
         }
 
         return $res;
@@ -78,8 +108,17 @@ class ExecAntcloudAdomAppmarketPrivacymodelResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['record_id'])) {
-            $model->recordId = $map['record_id'];
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
+        }
+        if (isset($map['result_url'])) {
+            $model->resultUrl = $map['result_url'];
+        }
+        if (isset($map['failed_reason'])) {
+            $model->failedReason = $map['failed_reason'];
+        }
+        if (isset($map['struct_output'])) {
+            $model->structOutput = $map['struct_output'];
         }
 
         return $model;

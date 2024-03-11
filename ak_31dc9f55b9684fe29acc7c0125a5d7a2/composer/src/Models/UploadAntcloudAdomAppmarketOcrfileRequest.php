@@ -6,7 +6,7 @@ namespace AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecAntcloudAdomAppmarketPrivacymodelRequest extends Model
+class UploadAntcloudAdomAppmarketOcrfileRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,33 +14,27 @@ class ExecAntcloudAdomAppmarketPrivacymodelRequest extends Model
      */
     public $authToken;
 
-    // 商品实例id
+    // 所购商品实例id
     /**
      * @var string
      */
     public $instanceId;
 
-    // 文件标识，文件上传时的入参
+    // 文件名
     /**
      * @var string
      */
-    public $fileId;
-
-    // 结构化入参
-    /**
-     * @var string
-     */
-    public $structInput;
+    public $fileName;
     protected $_name = [
-        'authToken'   => 'auth_token',
-        'instanceId'  => 'instance_id',
-        'fileId'      => 'file_id',
-        'structInput' => 'struct_input',
+        'authToken'  => 'auth_token',
+        'instanceId' => 'instance_id',
+        'fileName'   => 'file_name',
     ];
 
     public function validate()
     {
         Model::validateRequired('instanceId', $this->instanceId, true);
+        Model::validateRequired('fileName', $this->fileName, true);
     }
 
     public function toMap()
@@ -52,11 +46,8 @@ class ExecAntcloudAdomAppmarketPrivacymodelRequest extends Model
         if (null !== $this->instanceId) {
             $res['instance_id'] = $this->instanceId;
         }
-        if (null !== $this->fileId) {
-            $res['file_id'] = $this->fileId;
-        }
-        if (null !== $this->structInput) {
-            $res['struct_input'] = $this->structInput;
+        if (null !== $this->fileName) {
+            $res['file_name'] = $this->fileName;
         }
 
         return $res;
@@ -65,7 +56,7 @@ class ExecAntcloudAdomAppmarketPrivacymodelRequest extends Model
     /**
      * @param array $map
      *
-     * @return ExecAntcloudAdomAppmarketPrivacymodelRequest
+     * @return UploadAntcloudAdomAppmarketOcrfileRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +67,8 @@ class ExecAntcloudAdomAppmarketPrivacymodelRequest extends Model
         if (isset($map['instance_id'])) {
             $model->instanceId = $map['instance_id'];
         }
-        if (isset($map['file_id'])) {
-            $model->fileId = $map['file_id'];
-        }
-        if (isset($map['struct_input'])) {
-            $model->structInput = $map['struct_input'];
+        if (isset($map['file_name'])) {
+            $model->fileName = $map['file_name'];
         }
 
         return $model;

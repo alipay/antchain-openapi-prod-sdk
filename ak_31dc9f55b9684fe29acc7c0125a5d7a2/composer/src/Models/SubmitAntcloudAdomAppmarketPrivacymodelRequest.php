@@ -6,7 +6,7 @@ namespace AntChain\Ak_31dc9f55b9684fe29acc7c0125a5d7a2\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecAntcloudAdomAppmarketPrivacymodelRequest extends Model
+class SubmitAntcloudAdomAppmarketPrivacymodelRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -20,7 +20,7 @@ class ExecAntcloudAdomAppmarketPrivacymodelRequest extends Model
      */
     public $instanceId;
 
-    // 文件标识，文件上传时的入参
+    // 文件名称
     /**
      * @var string
      */
@@ -65,7 +65,7 @@ class ExecAntcloudAdomAppmarketPrivacymodelRequest extends Model
     /**
      * @param array $map
      *
-     * @return ExecAntcloudAdomAppmarketPrivacymodelRequest
+     * @return SubmitAntcloudAdomAppmarketPrivacymodelRequest
      */
     public static function fromMap($map = [])
     {
