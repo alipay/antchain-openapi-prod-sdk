@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.1.0',
     _prod_code = 'ak_31dc9f55b9684fe29acc7c0125a5d7a2',
     _prod_channel = 'saas'
   };
@@ -183,6 +183,8 @@ model QueryAntcloudAdomAppmarketPrivacyresultResponse = {
   resultUrl?: string(name='result_url'),
   // 失败的原因
   failedReason?: string(name='failed_reason'),
+  // 结构化出参
+  structOutput?: string(name='struct_output'),
 }
 
 /**
@@ -249,7 +251,9 @@ model ExecAntcloudAdomAppmarketPrivacymodelRequest = {
   // 商品实例id
   instanceId: string(name='instance_id'),
   // 文件标识，文件上传时的入参
-  fileId: string(name='file_id'),
+  fileId?: string(name='file_id'),
+  // 结构化入参
+  structInput?: string(name='struct_input'),
 }
 
 model ExecAntcloudAdomAppmarketPrivacymodelResponse = {
@@ -259,13 +263,19 @@ model ExecAntcloudAdomAppmarketPrivacymodelResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 执行记录id
-  recordId?: string(name='record_id'),
+  // 执行状态
+  status?: string(name='status'),
+  // 结果文件url
+  resultUrl?: string(name='result_url'),
+  // 执行失败原因
+  failedReason?: string(name='failed_reason'),
+  // 结构化出参
+  structOutput?: string(name='struct_output'),
 }
 
 /**
- * Description: 应用开放市场隐私模型运行时链路-提交执行
- * Summary: 应用开放市场隐私模型运行时链路-提交执行
+ * Description: 应用开放市场隐私模型运行时链路-同步执行
+ * Summary: 应用开放市场隐私模型运行时链路-同步执行
  */
 async function execAntcloudAdomAppmarketPrivacymodel(request: ExecAntcloudAdomAppmarketPrivacymodelRequest): ExecAntcloudAdomAppmarketPrivacymodelResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -274,11 +284,168 @@ async function execAntcloudAdomAppmarketPrivacymodel(request: ExecAntcloudAdomAp
 }
 
 /**
- * Description: 应用开放市场隐私模型运行时链路-提交执行
- * Summary: 应用开放市场隐私模型运行时链路-提交执行
+ * Description: 应用开放市场隐私模型运行时链路-同步执行
+ * Summary: 应用开放市场隐私模型运行时链路-同步执行
  */
 async function execAntcloudAdomAppmarketPrivacymodelEx(request: ExecAntcloudAdomAppmarketPrivacymodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecAntcloudAdomAppmarketPrivacymodelResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.adom.appmarket.privacymodel.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAntcloudAdomAppmarketOcrfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 所购商品实例id
+  instanceId: string(name='instance_id'),
+  // 文件名
+  fileName: string(name='file_name'),
+}
+
+model UploadAntcloudAdomAppmarketOcrfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件上传url
+  uploadUrl?: string(name='upload_url'),
+  // 文件key
+  fileKey?: string(name='file_key'),
+}
+
+/**
+ * Description: 应用开放市场OCR服务-文件上传
+ * Summary: 应用开放市场OCR服务-文件上传
+ */
+async function uploadAntcloudAdomAppmarketOcrfile(request: UploadAntcloudAdomAppmarketOcrfileRequest): UploadAntcloudAdomAppmarketOcrfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAntcloudAdomAppmarketOcrfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用开放市场OCR服务-文件上传
+ * Summary: 应用开放市场OCR服务-文件上传
+ */
+async function uploadAntcloudAdomAppmarketOcrfileEx(request: UploadAntcloudAdomAppmarketOcrfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAntcloudAdomAppmarketOcrfileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.adom.appmarket.ocrfile.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecAntcloudAdomAppmarketBusinesslicenseocrRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商品实例id
+  instanceId: string(name='instance_id'),
+  // 文件key
+  fileKey?: string(name='file_key'),
+  // 文件url
+  fileUrl?: string(name='file_url'),
+  // 扩展信息
+  ext?: string(name='ext'),
+}
+
+model ExecAntcloudAdomAppmarketBusinesslicenseocrResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 地址
+  address?: string(name='address'),
+  // 经营范围
+  business?: string(name='business'),
+  // 注册资本
+  captial?: string(name='captial'),
+  // 企业成立日期
+  establishDate?: string(name='establish_date'),
+  // 名称，控股股东名称
+  name?: string(name='name'),
+  // 法定代表人
+  person?: string(name='person'),
+  // 统一社会信用代码，控股股东证件号码
+  regNum?: string(name='reg_num'),
+  // 印章
+  stamp?: string(name='stamp'),
+  // 类型，如：有限责任公司(自然人独资)
+  type?: string(name='type'),
+  // 营业期限，营业执照有效期，控股股东证件有效期
+  validPeriod?: string(name='valid_period'),
+  // 标题，如"营业执照"
+  title?: string(name='title'),
+  // 颁发日期
+  date?: string(name='date'),
+  // 编号
+  num?: string(name='num'),
+  // 投资人
+  investors?: string(name='investors'),
+  // 组成形式
+  formation?: string(name='formation'),
+  // 注册日期
+  dateOfRegistration?: string(name='date_of_registration'),
+  // 经营者
+  operators?: string(name='operators'),
+}
+
+/**
+ * Description: 应用开放市场OCR服务-营业执照识别
+ * Summary: 应用开放市场OCR服务-营业执照识别
+ */
+async function execAntcloudAdomAppmarketBusinesslicenseocr(request: ExecAntcloudAdomAppmarketBusinesslicenseocrRequest): ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execAntcloudAdomAppmarketBusinesslicenseocrEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用开放市场OCR服务-营业执照识别
+ * Summary: 应用开放市场OCR服务-营业执照识别
+ */
+async function execAntcloudAdomAppmarketBusinesslicenseocrEx(request: ExecAntcloudAdomAppmarketBusinesslicenseocrRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecAntcloudAdomAppmarketBusinesslicenseocrResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.adom.appmarket.businesslicenseocr.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAntcloudAdomAppmarketPrivacymodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商品实例id
+  instanceId: string(name='instance_id'),
+  // 文件名称
+  fileId?: string(name='file_id'),
+  // 结构化入参
+  structInput?: string(name='struct_input'),
+}
+
+model SubmitAntcloudAdomAppmarketPrivacymodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 异步提交执行记录id
+  recordId?: string(name='record_id'),
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-提交执行
+ * Summary: 应用开放市场隐私模型运行时链路-提交执行
+ */
+async function submitAntcloudAdomAppmarketPrivacymodel(request: SubmitAntcloudAdomAppmarketPrivacymodelRequest): SubmitAntcloudAdomAppmarketPrivacymodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAntcloudAdomAppmarketPrivacymodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-提交执行
+ * Summary: 应用开放市场隐私模型运行时链路-提交执行
+ */
+async function submitAntcloudAdomAppmarketPrivacymodelEx(request: SubmitAntcloudAdomAppmarketPrivacymodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAntcloudAdomAppmarketPrivacymodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.adom.appmarket.privacymodel.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
