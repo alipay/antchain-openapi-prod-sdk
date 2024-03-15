@@ -40,6 +40,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=true)]
         public string TemplateId { get; set; }
 
+        // 合同签署时间，格式为yyyy-MM-dd HH:mm:ss
+        [NameInMap("sign_time")]
+        [Validation(Required=true)]
+        public string SignTime { get; set; }
+
         // 上传的pdf文件，需要以.pdf后缀结尾
         /// <summary>
         /// 待上传文件
