@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.3',
+                    'sdk_version': '1.2.0',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.3',
+                    'sdk_version': '1.2.0',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -2323,6 +2323,96 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfullinfoResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.orderfullinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_antchain_ato_sign_flow(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowResponse:
+        """
+        Description: 调用该接口，追加上传无法在原有链路上签署的合同
+        Summary: 商户调用合同追加接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_antchain_ato_sign_flow_ex(request, headers, runtime)
+
+    async def upload_antchain_ato_sign_flow_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowResponse:
+        """
+        Description: 调用该接口，追加上传无法在原有链路上签署的合同
+        Summary: 商户调用合同追加接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_antchain_ato_sign_flow_ex_async(request, headers, runtime)
+
+    def upload_antchain_ato_sign_flow_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowResponse:
+        """
+        Description: 调用该接口，追加上传无法在原有链路上签署的合同
+        Summary: 商户调用合同追加接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.ato.sign.flow.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_antchain_ato_sign_flow_response = ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_antchain_ato_sign_flow_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.sign.flow.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_antchain_ato_sign_flow_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowResponse:
+        """
+        Description: 调用该接口，追加上传无法在原有链路上签署的合同
+        Summary: 商户调用合同追加接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.ato.sign.flow.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_antchain_ato_sign_flow_response = ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_antchain_ato_sign_flow_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.sign.flow.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
