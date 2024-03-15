@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.0',
+    sdk_version = '1.2.1',
     _prod_code = 'ak_195dff03d395462ea294bafdba69df3f',
     _prod_channel = 'saas'
   };
@@ -1912,6 +1912,8 @@ model UploadAntchainAtoSignFlowRequest = {
   signNo: string(name='sign_no'),
   // 模板id
   templateId: string(name='template_id'),
+  // 合同签署时间，格式为yyyy-MM-dd HH:mm:ss
+  signTime: string(name='sign_time'),
   // 上传的pdf文件，需要以.pdf后缀结尾
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileObjectName?: string(description='待上传文件名', ignore='true'),
