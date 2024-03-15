@@ -612,6 +612,11 @@ type AllAntchainAtoSignTemplateRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 合同类型，如果不传则返回所有
 	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty"`
+	// ● FINANCE 融资
+	// ● NON_FINANCE 非融资
+	FundType *string `json:"fund_type,omitempty" xml:"fund_type,omitempty"`
+	// 查询融资类型时，需要传入资方统一社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty"`
 }
 
 func (s AllAntchainAtoSignTemplateRequest) String() string {
@@ -634,6 +639,16 @@ func (s *AllAntchainAtoSignTemplateRequest) SetProductInstanceId(v string) *AllA
 
 func (s *AllAntchainAtoSignTemplateRequest) SetContractType(v string) *AllAntchainAtoSignTemplateRequest {
 	s.ContractType = &v
+	return s
+}
+
+func (s *AllAntchainAtoSignTemplateRequest) SetFundType(v string) *AllAntchainAtoSignTemplateRequest {
+	s.FundType = &v
+	return s
+}
+
+func (s *AllAntchainAtoSignTemplateRequest) SetFundId(v string) *AllAntchainAtoSignTemplateRequest {
+	s.FundId = &v
 	return s
 }
 
@@ -3692,6 +3707,120 @@ func (s *GetAntchainAtoFundOrderfullinfoResponse) SetResponseData(v string) *Get
 	return s
 }
 
+type UploadAntchainAtoSignFlowRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	//
+	// 订单所属商户的统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	//
+	// 商户的订单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 签署合同单号
+	SignNo *string `json:"sign_no,omitempty" xml:"sign_no,omitempty" require:"true"`
+	// 模板id
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true"`
+	// 上传的pdf文件，需要以.pdf后缀结尾
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s UploadAntchainAtoSignFlowRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAntchainAtoSignFlowRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAntchainAtoSignFlowRequest) SetAuthToken(v string) *UploadAntchainAtoSignFlowRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadAntchainAtoSignFlowRequest) SetProductInstanceId(v string) *UploadAntchainAtoSignFlowRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadAntchainAtoSignFlowRequest) SetMerchantId(v string) *UploadAntchainAtoSignFlowRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *UploadAntchainAtoSignFlowRequest) SetOrderId(v string) *UploadAntchainAtoSignFlowRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *UploadAntchainAtoSignFlowRequest) SetSignNo(v string) *UploadAntchainAtoSignFlowRequest {
+	s.SignNo = &v
+	return s
+}
+
+func (s *UploadAntchainAtoSignFlowRequest) SetTemplateId(v string) *UploadAntchainAtoSignFlowRequest {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *UploadAntchainAtoSignFlowRequest) SetFileObject(v io.Reader) *UploadAntchainAtoSignFlowRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadAntchainAtoSignFlowRequest) SetFileObjectName(v string) *UploadAntchainAtoSignFlowRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadAntchainAtoSignFlowRequest) SetFileId(v string) *UploadAntchainAtoSignFlowRequest {
+	s.FileId = &v
+	return s
+}
+
+type UploadAntchainAtoSignFlowResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件编号
+	FileItemNo *string `json:"file_item_no,omitempty" xml:"file_item_no,omitempty"`
+}
+
+func (s UploadAntchainAtoSignFlowResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAntchainAtoSignFlowResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAntchainAtoSignFlowResponse) SetReqMsgId(v string) *UploadAntchainAtoSignFlowResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadAntchainAtoSignFlowResponse) SetResultCode(v string) *UploadAntchainAtoSignFlowResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadAntchainAtoSignFlowResponse) SetResultMsg(v string) *UploadAntchainAtoSignFlowResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadAntchainAtoSignFlowResponse) SetFileItemNo(v string) *UploadAntchainAtoSignFlowResponse {
+	s.FileItemNo = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3934,7 +4063,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.3"),
+				"sdk_version":      tea.String("1.2.0"),
 				"_prod_code":       tea.String("ak_195dff03d395462ea294bafdba69df3f"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -5238,6 +5367,69 @@ func (client *Client) GetAntchainAtoFundOrderfullinfoEx(request *GetAntchainAtoF
 	}
 	_result = &GetAntchainAtoFundOrderfullinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.orderfullinfo.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 调用该接口，追加上传无法在原有链路上签署的合同
+ * Summary: 商户调用合同追加接口
+ */
+func (client *Client) UploadAntchainAtoSignFlow(request *UploadAntchainAtoSignFlowRequest) (_result *UploadAntchainAtoSignFlowResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadAntchainAtoSignFlowResponse{}
+	_body, _err := client.UploadAntchainAtoSignFlowEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 调用该接口，追加上传无法在原有链路上签署的合同
+ * Summary: 商户调用合同追加接口
+ */
+func (client *Client) UploadAntchainAtoSignFlowEx(request *UploadAntchainAtoSignFlowRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAntchainAtoSignFlowResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antchain.ato.sign.flow.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadAntchainAtoSignFlowResponse := &UploadAntchainAtoSignFlowResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadAntchainAtoSignFlowResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadAntchainAtoSignFlowResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.sign.flow.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
