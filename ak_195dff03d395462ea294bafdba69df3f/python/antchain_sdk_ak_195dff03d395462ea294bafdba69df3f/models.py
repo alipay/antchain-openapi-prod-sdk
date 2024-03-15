@@ -4693,6 +4693,7 @@ class UploadAntchainAtoSignFlowRequest(TeaModel):
         order_id: str = None,
         sign_no: str = None,
         template_id: str = None,
+        sign_time: str = None,
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
@@ -4710,6 +4711,8 @@ class UploadAntchainAtoSignFlowRequest(TeaModel):
         self.sign_no = sign_no
         # 模板id
         self.template_id = template_id
+        # 合同签署时间，格式为yyyy-MM-dd HH:mm:ss
+        self.sign_time = sign_time
         # 上传的pdf文件，需要以.pdf后缀结尾
         # 待上传文件
         self.file_object = file_object
@@ -4722,6 +4725,7 @@ class UploadAntchainAtoSignFlowRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
         self.validate_required(self.sign_no, 'sign_no')
         self.validate_required(self.template_id, 'template_id')
+        self.validate_required(self.sign_time, 'sign_time')
         self.validate_required(self.file_id, 'file_id')
 
     def to_map(self):
@@ -4742,6 +4746,8 @@ class UploadAntchainAtoSignFlowRequest(TeaModel):
             result['sign_no'] = self.sign_no
         if self.template_id is not None:
             result['template_id'] = self.template_id
+        if self.sign_time is not None:
+            result['sign_time'] = self.sign_time
         if self.file_object is not None:
             result['fileObject'] = self.file_object
         if self.file_object_name is not None:
@@ -4764,6 +4770,8 @@ class UploadAntchainAtoSignFlowRequest(TeaModel):
             self.sign_no = m.get('sign_no')
         if m.get('template_id') is not None:
             self.template_id = m.get('template_id')
+        if m.get('sign_time') is not None:
+            self.sign_time = m.get('sign_time')
         if m.get('fileObject') is not None:
             self.file_object = m.get('fileObject')
         if m.get('fileObjectName') is not None:
