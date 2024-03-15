@@ -3721,6 +3721,8 @@ type UploadAntchainAtoSignFlowRequest struct {
 	SignNo *string `json:"sign_no,omitempty" xml:"sign_no,omitempty" require:"true"`
 	// 模板id
 	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true"`
+	// 合同签署时间，格式为yyyy-MM-dd HH:mm:ss
+	SignTime *string `json:"sign_time,omitempty" xml:"sign_time,omitempty" require:"true"`
 	// 上传的pdf文件，需要以.pdf后缀结尾
 	// 待上传文件
 	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
@@ -3764,6 +3766,11 @@ func (s *UploadAntchainAtoSignFlowRequest) SetSignNo(v string) *UploadAntchainAt
 
 func (s *UploadAntchainAtoSignFlowRequest) SetTemplateId(v string) *UploadAntchainAtoSignFlowRequest {
 	s.TemplateId = &v
+	return s
+}
+
+func (s *UploadAntchainAtoSignFlowRequest) SetSignTime(v string) *UploadAntchainAtoSignFlowRequest {
+	s.SignTime = &v
 	return s
 }
 
@@ -4063,7 +4070,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.0"),
+				"sdk_version":      tea.String("1.2.1"),
 				"_prod_code":       tea.String("ak_195dff03d395462ea294bafdba69df3f"),
 				"_prod_channel":    tea.String("saas"),
 			}
