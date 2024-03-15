@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.3',
+    sdk_version = '1.2.0',
     _prod_code = 'ak_195dff03d395462ea294bafdba69df3f',
     _prod_channel = 'saas'
   };
@@ -380,6 +380,11 @@ model AllAntchainAtoSignTemplateRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 合同类型，如果不传则返回所有
   contractType?: string(name='contract_type'),
+  // ● FINANCE 融资
+  // ● NON_FINANCE 非融资
+  fundType?: string(name='fund_type'),
+  // 查询融资类型时，需要传入资方统一社会信用代码
+  fundId?: string(name='fund_id'),
 }
 
 model AllAntchainAtoSignTemplateResponse = {
@@ -1891,6 +1896,75 @@ async function getAntchainAtoFundOrderfullinfo(request: GetAntchainAtoFundOrderf
 async function getAntchainAtoFundOrderfullinfoEx(request: GetAntchainAtoFundOrderfullinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAntchainAtoFundOrderfullinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.fund.orderfullinfo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAntchainAtoSignFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 	
+  // 订单所属商户的统一社会信用代码
+  merchantId: string(name='merchant_id'),
+  // 	
+  // 商户的订单号
+  orderId: string(name='order_id'),
+  // 签署合同单号
+  signNo: string(name='sign_no'),
+  // 模板id
+  templateId: string(name='template_id'),
+  // 上传的pdf文件，需要以.pdf后缀结尾
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadAntchainAtoSignFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件编号
+  fileItemNo?: string(name='file_item_no'),
+}
+
+/**
+ * Description: 调用该接口，追加上传无法在原有链路上签署的合同
+ * Summary: 商户调用合同追加接口
+ */
+async function uploadAntchainAtoSignFlow(request: UploadAntchainAtoSignFlowRequest): UploadAntchainAtoSignFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAntchainAtoSignFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 调用该接口，追加上传无法在原有链路上签署的合同
+ * Summary: 商户调用合同追加接口
+ */
+async function uploadAntchainAtoSignFlowEx(request: UploadAntchainAtoSignFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAntchainAtoSignFlowResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.ato.sign.flow.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadAntchainAtoSignFlowResponse = new UploadAntchainAtoSignFlowResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadAntchainAtoSignFlowResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.sign.flow.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
