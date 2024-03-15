@@ -33,6 +33,11 @@ public class UploadAntchainAtoSignFlowRequest extends TeaModel {
     @Validation(required = true)
     public String templateId;
 
+    // 合同签署时间，格式为yyyy-MM-dd HH:mm:ss
+    @NameInMap("sign_time")
+    @Validation(required = true)
+    public String signTime;
+
     // 上传的pdf文件，需要以.pdf后缀结尾
     // 待上传文件
     @NameInMap("fileObject")
@@ -97,6 +102,14 @@ public class UploadAntchainAtoSignFlowRequest extends TeaModel {
     }
     public String getTemplateId() {
         return this.templateId;
+    }
+
+    public UploadAntchainAtoSignFlowRequest setSignTime(String signTime) {
+        this.signTime = signTime;
+        return this;
+    }
+    public String getSignTime() {
+        return this.signTime;
     }
 
     public UploadAntchainAtoSignFlowRequest setFileObject(java.io.InputStream fileObject) {
