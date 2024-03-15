@@ -85,6 +85,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithhol
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithholdSignResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoFundFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoFundFlowResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoSignFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoSignFlowResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -232,7 +234,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.3',
+                    'sdk_version'      => '1.2.0',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -1484,6 +1486,57 @@ class Client
         Utils::validateModel($request);
 
         return GetAntchainAtoFundOrderfullinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.orderfullinfo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用该接口，追加上传无法在原有链路上签署的合同
+     * Summary: 商户调用合同追加接口.
+     *
+     * @param UploadAntchainAtoSignFlowRequest $request
+     *
+     * @return UploadAntchainAtoSignFlowResponse
+     */
+    public function uploadAntchainAtoSignFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAntchainAtoSignFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用该接口，追加上传无法在原有链路上签署的合同
+     * Summary: 商户调用合同追加接口.
+     *
+     * @param UploadAntchainAtoSignFlowRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UploadAntchainAtoSignFlowResponse
+     */
+    public function uploadAntchainAtoSignFlowEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.ato.sign.flow.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadAntchainAtoSignFlowResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadAntchainAtoSignFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.flow.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

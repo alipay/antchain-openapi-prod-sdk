@@ -24,10 +24,25 @@ class AllAntchainAtoSignTemplateRequest extends Model
      * @var string
      */
     public $contractType;
+
+    // ● FINANCE 融资
+    // ● NON_FINANCE 非融资
+    /**
+     * @var string
+     */
+    public $fundType;
+
+    // 查询融资类型时，需要传入资方统一社会信用代码
+    /**
+     * @var string
+     */
+    public $fundId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'contractType'      => 'contract_type',
+        'fundType'          => 'fund_type',
+        'fundId'            => 'fund_id',
     ];
 
     public function validate()
@@ -45,6 +60,12 @@ class AllAntchainAtoSignTemplateRequest extends Model
         }
         if (null !== $this->contractType) {
             $res['contract_type'] = $this->contractType;
+        }
+        if (null !== $this->fundType) {
+            $res['fund_type'] = $this->fundType;
+        }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
         }
 
         return $res;
@@ -66,6 +87,12 @@ class AllAntchainAtoSignTemplateRequest extends Model
         }
         if (isset($map['contract_type'])) {
             $model->contractType = $map['contract_type'];
+        }
+        if (isset($map['fund_type'])) {
+            $model->fundType = $map['fund_type'];
+        }
+        if (isset($map['fund_id'])) {
+            $model->fundId = $map['fund_id'];
         }
 
         return $model;
