@@ -46,6 +46,12 @@ class UploadAntchainAtoSignFlowRequest extends Model
      */
     public $templateId;
 
+    // 合同签署时间，格式为yyyy-MM-dd HH:mm:ss
+    /**
+     * @var string
+     */
+    public $signTime;
+
     // 上传的pdf文件，需要以.pdf后缀结尾
     /**
      * @description 待上传文件
@@ -72,6 +78,7 @@ class UploadAntchainAtoSignFlowRequest extends Model
         'orderId'           => 'order_id',
         'signNo'            => 'sign_no',
         'templateId'        => 'template_id',
+        'signTime'          => 'sign_time',
         'fileId'            => 'file_id',
     ];
 
@@ -81,6 +88,7 @@ class UploadAntchainAtoSignFlowRequest extends Model
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('signNo', $this->signNo, true);
         Model::validateRequired('templateId', $this->templateId, true);
+        Model::validateRequired('signTime', $this->signTime, true);
         Model::validateRequired('fileId', $this->fileId, true);
     }
 
@@ -104,6 +112,9 @@ class UploadAntchainAtoSignFlowRequest extends Model
         }
         if (null !== $this->templateId) {
             $res['template_id'] = $this->templateId;
+        }
+        if (null !== $this->signTime) {
+            $res['sign_time'] = $this->signTime;
         }
         if (null !== $this->fileObject) {
             $res['fileObject'] = $this->fileObject;
@@ -143,6 +154,9 @@ class UploadAntchainAtoSignFlowRequest extends Model
         }
         if (isset($map['template_id'])) {
             $model->templateId = $map['template_id'];
+        }
+        if (isset($map['sign_time'])) {
+            $model->signTime = $map['sign_time'];
         }
         if (isset($map['fileObject'])) {
             $model->fileObject = $map['fileObject'];
