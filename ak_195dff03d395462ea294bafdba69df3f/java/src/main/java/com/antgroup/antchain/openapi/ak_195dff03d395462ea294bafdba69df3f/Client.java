@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.3"),
+                    new TeaPair("sdk_version", "1.2.0"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -864,6 +864,46 @@ public class Client {
     public GetAntchainAtoFundOrderfullinfoResponse getAntchainAtoFundOrderfullinfoEx(GetAntchainAtoFundOrderfullinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.orderfullinfo.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAntchainAtoFundOrderfullinfoResponse());
+    }
+
+    /**
+     * Description: 调用该接口，追加上传无法在原有链路上签署的合同
+     * Summary: 商户调用合同追加接口
+     */
+    public UploadAntchainAtoSignFlowResponse uploadAntchainAtoSignFlow(UploadAntchainAtoSignFlowRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadAntchainAtoSignFlowEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 调用该接口，追加上传无法在原有链路上签署的合同
+     * Summary: 商户调用合同追加接口
+     */
+    public UploadAntchainAtoSignFlowResponse uploadAntchainAtoSignFlowEx(UploadAntchainAtoSignFlowRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antchain.ato.sign.flow.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadAntchainAtoSignFlowResponse uploadAntchainAtoSignFlowResponse = UploadAntchainAtoSignFlowResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadAntchainAtoSignFlowResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.sign.flow.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAntchainAtoSignFlowResponse());
     }
 
     /**
