@@ -33,6 +33,8 @@ use AntChain\ATO\Models\CreateRealpersonFacevrfRequest;
 use AntChain\ATO\Models\CreateRealpersonFacevrfResponse;
 use AntChain\ATO\Models\CreateWithholdActivepayRequest;
 use AntChain\ATO\Models\CreateWithholdActivepayResponse;
+use AntChain\ATO\Models\CreateWithholdRefundRequest;
+use AntChain\ATO\Models\CreateWithholdRefundResponse;
 use AntChain\ATO\Models\CreateWithholdSignRequest;
 use AntChain\ATO\Models\CreateWithholdSignResponse;
 use AntChain\ATO\Models\GetFundFlowRequest;
@@ -61,6 +63,8 @@ use AntChain\ATO\Models\QueryRealpersonFacevrfRequest;
 use AntChain\ATO\Models\QueryRealpersonFacevrfResponse;
 use AntChain\ATO\Models\QueryWithholdActivepayRequest;
 use AntChain\ATO\Models\QueryWithholdActivepayResponse;
+use AntChain\ATO\Models\QueryWithholdRefundRequest;
+use AntChain\ATO\Models\QueryWithholdRefundResponse;
 use AntChain\ATO\Models\QueryWithholdSignRequest;
 use AntChain\ATO\Models\QueryWithholdSignResponse;
 use AntChain\ATO\Models\RefuseFundFlowRequest;
@@ -244,7 +248,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.13',
+                    'sdk_version'      => '1.7.14',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1712,6 +1716,72 @@ class Client
         Utils::validateModel($request);
 
         return CancelWithholdActivepayResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.activepay.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建退款请求
+     * Summary: 创建退款申请.
+     *
+     * @param CreateWithholdRefundRequest $request
+     *
+     * @return CreateWithholdRefundResponse
+     */
+    public function createWithholdRefund($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createWithholdRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建退款请求
+     * Summary: 创建退款申请.
+     *
+     * @param CreateWithholdRefundRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CreateWithholdRefundResponse
+     */
+    public function createWithholdRefundEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateWithholdRefundResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.refund.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退款申请结果查询
+     * Summary: 退款申请结果查询.
+     *
+     * @param QueryWithholdRefundRequest $request
+     *
+     * @return QueryWithholdRefundResponse
+     */
+    public function queryWithholdRefund($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryWithholdRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退款申请结果查询
+     * Summary: 退款申请结果查询.
+     *
+     * @param QueryWithholdRefundRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryWithholdRefundResponse
+     */
+    public function queryWithholdRefundEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryWithholdRefundResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.refund.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
