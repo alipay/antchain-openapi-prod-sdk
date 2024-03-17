@@ -4469,6 +4469,253 @@ func (s *CancelWithholdActivepayResponse) SetTradeNo(v string) *CancelWithholdAc
 	return s
 }
 
+type CreateWithholdRefundRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 第几期
+	// 针对用户履约的第几期进行退款申请
+	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" require:"true" minimum:"1"`
+	// 外部系统传入的退款请求号
+	RefundRequestNo *string `json:"refund_request_no,omitempty" xml:"refund_request_no,omitempty" require:"true" maxLength:"128" minLength:"1"`
+	// 本次请求的退款金额，单位为分
+	// 1234=12.34元
+	RefundMoney *int64 `json:"refund_money,omitempty" xml:"refund_money,omitempty" require:"true" minimum:"1"`
+	// 退款原因
+	RefundReason *string `json:"refund_reason,omitempty" xml:"refund_reason,omitempty" maxLength:"200"`
+}
+
+func (s CreateWithholdRefundRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateWithholdRefundRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateWithholdRefundRequest) SetAuthToken(v string) *CreateWithholdRefundRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateWithholdRefundRequest) SetProductInstanceId(v string) *CreateWithholdRefundRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateWithholdRefundRequest) SetOrderId(v string) *CreateWithholdRefundRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CreateWithholdRefundRequest) SetPeriodNum(v int64) *CreateWithholdRefundRequest {
+	s.PeriodNum = &v
+	return s
+}
+
+func (s *CreateWithholdRefundRequest) SetRefundRequestNo(v string) *CreateWithholdRefundRequest {
+	s.RefundRequestNo = &v
+	return s
+}
+
+func (s *CreateWithholdRefundRequest) SetRefundMoney(v int64) *CreateWithholdRefundRequest {
+	s.RefundMoney = &v
+	return s
+}
+
+func (s *CreateWithholdRefundRequest) SetRefundReason(v string) *CreateWithholdRefundRequest {
+	s.RefundReason = &v
+	return s
+}
+
+type CreateWithholdRefundResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 外部系统传入的退款请求号
+	RefundRequestNo *string `json:"refund_request_no,omitempty" xml:"refund_request_no,omitempty"`
+	// ACCEPT : 受理成功
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 请求支付宝的退款单据号
+	RefundOrderNo *string `json:"refund_order_no,omitempty" xml:"refund_order_no,omitempty"`
+}
+
+func (s CreateWithholdRefundResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateWithholdRefundResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateWithholdRefundResponse) SetReqMsgId(v string) *CreateWithholdRefundResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateWithholdRefundResponse) SetResultCode(v string) *CreateWithholdRefundResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateWithholdRefundResponse) SetResultMsg(v string) *CreateWithholdRefundResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateWithholdRefundResponse) SetRefundRequestNo(v string) *CreateWithholdRefundResponse {
+	s.RefundRequestNo = &v
+	return s
+}
+
+func (s *CreateWithholdRefundResponse) SetStatus(v string) *CreateWithholdRefundResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *CreateWithholdRefundResponse) SetRefundOrderNo(v string) *CreateWithholdRefundResponse {
+	s.RefundOrderNo = &v
+	return s
+}
+
+type QueryWithholdRefundRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 几期
+	// 针对用户履约的第几期进行退款申请
+	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" require:"true" minimum:"1"`
+	// 外部系统传入的退款请求号
+	RefundRequestNo *string `json:"refund_request_no,omitempty" xml:"refund_request_no,omitempty" require:"true" maxLength:"128" minLength:"1"`
+}
+
+func (s QueryWithholdRefundRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryWithholdRefundRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryWithholdRefundRequest) SetAuthToken(v string) *QueryWithholdRefundRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryWithholdRefundRequest) SetProductInstanceId(v string) *QueryWithholdRefundRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryWithholdRefundRequest) SetOrderId(v string) *QueryWithholdRefundRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryWithholdRefundRequest) SetPeriodNum(v int64) *QueryWithholdRefundRequest {
+	s.PeriodNum = &v
+	return s
+}
+
+func (s *QueryWithholdRefundRequest) SetRefundRequestNo(v string) *QueryWithholdRefundRequest {
+	s.RefundRequestNo = &v
+	return s
+}
+
+type QueryWithholdRefundResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 外部系统传入的退款请求号
+	RefundRequestNo *string `json:"refund_request_no,omitempty" xml:"refund_request_no,omitempty"`
+	// 请求支付宝的退款单据号
+	RefundOrderNo *string `json:"refund_order_no,omitempty" xml:"refund_order_no,omitempty"`
+	// 退款请求状态
+	// ● ACCEPT: 受理成功
+	// ● PENDING: 需人工介入
+	// ● SUCCESS: 成功
+	// ● FAILED : 失败
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 退款失败原因
+	RefundErrorMsg *string `json:"refund_error_msg,omitempty" xml:"refund_error_msg,omitempty"`
+	// 本笔交易总退款金额，单位为分
+	// 12300=123元
+	TotalRefundAmount *int64 `json:"total_refund_amount,omitempty" xml:"total_refund_amount,omitempty"`
+	// 本次退款申请的实际退款金额，单位为分
+	// 12300=123元
+	SendBackAmount *int64 `json:"send_back_amount,omitempty" xml:"send_back_amount,omitempty"`
+	// 实际退款时间,13位时间戳（毫秒）
+	GmtRefundPay *int64 `json:"gmt_refund_pay,omitempty" xml:"gmt_refund_pay,omitempty"`
+}
+
+func (s QueryWithholdRefundResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryWithholdRefundResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryWithholdRefundResponse) SetReqMsgId(v string) *QueryWithholdRefundResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryWithholdRefundResponse) SetResultCode(v string) *QueryWithholdRefundResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryWithholdRefundResponse) SetResultMsg(v string) *QueryWithholdRefundResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryWithholdRefundResponse) SetRefundRequestNo(v string) *QueryWithholdRefundResponse {
+	s.RefundRequestNo = &v
+	return s
+}
+
+func (s *QueryWithholdRefundResponse) SetRefundOrderNo(v string) *QueryWithholdRefundResponse {
+	s.RefundOrderNo = &v
+	return s
+}
+
+func (s *QueryWithholdRefundResponse) SetStatus(v string) *QueryWithholdRefundResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryWithholdRefundResponse) SetRefundErrorMsg(v string) *QueryWithholdRefundResponse {
+	s.RefundErrorMsg = &v
+	return s
+}
+
+func (s *QueryWithholdRefundResponse) SetTotalRefundAmount(v int64) *QueryWithholdRefundResponse {
+	s.TotalRefundAmount = &v
+	return s
+}
+
+func (s *QueryWithholdRefundResponse) SetSendBackAmount(v int64) *QueryWithholdRefundResponse {
+	s.SendBackAmount = &v
+	return s
+}
+
+func (s *QueryWithholdRefundResponse) SetGmtRefundPay(v int64) *QueryWithholdRefundResponse {
+	s.GmtRefundPay = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4711,7 +4958,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.13"),
+				"sdk_version":      tea.String("1.7.14"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6248,6 +6495,74 @@ func (client *Client) CancelWithholdActivepayEx(request *CancelWithholdActivepay
 	}
 	_result = &CancelWithholdActivepayResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.withhold.activepay.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建退款请求
+ * Summary: 创建退款申请
+ */
+func (client *Client) CreateWithholdRefund(request *CreateWithholdRefundRequest) (_result *CreateWithholdRefundResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateWithholdRefundResponse{}
+	_body, _err := client.CreateWithholdRefundEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建退款请求
+ * Summary: 创建退款申请
+ */
+func (client *Client) CreateWithholdRefundEx(request *CreateWithholdRefundRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateWithholdRefundResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateWithholdRefundResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.withhold.refund.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 退款申请结果查询
+ * Summary: 退款申请结果查询
+ */
+func (client *Client) QueryWithholdRefund(request *QueryWithholdRefundRequest) (_result *QueryWithholdRefundResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryWithholdRefundResponse{}
+	_body, _err := client.QueryWithholdRefundEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 退款申请结果查询
+ * Summary: 退款申请结果查询
+ */
+func (client *Client) QueryWithholdRefundEx(request *QueryWithholdRefundRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryWithholdRefundResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryWithholdRefundResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.withhold.refund.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
