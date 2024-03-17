@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.13"),
+                    new TeaPair("sdk_version", "1.7.14"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -999,6 +999,44 @@ public class Client {
     public CancelWithholdActivepayResponse cancelWithholdActivepayEx(CancelWithholdActivepayRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.activepay.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelWithholdActivepayResponse());
+    }
+
+    /**
+     * Description: 创建退款请求
+     * Summary: 创建退款申请
+     */
+    public CreateWithholdRefundResponse createWithholdRefund(CreateWithholdRefundRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createWithholdRefundEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建退款请求
+     * Summary: 创建退款申请
+     */
+    public CreateWithholdRefundResponse createWithholdRefundEx(CreateWithholdRefundRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.refund.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateWithholdRefundResponse());
+    }
+
+    /**
+     * Description: 退款申请结果查询
+     * Summary: 退款申请结果查询
+     */
+    public QueryWithholdRefundResponse queryWithholdRefund(QueryWithholdRefundRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryWithholdRefundEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 退款申请结果查询
+     * Summary: 退款申请结果查询
+     */
+    public QueryWithholdRefundResponse queryWithholdRefundEx(QueryWithholdRefundRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.refund.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryWithholdRefundResponse());
     }
 
     /**
