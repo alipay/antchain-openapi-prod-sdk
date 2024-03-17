@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.13',
+                    'sdk_version': '1.7.14',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.13',
+                    'sdk_version': '1.7.14',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -2693,6 +2693,118 @@ class Client:
         return TeaCore.from_map(
             ato_models.CancelWithholdActivepayResponse(),
             await self.do_request_async('1.0', 'antchain.ato.withhold.activepay.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_withhold_refund(
+        self,
+        request: ato_models.CreateWithholdRefundRequest,
+    ) -> ato_models.CreateWithholdRefundResponse:
+        """
+        Description: 创建退款请求
+        Summary: 创建退款申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_withhold_refund_ex(request, headers, runtime)
+
+    async def create_withhold_refund_async(
+        self,
+        request: ato_models.CreateWithholdRefundRequest,
+    ) -> ato_models.CreateWithholdRefundResponse:
+        """
+        Description: 创建退款请求
+        Summary: 创建退款申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_withhold_refund_ex_async(request, headers, runtime)
+
+    def create_withhold_refund_ex(
+        self,
+        request: ato_models.CreateWithholdRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateWithholdRefundResponse:
+        """
+        Description: 创建退款请求
+        Summary: 创建退款申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateWithholdRefundResponse(),
+            self.do_request('1.0', 'antchain.ato.withhold.refund.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_withhold_refund_ex_async(
+        self,
+        request: ato_models.CreateWithholdRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateWithholdRefundResponse:
+        """
+        Description: 创建退款请求
+        Summary: 创建退款申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateWithholdRefundResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.withhold.refund.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_withhold_refund(
+        self,
+        request: ato_models.QueryWithholdRefundRequest,
+    ) -> ato_models.QueryWithholdRefundResponse:
+        """
+        Description: 退款申请结果查询
+        Summary: 退款申请结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_withhold_refund_ex(request, headers, runtime)
+
+    async def query_withhold_refund_async(
+        self,
+        request: ato_models.QueryWithholdRefundRequest,
+    ) -> ato_models.QueryWithholdRefundResponse:
+        """
+        Description: 退款申请结果查询
+        Summary: 退款申请结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_withhold_refund_ex_async(request, headers, runtime)
+
+    def query_withhold_refund_ex(
+        self,
+        request: ato_models.QueryWithholdRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryWithholdRefundResponse:
+        """
+        Description: 退款申请结果查询
+        Summary: 退款申请结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryWithholdRefundResponse(),
+            self.do_request('1.0', 'antchain.ato.withhold.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_withhold_refund_ex_async(
+        self,
+        request: ato_models.QueryWithholdRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryWithholdRefundResponse:
+        """
+        Description: 退款申请结果查询
+        Summary: 退款申请结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryWithholdRefundResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.withhold.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

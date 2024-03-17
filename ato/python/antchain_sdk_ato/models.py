@@ -5665,6 +5665,310 @@ class CancelWithholdActivepayResponse(TeaModel):
         return self
 
 
+class CreateWithholdRefundRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        period_num: int = None,
+        refund_request_no: str = None,
+        refund_money: int = None,
+        refund_reason: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单id
+        self.order_id = order_id
+        # 第几期
+        # 针对用户履约的第几期进行退款申请
+        self.period_num = period_num
+        # 外部系统传入的退款请求号
+        self.refund_request_no = refund_request_no
+        # 本次请求的退款金额，单位为分
+        # 1234=12.34元
+        self.refund_money = refund_money
+        # 退款原因
+        self.refund_reason = refund_reason
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.period_num, 'period_num')
+        if self.period_num is not None:
+            self.validate_minimum(self.period_num, 'period_num', 1)
+        self.validate_required(self.refund_request_no, 'refund_request_no')
+        if self.refund_request_no is not None:
+            self.validate_max_length(self.refund_request_no, 'refund_request_no', 128)
+        self.validate_required(self.refund_money, 'refund_money')
+        if self.refund_money is not None:
+            self.validate_minimum(self.refund_money, 'refund_money', 1)
+        if self.refund_reason is not None:
+            self.validate_max_length(self.refund_reason, 'refund_reason', 200)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.period_num is not None:
+            result['period_num'] = self.period_num
+        if self.refund_request_no is not None:
+            result['refund_request_no'] = self.refund_request_no
+        if self.refund_money is not None:
+            result['refund_money'] = self.refund_money
+        if self.refund_reason is not None:
+            result['refund_reason'] = self.refund_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('period_num') is not None:
+            self.period_num = m.get('period_num')
+        if m.get('refund_request_no') is not None:
+            self.refund_request_no = m.get('refund_request_no')
+        if m.get('refund_money') is not None:
+            self.refund_money = m.get('refund_money')
+        if m.get('refund_reason') is not None:
+            self.refund_reason = m.get('refund_reason')
+        return self
+
+
+class CreateWithholdRefundResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        refund_request_no: str = None,
+        status: str = None,
+        refund_order_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 外部系统传入的退款请求号
+        self.refund_request_no = refund_request_no
+        # ACCEPT : 受理成功
+        self.status = status
+        # 请求支付宝的退款单据号
+        self.refund_order_no = refund_order_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.refund_request_no is not None:
+            result['refund_request_no'] = self.refund_request_no
+        if self.status is not None:
+            result['status'] = self.status
+        if self.refund_order_no is not None:
+            result['refund_order_no'] = self.refund_order_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('refund_request_no') is not None:
+            self.refund_request_no = m.get('refund_request_no')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('refund_order_no') is not None:
+            self.refund_order_no = m.get('refund_order_no')
+        return self
+
+
+class QueryWithholdRefundRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        period_num: int = None,
+        refund_request_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单id
+        self.order_id = order_id
+        # 几期
+        # 针对用户履约的第几期进行退款申请
+        self.period_num = period_num
+        # 外部系统传入的退款请求号
+        self.refund_request_no = refund_request_no
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.period_num, 'period_num')
+        if self.period_num is not None:
+            self.validate_minimum(self.period_num, 'period_num', 1)
+        self.validate_required(self.refund_request_no, 'refund_request_no')
+        if self.refund_request_no is not None:
+            self.validate_max_length(self.refund_request_no, 'refund_request_no', 128)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.period_num is not None:
+            result['period_num'] = self.period_num
+        if self.refund_request_no is not None:
+            result['refund_request_no'] = self.refund_request_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('period_num') is not None:
+            self.period_num = m.get('period_num')
+        if m.get('refund_request_no') is not None:
+            self.refund_request_no = m.get('refund_request_no')
+        return self
+
+
+class QueryWithholdRefundResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        refund_request_no: str = None,
+        refund_order_no: str = None,
+        status: str = None,
+        refund_error_msg: str = None,
+        total_refund_amount: int = None,
+        send_back_amount: int = None,
+        gmt_refund_pay: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 外部系统传入的退款请求号
+        self.refund_request_no = refund_request_no
+        # 请求支付宝的退款单据号
+        self.refund_order_no = refund_order_no
+        # 退款请求状态
+        # ● ACCEPT: 受理成功
+        # ● PENDING: 需人工介入
+        # ● SUCCESS: 成功
+        # ● FAILED : 失败
+        self.status = status
+        # 退款失败原因
+        self.refund_error_msg = refund_error_msg
+        # 本笔交易总退款金额，单位为分
+        # 12300=123元
+        self.total_refund_amount = total_refund_amount
+        # 本次退款申请的实际退款金额，单位为分
+        # 12300=123元
+        self.send_back_amount = send_back_amount
+        # 实际退款时间,13位时间戳（毫秒）
+        self.gmt_refund_pay = gmt_refund_pay
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.refund_request_no is not None:
+            result['refund_request_no'] = self.refund_request_no
+        if self.refund_order_no is not None:
+            result['refund_order_no'] = self.refund_order_no
+        if self.status is not None:
+            result['status'] = self.status
+        if self.refund_error_msg is not None:
+            result['refund_error_msg'] = self.refund_error_msg
+        if self.total_refund_amount is not None:
+            result['total_refund_amount'] = self.total_refund_amount
+        if self.send_back_amount is not None:
+            result['send_back_amount'] = self.send_back_amount
+        if self.gmt_refund_pay is not None:
+            result['gmt_refund_pay'] = self.gmt_refund_pay
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('refund_request_no') is not None:
+            self.refund_request_no = m.get('refund_request_no')
+        if m.get('refund_order_no') is not None:
+            self.refund_order_no = m.get('refund_order_no')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('refund_error_msg') is not None:
+            self.refund_error_msg = m.get('refund_error_msg')
+        if m.get('total_refund_amount') is not None:
+            self.total_refund_amount = m.get('total_refund_amount')
+        if m.get('send_back_amount') is not None:
+            self.send_back_amount = m.get('send_back_amount')
+        if m.get('gmt_refund_pay') is not None:
+            self.gmt_refund_pay = m.get('gmt_refund_pay')
+        return self
+
+
 class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,
