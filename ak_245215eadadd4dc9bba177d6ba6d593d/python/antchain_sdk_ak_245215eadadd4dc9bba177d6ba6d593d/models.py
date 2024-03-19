@@ -509,7 +509,7 @@ class AvatarProfileResult(TeaModel):
         self,
         total: int = None,
         page_index: int = None,
-        item_list: AvatarProfile = None,
+        item_list: List[AvatarProfile] = None,
     ):
         # 数字人形象数量
         self.total = total
@@ -522,7 +522,9 @@ class AvatarProfileResult(TeaModel):
         self.validate_required(self.total, 'total')
         self.validate_required(self.item_list, 'item_list')
         if self.item_list:
-            self.item_list.validate()
+            for k in self.item_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -534,8 +536,10 @@ class AvatarProfileResult(TeaModel):
             result['total'] = self.total
         if self.page_index is not None:
             result['page_index'] = self.page_index
+        result['item_list'] = []
         if self.item_list is not None:
-            result['item_list'] = self.item_list.to_map()
+            for k in self.item_list:
+                result['item_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -544,9 +548,11 @@ class AvatarProfileResult(TeaModel):
             self.total = m.get('total')
         if m.get('page_index') is not None:
             self.page_index = m.get('page_index')
+        self.item_list = []
         if m.get('item_list') is not None:
-            temp_model = AvatarProfile()
-            self.item_list = temp_model.from_map(m['item_list'])
+            for k in m.get('item_list'):
+                temp_model = AvatarProfile()
+                self.item_list.append(temp_model.from_map(k))
         return self
 
 
