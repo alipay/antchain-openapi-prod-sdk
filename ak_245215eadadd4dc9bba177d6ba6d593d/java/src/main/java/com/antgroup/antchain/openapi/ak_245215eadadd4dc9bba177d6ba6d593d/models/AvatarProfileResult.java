@@ -16,7 +16,7 @@ public class AvatarProfileResult extends TeaModel {
     // 数字人形象列表
     @NameInMap("item_list")
     @Validation(required = true)
-    public AvatarProfile itemList;
+    public java.util.List<AvatarProfile> itemList;
 
     public static AvatarProfileResult build(java.util.Map<String, ?> map) throws Exception {
         AvatarProfileResult self = new AvatarProfileResult();
@@ -39,11 +39,11 @@ public class AvatarProfileResult extends TeaModel {
         return this.pageIndex;
     }
 
-    public AvatarProfileResult setItemList(AvatarProfile itemList) {
+    public AvatarProfileResult setItemList(java.util.List<AvatarProfile> itemList) {
         this.itemList = itemList;
         return this;
     }
-    public AvatarProfile getItemList() {
+    public java.util.List<AvatarProfile> getItemList() {
         return this.itemList;
     }
 
