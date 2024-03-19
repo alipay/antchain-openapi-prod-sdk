@@ -28,7 +28,7 @@ class AvatarProfileResult extends Model
     /**
      * @example
      *
-     * @var AvatarProfile
+     * @var AvatarProfile[]
      */
     public $itemList;
     protected $_name = [
@@ -53,7 +53,13 @@ class AvatarProfileResult extends Model
             $res['page_index'] = $this->pageIndex;
         }
         if (null !== $this->itemList) {
-            $res['item_list'] = null !== $this->itemList ? $this->itemList->toMap() : null;
+            $res['item_list'] = [];
+            if (null !== $this->itemList && \is_array($this->itemList)) {
+                $n = 0;
+                foreach ($this->itemList as $item) {
+                    $res['item_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -74,7 +80,13 @@ class AvatarProfileResult extends Model
             $model->pageIndex = $map['page_index'];
         }
         if (isset($map['item_list'])) {
-            $model->itemList = AvatarProfile::fromMap($map['item_list']);
+            if (!empty($map['item_list'])) {
+                $model->itemList = [];
+                $n               = 0;
+                foreach ($map['item_list'] as $item) {
+                    $model->itemList[$n++] = null !== $item ? AvatarProfile::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
