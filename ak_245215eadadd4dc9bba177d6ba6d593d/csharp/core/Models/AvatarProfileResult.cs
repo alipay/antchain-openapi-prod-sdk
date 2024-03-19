@@ -23,7 +23,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         // 数字人形象列表
         [NameInMap("item_list")]
         [Validation(Required=true)]
-        public AvatarProfile ItemList { get; set; }
+        public List<AvatarProfile> ItemList { get; set; }
 
     }
 
