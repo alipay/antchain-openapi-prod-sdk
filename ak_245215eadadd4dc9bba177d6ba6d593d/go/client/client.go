@@ -426,7 +426,7 @@ type AvatarProfileResult struct {
 	// 查询页面索引，不分页无
 	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
 	// 数字人形象列表
-	ItemList *AvatarProfile `json:"item_list,omitempty" xml:"item_list,omitempty" require:"true"`
+	ItemList []*AvatarProfile `json:"item_list,omitempty" xml:"item_list,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s AvatarProfileResult) String() string {
@@ -447,7 +447,7 @@ func (s *AvatarProfileResult) SetPageIndex(v int64) *AvatarProfileResult {
 	return s
 }
 
-func (s *AvatarProfileResult) SetItemList(v *AvatarProfile) *AvatarProfileResult {
+func (s *AvatarProfileResult) SetItemList(v []*AvatarProfile) *AvatarProfileResult {
 	s.ItemList = v
 	return s
 }
@@ -1010,7 +1010,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
