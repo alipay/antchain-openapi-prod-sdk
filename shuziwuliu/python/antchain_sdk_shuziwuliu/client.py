@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.10',
+                    'sdk_version': '1.7.2',
                     '_prod_code': 'SHUZIWULIU',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.10',
+                    'sdk_version': '1.7.2',
                     '_prod_code': 'SHUZIWULIU',
                     '_prod_channel': 'undefined'
                 }
@@ -5720,8 +5720,8 @@ class Client:
         request: shuziwuliu_models.ApplyInsuranceOspireportRequest,
     ) -> shuziwuliu_models.ApplyInsuranceOspireportResponse:
         """
-        Description: 海外、跨境邮包险理赔报案
-        Summary: 海外、跨境邮包险报案
+        Description: 海外、跨境邮包险、平台责任险的理赔报案
+        Summary: 海外、跨境邮包险、平台责任险报案
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5732,8 +5732,8 @@ class Client:
         request: shuziwuliu_models.ApplyInsuranceOspireportRequest,
     ) -> shuziwuliu_models.ApplyInsuranceOspireportResponse:
         """
-        Description: 海外、跨境邮包险理赔报案
-        Summary: 海外、跨境邮包险报案
+        Description: 海外、跨境邮包险、平台责任险的理赔报案
+        Summary: 海外、跨境邮包险、平台责任险报案
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5746,8 +5746,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> shuziwuliu_models.ApplyInsuranceOspireportResponse:
         """
-        Description: 海外、跨境邮包险理赔报案
-        Summary: 海外、跨境邮包险报案
+        Description: 海外、跨境邮包险、平台责任险的理赔报案
+        Summary: 海外、跨境邮包险、平台责任险报案
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -5762,8 +5762,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> shuziwuliu_models.ApplyInsuranceOspireportResponse:
         """
-        Description: 海外、跨境邮包险理赔报案
-        Summary: 海外、跨境邮包险报案
+        Description: 海外、跨境邮包险、平台责任险的理赔报案
+        Summary: 海外、跨境邮包险、平台责任险报案
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -5776,8 +5776,8 @@ class Client:
         request: shuziwuliu_models.NotifyInsuranceOspireportRequest,
     ) -> shuziwuliu_models.NotifyInsuranceOspireportResponse:
         """
-        Description: 海外、跨境邮包险案件结果通知
-        Summary: 海外、跨境邮包险案件结果通知
+        Description: 海外、跨境邮包险、平台责任险案件结果通知
+        Summary: 海外、跨境邮包险、平台责任险案件结果通知
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5788,8 +5788,8 @@ class Client:
         request: shuziwuliu_models.NotifyInsuranceOspireportRequest,
     ) -> shuziwuliu_models.NotifyInsuranceOspireportResponse:
         """
-        Description: 海外、跨境邮包险案件结果通知
-        Summary: 海外、跨境邮包险案件结果通知
+        Description: 海外、跨境邮包险、平台责任险案件结果通知
+        Summary: 海外、跨境邮包险、平台责任险案件结果通知
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5802,8 +5802,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> shuziwuliu_models.NotifyInsuranceOspireportResponse:
         """
-        Description: 海外、跨境邮包险案件结果通知
-        Summary: 海外、跨境邮包险案件结果通知
+        Description: 海外、跨境邮包险、平台责任险案件结果通知
+        Summary: 海外、跨境邮包险、平台责任险案件结果通知
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -5818,8 +5818,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> shuziwuliu_models.NotifyInsuranceOspireportResponse:
         """
-        Description: 海外、跨境邮包险案件结果通知
-        Summary: 海外、跨境邮包险案件结果通知
+        Description: 海外、跨境邮包险、平台责任险案件结果通知
+        Summary: 海外、跨境邮包险、平台责任险案件结果通知
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -5888,8 +5888,8 @@ class Client:
         request: shuziwuliu_models.ApplyInsuranceCbpiRequest,
     ) -> shuziwuliu_models.ApplyInsuranceCbpiResponse:
         """
-        Description: 跨境邮包险投保
-        Summary: 跨境邮包险投保
+        Description: 跨境邮包险、平台责任险投保
+        Summary: 跨境邮包险、平台责任险投保
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5900,8 +5900,8 @@ class Client:
         request: shuziwuliu_models.ApplyInsuranceCbpiRequest,
     ) -> shuziwuliu_models.ApplyInsuranceCbpiResponse:
         """
-        Description: 跨境邮包险投保
-        Summary: 跨境邮包险投保
+        Description: 跨境邮包险、平台责任险投保
+        Summary: 跨境邮包险、平台责任险投保
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5914,8 +5914,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> shuziwuliu_models.ApplyInsuranceCbpiResponse:
         """
-        Description: 跨境邮包险投保
-        Summary: 跨境邮包险投保
+        Description: 跨境邮包险、平台责任险投保
+        Summary: 跨境邮包险、平台责任险投保
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -5930,8 +5930,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> shuziwuliu_models.ApplyInsuranceCbpiResponse:
         """
-        Description: 跨境邮包险投保
-        Summary: 跨境邮包险投保
+        Description: 跨境邮包险、平台责任险投保
+        Summary: 跨境邮包险、平台责任险投保
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(

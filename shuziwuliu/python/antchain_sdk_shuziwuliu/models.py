@@ -2511,6 +2511,55 @@ class ContainerTypeInfo(TeaModel):
         return self
 
 
+class ReparationsInfo(TeaModel):
+    def __init__(
+        self,
+        payment_no: str = None,
+        payment_amount: str = None,
+        relinquish_goods: str = None,
+        return_over_value: str = None,
+    ):
+        # 平台赔款支付流水号
+        self.payment_no = payment_no
+        # 平台赔款支付金额
+        self.payment_amount = payment_amount
+        # 平台是否放弃货物所有权。Y:是，N:否
+        self.relinquish_goods = relinquish_goods
+        # 退货本身是否高于货物本身价值。Y:是，N:否
+        self.return_over_value = return_over_value
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.payment_no is not None:
+            result['payment_no'] = self.payment_no
+        if self.payment_amount is not None:
+            result['payment_amount'] = self.payment_amount
+        if self.relinquish_goods is not None:
+            result['relinquish_goods'] = self.relinquish_goods
+        if self.return_over_value is not None:
+            result['return_over_value'] = self.return_over_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('payment_no') is not None:
+            self.payment_no = m.get('payment_no')
+        if m.get('payment_amount') is not None:
+            self.payment_amount = m.get('payment_amount')
+        if m.get('relinquish_goods') is not None:
+            self.relinquish_goods = m.get('relinquish_goods')
+        if m.get('return_over_value') is not None:
+            self.return_over_value = m.get('return_over_value')
+        return self
+
+
 class VoucherResp(TeaModel):
     def __init__(
         self,
@@ -23043,6 +23092,7 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         accident_type: str = None,
         claim_informations: List[ClaimInformation] = None,
         despatch_warehouse_id: str = None,
+        reparations_info: ReparationsInfo = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -23071,13 +23121,13 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         self.reporter_contact = reporter_contact
         # 索赔金额，单位（元），最多支持2位小数，超2位小数拒绝
         self.claim_amount = claim_amount
-        # 物流揽收时间，yyyy-MM-dd HH:mm:ss
+        # 物流揽收时间，yyyy-MM-dd HH:mm:ss。平台责任险可不填
         self.collect_date = collect_date
-        # 工单号，平台客服判责的工单号
+        # 工单号，平台客服判责的工单号。
         self.job_no = job_no
-        # 快递公司名称，实际的派送公司全称
+        # 快递公司名称，实际的派送公司全称。平台责任险可不填
         self.courier_company = courier_company
-        # 快递单号，实际的派送快递单号
+        # 快递单号，实际的派送快递单号。平台责任险可不填
         self.courier_number = courier_number
         # 买家ID，买家的脱敏唯一标识
         self.buy_id = buy_id
@@ -23087,7 +23137,7 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         self.site_id = site_id
         # 货物名称，实际的货物名称
         self.cargo_name = cargo_name
-        # 货物的重量，单位(kg)，最多支持6位小数
+        # 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
         self.cargo_weight = cargo_weight
         # 出发地地址，货物的出发地地址
         self.start_place = start_place
@@ -23095,7 +23145,7 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         self.destination = destination
         # ISO到达国别，包裹业务实际发生的国家
         self.iso_country = iso_country
-        # 出险地址，货物发生实际损失的最近的一次地址记录
+        # 出险地址，货物发生实际损失的最近的一次地址记录。平台责任险选填
         self.accident_address = accident_address
         # 平台赔款支付时间，平台先行赔付的时间，yyyy-MM-dd HH:mm:ss
         self.payment_time = payment_time
@@ -23103,10 +23153,12 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         self.payment_item = payment_item
         # 出险类型，赔付的出险类型，届时保司和平台方商定
         self.accident_type = accident_type
-        # 索赔资料附件，最多10个
+        # 索赔资料附件，最多10个。平台责任险可不填
         self.claim_informations = claim_informations
         # 客户或物流CP商，针对此票货物的出发仓ID
         self.despatch_warehouse_id = despatch_warehouse_id
+        # 平台赔款支付信息。平台责任险需填
+        self.reparations_info = reparations_info
 
     def validate(self):
         self.validate_required(self.trade_no, 'trade_no')
@@ -23132,14 +23184,11 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         if self.reporter_contact is not None:
             self.validate_max_length(self.reporter_contact, 'reporter_contact', 20)
         self.validate_required(self.claim_amount, 'claim_amount')
-        self.validate_required(self.collect_date, 'collect_date')
         self.validate_required(self.job_no, 'job_no')
         if self.job_no is not None:
             self.validate_max_length(self.job_no, 'job_no', 100)
-        self.validate_required(self.courier_company, 'courier_company')
         if self.courier_company is not None:
             self.validate_max_length(self.courier_company, 'courier_company', 200)
-        self.validate_required(self.courier_number, 'courier_number')
         if self.courier_number is not None:
             self.validate_max_length(self.courier_number, 'courier_number', 100)
         self.validate_required(self.buy_id, 'buy_id')
@@ -23153,7 +23202,6 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         self.validate_required(self.cargo_name, 'cargo_name')
         if self.cargo_name is not None:
             self.validate_max_length(self.cargo_name, 'cargo_name', 200)
-        self.validate_required(self.cargo_weight, 'cargo_weight')
         if self.cargo_weight is not None:
             self.validate_max_length(self.cargo_weight, 'cargo_weight', 20)
         self.validate_required(self.start_place, 'start_place')
@@ -23165,7 +23213,6 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         self.validate_required(self.iso_country, 'iso_country')
         if self.iso_country is not None:
             self.validate_max_length(self.iso_country, 'iso_country', 10)
-        self.validate_required(self.accident_address, 'accident_address')
         if self.accident_address is not None:
             self.validate_max_length(self.accident_address, 'accident_address', 500)
         self.validate_required(self.payment_time, 'payment_time')
@@ -23175,13 +23222,14 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         self.validate_required(self.accident_type, 'accident_type')
         if self.accident_type is not None:
             self.validate_max_length(self.accident_type, 'accident_type', 20)
-        self.validate_required(self.claim_informations, 'claim_informations')
         if self.claim_informations:
             for k in self.claim_informations:
                 if k:
                     k.validate()
         if self.despatch_warehouse_id is not None:
             self.validate_max_length(self.despatch_warehouse_id, 'despatch_warehouse_id', 100)
+        if self.reparations_info:
+            self.reparations_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -23249,6 +23297,8 @@ class ApplyInsuranceOspireportRequest(TeaModel):
                 result['claim_informations'].append(k.to_map() if k else None)
         if self.despatch_warehouse_id is not None:
             result['despatch_warehouse_id'] = self.despatch_warehouse_id
+        if self.reparations_info is not None:
+            result['reparations_info'] = self.reparations_info.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -23314,6 +23364,9 @@ class ApplyInsuranceOspireportRequest(TeaModel):
                 self.claim_informations.append(temp_model.from_map(k))
         if m.get('despatch_warehouse_id') is not None:
             self.despatch_warehouse_id = m.get('despatch_warehouse_id')
+        if m.get('reparations_info') is not None:
+            temp_model = ReparationsInfo()
+            self.reparations_info = temp_model.from_map(m['reparations_info'])
         return self
 
 
@@ -24378,6 +24431,7 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
         gen_work_date: str = None,
         work_type: str = None,
         is_star_station: str = None,
+        report_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -24446,6 +24500,8 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
         self.work_type = work_type
         # 是否星级站点，0是，1否
         self.is_star_station = is_star_station
+        # 报案号，用于报案材料更新
+        self.report_no = report_no
 
     def validate(self):
         self.validate_required(self.trade_no, 'trade_no')
@@ -24593,6 +24649,8 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
             result['work_type'] = self.work_type
         if self.is_star_station is not None:
             result['is_star_station'] = self.is_star_station
+        if self.report_no is not None:
+            result['report_no'] = self.report_no
         return result
 
     def from_map(self, m: dict = None):
@@ -24668,6 +24726,8 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
             self.work_type = m.get('work_type')
         if m.get('is_star_station') is not None:
             self.is_star_station = m.get('is_star_station')
+        if m.get('report_no') is not None:
+            self.report_no = m.get('report_no')
         return self
 
 
@@ -24807,6 +24867,7 @@ class QueryInsuranceYzbreportResponse(TeaModel):
         report_end_time: str = None,
         report_paid_desc: str = None,
         report_paid_time: str = None,
+        report_verdict_desc: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -24835,6 +24896,8 @@ class QueryInsuranceYzbreportResponse(TeaModel):
         # 案件赔付时间，格式yyyy-mm-dd hh:mm:ss
         # 
         self.report_paid_time = report_paid_time
+        # 案件结论描述
+        self.report_verdict_desc = report_verdict_desc
 
     def validate(self):
         pass
@@ -24871,6 +24934,8 @@ class QueryInsuranceYzbreportResponse(TeaModel):
             result['report_paid_desc'] = self.report_paid_desc
         if self.report_paid_time is not None:
             result['report_paid_time'] = self.report_paid_time
+        if self.report_verdict_desc is not None:
+            result['report_verdict_desc'] = self.report_verdict_desc
         return result
 
     def from_map(self, m: dict = None):
@@ -24901,6 +24966,8 @@ class QueryInsuranceYzbreportResponse(TeaModel):
             self.report_paid_desc = m.get('report_paid_desc')
         if m.get('report_paid_time') is not None:
             self.report_paid_time = m.get('report_paid_time')
+        if m.get('report_verdict_desc') is not None:
+            self.report_verdict_desc = m.get('report_verdict_desc')
         return self
 
 
@@ -26482,7 +26549,7 @@ class ApplyInsurancePiprereportRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
         self.trade_no = trade_no
-        # 保司编码，CPIC--太保
+        # 保司编码，海外邮包险（CICP--中华财险、PAIC--平安）、跨境邮包险（PAIC--平安、PICC--人保、CPIC--太保）
         self.external_channel_code = external_channel_code
         # 险种编码 04--海外邮包险 06--跨境邮包险
         # 
