@@ -490,7 +490,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.10',
+                    'sdk_version'      => '1.7.2',
                     '_prod_code'       => 'SHUZIWULIU',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3744,8 +3744,8 @@ class Client
     }
 
     /**
-     * Description: 海外、跨境邮包险理赔报案
-     * Summary: 海外、跨境邮包险报案.
+     * Description: 海外、跨境邮包险、平台责任险的理赔报案
+     * Summary: 海外、跨境邮包险、平台责任险报案.
      *
      * @param ApplyInsuranceOspireportRequest $request
      *
@@ -3760,8 +3760,8 @@ class Client
     }
 
     /**
-     * Description: 海外、跨境邮包险理赔报案
-     * Summary: 海外、跨境邮包险报案.
+     * Description: 海外、跨境邮包险、平台责任险的理赔报案
+     * Summary: 海外、跨境邮包险、平台责任险报案.
      *
      * @param ApplyInsuranceOspireportRequest $request
      * @param string[]                        $headers
@@ -3777,8 +3777,8 @@ class Client
     }
 
     /**
-     * Description: 海外、跨境邮包险案件结果通知
-     * Summary: 海外、跨境邮包险案件结果通知.
+     * Description: 海外、跨境邮包险、平台责任险案件结果通知
+     * Summary: 海外、跨境邮包险、平台责任险案件结果通知.
      *
      * @param NotifyInsuranceOspireportRequest $request
      *
@@ -3793,8 +3793,8 @@ class Client
     }
 
     /**
-     * Description: 海外、跨境邮包险案件结果通知
-     * Summary: 海外、跨境邮包险案件结果通知.
+     * Description: 海外、跨境邮包险、平台责任险案件结果通知
+     * Summary: 海外、跨境邮包险、平台责任险案件结果通知.
      *
      * @param NotifyInsuranceOspireportRequest $request
      * @param string[]                         $headers
@@ -3843,8 +3843,8 @@ class Client
     }
 
     /**
-     * Description: 跨境邮包险投保
-     * Summary: 跨境邮包险投保.
+     * Description: 跨境邮包险、平台责任险投保
+     * Summary: 跨境邮包险、平台责任险投保.
      *
      * @param ApplyInsuranceCbpiRequest $request
      *
@@ -3859,8 +3859,8 @@ class Client
     }
 
     /**
-     * Description: 跨境邮包险投保
-     * Summary: 跨境邮包险投保.
+     * Description: 跨境邮包险、平台责任险投保
+     * Summary: 跨境邮包险、平台责任险投保.
      *
      * @param ApplyInsuranceCbpiRequest $request
      * @param string[]                  $headers

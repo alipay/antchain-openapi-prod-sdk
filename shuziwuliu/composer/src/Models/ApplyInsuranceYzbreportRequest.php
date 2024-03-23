@@ -202,6 +202,12 @@ class ApplyInsuranceYzbreportRequest extends Model
      * @var string
      */
     public $isStarStation;
+
+    // 报案号，用于报案材料更新
+    /**
+     * @var string
+     */
+    public $reportNo;
     protected $_name = [
         'authToken'               => 'auth_token',
         'productInstanceId'       => 'product_instance_id',
@@ -235,6 +241,7 @@ class ApplyInsuranceYzbreportRequest extends Model
         'genWorkDate'             => 'gen_work_date',
         'workType'                => 'work_type',
         'isStarStation'           => 'is_star_station',
+        'reportNo'                => 'report_no',
     ];
 
     public function validate()
@@ -384,6 +391,9 @@ class ApplyInsuranceYzbreportRequest extends Model
         if (null !== $this->isStarStation) {
             $res['is_star_station'] = $this->isStarStation;
         }
+        if (null !== $this->reportNo) {
+            $res['report_no'] = $this->reportNo;
+        }
 
         return $res;
     }
@@ -497,6 +507,9 @@ class ApplyInsuranceYzbreportRequest extends Model
         }
         if (isset($map['is_star_station'])) {
             $model->isStarStation = $map['is_star_station'];
+        }
+        if (isset($map['report_no'])) {
+            $model->reportNo = $map['report_no'];
         }
 
         return $model;

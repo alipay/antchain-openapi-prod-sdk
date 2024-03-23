@@ -79,25 +79,25 @@ class ApplyInsuranceOspireportRequest extends Model
      */
     public $claimAmount;
 
-    // 物流揽收时间，yyyy-MM-dd HH:mm:ss
+    // 物流揽收时间，yyyy-MM-dd HH:mm:ss。平台责任险可不填
     /**
      * @var string
      */
     public $collectDate;
 
-    // 工单号，平台客服判责的工单号
+    // 工单号，平台客服判责的工单号。
     /**
      * @var string
      */
     public $jobNo;
 
-    // 快递公司名称，实际的派送公司全称
+    // 快递公司名称，实际的派送公司全称。平台责任险可不填
     /**
      * @var string
      */
     public $courierCompany;
 
-    // 快递单号，实际的派送快递单号
+    // 快递单号，实际的派送快递单号。平台责任险可不填
     /**
      * @var string
      */
@@ -127,7 +127,7 @@ class ApplyInsuranceOspireportRequest extends Model
      */
     public $cargoName;
 
-    // 货物的重量，单位(kg)，最多支持6位小数
+    // 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
     /**
      * @var string
      */
@@ -151,7 +151,7 @@ class ApplyInsuranceOspireportRequest extends Model
      */
     public $isoCountry;
 
-    // 出险地址，货物发生实际损失的最近的一次地址记录
+    // 出险地址，货物发生实际损失的最近的一次地址记录。平台责任险选填
     /**
      * @var string
      */
@@ -175,7 +175,7 @@ class ApplyInsuranceOspireportRequest extends Model
      */
     public $accidentType;
 
-    // 索赔资料附件，最多10个
+    // 索赔资料附件，最多10个。平台责任险可不填
     /**
      * @var ClaimInformation[]
      */
@@ -186,6 +186,12 @@ class ApplyInsuranceOspireportRequest extends Model
      * @var string
      */
     public $despatchWarehouseId;
+
+    // 平台赔款支付信息。平台责任险需填
+    /**
+     * @var ReparationsInfo
+     */
+    public $reparationsInfo;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -216,6 +222,7 @@ class ApplyInsuranceOspireportRequest extends Model
         'accidentType'        => 'accident_type',
         'claimInformations'   => 'claim_informations',
         'despatchWarehouseId' => 'despatch_warehouse_id',
+        'reparationsInfo'     => 'reparations_info',
     ];
 
     public function validate()
@@ -229,22 +236,16 @@ class ApplyInsuranceOspireportRequest extends Model
         Model::validateRequired('reporterName', $this->reporterName, true);
         Model::validateRequired('reporterContact', $this->reporterContact, true);
         Model::validateRequired('claimAmount', $this->claimAmount, true);
-        Model::validateRequired('collectDate', $this->collectDate, true);
         Model::validateRequired('jobNo', $this->jobNo, true);
-        Model::validateRequired('courierCompany', $this->courierCompany, true);
-        Model::validateRequired('courierNumber', $this->courierNumber, true);
         Model::validateRequired('buyId', $this->buyId, true);
         Model::validateRequired('sellId', $this->sellId, true);
         Model::validateRequired('cargoName', $this->cargoName, true);
-        Model::validateRequired('cargoWeight', $this->cargoWeight, true);
         Model::validateRequired('startPlace', $this->startPlace, true);
         Model::validateRequired('destination', $this->destination, true);
         Model::validateRequired('isoCountry', $this->isoCountry, true);
-        Model::validateRequired('accidentAddress', $this->accidentAddress, true);
         Model::validateRequired('paymentTime', $this->paymentTime, true);
         Model::validateRequired('paymentItem', $this->paymentItem, true);
         Model::validateRequired('accidentType', $this->accidentType, true);
-        Model::validateRequired('claimInformations', $this->claimInformations, true);
         Model::validateMaxLength('tradeNo', $this->tradeNo, 50);
         Model::validateMaxLength('externalChannelCode', $this->externalChannelCode, 10);
         Model::validateMaxLength('externalProductCode', $this->externalProductCode, 2);
@@ -365,6 +366,9 @@ class ApplyInsuranceOspireportRequest extends Model
         if (null !== $this->despatchWarehouseId) {
             $res['despatch_warehouse_id'] = $this->despatchWarehouseId;
         }
+        if (null !== $this->reparationsInfo) {
+            $res['reparations_info'] = null !== $this->reparationsInfo ? $this->reparationsInfo->toMap() : null;
+        }
 
         return $res;
     }
@@ -469,6 +473,9 @@ class ApplyInsuranceOspireportRequest extends Model
         }
         if (isset($map['despatch_warehouse_id'])) {
             $model->despatchWarehouseId = $map['despatch_warehouse_id'];
+        }
+        if (isset($map['reparations_info'])) {
+            $model->reparationsInfo = ReparationsInfo::fromMap($map['reparations_info']);
         }
 
         return $model;

@@ -86,6 +86,12 @@ class QueryInsuranceYzbreportResponse extends Model
      * @var string
      */
     public $reportPaidTime;
+
+    // 案件结论描述
+    /**
+     * @var string
+     */
+    public $reportVerdictDesc;
     protected $_name = [
         'reqMsgId'            => 'req_msg_id',
         'resultCode'          => 'result_code',
@@ -100,6 +106,7 @@ class QueryInsuranceYzbreportResponse extends Model
         'reportEndTime'       => 'report_end_time',
         'reportPaidDesc'      => 'report_paid_desc',
         'reportPaidTime'      => 'report_paid_time',
+        'reportVerdictDesc'   => 'report_verdict_desc',
     ];
 
     public function validate()
@@ -147,6 +154,9 @@ class QueryInsuranceYzbreportResponse extends Model
         }
         if (null !== $this->reportPaidTime) {
             $res['report_paid_time'] = $this->reportPaidTime;
+        }
+        if (null !== $this->reportVerdictDesc) {
+            $res['report_verdict_desc'] = $this->reportVerdictDesc;
         }
 
         return $res;
@@ -198,6 +208,9 @@ class QueryInsuranceYzbreportResponse extends Model
         }
         if (isset($map['report_paid_time'])) {
             $model->reportPaidTime = $map['report_paid_time'];
+        }
+        if (isset($map['report_verdict_desc'])) {
+            $model->reportVerdictDesc = $map['report_verdict_desc'];
         }
 
         return $model;

@@ -25,7 +25,7 @@ class ApplyInsurancePiprereportRequest extends Model
      */
     public $tradeNo;
 
-    // 保司编码，CPIC--太保
+    // 保司编码，海外邮包险（CICP--中华财险、PAIC--平安）、跨境邮包险（PAIC--平安、PICC--人保、CPIC--太保）
     /**
      * @var string
      */
