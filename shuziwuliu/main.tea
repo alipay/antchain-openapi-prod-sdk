@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.10',
+    sdk_version = '1.7.2',
     _prod_code = 'SHUZIWULIU',
     _prod_channel = 'undefined'
   };
@@ -738,6 +738,18 @@ model ContainerTypeInfo {
   containerType?: string(name='container_type', example='暂无'),
   // 箱量
   containerVolume?: string(name='container_volume', example='暂无'),
+}
+
+// 平台报案赔款支付信息
+model ReparationsInfo {
+  // 平台赔款支付流水号
+  paymentNo?: string(name='payment_no', example='2023112222332xxxx'),
+  // 平台赔款支付金额
+  paymentAmount?: string(name='payment_amount', example='12.32'),
+  // 平台是否放弃货物所有权。Y:是，N:否
+  relinquishGoods?: string(name='relinquish_goods', example='Y'),
+  // 退货本身是否高于货物本身价值。Y:是，N:否
+  returnOverValue?: string(name='return_over_value', example='Y'),
 }
 
 // 凭证返回值
@@ -7550,14 +7562,14 @@ model ApplyInsuranceOspireportRequest = {
   reporterContact: string(maxLength=20, name='reporter_contact'),
   // 索赔金额，单位（元），最多支持2位小数，超2位小数拒绝
   claimAmount: string(name='claim_amount'),
-  // 物流揽收时间，yyyy-MM-dd HH:mm:ss
-  collectDate: string(name='collect_date'),
-  // 工单号，平台客服判责的工单号
+  // 物流揽收时间，yyyy-MM-dd HH:mm:ss。平台责任险可不填
+  collectDate?: string(name='collect_date'),
+  // 工单号，平台客服判责的工单号。
   jobNo: string(maxLength=100, name='job_no'),
-  // 快递公司名称，实际的派送公司全称
-  courierCompany: string(maxLength=200, name='courier_company'),
-  // 快递单号，实际的派送快递单号
-  courierNumber: string(maxLength=100, name='courier_number'),
+  // 快递公司名称，实际的派送公司全称。平台责任险可不填
+  courierCompany?: string(maxLength=200, name='courier_company'),
+  // 快递单号，实际的派送快递单号。平台责任险可不填
+  courierNumber?: string(maxLength=100, name='courier_number'),
   // 买家ID，买家的脱敏唯一标识
   buyId: string(maxLength=100, name='buy_id'),
   // 卖家ID，卖家的脱敏唯一标识 
@@ -7566,26 +7578,28 @@ model ApplyInsuranceOspireportRequest = {
   siteId?: string(maxLength=100, name='site_id'),
   // 货物名称，实际的货物名称
   cargoName: string(maxLength=200, name='cargo_name'),
-  // 货物的重量，单位(kg)，最多支持6位小数
-  cargoWeight: string(maxLength=20, name='cargo_weight'),
+  // 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
+  cargoWeight?: string(maxLength=20, name='cargo_weight'),
   // 出发地地址，货物的出发地地址
   startPlace: string(maxLength=500, name='start_place'),
   // 目的地地址，货物的目的地地址
   destination: string(maxLength=500, name='destination'),
   // ISO到达国别，包裹业务实际发生的国家
   isoCountry: string(maxLength=10, name='iso_country'),
-  // 出险地址，货物发生实际损失的最近的一次地址记录
-  accidentAddress: string(maxLength=500, name='accident_address'),
+  // 出险地址，货物发生实际损失的最近的一次地址记录。平台责任险选填
+  accidentAddress?: string(maxLength=500, name='accident_address'),
   // 平台赔款支付时间，平台先行赔付的时间，yyyy-MM-dd HH:mm:ss
   paymentTime: string(name='payment_time'),
   // 赔付项目类型，01-运费，02-货值，03-货值2
   paymentItem: string(maxLength=2, name='payment_item'),
   // 出险类型，赔付的出险类型，届时保司和平台方商定
   accidentType: string(maxLength=20, name='accident_type'),
-  // 索赔资料附件，最多10个
-  claimInformations: [ ClaimInformation ](name='claim_informations'),
+  // 索赔资料附件，最多10个。平台责任险可不填
+  claimInformations?: [ ClaimInformation ](name='claim_informations'),
   // 客户或物流CP商，针对此票货物的出发仓ID
   despatchWarehouseId?: string(maxLength=100, name='despatch_warehouse_id'),
+  // 平台赔款支付信息。平台责任险需填
+  reparationsInfo?: ReparationsInfo(name='reparations_info'),
 }
 
 model ApplyInsuranceOspireportResponse = {
@@ -7602,8 +7616,8 @@ model ApplyInsuranceOspireportResponse = {
 }
 
 /**
- * Description: 海外、跨境邮包险理赔报案
- * Summary: 海外、跨境邮包险报案
+ * Description: 海外、跨境邮包险、平台责任险的理赔报案
+ * Summary: 海外、跨境邮包险、平台责任险报案
  */
 async function applyInsuranceOspireport(request: ApplyInsuranceOspireportRequest): ApplyInsuranceOspireportResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -7612,8 +7626,8 @@ async function applyInsuranceOspireport(request: ApplyInsuranceOspireportRequest
 }
 
 /**
- * Description: 海外、跨境邮包险理赔报案
- * Summary: 海外、跨境邮包险报案
+ * Description: 海外、跨境邮包险、平台责任险的理赔报案
+ * Summary: 海外、跨境邮包险、平台责任险报案
  */
 async function applyInsuranceOspireportEx(request: ApplyInsuranceOspireportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsuranceOspireportResponse {
   Util.validateModel(request);
@@ -7653,8 +7667,8 @@ model NotifyInsuranceOspireportResponse = {
 }
 
 /**
- * Description: 海外、跨境邮包险案件结果通知
- * Summary: 海外、跨境邮包险案件结果通知
+ * Description: 海外、跨境邮包险、平台责任险案件结果通知
+ * Summary: 海外、跨境邮包险、平台责任险案件结果通知
  */
 async function notifyInsuranceOspireport(request: NotifyInsuranceOspireportRequest): NotifyInsuranceOspireportResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -7663,8 +7677,8 @@ async function notifyInsuranceOspireport(request: NotifyInsuranceOspireportReque
 }
 
 /**
- * Description: 海外、跨境邮包险案件结果通知
- * Summary: 海外、跨境邮包险案件结果通知
+ * Description: 海外、跨境邮包险、平台责任险案件结果通知
+ * Summary: 海外、跨境邮包险、平台责任险案件结果通知
  */
 async function notifyInsuranceOspireportEx(request: NotifyInsuranceOspireportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyInsuranceOspireportResponse {
   Util.validateModel(request);
@@ -7885,8 +7899,8 @@ model ApplyInsuranceCbpiResponse = {
 }
 
 /**
- * Description: 跨境邮包险投保
- * Summary: 跨境邮包险投保
+ * Description: 跨境邮包险、平台责任险投保
+ * Summary: 跨境邮包险、平台责任险投保
  */
 async function applyInsuranceCbpi(request: ApplyInsuranceCbpiRequest): ApplyInsuranceCbpiResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -7895,8 +7909,8 @@ async function applyInsuranceCbpi(request: ApplyInsuranceCbpiRequest): ApplyInsu
 }
 
 /**
- * Description: 跨境邮包险投保
- * Summary: 跨境邮包险投保
+ * Description: 跨境邮包险、平台责任险投保
+ * Summary: 跨境邮包险、平台责任险投保
  */
 async function applyInsuranceCbpiEx(request: ApplyInsuranceCbpiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsuranceCbpiResponse {
   Util.validateModel(request);
@@ -7971,6 +7985,8 @@ model ApplyInsuranceYzbreportRequest = {
   workType?: string(maxLength=20, name='work_type'),
   // 是否星级站点，0是，1否
   isStarStation?: string(name='is_star_station'),
+  // 报案号，用于报案材料更新
+  reportNo?: string(name='report_no'),
 }
 
 model ApplyInsuranceYzbreportResponse = {
@@ -8046,6 +8062,8 @@ model QueryInsuranceYzbreportResponse = {
   // 案件赔付时间，格式yyyy-mm-dd hh:mm:ss
   // 
   reportPaidTime?: string(name='report_paid_time'),
+  // 案件结论描述
+  reportVerdictDesc?: string(name='report_verdict_desc'),
 }
 
 /**
@@ -8550,7 +8568,7 @@ model ApplyInsurancePiprereportRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
   tradeNo: string(maxLength=50, name='trade_no'),
-  // 保司编码，CPIC--太保
+  // 保司编码，海外邮包险（CICP--中华财险、PAIC--平安）、跨境邮包险（PAIC--平安、PICC--人保、CPIC--太保）
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
   // 险种编码 04--海外邮包险 06--跨境邮包险
   // 
