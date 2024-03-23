@@ -2045,6 +2045,46 @@ func (s *ContainerTypeInfo) SetContainerVolume(v string) *ContainerTypeInfo {
 	return s
 }
 
+// 平台报案赔款支付信息
+type ReparationsInfo struct {
+	// 平台赔款支付流水号
+	PaymentNo *string `json:"payment_no,omitempty" xml:"payment_no,omitempty"`
+	// 平台赔款支付金额
+	PaymentAmount *string `json:"payment_amount,omitempty" xml:"payment_amount,omitempty"`
+	// 平台是否放弃货物所有权。Y:是，N:否
+	RelinquishGoods *string `json:"relinquish_goods,omitempty" xml:"relinquish_goods,omitempty"`
+	// 退货本身是否高于货物本身价值。Y:是，N:否
+	ReturnOverValue *string `json:"return_over_value,omitempty" xml:"return_over_value,omitempty"`
+}
+
+func (s ReparationsInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReparationsInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ReparationsInfo) SetPaymentNo(v string) *ReparationsInfo {
+	s.PaymentNo = &v
+	return s
+}
+
+func (s *ReparationsInfo) SetPaymentAmount(v string) *ReparationsInfo {
+	s.PaymentAmount = &v
+	return s
+}
+
+func (s *ReparationsInfo) SetRelinquishGoods(v string) *ReparationsInfo {
+	s.RelinquishGoods = &v
+	return s
+}
+
+func (s *ReparationsInfo) SetReturnOverValue(v string) *ReparationsInfo {
+	s.ReturnOverValue = &v
+	return s
+}
+
 // 凭证返回值
 type VoucherResp struct {
 	// 消息
@@ -18852,14 +18892,14 @@ type ApplyInsuranceOspireportRequest struct {
 	ReporterContact *string `json:"reporter_contact,omitempty" xml:"reporter_contact,omitempty" require:"true" maxLength:"20"`
 	// 索赔金额，单位（元），最多支持2位小数，超2位小数拒绝
 	ClaimAmount *string `json:"claim_amount,omitempty" xml:"claim_amount,omitempty" require:"true"`
-	// 物流揽收时间，yyyy-MM-dd HH:mm:ss
-	CollectDate *string `json:"collect_date,omitempty" xml:"collect_date,omitempty" require:"true"`
-	// 工单号，平台客服判责的工单号
+	// 物流揽收时间，yyyy-MM-dd HH:mm:ss。平台责任险可不填
+	CollectDate *string `json:"collect_date,omitempty" xml:"collect_date,omitempty"`
+	// 工单号，平台客服判责的工单号。
 	JobNo *string `json:"job_no,omitempty" xml:"job_no,omitempty" require:"true" maxLength:"100"`
-	// 快递公司名称，实际的派送公司全称
-	CourierCompany *string `json:"courier_company,omitempty" xml:"courier_company,omitempty" require:"true" maxLength:"200"`
-	// 快递单号，实际的派送快递单号
-	CourierNumber *string `json:"courier_number,omitempty" xml:"courier_number,omitempty" require:"true" maxLength:"100"`
+	// 快递公司名称，实际的派送公司全称。平台责任险可不填
+	CourierCompany *string `json:"courier_company,omitempty" xml:"courier_company,omitempty" maxLength:"200"`
+	// 快递单号，实际的派送快递单号。平台责任险可不填
+	CourierNumber *string `json:"courier_number,omitempty" xml:"courier_number,omitempty" maxLength:"100"`
 	// 买家ID，买家的脱敏唯一标识
 	BuyId *string `json:"buy_id,omitempty" xml:"buy_id,omitempty" require:"true" maxLength:"100"`
 	// 卖家ID，卖家的脱敏唯一标识
@@ -18868,26 +18908,28 @@ type ApplyInsuranceOspireportRequest struct {
 	SiteId *string `json:"site_id,omitempty" xml:"site_id,omitempty" maxLength:"100"`
 	// 货物名称，实际的货物名称
 	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true" maxLength:"200"`
-	// 货物的重量，单位(kg)，最多支持6位小数
-	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty" require:"true" maxLength:"20"`
+	// 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
+	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty" maxLength:"20"`
 	// 出发地地址，货物的出发地地址
 	StartPlace *string `json:"start_place,omitempty" xml:"start_place,omitempty" require:"true" maxLength:"500"`
 	// 目的地地址，货物的目的地地址
 	Destination *string `json:"destination,omitempty" xml:"destination,omitempty" require:"true" maxLength:"500"`
 	// ISO到达国别，包裹业务实际发生的国家
 	IsoCountry *string `json:"iso_country,omitempty" xml:"iso_country,omitempty" require:"true" maxLength:"10"`
-	// 出险地址，货物发生实际损失的最近的一次地址记录
-	AccidentAddress *string `json:"accident_address,omitempty" xml:"accident_address,omitempty" require:"true" maxLength:"500"`
+	// 出险地址，货物发生实际损失的最近的一次地址记录。平台责任险选填
+	AccidentAddress *string `json:"accident_address,omitempty" xml:"accident_address,omitempty" maxLength:"500"`
 	// 平台赔款支付时间，平台先行赔付的时间，yyyy-MM-dd HH:mm:ss
 	PaymentTime *string `json:"payment_time,omitempty" xml:"payment_time,omitempty" require:"true"`
 	// 赔付项目类型，01-运费，02-货值，03-货值2
 	PaymentItem *string `json:"payment_item,omitempty" xml:"payment_item,omitempty" require:"true" maxLength:"2"`
 	// 出险类型，赔付的出险类型，届时保司和平台方商定
 	AccidentType *string `json:"accident_type,omitempty" xml:"accident_type,omitempty" require:"true" maxLength:"20"`
-	// 索赔资料附件，最多10个
-	ClaimInformations []*ClaimInformation `json:"claim_informations,omitempty" xml:"claim_informations,omitempty" require:"true" type:"Repeated"`
+	// 索赔资料附件，最多10个。平台责任险可不填
+	ClaimInformations []*ClaimInformation `json:"claim_informations,omitempty" xml:"claim_informations,omitempty" type:"Repeated"`
 	// 客户或物流CP商，针对此票货物的出发仓ID
 	DespatchWarehouseId *string `json:"despatch_warehouse_id,omitempty" xml:"despatch_warehouse_id,omitempty" maxLength:"100"`
+	// 平台赔款支付信息。平台责任险需填
+	ReparationsInfo *ReparationsInfo `json:"reparations_info,omitempty" xml:"reparations_info,omitempty"`
 }
 
 func (s ApplyInsuranceOspireportRequest) String() string {
@@ -19040,6 +19082,11 @@ func (s *ApplyInsuranceOspireportRequest) SetClaimInformations(v []*ClaimInforma
 
 func (s *ApplyInsuranceOspireportRequest) SetDespatchWarehouseId(v string) *ApplyInsuranceOspireportRequest {
 	s.DespatchWarehouseId = &v
+	return s
+}
+
+func (s *ApplyInsuranceOspireportRequest) SetReparationsInfo(v *ReparationsInfo) *ApplyInsuranceOspireportRequest {
+	s.ReparationsInfo = v
 	return s
 }
 
@@ -19901,6 +19948,8 @@ type ApplyInsuranceYzbreportRequest struct {
 	WorkType *string `json:"work_type,omitempty" xml:"work_type,omitempty" maxLength:"20"`
 	// 是否星级站点，0是，1否
 	IsStarStation *string `json:"is_star_station,omitempty" xml:"is_star_station,omitempty"`
+	// 报案号，用于报案材料更新
+	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty"`
 }
 
 func (s ApplyInsuranceYzbreportRequest) String() string {
@@ -20071,6 +20120,11 @@ func (s *ApplyInsuranceYzbreportRequest) SetIsStarStation(v string) *ApplyInsura
 	return s
 }
 
+func (s *ApplyInsuranceYzbreportRequest) SetReportNo(v string) *ApplyInsuranceYzbreportRequest {
+	s.ReportNo = &v
+	return s
+}
+
 type ApplyInsuranceYzbreportResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -20191,6 +20245,8 @@ type QueryInsuranceYzbreportResponse struct {
 	// 案件赔付时间，格式yyyy-mm-dd hh:mm:ss
 	//
 	ReportPaidTime *string `json:"report_paid_time,omitempty" xml:"report_paid_time,omitempty"`
+	// 案件结论描述
+	ReportVerdictDesc *string `json:"report_verdict_desc,omitempty" xml:"report_verdict_desc,omitempty"`
 }
 
 func (s QueryInsuranceYzbreportResponse) String() string {
@@ -20263,6 +20319,11 @@ func (s *QueryInsuranceYzbreportResponse) SetReportPaidDesc(v string) *QueryInsu
 
 func (s *QueryInsuranceYzbreportResponse) SetReportPaidTime(v string) *QueryInsuranceYzbreportResponse {
 	s.ReportPaidTime = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetReportVerdictDesc(v string) *QueryInsuranceYzbreportResponse {
+	s.ReportVerdictDesc = &v
 	return s
 }
 
@@ -21448,7 +21509,7 @@ type ApplyInsurancePiprereportRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
-	// 保司编码，CPIC--太保
+	// 保司编码，海外邮包险（CICP--中华财险、PAIC--平安）、跨境邮包险（PAIC--平安、PICC--人保、CPIC--太保）
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
 	// 险种编码 04--海外邮包险 06--跨境邮包险
 	//
@@ -30320,7 +30381,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.10"),
+				"sdk_version":      tea.String("1.7.2"),
 				"_prod_code":       tea.String("SHUZIWULIU"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -33681,8 +33742,8 @@ func (client *Client) ApplyInsuranceOspiEx(request *ApplyInsuranceOspiRequest, h
 }
 
 /**
- * Description: 海外、跨境邮包险理赔报案
- * Summary: 海外、跨境邮包险报案
+ * Description: 海外、跨境邮包险、平台责任险的理赔报案
+ * Summary: 海外、跨境邮包险、平台责任险报案
  */
 func (client *Client) ApplyInsuranceOspireport(request *ApplyInsuranceOspireportRequest) (_result *ApplyInsuranceOspireportResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -33697,8 +33758,8 @@ func (client *Client) ApplyInsuranceOspireport(request *ApplyInsuranceOspireport
 }
 
 /**
- * Description: 海外、跨境邮包险理赔报案
- * Summary: 海外、跨境邮包险报案
+ * Description: 海外、跨境邮包险、平台责任险的理赔报案
+ * Summary: 海外、跨境邮包险、平台责任险报案
  */
 func (client *Client) ApplyInsuranceOspireportEx(request *ApplyInsuranceOspireportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyInsuranceOspireportResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -33715,8 +33776,8 @@ func (client *Client) ApplyInsuranceOspireportEx(request *ApplyInsuranceOspirepo
 }
 
 /**
- * Description: 海外、跨境邮包险案件结果通知
- * Summary: 海外、跨境邮包险案件结果通知
+ * Description: 海外、跨境邮包险、平台责任险案件结果通知
+ * Summary: 海外、跨境邮包险、平台责任险案件结果通知
  */
 func (client *Client) NotifyInsuranceOspireport(request *NotifyInsuranceOspireportRequest) (_result *NotifyInsuranceOspireportResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -33731,8 +33792,8 @@ func (client *Client) NotifyInsuranceOspireport(request *NotifyInsuranceOspirepo
 }
 
 /**
- * Description: 海外、跨境邮包险案件结果通知
- * Summary: 海外、跨境邮包险案件结果通知
+ * Description: 海外、跨境邮包险、平台责任险案件结果通知
+ * Summary: 海外、跨境邮包险、平台责任险案件结果通知
  */
 func (client *Client) NotifyInsuranceOspireportEx(request *NotifyInsuranceOspireportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyInsuranceOspireportResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -33783,8 +33844,8 @@ func (client *Client) ApplyInsuranceYzbEx(request *ApplyInsuranceYzbRequest, hea
 }
 
 /**
- * Description: 跨境邮包险投保
- * Summary: 跨境邮包险投保
+ * Description: 跨境邮包险、平台责任险投保
+ * Summary: 跨境邮包险、平台责任险投保
  */
 func (client *Client) ApplyInsuranceCbpi(request *ApplyInsuranceCbpiRequest) (_result *ApplyInsuranceCbpiResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -33799,8 +33860,8 @@ func (client *Client) ApplyInsuranceCbpi(request *ApplyInsuranceCbpiRequest) (_r
 }
 
 /**
- * Description: 跨境邮包险投保
- * Summary: 跨境邮包险投保
+ * Description: 跨境邮包险、平台责任险投保
+ * Summary: 跨境邮包险、平台责任险投保
  */
 func (client *Client) ApplyInsuranceCbpiEx(request *ApplyInsuranceCbpiRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyInsuranceCbpiResponse, _err error) {
 	_err = util.ValidateModel(request)
