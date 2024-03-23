@@ -172,6 +172,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string IsStarStation { get; set; }
 
+        // 报案号，用于报案材料更新
+        [NameInMap("report_no")]
+        [Validation(Required=false)]
+        public string ReportNo { get; set; }
+
     }
 
 }

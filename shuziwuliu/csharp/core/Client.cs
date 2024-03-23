@@ -137,7 +137,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.10"},
+                        {"sdk_version", "1.7.2"},
                         {"_prod_code", "SHUZIWULIU"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.10"},
+                        {"sdk_version", "1.7.2"},
                         {"_prod_code", "SHUZIWULIU"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4404,8 +4404,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 海外、跨境邮包险理赔报案
-         * Summary: 海外、跨境邮包险报案
+         * Description: 海外、跨境邮包险、平台责任险的理赔报案
+         * Summary: 海外、跨境邮包险、平台责任险报案
          */
         public ApplyInsuranceOspireportResponse ApplyInsuranceOspireport(ApplyInsuranceOspireportRequest request)
         {
@@ -4415,8 +4415,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 海外、跨境邮包险理赔报案
-         * Summary: 海外、跨境邮包险报案
+         * Description: 海外、跨境邮包险、平台责任险的理赔报案
+         * Summary: 海外、跨境邮包险、平台责任险报案
          */
         public async Task<ApplyInsuranceOspireportResponse> ApplyInsuranceOspireportAsync(ApplyInsuranceOspireportRequest request)
         {
@@ -4426,8 +4426,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 海外、跨境邮包险理赔报案
-         * Summary: 海外、跨境邮包险报案
+         * Description: 海外、跨境邮包险、平台责任险的理赔报案
+         * Summary: 海外、跨境邮包险、平台责任险报案
          */
         public ApplyInsuranceOspireportResponse ApplyInsuranceOspireportEx(ApplyInsuranceOspireportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4436,8 +4436,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 海外、跨境邮包险理赔报案
-         * Summary: 海外、跨境邮包险报案
+         * Description: 海外、跨境邮包险、平台责任险的理赔报案
+         * Summary: 海外、跨境邮包险、平台责任险报案
          */
         public async Task<ApplyInsuranceOspireportResponse> ApplyInsuranceOspireportExAsync(ApplyInsuranceOspireportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4446,8 +4446,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 海外、跨境邮包险案件结果通知
-         * Summary: 海外、跨境邮包险案件结果通知
+         * Description: 海外、跨境邮包险、平台责任险案件结果通知
+         * Summary: 海外、跨境邮包险、平台责任险案件结果通知
          */
         public NotifyInsuranceOspireportResponse NotifyInsuranceOspireport(NotifyInsuranceOspireportRequest request)
         {
@@ -4457,8 +4457,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 海外、跨境邮包险案件结果通知
-         * Summary: 海外、跨境邮包险案件结果通知
+         * Description: 海外、跨境邮包险、平台责任险案件结果通知
+         * Summary: 海外、跨境邮包险、平台责任险案件结果通知
          */
         public async Task<NotifyInsuranceOspireportResponse> NotifyInsuranceOspireportAsync(NotifyInsuranceOspireportRequest request)
         {
@@ -4468,8 +4468,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 海外、跨境邮包险案件结果通知
-         * Summary: 海外、跨境邮包险案件结果通知
+         * Description: 海外、跨境邮包险、平台责任险案件结果通知
+         * Summary: 海外、跨境邮包险、平台责任险案件结果通知
          */
         public NotifyInsuranceOspireportResponse NotifyInsuranceOspireportEx(NotifyInsuranceOspireportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4478,8 +4478,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 海外、跨境邮包险案件结果通知
-         * Summary: 海外、跨境邮包险案件结果通知
+         * Description: 海外、跨境邮包险、平台责任险案件结果通知
+         * Summary: 海外、跨境邮包险、平台责任险案件结果通知
          */
         public async Task<NotifyInsuranceOspireportResponse> NotifyInsuranceOspireportExAsync(NotifyInsuranceOspireportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4530,8 +4530,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 跨境邮包险投保
-         * Summary: 跨境邮包险投保
+         * Description: 跨境邮包险、平台责任险投保
+         * Summary: 跨境邮包险、平台责任险投保
          */
         public ApplyInsuranceCbpiResponse ApplyInsuranceCbpi(ApplyInsuranceCbpiRequest request)
         {
@@ -4541,8 +4541,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 跨境邮包险投保
-         * Summary: 跨境邮包险投保
+         * Description: 跨境邮包险、平台责任险投保
+         * Summary: 跨境邮包险、平台责任险投保
          */
         public async Task<ApplyInsuranceCbpiResponse> ApplyInsuranceCbpiAsync(ApplyInsuranceCbpiRequest request)
         {
@@ -4552,8 +4552,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 跨境邮包险投保
-         * Summary: 跨境邮包险投保
+         * Description: 跨境邮包险、平台责任险投保
+         * Summary: 跨境邮包险、平台责任险投保
          */
         public ApplyInsuranceCbpiResponse ApplyInsuranceCbpiEx(ApplyInsuranceCbpiRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4562,8 +4562,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 跨境邮包险投保
-         * Summary: 跨境邮包险投保
+         * Description: 跨境邮包险、平台责任险投保
+         * Summary: 跨境邮包险、平台责任险投保
          */
         public async Task<ApplyInsuranceCbpiResponse> ApplyInsuranceCbpiExAsync(ApplyInsuranceCbpiRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {

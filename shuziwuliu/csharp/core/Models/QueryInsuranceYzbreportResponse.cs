@@ -75,6 +75,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ReportPaidTime { get; set; }
 
+        // 案件结论描述
+        [NameInMap("report_verdict_desc")]
+        [Validation(Required=false)]
+        public string ReportVerdictDesc { get; set; }
+
     }
 
 }

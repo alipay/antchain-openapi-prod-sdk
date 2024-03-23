@@ -69,24 +69,24 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public string ClaimAmount { get; set; }
 
-        // 物流揽收时间，yyyy-MM-dd HH:mm:ss
+        // 物流揽收时间，yyyy-MM-dd HH:mm:ss。平台责任险可不填
         [NameInMap("collect_date")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CollectDate { get; set; }
 
-        // 工单号，平台客服判责的工单号
+        // 工单号，平台客服判责的工单号。
         [NameInMap("job_no")]
         [Validation(Required=true, MaxLength=100)]
         public string JobNo { get; set; }
 
-        // 快递公司名称，实际的派送公司全称
+        // 快递公司名称，实际的派送公司全称。平台责任险可不填
         [NameInMap("courier_company")]
-        [Validation(Required=true, MaxLength=200)]
+        [Validation(Required=false, MaxLength=200)]
         public string CourierCompany { get; set; }
 
-        // 快递单号，实际的派送快递单号
+        // 快递单号，实际的派送快递单号。平台责任险可不填
         [NameInMap("courier_number")]
-        [Validation(Required=true, MaxLength=100)]
+        [Validation(Required=false, MaxLength=100)]
         public string CourierNumber { get; set; }
 
         // 买家ID，买家的脱敏唯一标识
@@ -109,9 +109,9 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=200)]
         public string CargoName { get; set; }
 
-        // 货物的重量，单位(kg)，最多支持6位小数
+        // 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
         [NameInMap("cargo_weight")]
-        [Validation(Required=true, MaxLength=20)]
+        [Validation(Required=false, MaxLength=20)]
         public string CargoWeight { get; set; }
 
         // 出发地地址，货物的出发地地址
@@ -129,9 +129,9 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=10)]
         public string IsoCountry { get; set; }
 
-        // 出险地址，货物发生实际损失的最近的一次地址记录
+        // 出险地址，货物发生实际损失的最近的一次地址记录。平台责任险选填
         [NameInMap("accident_address")]
-        [Validation(Required=true, MaxLength=500)]
+        [Validation(Required=false, MaxLength=500)]
         public string AccidentAddress { get; set; }
 
         // 平台赔款支付时间，平台先行赔付的时间，yyyy-MM-dd HH:mm:ss
@@ -149,15 +149,20 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=20)]
         public string AccidentType { get; set; }
 
-        // 索赔资料附件，最多10个
+        // 索赔资料附件，最多10个。平台责任险可不填
         [NameInMap("claim_informations")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public List<ClaimInformation> ClaimInformations { get; set; }
 
         // 客户或物流CP商，针对此票货物的出发仓ID
         [NameInMap("despatch_warehouse_id")]
         [Validation(Required=false, MaxLength=100)]
         public string DespatchWarehouseId { get; set; }
+
+        // 平台赔款支付信息。平台责任险需填
+        [NameInMap("reparations_info")]
+        [Validation(Required=false)]
+        public ReparationsInfo ReparationsInfo { get; set; }
 
     }
 
