@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.10"),
+                    new TeaPair("sdk_version", "1.7.2"),
                     new TeaPair("_prod_code", "SHUZIWULIU"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2009,8 +2009,8 @@ public class Client {
     }
 
     /**
-     * Description: 海外、跨境邮包险理赔报案
-     * Summary: 海外、跨境邮包险报案
+     * Description: 海外、跨境邮包险、平台责任险的理赔报案
+     * Summary: 海外、跨境邮包险、平台责任险报案
      */
     public ApplyInsuranceOspireportResponse applyInsuranceOspireport(ApplyInsuranceOspireportRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -2019,8 +2019,8 @@ public class Client {
     }
 
     /**
-     * Description: 海外、跨境邮包险理赔报案
-     * Summary: 海外、跨境邮包险报案
+     * Description: 海外、跨境邮包险、平台责任险的理赔报案
+     * Summary: 海外、跨境邮包险、平台责任险报案
      */
     public ApplyInsuranceOspireportResponse applyInsuranceOspireportEx(ApplyInsuranceOspireportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -2028,8 +2028,8 @@ public class Client {
     }
 
     /**
-     * Description: 海外、跨境邮包险案件结果通知
-     * Summary: 海外、跨境邮包险案件结果通知
+     * Description: 海外、跨境邮包险、平台责任险案件结果通知
+     * Summary: 海外、跨境邮包险、平台责任险案件结果通知
      */
     public NotifyInsuranceOspireportResponse notifyInsuranceOspireport(NotifyInsuranceOspireportRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -2038,8 +2038,8 @@ public class Client {
     }
 
     /**
-     * Description: 海外、跨境邮包险案件结果通知
-     * Summary: 海外、跨境邮包险案件结果通知
+     * Description: 海外、跨境邮包险、平台责任险案件结果通知
+     * Summary: 海外、跨境邮包险、平台责任险案件结果通知
      */
     public NotifyInsuranceOspireportResponse notifyInsuranceOspireportEx(NotifyInsuranceOspireportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -2066,8 +2066,8 @@ public class Client {
     }
 
     /**
-     * Description: 跨境邮包险投保
-     * Summary: 跨境邮包险投保
+     * Description: 跨境邮包险、平台责任险投保
+     * Summary: 跨境邮包险、平台责任险投保
      */
     public ApplyInsuranceCbpiResponse applyInsuranceCbpi(ApplyInsuranceCbpiRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -2076,8 +2076,8 @@ public class Client {
     }
 
     /**
-     * Description: 跨境邮包险投保
-     * Summary: 跨境邮包险投保
+     * Description: 跨境邮包险、平台责任险投保
+     * Summary: 跨境邮包险、平台责任险投保
      */
     public ApplyInsuranceCbpiResponse applyInsuranceCbpiEx(ApplyInsuranceCbpiRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

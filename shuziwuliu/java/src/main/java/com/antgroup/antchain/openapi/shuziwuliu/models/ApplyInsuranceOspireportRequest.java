@@ -62,24 +62,23 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     @Validation(required = true)
     public String claimAmount;
 
-    // 物流揽收时间，yyyy-MM-dd HH:mm:ss
+    // 物流揽收时间，yyyy-MM-dd HH:mm:ss。平台责任险可不填
     @NameInMap("collect_date")
-    @Validation(required = true)
     public String collectDate;
 
-    // 工单号，平台客服判责的工单号
+    // 工单号，平台客服判责的工单号。
     @NameInMap("job_no")
     @Validation(required = true, maxLength = 100)
     public String jobNo;
 
-    // 快递公司名称，实际的派送公司全称
+    // 快递公司名称，实际的派送公司全称。平台责任险可不填
     @NameInMap("courier_company")
-    @Validation(required = true, maxLength = 200)
+    @Validation(maxLength = 200)
     public String courierCompany;
 
-    // 快递单号，实际的派送快递单号
+    // 快递单号，实际的派送快递单号。平台责任险可不填
     @NameInMap("courier_number")
-    @Validation(required = true, maxLength = 100)
+    @Validation(maxLength = 100)
     public String courierNumber;
 
     // 买家ID，买家的脱敏唯一标识
@@ -102,9 +101,9 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     @Validation(required = true, maxLength = 200)
     public String cargoName;
 
-    // 货物的重量，单位(kg)，最多支持6位小数
+    // 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
     @NameInMap("cargo_weight")
-    @Validation(required = true, maxLength = 20)
+    @Validation(maxLength = 20)
     public String cargoWeight;
 
     // 出发地地址，货物的出发地地址
@@ -122,9 +121,9 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     @Validation(required = true, maxLength = 10)
     public String isoCountry;
 
-    // 出险地址，货物发生实际损失的最近的一次地址记录
+    // 出险地址，货物发生实际损失的最近的一次地址记录。平台责任险选填
     @NameInMap("accident_address")
-    @Validation(required = true, maxLength = 500)
+    @Validation(maxLength = 500)
     public String accidentAddress;
 
     // 平台赔款支付时间，平台先行赔付的时间，yyyy-MM-dd HH:mm:ss
@@ -142,15 +141,18 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     @Validation(required = true, maxLength = 20)
     public String accidentType;
 
-    // 索赔资料附件，最多10个
+    // 索赔资料附件，最多10个。平台责任险可不填
     @NameInMap("claim_informations")
-    @Validation(required = true)
     public java.util.List<ClaimInformation> claimInformations;
 
     // 客户或物流CP商，针对此票货物的出发仓ID
     @NameInMap("despatch_warehouse_id")
     @Validation(maxLength = 100)
     public String despatchWarehouseId;
+
+    // 平台赔款支付信息。平台责任险需填
+    @NameInMap("reparations_info")
+    public ReparationsInfo reparationsInfo;
 
     public static ApplyInsuranceOspireportRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyInsuranceOspireportRequest self = new ApplyInsuranceOspireportRequest();
@@ -387,6 +389,14 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     }
     public String getDespatchWarehouseId() {
         return this.despatchWarehouseId;
+    }
+
+    public ApplyInsuranceOspireportRequest setReparationsInfo(ReparationsInfo reparationsInfo) {
+        this.reparationsInfo = reparationsInfo;
+        return this;
+    }
+    public ReparationsInfo getReparationsInfo() {
+        return this.reparationsInfo;
     }
 
 }

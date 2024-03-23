@@ -57,6 +57,10 @@ public class QueryInsuranceYzbreportResponse extends TeaModel {
     @NameInMap("report_paid_time")
     public String reportPaidTime;
 
+    // 案件结论描述
+    @NameInMap("report_verdict_desc")
+    public String reportVerdictDesc;
+
     public static QueryInsuranceYzbreportResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryInsuranceYzbreportResponse self = new QueryInsuranceYzbreportResponse();
         return TeaModel.build(map, self);
@@ -164,6 +168,14 @@ public class QueryInsuranceYzbreportResponse extends TeaModel {
     }
     public String getReportPaidTime() {
         return this.reportPaidTime;
+    }
+
+    public QueryInsuranceYzbreportResponse setReportVerdictDesc(String reportVerdictDesc) {
+        this.reportVerdictDesc = reportVerdictDesc;
+        return this;
+    }
+    public String getReportVerdictDesc() {
+        return this.reportVerdictDesc;
     }
 
 }

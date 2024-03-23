@@ -159,6 +159,10 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
     @NameInMap("is_star_station")
     public String isStarStation;
 
+    // 报案号，用于报案材料更新
+    @NameInMap("report_no")
+    public String reportNo;
+
     public static ApplyInsuranceYzbreportRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyInsuranceYzbreportRequest self = new ApplyInsuranceYzbreportRequest();
         return TeaModel.build(map, self);
@@ -418,6 +422,14 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
     }
     public String getIsStarStation() {
         return this.isStarStation;
+    }
+
+    public ApplyInsuranceYzbreportRequest setReportNo(String reportNo) {
+        this.reportNo = reportNo;
+        return this;
+    }
+    public String getReportNo() {
+        return this.reportNo;
     }
 
 }
