@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.12',
+    sdk_version = '1.0.13',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -163,6 +163,8 @@ api doRequest(version: string, action: string, protocol: string, method: string,
 
 // 数字人部件素材对象
 model AvatarMaterialDTO {
+  // json配置
+  json: string(name='json', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
   // 装扮id
   decoId: string(name='deco_id', example='1111'),
   // 装扮名称
@@ -216,6 +218,10 @@ model ExternalOrderDTO {
 
 // 数字人整体形象
 model AvatarDTO {
+  // 数字人基础脸部模型
+  avatarFaceUrl: string(name='avatar_face_url', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
+  // 数字人基础脸部Json配置
+  avatarFaceJson: string(name='avatar_face_json', example='https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original'),
   // 上衣配置
   upcloth: AvatarMaterialDTO(name='upcloth', example=''),
   // 下衣配置
@@ -325,6 +331,142 @@ async function queryAvatarProfile(request: QueryAvatarProfileRequest): QueryAvat
 async function queryAvatarProfileEx(request: QueryAvatarProfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAvatarProfileResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftc.avatar.profile.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPromoteActivityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 助力活动的活动规则编码
+  promoteId: string(name='promote_id'),
+  // 用户授权token
+  accessToken: string(name='access_token'),
+}
+
+model QueryPromoteActivityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 助力活动的活动规则编码
+  promoteId?: string(name='promote_id'),
+  // 活动状态：
+  // ENABLE（进行中）
+  // END（活动结束）
+  status?: string(name='status'),
+  // 助力活动类型
+  // ONCE（生命周期内一次）
+  // DAILY（每日一次）
+  type?: string(name='type'),
+  // 活动开始时间
+  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time'),
+  // 活动结束时间
+  endTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time'),
+  // 最大助力人数
+  maxNum?: long(name='max_num'),
+  // 当前助力成功人数
+  curNum?: long(name='cur_num'),
+  // 参与助力的唯一编码，供三方幂等记录并唯一发奖
+  promoteList?: [ string ](name='promote_list'),
+}
+
+/**
+ * Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+ * Summary: 查询用户助力活动信息
+ */
+async function queryPromoteActivity(request: QueryPromoteActivityRequest): QueryPromoteActivityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPromoteActivityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+ * Summary: 查询用户助力活动信息
+ */
+async function queryPromoteActivityEx(request: QueryPromoteActivityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPromoteActivityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.promote.activity.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetPromoteShareurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 助力活动的活动规则编码
+  promoteId: string(name='promote_id'),
+  // 用户授权token
+  accessToken: string(name='access_token'),
+}
+
+model GetPromoteShareurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 经处理过的分享落地页面的链接，该落地页面由鲸探实现
+  shareUrl?: string(name='share_url'),
+}
+
+/**
+ * Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+ * Summary: 发起助力分享
+ */
+async function getPromoteShareurl(request: GetPromoteShareurlRequest): GetPromoteShareurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getPromoteShareurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+ * Summary: 发起助力分享
+ */
+async function getPromoteShareurlEx(request: GetPromoteShareurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetPromoteShareurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.promote.shareurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmTaskRewardRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 鲸探用户唯一标识
+  openUserId: string(name='open_user_id'),
+  // 前置通过消息获取的任务Id(可用作幂等键，详情看下文的奖励消息通知)
+  taskId: string(name='task_id'),
+}
+
+model ConfirmTaskRewardResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 确认奖励到账
+ * Summary: 确认奖励到账
+ */
+async function confirmTaskReward(request: ConfirmTaskRewardRequest): ConfirmTaskRewardResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmTaskRewardEx(request, headers, runtime);
+}
+
+/**
+ * Description: 确认奖励到账
+ * Summary: 确认奖励到账
+ */
+async function confirmTaskRewardEx(request: ConfirmTaskRewardRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmTaskRewardResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.task.reward.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ApplyOauthTokenRequest = {
@@ -760,6 +902,96 @@ async function queryNftOrder(request: QueryNftOrderRequest): QueryNftOrderRespon
 async function queryNftOrderEx(request: QueryNftOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryNftOrderResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftc.nft.order.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryNftAssetbyskuRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 具体用户Id标识，支持不同类型的id标识，根据toIdType不同而不同
+  idNo: string(name='id_no'),
+  // 参照idType枚举，支持手机号/openUserId
+  idType: string(name='id_type'),
+  // 数字藏品类标识ID
+  skuId: string(name='sku_id'),
+  // 页码，从1开始
+  page: long(name='page'),
+  // 分页大小-上限10
+  pageSize: long(name='page_size'),
+}
+
+model QueryNftAssetbyskuResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户资产列表
+  assetList?: UserAsset(name='asset_list'),
+  // 支付宝账户id，特殊场景返回，通常情况无需关注
+  alipayUid?: string(name='alipay_uid'),
+}
+
+/**
+ * Description: 根据skuId维度查询藏品
+ * Summary: 根据skuId维度查询藏品
+ */
+async function queryNftAssetbysku(request: QueryNftAssetbyskuRequest): QueryNftAssetbyskuResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryNftAssetbyskuEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据skuId维度查询藏品
+ * Summary: 根据skuId维度查询藏品
+ */
+async function queryNftAssetbyskuEx(request: QueryNftAssetbyskuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryNftAssetbyskuResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.nft.assetbysku.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendPromoPrizeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 鲸探用户唯一标识
+  openUserId: string(name='open_user_id'),
+  // 海豚活动ID，鲸探运营在海豚创建的活动ID
+  campId: string(name='camp_id'),
+  // 海豚奖品ID，鲸探运营在海豚创建的奖品ID
+  prizeId: string(name='prize_id'),
+  // 调用方唯一幂等号
+  bizNo: string(name='biz_no'),
+}
+
+model SendPromoPrizeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 支付宝海豚优惠券发放
+ * Summary: 支付宝海豚优惠券发放
+ */
+async function sendPromoPrize(request: SendPromoPrizeRequest): SendPromoPrizeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendPromoPrizeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支付宝海豚优惠券发放
+ * Summary: 支付宝海豚优惠券发放
+ */
+async function sendPromoPrizeEx(request: SendPromoPrizeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendPromoPrizeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.promo.prize.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateResourceGeneralresourceRequest = {
