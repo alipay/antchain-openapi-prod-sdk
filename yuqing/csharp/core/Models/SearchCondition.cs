@@ -240,6 +240,11 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=false)]
         public long? UpdateTimeStart { get; set; }
 
+        // field_conditions
+        [NameInMap("field_conditions")]
+        [Validation(Required=false)]
+        public List<FieldCondition> FieldConditions { get; set; }
+
     }
 
 }
