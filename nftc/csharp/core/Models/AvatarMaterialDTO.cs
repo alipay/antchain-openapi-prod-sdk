@@ -10,6 +10,11 @@ namespace AntChain.SDK.NFTC.Models
 {
     // 数字人部件素材对象
     public class AvatarMaterialDTO : TeaModel {
+        // json配置
+        [NameInMap("json")]
+        [Validation(Required=true)]
+        public string Json { get; set; }
+
         // 装扮id
         [NameInMap("deco_id")]
         [Validation(Required=true)]

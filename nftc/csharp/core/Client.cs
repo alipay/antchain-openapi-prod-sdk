@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.12"},
+                        {"sdk_version", "1.0.13"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.12"},
+                        {"sdk_version", "1.0.13"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -361,6 +361,132 @@ namespace AntChain.SDK.NFTC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAvatarProfileResponse>(await DoRequestAsync("1.0", "antchain.nftc.avatar.profile.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+         * Summary: 查询用户助力活动信息
+         */
+        public QueryPromoteActivityResponse QueryPromoteActivity(QueryPromoteActivityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryPromoteActivityEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+         * Summary: 查询用户助力活动信息
+         */
+        public async Task<QueryPromoteActivityResponse> QueryPromoteActivityAsync(QueryPromoteActivityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryPromoteActivityExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+         * Summary: 查询用户助力活动信息
+         */
+        public QueryPromoteActivityResponse QueryPromoteActivityEx(QueryPromoteActivityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPromoteActivityResponse>(DoRequest("1.0", "antchain.nftc.promote.activity.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+         * Summary: 查询用户助力活动信息
+         */
+        public async Task<QueryPromoteActivityResponse> QueryPromoteActivityExAsync(QueryPromoteActivityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPromoteActivityResponse>(await DoRequestAsync("1.0", "antchain.nftc.promote.activity.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+         * Summary: 发起助力分享
+         */
+        public GetPromoteShareurlResponse GetPromoteShareurl(GetPromoteShareurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetPromoteShareurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+         * Summary: 发起助力分享
+         */
+        public async Task<GetPromoteShareurlResponse> GetPromoteShareurlAsync(GetPromoteShareurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetPromoteShareurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+         * Summary: 发起助力分享
+         */
+        public GetPromoteShareurlResponse GetPromoteShareurlEx(GetPromoteShareurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetPromoteShareurlResponse>(DoRequest("1.0", "antchain.nftc.promote.shareurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+         * Summary: 发起助力分享
+         */
+        public async Task<GetPromoteShareurlResponse> GetPromoteShareurlExAsync(GetPromoteShareurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetPromoteShareurlResponse>(await DoRequestAsync("1.0", "antchain.nftc.promote.shareurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 确认奖励到账
+         * Summary: 确认奖励到账
+         */
+        public ConfirmTaskRewardResponse ConfirmTaskReward(ConfirmTaskRewardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ConfirmTaskRewardEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 确认奖励到账
+         * Summary: 确认奖励到账
+         */
+        public async Task<ConfirmTaskRewardResponse> ConfirmTaskRewardAsync(ConfirmTaskRewardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ConfirmTaskRewardExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 确认奖励到账
+         * Summary: 确认奖励到账
+         */
+        public ConfirmTaskRewardResponse ConfirmTaskRewardEx(ConfirmTaskRewardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmTaskRewardResponse>(DoRequest("1.0", "antchain.nftc.task.reward.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 确认奖励到账
+         * Summary: 确认奖励到账
+         */
+        public async Task<ConfirmTaskRewardResponse> ConfirmTaskRewardExAsync(ConfirmTaskRewardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmTaskRewardResponse>(await DoRequestAsync("1.0", "antchain.nftc.task.reward.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -739,6 +865,90 @@ namespace AntChain.SDK.NFTC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryNftOrderResponse>(await DoRequestAsync("1.0", "antchain.nftc.nft.order.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据skuId维度查询藏品
+         * Summary: 根据skuId维度查询藏品
+         */
+        public QueryNftAssetbyskuResponse QueryNftAssetbysku(QueryNftAssetbyskuRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryNftAssetbyskuEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据skuId维度查询藏品
+         * Summary: 根据skuId维度查询藏品
+         */
+        public async Task<QueryNftAssetbyskuResponse> QueryNftAssetbyskuAsync(QueryNftAssetbyskuRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryNftAssetbyskuExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据skuId维度查询藏品
+         * Summary: 根据skuId维度查询藏品
+         */
+        public QueryNftAssetbyskuResponse QueryNftAssetbyskuEx(QueryNftAssetbyskuRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNftAssetbyskuResponse>(DoRequest("1.0", "antchain.nftc.nft.assetbysku.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据skuId维度查询藏品
+         * Summary: 根据skuId维度查询藏品
+         */
+        public async Task<QueryNftAssetbyskuResponse> QueryNftAssetbyskuExAsync(QueryNftAssetbyskuRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNftAssetbyskuResponse>(await DoRequestAsync("1.0", "antchain.nftc.nft.assetbysku.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付宝海豚优惠券发放
+         * Summary: 支付宝海豚优惠券发放
+         */
+        public SendPromoPrizeResponse SendPromoPrize(SendPromoPrizeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SendPromoPrizeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付宝海豚优惠券发放
+         * Summary: 支付宝海豚优惠券发放
+         */
+        public async Task<SendPromoPrizeResponse> SendPromoPrizeAsync(SendPromoPrizeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SendPromoPrizeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付宝海豚优惠券发放
+         * Summary: 支付宝海豚优惠券发放
+         */
+        public SendPromoPrizeResponse SendPromoPrizeEx(SendPromoPrizeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendPromoPrizeResponse>(DoRequest("1.0", "antchain.nftc.promo.prize.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付宝海豚优惠券发放
+         * Summary: 支付宝海豚优惠券发放
+         */
+        public async Task<SendPromoPrizeResponse> SendPromoPrizeExAsync(SendPromoPrizeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendPromoPrizeResponse>(await DoRequestAsync("1.0", "antchain.nftc.promo.prize.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
