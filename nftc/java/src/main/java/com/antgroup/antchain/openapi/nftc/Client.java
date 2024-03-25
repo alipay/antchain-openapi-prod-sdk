@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.12"),
+                    new TeaPair("sdk_version", "1.0.13"),
                     new TeaPair("_prod_code", "NFTC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -178,6 +178,63 @@ public class Client {
     public QueryAvatarProfileResponse queryAvatarProfileEx(QueryAvatarProfileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.avatar.profile.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAvatarProfileResponse());
+    }
+
+    /**
+     * Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+     * Summary: 查询用户助力活动信息
+     */
+    public QueryPromoteActivityResponse queryPromoteActivity(QueryPromoteActivityRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPromoteActivityEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+     * Summary: 查询用户助力活动信息
+     */
+    public QueryPromoteActivityResponse queryPromoteActivityEx(QueryPromoteActivityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.promote.activity.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPromoteActivityResponse());
+    }
+
+    /**
+     * Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+     * Summary: 发起助力分享
+     */
+    public GetPromoteShareurlResponse getPromoteShareurl(GetPromoteShareurlRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getPromoteShareurlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+     * Summary: 发起助力分享
+     */
+    public GetPromoteShareurlResponse getPromoteShareurlEx(GetPromoteShareurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.promote.shareurl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetPromoteShareurlResponse());
+    }
+
+    /**
+     * Description: 确认奖励到账
+     * Summary: 确认奖励到账
+     */
+    public ConfirmTaskRewardResponse confirmTaskReward(ConfirmTaskRewardRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmTaskRewardEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 确认奖励到账
+     * Summary: 确认奖励到账
+     */
+    public ConfirmTaskRewardResponse confirmTaskRewardEx(ConfirmTaskRewardRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.task.reward.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmTaskRewardResponse());
     }
 
     /**
@@ -349,6 +406,44 @@ public class Client {
     public QueryNftOrderResponse queryNftOrderEx(QueryNftOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.nft.order.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNftOrderResponse());
+    }
+
+    /**
+     * Description: 根据skuId维度查询藏品
+     * Summary: 根据skuId维度查询藏品
+     */
+    public QueryNftAssetbyskuResponse queryNftAssetbysku(QueryNftAssetbyskuRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryNftAssetbyskuEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据skuId维度查询藏品
+     * Summary: 根据skuId维度查询藏品
+     */
+    public QueryNftAssetbyskuResponse queryNftAssetbyskuEx(QueryNftAssetbyskuRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.nft.assetbysku.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNftAssetbyskuResponse());
+    }
+
+    /**
+     * Description: 支付宝海豚优惠券发放
+     * Summary: 支付宝海豚优惠券发放
+     */
+    public SendPromoPrizeResponse sendPromoPrize(SendPromoPrizeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sendPromoPrizeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 支付宝海豚优惠券发放
+     * Summary: 支付宝海豚优惠券发放
+     */
+    public SendPromoPrizeResponse sendPromoPrizeEx(SendPromoPrizeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.promo.prize.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendPromoPrizeResponse());
     }
 
     /**

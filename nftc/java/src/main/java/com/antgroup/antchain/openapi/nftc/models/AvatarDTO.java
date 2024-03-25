@@ -4,6 +4,16 @@ package com.antgroup.antchain.openapi.nftc.models;
 import com.aliyun.tea.*;
 
 public class AvatarDTO extends TeaModel {
+    // 数字人基础脸部模型
+    @NameInMap("avatar_face_url")
+    @Validation(required = true)
+    public String avatarFaceUrl;
+
+    // 数字人基础脸部Json配置
+    @NameInMap("avatar_face_json")
+    @Validation(required = true)
+    public String avatarFaceJson;
+
     // 上衣配置
     @NameInMap("upcloth")
     @Validation(required = true)
@@ -142,6 +152,22 @@ public class AvatarDTO extends TeaModel {
     public static AvatarDTO build(java.util.Map<String, ?> map) throws Exception {
         AvatarDTO self = new AvatarDTO();
         return TeaModel.build(map, self);
+    }
+
+    public AvatarDTO setAvatarFaceUrl(String avatarFaceUrl) {
+        this.avatarFaceUrl = avatarFaceUrl;
+        return this;
+    }
+    public String getAvatarFaceUrl() {
+        return this.avatarFaceUrl;
+    }
+
+    public AvatarDTO setAvatarFaceJson(String avatarFaceJson) {
+        this.avatarFaceJson = avatarFaceJson;
+        return this;
+    }
+    public String getAvatarFaceJson() {
+        return this.avatarFaceJson;
     }
 
     public AvatarDTO setUpcloth(AvatarMaterialDTO upcloth) {

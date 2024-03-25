@@ -4,6 +4,11 @@ package com.antgroup.antchain.openapi.nftc.models;
 import com.aliyun.tea.*;
 
 public class AvatarMaterialDTO extends TeaModel {
+    // json配置
+    @NameInMap("json")
+    @Validation(required = true)
+    public String json;
+
     // 装扮id
     @NameInMap("deco_id")
     @Validation(required = true)
@@ -53,6 +58,14 @@ public class AvatarMaterialDTO extends TeaModel {
     public static AvatarMaterialDTO build(java.util.Map<String, ?> map) throws Exception {
         AvatarMaterialDTO self = new AvatarMaterialDTO();
         return TeaModel.build(map, self);
+    }
+
+    public AvatarMaterialDTO setJson(String json) {
+        this.json = json;
+        return this;
+    }
+    public String getJson() {
+        return this.json;
     }
 
     public AvatarMaterialDTO setDecoId(String decoId) {
