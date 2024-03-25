@@ -150,6 +150,8 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 
 // 数字人部件素材对象
 type AvatarMaterialDTO struct {
+	// json配置
+	Json *string `json:"json,omitempty" xml:"json,omitempty" require:"true"`
 	// 装扮id
 	DecoId *string `json:"deco_id,omitempty" xml:"deco_id,omitempty" require:"true"`
 	// 装扮名称
@@ -177,6 +179,11 @@ func (s AvatarMaterialDTO) String() string {
 
 func (s AvatarMaterialDTO) GoString() string {
 	return s.String()
+}
+
+func (s *AvatarMaterialDTO) SetJson(v string) *AvatarMaterialDTO {
+	s.Json = &v
+	return s
 }
 
 func (s *AvatarMaterialDTO) SetDecoId(v string) *AvatarMaterialDTO {
@@ -315,6 +322,10 @@ func (s *ExternalOrderDTO) SetOrderItemList(v []*ExternalOrderItemDTO) *External
 
 // 数字人整体形象
 type AvatarDTO struct {
+	// 数字人基础脸部模型
+	AvatarFaceUrl *string `json:"avatar_face_url,omitempty" xml:"avatar_face_url,omitempty" require:"true"`
+	// 数字人基础脸部Json配置
+	AvatarFaceJson *string `json:"avatar_face_json,omitempty" xml:"avatar_face_json,omitempty" require:"true"`
 	// 上衣配置
 	Upcloth *AvatarMaterialDTO `json:"upcloth,omitempty" xml:"upcloth,omitempty" require:"true"`
 	// 下衣配置
@@ -377,6 +388,16 @@ func (s AvatarDTO) String() string {
 
 func (s AvatarDTO) GoString() string {
 	return s.String()
+}
+
+func (s *AvatarDTO) SetAvatarFaceUrl(v string) *AvatarDTO {
+	s.AvatarFaceUrl = &v
+	return s
+}
+
+func (s *AvatarDTO) SetAvatarFaceJson(v string) *AvatarDTO {
+	s.AvatarFaceJson = &v
+	return s
 }
 
 func (s *AvatarDTO) SetUpcloth(v *AvatarMaterialDTO) *AvatarDTO {
@@ -636,6 +657,283 @@ func (s *QueryAvatarProfileResponse) SetResultMsg(v string) *QueryAvatarProfileR
 
 func (s *QueryAvatarProfileResponse) SetAvatarInfo(v *AvatarDTO) *QueryAvatarProfileResponse {
 	s.AvatarInfo = v
+	return s
+}
+
+type QueryPromoteActivityRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 助力活动的活动规则编码
+	PromoteId *string `json:"promote_id,omitempty" xml:"promote_id,omitempty" require:"true"`
+	// 用户授权token
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+}
+
+func (s QueryPromoteActivityRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPromoteActivityRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPromoteActivityRequest) SetAuthToken(v string) *QueryPromoteActivityRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPromoteActivityRequest) SetProductInstanceId(v string) *QueryPromoteActivityRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPromoteActivityRequest) SetPromoteId(v string) *QueryPromoteActivityRequest {
+	s.PromoteId = &v
+	return s
+}
+
+func (s *QueryPromoteActivityRequest) SetAccessToken(v string) *QueryPromoteActivityRequest {
+	s.AccessToken = &v
+	return s
+}
+
+type QueryPromoteActivityResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 助力活动的活动规则编码
+	PromoteId *string `json:"promote_id,omitempty" xml:"promote_id,omitempty"`
+	// 活动状态：
+	// ENABLE（进行中）
+	// END（活动结束）
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 助力活动类型
+	// ONCE（生命周期内一次）
+	// DAILY（每日一次）
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 活动开始时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 活动结束时间
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 最大助力人数
+	MaxNum *int64 `json:"max_num,omitempty" xml:"max_num,omitempty"`
+	// 当前助力成功人数
+	CurNum *int64 `json:"cur_num,omitempty" xml:"cur_num,omitempty"`
+	// 参与助力的唯一编码，供三方幂等记录并唯一发奖
+	PromoteList []*string `json:"promote_list,omitempty" xml:"promote_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryPromoteActivityResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPromoteActivityResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPromoteActivityResponse) SetReqMsgId(v string) *QueryPromoteActivityResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPromoteActivityResponse) SetResultCode(v string) *QueryPromoteActivityResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPromoteActivityResponse) SetResultMsg(v string) *QueryPromoteActivityResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryPromoteActivityResponse) SetPromoteId(v string) *QueryPromoteActivityResponse {
+	s.PromoteId = &v
+	return s
+}
+
+func (s *QueryPromoteActivityResponse) SetStatus(v string) *QueryPromoteActivityResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryPromoteActivityResponse) SetType(v string) *QueryPromoteActivityResponse {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryPromoteActivityResponse) SetStartTime(v string) *QueryPromoteActivityResponse {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryPromoteActivityResponse) SetEndTime(v string) *QueryPromoteActivityResponse {
+	s.EndTime = &v
+	return s
+}
+
+func (s *QueryPromoteActivityResponse) SetMaxNum(v int64) *QueryPromoteActivityResponse {
+	s.MaxNum = &v
+	return s
+}
+
+func (s *QueryPromoteActivityResponse) SetCurNum(v int64) *QueryPromoteActivityResponse {
+	s.CurNum = &v
+	return s
+}
+
+func (s *QueryPromoteActivityResponse) SetPromoteList(v []*string) *QueryPromoteActivityResponse {
+	s.PromoteList = v
+	return s
+}
+
+type GetPromoteShareurlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 助力活动的活动规则编码
+	PromoteId *string `json:"promote_id,omitempty" xml:"promote_id,omitempty" require:"true"`
+	// 用户授权token
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+}
+
+func (s GetPromoteShareurlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetPromoteShareurlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetPromoteShareurlRequest) SetAuthToken(v string) *GetPromoteShareurlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetPromoteShareurlRequest) SetProductInstanceId(v string) *GetPromoteShareurlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetPromoteShareurlRequest) SetPromoteId(v string) *GetPromoteShareurlRequest {
+	s.PromoteId = &v
+	return s
+}
+
+func (s *GetPromoteShareurlRequest) SetAccessToken(v string) *GetPromoteShareurlRequest {
+	s.AccessToken = &v
+	return s
+}
+
+type GetPromoteShareurlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 经处理过的分享落地页面的链接，该落地页面由鲸探实现
+	ShareUrl *string `json:"share_url,omitempty" xml:"share_url,omitempty"`
+}
+
+func (s GetPromoteShareurlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetPromoteShareurlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetPromoteShareurlResponse) SetReqMsgId(v string) *GetPromoteShareurlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetPromoteShareurlResponse) SetResultCode(v string) *GetPromoteShareurlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetPromoteShareurlResponse) SetResultMsg(v string) *GetPromoteShareurlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetPromoteShareurlResponse) SetShareUrl(v string) *GetPromoteShareurlResponse {
+	s.ShareUrl = &v
+	return s
+}
+
+type ConfirmTaskRewardRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 鲸探用户唯一标识
+	OpenUserId *string `json:"open_user_id,omitempty" xml:"open_user_id,omitempty" require:"true"`
+	// 前置通过消息获取的任务Id(可用作幂等键，详情看下文的奖励消息通知)
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s ConfirmTaskRewardRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmTaskRewardRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmTaskRewardRequest) SetAuthToken(v string) *ConfirmTaskRewardRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmTaskRewardRequest) SetProductInstanceId(v string) *ConfirmTaskRewardRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmTaskRewardRequest) SetOpenUserId(v string) *ConfirmTaskRewardRequest {
+	s.OpenUserId = &v
+	return s
+}
+
+func (s *ConfirmTaskRewardRequest) SetTaskId(v string) *ConfirmTaskRewardRequest {
+	s.TaskId = &v
+	return s
+}
+
+type ConfirmTaskRewardResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ConfirmTaskRewardResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmTaskRewardResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmTaskRewardResponse) SetReqMsgId(v string) *ConfirmTaskRewardResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmTaskRewardResponse) SetResultCode(v string) *ConfirmTaskRewardResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmTaskRewardResponse) SetResultMsg(v string) *ConfirmTaskRewardResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -1532,6 +1830,195 @@ func (s *QueryNftOrderResponse) SetExternalOrder(v *ExternalOrderDTO) *QueryNftO
 	return s
 }
 
+type QueryNftAssetbyskuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 具体用户Id标识，支持不同类型的id标识，根据toIdType不同而不同
+	IdNo *string `json:"id_no,omitempty" xml:"id_no,omitempty" require:"true"`
+	// 参照idType枚举，支持手机号/openUserId
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
+	// 数字藏品类标识ID
+	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty" require:"true"`
+	// 页码，从1开始
+	Page *int64 `json:"page,omitempty" xml:"page,omitempty" require:"true"`
+	// 分页大小-上限10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s QueryNftAssetbyskuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryNftAssetbyskuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryNftAssetbyskuRequest) SetAuthToken(v string) *QueryNftAssetbyskuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuRequest) SetProductInstanceId(v string) *QueryNftAssetbyskuRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuRequest) SetIdNo(v string) *QueryNftAssetbyskuRequest {
+	s.IdNo = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuRequest) SetIdType(v string) *QueryNftAssetbyskuRequest {
+	s.IdType = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuRequest) SetSkuId(v string) *QueryNftAssetbyskuRequest {
+	s.SkuId = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuRequest) SetPage(v int64) *QueryNftAssetbyskuRequest {
+	s.Page = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuRequest) SetPageSize(v int64) *QueryNftAssetbyskuRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryNftAssetbyskuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户资产列表
+	AssetList *UserAsset `json:"asset_list,omitempty" xml:"asset_list,omitempty"`
+	// 支付宝账户id，特殊场景返回，通常情况无需关注
+	AlipayUid *string `json:"alipay_uid,omitempty" xml:"alipay_uid,omitempty"`
+}
+
+func (s QueryNftAssetbyskuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryNftAssetbyskuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryNftAssetbyskuResponse) SetReqMsgId(v string) *QueryNftAssetbyskuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuResponse) SetResultCode(v string) *QueryNftAssetbyskuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuResponse) SetResultMsg(v string) *QueryNftAssetbyskuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryNftAssetbyskuResponse) SetAssetList(v *UserAsset) *QueryNftAssetbyskuResponse {
+	s.AssetList = v
+	return s
+}
+
+func (s *QueryNftAssetbyskuResponse) SetAlipayUid(v string) *QueryNftAssetbyskuResponse {
+	s.AlipayUid = &v
+	return s
+}
+
+type SendPromoPrizeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 鲸探用户唯一标识
+	OpenUserId *string `json:"open_user_id,omitempty" xml:"open_user_id,omitempty" require:"true"`
+	// 海豚活动ID，鲸探运营在海豚创建的活动ID
+	CampId *string `json:"camp_id,omitempty" xml:"camp_id,omitempty" require:"true"`
+	// 海豚奖品ID，鲸探运营在海豚创建的奖品ID
+	PrizeId *string `json:"prize_id,omitempty" xml:"prize_id,omitempty" require:"true"`
+	// 调用方唯一幂等号
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true"`
+}
+
+func (s SendPromoPrizeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendPromoPrizeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendPromoPrizeRequest) SetAuthToken(v string) *SendPromoPrizeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendPromoPrizeRequest) SetProductInstanceId(v string) *SendPromoPrizeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendPromoPrizeRequest) SetOpenUserId(v string) *SendPromoPrizeRequest {
+	s.OpenUserId = &v
+	return s
+}
+
+func (s *SendPromoPrizeRequest) SetCampId(v string) *SendPromoPrizeRequest {
+	s.CampId = &v
+	return s
+}
+
+func (s *SendPromoPrizeRequest) SetPrizeId(v string) *SendPromoPrizeRequest {
+	s.PrizeId = &v
+	return s
+}
+
+func (s *SendPromoPrizeRequest) SetBizNo(v string) *SendPromoPrizeRequest {
+	s.BizNo = &v
+	return s
+}
+
+type SendPromoPrizeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SendPromoPrizeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendPromoPrizeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendPromoPrizeResponse) SetReqMsgId(v string) *SendPromoPrizeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendPromoPrizeResponse) SetResultCode(v string) *SendPromoPrizeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendPromoPrizeResponse) SetResultMsg(v string) *SendPromoPrizeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateResourceGeneralresourceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2095,7 +2582,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.12"),
+				"sdk_version":      tea.String("1.0.13"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -2180,6 +2667,108 @@ func (client *Client) QueryAvatarProfileEx(request *QueryAvatarProfileRequest, h
 	}
 	_result = &QueryAvatarProfileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.avatar.profile.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+ * Summary: 查询用户助力活动信息
+ */
+func (client *Client) QueryPromoteActivity(request *QueryPromoteActivityRequest) (_result *QueryPromoteActivityResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPromoteActivityResponse{}
+	_body, _err := client.QueryPromoteActivityEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+ * Summary: 查询用户助力活动信息
+ */
+func (client *Client) QueryPromoteActivityEx(request *QueryPromoteActivityRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPromoteActivityResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPromoteActivityResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.promote.activity.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+ * Summary: 发起助力分享
+ */
+func (client *Client) GetPromoteShareurl(request *GetPromoteShareurlRequest) (_result *GetPromoteShareurlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetPromoteShareurlResponse{}
+	_body, _err := client.GetPromoteShareurlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+ * Summary: 发起助力分享
+ */
+func (client *Client) GetPromoteShareurlEx(request *GetPromoteShareurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetPromoteShareurlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetPromoteShareurlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.promote.shareurl.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 确认奖励到账
+ * Summary: 确认奖励到账
+ */
+func (client *Client) ConfirmTaskReward(request *ConfirmTaskRewardRequest) (_result *ConfirmTaskRewardResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmTaskRewardResponse{}
+	_body, _err := client.ConfirmTaskRewardEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 确认奖励到账
+ * Summary: 确认奖励到账
+ */
+func (client *Client) ConfirmTaskRewardEx(request *ConfirmTaskRewardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmTaskRewardResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmTaskRewardResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.task.reward.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -2486,6 +3075,74 @@ func (client *Client) QueryNftOrderEx(request *QueryNftOrderRequest, headers map
 	}
 	_result = &QueryNftOrderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.nft.order.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据skuId维度查询藏品
+ * Summary: 根据skuId维度查询藏品
+ */
+func (client *Client) QueryNftAssetbysku(request *QueryNftAssetbyskuRequest) (_result *QueryNftAssetbyskuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryNftAssetbyskuResponse{}
+	_body, _err := client.QueryNftAssetbyskuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据skuId维度查询藏品
+ * Summary: 根据skuId维度查询藏品
+ */
+func (client *Client) QueryNftAssetbyskuEx(request *QueryNftAssetbyskuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryNftAssetbyskuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryNftAssetbyskuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.nft.assetbysku.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 支付宝海豚优惠券发放
+ * Summary: 支付宝海豚优惠券发放
+ */
+func (client *Client) SendPromoPrize(request *SendPromoPrizeRequest) (_result *SendPromoPrizeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendPromoPrizeResponse{}
+	_body, _err := client.SendPromoPrizeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 支付宝海豚优惠券发放
+ * Summary: 支付宝海豚优惠券发放
+ */
+func (client *Client) SendPromoPrizeEx(request *SendPromoPrizeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendPromoPrizeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendPromoPrizeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.promo.prize.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
