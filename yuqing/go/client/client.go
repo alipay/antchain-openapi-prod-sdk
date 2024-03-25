@@ -877,6 +877,53 @@ func (s *Text) SetContent(v string) *Text {
 	return s
 }
 
+// 其他过滤条件
+type FieldCondition struct {
+	// 字段名称
+	FieldName *string `json:"field_name,omitempty" xml:"field_name,omitempty" require:"true"`
+	// 复杂查询下，嵌套子条件字段jsonPath
+	NestFieldPath *string `json:"nest_field_path,omitempty" xml:"nest_field_path,omitempty"`
+	// 复杂查询下，嵌套子条件字段值
+	NestFieldValue []*int64 `json:"nest_field_value,omitempty" xml:"nest_field_value,omitempty" type:"Repeated"`
+	// 操作符
+	OperateType *string `json:"operate_type,omitempty" xml:"operate_type,omitempty" require:"true"`
+	// 关键字
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s FieldCondition) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FieldCondition) GoString() string {
+	return s.String()
+}
+
+func (s *FieldCondition) SetFieldName(v string) *FieldCondition {
+	s.FieldName = &v
+	return s
+}
+
+func (s *FieldCondition) SetNestFieldPath(v string) *FieldCondition {
+	s.NestFieldPath = &v
+	return s
+}
+
+func (s *FieldCondition) SetNestFieldValue(v []*int64) *FieldCondition {
+	s.NestFieldValue = v
+	return s
+}
+
+func (s *FieldCondition) SetOperateType(v string) *FieldCondition {
+	s.OperateType = &v
+	return s
+}
+
+func (s *FieldCondition) SetValue(v string) *FieldCondition {
+	s.Value = &v
+	return s
+}
+
 // 钉钉消息体
 type DingTalkContent struct {
 	// webHook
@@ -1250,6 +1297,8 @@ type SearchCondition struct {
 	UpdateTimeEnd *int64 `json:"update_time_end,omitempty" xml:"update_time_end,omitempty"`
 	// 舆情文章起始更新时间
 	UpdateTimeStart *int64 `json:"update_time_start,omitempty" xml:"update_time_start,omitempty"`
+	// field_conditions
+	FieldConditions []*FieldCondition `json:"field_conditions,omitempty" xml:"field_conditions,omitempty" type:"Repeated"`
 }
 
 func (s SearchCondition) String() string {
@@ -1487,6 +1536,11 @@ func (s *SearchCondition) SetUpdateTimeEnd(v int64) *SearchCondition {
 
 func (s *SearchCondition) SetUpdateTimeStart(v int64) *SearchCondition {
 	s.UpdateTimeStart = &v
+	return s
+}
+
+func (s *SearchCondition) SetFieldConditions(v []*FieldCondition) *SearchCondition {
+	s.FieldConditions = v
 	return s
 }
 
@@ -3900,7 +3954,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.10"),
+				"sdk_version":      tea.String("1.2.11"),
 				"_prod_code":       tea.String("YUQING"),
 				"_prod_channel":    tea.String("undefined"),
 			}
