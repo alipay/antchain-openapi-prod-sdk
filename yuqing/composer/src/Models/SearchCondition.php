@@ -375,6 +375,14 @@ class SearchCondition extends Model
      * @var int
      */
     public $updateTimeStart;
+
+    // field_conditions
+    /**
+     * @example
+     *
+     * @var FieldCondition[]
+     */
+    public $fieldConditions;
     protected $_name = [
         'assKeywordList'            => 'ass_keyword_list',
         'atAuthorNameList'          => 'at_author_name_list',
@@ -422,6 +430,7 @@ class SearchCondition extends Model
         'topicList'                 => 'topic_list',
         'updateTimeEnd'             => 'update_time_end',
         'updateTimeStart'           => 'update_time_start',
+        'fieldConditions'           => 'field_conditions',
     ];
 
     public function validate()
@@ -568,6 +577,15 @@ class SearchCondition extends Model
         }
         if (null !== $this->updateTimeStart) {
             $res['update_time_start'] = $this->updateTimeStart;
+        }
+        if (null !== $this->fieldConditions) {
+            $res['field_conditions'] = [];
+            if (null !== $this->fieldConditions && \is_array($this->fieldConditions)) {
+                $n = 0;
+                foreach ($this->fieldConditions as $item) {
+                    $res['field_conditions'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -764,6 +782,15 @@ class SearchCondition extends Model
         }
         if (isset($map['update_time_start'])) {
             $model->updateTimeStart = $map['update_time_start'];
+        }
+        if (isset($map['field_conditions'])) {
+            if (!empty($map['field_conditions'])) {
+                $model->fieldConditions = [];
+                $n                      = 0;
+                foreach ($map['field_conditions'] as $item) {
+                    $model->fieldConditions[$n++] = null !== $item ? FieldCondition::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
