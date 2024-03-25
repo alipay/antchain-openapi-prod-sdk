@@ -8,6 +8,14 @@ use AlibabaCloud\Tea\Model;
 
 class AvatarMaterialDTO extends Model
 {
+    // json配置
+    /**
+     * @example https://mdn.alipayobjects.com/huamei_n3jbep/afts/ab/A*eG-PSZRxPfwAAAAAAAAAAAAADgt8AA/original
+     *
+     * @var string
+     */
+    public $json;
+
     // 装扮id
     /**
      * @example 1111
@@ -81,6 +89,7 @@ class AvatarMaterialDTO extends Model
      */
     public $falingTextureUrl;
     protected $_name = [
+        'json'             => 'json',
         'decoId'           => 'deco_id',
         'decoName'         => 'deco_name',
         'webAbUrl'         => 'web_ab_url',
@@ -94,6 +103,7 @@ class AvatarMaterialDTO extends Model
 
     public function validate()
     {
+        Model::validateRequired('json', $this->json, true);
         Model::validateRequired('decoId', $this->decoId, true);
         Model::validateRequired('decoName', $this->decoName, true);
         Model::validateRequired('webAbUrl', $this->webAbUrl, true);
@@ -108,6 +118,9 @@ class AvatarMaterialDTO extends Model
     public function toMap()
     {
         $res = [];
+        if (null !== $this->json) {
+            $res['json'] = $this->json;
+        }
         if (null !== $this->decoId) {
             $res['deco_id'] = $this->decoId;
         }
@@ -147,6 +160,9 @@ class AvatarMaterialDTO extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
+        if (isset($map['json'])) {
+            $model->json = $map['json'];
+        }
         if (isset($map['deco_id'])) {
             $model->decoId = $map['deco_id'];
         }

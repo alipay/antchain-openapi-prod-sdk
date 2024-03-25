@@ -19,8 +19,12 @@ use AntChain\NFTC\Models\ApplyOauthUserinfotokenRequest;
 use AntChain\NFTC\Models\ApplyOauthUserinfotokenResponse;
 use AntChain\NFTC\Models\BindResourceGeneralresourcefileRequest;
 use AntChain\NFTC\Models\BindResourceGeneralresourcefileResponse;
+use AntChain\NFTC\Models\ConfirmTaskRewardRequest;
+use AntChain\NFTC\Models\ConfirmTaskRewardResponse;
 use AntChain\NFTC\Models\CreateResourceGeneralresourceRequest;
 use AntChain\NFTC\Models\CreateResourceGeneralresourceResponse;
+use AntChain\NFTC\Models\GetPromoteShareurlRequest;
+use AntChain\NFTC\Models\GetPromoteShareurlResponse;
 use AntChain\NFTC\Models\PagequeryNftCustomerRequest;
 use AntChain\NFTC\Models\PagequeryNftCustomerResponse;
 use AntChain\NFTC\Models\PublishMerchantDiyskuRequest;
@@ -33,12 +37,18 @@ use AntChain\NFTC\Models\QueryMerchantDiyskuRequest;
 use AntChain\NFTC\Models\QueryMerchantDiyskuResponse;
 use AntChain\NFTC\Models\QueryMerchantUgcimagesRequest;
 use AntChain\NFTC\Models\QueryMerchantUgcimagesResponse;
+use AntChain\NFTC\Models\QueryNftAssetbyskuRequest;
+use AntChain\NFTC\Models\QueryNftAssetbyskuResponse;
 use AntChain\NFTC\Models\QueryNftOrderRequest;
 use AntChain\NFTC\Models\QueryNftOrderResponse;
 use AntChain\NFTC\Models\QueryOauthUserinfoRequest;
 use AntChain\NFTC\Models\QueryOauthUserinfoResponse;
+use AntChain\NFTC\Models\QueryPromoteActivityRequest;
+use AntChain\NFTC\Models\QueryPromoteActivityResponse;
 use AntChain\NFTC\Models\QueryResourcePatchlistRequest;
 use AntChain\NFTC\Models\QueryResourcePatchlistResponse;
+use AntChain\NFTC\Models\SendPromoPrizeRequest;
+use AntChain\NFTC\Models\SendPromoPrizeResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -186,7 +196,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.12',
+                    'sdk_version'      => '1.0.13',
                     '_prod_code'       => 'NFTC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -265,6 +275,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryAvatarProfileResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.avatar.profile.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+     * Summary: 查询用户助力活动信息.
+     *
+     * @param QueryPromoteActivityRequest $request
+     *
+     * @return QueryPromoteActivityResponse
+     */
+    public function queryPromoteActivity($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPromoteActivityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+     * Summary: 查询用户助力活动信息.
+     *
+     * @param QueryPromoteActivityRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryPromoteActivityResponse
+     */
+    public function queryPromoteActivityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPromoteActivityResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.promote.activity.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+     * Summary: 发起助力分享.
+     *
+     * @param GetPromoteShareurlRequest $request
+     *
+     * @return GetPromoteShareurlResponse
+     */
+    public function getPromoteShareurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getPromoteShareurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+     * Summary: 发起助力分享.
+     *
+     * @param GetPromoteShareurlRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return GetPromoteShareurlResponse
+     */
+    public function getPromoteShareurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetPromoteShareurlResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.promote.shareurl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 确认奖励到账
+     * Summary: 确认奖励到账.
+     *
+     * @param ConfirmTaskRewardRequest $request
+     *
+     * @return ConfirmTaskRewardResponse
+     */
+    public function confirmTaskReward($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmTaskRewardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 确认奖励到账
+     * Summary: 确认奖励到账.
+     *
+     * @param ConfirmTaskRewardRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ConfirmTaskRewardResponse
+     */
+    public function confirmTaskRewardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmTaskRewardResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.task.reward.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -562,6 +671,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryNftOrderResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.nft.order.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据skuId维度查询藏品
+     * Summary: 根据skuId维度查询藏品
+     *
+     * @param QueryNftAssetbyskuRequest $request
+     *
+     * @return QueryNftAssetbyskuResponse
+     */
+    public function queryNftAssetbysku($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNftAssetbyskuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据skuId维度查询藏品
+     * Summary: 根据skuId维度查询藏品
+     *
+     * @param QueryNftAssetbyskuRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryNftAssetbyskuResponse
+     */
+    public function queryNftAssetbyskuEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNftAssetbyskuResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.nft.assetbysku.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支付宝海豚优惠券发放
+     * Summary: 支付宝海豚优惠券发放.
+     *
+     * @param SendPromoPrizeRequest $request
+     *
+     * @return SendPromoPrizeResponse
+     */
+    public function sendPromoPrize($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendPromoPrizeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付宝海豚优惠券发放
+     * Summary: 支付宝海豚优惠券发放.
+     *
+     * @param SendPromoPrizeRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return SendPromoPrizeResponse
+     */
+    public function sendPromoPrizeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendPromoPrizeResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.promo.prize.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
