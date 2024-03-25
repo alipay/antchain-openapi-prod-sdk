@@ -1026,6 +1026,64 @@ class Text(TeaModel):
         return self
 
 
+class FieldCondition(TeaModel):
+    def __init__(
+        self,
+        field_name: str = None,
+        nest_field_path: str = None,
+        nest_field_value: List[int] = None,
+        operate_type: str = None,
+        value: str = None,
+    ):
+        # 字段名称
+        self.field_name = field_name
+        # 复杂查询下，嵌套子条件字段jsonPath
+        self.nest_field_path = nest_field_path
+        # 复杂查询下，嵌套子条件字段值
+        self.nest_field_value = nest_field_value
+        # 操作符
+        self.operate_type = operate_type
+        # 关键字
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.field_name, 'field_name')
+        self.validate_required(self.operate_type, 'operate_type')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.field_name is not None:
+            result['field_name'] = self.field_name
+        if self.nest_field_path is not None:
+            result['nest_field_path'] = self.nest_field_path
+        if self.nest_field_value is not None:
+            result['nest_field_value'] = self.nest_field_value
+        if self.operate_type is not None:
+            result['operate_type'] = self.operate_type
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('field_name') is not None:
+            self.field_name = m.get('field_name')
+        if m.get('nest_field_path') is not None:
+            self.nest_field_path = m.get('nest_field_path')
+        if m.get('nest_field_value') is not None:
+            self.nest_field_value = m.get('nest_field_value')
+        if m.get('operate_type') is not None:
+            self.operate_type = m.get('operate_type')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
 class DingTalkContent(TeaModel):
     def __init__(
         self,
@@ -1422,6 +1480,7 @@ class SearchCondition(TeaModel):
         topic_list: List[str] = None,
         update_time_end: int = None,
         update_time_start: int = None,
+        field_conditions: List[FieldCondition] = None,
     ):
         # 搭配词
         self.ass_keyword_list = ass_keyword_list
@@ -1515,9 +1574,14 @@ class SearchCondition(TeaModel):
         self.update_time_end = update_time_end
         # 舆情文章起始更新时间
         self.update_time_start = update_time_start
+        # field_conditions
+        self.field_conditions = field_conditions
 
     def validate(self):
-        pass
+        if self.field_conditions:
+            for k in self.field_conditions:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1617,6 +1681,10 @@ class SearchCondition(TeaModel):
             result['update_time_end'] = self.update_time_end
         if self.update_time_start is not None:
             result['update_time_start'] = self.update_time_start
+        result['field_conditions'] = []
+        if self.field_conditions is not None:
+            for k in self.field_conditions:
+                result['field_conditions'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1713,6 +1781,11 @@ class SearchCondition(TeaModel):
             self.update_time_end = m.get('update_time_end')
         if m.get('update_time_start') is not None:
             self.update_time_start = m.get('update_time_start')
+        self.field_conditions = []
+        if m.get('field_conditions') is not None:
+            for k in m.get('field_conditions'):
+                temp_model = FieldCondition()
+                self.field_conditions.append(temp_model.from_map(k))
         return self
 
 
