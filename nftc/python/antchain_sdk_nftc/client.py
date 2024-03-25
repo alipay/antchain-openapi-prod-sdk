@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.12',
+                    'sdk_version': '1.0.13',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.12',
+                    'sdk_version': '1.0.13',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -329,6 +329,174 @@ class Client:
         return TeaCore.from_map(
             nftc_models.QueryAvatarProfileResponse(),
             await self.do_request_async('1.0', 'antchain.nftc.avatar.profile.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_promote_activity(
+        self,
+        request: nftc_models.QueryPromoteActivityRequest,
+    ) -> nftc_models.QueryPromoteActivityResponse:
+        """
+        Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+        Summary: 查询用户助力活动信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_promote_activity_ex(request, headers, runtime)
+
+    async def query_promote_activity_async(
+        self,
+        request: nftc_models.QueryPromoteActivityRequest,
+    ) -> nftc_models.QueryPromoteActivityResponse:
+        """
+        Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+        Summary: 查询用户助力活动信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_promote_activity_ex_async(request, headers, runtime)
+
+    def query_promote_activity_ex(
+        self,
+        request: nftc_models.QueryPromoteActivityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryPromoteActivityResponse:
+        """
+        Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+        Summary: 查询用户助力活动信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryPromoteActivityResponse(),
+            self.do_request('1.0', 'antchain.nftc.promote.activity.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_promote_activity_ex_async(
+        self,
+        request: nftc_models.QueryPromoteActivityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryPromoteActivityResponse:
+        """
+        Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+        Summary: 查询用户助力活动信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryPromoteActivityResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.promote.activity.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_promote_shareurl(
+        self,
+        request: nftc_models.GetPromoteShareurlRequest,
+    ) -> nftc_models.GetPromoteShareurlResponse:
+        """
+        Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+        Summary: 发起助力分享
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_promote_shareurl_ex(request, headers, runtime)
+
+    async def get_promote_shareurl_async(
+        self,
+        request: nftc_models.GetPromoteShareurlRequest,
+    ) -> nftc_models.GetPromoteShareurlResponse:
+        """
+        Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+        Summary: 发起助力分享
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_promote_shareurl_ex_async(request, headers, runtime)
+
+    def get_promote_shareurl_ex(
+        self,
+        request: nftc_models.GetPromoteShareurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.GetPromoteShareurlResponse:
+        """
+        Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+        Summary: 发起助力分享
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.GetPromoteShareurlResponse(),
+            self.do_request('1.0', 'antchain.nftc.promote.shareurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_promote_shareurl_ex_async(
+        self,
+        request: nftc_models.GetPromoteShareurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.GetPromoteShareurlResponse:
+        """
+        Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+        Summary: 发起助力分享
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.GetPromoteShareurlResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.promote.shareurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_task_reward(
+        self,
+        request: nftc_models.ConfirmTaskRewardRequest,
+    ) -> nftc_models.ConfirmTaskRewardResponse:
+        """
+        Description: 确认奖励到账
+        Summary: 确认奖励到账
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_task_reward_ex(request, headers, runtime)
+
+    async def confirm_task_reward_async(
+        self,
+        request: nftc_models.ConfirmTaskRewardRequest,
+    ) -> nftc_models.ConfirmTaskRewardResponse:
+        """
+        Description: 确认奖励到账
+        Summary: 确认奖励到账
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_task_reward_ex_async(request, headers, runtime)
+
+    def confirm_task_reward_ex(
+        self,
+        request: nftc_models.ConfirmTaskRewardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.ConfirmTaskRewardResponse:
+        """
+        Description: 确认奖励到账
+        Summary: 确认奖励到账
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.ConfirmTaskRewardResponse(),
+            self.do_request('1.0', 'antchain.nftc.task.reward.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_task_reward_ex_async(
+        self,
+        request: nftc_models.ConfirmTaskRewardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.ConfirmTaskRewardResponse:
+        """
+        Description: 确认奖励到账
+        Summary: 确认奖励到账
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.ConfirmTaskRewardResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.task.reward.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_oauth_token(
@@ -833,6 +1001,118 @@ class Client:
         return TeaCore.from_map(
             nftc_models.QueryNftOrderResponse(),
             await self.do_request_async('1.0', 'antchain.nftc.nft.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_nft_assetbysku(
+        self,
+        request: nftc_models.QueryNftAssetbyskuRequest,
+    ) -> nftc_models.QueryNftAssetbyskuResponse:
+        """
+        Description: 根据skuId维度查询藏品
+        Summary: 根据skuId维度查询藏品
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_nft_assetbysku_ex(request, headers, runtime)
+
+    async def query_nft_assetbysku_async(
+        self,
+        request: nftc_models.QueryNftAssetbyskuRequest,
+    ) -> nftc_models.QueryNftAssetbyskuResponse:
+        """
+        Description: 根据skuId维度查询藏品
+        Summary: 根据skuId维度查询藏品
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_nft_assetbysku_ex_async(request, headers, runtime)
+
+    def query_nft_assetbysku_ex(
+        self,
+        request: nftc_models.QueryNftAssetbyskuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryNftAssetbyskuResponse:
+        """
+        Description: 根据skuId维度查询藏品
+        Summary: 根据skuId维度查询藏品
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryNftAssetbyskuResponse(),
+            self.do_request('1.0', 'antchain.nftc.nft.assetbysku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_nft_assetbysku_ex_async(
+        self,
+        request: nftc_models.QueryNftAssetbyskuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryNftAssetbyskuResponse:
+        """
+        Description: 根据skuId维度查询藏品
+        Summary: 根据skuId维度查询藏品
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryNftAssetbyskuResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.nft.assetbysku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_promo_prize(
+        self,
+        request: nftc_models.SendPromoPrizeRequest,
+    ) -> nftc_models.SendPromoPrizeResponse:
+        """
+        Description: 支付宝海豚优惠券发放
+        Summary: 支付宝海豚优惠券发放
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_promo_prize_ex(request, headers, runtime)
+
+    async def send_promo_prize_async(
+        self,
+        request: nftc_models.SendPromoPrizeRequest,
+    ) -> nftc_models.SendPromoPrizeResponse:
+        """
+        Description: 支付宝海豚优惠券发放
+        Summary: 支付宝海豚优惠券发放
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_promo_prize_ex_async(request, headers, runtime)
+
+    def send_promo_prize_ex(
+        self,
+        request: nftc_models.SendPromoPrizeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.SendPromoPrizeResponse:
+        """
+        Description: 支付宝海豚优惠券发放
+        Summary: 支付宝海豚优惠券发放
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.SendPromoPrizeResponse(),
+            self.do_request('1.0', 'antchain.nftc.promo.prize.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_promo_prize_ex_async(
+        self,
+        request: nftc_models.SendPromoPrizeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.SendPromoPrizeResponse:
+        """
+        Description: 支付宝海豚优惠券发放
+        Summary: 支付宝海豚优惠券发放
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.SendPromoPrizeResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.promo.prize.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_resource_generalresource(
