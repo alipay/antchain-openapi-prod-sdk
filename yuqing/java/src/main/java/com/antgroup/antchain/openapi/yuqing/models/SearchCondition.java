@@ -188,6 +188,10 @@ public class SearchCondition extends TeaModel {
     @NameInMap("update_time_start")
     public Long updateTimeStart;
 
+    // field_conditions
+    @NameInMap("field_conditions")
+    public java.util.List<FieldCondition> fieldConditions;
+
     public static SearchCondition build(java.util.Map<String, ?> map) throws Exception {
         SearchCondition self = new SearchCondition();
         return TeaModel.build(map, self);
@@ -559,6 +563,14 @@ public class SearchCondition extends TeaModel {
     }
     public Long getUpdateTimeStart() {
         return this.updateTimeStart;
+    }
+
+    public SearchCondition setFieldConditions(java.util.List<FieldCondition> fieldConditions) {
+        this.fieldConditions = fieldConditions;
+        return this;
+    }
+    public java.util.List<FieldCondition> getFieldConditions() {
+        return this.fieldConditions;
     }
 
 }
