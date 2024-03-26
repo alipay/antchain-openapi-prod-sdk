@@ -383,6 +383,14 @@ class SearchCondition extends Model
      * @var FieldCondition[]
      */
     public $fieldConditions;
+
+    // 项目ID
+    /**
+     * @example 1
+     *
+     * @var string
+     */
+    public $projectId;
     protected $_name = [
         'assKeywordList'            => 'ass_keyword_list',
         'atAuthorNameList'          => 'at_author_name_list',
@@ -431,6 +439,7 @@ class SearchCondition extends Model
         'updateTimeEnd'             => 'update_time_end',
         'updateTimeStart'           => 'update_time_start',
         'fieldConditions'           => 'field_conditions',
+        'projectId'                 => 'project_id',
     ];
 
     public function validate()
@@ -586,6 +595,9 @@ class SearchCondition extends Model
                     $res['field_conditions'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->projectId) {
+            $res['project_id'] = $this->projectId;
         }
 
         return $res;
@@ -791,6 +803,9 @@ class SearchCondition extends Model
                     $model->fieldConditions[$n++] = null !== $item ? FieldCondition::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['project_id'])) {
+            $model->projectId = $map['project_id'];
         }
 
         return $model;
