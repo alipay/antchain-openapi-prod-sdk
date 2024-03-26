@@ -1122,19 +1122,19 @@ class ConfirmTaskRewardRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         open_user_id: str = None,
-        task_id: str = None,
+        reward_record_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 鲸探用户唯一标识
         self.open_user_id = open_user_id
-        # 前置通过消息获取的任务Id(可用作幂等键，详情看下文的奖励消息通知)
-        self.task_id = task_id
+        # 前置通过消息获取的奖励流水唯—id(可用作幂等键，详情看下文的奖励消息通知)
+        self.reward_record_id = reward_record_id
 
     def validate(self):
         self.validate_required(self.open_user_id, 'open_user_id')
-        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.reward_record_id, 'reward_record_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -1148,8 +1148,8 @@ class ConfirmTaskRewardRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.open_user_id is not None:
             result['open_user_id'] = self.open_user_id
-        if self.task_id is not None:
-            result['task_id'] = self.task_id
+        if self.reward_record_id is not None:
+            result['reward_record_id'] = self.reward_record_id
         return result
 
     def from_map(self, m: dict = None):
@@ -1160,8 +1160,8 @@ class ConfirmTaskRewardRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('open_user_id') is not None:
             self.open_user_id = m.get('open_user_id')
-        if m.get('task_id') is not None:
-            self.task_id = m.get('task_id')
+        if m.get('reward_record_id') is not None:
+            self.reward_record_id = m.get('reward_record_id')
         return self
 
 
@@ -3086,6 +3086,117 @@ class QueryResourcePatchlistResponse(TeaModel):
             for k in m.get('patch_list'):
                 temp_model = GeneralResourcePatch()
                 self.patch_list.append(temp_model.from_map(k))
+        return self
+
+
+class ApplyResourceFiletokenRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        token_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # Token类型
+        self.token_type = token_type
+
+    def validate(self):
+        self.validate_required(self.token_type, 'token_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.token_type is not None:
+            result['token_type'] = self.token_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('token_type') is not None:
+            self.token_type = m.get('token_type')
+        return self
+
+
+class ApplyResourceFiletokenResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        mass_token: str = None,
+        url: str = None,
+        app_id: str = None,
+        biz_key: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 临时token信息
+        self.mass_token = mass_token
+        # 上传地址
+        self.url = url
+        # afts-appid
+        self.app_id = app_id
+        # afts-bizkey
+        self.biz_key = biz_key
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.mass_token is not None:
+            result['mass_token'] = self.mass_token
+        if self.url is not None:
+            result['url'] = self.url
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.biz_key is not None:
+            result['biz_key'] = self.biz_key
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('mass_token') is not None:
+            self.mass_token = m.get('mass_token')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('biz_key') is not None:
+            self.biz_key = m.get('biz_key')
         return self
 
 

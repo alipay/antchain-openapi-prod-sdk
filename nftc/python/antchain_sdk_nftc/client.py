@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.13',
+                    'sdk_version': '1.0.14',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.13',
+                    'sdk_version': '1.0.14',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -1337,4 +1337,60 @@ class Client:
         return TeaCore.from_map(
             nftc_models.QueryResourcePatchlistResponse(),
             await self.do_request_async('1.0', 'antchain.nftc.resource.patchlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_resource_filetoken(
+        self,
+        request: nftc_models.ApplyResourceFiletokenRequest,
+    ) -> nftc_models.ApplyResourceFiletokenResponse:
+        """
+        Description: 资源管理平台-申请文件上传token
+        Summary: 资源管理平台-申请文件上传token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_resource_filetoken_ex(request, headers, runtime)
+
+    async def apply_resource_filetoken_async(
+        self,
+        request: nftc_models.ApplyResourceFiletokenRequest,
+    ) -> nftc_models.ApplyResourceFiletokenResponse:
+        """
+        Description: 资源管理平台-申请文件上传token
+        Summary: 资源管理平台-申请文件上传token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_resource_filetoken_ex_async(request, headers, runtime)
+
+    def apply_resource_filetoken_ex(
+        self,
+        request: nftc_models.ApplyResourceFiletokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.ApplyResourceFiletokenResponse:
+        """
+        Description: 资源管理平台-申请文件上传token
+        Summary: 资源管理平台-申请文件上传token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.ApplyResourceFiletokenResponse(),
+            self.do_request('1.0', 'antchain.nftc.resource.filetoken.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_resource_filetoken_ex_async(
+        self,
+        request: nftc_models.ApplyResourceFiletokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.ApplyResourceFiletokenResponse:
+        """
+        Description: 资源管理平台-申请文件上传token
+        Summary: 资源管理平台-申请文件上传token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.ApplyResourceFiletokenResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.resource.filetoken.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
