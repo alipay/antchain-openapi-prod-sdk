@@ -6,7 +6,7 @@ namespace AntChain\NFTC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ConfirmTaskRewardRequest extends Model
+class ApplyResourceFiletokenRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,20 @@ class ConfirmTaskRewardRequest extends Model
      */
     public $productInstanceId;
 
-    // 鲸探用户唯一标识
+    // Token类型
     /**
      * @var string
      */
-    public $openUserId;
-
-    // 前置通过消息获取的奖励流水唯—id(可用作幂等键，详情看下文的奖励消息通知)
-    /**
-     * @var string
-     */
-    public $rewardRecordId;
+    public $tokenType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'openUserId'        => 'open_user_id',
-        'rewardRecordId'    => 'reward_record_id',
+        'tokenType'         => 'token_type',
     ];
 
     public function validate()
     {
-        Model::validateRequired('openUserId', $this->openUserId, true);
-        Model::validateRequired('rewardRecordId', $this->rewardRecordId, true);
+        Model::validateRequired('tokenType', $this->tokenType, true);
     }
 
     public function toMap()
@@ -52,11 +44,8 @@ class ConfirmTaskRewardRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->openUserId) {
-            $res['open_user_id'] = $this->openUserId;
-        }
-        if (null !== $this->rewardRecordId) {
-            $res['reward_record_id'] = $this->rewardRecordId;
+        if (null !== $this->tokenType) {
+            $res['token_type'] = $this->tokenType;
         }
 
         return $res;
@@ -65,7 +54,7 @@ class ConfirmTaskRewardRequest extends Model
     /**
      * @param array $map
      *
-     * @return ConfirmTaskRewardRequest
+     * @return ApplyResourceFiletokenRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +65,8 @@ class ConfirmTaskRewardRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['open_user_id'])) {
-            $model->openUserId = $map['open_user_id'];
-        }
-        if (isset($map['reward_record_id'])) {
-            $model->rewardRecordId = $map['reward_record_id'];
+        if (isset($map['token_type'])) {
+            $model->tokenType = $map['token_type'];
         }
 
         return $model;

@@ -17,6 +17,8 @@ use AntChain\NFTC\Models\ApplyOauthTokenRequest;
 use AntChain\NFTC\Models\ApplyOauthTokenResponse;
 use AntChain\NFTC\Models\ApplyOauthUserinfotokenRequest;
 use AntChain\NFTC\Models\ApplyOauthUserinfotokenResponse;
+use AntChain\NFTC\Models\ApplyResourceFiletokenRequest;
+use AntChain\NFTC\Models\ApplyResourceFiletokenResponse;
 use AntChain\NFTC\Models\BindResourceGeneralresourcefileRequest;
 use AntChain\NFTC\Models\BindResourceGeneralresourcefileResponse;
 use AntChain\NFTC\Models\ConfirmTaskRewardRequest;
@@ -196,7 +198,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.13',
+                    'sdk_version'      => '1.0.14',
                     '_prod_code'       => 'NFTC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -869,5 +871,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryResourcePatchlistResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.resource.patchlist.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资源管理平台-申请文件上传token
+     * Summary: 资源管理平台-申请文件上传token.
+     *
+     * @param ApplyResourceFiletokenRequest $request
+     *
+     * @return ApplyResourceFiletokenResponse
+     */
+    public function applyResourceFiletoken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyResourceFiletokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资源管理平台-申请文件上传token
+     * Summary: 资源管理平台-申请文件上传token.
+     *
+     * @param ApplyResourceFiletokenRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ApplyResourceFiletokenResponse
+     */
+    public function applyResourceFiletokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyResourceFiletokenResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.resource.filetoken.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
