@@ -2710,6 +2710,7 @@ class AllSignTemplateRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         contract_type: str = None,
+        merchant_id: str = None,
         fund_type: str = None,
         fund_id: str = None,
     ):
@@ -2718,6 +2719,8 @@ class AllSignTemplateRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 合同类型，如果不传则返回所有
         self.contract_type = contract_type
+        # 商户统一社会信用代码，SIT环境，非融必填
+        self.merchant_id = merchant_id
         # ● FINANCE 融资
         # ● NON_FINANCE 非融资
         self.fund_type = fund_type
@@ -2725,7 +2728,8 @@ class AllSignTemplateRequest(TeaModel):
         self.fund_id = fund_id
 
     def validate(self):
-        pass
+        if self.merchant_id is not None:
+            self.validate_max_length(self.merchant_id, 'merchant_id', 42)
 
     def to_map(self):
         _map = super().to_map()
@@ -2739,6 +2743,8 @@ class AllSignTemplateRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.contract_type is not None:
             result['contract_type'] = self.contract_type
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
         if self.fund_type is not None:
             result['fund_type'] = self.fund_type
         if self.fund_id is not None:
@@ -2753,6 +2759,8 @@ class AllSignTemplateRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('contract_type') is not None:
             self.contract_type = m.get('contract_type')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
         if m.get('fund_type') is not None:
             self.fund_type = m.get('fund_type')
         if m.get('fund_id') is not None:
