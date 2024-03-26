@@ -1299,6 +1299,8 @@ type SearchCondition struct {
 	UpdateTimeStart *int64 `json:"update_time_start,omitempty" xml:"update_time_start,omitempty"`
 	// field_conditions
 	FieldConditions []*FieldCondition `json:"field_conditions,omitempty" xml:"field_conditions,omitempty" type:"Repeated"`
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
 }
 
 func (s SearchCondition) String() string {
@@ -1541,6 +1543,11 @@ func (s *SearchCondition) SetUpdateTimeStart(v int64) *SearchCondition {
 
 func (s *SearchCondition) SetFieldConditions(v []*FieldCondition) *SearchCondition {
 	s.FieldConditions = v
+	return s
+}
+
+func (s *SearchCondition) SetProjectId(v string) *SearchCondition {
+	s.ProjectId = &v
 	return s
 }
 
@@ -3954,7 +3961,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.12"),
+				"sdk_version":      tea.String("1.2.13"),
 				"_prod_code":       tea.String("YUQING"),
 				"_prod_channel":    tea.String("undefined"),
 			}
