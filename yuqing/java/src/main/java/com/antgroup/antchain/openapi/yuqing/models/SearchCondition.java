@@ -192,6 +192,10 @@ public class SearchCondition extends TeaModel {
     @NameInMap("field_conditions")
     public java.util.List<FieldCondition> fieldConditions;
 
+    // 项目ID
+    @NameInMap("project_id")
+    public String projectId;
+
     public static SearchCondition build(java.util.Map<String, ?> map) throws Exception {
         SearchCondition self = new SearchCondition();
         return TeaModel.build(map, self);
@@ -571,6 +575,14 @@ public class SearchCondition extends TeaModel {
     }
     public java.util.List<FieldCondition> getFieldConditions() {
         return this.fieldConditions;
+    }
+
+    public SearchCondition setProjectId(String projectId) {
+        this.projectId = projectId;
+        return this;
+    }
+    public String getProjectId() {
+        return this.projectId;
     }
 
 }
