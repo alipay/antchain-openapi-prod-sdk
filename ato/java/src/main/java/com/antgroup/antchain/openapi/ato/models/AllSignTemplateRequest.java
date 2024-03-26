@@ -15,6 +15,11 @@ public class AllSignTemplateRequest extends TeaModel {
     @NameInMap("contract_type")
     public String contractType;
 
+    // 商户统一社会信用代码，SIT环境，非融必填
+    @NameInMap("merchant_id")
+    @Validation(maxLength = 42)
+    public String merchantId;
+
     // ● FINANCE 融资
     // ● NON_FINANCE 非融资
     @NameInMap("fund_type")
@@ -51,6 +56,14 @@ public class AllSignTemplateRequest extends TeaModel {
     }
     public String getContractType() {
         return this.contractType;
+    }
+
+    public AllSignTemplateRequest setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
     }
 
     public AllSignTemplateRequest setFundType(String fundType) {
