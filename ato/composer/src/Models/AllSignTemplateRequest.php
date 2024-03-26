@@ -25,6 +25,12 @@ class AllSignTemplateRequest extends Model
      */
     public $contractType;
 
+    // 商户统一社会信用代码，SIT环境，非融必填
+    /**
+     * @var string
+     */
+    public $merchantId;
+
     // ● FINANCE 融资
     // ● NON_FINANCE 非融资
     /**
@@ -41,12 +47,14 @@ class AllSignTemplateRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'contractType'      => 'contract_type',
+        'merchantId'        => 'merchant_id',
         'fundType'          => 'fund_type',
         'fundId'            => 'fund_id',
     ];
 
     public function validate()
     {
+        Model::validateMaxLength('merchantId', $this->merchantId, 42);
     }
 
     public function toMap()
@@ -60,6 +68,9 @@ class AllSignTemplateRequest extends Model
         }
         if (null !== $this->contractType) {
             $res['contract_type'] = $this->contractType;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
         }
         if (null !== $this->fundType) {
             $res['fund_type'] = $this->fundType;
@@ -87,6 +98,9 @@ class AllSignTemplateRequest extends Model
         }
         if (isset($map['contract_type'])) {
             $model->contractType = $map['contract_type'];
+        }
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
         }
         if (isset($map['fund_type'])) {
             $model->fundType = $map['fund_type'];
