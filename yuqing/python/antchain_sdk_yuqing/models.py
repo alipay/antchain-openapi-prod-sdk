@@ -1481,6 +1481,7 @@ class SearchCondition(TeaModel):
         update_time_end: int = None,
         update_time_start: int = None,
         field_conditions: List[FieldCondition] = None,
+        project_id: str = None,
     ):
         # 搭配词
         self.ass_keyword_list = ass_keyword_list
@@ -1576,6 +1577,8 @@ class SearchCondition(TeaModel):
         self.update_time_start = update_time_start
         # field_conditions
         self.field_conditions = field_conditions
+        # 项目ID
+        self.project_id = project_id
 
     def validate(self):
         if self.field_conditions:
@@ -1685,6 +1688,8 @@ class SearchCondition(TeaModel):
         if self.field_conditions is not None:
             for k in self.field_conditions:
                 result['field_conditions'].append(k.to_map() if k else None)
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
         return result
 
     def from_map(self, m: dict = None):
@@ -1786,6 +1791,8 @@ class SearchCondition(TeaModel):
             for k in m.get('field_conditions'):
                 temp_model = FieldCondition()
                 self.field_conditions.append(temp_model.from_map(k))
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
         return self
 
 
