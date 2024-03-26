@@ -23,6 +23,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ContractType { get; set; }
 
+        // 商户统一社会信用代码，SIT环境，非融必填
+        [NameInMap("merchant_id")]
+        [Validation(Required=false, MaxLength=42)]
+        public string MerchantId { get; set; }
+
         // ● FINANCE 融资
         // ● NON_FINANCE 非融资
         [NameInMap("fund_type")]
