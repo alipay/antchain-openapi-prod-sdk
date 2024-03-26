@@ -245,6 +245,11 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=false)]
         public List<FieldCondition> FieldConditions { get; set; }
 
+        // 项目ID
+        [NameInMap("project_id")]
+        [Validation(Required=false)]
+        public string ProjectId { get; set; }
+
     }
 
 }
