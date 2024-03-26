@@ -873,8 +873,8 @@ type ConfirmTaskRewardRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 鲸探用户唯一标识
 	OpenUserId *string `json:"open_user_id,omitempty" xml:"open_user_id,omitempty" require:"true"`
-	// 前置通过消息获取的任务Id(可用作幂等键，详情看下文的奖励消息通知)
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 前置通过消息获取的奖励流水唯—id(可用作幂等键，详情看下文的奖励消息通知)
+	RewardRecordId *string `json:"reward_record_id,omitempty" xml:"reward_record_id,omitempty" require:"true"`
 }
 
 func (s ConfirmTaskRewardRequest) String() string {
@@ -900,8 +900,8 @@ func (s *ConfirmTaskRewardRequest) SetOpenUserId(v string) *ConfirmTaskRewardReq
 	return s
 }
 
-func (s *ConfirmTaskRewardRequest) SetTaskId(v string) *ConfirmTaskRewardRequest {
-	s.TaskId = &v
+func (s *ConfirmTaskRewardRequest) SetRewardRecordId(v string) *ConfirmTaskRewardRequest {
+	s.RewardRecordId = &v
 	return s
 }
 
@@ -2460,6 +2460,97 @@ func (s *QueryResourcePatchlistResponse) SetPatchList(v []*GeneralResourcePatch)
 	return s
 }
 
+type ApplyResourceFiletokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// Token类型
+	TokenType *string `json:"token_type,omitempty" xml:"token_type,omitempty" require:"true"`
+}
+
+func (s ApplyResourceFiletokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyResourceFiletokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyResourceFiletokenRequest) SetAuthToken(v string) *ApplyResourceFiletokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyResourceFiletokenRequest) SetProductInstanceId(v string) *ApplyResourceFiletokenRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyResourceFiletokenRequest) SetTokenType(v string) *ApplyResourceFiletokenRequest {
+	s.TokenType = &v
+	return s
+}
+
+type ApplyResourceFiletokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 临时token信息
+	MassToken *string `json:"mass_token,omitempty" xml:"mass_token,omitempty"`
+	// 上传地址
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// afts-appid
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// afts-bizkey
+	BizKey *string `json:"biz_key,omitempty" xml:"biz_key,omitempty"`
+}
+
+func (s ApplyResourceFiletokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyResourceFiletokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyResourceFiletokenResponse) SetReqMsgId(v string) *ApplyResourceFiletokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyResourceFiletokenResponse) SetResultCode(v string) *ApplyResourceFiletokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyResourceFiletokenResponse) SetResultMsg(v string) *ApplyResourceFiletokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyResourceFiletokenResponse) SetMassToken(v string) *ApplyResourceFiletokenResponse {
+	s.MassToken = &v
+	return s
+}
+
+func (s *ApplyResourceFiletokenResponse) SetUrl(v string) *ApplyResourceFiletokenResponse {
+	s.Url = &v
+	return s
+}
+
+func (s *ApplyResourceFiletokenResponse) SetAppId(v string) *ApplyResourceFiletokenResponse {
+	s.AppId = &v
+	return s
+}
+
+func (s *ApplyResourceFiletokenResponse) SetBizKey(v string) *ApplyResourceFiletokenResponse {
+	s.BizKey = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2582,7 +2673,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.13"),
+				"sdk_version":      tea.String("1.0.14"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3279,6 +3370,40 @@ func (client *Client) QueryResourcePatchlistEx(request *QueryResourcePatchlistRe
 	}
 	_result = &QueryResourcePatchlistResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.resource.patchlist.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 资源管理平台-申请文件上传token
+ * Summary: 资源管理平台-申请文件上传token
+ */
+func (client *Client) ApplyResourceFiletoken(request *ApplyResourceFiletokenRequest) (_result *ApplyResourceFiletokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyResourceFiletokenResponse{}
+	_body, _err := client.ApplyResourceFiletokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 资源管理平台-申请文件上传token
+ * Summary: 资源管理平台-申请文件上传token
+ */
+func (client *Client) ApplyResourceFiletokenEx(request *ApplyResourceFiletokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyResourceFiletokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyResourceFiletokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.resource.filetoken.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
