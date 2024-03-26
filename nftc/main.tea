@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.13',
+    sdk_version = '1.0.14',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -437,8 +437,8 @@ model ConfirmTaskRewardRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 鲸探用户唯一标识
   openUserId: string(name='open_user_id'),
-  // 前置通过消息获取的任务Id(可用作幂等键，详情看下文的奖励消息通知)
-  taskId: string(name='task_id'),
+  // 前置通过消息获取的奖励流水唯—id(可用作幂等键，详情看下文的奖励消息通知)
+  rewardRecordId: string(name='reward_record_id'),
 }
 
 model ConfirmTaskRewardResponse = {
@@ -1190,5 +1190,49 @@ async function queryResourcePatchlist(request: QueryResourcePatchlistRequest): Q
 async function queryResourcePatchlistEx(request: QueryResourcePatchlistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryResourcePatchlistResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftc.resource.patchlist.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyResourceFiletokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // Token类型
+  tokenType: string(name='token_type'),
+}
+
+model ApplyResourceFiletokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 临时token信息
+  massToken?: string(name='mass_token'),
+  // 上传地址
+  url?: string(name='url'),
+  // afts-appid
+  appId?: string(name='app_id'),
+  // afts-bizkey
+  bizKey?: string(name='biz_key'),
+}
+
+/**
+ * Description: 资源管理平台-申请文件上传token
+ * Summary: 资源管理平台-申请文件上传token
+ */
+async function applyResourceFiletoken(request: ApplyResourceFiletokenRequest): ApplyResourceFiletokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyResourceFiletokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 资源管理平台-申请文件上传token
+ * Summary: 资源管理平台-申请文件上传token
+ */
+async function applyResourceFiletokenEx(request: ApplyResourceFiletokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyResourceFiletokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.resource.filetoken.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
