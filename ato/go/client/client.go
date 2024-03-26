@@ -2137,6 +2137,8 @@ type AllSignTemplateRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 合同类型，如果不传则返回所有
 	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty"`
+	// 商户统一社会信用代码，SIT环境，非融必填
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" maxLength:"42"`
 	// ● FINANCE 融资
 	// ● NON_FINANCE 非融资
 	FundType *string `json:"fund_type,omitempty" xml:"fund_type,omitempty"`
@@ -2164,6 +2166,11 @@ func (s *AllSignTemplateRequest) SetProductInstanceId(v string) *AllSignTemplate
 
 func (s *AllSignTemplateRequest) SetContractType(v string) *AllSignTemplateRequest {
 	s.ContractType = &v
+	return s
+}
+
+func (s *AllSignTemplateRequest) SetMerchantId(v string) *AllSignTemplateRequest {
+	s.MerchantId = &v
 	return s
 }
 
@@ -4958,7 +4965,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.14"),
+				"sdk_version":      tea.String("1.7.15"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
