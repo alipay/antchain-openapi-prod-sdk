@@ -16,10 +16,10 @@ public class ConfirmTaskRewardRequest extends TeaModel {
     @Validation(required = true)
     public String openUserId;
 
-    // 前置通过消息获取的任务Id(可用作幂等键，详情看下文的奖励消息通知)
-    @NameInMap("task_id")
+    // 前置通过消息获取的奖励流水唯—id(可用作幂等键，详情看下文的奖励消息通知)
+    @NameInMap("reward_record_id")
     @Validation(required = true)
-    public String taskId;
+    public String rewardRecordId;
 
     public static ConfirmTaskRewardRequest build(java.util.Map<String, ?> map) throws Exception {
         ConfirmTaskRewardRequest self = new ConfirmTaskRewardRequest();
@@ -50,12 +50,12 @@ public class ConfirmTaskRewardRequest extends TeaModel {
         return this.openUserId;
     }
 
-    public ConfirmTaskRewardRequest setTaskId(String taskId) {
-        this.taskId = taskId;
+    public ConfirmTaskRewardRequest setRewardRecordId(String rewardRecordId) {
+        this.rewardRecordId = rewardRecordId;
         return this;
     }
-    public String getTaskId() {
-        return this.taskId;
+    public String getRewardRecordId() {
+        return this.rewardRecordId;
     }
 
 }

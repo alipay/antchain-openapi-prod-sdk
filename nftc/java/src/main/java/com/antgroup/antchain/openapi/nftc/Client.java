@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.13"),
+                    new TeaPair("sdk_version", "1.0.14"),
                     new TeaPair("_prod_code", "NFTC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -520,5 +520,24 @@ public class Client {
     public QueryResourcePatchlistResponse queryResourcePatchlistEx(QueryResourcePatchlistRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.resource.patchlist.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryResourcePatchlistResponse());
+    }
+
+    /**
+     * Description: 资源管理平台-申请文件上传token
+     * Summary: 资源管理平台-申请文件上传token
+     */
+    public ApplyResourceFiletokenResponse applyResourceFiletoken(ApplyResourceFiletokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyResourceFiletokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 资源管理平台-申请文件上传token
+     * Summary: 资源管理平台-申请文件上传token
+     */
+    public ApplyResourceFiletokenResponse applyResourceFiletokenEx(ApplyResourceFiletokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.resource.filetoken.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyResourceFiletokenResponse());
     }
 }
