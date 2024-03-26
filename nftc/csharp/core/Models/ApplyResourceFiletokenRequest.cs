@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.NFTC.Models
 {
-    public class ConfirmTaskRewardRequest : TeaModel {
+    public class ApplyResourceFiletokenRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,10 @@ namespace AntChain.SDK.NFTC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 鲸探用户唯一标识
-        [NameInMap("open_user_id")]
+        // Token类型
+        [NameInMap("token_type")]
         [Validation(Required=true)]
-        public string OpenUserId { get; set; }
-
-        // 前置通过消息获取的奖励流水唯—id(可用作幂等键，详情看下文的奖励消息通知)
-        [NameInMap("reward_record_id")]
-        [Validation(Required=true)]
-        public string RewardRecordId { get; set; }
+        public string TokenType { get; set; }
 
     }
 

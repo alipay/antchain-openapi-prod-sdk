@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.13"},
+                        {"sdk_version", "1.0.14"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.13"},
+                        {"sdk_version", "1.0.14"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1117,6 +1117,48 @@ namespace AntChain.SDK.NFTC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryResourcePatchlistResponse>(await DoRequestAsync("1.0", "antchain.nftc.resource.patchlist.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资源管理平台-申请文件上传token
+         * Summary: 资源管理平台-申请文件上传token
+         */
+        public ApplyResourceFiletokenResponse ApplyResourceFiletoken(ApplyResourceFiletokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyResourceFiletokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资源管理平台-申请文件上传token
+         * Summary: 资源管理平台-申请文件上传token
+         */
+        public async Task<ApplyResourceFiletokenResponse> ApplyResourceFiletokenAsync(ApplyResourceFiletokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyResourceFiletokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资源管理平台-申请文件上传token
+         * Summary: 资源管理平台-申请文件上传token
+         */
+        public ApplyResourceFiletokenResponse ApplyResourceFiletokenEx(ApplyResourceFiletokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyResourceFiletokenResponse>(DoRequest("1.0", "antchain.nftc.resource.filetoken.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资源管理平台-申请文件上传token
+         * Summary: 资源管理平台-申请文件上传token
+         */
+        public async Task<ApplyResourceFiletokenResponse> ApplyResourceFiletokenExAsync(ApplyResourceFiletokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyResourceFiletokenResponse>(await DoRequestAsync("1.0", "antchain.nftc.resource.filetoken.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
