@@ -13912,6 +13912,287 @@ func (s *SendQmpCardsmsBatchResponse) SetBizDigitalId(v string) *SendQmpCardsmsB
 	return s
 }
 
+type CallbackQmpSmsUpRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 回执类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 手机号码
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 发送时间
+	SendTime *string `json:"send_time,omitempty" xml:"send_time,omitempty" require:"true"`
+	// 发送内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 签名信息
+	SignName *string `json:"sign_name,omitempty" xml:"sign_name,omitempty" require:"true"`
+	// 签名对应的客户ak
+	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty" require:"true"`
+	// 行短信扩展号码
+	DestCode *string `json:"dest_code,omitempty" xml:"dest_code,omitempty" require:"true"`
+	// 序列号
+	SequenceId *int64 `json:"sequence_id,omitempty" xml:"sequence_id,omitempty" require:"true"`
+	// 手机号模版类型
+	//
+	KeyTemplate *string `json:"key_template,omitempty" xml:"key_template,omitempty"`
+	// 原始手机号模版类型
+	OriginKeyTemplate *string `json:"origin_key_template,omitempty" xml:"origin_key_template,omitempty"`
+}
+
+func (s CallbackQmpSmsUpRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackQmpSmsUpRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackQmpSmsUpRequest) SetAuthToken(v string) *CallbackQmpSmsUpRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackQmpSmsUpRequest) SetProductInstanceId(v string) *CallbackQmpSmsUpRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackQmpSmsUpRequest) SetType(v string) *CallbackQmpSmsUpRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *CallbackQmpSmsUpRequest) SetPhoneNumber(v string) *CallbackQmpSmsUpRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *CallbackQmpSmsUpRequest) SetSendTime(v string) *CallbackQmpSmsUpRequest {
+	s.SendTime = &v
+	return s
+}
+
+func (s *CallbackQmpSmsUpRequest) SetContent(v string) *CallbackQmpSmsUpRequest {
+	s.Content = &v
+	return s
+}
+
+func (s *CallbackQmpSmsUpRequest) SetSignName(v string) *CallbackQmpSmsUpRequest {
+	s.SignName = &v
+	return s
+}
+
+func (s *CallbackQmpSmsUpRequest) SetAppKey(v string) *CallbackQmpSmsUpRequest {
+	s.AppKey = &v
+	return s
+}
+
+func (s *CallbackQmpSmsUpRequest) SetDestCode(v string) *CallbackQmpSmsUpRequest {
+	s.DestCode = &v
+	return s
+}
+
+func (s *CallbackQmpSmsUpRequest) SetSequenceId(v int64) *CallbackQmpSmsUpRequest {
+	s.SequenceId = &v
+	return s
+}
+
+func (s *CallbackQmpSmsUpRequest) SetKeyTemplate(v string) *CallbackQmpSmsUpRequest {
+	s.KeyTemplate = &v
+	return s
+}
+
+func (s *CallbackQmpSmsUpRequest) SetOriginKeyTemplate(v string) *CallbackQmpSmsUpRequest {
+	s.OriginKeyTemplate = &v
+	return s
+}
+
+type CallbackQmpSmsUpResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CallbackQmpSmsUpResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackQmpSmsUpResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackQmpSmsUpResponse) SetReqMsgId(v string) *CallbackQmpSmsUpResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackQmpSmsUpResponse) SetResultCode(v string) *CallbackQmpSmsUpResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackQmpSmsUpResponse) SetResultMsg(v string) *CallbackQmpSmsUpResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CallbackQmpSmsReportRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 短信回执类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 手机号码
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 发送时间
+	SendTime *string `json:"send_time,omitempty" xml:"send_time,omitempty" require:"true"`
+	// 状态报告时间
+	ReportTime *string `json:"report_time,omitempty" xml:"report_time,omitempty" require:"true"`
+	// 是否接收成功。取值：true：接收成功false：接收失败
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 状态报告编码
+	ErrCode *string `json:"err_code,omitempty" xml:"err_code,omitempty" require:"true"`
+	// 状态报告说明
+	ErrMsg *string `json:"err_msg,omitempty" xml:"err_msg,omitempty" require:"true"`
+	// 短信长度
+	SmsSize *string `json:"sms_size,omitempty" xml:"sms_size,omitempty" require:"true"`
+	// 发送回执ID，即发送流水号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 业务扩展字段，回执时透传，JSON格式
+	BizProperties *string `json:"biz_properties,omitempty" xml:"biz_properties,omitempty" require:"true"`
+	// 发送卡片短信时，文本短信状态报告中才会有该字段，且取值为CARD_SMS，发送纯文本短信时，状态报告中没有该字段
+	SmsType *string `json:"sms_type,omitempty" xml:"sms_type,omitempty"`
+	// 运营商
+	ServiceProvider *string `json:"service_provider,omitempty" xml:"service_provider,omitempty" require:"true"`
+	// 手机号码所属城市
+	City *string `json:"city,omitempty" xml:"city,omitempty"`
+	// 手机号模版类型
+	KeyTemplate *string `json:"key_template,omitempty" xml:"key_template,omitempty"`
+}
+
+func (s CallbackQmpSmsReportRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackQmpSmsReportRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackQmpSmsReportRequest) SetAuthToken(v string) *CallbackQmpSmsReportRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetProductInstanceId(v string) *CallbackQmpSmsReportRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetType(v string) *CallbackQmpSmsReportRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetPhoneNumber(v string) *CallbackQmpSmsReportRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetSendTime(v string) *CallbackQmpSmsReportRequest {
+	s.SendTime = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetReportTime(v string) *CallbackQmpSmsReportRequest {
+	s.ReportTime = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetSuccess(v bool) *CallbackQmpSmsReportRequest {
+	s.Success = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetErrCode(v string) *CallbackQmpSmsReportRequest {
+	s.ErrCode = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetErrMsg(v string) *CallbackQmpSmsReportRequest {
+	s.ErrMsg = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetSmsSize(v string) *CallbackQmpSmsReportRequest {
+	s.SmsSize = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetBizId(v string) *CallbackQmpSmsReportRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetBizProperties(v string) *CallbackQmpSmsReportRequest {
+	s.BizProperties = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetSmsType(v string) *CallbackQmpSmsReportRequest {
+	s.SmsType = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetServiceProvider(v string) *CallbackQmpSmsReportRequest {
+	s.ServiceProvider = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetCity(v string) *CallbackQmpSmsReportRequest {
+	s.City = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportRequest) SetKeyTemplate(v string) *CallbackQmpSmsReportRequest {
+	s.KeyTemplate = &v
+	return s
+}
+
+type CallbackQmpSmsReportResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CallbackQmpSmsReportResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackQmpSmsReportResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackQmpSmsReportResponse) SetReqMsgId(v string) *CallbackQmpSmsReportResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportResponse) SetResultCode(v string) *CallbackQmpSmsReportResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackQmpSmsReportResponse) SetResultMsg(v string) *CallbackQmpSmsReportResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type QueryRbbGenericInvokeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -23385,7 +23666,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.7"),
+				"sdk_version":      tea.String("1.17.9"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -26005,6 +26286,74 @@ func (client *Client) SendQmpCardsmsBatchEx(request *SendQmpCardsmsBatchRequest,
 	}
 	_result = &SendQmpCardsmsBatchResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.cardsms.batch.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 上行短信回调
+ * Summary: 上行短信回调
+ */
+func (client *Client) CallbackQmpSmsUp(request *CallbackQmpSmsUpRequest) (_result *CallbackQmpSmsUpResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackQmpSmsUpResponse{}
+	_body, _err := client.CallbackQmpSmsUpEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 上行短信回调
+ * Summary: 上行短信回调
+ */
+func (client *Client) CallbackQmpSmsUpEx(request *CallbackQmpSmsUpRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackQmpSmsUpResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackQmpSmsUpResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.sms.up.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 短信状态回调接口
+ * Summary: 短信状态回调接口
+ */
+func (client *Client) CallbackQmpSmsReport(request *CallbackQmpSmsReportRequest) (_result *CallbackQmpSmsReportResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackQmpSmsReportResponse{}
+	_body, _err := client.CallbackQmpSmsReportEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 短信状态回调接口
+ * Summary: 短信状态回调接口
+ */
+func (client *Client) CallbackQmpSmsReportEx(request *CallbackQmpSmsReportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackQmpSmsReportResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackQmpSmsReportResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.sms.report.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
