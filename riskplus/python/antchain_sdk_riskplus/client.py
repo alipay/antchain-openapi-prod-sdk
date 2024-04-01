@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.7',
+                    'sdk_version': '1.17.9',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.7',
+                    'sdk_version': '1.17.9',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -4463,6 +4463,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.SendQmpCardsmsBatchResponse(),
             await self.do_request_async('1.0', 'riskplus.qmp.cardsms.batch.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_qmp_sms_up(
+        self,
+        request: riskplus_models.CallbackQmpSmsUpRequest,
+    ) -> riskplus_models.CallbackQmpSmsUpResponse:
+        """
+        Description: 上行短信回调
+        Summary: 上行短信回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_qmp_sms_up_ex(request, headers, runtime)
+
+    async def callback_qmp_sms_up_async(
+        self,
+        request: riskplus_models.CallbackQmpSmsUpRequest,
+    ) -> riskplus_models.CallbackQmpSmsUpResponse:
+        """
+        Description: 上行短信回调
+        Summary: 上行短信回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_qmp_sms_up_ex_async(request, headers, runtime)
+
+    def callback_qmp_sms_up_ex(
+        self,
+        request: riskplus_models.CallbackQmpSmsUpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackQmpSmsUpResponse:
+        """
+        Description: 上行短信回调
+        Summary: 上行短信回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackQmpSmsUpResponse(),
+            self.do_request('1.0', 'riskplus.qmp.sms.up.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_qmp_sms_up_ex_async(
+        self,
+        request: riskplus_models.CallbackQmpSmsUpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackQmpSmsUpResponse:
+        """
+        Description: 上行短信回调
+        Summary: 上行短信回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackQmpSmsUpResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.sms.up.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_qmp_sms_report(
+        self,
+        request: riskplus_models.CallbackQmpSmsReportRequest,
+    ) -> riskplus_models.CallbackQmpSmsReportResponse:
+        """
+        Description: 短信状态回调接口
+        Summary: 短信状态回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_qmp_sms_report_ex(request, headers, runtime)
+
+    async def callback_qmp_sms_report_async(
+        self,
+        request: riskplus_models.CallbackQmpSmsReportRequest,
+    ) -> riskplus_models.CallbackQmpSmsReportResponse:
+        """
+        Description: 短信状态回调接口
+        Summary: 短信状态回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_qmp_sms_report_ex_async(request, headers, runtime)
+
+    def callback_qmp_sms_report_ex(
+        self,
+        request: riskplus_models.CallbackQmpSmsReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackQmpSmsReportResponse:
+        """
+        Description: 短信状态回调接口
+        Summary: 短信状态回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackQmpSmsReportResponse(),
+            self.do_request('1.0', 'riskplus.qmp.sms.report.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_qmp_sms_report_ex_async(
+        self,
+        request: riskplus_models.CallbackQmpSmsReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackQmpSmsReportResponse:
+        """
+        Description: 短信状态回调接口
+        Summary: 短信状态回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackQmpSmsReportResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.sms.report.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rbb_generic_invoke(
