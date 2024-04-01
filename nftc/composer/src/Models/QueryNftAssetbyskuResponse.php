@@ -28,21 +28,14 @@ class QueryNftAssetbyskuResponse extends Model
 
     // 用户资产列表
     /**
-     * @var UserAsset
+     * @var UserAsset[]
      */
     public $assetList;
-
-    // 支付宝账户id，特殊场景返回，通常情况无需关注
-    /**
-     * @var string
-     */
-    public $alipayUid;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'assetList'  => 'asset_list',
-        'alipayUid'  => 'alipay_uid',
     ];
 
     public function validate()
@@ -62,10 +55,13 @@ class QueryNftAssetbyskuResponse extends Model
             $res['result_msg'] = $this->resultMsg;
         }
         if (null !== $this->assetList) {
-            $res['asset_list'] = null !== $this->assetList ? $this->assetList->toMap() : null;
-        }
-        if (null !== $this->alipayUid) {
-            $res['alipay_uid'] = $this->alipayUid;
+            $res['asset_list'] = [];
+            if (null !== $this->assetList && \is_array($this->assetList)) {
+                $n = 0;
+                foreach ($this->assetList as $item) {
+                    $res['asset_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -89,10 +85,13 @@ class QueryNftAssetbyskuResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['asset_list'])) {
-            $model->assetList = UserAsset::fromMap($map['asset_list']);
-        }
-        if (isset($map['alipay_uid'])) {
-            $model->alipayUid = $map['alipay_uid'];
+            if (!empty($map['asset_list'])) {
+                $model->assetList = [];
+                $n                = 0;
+                foreach ($map['asset_list'] as $item) {
+                    $model->assetList[$n++] = null !== $item ? UserAsset::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
