@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.17.7',
+    sdk_version = '1.17.9',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -5546,6 +5546,123 @@ async function sendQmpCardsmsBatch(request: SendQmpCardsmsBatchRequest): SendQmp
 async function sendQmpCardsmsBatchEx(request: SendQmpCardsmsBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendQmpCardsmsBatchResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.qmp.cardsms.batch.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackQmpSmsUpRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回执类型
+  type: string(name='type'),
+  // 手机号码
+  phoneNumber: string(name='phone_number'),
+  // 发送时间
+  sendTime: string(name='send_time'),
+  // 发送内容
+  content: string(name='content'),
+  // 签名信息
+  signName: string(name='sign_name'),
+  // 签名对应的客户ak
+  appKey: string(name='app_key'),
+  // 行短信扩展号码
+  destCode: string(name='dest_code'),
+  // 序列号
+  sequenceId: long(name='sequence_id'),
+  // 手机号模版类型
+  // 
+  keyTemplate?: string(name='key_template'),
+  // 原始手机号模版类型
+  originKeyTemplate?: string(name='origin_key_template'),
+}
+
+model CallbackQmpSmsUpResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 上行短信回调
+ * Summary: 上行短信回调
+ */
+async function callbackQmpSmsUp(request: CallbackQmpSmsUpRequest): CallbackQmpSmsUpResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackQmpSmsUpEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上行短信回调
+ * Summary: 上行短信回调
+ */
+async function callbackQmpSmsUpEx(request: CallbackQmpSmsUpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackQmpSmsUpResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.qmp.sms.up.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackQmpSmsReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 短信回执类型
+  type: string(name='type'),
+  // 手机号码
+  phoneNumber: string(name='phone_number'),
+  // 发送时间
+  sendTime: string(name='send_time'),
+  // 状态报告时间
+  reportTime: string(name='report_time'),
+  // 是否接收成功。取值：true：接收成功false：接收失败
+  success: boolean(name='success'),
+  // 状态报告编码
+  errCode: string(name='err_code'),
+  // 状态报告说明
+  errMsg: string(name='err_msg'),
+  // 短信长度
+  smsSize: string(name='sms_size'),
+  // 发送回执ID，即发送流水号
+  bizId: string(name='biz_id'),
+  // 业务扩展字段，回执时透传，JSON格式
+  bizProperties: string(name='biz_properties'),
+  // 发送卡片短信时，文本短信状态报告中才会有该字段，且取值为CARD_SMS，发送纯文本短信时，状态报告中没有该字段
+  smsType?: string(name='sms_type'),
+  // 运营商
+  serviceProvider: string(name='service_provider'),
+  // 手机号码所属城市
+  city?: string(name='city'),
+  // 手机号模版类型
+  keyTemplate?: string(name='key_template'),
+}
+
+model CallbackQmpSmsReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 短信状态回调接口
+ * Summary: 短信状态回调接口
+ */
+async function callbackQmpSmsReport(request: CallbackQmpSmsReportRequest): CallbackQmpSmsReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackQmpSmsReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 短信状态回调接口
+ * Summary: 短信状态回调接口
+ */
+async function callbackQmpSmsReportEx(request: CallbackQmpSmsReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackQmpSmsReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.qmp.sms.report.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryRbbGenericInvokeRequest = {
