@@ -18,11 +18,7 @@ public class QueryNftAssetbyskuResponse extends TeaModel {
 
     // 用户资产列表
     @NameInMap("asset_list")
-    public UserAsset assetList;
-
-    // 支付宝账户id，特殊场景返回，通常情况无需关注
-    @NameInMap("alipay_uid")
-    public String alipayUid;
+    public java.util.List<UserAsset> assetList;
 
     public static QueryNftAssetbyskuResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryNftAssetbyskuResponse self = new QueryNftAssetbyskuResponse();
@@ -53,20 +49,12 @@ public class QueryNftAssetbyskuResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryNftAssetbyskuResponse setAssetList(UserAsset assetList) {
+    public QueryNftAssetbyskuResponse setAssetList(java.util.List<UserAsset> assetList) {
         this.assetList = assetList;
         return this;
     }
-    public UserAsset getAssetList() {
+    public java.util.List<UserAsset> getAssetList() {
         return this.assetList;
-    }
-
-    public QueryNftAssetbyskuResponse setAlipayUid(String alipayUid) {
-        this.alipayUid = alipayUid;
-        return this;
-    }
-    public String getAlipayUid() {
-        return this.alipayUid;
     }
 
 }
