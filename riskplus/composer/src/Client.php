@@ -57,6 +57,10 @@ use AntChain\RISKPLUS\Models\BatchqueryUmktTenantActionplaninfoRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktTenantActionplaninfoResponse;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardRequest;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardResponse;
+use AntChain\RISKPLUS\Models\CallbackQmpSmsReportRequest;
+use AntChain\RISKPLUS\Models\CallbackQmpSmsReportResponse;
+use AntChain\RISKPLUS\Models\CallbackQmpSmsUpRequest;
+use AntChain\RISKPLUS\Models\CallbackQmpSmsUpResponse;
 use AntChain\RISKPLUS\Models\CallbackUmktRobotcallRequest;
 use AntChain\RISKPLUS\Models\CallbackUmktRobotcallResponse;
 use AntChain\RISKPLUS\Models\CallbackUmktSmsReportRequest;
@@ -482,7 +486,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.17.7',
+                    'sdk_version'      => '1.17.9',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2991,6 +2995,72 @@ class Client
         Utils::validateModel($request);
 
         return SendQmpCardsmsBatchResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.cardsms.batch.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 上行短信回调
+     * Summary: 上行短信回调.
+     *
+     * @param CallbackQmpSmsUpRequest $request
+     *
+     * @return CallbackQmpSmsUpResponse
+     */
+    public function callbackQmpSmsUp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackQmpSmsUpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 上行短信回调
+     * Summary: 上行短信回调.
+     *
+     * @param CallbackQmpSmsUpRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CallbackQmpSmsUpResponse
+     */
+    public function callbackQmpSmsUpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackQmpSmsUpResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.sms.up.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 短信状态回调接口
+     * Summary: 短信状态回调接口.
+     *
+     * @param CallbackQmpSmsReportRequest $request
+     *
+     * @return CallbackQmpSmsReportResponse
+     */
+    public function callbackQmpSmsReport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackQmpSmsReportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 短信状态回调接口
+     * Summary: 短信状态回调接口.
+     *
+     * @param CallbackQmpSmsReportRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CallbackQmpSmsReportResponse
+     */
+    public function callbackQmpSmsReportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackQmpSmsReportResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.sms.report.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
