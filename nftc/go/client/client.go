@@ -1897,9 +1897,7 @@ type QueryNftAssetbyskuResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 用户资产列表
-	AssetList *UserAsset `json:"asset_list,omitempty" xml:"asset_list,omitempty"`
-	// 支付宝账户id，特殊场景返回，通常情况无需关注
-	AlipayUid *string `json:"alipay_uid,omitempty" xml:"alipay_uid,omitempty"`
+	AssetList []*UserAsset `json:"asset_list,omitempty" xml:"asset_list,omitempty" type:"Repeated"`
 }
 
 func (s QueryNftAssetbyskuResponse) String() string {
@@ -1925,13 +1923,8 @@ func (s *QueryNftAssetbyskuResponse) SetResultMsg(v string) *QueryNftAssetbyskuR
 	return s
 }
 
-func (s *QueryNftAssetbyskuResponse) SetAssetList(v *UserAsset) *QueryNftAssetbyskuResponse {
+func (s *QueryNftAssetbyskuResponse) SetAssetList(v []*UserAsset) *QueryNftAssetbyskuResponse {
 	s.AssetList = v
-	return s
-}
-
-func (s *QueryNftAssetbyskuResponse) SetAlipayUid(v string) *QueryNftAssetbyskuResponse {
-	s.AlipayUid = &v
 	return s
 }
 
@@ -2673,7 +2666,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.14"),
+				"sdk_version":      tea.String("1.0.16"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
