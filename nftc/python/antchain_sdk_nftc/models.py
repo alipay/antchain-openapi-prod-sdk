@@ -2392,8 +2392,7 @@ class QueryNftAssetbyskuResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        asset_list: UserAsset = None,
-        alipay_uid: str = None,
+        asset_list: List[UserAsset] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2403,12 +2402,12 @@ class QueryNftAssetbyskuResponse(TeaModel):
         self.result_msg = result_msg
         # 用户资产列表
         self.asset_list = asset_list
-        # 支付宝账户id，特殊场景返回，通常情况无需关注
-        self.alipay_uid = alipay_uid
 
     def validate(self):
         if self.asset_list:
-            self.asset_list.validate()
+            for k in self.asset_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -2422,10 +2421,10 @@ class QueryNftAssetbyskuResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        result['asset_list'] = []
         if self.asset_list is not None:
-            result['asset_list'] = self.asset_list.to_map()
-        if self.alipay_uid is not None:
-            result['alipay_uid'] = self.alipay_uid
+            for k in self.asset_list:
+                result['asset_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -2436,11 +2435,11 @@ class QueryNftAssetbyskuResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        self.asset_list = []
         if m.get('asset_list') is not None:
-            temp_model = UserAsset()
-            self.asset_list = temp_model.from_map(m['asset_list'])
-        if m.get('alipay_uid') is not None:
-            self.alipay_uid = m.get('alipay_uid')
+            for k in m.get('asset_list'):
+                temp_model = UserAsset()
+                self.asset_list.append(temp_model.from_map(k))
         return self
 
 
