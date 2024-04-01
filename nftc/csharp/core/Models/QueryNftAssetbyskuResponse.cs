@@ -27,12 +27,7 @@ namespace AntChain.SDK.NFTC.Models
         // 用户资产列表
         [NameInMap("asset_list")]
         [Validation(Required=false)]
-        public UserAsset AssetList { get; set; }
-
-        // 支付宝账户id，特殊场景返回，通常情况无需关注
-        [NameInMap("alipay_uid")]
-        [Validation(Required=false)]
-        public string AlipayUid { get; set; }
+        public List<UserAsset> AssetList { get; set; }
 
     }
 
