@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.7"},
+                        {"sdk_version", "1.17.9"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.7"},
+                        {"sdk_version", "1.17.9"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3523,6 +3523,90 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SendQmpCardsmsBatchResponse>(await DoRequestAsync("1.0", "riskplus.qmp.cardsms.batch.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 上行短信回调
+         * Summary: 上行短信回调
+         */
+        public CallbackQmpSmsUpResponse CallbackQmpSmsUp(CallbackQmpSmsUpRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackQmpSmsUpEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 上行短信回调
+         * Summary: 上行短信回调
+         */
+        public async Task<CallbackQmpSmsUpResponse> CallbackQmpSmsUpAsync(CallbackQmpSmsUpRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackQmpSmsUpExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 上行短信回调
+         * Summary: 上行短信回调
+         */
+        public CallbackQmpSmsUpResponse CallbackQmpSmsUpEx(CallbackQmpSmsUpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackQmpSmsUpResponse>(DoRequest("1.0", "riskplus.qmp.sms.up.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 上行短信回调
+         * Summary: 上行短信回调
+         */
+        public async Task<CallbackQmpSmsUpResponse> CallbackQmpSmsUpExAsync(CallbackQmpSmsUpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackQmpSmsUpResponse>(await DoRequestAsync("1.0", "riskplus.qmp.sms.up.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短信状态回调接口
+         * Summary: 短信状态回调接口
+         */
+        public CallbackQmpSmsReportResponse CallbackQmpSmsReport(CallbackQmpSmsReportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackQmpSmsReportEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短信状态回调接口
+         * Summary: 短信状态回调接口
+         */
+        public async Task<CallbackQmpSmsReportResponse> CallbackQmpSmsReportAsync(CallbackQmpSmsReportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackQmpSmsReportExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短信状态回调接口
+         * Summary: 短信状态回调接口
+         */
+        public CallbackQmpSmsReportResponse CallbackQmpSmsReportEx(CallbackQmpSmsReportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackQmpSmsReportResponse>(DoRequest("1.0", "riskplus.qmp.sms.report.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短信状态回调接口
+         * Summary: 短信状态回调接口
+         */
+        public async Task<CallbackQmpSmsReportResponse> CallbackQmpSmsReportExAsync(CallbackQmpSmsReportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackQmpSmsReportResponse>(await DoRequestAsync("1.0", "riskplus.qmp.sms.report.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
