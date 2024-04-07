@@ -28,6 +28,10 @@ public class PushRbbCustomerCompanyinfoRequest extends TeaModel {
     @NameInMap("content")
     public String content;
 
+    // 虚拟云租户code
+    @NameInMap("virtual_cloud_tenant_code")
+    public String virtualCloudTenantCode;
+
     public static PushRbbCustomerCompanyinfoRequest build(java.util.Map<String, ?> map) throws Exception {
         PushRbbCustomerCompanyinfoRequest self = new PushRbbCustomerCompanyinfoRequest();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class PushRbbCustomerCompanyinfoRequest extends TeaModel {
     }
     public String getContent() {
         return this.content;
+    }
+
+    public PushRbbCustomerCompanyinfoRequest setVirtualCloudTenantCode(String virtualCloudTenantCode) {
+        this.virtualCloudTenantCode = virtualCloudTenantCode;
+        return this;
+    }
+    public String getVirtualCloudTenantCode() {
+        return this.virtualCloudTenantCode;
     }
 
 }

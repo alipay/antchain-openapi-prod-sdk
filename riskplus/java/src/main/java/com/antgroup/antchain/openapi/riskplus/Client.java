@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.17.9"),
+                    new TeaPair("sdk_version", "1.18.1"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2010,6 +2010,25 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.file.amap.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadRbbFileAmapResponse());
+    }
+
+    /**
+     * Description: 信贷操作接口
+     * Summary: 信贷操作接口
+     */
+    public OperateRbbCreditResponse operateRbbCredit(OperateRbbCreditRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateRbbCreditEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 信贷操作接口
+     * Summary: 信贷操作接口
+     */
+    public OperateRbbCreditResponse operateRbbCreditEx(OperateRbbCreditRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.credit.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateRbbCreditResponse());
     }
 
     /**
