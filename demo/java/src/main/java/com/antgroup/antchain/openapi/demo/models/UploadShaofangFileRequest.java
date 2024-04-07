@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class UploadJzqFailRequest extends TeaModel {
+public class UploadShaofangFileRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,7 +11,7 @@ public class UploadJzqFailRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 文件上传
+    // 1
     // 待上传文件
     @NameInMap("fileObject")
     public java.io.InputStream fileObject;
@@ -24,17 +24,12 @@ public class UploadJzqFailRequest extends TeaModel {
     @Validation(required = true)
     public String fileId;
 
-    // 预发验证
-    @NameInMap("struct_1")
-    @Validation(required = true)
-    public PreTestUse struct1;
-
-    public static UploadJzqFailRequest build(java.util.Map<String, ?> map) throws Exception {
-        UploadJzqFailRequest self = new UploadJzqFailRequest();
+    public static UploadShaofangFileRequest build(java.util.Map<String, ?> map) throws Exception {
+        UploadShaofangFileRequest self = new UploadShaofangFileRequest();
         return TeaModel.build(map, self);
     }
 
-    public UploadJzqFailRequest setAuthToken(String authToken) {
+    public UploadShaofangFileRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -42,7 +37,7 @@ public class UploadJzqFailRequest extends TeaModel {
         return this.authToken;
     }
 
-    public UploadJzqFailRequest setProductInstanceId(String productInstanceId) {
+    public UploadShaofangFileRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -50,7 +45,7 @@ public class UploadJzqFailRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public UploadJzqFailRequest setFileObject(java.io.InputStream fileObject) {
+    public UploadShaofangFileRequest setFileObject(java.io.InputStream fileObject) {
         this.fileObject = fileObject;
         return this;
     }
@@ -58,7 +53,7 @@ public class UploadJzqFailRequest extends TeaModel {
         return this.fileObject;
     }
 
-    public UploadJzqFailRequest setFileObjectName(String fileObjectName) {
+    public UploadShaofangFileRequest setFileObjectName(String fileObjectName) {
         this.fileObjectName = fileObjectName;
         return this;
     }
@@ -66,20 +61,12 @@ public class UploadJzqFailRequest extends TeaModel {
         return this.fileObjectName;
     }
 
-    public UploadJzqFailRequest setFileId(String fileId) {
+    public UploadShaofangFileRequest setFileId(String fileId) {
         this.fileId = fileId;
         return this;
     }
     public String getFileId() {
         return this.fileId;
-    }
-
-    public UploadJzqFailRequest setStruct1(PreTestUse struct1) {
-        this.struct1 = struct1;
-        return this;
-    }
-    public PreTestUse getStruct1() {
-        return this.struct1;
     }
 
 }
