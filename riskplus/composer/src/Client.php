@@ -125,6 +125,8 @@ use AntChain\RISKPLUS\Models\NotifyDubbridgeDefininnerchannelRequest;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeDefininnerchannelResponse;
 use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultRequest;
 use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultResponse;
+use AntChain\RISKPLUS\Models\OperateRbbCreditRequest;
+use AntChain\RISKPLUS\Models\OperateRbbCreditResponse;
 use AntChain\RISKPLUS\Models\PullRegtechNewsRequest;
 use AntChain\RISKPLUS\Models\PullRegtechNewsResponse;
 use AntChain\RISKPLUS\Models\PushRbbCustomerCompanyinfoRequest;
@@ -486,7 +488,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.17.9',
+                    'sdk_version'      => '1.18.1',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3673,6 +3675,39 @@ class Client
         Utils::validateModel($request);
 
         return UploadRbbFileAmapResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.file.amap.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 信贷操作接口
+     * Summary: 信贷操作接口.
+     *
+     * @param OperateRbbCreditRequest $request
+     *
+     * @return OperateRbbCreditResponse
+     */
+    public function operateRbbCredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateRbbCreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 信贷操作接口
+     * Summary: 信贷操作接口.
+     *
+     * @param OperateRbbCreditRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return OperateRbbCreditResponse
+     */
+    public function operateRbbCreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateRbbCreditResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.credit.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

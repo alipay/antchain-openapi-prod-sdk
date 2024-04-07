@@ -42,13 +42,20 @@ class PushRbbCustomerCompanyinfoRequest extends Model
      * @var string
      */
     public $content;
+
+    // 虚拟云租户code
+    /**
+     * @var string
+     */
+    public $virtualCloudTenantCode;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'ucCode'            => 'uc_code',
-        'companyName'       => 'company_name',
-        'type'              => 'type',
-        'content'           => 'content',
+        'authToken'              => 'auth_token',
+        'productInstanceId'      => 'product_instance_id',
+        'ucCode'                 => 'uc_code',
+        'companyName'            => 'company_name',
+        'type'                   => 'type',
+        'content'                => 'content',
+        'virtualCloudTenantCode' => 'virtual_cloud_tenant_code',
     ];
 
     public function validate()
@@ -76,6 +83,9 @@ class PushRbbCustomerCompanyinfoRequest extends Model
         }
         if (null !== $this->content) {
             $res['content'] = $this->content;
+        }
+        if (null !== $this->virtualCloudTenantCode) {
+            $res['virtual_cloud_tenant_code'] = $this->virtualCloudTenantCode;
         }
 
         return $res;
@@ -106,6 +116,9 @@ class PushRbbCustomerCompanyinfoRequest extends Model
         }
         if (isset($map['content'])) {
             $model->content = $map['content'];
+        }
+        if (isset($map['virtual_cloud_tenant_code'])) {
+            $model->virtualCloudTenantCode = $map['virtual_cloud_tenant_code'];
         }
 
         return $model;

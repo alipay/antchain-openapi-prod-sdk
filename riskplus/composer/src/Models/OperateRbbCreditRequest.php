@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryUmktTenantActionplaninfoRequest extends Model
+class OperateRbbCreditRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,34 +19,28 @@ class QueryUmktTenantActionplaninfoRequest extends Model
      */
     public $productInstanceId;
 
-    // 页码
-    /**
-     * @var int
-     */
-    public $pageNum;
-
-    // 页容量
-    /**
-     * @var int
-     */
-    public $pageSize;
-
-    // 渠道code
+    // 服务code
     /**
      * @var string
      */
-    public $channelType;
+    public $serviceCode;
+
+    // 服务参数
+    /**
+     * @var string
+     */
+    public $serviceParams;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'pageNum'           => 'page_num',
-        'pageSize'          => 'page_size',
-        'channelType'       => 'channel_type',
+        'serviceCode'       => 'service_code',
+        'serviceParams'     => 'service_params',
     ];
 
     public function validate()
     {
-        Model::validateRequired('channelType', $this->channelType, true);
+        Model::validateRequired('serviceCode', $this->serviceCode, true);
+        Model::validateRequired('serviceParams', $this->serviceParams, true);
     }
 
     public function toMap()
@@ -58,14 +52,11 @@ class QueryUmktTenantActionplaninfoRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->pageNum) {
-            $res['page_num'] = $this->pageNum;
+        if (null !== $this->serviceCode) {
+            $res['service_code'] = $this->serviceCode;
         }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
-        }
-        if (null !== $this->channelType) {
-            $res['channel_type'] = $this->channelType;
+        if (null !== $this->serviceParams) {
+            $res['service_params'] = $this->serviceParams;
         }
 
         return $res;
@@ -74,7 +65,7 @@ class QueryUmktTenantActionplaninfoRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryUmktTenantActionplaninfoRequest
+     * @return OperateRbbCreditRequest
      */
     public static function fromMap($map = [])
     {
@@ -85,14 +76,11 @@ class QueryUmktTenantActionplaninfoRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['page_num'])) {
-            $model->pageNum = $map['page_num'];
+        if (isset($map['service_code'])) {
+            $model->serviceCode = $map['service_code'];
         }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
-        }
-        if (isset($map['channel_type'])) {
-            $model->channelType = $map['channel_type'];
+        if (isset($map['service_params'])) {
+            $model->serviceParams = $map['service_params'];
         }
 
         return $model;
