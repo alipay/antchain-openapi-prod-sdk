@@ -7,7 +7,7 @@ namespace AntChain\DEMO\Models;
 use AlibabaCloud\Tea\Model;
 use GuzzleHttp\Psr7\Stream;
 
-class UploadJzqFailRequest extends Model
+class UploadShaofangFileRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -20,7 +20,7 @@ class UploadJzqFailRequest extends Model
      */
     public $productInstanceId;
 
-    // 文件上传
+    // 1
     /**
      * @description 待上传文件
      *
@@ -39,23 +39,15 @@ class UploadJzqFailRequest extends Model
      * @var string
      */
     public $fileId;
-
-    // 预发验证
-    /**
-     * @var PreTestUse
-     */
-    public $struct1;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fileId'            => 'file_id',
-        'struct1'           => 'struct_1',
     ];
 
     public function validate()
     {
         Model::validateRequired('fileId', $this->fileId, true);
-        Model::validateRequired('struct1', $this->struct1, true);
     }
 
     public function toMap()
@@ -76,9 +68,6 @@ class UploadJzqFailRequest extends Model
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
         }
-        if (null !== $this->struct1) {
-            $res['struct_1'] = null !== $this->struct1 ? $this->struct1->toMap() : null;
-        }
 
         return $res;
     }
@@ -86,7 +75,7 @@ class UploadJzqFailRequest extends Model
     /**
      * @param array $map
      *
-     * @return UploadJzqFailRequest
+     * @return UploadShaofangFileRequest
      */
     public static function fromMap($map = [])
     {
@@ -105,9 +94,6 @@ class UploadJzqFailRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
-        }
-        if (isset($map['struct_1'])) {
-            $model->struct1 = PreTestUse::fromMap($map['struct_1']);
         }
 
         return $model;
