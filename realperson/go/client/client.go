@@ -3889,6 +3889,9 @@ type QuerySocialriskDetailRequest struct {
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
 	// 扩展信息，预留字段
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	//
+	// 场景编号
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
 }
 
 func (s QuerySocialriskDetailRequest) String() string {
@@ -3931,6 +3934,11 @@ func (s *QuerySocialriskDetailRequest) SetCertNo(v string) *QuerySocialriskDetai
 
 func (s *QuerySocialriskDetailRequest) SetExternParam(v string) *QuerySocialriskDetailRequest {
 	s.ExternParam = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailRequest) SetScene(v string) *QuerySocialriskDetailRequest {
+	s.Scene = &v
 	return s
 }
 
@@ -3986,10 +3994,14 @@ type QueryCarrierNetstatusRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
 	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
-	// 手机号码
+	// 手机号码「支持加密」
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
 	// 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
 	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
+	// 0：明文
+	// 1：MD5
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
 	// 扩展信息，预留字段
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty" require:"true"`
 }
@@ -4027,6 +4039,11 @@ func (s *QueryCarrierNetstatusRequest) SetCarrier(v string) *QueryCarrierNetstat
 	return s
 }
 
+func (s *QueryCarrierNetstatusRequest) SetEncryptType(v string) *QueryCarrierNetstatusRequest {
+	s.EncryptType = &v
+	return s
+}
+
 func (s *QueryCarrierNetstatusRequest) SetExternParam(v string) *QueryCarrierNetstatusRequest {
 	s.ExternParam = &v
 	return s
@@ -4041,7 +4058,10 @@ type QueryCarrierNetstatusResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 在网状态结果值
 	TelNetworkStatus *string `json:"tel_network_status,omitempty" xml:"tel_network_status,omitempty"`
+	// 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
 	// 扩展信息，为JSONObject。
+	// 包含携号转网状态，字段名telNumberTransStatus，字段类型为字符串，字段值示例"1"，描述：1-携号转网 0-未携号转网 2-未知
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 }
 
@@ -4073,7 +4093,125 @@ func (s *QueryCarrierNetstatusResponse) SetTelNetworkStatus(v string) *QueryCarr
 	return s
 }
 
+func (s *QueryCarrierNetstatusResponse) SetCarrier(v string) *QueryCarrierNetstatusResponse {
+	s.Carrier = &v
+	return s
+}
+
 func (s *QueryCarrierNetstatusResponse) SetExternInfo(v string) *QueryCarrierNetstatusResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QuerySocialriskBriefRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权抽查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景编号
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 入参加密模式： NONE：不加密； RSA：RSA加密； SM2：SM2加密。
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty" require:"true"`
+	//
+	// 姓名（根据enc_type决定加密方式）
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 身份证号（根据enc_type决定加密方式）
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QuerySocialriskBriefRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySocialriskBriefRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySocialriskBriefRequest) SetAuthToken(v string) *QuerySocialriskBriefRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefRequest) SetProductInstanceId(v string) *QuerySocialriskBriefRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefRequest) SetOuterOrderNo(v string) *QuerySocialriskBriefRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefRequest) SetScene(v string) *QuerySocialriskBriefRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefRequest) SetEncType(v string) *QuerySocialriskBriefRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefRequest) SetCertName(v string) *QuerySocialriskBriefRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefRequest) SetCertNo(v string) *QuerySocialriskBriefRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefRequest) SetExternParam(v string) *QuerySocialriskBriefRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QuerySocialriskBriefResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 风险信息
+	RiskInfo *string `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
+	// 扩展信息，预留字段。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QuerySocialriskBriefResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySocialriskBriefResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySocialriskBriefResponse) SetReqMsgId(v string) *QuerySocialriskBriefResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefResponse) SetResultCode(v string) *QuerySocialriskBriefResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefResponse) SetResultMsg(v string) *QuerySocialriskBriefResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefResponse) SetRiskInfo(v string) *QuerySocialriskBriefResponse {
+	s.RiskInfo = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefResponse) SetExternInfo(v string) *QuerySocialriskBriefResponse {
 	s.ExternInfo = &v
 	return s
 }
@@ -4320,7 +4458,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.5"),
+				"sdk_version":      tea.String("1.15.11"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5488,6 +5626,40 @@ func (client *Client) QueryCarrierNetstatusEx(request *QueryCarrierNetstatusRequ
 	}
 	_result = &QueryCarrierNetstatusResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carrier.netstatus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 社会安全风险（简版）
+ * Summary: 社会安全风险（简版）
+ */
+func (client *Client) QuerySocialriskBrief(request *QuerySocialriskBriefRequest) (_result *QuerySocialriskBriefResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySocialriskBriefResponse{}
+	_body, _err := client.QuerySocialriskBriefEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 社会安全风险（简版）
+ * Summary: 社会安全风险（简版）
+ */
+func (client *Client) QuerySocialriskBriefEx(request *QuerySocialriskBriefRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySocialriskBriefResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySocialriskBriefResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.socialrisk.brief.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
