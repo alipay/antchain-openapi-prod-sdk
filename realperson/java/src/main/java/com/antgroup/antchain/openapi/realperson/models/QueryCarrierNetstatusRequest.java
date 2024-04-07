@@ -16,7 +16,7 @@ public class QueryCarrierNetstatusRequest extends TeaModel {
     @Validation(required = true)
     public String outerOrderNo;
 
-    // 手机号码
+    // 手机号码「支持加密」
     @NameInMap("mobile")
     @Validation(required = true)
     public String mobile;
@@ -24,6 +24,12 @@ public class QueryCarrierNetstatusRequest extends TeaModel {
     // 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
     @NameInMap("carrier")
     public String carrier;
+
+    // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
+    // 0：明文
+    // 1：MD5
+    @NameInMap("encrypt_type")
+    public String encryptType;
 
     // 扩展信息，预留字段
     @NameInMap("extern_param")
@@ -73,6 +79,14 @@ public class QueryCarrierNetstatusRequest extends TeaModel {
     }
     public String getCarrier() {
         return this.carrier;
+    }
+
+    public QueryCarrierNetstatusRequest setEncryptType(String encryptType) {
+        this.encryptType = encryptType;
+        return this;
+    }
+    public String getEncryptType() {
+        return this.encryptType;
     }
 
     public QueryCarrierNetstatusRequest setExternParam(String externParam) {

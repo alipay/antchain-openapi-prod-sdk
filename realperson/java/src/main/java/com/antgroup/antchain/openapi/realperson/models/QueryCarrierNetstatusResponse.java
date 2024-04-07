@@ -20,7 +20,12 @@ public class QueryCarrierNetstatusResponse extends TeaModel {
     @NameInMap("tel_network_status")
     public String telNetworkStatus;
 
+    // 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
+    @NameInMap("carrier")
+    public String carrier;
+
     // 扩展信息，为JSONObject。
+    // 包含携号转网状态，字段名telNumberTransStatus，字段类型为字符串，字段值示例"1"，描述：1-携号转网 0-未携号转网 2-未知
     @NameInMap("extern_info")
     public String externInfo;
 
@@ -59,6 +64,14 @@ public class QueryCarrierNetstatusResponse extends TeaModel {
     }
     public String getTelNetworkStatus() {
         return this.telNetworkStatus;
+    }
+
+    public QueryCarrierNetstatusResponse setCarrier(String carrier) {
+        this.carrier = carrier;
+        return this;
+    }
+    public String getCarrier() {
+        return this.carrier;
     }
 
     public QueryCarrierNetstatusResponse setExternInfo(String externInfo) {

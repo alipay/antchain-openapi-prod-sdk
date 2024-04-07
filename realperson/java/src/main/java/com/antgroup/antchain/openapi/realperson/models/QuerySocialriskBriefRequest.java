@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.realperson.models;
 
 import com.aliyun.tea.*;
 
-public class QuerySocialriskDetailRequest extends TeaModel {
+public class QuerySocialriskBriefRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,17 +16,18 @@ public class QuerySocialriskDetailRequest extends TeaModel {
     @Validation(required = true)
     public String outerOrderNo;
 
-    // 入参加密模式：
-    // NONE：不加密；
-    // RSA：RSA加密；
-    // SM2：SM2加密。
+    // 场景编号
+    @NameInMap("scene")
+    public String scene;
+
+    // 入参加密模式： NONE：不加密； RSA：RSA加密； SM2：SM2加密。
     @NameInMap("enc_type")
     @Validation(required = true)
     public String encType;
 
+    // 	
     // 姓名（根据enc_type决定加密方式）
     @NameInMap("cert_name")
-    @Validation(required = true)
     public String certName;
 
     // 身份证号（根据enc_type决定加密方式）
@@ -38,17 +39,12 @@ public class QuerySocialriskDetailRequest extends TeaModel {
     @NameInMap("extern_param")
     public String externParam;
 
-    // 	
-    // 场景编号
-    @NameInMap("scene")
-    public String scene;
-
-    public static QuerySocialriskDetailRequest build(java.util.Map<String, ?> map) throws Exception {
-        QuerySocialriskDetailRequest self = new QuerySocialriskDetailRequest();
+    public static QuerySocialriskBriefRequest build(java.util.Map<String, ?> map) throws Exception {
+        QuerySocialriskBriefRequest self = new QuerySocialriskBriefRequest();
         return TeaModel.build(map, self);
     }
 
-    public QuerySocialriskDetailRequest setAuthToken(String authToken) {
+    public QuerySocialriskBriefRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -56,7 +52,7 @@ public class QuerySocialriskDetailRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QuerySocialriskDetailRequest setProductInstanceId(String productInstanceId) {
+    public QuerySocialriskBriefRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -64,7 +60,7 @@ public class QuerySocialriskDetailRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QuerySocialriskDetailRequest setOuterOrderNo(String outerOrderNo) {
+    public QuerySocialriskBriefRequest setOuterOrderNo(String outerOrderNo) {
         this.outerOrderNo = outerOrderNo;
         return this;
     }
@@ -72,7 +68,15 @@ public class QuerySocialriskDetailRequest extends TeaModel {
         return this.outerOrderNo;
     }
 
-    public QuerySocialriskDetailRequest setEncType(String encType) {
+    public QuerySocialriskBriefRequest setScene(String scene) {
+        this.scene = scene;
+        return this;
+    }
+    public String getScene() {
+        return this.scene;
+    }
+
+    public QuerySocialriskBriefRequest setEncType(String encType) {
         this.encType = encType;
         return this;
     }
@@ -80,7 +84,7 @@ public class QuerySocialriskDetailRequest extends TeaModel {
         return this.encType;
     }
 
-    public QuerySocialriskDetailRequest setCertName(String certName) {
+    public QuerySocialriskBriefRequest setCertName(String certName) {
         this.certName = certName;
         return this;
     }
@@ -88,7 +92,7 @@ public class QuerySocialriskDetailRequest extends TeaModel {
         return this.certName;
     }
 
-    public QuerySocialriskDetailRequest setCertNo(String certNo) {
+    public QuerySocialriskBriefRequest setCertNo(String certNo) {
         this.certNo = certNo;
         return this;
     }
@@ -96,20 +100,12 @@ public class QuerySocialriskDetailRequest extends TeaModel {
         return this.certNo;
     }
 
-    public QuerySocialriskDetailRequest setExternParam(String externParam) {
+    public QuerySocialriskBriefRequest setExternParam(String externParam) {
         this.externParam = externParam;
         return this;
     }
     public String getExternParam() {
         return this.externParam;
-    }
-
-    public QuerySocialriskDetailRequest setScene(String scene) {
-        this.scene = scene;
-        return this;
-    }
-    public String getScene() {
-        return this.scene;
     }
 
 }
