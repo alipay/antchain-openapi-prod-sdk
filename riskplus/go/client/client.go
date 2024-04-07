@@ -15530,6 +15530,8 @@ type PushRbbCustomerCompanyinfoRequest struct {
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 企业信息的内容
 	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 虚拟云租户code
+	VirtualCloudTenantCode *string `json:"virtual_cloud_tenant_code,omitempty" xml:"virtual_cloud_tenant_code,omitempty"`
 }
 
 func (s PushRbbCustomerCompanyinfoRequest) String() string {
@@ -15567,6 +15569,11 @@ func (s *PushRbbCustomerCompanyinfoRequest) SetType(v string) *PushRbbCustomerCo
 
 func (s *PushRbbCustomerCompanyinfoRequest) SetContent(v string) *PushRbbCustomerCompanyinfoRequest {
 	s.Content = &v
+	return s
+}
+
+func (s *PushRbbCustomerCompanyinfoRequest) SetVirtualCloudTenantCode(v string) *PushRbbCustomerCompanyinfoRequest {
+	s.VirtualCloudTenantCode = &v
 	return s
 }
 
@@ -15676,6 +15683,83 @@ func (s *UploadRbbFileAmapResponse) SetResultCode(v string) *UploadRbbFileAmapRe
 
 func (s *UploadRbbFileAmapResponse) SetResultMsg(v string) *UploadRbbFileAmapResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type OperateRbbCreditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 服务code
+	ServiceCode *string `json:"service_code,omitempty" xml:"service_code,omitempty" require:"true"`
+	// 服务参数
+	ServiceParams *string `json:"service_params,omitempty" xml:"service_params,omitempty" require:"true"`
+}
+
+func (s OperateRbbCreditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateRbbCreditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateRbbCreditRequest) SetAuthToken(v string) *OperateRbbCreditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateRbbCreditRequest) SetProductInstanceId(v string) *OperateRbbCreditRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateRbbCreditRequest) SetServiceCode(v string) *OperateRbbCreditRequest {
+	s.ServiceCode = &v
+	return s
+}
+
+func (s *OperateRbbCreditRequest) SetServiceParams(v string) *OperateRbbCreditRequest {
+	s.ServiceParams = &v
+	return s
+}
+
+type OperateRbbCreditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果数据
+	ResultData *string `json:"result_data,omitempty" xml:"result_data,omitempty"`
+}
+
+func (s OperateRbbCreditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateRbbCreditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateRbbCreditResponse) SetReqMsgId(v string) *OperateRbbCreditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateRbbCreditResponse) SetResultCode(v string) *OperateRbbCreditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateRbbCreditResponse) SetResultMsg(v string) *OperateRbbCreditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateRbbCreditResponse) SetResultData(v string) *OperateRbbCreditResponse {
+	s.ResultData = &v
 	return s
 }
 
@@ -21561,7 +21645,7 @@ type QueryUmktTenantActionplaninfoRequest struct {
 	// 页容量
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// 渠道code
-	ContentType *string `json:"content_type,omitempty" xml:"content_type,omitempty" require:"true"`
+	ChannelType *string `json:"channel_type,omitempty" xml:"channel_type,omitempty" require:"true"`
 }
 
 func (s QueryUmktTenantActionplaninfoRequest) String() string {
@@ -21592,8 +21676,8 @@ func (s *QueryUmktTenantActionplaninfoRequest) SetPageSize(v int64) *QueryUmktTe
 	return s
 }
 
-func (s *QueryUmktTenantActionplaninfoRequest) SetContentType(v string) *QueryUmktTenantActionplaninfoRequest {
-	s.ContentType = &v
+func (s *QueryUmktTenantActionplaninfoRequest) SetChannelType(v string) *QueryUmktTenantActionplaninfoRequest {
+	s.ChannelType = &v
 	return s
 }
 
@@ -23666,7 +23750,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.9"),
+				"sdk_version":      tea.String("1.18.1"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -26995,6 +27079,40 @@ func (client *Client) UploadRbbFileAmapEx(request *UploadRbbFileAmapRequest, hea
 	}
 	_result = &UploadRbbFileAmapResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.file.amap.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 信贷操作接口
+ * Summary: 信贷操作接口
+ */
+func (client *Client) OperateRbbCredit(request *OperateRbbCreditRequest) (_result *OperateRbbCreditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateRbbCreditResponse{}
+	_body, _err := client.OperateRbbCreditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 信贷操作接口
+ * Summary: 信贷操作接口
+ */
+func (client *Client) OperateRbbCreditEx(request *OperateRbbCreditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateRbbCreditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateRbbCreditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.credit.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
