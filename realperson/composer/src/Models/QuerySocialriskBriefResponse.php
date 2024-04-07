@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryCarrierNetstatusResponse extends Model
+class QuerySocialriskBriefResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,31 +26,23 @@ class QueryCarrierNetstatusResponse extends Model
      */
     public $resultMsg;
 
-    // 在网状态结果值
+    // 风险信息
     /**
      * @var string
      */
-    public $telNetworkStatus;
+    public $riskInfo;
 
-    // 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
-    /**
-     * @var string
-     */
-    public $carrier;
-
-    // 扩展信息，为JSONObject。
-    // 包含携号转网状态，字段名telNumberTransStatus，字段类型为字符串，字段值示例"1"，描述：1-携号转网 0-未携号转网 2-未知
+    // 扩展信息，预留字段。
     /**
      * @var string
      */
     public $externInfo;
     protected $_name = [
-        'reqMsgId'         => 'req_msg_id',
-        'resultCode'       => 'result_code',
-        'resultMsg'        => 'result_msg',
-        'telNetworkStatus' => 'tel_network_status',
-        'carrier'          => 'carrier',
-        'externInfo'       => 'extern_info',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'riskInfo'   => 'risk_info',
+        'externInfo' => 'extern_info',
     ];
 
     public function validate()
@@ -69,11 +61,8 @@ class QueryCarrierNetstatusResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->telNetworkStatus) {
-            $res['tel_network_status'] = $this->telNetworkStatus;
-        }
-        if (null !== $this->carrier) {
-            $res['carrier'] = $this->carrier;
+        if (null !== $this->riskInfo) {
+            $res['risk_info'] = $this->riskInfo;
         }
         if (null !== $this->externInfo) {
             $res['extern_info'] = $this->externInfo;
@@ -85,7 +74,7 @@ class QueryCarrierNetstatusResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryCarrierNetstatusResponse
+     * @return QuerySocialriskBriefResponse
      */
     public static function fromMap($map = [])
     {
@@ -99,11 +88,8 @@ class QueryCarrierNetstatusResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['tel_network_status'])) {
-            $model->telNetworkStatus = $map['tel_network_status'];
-        }
-        if (isset($map['carrier'])) {
-            $model->carrier = $map['carrier'];
+        if (isset($map['risk_info'])) {
+            $model->riskInfo = $map['risk_info'];
         }
         if (isset($map['extern_info'])) {
             $model->externInfo = $map['extern_info'];

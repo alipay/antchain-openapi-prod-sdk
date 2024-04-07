@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryCarrierNetstatusRequest extends Model
+class QuerySocialriskBriefRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,31 +19,36 @@ class QueryCarrierNetstatusRequest extends Model
      */
     public $productInstanceId;
 
-    // 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+    // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权抽查。
     /**
      * @var string
      */
     public $outerOrderNo;
 
-    // 手机号码「支持加密」
+    // 场景编号
     /**
      * @var string
      */
-    public $mobile;
+    public $scene;
 
-    // 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
+    // 入参加密模式： NONE：不加密； RSA：RSA加密； SM2：SM2加密。
     /**
      * @var string
      */
-    public $carrier;
+    public $encType;
 
-    // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
-    // 0：明文
-    // 1：MD5
+    //
+    // 姓名（根据enc_type决定加密方式）
     /**
      * @var string
      */
-    public $encryptType;
+    public $certName;
+
+    // 身份证号（根据enc_type决定加密方式）
+    /**
+     * @var string
+     */
+    public $certNo;
 
     // 扩展信息，预留字段
     /**
@@ -54,17 +59,18 @@ class QueryCarrierNetstatusRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'outerOrderNo'      => 'outer_order_no',
-        'mobile'            => 'mobile',
-        'carrier'           => 'carrier',
-        'encryptType'       => 'encrypt_type',
+        'scene'             => 'scene',
+        'encType'           => 'enc_type',
+        'certName'          => 'cert_name',
+        'certNo'            => 'cert_no',
         'externParam'       => 'extern_param',
     ];
 
     public function validate()
     {
         Model::validateRequired('outerOrderNo', $this->outerOrderNo, true);
-        Model::validateRequired('mobile', $this->mobile, true);
-        Model::validateRequired('externParam', $this->externParam, true);
+        Model::validateRequired('encType', $this->encType, true);
+        Model::validateRequired('certNo', $this->certNo, true);
     }
 
     public function toMap()
@@ -79,14 +85,17 @@ class QueryCarrierNetstatusRequest extends Model
         if (null !== $this->outerOrderNo) {
             $res['outer_order_no'] = $this->outerOrderNo;
         }
-        if (null !== $this->mobile) {
-            $res['mobile'] = $this->mobile;
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
         }
-        if (null !== $this->carrier) {
-            $res['carrier'] = $this->carrier;
+        if (null !== $this->encType) {
+            $res['enc_type'] = $this->encType;
         }
-        if (null !== $this->encryptType) {
-            $res['encrypt_type'] = $this->encryptType;
+        if (null !== $this->certName) {
+            $res['cert_name'] = $this->certName;
+        }
+        if (null !== $this->certNo) {
+            $res['cert_no'] = $this->certNo;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
@@ -98,7 +107,7 @@ class QueryCarrierNetstatusRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryCarrierNetstatusRequest
+     * @return QuerySocialriskBriefRequest
      */
     public static function fromMap($map = [])
     {
@@ -112,14 +121,17 @@ class QueryCarrierNetstatusRequest extends Model
         if (isset($map['outer_order_no'])) {
             $model->outerOrderNo = $map['outer_order_no'];
         }
-        if (isset($map['mobile'])) {
-            $model->mobile = $map['mobile'];
+        if (isset($map['scene'])) {
+            $model->scene = $map['scene'];
         }
-        if (isset($map['carrier'])) {
-            $model->carrier = $map['carrier'];
+        if (isset($map['enc_type'])) {
+            $model->encType = $map['enc_type'];
         }
-        if (isset($map['encrypt_type'])) {
-            $model->encryptType = $map['encrypt_type'];
+        if (isset($map['cert_name'])) {
+            $model->certName = $map['cert_name'];
+        }
+        if (isset($map['cert_no'])) {
+            $model->certNo = $map['cert_no'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];

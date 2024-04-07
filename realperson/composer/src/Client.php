@@ -63,6 +63,8 @@ use AntChain\REALPERSON\Models\QueryMobileRiskRequest;
 use AntChain\REALPERSON\Models\QueryMobileRiskResponse;
 use AntChain\REALPERSON\Models\QueryNfcServerRequest;
 use AntChain\REALPERSON\Models\QueryNfcServerResponse;
+use AntChain\REALPERSON\Models\QuerySocialriskBriefRequest;
+use AntChain\REALPERSON\Models\QuerySocialriskBriefResponse;
 use AntChain\REALPERSON\Models\QuerySocialriskDetailRequest;
 use AntChain\REALPERSON\Models\QuerySocialriskDetailResponse;
 use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeRequest;
@@ -224,7 +226,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.15.5',
+                    'sdk_version'      => '1.15.11',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1344,6 +1346,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryCarrierNetstatusResponse::fromMap($this->doRequest('1.0', 'di.realperson.carrier.netstatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 社会安全风险（简版）
+     * Summary: 社会安全风险（简版）.
+     *
+     * @param QuerySocialriskBriefRequest $request
+     *
+     * @return QuerySocialriskBriefResponse
+     */
+    public function querySocialriskBrief($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySocialriskBriefEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 社会安全风险（简版）
+     * Summary: 社会安全风险（简版）.
+     *
+     * @param QuerySocialriskBriefRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QuerySocialriskBriefResponse
+     */
+    public function querySocialriskBriefEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySocialriskBriefResponse::fromMap($this->doRequest('1.0', 'di.realperson.socialrisk.brief.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

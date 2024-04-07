@@ -51,6 +51,13 @@ class QuerySocialriskDetailRequest extends Model
      * @var string
      */
     public $externParam;
+
+    //
+    // 场景编号
+    /**
+     * @var string
+     */
+    public $scene;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -59,6 +66,7 @@ class QuerySocialriskDetailRequest extends Model
         'certName'          => 'cert_name',
         'certNo'            => 'cert_no',
         'externParam'       => 'extern_param',
+        'scene'             => 'scene',
     ];
 
     public function validate()
@@ -93,6 +101,9 @@ class QuerySocialriskDetailRequest extends Model
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
         }
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
+        }
 
         return $res;
     }
@@ -125,6 +136,9 @@ class QuerySocialriskDetailRequest extends Model
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];
+        }
+        if (isset($map['scene'])) {
+            $model->scene = $map['scene'];
         }
 
         return $model;
