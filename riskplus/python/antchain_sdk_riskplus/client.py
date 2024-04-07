@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.9',
+                    'sdk_version': '1.18.1',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.9',
+                    'sdk_version': '1.18.1',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -5617,6 +5617,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.UploadRbbFileAmapResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.file.amap.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_rbb_credit(
+        self,
+        request: riskplus_models.OperateRbbCreditRequest,
+    ) -> riskplus_models.OperateRbbCreditResponse:
+        """
+        Description: 信贷操作接口
+        Summary: 信贷操作接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_rbb_credit_ex(request, headers, runtime)
+
+    async def operate_rbb_credit_async(
+        self,
+        request: riskplus_models.OperateRbbCreditRequest,
+    ) -> riskplus_models.OperateRbbCreditResponse:
+        """
+        Description: 信贷操作接口
+        Summary: 信贷操作接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_rbb_credit_ex_async(request, headers, runtime)
+
+    def operate_rbb_credit_ex(
+        self,
+        request: riskplus_models.OperateRbbCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.OperateRbbCreditResponse:
+        """
+        Description: 信贷操作接口
+        Summary: 信贷操作接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.OperateRbbCreditResponse(),
+            self.do_request('1.0', 'riskplus.rbb.credit.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_rbb_credit_ex_async(
+        self,
+        request: riskplus_models.OperateRbbCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.OperateRbbCreditResponse:
+        """
+        Description: 信贷操作接口
+        Summary: 信贷操作接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.OperateRbbCreditResponse(),
+            await self.do_request_async('1.0', 'riskplus.rbb.credit.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rpgw_sign_url(
