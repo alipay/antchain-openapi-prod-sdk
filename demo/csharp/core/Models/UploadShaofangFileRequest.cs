@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    public class UploadJzqFailRequest : TeaModel {
+    public class UploadShaofangFileRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,7 +18,7 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 文件上传
+        // 1
         /// <summary>
         /// 待上传文件
         /// </summary>
@@ -36,11 +36,6 @@ namespace AntChain.SDK.DEMO.Models
         [NameInMap("file_id")]
         [Validation(Required=true)]
         public string FileId { get; set; }
-
-        // 预发验证
-        [NameInMap("struct_1")]
-        [Validation(Required=true)]
-        public PreTestUse Struct1 { get; set; }
 
     }
 
