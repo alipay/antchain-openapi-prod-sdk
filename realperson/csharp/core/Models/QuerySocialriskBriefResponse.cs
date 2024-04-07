@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.REALPERSON.Models
 {
-    public class QueryCarrierNetstatusResponse : TeaModel {
+    public class QuerySocialriskBriefResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,18 +24,12 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 在网状态结果值
-        [NameInMap("tel_network_status")]
+        // 风险信息
+        [NameInMap("risk_info")]
         [Validation(Required=false)]
-        public string TelNetworkStatus { get; set; }
+        public string RiskInfo { get; set; }
 
-        // 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
-        [NameInMap("carrier")]
-        [Validation(Required=false)]
-        public string Carrier { get; set; }
-
-        // 扩展信息，为JSONObject。
-        // 包含携号转网状态，字段名telNumberTransStatus，字段类型为字符串，字段值示例"1"，描述：1-携号转网 0-未携号转网 2-未知
+        // 扩展信息，预留字段。
         [NameInMap("extern_info")]
         [Validation(Required=false)]
         public string ExternInfo { get; set; }

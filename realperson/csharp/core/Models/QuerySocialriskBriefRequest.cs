@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.REALPERSON.Models
 {
-    public class QuerySocialriskDetailRequest : TeaModel {
+    public class QuerySocialriskBriefRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,17 +23,20 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=true)]
         public string OuterOrderNo { get; set; }
 
-        // 入参加密模式：
-        // NONE：不加密；
-        // RSA：RSA加密；
-        // SM2：SM2加密。
+        // 场景编号
+        [NameInMap("scene")]
+        [Validation(Required=false)]
+        public string Scene { get; set; }
+
+        // 入参加密模式： NONE：不加密； RSA：RSA加密； SM2：SM2加密。
         [NameInMap("enc_type")]
         [Validation(Required=true)]
         public string EncType { get; set; }
 
+        // 	
         // 姓名（根据enc_type决定加密方式）
         [NameInMap("cert_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CertName { get; set; }
 
         // 身份证号（根据enc_type决定加密方式）
@@ -45,12 +48,6 @@ namespace AntChain.SDK.REALPERSON.Models
         [NameInMap("extern_param")]
         [Validation(Required=false)]
         public string ExternParam { get; set; }
-
-        // 	
-        // 场景编号
-        [NameInMap("scene")]
-        [Validation(Required=false)]
-        public string Scene { get; set; }
 
     }
 
