@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryUmktTenantActionplaninfoRequest : TeaModel {
+    public class OperateRbbCreditRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 页码
-        [NameInMap("page_num")]
-        [Validation(Required=false)]
-        public long? PageNum { get; set; }
-
-        // 页容量
-        [NameInMap("page_size")]
-        [Validation(Required=false)]
-        public long? PageSize { get; set; }
-
-        // 渠道code
-        [NameInMap("channel_type")]
+        // 服务code
+        [NameInMap("service_code")]
         [Validation(Required=true)]
-        public string ChannelType { get; set; }
+        public string ServiceCode { get; set; }
+
+        // 服务参数
+        [NameInMap("service_params")]
+        [Validation(Required=true)]
+        public string ServiceParams { get; set; }
 
     }
 

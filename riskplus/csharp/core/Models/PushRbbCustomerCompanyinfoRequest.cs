@@ -38,6 +38,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string Content { get; set; }
 
+        // 虚拟云租户code
+        [NameInMap("virtual_cloud_tenant_code")]
+        [Validation(Required=false)]
+        public string VirtualCloudTenantCode { get; set; }
+
     }
 
 }

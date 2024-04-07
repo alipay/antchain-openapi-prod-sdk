@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.9"},
+                        {"sdk_version", "1.18.1"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.9"},
+                        {"sdk_version", "1.18.1"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4409,6 +4409,48 @@ namespace AntChain.SDK.RISKPLUS
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadRbbFileAmapResponse>(await DoRequestAsync("1.0", "riskplus.rbb.file.amap.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 信贷操作接口
+         * Summary: 信贷操作接口
+         */
+        public OperateRbbCreditResponse OperateRbbCredit(OperateRbbCreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateRbbCreditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 信贷操作接口
+         * Summary: 信贷操作接口
+         */
+        public async Task<OperateRbbCreditResponse> OperateRbbCreditAsync(OperateRbbCreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateRbbCreditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 信贷操作接口
+         * Summary: 信贷操作接口
+         */
+        public OperateRbbCreditResponse OperateRbbCreditEx(OperateRbbCreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateRbbCreditResponse>(DoRequest("1.0", "riskplus.rbb.credit.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 信贷操作接口
+         * Summary: 信贷操作接口
+         */
+        public async Task<OperateRbbCreditResponse> OperateRbbCreditExAsync(OperateRbbCreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateRbbCreditResponse>(await DoRequestAsync("1.0", "riskplus.rbb.credit.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
