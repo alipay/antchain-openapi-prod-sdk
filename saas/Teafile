@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "SAAS",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-saas:1.1.25",
-    "go": "github.com/antchain-openapi-sdk-go/saas/client:v1.1.29",
-    "csharp": "AntChain.SDK.SAAS:1.1.29",
+    "java": "com.antgroup.antchain.openapi:openapi-saas:1.1.30",
+    "go": "github.com/antchain-openapi-sdk-go/saas/client:v1.1.30",
+    "csharp": "AntChain.SDK.SAAS:1.1.30",
     "ts": "@antchain/saas:1.1.25",
-    "php": "antchain/saas:1.1.29",
-    "python": "antchain_sdk_saas:1.1.29"
+    "php": "antchain/saas:1.1.30",
+    "python": "antchain_sdk_saas:1.1.30"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
