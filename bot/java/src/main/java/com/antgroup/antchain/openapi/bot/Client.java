@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.18"),
+                    new TeaPair("sdk_version", "1.10.23"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1719,6 +1719,158 @@ public class Client {
     public SetDevicelistPropertyResponse setDevicelistPropertyEx(SetDevicelistPropertyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.devicelist.property.set", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SetDevicelistPropertyResponse());
+    }
+
+    /**
+     * Description: iotbasic-查询品类列表
+     * Summary: iotbasic-查询品类列表
+     */
+    public QueryIotbasicCategorylistResponse queryIotbasicCategorylist(QueryIotbasicCategorylistRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIotbasicCategorylistEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-查询品类列表
+     * Summary: iotbasic-查询品类列表
+     */
+    public QueryIotbasicCategorylistResponse queryIotbasicCategorylistEx(QueryIotbasicCategorylistRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.categorylist.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotbasicCategorylistResponse());
+    }
+
+    /**
+     * Description: iotbasic-查询项目空间列表
+     * Summary: iotbasic-查询项目空间列表
+     */
+    public QueryIotbasicProjectspacelistResponse queryIotbasicProjectspacelist(QueryIotbasicProjectspacelistRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIotbasicProjectspacelistEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-查询项目空间列表
+     * Summary: iotbasic-查询项目空间列表
+     */
+    public QueryIotbasicProjectspacelistResponse queryIotbasicProjectspacelistEx(QueryIotbasicProjectspacelistRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.projectspacelist.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotbasicProjectspacelistResponse());
+    }
+
+    /**
+     * Description: iotbasic-企业注册
+     * Summary: iotbasic-企业注册
+     */
+    public RegisterIotbasicCustomerResponse registerIotbasicCustomer(RegisterIotbasicCustomerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerIotbasicCustomerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-企业注册
+     * Summary: iotbasic-企业注册
+     */
+    public RegisterIotbasicCustomerResponse registerIotbasicCustomerEx(RegisterIotbasicCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.customer.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterIotbasicCustomerResponse());
+    }
+
+    /**
+     * Description: iotbasic-产品查询
+     * Summary: iotbasic-产品查询
+     */
+    public GetIotbasicProductinfoResponse getIotbasicProductinfo(GetIotbasicProductinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getIotbasicProductinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-产品查询
+     * Summary: iotbasic-产品查询
+     */
+    public GetIotbasicProductinfoResponse getIotbasicProductinfoEx(GetIotbasicProductinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.productinfo.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetIotbasicProductinfoResponse());
+    }
+
+    /**
+     * Description: iotbasic-添加设备属性
+     * Summary: iotbasic-添加设备属性
+     */
+    public AddDeviceAttributeResponse addDeviceAttribute(AddDeviceAttributeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addDeviceAttributeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-添加设备属性
+     * Summary: iotbasic-添加设备属性
+     */
+    public AddDeviceAttributeResponse addDeviceAttributeEx(AddDeviceAttributeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.attribute.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddDeviceAttributeResponse());
+    }
+
+    /**
+     * Description: iotbasic-指定设备上调用指定服务
+     * Summary: iotbasic-指定设备上调用指定服务
+     */
+    public ExecDeviceThingserviceResponse execDeviceThingservice(ExecDeviceThingserviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execDeviceThingserviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-指定设备上调用指定服务
+     * Summary: iotbasic-指定设备上调用指定服务
+     */
+    public ExecDeviceThingserviceResponse execDeviceThingserviceEx(ExecDeviceThingserviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.thingservice.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecDeviceThingserviceResponse());
+    }
+
+    /**
+     * Description: iotbasic-查看产品物模型功能定义
+     * Summary: iotbasic-查看产品物模型功能定义
+     */
+    public QueryDeviceThingmodelResponse queryDeviceThingmodel(QueryDeviceThingmodelRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDeviceThingmodelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-查看产品物模型功能定义
+     * Summary: iotbasic-查看产品物模型功能定义
+     */
+    public QueryDeviceThingmodelResponse queryDeviceThingmodelEx(QueryDeviceThingmodelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.thingmodel.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceThingmodelResponse());
+    }
+
+    /**
+     * Description: iotbasic-查询设备物模型数据
+     * Summary: iotbasic-查询设备物模型数据
+     */
+    public QueryDeviceModeldataResponse queryDeviceModeldata(QueryDeviceModeldataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDeviceModeldataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-查询设备物模型数据
+     * Summary: iotbasic-查询设备物模型数据
+     */
+    public QueryDeviceModeldataResponse queryDeviceModeldataEx(QueryDeviceModeldataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.modeldata.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceModeldataResponse());
     }
 
     /**
@@ -3809,6 +3961,25 @@ public class Client {
     public ApplyTechintegrationSkushipbyuidResponse applyTechintegrationSkushipbyuidEx(ApplyTechintegrationSkushipbyuidRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.techintegration.skushipbyuid.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyTechintegrationSkushipbyuidResponse());
+    }
+
+    /**
+     * Description: 查询压测任务所关联的实体的最新上链数据列表
+     * Summary: 查询压测任务的上链数据列表
+     */
+    public QueryOnlinepressuretestDataResponse queryOnlinepressuretestData(QueryOnlinepressuretestDataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOnlinepressuretestDataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询压测任务所关联的实体的最新上链数据列表
+     * Summary: 查询压测任务的上链数据列表
+     */
+    public QueryOnlinepressuretestDataResponse queryOnlinepressuretestDataEx(QueryOnlinepressuretestDataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.onlinepressuretest.data.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOnlinepressuretestDataResponse());
     }
 
     /**
