@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.5',
+    sdk_version = '1.0.6',
     _prod_code = 'DUANKA',
     _prod_channel = 'undefined'
   };
@@ -175,6 +175,20 @@ model QueryResult {
   buMail: string(name='bu_mail', example='XXX@antgroup.com'),
   // 人员类型
   empType: string(name='emp_type', example='全职/其他人员/外包/实习/正式'),
+}
+
+// Zhx ir 结果
+model ZhxIrResultStruct {
+  // 日合计交易金额指数
+  amtIndexV?: string(name='amt_index_v', example='13.34374889'),
+  // 日合计交易笔数指标
+  transNumIndexV?: string(name='trans_num_index_v', example='17.09792805'),
+  // 日合计交易人数指数
+  userNumIndexV?: string(name='user_num_index_v', example='user_num_index'),
+  // 时间
+  dt?: string(name='dt', example='20240321'),
+  // 城市等级
+  cityLevel?: string(name='city_level', example='4线'),
 }
 
 // 用户信息查询结果
@@ -346,12 +360,17 @@ model QueryCommonScoreRequest = {
   userId: string(name='user_id'),
   // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
   userIdType: string(name='user_id_type'),
-  // 加密类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+  // user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
   encryptType: string(name='encrypt_type'),
   // 客户编码
   customerCode: string(name='customer_code'),
   // 流水号，串联链路用，非必填
   transNo?: string(name='trans_no'),
+  // encrypt_type类型的散列后的操作，默认为空不加密。
+  // 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING 
+  // 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。
+  // 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+  userIdHashEncrypt?: string(name='user_id_hash_encrypt'),
 }
 
 model QueryCommonScoreResponse = {
@@ -368,8 +387,8 @@ model QueryCommonScoreResponse = {
 }
 
 /**
- * Description: 公共查询链路
- * Summary: 公共查询链路
+ * Description: 通用查询
+ * Summary: 通用查询
  */
 async function queryCommonScore(request: QueryCommonScoreRequest): QueryCommonScoreResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -378,11 +397,54 @@ async function queryCommonScore(request: QueryCommonScoreRequest): QueryCommonSc
 }
 
 /**
- * Description: 公共查询链路
- * Summary: 公共查询链路
+ * Description: 通用查询
+ * Summary: 通用查询
  */
 async function queryCommonScoreEx(request: QueryCommonScoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCommonScoreResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.duanka.common.score.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIrBrandRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 品牌MD5的 32位小写
+  brandmd5: string(name='brandmd5'),
+  // 开始日期，包含填写时间 ，目前与end_date最大间隔不大于7天
+  beginDate: string(name='begin_date'),
+  // 结束日期，包含填写时间， 目前与start_date最大间隔不大于7天
+  endDate: string(name='end_date'),
+  // 场景码,brand_overview 品牌汇总；brand_citylevel 品牌城市汇总
+  scene: string(name='scene'),
+}
+
+model QueryIrBrandResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果
+  dataList?: [ ZhxIrResultStruct ](name='data_list'),
+}
+
+/**
+ * Description: 品牌研究数据查询
+ * Summary: 品牌研究数据查询
+ */
+async function queryIrBrand(request: QueryIrBrandRequest): QueryIrBrandResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIrBrandEx(request, headers, runtime);
+}
+
+/**
+ * Description: 品牌研究数据查询
+ * Summary: 品牌研究数据查询
+ */
+async function queryIrBrandEx(request: QueryIrBrandRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIrBrandResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.ir.brand.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
