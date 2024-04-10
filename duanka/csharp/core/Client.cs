@@ -137,7 +137,7 @@ namespace AntChain.SDK.DUANKA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.5"},
+                        {"sdk_version", "1.0.6"},
                         {"_prod_code", "DUANKA"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DUANKA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.5"},
+                        {"sdk_version", "1.0.6"},
                         {"_prod_code", "DUANKA"},
                         {"_prod_channel", "undefined"},
                     };
@@ -448,8 +448,8 @@ namespace AntChain.SDK.DUANKA
         }
 
         /**
-         * Description: 公共查询链路
-         * Summary: 公共查询链路
+         * Description: 通用查询
+         * Summary: 通用查询
          */
         public QueryCommonScoreResponse QueryCommonScore(QueryCommonScoreRequest request)
         {
@@ -459,8 +459,8 @@ namespace AntChain.SDK.DUANKA
         }
 
         /**
-         * Description: 公共查询链路
-         * Summary: 公共查询链路
+         * Description: 通用查询
+         * Summary: 通用查询
          */
         public async Task<QueryCommonScoreResponse> QueryCommonScoreAsync(QueryCommonScoreRequest request)
         {
@@ -470,8 +470,8 @@ namespace AntChain.SDK.DUANKA
         }
 
         /**
-         * Description: 公共查询链路
-         * Summary: 公共查询链路
+         * Description: 通用查询
+         * Summary: 通用查询
          */
         public QueryCommonScoreResponse QueryCommonScoreEx(QueryCommonScoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -480,13 +480,55 @@ namespace AntChain.SDK.DUANKA
         }
 
         /**
-         * Description: 公共查询链路
-         * Summary: 公共查询链路
+         * Description: 通用查询
+         * Summary: 通用查询
          */
         public async Task<QueryCommonScoreResponse> QueryCommonScoreExAsync(QueryCommonScoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryCommonScoreResponse>(await DoRequestAsync("1.0", "antcloud.duanka.common.score.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 品牌研究数据查询
+         * Summary: 品牌研究数据查询
+         */
+        public QueryIrBrandResponse QueryIrBrand(QueryIrBrandRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIrBrandEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 品牌研究数据查询
+         * Summary: 品牌研究数据查询
+         */
+        public async Task<QueryIrBrandResponse> QueryIrBrandAsync(QueryIrBrandRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIrBrandExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 品牌研究数据查询
+         * Summary: 品牌研究数据查询
+         */
+        public QueryIrBrandResponse QueryIrBrandEx(QueryIrBrandRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIrBrandResponse>(DoRequest("1.0", "antcloud.duanka.ir.brand.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 品牌研究数据查询
+         * Summary: 品牌研究数据查询
+         */
+        public async Task<QueryIrBrandResponse> QueryIrBrandExAsync(QueryIrBrandRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIrBrandResponse>(await DoRequestAsync("1.0", "antcloud.duanka.ir.brand.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

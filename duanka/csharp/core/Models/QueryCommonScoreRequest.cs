@@ -34,7 +34,7 @@ namespace AntChain.SDK.DUANKA.Models
         [Validation(Required=true)]
         public string UserIdType { get; set; }
 
-        // 加密类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+        // user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
         [NameInMap("encrypt_type")]
         [Validation(Required=true)]
         public string EncryptType { get; set; }
@@ -48,6 +48,14 @@ namespace AntChain.SDK.DUANKA.Models
         [NameInMap("trans_no")]
         [Validation(Required=false)]
         public string TransNo { get; set; }
+
+        // encrypt_type类型的散列后的操作，默认为空不加密。
+        // 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING 
+        // 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。
+        // 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+        [NameInMap("user_id_hash_encrypt")]
+        [Validation(Required=false)]
+        public string UserIdHashEncrypt { get; set; }
 
     }
 
