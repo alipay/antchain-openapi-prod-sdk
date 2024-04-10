@@ -221,6 +221,62 @@ class QueryResult(TeaModel):
         return self
 
 
+class ZhxIrResultStruct(TeaModel):
+    def __init__(
+        self,
+        amt_index_v: str = None,
+        trans_num_index_v: str = None,
+        user_num_index_v: str = None,
+        dt: str = None,
+        city_level: str = None,
+    ):
+        # 日合计交易金额指数
+        self.amt_index_v = amt_index_v
+        # 日合计交易笔数指标
+        self.trans_num_index_v = trans_num_index_v
+        # 日合计交易人数指数
+        self.user_num_index_v = user_num_index_v
+        # 时间
+        self.dt = dt
+        # 城市等级
+        self.city_level = city_level
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amt_index_v is not None:
+            result['amt_index_v'] = self.amt_index_v
+        if self.trans_num_index_v is not None:
+            result['trans_num_index_v'] = self.trans_num_index_v
+        if self.user_num_index_v is not None:
+            result['user_num_index_v'] = self.user_num_index_v
+        if self.dt is not None:
+            result['dt'] = self.dt
+        if self.city_level is not None:
+            result['city_level'] = self.city_level
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('amt_index_v') is not None:
+            self.amt_index_v = m.get('amt_index_v')
+        if m.get('trans_num_index_v') is not None:
+            self.trans_num_index_v = m.get('trans_num_index_v')
+        if m.get('user_num_index_v') is not None:
+            self.user_num_index_v = m.get('user_num_index_v')
+        if m.get('dt') is not None:
+            self.dt = m.get('dt')
+        if m.get('city_level') is not None:
+            self.city_level = m.get('city_level')
+        return self
+
+
 class UserInfoResult(TeaModel):
     def __init__(
         self,
@@ -686,6 +742,7 @@ class QueryCommonScoreRequest(TeaModel):
         encrypt_type: str = None,
         customer_code: str = None,
         trans_no: str = None,
+        user_id_hash_encrypt: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -697,12 +754,17 @@ class QueryCommonScoreRequest(TeaModel):
         self.user_id = user_id
         # 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
         self.user_id_type = user_id_type
-        # 加密类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+        # user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
         self.encrypt_type = encrypt_type
         # 客户编码
         self.customer_code = customer_code
         # 流水号，串联链路用，非必填
         self.trans_no = trans_no
+        # encrypt_type类型的散列后的操作，默认为空不加密。
+        # 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING
+        # 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。
+        # 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+        self.user_id_hash_encrypt = user_id_hash_encrypt
 
     def validate(self):
         self.validate_required(self.auth_no, 'auth_no')
@@ -734,6 +796,8 @@ class QueryCommonScoreRequest(TeaModel):
             result['customer_code'] = self.customer_code
         if self.trans_no is not None:
             result['trans_no'] = self.trans_no
+        if self.user_id_hash_encrypt is not None:
+            result['user_id_hash_encrypt'] = self.user_id_hash_encrypt
         return result
 
     def from_map(self, m: dict = None):
@@ -754,6 +818,8 @@ class QueryCommonScoreRequest(TeaModel):
             self.customer_code = m.get('customer_code')
         if m.get('trans_no') is not None:
             self.trans_no = m.get('trans_no')
+        if m.get('user_id_hash_encrypt') is not None:
+            self.user_id_hash_encrypt = m.get('user_id_hash_encrypt')
         return self
 
 
@@ -810,6 +876,122 @@ class QueryCommonScoreResponse(TeaModel):
             self.score = m.get('score')
         if m.get('trans_no') is not None:
             self.trans_no = m.get('trans_no')
+        return self
+
+
+class QueryIrBrandRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        brandmd_5: str = None,
+        begin_date: str = None,
+        end_date: str = None,
+        scene: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 品牌MD5的 32位小写
+        self.brandmd_5 = brandmd_5
+        # 开始日期，包含填写时间 ，目前与end_date最大间隔不大于7天
+        self.begin_date = begin_date
+        # 结束日期，包含填写时间， 目前与start_date最大间隔不大于7天
+        self.end_date = end_date
+        # 场景码,brand_overview 品牌汇总；brand_citylevel 品牌城市汇总
+        self.scene = scene
+
+    def validate(self):
+        self.validate_required(self.brandmd_5, 'brandmd_5')
+        self.validate_required(self.begin_date, 'begin_date')
+        self.validate_required(self.end_date, 'end_date')
+        self.validate_required(self.scene, 'scene')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.brandmd_5 is not None:
+            result['brandmd5'] = self.brandmd_5
+        if self.begin_date is not None:
+            result['begin_date'] = self.begin_date
+        if self.end_date is not None:
+            result['end_date'] = self.end_date
+        if self.scene is not None:
+            result['scene'] = self.scene
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('brandmd5') is not None:
+            self.brandmd_5 = m.get('brandmd5')
+        if m.get('begin_date') is not None:
+            self.begin_date = m.get('begin_date')
+        if m.get('end_date') is not None:
+            self.end_date = m.get('end_date')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        return self
+
+
+class QueryIrBrandResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data_list: List[ZhxIrResultStruct] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果
+        self.data_list = data_list
+
+    def validate(self):
+        if self.data_list:
+            for k in self.data_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data_list'] = []
+        if self.data_list is not None:
+            for k in self.data_list:
+                result['data_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data_list = []
+        if m.get('data_list') is not None:
+            for k in m.get('data_list'):
+                temp_model = ZhxIrResultStruct()
+                self.data_list.append(temp_model.from_map(k))
         return self
 
 

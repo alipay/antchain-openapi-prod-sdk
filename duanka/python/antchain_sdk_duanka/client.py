@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.5',
+                    'sdk_version': '1.0.6',
                     '_prod_code': 'DUANKA',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.5',
+                    'sdk_version': '1.0.6',
                     '_prod_code': 'DUANKA',
                     '_prod_channel': 'undefined'
                 }
@@ -448,8 +448,8 @@ class Client:
         request: duanka_models.QueryCommonScoreRequest,
     ) -> duanka_models.QueryCommonScoreResponse:
         """
-        Description: 公共查询链路
-        Summary: 公共查询链路
+        Description: 通用查询
+        Summary: 通用查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -460,8 +460,8 @@ class Client:
         request: duanka_models.QueryCommonScoreRequest,
     ) -> duanka_models.QueryCommonScoreResponse:
         """
-        Description: 公共查询链路
-        Summary: 公共查询链路
+        Description: 通用查询
+        Summary: 通用查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -474,8 +474,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> duanka_models.QueryCommonScoreResponse:
         """
-        Description: 公共查询链路
-        Summary: 公共查询链路
+        Description: 通用查询
+        Summary: 通用查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -490,11 +490,67 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> duanka_models.QueryCommonScoreResponse:
         """
-        Description: 公共查询链路
-        Summary: 公共查询链路
+        Description: 通用查询
+        Summary: 通用查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             duanka_models.QueryCommonScoreResponse(),
             await self.do_request_async('1.0', 'antcloud.duanka.common.score.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ir_brand(
+        self,
+        request: duanka_models.QueryIrBrandRequest,
+    ) -> duanka_models.QueryIrBrandResponse:
+        """
+        Description: 品牌研究数据查询
+        Summary: 品牌研究数据查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ir_brand_ex(request, headers, runtime)
+
+    async def query_ir_brand_async(
+        self,
+        request: duanka_models.QueryIrBrandRequest,
+    ) -> duanka_models.QueryIrBrandResponse:
+        """
+        Description: 品牌研究数据查询
+        Summary: 品牌研究数据查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ir_brand_ex_async(request, headers, runtime)
+
+    def query_ir_brand_ex(
+        self,
+        request: duanka_models.QueryIrBrandRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.QueryIrBrandResponse:
+        """
+        Description: 品牌研究数据查询
+        Summary: 品牌研究数据查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.QueryIrBrandResponse(),
+            self.do_request('1.0', 'antcloud.duanka.ir.brand.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ir_brand_ex_async(
+        self,
+        request: duanka_models.QueryIrBrandRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.QueryIrBrandResponse:
+        """
+        Description: 品牌研究数据查询
+        Summary: 品牌研究数据查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.QueryIrBrandResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.ir.brand.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_duanka.
 
-Created on 25/03/2024
+Created on 10/04/2024
 
 @author: Ant Chain SDK
 """
