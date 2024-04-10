@@ -202,6 +202,53 @@ func (s *QueryResult) SetEmpType(v string) *QueryResult {
 	return s
 }
 
+// Zhx ir 结果
+type ZhxIrResultStruct struct {
+	// 日合计交易金额指数
+	AmtIndexV *string `json:"amt_index_v,omitempty" xml:"amt_index_v,omitempty"`
+	// 日合计交易笔数指标
+	TransNumIndexV *string `json:"trans_num_index_v,omitempty" xml:"trans_num_index_v,omitempty"`
+	// 日合计交易人数指数
+	UserNumIndexV *string `json:"user_num_index_v,omitempty" xml:"user_num_index_v,omitempty"`
+	// 时间
+	Dt *string `json:"dt,omitempty" xml:"dt,omitempty"`
+	// 城市等级
+	CityLevel *string `json:"city_level,omitempty" xml:"city_level,omitempty"`
+}
+
+func (s ZhxIrResultStruct) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ZhxIrResultStruct) GoString() string {
+	return s.String()
+}
+
+func (s *ZhxIrResultStruct) SetAmtIndexV(v string) *ZhxIrResultStruct {
+	s.AmtIndexV = &v
+	return s
+}
+
+func (s *ZhxIrResultStruct) SetTransNumIndexV(v string) *ZhxIrResultStruct {
+	s.TransNumIndexV = &v
+	return s
+}
+
+func (s *ZhxIrResultStruct) SetUserNumIndexV(v string) *ZhxIrResultStruct {
+	s.UserNumIndexV = &v
+	return s
+}
+
+func (s *ZhxIrResultStruct) SetDt(v string) *ZhxIrResultStruct {
+	s.Dt = &v
+	return s
+}
+
+func (s *ZhxIrResultStruct) SetCityLevel(v string) *ZhxIrResultStruct {
+	s.CityLevel = &v
+	return s
+}
+
 // 用户信息查询结果
 type UserInfoResult struct {
 	// hr主数据接口调用结果
@@ -558,12 +605,17 @@ type QueryCommonScoreRequest struct {
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
 	// 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
 	UserIdType *string `json:"user_id_type,omitempty" xml:"user_id_type,omitempty" require:"true"`
-	// 加密类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+	// user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
 	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
 	// 客户编码
 	CustomerCode *string `json:"customer_code,omitempty" xml:"customer_code,omitempty" require:"true"`
 	// 流水号，串联链路用，非必填
 	TransNo *string `json:"trans_no,omitempty" xml:"trans_no,omitempty"`
+	// encrypt_type类型的散列后的操作，默认为空不加密。
+	// 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING
+	// 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。
+	// 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+	UserIdHashEncrypt *string `json:"user_id_hash_encrypt,omitempty" xml:"user_id_hash_encrypt,omitempty"`
 }
 
 func (s QueryCommonScoreRequest) String() string {
@@ -614,6 +666,11 @@ func (s *QueryCommonScoreRequest) SetTransNo(v string) *QueryCommonScoreRequest 
 	return s
 }
 
+func (s *QueryCommonScoreRequest) SetUserIdHashEncrypt(v string) *QueryCommonScoreRequest {
+	s.UserIdHashEncrypt = &v
+	return s
+}
+
 type QueryCommonScoreResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -657,6 +714,91 @@ func (s *QueryCommonScoreResponse) SetScore(v string) *QueryCommonScoreResponse 
 
 func (s *QueryCommonScoreResponse) SetTransNo(v string) *QueryCommonScoreResponse {
 	s.TransNo = &v
+	return s
+}
+
+type QueryIrBrandRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 品牌MD5的 32位小写
+	Brandmd5 *string `json:"brandmd5,omitempty" xml:"brandmd5,omitempty" require:"true"`
+	// 开始日期，包含填写时间 ，目前与end_date最大间隔不大于7天
+	BeginDate *string `json:"begin_date,omitempty" xml:"begin_date,omitempty" require:"true"`
+	// 结束日期，包含填写时间， 目前与start_date最大间隔不大于7天
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty" require:"true"`
+	// 场景码,brand_overview 品牌汇总；brand_citylevel 品牌城市汇总
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+}
+
+func (s QueryIrBrandRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIrBrandRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIrBrandRequest) SetAuthToken(v string) *QueryIrBrandRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIrBrandRequest) SetBrandmd5(v string) *QueryIrBrandRequest {
+	s.Brandmd5 = &v
+	return s
+}
+
+func (s *QueryIrBrandRequest) SetBeginDate(v string) *QueryIrBrandRequest {
+	s.BeginDate = &v
+	return s
+}
+
+func (s *QueryIrBrandRequest) SetEndDate(v string) *QueryIrBrandRequest {
+	s.EndDate = &v
+	return s
+}
+
+func (s *QueryIrBrandRequest) SetScene(v string) *QueryIrBrandRequest {
+	s.Scene = &v
+	return s
+}
+
+type QueryIrBrandResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果
+	DataList []*ZhxIrResultStruct `json:"data_list,omitempty" xml:"data_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryIrBrandResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIrBrandResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIrBrandResponse) SetReqMsgId(v string) *QueryIrBrandResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIrBrandResponse) SetResultCode(v string) *QueryIrBrandResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIrBrandResponse) SetResultMsg(v string) *QueryIrBrandResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIrBrandResponse) SetDataList(v []*ZhxIrResultStruct) *QueryIrBrandResponse {
+	s.DataList = v
 	return s
 }
 
@@ -782,7 +924,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.5"),
+				"sdk_version":      tea.String("1.0.6"),
 				"_prod_code":       tea.String("DUANKA"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -943,8 +1085,8 @@ func (client *Client) QuerySkyholdResEx(request *QuerySkyholdResRequest, headers
 }
 
 /**
- * Description: 公共查询链路
- * Summary: 公共查询链路
+ * Description: 通用查询
+ * Summary: 通用查询
  */
 func (client *Client) QueryCommonScore(request *QueryCommonScoreRequest) (_result *QueryCommonScoreResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -959,8 +1101,8 @@ func (client *Client) QueryCommonScore(request *QueryCommonScoreRequest) (_resul
 }
 
 /**
- * Description: 公共查询链路
- * Summary: 公共查询链路
+ * Description: 通用查询
+ * Summary: 通用查询
  */
 func (client *Client) QueryCommonScoreEx(request *QueryCommonScoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCommonScoreResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -969,6 +1111,40 @@ func (client *Client) QueryCommonScoreEx(request *QueryCommonScoreRequest, heade
 	}
 	_result = &QueryCommonScoreResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.duanka.common.score.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 品牌研究数据查询
+ * Summary: 品牌研究数据查询
+ */
+func (client *Client) QueryIrBrand(request *QueryIrBrandRequest) (_result *QueryIrBrandResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIrBrandResponse{}
+	_body, _err := client.QueryIrBrandEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 品牌研究数据查询
+ * Summary: 品牌研究数据查询
+ */
+func (client *Client) QueryIrBrandEx(request *QueryIrBrandRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIrBrandResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIrBrandResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.duanka.ir.brand.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
