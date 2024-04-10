@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.18',
+                    'sdk_version': '1.10.23',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.18',
+                    'sdk_version': '1.10.23',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -4843,6 +4843,454 @@ class Client:
         return TeaCore.from_map(
             bot_models.SetDevicelistPropertyResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.devicelist.property.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_iotbasic_categorylist(
+        self,
+        request: bot_models.QueryIotbasicCategorylistRequest,
+    ) -> bot_models.QueryIotbasicCategorylistResponse:
+        """
+        Description: iotbasic-查询品类列表
+        Summary: iotbasic-查询品类列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_iotbasic_categorylist_ex(request, headers, runtime)
+
+    async def query_iotbasic_categorylist_async(
+        self,
+        request: bot_models.QueryIotbasicCategorylistRequest,
+    ) -> bot_models.QueryIotbasicCategorylistResponse:
+        """
+        Description: iotbasic-查询品类列表
+        Summary: iotbasic-查询品类列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_iotbasic_categorylist_ex_async(request, headers, runtime)
+
+    def query_iotbasic_categorylist_ex(
+        self,
+        request: bot_models.QueryIotbasicCategorylistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryIotbasicCategorylistResponse:
+        """
+        Description: iotbasic-查询品类列表
+        Summary: iotbasic-查询品类列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryIotbasicCategorylistResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.categorylist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_iotbasic_categorylist_ex_async(
+        self,
+        request: bot_models.QueryIotbasicCategorylistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryIotbasicCategorylistResponse:
+        """
+        Description: iotbasic-查询品类列表
+        Summary: iotbasic-查询品类列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryIotbasicCategorylistResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.categorylist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_iotbasic_projectspacelist(
+        self,
+        request: bot_models.QueryIotbasicProjectspacelistRequest,
+    ) -> bot_models.QueryIotbasicProjectspacelistResponse:
+        """
+        Description: iotbasic-查询项目空间列表
+        Summary: iotbasic-查询项目空间列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_iotbasic_projectspacelist_ex(request, headers, runtime)
+
+    async def query_iotbasic_projectspacelist_async(
+        self,
+        request: bot_models.QueryIotbasicProjectspacelistRequest,
+    ) -> bot_models.QueryIotbasicProjectspacelistResponse:
+        """
+        Description: iotbasic-查询项目空间列表
+        Summary: iotbasic-查询项目空间列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_iotbasic_projectspacelist_ex_async(request, headers, runtime)
+
+    def query_iotbasic_projectspacelist_ex(
+        self,
+        request: bot_models.QueryIotbasicProjectspacelistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryIotbasicProjectspacelistResponse:
+        """
+        Description: iotbasic-查询项目空间列表
+        Summary: iotbasic-查询项目空间列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryIotbasicProjectspacelistResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.projectspacelist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_iotbasic_projectspacelist_ex_async(
+        self,
+        request: bot_models.QueryIotbasicProjectspacelistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryIotbasicProjectspacelistResponse:
+        """
+        Description: iotbasic-查询项目空间列表
+        Summary: iotbasic-查询项目空间列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryIotbasicProjectspacelistResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.projectspacelist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_iotbasic_customer(
+        self,
+        request: bot_models.RegisterIotbasicCustomerRequest,
+    ) -> bot_models.RegisterIotbasicCustomerResponse:
+        """
+        Description: iotbasic-企业注册
+        Summary: iotbasic-企业注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_iotbasic_customer_ex(request, headers, runtime)
+
+    async def register_iotbasic_customer_async(
+        self,
+        request: bot_models.RegisterIotbasicCustomerRequest,
+    ) -> bot_models.RegisterIotbasicCustomerResponse:
+        """
+        Description: iotbasic-企业注册
+        Summary: iotbasic-企业注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_iotbasic_customer_ex_async(request, headers, runtime)
+
+    def register_iotbasic_customer_ex(
+        self,
+        request: bot_models.RegisterIotbasicCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.RegisterIotbasicCustomerResponse:
+        """
+        Description: iotbasic-企业注册
+        Summary: iotbasic-企业注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.RegisterIotbasicCustomerResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.customer.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_iotbasic_customer_ex_async(
+        self,
+        request: bot_models.RegisterIotbasicCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.RegisterIotbasicCustomerResponse:
+        """
+        Description: iotbasic-企业注册
+        Summary: iotbasic-企业注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.RegisterIotbasicCustomerResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.customer.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_iotbasic_productinfo(
+        self,
+        request: bot_models.GetIotbasicProductinfoRequest,
+    ) -> bot_models.GetIotbasicProductinfoResponse:
+        """
+        Description: iotbasic-产品查询
+        Summary: iotbasic-产品查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_iotbasic_productinfo_ex(request, headers, runtime)
+
+    async def get_iotbasic_productinfo_async(
+        self,
+        request: bot_models.GetIotbasicProductinfoRequest,
+    ) -> bot_models.GetIotbasicProductinfoResponse:
+        """
+        Description: iotbasic-产品查询
+        Summary: iotbasic-产品查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_iotbasic_productinfo_ex_async(request, headers, runtime)
+
+    def get_iotbasic_productinfo_ex(
+        self,
+        request: bot_models.GetIotbasicProductinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.GetIotbasicProductinfoResponse:
+        """
+        Description: iotbasic-产品查询
+        Summary: iotbasic-产品查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.GetIotbasicProductinfoResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.productinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_iotbasic_productinfo_ex_async(
+        self,
+        request: bot_models.GetIotbasicProductinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.GetIotbasicProductinfoResponse:
+        """
+        Description: iotbasic-产品查询
+        Summary: iotbasic-产品查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.GetIotbasicProductinfoResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.productinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_device_attribute(
+        self,
+        request: bot_models.AddDeviceAttributeRequest,
+    ) -> bot_models.AddDeviceAttributeResponse:
+        """
+        Description: iotbasic-添加设备属性
+        Summary: iotbasic-添加设备属性
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_device_attribute_ex(request, headers, runtime)
+
+    async def add_device_attribute_async(
+        self,
+        request: bot_models.AddDeviceAttributeRequest,
+    ) -> bot_models.AddDeviceAttributeResponse:
+        """
+        Description: iotbasic-添加设备属性
+        Summary: iotbasic-添加设备属性
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_device_attribute_ex_async(request, headers, runtime)
+
+    def add_device_attribute_ex(
+        self,
+        request: bot_models.AddDeviceAttributeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddDeviceAttributeResponse:
+        """
+        Description: iotbasic-添加设备属性
+        Summary: iotbasic-添加设备属性
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.AddDeviceAttributeResponse(),
+            self.do_request('1.0', 'blockchain.bot.device.attribute.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_device_attribute_ex_async(
+        self,
+        request: bot_models.AddDeviceAttributeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddDeviceAttributeResponse:
+        """
+        Description: iotbasic-添加设备属性
+        Summary: iotbasic-添加设备属性
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.AddDeviceAttributeResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.device.attribute.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_device_thingservice(
+        self,
+        request: bot_models.ExecDeviceThingserviceRequest,
+    ) -> bot_models.ExecDeviceThingserviceResponse:
+        """
+        Description: iotbasic-指定设备上调用指定服务
+        Summary: iotbasic-指定设备上调用指定服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_device_thingservice_ex(request, headers, runtime)
+
+    async def exec_device_thingservice_async(
+        self,
+        request: bot_models.ExecDeviceThingserviceRequest,
+    ) -> bot_models.ExecDeviceThingserviceResponse:
+        """
+        Description: iotbasic-指定设备上调用指定服务
+        Summary: iotbasic-指定设备上调用指定服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_device_thingservice_ex_async(request, headers, runtime)
+
+    def exec_device_thingservice_ex(
+        self,
+        request: bot_models.ExecDeviceThingserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecDeviceThingserviceResponse:
+        """
+        Description: iotbasic-指定设备上调用指定服务
+        Summary: iotbasic-指定设备上调用指定服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecDeviceThingserviceResponse(),
+            self.do_request('1.0', 'blockchain.bot.device.thingservice.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_device_thingservice_ex_async(
+        self,
+        request: bot_models.ExecDeviceThingserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecDeviceThingserviceResponse:
+        """
+        Description: iotbasic-指定设备上调用指定服务
+        Summary: iotbasic-指定设备上调用指定服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecDeviceThingserviceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.device.thingservice.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_device_thingmodel(
+        self,
+        request: bot_models.QueryDeviceThingmodelRequest,
+    ) -> bot_models.QueryDeviceThingmodelResponse:
+        """
+        Description: iotbasic-查看产品物模型功能定义
+        Summary: iotbasic-查看产品物模型功能定义
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_device_thingmodel_ex(request, headers, runtime)
+
+    async def query_device_thingmodel_async(
+        self,
+        request: bot_models.QueryDeviceThingmodelRequest,
+    ) -> bot_models.QueryDeviceThingmodelResponse:
+        """
+        Description: iotbasic-查看产品物模型功能定义
+        Summary: iotbasic-查看产品物模型功能定义
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_device_thingmodel_ex_async(request, headers, runtime)
+
+    def query_device_thingmodel_ex(
+        self,
+        request: bot_models.QueryDeviceThingmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDeviceThingmodelResponse:
+        """
+        Description: iotbasic-查看产品物模型功能定义
+        Summary: iotbasic-查看产品物模型功能定义
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDeviceThingmodelResponse(),
+            self.do_request('1.0', 'blockchain.bot.device.thingmodel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_device_thingmodel_ex_async(
+        self,
+        request: bot_models.QueryDeviceThingmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDeviceThingmodelResponse:
+        """
+        Description: iotbasic-查看产品物模型功能定义
+        Summary: iotbasic-查看产品物模型功能定义
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDeviceThingmodelResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.device.thingmodel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_device_modeldata(
+        self,
+        request: bot_models.QueryDeviceModeldataRequest,
+    ) -> bot_models.QueryDeviceModeldataResponse:
+        """
+        Description: iotbasic-查询设备物模型数据
+        Summary: iotbasic-查询设备物模型数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_device_modeldata_ex(request, headers, runtime)
+
+    async def query_device_modeldata_async(
+        self,
+        request: bot_models.QueryDeviceModeldataRequest,
+    ) -> bot_models.QueryDeviceModeldataResponse:
+        """
+        Description: iotbasic-查询设备物模型数据
+        Summary: iotbasic-查询设备物模型数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_device_modeldata_ex_async(request, headers, runtime)
+
+    def query_device_modeldata_ex(
+        self,
+        request: bot_models.QueryDeviceModeldataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDeviceModeldataResponse:
+        """
+        Description: iotbasic-查询设备物模型数据
+        Summary: iotbasic-查询设备物模型数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDeviceModeldataResponse(),
+            self.do_request('1.0', 'blockchain.bot.device.modeldata.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_device_modeldata_ex_async(
+        self,
+        request: bot_models.QueryDeviceModeldataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDeviceModeldataResponse:
+        """
+        Description: iotbasic-查询设备物模型数据
+        Summary: iotbasic-查询设备物模型数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDeviceModeldataResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.device.modeldata.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
@@ -11003,6 +11451,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.ApplyTechintegrationSkushipbyuidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.techintegration.skushipbyuid.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_onlinepressuretest_data(
+        self,
+        request: bot_models.QueryOnlinepressuretestDataRequest,
+    ) -> bot_models.QueryOnlinepressuretestDataResponse:
+        """
+        Description: 查询压测任务所关联的实体的最新上链数据列表
+        Summary: 查询压测任务的上链数据列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_onlinepressuretest_data_ex(request, headers, runtime)
+
+    async def query_onlinepressuretest_data_async(
+        self,
+        request: bot_models.QueryOnlinepressuretestDataRequest,
+    ) -> bot_models.QueryOnlinepressuretestDataResponse:
+        """
+        Description: 查询压测任务所关联的实体的最新上链数据列表
+        Summary: 查询压测任务的上链数据列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_onlinepressuretest_data_ex_async(request, headers, runtime)
+
+    def query_onlinepressuretest_data_ex(
+        self,
+        request: bot_models.QueryOnlinepressuretestDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryOnlinepressuretestDataResponse:
+        """
+        Description: 查询压测任务所关联的实体的最新上链数据列表
+        Summary: 查询压测任务的上链数据列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryOnlinepressuretestDataResponse(),
+            self.do_request('1.0', 'blockchain.bot.onlinepressuretest.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_onlinepressuretest_data_ex_async(
+        self,
+        request: bot_models.QueryOnlinepressuretestDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryOnlinepressuretestDataResponse:
+        """
+        Description: 查询压测任务所关联的实体的最新上链数据列表
+        Summary: 查询压测任务的上链数据列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryOnlinepressuretestDataResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.onlinepressuretest.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
