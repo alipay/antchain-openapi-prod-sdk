@@ -17,6 +17,8 @@ use AntChain\DUANKA\Models\QueryDuankaEvaluationRequest;
 use AntChain\DUANKA\Models\QueryDuankaEvaluationResponse;
 use AntChain\DUANKA\Models\QueryHrUserRequest;
 use AntChain\DUANKA\Models\QueryHrUserResponse;
+use AntChain\DUANKA\Models\QueryIrBrandRequest;
+use AntChain\DUANKA\Models\QueryIrBrandResponse;
 use AntChain\DUANKA\Models\QuerySkyholdResRequest;
 use AntChain\DUANKA\Models\QuerySkyholdResResponse;
 use AntChain\Util\UtilClient;
@@ -166,7 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.5',
+                    'sdk_version'      => '1.0.6',
                     '_prod_code'       => 'DUANKA',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -314,8 +316,8 @@ class Client
     }
 
     /**
-     * Description: 公共查询链路
-     * Summary: 公共查询链路.
+     * Description: 通用查询
+     * Summary: 通用查询.
      *
      * @param QueryCommonScoreRequest $request
      *
@@ -330,8 +332,8 @@ class Client
     }
 
     /**
-     * Description: 公共查询链路
-     * Summary: 公共查询链路.
+     * Description: 通用查询
+     * Summary: 通用查询.
      *
      * @param QueryCommonScoreRequest $request
      * @param string[]                $headers
@@ -344,5 +346,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryCommonScoreResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.common.score.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 品牌研究数据查询
+     * Summary: 品牌研究数据查询.
+     *
+     * @param QueryIrBrandRequest $request
+     *
+     * @return QueryIrBrandResponse
+     */
+    public function queryIrBrand($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIrBrandEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 品牌研究数据查询
+     * Summary: 品牌研究数据查询.
+     *
+     * @param QueryIrBrandRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryIrBrandResponse
+     */
+    public function queryIrBrandEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIrBrandResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.ir.brand.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

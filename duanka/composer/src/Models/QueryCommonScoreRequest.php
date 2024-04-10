@@ -38,7 +38,7 @@ class QueryCommonScoreRequest extends Model
      */
     public $userIdType;
 
-    // 加密类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+    // user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
     /**
      * @var string
      */
@@ -55,15 +55,25 @@ class QueryCommonScoreRequest extends Model
      * @var string
      */
     public $transNo;
+
+    // encrypt_type类型的散列后的操作，默认为空不加密。
+    // 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING
+    // 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。
+    // 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+    /**
+     * @var string
+     */
+    public $userIdHashEncrypt;
     protected $_name = [
-        'authToken'    => 'auth_token',
-        'authNo'       => 'auth_no',
-        'modelId'      => 'model_id',
-        'userId'       => 'user_id',
-        'userIdType'   => 'user_id_type',
-        'encryptType'  => 'encrypt_type',
-        'customerCode' => 'customer_code',
-        'transNo'      => 'trans_no',
+        'authToken'         => 'auth_token',
+        'authNo'            => 'auth_no',
+        'modelId'           => 'model_id',
+        'userId'            => 'user_id',
+        'userIdType'        => 'user_id_type',
+        'encryptType'       => 'encrypt_type',
+        'customerCode'      => 'customer_code',
+        'transNo'           => 'trans_no',
+        'userIdHashEncrypt' => 'user_id_hash_encrypt',
     ];
 
     public function validate()
@@ -103,6 +113,9 @@ class QueryCommonScoreRequest extends Model
         if (null !== $this->transNo) {
             $res['trans_no'] = $this->transNo;
         }
+        if (null !== $this->userIdHashEncrypt) {
+            $res['user_id_hash_encrypt'] = $this->userIdHashEncrypt;
+        }
 
         return $res;
     }
@@ -138,6 +151,9 @@ class QueryCommonScoreRequest extends Model
         }
         if (isset($map['trans_no'])) {
             $model->transNo = $map['trans_no'];
+        }
+        if (isset($map['user_id_hash_encrypt'])) {
+            $model->userIdHashEncrypt = $map['user_id_hash_encrypt'];
         }
 
         return $model;
