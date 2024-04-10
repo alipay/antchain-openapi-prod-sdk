@@ -17,6 +17,8 @@ use AntChain\BOT\Models\AddAlertStrategyRequest;
 use AntChain\BOT\Models\AddAlertStrategyResponse;
 use AntChain\BOT\Models\AddCertificateRequest;
 use AntChain\BOT\Models\AddCertificateResponse;
+use AntChain\BOT\Models\AddDeviceAttributeRequest;
+use AntChain\BOT\Models\AddDeviceAttributeResponse;
 use AntChain\BOT\Models\AddGoodsSkuRequest;
 use AntChain\BOT\Models\AddGoodsSkuResponse;
 use AntChain\BOT\Models\AddLabelAssetRequest;
@@ -113,6 +115,8 @@ use AntChain\BOT\Models\DetailThingmodelDeviceRequest;
 use AntChain\BOT\Models\DetailThingmodelDeviceResponse;
 use AntChain\BOT\Models\DetailXrXrticketpoolRequest;
 use AntChain\BOT\Models\DetailXrXrticketpoolResponse;
+use AntChain\BOT\Models\ExecDeviceThingserviceRequest;
+use AntChain\BOT\Models\ExecDeviceThingserviceResponse;
 use AntChain\BOT\Models\ExecThingsdidOneapiRequest;
 use AntChain\BOT\Models\ExecThingsdidOneapiResponse;
 use AntChain\BOT\Models\ExecUnprocessedTaskRequest;
@@ -135,6 +139,8 @@ use AntChain\BOT\Models\GetDistributedeviceBydisidRequest;
 use AntChain\BOT\Models\GetDistributedeviceBydisidResponse;
 use AntChain\BOT\Models\GetDistributedeviceByperipheralidRequest;
 use AntChain\BOT\Models\GetDistributedeviceByperipheralidResponse;
+use AntChain\BOT\Models\GetIotbasicProductinfoRequest;
+use AntChain\BOT\Models\GetIotbasicProductinfoResponse;
 use AntChain\BOT\Models\GetPeripheralBychainperipheralidRequest;
 use AntChain\BOT\Models\GetPeripheralBychainperipheralidResponse;
 use AntChain\BOT\Models\GetPeripheralByperipheralidRequest;
@@ -277,6 +283,8 @@ use AntChain\BOT\Models\QueryCustomerentityServiceRequest;
 use AntChain\BOT\Models\QueryCustomerentityServiceResponse;
 use AntChain\BOT\Models\QueryDataBytxhashRequest;
 use AntChain\BOT\Models\QueryDataBytxhashResponse;
+use AntChain\BOT\Models\QueryDeviceModeldataRequest;
+use AntChain\BOT\Models\QueryDeviceModeldataResponse;
 use AntChain\BOT\Models\QueryDeviceRegisterresultRequest;
 use AntChain\BOT\Models\QueryDeviceRegisterresultResponse;
 use AntChain\BOT\Models\QueryDeviceRegistrationRequest;
@@ -285,16 +293,22 @@ use AntChain\BOT\Models\QueryDeviceSpecsRequest;
 use AntChain\BOT\Models\QueryDeviceSpecsResponse;
 use AntChain\BOT\Models\QueryDeviceStatusRequest;
 use AntChain\BOT\Models\QueryDeviceStatusResponse;
+use AntChain\BOT\Models\QueryDeviceThingmodelRequest;
+use AntChain\BOT\Models\QueryDeviceThingmodelResponse;
 use AntChain\BOT\Models\QueryDockedDataRequest;
 use AntChain\BOT\Models\QueryDockedDataResponse;
 use AntChain\BOT\Models\QueryEntityrelationJtdevicebycarRequest;
 use AntChain\BOT\Models\QueryEntityrelationJtdevicebycarResponse;
+use AntChain\BOT\Models\QueryIotbasicCategorylistRequest;
+use AntChain\BOT\Models\QueryIotbasicCategorylistResponse;
 use AntChain\BOT\Models\QueryIotbasicDevicecollectRequest;
 use AntChain\BOT\Models\QueryIotbasicDevicecollectResponse;
 use AntChain\BOT\Models\QueryIotbasicDeviceorderRequest;
 use AntChain\BOT\Models\QueryIotbasicDeviceorderResponse;
 use AntChain\BOT\Models\QueryIotbasicDeviceRequest;
 use AntChain\BOT\Models\QueryIotbasicDeviceResponse;
+use AntChain\BOT\Models\QueryIotbasicProjectspacelistRequest;
+use AntChain\BOT\Models\QueryIotbasicProjectspacelistResponse;
 use AntChain\BOT\Models\QueryIotbasicSnRequest;
 use AntChain\BOT\Models\QueryIotbasicSnResponse;
 use AntChain\BOT\Models\QueryIotplatformPurchaseorderRequest;
@@ -305,6 +319,8 @@ use AntChain\BOT\Models\QueryLeaseRealpersonRequest;
 use AntChain\BOT\Models\QueryLeaseRealpersonResponse;
 use AntChain\BOT\Models\QueryLeaseRiskRequest;
 use AntChain\BOT\Models\QueryLeaseRiskResponse;
+use AntChain\BOT\Models\QueryOnlinepressuretestDataRequest;
+use AntChain\BOT\Models\QueryOnlinepressuretestDataResponse;
 use AntChain\BOT\Models\QueryOnlinepressuretestRequest;
 use AntChain\BOT\Models\QueryOnlinepressuretestResponse;
 use AntChain\BOT\Models\QueryScfleaseEqpinfoRequest;
@@ -333,6 +349,8 @@ use AntChain\BOT\Models\RegisterAiidentificationGoodsdigitalfingerprintRequest;
 use AntChain\BOT\Models\RegisterAiidentificationGoodsdigitalfingerprintResponse;
 use AntChain\BOT\Models\RegisterIotbasicCorpjoinRequest;
 use AntChain\BOT\Models\RegisterIotbasicCorpjoinResponse;
+use AntChain\BOT\Models\RegisterIotbasicCustomerRequest;
+use AntChain\BOT\Models\RegisterIotbasicCustomerResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidRequest;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidRequest;
@@ -574,7 +592,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.18',
+                    'sdk_version'      => '1.10.23',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3311,6 +3329,270 @@ class Client
         Utils::validateModel($request);
 
         return SetDevicelistPropertyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.devicelist.property.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-查询品类列表
+     * Summary: iotbasic-查询品类列表.
+     *
+     * @param QueryIotbasicCategorylistRequest $request
+     *
+     * @return QueryIotbasicCategorylistResponse
+     */
+    public function queryIotbasicCategorylist($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIotbasicCategorylistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-查询品类列表
+     * Summary: iotbasic-查询品类列表.
+     *
+     * @param QueryIotbasicCategorylistRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryIotbasicCategorylistResponse
+     */
+    public function queryIotbasicCategorylistEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIotbasicCategorylistResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.categorylist.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-查询项目空间列表
+     * Summary: iotbasic-查询项目空间列表.
+     *
+     * @param QueryIotbasicProjectspacelistRequest $request
+     *
+     * @return QueryIotbasicProjectspacelistResponse
+     */
+    public function queryIotbasicProjectspacelist($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIotbasicProjectspacelistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-查询项目空间列表
+     * Summary: iotbasic-查询项目空间列表.
+     *
+     * @param QueryIotbasicProjectspacelistRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryIotbasicProjectspacelistResponse
+     */
+    public function queryIotbasicProjectspacelistEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIotbasicProjectspacelistResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.projectspacelist.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-企业注册
+     * Summary: iotbasic-企业注册.
+     *
+     * @param RegisterIotbasicCustomerRequest $request
+     *
+     * @return RegisterIotbasicCustomerResponse
+     */
+    public function registerIotbasicCustomer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerIotbasicCustomerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-企业注册
+     * Summary: iotbasic-企业注册.
+     *
+     * @param RegisterIotbasicCustomerRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return RegisterIotbasicCustomerResponse
+     */
+    public function registerIotbasicCustomerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterIotbasicCustomerResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.customer.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-产品查询
+     * Summary: iotbasic-产品查询.
+     *
+     * @param GetIotbasicProductinfoRequest $request
+     *
+     * @return GetIotbasicProductinfoResponse
+     */
+    public function getIotbasicProductinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getIotbasicProductinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-产品查询
+     * Summary: iotbasic-产品查询.
+     *
+     * @param GetIotbasicProductinfoRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return GetIotbasicProductinfoResponse
+     */
+    public function getIotbasicProductinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetIotbasicProductinfoResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.productinfo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-添加设备属性
+     * Summary: iotbasic-添加设备属性.
+     *
+     * @param AddDeviceAttributeRequest $request
+     *
+     * @return AddDeviceAttributeResponse
+     */
+    public function addDeviceAttribute($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addDeviceAttributeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-添加设备属性
+     * Summary: iotbasic-添加设备属性.
+     *
+     * @param AddDeviceAttributeRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return AddDeviceAttributeResponse
+     */
+    public function addDeviceAttributeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddDeviceAttributeResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.attribute.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-指定设备上调用指定服务
+     * Summary: iotbasic-指定设备上调用指定服务
+     *
+     * @param ExecDeviceThingserviceRequest $request
+     *
+     * @return ExecDeviceThingserviceResponse
+     */
+    public function execDeviceThingservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execDeviceThingserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-指定设备上调用指定服务
+     * Summary: iotbasic-指定设备上调用指定服务
+     *
+     * @param ExecDeviceThingserviceRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ExecDeviceThingserviceResponse
+     */
+    public function execDeviceThingserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecDeviceThingserviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.thingservice.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-查看产品物模型功能定义
+     * Summary: iotbasic-查看产品物模型功能定义.
+     *
+     * @param QueryDeviceThingmodelRequest $request
+     *
+     * @return QueryDeviceThingmodelResponse
+     */
+    public function queryDeviceThingmodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeviceThingmodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-查看产品物模型功能定义
+     * Summary: iotbasic-查看产品物模型功能定义.
+     *
+     * @param QueryDeviceThingmodelRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryDeviceThingmodelResponse
+     */
+    public function queryDeviceThingmodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeviceThingmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.thingmodel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-查询设备物模型数据
+     * Summary: iotbasic-查询设备物模型数据.
+     *
+     * @param QueryDeviceModeldataRequest $request
+     *
+     * @return QueryDeviceModeldataResponse
+     */
+    public function queryDeviceModeldata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeviceModeldataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-查询设备物模型数据
+     * Summary: iotbasic-查询设备物模型数据.
+     *
+     * @param QueryDeviceModeldataRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryDeviceModeldataResponse
+     */
+    public function queryDeviceModeldataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeviceModeldataResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.modeldata.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -6941,6 +7223,39 @@ class Client
         Utils::validateModel($request);
 
         return ApplyTechintegrationSkushipbyuidResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.techintegration.skushipbyuid.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询压测任务所关联的实体的最新上链数据列表
+     * Summary: 查询压测任务的上链数据列表.
+     *
+     * @param QueryOnlinepressuretestDataRequest $request
+     *
+     * @return QueryOnlinepressuretestDataResponse
+     */
+    public function queryOnlinepressuretestData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOnlinepressuretestDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询压测任务所关联的实体的最新上链数据列表
+     * Summary: 查询压测任务的上链数据列表.
+     *
+     * @param QueryOnlinepressuretestDataRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryOnlinepressuretestDataResponse
+     */
+    public function queryOnlinepressuretestDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOnlinepressuretestDataResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.onlinepressuretest.data.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
