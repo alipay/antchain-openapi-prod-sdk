@@ -150,6 +150,21 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=false)]
         public string InfluenceScore { get; set; }
 
+        // 提级地域列表
+        [NameInMap("doc_areas")]
+        [Validation(Required=false)]
+        public List<string> DocAreas { get; set; }
+
+        // 媒体名称
+        [NameInMap("media_name")]
+        [Validation(Required=false)]
+        public string MediaName { get; set; }
+
+        // 扩展信息
+        [NameInMap("ext_info")]
+        [Validation(Required=false)]
+        public YuqingMessageExtInfo ExtInfo { get; set; }
+
     }
 
 }
