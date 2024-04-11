@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.0.2',
     _prod_code = 'ak_245215eadadd4dc9bba177d6ba6d593d',
     _prod_channel = 'saas'
   };
@@ -197,7 +197,7 @@ model Paster {
   //  贴片元素 url,支持 gif png jpg等图片格式
   srcUrl: string(name='src_url', example='https://aaa.gif'),
   // 贴片元素缩放比例
-  scale: long(name='scale', example='1.0'),
+  scale: string(name='scale', example='1.0'),
 }
 
 // 脚本语音配置
@@ -207,7 +207,7 @@ model ScriptVoiceConfig {
   // 话术脚本内容，合成驱动选择text时必填
   text?: string(name='text', example='今天你好吗'),
   // 0.5～2，语速，合成驱动选择text时必填
-  speed?: long(name='speed', example='0.8'),
+  speed?: string(name='speed', example='0.8'),
   // 音频URL，合成驱动选择audio时必填
   audioUrl?: string(name='audio_url', example='https://xxxxx.23.wav'),
 }
@@ -254,6 +254,22 @@ model AvatarProfileResult {
   itemList: [ AvatarProfile ](name='item_list', example=''),
 }
 
+// 数字人形象设置
+model ProfileInfo {
+  // 数字人离画面位置坐标,可以为负数或者出画
+  //  数字人在视频生成中的位置
+  x: long(name='x', example='0'),
+  // 数字人离画面位置坐标,可以为负数或者出画
+  //  数字人在视频生成中的位置
+  y: long(name='y', example='0'),
+  // 数字人视频大小,初始大小为训练素材整体大小非数字人在框选大小
+  w: long(name='w', example='100'),
+  // 数字人视频大小,初始大小为训练素材整体大小非数字人在框选大小
+  h: long(name='h', example='100'),
+  // 数字人视频大小缩放,实际大小为  scale*w   scale*h 
+  scale?: string(name='scale', example='1.2'),
+}
+
 // 合成任务
 model VideoTask {
   // RUNNING, COMPLETE,FAIL
@@ -268,7 +284,7 @@ model Background {
   // 背景元素，支持 gif png jpg mp4等格式
   srcUrl: string(name='src_url', example='https://asdsadas.png'),
   // 背景缩放比例
-  scale: long(name='scale', example='1.0'),
+  scale: string(name='scale', example='1.0'),
   // 背景图片x坐标位置，距左侧
   x: long(name='x', example='0'),
   // 背景图片y坐标位置，距上侧
@@ -370,6 +386,8 @@ model CreateUniversalsaasDigitalhumanVideoTaskRequest = {
   avatarId: string(name='avatar_id'),
   // text/audio, 合成驱动--文本/音频
   driverType: string(name='driver_type'),
+  // 形象设置
+  profileInfo?: ProfileInfo(name='profile_info'),
   // 话术脚本语音配置
   scriptVoiceConfig: ScriptVoiceConfig(name='script_voice_config'),
   // 是否开启字幕
