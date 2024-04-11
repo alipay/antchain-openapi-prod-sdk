@@ -245,7 +245,7 @@ type Paster struct {
 	//  贴片元素 url,支持 gif png jpg等图片格式
 	SrcUrl *string `json:"src_url,omitempty" xml:"src_url,omitempty" require:"true"`
 	// 贴片元素缩放比例
-	Scale *int64 `json:"scale,omitempty" xml:"scale,omitempty" require:"true"`
+	Scale *string `json:"scale,omitempty" xml:"scale,omitempty" require:"true"`
 }
 
 func (s Paster) String() string {
@@ -271,7 +271,7 @@ func (s *Paster) SetSrcUrl(v string) *Paster {
 	return s
 }
 
-func (s *Paster) SetScale(v int64) *Paster {
+func (s *Paster) SetScale(v string) *Paster {
 	s.Scale = &v
 	return s
 }
@@ -283,7 +283,7 @@ type ScriptVoiceConfig struct {
 	// 话术脚本内容，合成驱动选择text时必填
 	Text *string `json:"text,omitempty" xml:"text,omitempty"`
 	// 0.5～2，语速，合成驱动选择text时必填
-	Speed *int64 `json:"speed,omitempty" xml:"speed,omitempty"`
+	Speed *string `json:"speed,omitempty" xml:"speed,omitempty"`
 	// 音频URL，合成驱动选择audio时必填
 	AudioUrl *string `json:"audio_url,omitempty" xml:"audio_url,omitempty"`
 }
@@ -306,7 +306,7 @@ func (s *ScriptVoiceConfig) SetText(v string) *ScriptVoiceConfig {
 	return s
 }
 
-func (s *ScriptVoiceConfig) SetSpeed(v int64) *ScriptVoiceConfig {
+func (s *ScriptVoiceConfig) SetSpeed(v string) *ScriptVoiceConfig {
 	s.Speed = &v
 	return s
 }
@@ -452,6 +452,55 @@ func (s *AvatarProfileResult) SetItemList(v []*AvatarProfile) *AvatarProfileResu
 	return s
 }
 
+// 数字人形象设置
+type ProfileInfo struct {
+	// 数字人离画面位置坐标,可以为负数或者出画
+	//  数字人在视频生成中的位置
+	X *int64 `json:"x,omitempty" xml:"x,omitempty" require:"true"`
+	// 数字人离画面位置坐标,可以为负数或者出画
+	//  数字人在视频生成中的位置
+	Y *int64 `json:"y,omitempty" xml:"y,omitempty" require:"true"`
+	// 数字人视频大小,初始大小为训练素材整体大小非数字人在框选大小
+	W *int64 `json:"w,omitempty" xml:"w,omitempty" require:"true"`
+	// 数字人视频大小,初始大小为训练素材整体大小非数字人在框选大小
+	H *int64 `json:"h,omitempty" xml:"h,omitempty" require:"true"`
+	// 数字人视频大小缩放,实际大小为  scale*w   scale*h
+	Scale *string `json:"scale,omitempty" xml:"scale,omitempty"`
+}
+
+func (s ProfileInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProfileInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ProfileInfo) SetX(v int64) *ProfileInfo {
+	s.X = &v
+	return s
+}
+
+func (s *ProfileInfo) SetY(v int64) *ProfileInfo {
+	s.Y = &v
+	return s
+}
+
+func (s *ProfileInfo) SetW(v int64) *ProfileInfo {
+	s.W = &v
+	return s
+}
+
+func (s *ProfileInfo) SetH(v int64) *ProfileInfo {
+	s.H = &v
+	return s
+}
+
+func (s *ProfileInfo) SetScale(v string) *ProfileInfo {
+	s.Scale = &v
+	return s
+}
+
 // 合成任务
 type VideoTask struct {
 	// RUNNING, COMPLETE,FAIL
@@ -484,7 +533,7 @@ type Background struct {
 	// 背景元素，支持 gif png jpg mp4等格式
 	SrcUrl *string `json:"src_url,omitempty" xml:"src_url,omitempty" require:"true"`
 	// 背景缩放比例
-	Scale *int64 `json:"scale,omitempty" xml:"scale,omitempty" require:"true"`
+	Scale *string `json:"scale,omitempty" xml:"scale,omitempty" require:"true"`
 	// 背景图片x坐标位置，距左侧
 	X *int64 `json:"x,omitempty" xml:"x,omitempty" require:"true"`
 	// 背景图片y坐标位置，距上侧
@@ -504,7 +553,7 @@ func (s *Background) SetSrcUrl(v string) *Background {
 	return s
 }
 
-func (s *Background) SetScale(v int64) *Background {
+func (s *Background) SetScale(v string) *Background {
 	s.Scale = &v
 	return s
 }
@@ -693,6 +742,8 @@ type CreateUniversalsaasDigitalhumanVideoTaskRequest struct {
 	AvatarId *string `json:"avatar_id,omitempty" xml:"avatar_id,omitempty" require:"true"`
 	// text/audio, 合成驱动--文本/音频
 	DriverType *string `json:"driver_type,omitempty" xml:"driver_type,omitempty" require:"true"`
+	// 形象设置
+	ProfileInfo *ProfileInfo `json:"profile_info,omitempty" xml:"profile_info,omitempty"`
 	// 话术脚本语音配置
 	ScriptVoiceConfig *ScriptVoiceConfig `json:"script_voice_config,omitempty" xml:"script_voice_config,omitempty" require:"true"`
 	// 是否开启字幕
@@ -732,6 +783,11 @@ func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetAvatarId(v string) 
 
 func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetDriverType(v string) *CreateUniversalsaasDigitalhumanVideoTaskRequest {
 	s.DriverType = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetProfileInfo(v *ProfileInfo) *CreateUniversalsaasDigitalhumanVideoTaskRequest {
+	s.ProfileInfo = v
 	return s
 }
 
@@ -1010,7 +1066,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.2"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
