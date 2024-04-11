@@ -231,6 +231,30 @@ class YuqingMessage extends Model
      * @var string
      */
     public $influenceScore;
+
+    // 提级地域列表
+    /**
+     * @example
+     *
+     * @var string[]
+     */
+    public $docAreas;
+
+    // 媒体名称
+    /**
+     * @example 微博
+     *
+     * @var string
+     */
+    public $mediaName;
+
+    // 扩展信息
+    /**
+     * @example
+     *
+     * @var YuqingMessageExtInfo
+     */
+    public $extInfo;
     protected $_name = [
         'authorAvatarUrl'      => 'author_avatar_url',
         'authorFollowersCount' => 'author_followers_count',
@@ -260,6 +284,9 @@ class YuqingMessage extends Model
         'propagationScore'     => 'propagation_score',
         'emotionScore'         => 'emotion_score',
         'influenceScore'       => 'influence_score',
+        'docAreas'             => 'doc_areas',
+        'mediaName'            => 'media_name',
+        'extInfo'              => 'ext_info',
     ];
 
     public function validate()
@@ -352,6 +379,15 @@ class YuqingMessage extends Model
         }
         if (null !== $this->influenceScore) {
             $res['influence_score'] = $this->influenceScore;
+        }
+        if (null !== $this->docAreas) {
+            $res['doc_areas'] = $this->docAreas;
+        }
+        if (null !== $this->mediaName) {
+            $res['media_name'] = $this->mediaName;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = null !== $this->extInfo ? $this->extInfo->toMap() : null;
         }
 
         return $res;
@@ -450,6 +486,17 @@ class YuqingMessage extends Model
         }
         if (isset($map['influence_score'])) {
             $model->influenceScore = $map['influence_score'];
+        }
+        if (isset($map['doc_areas'])) {
+            if (!empty($map['doc_areas'])) {
+                $model->docAreas = $map['doc_areas'];
+            }
+        }
+        if (isset($map['media_name'])) {
+            $model->mediaName = $map['media_name'];
+        }
+        if (isset($map['ext_info'])) {
+            $model->extInfo = YuqingMessageExtInfo::fromMap($map['ext_info']);
         }
 
         return $model;
