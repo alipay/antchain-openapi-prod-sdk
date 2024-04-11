@@ -214,6 +214,46 @@ func (s *Btn) SetActionUrl(v string) *Btn {
 	return s
 }
 
+// 與情信息扩展字段
+type YuqingMessageExtInfo struct {
+	// 媒体地域
+	MediaAreaCountry *string `json:"media_area_country,omitempty" xml:"media_area_country,omitempty"`
+	// 媒体地域省份
+	MediaAreaProvince *string `json:"media_area_province,omitempty" xml:"media_area_province,omitempty"`
+	// 媒体地域-市
+	MediaResCity *string `json:"media_res_city,omitempty" xml:"media_res_city,omitempty"`
+	// 内容风险
+	GeneralModel *string `json:"general_model,omitempty" xml:"general_model,omitempty"`
+}
+
+func (s YuqingMessageExtInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s YuqingMessageExtInfo) GoString() string {
+	return s.String()
+}
+
+func (s *YuqingMessageExtInfo) SetMediaAreaCountry(v string) *YuqingMessageExtInfo {
+	s.MediaAreaCountry = &v
+	return s
+}
+
+func (s *YuqingMessageExtInfo) SetMediaAreaProvince(v string) *YuqingMessageExtInfo {
+	s.MediaAreaProvince = &v
+	return s
+}
+
+func (s *YuqingMessageExtInfo) SetMediaResCity(v string) *YuqingMessageExtInfo {
+	s.MediaResCity = &v
+	return s
+}
+
+func (s *YuqingMessageExtInfo) SetGeneralModel(v string) *YuqingMessageExtInfo {
+	s.GeneralModel = &v
+	return s
+}
+
 // 消息填充内容
 type Pair struct {
 	// key
@@ -635,6 +675,12 @@ type YuqingMessage struct {
 	EmotionScore *string `json:"emotion_score,omitempty" xml:"emotion_score,omitempty"`
 	// 影响力得分
 	InfluenceScore *string `json:"influence_score,omitempty" xml:"influence_score,omitempty"`
+	// 提级地域列表
+	DocAreas []*string `json:"doc_areas,omitempty" xml:"doc_areas,omitempty" type:"Repeated"`
+	// 媒体名称
+	MediaName *string `json:"media_name,omitempty" xml:"media_name,omitempty"`
+	// 扩展信息
+	ExtInfo *YuqingMessageExtInfo `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s YuqingMessage) String() string {
@@ -782,6 +828,21 @@ func (s *YuqingMessage) SetEmotionScore(v string) *YuqingMessage {
 
 func (s *YuqingMessage) SetInfluenceScore(v string) *YuqingMessage {
 	s.InfluenceScore = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocAreas(v []*string) *YuqingMessage {
+	s.DocAreas = v
+	return s
+}
+
+func (s *YuqingMessage) SetMediaName(v string) *YuqingMessage {
+	s.MediaName = &v
+	return s
+}
+
+func (s *YuqingMessage) SetExtInfo(v *YuqingMessageExtInfo) *YuqingMessage {
+	s.ExtInfo = v
 	return s
 }
 
@@ -3961,7 +4022,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.13"),
+				"sdk_version":      tea.String("1.2.14"),
 				"_prod_code":       tea.String("YUQING"),
 				"_prod_channel":    tea.String("undefined"),
 			}
