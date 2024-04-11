@@ -271,7 +271,7 @@ class Paster(TeaModel):
         x: int = None,
         y: int = None,
         src_url: str = None,
-        scale: int = None,
+        scale: str = None,
     ):
         # 贴片元素离画面位置x坐标
         self.x = x
@@ -322,7 +322,7 @@ class ScriptVoiceConfig(TeaModel):
         self,
         voice_id: str = None,
         text: str = None,
-        speed: int = None,
+        speed: str = None,
         audio_url: str = None,
     ):
         # 音色id，合成驱动选择text时必填
@@ -556,6 +556,67 @@ class AvatarProfileResult(TeaModel):
         return self
 
 
+class ProfileInfo(TeaModel):
+    def __init__(
+        self,
+        x: int = None,
+        y: int = None,
+        w: int = None,
+        h: int = None,
+        scale: str = None,
+    ):
+        # 数字人离画面位置坐标,可以为负数或者出画
+        # 数字人在视频生成中的位置
+        self.x = x
+        # 数字人离画面位置坐标,可以为负数或者出画
+        # 数字人在视频生成中的位置
+        self.y = y
+        # 数字人视频大小,初始大小为训练素材整体大小非数字人在框选大小
+        self.w = w
+        # 数字人视频大小,初始大小为训练素材整体大小非数字人在框选大小
+        self.h = h
+        # 数字人视频大小缩放,实际大小为  scale*w   scale*h
+        self.scale = scale
+
+    def validate(self):
+        self.validate_required(self.x, 'x')
+        self.validate_required(self.y, 'y')
+        self.validate_required(self.w, 'w')
+        self.validate_required(self.h, 'h')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.x is not None:
+            result['x'] = self.x
+        if self.y is not None:
+            result['y'] = self.y
+        if self.w is not None:
+            result['w'] = self.w
+        if self.h is not None:
+            result['h'] = self.h
+        if self.scale is not None:
+            result['scale'] = self.scale
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('x') is not None:
+            self.x = m.get('x')
+        if m.get('y') is not None:
+            self.y = m.get('y')
+        if m.get('w') is not None:
+            self.w = m.get('w')
+        if m.get('h') is not None:
+            self.h = m.get('h')
+        if m.get('scale') is not None:
+            self.scale = m.get('scale')
+        return self
+
+
 class VideoTask(TeaModel):
     def __init__(
         self,
@@ -595,7 +656,7 @@ class Background(TeaModel):
     def __init__(
         self,
         src_url: str = None,
-        scale: int = None,
+        scale: str = None,
         x: int = None,
         y: int = None,
     ):
@@ -866,6 +927,7 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         product_instance_id: str = None,
         avatar_id: str = None,
         driver_type: str = None,
+        profile_info: ProfileInfo = None,
         script_voice_config: ScriptVoiceConfig = None,
         open_captions: bool = None,
         captions_info: CaptionsInfo = None,
@@ -880,6 +942,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         self.avatar_id = avatar_id
         # text/audio, 合成驱动--文本/音频
         self.driver_type = driver_type
+        # 形象设置
+        self.profile_info = profile_info
         # 话术脚本语音配置
         self.script_voice_config = script_voice_config
         # 是否开启字幕
@@ -896,6 +960,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
     def validate(self):
         self.validate_required(self.avatar_id, 'avatar_id')
         self.validate_required(self.driver_type, 'driver_type')
+        if self.profile_info:
+            self.profile_info.validate()
         self.validate_required(self.script_voice_config, 'script_voice_config')
         if self.script_voice_config:
             self.script_voice_config.validate()
@@ -923,6 +989,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
             result['avatar_id'] = self.avatar_id
         if self.driver_type is not None:
             result['driver_type'] = self.driver_type
+        if self.profile_info is not None:
+            result['profile_info'] = self.profile_info.to_map()
         if self.script_voice_config is not None:
             result['script_voice_config'] = self.script_voice_config.to_map()
         if self.open_captions is not None:
@@ -949,6 +1017,9 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
             self.avatar_id = m.get('avatar_id')
         if m.get('driver_type') is not None:
             self.driver_type = m.get('driver_type')
+        if m.get('profile_info') is not None:
+            temp_model = ProfileInfo()
+            self.profile_info = temp_model.from_map(m['profile_info'])
         if m.get('script_voice_config') is not None:
             temp_model = ScriptVoiceConfig()
             self.script_voice_config = temp_model.from_map(m['script_voice_config'])
