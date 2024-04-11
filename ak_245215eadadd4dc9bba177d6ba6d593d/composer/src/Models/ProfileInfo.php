@@ -6,52 +6,63 @@ namespace AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class Paster extends Model
+class ProfileInfo extends Model
 {
-    // 贴片元素离画面位置x坐标
+    // 数字人离画面位置坐标,可以为负数或者出画
+    // 数字人在视频生成中的位置
     /**
-     * @example 30
+     * @example 0
      *
      * @var int
      */
     public $x;
 
-    // 贴片元素离画面位置y坐标
+    // 数字人离画面位置坐标,可以为负数或者出画
+    // 数字人在视频生成中的位置
     /**
-     * @example 200
+     * @example 0
      *
      * @var int
      */
     public $y;
 
-    // 贴片元素 url,支持 gif png jpg等图片格式
+    // 数字人视频大小,初始大小为训练素材整体大小非数字人在框选大小
     /**
-     * @example https://aaa.gif
+     * @example 100
      *
-     * @var string
+     * @var int
      */
-    public $srcUrl;
+    public $w;
 
-    // 贴片元素缩放比例
+    // 数字人视频大小,初始大小为训练素材整体大小非数字人在框选大小
     /**
-     * @example 1.0
+     * @example 100
+     *
+     * @var int
+     */
+    public $h;
+
+    // 数字人视频大小缩放,实际大小为  scale*w   scale*h
+    /**
+     * @example 1.2
      *
      * @var string
      */
     public $scale;
     protected $_name = [
-        'x'      => 'x',
-        'y'      => 'y',
-        'srcUrl' => 'src_url',
-        'scale'  => 'scale',
+        'x'     => 'x',
+        'y'     => 'y',
+        'w'     => 'w',
+        'h'     => 'h',
+        'scale' => 'scale',
     ];
 
     public function validate()
     {
         Model::validateRequired('x', $this->x, true);
         Model::validateRequired('y', $this->y, true);
-        Model::validateRequired('srcUrl', $this->srcUrl, true);
-        Model::validateRequired('scale', $this->scale, true);
+        Model::validateRequired('w', $this->w, true);
+        Model::validateRequired('h', $this->h, true);
     }
 
     public function toMap()
@@ -63,8 +74,11 @@ class Paster extends Model
         if (null !== $this->y) {
             $res['y'] = $this->y;
         }
-        if (null !== $this->srcUrl) {
-            $res['src_url'] = $this->srcUrl;
+        if (null !== $this->w) {
+            $res['w'] = $this->w;
+        }
+        if (null !== $this->h) {
+            $res['h'] = $this->h;
         }
         if (null !== $this->scale) {
             $res['scale'] = $this->scale;
@@ -76,7 +90,7 @@ class Paster extends Model
     /**
      * @param array $map
      *
-     * @return Paster
+     * @return ProfileInfo
      */
     public static function fromMap($map = [])
     {
@@ -87,8 +101,11 @@ class Paster extends Model
         if (isset($map['y'])) {
             $model->y = $map['y'];
         }
-        if (isset($map['src_url'])) {
-            $model->srcUrl = $map['src_url'];
+        if (isset($map['w'])) {
+            $model->w = $map['w'];
+        }
+        if (isset($map['h'])) {
+            $model->h = $map['h'];
         }
         if (isset($map['scale'])) {
             $model->scale = $map['scale'];

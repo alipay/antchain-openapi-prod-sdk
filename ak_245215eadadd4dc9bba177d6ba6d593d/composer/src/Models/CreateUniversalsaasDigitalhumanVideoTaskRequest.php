@@ -31,6 +31,12 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
      */
     public $driverType;
 
+    // 形象设置
+    /**
+     * @var ProfileInfo
+     */
+    public $profileInfo;
+
     // 话术脚本语音配置
     /**
      * @var ScriptVoiceConfig
@@ -71,6 +77,7 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'avatarId'          => 'avatar_id',
         'driverType'        => 'driver_type',
+        'profileInfo'       => 'profile_info',
         'scriptVoiceConfig' => 'script_voice_config',
         'openCaptions'      => 'open_captions',
         'captionsInfo'      => 'captions_info',
@@ -101,6 +108,9 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         }
         if (null !== $this->driverType) {
             $res['driver_type'] = $this->driverType;
+        }
+        if (null !== $this->profileInfo) {
+            $res['profile_info'] = null !== $this->profileInfo ? $this->profileInfo->toMap() : null;
         }
         if (null !== $this->scriptVoiceConfig) {
             $res['script_voice_config'] = null !== $this->scriptVoiceConfig ? $this->scriptVoiceConfig->toMap() : null;
@@ -149,6 +159,9 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         }
         if (isset($map['driver_type'])) {
             $model->driverType = $map['driver_type'];
+        }
+        if (isset($map['profile_info'])) {
+            $model->profileInfo = ProfileInfo::fromMap($map['profile_info']);
         }
         if (isset($map['script_voice_config'])) {
             $model->scriptVoiceConfig = ScriptVoiceConfig::fromMap($map['script_voice_config']);

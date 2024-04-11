@@ -20,7 +20,7 @@ class Background extends Model
     /**
      * @example 1.0
      *
-     * @var int
+     * @var string
      */
     public $scale;
 

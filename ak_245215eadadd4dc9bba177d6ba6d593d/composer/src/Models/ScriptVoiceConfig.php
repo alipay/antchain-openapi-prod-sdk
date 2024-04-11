@@ -28,7 +28,7 @@ class ScriptVoiceConfig extends Model
     /**
      * @example 0.8
      *
-     * @var int
+     * @var string
      */
     public $speed;
 
