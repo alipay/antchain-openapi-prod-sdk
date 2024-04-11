@@ -238,6 +238,55 @@ class Btn(TeaModel):
         return self
 
 
+class YuqingMessageExtInfo(TeaModel):
+    def __init__(
+        self,
+        media_area_country: str = None,
+        media_area_province: str = None,
+        media_res_city: str = None,
+        general_model: str = None,
+    ):
+        # 媒体地域
+        self.media_area_country = media_area_country
+        # 媒体地域省份
+        self.media_area_province = media_area_province
+        # 媒体地域-市
+        self.media_res_city = media_res_city
+        # 内容风险
+        self.general_model = general_model
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.media_area_country is not None:
+            result['media_area_country'] = self.media_area_country
+        if self.media_area_province is not None:
+            result['media_area_province'] = self.media_area_province
+        if self.media_res_city is not None:
+            result['media_res_city'] = self.media_res_city
+        if self.general_model is not None:
+            result['general_model'] = self.general_model
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('media_area_country') is not None:
+            self.media_area_country = m.get('media_area_country')
+        if m.get('media_area_province') is not None:
+            self.media_area_province = m.get('media_area_province')
+        if m.get('media_res_city') is not None:
+            self.media_res_city = m.get('media_res_city')
+        if m.get('general_model') is not None:
+            self.general_model = m.get('general_model')
+        return self
+
+
 class Pair(TeaModel):
     def __init__(
         self,
@@ -705,6 +754,9 @@ class YuqingMessage(TeaModel):
         propagation_score: str = None,
         emotion_score: str = None,
         influence_score: str = None,
+        doc_areas: List[str] = None,
+        media_name: str = None,
+        ext_info: YuqingMessageExtInfo = None,
     ):
         # 作者头像地址
         self.author_avatar_url = author_avatar_url
@@ -762,9 +814,16 @@ class YuqingMessage(TeaModel):
         self.emotion_score = emotion_score
         # 影响力得分
         self.influence_score = influence_score
+        # 提级地域列表
+        self.doc_areas = doc_areas
+        # 媒体名称
+        self.media_name = media_name
+        # 扩展信息
+        self.ext_info = ext_info
 
     def validate(self):
-        pass
+        if self.ext_info:
+            self.ext_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -828,6 +887,12 @@ class YuqingMessage(TeaModel):
             result['emotion_score'] = self.emotion_score
         if self.influence_score is not None:
             result['influence_score'] = self.influence_score
+        if self.doc_areas is not None:
+            result['doc_areas'] = self.doc_areas
+        if self.media_name is not None:
+            result['media_name'] = self.media_name
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -888,6 +953,13 @@ class YuqingMessage(TeaModel):
             self.emotion_score = m.get('emotion_score')
         if m.get('influence_score') is not None:
             self.influence_score = m.get('influence_score')
+        if m.get('doc_areas') is not None:
+            self.doc_areas = m.get('doc_areas')
+        if m.get('media_name') is not None:
+            self.media_name = m.get('media_name')
+        if m.get('ext_info') is not None:
+            temp_model = YuqingMessageExtInfo()
+            self.ext_info = temp_model.from_map(m['ext_info'])
         return self
 
 
