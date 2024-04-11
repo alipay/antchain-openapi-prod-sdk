@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.13',
+    sdk_version = '1.2.14',
     _prod_code = 'YUQING',
     _prod_channel = 'undefined'
   };
@@ -179,6 +179,18 @@ model Btn {
   title?: string(name='title', example='标题'),
   // 动作地址
   actionUrl?: string(name='action_url', example='动作地址'),
+}
+
+// 與情信息扩展字段
+model YuqingMessageExtInfo {
+  // 媒体地域
+  mediaAreaCountry?: string(name='media_area_country', example='媒体地域-国家'),
+  // 媒体地域省份
+  mediaAreaProvince?: string(name='media_area_province', example='北京'),
+  // 媒体地域-市
+  mediaResCity?: string(name='media_res_city', example='北京'),
+  // 内容风险
+  generalModel?: string(name='general_model', example='内容风险'),
 }
 
 // 消息填充内容
@@ -345,6 +357,12 @@ model YuqingMessage {
   emotionScore?: string(name='emotion_score', example='10.1'),
   // 影响力得分
   influenceScore?: string(name='influence_score', example='10.2'),
+  // 提级地域列表
+  docAreas?: [ string ](name='doc_areas', example=''),
+  // 媒体名称
+  mediaName?: string(name='media_name', example='微博'),
+  // 扩展信息
+  extInfo?: YuqingMessageExtInfo(name='ext_info', example=''),
 }
 
 // 钉钉动作卡片
