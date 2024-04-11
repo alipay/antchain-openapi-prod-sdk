@@ -14,7 +14,7 @@ public class ScriptVoiceConfig extends TeaModel {
 
     // 0.5～2，语速，合成驱动选择text时必填
     @NameInMap("speed")
-    public Long speed;
+    public String speed;
 
     // 音频URL，合成驱动选择audio时必填
     @NameInMap("audio_url")
@@ -41,11 +41,11 @@ public class ScriptVoiceConfig extends TeaModel {
         return this.text;
     }
 
-    public ScriptVoiceConfig setSpeed(Long speed) {
+    public ScriptVoiceConfig setSpeed(String speed) {
         this.speed = speed;
         return this;
     }
-    public Long getSpeed() {
+    public String getSpeed() {
         return this.speed;
     }
 

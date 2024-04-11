@@ -21,6 +21,10 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
     @Validation(required = true)
     public String driverType;
 
+    // 形象设置
+    @NameInMap("profile_info")
+    public ProfileInfo profileInfo;
+
     // 话术脚本语音配置
     @NameInMap("script_voice_config")
     @Validation(required = true)
@@ -82,6 +86,14 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
     }
     public String getDriverType() {
         return this.driverType;
+    }
+
+    public CreateUniversalsaasDigitalhumanVideoTaskRequest setProfileInfo(ProfileInfo profileInfo) {
+        this.profileInfo = profileInfo;
+        return this;
+    }
+    public ProfileInfo getProfileInfo() {
+        return this.profileInfo;
     }
 
     public CreateUniversalsaasDigitalhumanVideoTaskRequest setScriptVoiceConfig(ScriptVoiceConfig scriptVoiceConfig) {

@@ -12,7 +12,7 @@ public class Background extends TeaModel {
     // 背景缩放比例
     @NameInMap("scale")
     @Validation(required = true)
-    public Long scale;
+    public String scale;
 
     // 背景图片x坐标位置，距左侧
     @NameInMap("x")
@@ -37,11 +37,11 @@ public class Background extends TeaModel {
         return this.srcUrl;
     }
 
-    public Background setScale(Long scale) {
+    public Background setScale(String scale) {
         this.scale = scale;
         return this;
     }
-    public Long getScale() {
+    public String getScale() {
         return this.scale;
     }
 

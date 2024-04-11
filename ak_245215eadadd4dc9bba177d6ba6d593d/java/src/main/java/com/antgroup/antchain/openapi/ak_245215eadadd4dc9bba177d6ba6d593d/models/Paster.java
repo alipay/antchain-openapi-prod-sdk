@@ -22,7 +22,7 @@ public class Paster extends TeaModel {
     // 贴片元素缩放比例
     @NameInMap("scale")
     @Validation(required = true)
-    public Long scale;
+    public String scale;
 
     public static Paster build(java.util.Map<String, ?> map) throws Exception {
         Paster self = new Paster();
@@ -53,11 +53,11 @@ public class Paster extends TeaModel {
         return this.srcUrl;
     }
 
-    public Paster setScale(Long scale) {
+    public Paster setScale(String scale) {
         this.scale = scale;
         return this;
     }
-    public Long getScale() {
+    public String getScale() {
         return this.scale;
     }
 
