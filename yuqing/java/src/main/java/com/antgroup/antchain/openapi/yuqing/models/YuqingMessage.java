@@ -116,6 +116,18 @@ public class YuqingMessage extends TeaModel {
     @NameInMap("influence_score")
     public String influenceScore;
 
+    // 提级地域列表
+    @NameInMap("doc_areas")
+    public java.util.List<String> docAreas;
+
+    // 媒体名称
+    @NameInMap("media_name")
+    public String mediaName;
+
+    // 扩展信息
+    @NameInMap("ext_info")
+    public YuqingMessageExtInfo extInfo;
+
     public static YuqingMessage build(java.util.Map<String, ?> map) throws Exception {
         YuqingMessage self = new YuqingMessage();
         return TeaModel.build(map, self);
@@ -343,6 +355,30 @@ public class YuqingMessage extends TeaModel {
     }
     public String getInfluenceScore() {
         return this.influenceScore;
+    }
+
+    public YuqingMessage setDocAreas(java.util.List<String> docAreas) {
+        this.docAreas = docAreas;
+        return this;
+    }
+    public java.util.List<String> getDocAreas() {
+        return this.docAreas;
+    }
+
+    public YuqingMessage setMediaName(String mediaName) {
+        this.mediaName = mediaName;
+        return this;
+    }
+    public String getMediaName() {
+        return this.mediaName;
+    }
+
+    public YuqingMessage setExtInfo(YuqingMessageExtInfo extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public YuqingMessageExtInfo getExtInfo() {
+        return this.extInfo;
     }
 
 }
