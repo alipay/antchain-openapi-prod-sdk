@@ -28,7 +28,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         // 贴片元素缩放比例
         [NameInMap("scale")]
         [Validation(Required=true)]
-        public long? Scale { get; set; }
+        public string Scale { get; set; }
 
     }
 

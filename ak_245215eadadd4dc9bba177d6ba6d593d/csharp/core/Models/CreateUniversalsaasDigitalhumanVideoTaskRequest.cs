@@ -28,6 +28,11 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         [Validation(Required=true)]
         public string DriverType { get; set; }
 
+        // 形象设置
+        [NameInMap("profile_info")]
+        [Validation(Required=false)]
+        public ProfileInfo ProfileInfo { get; set; }
+
         // 话术脚本语音配置
         [NameInMap("script_voice_config")]
         [Validation(Required=true)]

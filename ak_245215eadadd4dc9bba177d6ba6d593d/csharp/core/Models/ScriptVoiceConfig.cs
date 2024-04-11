@@ -23,7 +23,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         // 0.5～2，语速，合成驱动选择text时必填
         [NameInMap("speed")]
         [Validation(Required=false)]
-        public long? Speed { get; set; }
+        public string Speed { get; set; }
 
         // 音频URL，合成驱动选择audio时必填
         [NameInMap("audio_url")]

@@ -19,7 +19,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         // 背景缩放比例
         [NameInMap("scale")]
         [Validation(Required=true)]
-        public long? Scale { get; set; }
+        public string Scale { get; set; }
 
         // 背景图片x坐标位置，距左侧
         [NameInMap("x")]
