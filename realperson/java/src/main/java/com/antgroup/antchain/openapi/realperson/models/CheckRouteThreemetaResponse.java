@@ -20,6 +20,12 @@ public class CheckRouteThreemetaResponse extends TeaModel {
     @NameInMap("match")
     public String match;
 
+    // CHINA_TELECOM：中国电信
+    // CHINA_MOBILE：中国移动
+    // CHINA_UNICOM：中国联通
+    @NameInMap("carrier")
+    public String carrier;
+
     // 扩展信息，预留字段
     @NameInMap("extern_info")
     public String externInfo;
@@ -59,6 +65,14 @@ public class CheckRouteThreemetaResponse extends TeaModel {
     }
     public String getMatch() {
         return this.match;
+    }
+
+    public CheckRouteThreemetaResponse setCarrier(String carrier) {
+        this.carrier = carrier;
+        return this;
+    }
+    public String getCarrier() {
+        return this.carrier;
     }
 
     public CheckRouteThreemetaResponse setExternInfo(String externInfo) {
