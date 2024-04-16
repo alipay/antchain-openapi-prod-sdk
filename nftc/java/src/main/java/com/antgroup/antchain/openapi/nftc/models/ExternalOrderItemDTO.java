@@ -9,6 +9,11 @@ public class ExternalOrderItemDTO extends TeaModel {
     @Validation(required = true)
     public Long skuId;
 
+    // 购买后对应发放的藏品nftId，仅当orderStatus为FINISH时返回
+    @NameInMap("nft_id")
+    @Validation(required = true)
+    public String nftId;
+
     public static ExternalOrderItemDTO build(java.util.Map<String, ?> map) throws Exception {
         ExternalOrderItemDTO self = new ExternalOrderItemDTO();
         return TeaModel.build(map, self);
@@ -20,6 +25,14 @@ public class ExternalOrderItemDTO extends TeaModel {
     }
     public Long getSkuId() {
         return this.skuId;
+    }
+
+    public ExternalOrderItemDTO setNftId(String nftId) {
+        this.nftId = nftId;
+        return this;
+    }
+    public String getNftId() {
+        return this.nftId;
     }
 
 }
