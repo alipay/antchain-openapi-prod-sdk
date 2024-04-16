@@ -32,6 +32,14 @@ class CheckRouteThreemetaResponse extends Model
      */
     public $match;
 
+    // CHINA_TELECOM：中国电信
+    // CHINA_MOBILE：中国移动
+    // CHINA_UNICOM：中国联通
+    /**
+     * @var string
+     */
+    public $carrier;
+
     // 扩展信息，预留字段
     /**
      * @var string
@@ -42,6 +50,7 @@ class CheckRouteThreemetaResponse extends Model
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'match'      => 'match',
+        'carrier'    => 'carrier',
         'externInfo' => 'extern_info',
     ];
 
@@ -63,6 +72,9 @@ class CheckRouteThreemetaResponse extends Model
         }
         if (null !== $this->match) {
             $res['match'] = $this->match;
+        }
+        if (null !== $this->carrier) {
+            $res['carrier'] = $this->carrier;
         }
         if (null !== $this->externInfo) {
             $res['extern_info'] = $this->externInfo;
@@ -90,6 +102,9 @@ class CheckRouteThreemetaResponse extends Model
         }
         if (isset($map['match'])) {
             $model->match = $map['match'];
+        }
+        if (isset($map['carrier'])) {
+            $model->carrier = $map['carrier'];
         }
         if (isset($map['extern_info'])) {
             $model->externInfo = $map['extern_info'];
