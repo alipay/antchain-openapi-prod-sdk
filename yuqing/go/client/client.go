@@ -681,6 +681,20 @@ type YuqingMessage struct {
 	MediaName *string `json:"media_name,omitempty" xml:"media_name,omitempty"`
 	// 扩展信息
 	ExtInfo *YuqingMessageExtInfo `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 文章转载自
+	DocReprintName *string `json:"doc_reprint_name,omitempty" xml:"doc_reprint_name,omitempty"`
+	// 视频列表地址
+	ContentVideoUrls *string `json:"content_video_urls,omitempty" xml:"content_video_urls,omitempty"`
+	// 图片列表地址
+	ContentImageUrls *string `json:"content_image_urls,omitempty" xml:"content_image_urls,omitempty"`
+	// 图片识别出来的文本
+	ContentImageText *string `json:"content_image_text,omitempty" xml:"content_image_text,omitempty"`
+	// 音频列表地址
+	ContentAudioUrls *string `json:"content_audio_urls,omitempty" xml:"content_audio_urls,omitempty"`
+	// 音频识别出来的文本
+	ContentAudioText *string `json:"content_audio_text,omitempty" xml:"content_audio_text,omitempty"`
+	// 视频识别出来的文本
+	ContentVideoText *string `json:"content_video_text,omitempty" xml:"content_video_text,omitempty"`
 }
 
 func (s YuqingMessage) String() string {
@@ -843,6 +857,41 @@ func (s *YuqingMessage) SetMediaName(v string) *YuqingMessage {
 
 func (s *YuqingMessage) SetExtInfo(v *YuqingMessageExtInfo) *YuqingMessage {
 	s.ExtInfo = v
+	return s
+}
+
+func (s *YuqingMessage) SetDocReprintName(v string) *YuqingMessage {
+	s.DocReprintName = &v
+	return s
+}
+
+func (s *YuqingMessage) SetContentVideoUrls(v string) *YuqingMessage {
+	s.ContentVideoUrls = &v
+	return s
+}
+
+func (s *YuqingMessage) SetContentImageUrls(v string) *YuqingMessage {
+	s.ContentImageUrls = &v
+	return s
+}
+
+func (s *YuqingMessage) SetContentImageText(v string) *YuqingMessage {
+	s.ContentImageText = &v
+	return s
+}
+
+func (s *YuqingMessage) SetContentAudioUrls(v string) *YuqingMessage {
+	s.ContentAudioUrls = &v
+	return s
+}
+
+func (s *YuqingMessage) SetContentAudioText(v string) *YuqingMessage {
+	s.ContentAudioText = &v
+	return s
+}
+
+func (s *YuqingMessage) SetContentVideoText(v string) *YuqingMessage {
+	s.ContentVideoText = &v
 	return s
 }
 
@@ -4022,7 +4071,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.14"),
+				"sdk_version":      tea.String("1.2.15"),
 				"_prod_code":       tea.String("YUQING"),
 				"_prod_channel":    tea.String("undefined"),
 			}
