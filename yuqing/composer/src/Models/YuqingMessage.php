@@ -255,6 +255,62 @@ class YuqingMessage extends Model
      * @var YuqingMessageExtInfo
      */
     public $extInfo;
+
+    // 文章转载自
+    /**
+     * @example 文章转载自
+     *
+     * @var string
+     */
+    public $docReprintName;
+
+    // 视频列表地址
+    /**
+     * @example 视频列表地址
+     *
+     * @var string
+     */
+    public $contentVideoUrls;
+
+    // 图片列表地址
+    /**
+     * @example 图片列表地址
+     *
+     * @var string
+     */
+    public $contentImageUrls;
+
+    // 图片识别出来的文本
+    /**
+     * @example 图片识别出来的文本
+     *
+     * @var string
+     */
+    public $contentImageText;
+
+    // 音频列表地址
+    /**
+     * @example 音频列表地址
+     *
+     * @var string
+     */
+    public $contentAudioUrls;
+
+    // 音频识别出来的文本
+    /**
+     * @example 音频识别出来的文本
+     *
+     * @var string
+     */
+    public $contentAudioText;
+
+    // 视频识别出来的文本
+    /**
+     * @example 视频识别出来的文本
+     *
+     * @var string
+     */
+    public $contentVideoText;
     protected $_name = [
         'authorAvatarUrl'      => 'author_avatar_url',
         'authorFollowersCount' => 'author_followers_count',
@@ -287,6 +343,13 @@ class YuqingMessage extends Model
         'docAreas'             => 'doc_areas',
         'mediaName'            => 'media_name',
         'extInfo'              => 'ext_info',
+        'docReprintName'       => 'doc_reprint_name',
+        'contentVideoUrls'     => 'content_video_urls',
+        'contentImageUrls'     => 'content_image_urls',
+        'contentImageText'     => 'content_image_text',
+        'contentAudioUrls'     => 'content_audio_urls',
+        'contentAudioText'     => 'content_audio_text',
+        'contentVideoText'     => 'content_video_text',
     ];
 
     public function validate()
@@ -388,6 +451,27 @@ class YuqingMessage extends Model
         }
         if (null !== $this->extInfo) {
             $res['ext_info'] = null !== $this->extInfo ? $this->extInfo->toMap() : null;
+        }
+        if (null !== $this->docReprintName) {
+            $res['doc_reprint_name'] = $this->docReprintName;
+        }
+        if (null !== $this->contentVideoUrls) {
+            $res['content_video_urls'] = $this->contentVideoUrls;
+        }
+        if (null !== $this->contentImageUrls) {
+            $res['content_image_urls'] = $this->contentImageUrls;
+        }
+        if (null !== $this->contentImageText) {
+            $res['content_image_text'] = $this->contentImageText;
+        }
+        if (null !== $this->contentAudioUrls) {
+            $res['content_audio_urls'] = $this->contentAudioUrls;
+        }
+        if (null !== $this->contentAudioText) {
+            $res['content_audio_text'] = $this->contentAudioText;
+        }
+        if (null !== $this->contentVideoText) {
+            $res['content_video_text'] = $this->contentVideoText;
         }
 
         return $res;
@@ -497,6 +581,27 @@ class YuqingMessage extends Model
         }
         if (isset($map['ext_info'])) {
             $model->extInfo = YuqingMessageExtInfo::fromMap($map['ext_info']);
+        }
+        if (isset($map['doc_reprint_name'])) {
+            $model->docReprintName = $map['doc_reprint_name'];
+        }
+        if (isset($map['content_video_urls'])) {
+            $model->contentVideoUrls = $map['content_video_urls'];
+        }
+        if (isset($map['content_image_urls'])) {
+            $model->contentImageUrls = $map['content_image_urls'];
+        }
+        if (isset($map['content_image_text'])) {
+            $model->contentImageText = $map['content_image_text'];
+        }
+        if (isset($map['content_audio_urls'])) {
+            $model->contentAudioUrls = $map['content_audio_urls'];
+        }
+        if (isset($map['content_audio_text'])) {
+            $model->contentAudioText = $map['content_audio_text'];
+        }
+        if (isset($map['content_video_text'])) {
+            $model->contentVideoText = $map['content_video_text'];
         }
 
         return $model;
