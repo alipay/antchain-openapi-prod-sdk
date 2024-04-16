@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.16',
+    sdk_version = '1.0.20',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -190,6 +190,8 @@ model AvatarMaterialDTO {
 model ExternalOrderItemDTO {
   // 购买的sku id
   skuId: long(name='sku_id', example='12345'),
+  // 购买后对应发放的藏品nftId，仅当orderStatus为FINISH时返回
+  nftId: string(name='nft_id', example='AC152**#/123***'),
 }
 
 // 通用资源差量包信息
@@ -1043,11 +1045,15 @@ model BindResourceGeneralresourcefileRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 小程序的APP ID
-  appId: string(name='app_id'),
+  appId?: string(name='app_id'),
   // 资源ID
   resourceId: string(name='resource_id'),
   // 文件ID
   fileId: string(name='file_id'),
+  // 文件状态
+  status?: string(name='status'),
+  // 业务自定义的文本版本号
+  bizVersion?: string(name='biz_version'),
 }
 
 model BindResourceGeneralresourcefileResponse = {
