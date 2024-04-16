@@ -259,12 +259,16 @@ class ExternalOrderItemDTO(TeaModel):
     def __init__(
         self,
         sku_id: int = None,
+        nft_id: str = None,
     ):
         # 购买的sku id
         self.sku_id = sku_id
+        # 购买后对应发放的藏品nftId，仅当orderStatus为FINISH时返回
+        self.nft_id = nft_id
 
     def validate(self):
         self.validate_required(self.sku_id, 'sku_id')
+        self.validate_required(self.nft_id, 'nft_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -274,12 +278,16 @@ class ExternalOrderItemDTO(TeaModel):
         result = dict()
         if self.sku_id is not None:
             result['sku_id'] = self.sku_id
+        if self.nft_id is not None:
+            result['nft_id'] = self.nft_id
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('sku_id') is not None:
             self.sku_id = m.get('sku_id')
+        if m.get('nft_id') is not None:
+            self.nft_id = m.get('nft_id')
         return self
 
 
@@ -2678,6 +2686,8 @@ class BindResourceGeneralresourcefileRequest(TeaModel):
         app_id: str = None,
         resource_id: str = None,
         file_id: str = None,
+        status: str = None,
+        biz_version: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2688,9 +2698,12 @@ class BindResourceGeneralresourcefileRequest(TeaModel):
         self.resource_id = resource_id
         # 文件ID
         self.file_id = file_id
+        # 文件状态
+        self.status = status
+        # 业务自定义的文本版本号
+        self.biz_version = biz_version
 
     def validate(self):
-        self.validate_required(self.app_id, 'app_id')
         self.validate_required(self.resource_id, 'resource_id')
         self.validate_required(self.file_id, 'file_id')
 
@@ -2710,6 +2723,10 @@ class BindResourceGeneralresourcefileRequest(TeaModel):
             result['resource_id'] = self.resource_id
         if self.file_id is not None:
             result['file_id'] = self.file_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.biz_version is not None:
+            result['biz_version'] = self.biz_version
         return result
 
     def from_map(self, m: dict = None):
@@ -2724,6 +2741,10 @@ class BindResourceGeneralresourcefileRequest(TeaModel):
             self.resource_id = m.get('resource_id')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('biz_version') is not None:
+            self.biz_version = m.get('biz_version')
         return self
 
 
