@@ -1262,6 +1262,10 @@ type CheckRouteThreemetaResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// true:匹配成功 false：匹配失败
 	Match *string `json:"match,omitempty" xml:"match,omitempty"`
+	// CHINA_TELECOM：中国电信
+	// CHINA_MOBILE：中国移动
+	// CHINA_UNICOM：中国联通
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
 	// 扩展信息，预留字段
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 }
@@ -1291,6 +1295,11 @@ func (s *CheckRouteThreemetaResponse) SetResultMsg(v string) *CheckRouteThreemet
 
 func (s *CheckRouteThreemetaResponse) SetMatch(v string) *CheckRouteThreemetaResponse {
 	s.Match = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaResponse) SetCarrier(v string) *CheckRouteThreemetaResponse {
+	s.Carrier = &v
 	return s
 }
 
@@ -4458,7 +4467,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.11"),
+				"sdk_version":      tea.String("1.15.12"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
