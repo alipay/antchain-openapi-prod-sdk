@@ -36,17 +36,30 @@ class BindResourceGeneralresourcefileRequest extends Model
      * @var string
      */
     public $fileId;
+
+    // 文件状态
+    /**
+     * @var string
+     */
+    public $status;
+
+    // 业务自定义的文本版本号
+    /**
+     * @var string
+     */
+    public $bizVersion;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'appId'             => 'app_id',
         'resourceId'        => 'resource_id',
         'fileId'            => 'file_id',
+        'status'            => 'status',
+        'bizVersion'        => 'biz_version',
     ];
 
     public function validate()
     {
-        Model::validateRequired('appId', $this->appId, true);
         Model::validateRequired('resourceId', $this->resourceId, true);
         Model::validateRequired('fileId', $this->fileId, true);
     }
@@ -68,6 +81,12 @@ class BindResourceGeneralresourcefileRequest extends Model
         }
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->bizVersion) {
+            $res['biz_version'] = $this->bizVersion;
         }
 
         return $res;
@@ -95,6 +114,12 @@ class BindResourceGeneralresourcefileRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
+        }
+        if (isset($map['biz_version'])) {
+            $model->bizVersion = $map['biz_version'];
         }
 
         return $model;
