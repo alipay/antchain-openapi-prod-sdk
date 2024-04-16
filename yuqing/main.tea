@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.14',
+    sdk_version = '1.2.15',
     _prod_code = 'YUQING',
     _prod_channel = 'undefined'
   };
@@ -363,6 +363,20 @@ model YuqingMessage {
   mediaName?: string(name='media_name', example='微博'),
   // 扩展信息
   extInfo?: YuqingMessageExtInfo(name='ext_info', example=''),
+  // 文章转载自
+  docReprintName?: string(name='doc_reprint_name', example='文章转载自'),
+  // 视频列表地址
+  contentVideoUrls?: string(name='content_video_urls', example='视频列表地址'),
+  // 图片列表地址
+  contentImageUrls?: string(name='content_image_urls', example='图片列表地址'),
+  // 图片识别出来的文本
+  contentImageText?: string(name='content_image_text', example='图片识别出来的文本'),
+  // 音频列表地址
+  contentAudioUrls?: string(name='content_audio_urls', example='音频列表地址'),
+  // 音频识别出来的文本
+  contentAudioText?: string(name='content_audio_text', example='音频识别出来的文本'),
+  // 视频识别出来的文本
+  contentVideoText?: string(name='content_video_text', example='视频识别出来的文本'),
 }
 
 // 钉钉动作卡片
