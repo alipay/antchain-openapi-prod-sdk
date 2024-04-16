@@ -757,6 +757,13 @@ class YuqingMessage(TeaModel):
         doc_areas: List[str] = None,
         media_name: str = None,
         ext_info: YuqingMessageExtInfo = None,
+        doc_reprint_name: str = None,
+        content_video_urls: str = None,
+        content_image_urls: str = None,
+        content_image_text: str = None,
+        content_audio_urls: str = None,
+        content_audio_text: str = None,
+        content_video_text: str = None,
     ):
         # 作者头像地址
         self.author_avatar_url = author_avatar_url
@@ -820,6 +827,20 @@ class YuqingMessage(TeaModel):
         self.media_name = media_name
         # 扩展信息
         self.ext_info = ext_info
+        # 文章转载自
+        self.doc_reprint_name = doc_reprint_name
+        # 视频列表地址
+        self.content_video_urls = content_video_urls
+        # 图片列表地址
+        self.content_image_urls = content_image_urls
+        # 图片识别出来的文本
+        self.content_image_text = content_image_text
+        # 音频列表地址
+        self.content_audio_urls = content_audio_urls
+        # 音频识别出来的文本
+        self.content_audio_text = content_audio_text
+        # 视频识别出来的文本
+        self.content_video_text = content_video_text
 
     def validate(self):
         if self.ext_info:
@@ -893,6 +914,20 @@ class YuqingMessage(TeaModel):
             result['media_name'] = self.media_name
         if self.ext_info is not None:
             result['ext_info'] = self.ext_info.to_map()
+        if self.doc_reprint_name is not None:
+            result['doc_reprint_name'] = self.doc_reprint_name
+        if self.content_video_urls is not None:
+            result['content_video_urls'] = self.content_video_urls
+        if self.content_image_urls is not None:
+            result['content_image_urls'] = self.content_image_urls
+        if self.content_image_text is not None:
+            result['content_image_text'] = self.content_image_text
+        if self.content_audio_urls is not None:
+            result['content_audio_urls'] = self.content_audio_urls
+        if self.content_audio_text is not None:
+            result['content_audio_text'] = self.content_audio_text
+        if self.content_video_text is not None:
+            result['content_video_text'] = self.content_video_text
         return result
 
     def from_map(self, m: dict = None):
@@ -960,6 +995,20 @@ class YuqingMessage(TeaModel):
         if m.get('ext_info') is not None:
             temp_model = YuqingMessageExtInfo()
             self.ext_info = temp_model.from_map(m['ext_info'])
+        if m.get('doc_reprint_name') is not None:
+            self.doc_reprint_name = m.get('doc_reprint_name')
+        if m.get('content_video_urls') is not None:
+            self.content_video_urls = m.get('content_video_urls')
+        if m.get('content_image_urls') is not None:
+            self.content_image_urls = m.get('content_image_urls')
+        if m.get('content_image_text') is not None:
+            self.content_image_text = m.get('content_image_text')
+        if m.get('content_audio_urls') is not None:
+            self.content_audio_urls = m.get('content_audio_urls')
+        if m.get('content_audio_text') is not None:
+            self.content_audio_text = m.get('content_audio_text')
+        if m.get('content_video_text') is not None:
+            self.content_video_text = m.get('content_video_text')
         return self
 
 
