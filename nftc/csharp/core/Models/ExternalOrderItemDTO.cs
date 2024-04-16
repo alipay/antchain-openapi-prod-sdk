@@ -15,6 +15,11 @@ namespace AntChain.SDK.NFTC.Models
         [Validation(Required=true)]
         public long? SkuId { get; set; }
 
+        // 购买后对应发放的藏品nftId，仅当orderStatus为FINISH时返回
+        [NameInMap("nft_id")]
+        [Validation(Required=true)]
+        public string NftId { get; set; }
+
     }
 
 }
