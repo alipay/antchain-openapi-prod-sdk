@@ -235,6 +235,8 @@ func (s *AvatarMaterialDTO) SetFalingTextureUrl(v string) *AvatarMaterialDTO {
 type ExternalOrderItemDTO struct {
 	// 购买的sku id
 	SkuId *int64 `json:"sku_id,omitempty" xml:"sku_id,omitempty" require:"true"`
+	// 购买后对应发放的藏品nftId，仅当orderStatus为FINISH时返回
+	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty" require:"true"`
 }
 
 func (s ExternalOrderItemDTO) String() string {
@@ -247,6 +249,11 @@ func (s ExternalOrderItemDTO) GoString() string {
 
 func (s *ExternalOrderItemDTO) SetSkuId(v int64) *ExternalOrderItemDTO {
 	s.SkuId = &v
+	return s
+}
+
+func (s *ExternalOrderItemDTO) SetNftId(v string) *ExternalOrderItemDTO {
+	s.NftId = &v
 	return s
 }
 
@@ -2115,11 +2122,15 @@ type BindResourceGeneralresourcefileRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 小程序的APP ID
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
 	// 资源ID
 	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
 	// 文件ID
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 文件状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 业务自定义的文本版本号
+	BizVersion *string `json:"biz_version,omitempty" xml:"biz_version,omitempty"`
 }
 
 func (s BindResourceGeneralresourcefileRequest) String() string {
@@ -2152,6 +2163,16 @@ func (s *BindResourceGeneralresourcefileRequest) SetResourceId(v string) *BindRe
 
 func (s *BindResourceGeneralresourcefileRequest) SetFileId(v string) *BindResourceGeneralresourcefileRequest {
 	s.FileId = &v
+	return s
+}
+
+func (s *BindResourceGeneralresourcefileRequest) SetStatus(v string) *BindResourceGeneralresourcefileRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *BindResourceGeneralresourcefileRequest) SetBizVersion(v string) *BindResourceGeneralresourcefileRequest {
+	s.BizVersion = &v
 	return s
 }
 
@@ -2666,7 +2687,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.16"),
+				"sdk_version":      tea.String("1.0.20"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
