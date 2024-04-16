@@ -128,6 +128,34 @@ public class YuqingMessage extends TeaModel {
     @NameInMap("ext_info")
     public YuqingMessageExtInfo extInfo;
 
+    // 文章转载自
+    @NameInMap("doc_reprint_name")
+    public String docReprintName;
+
+    // 视频列表地址
+    @NameInMap("content_video_urls")
+    public String contentVideoUrls;
+
+    // 图片列表地址
+    @NameInMap("content_image_urls")
+    public String contentImageUrls;
+
+    // 图片识别出来的文本
+    @NameInMap("content_image_text")
+    public String contentImageText;
+
+    // 音频列表地址
+    @NameInMap("content_audio_urls")
+    public String contentAudioUrls;
+
+    // 音频识别出来的文本
+    @NameInMap("content_audio_text")
+    public String contentAudioText;
+
+    // 视频识别出来的文本
+    @NameInMap("content_video_text")
+    public String contentVideoText;
+
     public static YuqingMessage build(java.util.Map<String, ?> map) throws Exception {
         YuqingMessage self = new YuqingMessage();
         return TeaModel.build(map, self);
@@ -379,6 +407,62 @@ public class YuqingMessage extends TeaModel {
     }
     public YuqingMessageExtInfo getExtInfo() {
         return this.extInfo;
+    }
+
+    public YuqingMessage setDocReprintName(String docReprintName) {
+        this.docReprintName = docReprintName;
+        return this;
+    }
+    public String getDocReprintName() {
+        return this.docReprintName;
+    }
+
+    public YuqingMessage setContentVideoUrls(String contentVideoUrls) {
+        this.contentVideoUrls = contentVideoUrls;
+        return this;
+    }
+    public String getContentVideoUrls() {
+        return this.contentVideoUrls;
+    }
+
+    public YuqingMessage setContentImageUrls(String contentImageUrls) {
+        this.contentImageUrls = contentImageUrls;
+        return this;
+    }
+    public String getContentImageUrls() {
+        return this.contentImageUrls;
+    }
+
+    public YuqingMessage setContentImageText(String contentImageText) {
+        this.contentImageText = contentImageText;
+        return this;
+    }
+    public String getContentImageText() {
+        return this.contentImageText;
+    }
+
+    public YuqingMessage setContentAudioUrls(String contentAudioUrls) {
+        this.contentAudioUrls = contentAudioUrls;
+        return this;
+    }
+    public String getContentAudioUrls() {
+        return this.contentAudioUrls;
+    }
+
+    public YuqingMessage setContentAudioText(String contentAudioText) {
+        this.contentAudioText = contentAudioText;
+        return this;
+    }
+    public String getContentAudioText() {
+        return this.contentAudioText;
+    }
+
+    public YuqingMessage setContentVideoText(String contentVideoText) {
+        this.contentVideoText = contentVideoText;
+        return this;
+    }
+    public String getContentVideoText() {
+        return this.contentVideoText;
     }
 
 }
