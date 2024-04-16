@@ -1470,6 +1470,7 @@ class CheckRouteThreemetaResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         match: str = None,
+        carrier: str = None,
         extern_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -1480,6 +1481,10 @@ class CheckRouteThreemetaResponse(TeaModel):
         self.result_msg = result_msg
         # true:匹配成功 false：匹配失败
         self.match = match
+        # CHINA_TELECOM：中国电信
+        # CHINA_MOBILE：中国移动
+        # CHINA_UNICOM：中国联通
+        self.carrier = carrier
         # 扩展信息，预留字段
         self.extern_info = extern_info
 
@@ -1500,6 +1505,8 @@ class CheckRouteThreemetaResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.match is not None:
             result['match'] = self.match
+        if self.carrier is not None:
+            result['carrier'] = self.carrier
         if self.extern_info is not None:
             result['extern_info'] = self.extern_info
         return result
@@ -1514,6 +1521,8 @@ class CheckRouteThreemetaResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('match') is not None:
             self.match = m.get('match')
+        if m.get('carrier') is not None:
+            self.carrier = m.get('carrier')
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
         return self
