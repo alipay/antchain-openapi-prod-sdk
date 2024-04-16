@@ -165,6 +165,41 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=false)]
         public YuqingMessageExtInfo ExtInfo { get; set; }
 
+        // 文章转载自
+        [NameInMap("doc_reprint_name")]
+        [Validation(Required=false)]
+        public string DocReprintName { get; set; }
+
+        // 视频列表地址
+        [NameInMap("content_video_urls")]
+        [Validation(Required=false)]
+        public string ContentVideoUrls { get; set; }
+
+        // 图片列表地址
+        [NameInMap("content_image_urls")]
+        [Validation(Required=false)]
+        public string ContentImageUrls { get; set; }
+
+        // 图片识别出来的文本
+        [NameInMap("content_image_text")]
+        [Validation(Required=false)]
+        public string ContentImageText { get; set; }
+
+        // 音频列表地址
+        [NameInMap("content_audio_urls")]
+        [Validation(Required=false)]
+        public string ContentAudioUrls { get; set; }
+
+        // 音频识别出来的文本
+        [NameInMap("content_audio_text")]
+        [Validation(Required=false)]
+        public string ContentAudioText { get; set; }
+
+        // 视频识别出来的文本
+        [NameInMap("content_video_text")]
+        [Validation(Required=false)]
+        public string ContentVideoText { get; set; }
+
     }
 
 }
