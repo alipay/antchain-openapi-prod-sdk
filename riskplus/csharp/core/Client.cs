@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.18.1"},
+                        {"sdk_version", "1.18.2"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.18.1"},
+                        {"sdk_version", "1.18.2"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3607,6 +3607,468 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackQmpSmsReportResponse>(await DoRequestAsync("1.0", "riskplus.qmp.sms.report.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字短信批量发送接口（单模板）
+         * Summary: 数字短信批量发送接口（单模板）
+         */
+        public SendQmpDigitalsmsBatchResponse SendQmpDigitalsmsBatch(SendQmpDigitalsmsBatchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SendQmpDigitalsmsBatchEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字短信批量发送接口（单模板）
+         * Summary: 数字短信批量发送接口（单模板）
+         */
+        public async Task<SendQmpDigitalsmsBatchResponse> SendQmpDigitalsmsBatchAsync(SendQmpDigitalsmsBatchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SendQmpDigitalsmsBatchExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字短信批量发送接口（单模板）
+         * Summary: 数字短信批量发送接口（单模板）
+         */
+        public SendQmpDigitalsmsBatchResponse SendQmpDigitalsmsBatchEx(SendQmpDigitalsmsBatchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendQmpDigitalsmsBatchResponse>(DoRequest("1.0", "riskplus.qmp.digitalsms.batch.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字短信批量发送接口（单模板）
+         * Summary: 数字短信批量发送接口（单模板）
+         */
+        public async Task<SendQmpDigitalsmsBatchResponse> SendQmpDigitalsmsBatchExAsync(SendQmpDigitalsmsBatchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendQmpDigitalsmsBatchResponse>(await DoRequestAsync("1.0", "riskplus.qmp.digitalsms.batch.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新接入ai外呼服务商的回调接口
+         * Summary:  ai外呼回调接口
+         */
+        public CallbackQmpRobotcallResponse CallbackQmpRobotcall(CallbackQmpRobotcallRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackQmpRobotcallEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新接入ai外呼服务商的回调接口
+         * Summary:  ai外呼回调接口
+         */
+        public async Task<CallbackQmpRobotcallResponse> CallbackQmpRobotcallAsync(CallbackQmpRobotcallRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackQmpRobotcallExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新接入ai外呼服务商的回调接口
+         * Summary:  ai外呼回调接口
+         */
+        public CallbackQmpRobotcallResponse CallbackQmpRobotcallEx(CallbackQmpRobotcallRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackQmpRobotcallResponse>(DoRequest("1.0", "riskplus.qmp.robotcall.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新接入ai外呼服务商的回调接口
+         * Summary:  ai外呼回调接口
+         */
+        public async Task<CallbackQmpRobotcallResponse> CallbackQmpRobotcallExAsync(CallbackQmpRobotcallRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackQmpRobotcallResponse>(await DoRequestAsync("1.0", "riskplus.qmp.robotcall.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询ai外呼任务详情
+         * Summary:  查询ai外呼任务详情
+         */
+        public QueryQmpRobotcallDetailResponse QueryQmpRobotcallDetail(QueryQmpRobotcallDetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryQmpRobotcallDetailEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询ai外呼任务详情
+         * Summary:  查询ai外呼任务详情
+         */
+        public async Task<QueryQmpRobotcallDetailResponse> QueryQmpRobotcallDetailAsync(QueryQmpRobotcallDetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryQmpRobotcallDetailExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询ai外呼任务详情
+         * Summary:  查询ai外呼任务详情
+         */
+        public QueryQmpRobotcallDetailResponse QueryQmpRobotcallDetailEx(QueryQmpRobotcallDetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpRobotcallDetailResponse>(DoRequest("1.0", "riskplus.qmp.robotcall.detail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询ai外呼任务详情
+         * Summary:  查询ai外呼任务详情
+         */
+        public async Task<QueryQmpRobotcallDetailResponse> QueryQmpRobotcallDetailExAsync(QueryQmpRobotcallDetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpRobotcallDetailResponse>(await DoRequestAsync("1.0", "riskplus.qmp.robotcall.detail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 流量风控回执统计查询
+         * Summary: 流量风控回执统计查询
+         */
+        public QueryQmpDataaccessStatisticResponse QueryQmpDataaccessStatistic(QueryQmpDataaccessStatisticRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryQmpDataaccessStatisticEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 流量风控回执统计查询
+         * Summary: 流量风控回执统计查询
+         */
+        public async Task<QueryQmpDataaccessStatisticResponse> QueryQmpDataaccessStatisticAsync(QueryQmpDataaccessStatisticRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryQmpDataaccessStatisticExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 流量风控回执统计查询
+         * Summary: 流量风控回执统计查询
+         */
+        public QueryQmpDataaccessStatisticResponse QueryQmpDataaccessStatisticEx(QueryQmpDataaccessStatisticRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpDataaccessStatisticResponse>(DoRequest("1.0", "riskplus.qmp.dataaccess.statistic.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 流量风控回执统计查询
+         * Summary: 流量风控回执统计查询
+         */
+        public async Task<QueryQmpDataaccessStatisticResponse> QueryQmpDataaccessStatisticExAsync(QueryQmpDataaccessStatisticRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpDataaccessStatisticResponse>(await DoRequestAsync("1.0", "riskplus.qmp.dataaccess.statistic.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外呼任务统计查询接口
+         * Summary:  外呼任务统计查询接口
+         */
+        public QueryQmpRobotcallStatisticinfoResponse QueryQmpRobotcallStatisticinfo(QueryQmpRobotcallStatisticinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryQmpRobotcallStatisticinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外呼任务统计查询接口
+         * Summary:  外呼任务统计查询接口
+         */
+        public async Task<QueryQmpRobotcallStatisticinfoResponse> QueryQmpRobotcallStatisticinfoAsync(QueryQmpRobotcallStatisticinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryQmpRobotcallStatisticinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外呼任务统计查询接口
+         * Summary:  外呼任务统计查询接口
+         */
+        public QueryQmpRobotcallStatisticinfoResponse QueryQmpRobotcallStatisticinfoEx(QueryQmpRobotcallStatisticinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpRobotcallStatisticinfoResponse>(DoRequest("1.0", "riskplus.qmp.robotcall.statisticinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外呼任务统计查询接口
+         * Summary:  外呼任务统计查询接口
+         */
+        public async Task<QueryQmpRobotcallStatisticinfoResponse> QueryQmpRobotcallStatisticinfoExAsync(QueryQmpRobotcallStatisticinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpRobotcallStatisticinfoResponse>(await DoRequestAsync("1.0", "riskplus.qmp.robotcall.statisticinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 触达执行任务详情查询
+         * Summary: 触达执行任务详情查询
+         */
+        public BatchqueryQmpTaskDetailResponse BatchqueryQmpTaskDetail(BatchqueryQmpTaskDetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryQmpTaskDetailEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 触达执行任务详情查询
+         * Summary: 触达执行任务详情查询
+         */
+        public async Task<BatchqueryQmpTaskDetailResponse> BatchqueryQmpTaskDetailAsync(BatchqueryQmpTaskDetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryQmpTaskDetailExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 触达执行任务详情查询
+         * Summary: 触达执行任务详情查询
+         */
+        public BatchqueryQmpTaskDetailResponse BatchqueryQmpTaskDetailEx(BatchqueryQmpTaskDetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryQmpTaskDetailResponse>(DoRequest("1.0", "riskplus.qmp.task.detail.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 触达执行任务详情查询
+         * Summary: 触达执行任务详情查询
+         */
+        public async Task<BatchqueryQmpTaskDetailResponse> BatchqueryQmpTaskDetailExAsync(BatchqueryQmpTaskDetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryQmpTaskDetailResponse>(await DoRequestAsync("1.0", "riskplus.qmp.task.detail.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 卡片短信支持能力查询
+         * Summary: 卡片短信支持能力查询
+         */
+        public QueryQmpCardsmsSupportResponse QueryQmpCardsmsSupport(QueryQmpCardsmsSupportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryQmpCardsmsSupportEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 卡片短信支持能力查询
+         * Summary: 卡片短信支持能力查询
+         */
+        public async Task<QueryQmpCardsmsSupportResponse> QueryQmpCardsmsSupportAsync(QueryQmpCardsmsSupportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryQmpCardsmsSupportExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 卡片短信支持能力查询
+         * Summary: 卡片短信支持能力查询
+         */
+        public QueryQmpCardsmsSupportResponse QueryQmpCardsmsSupportEx(QueryQmpCardsmsSupportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpCardsmsSupportResponse>(DoRequest("1.0", "riskplus.qmp.cardsms.support.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 卡片短信支持能力查询
+         * Summary: 卡片短信支持能力查询
+         */
+        public async Task<QueryQmpCardsmsSupportResponse> QueryQmpCardsmsSupportExAsync(QueryQmpCardsmsSupportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpCardsmsSupportResponse>(await DoRequestAsync("1.0", "riskplus.qmp.cardsms.support.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 流量风控查询外呼策略详情
+         * Summary: 流量风控查询外呼策略详情
+         */
+        public BatchqueryQmpActionplanDetailResponse BatchqueryQmpActionplanDetail(BatchqueryQmpActionplanDetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryQmpActionplanDetailEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 流量风控查询外呼策略详情
+         * Summary: 流量风控查询外呼策略详情
+         */
+        public async Task<BatchqueryQmpActionplanDetailResponse> BatchqueryQmpActionplanDetailAsync(BatchqueryQmpActionplanDetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryQmpActionplanDetailExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 流量风控查询外呼策略详情
+         * Summary: 流量风控查询外呼策略详情
+         */
+        public BatchqueryQmpActionplanDetailResponse BatchqueryQmpActionplanDetailEx(BatchqueryQmpActionplanDetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryQmpActionplanDetailResponse>(DoRequest("1.0", "riskplus.qmp.actionplan.detail.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 流量风控查询外呼策略详情
+         * Summary: 流量风控查询外呼策略详情
+         */
+        public async Task<BatchqueryQmpActionplanDetailResponse> BatchqueryQmpActionplanDetailExAsync(BatchqueryQmpActionplanDetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryQmpActionplanDetailResponse>(await DoRequestAsync("1.0", "riskplus.qmp.actionplan.detail.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用流量风控(原营销盾)空号检测
+         * Summary: 调用流量风控(原营销盾)空号检测
+         */
+        public ApplyQmpPhonenumberstatusforsmsResponse ApplyQmpPhonenumberstatusforsms(ApplyQmpPhonenumberstatusforsmsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyQmpPhonenumberstatusforsmsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用流量风控(原营销盾)空号检测
+         * Summary: 调用流量风控(原营销盾)空号检测
+         */
+        public async Task<ApplyQmpPhonenumberstatusforsmsResponse> ApplyQmpPhonenumberstatusforsmsAsync(ApplyQmpPhonenumberstatusforsmsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyQmpPhonenumberstatusforsmsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用流量风控(原营销盾)空号检测
+         * Summary: 调用流量风控(原营销盾)空号检测
+         */
+        public ApplyQmpPhonenumberstatusforsmsResponse ApplyQmpPhonenumberstatusforsmsEx(ApplyQmpPhonenumberstatusforsmsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyQmpPhonenumberstatusforsmsResponse>(DoRequest("1.0", "riskplus.qmp.phonenumberstatusforsms.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用流量风控(原营销盾)空号检测
+         * Summary: 调用流量风控(原营销盾)空号检测
+         */
+        public async Task<ApplyQmpPhonenumberstatusforsmsResponse> ApplyQmpPhonenumberstatusforsmsExAsync(ApplyQmpPhonenumberstatusforsmsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyQmpPhonenumberstatusforsmsResponse>(await DoRequestAsync("1.0", "riskplus.qmp.phonenumberstatusforsms.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询租户外呼策略
+         * Summary: 流量风控租户场景批量信息查询
+         */
+        public BatchqueryQmpTenantActionplaninfoResponse BatchqueryQmpTenantActionplaninfo(BatchqueryQmpTenantActionplaninfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryQmpTenantActionplaninfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询租户外呼策略
+         * Summary: 流量风控租户场景批量信息查询
+         */
+        public async Task<BatchqueryQmpTenantActionplaninfoResponse> BatchqueryQmpTenantActionplaninfoAsync(BatchqueryQmpTenantActionplaninfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryQmpTenantActionplaninfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询租户外呼策略
+         * Summary: 流量风控租户场景批量信息查询
+         */
+        public BatchqueryQmpTenantActionplaninfoResponse BatchqueryQmpTenantActionplaninfoEx(BatchqueryQmpTenantActionplaninfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryQmpTenantActionplaninfoResponse>(DoRequest("1.0", "riskplus.qmp.tenant.actionplaninfo.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询租户外呼策略
+         * Summary: 流量风控租户场景批量信息查询
+         */
+        public async Task<BatchqueryQmpTenantActionplaninfoResponse> BatchqueryQmpTenantActionplaninfoExAsync(BatchqueryQmpTenantActionplaninfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryQmpTenantActionplaninfoResponse>(await DoRequestAsync("1.0", "riskplus.qmp.tenant.actionplaninfo.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 流量风控租户场景信息查询
+         * Summary: 流量风控租户场景信息查询
+         */
+        public QueryQmpTenantActionplaninfoResponse QueryQmpTenantActionplaninfo(QueryQmpTenantActionplaninfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryQmpTenantActionplaninfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 流量风控租户场景信息查询
+         * Summary: 流量风控租户场景信息查询
+         */
+        public async Task<QueryQmpTenantActionplaninfoResponse> QueryQmpTenantActionplaninfoAsync(QueryQmpTenantActionplaninfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryQmpTenantActionplaninfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 流量风控租户场景信息查询
+         * Summary: 流量风控租户场景信息查询
+         */
+        public QueryQmpTenantActionplaninfoResponse QueryQmpTenantActionplaninfoEx(QueryQmpTenantActionplaninfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpTenantActionplaninfoResponse>(DoRequest("1.0", "riskplus.qmp.tenant.actionplaninfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 流量风控租户场景信息查询
+         * Summary: 流量风控租户场景信息查询
+         */
+        public async Task<QueryQmpTenantActionplaninfoResponse> QueryQmpTenantActionplaninfoExAsync(QueryQmpTenantActionplaninfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpTenantActionplaninfoResponse>(await DoRequestAsync("1.0", "riskplus.qmp.tenant.actionplaninfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
