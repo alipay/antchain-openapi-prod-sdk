@@ -17559,6 +17559,1617 @@ class CallbackQmpSmsReportResponse(TeaModel):
         return self
 
 
+class SendQmpDigitalsmsBatchRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        cpass_ak: str = None,
+        industry_tag: str = None,
+        phone_numbers: str = None,
+        template_code: str = None,
+        template_param: str = None,
+        out_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # cpassAccessKey
+        self.cpass_ak = cpass_ak
+        # 行业标签
+        self.industry_tag = industry_tag
+        # 手机号列表以,分隔
+        self.phone_numbers = phone_numbers
+        # 数字短信模板code
+        self.template_code = template_code
+        # 短信模板参数
+        self.template_param = template_param
+        # 透传字段
+        self.out_id = out_id
+
+    def validate(self):
+        self.validate_required(self.industry_tag, 'industry_tag')
+        self.validate_required(self.phone_numbers, 'phone_numbers')
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.template_param, 'template_param')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.cpass_ak is not None:
+            result['cpass_ak'] = self.cpass_ak
+        if self.industry_tag is not None:
+            result['industry_tag'] = self.industry_tag
+        if self.phone_numbers is not None:
+            result['phone_numbers'] = self.phone_numbers
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.template_param is not None:
+            result['template_param'] = self.template_param
+        if self.out_id is not None:
+            result['out_id'] = self.out_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('cpass_ak') is not None:
+            self.cpass_ak = m.get('cpass_ak')
+        if m.get('industry_tag') is not None:
+            self.industry_tag = m.get('industry_tag')
+        if m.get('phone_numbers') is not None:
+            self.phone_numbers = m.get('phone_numbers')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('template_param') is not None:
+            self.template_param = m.get('template_param')
+        if m.get('out_id') is not None:
+            self.out_id = m.get('out_id')
+        return self
+
+
+class SendQmpDigitalsmsBatchResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 回执id
+        self.biz_id = biz_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        return self
+
+
+class CallbackQmpRobotcallRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        customer_key: str = None,
+        current_call_times: int = None,
+        key_template: str = None,
+        batch_id: str = None,
+        call_type: int = None,
+        tag: str = None,
+        call_id: str = None,
+        task_id: int = None,
+        task_name: str = None,
+        template_id: int = None,
+        status_code: int = None,
+        status_description: str = None,
+        transfer_status_code: str = None,
+        transfer_status: str = None,
+        agent_id: int = None,
+        agent_tag: str = None,
+        agent_extension: str = None,
+        import_time: str = None,
+        call_begin_time: str = None,
+        ring_time: int = None,
+        answer_time: str = None,
+        speaking_time: str = None,
+        speaking_duration: int = None,
+        hangup_time: str = None,
+        speaking_turns: int = None,
+        agent_speaking_time: str = None,
+        agent_speaking_duration: int = None,
+        intent_tag: str = None,
+        intent_description: str = None,
+        individual_tag: str = None,
+        keywords: str = None,
+        hungup_type: int = None,
+        sms: int = None,
+        chat_record: str = None,
+        chats: str = None,
+        add_wx: int = None,
+        add_wx_status: str = None,
+        answer_recall: int = None,
+        properties: str = None,
+        biz_properties: str = None,
+        intercept_reason: str = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 外呼号码，支持密文
+        self.customer_key = customer_key
+        # 当前呼叫次数 Integer
+        self.current_call_times = current_call_times
+        # 号码的模版类型
+        self.key_template = key_template
+        # 导入号码时返回的批次号
+        self.batch_id = batch_id
+        # 外呼类型 建议按照如下约定给到 2001:批量-预测外呼 2002:批量-AI外呼-不转人工 2003:批量-AI外呼-接通转人工 2004: 批量-AI外呼-智能转人工 2005:批量-语音通知
+        self.call_type = call_type
+        # 用户自定义标签
+        self.tag = tag
+        # 外呼呼叫实例id
+        self.call_id = call_id
+        # 外呼任务编号
+        self.task_id = task_id
+        # 外呼任务名称
+        self.task_name = task_name
+        # 外呼的话术模板ID，可以为空
+        self.template_id = template_id
+        # 外呼状态编码
+        self.status_code = status_code
+        # 外呼状态编码对应描述
+        self.status_description = status_description
+        # 转人工状态编码
+        self.transfer_status_code = transfer_status_code
+        # 转人工状态编码对应描述
+        self.transfer_status = transfer_status
+        # 分配坐席ID,可以为空
+        self.agent_id = agent_id
+        # 建议填写坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
+        self.agent_tag = agent_tag
+        # 坐席分机号，可以为空
+        self.agent_extension = agent_extension
+        # 导入时间，格式:2019-01-09 14:14:19
+        self.import_time = import_time
+        # 开始通话时间，格式：2019-01-09 14:14:19
+        self.call_begin_time = call_begin_time
+        # 振铃时长,单位毫秒
+        self.ring_time = ring_time
+        # 接通时间
+        self.answer_time = answer_time
+        # 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+        self.speaking_time = speaking_time
+        # 通话时长，单位：秒
+        self.speaking_duration = speaking_duration
+        # 通话挂断时间
+        self.hangup_time = hangup_time
+        # 对话轮次
+        self.speaking_turns = speaking_turns
+        # 坐席通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+        self.agent_speaking_time = agent_speaking_time
+        # 坐席通话时长，单位：秒
+        self.agent_speaking_duration = agent_speaking_duration
+        # 意向标签
+        self.intent_tag = intent_tag
+        # 意向说明
+        self.intent_description = intent_description
+        # 个性标签
+        self.individual_tag = individual_tag
+        # 回复关键词
+        self.keywords = keywords
+        # 挂机方式
+        self.hungup_type = hungup_type
+        # 挂机短信，1:发送，2:不发送
+        self.sms = sms
+        # 对话录音,url
+        self.chat_record = chat_record
+        # 对话记录
+        self.chats = chats
+        # 0:不添加，1:添加
+        self.add_wx = add_wx
+        # 加微进度可选值：已申请、加微成功
+        self.add_wx_status = add_wx_status
+        # 是否接通重呼 0正常外呼，1接通重呼
+        self.answer_recall = answer_recall
+        # 导入号码时的参数值
+        self.properties = properties
+        # 导入号码时的业务参数值
+        self.biz_properties = biz_properties
+        # 拦截原因 可选值：黑名单拦截，灰名单拦截，异常号码拦截
+        self.intercept_reason = intercept_reason
+        # 回调冗余字段
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.customer_key, 'customer_key')
+        self.validate_required(self.current_call_times, 'current_call_times')
+        self.validate_required(self.key_template, 'key_template')
+        self.validate_required(self.batch_id, 'batch_id')
+        self.validate_required(self.call_type, 'call_type')
+        self.validate_required(self.call_id, 'call_id')
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.task_name, 'task_name')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.status_description, 'status_description')
+        self.validate_required(self.transfer_status_code, 'transfer_status_code')
+        self.validate_required(self.transfer_status, 'transfer_status')
+        self.validate_required(self.import_time, 'import_time')
+        self.validate_required(self.call_begin_time, 'call_begin_time')
+        self.validate_required(self.ring_time, 'ring_time')
+        self.validate_required(self.speaking_time, 'speaking_time')
+        self.validate_required(self.speaking_duration, 'speaking_duration')
+        self.validate_required(self.hangup_time, 'hangup_time')
+        self.validate_required(self.speaking_turns, 'speaking_turns')
+        self.validate_required(self.agent_speaking_time, 'agent_speaking_time')
+        self.validate_required(self.agent_speaking_duration, 'agent_speaking_duration')
+        self.validate_required(self.intent_tag, 'intent_tag')
+        self.validate_required(self.intent_description, 'intent_description')
+        self.validate_required(self.hungup_type, 'hungup_type')
+        self.validate_required(self.sms, 'sms')
+        self.validate_required(self.answer_recall, 'answer_recall')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.customer_key is not None:
+            result['customer_key'] = self.customer_key
+        if self.current_call_times is not None:
+            result['current_call_times'] = self.current_call_times
+        if self.key_template is not None:
+            result['key_template'] = self.key_template
+        if self.batch_id is not None:
+            result['batch_id'] = self.batch_id
+        if self.call_type is not None:
+            result['call_type'] = self.call_type
+        if self.tag is not None:
+            result['tag'] = self.tag
+        if self.call_id is not None:
+            result['call_id'] = self.call_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.task_name is not None:
+            result['task_name'] = self.task_name
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
+        if self.status_code is not None:
+            result['status_code'] = self.status_code
+        if self.status_description is not None:
+            result['status_description'] = self.status_description
+        if self.transfer_status_code is not None:
+            result['transfer_status_code'] = self.transfer_status_code
+        if self.transfer_status is not None:
+            result['transfer_status'] = self.transfer_status
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.agent_tag is not None:
+            result['agent_tag'] = self.agent_tag
+        if self.agent_extension is not None:
+            result['agent_extension'] = self.agent_extension
+        if self.import_time is not None:
+            result['import_time'] = self.import_time
+        if self.call_begin_time is not None:
+            result['call_begin_time'] = self.call_begin_time
+        if self.ring_time is not None:
+            result['ring_time'] = self.ring_time
+        if self.answer_time is not None:
+            result['answer_time'] = self.answer_time
+        if self.speaking_time is not None:
+            result['speaking_time'] = self.speaking_time
+        if self.speaking_duration is not None:
+            result['speaking_duration'] = self.speaking_duration
+        if self.hangup_time is not None:
+            result['hangup_time'] = self.hangup_time
+        if self.speaking_turns is not None:
+            result['speaking_turns'] = self.speaking_turns
+        if self.agent_speaking_time is not None:
+            result['agent_speaking_time'] = self.agent_speaking_time
+        if self.agent_speaking_duration is not None:
+            result['agent_speaking_duration'] = self.agent_speaking_duration
+        if self.intent_tag is not None:
+            result['intent_tag'] = self.intent_tag
+        if self.intent_description is not None:
+            result['intent_description'] = self.intent_description
+        if self.individual_tag is not None:
+            result['individual_tag'] = self.individual_tag
+        if self.keywords is not None:
+            result['keywords'] = self.keywords
+        if self.hungup_type is not None:
+            result['hungup_type'] = self.hungup_type
+        if self.sms is not None:
+            result['sms'] = self.sms
+        if self.chat_record is not None:
+            result['chat_record'] = self.chat_record
+        if self.chats is not None:
+            result['chats'] = self.chats
+        if self.add_wx is not None:
+            result['add_wx'] = self.add_wx
+        if self.add_wx_status is not None:
+            result['add_wx_status'] = self.add_wx_status
+        if self.answer_recall is not None:
+            result['answer_recall'] = self.answer_recall
+        if self.properties is not None:
+            result['properties'] = self.properties
+        if self.biz_properties is not None:
+            result['biz_properties'] = self.biz_properties
+        if self.intercept_reason is not None:
+            result['intercept_reason'] = self.intercept_reason
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('customer_key') is not None:
+            self.customer_key = m.get('customer_key')
+        if m.get('current_call_times') is not None:
+            self.current_call_times = m.get('current_call_times')
+        if m.get('key_template') is not None:
+            self.key_template = m.get('key_template')
+        if m.get('batch_id') is not None:
+            self.batch_id = m.get('batch_id')
+        if m.get('call_type') is not None:
+            self.call_type = m.get('call_type')
+        if m.get('tag') is not None:
+            self.tag = m.get('tag')
+        if m.get('call_id') is not None:
+            self.call_id = m.get('call_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('task_name') is not None:
+            self.task_name = m.get('task_name')
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
+        if m.get('status_code') is not None:
+            self.status_code = m.get('status_code')
+        if m.get('status_description') is not None:
+            self.status_description = m.get('status_description')
+        if m.get('transfer_status_code') is not None:
+            self.transfer_status_code = m.get('transfer_status_code')
+        if m.get('transfer_status') is not None:
+            self.transfer_status = m.get('transfer_status')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('agent_tag') is not None:
+            self.agent_tag = m.get('agent_tag')
+        if m.get('agent_extension') is not None:
+            self.agent_extension = m.get('agent_extension')
+        if m.get('import_time') is not None:
+            self.import_time = m.get('import_time')
+        if m.get('call_begin_time') is not None:
+            self.call_begin_time = m.get('call_begin_time')
+        if m.get('ring_time') is not None:
+            self.ring_time = m.get('ring_time')
+        if m.get('answer_time') is not None:
+            self.answer_time = m.get('answer_time')
+        if m.get('speaking_time') is not None:
+            self.speaking_time = m.get('speaking_time')
+        if m.get('speaking_duration') is not None:
+            self.speaking_duration = m.get('speaking_duration')
+        if m.get('hangup_time') is not None:
+            self.hangup_time = m.get('hangup_time')
+        if m.get('speaking_turns') is not None:
+            self.speaking_turns = m.get('speaking_turns')
+        if m.get('agent_speaking_time') is not None:
+            self.agent_speaking_time = m.get('agent_speaking_time')
+        if m.get('agent_speaking_duration') is not None:
+            self.agent_speaking_duration = m.get('agent_speaking_duration')
+        if m.get('intent_tag') is not None:
+            self.intent_tag = m.get('intent_tag')
+        if m.get('intent_description') is not None:
+            self.intent_description = m.get('intent_description')
+        if m.get('individual_tag') is not None:
+            self.individual_tag = m.get('individual_tag')
+        if m.get('keywords') is not None:
+            self.keywords = m.get('keywords')
+        if m.get('hungup_type') is not None:
+            self.hungup_type = m.get('hungup_type')
+        if m.get('sms') is not None:
+            self.sms = m.get('sms')
+        if m.get('chat_record') is not None:
+            self.chat_record = m.get('chat_record')
+        if m.get('chats') is not None:
+            self.chats = m.get('chats')
+        if m.get('add_wx') is not None:
+            self.add_wx = m.get('add_wx')
+        if m.get('add_wx_status') is not None:
+            self.add_wx_status = m.get('add_wx_status')
+        if m.get('answer_recall') is not None:
+            self.answer_recall = m.get('answer_recall')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        if m.get('biz_properties') is not None:
+            self.biz_properties = m.get('biz_properties')
+        if m.get('intercept_reason') is not None:
+            self.intercept_reason = m.get('intercept_reason')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class CallbackQmpRobotcallResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryQmpRobotcallDetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        phone_number: str = None,
+        template_type: str = None,
+        scene_strategy_id: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 批次号
+        self.biz_id = biz_id
+        # 手机号
+        self.phone_number = phone_number
+        # 手机号类型
+        self.template_type = template_type
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.phone_number, 'phone_number')
+        self.validate_required(self.template_type, 'template_type')
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
+        if self.template_type is not None:
+            result['template_type'] = self.template_type
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        if m.get('template_type') is not None:
+            self.template_type = m.get('template_type')
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        return self
+
+
+class QueryQmpRobotcallDetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        out_info: str = None,
+        customer_out_info: str = None,
+        call_info: List[AICallbackMessage] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求时的透传字段
+        self.out_info = out_info
+        # 请求时每个手机号的透传字段
+        self.customer_out_info = customer_out_info
+        # 外呼记录列表
+        self.call_info = call_info
+
+    def validate(self):
+        if self.call_info:
+            for k in self.call_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.out_info is not None:
+            result['out_info'] = self.out_info
+        if self.customer_out_info is not None:
+            result['customer_out_info'] = self.customer_out_info
+        result['call_info'] = []
+        if self.call_info is not None:
+            for k in self.call_info:
+                result['call_info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('out_info') is not None:
+            self.out_info = m.get('out_info')
+        if m.get('customer_out_info') is not None:
+            self.customer_out_info = m.get('customer_out_info')
+        self.call_info = []
+        if m.get('call_info') is not None:
+            for k in m.get('call_info'):
+                temp_model = AICallbackMessage()
+                self.call_info.append(temp_model.from_map(k))
+        return self
+
+
+class QueryQmpDataaccessStatisticRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        task_id: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 查询回执统计的任务id
+        self.task_id = task_id
+
+    def validate(self):
+        self.validate_required(self.task_id, 'task_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class QueryQmpDataaccessStatisticResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        statistic_result: StatisticResult = None,
+        task_status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 回执统计结果
+        self.statistic_result = statistic_result
+        # 任务状态
+        self.task_status = task_status
+
+    def validate(self):
+        if self.statistic_result:
+            self.statistic_result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.statistic_result is not None:
+            result['statistic_result'] = self.statistic_result.to_map()
+        if self.task_status is not None:
+            result['task_status'] = self.task_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('statistic_result') is not None:
+            temp_model = StatisticResult()
+            self.statistic_result = temp_model.from_map(m['statistic_result'])
+        if m.get('task_status') is not None:
+            self.task_status = m.get('task_status')
+        return self
+
+
+class QueryQmpRobotcallStatisticinfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_strategy_id: int = None,
+        out_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+        # 客户透传字段
+        self.out_info = out_info
+
+    def validate(self):
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+        self.validate_required(self.out_info, 'out_info')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        if self.out_info is not None:
+            result['out_info'] = self.out_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('out_info') is not None:
+            self.out_info = m.get('out_info')
+        return self
+
+
+class QueryQmpRobotcallStatisticinfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total_count: int = None,
+        call_count: int = None,
+        callee_count: int = None,
+        connect_count: int = None,
+        call_rate: str = None,
+        connect_rate: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 全量手机号数量
+        self.total_count = total_count
+        # 累计拨打次数
+        self.call_count = call_count
+        # 已经拨打的手机号数量
+        self.callee_count = callee_count
+        # 已拨打次数中接通的数量
+        self.connect_count = connect_count
+        # 拨打率
+        self.call_rate = call_rate
+        # 接通率
+        self.connect_rate = connect_rate
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        if self.call_count is not None:
+            result['call_count'] = self.call_count
+        if self.callee_count is not None:
+            result['callee_count'] = self.callee_count
+        if self.connect_count is not None:
+            result['connect_count'] = self.connect_count
+        if self.call_rate is not None:
+            result['call_rate'] = self.call_rate
+        if self.connect_rate is not None:
+            result['connect_rate'] = self.connect_rate
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        if m.get('call_count') is not None:
+            self.call_count = m.get('call_count')
+        if m.get('callee_count') is not None:
+            self.callee_count = m.get('callee_count')
+        if m.get('connect_count') is not None:
+            self.connect_count = m.get('connect_count')
+        if m.get('call_rate') is not None:
+            self.call_rate = m.get('call_rate')
+        if m.get('connect_rate') is not None:
+            self.connect_rate = m.get('connect_rate')
+        return self
+
+
+class BatchqueryQmpTaskDetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        customer_keys: List[str] = None,
+        key_template: str = None,
+        scene_strategy_id: int = None,
+        call_date: str = None,
+        end_call_date: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 上传外呼任务返回的callId
+        self.biz_id = biz_id
+        # 手机号列表
+        self.customer_keys = customer_keys
+        # 手机号类型
+        self.key_template = key_template
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+        # 开始外呼时间，只可查询最近30天的日期
+        self.call_date = call_date
+        # 结束外呼时间
+        self.end_call_date = end_call_date
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.customer_keys, 'customer_keys')
+        self.validate_required(self.key_template, 'key_template')
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.customer_keys is not None:
+            result['customer_keys'] = self.customer_keys
+        if self.key_template is not None:
+            result['key_template'] = self.key_template
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        if self.call_date is not None:
+            result['call_date'] = self.call_date
+        if self.end_call_date is not None:
+            result['end_call_date'] = self.end_call_date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('customer_keys') is not None:
+            self.customer_keys = m.get('customer_keys')
+        if m.get('key_template') is not None:
+            self.key_template = m.get('key_template')
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('call_date') is not None:
+            self.call_date = m.get('call_date')
+        if m.get('end_call_date') is not None:
+            self.end_call_date = m.get('end_call_date')
+        return self
+
+
+class BatchqueryQmpTaskDetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        out_info: str = None,
+        call_info: List[CommonRobotCallDetail] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 客户请求时的透传字段
+        self.out_info = out_info
+        # 外呼记录列表
+        self.call_info = call_info
+
+    def validate(self):
+        if self.call_info:
+            for k in self.call_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.out_info is not None:
+            result['out_info'] = self.out_info
+        result['call_info'] = []
+        if self.call_info is not None:
+            for k in self.call_info:
+                result['call_info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('out_info') is not None:
+            self.out_info = m.get('out_info')
+        self.call_info = []
+        if m.get('call_info') is not None:
+            for k in m.get('call_info'):
+                temp_model = CommonRobotCallDetail()
+                self.call_info.append(temp_model.from_map(k))
+        return self
+
+
+class QueryQmpCardsmsSupportRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        cpass_ak: str = None,
+        industry_tag: str = None,
+        template_code: str = None,
+        mobiles: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # cpassAccessKey
+        self.cpass_ak = cpass_ak
+        # 行业标签
+        self.industry_tag = industry_tag
+        # 卡片短信模板
+        self.template_code = template_code
+        # 手机号
+        self.mobiles = mobiles
+
+    def validate(self):
+        self.validate_required(self.industry_tag, 'industry_tag')
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.mobiles, 'mobiles')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.cpass_ak is not None:
+            result['cpass_ak'] = self.cpass_ak
+        if self.industry_tag is not None:
+            result['industry_tag'] = self.industry_tag
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.mobiles is not None:
+            result['mobiles'] = self.mobiles
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('cpass_ak') is not None:
+            self.cpass_ak = m.get('cpass_ak')
+        if m.get('industry_tag') is not None:
+            self.industry_tag = m.get('industry_tag')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('mobiles') is not None:
+            self.mobiles = m.get('mobiles')
+        return self
+
+
+class QueryQmpCardsmsSupportResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        datas: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 手机号卡片短信支持信息
+        self.datas = datas
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.datas is not None:
+            result['datas'] = self.datas
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('datas') is not None:
+            self.datas = m.get('datas')
+        return self
+
+
+class BatchqueryQmpActionplanDetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_strategy_id: List[int] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+
+    def validate(self):
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        return self
+
+
+class BatchqueryQmpActionplanDetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        action_plan_detail_info: List[ActionPlanDetailInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 触达策略详细信息
+        self.action_plan_detail_info = action_plan_detail_info
+
+    def validate(self):
+        if self.action_plan_detail_info:
+            for k in self.action_plan_detail_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['action_plan_detail_info'] = []
+        if self.action_plan_detail_info is not None:
+            for k in self.action_plan_detail_info:
+                result['action_plan_detail_info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.action_plan_detail_info = []
+        if m.get('action_plan_detail_info') is not None:
+            for k in m.get('action_plan_detail_info'):
+                temp_model = ActionPlanDetailInfo()
+                self.action_plan_detail_info.append(temp_model.from_map(k))
+        return self
+
+
+class ApplyQmpPhonenumberstatusforsmsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        customer_key: str = None,
+        param_template: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 12345
+        self.customer_key = customer_key
+        # 用户模版类型
+        self.param_template = param_template
+
+    def validate(self):
+        self.validate_required(self.customer_key, 'customer_key')
+        self.validate_required(self.param_template, 'param_template')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.customer_key is not None:
+            result['customer_key'] = self.customer_key
+        if self.param_template is not None:
+            result['param_template'] = self.param_template
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('customer_key') is not None:
+            self.customer_key = m.get('customer_key')
+        if m.get('param_template') is not None:
+            self.param_template = m.get('param_template')
+        return self
+
+
+class ApplyQmpPhonenumberstatusforsmsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        customer_key: str = None,
+        status: str = None,
+        carrier: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 12345
+        self.customer_key = customer_key
+        # 用户凭证状态
+        self.status = status
+        # 号码当前归属的基础运营商
+        self.carrier = carrier
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.customer_key is not None:
+            result['customer_key'] = self.customer_key
+        if self.status is not None:
+            result['status'] = self.status
+        if self.carrier is not None:
+            result['carrier'] = self.carrier
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('customer_key') is not None:
+            self.customer_key = m.get('customer_key')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('carrier') is not None:
+            self.carrier = m.get('carrier')
+        return self
+
+
+class BatchqueryQmpTenantActionplaninfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        content_type: str = None,
+        page_num: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 渠道类型
+        self.content_type = content_type
+        # 页码
+        self.page_num = page_num
+        # 页数
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.content_type, 'content_type')
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.content_type is not None:
+            result['content_type'] = self.content_type
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('content_type') is not None:
+            self.content_type = m.get('content_type')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class BatchqueryQmpTenantActionplaninfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        query_result: List[ActionPlanDetailInfo] = None,
+        total_count: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 触达策略信息
+        self.query_result = query_result
+        # 总数
+        self.total_count = total_count
+
+    def validate(self):
+        if self.query_result:
+            for k in self.query_result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['query_result'] = []
+        if self.query_result is not None:
+            for k in self.query_result:
+                result['query_result'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.query_result = []
+        if m.get('query_result') is not None:
+            for k in m.get('query_result'):
+                temp_model = ActionPlanDetailInfo()
+                self.query_result.append(temp_model.from_map(k))
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        return self
+
+
+class QueryQmpTenantActionplaninfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        page_num: int = None,
+        page_size: int = None,
+        channel_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 页码
+        self.page_num = page_num
+        # 页容量
+        self.page_size = page_size
+        # 渠道code
+        self.channel_type = channel_type
+
+    def validate(self):
+        self.validate_required(self.channel_type, 'channel_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.channel_type is not None:
+            result['channel_type'] = self.channel_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('channel_type') is not None:
+            self.channel_type = m.get('channel_type')
+        return self
+
+
+class QueryQmpTenantActionplaninfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        query_result: List[TenantActionPlanInfo] = None,
+        page_num: int = None,
+        page_size: int = None,
+        total_count: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 租户策略信息列表
+        self.query_result = query_result
+        # 页码
+        self.page_num = page_num
+        # 页容量
+        self.page_size = page_size
+        # 总量
+        self.total_count = total_count
+
+    def validate(self):
+        if self.query_result:
+            for k in self.query_result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['query_result'] = []
+        if self.query_result is not None:
+            for k in self.query_result:
+                result['query_result'].append(k.to_map() if k else None)
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.query_result = []
+        if m.get('query_result') is not None:
+            for k in m.get('query_result'):
+                temp_model = TenantActionPlanInfo()
+                self.query_result.append(temp_model.from_map(k))
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        return self
+
+
 class QueryRbbGenericInvokeRequest(TeaModel):
     def __init__(
         self,

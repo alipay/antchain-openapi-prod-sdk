@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.18.1',
+                    'sdk_version': '1.18.2',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.18.1',
+                    'sdk_version': '1.18.2',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -4575,6 +4575,622 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.CallbackQmpSmsReportResponse(),
             await self.do_request_async('1.0', 'riskplus.qmp.sms.report.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_qmp_digitalsms_batch(
+        self,
+        request: riskplus_models.SendQmpDigitalsmsBatchRequest,
+    ) -> riskplus_models.SendQmpDigitalsmsBatchResponse:
+        """
+        Description: 数字短信批量发送接口（单模板）
+        Summary: 数字短信批量发送接口（单模板）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_qmp_digitalsms_batch_ex(request, headers, runtime)
+
+    async def send_qmp_digitalsms_batch_async(
+        self,
+        request: riskplus_models.SendQmpDigitalsmsBatchRequest,
+    ) -> riskplus_models.SendQmpDigitalsmsBatchResponse:
+        """
+        Description: 数字短信批量发送接口（单模板）
+        Summary: 数字短信批量发送接口（单模板）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_qmp_digitalsms_batch_ex_async(request, headers, runtime)
+
+    def send_qmp_digitalsms_batch_ex(
+        self,
+        request: riskplus_models.SendQmpDigitalsmsBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SendQmpDigitalsmsBatchResponse:
+        """
+        Description: 数字短信批量发送接口（单模板）
+        Summary: 数字短信批量发送接口（单模板）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SendQmpDigitalsmsBatchResponse(),
+            self.do_request('1.0', 'riskplus.qmp.digitalsms.batch.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_qmp_digitalsms_batch_ex_async(
+        self,
+        request: riskplus_models.SendQmpDigitalsmsBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SendQmpDigitalsmsBatchResponse:
+        """
+        Description: 数字短信批量发送接口（单模板）
+        Summary: 数字短信批量发送接口（单模板）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SendQmpDigitalsmsBatchResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.digitalsms.batch.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_qmp_robotcall(
+        self,
+        request: riskplus_models.CallbackQmpRobotcallRequest,
+    ) -> riskplus_models.CallbackQmpRobotcallResponse:
+        """
+        Description: 新接入ai外呼服务商的回调接口
+        Summary:  ai外呼回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_qmp_robotcall_ex(request, headers, runtime)
+
+    async def callback_qmp_robotcall_async(
+        self,
+        request: riskplus_models.CallbackQmpRobotcallRequest,
+    ) -> riskplus_models.CallbackQmpRobotcallResponse:
+        """
+        Description: 新接入ai外呼服务商的回调接口
+        Summary:  ai外呼回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_qmp_robotcall_ex_async(request, headers, runtime)
+
+    def callback_qmp_robotcall_ex(
+        self,
+        request: riskplus_models.CallbackQmpRobotcallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackQmpRobotcallResponse:
+        """
+        Description: 新接入ai外呼服务商的回调接口
+        Summary:  ai外呼回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackQmpRobotcallResponse(),
+            self.do_request('1.0', 'riskplus.qmp.robotcall.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_qmp_robotcall_ex_async(
+        self,
+        request: riskplus_models.CallbackQmpRobotcallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackQmpRobotcallResponse:
+        """
+        Description: 新接入ai外呼服务商的回调接口
+        Summary:  ai外呼回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackQmpRobotcallResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.robotcall.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_qmp_robotcall_detail(
+        self,
+        request: riskplus_models.QueryQmpRobotcallDetailRequest,
+    ) -> riskplus_models.QueryQmpRobotcallDetailResponse:
+        """
+        Description: 查询ai外呼任务详情
+        Summary:  查询ai外呼任务详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_qmp_robotcall_detail_ex(request, headers, runtime)
+
+    async def query_qmp_robotcall_detail_async(
+        self,
+        request: riskplus_models.QueryQmpRobotcallDetailRequest,
+    ) -> riskplus_models.QueryQmpRobotcallDetailResponse:
+        """
+        Description: 查询ai外呼任务详情
+        Summary:  查询ai外呼任务详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_qmp_robotcall_detail_ex_async(request, headers, runtime)
+
+    def query_qmp_robotcall_detail_ex(
+        self,
+        request: riskplus_models.QueryQmpRobotcallDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpRobotcallDetailResponse:
+        """
+        Description: 查询ai外呼任务详情
+        Summary:  查询ai外呼任务详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpRobotcallDetailResponse(),
+            self.do_request('1.0', 'riskplus.qmp.robotcall.detail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_qmp_robotcall_detail_ex_async(
+        self,
+        request: riskplus_models.QueryQmpRobotcallDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpRobotcallDetailResponse:
+        """
+        Description: 查询ai外呼任务详情
+        Summary:  查询ai外呼任务详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpRobotcallDetailResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.robotcall.detail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_qmp_dataaccess_statistic(
+        self,
+        request: riskplus_models.QueryQmpDataaccessStatisticRequest,
+    ) -> riskplus_models.QueryQmpDataaccessStatisticResponse:
+        """
+        Description: 流量风控回执统计查询
+        Summary: 流量风控回执统计查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_qmp_dataaccess_statistic_ex(request, headers, runtime)
+
+    async def query_qmp_dataaccess_statistic_async(
+        self,
+        request: riskplus_models.QueryQmpDataaccessStatisticRequest,
+    ) -> riskplus_models.QueryQmpDataaccessStatisticResponse:
+        """
+        Description: 流量风控回执统计查询
+        Summary: 流量风控回执统计查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_qmp_dataaccess_statistic_ex_async(request, headers, runtime)
+
+    def query_qmp_dataaccess_statistic_ex(
+        self,
+        request: riskplus_models.QueryQmpDataaccessStatisticRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpDataaccessStatisticResponse:
+        """
+        Description: 流量风控回执统计查询
+        Summary: 流量风控回执统计查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpDataaccessStatisticResponse(),
+            self.do_request('1.0', 'riskplus.qmp.dataaccess.statistic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_qmp_dataaccess_statistic_ex_async(
+        self,
+        request: riskplus_models.QueryQmpDataaccessStatisticRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpDataaccessStatisticResponse:
+        """
+        Description: 流量风控回执统计查询
+        Summary: 流量风控回执统计查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpDataaccessStatisticResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.dataaccess.statistic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_qmp_robotcall_statisticinfo(
+        self,
+        request: riskplus_models.QueryQmpRobotcallStatisticinfoRequest,
+    ) -> riskplus_models.QueryQmpRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary:  外呼任务统计查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_qmp_robotcall_statisticinfo_ex(request, headers, runtime)
+
+    async def query_qmp_robotcall_statisticinfo_async(
+        self,
+        request: riskplus_models.QueryQmpRobotcallStatisticinfoRequest,
+    ) -> riskplus_models.QueryQmpRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary:  外呼任务统计查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_qmp_robotcall_statisticinfo_ex_async(request, headers, runtime)
+
+    def query_qmp_robotcall_statisticinfo_ex(
+        self,
+        request: riskplus_models.QueryQmpRobotcallStatisticinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary:  外呼任务统计查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpRobotcallStatisticinfoResponse(),
+            self.do_request('1.0', 'riskplus.qmp.robotcall.statisticinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_qmp_robotcall_statisticinfo_ex_async(
+        self,
+        request: riskplus_models.QueryQmpRobotcallStatisticinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary:  外呼任务统计查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpRobotcallStatisticinfoResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.robotcall.statisticinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_qmp_task_detail(
+        self,
+        request: riskplus_models.BatchqueryQmpTaskDetailRequest,
+    ) -> riskplus_models.BatchqueryQmpTaskDetailResponse:
+        """
+        Description: 触达执行任务详情查询
+        Summary: 触达执行任务详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_qmp_task_detail_ex(request, headers, runtime)
+
+    async def batchquery_qmp_task_detail_async(
+        self,
+        request: riskplus_models.BatchqueryQmpTaskDetailRequest,
+    ) -> riskplus_models.BatchqueryQmpTaskDetailResponse:
+        """
+        Description: 触达执行任务详情查询
+        Summary: 触达执行任务详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_qmp_task_detail_ex_async(request, headers, runtime)
+
+    def batchquery_qmp_task_detail_ex(
+        self,
+        request: riskplus_models.BatchqueryQmpTaskDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryQmpTaskDetailResponse:
+        """
+        Description: 触达执行任务详情查询
+        Summary: 触达执行任务详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryQmpTaskDetailResponse(),
+            self.do_request('1.0', 'riskplus.qmp.task.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_qmp_task_detail_ex_async(
+        self,
+        request: riskplus_models.BatchqueryQmpTaskDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryQmpTaskDetailResponse:
+        """
+        Description: 触达执行任务详情查询
+        Summary: 触达执行任务详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryQmpTaskDetailResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.task.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_qmp_cardsms_support(
+        self,
+        request: riskplus_models.QueryQmpCardsmsSupportRequest,
+    ) -> riskplus_models.QueryQmpCardsmsSupportResponse:
+        """
+        Description: 卡片短信支持能力查询
+        Summary: 卡片短信支持能力查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_qmp_cardsms_support_ex(request, headers, runtime)
+
+    async def query_qmp_cardsms_support_async(
+        self,
+        request: riskplus_models.QueryQmpCardsmsSupportRequest,
+    ) -> riskplus_models.QueryQmpCardsmsSupportResponse:
+        """
+        Description: 卡片短信支持能力查询
+        Summary: 卡片短信支持能力查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_qmp_cardsms_support_ex_async(request, headers, runtime)
+
+    def query_qmp_cardsms_support_ex(
+        self,
+        request: riskplus_models.QueryQmpCardsmsSupportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpCardsmsSupportResponse:
+        """
+        Description: 卡片短信支持能力查询
+        Summary: 卡片短信支持能力查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpCardsmsSupportResponse(),
+            self.do_request('1.0', 'riskplus.qmp.cardsms.support.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_qmp_cardsms_support_ex_async(
+        self,
+        request: riskplus_models.QueryQmpCardsmsSupportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpCardsmsSupportResponse:
+        """
+        Description: 卡片短信支持能力查询
+        Summary: 卡片短信支持能力查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpCardsmsSupportResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.cardsms.support.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_qmp_actionplan_detail(
+        self,
+        request: riskplus_models.BatchqueryQmpActionplanDetailRequest,
+    ) -> riskplus_models.BatchqueryQmpActionplanDetailResponse:
+        """
+        Description: 流量风控查询外呼策略详情
+        Summary: 流量风控查询外呼策略详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_qmp_actionplan_detail_ex(request, headers, runtime)
+
+    async def batchquery_qmp_actionplan_detail_async(
+        self,
+        request: riskplus_models.BatchqueryQmpActionplanDetailRequest,
+    ) -> riskplus_models.BatchqueryQmpActionplanDetailResponse:
+        """
+        Description: 流量风控查询外呼策略详情
+        Summary: 流量风控查询外呼策略详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_qmp_actionplan_detail_ex_async(request, headers, runtime)
+
+    def batchquery_qmp_actionplan_detail_ex(
+        self,
+        request: riskplus_models.BatchqueryQmpActionplanDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryQmpActionplanDetailResponse:
+        """
+        Description: 流量风控查询外呼策略详情
+        Summary: 流量风控查询外呼策略详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryQmpActionplanDetailResponse(),
+            self.do_request('1.0', 'riskplus.qmp.actionplan.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_qmp_actionplan_detail_ex_async(
+        self,
+        request: riskplus_models.BatchqueryQmpActionplanDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryQmpActionplanDetailResponse:
+        """
+        Description: 流量风控查询外呼策略详情
+        Summary: 流量风控查询外呼策略详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryQmpActionplanDetailResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.actionplan.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_qmp_phonenumberstatusforsms(
+        self,
+        request: riskplus_models.ApplyQmpPhonenumberstatusforsmsRequest,
+    ) -> riskplus_models.ApplyQmpPhonenumberstatusforsmsResponse:
+        """
+        Description: 调用流量风控(原营销盾)空号检测
+        Summary: 调用流量风控(原营销盾)空号检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_qmp_phonenumberstatusforsms_ex(request, headers, runtime)
+
+    async def apply_qmp_phonenumberstatusforsms_async(
+        self,
+        request: riskplus_models.ApplyQmpPhonenumberstatusforsmsRequest,
+    ) -> riskplus_models.ApplyQmpPhonenumberstatusforsmsResponse:
+        """
+        Description: 调用流量风控(原营销盾)空号检测
+        Summary: 调用流量风控(原营销盾)空号检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_qmp_phonenumberstatusforsms_ex_async(request, headers, runtime)
+
+    def apply_qmp_phonenumberstatusforsms_ex(
+        self,
+        request: riskplus_models.ApplyQmpPhonenumberstatusforsmsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyQmpPhonenumberstatusforsmsResponse:
+        """
+        Description: 调用流量风控(原营销盾)空号检测
+        Summary: 调用流量风控(原营销盾)空号检测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyQmpPhonenumberstatusforsmsResponse(),
+            self.do_request('1.0', 'riskplus.qmp.phonenumberstatusforsms.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_qmp_phonenumberstatusforsms_ex_async(
+        self,
+        request: riskplus_models.ApplyQmpPhonenumberstatusforsmsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyQmpPhonenumberstatusforsmsResponse:
+        """
+        Description: 调用流量风控(原营销盾)空号检测
+        Summary: 调用流量风控(原营销盾)空号检测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyQmpPhonenumberstatusforsmsResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.phonenumberstatusforsms.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_qmp_tenant_actionplaninfo(
+        self,
+        request: riskplus_models.BatchqueryQmpTenantActionplaninfoRequest,
+    ) -> riskplus_models.BatchqueryQmpTenantActionplaninfoResponse:
+        """
+        Description: 分页查询租户外呼策略
+        Summary: 流量风控租户场景批量信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_qmp_tenant_actionplaninfo_ex(request, headers, runtime)
+
+    async def batchquery_qmp_tenant_actionplaninfo_async(
+        self,
+        request: riskplus_models.BatchqueryQmpTenantActionplaninfoRequest,
+    ) -> riskplus_models.BatchqueryQmpTenantActionplaninfoResponse:
+        """
+        Description: 分页查询租户外呼策略
+        Summary: 流量风控租户场景批量信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_qmp_tenant_actionplaninfo_ex_async(request, headers, runtime)
+
+    def batchquery_qmp_tenant_actionplaninfo_ex(
+        self,
+        request: riskplus_models.BatchqueryQmpTenantActionplaninfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryQmpTenantActionplaninfoResponse:
+        """
+        Description: 分页查询租户外呼策略
+        Summary: 流量风控租户场景批量信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryQmpTenantActionplaninfoResponse(),
+            self.do_request('1.0', 'riskplus.qmp.tenant.actionplaninfo.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_qmp_tenant_actionplaninfo_ex_async(
+        self,
+        request: riskplus_models.BatchqueryQmpTenantActionplaninfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryQmpTenantActionplaninfoResponse:
+        """
+        Description: 分页查询租户外呼策略
+        Summary: 流量风控租户场景批量信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryQmpTenantActionplaninfoResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.tenant.actionplaninfo.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_qmp_tenant_actionplaninfo(
+        self,
+        request: riskplus_models.QueryQmpTenantActionplaninfoRequest,
+    ) -> riskplus_models.QueryQmpTenantActionplaninfoResponse:
+        """
+        Description: 流量风控租户场景信息查询
+        Summary: 流量风控租户场景信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_qmp_tenant_actionplaninfo_ex(request, headers, runtime)
+
+    async def query_qmp_tenant_actionplaninfo_async(
+        self,
+        request: riskplus_models.QueryQmpTenantActionplaninfoRequest,
+    ) -> riskplus_models.QueryQmpTenantActionplaninfoResponse:
+        """
+        Description: 流量风控租户场景信息查询
+        Summary: 流量风控租户场景信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_qmp_tenant_actionplaninfo_ex_async(request, headers, runtime)
+
+    def query_qmp_tenant_actionplaninfo_ex(
+        self,
+        request: riskplus_models.QueryQmpTenantActionplaninfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpTenantActionplaninfoResponse:
+        """
+        Description: 流量风控租户场景信息查询
+        Summary: 流量风控租户场景信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpTenantActionplaninfoResponse(),
+            self.do_request('1.0', 'riskplus.qmp.tenant.actionplaninfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_qmp_tenant_actionplaninfo_ex_async(
+        self,
+        request: riskplus_models.QueryQmpTenantActionplaninfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpTenantActionplaninfoResponse:
+        """
+        Description: 流量风控租户场景信息查询
+        Summary: 流量风控租户场景信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpTenantActionplaninfoResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.tenant.actionplaninfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rbb_generic_invoke(
