@@ -23,6 +23,8 @@ use AntChain\RISKPLUS\Models\ApplyDubheCustomerAgreementsignRequest;
 use AntChain\RISKPLUS\Models\ApplyDubheCustomerAgreementsignResponse;
 use AntChain\RISKPLUS\Models\ApplyDubheUsecreditRequest;
 use AntChain\RISKPLUS\Models\ApplyDubheUsecreditResponse;
+use AntChain\RISKPLUS\Models\ApplyQmpPhonenumberstatusforsmsRequest;
+use AntChain\RISKPLUS\Models\ApplyQmpPhonenumberstatusforsmsResponse;
 use AntChain\RISKPLUS\Models\ApplyQmpRobotcallRequest;
 use AntChain\RISKPLUS\Models\ApplyQmpRobotcallResponse;
 use AntChain\RISKPLUS\Models\ApplyQmpRtBatchmarketingRequest;
@@ -39,6 +41,12 @@ use AntChain\RISKPLUS\Models\ApplyUmktRobotcallRequest;
 use AntChain\RISKPLUS\Models\ApplyUmktRobotcallResponse;
 use AntChain\RISKPLUS\Models\ApplyUmktRtBatchmarketingRequest;
 use AntChain\RISKPLUS\Models\ApplyUmktRtBatchmarketingResponse;
+use AntChain\RISKPLUS\Models\BatchqueryQmpActionplanDetailRequest;
+use AntChain\RISKPLUS\Models\BatchqueryQmpActionplanDetailResponse;
+use AntChain\RISKPLUS\Models\BatchqueryQmpTaskDetailRequest;
+use AntChain\RISKPLUS\Models\BatchqueryQmpTaskDetailResponse;
+use AntChain\RISKPLUS\Models\BatchqueryQmpTenantActionplaninfoRequest;
+use AntChain\RISKPLUS\Models\BatchqueryQmpTenantActionplaninfoResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktActionplanDetailRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktActionplanDetailResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRobotcallDetailRequest;
@@ -57,6 +65,8 @@ use AntChain\RISKPLUS\Models\BatchqueryUmktTenantActionplaninfoRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktTenantActionplaninfoResponse;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardRequest;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardResponse;
+use AntChain\RISKPLUS\Models\CallbackQmpRobotcallRequest;
+use AntChain\RISKPLUS\Models\CallbackQmpRobotcallResponse;
 use AntChain\RISKPLUS\Models\CallbackQmpSmsReportRequest;
 use AntChain\RISKPLUS\Models\CallbackQmpSmsReportResponse;
 use AntChain\RISKPLUS\Models\CallbackQmpSmsUpRequest;
@@ -205,6 +215,16 @@ use AntChain\RISKPLUS\Models\QueryFinserviceZhimaIdentifyRequest;
 use AntChain\RISKPLUS\Models\QueryFinserviceZhimaIdentifyResponse;
 use AntChain\RISKPLUS\Models\QueryMdipDataserviceRequest;
 use AntChain\RISKPLUS\Models\QueryMdipDataserviceResponse;
+use AntChain\RISKPLUS\Models\QueryQmpCardsmsSupportRequest;
+use AntChain\RISKPLUS\Models\QueryQmpCardsmsSupportResponse;
+use AntChain\RISKPLUS\Models\QueryQmpDataaccessStatisticRequest;
+use AntChain\RISKPLUS\Models\QueryQmpDataaccessStatisticResponse;
+use AntChain\RISKPLUS\Models\QueryQmpRobotcallDetailRequest;
+use AntChain\RISKPLUS\Models\QueryQmpRobotcallDetailResponse;
+use AntChain\RISKPLUS\Models\QueryQmpRobotcallStatisticinfoRequest;
+use AntChain\RISKPLUS\Models\QueryQmpRobotcallStatisticinfoResponse;
+use AntChain\RISKPLUS\Models\QueryQmpTenantActionplaninfoRequest;
+use AntChain\RISKPLUS\Models\QueryQmpTenantActionplaninfoResponse;
 use AntChain\RISKPLUS\Models\QueryRbbCompanyCreditRequest;
 use AntChain\RISKPLUS\Models\QueryRbbCompanyCreditResponse;
 use AntChain\RISKPLUS\Models\QueryRbbCompanyGuardRequest;
@@ -303,6 +323,8 @@ use AntChain\RISKPLUS\Models\SendDubbridgeSmsRequest;
 use AntChain\RISKPLUS\Models\SendDubbridgeSmsResponse;
 use AntChain\RISKPLUS\Models\SendQmpCardsmsBatchRequest;
 use AntChain\RISKPLUS\Models\SendQmpCardsmsBatchResponse;
+use AntChain\RISKPLUS\Models\SendQmpDigitalsmsBatchRequest;
+use AntChain\RISKPLUS\Models\SendQmpDigitalsmsBatchResponse;
 use AntChain\RISKPLUS\Models\SendQmpTextsmsBatchRequest;
 use AntChain\RISKPLUS\Models\SendQmpTextsmsBatchResponse;
 use AntChain\RISKPLUS\Models\SendSecurityDataRequest;
@@ -488,7 +510,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.18.1',
+                    'sdk_version'      => '1.18.2',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3063,6 +3085,369 @@ class Client
         Utils::validateModel($request);
 
         return CallbackQmpSmsReportResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.sms.report.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字短信批量发送接口（单模板）
+     * Summary: 数字短信批量发送接口（单模板）.
+     *
+     * @param SendQmpDigitalsmsBatchRequest $request
+     *
+     * @return SendQmpDigitalsmsBatchResponse
+     */
+    public function sendQmpDigitalsmsBatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendQmpDigitalsmsBatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字短信批量发送接口（单模板）
+     * Summary: 数字短信批量发送接口（单模板）.
+     *
+     * @param SendQmpDigitalsmsBatchRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return SendQmpDigitalsmsBatchResponse
+     */
+    public function sendQmpDigitalsmsBatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendQmpDigitalsmsBatchResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.digitalsms.batch.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新接入ai外呼服务商的回调接口
+     * Summary:  ai外呼回调接口.
+     *
+     * @param CallbackQmpRobotcallRequest $request
+     *
+     * @return CallbackQmpRobotcallResponse
+     */
+    public function callbackQmpRobotcall($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackQmpRobotcallEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新接入ai外呼服务商的回调接口
+     * Summary:  ai外呼回调接口.
+     *
+     * @param CallbackQmpRobotcallRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CallbackQmpRobotcallResponse
+     */
+    public function callbackQmpRobotcallEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackQmpRobotcallResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.robotcall.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询ai外呼任务详情
+     * Summary:  查询ai外呼任务详情.
+     *
+     * @param QueryQmpRobotcallDetailRequest $request
+     *
+     * @return QueryQmpRobotcallDetailResponse
+     */
+    public function queryQmpRobotcallDetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryQmpRobotcallDetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询ai外呼任务详情
+     * Summary:  查询ai外呼任务详情.
+     *
+     * @param QueryQmpRobotcallDetailRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryQmpRobotcallDetailResponse
+     */
+    public function queryQmpRobotcallDetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryQmpRobotcallDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.robotcall.detail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 流量风控回执统计查询
+     * Summary: 流量风控回执统计查询.
+     *
+     * @param QueryQmpDataaccessStatisticRequest $request
+     *
+     * @return QueryQmpDataaccessStatisticResponse
+     */
+    public function queryQmpDataaccessStatistic($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryQmpDataaccessStatisticEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 流量风控回执统计查询
+     * Summary: 流量风控回执统计查询.
+     *
+     * @param QueryQmpDataaccessStatisticRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryQmpDataaccessStatisticResponse
+     */
+    public function queryQmpDataaccessStatisticEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryQmpDataaccessStatisticResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.dataaccess.statistic.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 外呼任务统计查询接口
+     * Summary:  外呼任务统计查询接口.
+     *
+     * @param QueryQmpRobotcallStatisticinfoRequest $request
+     *
+     * @return QueryQmpRobotcallStatisticinfoResponse
+     */
+    public function queryQmpRobotcallStatisticinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryQmpRobotcallStatisticinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外呼任务统计查询接口
+     * Summary:  外呼任务统计查询接口.
+     *
+     * @param QueryQmpRobotcallStatisticinfoRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryQmpRobotcallStatisticinfoResponse
+     */
+    public function queryQmpRobotcallStatisticinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryQmpRobotcallStatisticinfoResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.robotcall.statisticinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 触达执行任务详情查询
+     * Summary: 触达执行任务详情查询.
+     *
+     * @param BatchqueryQmpTaskDetailRequest $request
+     *
+     * @return BatchqueryQmpTaskDetailResponse
+     */
+    public function batchqueryQmpTaskDetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryQmpTaskDetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 触达执行任务详情查询
+     * Summary: 触达执行任务详情查询.
+     *
+     * @param BatchqueryQmpTaskDetailRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return BatchqueryQmpTaskDetailResponse
+     */
+    public function batchqueryQmpTaskDetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryQmpTaskDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.task.detail.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 卡片短信支持能力查询
+     * Summary: 卡片短信支持能力查询.
+     *
+     * @param QueryQmpCardsmsSupportRequest $request
+     *
+     * @return QueryQmpCardsmsSupportResponse
+     */
+    public function queryQmpCardsmsSupport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryQmpCardsmsSupportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 卡片短信支持能力查询
+     * Summary: 卡片短信支持能力查询.
+     *
+     * @param QueryQmpCardsmsSupportRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryQmpCardsmsSupportResponse
+     */
+    public function queryQmpCardsmsSupportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryQmpCardsmsSupportResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.cardsms.support.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 流量风控查询外呼策略详情
+     * Summary: 流量风控查询外呼策略详情.
+     *
+     * @param BatchqueryQmpActionplanDetailRequest $request
+     *
+     * @return BatchqueryQmpActionplanDetailResponse
+     */
+    public function batchqueryQmpActionplanDetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryQmpActionplanDetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 流量风控查询外呼策略详情
+     * Summary: 流量风控查询外呼策略详情.
+     *
+     * @param BatchqueryQmpActionplanDetailRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return BatchqueryQmpActionplanDetailResponse
+     */
+    public function batchqueryQmpActionplanDetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryQmpActionplanDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.actionplan.detail.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用流量风控(原营销盾)空号检测
+     * Summary: 调用流量风控(原营销盾)空号检测.
+     *
+     * @param ApplyQmpPhonenumberstatusforsmsRequest $request
+     *
+     * @return ApplyQmpPhonenumberstatusforsmsResponse
+     */
+    public function applyQmpPhonenumberstatusforsms($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyQmpPhonenumberstatusforsmsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用流量风控(原营销盾)空号检测
+     * Summary: 调用流量风控(原营销盾)空号检测.
+     *
+     * @param ApplyQmpPhonenumberstatusforsmsRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return ApplyQmpPhonenumberstatusforsmsResponse
+     */
+    public function applyQmpPhonenumberstatusforsmsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyQmpPhonenumberstatusforsmsResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.phonenumberstatusforsms.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询租户外呼策略
+     * Summary: 流量风控租户场景批量信息查询.
+     *
+     * @param BatchqueryQmpTenantActionplaninfoRequest $request
+     *
+     * @return BatchqueryQmpTenantActionplaninfoResponse
+     */
+    public function batchqueryQmpTenantActionplaninfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryQmpTenantActionplaninfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询租户外呼策略
+     * Summary: 流量风控租户场景批量信息查询.
+     *
+     * @param BatchqueryQmpTenantActionplaninfoRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return BatchqueryQmpTenantActionplaninfoResponse
+     */
+    public function batchqueryQmpTenantActionplaninfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryQmpTenantActionplaninfoResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.tenant.actionplaninfo.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 流量风控租户场景信息查询
+     * Summary: 流量风控租户场景信息查询.
+     *
+     * @param QueryQmpTenantActionplaninfoRequest $request
+     *
+     * @return QueryQmpTenantActionplaninfoResponse
+     */
+    public function queryQmpTenantActionplaninfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryQmpTenantActionplaninfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 流量风控租户场景信息查询
+     * Summary: 流量风控租户场景信息查询.
+     *
+     * @param QueryQmpTenantActionplaninfoRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryQmpTenantActionplaninfoResponse
+     */
+    public function queryQmpTenantActionplaninfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryQmpTenantActionplaninfoResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.tenant.actionplaninfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
