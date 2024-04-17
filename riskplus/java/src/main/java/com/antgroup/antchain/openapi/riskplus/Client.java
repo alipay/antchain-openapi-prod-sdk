@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.18.1"),
+                    new TeaPair("sdk_version", "1.18.2"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1647,6 +1647,215 @@ public class Client {
     public CallbackQmpSmsReportResponse callbackQmpSmsReportEx(CallbackQmpSmsReportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.sms.report.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackQmpSmsReportResponse());
+    }
+
+    /**
+     * Description: 数字短信批量发送接口（单模板）
+     * Summary: 数字短信批量发送接口（单模板）
+     */
+    public SendQmpDigitalsmsBatchResponse sendQmpDigitalsmsBatch(SendQmpDigitalsmsBatchRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sendQmpDigitalsmsBatchEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字短信批量发送接口（单模板）
+     * Summary: 数字短信批量发送接口（单模板）
+     */
+    public SendQmpDigitalsmsBatchResponse sendQmpDigitalsmsBatchEx(SendQmpDigitalsmsBatchRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.digitalsms.batch.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendQmpDigitalsmsBatchResponse());
+    }
+
+    /**
+     * Description: 新接入ai外呼服务商的回调接口
+     * Summary:  ai外呼回调接口
+     */
+    public CallbackQmpRobotcallResponse callbackQmpRobotcall(CallbackQmpRobotcallRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackQmpRobotcallEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 新接入ai外呼服务商的回调接口
+     * Summary:  ai外呼回调接口
+     */
+    public CallbackQmpRobotcallResponse callbackQmpRobotcallEx(CallbackQmpRobotcallRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.robotcall.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackQmpRobotcallResponse());
+    }
+
+    /**
+     * Description: 查询ai外呼任务详情
+     * Summary:  查询ai外呼任务详情
+     */
+    public QueryQmpRobotcallDetailResponse queryQmpRobotcallDetail(QueryQmpRobotcallDetailRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryQmpRobotcallDetailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询ai外呼任务详情
+     * Summary:  查询ai外呼任务详情
+     */
+    public QueryQmpRobotcallDetailResponse queryQmpRobotcallDetailEx(QueryQmpRobotcallDetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.robotcall.detail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryQmpRobotcallDetailResponse());
+    }
+
+    /**
+     * Description: 流量风控回执统计查询
+     * Summary: 流量风控回执统计查询
+     */
+    public QueryQmpDataaccessStatisticResponse queryQmpDataaccessStatistic(QueryQmpDataaccessStatisticRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryQmpDataaccessStatisticEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 流量风控回执统计查询
+     * Summary: 流量风控回执统计查询
+     */
+    public QueryQmpDataaccessStatisticResponse queryQmpDataaccessStatisticEx(QueryQmpDataaccessStatisticRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.dataaccess.statistic.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryQmpDataaccessStatisticResponse());
+    }
+
+    /**
+     * Description: 外呼任务统计查询接口
+     * Summary:  外呼任务统计查询接口
+     */
+    public QueryQmpRobotcallStatisticinfoResponse queryQmpRobotcallStatisticinfo(QueryQmpRobotcallStatisticinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryQmpRobotcallStatisticinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 外呼任务统计查询接口
+     * Summary:  外呼任务统计查询接口
+     */
+    public QueryQmpRobotcallStatisticinfoResponse queryQmpRobotcallStatisticinfoEx(QueryQmpRobotcallStatisticinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.robotcall.statisticinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryQmpRobotcallStatisticinfoResponse());
+    }
+
+    /**
+     * Description: 触达执行任务详情查询
+     * Summary: 触达执行任务详情查询
+     */
+    public BatchqueryQmpTaskDetailResponse batchqueryQmpTaskDetail(BatchqueryQmpTaskDetailRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryQmpTaskDetailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 触达执行任务详情查询
+     * Summary: 触达执行任务详情查询
+     */
+    public BatchqueryQmpTaskDetailResponse batchqueryQmpTaskDetailEx(BatchqueryQmpTaskDetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.task.detail.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryQmpTaskDetailResponse());
+    }
+
+    /**
+     * Description: 卡片短信支持能力查询
+     * Summary: 卡片短信支持能力查询
+     */
+    public QueryQmpCardsmsSupportResponse queryQmpCardsmsSupport(QueryQmpCardsmsSupportRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryQmpCardsmsSupportEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 卡片短信支持能力查询
+     * Summary: 卡片短信支持能力查询
+     */
+    public QueryQmpCardsmsSupportResponse queryQmpCardsmsSupportEx(QueryQmpCardsmsSupportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.cardsms.support.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryQmpCardsmsSupportResponse());
+    }
+
+    /**
+     * Description: 流量风控查询外呼策略详情
+     * Summary: 流量风控查询外呼策略详情
+     */
+    public BatchqueryQmpActionplanDetailResponse batchqueryQmpActionplanDetail(BatchqueryQmpActionplanDetailRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryQmpActionplanDetailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 流量风控查询外呼策略详情
+     * Summary: 流量风控查询外呼策略详情
+     */
+    public BatchqueryQmpActionplanDetailResponse batchqueryQmpActionplanDetailEx(BatchqueryQmpActionplanDetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.actionplan.detail.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryQmpActionplanDetailResponse());
+    }
+
+    /**
+     * Description: 调用流量风控(原营销盾)空号检测
+     * Summary: 调用流量风控(原营销盾)空号检测
+     */
+    public ApplyQmpPhonenumberstatusforsmsResponse applyQmpPhonenumberstatusforsms(ApplyQmpPhonenumberstatusforsmsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyQmpPhonenumberstatusforsmsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 调用流量风控(原营销盾)空号检测
+     * Summary: 调用流量风控(原营销盾)空号检测
+     */
+    public ApplyQmpPhonenumberstatusforsmsResponse applyQmpPhonenumberstatusforsmsEx(ApplyQmpPhonenumberstatusforsmsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.phonenumberstatusforsms.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyQmpPhonenumberstatusforsmsResponse());
+    }
+
+    /**
+     * Description: 分页查询租户外呼策略
+     * Summary: 流量风控租户场景批量信息查询
+     */
+    public BatchqueryQmpTenantActionplaninfoResponse batchqueryQmpTenantActionplaninfo(BatchqueryQmpTenantActionplaninfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryQmpTenantActionplaninfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询租户外呼策略
+     * Summary: 流量风控租户场景批量信息查询
+     */
+    public BatchqueryQmpTenantActionplaninfoResponse batchqueryQmpTenantActionplaninfoEx(BatchqueryQmpTenantActionplaninfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.tenant.actionplaninfo.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryQmpTenantActionplaninfoResponse());
+    }
+
+    /**
+     * Description: 流量风控租户场景信息查询
+     * Summary: 流量风控租户场景信息查询
+     */
+    public QueryQmpTenantActionplaninfoResponse queryQmpTenantActionplaninfo(QueryQmpTenantActionplaninfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryQmpTenantActionplaninfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 流量风控租户场景信息查询
+     * Summary: 流量风控租户场景信息查询
+     */
+    public QueryQmpTenantActionplaninfoResponse queryQmpTenantActionplaninfoEx(QueryQmpTenantActionplaninfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.tenant.actionplaninfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryQmpTenantActionplaninfoResponse());
     }
 
     /**
