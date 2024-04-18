@@ -88,12 +88,12 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string UserName { get; set; }
 
-        // 证件有效期限起始日期废弃
+        // 证件有效期限起始日期
         [NameInMap("certificate_start_time")]
         [Validation(Required=false)]
         public string CertificateStartTime { get; set; }
 
-        // 证件有效期限终止日期废弃
+        // 证件有效期限终止日期
         [NameInMap("certificate_end_time")]
         [Validation(Required=false)]
         public string CertificateEndTime { get; set; }
@@ -108,7 +108,7 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string CertificateBackFilePath { get; set; }
 
-        // 用户身份开始时间废弃
+        // 用户身份开始时间
         [NameInMap("identity_start_time")]
         [Validation(Required=false)]
         public string IdentityStartTime { get; set; }
@@ -118,10 +118,15 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string UserType { get; set; }
 
-        // 地址废弃
+        // 地址
         [NameInMap("address")]
         [Validation(Required=false)]
         public string Address { get; set; }
+
+        // 证件是否长期有效
+        [NameInMap("long_term_valid")]
+        [Validation(Required=false)]
+        public bool? LongTermValid { get; set; }
 
     }
 

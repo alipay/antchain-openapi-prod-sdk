@@ -27,8 +27,14 @@ namespace AntChain.SDK.BCCR.Models
 
         // 创作过程涉及到字体使用相关版权说明
         [NameInMap("font_copyright")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string FontCopyright { get; set; }
+
+        // 创作过程涉及到字体使用相关版权说明	
+        // 
+        [NameInMap("font_types")]
+        [Validation(Required=false)]
+        public List<string> FontTypes { get; set; }
 
     }
 

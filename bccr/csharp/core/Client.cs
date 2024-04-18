@@ -137,7 +137,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.79"},
+                        {"sdk_version", "1.18.20"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.79"},
+                        {"sdk_version", "1.18.20"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2629,6 +2629,552 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyDciPromotionResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.promotion.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据手机号查询dci用户
+         * Summary: 根据手机号查询dci用户
+         */
+        public QueryDciUserbyphoneResponse QueryDciUserbyphone(QueryDciUserbyphoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDciUserbyphoneEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据手机号查询dci用户
+         * Summary: 根据手机号查询dci用户
+         */
+        public async Task<QueryDciUserbyphoneResponse> QueryDciUserbyphoneAsync(QueryDciUserbyphoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDciUserbyphoneExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据手机号查询dci用户
+         * Summary: 根据手机号查询dci用户
+         */
+        public QueryDciUserbyphoneResponse QueryDciUserbyphoneEx(QueryDciUserbyphoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDciUserbyphoneResponse>(DoRequest("1.0", "blockchain.bccr.dci.userbyphone.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据手机号查询dci用户
+         * Summary: 根据手机号查询dci用户
+         */
+        public async Task<QueryDciUserbyphoneResponse> QueryDciUserbyphoneExAsync(QueryDciUserbyphoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDciUserbyphoneResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.userbyphone.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支持交易的已进行用途登记的商品查询
+         * Summary: 支持交易的商品查询
+         */
+        public QueryTradeSaleResponse QueryTradeSale(QueryTradeSaleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTradeSaleEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支持交易的已进行用途登记的商品查询
+         * Summary: 支持交易的商品查询
+         */
+        public async Task<QueryTradeSaleResponse> QueryTradeSaleAsync(QueryTradeSaleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTradeSaleExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支持交易的已进行用途登记的商品查询
+         * Summary: 支持交易的商品查询
+         */
+        public QueryTradeSaleResponse QueryTradeSaleEx(QueryTradeSaleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTradeSaleResponse>(DoRequest("1.0", "blockchain.bccr.trade.sale.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支持交易的已进行用途登记的商品查询
+         * Summary: 支持交易的商品查询
+         */
+        public async Task<QueryTradeSaleResponse> QueryTradeSaleExAsync(QueryTradeSaleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTradeSaleResponse>(await DoRequestAsync("1.0", "blockchain.bccr.trade.sale.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商品交易用途登记
+         * Summary: 商品交易用途登记
+         */
+        public RegisterTradeUsageResponse RegisterTradeUsage(RegisterTradeUsageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterTradeUsageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商品交易用途登记
+         * Summary: 商品交易用途登记
+         */
+        public async Task<RegisterTradeUsageResponse> RegisterTradeUsageAsync(RegisterTradeUsageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterTradeUsageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商品交易用途登记
+         * Summary: 商品交易用途登记
+         */
+        public RegisterTradeUsageResponse RegisterTradeUsageEx(RegisterTradeUsageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterTradeUsageResponse>(DoRequest("1.0", "blockchain.bccr.trade.usage.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商品交易用途登记
+         * Summary: 商品交易用途登记
+         */
+        public async Task<RegisterTradeUsageResponse> RegisterTradeUsageExAsync(RegisterTradeUsageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterTradeUsageResponse>(await DoRequestAsync("1.0", "blockchain.bccr.trade.usage.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建取证用户
+         * Summary: 创建取证用户
+         */
+        public CreateEvidenceUserResponse CreateEvidenceUser(CreateEvidenceUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateEvidenceUserEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建取证用户
+         * Summary: 创建取证用户
+         */
+        public async Task<CreateEvidenceUserResponse> CreateEvidenceUserAsync(CreateEvidenceUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateEvidenceUserExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建取证用户
+         * Summary: 创建取证用户
+         */
+        public CreateEvidenceUserResponse CreateEvidenceUserEx(CreateEvidenceUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateEvidenceUserResponse>(DoRequest("1.0", "blockchain.bccr.evidence.user.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建取证用户
+         * Summary: 创建取证用户
+         */
+        public async Task<CreateEvidenceUserResponse> CreateEvidenceUserExAsync(CreateEvidenceUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateEvidenceUserResponse>(await DoRequestAsync("1.0", "blockchain.bccr.evidence.user.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建网页截图
+         * Summary: 创建网页截图
+         */
+        public CreateEvidenceScreenshotResponse CreateEvidenceScreenshot(CreateEvidenceScreenshotRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateEvidenceScreenshotEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建网页截图
+         * Summary: 创建网页截图
+         */
+        public async Task<CreateEvidenceScreenshotResponse> CreateEvidenceScreenshotAsync(CreateEvidenceScreenshotRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateEvidenceScreenshotExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建网页截图
+         * Summary: 创建网页截图
+         */
+        public CreateEvidenceScreenshotResponse CreateEvidenceScreenshotEx(CreateEvidenceScreenshotRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateEvidenceScreenshotResponse>(DoRequest("1.0", "blockchain.bccr.evidence.screenshot.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建网页截图
+         * Summary: 创建网页截图
+         */
+        public async Task<CreateEvidenceScreenshotResponse> CreateEvidenceScreenshotExAsync(CreateEvidenceScreenshotRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateEvidenceScreenshotResponse>(await DoRequestAsync("1.0", "blockchain.bccr.evidence.screenshot.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建网页截图存证
+         * Summary: 创建网页截图存证
+         */
+        public CreateEvidenceRegisterResponse CreateEvidenceRegister(CreateEvidenceRegisterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateEvidenceRegisterEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建网页截图存证
+         * Summary: 创建网页截图存证
+         */
+        public async Task<CreateEvidenceRegisterResponse> CreateEvidenceRegisterAsync(CreateEvidenceRegisterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateEvidenceRegisterExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建网页截图存证
+         * Summary: 创建网页截图存证
+         */
+        public CreateEvidenceRegisterResponse CreateEvidenceRegisterEx(CreateEvidenceRegisterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateEvidenceRegisterResponse>(DoRequest("1.0", "blockchain.bccr.evidence.register.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建网页截图存证
+         * Summary: 创建网页截图存证
+         */
+        public async Task<CreateEvidenceRegisterResponse> CreateEvidenceRegisterExAsync(CreateEvidenceRegisterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateEvidenceRegisterResponse>(await DoRequestAsync("1.0", "blockchain.bccr.evidence.register.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建录屏取证
+         * Summary: 创建录屏取证
+         */
+        public CreateEvidenceRecordscreenResponse CreateEvidenceRecordscreen(CreateEvidenceRecordscreenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateEvidenceRecordscreenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建录屏取证
+         * Summary: 创建录屏取证
+         */
+        public async Task<CreateEvidenceRecordscreenResponse> CreateEvidenceRecordscreenAsync(CreateEvidenceRecordscreenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateEvidenceRecordscreenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建录屏取证
+         * Summary: 创建录屏取证
+         */
+        public CreateEvidenceRecordscreenResponse CreateEvidenceRecordscreenEx(CreateEvidenceRecordscreenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateEvidenceRecordscreenResponse>(DoRequest("1.0", "blockchain.bccr.evidence.recordscreen.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建录屏取证
+         * Summary: 创建录屏取证
+         */
+        public async Task<CreateEvidenceRecordscreenResponse> CreateEvidenceRecordscreenExAsync(CreateEvidenceRecordscreenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateEvidenceRecordscreenResponse>(await DoRequestAsync("1.0", "blockchain.bccr.evidence.recordscreen.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商品交易用途撤销
+         * Summary: 商品交易用途撤销
+         */
+        public CancelTradeUsageResponse CancelTradeUsage(CancelTradeUsageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelTradeUsageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商品交易用途撤销
+         * Summary: 商品交易用途撤销
+         */
+        public async Task<CancelTradeUsageResponse> CancelTradeUsageAsync(CancelTradeUsageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelTradeUsageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商品交易用途撤销
+         * Summary: 商品交易用途撤销
+         */
+        public CancelTradeUsageResponse CancelTradeUsageEx(CancelTradeUsageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelTradeUsageResponse>(DoRequest("1.0", "blockchain.bccr.trade.usage.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商品交易用途撤销
+         * Summary: 商品交易用途撤销
+         */
+        public async Task<CancelTradeUsageResponse> CancelTradeUsageExAsync(CancelTradeUsageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelTradeUsageResponse>(await DoRequestAsync("1.0", "blockchain.bccr.trade.usage.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发起指定url的直播取证
+         * Summary: 发起直播取证
+         */
+        public CreateEvidenceLiveResponse CreateEvidenceLive(CreateEvidenceLiveRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateEvidenceLiveEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发起指定url的直播取证
+         * Summary: 发起直播取证
+         */
+        public async Task<CreateEvidenceLiveResponse> CreateEvidenceLiveAsync(CreateEvidenceLiveRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateEvidenceLiveExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发起指定url的直播取证
+         * Summary: 发起直播取证
+         */
+        public CreateEvidenceLiveResponse CreateEvidenceLiveEx(CreateEvidenceLiveRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateEvidenceLiveResponse>(DoRequest("1.0", "blockchain.bccr.evidence.live.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发起指定url的直播取证
+         * Summary: 发起直播取证
+         */
+        public async Task<CreateEvidenceLiveResponse> CreateEvidenceLiveExAsync(CreateEvidenceLiveRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateEvidenceLiveResponse>(await DoRequestAsync("1.0", "blockchain.bccr.evidence.live.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据点播网站url发起点播取证
+         * Summary: 发起点播取证
+         */
+        public CreateEvidenceVodResponse CreateEvidenceVod(CreateEvidenceVodRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateEvidenceVodEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据点播网站url发起点播取证
+         * Summary: 发起点播取证
+         */
+        public async Task<CreateEvidenceVodResponse> CreateEvidenceVodAsync(CreateEvidenceVodRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateEvidenceVodExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据点播网站url发起点播取证
+         * Summary: 发起点播取证
+         */
+        public CreateEvidenceVodResponse CreateEvidenceVodEx(CreateEvidenceVodRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateEvidenceVodResponse>(DoRequest("1.0", "blockchain.bccr.evidence.vod.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据点播网站url发起点播取证
+         * Summary: 发起点播取证
+         */
+        public async Task<CreateEvidenceVodResponse> CreateEvidenceVodExAsync(CreateEvidenceVodRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateEvidenceVodResponse>(await DoRequestAsync("1.0", "blockchain.bccr.evidence.vod.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商品交易用途登记结果查询，目前仅用于测试
+         * Summary: 商品交易用途登记结果查询
+         */
+        public GetTradeUsageResponse GetTradeUsage(GetTradeUsageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetTradeUsageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商品交易用途登记结果查询，目前仅用于测试
+         * Summary: 商品交易用途登记结果查询
+         */
+        public async Task<GetTradeUsageResponse> GetTradeUsageAsync(GetTradeUsageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetTradeUsageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商品交易用途登记结果查询，目前仅用于测试
+         * Summary: 商品交易用途登记结果查询
+         */
+        public GetTradeUsageResponse GetTradeUsageEx(GetTradeUsageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetTradeUsageResponse>(DoRequest("1.0", "blockchain.bccr.trade.usage.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商品交易用途登记结果查询，目前仅用于测试
+         * Summary: 商品交易用途登记结果查询
+         */
+        public async Task<GetTradeUsageResponse> GetTradeUsageExAsync(GetTradeUsageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetTradeUsageResponse>(await DoRequestAsync("1.0", "blockchain.bccr.trade.usage.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询取证信息
+         * Summary: 查询取证信息
+         */
+        public GetEvidenceInfoResponse GetEvidenceInfo(GetEvidenceInfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetEvidenceInfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询取证信息
+         * Summary: 查询取证信息
+         */
+        public async Task<GetEvidenceInfoResponse> GetEvidenceInfoAsync(GetEvidenceInfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetEvidenceInfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询取证信息
+         * Summary: 查询取证信息
+         */
+        public GetEvidenceInfoResponse GetEvidenceInfoEx(GetEvidenceInfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetEvidenceInfoResponse>(DoRequest("1.0", "blockchain.bccr.evidence.info.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询取证信息
+         * Summary: 查询取证信息
+         */
+        public async Task<GetEvidenceInfoResponse> GetEvidenceInfoExAsync(GetEvidenceInfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetEvidenceInfoResponse>(await DoRequestAsync("1.0", "blockchain.bccr.evidence.info.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: DCI变更
+         * Summary: DCI变更
+         */
+        public ReplaceDciResponse ReplaceDci(ReplaceDciRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ReplaceDciEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: DCI变更
+         * Summary: DCI变更
+         */
+        public async Task<ReplaceDciResponse> ReplaceDciAsync(ReplaceDciRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ReplaceDciExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: DCI变更
+         * Summary: DCI变更
+         */
+        public ReplaceDciResponse ReplaceDciEx(ReplaceDciRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReplaceDciResponse>(DoRequest("1.0", "blockchain.bccr.dci.replace", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: DCI变更
+         * Summary: DCI变更
+         */
+        public async Task<ReplaceDciResponse> ReplaceDciExAsync(ReplaceDciRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReplaceDciResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.replace", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

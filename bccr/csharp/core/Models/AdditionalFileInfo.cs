@@ -35,6 +35,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public List<string> OtherFileIdList { get; set; }
 
+        // 商用授权字体授权文件fileId
+        [NameInMap("font_authorize_file_id")]
+        [Validation(Required=false)]
+        public string FontAuthorizeFileId { get; set; }
+
     }
 
 }
