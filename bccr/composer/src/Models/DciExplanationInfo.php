@@ -39,11 +39,21 @@ class DciExplanationInfo extends Model
      * @var string
      */
     public $fontCopyright;
+
+    // 创作过程涉及到字体使用相关版权说明
+    //
+    /**
+     * @example
+     *
+     * @var string[]
+     */
+    public $fontTypes;
     protected $_name = [
         'creationPurpose' => 'creation_purpose',
         'creationProcess' => 'creation_process',
         'originality'     => 'originality',
         'fontCopyright'   => 'font_copyright',
+        'fontTypes'       => 'font_types',
     ];
 
     public function validate()
@@ -51,7 +61,6 @@ class DciExplanationInfo extends Model
         Model::validateRequired('creationPurpose', $this->creationPurpose, true);
         Model::validateRequired('creationProcess', $this->creationProcess, true);
         Model::validateRequired('originality', $this->originality, true);
-        Model::validateRequired('fontCopyright', $this->fontCopyright, true);
     }
 
     public function toMap()
@@ -68,6 +77,9 @@ class DciExplanationInfo extends Model
         }
         if (null !== $this->fontCopyright) {
             $res['font_copyright'] = $this->fontCopyright;
+        }
+        if (null !== $this->fontTypes) {
+            $res['font_types'] = $this->fontTypes;
         }
 
         return $res;
@@ -92,6 +104,11 @@ class DciExplanationInfo extends Model
         }
         if (isset($map['font_copyright'])) {
             $model->fontCopyright = $map['font_copyright'];
+        }
+        if (isset($map['font_types'])) {
+            if (!empty($map['font_types'])) {
+                $model->fontTypes = $map['font_types'];
+            }
         }
 
         return $model;

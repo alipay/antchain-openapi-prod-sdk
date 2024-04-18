@@ -103,13 +103,13 @@ class AddDciUserRequest extends Model
      */
     public $userName;
 
-    // 证件有效期限起始日期废弃
+    // 证件有效期限起始日期
     /**
      * @var string
      */
     public $certificateStartTime;
 
-    // 证件有效期限终止日期废弃
+    // 证件有效期限终止日期
     /**
      * @var string
      */
@@ -127,7 +127,7 @@ class AddDciUserRequest extends Model
      */
     public $certificateBackFilePath;
 
-    // 用户身份开始时间废弃
+    // 用户身份开始时间
     /**
      * @var string
      */
@@ -139,11 +139,17 @@ class AddDciUserRequest extends Model
      */
     public $userType;
 
-    // 地址废弃
+    // 地址
     /**
      * @var string
      */
     public $address;
+
+    // 证件是否长期有效
+    /**
+     * @var bool
+     */
+    public $longTermValid;
     protected $_name = [
         'authToken'                  => 'auth_token',
         'productInstanceId'          => 'product_instance_id',
@@ -168,6 +174,7 @@ class AddDciUserRequest extends Model
         'identityStartTime'          => 'identity_start_time',
         'userType'                   => 'user_type',
         'address'                    => 'address',
+        'longTermValid'              => 'long_term_valid',
     ];
 
     public function validate()
@@ -253,6 +260,9 @@ class AddDciUserRequest extends Model
         if (null !== $this->address) {
             $res['address'] = $this->address;
         }
+        if (null !== $this->longTermValid) {
+            $res['long_term_valid'] = $this->longTermValid;
+        }
 
         return $res;
     }
@@ -333,6 +343,9 @@ class AddDciUserRequest extends Model
         }
         if (isset($map['address'])) {
             $model->address = $map['address'];
+        }
+        if (isset($map['long_term_valid'])) {
+            $model->longTermValid = $map['long_term_valid'];
         }
 
         return $model;

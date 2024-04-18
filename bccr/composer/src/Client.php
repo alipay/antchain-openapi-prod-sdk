@@ -27,6 +27,8 @@ use AntChain\BCCR\Models\ApplyNotaryOrderRequest;
 use AntChain\BCCR\Models\ApplyNotaryOrderResponse;
 use AntChain\BCCR\Models\CallbackDciPayresultRequest;
 use AntChain\BCCR\Models\CallbackDciPayresultResponse;
+use AntChain\BCCR\Models\CancelTradeUsageRequest;
+use AntChain\BCCR\Models\CancelTradeUsageResponse;
 use AntChain\BCCR\Models\CloseDciRegistrationRequest;
 use AntChain\BCCR\Models\CloseDciRegistrationResponse;
 use AntChain\BCCR\Models\CreateCertificateRequest;
@@ -39,6 +41,18 @@ use AntChain\BCCR\Models\CreateDciRegistrationRequest;
 use AntChain\BCCR\Models\CreateDciRegistrationResponse;
 use AntChain\BCCR\Models\CreateDirectmonitorTaskRequest;
 use AntChain\BCCR\Models\CreateDirectmonitorTaskResponse;
+use AntChain\BCCR\Models\CreateEvidenceLiveRequest;
+use AntChain\BCCR\Models\CreateEvidenceLiveResponse;
+use AntChain\BCCR\Models\CreateEvidenceRecordscreenRequest;
+use AntChain\BCCR\Models\CreateEvidenceRecordscreenResponse;
+use AntChain\BCCR\Models\CreateEvidenceRegisterRequest;
+use AntChain\BCCR\Models\CreateEvidenceRegisterResponse;
+use AntChain\BCCR\Models\CreateEvidenceScreenshotRequest;
+use AntChain\BCCR\Models\CreateEvidenceScreenshotResponse;
+use AntChain\BCCR\Models\CreateEvidenceUserRequest;
+use AntChain\BCCR\Models\CreateEvidenceUserResponse;
+use AntChain\BCCR\Models\CreateEvidenceVodRequest;
+use AntChain\BCCR\Models\CreateEvidenceVodResponse;
 use AntChain\BCCR\Models\CreateMonitorTaskRequest;
 use AntChain\BCCR\Models\CreateMonitorTaskResponse;
 use AntChain\BCCR\Models\CreateRecodescreenRequest;
@@ -53,6 +67,10 @@ use AntChain\BCCR\Models\GetDciPayurlRequest;
 use AntChain\BCCR\Models\GetDciPayurlResponse;
 use AntChain\BCCR\Models\GetDciRegistrationcertRequest;
 use AntChain\BCCR\Models\GetDciRegistrationcertResponse;
+use AntChain\BCCR\Models\GetEvidenceInfoRequest;
+use AntChain\BCCR\Models\GetEvidenceInfoResponse;
+use AntChain\BCCR\Models\GetTradeUsageRequest;
+use AntChain\BCCR\Models\GetTradeUsageResponse;
 use AntChain\BCCR\Models\GetUploadurlRequest;
 use AntChain\BCCR\Models\GetUploadurlResponse;
 use AntChain\BCCR\Models\ListMonitorProviderRequest;
@@ -87,6 +105,8 @@ use AntChain\BCCR\Models\QueryDciRegistrationsubmitRequest;
 use AntChain\BCCR\Models\QueryDciRegistrationsubmitResponse;
 use AntChain\BCCR\Models\QueryDciSimilarfileRequest;
 use AntChain\BCCR\Models\QueryDciSimilarfileResponse;
+use AntChain\BCCR\Models\QueryDciUserbyphoneRequest;
+use AntChain\BCCR\Models\QueryDciUserbyphoneResponse;
 use AntChain\BCCR\Models\QueryDciUserRequest;
 use AntChain\BCCR\Models\QueryDciUserResponse;
 use AntChain\BCCR\Models\QueryDirectmonitorResultRequest;
@@ -117,12 +137,18 @@ use AntChain\BCCR\Models\QueryRegisterstatusRequest;
 use AntChain\BCCR\Models\QueryRegisterstatusResponse;
 use AntChain\BCCR\Models\QueryScreenshotRequest;
 use AntChain\BCCR\Models\QueryScreenshotResponse;
+use AntChain\BCCR\Models\QueryTradeSaleRequest;
+use AntChain\BCCR\Models\QueryTradeSaleResponse;
 use AntChain\BCCR\Models\QueryUserListRequest;
 use AntChain\BCCR\Models\QueryUserListResponse;
 use AntChain\BCCR\Models\QueryUserRequest;
 use AntChain\BCCR\Models\QueryUserResponse;
 use AntChain\BCCR\Models\RefuseDciRegistrationRequest;
 use AntChain\BCCR\Models\RefuseDciRegistrationResponse;
+use AntChain\BCCR\Models\RegisterTradeUsageRequest;
+use AntChain\BCCR\Models\RegisterTradeUsageResponse;
+use AntChain\BCCR\Models\ReplaceDciRequest;
+use AntChain\BCCR\Models\ReplaceDciResponse;
 use AntChain\BCCR\Models\RetryDciPreregistrationRequest;
 use AntChain\BCCR\Models\RetryDciPreregistrationResponse;
 use AntChain\BCCR\Models\RetryDciRegistrationRequest;
@@ -284,7 +310,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.17.79',
+                    'sdk_version'      => '1.18.20',
                     '_prod_code'       => 'BCCR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2145,6 +2171,435 @@ class Client
         Utils::validateModel($request);
 
         return ApplyDciPromotionResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.promotion.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据手机号查询dci用户
+     * Summary: 根据手机号查询dci用户.
+     *
+     * @param QueryDciUserbyphoneRequest $request
+     *
+     * @return QueryDciUserbyphoneResponse
+     */
+    public function queryDciUserbyphone($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDciUserbyphoneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据手机号查询dci用户
+     * Summary: 根据手机号查询dci用户.
+     *
+     * @param QueryDciUserbyphoneRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryDciUserbyphoneResponse
+     */
+    public function queryDciUserbyphoneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDciUserbyphoneResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.userbyphone.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支持交易的已进行用途登记的商品查询
+     * Summary: 支持交易的商品查询.
+     *
+     * @param QueryTradeSaleRequest $request
+     *
+     * @return QueryTradeSaleResponse
+     */
+    public function queryTradeSale($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTradeSaleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支持交易的已进行用途登记的商品查询
+     * Summary: 支持交易的商品查询.
+     *
+     * @param QueryTradeSaleRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryTradeSaleResponse
+     */
+    public function queryTradeSaleEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTradeSaleResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.trade.sale.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品交易用途登记
+     * Summary: 商品交易用途登记.
+     *
+     * @param RegisterTradeUsageRequest $request
+     *
+     * @return RegisterTradeUsageResponse
+     */
+    public function registerTradeUsage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerTradeUsageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品交易用途登记
+     * Summary: 商品交易用途登记.
+     *
+     * @param RegisterTradeUsageRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return RegisterTradeUsageResponse
+     */
+    public function registerTradeUsageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterTradeUsageResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.trade.usage.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建取证用户
+     * Summary: 创建取证用户.
+     *
+     * @param CreateEvidenceUserRequest $request
+     *
+     * @return CreateEvidenceUserResponse
+     */
+    public function createEvidenceUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createEvidenceUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建取证用户
+     * Summary: 创建取证用户.
+     *
+     * @param CreateEvidenceUserRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateEvidenceUserResponse
+     */
+    public function createEvidenceUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateEvidenceUserResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.evidence.user.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建网页截图
+     * Summary: 创建网页截图.
+     *
+     * @param CreateEvidenceScreenshotRequest $request
+     *
+     * @return CreateEvidenceScreenshotResponse
+     */
+    public function createEvidenceScreenshot($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createEvidenceScreenshotEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建网页截图
+     * Summary: 创建网页截图.
+     *
+     * @param CreateEvidenceScreenshotRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CreateEvidenceScreenshotResponse
+     */
+    public function createEvidenceScreenshotEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateEvidenceScreenshotResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.evidence.screenshot.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建网页截图存证
+     * Summary: 创建网页截图存证
+     *
+     * @param CreateEvidenceRegisterRequest $request
+     *
+     * @return CreateEvidenceRegisterResponse
+     */
+    public function createEvidenceRegister($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createEvidenceRegisterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建网页截图存证
+     * Summary: 创建网页截图存证
+     *
+     * @param CreateEvidenceRegisterRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CreateEvidenceRegisterResponse
+     */
+    public function createEvidenceRegisterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateEvidenceRegisterResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.evidence.register.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建录屏取证
+     * Summary: 创建录屏取证
+     *
+     * @param CreateEvidenceRecordscreenRequest $request
+     *
+     * @return CreateEvidenceRecordscreenResponse
+     */
+    public function createEvidenceRecordscreen($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createEvidenceRecordscreenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建录屏取证
+     * Summary: 创建录屏取证
+     *
+     * @param CreateEvidenceRecordscreenRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateEvidenceRecordscreenResponse
+     */
+    public function createEvidenceRecordscreenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateEvidenceRecordscreenResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.evidence.recordscreen.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品交易用途撤销
+     * Summary: 商品交易用途撤销
+     *
+     * @param CancelTradeUsageRequest $request
+     *
+     * @return CancelTradeUsageResponse
+     */
+    public function cancelTradeUsage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelTradeUsageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品交易用途撤销
+     * Summary: 商品交易用途撤销
+     *
+     * @param CancelTradeUsageRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CancelTradeUsageResponse
+     */
+    public function cancelTradeUsageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelTradeUsageResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.trade.usage.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发起指定url的直播取证
+     * Summary: 发起直播取证
+     *
+     * @param CreateEvidenceLiveRequest $request
+     *
+     * @return CreateEvidenceLiveResponse
+     */
+    public function createEvidenceLive($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createEvidenceLiveEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发起指定url的直播取证
+     * Summary: 发起直播取证
+     *
+     * @param CreateEvidenceLiveRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateEvidenceLiveResponse
+     */
+    public function createEvidenceLiveEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateEvidenceLiveResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.evidence.live.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据点播网站url发起点播取证
+     * Summary: 发起点播取证
+     *
+     * @param CreateEvidenceVodRequest $request
+     *
+     * @return CreateEvidenceVodResponse
+     */
+    public function createEvidenceVod($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createEvidenceVodEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据点播网站url发起点播取证
+     * Summary: 发起点播取证
+     *
+     * @param CreateEvidenceVodRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateEvidenceVodResponse
+     */
+    public function createEvidenceVodEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateEvidenceVodResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.evidence.vod.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品交易用途登记结果查询，目前仅用于测试
+     * Summary: 商品交易用途登记结果查询.
+     *
+     * @param GetTradeUsageRequest $request
+     *
+     * @return GetTradeUsageResponse
+     */
+    public function getTradeUsage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getTradeUsageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品交易用途登记结果查询，目前仅用于测试
+     * Summary: 商品交易用途登记结果查询.
+     *
+     * @param GetTradeUsageRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return GetTradeUsageResponse
+     */
+    public function getTradeUsageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetTradeUsageResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.trade.usage.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询取证信息
+     * Summary: 查询取证信息.
+     *
+     * @param GetEvidenceInfoRequest $request
+     *
+     * @return GetEvidenceInfoResponse
+     */
+    public function getEvidenceInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getEvidenceInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询取证信息
+     * Summary: 查询取证信息.
+     *
+     * @param GetEvidenceInfoRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return GetEvidenceInfoResponse
+     */
+    public function getEvidenceInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetEvidenceInfoResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.evidence.info.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: DCI变更
+     * Summary: DCI变更.
+     *
+     * @param ReplaceDciRequest $request
+     *
+     * @return ReplaceDciResponse
+     */
+    public function replaceDci($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->replaceDciEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: DCI变更
+     * Summary: DCI变更.
+     *
+     * @param ReplaceDciRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return ReplaceDciResponse
+     */
+    public function replaceDciEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReplaceDciResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.replace', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

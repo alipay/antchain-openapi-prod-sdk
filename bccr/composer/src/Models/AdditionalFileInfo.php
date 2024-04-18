@@ -47,12 +47,21 @@ class AdditionalFileInfo extends Model
      * @var string[]
      */
     public $otherFileIdList;
+
+    // 商用授权字体授权文件fileId
+    /**
+     * @example 202212131900example004.png
+     *
+     * @var string
+     */
+    public $fontAuthorizeFileId;
     protected $_name = [
         'contentSummaryFileId' => 'content_summary_file_id',
         'ownershipFileIds'     => 'ownership_file_ids',
         'portraitAuthFileId'   => 'portrait_auth_file_id',
         'othersWorkAuthFileId' => 'others_work_auth_file_id',
         'otherFileIdList'      => 'other_file_id_list',
+        'fontAuthorizeFileId'  => 'font_authorize_file_id',
     ];
 
     public function validate()
@@ -76,6 +85,9 @@ class AdditionalFileInfo extends Model
         }
         if (null !== $this->otherFileIdList) {
             $res['other_file_id_list'] = $this->otherFileIdList;
+        }
+        if (null !== $this->fontAuthorizeFileId) {
+            $res['font_authorize_file_id'] = $this->fontAuthorizeFileId;
         }
 
         return $res;
@@ -107,6 +119,9 @@ class AdditionalFileInfo extends Model
             if (!empty($map['other_file_id_list'])) {
                 $model->otherFileIdList = $map['other_file_id_list'];
             }
+        }
+        if (isset($map['font_authorize_file_id'])) {
+            $model->fontAuthorizeFileId = $map['font_authorize_file_id'];
         }
 
         return $model;
