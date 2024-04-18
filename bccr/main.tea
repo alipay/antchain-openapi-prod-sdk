@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.17.79',
+    sdk_version = '1.18.20',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -389,6 +389,12 @@ model NotaryInvoiceInfo {
   unitPhone?: string(name='unit_phone', example='发票抬头为机构时必填'),
   // 发票收件信息
   delivery?: DeliveryInfo(name='delivery', example=''),
+}
+
+// 在售摘要信息
+model SaleDigestData {
+  // 商品hash值
+  hash: string(name='hash', example='hash'),
 }
 
 // 申办事由
@@ -927,6 +933,30 @@ model RecordScreenData {
   gmtReady?: long(name='gmt_ready', example='1111'),
 }
 
+// 取证三方系统信息
+model EvidenceThirdPartyInfo {
+  // 三方系统用户提交网址时间
+  submitTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='submit_time', example='2018-10-10T10:10:00Z'),
+  // 三方系统地址
+  systemUrl: string(name='system_url', example='三方系统地址'),
+  // 三方系统账号
+  account: string(name='account', example='三方系统账号'),
+  // 三方系统名称
+  systemName: string(name='system_name', example='三方系统名称'),
+  // 用户取证时登录的时间
+  loginTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='login_time', example='2018-10-10T10:10:00Z'),
+  // 用户取证时登录的IP
+  loginIp: string(name='login_ip', example='用户取证时登录的IP'),
+}
+
+// 取证网址信息
+model EvidenceWebUrlInfo {
+  // 取证网址
+  webUrl: string(name='web_url', example='取证网址'),
+  // 取证名称
+  title?: string(name='title', example='取证名称'),
+}
+
 // 推荐分类信息
 model RecommendCategoryDetail {
   // 推荐分类类型
@@ -1037,6 +1067,8 @@ model AdditionalFileInfo {
   othersWorkAuthFileId?: string(name='others_work_auth_file_id', example='202212131900example004.png'),
   // 其他文件fileId列表
   otherFileIdList?: [ string ](name='other_file_id_list', example=''),
+  // 商用授权字体授权文件fileId
+  fontAuthorizeFileId?: string(name='font_authorize_file_id', example='202212131900example004.png '),
 }
 
 // 授权信息
@@ -1075,6 +1107,18 @@ model CertificateData {
   dciCode: string(name='dci_code', example='DCI码'),
   // 证书下载的链接地址
   certificateUrl: string(name='certificate_url', example='证书下载的链接地址'),
+}
+
+// 存证证明信息
+model EvidenceCertificateInfo {
+  // 证书编号
+  certificateNo: string(name='certificate_no', example='5978355373'),
+  // 上链时间
+  certificateTime: string(name='certificate_time', example='2023-06-27T10:50:23+08:00'),
+  // 链上交易hash
+  certificateHash: string(name='certificate_hash', example='eh5a978s3553c73ee7e2cl22e'),
+  // 证书下载url（有效期3天）
+  certificateUrl: string(name='certificate_url', example='https://xxxx'),
 }
 
 // 代理信息
@@ -1133,6 +1177,12 @@ model SignDocument {
   signFileType: string(name='sign_file_type', example='NOTARY_PAPER：公证申请表 ONLINE_NOTIFICATION：在线公证受理平台公证受理告知书 EVIDENCE_NOTIFICATION：保全证据通用告知书 ONLINE_RECORD：在线公证申办询问记录'),
 }
 
+// 在售商品的信息
+model SaleData {
+  // 摘要数据
+  saleDigiestData: SaleDigestData(name='sale_digiest_data', example='摘要数据'),
+}
+
 // 商品信息
 model GoodsInfo {
   // 商品id
@@ -1188,7 +1238,10 @@ model DciExplanationInfo {
   // 阐述作品的独创性
   originality: string(name='originality', example='独创性说明'),
   // 创作过程涉及到字体使用相关版权说明
-  fontCopyright: string(name='font_copyright', example='字体申明'),
+  fontCopyright?: string(name='font_copyright', example='字体申明'),
+  // 创作过程涉及到字体使用相关版权说明	
+  // 
+  fontTypes?: [ string ](name='font_types', example=''),
 }
 
 // 监测文件类型
@@ -2664,20 +2717,22 @@ model AddDciUserRequest = {
   clientToken: string(name='client_token'),
   // 用户名称废弃
   userName?: string(name='user_name'),
-  // 证件有效期限起始日期废弃
+  // 证件有效期限起始日期
   certificateStartTime?: string(name='certificate_start_time'),
-  // 证件有效期限终止日期废弃
+  // 证件有效期限终止日期
   certificateEndTime?: string(name='certificate_end_time'),
   // 证件正面OSS fileId废弃
   certificateFrontFilePath?: string(name='certificate_front_file_path'),
   // 证件反面OSS filePath废弃
   certificateBackFilePath?: string(name='certificate_back_file_path'),
-  // 用户身份开始时间废弃
+  // 用户身份开始时间
   identityStartTime?: string(name='identity_start_time'),
   // 用户类型废弃
   userType?: string(name='user_type'),
-  // 地址废弃
+  // 地址
   address?: string(name='address'),
+  // 证件是否长期有效
+  longTermValid?: boolean(name='long_term_valid'),
 }
 
 model AddDciUserResponse = {
@@ -2872,6 +2927,22 @@ model UpdateDciUserRequest = {
   copyrightCertificationType?: string(name='copyright_certification_type'),
   // 法人信息
   legalPersonInfo?: EnterpriseLegalPersonInfo(name='legal_person_info'),
+  // true,false
+  longTermValid?: boolean(name='long_term_valid'),
+  // 证件有效期开始时间
+  certificateStartTime?: string(name='certificate_start_time'),
+  // 证件有效期终止时间
+  certificateEndTime?: string(name='certificate_end_time'),
+  // 成立日期或出生日期
+  identityStartTime?: string(name='identity_start_time'),
+  // 地址信息
+  address?: string(name='address'),
+  // 著作权人名称
+  certName?: string(name='cert_name'),
+  // 著作权人证件号
+  certificateNumber?: string(name='certificate_number'),
+  // 著作权人证件类型
+  certificateType?: string(name='certificate_type'),
 }
 
 model UpdateDciUserResponse = {
@@ -4109,6 +4180,647 @@ async function applyDciPromotion(request: ApplyDciPromotionRequest): ApplyDciPro
 async function applyDciPromotionEx(request: ApplyDciPromotionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDciPromotionResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bccr.dci.promotion.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDciUserbyphoneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 手机号
+  phone: string(name='phone'),
+}
+
+model QueryDciUserbyphoneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // dci用户id	
+  // 
+  dciUserId?: string(name='dci_user_id'),
+  // dci用户状态	
+  // 
+  dciUserStatus?: string(name='dci_user_status'),
+  // 名称
+  name?: string(name='name'),
+  // 证件类型
+  // 
+  certificateType?: string(name='certificate_type'),
+  // 证件号	
+  // 
+  certificateNumber?: string(name='certificate_number'),
+  // 地址
+  address?: string(name='address'),
+  // 证件有效期开始时间
+  // 
+  certStartTime?: string(name='cert_start_time'),
+  // 证件有效期结束时间
+  // 
+  certEndTime?: string(name='cert_end_time'),
+  // 法人名称
+  // 
+  legalPerson?: string(name='legal_person'),
+}
+
+/**
+ * Description: 根据手机号查询dci用户
+ * Summary: 根据手机号查询dci用户
+ */
+async function queryDciUserbyphone(request: QueryDciUserbyphoneRequest): QueryDciUserbyphoneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDciUserbyphoneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据手机号查询dci用户
+ * Summary: 根据手机号查询dci用户
+ */
+async function queryDciUserbyphoneEx(request: QueryDciUserbyphoneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDciUserbyphoneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.userbyphone.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTradeSaleRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询文本
+  queryText: string(maxLength=2048, minLength=0, name='query_text'),
+  // 查询场景
+  queryScene: string(name='query_scene'),
+  // 扩展信息，JSON格式
+  extInfo?: string(name='ext_info'),
+}
+
+model QueryTradeSaleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 匹配的商品信息
+  saleDataList?: [ SaleData ](name='sale_data_list'),
+  // 扩展信息JSON
+  extInfo?: string(name='ext_info'),
+}
+
+/**
+ * Description: 支持交易的已进行用途登记的商品查询
+ * Summary: 支持交易的商品查询
+ */
+async function queryTradeSale(request: QueryTradeSaleRequest): QueryTradeSaleResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTradeSaleEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支持交易的已进行用途登记的商品查询
+ * Summary: 支持交易的商品查询
+ */
+async function queryTradeSaleEx(request: QueryTradeSaleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTradeSaleResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.trade.sale.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterTradeUsageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 标识某个服务实体的唯一ID，例如dciContentId
+  serviceId: string(name='service_id'),
+  // 业务服务类型，例如DCI、存证等
+  serviceType: string(name='service_type'),
+  // 扩展信息，JSON格式
+  extInfo?: string(name='ext_info'),
+  // 调用方唯一业务标识
+  outBizNo: string(name='out_biz_no'),
+}
+
+model RegisterTradeUsageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 登记Id
+  registerId?: string(name='register_id'),
+  // 登记状态
+  status?: string(name='status'),
+  // 扩展信息
+  extInfo?: string(name='ext_info'),
+}
+
+/**
+ * Description: 商品交易用途登记
+ * Summary: 商品交易用途登记
+ */
+async function registerTradeUsage(request: RegisterTradeUsageRequest): RegisterTradeUsageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerTradeUsageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商品交易用途登记
+ * Summary: 商品交易用途登记
+ */
+async function registerTradeUsageEx(request: RegisterTradeUsageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterTradeUsageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.trade.usage.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateEvidenceUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 取证主体证件名称
+  certName: string(name='cert_name'),
+  // 取证主体证件号
+  certNo: string(name='cert_no'),
+  // 用户类型（个人/企业）
+  userType: string(name='user_type'),
+  // 法人姓名（企业用户必填）
+  legalPersonCertName?: string(name='legal_person_cert_name'),
+  // 法人证件号（企业用户必填）
+  legalPersonCertNo?: string(name='legal_person_cert_no'),
+  // 取证操作人证件姓名（企业用户必填）
+  operatorName?: string(name='operator_name'),
+  // 取证操作人证件号（企业用户必填）
+  operatorCertNo?: string(name='operator_cert_no'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+}
+
+model CreateEvidenceUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 取证用户id
+  evidenceUserId?: string(name='evidence_user_id'),
+}
+
+/**
+ * Description: 创建取证用户
+ * Summary: 创建取证用户
+ */
+async function createEvidenceUser(request: CreateEvidenceUserRequest): CreateEvidenceUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createEvidenceUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建取证用户
+ * Summary: 创建取证用户
+ */
+async function createEvidenceUserEx(request: CreateEvidenceUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateEvidenceUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.evidence.user.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateEvidenceScreenshotRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 取证用户id
+  evidenceUserId: string(name='evidence_user_id'),
+  // 取证公证处
+  notaryOffice: string(name='notary_office'),
+  // 取证网址信息
+  webUrl: EvidenceWebUrlInfo(name='web_url'),
+  // 取证三方账号信息
+  thirdPartyInfo: EvidenceThirdPartyInfo(name='third_party_info'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+}
+
+model CreateEvidenceScreenshotResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 网页截图id
+  screenshotId?: string(name='screenshot_id'),
+}
+
+/**
+ * Description: 创建网页截图
+ * Summary: 创建网页截图
+ */
+async function createEvidenceScreenshot(request: CreateEvidenceScreenshotRequest): CreateEvidenceScreenshotResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createEvidenceScreenshotEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建网页截图
+ * Summary: 创建网页截图
+ */
+async function createEvidenceScreenshotEx(request: CreateEvidenceScreenshotRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateEvidenceScreenshotResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.evidence.screenshot.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateEvidenceRegisterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 网页截图id
+  screenshotId: string(name='screenshot_id'),
+  // 取证名称
+  evidenceName?: string(name='evidence_name'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+}
+
+model CreateEvidenceRegisterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 取证id
+  evidenceId?: string(name='evidence_id'),
+}
+
+/**
+ * Description: 创建网页截图存证
+ * Summary: 创建网页截图存证
+ */
+async function createEvidenceRegister(request: CreateEvidenceRegisterRequest): CreateEvidenceRegisterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createEvidenceRegisterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建网页截图存证
+ * Summary: 创建网页截图存证
+ */
+async function createEvidenceRegisterEx(request: CreateEvidenceRegisterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateEvidenceRegisterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.evidence.register.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateEvidenceRecordscreenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 取证名称
+  name: string(name='name'),
+  // 取证用户id
+  evidenceUserId: string(name='evidence_user_id'),
+  // 取证公证处
+  notaryOffice: string(name='notary_office'),
+  // 取证网址信息
+  webUrls: [ EvidenceWebUrlInfo ](name='web_urls'),
+  // 取证三方账号信息
+  thirdPartyInfo: EvidenceThirdPartyInfo(name='third_party_info'),
+  // 取证服务器地域
+  area: string(name='area'),
+  // 最大录屏时间（单位：分钟）
+  maxTimeInMin: long(name='max_time_in_min'),
+  // 服务器进入ready状态，指定时间未开始进入abort状态的等待时间，单位为分钟，默认1min，waitInMin不能小于1，不能大于10min
+  waitInMin: long(name='wait_in_min'),
+  // 回调地址
+  callbackUrl: string(name='callback_url'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+}
+
+model CreateEvidenceRecordscreenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 录屏取证操作url
+  recordScreenUrl?: string(name='record_screen_url'),
+  // 取证id
+  evidenceId?: string(name='evidence_id'),
+}
+
+/**
+ * Description: 创建录屏取证
+ * Summary: 创建录屏取证
+ */
+async function createEvidenceRecordscreen(request: CreateEvidenceRecordscreenRequest): CreateEvidenceRecordscreenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createEvidenceRecordscreenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建录屏取证
+ * Summary: 创建录屏取证
+ */
+async function createEvidenceRecordscreenEx(request: CreateEvidenceRecordscreenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateEvidenceRecordscreenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.evidence.recordscreen.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelTradeUsageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 标识某个服务实体的唯一ID，例如dciContentId
+  serviceId: string(name='service_id'),
+  // 业务服务类型，例如DCI、存证等
+  serviceType: string(name='service_type'),
+  // 扩展信息
+  extInfo?: string(name='ext_info'),
+}
+
+model CancelTradeUsageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 登记Id
+  registerId?: string(name='register_id'),
+  // 扩展信息
+  extInfo?: string(name='ext_info'),
+}
+
+/**
+ * Description: 商品交易用途撤销
+ * Summary: 商品交易用途撤销
+ */
+async function cancelTradeUsage(request: CancelTradeUsageRequest): CancelTradeUsageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelTradeUsageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商品交易用途撤销
+ * Summary: 商品交易用途撤销
+ */
+async function cancelTradeUsageEx(request: CancelTradeUsageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelTradeUsageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.trade.usage.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateEvidenceLiveRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 取证用户id
+  evidenceUserId: long(name='evidence_user_id'),
+  // 取证公证处
+  notaryOffice: string(name='notary_office'),
+  // 取证类型（通用直播取证：DEFAULT）
+  type: string(name='type'),
+  // 取证网址信息
+  webUrls: EvidenceWebUrlInfo(name='web_urls'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+}
+
+model CreateEvidenceLiveResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 直播取证id
+  evidenceId?: string(name='evidence_id'),
+}
+
+/**
+ * Description: 发起指定url的直播取证
+ * Summary: 发起直播取证
+ */
+async function createEvidenceLive(request: CreateEvidenceLiveRequest): CreateEvidenceLiveResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createEvidenceLiveEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起指定url的直播取证
+ * Summary: 发起直播取证
+ */
+async function createEvidenceLiveEx(request: CreateEvidenceLiveRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateEvidenceLiveResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.evidence.live.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateEvidenceVodRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 取证用户id
+  evidenceUserId: long(name='evidence_user_id'),
+  // 公证处code
+  notaryOffice: string(name='notary_office'),
+  // 取证类型（通用点播取证：DEFAULT，快手点播取证：KUAISHOU）
+  type: string(name='type'),
+  // 待取证点播网站网址
+  webUrl: EvidenceWebUrlInfo(name='web_url'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+}
+
+model CreateEvidenceVodResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 取证编号
+  evidenceId?: string(name='evidence_id'),
+}
+
+/**
+ * Description: 根据点播网站url发起点播取证
+ * Summary: 发起点播取证
+ */
+async function createEvidenceVod(request: CreateEvidenceVodRequest): CreateEvidenceVodResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createEvidenceVodEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据点播网站url发起点播取证
+ * Summary: 发起点播取证
+ */
+async function createEvidenceVodEx(request: CreateEvidenceVodRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateEvidenceVodResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.evidence.vod.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetTradeUsageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 服务实体ID，例如DCI
+  serviceId: string(name='service_id'),
+  // 服务类型
+  serviceType: string(name='service_type'),
+  // 外部业务唯一编号
+  outBizNo: string(name='out_biz_no'),
+  // 扩展信息
+  extInfo?: string(name='ext_info'),
+}
+
+model GetTradeUsageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易登记Id
+  registerId?: string(name='register_id'),
+  // 登记状态
+  status?: string(name='status'),
+  // 扩展信息
+  extInfo?: string(name='ext_info'),
+}
+
+/**
+ * Description: 商品交易用途登记结果查询，目前仅用于测试
+ * Summary: 商品交易用途登记结果查询
+ */
+async function getTradeUsage(request: GetTradeUsageRequest): GetTradeUsageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getTradeUsageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商品交易用途登记结果查询，目前仅用于测试
+ * Summary: 商品交易用途登记结果查询
+ */
+async function getTradeUsageEx(request: GetTradeUsageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetTradeUsageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.trade.usage.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetEvidenceInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 取证编号
+  evidenceId: string(name='evidence_id'),
+}
+
+model GetEvidenceInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 取证编号
+  evidenceId?: string(name='evidence_id'),
+  // 取证状态（取证中：DOING，取证成功：SUCCESS，取证失败：FAIL）
+  status?: string(name='status'),
+  // 公证处code
+  notaryOffice?: string(name='notary_office'),
+  // 取证url信息
+  evidenceUrl?: EvidenceWebUrlInfo(name='evidence_url'),
+  // 取证结果文件下载url（有效期3天）
+  evidenceResultUrl?: string(name='evidence_result_url'),
+  // 存证证明信息
+  certificateInfo?: EvidenceCertificateInfo(name='certificate_info'),
+}
+
+/**
+ * Description: 查询取证信息
+ * Summary: 查询取证信息
+ */
+async function getEvidenceInfo(request: GetEvidenceInfoRequest): GetEvidenceInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getEvidenceInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询取证信息
+ * Summary: 查询取证信息
+ */
+async function getEvidenceInfoEx(request: GetEvidenceInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetEvidenceInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.evidence.info.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReplaceDciRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // id
+  dciContentId: string(name='dci_content_id'),
+  // 作品名称
+  workName?: string(name='work_name'),
+  // 作品类别
+  workCategory?: string(name='work_category'),
+  // 创作信息
+  creationInfo?: DciCreationInfo(name='creation_info'),
+  // 发表信息
+  publicationInfo?: DciPublicationInfo(name='publication_info'),
+  // 申领人id
+  dciUserId?: string(name='dci_user_id'),
+  // 著作权人
+  copyrightOwnerIds?: [ string ](name='copyright_owner_ids'),
+  // 作者姓名
+  authorName?: string(name='author_name'),
+  // 作者署名
+  authorSignature?: string(name='author_signature'),
+  // 权利信息
+  rightInfo?: DciRightInfo(name='right_info'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+  // 代理信息
+  proxyData?: ProxyData(name='proxy_data'),
+}
+
+model ReplaceDciResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: DCI变更
+ * Summary: DCI变更
+ */
+async function replaceDci(request: ReplaceDciRequest): ReplaceDciResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return replaceDciEx(request, headers, runtime);
+}
+
+/**
+ * Description: DCI变更
+ * Summary: DCI变更
+ */
+async function replaceDciEx(request: ReplaceDciRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReplaceDciResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.replace', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model AddContentRequest = {
