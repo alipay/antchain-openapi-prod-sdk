@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.79',
+                    'sdk_version': '1.18.20',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.79',
+                    'sdk_version': '1.18.20',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -3353,6 +3353,734 @@ class Client:
         return TeaCore.from_map(
             bccr_models.ApplyDciPromotionResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.dci.promotion.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dci_userbyphone(
+        self,
+        request: bccr_models.QueryDciUserbyphoneRequest,
+    ) -> bccr_models.QueryDciUserbyphoneResponse:
+        """
+        Description: 根据手机号查询dci用户
+        Summary: 根据手机号查询dci用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dci_userbyphone_ex(request, headers, runtime)
+
+    async def query_dci_userbyphone_async(
+        self,
+        request: bccr_models.QueryDciUserbyphoneRequest,
+    ) -> bccr_models.QueryDciUserbyphoneResponse:
+        """
+        Description: 根据手机号查询dci用户
+        Summary: 根据手机号查询dci用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dci_userbyphone_ex_async(request, headers, runtime)
+
+    def query_dci_userbyphone_ex(
+        self,
+        request: bccr_models.QueryDciUserbyphoneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDciUserbyphoneResponse:
+        """
+        Description: 根据手机号查询dci用户
+        Summary: 根据手机号查询dci用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDciUserbyphoneResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.userbyphone.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dci_userbyphone_ex_async(
+        self,
+        request: bccr_models.QueryDciUserbyphoneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDciUserbyphoneResponse:
+        """
+        Description: 根据手机号查询dci用户
+        Summary: 根据手机号查询dci用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDciUserbyphoneResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.userbyphone.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_trade_sale(
+        self,
+        request: bccr_models.QueryTradeSaleRequest,
+    ) -> bccr_models.QueryTradeSaleResponse:
+        """
+        Description: 支持交易的已进行用途登记的商品查询
+        Summary: 支持交易的商品查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_trade_sale_ex(request, headers, runtime)
+
+    async def query_trade_sale_async(
+        self,
+        request: bccr_models.QueryTradeSaleRequest,
+    ) -> bccr_models.QueryTradeSaleResponse:
+        """
+        Description: 支持交易的已进行用途登记的商品查询
+        Summary: 支持交易的商品查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_trade_sale_ex_async(request, headers, runtime)
+
+    def query_trade_sale_ex(
+        self,
+        request: bccr_models.QueryTradeSaleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryTradeSaleResponse:
+        """
+        Description: 支持交易的已进行用途登记的商品查询
+        Summary: 支持交易的商品查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryTradeSaleResponse(),
+            self.do_request('1.0', 'blockchain.bccr.trade.sale.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_trade_sale_ex_async(
+        self,
+        request: bccr_models.QueryTradeSaleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryTradeSaleResponse:
+        """
+        Description: 支持交易的已进行用途登记的商品查询
+        Summary: 支持交易的商品查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryTradeSaleResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.trade.sale.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_trade_usage(
+        self,
+        request: bccr_models.RegisterTradeUsageRequest,
+    ) -> bccr_models.RegisterTradeUsageResponse:
+        """
+        Description: 商品交易用途登记
+        Summary: 商品交易用途登记
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_trade_usage_ex(request, headers, runtime)
+
+    async def register_trade_usage_async(
+        self,
+        request: bccr_models.RegisterTradeUsageRequest,
+    ) -> bccr_models.RegisterTradeUsageResponse:
+        """
+        Description: 商品交易用途登记
+        Summary: 商品交易用途登记
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_trade_usage_ex_async(request, headers, runtime)
+
+    def register_trade_usage_ex(
+        self,
+        request: bccr_models.RegisterTradeUsageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.RegisterTradeUsageResponse:
+        """
+        Description: 商品交易用途登记
+        Summary: 商品交易用途登记
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.RegisterTradeUsageResponse(),
+            self.do_request('1.0', 'blockchain.bccr.trade.usage.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_trade_usage_ex_async(
+        self,
+        request: bccr_models.RegisterTradeUsageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.RegisterTradeUsageResponse:
+        """
+        Description: 商品交易用途登记
+        Summary: 商品交易用途登记
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.RegisterTradeUsageResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.trade.usage.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_evidence_user(
+        self,
+        request: bccr_models.CreateEvidenceUserRequest,
+    ) -> bccr_models.CreateEvidenceUserResponse:
+        """
+        Description: 创建取证用户
+        Summary: 创建取证用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_evidence_user_ex(request, headers, runtime)
+
+    async def create_evidence_user_async(
+        self,
+        request: bccr_models.CreateEvidenceUserRequest,
+    ) -> bccr_models.CreateEvidenceUserResponse:
+        """
+        Description: 创建取证用户
+        Summary: 创建取证用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_evidence_user_ex_async(request, headers, runtime)
+
+    def create_evidence_user_ex(
+        self,
+        request: bccr_models.CreateEvidenceUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateEvidenceUserResponse:
+        """
+        Description: 创建取证用户
+        Summary: 创建取证用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateEvidenceUserResponse(),
+            self.do_request('1.0', 'blockchain.bccr.evidence.user.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_evidence_user_ex_async(
+        self,
+        request: bccr_models.CreateEvidenceUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateEvidenceUserResponse:
+        """
+        Description: 创建取证用户
+        Summary: 创建取证用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateEvidenceUserResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.evidence.user.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_evidence_screenshot(
+        self,
+        request: bccr_models.CreateEvidenceScreenshotRequest,
+    ) -> bccr_models.CreateEvidenceScreenshotResponse:
+        """
+        Description: 创建网页截图
+        Summary: 创建网页截图
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_evidence_screenshot_ex(request, headers, runtime)
+
+    async def create_evidence_screenshot_async(
+        self,
+        request: bccr_models.CreateEvidenceScreenshotRequest,
+    ) -> bccr_models.CreateEvidenceScreenshotResponse:
+        """
+        Description: 创建网页截图
+        Summary: 创建网页截图
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_evidence_screenshot_ex_async(request, headers, runtime)
+
+    def create_evidence_screenshot_ex(
+        self,
+        request: bccr_models.CreateEvidenceScreenshotRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateEvidenceScreenshotResponse:
+        """
+        Description: 创建网页截图
+        Summary: 创建网页截图
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateEvidenceScreenshotResponse(),
+            self.do_request('1.0', 'blockchain.bccr.evidence.screenshot.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_evidence_screenshot_ex_async(
+        self,
+        request: bccr_models.CreateEvidenceScreenshotRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateEvidenceScreenshotResponse:
+        """
+        Description: 创建网页截图
+        Summary: 创建网页截图
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateEvidenceScreenshotResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.evidence.screenshot.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_evidence_register(
+        self,
+        request: bccr_models.CreateEvidenceRegisterRequest,
+    ) -> bccr_models.CreateEvidenceRegisterResponse:
+        """
+        Description: 创建网页截图存证
+        Summary: 创建网页截图存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_evidence_register_ex(request, headers, runtime)
+
+    async def create_evidence_register_async(
+        self,
+        request: bccr_models.CreateEvidenceRegisterRequest,
+    ) -> bccr_models.CreateEvidenceRegisterResponse:
+        """
+        Description: 创建网页截图存证
+        Summary: 创建网页截图存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_evidence_register_ex_async(request, headers, runtime)
+
+    def create_evidence_register_ex(
+        self,
+        request: bccr_models.CreateEvidenceRegisterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateEvidenceRegisterResponse:
+        """
+        Description: 创建网页截图存证
+        Summary: 创建网页截图存证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateEvidenceRegisterResponse(),
+            self.do_request('1.0', 'blockchain.bccr.evidence.register.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_evidence_register_ex_async(
+        self,
+        request: bccr_models.CreateEvidenceRegisterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateEvidenceRegisterResponse:
+        """
+        Description: 创建网页截图存证
+        Summary: 创建网页截图存证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateEvidenceRegisterResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.evidence.register.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_evidence_recordscreen(
+        self,
+        request: bccr_models.CreateEvidenceRecordscreenRequest,
+    ) -> bccr_models.CreateEvidenceRecordscreenResponse:
+        """
+        Description: 创建录屏取证
+        Summary: 创建录屏取证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_evidence_recordscreen_ex(request, headers, runtime)
+
+    async def create_evidence_recordscreen_async(
+        self,
+        request: bccr_models.CreateEvidenceRecordscreenRequest,
+    ) -> bccr_models.CreateEvidenceRecordscreenResponse:
+        """
+        Description: 创建录屏取证
+        Summary: 创建录屏取证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_evidence_recordscreen_ex_async(request, headers, runtime)
+
+    def create_evidence_recordscreen_ex(
+        self,
+        request: bccr_models.CreateEvidenceRecordscreenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateEvidenceRecordscreenResponse:
+        """
+        Description: 创建录屏取证
+        Summary: 创建录屏取证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateEvidenceRecordscreenResponse(),
+            self.do_request('1.0', 'blockchain.bccr.evidence.recordscreen.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_evidence_recordscreen_ex_async(
+        self,
+        request: bccr_models.CreateEvidenceRecordscreenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateEvidenceRecordscreenResponse:
+        """
+        Description: 创建录屏取证
+        Summary: 创建录屏取证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateEvidenceRecordscreenResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.evidence.recordscreen.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_trade_usage(
+        self,
+        request: bccr_models.CancelTradeUsageRequest,
+    ) -> bccr_models.CancelTradeUsageResponse:
+        """
+        Description: 商品交易用途撤销
+        Summary: 商品交易用途撤销
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_trade_usage_ex(request, headers, runtime)
+
+    async def cancel_trade_usage_async(
+        self,
+        request: bccr_models.CancelTradeUsageRequest,
+    ) -> bccr_models.CancelTradeUsageResponse:
+        """
+        Description: 商品交易用途撤销
+        Summary: 商品交易用途撤销
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_trade_usage_ex_async(request, headers, runtime)
+
+    def cancel_trade_usage_ex(
+        self,
+        request: bccr_models.CancelTradeUsageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CancelTradeUsageResponse:
+        """
+        Description: 商品交易用途撤销
+        Summary: 商品交易用途撤销
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CancelTradeUsageResponse(),
+            self.do_request('1.0', 'blockchain.bccr.trade.usage.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_trade_usage_ex_async(
+        self,
+        request: bccr_models.CancelTradeUsageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CancelTradeUsageResponse:
+        """
+        Description: 商品交易用途撤销
+        Summary: 商品交易用途撤销
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CancelTradeUsageResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.trade.usage.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_evidence_live(
+        self,
+        request: bccr_models.CreateEvidenceLiveRequest,
+    ) -> bccr_models.CreateEvidenceLiveResponse:
+        """
+        Description: 发起指定url的直播取证
+        Summary: 发起直播取证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_evidence_live_ex(request, headers, runtime)
+
+    async def create_evidence_live_async(
+        self,
+        request: bccr_models.CreateEvidenceLiveRequest,
+    ) -> bccr_models.CreateEvidenceLiveResponse:
+        """
+        Description: 发起指定url的直播取证
+        Summary: 发起直播取证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_evidence_live_ex_async(request, headers, runtime)
+
+    def create_evidence_live_ex(
+        self,
+        request: bccr_models.CreateEvidenceLiveRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateEvidenceLiveResponse:
+        """
+        Description: 发起指定url的直播取证
+        Summary: 发起直播取证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateEvidenceLiveResponse(),
+            self.do_request('1.0', 'blockchain.bccr.evidence.live.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_evidence_live_ex_async(
+        self,
+        request: bccr_models.CreateEvidenceLiveRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateEvidenceLiveResponse:
+        """
+        Description: 发起指定url的直播取证
+        Summary: 发起直播取证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateEvidenceLiveResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.evidence.live.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_evidence_vod(
+        self,
+        request: bccr_models.CreateEvidenceVodRequest,
+    ) -> bccr_models.CreateEvidenceVodResponse:
+        """
+        Description: 根据点播网站url发起点播取证
+        Summary: 发起点播取证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_evidence_vod_ex(request, headers, runtime)
+
+    async def create_evidence_vod_async(
+        self,
+        request: bccr_models.CreateEvidenceVodRequest,
+    ) -> bccr_models.CreateEvidenceVodResponse:
+        """
+        Description: 根据点播网站url发起点播取证
+        Summary: 发起点播取证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_evidence_vod_ex_async(request, headers, runtime)
+
+    def create_evidence_vod_ex(
+        self,
+        request: bccr_models.CreateEvidenceVodRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateEvidenceVodResponse:
+        """
+        Description: 根据点播网站url发起点播取证
+        Summary: 发起点播取证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateEvidenceVodResponse(),
+            self.do_request('1.0', 'blockchain.bccr.evidence.vod.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_evidence_vod_ex_async(
+        self,
+        request: bccr_models.CreateEvidenceVodRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateEvidenceVodResponse:
+        """
+        Description: 根据点播网站url发起点播取证
+        Summary: 发起点播取证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateEvidenceVodResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.evidence.vod.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_trade_usage(
+        self,
+        request: bccr_models.GetTradeUsageRequest,
+    ) -> bccr_models.GetTradeUsageResponse:
+        """
+        Description: 商品交易用途登记结果查询，目前仅用于测试
+        Summary: 商品交易用途登记结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_trade_usage_ex(request, headers, runtime)
+
+    async def get_trade_usage_async(
+        self,
+        request: bccr_models.GetTradeUsageRequest,
+    ) -> bccr_models.GetTradeUsageResponse:
+        """
+        Description: 商品交易用途登记结果查询，目前仅用于测试
+        Summary: 商品交易用途登记结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_trade_usage_ex_async(request, headers, runtime)
+
+    def get_trade_usage_ex(
+        self,
+        request: bccr_models.GetTradeUsageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.GetTradeUsageResponse:
+        """
+        Description: 商品交易用途登记结果查询，目前仅用于测试
+        Summary: 商品交易用途登记结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.GetTradeUsageResponse(),
+            self.do_request('1.0', 'blockchain.bccr.trade.usage.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_trade_usage_ex_async(
+        self,
+        request: bccr_models.GetTradeUsageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.GetTradeUsageResponse:
+        """
+        Description: 商品交易用途登记结果查询，目前仅用于测试
+        Summary: 商品交易用途登记结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.GetTradeUsageResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.trade.usage.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_evidence_info(
+        self,
+        request: bccr_models.GetEvidenceInfoRequest,
+    ) -> bccr_models.GetEvidenceInfoResponse:
+        """
+        Description: 查询取证信息
+        Summary: 查询取证信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_evidence_info_ex(request, headers, runtime)
+
+    async def get_evidence_info_async(
+        self,
+        request: bccr_models.GetEvidenceInfoRequest,
+    ) -> bccr_models.GetEvidenceInfoResponse:
+        """
+        Description: 查询取证信息
+        Summary: 查询取证信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_evidence_info_ex_async(request, headers, runtime)
+
+    def get_evidence_info_ex(
+        self,
+        request: bccr_models.GetEvidenceInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.GetEvidenceInfoResponse:
+        """
+        Description: 查询取证信息
+        Summary: 查询取证信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.GetEvidenceInfoResponse(),
+            self.do_request('1.0', 'blockchain.bccr.evidence.info.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_evidence_info_ex_async(
+        self,
+        request: bccr_models.GetEvidenceInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.GetEvidenceInfoResponse:
+        """
+        Description: 查询取证信息
+        Summary: 查询取证信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.GetEvidenceInfoResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.evidence.info.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def replace_dci(
+        self,
+        request: bccr_models.ReplaceDciRequest,
+    ) -> bccr_models.ReplaceDciResponse:
+        """
+        Description: DCI变更
+        Summary: DCI变更
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.replace_dci_ex(request, headers, runtime)
+
+    async def replace_dci_async(
+        self,
+        request: bccr_models.ReplaceDciRequest,
+    ) -> bccr_models.ReplaceDciResponse:
+        """
+        Description: DCI变更
+        Summary: DCI变更
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.replace_dci_ex_async(request, headers, runtime)
+
+    def replace_dci_ex(
+        self,
+        request: bccr_models.ReplaceDciRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.ReplaceDciResponse:
+        """
+        Description: DCI变更
+        Summary: DCI变更
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.ReplaceDciResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def replace_dci_ex_async(
+        self,
+        request: bccr_models.ReplaceDciRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.ReplaceDciResponse:
+        """
+        Description: DCI变更
+        Summary: DCI变更
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.ReplaceDciResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_content(
