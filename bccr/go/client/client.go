@@ -923,6 +923,25 @@ func (s *NotaryInvoiceInfo) SetDelivery(v *DeliveryInfo) *NotaryInvoiceInfo {
 	return s
 }
 
+// 在售摘要信息
+type SaleDigestData struct {
+	// 商品hash值
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty" require:"true"`
+}
+
+func (s SaleDigestData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaleDigestData) GoString() string {
+	return s.String()
+}
+
+func (s *SaleDigestData) SetHash(v string) *SaleDigestData {
+	s.Hash = &v
+	return s
+}
+
 // 申办事由
 type BidReason struct {
 	// 事由类别ID
@@ -2599,6 +2618,86 @@ func (s *RecordScreenData) SetGmtReady(v int64) *RecordScreenData {
 	return s
 }
 
+// 取证三方系统信息
+type EvidenceThirdPartyInfo struct {
+	// 三方系统用户提交网址时间
+	SubmitTime *string `json:"submit_time,omitempty" xml:"submit_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 三方系统地址
+	SystemUrl *string `json:"system_url,omitempty" xml:"system_url,omitempty" require:"true"`
+	// 三方系统账号
+	Account *string `json:"account,omitempty" xml:"account,omitempty" require:"true"`
+	// 三方系统名称
+	SystemName *string `json:"system_name,omitempty" xml:"system_name,omitempty" require:"true"`
+	// 用户取证时登录的时间
+	LoginTime *string `json:"login_time,omitempty" xml:"login_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 用户取证时登录的IP
+	LoginIp *string `json:"login_ip,omitempty" xml:"login_ip,omitempty" require:"true"`
+}
+
+func (s EvidenceThirdPartyInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EvidenceThirdPartyInfo) GoString() string {
+	return s.String()
+}
+
+func (s *EvidenceThirdPartyInfo) SetSubmitTime(v string) *EvidenceThirdPartyInfo {
+	s.SubmitTime = &v
+	return s
+}
+
+func (s *EvidenceThirdPartyInfo) SetSystemUrl(v string) *EvidenceThirdPartyInfo {
+	s.SystemUrl = &v
+	return s
+}
+
+func (s *EvidenceThirdPartyInfo) SetAccount(v string) *EvidenceThirdPartyInfo {
+	s.Account = &v
+	return s
+}
+
+func (s *EvidenceThirdPartyInfo) SetSystemName(v string) *EvidenceThirdPartyInfo {
+	s.SystemName = &v
+	return s
+}
+
+func (s *EvidenceThirdPartyInfo) SetLoginTime(v string) *EvidenceThirdPartyInfo {
+	s.LoginTime = &v
+	return s
+}
+
+func (s *EvidenceThirdPartyInfo) SetLoginIp(v string) *EvidenceThirdPartyInfo {
+	s.LoginIp = &v
+	return s
+}
+
+// 取证网址信息
+type EvidenceWebUrlInfo struct {
+	// 取证网址
+	WebUrl *string `json:"web_url,omitempty" xml:"web_url,omitempty" require:"true"`
+	// 取证名称
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+}
+
+func (s EvidenceWebUrlInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EvidenceWebUrlInfo) GoString() string {
+	return s.String()
+}
+
+func (s *EvidenceWebUrlInfo) SetWebUrl(v string) *EvidenceWebUrlInfo {
+	s.WebUrl = &v
+	return s
+}
+
+func (s *EvidenceWebUrlInfo) SetTitle(v string) *EvidenceWebUrlInfo {
+	s.Title = &v
+	return s
+}
+
 // 推荐分类信息
 type RecommendCategoryDetail struct {
 	// 推荐分类类型
@@ -2944,6 +3043,8 @@ type AdditionalFileInfo struct {
 	OthersWorkAuthFileId *string `json:"others_work_auth_file_id,omitempty" xml:"others_work_auth_file_id,omitempty"`
 	// 其他文件fileId列表
 	OtherFileIdList []*string `json:"other_file_id_list,omitempty" xml:"other_file_id_list,omitempty" type:"Repeated"`
+	// 商用授权字体授权文件fileId
+	FontAuthorizeFileId *string `json:"font_authorize_file_id,omitempty" xml:"font_authorize_file_id,omitempty"`
 }
 
 func (s AdditionalFileInfo) String() string {
@@ -2976,6 +3077,11 @@ func (s *AdditionalFileInfo) SetOthersWorkAuthFileId(v string) *AdditionalFileIn
 
 func (s *AdditionalFileInfo) SetOtherFileIdList(v []*string) *AdditionalFileInfo {
 	s.OtherFileIdList = v
+	return s
+}
+
+func (s *AdditionalFileInfo) SetFontAuthorizeFileId(v string) *AdditionalFileInfo {
+	s.FontAuthorizeFileId = &v
 	return s
 }
 
@@ -3102,6 +3208,46 @@ func (s *CertificateData) SetDciCode(v string) *CertificateData {
 }
 
 func (s *CertificateData) SetCertificateUrl(v string) *CertificateData {
+	s.CertificateUrl = &v
+	return s
+}
+
+// 存证证明信息
+type EvidenceCertificateInfo struct {
+	// 证书编号
+	CertificateNo *string `json:"certificate_no,omitempty" xml:"certificate_no,omitempty" require:"true"`
+	// 上链时间
+	CertificateTime *string `json:"certificate_time,omitempty" xml:"certificate_time,omitempty" require:"true"`
+	// 链上交易hash
+	CertificateHash *string `json:"certificate_hash,omitempty" xml:"certificate_hash,omitempty" require:"true"`
+	// 证书下载url（有效期3天）
+	CertificateUrl *string `json:"certificate_url,omitempty" xml:"certificate_url,omitempty" require:"true"`
+}
+
+func (s EvidenceCertificateInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EvidenceCertificateInfo) GoString() string {
+	return s.String()
+}
+
+func (s *EvidenceCertificateInfo) SetCertificateNo(v string) *EvidenceCertificateInfo {
+	s.CertificateNo = &v
+	return s
+}
+
+func (s *EvidenceCertificateInfo) SetCertificateTime(v string) *EvidenceCertificateInfo {
+	s.CertificateTime = &v
+	return s
+}
+
+func (s *EvidenceCertificateInfo) SetCertificateHash(v string) *EvidenceCertificateInfo {
+	s.CertificateHash = &v
+	return s
+}
+
+func (s *EvidenceCertificateInfo) SetCertificateUrl(v string) *EvidenceCertificateInfo {
 	s.CertificateUrl = &v
 	return s
 }
@@ -3294,6 +3440,25 @@ func (s *SignDocument) SetSignFileType(v string) *SignDocument {
 	return s
 }
 
+// 在售商品的信息
+type SaleData struct {
+	// 摘要数据
+	SaleDigiestData *SaleDigestData `json:"sale_digiest_data,omitempty" xml:"sale_digiest_data,omitempty" require:"true"`
+}
+
+func (s SaleData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaleData) GoString() string {
+	return s.String()
+}
+
+func (s *SaleData) SetSaleDigiestData(v *SaleDigestData) *SaleData {
+	s.SaleDigiestData = v
+	return s
+}
+
 // 商品信息
 type GoodsInfo struct {
 	// 商品id
@@ -3458,7 +3623,10 @@ type DciExplanationInfo struct {
 	// 阐述作品的独创性
 	Originality *string `json:"originality,omitempty" xml:"originality,omitempty" require:"true"`
 	// 创作过程涉及到字体使用相关版权说明
-	FontCopyright *string `json:"font_copyright,omitempty" xml:"font_copyright,omitempty" require:"true"`
+	FontCopyright *string `json:"font_copyright,omitempty" xml:"font_copyright,omitempty"`
+	// 创作过程涉及到字体使用相关版权说明
+	//
+	FontTypes []*string `json:"font_types,omitempty" xml:"font_types,omitempty" type:"Repeated"`
 }
 
 func (s DciExplanationInfo) String() string {
@@ -3486,6 +3654,11 @@ func (s *DciExplanationInfo) SetOriginality(v string) *DciExplanationInfo {
 
 func (s *DciExplanationInfo) SetFontCopyright(v string) *DciExplanationInfo {
 	s.FontCopyright = &v
+	return s
+}
+
+func (s *DciExplanationInfo) SetFontTypes(v []*string) *DciExplanationInfo {
+	s.FontTypes = v
 	return s
 }
 
@@ -6915,20 +7088,22 @@ type AddDciUserRequest struct {
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
 	// 用户名称废弃
 	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
-	// 证件有效期限起始日期废弃
+	// 证件有效期限起始日期
 	CertificateStartTime *string `json:"certificate_start_time,omitempty" xml:"certificate_start_time,omitempty"`
-	// 证件有效期限终止日期废弃
+	// 证件有效期限终止日期
 	CertificateEndTime *string `json:"certificate_end_time,omitempty" xml:"certificate_end_time,omitempty"`
 	// 证件正面OSS fileId废弃
 	CertificateFrontFilePath *string `json:"certificate_front_file_path,omitempty" xml:"certificate_front_file_path,omitempty"`
 	// 证件反面OSS filePath废弃
 	CertificateBackFilePath *string `json:"certificate_back_file_path,omitempty" xml:"certificate_back_file_path,omitempty"`
-	// 用户身份开始时间废弃
+	// 用户身份开始时间
 	IdentityStartTime *string `json:"identity_start_time,omitempty" xml:"identity_start_time,omitempty"`
 	// 用户类型废弃
 	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
-	// 地址废弃
+	// 地址
 	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 证件是否长期有效
+	LongTermValid *bool `json:"long_term_valid,omitempty" xml:"long_term_valid,omitempty"`
 }
 
 func (s AddDciUserRequest) String() string {
@@ -7051,6 +7226,11 @@ func (s *AddDciUserRequest) SetUserType(v string) *AddDciUserRequest {
 
 func (s *AddDciUserRequest) SetAddress(v string) *AddDciUserRequest {
 	s.Address = &v
+	return s
+}
+
+func (s *AddDciUserRequest) SetLongTermValid(v bool) *AddDciUserRequest {
+	s.LongTermValid = &v
 	return s
 }
 
@@ -7426,6 +7606,22 @@ type UpdateDciUserRequest struct {
 	CopyrightCertificationType *string `json:"copyright_certification_type,omitempty" xml:"copyright_certification_type,omitempty"`
 	// 法人信息
 	LegalPersonInfo *EnterpriseLegalPersonInfo `json:"legal_person_info,omitempty" xml:"legal_person_info,omitempty"`
+	// true,false
+	LongTermValid *bool `json:"long_term_valid,omitempty" xml:"long_term_valid,omitempty"`
+	// 证件有效期开始时间
+	CertificateStartTime *string `json:"certificate_start_time,omitempty" xml:"certificate_start_time,omitempty"`
+	// 证件有效期终止时间
+	CertificateEndTime *string `json:"certificate_end_time,omitempty" xml:"certificate_end_time,omitempty"`
+	// 成立日期或出生日期
+	IdentityStartTime *string `json:"identity_start_time,omitempty" xml:"identity_start_time,omitempty"`
+	// 地址信息
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 著作权人名称
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 著作权人证件号
+	CertificateNumber *string `json:"certificate_number,omitempty" xml:"certificate_number,omitempty"`
+	// 著作权人证件类型
+	CertificateType *string `json:"certificate_type,omitempty" xml:"certificate_type,omitempty"`
 }
 
 func (s UpdateDciUserRequest) String() string {
@@ -7478,6 +7674,46 @@ func (s *UpdateDciUserRequest) SetCopyrightCertificationType(v string) *UpdateDc
 
 func (s *UpdateDciUserRequest) SetLegalPersonInfo(v *EnterpriseLegalPersonInfo) *UpdateDciUserRequest {
 	s.LegalPersonInfo = v
+	return s
+}
+
+func (s *UpdateDciUserRequest) SetLongTermValid(v bool) *UpdateDciUserRequest {
+	s.LongTermValid = &v
+	return s
+}
+
+func (s *UpdateDciUserRequest) SetCertificateStartTime(v string) *UpdateDciUserRequest {
+	s.CertificateStartTime = &v
+	return s
+}
+
+func (s *UpdateDciUserRequest) SetCertificateEndTime(v string) *UpdateDciUserRequest {
+	s.CertificateEndTime = &v
+	return s
+}
+
+func (s *UpdateDciUserRequest) SetIdentityStartTime(v string) *UpdateDciUserRequest {
+	s.IdentityStartTime = &v
+	return s
+}
+
+func (s *UpdateDciUserRequest) SetAddress(v string) *UpdateDciUserRequest {
+	s.Address = &v
+	return s
+}
+
+func (s *UpdateDciUserRequest) SetCertName(v string) *UpdateDciUserRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *UpdateDciUserRequest) SetCertificateNumber(v string) *UpdateDciUserRequest {
+	s.CertificateNumber = &v
+	return s
+}
+
+func (s *UpdateDciUserRequest) SetCertificateType(v string) *UpdateDciUserRequest {
+	s.CertificateType = &v
 	return s
 }
 
@@ -10167,6 +10403,1413 @@ func (s *ApplyDciPromotionResponse) SetApiTaskId(v string) *ApplyDciPromotionRes
 	return s
 }
 
+type QueryDciUserbyphoneRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 手机号
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty" require:"true"`
+}
+
+func (s QueryDciUserbyphoneRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDciUserbyphoneRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDciUserbyphoneRequest) SetAuthToken(v string) *QueryDciUserbyphoneRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDciUserbyphoneRequest) SetProductInstanceId(v string) *QueryDciUserbyphoneRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDciUserbyphoneRequest) SetPhone(v string) *QueryDciUserbyphoneRequest {
+	s.Phone = &v
+	return s
+}
+
+type QueryDciUserbyphoneResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// dci用户id
+	//
+	DciUserId *string `json:"dci_user_id,omitempty" xml:"dci_user_id,omitempty"`
+	// dci用户状态
+	//
+	DciUserStatus *string `json:"dci_user_status,omitempty" xml:"dci_user_status,omitempty"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 证件类型
+	//
+	CertificateType *string `json:"certificate_type,omitempty" xml:"certificate_type,omitempty"`
+	// 证件号
+	//
+	CertificateNumber *string `json:"certificate_number,omitempty" xml:"certificate_number,omitempty"`
+	// 地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 证件有效期开始时间
+	//
+	CertStartTime *string `json:"cert_start_time,omitempty" xml:"cert_start_time,omitempty"`
+	// 证件有效期结束时间
+	//
+	CertEndTime *string `json:"cert_end_time,omitempty" xml:"cert_end_time,omitempty"`
+	// 法人名称
+	//
+	LegalPerson *string `json:"legal_person,omitempty" xml:"legal_person,omitempty"`
+}
+
+func (s QueryDciUserbyphoneResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDciUserbyphoneResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDciUserbyphoneResponse) SetReqMsgId(v string) *QueryDciUserbyphoneResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDciUserbyphoneResponse) SetResultCode(v string) *QueryDciUserbyphoneResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDciUserbyphoneResponse) SetResultMsg(v string) *QueryDciUserbyphoneResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDciUserbyphoneResponse) SetDciUserId(v string) *QueryDciUserbyphoneResponse {
+	s.DciUserId = &v
+	return s
+}
+
+func (s *QueryDciUserbyphoneResponse) SetDciUserStatus(v string) *QueryDciUserbyphoneResponse {
+	s.DciUserStatus = &v
+	return s
+}
+
+func (s *QueryDciUserbyphoneResponse) SetName(v string) *QueryDciUserbyphoneResponse {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryDciUserbyphoneResponse) SetCertificateType(v string) *QueryDciUserbyphoneResponse {
+	s.CertificateType = &v
+	return s
+}
+
+func (s *QueryDciUserbyphoneResponse) SetCertificateNumber(v string) *QueryDciUserbyphoneResponse {
+	s.CertificateNumber = &v
+	return s
+}
+
+func (s *QueryDciUserbyphoneResponse) SetAddress(v string) *QueryDciUserbyphoneResponse {
+	s.Address = &v
+	return s
+}
+
+func (s *QueryDciUserbyphoneResponse) SetCertStartTime(v string) *QueryDciUserbyphoneResponse {
+	s.CertStartTime = &v
+	return s
+}
+
+func (s *QueryDciUserbyphoneResponse) SetCertEndTime(v string) *QueryDciUserbyphoneResponse {
+	s.CertEndTime = &v
+	return s
+}
+
+func (s *QueryDciUserbyphoneResponse) SetLegalPerson(v string) *QueryDciUserbyphoneResponse {
+	s.LegalPerson = &v
+	return s
+}
+
+type QueryTradeSaleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询文本
+	QueryText *string `json:"query_text,omitempty" xml:"query_text,omitempty" require:"true" maxLength:"2048" minLength:"0"`
+	// 查询场景
+	QueryScene *string `json:"query_scene,omitempty" xml:"query_scene,omitempty" require:"true"`
+	// 扩展信息，JSON格式
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s QueryTradeSaleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTradeSaleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTradeSaleRequest) SetAuthToken(v string) *QueryTradeSaleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTradeSaleRequest) SetProductInstanceId(v string) *QueryTradeSaleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTradeSaleRequest) SetQueryText(v string) *QueryTradeSaleRequest {
+	s.QueryText = &v
+	return s
+}
+
+func (s *QueryTradeSaleRequest) SetQueryScene(v string) *QueryTradeSaleRequest {
+	s.QueryScene = &v
+	return s
+}
+
+func (s *QueryTradeSaleRequest) SetExtInfo(v string) *QueryTradeSaleRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type QueryTradeSaleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 匹配的商品信息
+	SaleDataList []*SaleData `json:"sale_data_list,omitempty" xml:"sale_data_list,omitempty" type:"Repeated"`
+	// 扩展信息JSON
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s QueryTradeSaleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTradeSaleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTradeSaleResponse) SetReqMsgId(v string) *QueryTradeSaleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTradeSaleResponse) SetResultCode(v string) *QueryTradeSaleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTradeSaleResponse) SetResultMsg(v string) *QueryTradeSaleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTradeSaleResponse) SetSaleDataList(v []*SaleData) *QueryTradeSaleResponse {
+	s.SaleDataList = v
+	return s
+}
+
+func (s *QueryTradeSaleResponse) SetExtInfo(v string) *QueryTradeSaleResponse {
+	s.ExtInfo = &v
+	return s
+}
+
+type RegisterTradeUsageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 标识某个服务实体的唯一ID，例如dciContentId
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+	// 业务服务类型，例如DCI、存证等
+	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty" require:"true"`
+	// 扩展信息，JSON格式
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 调用方唯一业务标识
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+}
+
+func (s RegisterTradeUsageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterTradeUsageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterTradeUsageRequest) SetAuthToken(v string) *RegisterTradeUsageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterTradeUsageRequest) SetProductInstanceId(v string) *RegisterTradeUsageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterTradeUsageRequest) SetServiceId(v string) *RegisterTradeUsageRequest {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *RegisterTradeUsageRequest) SetServiceType(v string) *RegisterTradeUsageRequest {
+	s.ServiceType = &v
+	return s
+}
+
+func (s *RegisterTradeUsageRequest) SetExtInfo(v string) *RegisterTradeUsageRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *RegisterTradeUsageRequest) SetOutBizNo(v string) *RegisterTradeUsageRequest {
+	s.OutBizNo = &v
+	return s
+}
+
+type RegisterTradeUsageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 登记Id
+	RegisterId *string `json:"register_id,omitempty" xml:"register_id,omitempty"`
+	// 登记状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s RegisterTradeUsageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterTradeUsageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterTradeUsageResponse) SetReqMsgId(v string) *RegisterTradeUsageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterTradeUsageResponse) SetResultCode(v string) *RegisterTradeUsageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterTradeUsageResponse) SetResultMsg(v string) *RegisterTradeUsageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterTradeUsageResponse) SetRegisterId(v string) *RegisterTradeUsageResponse {
+	s.RegisterId = &v
+	return s
+}
+
+func (s *RegisterTradeUsageResponse) SetStatus(v string) *RegisterTradeUsageResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *RegisterTradeUsageResponse) SetExtInfo(v string) *RegisterTradeUsageResponse {
+	s.ExtInfo = &v
+	return s
+}
+
+type CreateEvidenceUserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 取证主体证件名称
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 取证主体证件号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 用户类型（个人/企业）
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+	// 法人姓名（企业用户必填）
+	LegalPersonCertName *string `json:"legal_person_cert_name,omitempty" xml:"legal_person_cert_name,omitempty"`
+	// 法人证件号（企业用户必填）
+	LegalPersonCertNo *string `json:"legal_person_cert_no,omitempty" xml:"legal_person_cert_no,omitempty"`
+	// 取证操作人证件姓名（企业用户必填）
+	OperatorName *string `json:"operator_name,omitempty" xml:"operator_name,omitempty"`
+	// 取证操作人证件号（企业用户必填）
+	OperatorCertNo *string `json:"operator_cert_no,omitempty" xml:"operator_cert_no,omitempty"`
+	// 幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+}
+
+func (s CreateEvidenceUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateEvidenceUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateEvidenceUserRequest) SetAuthToken(v string) *CreateEvidenceUserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateEvidenceUserRequest) SetProductInstanceId(v string) *CreateEvidenceUserRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateEvidenceUserRequest) SetCertName(v string) *CreateEvidenceUserRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CreateEvidenceUserRequest) SetCertNo(v string) *CreateEvidenceUserRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CreateEvidenceUserRequest) SetUserType(v string) *CreateEvidenceUserRequest {
+	s.UserType = &v
+	return s
+}
+
+func (s *CreateEvidenceUserRequest) SetLegalPersonCertName(v string) *CreateEvidenceUserRequest {
+	s.LegalPersonCertName = &v
+	return s
+}
+
+func (s *CreateEvidenceUserRequest) SetLegalPersonCertNo(v string) *CreateEvidenceUserRequest {
+	s.LegalPersonCertNo = &v
+	return s
+}
+
+func (s *CreateEvidenceUserRequest) SetOperatorName(v string) *CreateEvidenceUserRequest {
+	s.OperatorName = &v
+	return s
+}
+
+func (s *CreateEvidenceUserRequest) SetOperatorCertNo(v string) *CreateEvidenceUserRequest {
+	s.OperatorCertNo = &v
+	return s
+}
+
+func (s *CreateEvidenceUserRequest) SetClientToken(v string) *CreateEvidenceUserRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type CreateEvidenceUserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 取证用户id
+	EvidenceUserId *string `json:"evidence_user_id,omitempty" xml:"evidence_user_id,omitempty"`
+}
+
+func (s CreateEvidenceUserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateEvidenceUserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateEvidenceUserResponse) SetReqMsgId(v string) *CreateEvidenceUserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateEvidenceUserResponse) SetResultCode(v string) *CreateEvidenceUserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateEvidenceUserResponse) SetResultMsg(v string) *CreateEvidenceUserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateEvidenceUserResponse) SetEvidenceUserId(v string) *CreateEvidenceUserResponse {
+	s.EvidenceUserId = &v
+	return s
+}
+
+type CreateEvidenceScreenshotRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 取证用户id
+	EvidenceUserId *string `json:"evidence_user_id,omitempty" xml:"evidence_user_id,omitempty" require:"true"`
+	// 取证公证处
+	NotaryOffice *string `json:"notary_office,omitempty" xml:"notary_office,omitempty" require:"true"`
+	// 取证网址信息
+	WebUrl *EvidenceWebUrlInfo `json:"web_url,omitempty" xml:"web_url,omitempty" require:"true"`
+	// 取证三方账号信息
+	ThirdPartyInfo *EvidenceThirdPartyInfo `json:"third_party_info,omitempty" xml:"third_party_info,omitempty" require:"true"`
+	// 幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+}
+
+func (s CreateEvidenceScreenshotRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateEvidenceScreenshotRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateEvidenceScreenshotRequest) SetAuthToken(v string) *CreateEvidenceScreenshotRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateEvidenceScreenshotRequest) SetProductInstanceId(v string) *CreateEvidenceScreenshotRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateEvidenceScreenshotRequest) SetEvidenceUserId(v string) *CreateEvidenceScreenshotRequest {
+	s.EvidenceUserId = &v
+	return s
+}
+
+func (s *CreateEvidenceScreenshotRequest) SetNotaryOffice(v string) *CreateEvidenceScreenshotRequest {
+	s.NotaryOffice = &v
+	return s
+}
+
+func (s *CreateEvidenceScreenshotRequest) SetWebUrl(v *EvidenceWebUrlInfo) *CreateEvidenceScreenshotRequest {
+	s.WebUrl = v
+	return s
+}
+
+func (s *CreateEvidenceScreenshotRequest) SetThirdPartyInfo(v *EvidenceThirdPartyInfo) *CreateEvidenceScreenshotRequest {
+	s.ThirdPartyInfo = v
+	return s
+}
+
+func (s *CreateEvidenceScreenshotRequest) SetClientToken(v string) *CreateEvidenceScreenshotRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type CreateEvidenceScreenshotResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 网页截图id
+	ScreenshotId *string `json:"screenshot_id,omitempty" xml:"screenshot_id,omitempty"`
+}
+
+func (s CreateEvidenceScreenshotResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateEvidenceScreenshotResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateEvidenceScreenshotResponse) SetReqMsgId(v string) *CreateEvidenceScreenshotResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateEvidenceScreenshotResponse) SetResultCode(v string) *CreateEvidenceScreenshotResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateEvidenceScreenshotResponse) SetResultMsg(v string) *CreateEvidenceScreenshotResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateEvidenceScreenshotResponse) SetScreenshotId(v string) *CreateEvidenceScreenshotResponse {
+	s.ScreenshotId = &v
+	return s
+}
+
+type CreateEvidenceRegisterRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 网页截图id
+	ScreenshotId *string `json:"screenshot_id,omitempty" xml:"screenshot_id,omitempty" require:"true"`
+	// 取证名称
+	EvidenceName *string `json:"evidence_name,omitempty" xml:"evidence_name,omitempty"`
+	// 幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+}
+
+func (s CreateEvidenceRegisterRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateEvidenceRegisterRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateEvidenceRegisterRequest) SetAuthToken(v string) *CreateEvidenceRegisterRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateEvidenceRegisterRequest) SetProductInstanceId(v string) *CreateEvidenceRegisterRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateEvidenceRegisterRequest) SetScreenshotId(v string) *CreateEvidenceRegisterRequest {
+	s.ScreenshotId = &v
+	return s
+}
+
+func (s *CreateEvidenceRegisterRequest) SetEvidenceName(v string) *CreateEvidenceRegisterRequest {
+	s.EvidenceName = &v
+	return s
+}
+
+func (s *CreateEvidenceRegisterRequest) SetClientToken(v string) *CreateEvidenceRegisterRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type CreateEvidenceRegisterResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 取证id
+	EvidenceId *string `json:"evidence_id,omitempty" xml:"evidence_id,omitempty"`
+}
+
+func (s CreateEvidenceRegisterResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateEvidenceRegisterResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateEvidenceRegisterResponse) SetReqMsgId(v string) *CreateEvidenceRegisterResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateEvidenceRegisterResponse) SetResultCode(v string) *CreateEvidenceRegisterResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateEvidenceRegisterResponse) SetResultMsg(v string) *CreateEvidenceRegisterResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateEvidenceRegisterResponse) SetEvidenceId(v string) *CreateEvidenceRegisterResponse {
+	s.EvidenceId = &v
+	return s
+}
+
+type CreateEvidenceRecordscreenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 取证名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 取证用户id
+	EvidenceUserId *string `json:"evidence_user_id,omitempty" xml:"evidence_user_id,omitempty" require:"true"`
+	// 取证公证处
+	NotaryOffice *string `json:"notary_office,omitempty" xml:"notary_office,omitempty" require:"true"`
+	// 取证网址信息
+	WebUrls []*EvidenceWebUrlInfo `json:"web_urls,omitempty" xml:"web_urls,omitempty" require:"true" type:"Repeated"`
+	// 取证三方账号信息
+	ThirdPartyInfo *EvidenceThirdPartyInfo `json:"third_party_info,omitempty" xml:"third_party_info,omitempty" require:"true"`
+	// 取证服务器地域
+	Area *string `json:"area,omitempty" xml:"area,omitempty" require:"true"`
+	// 最大录屏时间（单位：分钟）
+	MaxTimeInMin *int64 `json:"max_time_in_min,omitempty" xml:"max_time_in_min,omitempty" require:"true"`
+	// 服务器进入ready状态，指定时间未开始进入abort状态的等待时间，单位为分钟，默认1min，waitInMin不能小于1，不能大于10min
+	WaitInMin *int64 `json:"wait_in_min,omitempty" xml:"wait_in_min,omitempty" require:"true"`
+	// 回调地址
+	CallbackUrl *string `json:"callback_url,omitempty" xml:"callback_url,omitempty" require:"true"`
+	// 幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+}
+
+func (s CreateEvidenceRecordscreenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateEvidenceRecordscreenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateEvidenceRecordscreenRequest) SetAuthToken(v string) *CreateEvidenceRecordscreenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenRequest) SetProductInstanceId(v string) *CreateEvidenceRecordscreenRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenRequest) SetName(v string) *CreateEvidenceRecordscreenRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenRequest) SetEvidenceUserId(v string) *CreateEvidenceRecordscreenRequest {
+	s.EvidenceUserId = &v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenRequest) SetNotaryOffice(v string) *CreateEvidenceRecordscreenRequest {
+	s.NotaryOffice = &v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenRequest) SetWebUrls(v []*EvidenceWebUrlInfo) *CreateEvidenceRecordscreenRequest {
+	s.WebUrls = v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenRequest) SetThirdPartyInfo(v *EvidenceThirdPartyInfo) *CreateEvidenceRecordscreenRequest {
+	s.ThirdPartyInfo = v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenRequest) SetArea(v string) *CreateEvidenceRecordscreenRequest {
+	s.Area = &v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenRequest) SetMaxTimeInMin(v int64) *CreateEvidenceRecordscreenRequest {
+	s.MaxTimeInMin = &v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenRequest) SetWaitInMin(v int64) *CreateEvidenceRecordscreenRequest {
+	s.WaitInMin = &v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenRequest) SetCallbackUrl(v string) *CreateEvidenceRecordscreenRequest {
+	s.CallbackUrl = &v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenRequest) SetClientToken(v string) *CreateEvidenceRecordscreenRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type CreateEvidenceRecordscreenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 录屏取证操作url
+	RecordScreenUrl *string `json:"record_screen_url,omitempty" xml:"record_screen_url,omitempty"`
+	// 取证id
+	EvidenceId *string `json:"evidence_id,omitempty" xml:"evidence_id,omitempty"`
+}
+
+func (s CreateEvidenceRecordscreenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateEvidenceRecordscreenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateEvidenceRecordscreenResponse) SetReqMsgId(v string) *CreateEvidenceRecordscreenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenResponse) SetResultCode(v string) *CreateEvidenceRecordscreenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenResponse) SetResultMsg(v string) *CreateEvidenceRecordscreenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenResponse) SetRecordScreenUrl(v string) *CreateEvidenceRecordscreenResponse {
+	s.RecordScreenUrl = &v
+	return s
+}
+
+func (s *CreateEvidenceRecordscreenResponse) SetEvidenceId(v string) *CreateEvidenceRecordscreenResponse {
+	s.EvidenceId = &v
+	return s
+}
+
+type CancelTradeUsageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 标识某个服务实体的唯一ID，例如dciContentId
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+	// 业务服务类型，例如DCI、存证等
+	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty" require:"true"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s CancelTradeUsageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelTradeUsageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CancelTradeUsageRequest) SetAuthToken(v string) *CancelTradeUsageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelTradeUsageRequest) SetProductInstanceId(v string) *CancelTradeUsageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CancelTradeUsageRequest) SetServiceId(v string) *CancelTradeUsageRequest {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *CancelTradeUsageRequest) SetServiceType(v string) *CancelTradeUsageRequest {
+	s.ServiceType = &v
+	return s
+}
+
+func (s *CancelTradeUsageRequest) SetExtInfo(v string) *CancelTradeUsageRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type CancelTradeUsageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 登记Id
+	RegisterId *string `json:"register_id,omitempty" xml:"register_id,omitempty"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s CancelTradeUsageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelTradeUsageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CancelTradeUsageResponse) SetReqMsgId(v string) *CancelTradeUsageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CancelTradeUsageResponse) SetResultCode(v string) *CancelTradeUsageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CancelTradeUsageResponse) SetResultMsg(v string) *CancelTradeUsageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CancelTradeUsageResponse) SetRegisterId(v string) *CancelTradeUsageResponse {
+	s.RegisterId = &v
+	return s
+}
+
+func (s *CancelTradeUsageResponse) SetExtInfo(v string) *CancelTradeUsageResponse {
+	s.ExtInfo = &v
+	return s
+}
+
+type CreateEvidenceLiveRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 取证用户id
+	EvidenceUserId *int64 `json:"evidence_user_id,omitempty" xml:"evidence_user_id,omitempty" require:"true"`
+	// 取证公证处
+	NotaryOffice *string `json:"notary_office,omitempty" xml:"notary_office,omitempty" require:"true"`
+	// 取证类型（通用直播取证：DEFAULT）
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 取证网址信息
+	WebUrls *EvidenceWebUrlInfo `json:"web_urls,omitempty" xml:"web_urls,omitempty" require:"true"`
+	// 幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+}
+
+func (s CreateEvidenceLiveRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateEvidenceLiveRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateEvidenceLiveRequest) SetAuthToken(v string) *CreateEvidenceLiveRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetProductInstanceId(v string) *CreateEvidenceLiveRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetEvidenceUserId(v int64) *CreateEvidenceLiveRequest {
+	s.EvidenceUserId = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetNotaryOffice(v string) *CreateEvidenceLiveRequest {
+	s.NotaryOffice = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetType(v string) *CreateEvidenceLiveRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetWebUrls(v *EvidenceWebUrlInfo) *CreateEvidenceLiveRequest {
+	s.WebUrls = v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetClientToken(v string) *CreateEvidenceLiveRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type CreateEvidenceLiveResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 直播取证id
+	EvidenceId *string `json:"evidence_id,omitempty" xml:"evidence_id,omitempty"`
+}
+
+func (s CreateEvidenceLiveResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateEvidenceLiveResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateEvidenceLiveResponse) SetReqMsgId(v string) *CreateEvidenceLiveResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveResponse) SetResultCode(v string) *CreateEvidenceLiveResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveResponse) SetResultMsg(v string) *CreateEvidenceLiveResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveResponse) SetEvidenceId(v string) *CreateEvidenceLiveResponse {
+	s.EvidenceId = &v
+	return s
+}
+
+type CreateEvidenceVodRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 取证用户id
+	EvidenceUserId *int64 `json:"evidence_user_id,omitempty" xml:"evidence_user_id,omitempty" require:"true"`
+	// 公证处code
+	NotaryOffice *string `json:"notary_office,omitempty" xml:"notary_office,omitempty" require:"true"`
+	// 取证类型（通用点播取证：DEFAULT，快手点播取证：KUAISHOU）
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 待取证点播网站网址
+	WebUrl *EvidenceWebUrlInfo `json:"web_url,omitempty" xml:"web_url,omitempty" require:"true"`
+	// 幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+}
+
+func (s CreateEvidenceVodRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateEvidenceVodRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateEvidenceVodRequest) SetAuthToken(v string) *CreateEvidenceVodRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateEvidenceVodRequest) SetProductInstanceId(v string) *CreateEvidenceVodRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateEvidenceVodRequest) SetEvidenceUserId(v int64) *CreateEvidenceVodRequest {
+	s.EvidenceUserId = &v
+	return s
+}
+
+func (s *CreateEvidenceVodRequest) SetNotaryOffice(v string) *CreateEvidenceVodRequest {
+	s.NotaryOffice = &v
+	return s
+}
+
+func (s *CreateEvidenceVodRequest) SetType(v string) *CreateEvidenceVodRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *CreateEvidenceVodRequest) SetWebUrl(v *EvidenceWebUrlInfo) *CreateEvidenceVodRequest {
+	s.WebUrl = v
+	return s
+}
+
+func (s *CreateEvidenceVodRequest) SetClientToken(v string) *CreateEvidenceVodRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type CreateEvidenceVodResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 取证编号
+	EvidenceId *string `json:"evidence_id,omitempty" xml:"evidence_id,omitempty"`
+}
+
+func (s CreateEvidenceVodResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateEvidenceVodResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateEvidenceVodResponse) SetReqMsgId(v string) *CreateEvidenceVodResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateEvidenceVodResponse) SetResultCode(v string) *CreateEvidenceVodResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateEvidenceVodResponse) SetResultMsg(v string) *CreateEvidenceVodResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateEvidenceVodResponse) SetEvidenceId(v string) *CreateEvidenceVodResponse {
+	s.EvidenceId = &v
+	return s
+}
+
+type GetTradeUsageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 服务实体ID，例如DCI
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+	// 服务类型
+	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty" require:"true"`
+	// 外部业务唯一编号
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s GetTradeUsageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetTradeUsageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetTradeUsageRequest) SetAuthToken(v string) *GetTradeUsageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetTradeUsageRequest) SetProductInstanceId(v string) *GetTradeUsageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetTradeUsageRequest) SetServiceId(v string) *GetTradeUsageRequest {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *GetTradeUsageRequest) SetServiceType(v string) *GetTradeUsageRequest {
+	s.ServiceType = &v
+	return s
+}
+
+func (s *GetTradeUsageRequest) SetOutBizNo(v string) *GetTradeUsageRequest {
+	s.OutBizNo = &v
+	return s
+}
+
+func (s *GetTradeUsageRequest) SetExtInfo(v string) *GetTradeUsageRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type GetTradeUsageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 交易登记Id
+	RegisterId *string `json:"register_id,omitempty" xml:"register_id,omitempty"`
+	// 登记状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s GetTradeUsageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetTradeUsageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetTradeUsageResponse) SetReqMsgId(v string) *GetTradeUsageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetTradeUsageResponse) SetResultCode(v string) *GetTradeUsageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetTradeUsageResponse) SetResultMsg(v string) *GetTradeUsageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetTradeUsageResponse) SetRegisterId(v string) *GetTradeUsageResponse {
+	s.RegisterId = &v
+	return s
+}
+
+func (s *GetTradeUsageResponse) SetStatus(v string) *GetTradeUsageResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *GetTradeUsageResponse) SetExtInfo(v string) *GetTradeUsageResponse {
+	s.ExtInfo = &v
+	return s
+}
+
+type GetEvidenceInfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 取证编号
+	EvidenceId *string `json:"evidence_id,omitempty" xml:"evidence_id,omitempty" require:"true"`
+}
+
+func (s GetEvidenceInfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetEvidenceInfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetEvidenceInfoRequest) SetAuthToken(v string) *GetEvidenceInfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetEvidenceInfoRequest) SetProductInstanceId(v string) *GetEvidenceInfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetEvidenceInfoRequest) SetEvidenceId(v string) *GetEvidenceInfoRequest {
+	s.EvidenceId = &v
+	return s
+}
+
+type GetEvidenceInfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 取证编号
+	EvidenceId *string `json:"evidence_id,omitempty" xml:"evidence_id,omitempty"`
+	// 取证状态（取证中：DOING，取证成功：SUCCESS，取证失败：FAIL）
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 公证处code
+	NotaryOffice *string `json:"notary_office,omitempty" xml:"notary_office,omitempty"`
+	// 取证url信息
+	EvidenceUrl *EvidenceWebUrlInfo `json:"evidence_url,omitempty" xml:"evidence_url,omitempty"`
+	// 取证结果文件下载url（有效期3天）
+	EvidenceResultUrl *string `json:"evidence_result_url,omitempty" xml:"evidence_result_url,omitempty"`
+	// 存证证明信息
+	CertificateInfo *EvidenceCertificateInfo `json:"certificate_info,omitempty" xml:"certificate_info,omitempty"`
+}
+
+func (s GetEvidenceInfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetEvidenceInfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetEvidenceInfoResponse) SetReqMsgId(v string) *GetEvidenceInfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetEvidenceInfoResponse) SetResultCode(v string) *GetEvidenceInfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetEvidenceInfoResponse) SetResultMsg(v string) *GetEvidenceInfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetEvidenceInfoResponse) SetEvidenceId(v string) *GetEvidenceInfoResponse {
+	s.EvidenceId = &v
+	return s
+}
+
+func (s *GetEvidenceInfoResponse) SetStatus(v string) *GetEvidenceInfoResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *GetEvidenceInfoResponse) SetNotaryOffice(v string) *GetEvidenceInfoResponse {
+	s.NotaryOffice = &v
+	return s
+}
+
+func (s *GetEvidenceInfoResponse) SetEvidenceUrl(v *EvidenceWebUrlInfo) *GetEvidenceInfoResponse {
+	s.EvidenceUrl = v
+	return s
+}
+
+func (s *GetEvidenceInfoResponse) SetEvidenceResultUrl(v string) *GetEvidenceInfoResponse {
+	s.EvidenceResultUrl = &v
+	return s
+}
+
+func (s *GetEvidenceInfoResponse) SetCertificateInfo(v *EvidenceCertificateInfo) *GetEvidenceInfoResponse {
+	s.CertificateInfo = v
+	return s
+}
+
+type ReplaceDciRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// id
+	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty" require:"true"`
+	// 作品名称
+	WorkName *string `json:"work_name,omitempty" xml:"work_name,omitempty"`
+	// 作品类别
+	WorkCategory *string `json:"work_category,omitempty" xml:"work_category,omitempty"`
+	// 创作信息
+	CreationInfo *DciCreationInfo `json:"creation_info,omitempty" xml:"creation_info,omitempty"`
+	// 发表信息
+	PublicationInfo *DciPublicationInfo `json:"publication_info,omitempty" xml:"publication_info,omitempty"`
+	// 申领人id
+	DciUserId *string `json:"dci_user_id,omitempty" xml:"dci_user_id,omitempty"`
+	// 著作权人
+	CopyrightOwnerIds []*string `json:"copyright_owner_ids,omitempty" xml:"copyright_owner_ids,omitempty" type:"Repeated"`
+	// 作者姓名
+	AuthorName *string `json:"author_name,omitempty" xml:"author_name,omitempty"`
+	// 作者署名
+	AuthorSignature *string `json:"author_signature,omitempty" xml:"author_signature,omitempty"`
+	// 权利信息
+	RightInfo *DciRightInfo `json:"right_info,omitempty" xml:"right_info,omitempty"`
+	// 幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 代理信息
+	ProxyData *ProxyData `json:"proxy_data,omitempty" xml:"proxy_data,omitempty"`
+}
+
+func (s ReplaceDciRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReplaceDciRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ReplaceDciRequest) SetAuthToken(v string) *ReplaceDciRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ReplaceDciRequest) SetProductInstanceId(v string) *ReplaceDciRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ReplaceDciRequest) SetDciContentId(v string) *ReplaceDciRequest {
+	s.DciContentId = &v
+	return s
+}
+
+func (s *ReplaceDciRequest) SetWorkName(v string) *ReplaceDciRequest {
+	s.WorkName = &v
+	return s
+}
+
+func (s *ReplaceDciRequest) SetWorkCategory(v string) *ReplaceDciRequest {
+	s.WorkCategory = &v
+	return s
+}
+
+func (s *ReplaceDciRequest) SetCreationInfo(v *DciCreationInfo) *ReplaceDciRequest {
+	s.CreationInfo = v
+	return s
+}
+
+func (s *ReplaceDciRequest) SetPublicationInfo(v *DciPublicationInfo) *ReplaceDciRequest {
+	s.PublicationInfo = v
+	return s
+}
+
+func (s *ReplaceDciRequest) SetDciUserId(v string) *ReplaceDciRequest {
+	s.DciUserId = &v
+	return s
+}
+
+func (s *ReplaceDciRequest) SetCopyrightOwnerIds(v []*string) *ReplaceDciRequest {
+	s.CopyrightOwnerIds = v
+	return s
+}
+
+func (s *ReplaceDciRequest) SetAuthorName(v string) *ReplaceDciRequest {
+	s.AuthorName = &v
+	return s
+}
+
+func (s *ReplaceDciRequest) SetAuthorSignature(v string) *ReplaceDciRequest {
+	s.AuthorSignature = &v
+	return s
+}
+
+func (s *ReplaceDciRequest) SetRightInfo(v *DciRightInfo) *ReplaceDciRequest {
+	s.RightInfo = v
+	return s
+}
+
+func (s *ReplaceDciRequest) SetClientToken(v string) *ReplaceDciRequest {
+	s.ClientToken = &v
+	return s
+}
+
+func (s *ReplaceDciRequest) SetProxyData(v *ProxyData) *ReplaceDciRequest {
+	s.ProxyData = v
+	return s
+}
+
+type ReplaceDciResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ReplaceDciResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReplaceDciResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ReplaceDciResponse) SetReqMsgId(v string) *ReplaceDciResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ReplaceDciResponse) SetResultCode(v string) *ReplaceDciResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ReplaceDciResponse) SetResultMsg(v string) *ReplaceDciResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type AddContentRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -11129,7 +12772,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.79"),
+				"sdk_version":      tea.String("1.18.20"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -13050,6 +14693,448 @@ func (client *Client) ApplyDciPromotionEx(request *ApplyDciPromotionRequest, hea
 	}
 	_result = &ApplyDciPromotionResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.promotion.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据手机号查询dci用户
+ * Summary: 根据手机号查询dci用户
+ */
+func (client *Client) QueryDciUserbyphone(request *QueryDciUserbyphoneRequest) (_result *QueryDciUserbyphoneResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDciUserbyphoneResponse{}
+	_body, _err := client.QueryDciUserbyphoneEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据手机号查询dci用户
+ * Summary: 根据手机号查询dci用户
+ */
+func (client *Client) QueryDciUserbyphoneEx(request *QueryDciUserbyphoneRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDciUserbyphoneResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDciUserbyphoneResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.userbyphone.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 支持交易的已进行用途登记的商品查询
+ * Summary: 支持交易的商品查询
+ */
+func (client *Client) QueryTradeSale(request *QueryTradeSaleRequest) (_result *QueryTradeSaleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTradeSaleResponse{}
+	_body, _err := client.QueryTradeSaleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 支持交易的已进行用途登记的商品查询
+ * Summary: 支持交易的商品查询
+ */
+func (client *Client) QueryTradeSaleEx(request *QueryTradeSaleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTradeSaleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTradeSaleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.trade.sale.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商品交易用途登记
+ * Summary: 商品交易用途登记
+ */
+func (client *Client) RegisterTradeUsage(request *RegisterTradeUsageRequest) (_result *RegisterTradeUsageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterTradeUsageResponse{}
+	_body, _err := client.RegisterTradeUsageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商品交易用途登记
+ * Summary: 商品交易用途登记
+ */
+func (client *Client) RegisterTradeUsageEx(request *RegisterTradeUsageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterTradeUsageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterTradeUsageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.trade.usage.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建取证用户
+ * Summary: 创建取证用户
+ */
+func (client *Client) CreateEvidenceUser(request *CreateEvidenceUserRequest) (_result *CreateEvidenceUserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateEvidenceUserResponse{}
+	_body, _err := client.CreateEvidenceUserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建取证用户
+ * Summary: 创建取证用户
+ */
+func (client *Client) CreateEvidenceUserEx(request *CreateEvidenceUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateEvidenceUserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateEvidenceUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.evidence.user.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建网页截图
+ * Summary: 创建网页截图
+ */
+func (client *Client) CreateEvidenceScreenshot(request *CreateEvidenceScreenshotRequest) (_result *CreateEvidenceScreenshotResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateEvidenceScreenshotResponse{}
+	_body, _err := client.CreateEvidenceScreenshotEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建网页截图
+ * Summary: 创建网页截图
+ */
+func (client *Client) CreateEvidenceScreenshotEx(request *CreateEvidenceScreenshotRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateEvidenceScreenshotResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateEvidenceScreenshotResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.evidence.screenshot.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建网页截图存证
+ * Summary: 创建网页截图存证
+ */
+func (client *Client) CreateEvidenceRegister(request *CreateEvidenceRegisterRequest) (_result *CreateEvidenceRegisterResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateEvidenceRegisterResponse{}
+	_body, _err := client.CreateEvidenceRegisterEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建网页截图存证
+ * Summary: 创建网页截图存证
+ */
+func (client *Client) CreateEvidenceRegisterEx(request *CreateEvidenceRegisterRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateEvidenceRegisterResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateEvidenceRegisterResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.evidence.register.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建录屏取证
+ * Summary: 创建录屏取证
+ */
+func (client *Client) CreateEvidenceRecordscreen(request *CreateEvidenceRecordscreenRequest) (_result *CreateEvidenceRecordscreenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateEvidenceRecordscreenResponse{}
+	_body, _err := client.CreateEvidenceRecordscreenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建录屏取证
+ * Summary: 创建录屏取证
+ */
+func (client *Client) CreateEvidenceRecordscreenEx(request *CreateEvidenceRecordscreenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateEvidenceRecordscreenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateEvidenceRecordscreenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.evidence.recordscreen.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商品交易用途撤销
+ * Summary: 商品交易用途撤销
+ */
+func (client *Client) CancelTradeUsage(request *CancelTradeUsageRequest) (_result *CancelTradeUsageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CancelTradeUsageResponse{}
+	_body, _err := client.CancelTradeUsageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商品交易用途撤销
+ * Summary: 商品交易用途撤销
+ */
+func (client *Client) CancelTradeUsageEx(request *CancelTradeUsageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelTradeUsageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CancelTradeUsageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.trade.usage.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发起指定url的直播取证
+ * Summary: 发起直播取证
+ */
+func (client *Client) CreateEvidenceLive(request *CreateEvidenceLiveRequest) (_result *CreateEvidenceLiveResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateEvidenceLiveResponse{}
+	_body, _err := client.CreateEvidenceLiveEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发起指定url的直播取证
+ * Summary: 发起直播取证
+ */
+func (client *Client) CreateEvidenceLiveEx(request *CreateEvidenceLiveRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateEvidenceLiveResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateEvidenceLiveResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.evidence.live.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据点播网站url发起点播取证
+ * Summary: 发起点播取证
+ */
+func (client *Client) CreateEvidenceVod(request *CreateEvidenceVodRequest) (_result *CreateEvidenceVodResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateEvidenceVodResponse{}
+	_body, _err := client.CreateEvidenceVodEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据点播网站url发起点播取证
+ * Summary: 发起点播取证
+ */
+func (client *Client) CreateEvidenceVodEx(request *CreateEvidenceVodRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateEvidenceVodResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateEvidenceVodResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.evidence.vod.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商品交易用途登记结果查询，目前仅用于测试
+ * Summary: 商品交易用途登记结果查询
+ */
+func (client *Client) GetTradeUsage(request *GetTradeUsageRequest) (_result *GetTradeUsageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetTradeUsageResponse{}
+	_body, _err := client.GetTradeUsageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商品交易用途登记结果查询，目前仅用于测试
+ * Summary: 商品交易用途登记结果查询
+ */
+func (client *Client) GetTradeUsageEx(request *GetTradeUsageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetTradeUsageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetTradeUsageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.trade.usage.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询取证信息
+ * Summary: 查询取证信息
+ */
+func (client *Client) GetEvidenceInfo(request *GetEvidenceInfoRequest) (_result *GetEvidenceInfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetEvidenceInfoResponse{}
+	_body, _err := client.GetEvidenceInfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询取证信息
+ * Summary: 查询取证信息
+ */
+func (client *Client) GetEvidenceInfoEx(request *GetEvidenceInfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetEvidenceInfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetEvidenceInfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.evidence.info.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: DCI变更
+ * Summary: DCI变更
+ */
+func (client *Client) ReplaceDci(request *ReplaceDciRequest) (_result *ReplaceDciResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ReplaceDciResponse{}
+	_body, _err := client.ReplaceDciEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: DCI变更
+ * Summary: DCI变更
+ */
+func (client *Client) ReplaceDciEx(request *ReplaceDciRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReplaceDciResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ReplaceDciResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.replace"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
