@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.17.79"),
+                    new TeaPair("sdk_version", "1.18.20"),
                     new TeaPair("_prod_code", "BCCR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1204,6 +1204,253 @@ public class Client {
     public ApplyDciPromotionResponse applyDciPromotionEx(ApplyDciPromotionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.promotion.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyDciPromotionResponse());
+    }
+
+    /**
+     * Description: 根据手机号查询dci用户
+     * Summary: 根据手机号查询dci用户
+     */
+    public QueryDciUserbyphoneResponse queryDciUserbyphone(QueryDciUserbyphoneRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDciUserbyphoneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据手机号查询dci用户
+     * Summary: 根据手机号查询dci用户
+     */
+    public QueryDciUserbyphoneResponse queryDciUserbyphoneEx(QueryDciUserbyphoneRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.userbyphone.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDciUserbyphoneResponse());
+    }
+
+    /**
+     * Description: 支持交易的已进行用途登记的商品查询
+     * Summary: 支持交易的商品查询
+     */
+    public QueryTradeSaleResponse queryTradeSale(QueryTradeSaleRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTradeSaleEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 支持交易的已进行用途登记的商品查询
+     * Summary: 支持交易的商品查询
+     */
+    public QueryTradeSaleResponse queryTradeSaleEx(QueryTradeSaleRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.trade.sale.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTradeSaleResponse());
+    }
+
+    /**
+     * Description: 商品交易用途登记
+     * Summary: 商品交易用途登记
+     */
+    public RegisterTradeUsageResponse registerTradeUsage(RegisterTradeUsageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerTradeUsageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商品交易用途登记
+     * Summary: 商品交易用途登记
+     */
+    public RegisterTradeUsageResponse registerTradeUsageEx(RegisterTradeUsageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.trade.usage.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterTradeUsageResponse());
+    }
+
+    /**
+     * Description: 创建取证用户
+     * Summary: 创建取证用户
+     */
+    public CreateEvidenceUserResponse createEvidenceUser(CreateEvidenceUserRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createEvidenceUserEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建取证用户
+     * Summary: 创建取证用户
+     */
+    public CreateEvidenceUserResponse createEvidenceUserEx(CreateEvidenceUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.evidence.user.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateEvidenceUserResponse());
+    }
+
+    /**
+     * Description: 创建网页截图
+     * Summary: 创建网页截图
+     */
+    public CreateEvidenceScreenshotResponse createEvidenceScreenshot(CreateEvidenceScreenshotRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createEvidenceScreenshotEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建网页截图
+     * Summary: 创建网页截图
+     */
+    public CreateEvidenceScreenshotResponse createEvidenceScreenshotEx(CreateEvidenceScreenshotRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.evidence.screenshot.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateEvidenceScreenshotResponse());
+    }
+
+    /**
+     * Description: 创建网页截图存证
+     * Summary: 创建网页截图存证
+     */
+    public CreateEvidenceRegisterResponse createEvidenceRegister(CreateEvidenceRegisterRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createEvidenceRegisterEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建网页截图存证
+     * Summary: 创建网页截图存证
+     */
+    public CreateEvidenceRegisterResponse createEvidenceRegisterEx(CreateEvidenceRegisterRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.evidence.register.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateEvidenceRegisterResponse());
+    }
+
+    /**
+     * Description: 创建录屏取证
+     * Summary: 创建录屏取证
+     */
+    public CreateEvidenceRecordscreenResponse createEvidenceRecordscreen(CreateEvidenceRecordscreenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createEvidenceRecordscreenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建录屏取证
+     * Summary: 创建录屏取证
+     */
+    public CreateEvidenceRecordscreenResponse createEvidenceRecordscreenEx(CreateEvidenceRecordscreenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.evidence.recordscreen.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateEvidenceRecordscreenResponse());
+    }
+
+    /**
+     * Description: 商品交易用途撤销
+     * Summary: 商品交易用途撤销
+     */
+    public CancelTradeUsageResponse cancelTradeUsage(CancelTradeUsageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelTradeUsageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商品交易用途撤销
+     * Summary: 商品交易用途撤销
+     */
+    public CancelTradeUsageResponse cancelTradeUsageEx(CancelTradeUsageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.trade.usage.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelTradeUsageResponse());
+    }
+
+    /**
+     * Description: 发起指定url的直播取证
+     * Summary: 发起直播取证
+     */
+    public CreateEvidenceLiveResponse createEvidenceLive(CreateEvidenceLiveRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createEvidenceLiveEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 发起指定url的直播取证
+     * Summary: 发起直播取证
+     */
+    public CreateEvidenceLiveResponse createEvidenceLiveEx(CreateEvidenceLiveRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.evidence.live.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateEvidenceLiveResponse());
+    }
+
+    /**
+     * Description: 根据点播网站url发起点播取证
+     * Summary: 发起点播取证
+     */
+    public CreateEvidenceVodResponse createEvidenceVod(CreateEvidenceVodRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createEvidenceVodEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据点播网站url发起点播取证
+     * Summary: 发起点播取证
+     */
+    public CreateEvidenceVodResponse createEvidenceVodEx(CreateEvidenceVodRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.evidence.vod.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateEvidenceVodResponse());
+    }
+
+    /**
+     * Description: 商品交易用途登记结果查询，目前仅用于测试
+     * Summary: 商品交易用途登记结果查询
+     */
+    public GetTradeUsageResponse getTradeUsage(GetTradeUsageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getTradeUsageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商品交易用途登记结果查询，目前仅用于测试
+     * Summary: 商品交易用途登记结果查询
+     */
+    public GetTradeUsageResponse getTradeUsageEx(GetTradeUsageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.trade.usage.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetTradeUsageResponse());
+    }
+
+    /**
+     * Description: 查询取证信息
+     * Summary: 查询取证信息
+     */
+    public GetEvidenceInfoResponse getEvidenceInfo(GetEvidenceInfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getEvidenceInfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询取证信息
+     * Summary: 查询取证信息
+     */
+    public GetEvidenceInfoResponse getEvidenceInfoEx(GetEvidenceInfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.evidence.info.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetEvidenceInfoResponse());
+    }
+
+    /**
+     * Description: DCI变更
+     * Summary: DCI变更
+     */
+    public ReplaceDciResponse replaceDci(ReplaceDciRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.replaceDciEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: DCI变更
+     * Summary: DCI变更
+     */
+    public ReplaceDciResponse replaceDciEx(ReplaceDciRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.replace", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReplaceDciResponse());
     }
 
     /**

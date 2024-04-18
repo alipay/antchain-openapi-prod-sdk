@@ -21,8 +21,12 @@ public class DciExplanationInfo extends TeaModel {
 
     // 创作过程涉及到字体使用相关版权说明
     @NameInMap("font_copyright")
-    @Validation(required = true)
     public String fontCopyright;
+
+    // 创作过程涉及到字体使用相关版权说明	
+    // 
+    @NameInMap("font_types")
+    public java.util.List<String> fontTypes;
 
     public static DciExplanationInfo build(java.util.Map<String, ?> map) throws Exception {
         DciExplanationInfo self = new DciExplanationInfo();
@@ -59,6 +63,14 @@ public class DciExplanationInfo extends TeaModel {
     }
     public String getFontCopyright() {
         return this.fontCopyright;
+    }
+
+    public DciExplanationInfo setFontTypes(java.util.List<String> fontTypes) {
+        this.fontTypes = fontTypes;
+        return this;
+    }
+    public java.util.List<String> getFontTypes() {
+        return this.fontTypes;
     }
 
 }

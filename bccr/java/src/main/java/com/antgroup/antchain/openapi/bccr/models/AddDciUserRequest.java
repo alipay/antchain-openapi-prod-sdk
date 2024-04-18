@@ -74,11 +74,11 @@ public class AddDciUserRequest extends TeaModel {
     @NameInMap("user_name")
     public String userName;
 
-    // 证件有效期限起始日期废弃
+    // 证件有效期限起始日期
     @NameInMap("certificate_start_time")
     public String certificateStartTime;
 
-    // 证件有效期限终止日期废弃
+    // 证件有效期限终止日期
     @NameInMap("certificate_end_time")
     public String certificateEndTime;
 
@@ -90,7 +90,7 @@ public class AddDciUserRequest extends TeaModel {
     @NameInMap("certificate_back_file_path")
     public String certificateBackFilePath;
 
-    // 用户身份开始时间废弃
+    // 用户身份开始时间
     @NameInMap("identity_start_time")
     public String identityStartTime;
 
@@ -98,9 +98,13 @@ public class AddDciUserRequest extends TeaModel {
     @NameInMap("user_type")
     public String userType;
 
-    // 地址废弃
+    // 地址
     @NameInMap("address")
     public String address;
+
+    // 证件是否长期有效
+    @NameInMap("long_term_valid")
+    public Boolean longTermValid;
 
     public static AddDciUserRequest build(java.util.Map<String, ?> map) throws Exception {
         AddDciUserRequest self = new AddDciUserRequest();
@@ -289,6 +293,14 @@ public class AddDciUserRequest extends TeaModel {
     }
     public String getAddress() {
         return this.address;
+    }
+
+    public AddDciUserRequest setLongTermValid(Boolean longTermValid) {
+        this.longTermValid = longTermValid;
+        return this;
+    }
+    public Boolean getLongTermValid() {
+        return this.longTermValid;
     }
 
 }

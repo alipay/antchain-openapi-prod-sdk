@@ -24,6 +24,10 @@ public class AdditionalFileInfo extends TeaModel {
     @NameInMap("other_file_id_list")
     public java.util.List<String> otherFileIdList;
 
+    // 商用授权字体授权文件fileId
+    @NameInMap("font_authorize_file_id")
+    public String fontAuthorizeFileId;
+
     public static AdditionalFileInfo build(java.util.Map<String, ?> map) throws Exception {
         AdditionalFileInfo self = new AdditionalFileInfo();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class AdditionalFileInfo extends TeaModel {
     }
     public java.util.List<String> getOtherFileIdList() {
         return this.otherFileIdList;
+    }
+
+    public AdditionalFileInfo setFontAuthorizeFileId(String fontAuthorizeFileId) {
+        this.fontAuthorizeFileId = fontAuthorizeFileId;
+        return this;
+    }
+    public String getFontAuthorizeFileId() {
+        return this.fontAuthorizeFileId;
     }
 
 }

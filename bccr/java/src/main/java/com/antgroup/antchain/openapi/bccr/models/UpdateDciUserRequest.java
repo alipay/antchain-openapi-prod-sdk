@@ -41,6 +41,38 @@ public class UpdateDciUserRequest extends TeaModel {
     @NameInMap("legal_person_info")
     public EnterpriseLegalPersonInfo legalPersonInfo;
 
+    // true,false
+    @NameInMap("long_term_valid")
+    public Boolean longTermValid;
+
+    // 证件有效期开始时间
+    @NameInMap("certificate_start_time")
+    public String certificateStartTime;
+
+    // 证件有效期终止时间
+    @NameInMap("certificate_end_time")
+    public String certificateEndTime;
+
+    // 成立日期或出生日期
+    @NameInMap("identity_start_time")
+    public String identityStartTime;
+
+    // 地址信息
+    @NameInMap("address")
+    public String address;
+
+    // 著作权人名称
+    @NameInMap("cert_name")
+    public String certName;
+
+    // 著作权人证件号
+    @NameInMap("certificate_number")
+    public String certificateNumber;
+
+    // 著作权人证件类型
+    @NameInMap("certificate_type")
+    public String certificateType;
+
     public static UpdateDciUserRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateDciUserRequest self = new UpdateDciUserRequest();
         return TeaModel.build(map, self);
@@ -116,6 +148,70 @@ public class UpdateDciUserRequest extends TeaModel {
     }
     public EnterpriseLegalPersonInfo getLegalPersonInfo() {
         return this.legalPersonInfo;
+    }
+
+    public UpdateDciUserRequest setLongTermValid(Boolean longTermValid) {
+        this.longTermValid = longTermValid;
+        return this;
+    }
+    public Boolean getLongTermValid() {
+        return this.longTermValid;
+    }
+
+    public UpdateDciUserRequest setCertificateStartTime(String certificateStartTime) {
+        this.certificateStartTime = certificateStartTime;
+        return this;
+    }
+    public String getCertificateStartTime() {
+        return this.certificateStartTime;
+    }
+
+    public UpdateDciUserRequest setCertificateEndTime(String certificateEndTime) {
+        this.certificateEndTime = certificateEndTime;
+        return this;
+    }
+    public String getCertificateEndTime() {
+        return this.certificateEndTime;
+    }
+
+    public UpdateDciUserRequest setIdentityStartTime(String identityStartTime) {
+        this.identityStartTime = identityStartTime;
+        return this;
+    }
+    public String getIdentityStartTime() {
+        return this.identityStartTime;
+    }
+
+    public UpdateDciUserRequest setAddress(String address) {
+        this.address = address;
+        return this;
+    }
+    public String getAddress() {
+        return this.address;
+    }
+
+    public UpdateDciUserRequest setCertName(String certName) {
+        this.certName = certName;
+        return this;
+    }
+    public String getCertName() {
+        return this.certName;
+    }
+
+    public UpdateDciUserRequest setCertificateNumber(String certificateNumber) {
+        this.certificateNumber = certificateNumber;
+        return this;
+    }
+    public String getCertificateNumber() {
+        return this.certificateNumber;
+    }
+
+    public UpdateDciUserRequest setCertificateType(String certificateType) {
+        this.certificateType = certificateType;
+        return this;
+    }
+    public String getCertificateType() {
+        return this.certificateType;
     }
 
 }
