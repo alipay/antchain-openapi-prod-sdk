@@ -31,11 +31,18 @@ class QueryNftAssetbyskuResponse extends Model
      * @var UserAsset[]
      */
     public $assetList;
+
+    // 总数
+    /**
+     * @var int
+     */
+    public $totalCount;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'assetList'  => 'asset_list',
+        'totalCount' => 'total_count',
     ];
 
     public function validate()
@@ -62,6 +69,9 @@ class QueryNftAssetbyskuResponse extends Model
                     $res['asset_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->totalCount) {
+            $res['total_count'] = $this->totalCount;
         }
 
         return $res;
@@ -92,6 +102,9 @@ class QueryNftAssetbyskuResponse extends Model
                     $model->assetList[$n++] = null !== $item ? UserAsset::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['total_count'])) {
+            $model->totalCount = $map['total_count'];
         }
 
         return $model;
