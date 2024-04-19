@@ -29,6 +29,11 @@ namespace AntChain.SDK.NFTC.Models
         [Validation(Required=false)]
         public List<UserAsset> AssetList { get; set; }
 
+        // 总数
+        [NameInMap("total_count")]
+        [Validation(Required=false)]
+        public long? TotalCount { get; set; }
+
     }
 
 }
