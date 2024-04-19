@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.6.0',
+    sdk_version = '2.7.4',
     _prod_code = 'STLR',
     _prod_channel = 'undefined'
   };
@@ -167,6 +167,35 @@ model AnyAmountItem {
   itemCode: string(name='item_code', example='AD1'),
   // 数据值，按字符串输出，最多保留6位小数
   itemAmount: string(name='item_amount', example='221.11'),
+}
+
+// 逆变器发电量
+model InverterGeneration {
+  // 逆变器SN
+  invSn: string(name='inv_sn', example='Inv-Other-16801-Q0kll-2024-04-11'),
+  // 生产商名称
+  manufacturer: string(name='manufacturer', example='生产商1'),
+  // 当日发电量，最多3位小数
+  daily: string(name='daily', example='1.232'),
+  // 累计发电量，最多3位小数
+  total: string(name='total', example='1.232'),
+}
+
+// 分阶段碳排放量
+model LcaStageCarbonItem {
+  // 生命周期阶段：
+  // [MaterialPurchase]-原材料，[ProductManufacture]-生产制造，[ProductSale]-分销，[ProductUsage]-产品使用，[ProductWithdraw]-处置/再生利用
+  lcaStageCode: string(name='lca_stage_code', example='MaterialPurchase'),
+  // 阶段碳排放量
+  lcaStageCarbonAmount: string(name='lca_stage_carbon_amount', example='223.23'),
+}
+
+// 文档信息
+model EnterpriseDocumentFile {
+  // 文档名称
+  documentName: string(name='document_name', example='2022年7月车辆运输数据文件'),
+  // 文件地址
+  documentAddress: string(name='document_address', example='carbonchain/file/dataentry_document/20211108000220010000000000000356/20211108000220010000000000000356.xlsx'),
 }
 
 // 证书授权产品信息
@@ -279,42 +308,12 @@ model EmissionCounteractionStatistics {
   dataUnit: string(name='data_unit', example='tCO2e'),
 }
 
-// 碳补偿活动数据详情
-model CarbonOffsetActiveDataDetail {
-  // 活动数据编号
-  activeDataNo: string(name='active_data_no', example='AD1'),
-  // 活动数据名称
-  activeDataName?: string(name='active_data_name', example='行走里程数'),
-  // 活动数据单位
-  activeDataUnit?: string(name='active_data_unit', example='km'),
-  // 活动数据描述文案
-  description?: string(name='description', example='描述'),
-  // 活动数据值
-  activeDataValue: string(name='active_data_value', example='22.22'),
-}
-
-// 机构会员资料
-model EnterpriseMemberSummary {
-  // 机构会员DID
-  accountDid: string(name='account_did', example='did:mychain:aa509301d1c2bd0e35f9737824e5ab9832ca9a09542d618bce24a1609191383c'),
-  // 会员姓名，数据脱敏处理返回
-  name?: string(name='name', example='张**'),
-  // 会员手机号码，数据脱敏处理返回
-  mobile?: string(name='mobile', example='136****1122'),
-  // 会员注册时间
-  registerTime: string(name='register_time', example='2022-02-22 12:33:11'),
-}
-
-// 排放统计项目
-model AnyStatisticalItem {
-  // 统计项目编码
-  itemCode: string(name='item_code', example='abc'),
-  // 数据值，按字符串输出，最多保留6位小数
-  amount: string(name='amount', example='222.22'),
-  // 单位编码
-  unit: string(name='unit', example='t'),
-  // 单位标签
-  unitLabel: string(name='unit_label', example='吨'),
+// 设备发电量
+model DeviceGeneration {
+  // 设备内部编号，注册设备后获取
+  deviceNo: string(name='device_no', example='0340340000000707'),
+  // 逆变器发电量列表
+  inverterGenerations: [ InverterGeneration ](name='inverter_generations', example=''),
 }
 
 // 账户信息
@@ -329,22 +328,6 @@ model CarbonAccountInfo {
 model AccountRegisterResponse {
   // 账户did
   userDid: string(name='user_did', example='did:private:xxxcxxxxx'),
-}
-
-// 文档信息
-model EnterpriseDocumentFile {
-  // 文档名称
-  documentName: string(name='document_name', example='2022年7月车辆运输数据文件'),
-  // 文件地址
-  documentAddress: string(name='document_address', example='carbonchain/file/dataentry_document/20211108000220010000000000000356/20211108000220010000000000000356.xlsx'),
-}
-
-// 区块链信息
-model BlockchainDTO {
-  // 交易hash
-  txHash: string(name='tx_hash', example='xxx'),
-  // 当前块高
-  blockNumber: long(name='block_number', example='12917'),
 }
 
 // 碳普惠补偿采集数据条目
@@ -413,18 +396,20 @@ model AuthenticationInfoVO {
   status: string(name='status', example='Approved：审批通过   Approving：待审批 NotApproved：审批不通过 Cancelled: 取消授权'),
 }
 
-// 排放范围排放数据统计
-model EmissionsScopeStatistics {
-  // 盘查范围编码
-  inventoryScopeNo: string(name='inventory_scope_no', example='002'),
-  // 盘查范围名称
-  inventoryScopeName: string(name='inventory_scope_name', example='范围一'),
-  // 碳排放量
-  emissions: long(name='emissions', example='222.33'),
-  // 排放占比
-  percentage: long(name='percentage', example='0.11'),
-  // 范围下各分类排放数据
-  categoryEmissionsList: [ EmissionsCategoryStatistics ](name='category_emissions_list', example=''),
+// 三方平台客户摘要信息
+model PlatformCustomerSummary {
+  // 三方平台的客户ID
+  customerId: string(name='customer_id', example='2322323'),
+  // 三方平台客户名称
+  customerName: string(name='customer_name', example='****有限公司'),
+  // 联系人
+  contactPerson: string(name='contact_person', example='张三'),
+  // 联系电话
+  contactTelephone: string(name='contact_telephone', example='13655665566'),
+  // 联系邮箱
+  contactEmail?: string(name='contact_email', example='ss@163.com'),
+  // 统一社会信用代码
+  socialCreditCode: string(name='social_credit_code', example='23123121'),
 }
 
 // 碳排放分单元统计总量
@@ -445,6 +430,122 @@ model AnyKeywordItem {
   itemCode: string(name='item_code', example='CFD'),
   // 项目值
   itemValue: string(name='item_value', example='各种按业务场景的取值'),
+}
+
+// LCA碳足迹分析计算数据
+model LcaCarbonDatum {
+  // LCA碳排放总量
+  lcaCarbonAmount: string(name='lca_carbon_amount', example='2323.22'),
+  // 足迹报告pdf文件下载地址（30分钟内下载有效）
+  lcaReportFileUrl: string(name='lca_report_file_url', example='http://oss.com/lca/lca_report.pdf'),
+  // 足迹分析结果详情文件地址（30分钟内下载有效）
+  lcaDetailFileUrl: string(name='lca_detail_file_url', example='http://oss.com/lca/lca_detail.pdf'),
+  // B2B-从摇篮到大门，B2C-从摇篮到坟墓
+  lifeCycleBoundary: string(name='life_cycle_boundary', example='B2B'),
+  // 足迹开始时间，格式：yyyyMMdd
+  lcaStartDate: string(name='lca_start_date', example='20231223'),
+  // 足迹结束时间 格式：yyyyMMdd
+  lcaEndDate: string(name='lca_end_date', example='20231202'),
+  // 分阶段碳排放量列表
+  lcaStageCarbonDatum: [ LcaStageCarbonItem ](name='lca_stage_carbon_datum', example=''),
+}
+
+// 产品概要信息
+model EnterpriseProductOutline {
+  // 产品自定义编码
+  // 
+  enterpriseCustomCode: string(name='enterprise_custom_code', example='23123121'),
+  // 产品名称
+  // 
+  productName: string(name='product_name', example='石墨'),
+  // 规格型号
+  specification: string(name='specification', example='DDD-1212'),
+  // 产品描述
+  productDescription?: string(name='product_description', example='产品描述'),
+  // 产品分类名称
+  productCategoryName: string(name='product_category_name', example='产品分类名'),
+  // 品牌信息
+  brandInformation?: string(name='brand_information', example='Adidas'),
+}
+
+// 碳补偿活动数据详情
+model CarbonOffsetActiveDataDetail {
+  // 活动数据编号
+  activeDataNo: string(name='active_data_no', example='AD1'),
+  // 活动数据名称
+  activeDataName?: string(name='active_data_name', example='行走里程数'),
+  // 活动数据单位
+  activeDataUnit?: string(name='active_data_unit', example='km'),
+  // 活动数据描述文案
+  description?: string(name='description', example='描述'),
+  // 活动数据值
+  activeDataValue: string(name='active_data_value', example='22.22'),
+}
+
+// 机构会员资料
+model EnterpriseMemberSummary {
+  // 机构会员DID
+  accountDid: string(name='account_did', example='did:mychain:aa509301d1c2bd0e35f9737824e5ab9832ca9a09542d618bce24a1609191383c'),
+  // 会员姓名，数据脱敏处理返回
+  name?: string(name='name', example='张**'),
+  // 会员手机号码，数据脱敏处理返回
+  mobile?: string(name='mobile', example='136****1122'),
+  // 会员注册时间
+  registerTime: string(name='register_time', example='2022-02-22 12:33:11'),
+}
+
+// 排放统计项目
+model AnyStatisticalItem {
+  // 统计项目编码
+  itemCode: string(name='item_code', example='abc'),
+  // 数据值，按字符串输出，最多保留6位小数
+  amount: string(name='amount', example='222.22'),
+  // 单位编码
+  unit: string(name='unit', example='t'),
+  // 单位标签
+  unitLabel: string(name='unit_label', example='吨'),
+}
+
+// 企业产品信息
+model EnterpriseProductSummary {
+  // 产品自定义编码
+  enterpriseCustomCode: string(name='enterprise_custom_code', example='12312121'),
+  // 产品名称
+  productName: string(name='product_name', example='石墨'),
+  // 规格型号
+  specification: string(name='specification', example='DDD-1212'),
+  // 产品描述
+  productDescription?: string(name='product_description', example='这是一个石墨产品'),
+  // 产品分类名称
+  productCategoryName: string(name='product_category_name', example='产品分类名'),
+  // 品牌信息
+  brandInformation?: string(name='brand_information', example='Adidas'),
+  // 工艺流程文件路径，上传文件后由上传文件接口提供，最多支持上传3个工艺流程文件
+  processFlowFileList?: [ EnterpriseDocumentFile ](name='process_flow_file_list', example=''),
+  // 产品图片文件路径，上传文件后由上传文件接口提供，最多支持上传8个产品图片文件
+  productPictureFileList?: [ EnterpriseDocumentFile ](name='product_picture_file_list', example=''),
+}
+
+// 区块链信息
+model BlockchainDTO {
+  // 交易hash
+  txHash: string(name='tx_hash', example='xxx'),
+  // 当前块高
+  blockNumber: long(name='block_number', example='12917'),
+}
+
+// 排放范围排放数据统计
+model EmissionsScopeStatistics {
+  // 盘查范围编码
+  inventoryScopeNo: string(name='inventory_scope_no', example='002'),
+  // 盘查范围名称
+  inventoryScopeName: string(name='inventory_scope_name', example='范围一'),
+  // 碳排放量
+  emissions: long(name='emissions', example='222.33'),
+  // 排放占比
+  percentage: long(name='percentage', example='0.11'),
+  // 范围下各分类排放数据
+  categoryEmissionsList: [ EmissionsCategoryStatistics ](name='category_emissions_list', example=''),
 }
 
 // 按频率统计的绿色行为明细
@@ -2435,6 +2536,255 @@ async function submitEcarLcaassement(request: SubmitEcarLcaassementRequest): Sub
 async function submitEcarLcaassementEx(request: SubmitEcarLcaassementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitEcarLcaassementResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.carbon.ecar.lcaassement.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadEcarPlaformfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 上传的文件名
+  fileName?: string(name='file_name'),
+  // 待上传文件
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadEcarPlaformfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文档名称
+  documentName?: string(name='document_name'),
+  // 文档地址信息
+  documentAddress?: string(name='document_address'),
+}
+
+/**
+ * Description: 三方平台文件上传
+ * Summary: 三方平台文件上传
+ */
+async function uploadEcarPlaformfile(request: UploadEcarPlaformfileRequest): UploadEcarPlaformfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadEcarPlaformfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 三方平台文件上传
+ * Summary: 三方平台文件上传
+ */
+async function uploadEcarPlaformfileEx(request: UploadEcarPlaformfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadEcarPlaformfileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.carbon.ecar.plaformfile.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadEcarPlaformfileResponse = new UploadEcarPlaformfileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadEcarPlaformfileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.plaformfile.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitEcarLcaorderwithcustomerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户信息
+  customer: PlatformCustomerSummary(name='customer'),
+  // 产品信息
+  product: EnterpriseProductSummary(name='product'),
+  // 订单时间，格式：yyyy-MM-dd HH:mm:ss
+  orderTime: string(name='order_time'),
+  // 订单金额，订单金额只能为有效数字（整数不得大于10位，小数不得大于6位）
+  orderAmount: string(name='order_amount'),
+  // 来源于三方平台的订单编号
+  sourceOrderNo: string(name='source_order_no'),
+}
+
+model SubmitEcarLcaorderwithcustomerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单编号
+  orderNo?: string(name='order_no'),
+  // 来源于三方平台的订单编号
+  sourceOrderNo?: string(name='source_order_no'),
+  // 碳账户编号，碳矩阵为客户分配的碳账户编号
+  carbonAccountNo?: string(name='carbon_account_no'),
+  // 订单状态，Pending——处理中，Closed——已关闭，Finished——已完成
+  orderStatus?: string(name='order_status'),
+}
+
+/**
+ * Description: 三方平台提交LCA订单，同时包括客户入驻信息
+ * Summary: LCA订单提交(含客户入驻信息)
+ */
+async function submitEcarLcaorderwithcustomer(request: SubmitEcarLcaorderwithcustomerRequest): SubmitEcarLcaorderwithcustomerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitEcarLcaorderwithcustomerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 三方平台提交LCA订单，同时包括客户入驻信息
+ * Summary: LCA订单提交(含客户入驻信息)
+ */
+async function submitEcarLcaorderwithcustomerEx(request: SubmitEcarLcaorderwithcustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitEcarLcaorderwithcustomerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.lcaorderwithcustomer.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetEcarPlaformauthtokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 三方平台的客户ID
+  customerId?: string(name='customer_id'),
+  // 碳账户编号，碳矩阵为客户分配的碳账户编号，跟前面三方平台的客户customer_id必须任意传一个参数，优先使用customer_id查询客户
+  carbonAccountNo?: string(name='carbon_account_no'),
+}
+
+model GetEcarPlaformauthtokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 三方平台客户ID
+  customerId?: string(name='customer_id'),
+  // 碳账户编号，碳矩阵为客户分配的碳账户编号
+  carbonAccountNo?: string(name='carbon_account_no'),
+  // 授权三方平台客户信登的TOKEN
+  accessToken?: string(name='access_token'),
+}
+
+/**
+ * Description: 三方平台信登token获取
+ * Summary: 三方平台获取信登token
+ */
+async function getEcarPlaformauthtoken(request: GetEcarPlaformauthtokenRequest): GetEcarPlaformauthtokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getEcarPlaformauthtokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 三方平台信登token获取
+ * Summary: 三方平台获取信登token
+ */
+async function getEcarPlaformauthtokenEx(request: GetEcarPlaformauthtokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetEcarPlaformauthtokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.plaformauthtoken.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEcarLcaorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号码
+  orderNo?: string(name='order_no'),
+  // 来源于三方平台的订单编号，跟前面的订单编号order_no必须任传一个进行订单查询。优先使用碳矩阵平台生成的订单编号查询
+  sourceOrderNo?: string(name='source_order_no'),
+}
+
+model QueryEcarLcaorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // LCA订单单号
+  orderNo?: string(name='order_no'),
+  // 来源于三方平台的订单编号
+  sourceOrderNo?: string(name='source_order_no'),
+  // 三方平台客户ID，在三方平台唯一
+  customerId?: string(name='customer_id'),
+  // 碳账户编号，碳矩阵为客户分配的碳账户编号
+  carbonAccountNo?: string(name='carbon_account_no'),
+  // Pending——待分配，Closed——已关闭，Allocated——已分配，Finished——已完成
+  orderStatus?: string(name='order_status'),
+  // 产品概要信息
+  product?: EnterpriseProductOutline(name='product'),
+  // 足迹计算信息
+  lcaCarbonDatum?: LcaCarbonDatum(name='lca_carbon_datum'),
+}
+
+/**
+ * Description: LCA订单查询
+ * Summary: LCA订单查询
+ */
+async function queryEcarLcaorder(request: QueryEcarLcaorderRequest): QueryEcarLcaorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEcarLcaorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: LCA订单查询
+ * Summary: LCA订单查询
+ */
+async function queryEcarLcaorderEx(request: QueryEcarLcaorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEcarLcaorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.lcaorder.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateEcarGreencertificategenerationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据发生时间
+  date: string(name='date'),
+  // 设备发电量列表
+  generation: [ DeviceGeneration ](name='generation'),
+}
+
+model BatchcreateEcarGreencertificategenerationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 绿证发电量数据上报接口
+ * Summary: 绿证发电量数据上报接口
+ */
+async function batchcreateEcarGreencertificategeneration(request: BatchcreateEcarGreencertificategenerationRequest): BatchcreateEcarGreencertificategenerationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateEcarGreencertificategenerationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 绿证发电量数据上报接口
+ * Summary: 绿证发电量数据上报接口
+ */
+async function batchcreateEcarGreencertificategenerationEx(request: BatchcreateEcarGreencertificategenerationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateEcarGreencertificategenerationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.greencertificategeneration.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryThirdCertRequest = {
