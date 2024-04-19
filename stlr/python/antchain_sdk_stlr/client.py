@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.6.0',
+                    'sdk_version': '2.7.4',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.6.0',
+                    'sdk_version': '2.7.4',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -2603,6 +2603,320 @@ class Client:
         return TeaCore.from_map(
             stlr_models.SubmitEcarLcaassementResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.ecar.lcaassement.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_ecar_plaformfile(
+        self,
+        request: stlr_models.UploadEcarPlaformfileRequest,
+    ) -> stlr_models.UploadEcarPlaformfileResponse:
+        """
+        Description: 三方平台文件上传
+        Summary: 三方平台文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_ecar_plaformfile_ex(request, headers, runtime)
+
+    async def upload_ecar_plaformfile_async(
+        self,
+        request: stlr_models.UploadEcarPlaformfileRequest,
+    ) -> stlr_models.UploadEcarPlaformfileResponse:
+        """
+        Description: 三方平台文件上传
+        Summary: 三方平台文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_ecar_plaformfile_ex_async(request, headers, runtime)
+
+    def upload_ecar_plaformfile_ex(
+        self,
+        request: stlr_models.UploadEcarPlaformfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.UploadEcarPlaformfileResponse:
+        """
+        Description: 三方平台文件上传
+        Summary: 三方平台文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = stlr_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.carbon.ecar.plaformfile.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_ecar_plaformfile_response = stlr_models.UploadEcarPlaformfileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_ecar_plaformfile_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.UploadEcarPlaformfileResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.plaformfile.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_ecar_plaformfile_ex_async(
+        self,
+        request: stlr_models.UploadEcarPlaformfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.UploadEcarPlaformfileResponse:
+        """
+        Description: 三方平台文件上传
+        Summary: 三方平台文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = stlr_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.carbon.ecar.plaformfile.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_ecar_plaformfile_response = stlr_models.UploadEcarPlaformfileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_ecar_plaformfile_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.UploadEcarPlaformfileResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.plaformfile.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_ecar_lcaorderwithcustomer(
+        self,
+        request: stlr_models.SubmitEcarLcaorderwithcustomerRequest,
+    ) -> stlr_models.SubmitEcarLcaorderwithcustomerResponse:
+        """
+        Description: 三方平台提交LCA订单，同时包括客户入驻信息
+        Summary: LCA订单提交(含客户入驻信息)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_ecar_lcaorderwithcustomer_ex(request, headers, runtime)
+
+    async def submit_ecar_lcaorderwithcustomer_async(
+        self,
+        request: stlr_models.SubmitEcarLcaorderwithcustomerRequest,
+    ) -> stlr_models.SubmitEcarLcaorderwithcustomerResponse:
+        """
+        Description: 三方平台提交LCA订单，同时包括客户入驻信息
+        Summary: LCA订单提交(含客户入驻信息)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_ecar_lcaorderwithcustomer_ex_async(request, headers, runtime)
+
+    def submit_ecar_lcaorderwithcustomer_ex(
+        self,
+        request: stlr_models.SubmitEcarLcaorderwithcustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.SubmitEcarLcaorderwithcustomerResponse:
+        """
+        Description: 三方平台提交LCA订单，同时包括客户入驻信息
+        Summary: LCA订单提交(含客户入驻信息)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.SubmitEcarLcaorderwithcustomerResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.lcaorderwithcustomer.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_ecar_lcaorderwithcustomer_ex_async(
+        self,
+        request: stlr_models.SubmitEcarLcaorderwithcustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.SubmitEcarLcaorderwithcustomerResponse:
+        """
+        Description: 三方平台提交LCA订单，同时包括客户入驻信息
+        Summary: LCA订单提交(含客户入驻信息)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.SubmitEcarLcaorderwithcustomerResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.lcaorderwithcustomer.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_ecar_plaformauthtoken(
+        self,
+        request: stlr_models.GetEcarPlaformauthtokenRequest,
+    ) -> stlr_models.GetEcarPlaformauthtokenResponse:
+        """
+        Description: 三方平台信登token获取
+        Summary: 三方平台获取信登token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_ecar_plaformauthtoken_ex(request, headers, runtime)
+
+    async def get_ecar_plaformauthtoken_async(
+        self,
+        request: stlr_models.GetEcarPlaformauthtokenRequest,
+    ) -> stlr_models.GetEcarPlaformauthtokenResponse:
+        """
+        Description: 三方平台信登token获取
+        Summary: 三方平台获取信登token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_ecar_plaformauthtoken_ex_async(request, headers, runtime)
+
+    def get_ecar_plaformauthtoken_ex(
+        self,
+        request: stlr_models.GetEcarPlaformauthtokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.GetEcarPlaformauthtokenResponse:
+        """
+        Description: 三方平台信登token获取
+        Summary: 三方平台获取信登token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.GetEcarPlaformauthtokenResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.plaformauthtoken.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_ecar_plaformauthtoken_ex_async(
+        self,
+        request: stlr_models.GetEcarPlaformauthtokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.GetEcarPlaformauthtokenResponse:
+        """
+        Description: 三方平台信登token获取
+        Summary: 三方平台获取信登token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.GetEcarPlaformauthtokenResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.plaformauthtoken.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ecar_lcaorder(
+        self,
+        request: stlr_models.QueryEcarLcaorderRequest,
+    ) -> stlr_models.QueryEcarLcaorderResponse:
+        """
+        Description: LCA订单查询
+        Summary: LCA订单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ecar_lcaorder_ex(request, headers, runtime)
+
+    async def query_ecar_lcaorder_async(
+        self,
+        request: stlr_models.QueryEcarLcaorderRequest,
+    ) -> stlr_models.QueryEcarLcaorderResponse:
+        """
+        Description: LCA订单查询
+        Summary: LCA订单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ecar_lcaorder_ex_async(request, headers, runtime)
+
+    def query_ecar_lcaorder_ex(
+        self,
+        request: stlr_models.QueryEcarLcaorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEcarLcaorderResponse:
+        """
+        Description: LCA订单查询
+        Summary: LCA订单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEcarLcaorderResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.lcaorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ecar_lcaorder_ex_async(
+        self,
+        request: stlr_models.QueryEcarLcaorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEcarLcaorderResponse:
+        """
+        Description: LCA订单查询
+        Summary: LCA订单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEcarLcaorderResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.lcaorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchcreate_ecar_greencertificategeneration(
+        self,
+        request: stlr_models.BatchcreateEcarGreencertificategenerationRequest,
+    ) -> stlr_models.BatchcreateEcarGreencertificategenerationResponse:
+        """
+        Description: 绿证发电量数据上报接口
+        Summary: 绿证发电量数据上报接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchcreate_ecar_greencertificategeneration_ex(request, headers, runtime)
+
+    async def batchcreate_ecar_greencertificategeneration_async(
+        self,
+        request: stlr_models.BatchcreateEcarGreencertificategenerationRequest,
+    ) -> stlr_models.BatchcreateEcarGreencertificategenerationResponse:
+        """
+        Description: 绿证发电量数据上报接口
+        Summary: 绿证发电量数据上报接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchcreate_ecar_greencertificategeneration_ex_async(request, headers, runtime)
+
+    def batchcreate_ecar_greencertificategeneration_ex(
+        self,
+        request: stlr_models.BatchcreateEcarGreencertificategenerationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.BatchcreateEcarGreencertificategenerationResponse:
+        """
+        Description: 绿证发电量数据上报接口
+        Summary: 绿证发电量数据上报接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.BatchcreateEcarGreencertificategenerationResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.greencertificategeneration.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchcreate_ecar_greencertificategeneration_ex_async(
+        self,
+        request: stlr_models.BatchcreateEcarGreencertificategenerationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.BatchcreateEcarGreencertificategenerationResponse:
+        """
+        Description: 绿证发电量数据上报接口
+        Summary: 绿证发电量数据上报接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.BatchcreateEcarGreencertificategenerationResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.greencertificategeneration.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_third_cert(
