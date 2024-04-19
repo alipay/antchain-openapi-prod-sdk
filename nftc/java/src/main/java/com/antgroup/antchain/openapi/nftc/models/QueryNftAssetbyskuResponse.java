@@ -20,6 +20,10 @@ public class QueryNftAssetbyskuResponse extends TeaModel {
     @NameInMap("asset_list")
     public java.util.List<UserAsset> assetList;
 
+    // 总数
+    @NameInMap("total_count")
+    public Long totalCount;
+
     public static QueryNftAssetbyskuResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryNftAssetbyskuResponse self = new QueryNftAssetbyskuResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class QueryNftAssetbyskuResponse extends TeaModel {
     }
     public java.util.List<UserAsset> getAssetList() {
         return this.assetList;
+    }
+
+    public QueryNftAssetbyskuResponse setTotalCount(Long totalCount) {
+        this.totalCount = totalCount;
+        return this;
+    }
+    public Long getTotalCount() {
+        return this.totalCount;
     }
 
 }
