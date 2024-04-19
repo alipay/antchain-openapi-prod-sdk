@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.6.0"),
+                    new TeaPair("sdk_version", "2.7.4"),
                     new TeaPair("_prod_code", "STLR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -959,6 +959,122 @@ public class Client {
     public SubmitEcarLcaassementResponse submitEcarLcaassementEx(SubmitEcarLcaassementRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.lcaassement.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitEcarLcaassementResponse());
+    }
+
+    /**
+     * Description: 三方平台文件上传
+     * Summary: 三方平台文件上传
+     */
+    public UploadEcarPlaformfileResponse uploadEcarPlaformfile(UploadEcarPlaformfileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadEcarPlaformfileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 三方平台文件上传
+     * Summary: 三方平台文件上传
+     */
+    public UploadEcarPlaformfileResponse uploadEcarPlaformfileEx(UploadEcarPlaformfileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antchain.carbon.ecar.plaformfile.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadEcarPlaformfileResponse uploadEcarPlaformfileResponse = UploadEcarPlaformfileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadEcarPlaformfileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.plaformfile.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadEcarPlaformfileResponse());
+    }
+
+    /**
+     * Description: 三方平台提交LCA订单，同时包括客户入驻信息
+     * Summary: LCA订单提交(含客户入驻信息)
+     */
+    public SubmitEcarLcaorderwithcustomerResponse submitEcarLcaorderwithcustomer(SubmitEcarLcaorderwithcustomerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitEcarLcaorderwithcustomerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 三方平台提交LCA订单，同时包括客户入驻信息
+     * Summary: LCA订单提交(含客户入驻信息)
+     */
+    public SubmitEcarLcaorderwithcustomerResponse submitEcarLcaorderwithcustomerEx(SubmitEcarLcaorderwithcustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.lcaorderwithcustomer.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitEcarLcaorderwithcustomerResponse());
+    }
+
+    /**
+     * Description: 三方平台信登token获取
+     * Summary: 三方平台获取信登token
+     */
+    public GetEcarPlaformauthtokenResponse getEcarPlaformauthtoken(GetEcarPlaformauthtokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getEcarPlaformauthtokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 三方平台信登token获取
+     * Summary: 三方平台获取信登token
+     */
+    public GetEcarPlaformauthtokenResponse getEcarPlaformauthtokenEx(GetEcarPlaformauthtokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.plaformauthtoken.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetEcarPlaformauthtokenResponse());
+    }
+
+    /**
+     * Description: LCA订单查询
+     * Summary: LCA订单查询
+     */
+    public QueryEcarLcaorderResponse queryEcarLcaorder(QueryEcarLcaorderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEcarLcaorderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: LCA订单查询
+     * Summary: LCA订单查询
+     */
+    public QueryEcarLcaorderResponse queryEcarLcaorderEx(QueryEcarLcaorderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.lcaorder.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEcarLcaorderResponse());
+    }
+
+    /**
+     * Description: 绿证发电量数据上报接口
+     * Summary: 绿证发电量数据上报接口
+     */
+    public BatchcreateEcarGreencertificategenerationResponse batchcreateEcarGreencertificategeneration(BatchcreateEcarGreencertificategenerationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchcreateEcarGreencertificategenerationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 绿证发电量数据上报接口
+     * Summary: 绿证发电量数据上报接口
+     */
+    public BatchcreateEcarGreencertificategenerationResponse batchcreateEcarGreencertificategenerationEx(BatchcreateEcarGreencertificategenerationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.greencertificategeneration.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateEcarGreencertificategenerationResponse());
     }
 
     /**
