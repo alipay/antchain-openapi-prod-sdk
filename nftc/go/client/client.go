@@ -1905,6 +1905,8 @@ type QueryNftAssetbyskuResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 用户资产列表
 	AssetList []*UserAsset `json:"asset_list,omitempty" xml:"asset_list,omitempty" type:"Repeated"`
+	// 总数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
 }
 
 func (s QueryNftAssetbyskuResponse) String() string {
@@ -1932,6 +1934,11 @@ func (s *QueryNftAssetbyskuResponse) SetResultMsg(v string) *QueryNftAssetbyskuR
 
 func (s *QueryNftAssetbyskuResponse) SetAssetList(v []*UserAsset) *QueryNftAssetbyskuResponse {
 	s.AssetList = v
+	return s
+}
+
+func (s *QueryNftAssetbyskuResponse) SetTotalCount(v int64) *QueryNftAssetbyskuResponse {
+	s.TotalCount = &v
 	return s
 }
 
@@ -2687,7 +2694,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.20"),
+				"sdk_version":      tea.String("1.0.21"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
