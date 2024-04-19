@@ -2401,6 +2401,7 @@ class QueryNftAssetbyskuResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         asset_list: List[UserAsset] = None,
+        total_count: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2410,6 +2411,8 @@ class QueryNftAssetbyskuResponse(TeaModel):
         self.result_msg = result_msg
         # 用户资产列表
         self.asset_list = asset_list
+        # 总数
+        self.total_count = total_count
 
     def validate(self):
         if self.asset_list:
@@ -2433,6 +2436,8 @@ class QueryNftAssetbyskuResponse(TeaModel):
         if self.asset_list is not None:
             for k in self.asset_list:
                 result['asset_list'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
         return result
 
     def from_map(self, m: dict = None):
@@ -2448,6 +2453,8 @@ class QueryNftAssetbyskuResponse(TeaModel):
             for k in m.get('asset_list'):
                 temp_model = UserAsset()
                 self.asset_list.append(temp_model.from_map(k))
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
         return self
 
 
