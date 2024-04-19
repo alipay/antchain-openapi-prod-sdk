@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.20',
+    sdk_version = '1.0.21',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -931,6 +931,8 @@ model QueryNftAssetbyskuResponse = {
   resultMsg?: string(name='result_msg'),
   // 用户资产列表
   assetList?: [ UserAsset ](name='asset_list'),
+  // 总数
+  totalCount?: long(name='total_count'),
 }
 
 /**
