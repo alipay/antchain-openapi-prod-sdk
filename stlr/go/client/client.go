@@ -175,6 +175,99 @@ func (s *AnyAmountItem) SetItemAmount(v string) *AnyAmountItem {
 	return s
 }
 
+// 逆变器发电量
+type InverterGeneration struct {
+	// 逆变器SN
+	InvSn *string `json:"inv_sn,omitempty" xml:"inv_sn,omitempty" require:"true"`
+	// 生产商名称
+	Manufacturer *string `json:"manufacturer,omitempty" xml:"manufacturer,omitempty" require:"true"`
+	// 当日发电量，最多3位小数
+	Daily *string `json:"daily,omitempty" xml:"daily,omitempty" require:"true"`
+	// 累计发电量，最多3位小数
+	Total *string `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+}
+
+func (s InverterGeneration) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InverterGeneration) GoString() string {
+	return s.String()
+}
+
+func (s *InverterGeneration) SetInvSn(v string) *InverterGeneration {
+	s.InvSn = &v
+	return s
+}
+
+func (s *InverterGeneration) SetManufacturer(v string) *InverterGeneration {
+	s.Manufacturer = &v
+	return s
+}
+
+func (s *InverterGeneration) SetDaily(v string) *InverterGeneration {
+	s.Daily = &v
+	return s
+}
+
+func (s *InverterGeneration) SetTotal(v string) *InverterGeneration {
+	s.Total = &v
+	return s
+}
+
+// 分阶段碳排放量
+type LcaStageCarbonItem struct {
+	// 生命周期阶段：
+	// [MaterialPurchase]-原材料，[ProductManufacture]-生产制造，[ProductSale]-分销，[ProductUsage]-产品使用，[ProductWithdraw]-处置/再生利用
+	LcaStageCode *string `json:"lca_stage_code,omitempty" xml:"lca_stage_code,omitempty" require:"true"`
+	// 阶段碳排放量
+	LcaStageCarbonAmount *string `json:"lca_stage_carbon_amount,omitempty" xml:"lca_stage_carbon_amount,omitempty" require:"true"`
+}
+
+func (s LcaStageCarbonItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LcaStageCarbonItem) GoString() string {
+	return s.String()
+}
+
+func (s *LcaStageCarbonItem) SetLcaStageCode(v string) *LcaStageCarbonItem {
+	s.LcaStageCode = &v
+	return s
+}
+
+func (s *LcaStageCarbonItem) SetLcaStageCarbonAmount(v string) *LcaStageCarbonItem {
+	s.LcaStageCarbonAmount = &v
+	return s
+}
+
+// 文档信息
+type EnterpriseDocumentFile struct {
+	// 文档名称
+	DocumentName *string `json:"document_name,omitempty" xml:"document_name,omitempty" require:"true"`
+	// 文件地址
+	DocumentAddress *string `json:"document_address,omitempty" xml:"document_address,omitempty" require:"true"`
+}
+
+func (s EnterpriseDocumentFile) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnterpriseDocumentFile) GoString() string {
+	return s.String()
+}
+
+func (s *EnterpriseDocumentFile) SetDocumentName(v string) *EnterpriseDocumentFile {
+	s.DocumentName = &v
+	return s
+}
+
+func (s *EnterpriseDocumentFile) SetDocumentAddress(v string) *EnterpriseDocumentFile {
+	s.DocumentAddress = &v
+	return s
+}
+
 // 证书授权产品信息
 type CertProductAuthDO struct {
 	// 三方平台产品ID
@@ -544,130 +637,29 @@ func (s *EmissionCounteractionStatistics) SetDataUnit(v string) *EmissionCounter
 	return s
 }
 
-// 碳补偿活动数据详情
-type CarbonOffsetActiveDataDetail struct {
-	// 活动数据编号
-	ActiveDataNo *string `json:"active_data_no,omitempty" xml:"active_data_no,omitempty" require:"true"`
-	// 活动数据名称
-	ActiveDataName *string `json:"active_data_name,omitempty" xml:"active_data_name,omitempty"`
-	// 活动数据单位
-	ActiveDataUnit *string `json:"active_data_unit,omitempty" xml:"active_data_unit,omitempty"`
-	// 活动数据描述文案
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 活动数据值
-	ActiveDataValue *string `json:"active_data_value,omitempty" xml:"active_data_value,omitempty" require:"true"`
+// 设备发电量
+type DeviceGeneration struct {
+	// 设备内部编号，注册设备后获取
+	DeviceNo *string `json:"device_no,omitempty" xml:"device_no,omitempty" require:"true"`
+	// 逆变器发电量列表
+	InverterGenerations []*InverterGeneration `json:"inverter_generations,omitempty" xml:"inverter_generations,omitempty" require:"true" type:"Repeated"`
 }
 
-func (s CarbonOffsetActiveDataDetail) String() string {
+func (s DeviceGeneration) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CarbonOffsetActiveDataDetail) GoString() string {
+func (s DeviceGeneration) GoString() string {
 	return s.String()
 }
 
-func (s *CarbonOffsetActiveDataDetail) SetActiveDataNo(v string) *CarbonOffsetActiveDataDetail {
-	s.ActiveDataNo = &v
+func (s *DeviceGeneration) SetDeviceNo(v string) *DeviceGeneration {
+	s.DeviceNo = &v
 	return s
 }
 
-func (s *CarbonOffsetActiveDataDetail) SetActiveDataName(v string) *CarbonOffsetActiveDataDetail {
-	s.ActiveDataName = &v
-	return s
-}
-
-func (s *CarbonOffsetActiveDataDetail) SetActiveDataUnit(v string) *CarbonOffsetActiveDataDetail {
-	s.ActiveDataUnit = &v
-	return s
-}
-
-func (s *CarbonOffsetActiveDataDetail) SetDescription(v string) *CarbonOffsetActiveDataDetail {
-	s.Description = &v
-	return s
-}
-
-func (s *CarbonOffsetActiveDataDetail) SetActiveDataValue(v string) *CarbonOffsetActiveDataDetail {
-	s.ActiveDataValue = &v
-	return s
-}
-
-// 机构会员资料
-type EnterpriseMemberSummary struct {
-	// 机构会员DID
-	AccountDid *string `json:"account_did,omitempty" xml:"account_did,omitempty" require:"true"`
-	// 会员姓名，数据脱敏处理返回
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 会员手机号码，数据脱敏处理返回
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
-	// 会员注册时间
-	RegisterTime *string `json:"register_time,omitempty" xml:"register_time,omitempty" require:"true"`
-}
-
-func (s EnterpriseMemberSummary) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EnterpriseMemberSummary) GoString() string {
-	return s.String()
-}
-
-func (s *EnterpriseMemberSummary) SetAccountDid(v string) *EnterpriseMemberSummary {
-	s.AccountDid = &v
-	return s
-}
-
-func (s *EnterpriseMemberSummary) SetName(v string) *EnterpriseMemberSummary {
-	s.Name = &v
-	return s
-}
-
-func (s *EnterpriseMemberSummary) SetMobile(v string) *EnterpriseMemberSummary {
-	s.Mobile = &v
-	return s
-}
-
-func (s *EnterpriseMemberSummary) SetRegisterTime(v string) *EnterpriseMemberSummary {
-	s.RegisterTime = &v
-	return s
-}
-
-// 排放统计项目
-type AnyStatisticalItem struct {
-	// 统计项目编码
-	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty" require:"true"`
-	// 数据值，按字符串输出，最多保留6位小数
-	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
-	// 单位编码
-	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
-	// 单位标签
-	UnitLabel *string `json:"unit_label,omitempty" xml:"unit_label,omitempty" require:"true"`
-}
-
-func (s AnyStatisticalItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AnyStatisticalItem) GoString() string {
-	return s.String()
-}
-
-func (s *AnyStatisticalItem) SetItemCode(v string) *AnyStatisticalItem {
-	s.ItemCode = &v
-	return s
-}
-
-func (s *AnyStatisticalItem) SetAmount(v string) *AnyStatisticalItem {
-	s.Amount = &v
-	return s
-}
-
-func (s *AnyStatisticalItem) SetUnit(v string) *AnyStatisticalItem {
-	s.Unit = &v
-	return s
-}
-
-func (s *AnyStatisticalItem) SetUnitLabel(v string) *AnyStatisticalItem {
-	s.UnitLabel = &v
+func (s *DeviceGeneration) SetInverterGenerations(v []*InverterGeneration) *DeviceGeneration {
+	s.InverterGenerations = v
 	return s
 }
 
@@ -713,58 +705,6 @@ func (s AccountRegisterResponse) GoString() string {
 
 func (s *AccountRegisterResponse) SetUserDid(v string) *AccountRegisterResponse {
 	s.UserDid = &v
-	return s
-}
-
-// 文档信息
-type EnterpriseDocumentFile struct {
-	// 文档名称
-	DocumentName *string `json:"document_name,omitempty" xml:"document_name,omitempty" require:"true"`
-	// 文件地址
-	DocumentAddress *string `json:"document_address,omitempty" xml:"document_address,omitempty" require:"true"`
-}
-
-func (s EnterpriseDocumentFile) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EnterpriseDocumentFile) GoString() string {
-	return s.String()
-}
-
-func (s *EnterpriseDocumentFile) SetDocumentName(v string) *EnterpriseDocumentFile {
-	s.DocumentName = &v
-	return s
-}
-
-func (s *EnterpriseDocumentFile) SetDocumentAddress(v string) *EnterpriseDocumentFile {
-	s.DocumentAddress = &v
-	return s
-}
-
-// 区块链信息
-type BlockchainDTO struct {
-	// 交易hash
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 当前块高
-	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty" require:"true"`
-}
-
-func (s BlockchainDTO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BlockchainDTO) GoString() string {
-	return s.String()
-}
-
-func (s *BlockchainDTO) SetTxHash(v string) *BlockchainDTO {
-	s.TxHash = &v
-	return s
-}
-
-func (s *BlockchainDTO) SetBlockNumber(v int64) *BlockchainDTO {
-	s.BlockNumber = &v
 	return s
 }
 
@@ -993,50 +933,57 @@ func (s *AuthenticationInfoVO) SetStatus(v string) *AuthenticationInfoVO {
 	return s
 }
 
-// 排放范围排放数据统计
-type EmissionsScopeStatistics struct {
-	// 盘查范围编码
-	InventoryScopeNo *string `json:"inventory_scope_no,omitempty" xml:"inventory_scope_no,omitempty" require:"true"`
-	// 盘查范围名称
-	InventoryScopeName *string `json:"inventory_scope_name,omitempty" xml:"inventory_scope_name,omitempty" require:"true"`
-	// 碳排放量
-	Emissions *int64 `json:"emissions,omitempty" xml:"emissions,omitempty" require:"true"`
-	// 排放占比
-	Percentage *int64 `json:"percentage,omitempty" xml:"percentage,omitempty" require:"true"`
-	// 范围下各分类排放数据
-	CategoryEmissionsList []*EmissionsCategoryStatistics `json:"category_emissions_list,omitempty" xml:"category_emissions_list,omitempty" require:"true" type:"Repeated"`
+// 三方平台客户摘要信息
+type PlatformCustomerSummary struct {
+	// 三方平台的客户ID
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty" require:"true"`
+	// 三方平台客户名称
+	CustomerName *string `json:"customer_name,omitempty" xml:"customer_name,omitempty" require:"true"`
+	// 联系人
+	ContactPerson *string `json:"contact_person,omitempty" xml:"contact_person,omitempty" require:"true"`
+	// 联系电话
+	ContactTelephone *string `json:"contact_telephone,omitempty" xml:"contact_telephone,omitempty" require:"true"`
+	// 联系邮箱
+	ContactEmail *string `json:"contact_email,omitempty" xml:"contact_email,omitempty"`
+	// 统一社会信用代码
+	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty" require:"true"`
 }
 
-func (s EmissionsScopeStatistics) String() string {
+func (s PlatformCustomerSummary) String() string {
 	return tea.Prettify(s)
 }
 
-func (s EmissionsScopeStatistics) GoString() string {
+func (s PlatformCustomerSummary) GoString() string {
 	return s.String()
 }
 
-func (s *EmissionsScopeStatistics) SetInventoryScopeNo(v string) *EmissionsScopeStatistics {
-	s.InventoryScopeNo = &v
+func (s *PlatformCustomerSummary) SetCustomerId(v string) *PlatformCustomerSummary {
+	s.CustomerId = &v
 	return s
 }
 
-func (s *EmissionsScopeStatistics) SetInventoryScopeName(v string) *EmissionsScopeStatistics {
-	s.InventoryScopeName = &v
+func (s *PlatformCustomerSummary) SetCustomerName(v string) *PlatformCustomerSummary {
+	s.CustomerName = &v
 	return s
 }
 
-func (s *EmissionsScopeStatistics) SetEmissions(v int64) *EmissionsScopeStatistics {
-	s.Emissions = &v
+func (s *PlatformCustomerSummary) SetContactPerson(v string) *PlatformCustomerSummary {
+	s.ContactPerson = &v
 	return s
 }
 
-func (s *EmissionsScopeStatistics) SetPercentage(v int64) *EmissionsScopeStatistics {
-	s.Percentage = &v
+func (s *PlatformCustomerSummary) SetContactTelephone(v string) *PlatformCustomerSummary {
+	s.ContactTelephone = &v
 	return s
 }
 
-func (s *EmissionsScopeStatistics) SetCategoryEmissionsList(v []*EmissionsCategoryStatistics) *EmissionsScopeStatistics {
-	s.CategoryEmissionsList = v
+func (s *PlatformCustomerSummary) SetContactEmail(v string) *PlatformCustomerSummary {
+	s.ContactEmail = &v
+	return s
+}
+
+func (s *PlatformCustomerSummary) SetSocialCreditCode(v string) *PlatformCustomerSummary {
+	s.SocialCreditCode = &v
 	return s
 }
 
@@ -1103,6 +1050,391 @@ func (s *AnyKeywordItem) SetItemCode(v string) *AnyKeywordItem {
 
 func (s *AnyKeywordItem) SetItemValue(v string) *AnyKeywordItem {
 	s.ItemValue = &v
+	return s
+}
+
+// LCA碳足迹分析计算数据
+type LcaCarbonDatum struct {
+	// LCA碳排放总量
+	LcaCarbonAmount *string `json:"lca_carbon_amount,omitempty" xml:"lca_carbon_amount,omitempty" require:"true"`
+	// 足迹报告pdf文件下载地址（30分钟内下载有效）
+	LcaReportFileUrl *string `json:"lca_report_file_url,omitempty" xml:"lca_report_file_url,omitempty" require:"true"`
+	// 足迹分析结果详情文件地址（30分钟内下载有效）
+	LcaDetailFileUrl *string `json:"lca_detail_file_url,omitempty" xml:"lca_detail_file_url,omitempty" require:"true"`
+	// B2B-从摇篮到大门，B2C-从摇篮到坟墓
+	LifeCycleBoundary *string `json:"life_cycle_boundary,omitempty" xml:"life_cycle_boundary,omitempty" require:"true"`
+	// 足迹开始时间，格式：yyyyMMdd
+	LcaStartDate *string `json:"lca_start_date,omitempty" xml:"lca_start_date,omitempty" require:"true"`
+	// 足迹结束时间 格式：yyyyMMdd
+	LcaEndDate *string `json:"lca_end_date,omitempty" xml:"lca_end_date,omitempty" require:"true"`
+	// 分阶段碳排放量列表
+	LcaStageCarbonDatum []*LcaStageCarbonItem `json:"lca_stage_carbon_datum,omitempty" xml:"lca_stage_carbon_datum,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s LcaCarbonDatum) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LcaCarbonDatum) GoString() string {
+	return s.String()
+}
+
+func (s *LcaCarbonDatum) SetLcaCarbonAmount(v string) *LcaCarbonDatum {
+	s.LcaCarbonAmount = &v
+	return s
+}
+
+func (s *LcaCarbonDatum) SetLcaReportFileUrl(v string) *LcaCarbonDatum {
+	s.LcaReportFileUrl = &v
+	return s
+}
+
+func (s *LcaCarbonDatum) SetLcaDetailFileUrl(v string) *LcaCarbonDatum {
+	s.LcaDetailFileUrl = &v
+	return s
+}
+
+func (s *LcaCarbonDatum) SetLifeCycleBoundary(v string) *LcaCarbonDatum {
+	s.LifeCycleBoundary = &v
+	return s
+}
+
+func (s *LcaCarbonDatum) SetLcaStartDate(v string) *LcaCarbonDatum {
+	s.LcaStartDate = &v
+	return s
+}
+
+func (s *LcaCarbonDatum) SetLcaEndDate(v string) *LcaCarbonDatum {
+	s.LcaEndDate = &v
+	return s
+}
+
+func (s *LcaCarbonDatum) SetLcaStageCarbonDatum(v []*LcaStageCarbonItem) *LcaCarbonDatum {
+	s.LcaStageCarbonDatum = v
+	return s
+}
+
+// 产品概要信息
+type EnterpriseProductOutline struct {
+	// 产品自定义编码
+	//
+	EnterpriseCustomCode *string `json:"enterprise_custom_code,omitempty" xml:"enterprise_custom_code,omitempty" require:"true"`
+	// 产品名称
+	//
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	// 规格型号
+	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
+	// 产品描述
+	ProductDescription *string `json:"product_description,omitempty" xml:"product_description,omitempty"`
+	// 产品分类名称
+	ProductCategoryName *string `json:"product_category_name,omitempty" xml:"product_category_name,omitempty" require:"true"`
+	// 品牌信息
+	BrandInformation *string `json:"brand_information,omitempty" xml:"brand_information,omitempty"`
+}
+
+func (s EnterpriseProductOutline) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnterpriseProductOutline) GoString() string {
+	return s.String()
+}
+
+func (s *EnterpriseProductOutline) SetEnterpriseCustomCode(v string) *EnterpriseProductOutline {
+	s.EnterpriseCustomCode = &v
+	return s
+}
+
+func (s *EnterpriseProductOutline) SetProductName(v string) *EnterpriseProductOutline {
+	s.ProductName = &v
+	return s
+}
+
+func (s *EnterpriseProductOutline) SetSpecification(v string) *EnterpriseProductOutline {
+	s.Specification = &v
+	return s
+}
+
+func (s *EnterpriseProductOutline) SetProductDescription(v string) *EnterpriseProductOutline {
+	s.ProductDescription = &v
+	return s
+}
+
+func (s *EnterpriseProductOutline) SetProductCategoryName(v string) *EnterpriseProductOutline {
+	s.ProductCategoryName = &v
+	return s
+}
+
+func (s *EnterpriseProductOutline) SetBrandInformation(v string) *EnterpriseProductOutline {
+	s.BrandInformation = &v
+	return s
+}
+
+// 碳补偿活动数据详情
+type CarbonOffsetActiveDataDetail struct {
+	// 活动数据编号
+	ActiveDataNo *string `json:"active_data_no,omitempty" xml:"active_data_no,omitempty" require:"true"`
+	// 活动数据名称
+	ActiveDataName *string `json:"active_data_name,omitempty" xml:"active_data_name,omitempty"`
+	// 活动数据单位
+	ActiveDataUnit *string `json:"active_data_unit,omitempty" xml:"active_data_unit,omitempty"`
+	// 活动数据描述文案
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 活动数据值
+	ActiveDataValue *string `json:"active_data_value,omitempty" xml:"active_data_value,omitempty" require:"true"`
+}
+
+func (s CarbonOffsetActiveDataDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarbonOffsetActiveDataDetail) GoString() string {
+	return s.String()
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetActiveDataNo(v string) *CarbonOffsetActiveDataDetail {
+	s.ActiveDataNo = &v
+	return s
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetActiveDataName(v string) *CarbonOffsetActiveDataDetail {
+	s.ActiveDataName = &v
+	return s
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetActiveDataUnit(v string) *CarbonOffsetActiveDataDetail {
+	s.ActiveDataUnit = &v
+	return s
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetDescription(v string) *CarbonOffsetActiveDataDetail {
+	s.Description = &v
+	return s
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetActiveDataValue(v string) *CarbonOffsetActiveDataDetail {
+	s.ActiveDataValue = &v
+	return s
+}
+
+// 机构会员资料
+type EnterpriseMemberSummary struct {
+	// 机构会员DID
+	AccountDid *string `json:"account_did,omitempty" xml:"account_did,omitempty" require:"true"`
+	// 会员姓名，数据脱敏处理返回
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 会员手机号码，数据脱敏处理返回
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 会员注册时间
+	RegisterTime *string `json:"register_time,omitempty" xml:"register_time,omitempty" require:"true"`
+}
+
+func (s EnterpriseMemberSummary) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnterpriseMemberSummary) GoString() string {
+	return s.String()
+}
+
+func (s *EnterpriseMemberSummary) SetAccountDid(v string) *EnterpriseMemberSummary {
+	s.AccountDid = &v
+	return s
+}
+
+func (s *EnterpriseMemberSummary) SetName(v string) *EnterpriseMemberSummary {
+	s.Name = &v
+	return s
+}
+
+func (s *EnterpriseMemberSummary) SetMobile(v string) *EnterpriseMemberSummary {
+	s.Mobile = &v
+	return s
+}
+
+func (s *EnterpriseMemberSummary) SetRegisterTime(v string) *EnterpriseMemberSummary {
+	s.RegisterTime = &v
+	return s
+}
+
+// 排放统计项目
+type AnyStatisticalItem struct {
+	// 统计项目编码
+	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty" require:"true"`
+	// 数据值，按字符串输出，最多保留6位小数
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 单位编码
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
+	// 单位标签
+	UnitLabel *string `json:"unit_label,omitempty" xml:"unit_label,omitempty" require:"true"`
+}
+
+func (s AnyStatisticalItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AnyStatisticalItem) GoString() string {
+	return s.String()
+}
+
+func (s *AnyStatisticalItem) SetItemCode(v string) *AnyStatisticalItem {
+	s.ItemCode = &v
+	return s
+}
+
+func (s *AnyStatisticalItem) SetAmount(v string) *AnyStatisticalItem {
+	s.Amount = &v
+	return s
+}
+
+func (s *AnyStatisticalItem) SetUnit(v string) *AnyStatisticalItem {
+	s.Unit = &v
+	return s
+}
+
+func (s *AnyStatisticalItem) SetUnitLabel(v string) *AnyStatisticalItem {
+	s.UnitLabel = &v
+	return s
+}
+
+// 企业产品信息
+type EnterpriseProductSummary struct {
+	// 产品自定义编码
+	EnterpriseCustomCode *string `json:"enterprise_custom_code,omitempty" xml:"enterprise_custom_code,omitempty" require:"true"`
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	// 规格型号
+	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
+	// 产品描述
+	ProductDescription *string `json:"product_description,omitempty" xml:"product_description,omitempty"`
+	// 产品分类名称
+	ProductCategoryName *string `json:"product_category_name,omitempty" xml:"product_category_name,omitempty" require:"true"`
+	// 品牌信息
+	BrandInformation *string `json:"brand_information,omitempty" xml:"brand_information,omitempty"`
+	// 工艺流程文件路径，上传文件后由上传文件接口提供，最多支持上传3个工艺流程文件
+	ProcessFlowFileList []*EnterpriseDocumentFile `json:"process_flow_file_list,omitempty" xml:"process_flow_file_list,omitempty" type:"Repeated"`
+	// 产品图片文件路径，上传文件后由上传文件接口提供，最多支持上传8个产品图片文件
+	ProductPictureFileList []*EnterpriseDocumentFile `json:"product_picture_file_list,omitempty" xml:"product_picture_file_list,omitempty" type:"Repeated"`
+}
+
+func (s EnterpriseProductSummary) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnterpriseProductSummary) GoString() string {
+	return s.String()
+}
+
+func (s *EnterpriseProductSummary) SetEnterpriseCustomCode(v string) *EnterpriseProductSummary {
+	s.EnterpriseCustomCode = &v
+	return s
+}
+
+func (s *EnterpriseProductSummary) SetProductName(v string) *EnterpriseProductSummary {
+	s.ProductName = &v
+	return s
+}
+
+func (s *EnterpriseProductSummary) SetSpecification(v string) *EnterpriseProductSummary {
+	s.Specification = &v
+	return s
+}
+
+func (s *EnterpriseProductSummary) SetProductDescription(v string) *EnterpriseProductSummary {
+	s.ProductDescription = &v
+	return s
+}
+
+func (s *EnterpriseProductSummary) SetProductCategoryName(v string) *EnterpriseProductSummary {
+	s.ProductCategoryName = &v
+	return s
+}
+
+func (s *EnterpriseProductSummary) SetBrandInformation(v string) *EnterpriseProductSummary {
+	s.BrandInformation = &v
+	return s
+}
+
+func (s *EnterpriseProductSummary) SetProcessFlowFileList(v []*EnterpriseDocumentFile) *EnterpriseProductSummary {
+	s.ProcessFlowFileList = v
+	return s
+}
+
+func (s *EnterpriseProductSummary) SetProductPictureFileList(v []*EnterpriseDocumentFile) *EnterpriseProductSummary {
+	s.ProductPictureFileList = v
+	return s
+}
+
+// 区块链信息
+type BlockchainDTO struct {
+	// 交易hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 当前块高
+	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty" require:"true"`
+}
+
+func (s BlockchainDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BlockchainDTO) GoString() string {
+	return s.String()
+}
+
+func (s *BlockchainDTO) SetTxHash(v string) *BlockchainDTO {
+	s.TxHash = &v
+	return s
+}
+
+func (s *BlockchainDTO) SetBlockNumber(v int64) *BlockchainDTO {
+	s.BlockNumber = &v
+	return s
+}
+
+// 排放范围排放数据统计
+type EmissionsScopeStatistics struct {
+	// 盘查范围编码
+	InventoryScopeNo *string `json:"inventory_scope_no,omitempty" xml:"inventory_scope_no,omitempty" require:"true"`
+	// 盘查范围名称
+	InventoryScopeName *string `json:"inventory_scope_name,omitempty" xml:"inventory_scope_name,omitempty" require:"true"`
+	// 碳排放量
+	Emissions *int64 `json:"emissions,omitempty" xml:"emissions,omitempty" require:"true"`
+	// 排放占比
+	Percentage *int64 `json:"percentage,omitempty" xml:"percentage,omitempty" require:"true"`
+	// 范围下各分类排放数据
+	CategoryEmissionsList []*EmissionsCategoryStatistics `json:"category_emissions_list,omitempty" xml:"category_emissions_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s EmissionsScopeStatistics) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EmissionsScopeStatistics) GoString() string {
+	return s.String()
+}
+
+func (s *EmissionsScopeStatistics) SetInventoryScopeNo(v string) *EmissionsScopeStatistics {
+	s.InventoryScopeNo = &v
+	return s
+}
+
+func (s *EmissionsScopeStatistics) SetInventoryScopeName(v string) *EmissionsScopeStatistics {
+	s.InventoryScopeName = &v
+	return s
+}
+
+func (s *EmissionsScopeStatistics) SetEmissions(v int64) *EmissionsScopeStatistics {
+	s.Emissions = &v
+	return s
+}
+
+func (s *EmissionsScopeStatistics) SetPercentage(v int64) *EmissionsScopeStatistics {
+	s.Percentage = &v
+	return s
+}
+
+func (s *EmissionsScopeStatistics) SetCategoryEmissionsList(v []*EmissionsCategoryStatistics) *EmissionsScopeStatistics {
+	s.CategoryEmissionsList = v
 	return s
 }
 
@@ -5355,6 +5687,503 @@ func (s *SubmitEcarLcaassementResponse) SetResultMsg(v string) *SubmitEcarLcaass
 	return s
 }
 
+type UploadEcarPlaformfileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 上传的文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty"`
+	// 待上传文件
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s UploadEcarPlaformfileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadEcarPlaformfileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadEcarPlaformfileRequest) SetAuthToken(v string) *UploadEcarPlaformfileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadEcarPlaformfileRequest) SetProductInstanceId(v string) *UploadEcarPlaformfileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadEcarPlaformfileRequest) SetFileName(v string) *UploadEcarPlaformfileRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *UploadEcarPlaformfileRequest) SetFileObject(v io.Reader) *UploadEcarPlaformfileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadEcarPlaformfileRequest) SetFileObjectName(v string) *UploadEcarPlaformfileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadEcarPlaformfileRequest) SetFileId(v string) *UploadEcarPlaformfileRequest {
+	s.FileId = &v
+	return s
+}
+
+type UploadEcarPlaformfileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文档名称
+	DocumentName *string `json:"document_name,omitempty" xml:"document_name,omitempty"`
+	// 文档地址信息
+	DocumentAddress *string `json:"document_address,omitempty" xml:"document_address,omitempty"`
+}
+
+func (s UploadEcarPlaformfileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadEcarPlaformfileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadEcarPlaformfileResponse) SetReqMsgId(v string) *UploadEcarPlaformfileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadEcarPlaformfileResponse) SetResultCode(v string) *UploadEcarPlaformfileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadEcarPlaformfileResponse) SetResultMsg(v string) *UploadEcarPlaformfileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadEcarPlaformfileResponse) SetDocumentName(v string) *UploadEcarPlaformfileResponse {
+	s.DocumentName = &v
+	return s
+}
+
+func (s *UploadEcarPlaformfileResponse) SetDocumentAddress(v string) *UploadEcarPlaformfileResponse {
+	s.DocumentAddress = &v
+	return s
+}
+
+type SubmitEcarLcaorderwithcustomerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客户信息
+	Customer *PlatformCustomerSummary `json:"customer,omitempty" xml:"customer,omitempty" require:"true"`
+	// 产品信息
+	Product *EnterpriseProductSummary `json:"product,omitempty" xml:"product,omitempty" require:"true"`
+	// 订单时间，格式：yyyy-MM-dd HH:mm:ss
+	OrderTime *string `json:"order_time,omitempty" xml:"order_time,omitempty" require:"true"`
+	// 订单金额，订单金额只能为有效数字（整数不得大于10位，小数不得大于6位）
+	OrderAmount *string `json:"order_amount,omitempty" xml:"order_amount,omitempty" require:"true"`
+	// 来源于三方平台的订单编号
+	SourceOrderNo *string `json:"source_order_no,omitempty" xml:"source_order_no,omitempty" require:"true"`
+}
+
+func (s SubmitEcarLcaorderwithcustomerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitEcarLcaorderwithcustomerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitEcarLcaorderwithcustomerRequest) SetAuthToken(v string) *SubmitEcarLcaorderwithcustomerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitEcarLcaorderwithcustomerRequest) SetProductInstanceId(v string) *SubmitEcarLcaorderwithcustomerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitEcarLcaorderwithcustomerRequest) SetCustomer(v *PlatformCustomerSummary) *SubmitEcarLcaorderwithcustomerRequest {
+	s.Customer = v
+	return s
+}
+
+func (s *SubmitEcarLcaorderwithcustomerRequest) SetProduct(v *EnterpriseProductSummary) *SubmitEcarLcaorderwithcustomerRequest {
+	s.Product = v
+	return s
+}
+
+func (s *SubmitEcarLcaorderwithcustomerRequest) SetOrderTime(v string) *SubmitEcarLcaorderwithcustomerRequest {
+	s.OrderTime = &v
+	return s
+}
+
+func (s *SubmitEcarLcaorderwithcustomerRequest) SetOrderAmount(v string) *SubmitEcarLcaorderwithcustomerRequest {
+	s.OrderAmount = &v
+	return s
+}
+
+func (s *SubmitEcarLcaorderwithcustomerRequest) SetSourceOrderNo(v string) *SubmitEcarLcaorderwithcustomerRequest {
+	s.SourceOrderNo = &v
+	return s
+}
+
+type SubmitEcarLcaorderwithcustomerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单编号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 来源于三方平台的订单编号
+	SourceOrderNo *string `json:"source_order_no,omitempty" xml:"source_order_no,omitempty"`
+	// 碳账户编号，碳矩阵为客户分配的碳账户编号
+	CarbonAccountNo *string `json:"carbon_account_no,omitempty" xml:"carbon_account_no,omitempty"`
+	// 订单状态，Pending——处理中，Closed——已关闭，Finished——已完成
+	OrderStatus *string `json:"order_status,omitempty" xml:"order_status,omitempty"`
+}
+
+func (s SubmitEcarLcaorderwithcustomerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitEcarLcaorderwithcustomerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitEcarLcaorderwithcustomerResponse) SetReqMsgId(v string) *SubmitEcarLcaorderwithcustomerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitEcarLcaorderwithcustomerResponse) SetResultCode(v string) *SubmitEcarLcaorderwithcustomerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitEcarLcaorderwithcustomerResponse) SetResultMsg(v string) *SubmitEcarLcaorderwithcustomerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitEcarLcaorderwithcustomerResponse) SetOrderNo(v string) *SubmitEcarLcaorderwithcustomerResponse {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *SubmitEcarLcaorderwithcustomerResponse) SetSourceOrderNo(v string) *SubmitEcarLcaorderwithcustomerResponse {
+	s.SourceOrderNo = &v
+	return s
+}
+
+func (s *SubmitEcarLcaorderwithcustomerResponse) SetCarbonAccountNo(v string) *SubmitEcarLcaorderwithcustomerResponse {
+	s.CarbonAccountNo = &v
+	return s
+}
+
+func (s *SubmitEcarLcaorderwithcustomerResponse) SetOrderStatus(v string) *SubmitEcarLcaorderwithcustomerResponse {
+	s.OrderStatus = &v
+	return s
+}
+
+type GetEcarPlaformauthtokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 三方平台的客户ID
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	// 碳账户编号，碳矩阵为客户分配的碳账户编号，跟前面三方平台的客户customer_id必须任意传一个参数，优先使用customer_id查询客户
+	CarbonAccountNo *string `json:"carbon_account_no,omitempty" xml:"carbon_account_no,omitempty"`
+}
+
+func (s GetEcarPlaformauthtokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetEcarPlaformauthtokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetEcarPlaformauthtokenRequest) SetAuthToken(v string) *GetEcarPlaformauthtokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetEcarPlaformauthtokenRequest) SetProductInstanceId(v string) *GetEcarPlaformauthtokenRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetEcarPlaformauthtokenRequest) SetCustomerId(v string) *GetEcarPlaformauthtokenRequest {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *GetEcarPlaformauthtokenRequest) SetCarbonAccountNo(v string) *GetEcarPlaformauthtokenRequest {
+	s.CarbonAccountNo = &v
+	return s
+}
+
+type GetEcarPlaformauthtokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 三方平台客户ID
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	// 碳账户编号，碳矩阵为客户分配的碳账户编号
+	CarbonAccountNo *string `json:"carbon_account_no,omitempty" xml:"carbon_account_no,omitempty"`
+	// 授权三方平台客户信登的TOKEN
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty"`
+}
+
+func (s GetEcarPlaformauthtokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetEcarPlaformauthtokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetEcarPlaformauthtokenResponse) SetReqMsgId(v string) *GetEcarPlaformauthtokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetEcarPlaformauthtokenResponse) SetResultCode(v string) *GetEcarPlaformauthtokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetEcarPlaformauthtokenResponse) SetResultMsg(v string) *GetEcarPlaformauthtokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetEcarPlaformauthtokenResponse) SetCustomerId(v string) *GetEcarPlaformauthtokenResponse {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *GetEcarPlaformauthtokenResponse) SetCarbonAccountNo(v string) *GetEcarPlaformauthtokenResponse {
+	s.CarbonAccountNo = &v
+	return s
+}
+
+func (s *GetEcarPlaformauthtokenResponse) SetAccessToken(v string) *GetEcarPlaformauthtokenResponse {
+	s.AccessToken = &v
+	return s
+}
+
+type QueryEcarLcaorderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号码
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 来源于三方平台的订单编号，跟前面的订单编号order_no必须任传一个进行订单查询。优先使用碳矩阵平台生成的订单编号查询
+	SourceOrderNo *string `json:"source_order_no,omitempty" xml:"source_order_no,omitempty"`
+}
+
+func (s QueryEcarLcaorderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEcarLcaorderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEcarLcaorderRequest) SetAuthToken(v string) *QueryEcarLcaorderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEcarLcaorderRequest) SetProductInstanceId(v string) *QueryEcarLcaorderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEcarLcaorderRequest) SetOrderNo(v string) *QueryEcarLcaorderRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryEcarLcaorderRequest) SetSourceOrderNo(v string) *QueryEcarLcaorderRequest {
+	s.SourceOrderNo = &v
+	return s
+}
+
+type QueryEcarLcaorderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// LCA订单单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 来源于三方平台的订单编号
+	SourceOrderNo *string `json:"source_order_no,omitempty" xml:"source_order_no,omitempty"`
+	// 三方平台客户ID，在三方平台唯一
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	// 碳账户编号，碳矩阵为客户分配的碳账户编号
+	CarbonAccountNo *string `json:"carbon_account_no,omitempty" xml:"carbon_account_no,omitempty"`
+	// Pending——待分配，Closed——已关闭，Allocated——已分配，Finished——已完成
+	OrderStatus *string `json:"order_status,omitempty" xml:"order_status,omitempty"`
+	// 产品概要信息
+	Product *EnterpriseProductOutline `json:"product,omitempty" xml:"product,omitempty"`
+	// 足迹计算信息
+	LcaCarbonDatum *LcaCarbonDatum `json:"lca_carbon_datum,omitempty" xml:"lca_carbon_datum,omitempty"`
+}
+
+func (s QueryEcarLcaorderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEcarLcaorderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEcarLcaorderResponse) SetReqMsgId(v string) *QueryEcarLcaorderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEcarLcaorderResponse) SetResultCode(v string) *QueryEcarLcaorderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEcarLcaorderResponse) SetResultMsg(v string) *QueryEcarLcaorderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEcarLcaorderResponse) SetOrderNo(v string) *QueryEcarLcaorderResponse {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryEcarLcaorderResponse) SetSourceOrderNo(v string) *QueryEcarLcaorderResponse {
+	s.SourceOrderNo = &v
+	return s
+}
+
+func (s *QueryEcarLcaorderResponse) SetCustomerId(v string) *QueryEcarLcaorderResponse {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *QueryEcarLcaorderResponse) SetCarbonAccountNo(v string) *QueryEcarLcaorderResponse {
+	s.CarbonAccountNo = &v
+	return s
+}
+
+func (s *QueryEcarLcaorderResponse) SetOrderStatus(v string) *QueryEcarLcaorderResponse {
+	s.OrderStatus = &v
+	return s
+}
+
+func (s *QueryEcarLcaorderResponse) SetProduct(v *EnterpriseProductOutline) *QueryEcarLcaorderResponse {
+	s.Product = v
+	return s
+}
+
+func (s *QueryEcarLcaorderResponse) SetLcaCarbonDatum(v *LcaCarbonDatum) *QueryEcarLcaorderResponse {
+	s.LcaCarbonDatum = v
+	return s
+}
+
+type BatchcreateEcarGreencertificategenerationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据发生时间
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 设备发电量列表
+	Generation []*DeviceGeneration `json:"generation,omitempty" xml:"generation,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BatchcreateEcarGreencertificategenerationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchcreateEcarGreencertificategenerationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchcreateEcarGreencertificategenerationRequest) SetAuthToken(v string) *BatchcreateEcarGreencertificategenerationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchcreateEcarGreencertificategenerationRequest) SetProductInstanceId(v string) *BatchcreateEcarGreencertificategenerationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchcreateEcarGreencertificategenerationRequest) SetDate(v string) *BatchcreateEcarGreencertificategenerationRequest {
+	s.Date = &v
+	return s
+}
+
+func (s *BatchcreateEcarGreencertificategenerationRequest) SetGeneration(v []*DeviceGeneration) *BatchcreateEcarGreencertificategenerationRequest {
+	s.Generation = v
+	return s
+}
+
+type BatchcreateEcarGreencertificategenerationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BatchcreateEcarGreencertificategenerationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchcreateEcarGreencertificategenerationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchcreateEcarGreencertificategenerationResponse) SetReqMsgId(v string) *BatchcreateEcarGreencertificategenerationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchcreateEcarGreencertificategenerationResponse) SetResultCode(v string) *BatchcreateEcarGreencertificategenerationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchcreateEcarGreencertificategenerationResponse) SetResultMsg(v string) *BatchcreateEcarGreencertificategenerationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type QueryThirdCertRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5704,7 +6533,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.6.0"),
+				"sdk_version":      tea.String("2.7.4"),
 				"_prod_code":       tea.String("STLR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -7178,6 +8007,205 @@ func (client *Client) SubmitEcarLcaassementEx(request *SubmitEcarLcaassementRequ
 	}
 	_result = &SubmitEcarLcaassementResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.lcaassement.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 三方平台文件上传
+ * Summary: 三方平台文件上传
+ */
+func (client *Client) UploadEcarPlaformfile(request *UploadEcarPlaformfileRequest) (_result *UploadEcarPlaformfileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadEcarPlaformfileResponse{}
+	_body, _err := client.UploadEcarPlaformfileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 三方平台文件上传
+ * Summary: 三方平台文件上传
+ */
+func (client *Client) UploadEcarPlaformfileEx(request *UploadEcarPlaformfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadEcarPlaformfileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antchain.carbon.ecar.plaformfile.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadEcarPlaformfileResponse := &UploadEcarPlaformfileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadEcarPlaformfileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadEcarPlaformfileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.plaformfile.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 三方平台提交LCA订单，同时包括客户入驻信息
+ * Summary: LCA订单提交(含客户入驻信息)
+ */
+func (client *Client) SubmitEcarLcaorderwithcustomer(request *SubmitEcarLcaorderwithcustomerRequest) (_result *SubmitEcarLcaorderwithcustomerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitEcarLcaorderwithcustomerResponse{}
+	_body, _err := client.SubmitEcarLcaorderwithcustomerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 三方平台提交LCA订单，同时包括客户入驻信息
+ * Summary: LCA订单提交(含客户入驻信息)
+ */
+func (client *Client) SubmitEcarLcaorderwithcustomerEx(request *SubmitEcarLcaorderwithcustomerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitEcarLcaorderwithcustomerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitEcarLcaorderwithcustomerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.lcaorderwithcustomer.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 三方平台信登token获取
+ * Summary: 三方平台获取信登token
+ */
+func (client *Client) GetEcarPlaformauthtoken(request *GetEcarPlaformauthtokenRequest) (_result *GetEcarPlaformauthtokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetEcarPlaformauthtokenResponse{}
+	_body, _err := client.GetEcarPlaformauthtokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 三方平台信登token获取
+ * Summary: 三方平台获取信登token
+ */
+func (client *Client) GetEcarPlaformauthtokenEx(request *GetEcarPlaformauthtokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetEcarPlaformauthtokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetEcarPlaformauthtokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.plaformauthtoken.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: LCA订单查询
+ * Summary: LCA订单查询
+ */
+func (client *Client) QueryEcarLcaorder(request *QueryEcarLcaorderRequest) (_result *QueryEcarLcaorderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEcarLcaorderResponse{}
+	_body, _err := client.QueryEcarLcaorderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: LCA订单查询
+ * Summary: LCA订单查询
+ */
+func (client *Client) QueryEcarLcaorderEx(request *QueryEcarLcaorderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEcarLcaorderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEcarLcaorderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.lcaorder.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 绿证发电量数据上报接口
+ * Summary: 绿证发电量数据上报接口
+ */
+func (client *Client) BatchcreateEcarGreencertificategeneration(request *BatchcreateEcarGreencertificategenerationRequest) (_result *BatchcreateEcarGreencertificategenerationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchcreateEcarGreencertificategenerationResponse{}
+	_body, _err := client.BatchcreateEcarGreencertificategenerationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 绿证发电量数据上报接口
+ * Summary: 绿证发电量数据上报接口
+ */
+func (client *Client) BatchcreateEcarGreencertificategenerationEx(request *BatchcreateEcarGreencertificategenerationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchcreateEcarGreencertificategenerationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchcreateEcarGreencertificategenerationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.greencertificategeneration.batchcreate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
