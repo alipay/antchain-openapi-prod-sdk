@@ -23,6 +23,8 @@ use AntChain\STLR\Models\AddPdcpAuthRequest;
 use AntChain\STLR\Models\AddPdcpAuthResponse;
 use AntChain\STLR\Models\AuthEcarOffsetdatumRequest;
 use AntChain\STLR\Models\AuthEcarOffsetdatumResponse;
+use AntChain\STLR\Models\BatchcreateEcarGreencertificategenerationRequest;
+use AntChain\STLR\Models\BatchcreateEcarGreencertificategenerationResponse;
 use AntChain\STLR\Models\CountEcarActivedataRequest;
 use AntChain\STLR\Models\CountEcarActivedataResponse;
 use AntChain\STLR\Models\CountEcarGreenoperationRequest;
@@ -47,6 +49,8 @@ use AntChain\STLR\Models\DetailEcarOffsetdatumRequest;
 use AntChain\STLR\Models\DetailEcarOffsetdatumResponse;
 use AntChain\STLR\Models\DetailEcarOffsettranslateRequest;
 use AntChain\STLR\Models\DetailEcarOffsettranslateResponse;
+use AntChain\STLR\Models\GetEcarPlaformauthtokenRequest;
+use AntChain\STLR\Models\GetEcarPlaformauthtokenResponse;
 use AntChain\STLR\Models\GetPdcpBlockchainRequest;
 use AntChain\STLR\Models\GetPdcpBlockchainResponse;
 use AntChain\STLR\Models\ListEcarEnterprisememberRequest;
@@ -61,6 +65,8 @@ use AntChain\STLR\Models\PreviewEcarOffsetdatumRequest;
 use AntChain\STLR\Models\PreviewEcarOffsetdatumResponse;
 use AntChain\STLR\Models\PushPdcpBlockchainRequest;
 use AntChain\STLR\Models\PushPdcpBlockchainResponse;
+use AntChain\STLR\Models\QueryEcarLcaorderRequest;
+use AntChain\STLR\Models\QueryEcarLcaorderResponse;
 use AntChain\STLR\Models\QueryEcarOffsetaccountRequest;
 use AntChain\STLR\Models\QueryEcarOffsetaccountResponse;
 use AntChain\STLR\Models\QueryEmissionCounteractionRequest;
@@ -91,10 +97,14 @@ use AntChain\STLR\Models\RegisterPdcpAccountRequest;
 use AntChain\STLR\Models\RegisterPdcpAccountResponse;
 use AntChain\STLR\Models\SubmitEcarLcaassementRequest;
 use AntChain\STLR\Models\SubmitEcarLcaassementResponse;
+use AntChain\STLR\Models\SubmitEcarLcaorderwithcustomerRequest;
+use AntChain\STLR\Models\SubmitEcarLcaorderwithcustomerResponse;
 use AntChain\STLR\Models\UpdatePdcpAuthRequest;
 use AntChain\STLR\Models\UpdatePdcpAuthResponse;
 use AntChain\STLR\Models\UploadEcarFileRequest;
 use AntChain\STLR\Models\UploadEcarFileResponse;
+use AntChain\STLR\Models\UploadEcarPlaformfileRequest;
+use AntChain\STLR\Models\UploadEcarPlaformfileResponse;
 use AntChain\STLR\Models\UploadPdcpBlockchainRequest;
 use AntChain\STLR\Models\UploadPdcpBlockchainResponse;
 use AntChain\Util\UtilClient;
@@ -244,7 +254,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.6.0',
+                    'sdk_version'      => '2.7.4',
                     '_prod_code'       => 'STLR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1661,6 +1671,189 @@ class Client
         Utils::validateModel($request);
 
         return SubmitEcarLcaassementResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.lcaassement.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三方平台文件上传
+     * Summary: 三方平台文件上传.
+     *
+     * @param UploadEcarPlaformfileRequest $request
+     *
+     * @return UploadEcarPlaformfileResponse
+     */
+    public function uploadEcarPlaformfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadEcarPlaformfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三方平台文件上传
+     * Summary: 三方平台文件上传.
+     *
+     * @param UploadEcarPlaformfileRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return UploadEcarPlaformfileResponse
+     */
+    public function uploadEcarPlaformfileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.carbon.ecar.plaformfile.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadEcarPlaformfileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadEcarPlaformfileResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.plaformfile.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三方平台提交LCA订单，同时包括客户入驻信息
+     * Summary: LCA订单提交(含客户入驻信息).
+     *
+     * @param SubmitEcarLcaorderwithcustomerRequest $request
+     *
+     * @return SubmitEcarLcaorderwithcustomerResponse
+     */
+    public function submitEcarLcaorderwithcustomer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitEcarLcaorderwithcustomerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三方平台提交LCA订单，同时包括客户入驻信息
+     * Summary: LCA订单提交(含客户入驻信息).
+     *
+     * @param SubmitEcarLcaorderwithcustomerRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return SubmitEcarLcaorderwithcustomerResponse
+     */
+    public function submitEcarLcaorderwithcustomerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitEcarLcaorderwithcustomerResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.lcaorderwithcustomer.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三方平台信登token获取
+     * Summary: 三方平台获取信登token.
+     *
+     * @param GetEcarPlaformauthtokenRequest $request
+     *
+     * @return GetEcarPlaformauthtokenResponse
+     */
+    public function getEcarPlaformauthtoken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getEcarPlaformauthtokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三方平台信登token获取
+     * Summary: 三方平台获取信登token.
+     *
+     * @param GetEcarPlaformauthtokenRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return GetEcarPlaformauthtokenResponse
+     */
+    public function getEcarPlaformauthtokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetEcarPlaformauthtokenResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.plaformauthtoken.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: LCA订单查询
+     * Summary: LCA订单查询.
+     *
+     * @param QueryEcarLcaorderRequest $request
+     *
+     * @return QueryEcarLcaorderResponse
+     */
+    public function queryEcarLcaorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEcarLcaorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: LCA订单查询
+     * Summary: LCA订单查询.
+     *
+     * @param QueryEcarLcaorderRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryEcarLcaorderResponse
+     */
+    public function queryEcarLcaorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEcarLcaorderResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.lcaorder.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 绿证发电量数据上报接口
+     * Summary: 绿证发电量数据上报接口.
+     *
+     * @param BatchcreateEcarGreencertificategenerationRequest $request
+     *
+     * @return BatchcreateEcarGreencertificategenerationResponse
+     */
+    public function batchcreateEcarGreencertificategeneration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateEcarGreencertificategenerationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 绿证发电量数据上报接口
+     * Summary: 绿证发电量数据上报接口.
+     *
+     * @param BatchcreateEcarGreencertificategenerationRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return BatchcreateEcarGreencertificategenerationResponse
+     */
+    public function batchcreateEcarGreencertificategenerationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateEcarGreencertificategenerationResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.greencertificategeneration.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
