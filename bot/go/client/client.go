@@ -17865,7 +17865,7 @@ type ImportDeviceRequest struct {
 	// 设备Id
 	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
 	// 数据模型id
-	DeviceDataModelId *string `json:"device_data_model_id,omitempty" xml:"device_data_model_id,omitempty" require:"true"`
+	DeviceDataModelId *string `json:"device_data_model_id,omitempty" xml:"device_data_model_id,omitempty"`
 	// 场景码
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
 	// 设备imei
@@ -18461,7 +18461,7 @@ type CreateDistributedeviceBydeviceidRequest struct {
 	// 厂商名
 	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
 	// 数据模型Id
-	DeviceDataModelId *string `json:"device_data_model_id,omitempty" xml:"device_data_model_id,omitempty" require:"true"`
+	DeviceDataModelId *string `json:"device_data_model_id,omitempty" xml:"device_data_model_id,omitempty"`
 	// 设备Id
 	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
 	// 设备imei号
@@ -20324,7 +20324,7 @@ type CreateDistributedeviceBydeviceRequest struct {
 	// 设备数据模型Id
 	//
 	//
-	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty" require:"true"`
+	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty"`
 	// 场景码
 	//
 	//
@@ -27545,6 +27545,104 @@ func (s *QueryOnlinepressuretestDataResponse) SetEntityChainDataList(v []*Entity
 	return s
 }
 
+type ExecThingServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 服务标识
+	Identifier *string `json:"identifier,omitempty" xml:"identifier,omitempty" require:"true"`
+	// 可信设备唯一ID
+	TrustiotEntityId *int64 `json:"trustiot_entity_id,omitempty" xml:"trustiot_entity_id,omitempty"`
+	// 设备编号/资产ID
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
+	// 物模型服务入参
+	InputData *string `json:"input_data,omitempty" xml:"input_data,omitempty" require:"true"`
+}
+
+func (s ExecThingServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecThingServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecThingServiceRequest) SetAuthToken(v string) *ExecThingServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecThingServiceRequest) SetProductInstanceId(v string) *ExecThingServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecThingServiceRequest) SetScene(v string) *ExecThingServiceRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *ExecThingServiceRequest) SetIdentifier(v string) *ExecThingServiceRequest {
+	s.Identifier = &v
+	return s
+}
+
+func (s *ExecThingServiceRequest) SetTrustiotEntityId(v int64) *ExecThingServiceRequest {
+	s.TrustiotEntityId = &v
+	return s
+}
+
+func (s *ExecThingServiceRequest) SetDeviceId(v string) *ExecThingServiceRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *ExecThingServiceRequest) SetInputData(v string) *ExecThingServiceRequest {
+	s.InputData = &v
+	return s
+}
+
+type ExecThingServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备返回的数据
+	Outputdata *string `json:"outputdata,omitempty" xml:"outputdata,omitempty"`
+}
+
+func (s ExecThingServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecThingServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecThingServiceResponse) SetReqMsgId(v string) *ExecThingServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecThingServiceResponse) SetResultCode(v string) *ExecThingServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecThingServiceResponse) SetResultMsg(v string) *ExecThingServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecThingServiceResponse) SetOutputdata(v string) *ExecThingServiceResponse {
+	s.Outputdata = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -29315,7 +29413,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.23"),
+				"sdk_version":      tea.String("1.10.26"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -36195,6 +36293,40 @@ func (client *Client) QueryOnlinepressuretestDataEx(request *QueryOnlinepressure
 	}
 	_result = &QueryOnlinepressuretestDataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.onlinepressuretest.data.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 物模型服务调用
+ * Summary: 物模型服务调用
+ */
+func (client *Client) ExecThingService(request *ExecThingServiceRequest) (_result *ExecThingServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecThingServiceResponse{}
+	_body, _err := client.ExecThingServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 物模型服务调用
+ * Summary: 物模型服务调用
+ */
+func (client *Client) ExecThingServiceEx(request *ExecThingServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecThingServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecThingServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thing.service.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
