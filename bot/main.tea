@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.23',
+    sdk_version = '1.10.26',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -7338,7 +7338,7 @@ model ImportDeviceRequest = {
   // 设备Id
   deviceId: string(name='device_id'),
   // 数据模型id
-  deviceDataModelId: string(name='device_data_model_id'),
+  deviceDataModelId?: string(name='device_data_model_id'),
   // 场景码
   scene: string(name='scene'),
   // 设备imei
@@ -7644,7 +7644,7 @@ model CreateDistributedeviceBydeviceidRequest = {
   // 厂商名
   corpName?: string(name='corp_name'),
   // 数据模型Id
-  deviceDataModelId: string(name='device_data_model_id'),
+  deviceDataModelId?: string(name='device_data_model_id'),
   // 设备Id
   deviceId: string(name='device_id'),
   // 设备imei号
@@ -8585,7 +8585,7 @@ model CreateDistributedeviceBydeviceRequest = {
   // 设备数据模型Id
   // 
   // 
-  dataModelId: string(name='data_model_id'),
+  dataModelId?: string(name='data_model_id'),
   // 场景码 
   // 
   // 
@@ -12096,6 +12096,52 @@ async function queryOnlinepressuretestData(request: QueryOnlinepressuretestDataR
 async function queryOnlinepressuretestDataEx(request: QueryOnlinepressuretestDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryOnlinepressuretestDataResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.onlinepressuretest.data.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecThingServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 服务标识
+  identifier: string(name='identifier'),
+  // 可信设备唯一ID
+  trustiotEntityId?: long(name='trustiot_entity_id'),
+  // 设备编号/资产ID
+  deviceId?: string(name='device_id'),
+  // 物模型服务入参
+  inputData: string(name='input_data'),
+}
+
+model ExecThingServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 设备返回的数据
+  outputdata?: string(name='outputdata'),
+}
+
+/**
+ * Description: 物模型服务调用
+ * Summary: 物模型服务调用
+ */
+async function execThingService(request: ExecThingServiceRequest): ExecThingServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execThingServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物模型服务调用
+ * Summary: 物模型服务调用
+ */
+async function execThingServiceEx(request: ExecThingServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecThingServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.thing.service.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
