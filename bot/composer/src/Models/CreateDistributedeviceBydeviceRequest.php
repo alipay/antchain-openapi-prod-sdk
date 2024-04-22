@@ -174,7 +174,6 @@ class CreateDistributedeviceBydeviceRequest extends Model
     public function validate()
     {
         Model::validateRequired('deviceId', $this->deviceId, true);
-        Model::validateRequired('dataModelId', $this->dataModelId, true);
         Model::validateRequired('scene', $this->scene, true);
         Model::validateRequired('content', $this->content, true);
         Model::validateRequired('signature', $this->signature, true);

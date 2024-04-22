@@ -148,7 +148,6 @@ class ImportDeviceRequest extends Model
     public function validate()
     {
         Model::validateRequired('deviceId', $this->deviceId, true);
-        Model::validateRequired('deviceDataModelId', $this->deviceDataModelId, true);
         Model::validateRequired('scene', $this->scene, true);
         Model::validateRequired('deviceImei', $this->deviceImei, true);
         Model::validateRequired('deviceFeature', $this->deviceFeature, true);

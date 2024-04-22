@@ -119,6 +119,8 @@ use AntChain\BOT\Models\ExecDeviceThingserviceRequest;
 use AntChain\BOT\Models\ExecDeviceThingserviceResponse;
 use AntChain\BOT\Models\ExecThingsdidOneapiRequest;
 use AntChain\BOT\Models\ExecThingsdidOneapiResponse;
+use AntChain\BOT\Models\ExecThingServiceRequest;
+use AntChain\BOT\Models\ExecThingServiceResponse;
 use AntChain\BOT\Models\ExecUnprocessedTaskRequest;
 use AntChain\BOT\Models\ExecUnprocessedTaskResponse;
 use AntChain\BOT\Models\FinishTraceConfigRequest;
@@ -592,7 +594,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.23',
+                    'sdk_version'      => '1.10.26',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -7256,6 +7258,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryOnlinepressuretestDataResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.onlinepressuretest.data.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物模型服务调用
+     * Summary: 物模型服务调用.
+     *
+     * @param ExecThingServiceRequest $request
+     *
+     * @return ExecThingServiceResponse
+     */
+    public function execThingService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execThingServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物模型服务调用
+     * Summary: 物模型服务调用.
+     *
+     * @param ExecThingServiceRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ExecThingServiceResponse
+     */
+    public function execThingServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecThingServiceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thing.service.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
