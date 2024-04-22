@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.23',
+                    'sdk_version': '1.10.26',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.23',
+                    'sdk_version': '1.10.26',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -11507,6 +11507,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryOnlinepressuretestDataResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.onlinepressuretest.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_thing_service(
+        self,
+        request: bot_models.ExecThingServiceRequest,
+    ) -> bot_models.ExecThingServiceResponse:
+        """
+        Description: 物模型服务调用
+        Summary: 物模型服务调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_thing_service_ex(request, headers, runtime)
+
+    async def exec_thing_service_async(
+        self,
+        request: bot_models.ExecThingServiceRequest,
+    ) -> bot_models.ExecThingServiceResponse:
+        """
+        Description: 物模型服务调用
+        Summary: 物模型服务调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_thing_service_ex_async(request, headers, runtime)
+
+    def exec_thing_service_ex(
+        self,
+        request: bot_models.ExecThingServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecThingServiceResponse:
+        """
+        Description: 物模型服务调用
+        Summary: 物模型服务调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecThingServiceResponse(),
+            self.do_request('1.0', 'blockchain.bot.thing.service.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_thing_service_ex_async(
+        self,
+        request: bot_models.ExecThingServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecThingServiceResponse:
+        """
+        Description: 物模型服务调用
+        Summary: 物模型服务调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecThingServiceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.thing.service.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(

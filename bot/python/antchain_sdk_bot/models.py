@@ -22482,7 +22482,6 @@ class ImportDeviceRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
-        self.validate_required(self.device_data_model_id, 'device_data_model_id')
         self.validate_required(self.scene, 'scene')
         self.validate_required(self.device_imei, 'device_imei')
         self.validate_required(self.device_feature, 'device_feature')
@@ -23187,7 +23186,6 @@ class CreateDistributedeviceBydeviceidRequest(TeaModel):
         self.owner_name = owner_name
 
     def validate(self):
-        self.validate_required(self.device_data_model_id, 'device_data_model_id')
         self.validate_required(self.device_id, 'device_id')
         self.validate_required(self.scene, 'scene')
         if self.factory_time is not None:
@@ -25624,7 +25622,6 @@ class CreateDistributedeviceBydeviceRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
-        self.validate_required(self.data_model_id, 'data_model_id')
         self.validate_required(self.scene, 'scene')
         self.validate_required(self.content, 'content')
         self.validate_required(self.signature, 'signature')
@@ -34619,6 +34616,126 @@ class QueryOnlinepressuretestDataResponse(TeaModel):
             for k in m.get('entity_chain_data_list'):
                 temp_model = EntityChainData()
                 self.entity_chain_data_list.append(temp_model.from_map(k))
+        return self
+
+
+class ExecThingServiceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene: str = None,
+        identifier: str = None,
+        trustiot_entity_id: int = None,
+        device_id: str = None,
+        input_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景码
+        self.scene = scene
+        # 服务标识
+        self.identifier = identifier
+        # 可信设备唯一ID
+        self.trustiot_entity_id = trustiot_entity_id
+        # 设备编号/资产ID
+        self.device_id = device_id
+        # 物模型服务入参
+        self.input_data = input_data
+
+    def validate(self):
+        self.validate_required(self.scene, 'scene')
+        self.validate_required(self.identifier, 'identifier')
+        self.validate_required(self.input_data, 'input_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.trustiot_entity_id is not None:
+            result['trustiot_entity_id'] = self.trustiot_entity_id
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        if self.input_data is not None:
+            result['input_data'] = self.input_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('trustiot_entity_id') is not None:
+            self.trustiot_entity_id = m.get('trustiot_entity_id')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        if m.get('input_data') is not None:
+            self.input_data = m.get('input_data')
+        return self
+
+
+class ExecThingServiceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        outputdata: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 设备返回的数据
+        self.outputdata = outputdata
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.outputdata is not None:
+            result['outputdata'] = self.outputdata
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('outputdata') is not None:
+            self.outputdata = m.get('outputdata')
         return self
 
 
