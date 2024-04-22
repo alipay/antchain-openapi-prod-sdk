@@ -21,7 +21,6 @@ public class CreateDistributedeviceBydeviceRequest extends TeaModel {
     // 
     // 
     @NameInMap("data_model_id")
-    @Validation(required = true)
     public String dataModelId;
 
     // 场景码 

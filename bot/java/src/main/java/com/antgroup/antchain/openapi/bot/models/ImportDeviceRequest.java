@@ -18,7 +18,6 @@ public class ImportDeviceRequest extends TeaModel {
 
     // 数据模型id
     @NameInMap("device_data_model_id")
-    @Validation(required = true)
     public String deviceDataModelId;
 
     // 场景码

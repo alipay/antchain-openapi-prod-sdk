@@ -17,7 +17,6 @@ public class CreateDistributedeviceBydeviceidRequest extends TeaModel {
 
     // 数据模型Id
     @NameInMap("device_data_model_id")
-    @Validation(required = true)
     public String deviceDataModelId;
 
     // 设备Id
