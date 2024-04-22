@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.23"},
+                        {"sdk_version", "1.10.26"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.23"},
+                        {"sdk_version", "1.10.26"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -8765,6 +8765,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryOnlinepressuretestDataResponse>(await DoRequestAsync("1.0", "blockchain.bot.onlinepressuretest.data.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 物模型服务调用
+         * Summary: 物模型服务调用
+         */
+        public ExecThingServiceResponse ExecThingService(ExecThingServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecThingServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 物模型服务调用
+         * Summary: 物模型服务调用
+         */
+        public async Task<ExecThingServiceResponse> ExecThingServiceAsync(ExecThingServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecThingServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 物模型服务调用
+         * Summary: 物模型服务调用
+         */
+        public ExecThingServiceResponse ExecThingServiceEx(ExecThingServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecThingServiceResponse>(DoRequest("1.0", "blockchain.bot.thing.service.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 物模型服务调用
+         * Summary: 物模型服务调用
+         */
+        public async Task<ExecThingServiceResponse> ExecThingServiceExAsync(ExecThingServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecThingServiceResponse>(await DoRequestAsync("1.0", "blockchain.bot.thing.service.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

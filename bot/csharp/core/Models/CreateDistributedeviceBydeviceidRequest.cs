@@ -25,7 +25,7 @@ namespace AntChain.SDK.BOT.Models
 
         // 数据模型Id
         [NameInMap("device_data_model_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DeviceDataModelId { get; set; }
 
         // 设备Id

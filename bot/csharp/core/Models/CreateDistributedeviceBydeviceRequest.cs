@@ -28,7 +28,7 @@ namespace AntChain.SDK.BOT.Models
         // 
         // 
         [NameInMap("data_model_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DataModelId { get; set; }
 
         // 场景码 
