@@ -196,6 +196,8 @@ type AvatarProfile struct {
 	PicUrl *string `json:"pic_url,omitempty" xml:"pic_url,omitempty" require:"true"`
 	// 背景图片地址
 	BgUrl *string `json:"bg_url,omitempty" xml:"bg_url,omitempty"`
+	// 形象thumb图Url
+	ThumbUrl *string `json:"thumb_url,omitempty" xml:"thumb_url,omitempty"`
 }
 
 func (s AvatarProfile) String() string {
@@ -233,6 +235,11 @@ func (s *AvatarProfile) SetPicUrl(v string) *AvatarProfile {
 
 func (s *AvatarProfile) SetBgUrl(v string) *AvatarProfile {
 	s.BgUrl = &v
+	return s
+}
+
+func (s *AvatarProfile) SetThumbUrl(v string) *AvatarProfile {
+	s.ThumbUrl = &v
 	return s
 }
 
@@ -756,6 +763,8 @@ type CreateUniversalsaasDigitalhumanVideoTaskRequest struct {
 	Background *Background `json:"background,omitempty" xml:"background,omitempty"`
 	// 贴片元素信息
 	Pasters []*Paster `json:"pasters,omitempty" xml:"pasters,omitempty" type:"Repeated"`
+	// 数字人视频生成格式，默认不填
+	Format *string `json:"format,omitempty" xml:"format,omitempty"`
 }
 
 func (s CreateUniversalsaasDigitalhumanVideoTaskRequest) String() string {
@@ -818,6 +827,11 @@ func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetBackground(v *Backg
 
 func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetPasters(v []*Paster) *CreateUniversalsaasDigitalhumanVideoTaskRequest {
 	s.Pasters = v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetFormat(v string) *CreateUniversalsaasDigitalhumanVideoTaskRequest {
+	s.Format = &v
 	return s
 }
 
@@ -1066,7 +1080,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.0.3"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
