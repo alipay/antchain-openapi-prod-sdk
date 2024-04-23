@@ -207,6 +207,7 @@ class AvatarProfile(TeaModel):
         conf: str = None,
         pic_url: str = None,
         bg_url: str = None,
+        thumb_url: str = None,
     ):
         # 190087
         self.avatar_id = avatar_id
@@ -221,6 +222,8 @@ class AvatarProfile(TeaModel):
         self.pic_url = pic_url
         # 背景图片地址
         self.bg_url = bg_url
+        # 形象thumb图Url
+        self.thumb_url = thumb_url
 
     def validate(self):
         self.validate_required(self.avatar_id, 'avatar_id')
@@ -246,6 +249,8 @@ class AvatarProfile(TeaModel):
             result['pic_url'] = self.pic_url
         if self.bg_url is not None:
             result['bg_url'] = self.bg_url
+        if self.thumb_url is not None:
+            result['thumb_url'] = self.thumb_url
         return result
 
     def from_map(self, m: dict = None):
@@ -262,6 +267,8 @@ class AvatarProfile(TeaModel):
             self.pic_url = m.get('pic_url')
         if m.get('bg_url') is not None:
             self.bg_url = m.get('bg_url')
+        if m.get('thumb_url') is not None:
+            self.thumb_url = m.get('thumb_url')
         return self
 
 
@@ -934,6 +941,7 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         replace_sensitive: bool = None,
         background: Background = None,
         pasters: List[Paster] = None,
+        format: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -956,6 +964,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         self.background = background
         # 贴片元素信息
         self.pasters = pasters
+        # 数字人视频生成格式，默认不填
+        self.format = format
 
     def validate(self):
         self.validate_required(self.avatar_id, 'avatar_id')
@@ -1005,6 +1015,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         if self.pasters is not None:
             for k in self.pasters:
                 result['pasters'].append(k.to_map() if k else None)
+        if self.format is not None:
+            result['format'] = self.format
         return result
 
     def from_map(self, m: dict = None):
@@ -1038,6 +1050,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
             for k in m.get('pasters'):
                 temp_model = Paster()
                 self.pasters.append(temp_model.from_map(k))
+        if m.get('format') is not None:
+            self.format = m.get('format')
         return self
 
 
