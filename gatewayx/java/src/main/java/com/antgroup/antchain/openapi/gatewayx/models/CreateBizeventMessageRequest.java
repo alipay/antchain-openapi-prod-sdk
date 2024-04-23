@@ -47,6 +47,10 @@ public class CreateBizeventMessageRequest extends TeaModel {
     @Validation(required = true)
     public String msgType;
 
+    // 上下文透传的自定义header
+    @NameInMap("header")
+    public String header;
+
     public static CreateBizeventMessageRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateBizeventMessageRequest self = new CreateBizeventMessageRequest();
         return TeaModel.build(map, self);
@@ -122,6 +126,14 @@ public class CreateBizeventMessageRequest extends TeaModel {
     }
     public String getMsgType() {
         return this.msgType;
+    }
+
+    public CreateBizeventMessageRequest setHeader(String header) {
+        this.header = header;
+        return this;
+    }
+    public String getHeader() {
+        return this.header;
     }
 
 }
