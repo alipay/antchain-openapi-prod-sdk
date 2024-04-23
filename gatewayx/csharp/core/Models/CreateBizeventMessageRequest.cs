@@ -54,6 +54,11 @@ namespace AntChain.SDK.GATEWAYX.Models
         [Validation(Required=true)]
         public string MsgType { get; set; }
 
+        // 上下文透传的自定义header
+        [NameInMap("header")]
+        [Validation(Required=false)]
+        public string Header { get; set; }
+
     }
 
 }
