@@ -70,6 +70,10 @@ class Config(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.access_key_id is not None:
             result['accessKeyId'] = self.access_key_id
@@ -166,6 +170,10 @@ class XNameValuePair(TeaModel):
         self.validate_required(self.value, 'value')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -206,6 +214,10 @@ class XInvokerInfo(TeaModel):
         self.validate_required(self.invoke_user_id, 'invoke_user_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.invoke_channel is not None:
             result['invoke_channel'] = self.invoke_channel
@@ -242,6 +254,7 @@ class CreateBizeventMessageRequest(TeaModel):
         consumer_type: str = None,
         tags: str = None,
         msg_type: str = None,
+        header: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -261,6 +274,8 @@ class CreateBizeventMessageRequest(TeaModel):
         self.tags = tags
         # 消息类型，1：点对点，2: 广播消息
         self.msg_type = msg_type
+        # 上下文透传的自定义header
+        self.header = header
 
     def validate(self):
         self.validate_required(self.biz_content, 'biz_content')
@@ -272,6 +287,10 @@ class CreateBizeventMessageRequest(TeaModel):
         self.validate_required(self.msg_type, 'msg_type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -291,6 +310,8 @@ class CreateBizeventMessageRequest(TeaModel):
             result['tags'] = self.tags
         if self.msg_type is not None:
             result['msg_type'] = self.msg_type
+        if self.header is not None:
+            result['header'] = self.header
         return result
 
     def from_map(self, m: dict = None):
@@ -313,6 +334,8 @@ class CreateBizeventMessageRequest(TeaModel):
             self.tags = m.get('tags')
         if m.get('msg_type') is not None:
             self.msg_type = m.get('msg_type')
+        if m.get('header') is not None:
+            self.header = m.get('header')
         return self
 
 
@@ -334,6 +357,10 @@ class CreateBizeventMessageResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -390,6 +417,10 @@ class CreateFileUploadRequest(TeaModel):
             self.validate_max_length(self.file_name, 'file_name', 100)
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -461,6 +492,10 @@ class CreateFileUploadResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -517,6 +552,10 @@ class GetFileDownloadRequest(TeaModel):
         self.validate_required(self.file_id, 'file_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -581,6 +620,10 @@ class GetFileDownloadResponse(TeaModel):
             self.upload_invoker.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id

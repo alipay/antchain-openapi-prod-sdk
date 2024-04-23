@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.8'
+                    'sdk_version': '1.0.9',
+                    '_prod_code': 'GATEWAYX',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -200,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.8'
+                    'sdk_version': '1.0.9',
+                    '_prod_code': 'GATEWAYX',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +310,8 @@ class Client:
         Summary: 事件消息创建
         """
         UtilClient.validate_model(request)
-        return gatewayx_models.CreateBizeventMessageResponse().from_map(
+        return TeaCore.from_map(
+            gatewayx_models.CreateBizeventMessageResponse(),
             self.do_request('1.0', 'antcloud.gatewayx.bizevent.message.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +326,8 @@ class Client:
         Summary: 事件消息创建
         """
         UtilClient.validate_model(request)
-        return gatewayx_models.CreateBizeventMessageResponse().from_map(
+        return TeaCore.from_map(
+            gatewayx_models.CreateBizeventMessageResponse(),
             await self.do_request_async('1.0', 'antcloud.gatewayx.bizevent.message.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +366,8 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return gatewayx_models.CreateFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            gatewayx_models.CreateFileUploadResponse(),
             self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +382,8 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return gatewayx_models.CreateFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            gatewayx_models.CreateFileUploadResponse(),
             await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +422,8 @@ class Client:
         Summary: 下载地址获取
         """
         UtilClient.validate_model(request)
-        return gatewayx_models.GetFileDownloadResponse().from_map(
+        return TeaCore.from_map(
+            gatewayx_models.GetFileDownloadResponse(),
             self.do_request('1.0', 'antcloud.gatewayx.file.download.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,6 +438,7 @@ class Client:
         Summary: 下载地址获取
         """
         UtilClient.validate_model(request)
-        return gatewayx_models.GetFileDownloadResponse().from_map(
+        return TeaCore.from_map(
+            gatewayx_models.GetFileDownloadResponse(),
             await self.do_request_async('1.0', 'antcloud.gatewayx.file.download.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
