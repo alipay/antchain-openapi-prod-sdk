@@ -41,6 +41,11 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         [Validation(Required=false)]
         public string BgUrl { get; set; }
 
+        // 形象thumb图Url
+        [NameInMap("thumb_url")]
+        [Validation(Required=false)]
+        public string ThumbUrl { get; set; }
+
     }
 
 }
