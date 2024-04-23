@@ -56,6 +56,14 @@ class AvatarProfile extends Model
      * @var string
      */
     public $bgUrl;
+
+    // 形象thumb图Url
+    /**
+     * @example https://3424.png
+     *
+     * @var string
+     */
+    public $thumbUrl;
     protected $_name = [
         'avatarId' => 'avatar_id',
         'name'     => 'name',
@@ -63,6 +71,7 @@ class AvatarProfile extends Model
         'conf'     => 'conf',
         'picUrl'   => 'pic_url',
         'bgUrl'    => 'bg_url',
+        'thumbUrl' => 'thumb_url',
     ];
 
     public function validate()
@@ -94,6 +103,9 @@ class AvatarProfile extends Model
         if (null !== $this->bgUrl) {
             $res['bg_url'] = $this->bgUrl;
         }
+        if (null !== $this->thumbUrl) {
+            $res['thumb_url'] = $this->thumbUrl;
+        }
 
         return $res;
     }
@@ -123,6 +135,9 @@ class AvatarProfile extends Model
         }
         if (isset($map['bg_url'])) {
             $model->bgUrl = $map['bg_url'];
+        }
+        if (isset($map['thumb_url'])) {
+            $model->thumbUrl = $map['thumb_url'];
         }
 
         return $model;

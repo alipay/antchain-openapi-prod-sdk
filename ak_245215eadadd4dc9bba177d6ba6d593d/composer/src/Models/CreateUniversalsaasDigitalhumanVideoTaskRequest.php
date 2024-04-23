@@ -72,6 +72,12 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
      * @var Paster[]
      */
     public $pasters;
+
+    // 数字人视频生成格式，默认不填
+    /**
+     * @var string
+     */
+    public $format;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -84,6 +90,7 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         'replaceSensitive'  => 'replace_sensitive',
         'background'        => 'background',
         'pasters'           => 'pasters',
+        'format'            => 'format',
     ];
 
     public function validate()
@@ -136,6 +143,9 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
                 }
             }
         }
+        if (null !== $this->format) {
+            $res['format'] = $this->format;
+        }
 
         return $res;
     }
@@ -186,6 +196,9 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
                     $model->pasters[$n++] = null !== $item ? Paster::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['format'])) {
+            $model->format = $map['format'];
         }
 
         return $model;
