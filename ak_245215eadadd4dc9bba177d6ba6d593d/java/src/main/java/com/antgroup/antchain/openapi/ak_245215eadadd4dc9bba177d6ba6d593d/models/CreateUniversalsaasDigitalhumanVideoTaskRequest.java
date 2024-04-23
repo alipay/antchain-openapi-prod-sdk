@@ -51,6 +51,10 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
     @NameInMap("pasters")
     public java.util.List<Paster> pasters;
 
+    // 数字人视频生成格式，默认不填
+    @NameInMap("format")
+    public String format;
+
     public static CreateUniversalsaasDigitalhumanVideoTaskRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateUniversalsaasDigitalhumanVideoTaskRequest self = new CreateUniversalsaasDigitalhumanVideoTaskRequest();
         return TeaModel.build(map, self);
@@ -142,6 +146,14 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
     }
     public java.util.List<Paster> getPasters() {
         return this.pasters;
+    }
+
+    public CreateUniversalsaasDigitalhumanVideoTaskRequest setFormat(String format) {
+        this.format = format;
+        return this;
+    }
+    public String getFormat() {
+        return this.format;
     }
 
 }

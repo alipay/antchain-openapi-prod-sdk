@@ -33,6 +33,10 @@ public class AvatarProfile extends TeaModel {
     @NameInMap("bg_url")
     public String bgUrl;
 
+    // 形象thumb图Url
+    @NameInMap("thumb_url")
+    public String thumbUrl;
+
     public static AvatarProfile build(java.util.Map<String, ?> map) throws Exception {
         AvatarProfile self = new AvatarProfile();
         return TeaModel.build(map, self);
@@ -84,6 +88,14 @@ public class AvatarProfile extends TeaModel {
     }
     public String getBgUrl() {
         return this.bgUrl;
+    }
+
+    public AvatarProfile setThumbUrl(String thumbUrl) {
+        this.thumbUrl = thumbUrl;
+        return this;
+    }
+    public String getThumbUrl() {
+        return this.thumbUrl;
     }
 
 }
