@@ -61,6 +61,12 @@ class CreateBizeventMessageRequest extends Model
      * @var string
      */
     public $msgType;
+
+    // 上下文透传的自定义header
+    /**
+     * @var string
+     */
+    public $header;
     protected $_name = [
         'authToken'    => 'auth_token',
         'bizContent'   => 'biz_content',
@@ -71,6 +77,7 @@ class CreateBizeventMessageRequest extends Model
         'consumerType' => 'consumer_type',
         'tags'         => 'tags',
         'msgType'      => 'msg_type',
+        'header'       => 'header',
     ];
 
     public function validate()
@@ -114,6 +121,9 @@ class CreateBizeventMessageRequest extends Model
         if (null !== $this->msgType) {
             $res['msg_type'] = $this->msgType;
         }
+        if (null !== $this->header) {
+            $res['header'] = $this->header;
+        }
 
         return $res;
     }
@@ -152,6 +162,9 @@ class CreateBizeventMessageRequest extends Model
         }
         if (isset($map['msg_type'])) {
             $model->msgType = $map['msg_type'];
+        }
+        if (isset($map['header'])) {
+            $model->header = $map['header'];
         }
 
         return $model;
