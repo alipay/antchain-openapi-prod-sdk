@@ -21,7 +21,7 @@ class CreateEvidenceVodRequest extends Model
 
     // 取证用户id
     /**
-     * @var int
+     * @var string
      */
     public $evidenceUserId;
 

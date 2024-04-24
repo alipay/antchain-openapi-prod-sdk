@@ -98,7 +98,6 @@ class CreateEvidenceRecordscreenRequest extends Model
         Model::validateRequired('name', $this->name, true);
         Model::validateRequired('evidenceUserId', $this->evidenceUserId, true);
         Model::validateRequired('notaryOffice', $this->notaryOffice, true);
-        Model::validateRequired('webUrls', $this->webUrls, true);
         Model::validateRequired('thirdPartyInfo', $this->thirdPartyInfo, true);
         Model::validateRequired('area', $this->area, true);
         Model::validateRequired('maxTimeInMin', $this->maxTimeInMin, true);

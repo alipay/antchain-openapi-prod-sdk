@@ -21,7 +21,7 @@ class CreateEvidenceLiveRequest extends Model
 
     // 取证用户id
     /**
-     * @var int
+     * @var string
      */
     public $evidenceUserId;
 
@@ -41,7 +41,7 @@ class CreateEvidenceLiveRequest extends Model
     /**
      * @var EvidenceWebUrlInfo
      */
-    public $webUrls;
+    public $webUrl;
 
     // 幂等字段
     /**
@@ -54,7 +54,7 @@ class CreateEvidenceLiveRequest extends Model
         'evidenceUserId'    => 'evidence_user_id',
         'notaryOffice'      => 'notary_office',
         'type'              => 'type',
-        'webUrls'           => 'web_urls',
+        'webUrl'            => 'web_url',
         'clientToken'       => 'client_token',
     ];
 
@@ -63,7 +63,7 @@ class CreateEvidenceLiveRequest extends Model
         Model::validateRequired('evidenceUserId', $this->evidenceUserId, true);
         Model::validateRequired('notaryOffice', $this->notaryOffice, true);
         Model::validateRequired('type', $this->type, true);
-        Model::validateRequired('webUrls', $this->webUrls, true);
+        Model::validateRequired('webUrl', $this->webUrl, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
     }
 
@@ -85,8 +85,8 @@ class CreateEvidenceLiveRequest extends Model
         if (null !== $this->type) {
             $res['type'] = $this->type;
         }
-        if (null !== $this->webUrls) {
-            $res['web_urls'] = null !== $this->webUrls ? $this->webUrls->toMap() : null;
+        if (null !== $this->webUrl) {
+            $res['web_url'] = null !== $this->webUrl ? $this->webUrl->toMap() : null;
         }
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
@@ -118,8 +118,8 @@ class CreateEvidenceLiveRequest extends Model
         if (isset($map['type'])) {
             $model->type = $map['type'];
         }
-        if (isset($map['web_urls'])) {
-            $model->webUrls = EvidenceWebUrlInfo::fromMap($map['web_urls']);
+        if (isset($map['web_url'])) {
+            $model->webUrl = EvidenceWebUrlInfo::fromMap($map['web_url']);
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];

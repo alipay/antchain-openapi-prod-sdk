@@ -6,104 +6,121 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetEvidenceInfoResponse extends Model
+class EvidenceResult extends Model
 {
-    // 请求唯一ID，用于链路跟踪和问题排查
-    /**
-     * @var string
-     */
-    public $reqMsgId;
-
-    // 结果码，一般OK表示调用成功
-    /**
-     * @var string
-     */
-    public $resultCode;
-
-    // 异常信息的文本描述
-    /**
-     * @var string
-     */
-    public $resultMsg;
-
     // 取证编号
     /**
+     * @example 8240327000000001001
+     *
      * @var string
      */
     public $evidenceId;
 
     // 取证类型（LIVE：直播，VOD：点播）
     /**
+     * @example LIVE
+     *
      * @var string
      */
     public $evidenceType;
 
-    // 取证状态（取证中：DOING，取证成功：SUCCESS，取证失败：FAIL）
-    /**
-     * @var string
-     */
-    public $status;
-
     // 公证处code
     /**
+     * @example LUJIANG
+     *
      * @var string
      */
     public $notaryOffice;
 
-    // 取证url信息
+    // 取证站点url信息
     /**
+     * @example
+     *
      * @var EvidenceWebUrlInfo
      */
     public $evidenceUrl;
 
     // 取证结果文件下载url（有效期3天）
     /**
+     * @example https://www.baidu.com
+     *
      * @var string
      */
     public $evidenceResultUrl;
 
     // 存证证明信息
     /**
+     * @example
+     *
      * @var EvidenceCertificateInfo
      */
     public $certificateInfo;
+
+    // 取证开始时间戳
+    /**
+     * @example 1713589469000
+     *
+     * @var int
+     */
+    public $evidenceStartTime;
+
+    // 取证状态(SUCCESS:成功, FAIL:取证失败)
+    /**
+     * @example SUCCESS
+     *
+     * @var string
+     */
+    public $status;
+
+    // 处理结果码
+    /**
+     * @example 4188
+     *
+     * @var string
+     */
+    public $code;
+
+    // 处理结果信息
+    /**
+     * @example 取证资源不足
+     *
+     * @var string
+     */
+    public $message;
     protected $_name = [
-        'reqMsgId'          => 'req_msg_id',
-        'resultCode'        => 'result_code',
-        'resultMsg'         => 'result_msg',
         'evidenceId'        => 'evidence_id',
         'evidenceType'      => 'evidence_type',
-        'status'            => 'status',
         'notaryOffice'      => 'notary_office',
         'evidenceUrl'       => 'evidence_url',
         'evidenceResultUrl' => 'evidence_result_url',
         'certificateInfo'   => 'certificate_info',
+        'evidenceStartTime' => 'evidence_start_time',
+        'status'            => 'status',
+        'code'              => 'code',
+        'message'           => 'message',
     ];
 
     public function validate()
     {
+        Model::validateRequired('evidenceId', $this->evidenceId, true);
+        Model::validateRequired('evidenceType', $this->evidenceType, true);
+        Model::validateRequired('notaryOffice', $this->notaryOffice, true);
+        Model::validateRequired('evidenceUrl', $this->evidenceUrl, true);
+        Model::validateRequired('evidenceResultUrl', $this->evidenceResultUrl, true);
+        Model::validateRequired('certificateInfo', $this->certificateInfo, true);
+        Model::validateRequired('evidenceStartTime', $this->evidenceStartTime, true);
+        Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('message', $this->message, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
         if (null !== $this->evidenceId) {
             $res['evidence_id'] = $this->evidenceId;
         }
         if (null !== $this->evidenceType) {
             $res['evidence_type'] = $this->evidenceType;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
         }
         if (null !== $this->notaryOffice) {
             $res['notary_office'] = $this->notaryOffice;
@@ -117,6 +134,18 @@ class GetEvidenceInfoResponse extends Model
         if (null !== $this->certificateInfo) {
             $res['certificate_info'] = null !== $this->certificateInfo ? $this->certificateInfo->toMap() : null;
         }
+        if (null !== $this->evidenceStartTime) {
+            $res['evidence_start_time'] = $this->evidenceStartTime;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
+        }
+        if (null !== $this->message) {
+            $res['message'] = $this->message;
+        }
 
         return $res;
     }
@@ -124,28 +153,16 @@ class GetEvidenceInfoResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetEvidenceInfoResponse
+     * @return EvidenceResult
      */
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
         if (isset($map['evidence_id'])) {
             $model->evidenceId = $map['evidence_id'];
         }
         if (isset($map['evidence_type'])) {
             $model->evidenceType = $map['evidence_type'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
         }
         if (isset($map['notary_office'])) {
             $model->notaryOffice = $map['notary_office'];
@@ -158,6 +175,18 @@ class GetEvidenceInfoResponse extends Model
         }
         if (isset($map['certificate_info'])) {
             $model->certificateInfo = EvidenceCertificateInfo::fromMap($map['certificate_info']);
+        }
+        if (isset($map['evidence_start_time'])) {
+            $model->evidenceStartTime = $map['evidence_start_time'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
+        }
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
+        }
+        if (isset($map['message'])) {
+            $model->message = $map['message'];
         }
 
         return $model;
