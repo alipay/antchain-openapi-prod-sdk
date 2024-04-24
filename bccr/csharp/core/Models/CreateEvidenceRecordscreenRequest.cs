@@ -35,7 +35,7 @@ namespace AntChain.SDK.BCCR.Models
 
         // 取证网址信息
         [NameInMap("web_urls")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public List<EvidenceWebUrlInfo> WebUrls { get; set; }
 
         // 取证三方账号信息

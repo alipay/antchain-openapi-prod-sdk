@@ -21,7 +21,7 @@ namespace AntChain.SDK.BCCR.Models
         // 取证用户id
         [NameInMap("evidence_user_id")]
         [Validation(Required=true)]
-        public long? EvidenceUserId { get; set; }
+        public string EvidenceUserId { get; set; }
 
         // 公证处code
         [NameInMap("notary_office")]

@@ -21,7 +21,7 @@ namespace AntChain.SDK.BCCR.Models
         // 取证用户id
         [NameInMap("evidence_user_id")]
         [Validation(Required=true)]
-        public long? EvidenceUserId { get; set; }
+        public string EvidenceUserId { get; set; }
 
         // 取证公证处
         [NameInMap("notary_office")]
@@ -34,9 +34,9 @@ namespace AntChain.SDK.BCCR.Models
         public string Type { get; set; }
 
         // 取证网址信息
-        [NameInMap("web_urls")]
+        [NameInMap("web_url")]
         [Validation(Required=true)]
-        public EvidenceWebUrlInfo WebUrls { get; set; }
+        public EvidenceWebUrlInfo WebUrl { get; set; }
 
         // 幂等字段
         [NameInMap("client_token")]

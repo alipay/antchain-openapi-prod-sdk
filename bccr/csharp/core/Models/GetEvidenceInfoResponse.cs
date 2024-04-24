@@ -29,6 +29,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string EvidenceId { get; set; }
 
+        // 取证类型（LIVE：直播，VOD：点播）
+        [NameInMap("evidence_type")]
+        [Validation(Required=false)]
+        public string EvidenceType { get; set; }
+
         // 取证状态（取证中：DOING，取证成功：SUCCESS，取证失败：FAIL）
         [NameInMap("status")]
         [Validation(Required=false)]
