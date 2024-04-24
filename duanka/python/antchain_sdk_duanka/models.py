@@ -638,6 +638,7 @@ class QuerySkyholdResRequest(TeaModel):
         biz_code: str = None,
         key_id: str = None,
         channel_code: str = None,
+        customer_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -647,11 +648,14 @@ class QuerySkyholdResRequest(TeaModel):
         self.key_id = key_id
         # 渠道code
         self.channel_code = channel_code
+        # 客户id
+        self.customer_id = customer_id
 
     def validate(self):
         self.validate_required(self.biz_code, 'biz_code')
         self.validate_required(self.key_id, 'key_id')
         self.validate_required(self.channel_code, 'channel_code')
+        self.validate_required(self.customer_id, 'customer_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -667,6 +671,8 @@ class QuerySkyholdResRequest(TeaModel):
             result['key_id'] = self.key_id
         if self.channel_code is not None:
             result['channel_code'] = self.channel_code
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
         return result
 
     def from_map(self, m: dict = None):
@@ -679,6 +685,8 @@ class QuerySkyholdResRequest(TeaModel):
             self.key_id = m.get('key_id')
         if m.get('channel_code') is not None:
             self.channel_code = m.get('channel_code')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
         return self
 
 
