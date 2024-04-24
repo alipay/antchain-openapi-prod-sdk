@@ -60,6 +60,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string EncryptedBody { get; set; }
 
+        // hash_type
+        [NameInMap("hash_type")]
+        [Validation(Required=false)]
+        public string HashType { get; set; }
+
     }
 
 }

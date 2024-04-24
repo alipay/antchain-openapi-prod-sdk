@@ -137,7 +137,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.14"},
+                        {"sdk_version", "1.2.17"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.14"},
+                        {"sdk_version", "1.2.17"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1583,6 +1583,90 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetAshieldHardeninglogResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ashield.hardeninglog.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: eKYT可信签约初始化
+         * Summary: eKYT可信签约-初始化
+         */
+        public InitEkytTrustsignResponse InitEkytTrustsign(InitEkytTrustsignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitEkytTrustsignEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: eKYT可信签约初始化
+         * Summary: eKYT可信签约-初始化
+         */
+        public async Task<InitEkytTrustsignResponse> InitEkytTrustsignAsync(InitEkytTrustsignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitEkytTrustsignExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: eKYT可信签约初始化
+         * Summary: eKYT可信签约-初始化
+         */
+        public InitEkytTrustsignResponse InitEkytTrustsignEx(InitEkytTrustsignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitEkytTrustsignResponse>(DoRequest("1.0", "antsecuritytech.gateway.ekyt.trustsign.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: eKYT可信签约初始化
+         * Summary: eKYT可信签约-初始化
+         */
+        public async Task<InitEkytTrustsignResponse> InitEkytTrustsignExAsync(InitEkytTrustsignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitEkytTrustsignResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ekyt.trustsign.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: eKYT可信签约签约单查询
+         * Summary: eKYT可信签约-签约单查询
+         */
+        public QueryEkytTrustsignResponse QueryEkytTrustsign(QueryEkytTrustsignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEkytTrustsignEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: eKYT可信签约签约单查询
+         * Summary: eKYT可信签约-签约单查询
+         */
+        public async Task<QueryEkytTrustsignResponse> QueryEkytTrustsignAsync(QueryEkytTrustsignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEkytTrustsignExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: eKYT可信签约签约单查询
+         * Summary: eKYT可信签约-签约单查询
+         */
+        public QueryEkytTrustsignResponse QueryEkytTrustsignEx(QueryEkytTrustsignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEkytTrustsignResponse>(DoRequest("1.0", "antsecuritytech.gateway.ekyt.trustsign.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: eKYT可信签约签约单查询
+         * Summary: eKYT可信签约-签约单查询
+         */
+        public async Task<QueryEkytTrustsignResponse> QueryEkytTrustsignExAsync(QueryEkytTrustsignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEkytTrustsignResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ekyt.trustsign.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

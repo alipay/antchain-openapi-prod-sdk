@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SECURITYTECH.Models
 {
-    public class QueryRiskGeneralResponse : TeaModel {
+    public class InitEkytTrustsignResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,30 +24,20 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 是否计费
-        [NameInMap("meter")]
+        // 响应结果
+        [NameInMap("success")]
         [Validation(Required=false)]
-        public bool? Meter { get; set; }
+        public bool? Success { get; set; }
 
-        // 批量调用情况下的计费数量
-        [NameInMap("meter_count")]
+        // 结果描述
+        [NameInMap("message")]
         [Validation(Required=false)]
-        public long? MeterCount { get; set; }
+        public string Message { get; set; }
 
-        // 风险咨询结果的批量查询结果
-        [NameInMap("result_list")]
+        // 可信签约初始化数据
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public List<ResultList> ResultList { get; set; }
-
-        // 拓展输出字段
-        [NameInMap("ext_data")]
-        [Validation(Required=false)]
-        public string ExtData { get; set; }
-
-        // 是否查得
-        [NameInMap("found")]
-        [Validation(Required=false)]
-        public bool? Found { get; set; }
+        public TrustSignInitData Data { get; set; }
 
     }
 
