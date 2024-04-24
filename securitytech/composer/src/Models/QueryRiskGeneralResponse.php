@@ -49,6 +49,12 @@ class QueryRiskGeneralResponse extends Model
      * @var string
      */
     public $extData;
+
+    // 是否查得
+    /**
+     * @var bool
+     */
+    public $found;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
@@ -57,6 +63,7 @@ class QueryRiskGeneralResponse extends Model
         'meterCount' => 'meter_count',
         'resultList' => 'result_list',
         'extData'    => 'ext_data',
+        'found'      => 'found',
     ];
 
     public function validate()
@@ -92,6 +99,9 @@ class QueryRiskGeneralResponse extends Model
         }
         if (null !== $this->extData) {
             $res['ext_data'] = $this->extData;
+        }
+        if (null !== $this->found) {
+            $res['found'] = $this->found;
         }
 
         return $res;
@@ -131,6 +141,9 @@ class QueryRiskGeneralResponse extends Model
         }
         if (isset($map['ext_data'])) {
             $model->extData = $map['ext_data'];
+        }
+        if (isset($map['found'])) {
+            $model->found = $map['found'];
         }
 
         return $model;

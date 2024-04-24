@@ -68,6 +68,12 @@ class QueryRiskGeneralRequest extends Model
      * @var string
      */
     public $encryptedBody;
+
+    // hash_type
+    /**
+     * @var string
+     */
+    public $hashType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -79,6 +85,7 @@ class QueryRiskGeneralRequest extends Model
         'userAuthorization' => 'user_authorization',
         'encryptMethod'     => 'encrypt_method',
         'encryptedBody'     => 'encrypted_body',
+        'hashType'          => 'hash_type',
     ];
 
     public function validate()
@@ -128,6 +135,9 @@ class QueryRiskGeneralRequest extends Model
         if (null !== $this->encryptedBody) {
             $res['encrypted_body'] = $this->encryptedBody;
         }
+        if (null !== $this->hashType) {
+            $res['hash_type'] = $this->hashType;
+        }
 
         return $res;
     }
@@ -175,6 +185,9 @@ class QueryRiskGeneralRequest extends Model
         }
         if (isset($map['encrypted_body'])) {
             $model->encryptedBody = $map['encrypted_body'];
+        }
+        if (isset($map['hash_type'])) {
+            $model->hashType = $map['hash_type'];
         }
 
         return $model;

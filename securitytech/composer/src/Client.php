@@ -31,6 +31,8 @@ use AntChain\SECURITYTECH\Models\GetAshieldHardeningresultRequest;
 use AntChain\SECURITYTECH\Models\GetAshieldHardeningresultResponse;
 use AntChain\SECURITYTECH\Models\GetAshieldHardeningtaskprocessRequest;
 use AntChain\SECURITYTECH\Models\GetAshieldHardeningtaskprocessResponse;
+use AntChain\SECURITYTECH\Models\InitEkytTrustsignRequest;
+use AntChain\SECURITYTECH\Models\InitEkytTrustsignResponse;
 use AntChain\SECURITYTECH\Models\InitIifaaDeviceRequest;
 use AntChain\SECURITYTECH\Models\InitIifaaDeviceResponse;
 use AntChain\SECURITYTECH\Models\QueryCctPictureRequest;
@@ -47,6 +49,8 @@ use AntChain\SECURITYTECH\Models\QueryDeviceriskRisklabelRequest;
 use AntChain\SECURITYTECH\Models\QueryDeviceriskRisklabelResponse;
 use AntChain\SECURITYTECH\Models\QueryEkytDriverRequest;
 use AntChain\SECURITYTECH\Models\QueryEkytDriverResponse;
+use AntChain\SECURITYTECH\Models\QueryEkytTrustsignRequest;
+use AntChain\SECURITYTECH\Models\QueryEkytTrustsignResponse;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeRequest;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeResponse;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldWebRequest;
@@ -218,7 +222,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.14',
+                    'sdk_version'      => '1.2.17',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1256,5 +1260,71 @@ class Client
         Utils::validateModel($request);
 
         return GetAshieldHardeninglogResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ashield.hardeninglog.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: eKYT可信签约初始化
+     * Summary: eKYT可信签约-初始化.
+     *
+     * @param InitEkytTrustsignRequest $request
+     *
+     * @return InitEkytTrustsignResponse
+     */
+    public function initEkytTrustsign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initEkytTrustsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: eKYT可信签约初始化
+     * Summary: eKYT可信签约-初始化.
+     *
+     * @param InitEkytTrustsignRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return InitEkytTrustsignResponse
+     */
+    public function initEkytTrustsignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitEkytTrustsignResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ekyt.trustsign.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: eKYT可信签约签约单查询
+     * Summary: eKYT可信签约-签约单查询.
+     *
+     * @param QueryEkytTrustsignRequest $request
+     *
+     * @return QueryEkytTrustsignResponse
+     */
+    public function queryEkytTrustsign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEkytTrustsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: eKYT可信签约签约单查询
+     * Summary: eKYT可信签约-签约单查询.
+     *
+     * @param QueryEkytTrustsignRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryEkytTrustsignResponse
+     */
+    public function queryEkytTrustsignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEkytTrustsignResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ekyt.trustsign.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
