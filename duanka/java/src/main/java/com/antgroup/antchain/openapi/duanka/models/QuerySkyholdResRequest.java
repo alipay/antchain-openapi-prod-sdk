@@ -23,6 +23,11 @@ public class QuerySkyholdResRequest extends TeaModel {
     @Validation(required = true)
     public String channelCode;
 
+    // 客户id
+    @NameInMap("customer_id")
+    @Validation(required = true)
+    public String customerId;
+
     public static QuerySkyholdResRequest build(java.util.Map<String, ?> map) throws Exception {
         QuerySkyholdResRequest self = new QuerySkyholdResRequest();
         return TeaModel.build(map, self);
@@ -58,6 +63,14 @@ public class QuerySkyholdResRequest extends TeaModel {
     }
     public String getChannelCode() {
         return this.channelCode;
+    }
+
+    public QuerySkyholdResRequest setCustomerId(String customerId) {
+        this.customerId = customerId;
+        return this;
+    }
+    public String getCustomerId() {
+        return this.customerId;
     }
 
 }
