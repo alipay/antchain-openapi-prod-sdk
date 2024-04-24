@@ -717,6 +717,32 @@ func (s *ScreenshotInfo) SetLogZipTxHash(v string) *ScreenshotInfo {
 	return s
 }
 
+// 取证网址信息
+type EvidenceWebUrlInfo struct {
+	// 取证网址
+	WebUrl *string `json:"web_url,omitempty" xml:"web_url,omitempty" require:"true"`
+	// 取证名称
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+}
+
+func (s EvidenceWebUrlInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EvidenceWebUrlInfo) GoString() string {
+	return s.String()
+}
+
+func (s *EvidenceWebUrlInfo) SetWebUrl(v string) *EvidenceWebUrlInfo {
+	s.WebUrl = &v
+	return s
+}
+
+func (s *EvidenceWebUrlInfo) SetTitle(v string) *EvidenceWebUrlInfo {
+	s.Title = &v
+	return s
+}
+
 // 取证文件信息
 type ScreenInfo struct {
 	// 全链路取证日志文件下载链接
@@ -942,6 +968,67 @@ func (s *SaleDigestData) SetHash(v string) *SaleDigestData {
 	return s
 }
 
+// 取证文件信息
+type EvidenceFile struct {
+	// 证据文件名称
+	EvidenceFileName *string `json:"evidence_file_name,omitempty" xml:"evidence_file_name,omitempty" require:"true"`
+	// 证据文件备注
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 文件类型
+	EvidenceFileType *string `json:"evidence_file_type,omitempty" xml:"evidence_file_type,omitempty" require:"true"`
+	// 文件大小
+	EvidenceFileSize *int64 `json:"evidence_file_size,omitempty" xml:"evidence_file_size,omitempty" require:"true"`
+	// 文件时长（单位：秒）
+	Duration *int64 `json:"duration,omitempty" xml:"duration,omitempty" require:"true"`
+	// 证据文件指纹
+	EvidenceFileHash *string `json:"evidence_file_hash,omitempty" xml:"evidence_file_hash,omitempty" require:"true"`
+	// 文件url
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+}
+
+func (s EvidenceFile) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EvidenceFile) GoString() string {
+	return s.String()
+}
+
+func (s *EvidenceFile) SetEvidenceFileName(v string) *EvidenceFile {
+	s.EvidenceFileName = &v
+	return s
+}
+
+func (s *EvidenceFile) SetMemo(v string) *EvidenceFile {
+	s.Memo = &v
+	return s
+}
+
+func (s *EvidenceFile) SetEvidenceFileType(v string) *EvidenceFile {
+	s.EvidenceFileType = &v
+	return s
+}
+
+func (s *EvidenceFile) SetEvidenceFileSize(v int64) *EvidenceFile {
+	s.EvidenceFileSize = &v
+	return s
+}
+
+func (s *EvidenceFile) SetDuration(v int64) *EvidenceFile {
+	s.Duration = &v
+	return s
+}
+
+func (s *EvidenceFile) SetEvidenceFileHash(v string) *EvidenceFile {
+	s.EvidenceFileHash = &v
+	return s
+}
+
+func (s *EvidenceFile) SetFileUrl(v string) *EvidenceFile {
+	s.FileUrl = &v
+	return s
+}
+
 // 申办事由
 type BidReason struct {
 	// 事由类别ID
@@ -1000,6 +1087,46 @@ func (s *BidReason) SetIsNeedTestifyFile(v bool) *BidReason {
 
 func (s *BidReason) SetReasonArray(v []*Reason) *BidReason {
 	s.ReasonArray = v
+	return s
+}
+
+// 存证证明信息
+type EvidenceCertificateInfo struct {
+	// 证书编号
+	CertificateNo *string `json:"certificate_no,omitempty" xml:"certificate_no,omitempty" require:"true"`
+	// 上链时间
+	CertificateTime *string `json:"certificate_time,omitempty" xml:"certificate_time,omitempty" require:"true"`
+	// 链上交易hash
+	CertificateHash *string `json:"certificate_hash,omitempty" xml:"certificate_hash,omitempty" require:"true"`
+	// 证书下载url（有效期3天）
+	CertificateUrl *string `json:"certificate_url,omitempty" xml:"certificate_url,omitempty" require:"true"`
+}
+
+func (s EvidenceCertificateInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EvidenceCertificateInfo) GoString() string {
+	return s.String()
+}
+
+func (s *EvidenceCertificateInfo) SetCertificateNo(v string) *EvidenceCertificateInfo {
+	s.CertificateNo = &v
+	return s
+}
+
+func (s *EvidenceCertificateInfo) SetCertificateTime(v string) *EvidenceCertificateInfo {
+	s.CertificateTime = &v
+	return s
+}
+
+func (s *EvidenceCertificateInfo) SetCertificateHash(v string) *EvidenceCertificateInfo {
+	s.CertificateHash = &v
+	return s
+}
+
+func (s *EvidenceCertificateInfo) SetCertificateUrl(v string) *EvidenceCertificateInfo {
+	s.CertificateUrl = &v
 	return s
 }
 
@@ -1172,6 +1299,109 @@ func (s *GoodSkuInfo) SetSkuNum(v string) *GoodSkuInfo {
 
 func (s *GoodSkuInfo) SetPrice(v int64) *GoodSkuInfo {
 	s.Price = &v
+	return s
+}
+
+// 网页截图存证结果
+type ScreenshotCertificateResult struct {
+	// 证据类型
+	EvidenceType *string `json:"evidence_type,omitempty" xml:"evidence_type,omitempty" require:"true"`
+	// 证据状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 网页截取编号
+	ScreenshotId *string `json:"screenshot_id,omitempty" xml:"screenshot_id,omitempty" require:"true"`
+	// 证据编号
+	EvidenceId *string `json:"evidence_id,omitempty" xml:"evidence_id,omitempty" require:"true"`
+	// 存证编号
+	CertificateNo *string `json:"certificate_no,omitempty" xml:"certificate_no,omitempty" require:"true"`
+	// 上链时间
+	CertificateTime *int64 `json:"certificate_time,omitempty" xml:"certificate_time,omitempty" require:"true"`
+	// 证据hash
+	EvidenceHash *string `json:"evidence_hash,omitempty" xml:"evidence_hash,omitempty" require:"true"`
+	// 链上交易hash
+	EvidenceTxHash *string `json:"evidence_tx_hash,omitempty" xml:"evidence_tx_hash,omitempty" require:"true"`
+	// 证书下载链接
+	CertificateFileUrl *string `json:"certificate_file_url,omitempty" xml:"certificate_file_url,omitempty" require:"true"`
+	// 截图文件下载链接
+	ScreenshotFileUrl *string `json:"screenshot_file_url,omitempty" xml:"screenshot_file_url,omitempty" require:"true"`
+	// 证据文件大小
+	EvidenceFileSize *int64 `json:"evidence_file_size,omitempty" xml:"evidence_file_size,omitempty" require:"true"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
+	// 错误信息
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty" require:"true"`
+}
+
+func (s ScreenshotCertificateResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ScreenshotCertificateResult) GoString() string {
+	return s.String()
+}
+
+func (s *ScreenshotCertificateResult) SetEvidenceType(v string) *ScreenshotCertificateResult {
+	s.EvidenceType = &v
+	return s
+}
+
+func (s *ScreenshotCertificateResult) SetStatus(v string) *ScreenshotCertificateResult {
+	s.Status = &v
+	return s
+}
+
+func (s *ScreenshotCertificateResult) SetScreenshotId(v string) *ScreenshotCertificateResult {
+	s.ScreenshotId = &v
+	return s
+}
+
+func (s *ScreenshotCertificateResult) SetEvidenceId(v string) *ScreenshotCertificateResult {
+	s.EvidenceId = &v
+	return s
+}
+
+func (s *ScreenshotCertificateResult) SetCertificateNo(v string) *ScreenshotCertificateResult {
+	s.CertificateNo = &v
+	return s
+}
+
+func (s *ScreenshotCertificateResult) SetCertificateTime(v int64) *ScreenshotCertificateResult {
+	s.CertificateTime = &v
+	return s
+}
+
+func (s *ScreenshotCertificateResult) SetEvidenceHash(v string) *ScreenshotCertificateResult {
+	s.EvidenceHash = &v
+	return s
+}
+
+func (s *ScreenshotCertificateResult) SetEvidenceTxHash(v string) *ScreenshotCertificateResult {
+	s.EvidenceTxHash = &v
+	return s
+}
+
+func (s *ScreenshotCertificateResult) SetCertificateFileUrl(v string) *ScreenshotCertificateResult {
+	s.CertificateFileUrl = &v
+	return s
+}
+
+func (s *ScreenshotCertificateResult) SetScreenshotFileUrl(v string) *ScreenshotCertificateResult {
+	s.ScreenshotFileUrl = &v
+	return s
+}
+
+func (s *ScreenshotCertificateResult) SetEvidenceFileSize(v int64) *ScreenshotCertificateResult {
+	s.EvidenceFileSize = &v
+	return s
+}
+
+func (s *ScreenshotCertificateResult) SetErrorCode(v string) *ScreenshotCertificateResult {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *ScreenshotCertificateResult) SetErrorMessage(v string) *ScreenshotCertificateResult {
+	s.ErrorMessage = &v
 	return s
 }
 
@@ -2169,6 +2399,109 @@ func (s *PlayListEntity) SetAuthPlatform(v []*string) *PlayListEntity {
 	return s
 }
 
+// 录屏取证结果
+type RecordScreenResult struct {
+	// 取证类型(SCREEN_RECORDING：录屏取证)
+	EvidenceType *string `json:"evidence_type,omitempty" xml:"evidence_type,omitempty" require:"true"`
+	// 取证状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 证据编号
+	EvidenceId *string `json:"evidence_id,omitempty" xml:"evidence_id,omitempty" require:"true"`
+	// 存证编号
+	CertificateNo *string `json:"certificate_no,omitempty" xml:"certificate_no,omitempty" require:"true"`
+	// 上链时间
+	CertificateTime *int64 `json:"certificate_time,omitempty" xml:"certificate_time,omitempty" require:"true"`
+	// 证据hash
+	EvidenceHash *string `json:"evidence_hash,omitempty" xml:"evidence_hash,omitempty" require:"true"`
+	// 链上交易hash
+	EvidenceTxHash *string `json:"evidence_tx_hash,omitempty" xml:"evidence_tx_hash,omitempty" require:"true"`
+	// 证书文件下载地址
+	CertificateFileUrl *string `json:"certificate_file_url,omitempty" xml:"certificate_file_url,omitempty"`
+	// 录屏取证文件列表
+	EvidenceFiles []*EvidenceFile `json:"evidence_files,omitempty" xml:"evidence_files,omitempty" type:"Repeated"`
+	// 录屏开始时间
+	EvidenceStartTime *int64 `json:"evidence_start_time,omitempty" xml:"evidence_start_time,omitempty" require:"true"`
+	// 录屏结束时间
+	EvidenceEndTime *int64 `json:"evidence_end_time,omitempty" xml:"evidence_end_time,omitempty" require:"true"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误信息
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty" require:"true"`
+}
+
+func (s RecordScreenResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecordScreenResult) GoString() string {
+	return s.String()
+}
+
+func (s *RecordScreenResult) SetEvidenceType(v string) *RecordScreenResult {
+	s.EvidenceType = &v
+	return s
+}
+
+func (s *RecordScreenResult) SetStatus(v string) *RecordScreenResult {
+	s.Status = &v
+	return s
+}
+
+func (s *RecordScreenResult) SetEvidenceId(v string) *RecordScreenResult {
+	s.EvidenceId = &v
+	return s
+}
+
+func (s *RecordScreenResult) SetCertificateNo(v string) *RecordScreenResult {
+	s.CertificateNo = &v
+	return s
+}
+
+func (s *RecordScreenResult) SetCertificateTime(v int64) *RecordScreenResult {
+	s.CertificateTime = &v
+	return s
+}
+
+func (s *RecordScreenResult) SetEvidenceHash(v string) *RecordScreenResult {
+	s.EvidenceHash = &v
+	return s
+}
+
+func (s *RecordScreenResult) SetEvidenceTxHash(v string) *RecordScreenResult {
+	s.EvidenceTxHash = &v
+	return s
+}
+
+func (s *RecordScreenResult) SetCertificateFileUrl(v string) *RecordScreenResult {
+	s.CertificateFileUrl = &v
+	return s
+}
+
+func (s *RecordScreenResult) SetEvidenceFiles(v []*EvidenceFile) *RecordScreenResult {
+	s.EvidenceFiles = v
+	return s
+}
+
+func (s *RecordScreenResult) SetEvidenceStartTime(v int64) *RecordScreenResult {
+	s.EvidenceStartTime = &v
+	return s
+}
+
+func (s *RecordScreenResult) SetEvidenceEndTime(v int64) *RecordScreenResult {
+	s.EvidenceEndTime = &v
+	return s
+}
+
+func (s *RecordScreenResult) SetErrorCode(v string) *RecordScreenResult {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *RecordScreenResult) SetErrorMessage(v string) *RecordScreenResult {
+	s.ErrorMessage = &v
+	return s
+}
+
 // 作品信息
 type WorksInfo struct {
 	// 作品名称
@@ -2672,32 +3005,6 @@ func (s *EvidenceThirdPartyInfo) SetLoginIp(v string) *EvidenceThirdPartyInfo {
 	return s
 }
 
-// 取证网址信息
-type EvidenceWebUrlInfo struct {
-	// 取证网址
-	WebUrl *string `json:"web_url,omitempty" xml:"web_url,omitempty" require:"true"`
-	// 取证名称
-	Title *string `json:"title,omitempty" xml:"title,omitempty"`
-}
-
-func (s EvidenceWebUrlInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EvidenceWebUrlInfo) GoString() string {
-	return s.String()
-}
-
-func (s *EvidenceWebUrlInfo) SetWebUrl(v string) *EvidenceWebUrlInfo {
-	s.WebUrl = &v
-	return s
-}
-
-func (s *EvidenceWebUrlInfo) SetTitle(v string) *EvidenceWebUrlInfo {
-	s.Title = &v
-	return s
-}
-
 // 推荐分类信息
 type RecommendCategoryDetail struct {
 	// 推荐分类类型
@@ -3031,6 +3338,149 @@ func (s *EnterpriseLegalPersonInfo) SetLegalPersonCertNo(v string) *EnterpriseLe
 	return s
 }
 
+// 网页截图结果
+type ScreenshotResult struct {
+	// 截图文件下载链接
+	ScreenshotFileUrl *string `json:"screenshot_file_url,omitempty" xml:"screenshot_file_url,omitempty" require:"true"`
+	// 网页截取编号
+	ScreenshotId *string `json:"screenshot_id,omitempty" xml:"screenshot_id,omitempty" require:"true"`
+	// 取证类型(SCREENSHOT: 网页截图)
+	ScreenshotType *string `json:"screenshot_type,omitempty" xml:"screenshot_type,omitempty" require:"true"`
+	// 取证状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误信息
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+	// 网页截取名称
+	ScreenshotName *string `json:"screenshot_name,omitempty" xml:"screenshot_name,omitempty" require:"true"`
+}
+
+func (s ScreenshotResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ScreenshotResult) GoString() string {
+	return s.String()
+}
+
+func (s *ScreenshotResult) SetScreenshotFileUrl(v string) *ScreenshotResult {
+	s.ScreenshotFileUrl = &v
+	return s
+}
+
+func (s *ScreenshotResult) SetScreenshotId(v string) *ScreenshotResult {
+	s.ScreenshotId = &v
+	return s
+}
+
+func (s *ScreenshotResult) SetScreenshotType(v string) *ScreenshotResult {
+	s.ScreenshotType = &v
+	return s
+}
+
+func (s *ScreenshotResult) SetStatus(v string) *ScreenshotResult {
+	s.Status = &v
+	return s
+}
+
+func (s *ScreenshotResult) SetErrorCode(v string) *ScreenshotResult {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *ScreenshotResult) SetErrorMessage(v string) *ScreenshotResult {
+	s.ErrorMessage = &v
+	return s
+}
+
+func (s *ScreenshotResult) SetScreenshotName(v string) *ScreenshotResult {
+	s.ScreenshotName = &v
+	return s
+}
+
+// 取证结果
+type EvidenceResult struct {
+	// 取证编号
+	EvidenceId *string `json:"evidence_id,omitempty" xml:"evidence_id,omitempty" require:"true"`
+	// 取证类型（LIVE：直播，VOD：点播）
+	EvidenceType *string `json:"evidence_type,omitempty" xml:"evidence_type,omitempty" require:"true"`
+	// 公证处code
+	NotaryOffice *string `json:"notary_office,omitempty" xml:"notary_office,omitempty" require:"true"`
+	// 取证站点url信息
+	EvidenceUrl *EvidenceWebUrlInfo `json:"evidence_url,omitempty" xml:"evidence_url,omitempty" require:"true"`
+	// 取证结果文件下载url（有效期3天）
+	EvidenceResultUrl *string `json:"evidence_result_url,omitempty" xml:"evidence_result_url,omitempty" require:"true"`
+	// 存证证明信息
+	CertificateInfo *EvidenceCertificateInfo `json:"certificate_info,omitempty" xml:"certificate_info,omitempty" require:"true"`
+	// 取证开始时间戳
+	EvidenceStartTime *int64 `json:"evidence_start_time,omitempty" xml:"evidence_start_time,omitempty" require:"true"`
+	// 取证状态(SUCCESS:成功, FAIL:取证失败)
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 处理结果码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 处理结果信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+}
+
+func (s EvidenceResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EvidenceResult) GoString() string {
+	return s.String()
+}
+
+func (s *EvidenceResult) SetEvidenceId(v string) *EvidenceResult {
+	s.EvidenceId = &v
+	return s
+}
+
+func (s *EvidenceResult) SetEvidenceType(v string) *EvidenceResult {
+	s.EvidenceType = &v
+	return s
+}
+
+func (s *EvidenceResult) SetNotaryOffice(v string) *EvidenceResult {
+	s.NotaryOffice = &v
+	return s
+}
+
+func (s *EvidenceResult) SetEvidenceUrl(v *EvidenceWebUrlInfo) *EvidenceResult {
+	s.EvidenceUrl = v
+	return s
+}
+
+func (s *EvidenceResult) SetEvidenceResultUrl(v string) *EvidenceResult {
+	s.EvidenceResultUrl = &v
+	return s
+}
+
+func (s *EvidenceResult) SetCertificateInfo(v *EvidenceCertificateInfo) *EvidenceResult {
+	s.CertificateInfo = v
+	return s
+}
+
+func (s *EvidenceResult) SetEvidenceStartTime(v int64) *EvidenceResult {
+	s.EvidenceStartTime = &v
+	return s
+}
+
+func (s *EvidenceResult) SetStatus(v string) *EvidenceResult {
+	s.Status = &v
+	return s
+}
+
+func (s *EvidenceResult) SetCode(v string) *EvidenceResult {
+	s.Code = &v
+	return s
+}
+
+func (s *EvidenceResult) SetMessage(v string) *EvidenceResult {
+	s.Message = &v
+	return s
+}
+
 // 数登上传文件结构体
 type AdditionalFileInfo struct {
 	// 内容梗概文件fileId
@@ -3208,46 +3658,6 @@ func (s *CertificateData) SetDciCode(v string) *CertificateData {
 }
 
 func (s *CertificateData) SetCertificateUrl(v string) *CertificateData {
-	s.CertificateUrl = &v
-	return s
-}
-
-// 存证证明信息
-type EvidenceCertificateInfo struct {
-	// 证书编号
-	CertificateNo *string `json:"certificate_no,omitempty" xml:"certificate_no,omitempty" require:"true"`
-	// 上链时间
-	CertificateTime *string `json:"certificate_time,omitempty" xml:"certificate_time,omitempty" require:"true"`
-	// 链上交易hash
-	CertificateHash *string `json:"certificate_hash,omitempty" xml:"certificate_hash,omitempty" require:"true"`
-	// 证书下载url（有效期3天）
-	CertificateUrl *string `json:"certificate_url,omitempty" xml:"certificate_url,omitempty" require:"true"`
-}
-
-func (s EvidenceCertificateInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EvidenceCertificateInfo) GoString() string {
-	return s.String()
-}
-
-func (s *EvidenceCertificateInfo) SetCertificateNo(v string) *EvidenceCertificateInfo {
-	s.CertificateNo = &v
-	return s
-}
-
-func (s *EvidenceCertificateInfo) SetCertificateTime(v string) *EvidenceCertificateInfo {
-	s.CertificateTime = &v
-	return s
-}
-
-func (s *EvidenceCertificateInfo) SetCertificateHash(v string) *EvidenceCertificateInfo {
-	s.CertificateHash = &v
-	return s
-}
-
-func (s *EvidenceCertificateInfo) SetCertificateUrl(v string) *EvidenceCertificateInfo {
 	s.CertificateUrl = &v
 	return s
 }
@@ -11044,7 +11454,7 @@ type CreateEvidenceRecordscreenRequest struct {
 	// 取证公证处
 	NotaryOffice *string `json:"notary_office,omitempty" xml:"notary_office,omitempty" require:"true"`
 	// 取证网址信息
-	WebUrls []*EvidenceWebUrlInfo `json:"web_urls,omitempty" xml:"web_urls,omitempty" require:"true" type:"Repeated"`
+	WebUrls []*EvidenceWebUrlInfo `json:"web_urls,omitempty" xml:"web_urls,omitempty" type:"Repeated"`
 	// 取证三方账号信息
 	ThirdPartyInfo *EvidenceThirdPartyInfo `json:"third_party_info,omitempty" xml:"third_party_info,omitempty" require:"true"`
 	// 取证服务器地域
@@ -11269,13 +11679,13 @@ type CreateEvidenceLiveRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 取证用户id
-	EvidenceUserId *int64 `json:"evidence_user_id,omitempty" xml:"evidence_user_id,omitempty" require:"true"`
+	EvidenceUserId *string `json:"evidence_user_id,omitempty" xml:"evidence_user_id,omitempty" require:"true"`
 	// 取证公证处
 	NotaryOffice *string `json:"notary_office,omitempty" xml:"notary_office,omitempty" require:"true"`
 	// 取证类型（通用直播取证：DEFAULT）
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 取证网址信息
-	WebUrls *EvidenceWebUrlInfo `json:"web_urls,omitempty" xml:"web_urls,omitempty" require:"true"`
+	WebUrl *EvidenceWebUrlInfo `json:"web_url,omitempty" xml:"web_url,omitempty" require:"true"`
 	// 幂等字段
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
 }
@@ -11298,7 +11708,7 @@ func (s *CreateEvidenceLiveRequest) SetProductInstanceId(v string) *CreateEviden
 	return s
 }
 
-func (s *CreateEvidenceLiveRequest) SetEvidenceUserId(v int64) *CreateEvidenceLiveRequest {
+func (s *CreateEvidenceLiveRequest) SetEvidenceUserId(v string) *CreateEvidenceLiveRequest {
 	s.EvidenceUserId = &v
 	return s
 }
@@ -11313,8 +11723,8 @@ func (s *CreateEvidenceLiveRequest) SetType(v string) *CreateEvidenceLiveRequest
 	return s
 }
 
-func (s *CreateEvidenceLiveRequest) SetWebUrls(v *EvidenceWebUrlInfo) *CreateEvidenceLiveRequest {
-	s.WebUrls = v
+func (s *CreateEvidenceLiveRequest) SetWebUrl(v *EvidenceWebUrlInfo) *CreateEvidenceLiveRequest {
+	s.WebUrl = v
 	return s
 }
 
@@ -11367,7 +11777,7 @@ type CreateEvidenceVodRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 取证用户id
-	EvidenceUserId *int64 `json:"evidence_user_id,omitempty" xml:"evidence_user_id,omitempty" require:"true"`
+	EvidenceUserId *string `json:"evidence_user_id,omitempty" xml:"evidence_user_id,omitempty" require:"true"`
 	// 公证处code
 	NotaryOffice *string `json:"notary_office,omitempty" xml:"notary_office,omitempty" require:"true"`
 	// 取证类型（通用点播取证：DEFAULT，快手点播取证：KUAISHOU）
@@ -11396,7 +11806,7 @@ func (s *CreateEvidenceVodRequest) SetProductInstanceId(v string) *CreateEvidenc
 	return s
 }
 
-func (s *CreateEvidenceVodRequest) SetEvidenceUserId(v int64) *CreateEvidenceVodRequest {
+func (s *CreateEvidenceVodRequest) SetEvidenceUserId(v string) *CreateEvidenceVodRequest {
 	s.EvidenceUserId = &v
 	return s
 }
@@ -11605,6 +12015,8 @@ type GetEvidenceInfoResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 取证编号
 	EvidenceId *string `json:"evidence_id,omitempty" xml:"evidence_id,omitempty"`
+	// 取证类型（LIVE：直播，VOD：点播）
+	EvidenceType *string `json:"evidence_type,omitempty" xml:"evidence_type,omitempty"`
 	// 取证状态（取证中：DOING，取证成功：SUCCESS，取证失败：FAIL）
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// 公证处code
@@ -11642,6 +12054,11 @@ func (s *GetEvidenceInfoResponse) SetResultMsg(v string) *GetEvidenceInfoRespons
 
 func (s *GetEvidenceInfoResponse) SetEvidenceId(v string) *GetEvidenceInfoResponse {
 	s.EvidenceId = &v
+	return s
+}
+
+func (s *GetEvidenceInfoResponse) SetEvidenceType(v string) *GetEvidenceInfoResponse {
+	s.EvidenceType = &v
 	return s
 }
 
@@ -12772,7 +13189,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.18.20"),
+				"sdk_version":      tea.String("1.18.25"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
