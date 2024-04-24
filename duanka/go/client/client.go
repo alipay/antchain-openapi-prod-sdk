@@ -525,6 +525,8 @@ type QuerySkyholdResRequest struct {
 	KeyId *string `json:"key_id,omitempty" xml:"key_id,omitempty" require:"true"`
 	// 渠道code
 	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	// 客户id
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty" require:"true"`
 }
 
 func (s QuerySkyholdResRequest) String() string {
@@ -552,6 +554,11 @@ func (s *QuerySkyholdResRequest) SetKeyId(v string) *QuerySkyholdResRequest {
 
 func (s *QuerySkyholdResRequest) SetChannelCode(v string) *QuerySkyholdResRequest {
 	s.ChannelCode = &v
+	return s
+}
+
+func (s *QuerySkyholdResRequest) SetCustomerId(v string) *QuerySkyholdResRequest {
+	s.CustomerId = &v
 	return s
 }
 
@@ -924,7 +931,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.6"),
+				"sdk_version":      tea.String("1.0.7"),
 				"_prod_code":       tea.String("DUANKA"),
 				"_prod_channel":    tea.String("undefined"),
 			}
