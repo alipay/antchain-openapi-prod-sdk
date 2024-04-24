@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.18.20',
+    sdk_version = '1.18.25',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -331,6 +331,14 @@ model ScreenshotInfo {
   logZipTxHash?: string(name='log_zip_tx_hash', example='0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd'),
 }
 
+// 取证网址信息
+model EvidenceWebUrlInfo {
+  // 取证网址
+  webUrl: string(name='web_url', example='取证网址'),
+  // 取证名称
+  title?: string(name='title', example='取证名称'),
+}
+
 // 取证文件信息
 model ScreenInfo {
   // 全链路取证日志文件下载链接
@@ -397,6 +405,24 @@ model SaleDigestData {
   hash: string(name='hash', example='hash'),
 }
 
+// 取证文件信息
+model EvidenceFile {
+  // 证据文件名称
+  evidenceFileName: string(name='evidence_file_name', example='文件名称'),
+  // 证据文件备注
+  memo: string(name='memo', example='备注'),
+  // 文件类型
+  evidenceFileType: string(name='evidence_file_type', example='RECORD_SCREEN'),
+  // 文件大小
+  evidenceFileSize: long(name='evidence_file_size', example='100'),
+  // 文件时长（单位：秒）
+  duration: long(name='duration', example='100'),
+  // 证据文件指纹
+  evidenceFileHash: string(name='evidence_file_hash', example='b99bd7628080f2ec55d68bfe15d62a2b'),
+  // 文件url
+  fileUrl: string(name='file_url', example='https://www.baidu.com'),
+}
+
 // 申办事由
 model BidReason {
   // 事由类别ID
@@ -413,6 +439,18 @@ model BidReason {
   isNeedTestifyFile: boolean(name='is_need_testify_file', example='true, false'),
   // reasonArray
   reasonArray: [ Reason ](name='reason_array', example=''),
+}
+
+// 存证证明信息
+model EvidenceCertificateInfo {
+  // 证书编号
+  certificateNo: string(name='certificate_no', example='5978355373'),
+  // 上链时间
+  certificateTime: string(name='certificate_time', example='2023-06-27T10:50:23+08:00'),
+  // 链上交易hash
+  certificateHash: string(name='certificate_hash', example='eh5a978s3553c73ee7e2cl22e'),
+  // 证书下载url（有效期3天）
+  certificateUrl: string(name='certificate_url', example='https://xxxx'),
 }
 
 // 公证书送达信息
@@ -465,6 +503,36 @@ model GoodSkuInfo {
   skuNum: string(name='sku_num', example='001'),
   // 授权规格价格(单位：分)
   price: long(name='price', example='10'),
+}
+
+// 网页截图存证结果
+model ScreenshotCertificateResult {
+  // 证据类型
+  evidenceType: string(name='evidence_type', example='SCREENSHOT'),
+  // 证据状态
+  status: string(name='status', example='SUCCESS'),
+  // 网页截取编号
+  screenshotId: string(name='screenshot_id', example='8240419000000028693'),
+  // 证据编号
+  evidenceId: string(name='evidence_id', example='8240419000000028693'),
+  // 存证编号
+  certificateNo: string(name='certificate_no', example='20240422173407597000001'),
+  // 上链时间
+  certificateTime: long(name='certificate_time', example='1713779272000'),
+  // 证据hash
+  evidenceHash: string(name='evidence_hash', example='dbdd234c35ca275a17b395ad58eff4c2'),
+  // 链上交易hash
+  evidenceTxHash: string(name='evidence_tx_hash', example='fc044ac2c1d75ed1219b39db86398cc7cd1c67a43d6ea6c4b83f3a7f5b918a14'),
+  // 证书下载链接
+  certificateFileUrl: string(name='certificate_file_url', example='https://www.baidu.com'),
+  // 截图文件下载链接
+  screenshotFileUrl: string(name='screenshot_file_url', example='https://www.baidu.com'),
+  // 证据文件大小
+  evidenceFileSize: long(name='evidence_file_size', example='100'),
+  // 错误码
+  errorCode: string(name='error_code', example='NOTARY_SCREENSHOT_ERROR'),
+  // 错误信息
+  errorMessage: string(name='error_message', example='公证处网页取证存证失败'),
 }
 
 // 公证处信息
@@ -794,6 +862,36 @@ model PlayListEntity {
   authPlatform?: [ string ](name='auth_platform', example='YOUTUBE'),
 }
 
+// 录屏取证结果
+model RecordScreenResult {
+  // 取证类型(SCREEN_RECORDING：录屏取证)
+  evidenceType: string(name='evidence_type', example='SCREEN_RECORDING'),
+  // 取证状态
+  status: string(name='status', example='SUCCESS'),
+  // 证据编号
+  evidenceId: string(name='evidence_id', example='8240401000000013980'),
+  // 存证编号
+  certificateNo: string(name='certificate_no', example='8240401000000013980'),
+  // 上链时间
+  certificateTime: long(name='certificate_time', example='1713771170000'),
+  // 证据hash
+  evidenceHash: string(name='evidence_hash', example='2ed3532c4438f82eef7cdf6a54e7ac11'),
+  // 链上交易hash
+  evidenceTxHash: string(name='evidence_tx_hash', example='b251a2d54ea254165c9baf13e8366635b1c90d4a449a35fcdce7b332054c8aac'),
+  // 证书文件下载地址
+  certificateFileUrl?: string(name='certificate_file_url', example='https://www.baidu.com'),
+  // 录屏取证文件列表
+  evidenceFiles?: [ EvidenceFile ](name='evidence_files', example=''),
+  // 录屏开始时间
+  evidenceStartTime: long(name='evidence_start_time', example='1713770769000'),
+  // 录屏结束时间
+  evidenceEndTime: long(name='evidence_end_time', example='1713770944000'),
+  // 错误码
+  errorCode?: string(name='error_code', example='NOTARY_SCREENSHOT_ERROR'),
+  // 错误信息
+  errorMessage: string(name='error_message', example='公证处网页取证存证失败'),
+}
+
 // 作品信息
 model WorksInfo {
   // 作品名称
@@ -949,14 +1047,6 @@ model EvidenceThirdPartyInfo {
   loginIp: string(name='login_ip', example='用户取证时登录的IP'),
 }
 
-// 取证网址信息
-model EvidenceWebUrlInfo {
-  // 取证网址
-  webUrl: string(name='web_url', example='取证网址'),
-  // 取证名称
-  title?: string(name='title', example='取证名称'),
-}
-
 // 推荐分类信息
 model RecommendCategoryDetail {
   // 推荐分类类型
@@ -1055,6 +1145,48 @@ model EnterpriseLegalPersonInfo {
   legalPersonCertNo?: string(name='legal_person_cert_no', example='341227199711226752'),
 }
 
+// 网页截图结果
+model ScreenshotResult {
+  // 截图文件下载链接
+  screenshotFileUrl: string(name='screenshot_file_url', example='https://www.baidu.com'),
+  // 网页截取编号
+  screenshotId: string(name='screenshot_id', example='8240328000000007919'),
+  // 取证类型(SCREENSHOT: 网页截图)
+  screenshotType: string(name='screenshot_type', example='SCREENSHOT'),
+  // 取证状态
+  status: string(name='status', example='SUCCESS'),
+  // 错误码
+  errorCode?: string(name='error_code', example='NOTARY_SCREENSHOT_ERROR'),
+  // 错误信息
+  errorMessage?: string(name='error_message', example='公证处网页取证存证失败'),
+  // 网页截取名称
+  screenshotName: string(name='screenshot_name', example='名称'),
+}
+
+// 取证结果
+model EvidenceResult {
+  // 取证编号
+  evidenceId: string(name='evidence_id', example='8240327000000001001'),
+  // 取证类型（LIVE：直播，VOD：点播）
+  evidenceType: string(name='evidence_type', example='LIVE'),
+  // 公证处code
+  notaryOffice: string(name='notary_office', example='LUJIANG'),
+  // 取证站点url信息
+  evidenceUrl: EvidenceWebUrlInfo(name='evidence_url', example=''),
+  // 取证结果文件下载url（有效期3天）
+  evidenceResultUrl: string(name='evidence_result_url', example='https://www.baidu.com'),
+  // 存证证明信息
+  certificateInfo: EvidenceCertificateInfo(name='certificate_info', example=''),
+  // 取证开始时间戳
+  evidenceStartTime: long(name='evidence_start_time', example='1713589469000'),
+  // 取证状态(SUCCESS:成功, FAIL:取证失败)
+  status: string(name='status', example='SUCCESS'),
+  // 处理结果码
+  code?: string(name='code', example='4188'),
+  // 处理结果信息
+  message: string(name='message', example='取证资源不足'),
+}
+
 // 数登上传文件结构体
 model AdditionalFileInfo {
   // 内容梗概文件fileId
@@ -1107,18 +1239,6 @@ model CertificateData {
   dciCode: string(name='dci_code', example='DCI码'),
   // 证书下载的链接地址
   certificateUrl: string(name='certificate_url', example='证书下载的链接地址'),
-}
-
-// 存证证明信息
-model EvidenceCertificateInfo {
-  // 证书编号
-  certificateNo: string(name='certificate_no', example='5978355373'),
-  // 上链时间
-  certificateTime: string(name='certificate_time', example='2023-06-27T10:50:23+08:00'),
-  // 链上交易hash
-  certificateHash: string(name='certificate_hash', example='eh5a978s3553c73ee7e2cl22e'),
-  // 证书下载url（有效期3天）
-  certificateUrl: string(name='certificate_url', example='https://xxxx'),
 }
 
 // 代理信息
@@ -4486,7 +4606,7 @@ model CreateEvidenceRecordscreenRequest = {
   // 取证公证处
   notaryOffice: string(name='notary_office'),
   // 取证网址信息
-  webUrls: [ EvidenceWebUrlInfo ](name='web_urls'),
+  webUrls?: [ EvidenceWebUrlInfo ](name='web_urls'),
   // 取证三方账号信息
   thirdPartyInfo: EvidenceThirdPartyInfo(name='third_party_info'),
   // 取证服务器地域
@@ -4582,13 +4702,13 @@ model CreateEvidenceLiveRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 取证用户id
-  evidenceUserId: long(name='evidence_user_id'),
+  evidenceUserId: string(name='evidence_user_id'),
   // 取证公证处
   notaryOffice: string(name='notary_office'),
   // 取证类型（通用直播取证：DEFAULT）
   type: string(name='type'),
   // 取证网址信息
-  webUrls: EvidenceWebUrlInfo(name='web_urls'),
+  webUrl: EvidenceWebUrlInfo(name='web_url'),
   // 幂等字段
   clientToken: string(name='client_token'),
 }
@@ -4628,7 +4748,7 @@ model CreateEvidenceVodRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 取证用户id
-  evidenceUserId: long(name='evidence_user_id'),
+  evidenceUserId: string(name='evidence_user_id'),
   // 公证处code
   notaryOffice: string(name='notary_office'),
   // 取证类型（通用点播取证：DEFAULT，快手点播取证：KUAISHOU）
@@ -4734,6 +4854,8 @@ model GetEvidenceInfoResponse = {
   resultMsg?: string(name='result_msg'),
   // 取证编号
   evidenceId?: string(name='evidence_id'),
+  // 取证类型（LIVE：直播，VOD：点播）
+  evidenceType?: string(name='evidence_type'),
   // 取证状态（取证中：DOING，取证成功：SUCCESS，取证失败：FAIL）
   status?: string(name='status'),
   // 公证处code
