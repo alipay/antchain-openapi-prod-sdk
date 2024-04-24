@@ -20,6 +20,10 @@ public class GetEvidenceInfoResponse extends TeaModel {
     @NameInMap("evidence_id")
     public String evidenceId;
 
+    // 取证类型（LIVE：直播，VOD：点播）
+    @NameInMap("evidence_type")
+    public String evidenceType;
+
     // 取证状态（取证中：DOING，取证成功：SUCCESS，取证失败：FAIL）
     @NameInMap("status")
     public String status;
@@ -75,6 +79,14 @@ public class GetEvidenceInfoResponse extends TeaModel {
     }
     public String getEvidenceId() {
         return this.evidenceId;
+    }
+
+    public GetEvidenceInfoResponse setEvidenceType(String evidenceType) {
+        this.evidenceType = evidenceType;
+        return this;
+    }
+    public String getEvidenceType() {
+        return this.evidenceType;
     }
 
     public GetEvidenceInfoResponse setStatus(String status) {

@@ -14,7 +14,7 @@ public class CreateEvidenceLiveRequest extends TeaModel {
     // 取证用户id
     @NameInMap("evidence_user_id")
     @Validation(required = true)
-    public Long evidenceUserId;
+    public String evidenceUserId;
 
     // 取证公证处
     @NameInMap("notary_office")
@@ -27,9 +27,9 @@ public class CreateEvidenceLiveRequest extends TeaModel {
     public String type;
 
     // 取证网址信息
-    @NameInMap("web_urls")
+    @NameInMap("web_url")
     @Validation(required = true)
-    public EvidenceWebUrlInfo webUrls;
+    public EvidenceWebUrlInfo webUrl;
 
     // 幂等字段
     @NameInMap("client_token")
@@ -57,11 +57,11 @@ public class CreateEvidenceLiveRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CreateEvidenceLiveRequest setEvidenceUserId(Long evidenceUserId) {
+    public CreateEvidenceLiveRequest setEvidenceUserId(String evidenceUserId) {
         this.evidenceUserId = evidenceUserId;
         return this;
     }
-    public Long getEvidenceUserId() {
+    public String getEvidenceUserId() {
         return this.evidenceUserId;
     }
 
@@ -81,12 +81,12 @@ public class CreateEvidenceLiveRequest extends TeaModel {
         return this.type;
     }
 
-    public CreateEvidenceLiveRequest setWebUrls(EvidenceWebUrlInfo webUrls) {
-        this.webUrls = webUrls;
+    public CreateEvidenceLiveRequest setWebUrl(EvidenceWebUrlInfo webUrl) {
+        this.webUrl = webUrl;
         return this;
     }
-    public EvidenceWebUrlInfo getWebUrls() {
-        return this.webUrls;
+    public EvidenceWebUrlInfo getWebUrl() {
+        return this.webUrl;
     }
 
     public CreateEvidenceLiveRequest setClientToken(String clientToken) {

@@ -28,7 +28,6 @@ public class CreateEvidenceRecordscreenRequest extends TeaModel {
 
     // 取证网址信息
     @NameInMap("web_urls")
-    @Validation(required = true)
     public java.util.List<EvidenceWebUrlInfo> webUrls;
 
     // 取证三方账号信息

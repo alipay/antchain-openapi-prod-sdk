@@ -14,7 +14,7 @@ public class CreateEvidenceVodRequest extends TeaModel {
     // 取证用户id
     @NameInMap("evidence_user_id")
     @Validation(required = true)
-    public Long evidenceUserId;
+    public String evidenceUserId;
 
     // 公证处code
     @NameInMap("notary_office")
@@ -57,11 +57,11 @@ public class CreateEvidenceVodRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CreateEvidenceVodRequest setEvidenceUserId(Long evidenceUserId) {
+    public CreateEvidenceVodRequest setEvidenceUserId(String evidenceUserId) {
         this.evidenceUserId = evidenceUserId;
         return this;
     }
-    public Long getEvidenceUserId() {
+    public String getEvidenceUserId() {
         return this.evidenceUserId;
     }
 
