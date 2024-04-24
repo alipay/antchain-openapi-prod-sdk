@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.14',
+    sdk_version = '1.2.17',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -169,18 +169,18 @@ model RiskData {
   resultValue: string(name='result_value', example='·'),
 }
 
+// ekyt响应头
+model ResponseHead {
+  // 请求唯一标识
+  requestId: string(name='request_id', example='91440300892305861T'),
+}
+
 // 业务参数
 model BizParam {
   // 参数类型枚举，mobile、cert、biz_license
   paramKey: string(name='param_key', example='·'),
   // 值，如加密后的手机号
   paramValue: string(name='param_value', example='·'),
-}
-
-// ekyt响应头
-model ResponseHead {
-  // 请求唯一标识
-  requestId: string(name='request_id', example='91440300892305861T'),
 }
 
 // CctSubCheckLabel
@@ -207,20 +207,6 @@ model RiskResult {
   riskData: [ RiskData ](name='risk_data', example=''),
   // 解决方案编码
   solutionCode: string(name='solution_code', example='·'),
-}
-
-// eKYT请求头
-model RequestHead {
-  // 请求唯一标识
-  requestId: string(name='request_id', example='91440300892305861T'),
-  // 客户身份标识ID
-  secretId: string(name='secret_id', example='91440300892305861T'),
-  // 客户签约产品code
-  productCode: string(name='product_code', example='RDDB04201PR'),
-  // response输出类型，默认json
-  formatType?: string(name='format_type', example='"tlv"'),
-  // false
-  onlineFlag?: boolean(name='online_flag', example='true, false'),
 }
 
 // 终端安全-Android应用加固-RuntimeProtectConfig
@@ -293,6 +279,78 @@ model DeviceRiskReportResultData {
   resultType: string(name='result_type', example='result_type'),
 }
 
+// 安卓加固HardeningTaskResponse
+model HardeningTaskResponse {
+  // 加固任务的 ID，后续用来轮询调用
+  taskId: string(name='task_id', example='task_id'),
+  // 加固任务的状态
+  status: long(name='status', example=''),
+  // 加固后 APK/ABB 的 MD5
+  afterMdFive: string(name='after_md_five', example='after_md_five'),
+  // 加固后 APK/ABB 的大小
+  afterSize: long(name='after_size', example=''),
+}
+
+// eKYT业务响应结果
+model IifaaEkytResponse {
+  // 响应头
+  head: ResponseHead(name='head', example=''),
+  // 业务响应结果
+  bizRes: string(name='biz_res', example='126dncnceicncwuiooo'),
+}
+
+// 业务请求入参，兼容批量调用
+model BizQueryParam {
+  // 参数列表，数组
+  bizParams: [ BizParam ](name='biz_params', example=''),
+}
+
+// 可信签约录入准备数据
+model TrustSignInitData {
+  // 请求唯一标识Id
+  requestId: string(name='request_id', example='111111111111111'),
+  // 签约秘钥
+  signKey: string(name='sign_key', example='g9y47yjs'),
+}
+
+// 终端安全-Android应用加固-ClassMethodConfig
+model ClassMethodConfig {
+  // 加固类名
+  className: string(name='class_name', example='class_name'),
+  // 方法集合，使用英文逗号分隔
+  methods: string(name='methods', example='methods'),
+}
+
+// 可信签约查询数据
+model TrustSignQueryData {
+  // 请求唯一标识Id
+  requestId: string(name='request_id', example='111111111111111'),
+  // 订单状态
+  orderStatus: string(name='order_status', example='SUCCESS'),
+  // 签约方案码
+  solutionCode: string(name='solution_code', example='011fda32a0046d0e8a8be6b94b367fb3'),
+  // 创建时间
+  gmtCreate: string(name='gmt_create', example='2024-03-20'),
+  // 修改时间
+  gmtModified: string(name='gmt_modified', example='2024-03-20'),
+  // 签约文件列表
+  fileList: [ string ](name='file_list', example=''),
+}
+
+// eKYT请求头
+model RequestHead {
+  // 请求唯一标识
+  requestId: string(name='request_id', example='91440300892305861T'),
+  // 客户身份标识ID
+  secretId: string(name='secret_id', example='91440300892305861T'),
+  // 客户签约产品code
+  productCode: string(name='product_code', example='RDDB04201PR'),
+  // response输出类型，默认json
+  formatType?: string(name='format_type', example='"tlv"'),
+  // false
+  onlineFlag?: boolean(name='online_flag', example='true, false'),
+}
+
 // 保单信息
 model InsureInfo {
   // 保单时间
@@ -325,18 +383,6 @@ model RiskQueryData {
   riskLabels: [ string ](name='risk_labels', example='.'),
 }
 
-// 安卓加固HardeningTaskResponse
-model HardeningTaskResponse {
-  // 加固任务的 ID，后续用来轮询调用
-  taskId: string(name='task_id', example='task_id'),
-  // 加固任务的状态
-  status: long(name='status', example=''),
-  // 加固后 APK/ABB 的 MD5
-  afterMdFive: string(name='after_md_five', example='after_md_five'),
-  // 加固后 APK/ABB 的大小
-  afterSize: long(name='after_size', example=''),
-}
-
 // 设备风险查询data
 model DeviceRiskResp {
   // apdid
@@ -359,28 +405,6 @@ model CctDataMap {
   text?: [ string ](name='text', example='text'),
   // PICTURE
   picture?: [ string ](name='picture', example='PICTURE'),
-}
-
-// eKYT业务响应结果
-model IifaaEkytResponse {
-  // 响应头
-  head: ResponseHead(name='head', example=''),
-  // 业务响应结果
-  bizRes: string(name='biz_res', example='126dncnceicncwuiooo'),
-}
-
-// 业务请求入参，兼容批量调用
-model BizQueryParam {
-  // 参数列表，数组
-  bizParams: [ BizParam ](name='biz_params', example=''),
-}
-
-// 终端安全-Android应用加固-ClassMethodConfig
-model ClassMethodConfig {
-  // 加固类名
-  className: string(name='class_name', example='class_name'),
-  // 方法集合，使用英文逗号分隔
-  methods: string(name='methods', example='methods'),
 }
 
 // 风险评估结果
@@ -1153,6 +1177,8 @@ model QueryRiskGeneralRequest = {
   encryptMethod?: string(name='encrypt_method'),
   // 整个包体加密，二选一
   encryptedBody?: string(name='encrypted_body'),
+  // hash_type
+  hashType?: string(name='hash_type'),
 }
 
 model QueryRiskGeneralResponse = {
@@ -1170,6 +1196,8 @@ model QueryRiskGeneralResponse = {
   resultList?: [ ResultList ](name='result_list'),
   // 拓展输出字段
   extData?: string(name='ext_data'),
+  // 是否查得
+  found?: boolean(name='found'),
 }
 
 /**
@@ -1909,5 +1937,107 @@ async function getAshieldHardeninglog(request: GetAshieldHardeninglogRequest): G
 async function getAshieldHardeninglogEx(request: GetAshieldHardeninglogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAshieldHardeninglogResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.ashield.hardeninglog.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitEkytTrustsignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求头
+  head: RequestHead(name='head'),
+  // 签约用户信息
+  signUser: string(name='sign_user'),
+  // 控件key-value
+  rectId?: string(name='rect_id'),
+  // 签约方案码
+  solutionCode: string(name='solution_code'),
+  // 发起签约的外部流水号
+  outOrderNo: string(name='out_order_no'),
+  // 小程序appId
+  appId: string(name='app_id'),
+  // 扩展信息
+  extInfo?: string(name='ext_info'),
+}
+
+model InitEkytTrustsignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应结果
+  success?: boolean(name='success'),
+  // 结果描述
+  message?: string(name='message'),
+  // 可信签约初始化数据
+  data?: TrustSignInitData(name='data'),
+}
+
+/**
+ * Description: eKYT可信签约初始化
+ * Summary: eKYT可信签约-初始化
+ */
+async function initEkytTrustsign(request: InitEkytTrustsignRequest): InitEkytTrustsignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initEkytTrustsignEx(request, headers, runtime);
+}
+
+/**
+ * Description: eKYT可信签约初始化
+ * Summary: eKYT可信签约-初始化
+ */
+async function initEkytTrustsignEx(request: InitEkytTrustsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitEkytTrustsignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.ekyt.trustsign.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEkytTrustsignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求头
+  head: RequestHead(name='head'),
+  // 小程序appId
+  appId: string(name='app_id'),
+  // 发起签约的外部流水号
+  outOrderNo: string(name='out_order_no'),
+  // 签约方案码
+  solutionCode: string(name='solution_code'),
+}
+
+model QueryEkytTrustsignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应结果
+  success?: boolean(name='success'),
+  // 结果描述
+  message?: string(name='message'),
+  // 可信签约签约单数据
+  data?: TrustSignQueryData(name='data'),
+}
+
+/**
+ * Description: eKYT可信签约签约单查询
+ * Summary: eKYT可信签约-签约单查询
+ */
+async function queryEkytTrustsign(request: QueryEkytTrustsignRequest): QueryEkytTrustsignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEkytTrustsignEx(request, headers, runtime);
+}
+
+/**
+ * Description: eKYT可信签约签约单查询
+ * Summary: eKYT可信签约-签约单查询
+ */
+async function queryEkytTrustsignEx(request: QueryEkytTrustsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEkytTrustsignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.ekyt.trustsign.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
