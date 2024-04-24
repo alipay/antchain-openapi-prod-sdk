@@ -31,11 +31,18 @@ class QuerySkyholdResRequest extends Model
      * @var string
      */
     public $channelCode;
+
+    // 客户id
+    /**
+     * @var string
+     */
+    public $customerId;
     protected $_name = [
         'authToken'   => 'auth_token',
         'bizCode'     => 'biz_code',
         'keyId'       => 'key_id',
         'channelCode' => 'channel_code',
+        'customerId'  => 'customer_id',
     ];
 
     public function validate()
@@ -43,6 +50,7 @@ class QuerySkyholdResRequest extends Model
         Model::validateRequired('bizCode', $this->bizCode, true);
         Model::validateRequired('keyId', $this->keyId, true);
         Model::validateRequired('channelCode', $this->channelCode, true);
+        Model::validateRequired('customerId', $this->customerId, true);
     }
 
     public function toMap()
@@ -59,6 +67,9 @@ class QuerySkyholdResRequest extends Model
         }
         if (null !== $this->channelCode) {
             $res['channel_code'] = $this->channelCode;
+        }
+        if (null !== $this->customerId) {
+            $res['customer_id'] = $this->customerId;
         }
 
         return $res;
@@ -83,6 +94,9 @@ class QuerySkyholdResRequest extends Model
         }
         if (isset($map['channel_code'])) {
             $model->channelCode = $map['channel_code'];
+        }
+        if (isset($map['customer_id'])) {
+            $model->customerId = $map['customer_id'];
         }
 
         return $model;
