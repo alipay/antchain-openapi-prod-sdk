@@ -29,6 +29,11 @@ namespace AntChain.SDK.DUANKA.Models
         [Validation(Required=true)]
         public string ChannelCode { get; set; }
 
+        // 客户id
+        [NameInMap("customer_id")]
+        [Validation(Required=true)]
+        public string CustomerId { get; set; }
+
     }
 
 }
