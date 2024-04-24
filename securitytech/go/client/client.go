@@ -174,6 +174,25 @@ func (s *RiskData) SetResultValue(v string) *RiskData {
 	return s
 }
 
+// ekyt响应头
+type ResponseHead struct {
+	// 请求唯一标识
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+}
+
+func (s ResponseHead) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResponseHead) GoString() string {
+	return s.String()
+}
+
+func (s *ResponseHead) SetRequestId(v string) *ResponseHead {
+	s.RequestId = &v
+	return s
+}
+
 // 业务参数
 type BizParam struct {
 	// 参数类型枚举，mobile、cert、biz_license
@@ -197,25 +216,6 @@ func (s *BizParam) SetParamKey(v string) *BizParam {
 
 func (s *BizParam) SetParamValue(v string) *BizParam {
 	s.ParamValue = &v
-	return s
-}
-
-// ekyt响应头
-type ResponseHead struct {
-	// 请求唯一标识
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
-}
-
-func (s ResponseHead) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ResponseHead) GoString() string {
-	return s.String()
-}
-
-func (s *ResponseHead) SetRequestId(v string) *ResponseHead {
-	s.RequestId = &v
 	return s
 }
 
@@ -301,53 +301,6 @@ func (s *RiskResult) SetRiskData(v []*RiskData) *RiskResult {
 
 func (s *RiskResult) SetSolutionCode(v string) *RiskResult {
 	s.SolutionCode = &v
-	return s
-}
-
-// eKYT请求头
-type RequestHead struct {
-	// 请求唯一标识
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
-	// 客户身份标识ID
-	SecretId *string `json:"secret_id,omitempty" xml:"secret_id,omitempty" require:"true"`
-	// 客户签约产品code
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
-	// response输出类型，默认json
-	FormatType *string `json:"format_type,omitempty" xml:"format_type,omitempty"`
-	// false
-	OnlineFlag *bool `json:"online_flag,omitempty" xml:"online_flag,omitempty"`
-}
-
-func (s RequestHead) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RequestHead) GoString() string {
-	return s.String()
-}
-
-func (s *RequestHead) SetRequestId(v string) *RequestHead {
-	s.RequestId = &v
-	return s
-}
-
-func (s *RequestHead) SetSecretId(v string) *RequestHead {
-	s.SecretId = &v
-	return s
-}
-
-func (s *RequestHead) SetProductCode(v string) *RequestHead {
-	s.ProductCode = &v
-	return s
-}
-
-func (s *RequestHead) SetFormatType(v string) *RequestHead {
-	s.FormatType = &v
-	return s
-}
-
-func (s *RequestHead) SetOnlineFlag(v bool) *RequestHead {
-	s.OnlineFlag = &v
 	return s
 }
 
@@ -588,6 +541,244 @@ func (s *DeviceRiskReportResultData) SetResultType(v string) *DeviceRiskReportRe
 	return s
 }
 
+// 安卓加固HardeningTaskResponse
+type HardeningTaskResponse struct {
+	// 加固任务的 ID，后续用来轮询调用
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 加固任务的状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 加固后 APK/ABB 的 MD5
+	AfterMdFive *string `json:"after_md_five,omitempty" xml:"after_md_five,omitempty" require:"true"`
+	// 加固后 APK/ABB 的大小
+	AfterSize *int64 `json:"after_size,omitempty" xml:"after_size,omitempty" require:"true"`
+}
+
+func (s HardeningTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HardeningTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *HardeningTaskResponse) SetTaskId(v string) *HardeningTaskResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *HardeningTaskResponse) SetStatus(v int64) *HardeningTaskResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *HardeningTaskResponse) SetAfterMdFive(v string) *HardeningTaskResponse {
+	s.AfterMdFive = &v
+	return s
+}
+
+func (s *HardeningTaskResponse) SetAfterSize(v int64) *HardeningTaskResponse {
+	s.AfterSize = &v
+	return s
+}
+
+// eKYT业务响应结果
+type IifaaEkytResponse struct {
+	// 响应头
+	Head *ResponseHead `json:"head,omitempty" xml:"head,omitempty" require:"true"`
+	// 业务响应结果
+	BizRes *string `json:"biz_res,omitempty" xml:"biz_res,omitempty" require:"true"`
+}
+
+func (s IifaaEkytResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IifaaEkytResponse) GoString() string {
+	return s.String()
+}
+
+func (s *IifaaEkytResponse) SetHead(v *ResponseHead) *IifaaEkytResponse {
+	s.Head = v
+	return s
+}
+
+func (s *IifaaEkytResponse) SetBizRes(v string) *IifaaEkytResponse {
+	s.BizRes = &v
+	return s
+}
+
+// 业务请求入参，兼容批量调用
+type BizQueryParam struct {
+	// 参数列表，数组
+	BizParams []*BizParam `json:"biz_params,omitempty" xml:"biz_params,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BizQueryParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BizQueryParam) GoString() string {
+	return s.String()
+}
+
+func (s *BizQueryParam) SetBizParams(v []*BizParam) *BizQueryParam {
+	s.BizParams = v
+	return s
+}
+
+// 可信签约录入准备数据
+type TrustSignInitData struct {
+	// 请求唯一标识Id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 签约秘钥
+	SignKey *string `json:"sign_key,omitempty" xml:"sign_key,omitempty" require:"true"`
+}
+
+func (s TrustSignInitData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TrustSignInitData) GoString() string {
+	return s.String()
+}
+
+func (s *TrustSignInitData) SetRequestId(v string) *TrustSignInitData {
+	s.RequestId = &v
+	return s
+}
+
+func (s *TrustSignInitData) SetSignKey(v string) *TrustSignInitData {
+	s.SignKey = &v
+	return s
+}
+
+// 终端安全-Android应用加固-ClassMethodConfig
+type ClassMethodConfig struct {
+	// 加固类名
+	ClassName *string `json:"class_name,omitempty" xml:"class_name,omitempty" require:"true"`
+	// 方法集合，使用英文逗号分隔
+	Methods *string `json:"methods,omitempty" xml:"methods,omitempty" require:"true"`
+}
+
+func (s ClassMethodConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ClassMethodConfig) GoString() string {
+	return s.String()
+}
+
+func (s *ClassMethodConfig) SetClassName(v string) *ClassMethodConfig {
+	s.ClassName = &v
+	return s
+}
+
+func (s *ClassMethodConfig) SetMethods(v string) *ClassMethodConfig {
+	s.Methods = &v
+	return s
+}
+
+// 可信签约查询数据
+type TrustSignQueryData struct {
+	// 请求唯一标识Id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 订单状态
+	OrderStatus *string `json:"order_status,omitempty" xml:"order_status,omitempty" require:"true"`
+	// 签约方案码
+	SolutionCode *string `json:"solution_code,omitempty" xml:"solution_code,omitempty" require:"true"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
+	// 修改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true"`
+	// 签约文件列表
+	FileList []*string `json:"file_list,omitempty" xml:"file_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s TrustSignQueryData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TrustSignQueryData) GoString() string {
+	return s.String()
+}
+
+func (s *TrustSignQueryData) SetRequestId(v string) *TrustSignQueryData {
+	s.RequestId = &v
+	return s
+}
+
+func (s *TrustSignQueryData) SetOrderStatus(v string) *TrustSignQueryData {
+	s.OrderStatus = &v
+	return s
+}
+
+func (s *TrustSignQueryData) SetSolutionCode(v string) *TrustSignQueryData {
+	s.SolutionCode = &v
+	return s
+}
+
+func (s *TrustSignQueryData) SetGmtCreate(v string) *TrustSignQueryData {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *TrustSignQueryData) SetGmtModified(v string) *TrustSignQueryData {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *TrustSignQueryData) SetFileList(v []*string) *TrustSignQueryData {
+	s.FileList = v
+	return s
+}
+
+// eKYT请求头
+type RequestHead struct {
+	// 请求唯一标识
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 客户身份标识ID
+	SecretId *string `json:"secret_id,omitempty" xml:"secret_id,omitempty" require:"true"`
+	// 客户签约产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// response输出类型，默认json
+	FormatType *string `json:"format_type,omitempty" xml:"format_type,omitempty"`
+	// false
+	OnlineFlag *bool `json:"online_flag,omitempty" xml:"online_flag,omitempty"`
+}
+
+func (s RequestHead) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RequestHead) GoString() string {
+	return s.String()
+}
+
+func (s *RequestHead) SetRequestId(v string) *RequestHead {
+	s.RequestId = &v
+	return s
+}
+
+func (s *RequestHead) SetSecretId(v string) *RequestHead {
+	s.SecretId = &v
+	return s
+}
+
+func (s *RequestHead) SetProductCode(v string) *RequestHead {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *RequestHead) SetFormatType(v string) *RequestHead {
+	s.FormatType = &v
+	return s
+}
+
+func (s *RequestHead) SetOnlineFlag(v bool) *RequestHead {
+	s.OnlineFlag = &v
+	return s
+}
+
 // 保单信息
 type InsureInfo struct {
 	// 保单时间
@@ -696,46 +887,6 @@ func (s *RiskQueryData) SetRiskLabels(v []*string) *RiskQueryData {
 	return s
 }
 
-// 安卓加固HardeningTaskResponse
-type HardeningTaskResponse struct {
-	// 加固任务的 ID，后续用来轮询调用
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
-	// 加固任务的状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 加固后 APK/ABB 的 MD5
-	AfterMdFive *string `json:"after_md_five,omitempty" xml:"after_md_five,omitempty" require:"true"`
-	// 加固后 APK/ABB 的大小
-	AfterSize *int64 `json:"after_size,omitempty" xml:"after_size,omitempty" require:"true"`
-}
-
-func (s HardeningTaskResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HardeningTaskResponse) GoString() string {
-	return s.String()
-}
-
-func (s *HardeningTaskResponse) SetTaskId(v string) *HardeningTaskResponse {
-	s.TaskId = &v
-	return s
-}
-
-func (s *HardeningTaskResponse) SetStatus(v int64) *HardeningTaskResponse {
-	s.Status = &v
-	return s
-}
-
-func (s *HardeningTaskResponse) SetAfterMdFive(v string) *HardeningTaskResponse {
-	s.AfterMdFive = &v
-	return s
-}
-
-func (s *HardeningTaskResponse) SetAfterSize(v int64) *HardeningTaskResponse {
-	s.AfterSize = &v
-	return s
-}
-
 // 设备风险查询data
 type DeviceRiskResp struct {
 	// apdid
@@ -813,77 +964,6 @@ func (s *CctDataMap) SetText(v []*string) *CctDataMap {
 
 func (s *CctDataMap) SetPicture(v []*string) *CctDataMap {
 	s.Picture = v
-	return s
-}
-
-// eKYT业务响应结果
-type IifaaEkytResponse struct {
-	// 响应头
-	Head *ResponseHead `json:"head,omitempty" xml:"head,omitempty" require:"true"`
-	// 业务响应结果
-	BizRes *string `json:"biz_res,omitempty" xml:"biz_res,omitempty" require:"true"`
-}
-
-func (s IifaaEkytResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IifaaEkytResponse) GoString() string {
-	return s.String()
-}
-
-func (s *IifaaEkytResponse) SetHead(v *ResponseHead) *IifaaEkytResponse {
-	s.Head = v
-	return s
-}
-
-func (s *IifaaEkytResponse) SetBizRes(v string) *IifaaEkytResponse {
-	s.BizRes = &v
-	return s
-}
-
-// 业务请求入参，兼容批量调用
-type BizQueryParam struct {
-	// 参数列表，数组
-	BizParams []*BizParam `json:"biz_params,omitempty" xml:"biz_params,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s BizQueryParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BizQueryParam) GoString() string {
-	return s.String()
-}
-
-func (s *BizQueryParam) SetBizParams(v []*BizParam) *BizQueryParam {
-	s.BizParams = v
-	return s
-}
-
-// 终端安全-Android应用加固-ClassMethodConfig
-type ClassMethodConfig struct {
-	// 加固类名
-	ClassName *string `json:"class_name,omitempty" xml:"class_name,omitempty" require:"true"`
-	// 方法集合，使用英文逗号分隔
-	Methods *string `json:"methods,omitempty" xml:"methods,omitempty" require:"true"`
-}
-
-func (s ClassMethodConfig) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ClassMethodConfig) GoString() string {
-	return s.String()
-}
-
-func (s *ClassMethodConfig) SetClassName(v string) *ClassMethodConfig {
-	s.ClassName = &v
-	return s
-}
-
-func (s *ClassMethodConfig) SetMethods(v string) *ClassMethodConfig {
-	s.Methods = &v
 	return s
 }
 
@@ -2527,6 +2607,8 @@ type QueryRiskGeneralRequest struct {
 	EncryptMethod *string `json:"encrypt_method,omitempty" xml:"encrypt_method,omitempty"`
 	// 整个包体加密，二选一
 	EncryptedBody *string `json:"encrypted_body,omitempty" xml:"encrypted_body,omitempty"`
+	// hash_type
+	HashType *string `json:"hash_type,omitempty" xml:"hash_type,omitempty"`
 }
 
 func (s QueryRiskGeneralRequest) String() string {
@@ -2587,6 +2669,11 @@ func (s *QueryRiskGeneralRequest) SetEncryptedBody(v string) *QueryRiskGeneralRe
 	return s
 }
 
+func (s *QueryRiskGeneralRequest) SetHashType(v string) *QueryRiskGeneralRequest {
+	s.HashType = &v
+	return s
+}
+
 type QueryRiskGeneralResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -2602,6 +2689,8 @@ type QueryRiskGeneralResponse struct {
 	ResultList []*ResultList `json:"result_list,omitempty" xml:"result_list,omitempty" type:"Repeated"`
 	// 拓展输出字段
 	ExtData *string `json:"ext_data,omitempty" xml:"ext_data,omitempty"`
+	// 是否查得
+	Found *bool `json:"found,omitempty" xml:"found,omitempty"`
 }
 
 func (s QueryRiskGeneralResponse) String() string {
@@ -2644,6 +2733,11 @@ func (s *QueryRiskGeneralResponse) SetResultList(v []*ResultList) *QueryRiskGene
 
 func (s *QueryRiskGeneralResponse) SetExtData(v string) *QueryRiskGeneralResponse {
 	s.ExtData = &v
+	return s
+}
+
+func (s *QueryRiskGeneralResponse) SetFound(v bool) *QueryRiskGeneralResponse {
+	s.Found = &v
 	return s
 }
 
@@ -4285,6 +4379,237 @@ func (s *GetAshieldHardeninglogResponse) SetResData(v string) *GetAshieldHardeni
 	return s
 }
 
+type InitEkytTrustsignRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求头
+	Head *RequestHead `json:"head,omitempty" xml:"head,omitempty" require:"true"`
+	// 签约用户信息
+	SignUser *string `json:"sign_user,omitempty" xml:"sign_user,omitempty" require:"true"`
+	// 控件key-value
+	RectId *string `json:"rect_id,omitempty" xml:"rect_id,omitempty"`
+	// 签约方案码
+	SolutionCode *string `json:"solution_code,omitempty" xml:"solution_code,omitempty" require:"true"`
+	// 发起签约的外部流水号
+	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
+	// 小程序appId
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s InitEkytTrustsignRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitEkytTrustsignRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitEkytTrustsignRequest) SetAuthToken(v string) *InitEkytTrustsignRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitEkytTrustsignRequest) SetProductInstanceId(v string) *InitEkytTrustsignRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitEkytTrustsignRequest) SetHead(v *RequestHead) *InitEkytTrustsignRequest {
+	s.Head = v
+	return s
+}
+
+func (s *InitEkytTrustsignRequest) SetSignUser(v string) *InitEkytTrustsignRequest {
+	s.SignUser = &v
+	return s
+}
+
+func (s *InitEkytTrustsignRequest) SetRectId(v string) *InitEkytTrustsignRequest {
+	s.RectId = &v
+	return s
+}
+
+func (s *InitEkytTrustsignRequest) SetSolutionCode(v string) *InitEkytTrustsignRequest {
+	s.SolutionCode = &v
+	return s
+}
+
+func (s *InitEkytTrustsignRequest) SetOutOrderNo(v string) *InitEkytTrustsignRequest {
+	s.OutOrderNo = &v
+	return s
+}
+
+func (s *InitEkytTrustsignRequest) SetAppId(v string) *InitEkytTrustsignRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *InitEkytTrustsignRequest) SetExtInfo(v string) *InitEkytTrustsignRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type InitEkytTrustsignResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 结果描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 可信签约初始化数据
+	Data *TrustSignInitData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s InitEkytTrustsignResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitEkytTrustsignResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitEkytTrustsignResponse) SetReqMsgId(v string) *InitEkytTrustsignResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitEkytTrustsignResponse) SetResultCode(v string) *InitEkytTrustsignResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitEkytTrustsignResponse) SetResultMsg(v string) *InitEkytTrustsignResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitEkytTrustsignResponse) SetSuccess(v bool) *InitEkytTrustsignResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *InitEkytTrustsignResponse) SetMessage(v string) *InitEkytTrustsignResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *InitEkytTrustsignResponse) SetData(v *TrustSignInitData) *InitEkytTrustsignResponse {
+	s.Data = v
+	return s
+}
+
+type QueryEkytTrustsignRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求头
+	Head *RequestHead `json:"head,omitempty" xml:"head,omitempty" require:"true"`
+	// 小程序appId
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 发起签约的外部流水号
+	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
+	// 签约方案码
+	SolutionCode *string `json:"solution_code,omitempty" xml:"solution_code,omitempty" require:"true"`
+}
+
+func (s QueryEkytTrustsignRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEkytTrustsignRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEkytTrustsignRequest) SetAuthToken(v string) *QueryEkytTrustsignRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEkytTrustsignRequest) SetProductInstanceId(v string) *QueryEkytTrustsignRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEkytTrustsignRequest) SetHead(v *RequestHead) *QueryEkytTrustsignRequest {
+	s.Head = v
+	return s
+}
+
+func (s *QueryEkytTrustsignRequest) SetAppId(v string) *QueryEkytTrustsignRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *QueryEkytTrustsignRequest) SetOutOrderNo(v string) *QueryEkytTrustsignRequest {
+	s.OutOrderNo = &v
+	return s
+}
+
+func (s *QueryEkytTrustsignRequest) SetSolutionCode(v string) *QueryEkytTrustsignRequest {
+	s.SolutionCode = &v
+	return s
+}
+
+type QueryEkytTrustsignResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 结果描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 可信签约签约单数据
+	Data *TrustSignQueryData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryEkytTrustsignResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEkytTrustsignResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEkytTrustsignResponse) SetReqMsgId(v string) *QueryEkytTrustsignResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEkytTrustsignResponse) SetResultCode(v string) *QueryEkytTrustsignResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEkytTrustsignResponse) SetResultMsg(v string) *QueryEkytTrustsignResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEkytTrustsignResponse) SetSuccess(v bool) *QueryEkytTrustsignResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryEkytTrustsignResponse) SetMessage(v string) *QueryEkytTrustsignResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryEkytTrustsignResponse) SetData(v *TrustSignQueryData) *QueryEkytTrustsignResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -4407,7 +4732,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.14"),
+				"sdk_version":      tea.String("1.2.17"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5480,6 +5805,74 @@ func (client *Client) GetAshieldHardeninglogEx(request *GetAshieldHardeninglogRe
 	}
 	_result = &GetAshieldHardeninglogResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.ashield.hardeninglog.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: eKYT可信签约初始化
+ * Summary: eKYT可信签约-初始化
+ */
+func (client *Client) InitEkytTrustsign(request *InitEkytTrustsignRequest) (_result *InitEkytTrustsignResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitEkytTrustsignResponse{}
+	_body, _err := client.InitEkytTrustsignEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: eKYT可信签约初始化
+ * Summary: eKYT可信签约-初始化
+ */
+func (client *Client) InitEkytTrustsignEx(request *InitEkytTrustsignRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitEkytTrustsignResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitEkytTrustsignResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.ekyt.trustsign.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: eKYT可信签约签约单查询
+ * Summary: eKYT可信签约-签约单查询
+ */
+func (client *Client) QueryEkytTrustsign(request *QueryEkytTrustsignRequest) (_result *QueryEkytTrustsignResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEkytTrustsignResponse{}
+	_body, _err := client.QueryEkytTrustsignEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: eKYT可信签约签约单查询
+ * Summary: eKYT可信签约-签约单查询
+ */
+func (client *Client) QueryEkytTrustsignEx(request *QueryEkytTrustsignRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEkytTrustsignResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEkytTrustsignResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.ekyt.trustsign.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
