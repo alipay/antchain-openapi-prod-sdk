@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.14',
+                    'sdk_version': '1.2.17',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.14',
+                    'sdk_version': '1.2.17',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -1957,4 +1957,116 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.GetAshieldHardeninglogResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.ashield.hardeninglog.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_ekyt_trustsign(
+        self,
+        request: securitytech_models.InitEkytTrustsignRequest,
+    ) -> securitytech_models.InitEkytTrustsignResponse:
+        """
+        Description: eKYT可信签约初始化
+        Summary: eKYT可信签约-初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_ekyt_trustsign_ex(request, headers, runtime)
+
+    async def init_ekyt_trustsign_async(
+        self,
+        request: securitytech_models.InitEkytTrustsignRequest,
+    ) -> securitytech_models.InitEkytTrustsignResponse:
+        """
+        Description: eKYT可信签约初始化
+        Summary: eKYT可信签约-初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_ekyt_trustsign_ex_async(request, headers, runtime)
+
+    def init_ekyt_trustsign_ex(
+        self,
+        request: securitytech_models.InitEkytTrustsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.InitEkytTrustsignResponse:
+        """
+        Description: eKYT可信签约初始化
+        Summary: eKYT可信签约-初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.InitEkytTrustsignResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.ekyt.trustsign.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_ekyt_trustsign_ex_async(
+        self,
+        request: securitytech_models.InitEkytTrustsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.InitEkytTrustsignResponse:
+        """
+        Description: eKYT可信签约初始化
+        Summary: eKYT可信签约-初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.InitEkytTrustsignResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.ekyt.trustsign.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ekyt_trustsign(
+        self,
+        request: securitytech_models.QueryEkytTrustsignRequest,
+    ) -> securitytech_models.QueryEkytTrustsignResponse:
+        """
+        Description: eKYT可信签约签约单查询
+        Summary: eKYT可信签约-签约单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ekyt_trustsign_ex(request, headers, runtime)
+
+    async def query_ekyt_trustsign_async(
+        self,
+        request: securitytech_models.QueryEkytTrustsignRequest,
+    ) -> securitytech_models.QueryEkytTrustsignResponse:
+        """
+        Description: eKYT可信签约签约单查询
+        Summary: eKYT可信签约-签约单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ekyt_trustsign_ex_async(request, headers, runtime)
+
+    def query_ekyt_trustsign_ex(
+        self,
+        request: securitytech_models.QueryEkytTrustsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryEkytTrustsignResponse:
+        """
+        Description: eKYT可信签约签约单查询
+        Summary: eKYT可信签约-签约单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryEkytTrustsignResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.ekyt.trustsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ekyt_trustsign_ex_async(
+        self,
+        request: securitytech_models.QueryEkytTrustsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryEkytTrustsignResponse:
+        """
+        Description: eKYT可信签约签约单查询
+        Summary: eKYT可信签约-签约单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryEkytTrustsignResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.ekyt.trustsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
