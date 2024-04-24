@@ -878,6 +878,41 @@ class ScreenshotInfo(TeaModel):
         return self
 
 
+class EvidenceWebUrlInfo(TeaModel):
+    def __init__(
+        self,
+        web_url: str = None,
+        title: str = None,
+    ):
+        # 取证网址
+        self.web_url = web_url
+        # 取证名称
+        self.title = title
+
+    def validate(self):
+        self.validate_required(self.web_url, 'web_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.web_url is not None:
+            result['web_url'] = self.web_url
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('web_url') is not None:
+            self.web_url = m.get('web_url')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
 class ScreenInfo(TeaModel):
     def __init__(
         self,
@@ -1136,6 +1171,82 @@ class SaleDigestData(TeaModel):
         return self
 
 
+class EvidenceFile(TeaModel):
+    def __init__(
+        self,
+        evidence_file_name: str = None,
+        memo: str = None,
+        evidence_file_type: str = None,
+        evidence_file_size: int = None,
+        duration: int = None,
+        evidence_file_hash: str = None,
+        file_url: str = None,
+    ):
+        # 证据文件名称
+        self.evidence_file_name = evidence_file_name
+        # 证据文件备注
+        self.memo = memo
+        # 文件类型
+        self.evidence_file_type = evidence_file_type
+        # 文件大小
+        self.evidence_file_size = evidence_file_size
+        # 文件时长（单位：秒）
+        self.duration = duration
+        # 证据文件指纹
+        self.evidence_file_hash = evidence_file_hash
+        # 文件url
+        self.file_url = file_url
+
+    def validate(self):
+        self.validate_required(self.evidence_file_name, 'evidence_file_name')
+        self.validate_required(self.memo, 'memo')
+        self.validate_required(self.evidence_file_type, 'evidence_file_type')
+        self.validate_required(self.evidence_file_size, 'evidence_file_size')
+        self.validate_required(self.duration, 'duration')
+        self.validate_required(self.evidence_file_hash, 'evidence_file_hash')
+        self.validate_required(self.file_url, 'file_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.evidence_file_name is not None:
+            result['evidence_file_name'] = self.evidence_file_name
+        if self.memo is not None:
+            result['memo'] = self.memo
+        if self.evidence_file_type is not None:
+            result['evidence_file_type'] = self.evidence_file_type
+        if self.evidence_file_size is not None:
+            result['evidence_file_size'] = self.evidence_file_size
+        if self.duration is not None:
+            result['duration'] = self.duration
+        if self.evidence_file_hash is not None:
+            result['evidence_file_hash'] = self.evidence_file_hash
+        if self.file_url is not None:
+            result['file_url'] = self.file_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('evidence_file_name') is not None:
+            self.evidence_file_name = m.get('evidence_file_name')
+        if m.get('memo') is not None:
+            self.memo = m.get('memo')
+        if m.get('evidence_file_type') is not None:
+            self.evidence_file_type = m.get('evidence_file_type')
+        if m.get('evidence_file_size') is not None:
+            self.evidence_file_size = m.get('evidence_file_size')
+        if m.get('duration') is not None:
+            self.duration = m.get('duration')
+        if m.get('evidence_file_hash') is not None:
+            self.evidence_file_hash = m.get('evidence_file_hash')
+        if m.get('file_url') is not None:
+            self.file_url = m.get('file_url')
+        return self
+
+
 class BidReason(TeaModel):
     def __init__(
         self,
@@ -1218,6 +1329,58 @@ class BidReason(TeaModel):
             for k in m.get('reason_array'):
                 temp_model = Reason()
                 self.reason_array.append(temp_model.from_map(k))
+        return self
+
+
+class EvidenceCertificateInfo(TeaModel):
+    def __init__(
+        self,
+        certificate_no: str = None,
+        certificate_time: str = None,
+        certificate_hash: str = None,
+        certificate_url: str = None,
+    ):
+        # 证书编号
+        self.certificate_no = certificate_no
+        # 上链时间
+        self.certificate_time = certificate_time
+        # 链上交易hash
+        self.certificate_hash = certificate_hash
+        # 证书下载url（有效期3天）
+        self.certificate_url = certificate_url
+
+    def validate(self):
+        self.validate_required(self.certificate_no, 'certificate_no')
+        self.validate_required(self.certificate_time, 'certificate_time')
+        self.validate_required(self.certificate_hash, 'certificate_hash')
+        self.validate_required(self.certificate_url, 'certificate_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.certificate_no is not None:
+            result['certificate_no'] = self.certificate_no
+        if self.certificate_time is not None:
+            result['certificate_time'] = self.certificate_time
+        if self.certificate_hash is not None:
+            result['certificate_hash'] = self.certificate_hash
+        if self.certificate_url is not None:
+            result['certificate_url'] = self.certificate_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('certificate_no') is not None:
+            self.certificate_no = m.get('certificate_no')
+        if m.get('certificate_time') is not None:
+            self.certificate_time = m.get('certificate_time')
+        if m.get('certificate_hash') is not None:
+            self.certificate_hash = m.get('certificate_hash')
+        if m.get('certificate_url') is not None:
+            self.certificate_url = m.get('certificate_url')
         return self
 
 
@@ -1446,6 +1609,130 @@ class GoodSkuInfo(TeaModel):
             self.sku_num = m.get('sku_num')
         if m.get('price') is not None:
             self.price = m.get('price')
+        return self
+
+
+class ScreenshotCertificateResult(TeaModel):
+    def __init__(
+        self,
+        evidence_type: str = None,
+        status: str = None,
+        screenshot_id: str = None,
+        evidence_id: str = None,
+        certificate_no: str = None,
+        certificate_time: int = None,
+        evidence_hash: str = None,
+        evidence_tx_hash: str = None,
+        certificate_file_url: str = None,
+        screenshot_file_url: str = None,
+        evidence_file_size: int = None,
+        error_code: str = None,
+        error_message: str = None,
+    ):
+        # 证据类型
+        self.evidence_type = evidence_type
+        # 证据状态
+        self.status = status
+        # 网页截取编号
+        self.screenshot_id = screenshot_id
+        # 证据编号
+        self.evidence_id = evidence_id
+        # 存证编号
+        self.certificate_no = certificate_no
+        # 上链时间
+        self.certificate_time = certificate_time
+        # 证据hash
+        self.evidence_hash = evidence_hash
+        # 链上交易hash
+        self.evidence_tx_hash = evidence_tx_hash
+        # 证书下载链接
+        self.certificate_file_url = certificate_file_url
+        # 截图文件下载链接
+        self.screenshot_file_url = screenshot_file_url
+        # 证据文件大小
+        self.evidence_file_size = evidence_file_size
+        # 错误码
+        self.error_code = error_code
+        # 错误信息
+        self.error_message = error_message
+
+    def validate(self):
+        self.validate_required(self.evidence_type, 'evidence_type')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.screenshot_id, 'screenshot_id')
+        self.validate_required(self.evidence_id, 'evidence_id')
+        self.validate_required(self.certificate_no, 'certificate_no')
+        self.validate_required(self.certificate_time, 'certificate_time')
+        self.validate_required(self.evidence_hash, 'evidence_hash')
+        self.validate_required(self.evidence_tx_hash, 'evidence_tx_hash')
+        self.validate_required(self.certificate_file_url, 'certificate_file_url')
+        self.validate_required(self.screenshot_file_url, 'screenshot_file_url')
+        self.validate_required(self.evidence_file_size, 'evidence_file_size')
+        self.validate_required(self.error_code, 'error_code')
+        self.validate_required(self.error_message, 'error_message')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.evidence_type is not None:
+            result['evidence_type'] = self.evidence_type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.screenshot_id is not None:
+            result['screenshot_id'] = self.screenshot_id
+        if self.evidence_id is not None:
+            result['evidence_id'] = self.evidence_id
+        if self.certificate_no is not None:
+            result['certificate_no'] = self.certificate_no
+        if self.certificate_time is not None:
+            result['certificate_time'] = self.certificate_time
+        if self.evidence_hash is not None:
+            result['evidence_hash'] = self.evidence_hash
+        if self.evidence_tx_hash is not None:
+            result['evidence_tx_hash'] = self.evidence_tx_hash
+        if self.certificate_file_url is not None:
+            result['certificate_file_url'] = self.certificate_file_url
+        if self.screenshot_file_url is not None:
+            result['screenshot_file_url'] = self.screenshot_file_url
+        if self.evidence_file_size is not None:
+            result['evidence_file_size'] = self.evidence_file_size
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('evidence_type') is not None:
+            self.evidence_type = m.get('evidence_type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('screenshot_id') is not None:
+            self.screenshot_id = m.get('screenshot_id')
+        if m.get('evidence_id') is not None:
+            self.evidence_id = m.get('evidence_id')
+        if m.get('certificate_no') is not None:
+            self.certificate_no = m.get('certificate_no')
+        if m.get('certificate_time') is not None:
+            self.certificate_time = m.get('certificate_time')
+        if m.get('evidence_hash') is not None:
+            self.evidence_hash = m.get('evidence_hash')
+        if m.get('evidence_tx_hash') is not None:
+            self.evidence_tx_hash = m.get('evidence_tx_hash')
+        if m.get('certificate_file_url') is not None:
+            self.certificate_file_url = m.get('certificate_file_url')
+        if m.get('screenshot_file_url') is not None:
+            self.screenshot_file_url = m.get('screenshot_file_url')
+        if m.get('evidence_file_size') is not None:
+            self.evidence_file_size = m.get('evidence_file_size')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
         return self
 
 
@@ -2695,6 +2982,136 @@ class PlayListEntity(TeaModel):
         return self
 
 
+class RecordScreenResult(TeaModel):
+    def __init__(
+        self,
+        evidence_type: str = None,
+        status: str = None,
+        evidence_id: str = None,
+        certificate_no: str = None,
+        certificate_time: int = None,
+        evidence_hash: str = None,
+        evidence_tx_hash: str = None,
+        certificate_file_url: str = None,
+        evidence_files: List[EvidenceFile] = None,
+        evidence_start_time: int = None,
+        evidence_end_time: int = None,
+        error_code: str = None,
+        error_message: str = None,
+    ):
+        # 取证类型(SCREEN_RECORDING：录屏取证)
+        self.evidence_type = evidence_type
+        # 取证状态
+        self.status = status
+        # 证据编号
+        self.evidence_id = evidence_id
+        # 存证编号
+        self.certificate_no = certificate_no
+        # 上链时间
+        self.certificate_time = certificate_time
+        # 证据hash
+        self.evidence_hash = evidence_hash
+        # 链上交易hash
+        self.evidence_tx_hash = evidence_tx_hash
+        # 证书文件下载地址
+        self.certificate_file_url = certificate_file_url
+        # 录屏取证文件列表
+        self.evidence_files = evidence_files
+        # 录屏开始时间
+        self.evidence_start_time = evidence_start_time
+        # 录屏结束时间
+        self.evidence_end_time = evidence_end_time
+        # 错误码
+        self.error_code = error_code
+        # 错误信息
+        self.error_message = error_message
+
+    def validate(self):
+        self.validate_required(self.evidence_type, 'evidence_type')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.evidence_id, 'evidence_id')
+        self.validate_required(self.certificate_no, 'certificate_no')
+        self.validate_required(self.certificate_time, 'certificate_time')
+        self.validate_required(self.evidence_hash, 'evidence_hash')
+        self.validate_required(self.evidence_tx_hash, 'evidence_tx_hash')
+        if self.evidence_files:
+            for k in self.evidence_files:
+                if k:
+                    k.validate()
+        self.validate_required(self.evidence_start_time, 'evidence_start_time')
+        self.validate_required(self.evidence_end_time, 'evidence_end_time')
+        self.validate_required(self.error_message, 'error_message')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.evidence_type is not None:
+            result['evidence_type'] = self.evidence_type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.evidence_id is not None:
+            result['evidence_id'] = self.evidence_id
+        if self.certificate_no is not None:
+            result['certificate_no'] = self.certificate_no
+        if self.certificate_time is not None:
+            result['certificate_time'] = self.certificate_time
+        if self.evidence_hash is not None:
+            result['evidence_hash'] = self.evidence_hash
+        if self.evidence_tx_hash is not None:
+            result['evidence_tx_hash'] = self.evidence_tx_hash
+        if self.certificate_file_url is not None:
+            result['certificate_file_url'] = self.certificate_file_url
+        result['evidence_files'] = []
+        if self.evidence_files is not None:
+            for k in self.evidence_files:
+                result['evidence_files'].append(k.to_map() if k else None)
+        if self.evidence_start_time is not None:
+            result['evidence_start_time'] = self.evidence_start_time
+        if self.evidence_end_time is not None:
+            result['evidence_end_time'] = self.evidence_end_time
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('evidence_type') is not None:
+            self.evidence_type = m.get('evidence_type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('evidence_id') is not None:
+            self.evidence_id = m.get('evidence_id')
+        if m.get('certificate_no') is not None:
+            self.certificate_no = m.get('certificate_no')
+        if m.get('certificate_time') is not None:
+            self.certificate_time = m.get('certificate_time')
+        if m.get('evidence_hash') is not None:
+            self.evidence_hash = m.get('evidence_hash')
+        if m.get('evidence_tx_hash') is not None:
+            self.evidence_tx_hash = m.get('evidence_tx_hash')
+        if m.get('certificate_file_url') is not None:
+            self.certificate_file_url = m.get('certificate_file_url')
+        self.evidence_files = []
+        if m.get('evidence_files') is not None:
+            for k in m.get('evidence_files'):
+                temp_model = EvidenceFile()
+                self.evidence_files.append(temp_model.from_map(k))
+        if m.get('evidence_start_time') is not None:
+            self.evidence_start_time = m.get('evidence_start_time')
+        if m.get('evidence_end_time') is not None:
+            self.evidence_end_time = m.get('evidence_end_time')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
+        return self
+
+
 class WorksInfo(TeaModel):
     def __init__(
         self,
@@ -3277,41 +3694,6 @@ class EvidenceThirdPartyInfo(TeaModel):
         return self
 
 
-class EvidenceWebUrlInfo(TeaModel):
-    def __init__(
-        self,
-        web_url: str = None,
-        title: str = None,
-    ):
-        # 取证网址
-        self.web_url = web_url
-        # 取证名称
-        self.title = title
-
-    def validate(self):
-        self.validate_required(self.web_url, 'web_url')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.web_url is not None:
-            result['web_url'] = self.web_url
-        if self.title is not None:
-            result['title'] = self.title
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('web_url') is not None:
-            self.web_url = m.get('web_url')
-        if m.get('title') is not None:
-            self.title = m.get('title')
-        return self
-
-
 class RecommendCategoryDetail(TeaModel):
     def __init__(
         self,
@@ -3705,6 +4087,185 @@ class EnterpriseLegalPersonInfo(TeaModel):
         return self
 
 
+class ScreenshotResult(TeaModel):
+    def __init__(
+        self,
+        screenshot_file_url: str = None,
+        screenshot_id: str = None,
+        screenshot_type: str = None,
+        status: str = None,
+        error_code: str = None,
+        error_message: str = None,
+        screenshot_name: str = None,
+    ):
+        # 截图文件下载链接
+        self.screenshot_file_url = screenshot_file_url
+        # 网页截取编号
+        self.screenshot_id = screenshot_id
+        # 取证类型(SCREENSHOT: 网页截图)
+        self.screenshot_type = screenshot_type
+        # 取证状态
+        self.status = status
+        # 错误码
+        self.error_code = error_code
+        # 错误信息
+        self.error_message = error_message
+        # 网页截取名称
+        self.screenshot_name = screenshot_name
+
+    def validate(self):
+        self.validate_required(self.screenshot_file_url, 'screenshot_file_url')
+        self.validate_required(self.screenshot_id, 'screenshot_id')
+        self.validate_required(self.screenshot_type, 'screenshot_type')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.screenshot_name, 'screenshot_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.screenshot_file_url is not None:
+            result['screenshot_file_url'] = self.screenshot_file_url
+        if self.screenshot_id is not None:
+            result['screenshot_id'] = self.screenshot_id
+        if self.screenshot_type is not None:
+            result['screenshot_type'] = self.screenshot_type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        if self.screenshot_name is not None:
+            result['screenshot_name'] = self.screenshot_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('screenshot_file_url') is not None:
+            self.screenshot_file_url = m.get('screenshot_file_url')
+        if m.get('screenshot_id') is not None:
+            self.screenshot_id = m.get('screenshot_id')
+        if m.get('screenshot_type') is not None:
+            self.screenshot_type = m.get('screenshot_type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
+        if m.get('screenshot_name') is not None:
+            self.screenshot_name = m.get('screenshot_name')
+        return self
+
+
+class EvidenceResult(TeaModel):
+    def __init__(
+        self,
+        evidence_id: str = None,
+        evidence_type: str = None,
+        notary_office: str = None,
+        evidence_url: EvidenceWebUrlInfo = None,
+        evidence_result_url: str = None,
+        certificate_info: EvidenceCertificateInfo = None,
+        evidence_start_time: int = None,
+        status: str = None,
+        code: str = None,
+        message: str = None,
+    ):
+        # 取证编号
+        self.evidence_id = evidence_id
+        # 取证类型（LIVE：直播，VOD：点播）
+        self.evidence_type = evidence_type
+        # 公证处code
+        self.notary_office = notary_office
+        # 取证站点url信息
+        self.evidence_url = evidence_url
+        # 取证结果文件下载url（有效期3天）
+        self.evidence_result_url = evidence_result_url
+        # 存证证明信息
+        self.certificate_info = certificate_info
+        # 取证开始时间戳
+        self.evidence_start_time = evidence_start_time
+        # 取证状态(SUCCESS:成功, FAIL:取证失败)
+        self.status = status
+        # 处理结果码
+        self.code = code
+        # 处理结果信息
+        self.message = message
+
+    def validate(self):
+        self.validate_required(self.evidence_id, 'evidence_id')
+        self.validate_required(self.evidence_type, 'evidence_type')
+        self.validate_required(self.notary_office, 'notary_office')
+        self.validate_required(self.evidence_url, 'evidence_url')
+        if self.evidence_url:
+            self.evidence_url.validate()
+        self.validate_required(self.evidence_result_url, 'evidence_result_url')
+        self.validate_required(self.certificate_info, 'certificate_info')
+        if self.certificate_info:
+            self.certificate_info.validate()
+        self.validate_required(self.evidence_start_time, 'evidence_start_time')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.message, 'message')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.evidence_id is not None:
+            result['evidence_id'] = self.evidence_id
+        if self.evidence_type is not None:
+            result['evidence_type'] = self.evidence_type
+        if self.notary_office is not None:
+            result['notary_office'] = self.notary_office
+        if self.evidence_url is not None:
+            result['evidence_url'] = self.evidence_url.to_map()
+        if self.evidence_result_url is not None:
+            result['evidence_result_url'] = self.evidence_result_url
+        if self.certificate_info is not None:
+            result['certificate_info'] = self.certificate_info.to_map()
+        if self.evidence_start_time is not None:
+            result['evidence_start_time'] = self.evidence_start_time
+        if self.status is not None:
+            result['status'] = self.status
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('evidence_id') is not None:
+            self.evidence_id = m.get('evidence_id')
+        if m.get('evidence_type') is not None:
+            self.evidence_type = m.get('evidence_type')
+        if m.get('notary_office') is not None:
+            self.notary_office = m.get('notary_office')
+        if m.get('evidence_url') is not None:
+            temp_model = EvidenceWebUrlInfo()
+            self.evidence_url = temp_model.from_map(m['evidence_url'])
+        if m.get('evidence_result_url') is not None:
+            self.evidence_result_url = m.get('evidence_result_url')
+        if m.get('certificate_info') is not None:
+            temp_model = EvidenceCertificateInfo()
+            self.certificate_info = temp_model.from_map(m['certificate_info'])
+        if m.get('evidence_start_time') is not None:
+            self.evidence_start_time = m.get('evidence_start_time')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
 class AdditionalFileInfo(TeaModel):
     def __init__(
         self,
@@ -3923,58 +4484,6 @@ class CertificateData(TeaModel):
             self.user_id = m.get('user_id')
         if m.get('dci_code') is not None:
             self.dci_code = m.get('dci_code')
-        if m.get('certificate_url') is not None:
-            self.certificate_url = m.get('certificate_url')
-        return self
-
-
-class EvidenceCertificateInfo(TeaModel):
-    def __init__(
-        self,
-        certificate_no: str = None,
-        certificate_time: str = None,
-        certificate_hash: str = None,
-        certificate_url: str = None,
-    ):
-        # 证书编号
-        self.certificate_no = certificate_no
-        # 上链时间
-        self.certificate_time = certificate_time
-        # 链上交易hash
-        self.certificate_hash = certificate_hash
-        # 证书下载url（有效期3天）
-        self.certificate_url = certificate_url
-
-    def validate(self):
-        self.validate_required(self.certificate_no, 'certificate_no')
-        self.validate_required(self.certificate_time, 'certificate_time')
-        self.validate_required(self.certificate_hash, 'certificate_hash')
-        self.validate_required(self.certificate_url, 'certificate_url')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.certificate_no is not None:
-            result['certificate_no'] = self.certificate_no
-        if self.certificate_time is not None:
-            result['certificate_time'] = self.certificate_time
-        if self.certificate_hash is not None:
-            result['certificate_hash'] = self.certificate_hash
-        if self.certificate_url is not None:
-            result['certificate_url'] = self.certificate_url
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('certificate_no') is not None:
-            self.certificate_no = m.get('certificate_no')
-        if m.get('certificate_time') is not None:
-            self.certificate_time = m.get('certificate_time')
-        if m.get('certificate_hash') is not None:
-            self.certificate_hash = m.get('certificate_hash')
         if m.get('certificate_url') is not None:
             self.certificate_url = m.get('certificate_url')
         return self
@@ -13650,7 +14159,6 @@ class CreateEvidenceRecordscreenRequest(TeaModel):
         self.validate_required(self.name, 'name')
         self.validate_required(self.evidence_user_id, 'evidence_user_id')
         self.validate_required(self.notary_office, 'notary_office')
-        self.validate_required(self.web_urls, 'web_urls')
         if self.web_urls:
             for k in self.web_urls:
                 if k:
@@ -13904,10 +14412,10 @@ class CreateEvidenceLiveRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        evidence_user_id: int = None,
+        evidence_user_id: str = None,
         notary_office: str = None,
         type: str = None,
-        web_urls: EvidenceWebUrlInfo = None,
+        web_url: EvidenceWebUrlInfo = None,
         client_token: str = None,
     ):
         # OAuth模式下的授权token
@@ -13920,7 +14428,7 @@ class CreateEvidenceLiveRequest(TeaModel):
         # 取证类型（通用直播取证：DEFAULT）
         self.type = type
         # 取证网址信息
-        self.web_urls = web_urls
+        self.web_url = web_url
         # 幂等字段
         self.client_token = client_token
 
@@ -13928,9 +14436,9 @@ class CreateEvidenceLiveRequest(TeaModel):
         self.validate_required(self.evidence_user_id, 'evidence_user_id')
         self.validate_required(self.notary_office, 'notary_office')
         self.validate_required(self.type, 'type')
-        self.validate_required(self.web_urls, 'web_urls')
-        if self.web_urls:
-            self.web_urls.validate()
+        self.validate_required(self.web_url, 'web_url')
+        if self.web_url:
+            self.web_url.validate()
         self.validate_required(self.client_token, 'client_token')
 
     def to_map(self):
@@ -13949,8 +14457,8 @@ class CreateEvidenceLiveRequest(TeaModel):
             result['notary_office'] = self.notary_office
         if self.type is not None:
             result['type'] = self.type
-        if self.web_urls is not None:
-            result['web_urls'] = self.web_urls.to_map()
+        if self.web_url is not None:
+            result['web_url'] = self.web_url.to_map()
         if self.client_token is not None:
             result['client_token'] = self.client_token
         return result
@@ -13967,9 +14475,9 @@ class CreateEvidenceLiveRequest(TeaModel):
             self.notary_office = m.get('notary_office')
         if m.get('type') is not None:
             self.type = m.get('type')
-        if m.get('web_urls') is not None:
+        if m.get('web_url') is not None:
             temp_model = EvidenceWebUrlInfo()
-            self.web_urls = temp_model.from_map(m['web_urls'])
+            self.web_url = temp_model.from_map(m['web_url'])
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
         return self
@@ -14029,7 +14537,7 @@ class CreateEvidenceVodRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        evidence_user_id: int = None,
+        evidence_user_id: str = None,
         notary_office: str = None,
         type: str = None,
         web_url: EvidenceWebUrlInfo = None,
@@ -14324,6 +14832,7 @@ class GetEvidenceInfoResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         evidence_id: str = None,
+        evidence_type: str = None,
         status: str = None,
         notary_office: str = None,
         evidence_url: EvidenceWebUrlInfo = None,
@@ -14338,6 +14847,8 @@ class GetEvidenceInfoResponse(TeaModel):
         self.result_msg = result_msg
         # 取证编号
         self.evidence_id = evidence_id
+        # 取证类型（LIVE：直播，VOD：点播）
+        self.evidence_type = evidence_type
         # 取证状态（取证中：DOING，取证成功：SUCCESS，取证失败：FAIL）
         self.status = status
         # 公证处code
@@ -14369,6 +14880,8 @@ class GetEvidenceInfoResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.evidence_id is not None:
             result['evidence_id'] = self.evidence_id
+        if self.evidence_type is not None:
+            result['evidence_type'] = self.evidence_type
         if self.status is not None:
             result['status'] = self.status
         if self.notary_office is not None:
@@ -14391,6 +14904,8 @@ class GetEvidenceInfoResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('evidence_id') is not None:
             self.evidence_id = m.get('evidence_id')
+        if m.get('evidence_type') is not None:
+            self.evidence_type = m.get('evidence_type')
         if m.get('status') is not None:
             self.status = m.get('status')
         if m.get('notary_office') is not None:
