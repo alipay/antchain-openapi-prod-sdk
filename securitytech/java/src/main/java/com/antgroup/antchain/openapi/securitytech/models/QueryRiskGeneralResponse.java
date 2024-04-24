@@ -32,6 +32,10 @@ public class QueryRiskGeneralResponse extends TeaModel {
     @NameInMap("ext_data")
     public String extData;
 
+    // 是否查得
+    @NameInMap("found")
+    public Boolean found;
+
     public static QueryRiskGeneralResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryRiskGeneralResponse self = new QueryRiskGeneralResponse();
         return TeaModel.build(map, self);
@@ -91,6 +95,14 @@ public class QueryRiskGeneralResponse extends TeaModel {
     }
     public String getExtData() {
         return this.extData;
+    }
+
+    public QueryRiskGeneralResponse setFound(Boolean found) {
+        this.found = found;
+        return this;
+    }
+    public Boolean getFound() {
+        return this.found;
     }
 
 }

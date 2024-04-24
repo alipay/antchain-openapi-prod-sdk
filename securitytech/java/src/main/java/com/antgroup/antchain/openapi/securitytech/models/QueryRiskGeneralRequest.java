@@ -49,6 +49,10 @@ public class QueryRiskGeneralRequest extends TeaModel {
     @NameInMap("encrypted_body")
     public String encryptedBody;
 
+    // hash_type
+    @NameInMap("hash_type")
+    public String hashType;
+
     public static QueryRiskGeneralRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRiskGeneralRequest self = new QueryRiskGeneralRequest();
         return TeaModel.build(map, self);
@@ -132,6 +136,14 @@ public class QueryRiskGeneralRequest extends TeaModel {
     }
     public String getEncryptedBody() {
         return this.encryptedBody;
+    }
+
+    public QueryRiskGeneralRequest setHashType(String hashType) {
+        this.hashType = hashType;
+        return this;
+    }
+    public String getHashType() {
+        return this.hashType;
     }
 
 }

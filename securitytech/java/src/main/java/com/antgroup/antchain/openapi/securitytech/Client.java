@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.14"),
+                    new TeaPair("sdk_version", "1.2.17"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -731,5 +731,43 @@ public class Client {
     public GetAshieldHardeninglogResponse getAshieldHardeninglogEx(GetAshieldHardeninglogRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ashield.hardeninglog.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAshieldHardeninglogResponse());
+    }
+
+    /**
+     * Description: eKYT可信签约初始化
+     * Summary: eKYT可信签约-初始化
+     */
+    public InitEkytTrustsignResponse initEkytTrustsign(InitEkytTrustsignRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initEkytTrustsignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: eKYT可信签约初始化
+     * Summary: eKYT可信签约-初始化
+     */
+    public InitEkytTrustsignResponse initEkytTrustsignEx(InitEkytTrustsignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ekyt.trustsign.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitEkytTrustsignResponse());
+    }
+
+    /**
+     * Description: eKYT可信签约签约单查询
+     * Summary: eKYT可信签约-签约单查询
+     */
+    public QueryEkytTrustsignResponse queryEkytTrustsign(QueryEkytTrustsignRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEkytTrustsignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: eKYT可信签约签约单查询
+     * Summary: eKYT可信签约-签约单查询
+     */
+    public QueryEkytTrustsignResponse queryEkytTrustsignEx(QueryEkytTrustsignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ekyt.trustsign.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEkytTrustsignResponse());
     }
 }
