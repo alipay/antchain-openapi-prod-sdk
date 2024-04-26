@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.12',
+                    'sdk_version': '1.15.14',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.12',
+                    'sdk_version': '1.15.14',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -2155,6 +2155,62 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QuerySocialriskBriefResponse(),
             await self.do_request_async('1.0', 'di.realperson.socialrisk.brief.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_socialrisk_tobrisk(
+        self,
+        request: realperson_models.QuerySocialriskTobriskRequest,
+    ) -> realperson_models.QuerySocialriskTobriskResponse:
+        """
+        Description: 社会安全风险（tob风控版）
+        Summary: 社会安全风险（tob风控版）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_socialrisk_tobrisk_ex(request, headers, runtime)
+
+    async def query_socialrisk_tobrisk_async(
+        self,
+        request: realperson_models.QuerySocialriskTobriskRequest,
+    ) -> realperson_models.QuerySocialriskTobriskResponse:
+        """
+        Description: 社会安全风险（tob风控版）
+        Summary: 社会安全风险（tob风控版）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_socialrisk_tobrisk_ex_async(request, headers, runtime)
+
+    def query_socialrisk_tobrisk_ex(
+        self,
+        request: realperson_models.QuerySocialriskTobriskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QuerySocialriskTobriskResponse:
+        """
+        Description: 社会安全风险（tob风控版）
+        Summary: 社会安全风险（tob风控版）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QuerySocialriskTobriskResponse(),
+            self.do_request('1.0', 'di.realperson.socialrisk.tobrisk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_socialrisk_tobrisk_ex_async(
+        self,
+        request: realperson_models.QuerySocialriskTobriskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QuerySocialriskTobriskResponse:
+        """
+        Description: 社会安全风险（tob风控版）
+        Summary: 社会安全风险（tob风控版）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QuerySocialriskTobriskResponse(),
+            await self.do_request_async('1.0', 'di.realperson.socialrisk.tobrisk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
