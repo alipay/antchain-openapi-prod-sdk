@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.12"},
+                        {"sdk_version", "1.15.14"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.12"},
+                        {"sdk_version", "1.15.14"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1751,6 +1751,48 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QuerySocialriskBriefResponse>(await DoRequestAsync("1.0", "di.realperson.socialrisk.brief.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 社会安全风险（tob风控版）
+         * Summary: 社会安全风险（tob风控版）
+         */
+        public QuerySocialriskTobriskResponse QuerySocialriskTobrisk(QuerySocialriskTobriskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QuerySocialriskTobriskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 社会安全风险（tob风控版）
+         * Summary: 社会安全风险（tob风控版）
+         */
+        public async Task<QuerySocialriskTobriskResponse> QuerySocialriskTobriskAsync(QuerySocialriskTobriskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QuerySocialriskTobriskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 社会安全风险（tob风控版）
+         * Summary: 社会安全风险（tob风控版）
+         */
+        public QuerySocialriskTobriskResponse QuerySocialriskTobriskEx(QuerySocialriskTobriskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySocialriskTobriskResponse>(DoRequest("1.0", "di.realperson.socialrisk.tobrisk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 社会安全风险（tob风控版）
+         * Summary: 社会安全风险（tob风控版）
+         */
+        public async Task<QuerySocialriskTobriskResponse> QuerySocialriskTobriskExAsync(QuerySocialriskTobriskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySocialriskTobriskResponse>(await DoRequestAsync("1.0", "di.realperson.socialrisk.tobrisk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
