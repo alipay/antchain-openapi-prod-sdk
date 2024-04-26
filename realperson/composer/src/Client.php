@@ -67,6 +67,8 @@ use AntChain\REALPERSON\Models\QuerySocialriskBriefRequest;
 use AntChain\REALPERSON\Models\QuerySocialriskBriefResponse;
 use AntChain\REALPERSON\Models\QuerySocialriskDetailRequest;
 use AntChain\REALPERSON\Models\QuerySocialriskDetailResponse;
+use AntChain\REALPERSON\Models\QuerySocialriskTobriskRequest;
+use AntChain\REALPERSON\Models\QuerySocialriskTobriskResponse;
 use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeRequest;
 use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeResponse;
 use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseRequest;
@@ -226,7 +228,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.15.12',
+                    'sdk_version'      => '1.15.14',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1379,6 +1381,39 @@ class Client
         Utils::validateModel($request);
 
         return QuerySocialriskBriefResponse::fromMap($this->doRequest('1.0', 'di.realperson.socialrisk.brief.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 社会安全风险（tob风控版）
+     * Summary: 社会安全风险（tob风控版）.
+     *
+     * @param QuerySocialriskTobriskRequest $request
+     *
+     * @return QuerySocialriskTobriskResponse
+     */
+    public function querySocialriskTobrisk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySocialriskTobriskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 社会安全风险（tob风控版）
+     * Summary: 社会安全风险（tob风控版）.
+     *
+     * @param QuerySocialriskTobriskRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QuerySocialriskTobriskResponse
+     */
+    public function querySocialriskTobriskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySocialriskTobriskResponse::fromMap($this->doRequest('1.0', 'di.realperson.socialrisk.tobrisk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
