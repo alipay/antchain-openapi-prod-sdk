@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.18.25',
+    sdk_version = '1.18.27',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -4413,12 +4413,18 @@ model RegisterTradeUsageRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 标识某个服务实体的唯一ID，例如dciContentId
   serviceId: string(name='service_id'),
-  // 业务服务类型，例如DCI、存证等
+  // 服务类型，例如DCI、存证等
   serviceType: string(name='service_type'),
+  // 业务类型
+  bizType: string(name='biz_type'),
   // 扩展信息，JSON格式
   extInfo?: string(name='ext_info'),
   // 调用方唯一业务标识
   outBizNo: string(name='out_biz_no'),
+  // 文件类型，例如音频、视频、图片
+  fileType?: string(name='file_type'),
+  // 待登记的文件Url
+  regFileUrl?: string(name='reg_file_url'),
 }
 
 model RegisterTradeUsageResponse = {
@@ -4943,6 +4949,52 @@ async function replaceDci(request: ReplaceDciRequest): ReplaceDciResponse {
 async function replaceDciEx(request: ReplaceDciRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReplaceDciResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bccr.dci.replace', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitDciFeedbackRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务ID
+  serviceId: string(name='service_id'),
+  // 作品名称
+  workName: string(name='work_name'),
+  // 联系人
+  contactName: string(name='contact_name'),
+  // 联系电话
+  contactPhoneNumber: string(name='contact_phone_number'),
+  // 申诉原因
+  message: string(name='message'),
+}
+
+model SubmitDciFeedbackResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 记录ID
+  id?: string(name='id'),
+}
+
+/**
+ * Description: 提交作品申诉
+ * Summary: 提交作品申诉
+ */
+async function submitDciFeedback(request: SubmitDciFeedbackRequest): SubmitDciFeedbackResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitDciFeedbackEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交作品申诉
+ * Summary: 提交作品申诉
+ */
+async function submitDciFeedbackEx(request: SubmitDciFeedbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitDciFeedbackResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.feedback.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model AddContentRequest = {
