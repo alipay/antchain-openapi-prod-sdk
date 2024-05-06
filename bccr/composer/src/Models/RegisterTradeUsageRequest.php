@@ -25,11 +25,17 @@ class RegisterTradeUsageRequest extends Model
      */
     public $serviceId;
 
-    // 业务服务类型，例如DCI、存证等
+    // 服务类型，例如DCI、存证等
     /**
      * @var string
      */
     public $serviceType;
+
+    // 业务类型
+    /**
+     * @var string
+     */
+    public $bizType;
 
     // 扩展信息，JSON格式
     /**
@@ -42,19 +48,35 @@ class RegisterTradeUsageRequest extends Model
      * @var string
      */
     public $outBizNo;
+
+    // 文件类型，例如音频、视频、图片
+    /**
+     * @var string
+     */
+    public $fileType;
+
+    // 待登记的文件Url
+    /**
+     * @var string
+     */
+    public $regFileUrl;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'serviceId'         => 'service_id',
         'serviceType'       => 'service_type',
+        'bizType'           => 'biz_type',
         'extInfo'           => 'ext_info',
         'outBizNo'          => 'out_biz_no',
+        'fileType'          => 'file_type',
+        'regFileUrl'        => 'reg_file_url',
     ];
 
     public function validate()
     {
         Model::validateRequired('serviceId', $this->serviceId, true);
         Model::validateRequired('serviceType', $this->serviceType, true);
+        Model::validateRequired('bizType', $this->bizType, true);
         Model::validateRequired('outBizNo', $this->outBizNo, true);
     }
 
@@ -73,11 +95,20 @@ class RegisterTradeUsageRequest extends Model
         if (null !== $this->serviceType) {
             $res['service_type'] = $this->serviceType;
         }
+        if (null !== $this->bizType) {
+            $res['biz_type'] = $this->bizType;
+        }
         if (null !== $this->extInfo) {
             $res['ext_info'] = $this->extInfo;
         }
         if (null !== $this->outBizNo) {
             $res['out_biz_no'] = $this->outBizNo;
+        }
+        if (null !== $this->fileType) {
+            $res['file_type'] = $this->fileType;
+        }
+        if (null !== $this->regFileUrl) {
+            $res['reg_file_url'] = $this->regFileUrl;
         }
 
         return $res;
@@ -103,11 +134,20 @@ class RegisterTradeUsageRequest extends Model
         if (isset($map['service_type'])) {
             $model->serviceType = $map['service_type'];
         }
+        if (isset($map['biz_type'])) {
+            $model->bizType = $map['biz_type'];
+        }
         if (isset($map['ext_info'])) {
             $model->extInfo = $map['ext_info'];
         }
         if (isset($map['out_biz_no'])) {
             $model->outBizNo = $map['out_biz_no'];
+        }
+        if (isset($map['file_type'])) {
+            $model->fileType = $map['file_type'];
+        }
+        if (isset($map['reg_file_url'])) {
+            $model->regFileUrl = $map['reg_file_url'];
         }
 
         return $model;

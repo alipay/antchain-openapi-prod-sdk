@@ -155,6 +155,8 @@ use AntChain\BCCR\Models\RetryDciRegistrationRequest;
 use AntChain\BCCR\Models\RetryDciRegistrationResponse;
 use AntChain\BCCR\Models\StopMonitorTaskRequest;
 use AntChain\BCCR\Models\StopMonitorTaskResponse;
+use AntChain\BCCR\Models\SubmitDciFeedbackRequest;
+use AntChain\BCCR\Models\SubmitDciFeedbackResponse;
 use AntChain\BCCR\Models\UpdateDciUserRequest;
 use AntChain\BCCR\Models\UpdateDciUserResponse;
 use AntChain\BCCR\Models\UpdateGoodsRequest;
@@ -310,7 +312,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.18.25',
+                    'sdk_version'      => '1.18.27',
                     '_prod_code'       => 'BCCR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2600,6 +2602,39 @@ class Client
         Utils::validateModel($request);
 
         return ReplaceDciResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.replace', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提交作品申诉
+     * Summary: 提交作品申诉.
+     *
+     * @param SubmitDciFeedbackRequest $request
+     *
+     * @return SubmitDciFeedbackResponse
+     */
+    public function submitDciFeedback($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitDciFeedbackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交作品申诉
+     * Summary: 提交作品申诉.
+     *
+     * @param SubmitDciFeedbackRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return SubmitDciFeedbackResponse
+     */
+    public function submitDciFeedbackEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitDciFeedbackResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.feedback.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
