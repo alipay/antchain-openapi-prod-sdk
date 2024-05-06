@@ -78,6 +78,21 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false, MaxLength=32)]
         public string BclOrderId { get; set; }
 
+        // 商品id
+        [NameInMap("product_id")]
+        [Validation(Required=false, MaxLength=128)]
+        public string ProductId { get; set; }
+
+        // 统一社会信用代码
+        [NameInMap("merchant_id")]
+        [Validation(Required=false, MaxLength=32)]
+        public string MerchantId { get; set; }
+
+        // 商品版本
+        [NameInMap("product_version")]
+        [Validation(Required=false, MaxLength=32)]
+        public string ProductVersion { get; set; }
+
     }
 
 }
