@@ -14954,6 +14954,12 @@ type CreateContractSignflowRequest struct {
 	PayeeTuid *string `json:"payee_tuid,omitempty" xml:"payee_tuid,omitempty"`
 	// 租赁订单Id
 	BclOrderId *string `json:"bcl_order_id,omitempty" xml:"bcl_order_id,omitempty" maxLength:"32"`
+	// 商品id
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" maxLength:"128"`
+	// 统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" maxLength:"32"`
+	// 商品版本
+	ProductVersion *string `json:"product_version,omitempty" xml:"product_version,omitempty" maxLength:"32"`
 }
 
 func (s CreateContractSignflowRequest) String() string {
@@ -15031,6 +15037,21 @@ func (s *CreateContractSignflowRequest) SetPayeeTuid(v string) *CreateContractSi
 
 func (s *CreateContractSignflowRequest) SetBclOrderId(v string) *CreateContractSignflowRequest {
 	s.BclOrderId = &v
+	return s
+}
+
+func (s *CreateContractSignflowRequest) SetProductId(v string) *CreateContractSignflowRequest {
+	s.ProductId = &v
+	return s
+}
+
+func (s *CreateContractSignflowRequest) SetMerchantId(v string) *CreateContractSignflowRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *CreateContractSignflowRequest) SetProductVersion(v string) *CreateContractSignflowRequest {
+	s.ProductVersion = &v
 	return s
 }
 
@@ -47959,7 +47980,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.19"),
+				"sdk_version":      tea.String("1.12.21"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
