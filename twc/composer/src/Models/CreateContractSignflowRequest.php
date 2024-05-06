@@ -90,6 +90,24 @@ class CreateContractSignflowRequest extends Model
      * @var string
      */
     public $bclOrderId;
+
+    // 商品id
+    /**
+     * @var string
+     */
+    public $productId;
+
+    // 统一社会信用代码
+    /**
+     * @var string
+     */
+    public $merchantId;
+
+    // 商品版本
+    /**
+     * @var string
+     */
+    public $productVersion;
     protected $_name = [
         'authToken'                    => 'auth_token',
         'productInstanceId'            => 'product_instance_id',
@@ -105,12 +123,18 @@ class CreateContractSignflowRequest extends Model
         'payerTuid'                    => 'payer_tuid',
         'payeeTuid'                    => 'payee_tuid',
         'bclOrderId'                   => 'bcl_order_id',
+        'productId'                    => 'product_id',
+        'merchantId'                   => 'merchant_id',
+        'productVersion'               => 'product_version',
     ];
 
     public function validate()
     {
         Model::validateRequired('businessScene', $this->businessScene, true);
         Model::validateMaxLength('bclOrderId', $this->bclOrderId, 32);
+        Model::validateMaxLength('productId', $this->productId, 128);
+        Model::validateMaxLength('merchantId', $this->merchantId, 32);
+        Model::validateMaxLength('productVersion', $this->productVersion, 32);
     }
 
     public function toMap()
@@ -163,6 +187,15 @@ class CreateContractSignflowRequest extends Model
         }
         if (null !== $this->bclOrderId) {
             $res['bcl_order_id'] = $this->bclOrderId;
+        }
+        if (null !== $this->productId) {
+            $res['product_id'] = $this->productId;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->productVersion) {
+            $res['product_version'] = $this->productVersion;
         }
 
         return $res;
@@ -223,6 +256,15 @@ class CreateContractSignflowRequest extends Model
         }
         if (isset($map['bcl_order_id'])) {
             $model->bclOrderId = $map['bcl_order_id'];
+        }
+        if (isset($map['product_id'])) {
+            $model->productId = $map['product_id'];
+        }
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
+        }
+        if (isset($map['product_version'])) {
+            $model->productVersion = $map['product_version'];
         }
 
         return $model;
