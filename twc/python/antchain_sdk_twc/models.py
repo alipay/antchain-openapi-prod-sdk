@@ -18621,6 +18621,9 @@ class CreateContractSignflowRequest(TeaModel):
         payer_tuid: str = None,
         payee_tuid: str = None,
         bcl_order_id: str = None,
+        product_id: str = None,
+        merchant_id: str = None,
+        product_version: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -18649,6 +18652,12 @@ class CreateContractSignflowRequest(TeaModel):
         self.payee_tuid = payee_tuid
         # 租赁订单Id
         self.bcl_order_id = bcl_order_id
+        # 商品id
+        self.product_id = product_id
+        # 统一社会信用代码
+        self.merchant_id = merchant_id
+        # 商品版本
+        self.product_version = product_version
 
     def validate(self):
         self.validate_required(self.business_scene, 'business_scene')
@@ -18660,6 +18669,12 @@ class CreateContractSignflowRequest(TeaModel):
                     k.validate()
         if self.bcl_order_id is not None:
             self.validate_max_length(self.bcl_order_id, 'bcl_order_id', 32)
+        if self.product_id is not None:
+            self.validate_max_length(self.product_id, 'product_id', 128)
+        if self.merchant_id is not None:
+            self.validate_max_length(self.merchant_id, 'merchant_id', 32)
+        if self.product_version is not None:
+            self.validate_max_length(self.product_version, 'product_version', 32)
 
     def to_map(self):
         _map = super().to_map()
@@ -18697,6 +18712,12 @@ class CreateContractSignflowRequest(TeaModel):
             result['payee_tuid'] = self.payee_tuid
         if self.bcl_order_id is not None:
             result['bcl_order_id'] = self.bcl_order_id
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.product_version is not None:
+            result['product_version'] = self.product_version
         return result
 
     def from_map(self, m: dict = None):
@@ -18733,6 +18754,12 @@ class CreateContractSignflowRequest(TeaModel):
             self.payee_tuid = m.get('payee_tuid')
         if m.get('bcl_order_id') is not None:
             self.bcl_order_id = m.get('bcl_order_id')
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('product_version') is not None:
+            self.product_version = m.get('product_version')
         return self
 
 
