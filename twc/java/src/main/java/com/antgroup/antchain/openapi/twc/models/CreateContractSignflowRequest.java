@@ -61,6 +61,21 @@ public class CreateContractSignflowRequest extends TeaModel {
     @Validation(maxLength = 32)
     public String bclOrderId;
 
+    // 商品id
+    @NameInMap("product_id")
+    @Validation(maxLength = 128)
+    public String productId;
+
+    // 统一社会信用代码
+    @NameInMap("merchant_id")
+    @Validation(maxLength = 32)
+    public String merchantId;
+
+    // 商品版本
+    @NameInMap("product_version")
+    @Validation(maxLength = 32)
+    public String productVersion;
+
     public static CreateContractSignflowRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateContractSignflowRequest self = new CreateContractSignflowRequest();
         return TeaModel.build(map, self);
@@ -176,6 +191,30 @@ public class CreateContractSignflowRequest extends TeaModel {
     }
     public String getBclOrderId() {
         return this.bclOrderId;
+    }
+
+    public CreateContractSignflowRequest setProductId(String productId) {
+        this.productId = productId;
+        return this;
+    }
+    public String getProductId() {
+        return this.productId;
+    }
+
+    public CreateContractSignflowRequest setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
+    }
+
+    public CreateContractSignflowRequest setProductVersion(String productVersion) {
+        this.productVersion = productVersion;
+        return this;
+    }
+    public String getProductVersion() {
+        return this.productVersion;
     }
 
 }
