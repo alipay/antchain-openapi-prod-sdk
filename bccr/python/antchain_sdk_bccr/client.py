@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.18.25',
+                    'sdk_version': '1.18.27',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.18.25',
+                    'sdk_version': '1.18.27',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -4081,6 +4081,62 @@ class Client:
         return TeaCore.from_map(
             bccr_models.ReplaceDciResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.dci.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_dci_feedback(
+        self,
+        request: bccr_models.SubmitDciFeedbackRequest,
+    ) -> bccr_models.SubmitDciFeedbackResponse:
+        """
+        Description: 提交作品申诉
+        Summary: 提交作品申诉
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_dci_feedback_ex(request, headers, runtime)
+
+    async def submit_dci_feedback_async(
+        self,
+        request: bccr_models.SubmitDciFeedbackRequest,
+    ) -> bccr_models.SubmitDciFeedbackResponse:
+        """
+        Description: 提交作品申诉
+        Summary: 提交作品申诉
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_dci_feedback_ex_async(request, headers, runtime)
+
+    def submit_dci_feedback_ex(
+        self,
+        request: bccr_models.SubmitDciFeedbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.SubmitDciFeedbackResponse:
+        """
+        Description: 提交作品申诉
+        Summary: 提交作品申诉
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.SubmitDciFeedbackResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.feedback.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_dci_feedback_ex_async(
+        self,
+        request: bccr_models.SubmitDciFeedbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.SubmitDciFeedbackResponse:
+        """
+        Description: 提交作品申诉
+        Summary: 提交作品申诉
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.SubmitDciFeedbackResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.feedback.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_content(

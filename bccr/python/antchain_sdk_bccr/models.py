@@ -13620,24 +13620,34 @@ class RegisterTradeUsageRequest(TeaModel):
         product_instance_id: str = None,
         service_id: str = None,
         service_type: str = None,
+        biz_type: str = None,
         ext_info: str = None,
         out_biz_no: str = None,
+        file_type: str = None,
+        reg_file_url: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 标识某个服务实体的唯一ID，例如dciContentId
         self.service_id = service_id
-        # 业务服务类型，例如DCI、存证等
+        # 服务类型，例如DCI、存证等
         self.service_type = service_type
+        # 业务类型
+        self.biz_type = biz_type
         # 扩展信息，JSON格式
         self.ext_info = ext_info
         # 调用方唯一业务标识
         self.out_biz_no = out_biz_no
+        # 文件类型，例如音频、视频、图片
+        self.file_type = file_type
+        # 待登记的文件Url
+        self.reg_file_url = reg_file_url
 
     def validate(self):
         self.validate_required(self.service_id, 'service_id')
         self.validate_required(self.service_type, 'service_type')
+        self.validate_required(self.biz_type, 'biz_type')
         self.validate_required(self.out_biz_no, 'out_biz_no')
 
     def to_map(self):
@@ -13654,10 +13664,16 @@ class RegisterTradeUsageRequest(TeaModel):
             result['service_id'] = self.service_id
         if self.service_type is not None:
             result['service_type'] = self.service_type
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
         if self.ext_info is not None:
             result['ext_info'] = self.ext_info
         if self.out_biz_no is not None:
             result['out_biz_no'] = self.out_biz_no
+        if self.file_type is not None:
+            result['file_type'] = self.file_type
+        if self.reg_file_url is not None:
+            result['reg_file_url'] = self.reg_file_url
         return result
 
     def from_map(self, m: dict = None):
@@ -13670,10 +13686,16 @@ class RegisterTradeUsageRequest(TeaModel):
             self.service_id = m.get('service_id')
         if m.get('service_type') is not None:
             self.service_type = m.get('service_type')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
         if m.get('ext_info') is not None:
             self.ext_info = m.get('ext_info')
         if m.get('out_biz_no') is not None:
             self.out_biz_no = m.get('out_biz_no')
+        if m.get('file_type') is not None:
+            self.file_type = m.get('file_type')
+        if m.get('reg_file_url') is not None:
+            self.reg_file_url = m.get('reg_file_url')
         return self
 
 
@@ -15091,6 +15113,128 @@ class ReplaceDciResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class SubmitDciFeedbackRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        service_id: str = None,
+        work_name: str = None,
+        contact_name: str = None,
+        contact_phone_number: str = None,
+        message: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务ID
+        self.service_id = service_id
+        # 作品名称
+        self.work_name = work_name
+        # 联系人
+        self.contact_name = contact_name
+        # 联系电话
+        self.contact_phone_number = contact_phone_number
+        # 申诉原因
+        self.message = message
+
+    def validate(self):
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.work_name, 'work_name')
+        self.validate_required(self.contact_name, 'contact_name')
+        self.validate_required(self.contact_phone_number, 'contact_phone_number')
+        self.validate_required(self.message, 'message')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.service_id is not None:
+            result['service_id'] = self.service_id
+        if self.work_name is not None:
+            result['work_name'] = self.work_name
+        if self.contact_name is not None:
+            result['contact_name'] = self.contact_name
+        if self.contact_phone_number is not None:
+            result['contact_phone_number'] = self.contact_phone_number
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('service_id') is not None:
+            self.service_id = m.get('service_id')
+        if m.get('work_name') is not None:
+            self.work_name = m.get('work_name')
+        if m.get('contact_name') is not None:
+            self.contact_name = m.get('contact_name')
+        if m.get('contact_phone_number') is not None:
+            self.contact_phone_number = m.get('contact_phone_number')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
+class SubmitDciFeedbackResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 记录ID
+        self.id = id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.id is not None:
+            result['id'] = self.id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('id') is not None:
+            self.id = m.get('id')
         return self
 
 
