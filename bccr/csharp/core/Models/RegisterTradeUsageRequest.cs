@@ -23,10 +23,15 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string ServiceId { get; set; }
 
-        // 业务服务类型，例如DCI、存证等
+        // 服务类型，例如DCI、存证等
         [NameInMap("service_type")]
         [Validation(Required=true)]
         public string ServiceType { get; set; }
+
+        // 业务类型
+        [NameInMap("biz_type")]
+        [Validation(Required=true)]
+        public string BizType { get; set; }
 
         // 扩展信息，JSON格式
         [NameInMap("ext_info")]
@@ -37,6 +42,16 @@ namespace AntChain.SDK.BCCR.Models
         [NameInMap("out_biz_no")]
         [Validation(Required=true)]
         public string OutBizNo { get; set; }
+
+        // 文件类型，例如音频、视频、图片
+        [NameInMap("file_type")]
+        [Validation(Required=false)]
+        public string FileType { get; set; }
+
+        // 待登记的文件Url
+        [NameInMap("reg_file_url")]
+        [Validation(Required=false)]
+        public string RegFileUrl { get; set; }
 
     }
 
