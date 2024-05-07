@@ -28,7 +28,6 @@ public class BatchcreateIotbasicDeviceRequest extends TeaModel {
 
     // 所属租户ID
     @NameInMap("tenant_id")
-    @Validation(required = true)
     public String tenantId;
 
     // 注册设备集合

@@ -25,7 +25,6 @@ public class QueryDeviceRegisterresultRequest extends TeaModel {
 
     // 租户id
     @NameInMap("tenant_id")
-    @Validation(required = true)
     public String tenantId;
 
     public static QueryDeviceRegisterresultRequest build(java.util.Map<String, ?> map) throws Exception {

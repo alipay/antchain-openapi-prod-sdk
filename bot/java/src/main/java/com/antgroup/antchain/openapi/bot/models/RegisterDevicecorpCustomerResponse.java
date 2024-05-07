@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class GetIotbasicProductinfoResponse extends TeaModel {
+public class RegisterDevicecorpCustomerResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -20,22 +20,12 @@ public class GetIotbasicProductinfoResponse extends TeaModel {
     @NameInMap("success")
     public Boolean success;
 
-    // 产品信息，json字符串
-    // productName:产品名称
-    // productCode:产品code
-    // createTime:产品创建时间
-    // productKey:产品key，用于设备的接入认证信息
-    // deviceTotalCount:产品下的设备总数
-    // mqttHost:设备的接入域名
-    @NameInMap("data")
-    public String data;
-
-    public static GetIotbasicProductinfoResponse build(java.util.Map<String, ?> map) throws Exception {
-        GetIotbasicProductinfoResponse self = new GetIotbasicProductinfoResponse();
+    public static RegisterDevicecorpCustomerResponse build(java.util.Map<String, ?> map) throws Exception {
+        RegisterDevicecorpCustomerResponse self = new RegisterDevicecorpCustomerResponse();
         return TeaModel.build(map, self);
     }
 
-    public GetIotbasicProductinfoResponse setReqMsgId(String reqMsgId) {
+    public RegisterDevicecorpCustomerResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -43,7 +33,7 @@ public class GetIotbasicProductinfoResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public GetIotbasicProductinfoResponse setResultCode(String resultCode) {
+    public RegisterDevicecorpCustomerResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -51,7 +41,7 @@ public class GetIotbasicProductinfoResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public GetIotbasicProductinfoResponse setResultMsg(String resultMsg) {
+    public RegisterDevicecorpCustomerResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -59,20 +49,12 @@ public class GetIotbasicProductinfoResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public GetIotbasicProductinfoResponse setSuccess(Boolean success) {
+    public RegisterDevicecorpCustomerResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
     public Boolean getSuccess() {
         return this.success;
-    }
-
-    public GetIotbasicProductinfoResponse setData(String data) {
-        this.data = data;
-        return this;
-    }
-    public String getData() {
-        return this.data;
     }
 
 }

@@ -18,7 +18,6 @@ public class DeleteIotbasicDeviceRequest extends TeaModel {
 
     // 设备所属用户
     @NameInMap("user_id")
-    @Validation(required = true)
     public String userId;
 
     // 设备did签名

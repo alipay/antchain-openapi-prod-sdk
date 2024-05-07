@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class AddDeviceAttributeRequest extends TeaModel {
+public class AddDevicecorpDeviceattributesRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -31,12 +31,12 @@ public class AddDeviceAttributeRequest extends TeaModel {
     @NameInMap("specs")
     public String specs;
 
-    public static AddDeviceAttributeRequest build(java.util.Map<String, ?> map) throws Exception {
-        AddDeviceAttributeRequest self = new AddDeviceAttributeRequest();
+    public static AddDevicecorpDeviceattributesRequest build(java.util.Map<String, ?> map) throws Exception {
+        AddDevicecorpDeviceattributesRequest self = new AddDevicecorpDeviceattributesRequest();
         return TeaModel.build(map, self);
     }
 
-    public AddDeviceAttributeRequest setAuthToken(String authToken) {
+    public AddDevicecorpDeviceattributesRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -44,7 +44,7 @@ public class AddDeviceAttributeRequest extends TeaModel {
         return this.authToken;
     }
 
-    public AddDeviceAttributeRequest setProductInstanceId(String productInstanceId) {
+    public AddDevicecorpDeviceattributesRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -52,7 +52,7 @@ public class AddDeviceAttributeRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public AddDeviceAttributeRequest setCategoryCode(String categoryCode) {
+    public AddDevicecorpDeviceattributesRequest setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
         return this;
     }
@@ -60,7 +60,7 @@ public class AddDeviceAttributeRequest extends TeaModel {
         return this.categoryCode;
     }
 
-    public AddDeviceAttributeRequest setModelName(String modelName) {
+    public AddDevicecorpDeviceattributesRequest setModelName(String modelName) {
         this.modelName = modelName;
         return this;
     }
@@ -68,7 +68,7 @@ public class AddDeviceAttributeRequest extends TeaModel {
         return this.modelName;
     }
 
-    public AddDeviceAttributeRequest setModelValue(String modelValue) {
+    public AddDevicecorpDeviceattributesRequest setModelValue(String modelValue) {
         this.modelValue = modelValue;
         return this;
     }
@@ -76,7 +76,7 @@ public class AddDeviceAttributeRequest extends TeaModel {
         return this.modelValue;
     }
 
-    public AddDeviceAttributeRequest setSpecs(String specs) {
+    public AddDevicecorpDeviceattributesRequest setSpecs(String specs) {
         this.specs = specs;
         return this;
     }

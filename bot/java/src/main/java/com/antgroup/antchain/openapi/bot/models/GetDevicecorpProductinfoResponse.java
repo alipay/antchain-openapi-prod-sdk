@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class AddDeviceAttributeResponse extends TeaModel {
+public class GetDevicecorpProductinfoResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -20,12 +20,22 @@ public class AddDeviceAttributeResponse extends TeaModel {
     @NameInMap("success")
     public Boolean success;
 
-    public static AddDeviceAttributeResponse build(java.util.Map<String, ?> map) throws Exception {
-        AddDeviceAttributeResponse self = new AddDeviceAttributeResponse();
+    // 产品信息，json字符串
+    // productName:产品名称
+    // productCode:产品code
+    // createTime:产品创建时间
+    // productKey:产品key，用于设备的接入认证信息
+    // deviceTotalCount:产品下的设备总数
+    // mqttHost:设备的接入域名
+    @NameInMap("data")
+    public String data;
+
+    public static GetDevicecorpProductinfoResponse build(java.util.Map<String, ?> map) throws Exception {
+        GetDevicecorpProductinfoResponse self = new GetDevicecorpProductinfoResponse();
         return TeaModel.build(map, self);
     }
 
-    public AddDeviceAttributeResponse setReqMsgId(String reqMsgId) {
+    public GetDevicecorpProductinfoResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +43,7 @@ public class AddDeviceAttributeResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public AddDeviceAttributeResponse setResultCode(String resultCode) {
+    public GetDevicecorpProductinfoResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +51,7 @@ public class AddDeviceAttributeResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public AddDeviceAttributeResponse setResultMsg(String resultMsg) {
+    public GetDevicecorpProductinfoResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +59,20 @@ public class AddDeviceAttributeResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public AddDeviceAttributeResponse setSuccess(Boolean success) {
+    public GetDevicecorpProductinfoResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
     public Boolean getSuccess() {
         return this.success;
+    }
+
+    public GetDevicecorpProductinfoResponse setData(String data) {
+        this.data = data;
+        return this;
+    }
+    public String getData() {
+        return this.data;
     }
 
 }

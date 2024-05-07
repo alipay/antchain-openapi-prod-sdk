@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class GetIotbasicProductinfoRequest extends TeaModel {
+public class GetDevicecorpProductinfoRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,12 +16,12 @@ public class GetIotbasicProductinfoRequest extends TeaModel {
     @Validation(required = true)
     public String categoryCode;
 
-    public static GetIotbasicProductinfoRequest build(java.util.Map<String, ?> map) throws Exception {
-        GetIotbasicProductinfoRequest self = new GetIotbasicProductinfoRequest();
+    public static GetDevicecorpProductinfoRequest build(java.util.Map<String, ?> map) throws Exception {
+        GetDevicecorpProductinfoRequest self = new GetDevicecorpProductinfoRequest();
         return TeaModel.build(map, self);
     }
 
-    public GetIotbasicProductinfoRequest setAuthToken(String authToken) {
+    public GetDevicecorpProductinfoRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class GetIotbasicProductinfoRequest extends TeaModel {
         return this.authToken;
     }
 
-    public GetIotbasicProductinfoRequest setProductInstanceId(String productInstanceId) {
+    public GetDevicecorpProductinfoRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,7 +37,7 @@ public class GetIotbasicProductinfoRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public GetIotbasicProductinfoRequest setCategoryCode(String categoryCode) {
+    public GetDevicecorpProductinfoRequest setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
         return this;
     }

@@ -64,7 +64,6 @@ public class CreateIotbasicDeviceRequest extends TeaModel {
 
     // 所属租户ID
     @NameInMap("tenant_id")
-    @Validation(required = true)
     public String tenantId;
 
     public static CreateIotbasicDeviceRequest build(java.util.Map<String, ?> map) throws Exception {

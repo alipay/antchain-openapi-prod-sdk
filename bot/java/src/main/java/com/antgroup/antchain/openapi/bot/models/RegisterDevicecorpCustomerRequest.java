@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class RegisterIotbasicCustomerRequest extends TeaModel {
+public class RegisterDevicecorpCustomerRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -36,12 +36,12 @@ public class RegisterIotbasicCustomerRequest extends TeaModel {
     @Validation(required = true)
     public String corpValue;
 
-    public static RegisterIotbasicCustomerRequest build(java.util.Map<String, ?> map) throws Exception {
-        RegisterIotbasicCustomerRequest self = new RegisterIotbasicCustomerRequest();
+    public static RegisterDevicecorpCustomerRequest build(java.util.Map<String, ?> map) throws Exception {
+        RegisterDevicecorpCustomerRequest self = new RegisterDevicecorpCustomerRequest();
         return TeaModel.build(map, self);
     }
 
-    public RegisterIotbasicCustomerRequest setAuthToken(String authToken) {
+    public RegisterDevicecorpCustomerRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -49,7 +49,7 @@ public class RegisterIotbasicCustomerRequest extends TeaModel {
         return this.authToken;
     }
 
-    public RegisterIotbasicCustomerRequest setProductInstanceId(String productInstanceId) {
+    public RegisterDevicecorpCustomerRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -57,7 +57,7 @@ public class RegisterIotbasicCustomerRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public RegisterIotbasicCustomerRequest setProjectName(String projectName) {
+    public RegisterDevicecorpCustomerRequest setProjectName(String projectName) {
         this.projectName = projectName;
         return this;
     }
@@ -65,7 +65,7 @@ public class RegisterIotbasicCustomerRequest extends TeaModel {
         return this.projectName;
     }
 
-    public RegisterIotbasicCustomerRequest setCategoryCode(String categoryCode) {
+    public RegisterDevicecorpCustomerRequest setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
         return this;
     }
@@ -73,7 +73,7 @@ public class RegisterIotbasicCustomerRequest extends TeaModel {
         return this.categoryCode;
     }
 
-    public RegisterIotbasicCustomerRequest setCustomerName(String customerName) {
+    public RegisterDevicecorpCustomerRequest setCustomerName(String customerName) {
         this.customerName = customerName;
         return this;
     }
@@ -81,7 +81,7 @@ public class RegisterIotbasicCustomerRequest extends TeaModel {
         return this.customerName;
     }
 
-    public RegisterIotbasicCustomerRequest setCorpName(String corpName) {
+    public RegisterDevicecorpCustomerRequest setCorpName(String corpName) {
         this.corpName = corpName;
         return this;
     }
@@ -89,7 +89,7 @@ public class RegisterIotbasicCustomerRequest extends TeaModel {
         return this.corpName;
     }
 
-    public RegisterIotbasicCustomerRequest setCorpValue(String corpValue) {
+    public RegisterDevicecorpCustomerRequest setCorpValue(String corpValue) {
         this.corpValue = corpValue;
         return this;
     }

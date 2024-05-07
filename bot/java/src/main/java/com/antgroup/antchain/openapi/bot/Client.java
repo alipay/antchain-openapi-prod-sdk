@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.26"),
+                    new TeaPair("sdk_version", "1.10.30"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1760,60 +1760,60 @@ public class Client {
     }
 
     /**
-     * Description: iotbasic-企业注册
-     * Summary: iotbasic-企业注册
+     * Description: iotbasic-设备厂商企业注册
+     * Summary: iotbasic-设备厂商企业注册
      */
-    public RegisterIotbasicCustomerResponse registerIotbasicCustomer(RegisterIotbasicCustomerRequest request) throws Exception {
+    public RegisterDevicecorpCustomerResponse registerDevicecorpCustomer(RegisterDevicecorpCustomerRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.registerIotbasicCustomerEx(request, headers, runtime);
+        return this.registerDevicecorpCustomerEx(request, headers, runtime);
     }
 
     /**
-     * Description: iotbasic-企业注册
-     * Summary: iotbasic-企业注册
+     * Description: iotbasic-设备厂商企业注册
+     * Summary: iotbasic-设备厂商企业注册
      */
-    public RegisterIotbasicCustomerResponse registerIotbasicCustomerEx(RegisterIotbasicCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public RegisterDevicecorpCustomerResponse registerDevicecorpCustomerEx(RegisterDevicecorpCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.customer.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterIotbasicCustomerResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.devicecorp.customer.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterDevicecorpCustomerResponse());
     }
 
     /**
-     * Description: iotbasic-产品查询
-     * Summary: iotbasic-产品查询
+     * Description: iotbasic-设备厂商产品查询
+     * Summary: iotbasic-设备厂商产品查询
      */
-    public GetIotbasicProductinfoResponse getIotbasicProductinfo(GetIotbasicProductinfoRequest request) throws Exception {
+    public GetDevicecorpProductinfoResponse getDevicecorpProductinfo(GetDevicecorpProductinfoRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.getIotbasicProductinfoEx(request, headers, runtime);
+        return this.getDevicecorpProductinfoEx(request, headers, runtime);
     }
 
     /**
-     * Description: iotbasic-产品查询
-     * Summary: iotbasic-产品查询
+     * Description: iotbasic-设备厂商产品查询
+     * Summary: iotbasic-设备厂商产品查询
      */
-    public GetIotbasicProductinfoResponse getIotbasicProductinfoEx(GetIotbasicProductinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetDevicecorpProductinfoResponse getDevicecorpProductinfoEx(GetDevicecorpProductinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.productinfo.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetIotbasicProductinfoResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.devicecorp.productinfo.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetDevicecorpProductinfoResponse());
     }
 
     /**
-     * Description: iotbasic-添加设备属性
-     * Summary: iotbasic-添加设备属性
+     * Description: iotbasic-添加设备厂商设备属性
+     * Summary: iotbasic-添加设备厂商设备属性
      */
-    public AddDeviceAttributeResponse addDeviceAttribute(AddDeviceAttributeRequest request) throws Exception {
+    public AddDevicecorpDeviceattributesResponse addDevicecorpDeviceattributes(AddDevicecorpDeviceattributesRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.addDeviceAttributeEx(request, headers, runtime);
+        return this.addDevicecorpDeviceattributesEx(request, headers, runtime);
     }
 
     /**
-     * Description: iotbasic-添加设备属性
-     * Summary: iotbasic-添加设备属性
+     * Description: iotbasic-添加设备厂商设备属性
+     * Summary: iotbasic-添加设备厂商设备属性
      */
-    public AddDeviceAttributeResponse addDeviceAttributeEx(AddDeviceAttributeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public AddDevicecorpDeviceattributesResponse addDevicecorpDeviceattributesEx(AddDevicecorpDeviceattributesRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.attribute.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddDeviceAttributeResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.devicecorp.deviceattributes.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddDevicecorpDeviceattributesResponse());
     }
 
     /**
@@ -1871,6 +1871,82 @@ public class Client {
     public QueryDeviceModeldataResponse queryDeviceModeldataEx(QueryDeviceModeldataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.modeldata.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceModeldataResponse());
+    }
+
+    /**
+     * Description: iotbasic-设备厂商注册设备
+     * Summary: iotbasic-设备厂商注册设备
+     */
+    public CreateDevicecorpDeviceResponse createDevicecorpDevice(CreateDevicecorpDeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDevicecorpDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-设备厂商注册设备
+     * Summary: iotbasic-设备厂商注册设备
+     */
+    public CreateDevicecorpDeviceResponse createDevicecorpDeviceEx(CreateDevicecorpDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.devicecorp.device.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDevicecorpDeviceResponse());
+    }
+
+    /**
+     * Description: iotbasic-设备厂商批量注册设备
+     * Summary: iotbasic-设备厂商批量注册设备
+     */
+    public BatchcreateDevicecorpDeviceResponse batchcreateDevicecorpDevice(BatchcreateDevicecorpDeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchcreateDevicecorpDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-设备厂商批量注册设备
+     * Summary: iotbasic-设备厂商批量注册设备
+     */
+    public BatchcreateDevicecorpDeviceResponse batchcreateDevicecorpDeviceEx(BatchcreateDevicecorpDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.devicecorp.device.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateDevicecorpDeviceResponse());
+    }
+
+    /**
+     * Description: iotbasic-查询设备厂商企业注册结果
+     * Summary: 查询设备厂商企业注册结果
+     */
+    public QueryDevicecorpCustomerregisterresultResponse queryDevicecorpCustomerregisterresult(QueryDevicecorpCustomerregisterresultRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDevicecorpCustomerregisterresultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-查询设备厂商企业注册结果
+     * Summary: 查询设备厂商企业注册结果
+     */
+    public QueryDevicecorpCustomerregisterresultResponse queryDevicecorpCustomerregisterresultEx(QueryDevicecorpCustomerregisterresultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.devicecorp.customerregisterresult.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDevicecorpCustomerregisterresultResponse());
+    }
+
+    /**
+     * Description: iotbasic-管控设备厂商设备
+     * Summary: iotbasic-管控设备厂商设备
+     */
+    public OperateDevicecorpDevicecontrolResponse operateDevicecorpDevicecontrol(OperateDevicecorpDevicecontrolRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateDevicecorpDevicecontrolEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-管控设备厂商设备
+     * Summary: iotbasic-管控设备厂商设备
+     */
+    public OperateDevicecorpDevicecontrolResponse operateDevicecorpDevicecontrolEx(OperateDevicecorpDevicecontrolRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.devicecorp.devicecontrol.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateDevicecorpDevicecontrolResponse());
     }
 
     /**
