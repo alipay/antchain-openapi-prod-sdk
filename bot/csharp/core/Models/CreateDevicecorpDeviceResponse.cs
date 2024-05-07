@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class RegisterIotbasicCustomerResponse : TeaModel {
+    public class CreateDevicecorpDeviceResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,7 +24,17 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 接口调用结果
+        // did
+        [NameInMap("device_did")]
+        [Validation(Required=false)]
+        public string DeviceDid { get; set; }
+
+        // 设备私钥
+        [NameInMap("private_key")]
+        [Validation(Required=false)]
+        public string PrivateKey { get; set; }
+
+        // 操作结果
         [NameInMap("success")]
         [Validation(Required=false)]
         public bool? Success { get; set; }

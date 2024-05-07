@@ -75,7 +75,7 @@ namespace AntChain.SDK.BOT.Models
 
         // 所属租户ID
         [NameInMap("tenant_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TenantId { get; set; }
 
     }
